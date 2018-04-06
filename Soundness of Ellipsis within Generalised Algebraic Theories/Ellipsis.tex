@@ -177,7 +177,7 @@ In this case it is not sound to elide the first argument of $g$ for to do so wou
 \section{Formalisation}
 \begin{definition}
 If f is an operator symbol introduced by the rule  \\
-$$\frac{\context{x}{\Delta}{n}}{\ofT{f(x_1,...x_n)}{\Delta}}$$ \\
+$$\frac{\schmcon{x}{\Delta}{n}}{\ofT{f(x_1,...x_n)}{\Delta}}$$ \\
 
 and if $I$ is a subset of the indices {1,...n} then it is \textit{sound practice} to elide the variables x)i i in I from the syntax of the theory \gat provided that 
  for all sequences of terms $s_1,...s_n$ and
@@ -198,9 +198,27 @@ $$\Gamma  \tstyle s_i = s'_i \in \Delta_i$$
 \section{A Part Solution}
 
 \begin{definition}
-If \isagat then 
-(i)  a type expression $\Delta$ is \textit{free faithful} wrt \gat iff 
-(ii) a term expression $t$ is \textit{free faithful}  iff 
+If \isagat, \\
+
+\noindent
+(i)  a type expression $\Delta$ is \textit{free faithful} in the context $\schmcon{x}{\Delta}{n}$
+wrt \gat iff 
+$$\frac{\schmcon{x}{\Delta}{n}}{\isT{\Delta}} \mbox{ in \gat} $$ \\
+\noindent 
+and for all contexts $\Gamma$ and for all terms $t_1,...t_n, t'_1,...t'_n$ if \\
+$$\Gamma  \tstyle_{\gat} \Delta[t_1|x_1,...t_n|x_n]=\Delta[t'_1|x_1,...t'_n|x_n]$$
+then for each $i, 1 \leq i \leq n$,
+$$\Gamma  \tstyle_{\gat} t_i = t'_i \in  \Delta[t_1|x_1,...t_{i-1}|x_{i-1}].$$
+
+\noindent
+(ii) a term expression $t$ is \textit{free faithful} in the context $\schmcon{x}{\Delta}{n}$ iff 
+$$\frac{\schmcon{x}{\Delta}{n}}{\ofT{t}{\Delta}} \mbox{ in \gat} $$ \\
+\noindent 
+and for all contexts $\Gamma$ and for all terms $t_1,...t_n, t'_1,...t'_n$ if \\
+$$\Gamma  \tstyle_{\gat} t[t_1|x_1,...t_n|x_n]=t[t'_1|x_1,...t'_n|x_n] \in \Delta[t_1|x_1,...t_n|x_n]  $$
+then for each $i, 1 \leq i \leq n$,
+$$\Gamma  \tstyle_{\gat} t_i = t'_i \in  \Delta[t_1|x_1,...t_{i-1}|x_{i-1}].$$
+
 \end{definition}
 
 \begin{lemma}
@@ -208,8 +226,9 @@ If \isagat and if in \gat there is an operator symbol f introduced by the rule:\
 
 $$\frac{\context{x}{\Delta}{n}}{\ofT{f(x_1,...x_n)}{\Delta}}$$ \\
 
+\noindent
 and if $I$ is a subset of the indices {1,...n} such that for each $i$ in $I$ there is an
-$i'$, $1<=i<i'<=n$ such that the expression $\Delta_{i'}$ contains the variable 
+$i'$, $1 \leq i < i'\leq n$ such that the expression $\Delta_{i'}$ contains the variable 
 $x_i$ and  is free faithful then it is sound practice to elide the variables $\{x_i, i \in I \}$ from the
 syntax of the theory \gat.
 \end{lemma}
