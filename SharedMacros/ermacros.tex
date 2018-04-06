@@ -1,0 +1,276 @@
+\usepackage[margin=4.0cm]{geometry} %was 3cm
+\usepackage{mathptmx}
+\usepackage{amsfonts}
+\usepackage{array}
+\usepackage{pstricks}
+\usepackage{pst-tree}
+\usepackage{pst-plot}
+\usepackage{pst-node}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{verbatim}
+\usepackage{graphicx}  
+\usepackage{calc}
+\usepackage{xifthen}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{stringstrings}
+%\usepackage[small,bf,margin=3pt,format=hang, labelsep=endash,singlelinecheck=false]{caption} %prevuiously justification=justified
+%\usepackage{enumerate}
+%\usepackage{enumitem}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{float}
+\usepackage[section]{placeins}
+%\setlength{\captionmargin}{5pt}
+\usepackage{environ}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{longtable}
+\usepackage{afterpage}
+\usepackage{needspace}
+
+
+%DEFINE ENVIRONMENT BLOCK
+% Riddle
+\newsavebox{\riddlebox}
+
+\newenvironment{erexample}
+{\newcommand\colboxcolor{F0F0F0}%was F8F8F8
+\begin{lrbox}{\riddlebox}
+\begin{minipage}{\dimexpr\columnwidth-2\fboxsep\relax} \textbf{} \\ \itshape}
+{\end{minipage}\end{lrbox}%
+%\begin{center}
+\colorbox[HTML]{\colboxcolor}{\usebox{\riddlebox}}
+%\end{center}
+}
+
+\newenvironment{erbox}
+{\newcommand\colboxcolor{F0F0F0}%was F8F8F8
+\begin{lrbox}{\riddlebox}%
+\begin{minipage}{\dimexpr\columnwidth-2\fboxsep\relax} }
+{\end{minipage}\end{lrbox}%
+%\begin{center}
+\colorbox[HTML]{\colboxcolor}{\usebox{\riddlebox}}
+%\end{center}
+}
+
+%\begin{erboxedFigure}{#1 FigureParam}{#2 Label}{#3 Caption}
+\NewEnviron{erboxedFigure}[3]{%
+\begin{figure}[#1]
+\begin{erexample}
+\begin{center}
+\BODY
+\end{center}
+\vspace{-0.5cm}
+\caption{#3}
+\label{#2}
+\end{erexample}
+\end{figure}
+}
+
+\newcommand{\erpictureFolder}[0]{../SharedPictures}
+
+\newcommand{\ercenterPicture}[1]{
+\begin{center}
+\input{\erpictureFolder/#1}
+\end{center}
+}
+
+
+\newlength{\erhalfHt}
+
+%\erinlinePicture{#1 pictureFilename}{#2 pictureHeight}
+\newcommand{\erinlinePicture}[2]{
+\setlength{\erhalfHt}{#2cm * \real{0.5}}
+\raisebox{-\erhalfHt}[\erhalfHt + 0.5cm][\erhalfHt + 0.5cm]{
+\input{\erpictureFolder/#1}
+} 
+}
+
+%\erplainFig{#1 pictureFilename}{#2 figureParam}{#3Caption}
+\newcommand{\erplainFig}[3]{
+\begin{figure}[#2]
+\begin{center}
+\input{\erpictureFolder/#1}
+\end{center}
+\caption{#3}
+\label{#1}
+\end{figure}
+}
+
+%\erboxedFigPicture{#1 pictureFilename}{#2 figureParam}{#3Caption}
+\newcommand{\erboxedFigPicture}[3]{
+\begin{figure}[#2]
+\begin{erexample}
+\vspace{-0.5cm}
+\begin{center}
+\input{\erpictureFolder/#1}
+\end{center}
+\caption{#3}
+\label{#1}
+\end{erexample}
+\end{figure}
+}
+
+%\erLeftSideFig{#1 pictureFilename}{#2 figureParam}{#3Caption}
+\newcommand{\erLeftSideFig}[3]{
+\begin{figure}[#2]
+\begin{erexample}
+  \begin{minipage}[c]{0.4\textwidth}
+    \caption{#3}
+    \label{#1}
+  \end{minipage}
+  \begin{minipage}[c]{0.5\textwidth}
+    \input{\erpictureFolder/#1}
+  \end{minipage}
+\end{erexample}
+\end{figure}
+}
+
+%\erbulletedFig{#1 pictureFilename}{#2 figureParam}{#3Caption}
+\NewEnviron{erbulletedFig}[3]{%
+\begin{figure}[#2]
+\begin{erexample}
+\vspace{-0.5cm}
+\begin{center}
+$
+\begin{array}{c m{0.25cm} | m{6cm}}
+\raisebox{-2.0cm}{
+\input{\erpictureFolder/#1}}& & \text{\parbox{6cm}{\raggedright{\footnotesize{
+\begin{enumerate}[(i)]
+\BODY
+\end{enumerate}}}}} \\
+\end{array}
+$
+\end{center}
+\caption{#3}
+\label{#1}
+\end{erexample}
+\end{figure} 
+}
+
+
+%\begin{erbulletedDimFig}{#1 pictureFilename}{#2figureParam} {#3Caption} {#4PictureHeight}{#5TextWidth}
+
+\NewEnviron{erbulletedDimFig}[5]{%
+\begin{figure}[#2]
+\begin{erexample}
+\vspace{-0.5cm}
+\begin{center}
+$
+\begin{array}{c m{0.25cm} |  m{#5cm}}
+\setlength{\erhalfHt}{#4cm * \real{0.5}}
+\raisebox{-\erhalfHt}{
+\input{\erpictureFolder/#1}}& & \text{\parbox{#5cm}{\raggedright{\footnotesize{
+\begin{enumerate}[(i)]
+\BODY
+\end{enumerate}}}}} \\
+\end{array}
+$
+\end{center}
+\caption{#3}
+\label{#1}
+\end{erexample}
+\end{figure} 
+}
+
+%\begin{ernotedModel}{#1 pictureFilename}{#2PictureHeight}{#3PictureWidth}{#4TextWidth}
+
+\NewEnviron{ernotedModel}[4]{%
+\begin{center}
+$
+\begin{array}{m{#3cm} m{1cm} | c m{#4cm}}
+\setlength{\erhalfHt}{#2cm * \real{0.5}}
+\raisebox{-\erhalfHt}{
+\input{\erpictureFolder/#1}}& & & \text{\parbox{#4cm}{\raggedright{\footnotesize{
+\BODY
+}}}} \\
+\end{array}
+$
+\end{center} 
+}
+
+%\begin{ermodelText}{#1 pictureFilename}{#2PictureHeight}{#3PictureWidth}{#4TextWidth}
+
+\NewEnviron{ermodelText}[4]{%
+\begin{center}
+\begin{tabular}{m{#3cm} m{1cm}  c m{#4cm}}
+\setlength{\erhalfHt}{#2cm * \real{0.5}}
+\raisebox{-\erhalfHt}{
+\input{\erpictureFolder/#1}}& & & \text{\parbox{#4cm}{\raggedright{\small{
+\BODY
+}}}} \\
+\end{tabular}
+\end{center} 
+}
+
+
+%\erbulletedModel{#1 pictureFilename}{#2PictureHeight}{#3PictureWidth}{#4TextWidth}
+
+\NewEnviron{erbulletedModel}[4]{%
+\begin{center}
+$
+\begin{array}{m{#3cm} m{1cm} | c m{#4cm}}
+\setlength{\erhalfHt}{2cm * \real{0.5}}
+\raisebox{-\erhalfHt}{
+\input{\erpictureFolder/#1}}& & & \text{\parbox{#4cm}{\raggedright{\footnotesize{
+\begin{enumerate}[(i)]
+\BODY
+\end{enumerate}}}}} \\
+\end{array}
+$
+\end{center} 
+}
+
+
+
+%\ernotedDimFig{#1 pictureFilename}{#2 figureParam}{#3Caption}{#4PictureHeight}{#5TextWidth}
+\NewEnviron{ernotedDimFig}[5]{%
+\begin{figure}[#2]
+\begin{erexample}
+\vspace{-0.5cm}
+\begin{center}
+$
+\begin{array}{c m{0.25cm} | c m{#5cm}}
+\setlength{\erhalfHt}{#4cm * \real{0.5}}
+\raisebox{-\erhalfHt}{
+\input{\erpictureFolder/#1}}& & & \text{\parbox{#5cm}{\raggedright{\footnotesize{
+\BODY }}}}\\
+\end{array}
+$
+\end{center}
+\caption{#3}
+\label{#1}
+\end{erexample}
+\end{figure} 
+}
+%\begin{ernotedDimFigPW}{#1 pictureFilename}{#2 figureParam}{#3Caption}{#4PictureHeight}{#5PictureWidth}{#6TextWidth}
+\NewEnviron{ernotedDimFigPW}[6]{%
+\begin{figure}[#2]
+\begin{erexample}
+\vspace{-0.5cm}
+\begin{center}
+$
+\begin{array}{>{\centering}m{#5cm} m{0.5cm} | c m{#6cm}}
+\setlength{\erhalfHt}{#4cm * \real{0.5}}
+\raisebox{-\erhalfHt}{
+\centering \input{\erpictureFolder/#1}
+}& & & \text{\parbox{#6cm - 0.5cm}{\raggedright{\footnotesize{
+\BODY }}}}\\
+\end{array}
+$ \\
+\vspace {0.2cm}
+\end{center}
+\caption{#3}
+\label{#1}
+\end{erexample}
+\end{figure}
+}
+
+
+
+\newenvironment{erquote}
+{\begin{quote}\itshape}
+{\end{quote}}
+

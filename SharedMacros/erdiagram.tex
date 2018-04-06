@@ -1,0 +1,203 @@
+%
+%  erdiag
+%
+  
+%\begin{erdiagram}{#1 height}{#2 width} 
+% ....
+% ....
+%\end{erdiagram}
+\newenvironment{erdiagram}[2]
+{%\pspicture*(-#1,0)(#2,0)
+\pspicture*(0,-#1)(#2,0)
+%\psgrid
+}
+{\endpspicture}
+
+\definecolor{lightyellow}{cmyk}{0,0,0.3,0}
+
+% \eret{#1 x0} {#2 y0} {#3 x1} {#4 y1} {#5 corner radius} {#6 fill}
+\newcommand {\eret}[6]
+{ 
+\ifthenelse{\equal{#6}{1}}
+{\psframe[framearc=#5,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)}
+{\psframe[framearc=#5,fillstyle=solid,fillcolor=white](#1,#2)(#3,#4)}
+}
+
+% et top 
+\newcommand {\erettop}[4]
+{
+%\psframe[linestyle=none,linearc=2pt,cornersize=absolute,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)
+\psline[linearc=2pt,fillstyle=none,fillcolor=lightyellow](#1,#4)(#1,#2)(#3,#2)(#3,#4)
+}
+
+% et bottom 
+\newcommand {\eretbtm}[4]
+{
+%\psframe[linestyle=none,linearc=2pt,cornersize=absolute,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)
+\psline[linearc=2pt,fillstyle=none,fillcolor=lightyellow](#1,#2)(#1,#4)(#3,#4)(#3,#2)
+}
+
+% et bottom left
+\newcommand {\eretbl}[4]
+{
+%\psframe[linestyle=none,linearc=2pt,cornersize=absolute,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)
+\psline[linearc=2pt,fillstyle=none,fillcolor=lightyellow](#1,#4)(#3,#4)(#3,#2)
+}
+
+% et middle left
+\newcommand {\eretml}[4]
+{
+%\psframe[linestyle=none,linearc=2pt,cornersize=absolute,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)
+\psline[linearc=2pt,fillstyle=none,fillcolor=lightyellow](#1,#2)(#3,#2)(#3,#4)(#1,#4)
+}
+
+% et top left
+\newcommand {\erettl}[4]
+{
+%\psframe[linestyle=none,linearc=2pt,cornersize=absolute,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)
+\psline[linearc=2pt,fillstyle=none,fillcolor=lightyellow](#1,#2)(#3,#2)(#3,#4)
+}
+
+% et bottom right
+\newcommand {\eretbr}[4]
+{
+%\psframe[linestyle=none,linearc=2pt,cornersize=absolute,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)
+\psline[linearc=2pt,fillstyle=none,fillcolor=lightyellow](#1,#2)(#1,#4)(#3,#4)
+}
+
+% et middle right
+\newcommand {\eretmr}[4]
+{
+%\psframe[linestyle=none,linearc=2pt,cornersize=absolute,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)
+\psline[linearc=2pt,fillstyle=none,fillcolor=lightyellow](#3,#4)(#1,#4)(#1,#2)(#3,#2)
+}
+
+% et top right
+\newcommand {\erettr}[4]
+{
+%\psframe[linestyle=none,linearc=2pt,cornersize=absolute,fillstyle=solid,fillcolor=lightyellow](#1,#2)(#3,#4)
+\psline[linearc=2pt,fillstyle=none,fillcolor=lightyellow](#1,#4)(#1,#2)(#3,#2)
+}
+
+% \ergrp{#1 x0} {#2 y0} {#3 x1} {#4 y1} {#5 corner radius} {#6 fill}
+% #5 corner radius is unused!
+\newcommand {\ergrp}[6]
+{ 
+\ifthenelse{\equal{#6}{1}}
+{\psframe[fillstyle=solid,fillcolor=lightgray](#1,#2)(#3,#4)}
+{\psframe[fillstyle=solid,fillcolor=white](#1,#2)(#3,#4)}
+}
+
+% \eretname {#1 x left of text} {#2 y top of text} {#3 text}
+\newcommand {\eretname}[3]
+{
+%shift down 0.1 for height of text the anchor at baseline (B)
+\rput[bl]{0}(0,-0.1){\rput[Bl]{0}(#1,#2){\footnotesize \textit{#3}}}
+}
+
+% \errelarm {#1 x0} {#2 y0} {#3 x1} {#4 y1} {#5 ismandatory} {#6 isconstructed}
+\newcommand {\errelarm}[6]
+{
+\ifthenelse{\equal{#6}{1}}
+{
+%%\psline[linewidth=0.5pt,linearc=.05,linestyle=dashed,dash=6pt 6pt]{-}(#1,#2)(#3,#4)}
+\ifthenelse{\equal{#5}{1}}
+{\psline[linewidth=1.5pt,linearc=.05,linecolor=lightgray]{-}(#1,#2)(#3,#4)}
+{\psline[linewidth=1.5pt,linearc=.05,linecolor=lightgray,linestyle=dashed,dash=2pt 2pt]{-}(#1,#2)(#3,#4)}
+}
+{
+\ifthenelse{\equal{#5}{1}}
+{\psline[linewidth=0.9pt,linearc=.05]{-}(#1,#2)(#3,#4)}
+{\psline[linewidth=0.9pt,linearc=.05,linestyle=dashed,dash=2pt 2pt]{-}(#1,#2)(#3,#4)}
+}
+}
+
+% \errelangle {#1 x0} {#2 y0} {#3 x1} {#4 y1} {#5 x2} {#6 y2} {#7 ismandatory} {#8 isocnstructed}
+\newcommand {\errelangle}[8]
+{
+\ifthenelse{\equal{#8}{1}}
+{
+%\psline[linewidth=0.5pt,linearc=.1,linestyle=dashed,dash=6pt 6pt]{-}(#1,#2)(#3,#4)(#5,#6)}
+\ifthenelse{\equal{#7}{1}}
+{\psline[linewidth=1.5pt,linearc=.05,linecolor=lightgray]{-}(#1,#2)(#3,#4)(#5,#6)}
+{\psline[linewidth=1.5pt,linearc=.1,linecolor=lightgray,linestyle=dashed,dash=2pt 2pt]{-}(#1,#2)(#3,#4)(#5,#6)}
+}
+{
+\ifthenelse{\equal{#7}{1}}
+{\psline[linewidth=0.9pt,linearc=.1]{-}(#1,#2)(#3,#4)(#5,#6)}
+{\psline[linewidth=0.9pt,linearc=.1,linestyle=dashed,dash=2pt 2pt]{-}(#1,#2)(#3,#4)(#5,#6)}
+}
+}
+
+% \ercrowfoot {#1 x0} {#2 y0} {#3 x11} {#4 y11} {#5 x12} {#6 y12} {#7 x13} {#8 y13} {#9 isconstructed}
+\newcommand {\ercrowfoot}[9]
+{
+\ifthenelse{\equal{#9}{1}}
+{
+\psline[linewidth=1.5pt,linearc=.05,linecolor=lightgray]{-}(#1,#2)(#3,#4)
+\psline[linewidth=1.5pt,linearc=.05,linecolor=lightgray]{-}(#1,#2)(#5,#6)
+\psline[linewidth=1.5pt,linearc=.05,linecolor=lightgray]{-}(#1,#2)(#7,#8)
+}{
+\psline[linewidth=0.9pt,linearc=.05]{-}(#1,#2)(#3,#4)
+\psline[linewidth=0.9pt,linearc=.05]{-}(#1,#2)(#5,#6)
+\psline[linewidth=0.9pt,linearc=.05]{-}(#1,#2)(#7,#8)
+}
+}
+
+
+% \eridcomprel{#1 x1}{#2 x2}{#3 y1}{#4 ymid}{#5 y2}
+\newcommand {\eridcomprel}[5]
+{
+\psline[linewidth=0.9pt](#1,#3)(#1,#5)
+\psline[linewidth=0.9pt](#2,#3)(#2,#5)
+\psline[linewidth=0.9pt](#1,#4)(#2,#4)
+}
+
+% \eridrefrel{#1 x1}{#2 xmid}{#3 x2}{#4 y1}{#5 y2}
+\newcommand {\eridrefrel}[5]
+{
+\psline[linewidth=0.9pt](#1,#4)(#3,#4)
+\psline[linewidth=0.9pt](#1,#5)(#3,#5)
+\psline[linewidth=0.9pt](#2,#4)(#2,#5)
+}
+
+
+% \errelname {#1 x} {#2 y} {#3 text}
+\newcommand {\errelname}[3]
+{
+\rput[l]{0}(#1,#2){\textit{#3}}
+}
+% \errelseq {#1 x} {#2 y}
+\newcommand {\erelseq}[2]
+{
+}
+% \erattr {#1 x} {#2 y} {#3 ismandatory}{#4 idenitfying} {#5 text}
+\newcommand {\erattr}[5]
+{
+\ifthenelse{\equal{#3}{1}}
+{\rput[l]{0}(#1,#2){{\tiny $\square$} {\footnotesize \textit{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}}
+{\rput[l]{0}(#1,#2){\footnotesize $\circ$ \textit{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}
+}
+
+%\ifthenelse{\equal{#4}{1}}
+% \ertext {#1 x} {#2 y} {#3 text anchor} {#4 text}
+%{\rput[l]{0}(#1,#2){\footnotesize $\circ$ \underline{\textit{#5}}}}
+\newcommand {\ertext}[4]
+{
+\rput[B#3]{0}(#1,#2){{\footnotesize #4}}
+}
+% \erarc {#1 x0} {#2 y0} {#3 x1} {#4 y1} {#5 x2} {#6 y2} {#7 x3} {#8 y3}
+\newcommand {\erarc}[8]
+{
+\psbezier[showpoints=false]{-}(#1,#2) (#3, #4)(#5,#6) (#7, #8)
+}
+
+% \erarc {#1 x0} {#2 y0} {#3 x1} {#4 y1} {#5 x2} {#6 y2} {#7 x3} {#8 y3}
+\newcommand {\errelseq}[8]
+{
+\psbezier[showpoints=false]{-}(#1,#2) (#3, #4)(#5,#6) (#7, #8)
+}
+% \ertrace {#1 trace}   
+\newcommand {\ertrace}[1]
+{
+}

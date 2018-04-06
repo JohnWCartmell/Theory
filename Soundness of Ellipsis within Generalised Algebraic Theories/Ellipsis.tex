@@ -1,0 +1,255 @@
+\documentclass[10pt,a4paper,fleqn]{article}
+		%	\usepackage{mathtools}
+		%	\usepackage{alltt}
+\setlength{\mathindent}{0pt}
+%\usepackage[margin=3cm]{geometry}
+%\usepackage{pstricks}
+%\usepackage{pst-node}
+%\usepackage{pst-tree}
+%\usepackage{stmaryrd}
+%\usepackage{amsmath}
+%\usepackage{amssymb}
+%\usepackage{verbatim}
+%\usepackage{enumerate}
+%\usepackage{calc}
+%\usepackage{xifthen}
+%\usepackage{array}
+%\input{../SharedMacros/ccategories.macros}
+\input{../SharedMacros/theorems.macros}
+\input{../SharedMacros/gats.macros}
+%\input{../SharedMacros/metagat.macros}
+%\input{../SharedMacros/erdiagram}
+%\usepackage{tipa}
+%\usepackage{textcomp}
+%\usepackage{mnsymbol}
+%\usepackage{ifsym}
+%\usepackage{esvect}
+%\usepackage{float}
+%\usepackage[section]{placeins}
+%\usepackage{graphicx}
+%\setcounter{equation}{0}
+
+\newcommand{\gat}[1][U]{
+\ensuremath{\mathcal{#1}} }
+\newcommand{\isagat}[1][U]{\gat[#1] is a g.a.t.}
+\newcommand{\heads}[1][U]{\ensuremath{H_{\gat[#1]}}}
+
+\title{On the soundness of ellipsis within Generalised Algebraic Theories}
+\author{John Cartmell}
+\begin{document}
+\maketitle
+\bibliographystyle{plain}
+
+\section{The Problem}
+truout $\context{x}{A}{n}$
+try out $\isT{JIM}$
+Try out $\gat{fred}$ here.
+The syntactic notion of a \textit{generalised algebraic theory} (GAT) and the  equivalent algebraic notion of \textit{contextual category} were introduced in my thesis (\cite{Cartmell78}) and published in \cite{Cartmell86}. 
+There I introduced a formal sysntax and also described abbreviated forms of the syntax which I referred to as informal and discussed when the informal might be sound. This note extends that discussion. Here I formalise one apsect of the informal syntax -- an aspect which refer to it here as \textit{ellipsis}; this is appropriate as a term because it is generally defined as  \textit{the omission from speech or writing of a word or words that are superfluous or able to be understood from contextual clues}. \\
+
+\noindent 
+For an example of ellipsis, as we use the term here, consider the notation for the composition operator in the theory of categories. From \cite{Cartmell86} the general rule by which we formally introduce the symbol $\circ$ for composition of morphisms is:\\
+$$\ofT{x}{Ob},\ \ofT{y}{Ob},\ \ofT{z}{Ob},\ \ofT{f}{Hom(x,y)},\ \ofT{g}{Hom(y,z)} \tstyle \ofT{\circ(x, y, z, f,g)}{Hom(x,z)}\label{composition intro}$$ \\
+\noindent
+With composition so formalised then in a context $\Gamma$ if we have established that $s_1$ and $s_2$ are 
+terms for composable morphisms by showing that for some terms $t_1$, $t_2$ and $t_3$ : \\
+
+$\Gamma\ \tstyle\ \ofT{t_1}{Ob} $ \\
+
+$\Gamma\ \tstyle\ \ofT{t_2}{Ob} $ \\
+
+$\Gamma\ \tstyle\ \ofT{t_3}{Ob} $ \\
+
+$\Gamma\ \tstyle\ \ofT{s_1}{Hom(t_1,t_2)}$ \\
+
+\noindent
+and \\
+
+$\Gamma\ \tstyle\ \ofT{s_2}{Hom(t_2,t_3)}$ \\
+
+\noindent
+then formally, according to \cite{Cartmell86},  we are to write $o(t_1,t_2,t_3,s_1,s_2)$ for the composition 
+of $s_1$ with $s_2$. Of course, in practice, and this is an example of ellipsis, this is invariably
+written as $o(s_1,s_2)$ -- the $t_1$, $t_2$ and $t_3$ are ellided. 
+It is significant that in the general rule for composition, i.e. in (\ref{composition intro}) above, each of the subsequently
+elided variables 
+$x$, $y$ and  $z$ in the expression $o(x,y,z,f,g)$ are depended on by later variables --  
+$x$ and $y$ are depended on by $f$ 
+because, in context, $\ofT{f}{Hom(x,y)}$ and, similarly, $y$ and $z$ are depended on by $g$ because, 
+in context, $\ofT{g}{Hom(y,z)}$. \\
+
+\indent
+In this note for any operator or sort symbol we shall bring to the attention an argument which, in the general rule
+is depended
+on by later arguments by putting a square parenthesis around the argument thus: \\
+
+$$\ofT{x}{Ob},\ \ofT{y}{Ob},\ \ofT{z}{Ob},\ \ofT{f}{Hom(x,y)},\ \ofT{g}{Hom(y,z)} \tstyle 
+                    \ofT{\circ([x], [y], [z], f,g)}{Hom(x,z)}\label{composition bracket example}$$ \\
+
+\noindent
+These square brackets bring to the attention variables that it may be safe to ellide. 
+For example consider a notation $f([x],y)$ proposed for use in any context $\ofT{x}{A},\ofT{y}{B(x)}$ -- 
+we can apparently make a case for eliding the variable $x$  -- writing $f(t_2)$, when for
+some $t_1$ we can show that $\Gamma \tstyle \ofT{t_1}{A}$ and $\Gamma \tstyle \ofT{t_2}{B(t_1)}$ --
+the reasoning being that in term $f(t_2)$ the argument $t_1$ is implied by the context for, in context, we
+have $\tstyle \ofT{t_2}{B(t_1)}$.
+This reasoning is not correct though -- 
+it is not always sound practice to elide such variables
+as ambiguous terms can result as illustrated  by a counter example in \cite{Cartmell86}. 
+Along the same lines consider the following two
+generalised algebraic theories.
+
+\subsection*{Counter Example 1}
+% This is generated latex
+			\noindent
+			\begin{eqnarray}
+		&Symbol&\hspace{1cm}Introductory Rule \nonumber \\
+		&A \hspace{0.25cm}
+		&\hspace{1cm}\isT{A}\label{ex2-A} \\
+		&A' \hspace{0.25cm}
+		&\hspace{1cm}\isT{A'}\label{ex2-A'} \\
+		&B \hspace{0.25cm}
+		&\hspace{1cm}\ofT{x}{A}\tstyle\isT{B(x)}\label{ex2-B} \\
+		&f \hspace{0.25cm}
+		&\hspace{1cm}\ofT{x}{A},\ \ofT{y}{B(x)}\tstyle\ofT{f([x], y)}{A'}\label{ex2-f} \\
+		&a_1 \hspace{0.25cm}
+		&\hspace{1cm}\ofT{a_1}{A}\label{ex2-a_1} \\
+		&a_2 \hspace{0.25cm}
+		&\hspace{1cm}\ofT{a_2}{A}\label{ex2-a_2} \\
+		&Axioms&\nonumber \\
+		&&B(a_1)=B(a_2)\label{ex2-axiom}
+		\end{eqnarray} 
+		%end of generated latex
+			\noindent
+			But now see that: \\
+			
+		\input{ex2-expr1.tex}
+		\input{ex2-expr2.tex}
+		\input{ex2-expr3.tex}
+		\input{ex2-equality.tex}
+	%end of generated latex
+	\noindent
+Therefore it is not sound to elide the first argument of $f$ for to do so would lead to
+		a single representation $f(y)$ which in the context of $\ofT{y}{B(a_1)}$ would be ambiguous 
+		in meaning -- being it could be an ellision of $f(a_1,y)$ or equally of
+		$f(a_2,y)$ and these two are not equivalent terms.
+		
+\subsection*{Counter Example 2}
+%Generated latex
+			\begin{eqnarray}
+		&Symbol&\hspace{1cm}Introductory Rule \nonumber \\
+		&A \hspace{0.25cm}
+		&\hspace{1cm}\isT{A}\label{ex3-A} \\
+		&A' \hspace{0.25cm}
+		&\hspace{1cm}\isT{A'}\label{ex3-A'} \\
+		&f \hspace{0.25cm}
+		&\hspace{1cm}\ofT{x}{A}\tstyle\ofT{f(x)}{A'}\label{ex3-f} \\
+		&C \hspace{0.25cm}
+		&\hspace{1cm}\isT{C}\label{ex3-C} \\
+		&B \hspace{0.25cm}
+		&\hspace{1cm}\ofT{x}{A'}\tstyle\isT{B(x)}\label{ex3-B} \\
+		&g \hspace{0.25cm}
+		&\hspace{1cm}\ofT{x}{A},\ \ofT{y}{B(x)}\tstyle\ofT{f(x)}{C}\label{ex3-g} \\
+		&a_1 \hspace{0.25cm}
+		&\hspace{1cm}\ofT{a_1}{A}\label{ex3-a_1} \\
+		&a_2 \hspace{0.25cm}
+		&\hspace{1cm}\ofT{a_2}{A}\label{ex3-a_2} \\
+		&Axioms&\nonumber \\
+		&&f(a_1) = f(a_2)\label{ex3-axiom}
+		\end{eqnarray} 
+			\noindent
+%End generated latex
+\noindent
+This example is a variant of the previous counter example but shows that is not the 
+type equalities that are the source of the problem.
+			
+		\input{ex3-expr1.tex}
+		\input{ex3-expr2.tex}
+		\input{ex3-expr3.tex}
+		\input{ex3-equality.tex}
+		
+			\noindent
+In this case it is not sound to elide the first argument of $g$ for to do so would lead to
+		a single representation $g(y)$ which in the context of $\ofT{y}{B(f(a_1))}$ would be ambiguous 
+		in meaning -- being it could be an ellision of $g(f(a_1),y)$ or equally of
+		$g(f(a_2),y)$ and these two are not equivalent terms.
+
+\section{Formalisation}
+\begin{definition}
+If f is an operator symbol introduced by the rule  \\
+$$\frac{\context{x}{\Delta}{n}}{\ofT{f(x_1,...x_n)}{\Delta}}$$ \\
+
+and if $I$ is a subset of the indices {1,...n} then it is \textit{sound practice} to elide the variables x)i i in I from the syntax of the theory \gat provided that 
+ for all sequences of terms $s_1,...s_n$ and
+$s'_1,...s_n'$ such that $s_i$ and $s'_i$ that only differ for $i \in I$ and such that for all  contexts $\Gamma$, if 
+
+$$\Gamma  \tstyle \ofT{f(s_1,...s_n)}{\Delta[s_1|x_1,...s_n|x_n]}$$
+
+and 
+
+$$\Gamma  \tstyle \ofT{f(s'_1,...s'_n)}{\Delta[s'_1|x_1,...s'_n|x_n]}$$,
+
+then for each $i \in I$,
+$$\Gamma  \tstyle s_i = s'_i \in \Delta_i$$
+\end{definition}
+
+
+
+\section{A Part Solution}
+
+\begin{definition}
+If \isagat then 
+(i)  a type expression $\Delta$ is \textit{free faithful} wrt \gat iff 
+(ii) a term expression $t$ is \textit{free faithful}  iff 
+\end{definition}
+
+\begin{lemma}
+If \isagat and if in \gat there is an operator symbol f introduced by the rule:\\
+
+$$\frac{\context{x}{\Delta}{n}}{\ofT{f(x_1,...x_n)}{\Delta}}$$ \\
+
+and if $I$ is a subset of the indices {1,...n} such that for each $i$ in $I$ there is an
+$i'$, $1<=i<i'<=n$ such that the expression $\Delta_{i'}$ contains the variable 
+$x_i$ and  is free faithful then it is sound practice to elide the variables $\{x_i, i \in I \}$ from the
+syntax of the theory \gat.
+\end{lemma}
+
+
+
+\begin{definition}
+Each type expression within a \gat is an expression of the form $A(t_1,...t_n)$
+where A is a sort symbol and where for some $n >= 1$, $t_1,...t_n$ are term expressions.
+We shall say that the symbol $A$ is the head symbol of the expression $A(t_1,...t_n)$.
+Similarly we say that the symbol $f$ is the head symbol of the term expression
+$f(t_1,...t_n)$ for any operator symbol $f$. 
+
+Likewise if any such type expression or sort expression occurs as the left hand or right hand side of an equation then the head symbol of the expression is a head symbol of the equation. 
+
+Each axiom of a g.a.t therefore has zero, one or two head symbols. 
+
+These we shall say are the \textit{equation heads} of the theory 
+
+and we can denote by \heads the set of 
+
+equation heads of a theory \gat.
+\end{definition}
+
+\begin{lemma}
+If \isagat and for some context $\Gamma$, \\
+\begin{center}
+$\Gamma\  \tstyle\ \isT{\Delta}$ 
+\end{center}
+\noindent
+in \gat, if none of the sort and operator symbols that appear in the expression $\Delta$ belong the set of equation head symbols \heads of \gat then $\Delta$ is 
+free faithful in every context $\Gamma$, for which  $\Gamma\  \tstyle\ \isT{\Delta}$ in \gat.
+\end{lemma}
+ 
+\begin{proof}
+
+\end{proof}
+ 
+
+
+\bibliography{../SharedBibliography/temp/bibliography}
+ 
+\end{document}

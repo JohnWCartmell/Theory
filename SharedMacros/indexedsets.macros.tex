@@ -1,0 +1,92 @@
+
+%indexedsets.macros.tex
+
+% Macros for sets and families of sets
+\newlength{\xl}
+\newlength{\yb}
+\newlength{\xr}
+\newlength{\yt}
+\newlength{\ytm}
+\newlength{\ybm}
+\newlength{\dotxl}
+\newlength{\dotxr}
+\newlength{\dotym}
+\newlength{\basex} 
+\newlength{\basey} 
+\newlength{\childx} 
+\newlength{\childy}
+\newcommand{\putthreeset}[5][0]{
+  \setlength{\xl}{-1.6cm * \real{#2}}
+  \setlength{\xr}{1.8cm * \real{#2}}
+  \setlength{\yt}{0.55cm * \real{#2}}
+  \setlength{\ytm}{0.75cm * \real{#2}}
+  \setlength{\yb}{-0.55cm * \real{#2}}
+  \setlength{\ybm}{-0.80cm * \real{#2}}
+  \setlength{\dotxl}{-1cm * \real{#2}}
+  \setlength{\dotxr}{0.9cm * \real{#2}}
+  \setlength{\dotym}{0.15cm * \real{#2}}
+  %
+  \rput{#1}(#3,#4){        
+           {\psccurve%[showpoints=true]
+                     (\xl ,\yt)(\xl,\yb)(0,\ybm )(\xr,\yb)(\xr,\yt) (0,\ytm)  }
+            \dotnode[dotscale=0.4](\dotxl,0){#5l}
+            \dotnode[dotscale=0.4](0,\dotym){#5m}
+            \dotnode[dotscale=0.4](\dotxr,0){#5r}
+            \pnode(0,\ybm){#5c}
+           }
+}
+\newcommand{\puttwoset}[5][0]{
+  \setlength{\xl}{-1.0cm * \real{#2}}
+  \setlength{\xr}{1cm * \real{#2}}
+  \setlength{\yt}{0.55cm * \real{#2}}
+  \setlength{\ytm}{0.75cm * \real{#2}}
+  \setlength{\yb}{-0.55cm * \real{#2}}
+  \setlength{\ybm}{-0.80cm * \real{#2}}
+  \setlength{\dotxl}{-0.75cm * \real{#2}}
+  \setlength{\dotxr}{0.25cm * \real{#2}}
+  %
+  \rput{#1}(#3,#4){        
+           {\psccurve%[showpoints=true]
+                     (\xl ,\yt)(\xl,\yb)(0,\ybm )(\xr,\yb)(\xr,\yt) (0,\ytm)  }
+            
+            \dotnode[dotscale=0.4](\dotxl,0){#5l} 
+            \dotnode[dotscale=0.4](\dotxr,0){#5r}
+            \pnode(0,\ybm){#5c}
+           }
+}
+
+%\putfamilyOfSets[#1 rotation]{#2 basescale}{#3 childscale}{#4 x}{#5 y}{#6 childoffset}{#7nodeprefix}
+\newcommand{\putfamilyOfSets}[7][0]{
+  \setlength{\basex}{#4}
+  \setlength{\basey}{#5}
+  \putthreeset[#1]{#2}{\basex}{\basey}{#7BASE} 
+  %child 1
+  \setlength{\childx} {#4 - (4cm * \real{#3})}
+  \setlength{\childy} {#5 + #6}
+  \putthreeset[#1]{#3}{\childx}{\childy}{L}
+  %child 2
+  \setlength{\childy}{\childy + 0.5cm}
+  \putthreeset[#1]{#3}{#4}{\childy}{M}
+  %child 3
+  \setlength{\childx} {#4 + (4cm * \real{#3})}
+  \setlength{\childy}{\childy - 0.5cm}
+  \putthreeset[#1]{#3}{\childx}{\childy}{R}
+  \ncline[nodesep=3pt]{|->}{#7BASEl}{Lc}
+  \ncline[nodesep=3pt]{|->}{#7BASEm}{Mc}
+  \ncline[nodesep=3pt]{|->}{#7BASEr}{Rc}
+}
+
+%putFunction[#1 rotation]{#2 basescale}{#3 childscale}{#4 x}{#5 y}{#6 childoffset}{#7nodeprefix}
+\newcommand{\putFunction}[7][0]{
+  \setlength{\basex}{#4}
+  \setlength{\basey}{#5}
+  \putthreeset[#1]{#2}{\basex}{\basey}{#7BASE} 
+  %child 1
+  %\setlength{\childx} {#4 - (4cm * \real{#3})}
+	\setlength{\childx} {#4 }
+  \setlength{\childy} {#5 + #6}
+  \putthreeset[#1]{#3}{\childx}{\childy}{DEST}
+  \ncline[nodesep=3pt]{|->}{#7BASEl}{DESTl}
+  \ncline[nodesep=3pt]{|->}{#7BASEm}{DESTm}
+  \ncline[nodesep=3pt]{|->}{#7BASEr}{DESTm}
+}

@@ -1,0 +1,96 @@
+% metagat.macros.tex
+
+%Meta-theories
+
+%\newcommand{\typ}{\triangleright}
+\newcommand{\typ}{\nabla}
+\newcommand{\trm}{\tau}
+\newcommand{\cross}{\otimes}
+\newcommand{\sub}{^*}
+\newcommand{\diag}{\delta}
+
+\newcommand{\typeseq}[2]
+{\ofT{#1_1}{\typ},... \ofT{#1_{#2}}{\typ(#1_{#2-1})}}
+
+\newcommand{\typeseqcont}[3]
+{\ofT{#1_1}{\typ({#2})},... \ofT{#1_{#3}}{\typ(#1_{#3-1})}}
+
+\newcommand{\Ob}{Ob}
+\newcommand{\obj}{Ob} % <!-- new old --<
+\newcommand{\Hom}{Hom}
+\newcommand{\objseq}[2]
+{\ofT{#1_1}{\obj},... \ofT{#1_{#2}}{\obj(#1_{#2-1})}}
+
+
+\def\dottededge{\ncline[linestyle=dotted, nodesep=0.3cm]}
+\def\noedge{\ncline[linestyle=none]}
+\def\thinedge{\ncline[linewidth=0.4pt]}
+
+\newcommand{\member}[1]
+{\ncarc[arcangle=-30,nodesepB=0.03]{->}{\pspred}{\pssucc}
+\nbput[labelsep=0.1]{#1}}
+
+\newcommand{\loweraccutemember}[1]
+{\ncarc[arcangle=-15,nodesepB=0.03]{->}{\pspred}{\pssucc}
+\nbput[labelsep=0.05,npos=0.85]{#1}}
+
+\newcommand{\uppermember}[1]
+{\ncarc[arcangle=30,nodesepB=0.03]{->}{\pspred}{\pssucc}\naput{#1}}
+
+\newcommand{\upperaccutemember}[1]
+{\ncarc[arcangle=10,nodesepB=0.03]{->}{\pspred}{\pssucc}\naput[npos=0.85]{#1}}
+
+% flexbranch 
+% #1 node label
+% #2 thislevelsep
+% #3 next level sep
+% #4 variable (eg x)
+% #5 index leter (eg n)
+% #6 close parenthesis
+% #7 continuation branches
+\newcommand{\flexbranch}[7]
+{
+\pstree[thislevelsep=*#2,nodesep=0.05]
+		{\Rnode{#1 1}{\Tr{#4_1 #6}}}
+	  {\pstree[thislevelsep=#3]  
+				   {\Rnode{#1 2}{\Tr[edge=\dottededge]{#4_{#5} #6}}}
+					 {#7}
+		}
+}
+
+\newcommand{\flexbranchplusleaf}[6]
+{
+\flexbranch{#1}{#2}{#3}{#4} {#5} {#6}
+  {
+   %\Rnode{#1 3}{\Tr{#4 #6}}
+	 \Tr{\Rnode{#1 3}{#4 #6}}
+  }
+}
+
+\newcommand{\flexbranchplusarc}[7]
+{
+\flexbranch{#1}{#2}{#3}{#4} {#5} {#6}
+  {
+   %\Rnode{#1 3}{\Tr{#4 #6}\member{#7}}
+	 \Tr{\Rnode{#1 3}{#4 #6}}\member{#7}
+  }
+}
+
+\newcommand{\flexbranchinitialarc}[9]
+{
+\pstree[thislevelsep=*#2,nodesep=0.05]
+		{\Rnode{#1 1}{\Tr{#4_#8 #6}}#9}
+	  {\pstree[thislevelsep=#3]  
+				   {\Rnode{#1 2}{\Tr[edge=\dottededge]{#4_{#5} #6}}}
+					 {#7}
+		}
+}
+
+\newcommand{\equality}[2]
+{
+\ncline [doubleline=true, nodesep=0.2cm]{#1}{#2}
+}
+\newcommand{\equalityarc}[2]
+{
+\ncarc [arcangleA=-30, arcangleB=-20, doubleline=true, nodesep=0.1cm]{#1}{#2}
+}

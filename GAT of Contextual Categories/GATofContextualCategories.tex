@@ -1,0 +1,464 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=3cm]{geometry}
+\usepackage{pstricks}
+\usepackage{pst-node}
+\usepackage{pst-tree}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage{enumerate}
+\usepackage{calc}
+\usepackage{xifthen}
+\usepackage{array}
+\input{../SharedMacros/ccategories.macros}
+\input{../SharedMacros/gats.macros}
+\input{../SharedMacros/metagat.macros}
+\input{../SharedMacros/erdiagram}
+\usepackage{tipa}
+\usepackage{textcomp}
+\usepackage{mnsymbol}
+\usepackage{ifsym}
+\usepackage{esvect}
+\usepackage{float}
+\usepackage[section]{placeins}
+
+\usepackage{graphicx}
+\setcounter{equation}{0}
+
+
+\title{The Generalised Algebraic Theory of Contextual Categories}
+\author{John Cartmell}
+\begin{document}
+\maketitle
+\bibliographystyle{plain}
+
+\section{Introduction}
+The syntactical notion of \textit{generalised algebraic theory} (GAT) and the  equivalent algebraic notion of \textit{contextual category} were introduced in my thesis \cite{Cartmell78} and published in \cite{Cartmell86}. Whereas generally the objects of categories can be taken to represent types, the objects of a contextual categories can be taken to represent what I have described as `types that vary' but which subsequently have become know as dependent types. 
+
+I remarked in
+\cite{Cartmell78} that the theory of contextual categories can be expressed as a generalised algebraic theory by the axiomatisation of identity types on the morphism types of the category 
+(the identity types are required in order to phrase the pullback structure required by the definition of contextual category). The remark is made in order to point out that contextual categories are a generalised algebraic equivalent of GATs and that, in this sense, the machinary of GATs is self-descriptive. The same thing cannot be said of Lawvere algebraic theories nor of many-sorted algebraic theories.  
+
+At the time I made that remark I would have much preferred to find a way of theorising
+contextual categories by means of a GAT that didn't have additional types (the identity types);  their introduction seemed to me not to be in the spirit of algebra. 
+Subsequently Voevodsky in \cite{Voevodsky14C} has shown that identity types are not needed; he introduces an operator `s' which cannonically maps any morphism to a representative section; he shows that suitably axiomatised this implies the existence of pullbacks.  The purpose of this paper is to document the generalised algebraic theory
+of contextual categories which results from following this approach -- the GAT of 
+contextual categories is expressed without introducing types to represent identity of morphisms; its sorts are just those that represent objects and morphisms of the category.  
+
+Note that Voevodsky took exception to my use of the name \textit{contextual category} and used
+the name \textit{C-system} in its place. This is not a material difference; it is a 
+difference of terminology.
+
+To give readability to the theory we introduce a schematic notation for representing chains of dependent variables. As a prelude to presenting the theory we first present two simpler but related theories (previously presented in \cite{Cartmell78} and \cite{Cartmell86}): the GAT of categories and the GAT of trees.
+
+\section{Background Theories and Notations}
+\subsection {The GAT of Categories}
+
+\newcommand{\ofOb}[1]{\ofT{#1}{\Ob}}
+\newcommand{\ofHom}[2]{\ofT{#1}{\Hom(#2)}}
+\vspace{0.03cm} 
+\begin{tabular}{>{\itshape}l l}
+Symbol & \itshape{Introductory Rule} \\
+\Ob  &$\isT{\Ob}$\\
+\Hom &$\ofOb{x,y} \tstyle \isT{\Hom(x,y)} $\\
+$\circ$ & $\ofOb{x,y,z},\ofHom{f}{x,y},\ofHom{g}{y,z} \tstyle \ofHom{\circ(f,g)}{x,z}$ \\
+id      & $ \ofOb{x} \tstyle \ofHom{id(x)}{x,x} $\\
+\end{tabular} \\
+\vspace{.1cm}  \\
+\vspace{.03cm} \\
+\begin{tabular}{l}
+\itshape{Axioms} \\
+$\circ(id(x),f)=f \mbox{,  whenever\ } \ofOb{x,y},\ofHom{f}{x,y}  $\\
+$\circ(f,id(y))=f \mbox{,  whenever\ } \ofOb{x,y},\ofHom{f}{x,y}  $\\
+$ \circ(\circ(f,g),h) = \circ(f,\circ(g,h))  \mbox{,  whenever\ } \ofOb{w,x,y,z}, \ofHom{f}{w,x}, \ofHom{g}{x,y}, \ofHom{h}{y,z}$ \\
+\end{tabular} \\
+\vspace{.3cm}  \\
+
+
+\subsection {Trees of Concepts and the GAT of Trees}
+
+A contextual category has a tree of objects and we think of this tree as a tree of dependencies among concepts. 
+
+Formally, a tree is any partially ordered set $(S, <)$ such that for each t $\in$ S, the set $\left\{ s \in T : s < t \right\} $ is well-ordered by the relation $<$. We wish to consider just trees $(S,<)$ 
+such that for each t $\in$ s, the set $\left\{s \in S : s < t\right\}$ is finite  and such that there is a unique root to the tree i.e. a unique least element. We call the elements of set S the nodes of the tree and for each node the cardinality of the set $\left\{s \in S : s < t\right\}$ is said to be the height of the 
+node $t$. We denote by $S_i, i \geq 0,$ the set of elements of $S$ of height $i$. The set $S_0$ is a singleton set containing the root of the tree.
+
+Such trees as these we can equivalently describe as models of the generalised algebraic theory given below table \ref{GATOFTREES} in which the nodes of height $n+1$ are represented as of a sort $S_{n+1}$that is dependent on the sort of nodes of height $n$.
+
+%\newcommand{\Ft}[1]{#1 \kern -0.4em \downarrow}
+\newcommand{\Ft}[1]{\downarrow \kern -0.325em #1}
+If A and B are nodes of  a tree $(S,<)$ then we shall write $A \base B$ to mean that $A < B$ in S and that
+there does not exist x such that $A < x < B$. For every node B of tree S other than the root node there exists a unique node A such that $A \base B$.
+
+\newcommand{\Sz}{S_0}
+\newcommand{\ofS}[1]{\ofT{#1}{\Sz}}
+\newcommand{\Si}[1]{S_{#1}}
+\newcommand{\ofSi}[3]{\ofT{#1}{\Si{#2}(#3)}}
+\vspace{0.03cm} 
+\begin{table}[H]
+\caption{The Generalised Algebraic Theory of Trees}
+\label{GATOFTREES}
+\begin{tabular}{>{\itshape}l l}
+Symbol & \itshape{Introductory Rule} \\
+$\Sz  $&$\isT{\Sz}$\\
+$\Si{1} $&$\ofS{x_0} \tstyle \isT{\Si{1}(x_0)} $\\
+$\Si{2} $&$\ofS{x_0},\ofSi{x_1}{1}{x_0} \tstyle \isT{\Si{2}(x_0,x_1)} $\\
+\vdots  \\
+$\Si{n} $&$\ofS{x_0},\ofSi{x_1}{1}{x_0}, \hdots \ofSi{x_{n-1}}{n}{x_0,x_1,\hdots x_{n-2}} \tstyle \isT{\Si{n}(x_0,x_1,\hdots x_{n-1})} $\\
+\vdots   \\
+$root$ & $\ofT{root}{\Sz}$ \\
+\itshape{Axioms}:  \\
+$\ofT{x,y}{\Sz} \tstyle x = y$
+\end{tabular} \\
+\end{table} 
+
+
+\subsection {Schematic Notation}
+%\newcommand{\Ft}[1]{
+%#1 \kern-6pt \raisebox{1.45ex}{$\leftrightline$} \kern-3pt \raisebox{.09ex}{$\downarrow$}\kern-3.4pt \raisebox{.25ex} {$|$}}
+\newcommand{\ft}[1]{
+#1 \kern-6pt \raisebox{1.1ex}{$\leftrightline$} \kern-3pt \raisebox{.1ex}{$\downarrow$}}
+%\newcommand{\Bbar}[1]{
+%#1 \kern-6pt \raisebox{1.45ex}{$\leftrightline$}
+%\overline{#1}}
+%\vv{#1}}
+%\newcommand{\bbar}[1]{
+%#1 \kern-6pt \raisebox{1.0ex}{$\leftrightline$}
+%\overline{#1}}
+%\vv{#1}}
+\newcommand{\bbin}[1]{
+\raisebox{-0.5em}{$\stackrel{\displaystyle{\in}} {\scriptstyle{#1}}$}
+}
+\newcommand{\ofTn}[3]{
+#1 \bbin{#2} #3}
+
+There is a  shorthand that is convenient in the presentation  of the GAT of trees  and then subsequently in the GAT of contextual categories. We use the shorthand
+$\ofTn{x}{n}{S}$ for the context $\ofS{x_0},\ofSi{x_1}{1}{x_0}, \hdots \ofSi{x_n}{n}{x_0,x_1,\hdots x_{n-1}} $. \\
+
+\noindent Using this shorthand, for any $n \geq 0$ the sort $S_n$  in the theory of trees is introduced as follows: \\
+
+\vspace{0.03cm} 
+\begin{tabular}{>{\itshape}l l}
+Symbol & \itshape{Introductory Rule} \\
+$\Sz  $     & $\isT{\Sz}$\\
+$\Si{n+1}, n \geq 0 $ & $\ofTn{x}{n}{S}    \tstyle \isT{\Si{n+1}(x)} $\\
+\end{tabular} \\
+\vspace{.1cm}  \\
+
+
+\subsection {An Aside on Recursive Type Definitions}
+
+Using the shorthand, we are quite close to having a recursive definition of a single sort $S_R$.
+Such definitions are not possible in generalised algebraic theories but we can imagine a framework in which it is possible to write: \\
+\vspace{0.03cm} 
+\begin{tabular}{>{\itshape}l l}
+Symbol & \itshape{Introductory Rule} \\
+$S_0  $     & $\isT{S_0}$\\
+$S_R  $     & $\ofT{x_0}{S_0}    \tstyle \isT{S_R(x_0)} $\\
+$S_R $      & $\ofT{x}{S_R}    \tstyle \isT{S_R(x)} $\\
+\end{tabular} \\
+\vspace{.1cm}  \\
+
+Such a definition could be represented algebraically in a suitably generalised notion of contextual category (a comulti-contextual category?) these dependencies could be represented
+as follows:  
+
+\begin{center}
+$
+\begin{array}{c c}
+\Rnode{abs}{1}  \\ [1.4cm]
+\Rnode{S0}{S_0} \\ [1.4cm]
+\Rnode{SR}{S_R} \\ [1.4cm]
+\end{array}
+$
+\ncsar{S0}{abs}
+\ncsar{SR}{S0}
+\ncrsar{SR}{SR}
+\end{center}
+
+\noindent This is not just an idle thought -- in  data modelling such a tree 
+structure is represented in an entity model diagram in which the injections into the coproduct $S$ of $S_0$ and $S_R$ are represented by containment: \\
+
+\begin{center}
+\input{treeStructure}
+\end {center}
+See \textit{www.entitymodelling.org/tutorialone} for a description of this notation.
+For an example of the modelling of recursive relationships in the definition of a phrase structure grammar of English see 
+\textit{www.entitymodelling.org/examplesone/englishsentence}.
+
+\section{Definition of Contextual Categories}
+\subsection {The GAT of Tree-Structured Categories}
+
+By a tree-structured category we mean (i) a category with a tree-structure defined on its objects such that the tree of objects has a unique root object and (ii) for every $A \base B$ in the tree of objects  a cannonical morphism $p_B:B \rightarrow A$ this morphism will be distinguished in diagrams by an arrow with  
+a triangular head so:
+
+\begin{center}
+$
+\begin{array}{p{2cm}p{0.5cm}p{0.5cm}p{0.5cm}}
+\Rnode{B}{B}& \\ [1.4cm]
+\Rnode{A}{A} \\
+\end{array}
+$
+\ncbsar{p_B}{B}{A}
+
+\end{center}
+
+\newcommand{\Obi}[1]{\Ob_{#1}}
+\newcommand{\Homij}[2]{\Hom_{#1,#2}}
+%\newcommand{\ofObi}[2]{\bbar{#1}\bbin{#2}{\Bbar{\Ob}}}
+\newcommand{\ofObi}[2]{#1 \bbin{#2}{\Ob}}
+%\newcommand{\HomijBar}[4]{\Homij{#1}{#2}(\bbar{#3},\bbar{#4})}
+\newcommand{\HomijBar}[4]{\Homij{#1}{#2}(#3,#4)}
+\newcommand{\ofHomij}[5]{\ofT{#1}{\HomijBar{#2}{#3}{#4}{#5}}}
+%\newcommand{\HomijBarFt}[4]{\Homij{#1}{#2}(\bbar{#3},\ft{\overline{#4}})}
+\newcommand{\HomijBarFt}[4]{\Homij{#1}{#2}(#3,\ft{#4})}
+\newcommand{\ofHomiBarFt}[4]{\ofT{#1}{\HomijBarFt{#2}{#2-1}{#3}{#4}}}
+
+\noindent The theory of tree-structured categories can be presented as a generalised algebraic theory as follows: \\
+\vspace{0.03cm} 
+\begin{tabular}{>{\itshape}l l}
+Symbol & \itshape{Introductory Rule} \\[0.1cm]
+$\Obi{0}  $&$\isT{\Obi{0}}$\\[0.2cm]
+$\Obi{n+1} $&$\ofTn{x}{n}{\Ob} \    \tstyle \isT{\Obi{n+1}(x)} $\\ [0.25cm]
+$\Homij{n}{m} $ &$\ofObi{x}{n} ,\  \ofObi{y}{m} \ \tstyle \isT{\HomijBar{n}{m}{x}{y}} $\\ [0.25cm]
+$\circ$ & $\ofObi{x}{n}, \  \ofObi{y}{m}, \ \ofObi{z}{p}, \ \ofHomij{f}{n}{m}{x}{y},\ofHomij{g}{m}{p}{y}{z} \tstyle \ofHomij{\circ(f,g)}{n}{p}{x}{z}$ \\ [0.25cm]
+$id_n   $   & $ \ofObi{x}{n} \tstyle \ofHomij{id_n(x)}{n}{n}{x}{x} $\\ [0.25cm]
+$p_n   $   & $ \ofObi{x}{n} \tstyle \ofHomij{p_n(x)}{n}{n-1}{x}{x_{n-1}} $\\ [0.25cm]
+$1     $   & $\ofT{1}\Obi{0} $\\         [0.25cm]
+$t_n   $   & $ \ofObi{x}{n} \tstyle t_n(x) \in \Homij{n}{0}(x,1)$\\ [0.25cm]
+\end{tabular} \\
+\vspace{.1cm}  \\
+\vspace{.03cm} \\
+\begin{tabular}{l}
+\itshape{Axioms} \\
+
+$\circ(id(x),f)=f \mbox{,  whenever\ } \ofObi{x}{n} ,\  \ofObi{y}{m} , \ \ofHomij{f}{n}{m}{x}{y}  $\\ [0.25cm]
+$\circ(f,id(y))=f \mbox{,  whenever\ } \ofObi{x}{n} ,\  \ofObi{y}{m} , \ \ofHomij{f}{n}{m}{x}{y}  $\\ [0.25cm]
+$ \circ(\circ(f,g),h) = \circ(f,\circ(g,h)),$ \ whenever \\ [0.2cm]
+$ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
+\ofObi{w}{l} , \ \ofObi{x}{n} , \ \ofObi{y}{m} , \ \ofObi{z}{p}, \ 
+ \ofHomij{f}{l}{n}{w}{x}, \ofHomij{g}{n}{m}{x}{y}, \ofHomij{h}{m}{p}{y}{z}$ \\ [0.25cm]
+$x = y, $ whenever $x,y \in \Obi{0} $ \\ [0.25cm]
+$f = t_n(x),  $ whenever $ \ofObi{x}{n}, \ f \in \Homij{n}{0}(x,1)$\\ [0.25cm]
+\end{tabular}  \\
+\vspace{.05cm}  \\
+
+
+Writing informally, we omit the numeric subscripts and we also write $p_x$ for $p(x)$ and $t_x$ for $t(x)$.
+
+\subsection{Contextual Categories}
+
+\subsubsection{Original Definition}
+
+As defined in [1] and [2], a contextual category is defined to be a tree-structured category 
+\cat{C} with the following additional structure:
+
+\noindent 
+(i) whenever
+$
+\begin{array}{cp{.9cm}c}
+            & & \Rnode{z}{z} \\ [1.2cm]
+\Rnode{x}{x}& & \Rnode{y}{y} \\ [0.5cm]
+\end{array}
+$
+\jcbarr{f}{x}{y}
+\ncasar{p_z}{z}{y}
+
+in \cat{C}, an object $f \sub z$ such that $x \base f \sub z$, a morphism $q(f,z): f \sub z \rightarrow z$ such that the diagram:
+
+\vspace{3mm}
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{.9cm}c}
+\Rnode{fstarz}{f^*z} & & \Rnode{z}{z}\\ [1.2cm]
+\Rnode{x}{x}         & & \Rnode{y}{y}
+\end{array}
+\end{displaymath}
+\ncbsar{p_{f \sub z}}{fstarz}{x}
+\jcbarr{f}{x}{y}
+\ncaarr{q(f,z)}{fstarz}{z}
+\ncasar{p_z}{z}{y}
+\end{center}
+commutes, 
+
+\noindent
+(ii) and such that each such diagram is a pullback diagram, that is: for all objects $w$ of \cat{C}, and for all
+morphisms $h_1: w \rightarrow x$ and $h_2: w \rightarrow z$ (see diagram below) such that
+$h_1 \circ f = h_2 \circ p_z$ 
+there exists a unique $h:w \rightarrow f \sub z$ in \cat{C} such that
+$h \circ p_{f \sub z} = h_1$ and $h \circ q(f,z) = h_2$.
+
+\vspace{3mm}
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.5cm}cp{1.2cm}c}
+\Rnode{w}{w} &&                     &&           \\ [0.7cm]
+             &&\Rnode{fstarz}{f^*z} && \Rnode{z}{z}\\ [1.2cm]
+             &&\Rnode{x}{x}         && \Rnode{y}{y}
+\end{array}
+\end{displaymath}
+\ncbsar{p_{f \sub z}}{fstarz}{x}
+\jcbarr{f}{x}{y}
+\ncaarr{q(f,z)}{fstarz}{z}
+\ncasar{p_z}{z}{y}
+\setlength{\arrnodesepA}{3pt}
+\jcbarr[-35]{h_1}{w}{x}
+\ncaarr[35]{h_2}{w}{z}
+\psset{linestyle=dashed}
+\ncaarr{h}{w}{fstarz}
+\end{center}
+
+ 
+
+\vspace {0.25cm}
+\noindent (iii) whenever $x \base y$ in \cat{C}, 
+\begin{equation}
+id_x^*y=y
+\end{equation}
+
+and
+
+\begin{equation}
+q(id_x,y) = id_y
+\end{equation}
+\vspace{0.2cm}
+
+\noindent (iv) whenever 
+$
+\begin{array}{c p{.9cm} c p{.9cm} c}
+             &   &             &   & \Rnode{z}{z} \\ [1.2cm]
+\Rnode{w}{w} &   &\Rnode{x}{x} &   & \Rnode{y}{y} \\ [0.5cm]
+\end{array}
+$
+\jcbarr{f}{w}{x}
+\jcbarr{g}{x}{y}
+\ncasar{c}{z}{y}
+in \cat{C}, 
+
+then
+
+\begin{equation}
+(f \circ g)^*z =  f^* (g ^* z)
+\end{equation}
+
+and 
+\begin{equation}
+q(f \circ g,z) = q(f,g^*z) \circ q(g,z)
+\end{equation}
+
+
+\subsubsection{Equational Definition following Voevodsky}
+Following Voevodsky, however, we may replace the pullback condition, (ii), by additional structure (ii') as follows:
+
+\noindent (ii') for all morphisms $f: x \rightarrow y$ a morphism $s(f) : x \rightarrow f \sub p_y \sub y$ as shown here:
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{.9cm}c}
+\Rnode{fXyy}{f\sub p_y \sub y} & & \Rnode{yXy}{p_y \sub y}\\ [1.2cm]
+\Rnode{x}{x}         & & \Rnode{y}{y}
+\end{array}
+\end{displaymath}
+\ncasar{p_{f\sub p_y \sub y}}{fXyy}{x}
+\jcbarr{f}{x}{y}
+\ncaarr{q(f,p_y \sub y)}{fXyy}{yXy}
+\ncasar{p_{p_y \sub y}}{yXy}{y}
+\ncaarr[30]{s(f)}{x}{fXyy}
+\end{center}
+
+such that 
+\begin{equation}
+s(f) \circ p_{f\sub p_y \sub y}=id_x
+\end{equation}
+
+and such that whenever
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{c p{.9cm} c p{.9cm} c}
+\Rnode{w}{w}&& \Rnode{g*z}{g \sub z} && \Rnode{z}{z} \\ [1.2cm]
+            && \Rnode{x}{x}  && \Rnode{y}{y} \\ [0.2cm]
+\end{array}
+\end{displaymath}
+\jcbarr{f}{w}{g*z}
+\jcbarr{g}{x}{y}
+\ncaarr{q(g,z)}{g*z}{z}
+\ncasar{}{g*z}{x}
+\ncasar{}{z}{y}
+\end{center}
+
+in \cat{C} then
+
+\begin{equation}
+s(f \circ q(g,z))=s(f)
+\end{equation}
+
+which is well-typed because
+
+
+\begin{align*}
+      lhs = &\ofT{s(f \circ q(g,z))} {Hom(w,(f \circ q(g,z) ) \sub p_z \sub z} ) \\
+      rhs = &\ofT{s(f)} {Hom(w,(f \circ   p_{g \sub z} ) \sub  g \sub z } )\\
+\end{align*}
+
+and
+
+\begin{equation*}
+     Hom(w,(f \circ q(g,z) ) \sub p_z \sub z ) = Hom(w,(f \circ   p_{g \sub z} ) \sub  g \sub z )
+\end{equation*}
+
+because
+\begin{align*}
+(f \circ q(g,z) ) \sub p_z \sub z 
+                 & = f \sub ((q(g,z) \circ p_z) \sub z \\
+                 & = f \sub ( p_{g \sub z} \circ g ) \sub z\\
+                 & = (f \circ   p_{g \sub z} ) \sub  g \sub z
+\end{align*}
+
+\subsection{GAT of Contextual Categories}
+
+\noindent Following Voevosky's insight, the GAT of Contextual Categories is defined to be the GAT of Tree-Structured Categories plus
+the following additional structure: \\
+\vspace{0.1cm} 
+\begin{tabular}{>{\itshape}l l}
+Symbol & \itshape{Introductory Rule} \\[0.1cm]
+$\sub $&$ \ofObi{x}{n} ,\  \ofObi{y}{m} ,\  \ofHomij{f}{n}{m}{x}{y} ,\  \ofT{z}{\Obi{m}(y)}
+\tstyle \ofT {f \sub z}{\Obi{n}(x) } $\\[0.25cm]
+$ q  $&$ \ofObi{x}{n} ,\  \ofObi{y}{m} ,\  \ofHomij{f}{n}{m}{x}{y} ,\  \ofT{z}{\Obi{m}(y)}
+\tstyle
+                     \ofT{q(f,z)}{  \Homij{n}{m+1}(f\sub y_m  , y_m ) }$  \\ [0.25cm]
+$ s  $ & $ \ofObi{x}{n} ,\  \ofObi{y}{m} ,\  \ofHomij{f}{n}{m}{x}{y} \tstyle
+                 \ofT{s(f)} {\Homij{n}{n+1}(x,f \sub p (y)  \sub y)} $ \\ [0.25cm]
+
+
+\end{tabular} \\
+\vspace{.1cm}  \\
+\vspace{.03cm} \\
+\begin{tabular}{l}
+\itshape{Axioms} \\
+$\circ(q(f,z),p(z))=\circ(p(f\sub z),f),$ 
+          whenever $\ofObi{x}{n} ,\  \ofObi{y}{m} ,\  \ofHomij{f}{n}{m}{x}{y} ,\  \ofT{z}{\Obi{m}(y)} $\\  [0.25cm]
+					
+
+$(f \circ g)^*z =  f^* (g ^* z), $
+          whenever  $ \ofObi{w}{n} ,\ \ofObi{x}{m} ,\ \ofObi{y}{p}, 
+					\ofHomij{f}{n}{m}{w}{x} ,\  \ofHomij{g}{m}{p}{x}{y}    $ \\[0.25cm]
+
+$q(f \circ g,z) = q(f,g^*z) \circ q(g,z), $
+				   whenever  $ \ofObi{w}{n} ,\ \ofObi{x}{m} ,\ \ofObi{y}{p}, 
+					\ofHomij{f}{n}{m}{w}{x} ,\  \ofHomij{g}{m}{p}{x}{y}    $ \\[0.25cm]
+					
+$\circ(s(f),p(f \sub p(y) \sub y)) = id(x),$ 
+          whenever $\ofObi{x}{n} ,\  \ofObi{y}{m} ,\  \ofHomij{f}{n}{m}{x}{y} $ \\ [0.25cm]
+					
+					
+	$s(f \circ q(g,z))=s(f),$ 
+          whenever $\ofObi{w}{n} ,\  \ofObi{x}{m}  ,\   \ofObi{y}{p} ,\    \ofHomij{g}{m}{p}{x}{y} ,\ \ofT{z}{\Obi{p+1}(y)} ,\ \ofHomij{f}{n}{m+1}{w}{g \sub z} $ \\ [0.25cm]				
+					
+\end{tabular}  \\
+\vspace{.1cm}  \\
+\vspace{.03cm} \\
+
+\bibliography{../SharedBibliography/temp/bibliography}
+ 
+\end{document}

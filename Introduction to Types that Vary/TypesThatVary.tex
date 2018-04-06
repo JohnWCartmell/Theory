@@ -1,0 +1,535 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{framed}
+\input{../SharedMacros/ccategories.macros}
+\input{../SharedMacros/gats.macros}
+\input{../SharedMacros/indexedsets.macros}
+\input{../SharedMacros/ermacros}
+\input{../SharedMacros/erdiagram}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{helvet}
+\usepackage{hyperref}
+
+\renewcommand*\familydefault{\sfdefault}
+\setcounter{equation}{0}
+\renewcommand{\erpictureFolder}[0]{../SharedPictures}
+
+% This document to be built using LaTeX => PS => pdf because it uses pstricks
+
+\title{Notations for Types that Vary}
+\author{John Cartmell}
+\begin{document}
+\maketitle
+\bibliographystyle{plain}
+
+\section{Quantities that Vary}
+\noindent Before we discuss \textit{types that vary} and the notation of dependent types it is worth 
+reviewing first the notations that we use for \textit{quantities that vary}.  \\
+
+\noindent  When a quantity y varies as some variable x varies then as matter of course the quantity might be written $y_{x}$ with the x subscript  reminding us of the dependency; or the quantity might be written $y(x)$ so using the notation of function application.  
+If the quantities in question are real numbers then we may write either
+
+\begin{equation*}
+y_{x)x\in R}
+\end{equation*}
+
+\noindent or as something along the lines of:
+
+\begin{equation*}
+\text{for } x \in R,  y(x) \in R
+\end{equation*}
+
+\noindent Equally we might introduce $y$ at the outset not as a quantity but as a function $y$, $y: R \rightarrow R$. Note however that in a particular scientific enquiry, at the outset, what comes first is the quantities that are measured and the enquiry will often be to understand the quantities which can be measured and to understand over what domains they vary influenced by which variables - to discover the independent and dependent variables.
+The point that is being made here is that in scientific enquiry \textit{quantities that vary} precede functions and quantities that vary do so according to context. \\
+
+\noindent In a formal mathematical notation we introduce symbols for functions and, subsequently, dependent types by way of formal rules. For example we 
+introduce types $A$ and $B$ and some function$f$ delivering entities of type $B$ from entities of type $A$ by the rules:
+\begin{align}
+&\text{                                  }\tstyle \isT{A} \\
+&\text{                                  }\tstyle \isT{B} \\
+&\ofT{x}{A} \tstyle \ofT{f(x)}{B} 
+\end{align}
+\noindent In rules such as these, variables are introduced to the left of the turnstyle($\tstyle$) and 
+an assertion is given to the right. The left hand side presents a context in which the right hand side is asserted. 
+We also write $f: A \rightarrow B$ for such a function and might illustrate a typical function so
+
+\begin{pspicture}(0,0.5)(9,5.5)
+%\psgrid
+%\putfunction[rot]{basescale}{childscale}{x}{y}{nodeprefix}
+\rput{*270}(1,5){
+  \putFunction[*270]{.75}{0.75}{2cm}{2.5cm}{2.3cm}{FUNC}
+  }
+\rput[l](1.5,3.0){ \psframebox*{set A} }
+\rput[l](6.5,3.0){ \psframebox*{set $B$} }
+\rput[l](4.4,4.0){ \psframebox*{$f$} }
+\end{pspicture}
+
+\noindent
+In entity modelling in the style of Barker, Ellis, Martin, Schlaer-Mellor and others (see \cite{Rock-Evans1989}),
+,  the focus is on binary relationships between types of entity; 
+functional dependencies between types of entity are said to be many-one relationships and are depicted using the crows foot notation as, for example, here:
+\erplainFig{functionfAB}{H}{Many-one Binary Relationship f between entity types A and B}
+
+\noindent Of course there are quantities which do not vary (such as $\pi$ and $e$ and the gravitational constant $G$) - they are constant - they do not have contexts they depend  on.  If $a$ is a constant of type $A$ then we assert: 
+\begin{equation*}
+\tstyle \ofT{a}{A}
+\end{equation*}
+
+\noindent Using the symbol $R$ for the type of real numbers then we have:
+\begin{align*}
+&\tstyle \isT{R} \\
+&\tstyle \ofT{\pi}{R}
+\end{align*}
+
+\noindent Other quantities vary over a number of different dimensions and we represent them as functions
+with multiple arguments. 
+If a quantity of type $f$ varies over types $A_1$ and $A_2$, as for example electric potential varies over
+space and time then we write it as a function with two arguments:
+\begin{align*}
+&\text{                                  }\tstyle \isT{A_1} \\
+&\text{                                  }\tstyle \isT{A_2} \\
+&\text{                                  }\tstyle \isT{B} \\
+&\ofT{x_1}{A_1},\ofT{x_2}{A_2} \tstyle \ofT{f(x_1,x_2)}{B} 
+\end{align*}
+\noindent
+We might also represent $f$ by a multiarrow in a graph:
+\setlength{\arraycolsep}{1cm}
+\begin{center}
+$
+\begin{array}{cccc}
+\Rnode{A1}{A_1}& & \\
+                & \Rnode{J1}{}& \Rnode{B}{B} \\
+\Rnode{A2}{A_2}& & \\
+\end{array}
+$
+\ncamarr{f}{A1}{A2}{J1}{B}
+
+\end{center}
+\setlength{\arraycolsep}{.2cm}
+
+
+
+\section{Types that Vary - Dependent Types}
+ Recall what we have said about quantities that vary; with this in mind consider that types are a kind of abstract quantity and we are led to the possibility that types
+may vary just as quantities do and in particular that the \textit{type} of a quantity may vary as the \textit{quantity} itself  does.  \\
+
+\noindent In this figure
+%\begin{center}
+\raisebox{-0.5cm}{
+\pspicture(0,-0.1)(1.1,1)
+\psline(0,0)(0,1)(1,1)(1,0)(0,0)
+\psline (0,0)(1,1)
+%\psline(0,0.5)(1,0.5)
+%\psline(0.5,0)(0.5,1)
+\endpspicture
+}
+%\end{center}
+there are two triangles and these have six sides -- though the lines depicting these number only five; 
+this can happen
+because in the statement that the two triangles have six sides we are understanding \textit{side}
+to be \textit{side of triangle} which is to say that we understand it to be a concept that varies as
+triangle varies. A side, therefore, is a dependent type of thing -- it is some thing held in the mind
+in the context of some other thing. \\
+
+
+\noindent
+Similarly a word cannot be said to be `noun', `verb', 'adjective' or such like lest it be appearing in some grammatically OK sentence so `noun' and `verb` as types of thing are dependent on sentence-like types of thing 
+-- and, in turn, the type of sentence-like types of thing depends on the language that is being spoken or written.
+ These types may be described by entity modelling or more flexibly by a mathematical notation. Types
+that vary we say are dependent types. Non-dependent types we say are absolutes. \\
+
+\noindent If in a situation temperature varies over position then it is implied - and might educate us if our notion of temperature was only half formed - that the concept of temperature had somehow in its make up a dependency on the concept of spatial position. Its the same with types that vary. 
+Concepts like `angle', `edge', `boundary', `bounding line' as we learm the concepts
+we learn that do not stand alone; similarly
+we have dependent concepts like  face of cube,  endpoint of line,   junction between lines, citizen (of a country), tangent (to a curve), atom of a molecule,  nucleus of a cell. \\
+
+\noindent Various notations are used to express such dependencies. For formal
+mathematical purposes, the functional
+notation used for quantities that vary can equally be used for types that vary i.e. dependent types. We can write:
+\begin{align*}
+&\tstyle \isT{Triangle} \\
+&\ofT{x}{Triangle} \tstyle \isT{Side(x)} 
+\end{align*}  
+
+\noindent and we can assert
+\begin{align*}
+&\tstyle \isT{Country} \\
+&x \in Country \tstyle Citizen(x) \mbox{ is a type}
+\end{align*}
+\noindent we might then go on to write: 
+\begin{equation*}
+\tstyle JohnC \in Citizen(UK)
+\end{equation*}
+which is well formed providing that:
+\begin{equation*}
+\tstyle \ofT{UK}{Country}
+\end{equation*}
+\\
+
+
+\noindent If the type of quantity f varies as f varies then we can assert this as follows: \\
+\begin{align*}
+&\text{                                  }\tstyle \isT{A} \\
+&\ofT{x}{A} \tstyle \isT{B(x)} \\
+&\ofT{x}{A} \tstyle \ofT{f(x)}{B(x)} 
+\end{align*}
+
+
+\noindent So, for example, `the side opposite an angle' in a study of triangles is a quantity ( an entity)  which varies both as the triangle varies and as the angle varies:
+
+\begin{equation*}
+x \in Triangle, y \in Angle(x): oppositeSide(x,y) \in Side(x)
+\end{equation*}
+
+\noindent Having this notation then leads us to be able to make type assertions such as
+\begin{equation*}
+x \in Country \tstyle headOfState(x) \in Citizen(x)
+\end{equation*}
+
+\noindent In this type assertion `headOfState' is a quantity which is varying, dependent on Country and is of a type which varies as the country varies.\\
+
+\noindent
+If $B$ as a type dependent on $A$ then instead of imagining type $B$ to have a set 
+of instances we can imagine instead an A-indexed family of sets of instances. If in addition 
+there is a $b$ such that $x \in A, b(x) \in B(x)$ (as `headOfState' above) then think 
+of a  section of the family of sets of instances of $B$, see figure \ref{section}. 
+If $B{a)a\in A}$ in an A-indexed family of sets the a section of B is a function $b:A \rightarrow \bigcup_{a \in A}{B(a)}$ such that
+for each $a \in A, b(a) \in B(a)$. 
+\begin{figure}[h]
+\begin{pspicture}(0,0.5)(9,5.5)
+%\psgrid
+%\putfamilyOfSets[rot]{basescale}{childscale}{x}{y}{childoffset}{nodeprefix}
+\rput{*270}(1,5){
+  \putfamilyOfSets[*270]{.75}{0.4}{2cm}{2.5cm}{2.3cm}{FAM}
+  }
+\rput[l](1.5,4.2){ \psframebox*{set A} }
+\rput[l](6.5,2){ \psframebox*{set $B_a$, for every $a \in A$} }
+\rput[l](6.5,1.5){ \psframebox*{element b(a) of the set $B_a$, for every $a \in A$} }
+
+\ncarc[nodesep=2pt,arcangle=20]{->}{FAMBASEl}{Ll}
+\ncarc[nodesep=2pt,arcangle=20]{->}{FAMBASEm}{Mm}
+\ncarc[nodesep=2pt,arcangle=-20]{->}{FAMBASEr}{Rr}
+\end{pspicture}
+\caption{A section b of A-indexed family of sets B.}
+\label{section}
+\end{figure}
+
+
+\noindent A second possibility is to represent a dependency between one type B and another A by a directed 
+edge $B \darrow A$ then in any particular 
+situation the types and their dependencies form a directed graph.
+\\
+
+\noindent Furthermore, any directed graph makes sense as, and can be interpreted as, a set of types and type dependencies 
+providing (i) there are no cycles in
+the graph and provided that (ii) all nodes B there are only finitely many A, such that $B \darrow A$ and (iii) there are 
+no infinite sequences of the form $A_1 \darrow A_2 \darrow A_3 ....$. We will call any directed graph that 
+meets these conditions a dependency graph or  d-graph and we will call the edges dependencies. 
+\\
+
+\noindent As an example, the directed graph:
+\begin{equation}
+\begin{array}{ccc}
+\Rnode{C}{C}   &            &                 \\ [0.8cm]
+\Rnode{B1}{B_1}&            &\Rnode{B2}{B_2}  \\ [0.8cm]
+               &\Rnode{A}{A}&                 
+\end{array}
+\ncsar{C}{B1}
+\ncsar{B1}{A}
+\ncsar{B2}{A} 
+\end{equation}
+\\
+
+\noindent interpreted as types and type dependencies expresses the following:
+\addtocounter{equation}{-1}
+\begin{subequations}
+\begin{align}
+&A\mbox{ is a type} \\
+&x\in A : B_1(x) \mbox{ is a type} \\
+&x\in A : B_2(x) \mbox{ is a type} \\
+&x\in A, y\in B_1(x): C(x,y) \mbox{ is a type}
+\end{align}
+\end{subequations}
+\\
+
+\noindent Similarly the directed graph:
+
+\begin{center}
+$
+\begin{array}{p{1.5cm}cccp{2cm}c}
+&                & \Rnode{C2}{C}&   \\ [0.8cm]
+&                & \Rnode{B}{B} &  \\ [0.8cm]
+&\Rnode{A1}{A_1} &              & \Rnode{A2}{A_2}\\ [0.4cm]
+&                &\stepcounter{equation}(\theequation) &  \\
+\end{array}
+$
+\ncsar{C2}{B}
+\ncsar{B}{A1}
+\ncsar{B}{A2}
+\setlength {\saroffsetA}{-2pt}
+\setlength {\saroffsetB}{-2pt}
+\ncsar[-15]{C3}{B3}
+\setlength {\saroffsetA}{2pt}
+\setlength {\saroffsetB}{2pt}
+\ncsar[15]{C3}{B3}
+\sarreset
+\ncsar{B3}{A3}
+\end{center}
+
+\noindent can be interpreted as representing the following type system:
+
+\addtocounter{equation}{-1}
+\begin{align}
+&A_1\mbox{ is a type} && \tag*{(\theequation a)}\\
+&A_2\mbox{ is a type} && \tag*{(\theequation b)}\\
+&x_1\in A_1, x_2 \in A_2 : B(x_1,x_2) \mbox{ is a type} && \tag*{(\theequation c)}\\
+&x_1\in A_1, x_2 \in A_2, y \in B(x_1,x_2): C(x_1,x_2,y) \mbox{ is a type} && \tag*{(\theequation d)}\\
+\end{align}
+
+\noindent 
+A third notation is an extended style of entity modelling style developed by the author and documented at \href{www.entitymodelling.org}{www.entitymodelling.org}. In this notation, type dependencies are represented by what are called composition relationships; these are distinguished from other functional relationships by being draw leaving the
+lower edge of a box and entering the upper edge of the box representing the dependent type. \\
+
+\noindent Examples are given in figures \ref{partsOfSpeech} and \ref{citizen}.
+
+\begin{center}
+\begin{figure} [H]
+\hspace {1.5cm}
+(a)
+\begin{tabular}{>{\textit} l l}
+Symbol & \itshape{Introductory Rule} \\ 
+\hline 
+language &$\tstyle \isT{language} $\\
+sentence &$x \in language \tstyle sentence(x) \mbox{ is a type} $\\
+word &$x \in language \tstyle word(x) \mbox{ is a type} $\\
+noun &$x \in language ,\ y \in sentence(x)  \tstyle noun(y) \mbox{ is a type} $\\
+verb &$x \in language ,\ y \in sentence(x)  \tstyle verb(y) \mbox{ is a type} $\\
+adjective &$x \in language ,\ y \in sentence(x)  \tstyle adjective(y) \mbox{ is a type}$
+\end{tabular} 
+\vspace{0.5cm}
+
+\hspace{0.5cm}
+(b)
+\setlength{\arraycolsep}{0cm}
+$
+\begin{array}{ c c c c}
+&                            &  \Rnode{1}{1}               &             \\ [1.3cm]
+&                            & \Rnode{language}{language}  &             \\ [1.3cm]
+& \Rnode{sentence}{sentence} &                     & \Rnode{word}{word}\\ [1.3cm]
+\Rnode{noun}{noun}         & \Rnode{verb}{verb}  & \Rnode{adjective}{adjective} &
+\end{array}
+$
+\hspace {1.0cm}
+(c)
+\erinlinePicture{partsOfSpeech}{4}
+\ncsar{language}{1}
+\ncsar{sentence}{language}
+\ncsar{word}{language}
+\ncsar{noun}{sentence}
+\ncsar{verb}{sentence}
+\ncsar{adjective}{sentence}
+\caption{Three representations of a system of types (a) rules in a formal mathematical syntax,
+(b) a graph of  type dependencies (c) entity modelling notation.}
+\label{partsOfSpeech}
+\end{figure}
+\end{center}
+
+\begin{center}
+\begin{figure} [H]
+(a) \erinlinePicture{performanceOfPlayAnnotated}{3.5}
+
+(b)
+\begin{minipage}[c]{0.6 \textwidth}
+\begin{tabular}{l l}
+Symbol & \itshape{Introductory Rule} \\ 
+\hline 
+$play$ &$\tstyle \isT{play} $\\
+$performance$ &$\tstyle \isT{performance} $\\
+$of       $& $ x \in performance \tstyle \ofT{of(x)}{play}$ \\
+$character$&$x \in play \tstyle character(x) \mbox{ is a type} $\\
+$castMember$&$x \in performance \tstyle castMember(x) \mbox{ is a type}$ \\
+$playsPartOf$& $ x \in performance ,\ y \in castMember(x) \tstyle \ofT{playsPartOf(y)}{character} $\\
+\end{tabular}
+\end{minipage}
+\caption{A cast member plays a part in the same play that they are pert of the performance of. This is reflected in (b) by examination of the variables in the intoductory rule for $playsPartOf$. In the entity modelling diagram, (a), this is documented in a scope constraint (~/.. = ../of)  which specifies that the square of relationships commutes. See \href{http://www.entitymodelling.org/tutorialone/scopediagrams.html}
+{www.entitymodelling.org/tutorialone/scopediagrams}}.
+\label{citizen}
+\end{figure}
+\end{center}
+
+
+
+
+
+
+
+
+
+\section{Equivalent paths - Dependency structures}
+
+Consider the following two rules:
+\begin{subequations}
+\begin{align} 
+           & x_1 \in A, y_1 \in B_1(x_1), x_2 \in A, y_2 \in B_2(x_2) : C(x_1,y_1,x_2,y_2) \mbox{ is a type}\label{multipleInstanceA}\\
+\mbox{and}& \notag \\
+           & x \in A, y_1 \in B_1(x), y_2 \in B_2(x) : C(x,y_1,y_2) \mbox{ is a type} \label{singleInstanceA}
+\end{align}
+\end{subequations}
+
+\noindent They both give rise to a graph like this:
+
+\begin{equation}
+\begin{array}{ccc}
+               &\Rnode{C}{C}   &             \\ [0.8cm]
+\Rnode{B1}{B_1}&            &\Rnode{B2}{B_2}  \\ [0.8cm]
+               &\Rnode{A}{A}&                 \\
+\end{array}
+\ncsar{C}{B1}
+\ncsar{C}{B2}
+\ncsar{B1}{A}
+\ncsar{B2}{A} 
+\end{equation}
+\\
+
+\noindent In the case of \eqref{singleInstanceA}, $C$ relies for context on instances of $B_1$ and $B_2$ which themselves are based within the context of a common instance of $A$.
+\noindent In the case of \eqref{singleInstanceA}, but not in case \eqref{multipleInstanceA}, we say that the path:
+$ C \darrow B_1 \darrow A$ is equivalent to the path: $ C \darrow B_2 \darrow A$.
+\\
+
+
+\noindent It is easy to see that the dependency graph representing a set of types is endowed with an equivalence relation on the set of paths through the graph. If $\circ$ represents composition of paths then the equivalence relationship satisfies that if q and q' are paths and $q \equiv q'$ and if
+$p$ and $r$ are paths such that $p \circ q \circ r$ is defined then $p \circ q \circ r \equiv p \circ q' \circ r$.
+\\
+
+\noindent We say that the dependency graph of a set of type definitions and its accompanying equivalence relation on 
+paths is the dependency structure of the set of types. 
+\\
+
+\noindent We call any graph endowed with such an equivalence relation a dependency structure. It follows from the definitions that every set of type definitions gives rise to a dependency structure and it is easy to see that the converse is true: that every dependency structure, up to isomorphism of structures, arises as the dependency structure of a set of type definitions.
+\\ 
+
+\noindent In order to specify a dependency structure it is necessary to specify the dependency graph and then for 
+each subgraph of the form:
+
+\begin{math}
+\begin{array}{p{3cm}cccc}
+&                      &\Rnode{C}{C}&                      & \\ [0.8cm]
+& \Rnode{Ln}{L_n}      &            &\Rnode{Rm}{R_m}       & \\ [0.6cm]
+& \Rnode{Ln1}{L_{n-1}} &            &\Rnode{Rm1}{R_{m-1}}  & \\
+& \Rnode{Ldots}{\vdots}&            &\Rnode{Rdots}{\vdots} & \\
+& \Rnode{L1}{L_1}      &            &\Rnode{R1}{R_1}       & \\ [0.8cm]
+&                      &\Rnode{A}{A}&                      & \\
+\end{array}
+\ncsar{C}{Ln}
+\ncsar{C}{Rm}
+\ncsar{Ln}{Ln1}
+\ncsar{Rm}{Rm1}
+\ncsar{L1}{A}
+\ncsar{R1}{A} 
+\end{math} 
+\\
+
+\noindent
+whether the two paths left and right are equivalent. This is to say whether there are one or two instances of $A$ 
+depended on by $C$. \\
+
+\noindent A dependency structure is hierarchical if and only if every node has either zero or one edges leaving it.  
+Hiearchical dependency structures, developed further, lead to the notion of contextual category (described  in \cite{Cartmell78} and subsequently published in \cite{Cartmell86}). \\
+
+\noindent
+ER modelling is enriched by documentation and exploitation (in software) of commutative diagrams and this leads 
+to significant improvement in database design methodology
+see \href{www.entitymodelling.org/blog/relationaldatadesign}{www.entitymodelling.org/blog/relationaldatadesign}. \\
+
+\noindent 
+Non-hierarchical dependency structures can be remodelled as hierarchical dependency structures. Nonetheless I would like to be able to formulate a non-hierarchical 
+generalisation of contextual categories. I have been unable to find a satisfactory way
+of doing this. \\
+
+\section{Use of a Dependent Types Model at Cyprotex}
+\noindent
+From 2001 to 2017, the author designed and developed laboratory support software at contract research organisation Cyprotex Discovery Ltd. who specialised in providing ADME and PK 
+services in support of drug discovery organisations and assaying thousands of chemical compounds per week.
+One of the challenges in designing software to support the provided services was the number of 
+laboratory protocols executed and the variation of these protocols not just day by day or customer by customer but compound by compound. Not only that but the nature and extent of this variation was continually changing. It was a challenge to define what became know as the service definitions and their accompanying service variables and to support continual (day by day) modification of these definitions. Without these service definitions we couldn't have an order form nor a formal representation of the work to be done for the customer.  
+\noindent To meet this challenge a subsystem was designed to manage the service definitions.
+This subsystem, supported by an Oracle database,  was based entirely on the concepts of dependent types. The system (as at October 2015) was implemented by David Roe. \\
+
+\noindent In the model implemented at Cyprotex, each service variable is introduced by a type rule in which the left hand side is a sequence of dependent types that do not use functions. Thus we have for example:
+\begin{align*}
+& \tstyle \isT{Species} \\
+& \ofT{x}{Species}\tstyle \isT{Strain(x)} \\
+& \ofT{x}{Species}\tstyle \isT{Sex(x)} \\
+\end{align*}
+\noindent and Strains and Sex have defaults:
+\begin{align*}
+& \ofT{x}{Species}\tstyle \ofT {defaultStrain(x)} {Strain(x)} \\
+& \ofT{x}{Species}\tstyle \ofT {defaultSex(x)} {Sex(x)} \\
+\end{align*}
+
+\noindent which can be depicted:
+
+\begin{equation}
+\begin{array}{ccc}
+\Rnode{B1}{Strain}&            &\Rnode{B2}{Sex}  \\ [0.8cm]
+               &\Rnode{A}{Species}& \\ [0.8cm]
+               &\Rnode{Abs}{1}&  
+\end{array}
+\ncsar{B1}{A}
+\ncsar{B2}{A}
+\ncsar{A}{Abs}  
+\ncarc[nodesep=5pt,arcangle=30]{->}{A}{B1}
+\ncarc[nodesepA=3pt,nodesepB=5pt,arcangle=-30]{->}{A}{B2}
+\end{equation}
+\\
+\noindent The remaining quantities are absolutes i.e constant elements:
+\begin{align*}
+& \tstyle \ofT{Rat}{Species} \\
+& \tstyle \ofT{SpragueDawley}{Strain(Rat)} \\
+& \tstyle \ofT{MALE}{Sex(Rat)} \\
+\end{align*}
+
+\noindent One service had the following types among the types of its service variables:
+
+\begin{align*}
+& \tstyle \isT{SingleIncubation} \\
+& \ofT{x}{SingleIncubation}\tstyle \isT{Method(x)} \\
+& \ofT{x}{SingleIncubation}, \ofT{y}{Method(x)}\tstyle \isT{HasMinusCofactorCtrl(x,y)} \\
+& \ofT{x}{SingleIncubation}, \ofT{y}{Method(x)}\tstyle \isT{CassetteAnalysis(x,y)} \\
+& \ofT{x}{SingleIncubation}, \ofT{y}{Method(x)},\ofT{z}{HasMinusCofactorCtrl(x,y)}\tstyle \isT{HasQCs(x,y,z)} \\
+\end{align*}
+
+
+\begin{equation}
+\begin{array}{ccc}
+\Rnode{D}{HasQCs}&            & \\ [0.8cm]
+\Rnode{C1}{HasMinusCofactorCtrl}&            &\Rnode{C2}{CassetteAnalysis}  \\ [0.8cm]
+               &\Rnode{B}{Method}& \\ [0.8cm]
+							 &\Rnode{A}{SingleIncubation}& \\ [0.8cm]
+               &\Rnode{Abs}{1}&  
+\end{array}
+\ncsar{D}{C1}
+\ncsar{C1}{B}
+\ncsar{C2}{B}
+\ncsar{B}{A}
+\ncsar{A}{Abs}  
+\end{equation}
+\\
+
+\noindent With sprinkling of syntactic sugar including formal parameter names then the rules for the
+absolute values for some of these types are as follows: \\
+\begin{align*}
+& \tstyle \ofT{False,True}{SingleIncubation} \\
+& \tstyle \ofT{Bulk Incubation, BulkMeCNDil,Cofactor Initiation}{Method(SingleIncubation=True)} \\
+& \tstyle \ofT{Yes}{HasMinusCofactorCtrl(SingleIncubation=True,Method=Bulk Incubation)} \\
+& \tstyle \ofT{No,Yes}{HasQCs(SingleIncubation=True,Method=Bulk Incubation,HasMinusCofactorCtrl=Yes)} \\
+\end{align*}
+
+\noindent
+A logical representation of the Cyprotex database schema for the representation of these rules is 
+given in figure \ref{serviceSortType} \\
+
+\erplainFig{serviceSortType}{H}{ER model for the Cyprotex Service Definitions}
+
+\bibliography{../SharedBibliography/temp/bibliography}
+
+\end{document}

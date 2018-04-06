@@ -1,0 +1,260 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{pstricks}
+\usepackage{pst-node}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage{enumerate}
+\input{../SharedMacros/ccategories.macros}
+\input{../SharedMacros/gats.macros}
+\input{../SharedMacros/metagat.macros}
+
+\title{Notation - supporting macros}
+\author{John Cartmell}
+
+\begin{document}
+\maketitle
+\section {Review }
+\vspace{5mm}
+
+
+\subsection {Macros for arrows and s-arrows}
+The following macros supplement the node connection macros (prefix 'nc') from pstricks and are implemented by combining pstricks 'nc' macros and put macros naput (put above) and nbput (put below). Arrowheads are either open or open triangles (representing S-morphisms).
+\begin{table}[h]
+	\centering
+		\begin{tabular}{|l |  p{5cm} | }
+		   \hline	   
+		   \verb!\ncarr[ang]{A}{B}! &  an arrow between nodes A and B optionally an arc of angle ang (default 0)\\
+		   \hline
+		 	 \verb!\jcbarr[ang]{f}{A}{B}! & an arrow f between nodes A and B labelled below optionally an arc of angle ang (default 0)\\
+		 	 \hline
+		 	 \verb!\ncaarr[ang]{f}{A}{B}! & an arrow f between nodes A and B labelled above optionally an arc of angle ang (default 0)\\
+			\hline	   
+		   \verb!\ncsarr[ang]{A}{B}! &  an S-arrow between nodes A and B optionally an arc of angle ang (default 0)\\
+		 	 \hline			
+		 	 \verb!\ncbsar[ang]{f}{A}{B}! & an S-arrow f between nodes A and B labelled below optionally an arc of angle ang (default 0)\\
+		 	 \hline
+		 	 \verb!\ncasar[ang]{f}{A}{B}! & an S-arrow f between nodes A and B labelled above optionally an arc of angle ang (default 0)\\
+		 	 \hline	   
+		   \verb!\nrsarr{A}{B}! &  a recursive S-arrow between nodes A and B i.e one that loops around\\ 
+			\hline		
+		\end{tabular}
+\end{table}
+
+\noindent For example:
+\begin{verbatim}
+\begin{center}
+$
+\begin{array}{p{2cm}p{0.5cm}p{0.5cm}p{0.5cm}}
+& & \Rnode{X}{X}& \\ [1.4cm]
+\Rnode{A}{A} & \Rnode{B1}{$B_1$} & ... & \Rnode{Bm}{$B_m$}\\
+\end{array}
+$
+\jcbarr{f}{A}{B1}
+\ncbsar{b_1}{X}{B1}
+\ncasar{b_m}{X}{Bm}
+\end{center}
+\end{verbatim}
+
+\noindent Results in:
+\begin{center}
+$
+\begin{array}{p{2cm}p{0.5cm}p{0.5cm}p{0.5cm}}
+& & \Rnode{X}{X}& \\ [1.4cm]
+\Rnode{A}{A} & \Rnode{B1}{$B_{1}$} & ... & \Rnode{Bm}{$B_{m}$}\\
+\end{array}
+$
+\jcbarr{f}{A}{B1}
+\ncbsar{b_1}{X}{B1}
+\ncasar{b_m}{X}{Bm}
+\end{center}
+\noindent The optional ang parameter can be used. Replace the s-morphisms in the example by
+\begin{verbatim}
+\ncbsar[-30]{$b_1$}{X}{B1}
+\ncasar[+30]{$b_m$}{X}{Bm}
+\end{verbatim}
+we get:
+\begin{center}
+$
+\begin{array}{p{2cm}p{0.5cm}p{0.5cm}p{0.5cm}}
+& & \Rnode{X}{X}& \\ [1.4cm]
+\Rnode{A}{A} & \Rnode{B1}{$B_{1}$} & ... & \Rnode{Bm}{$B_{m}$}\\
+\end{array}
+$
+\jcbarr{f}{A}{B1}
+\ncbsar[-30]{b_1}{X}{B1}
+\ncasar[30]{b_m}{X}{Bm}
+\end{center}
+\noindent The following lengths can be set using \\setlength command to control the way that the S-arrows are drawn:
+\begin{verbatim}
+\sarnodesepA
+\sarnodesepB
+\saroffsetA
+\saroffsetB
+\end{verbatim}
+For example:
+\begin{verbatim}
+\ncbsar[-30]{$b_1$}{X}{B1}
+\setlength {\saroffsetB}{-4pt}
+\ncasar[30]{$b_m$}{X}{Bm}
+\end{verbatim}
+\indent results in the following adjustment:
+\begin{center}
+$
+\begin{array}{p{2cm}p{0.5cm}p{0.5cm}p{0.5cm}}
+& & \Rnode{X}{X}& \\ [1.4cm]
+\Rnode{A}{A} & \Rnode{B1}{$B_{1}$} & ... & \Rnode{Bm}{$B_{m}$}\\
+\end{array}
+$
+\jcbarr{f}{A}{B1}
+\ncbsar[-30]{b_1}{X}{B1}
+\setlength {\saroffsetB}{-4pt}
+\ncasar[30]{b_m}{X}{Bm}
+\end{center}
+
+\subsubsection {Recursive S-arrow}
+
+\noindent
+Use macro \verb'\ncrsar', for example:
+\begin{verbatim}
+\begin{center}
+$
+\begin{array}{c c}
+\Rnode{abs}{1}  \\ [1.4cm]
+\Rnode{S0}{S_0} \\ [1.4cm]
+\Rnode{SR}{S_R} \\ [1.4cm]
+\end{array}
+$
+\ncsar{S0}{abs}
+\ncsar{SR}{S0}
+\ncrsar{SR}{SR}
+\end{center}
+\end{verbatim}
+gives:
+
+\begin{center}
+$
+\begin{array}{c c}
+\Rnode{abs}{1}  \\ [1.4cm]
+\Rnode{S0}{S_0} \\ [1.4cm]
+\Rnode{SR}{S_R} \\ [1.4cm]
+\end{array}
+$
+\ncsar{S0}{abs}
+\ncsar{SR}{S0}
+\ncrsar{SR}{SR}
+\end{center}
+
+
+\subsection {multi-arrows}
+
+\noindent Supplemental pstricks style macros for multi-arrows:
+
+\begin{table}[h]
+	\centering
+		\begin{tabular}{|l |  p{5cm} | }
+		   \hline
+		   \verb!\ncmarr{A1}{A2}{J}{B}! & multi-arrow with two domains \\
+		    \hline
+		   \verb!\ncamarr{f}{A1}{A2}{J}{B}! & multi-arrow with two domains and label above \\
+		   \hline
+		 	 \verb!\ncbmarr{f}{A1}{A2}{J}{B}! & multi-arrow with two domains and label below \\
+		 	 \hline
+		 	 \verb!\ncmarrr{A1}{A2}{A3}{J}{B}! & multi-arrow with three domains \\
+		 	 \hline
+		   \verb!\ncamarrr{f}{A1}{A2}{A3}{J}{B}! & multi-arrow with three domains and label above \\
+		   \hline
+		 	 \verb!\ncbmarrr{f}{A1}{A2}{A3}{J}{B}! & multi-arrow with three domains and label below \\
+		 	 \hline
+		\end{tabular}
+\end{table}
+Arcs of angle 8 are used for the branches leading from the domains to the junction point J and for the arrow from the junction J to the codomain.
+Two optional parameters allow these to be overridden.
+In the following example there is are call \verb!\ncamarr{f}{A1}{A2}{J1}{B1}{f}! and call
+\verb!\ncbmarrr{g}{A1}{A2}{A3}{J2}{B2}! :
+\setlength{\arraycolsep}{1cm}
+\begin{center}
+$
+\begin{array}{cccc}
+\Rnode{A1}{A_1}& & \\
+                & \Rnode{J1}{}& \Rnode{B1}{B_1} \\
+\Rnode{A2}{A_2}& & \\
+                &  \Rnode{J2}{}& \Rnode{B2}{B_2} \\
+\Rnode{A3}{A_3}& & \\
+\end{array}
+$
+\ncamarr{f}{A1}{A2}{J1}{B1}
+\ncbmarrr{g}{A1}{A2}{A3}{J2}{B2}
+
+\end{center}
+\setlength{\arraycolsep}{.2cm}
+
+\subsection{Macros for Rules}
+
+\begin{table}[h]
+	\centering
+\begin{tabular}{| l | l |}
+ \hline
+ \verb!\isT{X}!            &   $\isT{X}$        \\
+ \hline
+ \verb!\ofT{x}{X}!         &   $\ofT{x}{X}$     \\
+ \hline
+ \verb!\context{x}{X}{n}!     &   $\context{x}{X}{n}$ \\
+ \hline
+ \verb!\tstyle!               &   $\tstyle$ \\
+ \hline
+\end{tabular}
+\end{table}
+
+\noindent For example : \\
+
+\verb!\context{x}{X}{n} \tsyle \isT{X_n}!   
+gives \\
+\begin{equation}
+\context{x}{X}{n} \tstyle \isT{X}
+\end{equation}
+ 
+\subsection{Macros for Rules in MetaGAT}
+
+\begin{table}[h]
+	\centering
+\begin{tabular}{| l | l |}
+ \hline
+ \verb!\typ!         &   $\typ$    \\
+ \hline
+ \verb!\trm!         &   $\trm$     \\
+ \hline
+ \verb!\typeseq{x}{n}!  & $\typeseq{x}{n}$ \\
+ \hline
+ \verb!\typeseqcont{y}{x}{m}! & $\typeseqcont{y}{x}{m}$ \\
+ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Just to prove we can do it...}
+
+\noindent Take a look at this:
+\begin{equation}
+\left.\begin{array}{ccc}
+\Rnode{C}{C}   &            &                 \\ [0.8cm]
+\Rnode{B1}{B_1}&            &\Rnode{B2}{B_2}  \\ [0.8cm]
+               &\Rnode{A}{A}&                 \\
+\end{array}
+\qquad
+\right |
+\qquad
+\begin{aligned}
+&A\mbox{ is a type} \\
+&x\in A : B_1(x) \mbox{ is a type} \\
+&x\in A : B_2(x) \mbox{ is a type} \\
+&x\in A, y\in B_1(x): C(x,y) \mbox{ is a type}
+\end{aligned}
+\ncsar{C}{B1}
+\ncsar{B1}{A}
+\ncsar{B2}{A} 
+\end{equation}
+
+
+
+\end{document}

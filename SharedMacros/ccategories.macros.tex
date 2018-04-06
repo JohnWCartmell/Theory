@@ -1,0 +1,155 @@
+
+%ccategories.macros.tex 
+
+% Macros for diagrams in contextual categories and related categories
+
+\usepackage{twoopt}
+
+\newcommand{\base}{\triangleleft}
+\newcommand{\comp}{\circ}
+\newcommand{\cat}[1]{\textbf{#1}}
+
+% darrow
+\newcommand{\darrow}{\rightarrowtriangle}
+
+%pstrick supplements for arrows
+
+\newlength{\arrnodesepA}
+\newlength{\arrnodesepB}
+\newlength{\arroffsetA}
+\newlength{\arroffsetB}
+
+\newcommand{\arreset}{
+\setlength{\arrnodesepA}{0pt}
+\setlength{\arrnodesepB}{0pt}
+\setlength{\arroffsetA}{0pt}
+\setlength{\arroffsetB}{0pt}
+}
+\arreset
+
+\newcommand{\ncarr}[3][0]{
+\ncarc[arcangle=#1,nodesepA=\arrnodesepA,nodesepB=\arrnodesepB,offsetA=\arroffsetA,offsetB=\arroffsetB,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}
+}
+\newcommand{\jcbarr}[4][0]{ % ncbarr is defined in some thridy party package so do not use!\emph{}
+\ncarr[#1]{#3}{#4}
+\nbput{\footnotesize $#2$}
+}
+
+\newcommand{\ncaarr}[4][0]{
+\ncarr[#1]{#3}{#4}
+\naput{\footnotesize $#2$}
+}
+
+% pstrick supplements for s-arrows (previous name for d-arrow - should convert}
+
+\newlength{\sarnodesepA}
+\newlength{\sarnodesepB}
+\newlength{\saroffsetA}
+\newlength{\saroffsetB}
+\newlength{\sarnodesepAsav}
+\newlength{\sarnodesepBsav}
+
+\newcommand{\sarreset}{
+\setlength{\sarnodesepA}{0pt}
+\setlength{\sarnodesepB}{0pt}
+\setlength{\saroffsetA}{0pt}
+\setlength{\saroffsetB}{0pt}
+}
+
+\sarreset
+
+% sar - S-arrow
+\newcommand{\ncsar}[3][0]{
+\setlength{\sarnodesepAsav}{\sarnodesepA}
+\setlength{\sarnodesepBsav}{\sarnodesepB}
+\addtolength{\sarnodesepA}{3pt}
+\addtolength{\sarnodesepB}{7pt}
+\ncarc[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,arcangle=#1]{-}{#2}{#3}
+\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
+\setlength{\sarnodesepA}{\sarnodesepAsav}
+\setlength{\sarnodesepB}{\sarnodesepBsav}
+}
+% bsar - below labelled S-arrow
+\newcommand{\ncbsar}[4][0]{
+\ncsar[#1]{#3}{#4}
+\nbput{\footnotesize $#2$}
+}
+% asar - above labelled S-arrow
+\newcommand{\ncasar}[4][0]{
+\ncsar[#1]{#3}{#4}
+\naput{\footnotesize $#2$}
+}
+
+% rsar - recursive S-arrow
+\newcommand{\ncrsar}[2]{
+\setlength{\sarnodesepAsav}{\sarnodesepA}
+\setlength{\sarnodesepBsav}{\sarnodesepB}
+\addtolength{\sarnodesepA}{3pt}
+\addtolength{\sarnodesepB}{7pt}
+\ncloop[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,
+        offsetA=\saroffsetA,offsetB=\saroffsetB,
+        armA=0.7cm,armB=0.6cm,angleA=90,angleB=-90,loopsize=-1,linearc=0.4
+				]{-}{#1}{#2}
+\ncput[nrot=:R,npos=5]{\pstriangle(0,0)(.2,.2)}
+\setlength{\sarnodesepA}{\sarnodesepAsav}
+\setlength{\sarnodesepB}{\sarnodesepBsav}
+}
+
+% pstrick supplements for multi-arrows
+
+\newlength{\marnodesepA}
+\newlength{\marnodesepB}
+\newlength{\maroffsetB}
+\newlength{\marnodesepBsav}
+
+\newcommand{\marreset}{
+\setlength{\marnodesepA}{0pt}
+\setlength{\marnodesepB}{0pt}
+\setlength{\maroffsetB}{0pt}
+}
+
+\marreset
+
+%ncmarr[#1 arcangle1][#2 arcangle2]{#3 name}{#4 domain1}{#5 domain2}{#6 junction}{#7 codomain}
+\newcommandtwoopt{\ncmarr}[6][8][8]{%
+\ncarc[nodesepA=\marnodesepA,nodesepB=0,arcangle=#1]{-}{#3}{#5}
+\ncarc[nodesepB=0,arcangle=-#1]{-}{#4}{#5}
+\ncarc[arcangle=#2,nodesepB=\marnodesepB,offsetB=\maroffsetB]{->}{#5}{#6}
+}%
+
+
+\newcommandtwoopt{\nchmarr}[6][8][8]{%
+\ncarc[nodesepA=\marnodesepA,nodesepB=0,arcangle=#1]{-}{#3}{#5}
+\ncarc[nodesepB=0,arcangle=#1]{-}{#4}{#5}
+\ncarc[arcangle=#2,nodesepB=\marnodesepB,offsetB=\maroffsetB]{->}{#5}{#6}
+}%
+
+\newcommandtwoopt{\ncamarr}[7][8][8]{%
+\ncmarr[#1][#2]{#4}{#5}{#6}{#7}
+\naput[npos=.05]{$#3$}
+}%
+\newcommandtwoopt{\ncbmarr}[7][8][8]{%
+\ncmarr[#1][#2]{#4}{#5}{#6}{#7}
+\nbput[npos=.05]{$#3$}
+}%
+
+\newcommandtwoopt{\ncbhmarr}[7][8][8]{%
+\nchmarr[#1][#2]{#4}{#5}{#6}{#7}
+\nbput[npos=.05]{$#3$}
+}%
+
+\newcommandtwoopt{\ncmarrr}[7][8][8]{
+\ncarc[nodesepB=0,arcangle=#1]{-}{#3}{#6}
+\ncline[nodesepB=0]{-}{#4}{#6}
+\ncarc[nodesepB=0,arcangle=-#1]{-}{#5}{#6}
+\ncarc[nodesepA=0,arcangle=#2]{->}{#6}{#7}
+}
+
+\newcommandtwoopt{\ncamarrr}[8][8][8]{
+\ncmarrr[#1][#2]{#4}{#5}{#6}{#7}{#8}
+\naput[npos=.05]{$#3$}
+}
+\newcommandtwoopt{\ncbmarrr}[8][8][8]{
+\ncmarrr[#1][#2]{#4}{#5}{#6}{#7}{#8}
+\nbput[npos=.05]{$#3$}
+}
