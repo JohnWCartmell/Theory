@@ -15,6 +15,7 @@
 \input{../SharedMacros/gats.macros}
 \input{../SharedMacros/metagat.macros}
 \input{../SharedMacros/erdiagram}
+\input{../SharedMacros/theorems.macros}
 \usepackage{tipa}
 \usepackage{textcomp}
 \usepackage{mnsymbol}
@@ -470,6 +471,46 @@ $s(f \circ q(g,z))=s(f),$
 \end{tabular}  \\
 \vspace{.1cm}  \\
 \vspace{.03cm} \\
+
+
+\begin{lemma} [lemma s4]
+\label{s4}  
+For all morphisms $f: x \rightarrow y$ and $g:y \rightarrow z$,
+$$s(f \circ s(g)) = s(f \circ g)$$
+\end{lemma}
+\begin{proof}
+\begin{align*}
+s( f \circ s(g)) 
+    & = s( f \circ s(g)\circ q(g \circ p_z) , z ))  &\mbox{by axiom s3}\\
+    & = s(f \circ g) &\mbox{by axiom s2} 
+\end{align*}
+\end{proof}
+
+\begin{lemma} [lemma s5]
+\label{s5}  
+For all morphisms $f: x \rightarrow y$,
+$$s(s(f)) = s(f)$$
+\end{lemma}
+\begin{proof}
+
+Substitute $id_x$ for $f$  and $f$ for $g$ in lemma s4.
+
+\end{proof}
+
+
+\begin{lemma} [lemma s6]
+\label{s6}  
+For all morphisms $f: x \rightarrow y$ and $g:y \rightarrow z$,
+$$s( f \circ g) \circ q(f,  (g \circ p_z) \sub z )=f \circ s(g)$$
+\end{lemma}
+\begin{proof}
+\begin{align*}
+s( f \circ g) \circ q(f,  (g \circ p_z) \sub z )
+    & = s( f \circ s(g)) \circ q(f,  (g \circ p_z) \sub z )  &\mbox{by lemma s4}\\
+    & = s( f \circ s(g)) \circ q(f \circ s(g) \circ p_{(g \circ p_z) \sub z},  (g \circ p_z) \sub z )  &\mbox{by axiom s1}\\
+		& = f \circ s(g)  &\mbox{by axiom s2}
+\end{align*}
+\end{proof}
 
 \bibliography{../SharedBibliography/temp/bibliography}
  
