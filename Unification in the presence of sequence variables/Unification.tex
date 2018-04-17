@@ -101,6 +101,16 @@ non-empty non-singleton initial subsequence of the subterms $t_1,...t_m$ :
 \end{equation}
 
 \noindent
+Sequence variable $s_1$ replaced by $t_1$: 
+\begin{equation}
+ \label{s1mapstot1}
+ (s_1 \mapsto \langle t_1 \rangle)
+      .unify(\langle s_2,...s_n \rangle[\langle t_1 \rangle|s_1],
+             \langle t_2,...t_m \rangle[\langle t_1 \rangle|s_1]
+						) 
+\end{equation}	
+
+\noindent
 Sequence variable $t_1$ replaced by some
 non-empty non-singleton initial subsequence of the subterms $s_1,...t_n$ :
 \begin{equation}
@@ -111,15 +121,6 @@ non-empty non-singleton initial subsequence of the subterms $s_1,...t_n$ :
 						) }
 \end{equation}
 
-\noindent
-Sequence variable $t_1$ replaced by $s_1$:
-\begin{equation}
-\label{t1mapstos1}
- (t_1 \mapsto \langle s_1 \rangle)
-      .unify(\langle s_2,...s_n \rangle[\langle s_1 \rangle|t_1],
-             \langle t_2,...t_m \rangle[\langle s_1 \rangle|t_1]
-						)
-\end{equation}
 
 
 \noindent
@@ -127,7 +128,6 @@ Sequence variable $t_1$ replaced by $s_1$:
 
 \noindent
 The union of the following: \\
-
 
 \noindent
 Sequence variable $s_1$ replaced by empty:
@@ -140,14 +140,7 @@ Sequence variable $s_1$ replaced by empty:
 \end{equation}
 
 \noindent
-Sequence variable $s_1$ replaced by singleton $t_1$: 
-\begin{equation}
- \label{s1mapstot1}
- (s_1 \mapsto \langle t_1 \rangle)
-      .unify(\langle s_2,...s_n \rangle[\langle t_1 \rangle|s_1],
-             \langle t_2,...t_m \rangle[\langle t_1 \rangle|s_1]
-						) 
-\end{equation}	
+Sequence variable $s_1$ replaced by singleton $t_1$  as in equation (\ref{s1mapstot1}) above. \\
 
 \noindent
 Sequence variable $s_1$ replaced by some
@@ -161,8 +154,17 @@ as in equation \ref{s1extendst1} above. \\
 The union of the following: \\
 
 \noindent
-Sequence variable $t_1$ replaced by empty:
+Sequence variable $t_1$ replaced by $s_1$:
+\begin{equation}
+\label{t1mapstos1}
+ (t_1 \mapsto \langle s_1 \rangle)
+      .unify(\langle s_2,...s_n \rangle[\langle s_1 \rangle|t_1],
+             \langle t_2,...t_m \rangle[\langle s_1 \rangle|t_1]
+						)
+\end{equation}
 
+\noindent
+Sequence variable $t_1$ replaced by empty:
 \begin{equation}
  \label{t1empty}
  (t_1 \mapsto \langle \rangle)
@@ -171,8 +173,6 @@ Sequence variable $t_1$ replaced by empty:
 						) 
 \end{equation}
  
-\noindent
-Sequence variable $t_1$ replaced by $s_1$ as in equation (\ref{t1mapstos1}) above. \\
 
 \noindent
 Sequence variable $t_1$ replaced by some
@@ -186,11 +186,13 @@ The algorithm computes the union of the following:
 (\ref{s1emptyt1nonempty}) --- if both $s_1$ and $t_1$ are sequence variables \\
 (\ref{s1nonemptyt1empty}) --- if both $s_1$ and $t_1$ are sequence variables \\
 (\ref{s1extendst1}) --- if $s_1$ is a sequence variable  \\
+(\ref{s1mapstot1}) --- if $s_1$ is a sequence variable \\
 (\ref{t1extendss1}) --- if $t_1$ is a sequence variable \\
-(\ref{t1mapstos1}) --- if $t_1$ is a sequence variable \\
 (\ref{s1empty}) --- if $s_1$ is a sequence variable and $t_1$ is not\\
-(\ref{s1mapstot1}) --- if $s_1$ is a sequence variable and $t_1$ is not\\
+(\ref{t1mapstos1}) --- if $t_1$ is a sequence variable and $s_1$ is not\\
 (\ref{t1empty}) --- if $t_1$ is a sequence variable and $s_1$ is not \\
+
+
 \end{quote}
 
 \bibliography{../SharedBibliography/temp/bibliography}
