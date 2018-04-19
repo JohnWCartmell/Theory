@@ -512,6 +512,63 @@ s( f \circ g) \circ q(f,  (g \circ p_z) \sub z )
 \end{align*}
 \end{proof}
 
+\begin{lemma} [lemma s7\footnote{implemented as rule 17}]
+\label{s7}  
+For all morphisms $f: x \rightarrow y$ ,
+$$s(f) \circ q(f,p_y ) \sub y =f \circ s(id_y)$$
+
+\end{lemma}
+\begin{proof}
+
+We have $f: x \rightarrow y$ and $id_y:y \rightarrow y$ therefore by lemma s6 we
+have:
+$$s(f \circ id_y) \circ q(f, (id_y \circ p_y) \sub y )=f \circ s(id_y)$$
+\noindent
+Simplifying we get:
+$$s(f) \circ q(f,p_y) \sub y =f \circ s(id_y)$$
+as required.
+\end{proof}
+
+\begin{lemma} [lemma 30v]
+\label{30v}  
+For all morphisms $f: x \rightarrow y$ ,
+
+$$s(id_x) \circ q(s(f),(p_{(f \circ p_y) \sub y} \circ p_x) \sub x)) = s(f) \circ s( p_{(f \circ p_y) \sub y} )$$.
+\begin{center}
+\begin{displaymath}
+\begin{array}{c p{.5cm} c p{.01cm} c c}
+                   &&&& \Rnode{CLEFT}{}\Rnode{C}{(p_{(f \circ p_y) \sub y} \circ p_x) \sub x}  \\ [1.2cm]
+\Rnode{px*x}{p_x \sub x} &&&& \Rnode{D}{(f \circ p_y) \sub y}  \\ [1.2cm]
+           && \Rnode{x}{x} &&& \Rnode{y}{y} \\ [1.2cm]
+					&& \Rnode{xp}{x_p} \\ [0.2cm]  
+\end{array}
+\end{displaymath}
+\ncaarr{q(s(f),(p_{(f \circ p_y) \sub y} \circ p_x) \sub x)}{px*x }{CLEFT}
+\jcbarr{f}{x}{y}
+
+\ncbsar{p_{(f \circ p_y) \sub p_y }}{C}{D}
+\ncasar{p_{p_x \sub x}}{px*x}{x}
+\ncasar{}{D}{x}
+\ncbsar{p_x}{x}{xp}
+
+\ncarr[30]{x}{px*x }
+\naput[npos=0.7]{\footnotesize $s(id_x)$}
+\ncarr[-25]{x}{D}
+\nbput[npos=0.7]{\footnotesize $s(f)$}
+\jcbarr[-25]{s(p_{f \circ p_y} \sub y)}{D}{C}
+%\nbput[npos=0.5]{\footnotesize $s(p_(f \circ p_y) \sub y)$}
+
+\end{center}
+\end{lemma}
+\begin{proof}
+\begin{align*}
+s(id_x) \circ q(s(f),(p_{(f \circ p_y) \sub y} \circ p_x) \sub x))
+    & = s(s(f) \circ p_{(f \circ p_y) \sub y}) \circ q(s(f), (p_{(f \circ p_y) \sub y} \circ p_x) \sub x) &\mbox{by axiom s is a section}\\
+    & = s(f) \circ s( p_{(f \circ p_y) \sub y} )&\mbox{by lemma s6}\\
+\end{align*}
+\end{proof}
+
+
 \bibliography{../SharedBibliography/temp/bibliography}
  
 \end{document}
