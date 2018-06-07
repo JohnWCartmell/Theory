@@ -38,21 +38,14 @@
 \bibliographystyle{plain}
 
 \section{Introduction}
-The syntactical notion of \textit{generalised algebraic theory} (GAT) and the  equivalent algebraic notion of \textit{contextual category} were introduced in my thesis \cite{Cartmell78} and published in \cite{Cartmell86}. Whereas generally the objects of categories can be taken to represent types, the objects of a contextual categories can be taken to represent what I have described as `types that vary' but which subsequently have become know as dependent types. 
+The syntactical notion of \textit{generalised algebraic theory} (GAT) and the  equivalent algebraic notion of \textit{contextual category} were introduced in  \cite{Cartmell78} and summarised in \cite{Cartmell86}. Whereas generally the objects of categories can be taken to represent types, the objects of a contextual categories can be taken to represent what I have described as `types that vary' but which subsequently have become know as dependent types. Equally they can be taken to represent contexts: the algebra of contextual categories is an algebra of context. 
 
 I remarked in
 \cite{Cartmell78} that the theory of contextual categories can be expressed as a generalised algebraic theory by the axiomatisation of identity types on the morphism types of the category 
-(the identity types are required in order to phrase the pullback structure required by the definition of contextual category). The remark is made in order to point out that contextual categories are a generalised algebraic equivalent of GATs and that, in this sense, the machinary of GATs is self-descriptive. The same thing cannot be said of Lawvere algebraic theories nor of many-sorted algebraic theories.  
+(the identity types are required in order to phrase the pullback structure required by the definition of contextual category). I made the remark in order to point out that contextual categories are a generalised algebraic equivalent of GATs and that, in this sense, the machinary of GATs is able to self-describe.  The same thing cannot be said of Lawvere algebraic theories nor of many-sorted algebraic theories.  
 
-At the time I made that remark I would have much preferred to find a way of theorising
-contextual categories by means of a GAT that didn't have additional types (the identity types);  their introduction seemed to me not to be in the spirit of algebra. 
-Subsequently Voevodsky in \cite{Voevodsky14C} has shown that identity types are not needed; he introduces an operator `s' which cannonically maps any morphism to a representative section; he shows that suitably axiomatised this implies the existence of pullbacks.  The purpose of this paper is to document the generalised algebraic theory
-of contextual categories which results from following this approach -- the GAT of 
-contextual categories is expressed without introducing types to represent identity of morphisms; its sorts are just those that represent objects and morphisms of the category.  
-
-Note that Voevodsky took exception to my use of the name \textit{contextual category} and used
-the name \textit{C-system} in its place. This is not a material difference; it is a 
-difference of terminology.
+ Voevodsky in \cite{Voevodsky14C} has shown a better way of representing contextual categories as generalised algebraic which doesn't necessitate the introdution of types other than those for objects and morphisms. To do this he introduces an operator `s' which cannonically maps any morphism to a representative section; he shows that suitably axiomatised this implies the existence of pullbacks.  The purpose of this paper is to document the generalised algebraic theory
+of contextual categories which results from following this approach. Note that Voevodsky used the term \textit{C-system} in place of \textit{contextual category}.
 
 To give readability to the theory we introduce a schematic notation for representing chains of dependent variables. As a prelude to presenting the theory we first present two simpler but related theories (previously presented in \cite{Cartmell78} and \cite{Cartmell86}): the GAT of categories and the GAT of trees.
 
@@ -193,7 +186,7 @@ For an example of the modelling of recursive relationships in the definition of 
 \section{Definition of Contextual Categories}
 \subsection {The GAT of Tree-Structured Categories}
 
-By a tree-structured category we mean (i) a category with a tree-structure defined on its objects such that the tree of objects has a unique root object and (ii) for every $A \base B$ in the tree of objects  a cannonical morphism $p_B:B \rightarrow A$ this morphism will be distinguished in diagrams by an arrow with  
+By a tree-structured category we mean (i) a category with a tree-structure defined on its objects such that the tree of objects has a unique root object and (ii) for every $A \base B$ in the tree of objects  a cannonical morphism $p_B:B \rightarrow A$. This morphism will be distinguished in diagrams by an arrow with  
 a triangular head so:
 
 \begin{center}
@@ -248,8 +241,8 @@ $f = t_n(x),  $ whenever $ \ofObi{x}{n}, \ f \in \Homij{n}{0}(x,1)$\\ [0.25cm]
 \vspace{.05cm}  \\
 
 \noindent
-For ease of reading in what follows we omit the numeric subscripts, use and infix notation and write $f \circ g$ inplace of $\circ (f,g)$ 
-and we also write $p_x$ for $p(x)$ and $t_x$ for $t(x)$.
+For ease of reading in what follows we omit the numeric subscripts and also use an infix notation, writing $f \circ g$ inplace of $\circ (f,g)$;
+we also write $p_x$ for $p(x)$ and $t_x$ for $t(x)$.
 
 \subsection{Contextual Categories}
 
@@ -269,7 +262,13 @@ $
 \jcbarr{f}{x}{y}
 \ncasar{p_z}{z}{y}
 
-in \cat{C}, an object $f \sub z$ such that $x \base f \sub z$, a morphism $q(f,z): f \sub z \rightarrow z$ such that the diagram:
+in \cat{C}, an object $f \sub z$ such that $x \base f \sub z$, a morphism $q(f,z): f \sub z \rightarrow z$ such that
+
+\begin{tageqn}{q1}
+q(f,z) \circ p_z = p_{f \sub z} \circ f
+\end{tageqn}
+
+i.e. such that the diagram:
 
 \vspace{3mm}
 \begin{center}
@@ -287,21 +286,22 @@ in \cat{C}, an object $f \sub z$ such that $x \base f \sub z$, a morphism $q(f,z
 commutes, 
 
 \noindent
-(ii) and such that each such diagram is a pullback diagram, that is: for all objects $w$ of \cat{C}, and for all
-morphisms $h_1: w \rightarrow x$ and $h_2: w \rightarrow z$ (see diagram below) such that
+and, (ii), so that each such diagram is a pullback diagram, that is: for all objects $w$ of \cat{C}, and for all
+morphisms $h_1: w \rightarrow x$ and $h_2: w \rightarrow z$ (see diagram \ref{pullback} below) such that
 $h_1 \circ f = h_2 \circ p_z$ 
 there exists a unique $h:w \rightarrow f \sub z$ in \cat{C} such that
 $h \circ p_{f \sub z} = h_1$ and $h \circ q(f,z) = h_2$.
 
 \vspace{3mm}
 \begin{center}
-\begin{displaymath}
+\begin{equation}
+\label{pullback}
 \begin{array}{cp{0.5cm}cp{1.2cm}c}
 \Rnode{w}{w} &&                     &&           \\ [0.7cm]
              &&\Rnode{fstarz}{f^*z} && \Rnode{z}{z}\\ [1.2cm]
              &&\Rnode{x}{x}         && \Rnode{y}{y}
 \end{array}
-\end{displaymath}
+\end{equation}
 \ncbsar{p_{f \sub z}}{fstarz}{x}
 \jcbarr{f}{x}{y}
 \ncaarr{q(f,z)}{fstarz}{z}
@@ -313,20 +313,19 @@ $h \circ p_{f \sub z} = h_1$ and $h \circ q(f,z) = h_2$.
 \ncaarr{h}{w}{fstarz}
 \end{center}
 
- 
-
 \vspace {0.25cm}
-\noindent (iii) whenever $x \base y$ in \cat{C}, 
-\begin{equation}
+\noindent and so that (iii) whenever $x \base y$ in \cat{C}, 
+\begin{tageqn}{q2}
 id_x^*y=y
-\end{equation}
+\end{tageqn}
 
 and
 
-\begin{equation}
+\begin{tageqn}{q3}
 q(id_x,y) = id_y
-\end{equation}
-\vspace{0.2cm}
+\end{tageqn}
+
+
 
 \noindent (iv) whenever 
 $
@@ -342,46 +341,48 @@ in \cat{C},
 
 then
 
-\begin{equation}
+\begin{tageqn}{q4}
 (f \circ g)^*z =  f^* (g ^* z)
-\end{equation}
+\end{tageqn}
 
 and 
-\begin{equation}
+\begin{tageqn}{q5}
 q(f \circ g,z) = q(f,g^*z) \circ q(g,z)
-\end{equation}
-
+\end{tageqn}
 
 \subsubsection{Equational Definition following Voevodsky}
-Following Voevodsky, however, we may replace the pullback condition, (ii), by additional structure (ii') as follows:
+Following Voevodsky, however, we may replace the pullback condition, (ii), above, by additional structure as follows:
 
-\noindent (ii') for all morphisms $f: x \rightarrow y$ a morphism $s(f) : x \rightarrow f \sub p_y \sub y$ as shown here:
+\noindent (ii') for all morphisms $f: x \rightarrow y$, a morphism $s(f) : x \rightarrow f \sub p_y \sub y$ such that:
 
+\begin{tageqn}{s1}
+s(f) \circ p_{f\sub p_y \sub y}=id_x
+\end{tageqn}
+
+\noindent and
+
+\begin{tageqn}{s2}
+s(f) \circ q( f \circ p_y     ,y)=f
+\end{tageqn}	
+
+\noindent i.e. such that the following diagrams commute:
 \begin{center}
 \begin{displaymath}
-\begin{array}{cp{.9cm}c}
-\Rnode{fXyy}{f\sub p_y \sub y} & & \Rnode{yXy}{p_y \sub y}\\ [1.2cm]
-\Rnode{x}{x}         & & \Rnode{y}{y}
+\begin{array}{cccp{1.cm} cp{.9cm}c}
+&\Rnode{fXyyM}{f\sub p_y \sub y}&  & &  \Rnode{fXyy}{f\sub p_y \sub y} & & \Rnode{yXy}{p_y \sub y}\\ [1.2cm]
+\Rnode{xL}{x} & &\Rnode{xR}{x} & &\Rnode{x}{x}         & & \Rnode{y}{y}
 \end{array}
 \end{displaymath}
 \ncasar{p_{f\sub p_y \sub y}}{fXyy}{x}
 \jcbarr{f}{x}{y}
 \ncaarr{q(f,p_y \sub y)}{fXyy}{yXy}
 \ncasar{p_{p_y \sub y}}{yXy}{y}
-\ncaarr[30]{s(f)}{x}{fXyy}
+\ncaarr{s(f)}{xL}{fXyyM}
+\ncasar{p_{f\sub p_y \sub y}}{fXyyM}{xR}
+\jcbarr{id_x}{xL}{xR}
 \end{center}
 
-such that 
-\begin{equation}
-s(f) \circ p_{f\sub p_y \sub y}=id_x
-\end{equation}
-
-and
-
-\begin{equation}
-s(f) \circ q( f \circ p_y     ,y)=f, 
-\end{equation}	
-
+\noindent
 and such that whenever
 
 \begin{center}
@@ -398,37 +399,123 @@ and such that whenever
 \ncasar{}{z}{y}
 \end{center}
 
-in \cat{C} then
+\noindent in \cat{C} then
 
-\begin{equation}
+\begin{tageqn}{s3}
 s(f \circ q(g,z))=s(f)
-\end{equation}
+\end{tageqn}
 
-which is well-typed because
-
-
+\noindent
+This equation is well-typed because
 \begin{align*}
       lhs = &\ofT{s(f \circ q(g,z))} {Hom(w,(f \circ q(g,z) ) \sub p_z \sub z} ) \\
       rhs = &\ofT{s(f)} {Hom(w,(f \circ   p_{g \sub z} ) \sub  g \sub z } )\\
 \end{align*}
-
 and
-
 \begin{equation*}
      Hom(w,(f \circ q(g,z) ) \sub p_z \sub z ) = Hom(w,(f \circ   p_{g \sub z} ) \sub  g \sub z )
 \end{equation*}
-
 because
 \begin{align*}
 (f \circ q(g,z) ) \sub p_z \sub z 
-                 & = f \sub ((q(g,z) \circ p_z) \sub z \\
-                 & = f \sub ( p_{g \sub z} \circ g ) \sub z\\
-                 & = (f \circ   p_{g \sub z} ) \sub  g \sub z
+                 & = f \sub ((q(g,z) \circ p_z) \sub z &\mbox{by (\ref{q4})}\\
+                 & = f \sub ( p_{g \sub z} \circ g ) \sub z&\mbox{by (\ref{q1})}\\
+                 & = (f \circ   p_{g \sub z} ) \sub  g \sub z&\mbox{by (\ref{q4})}
 \end{align*}
+
+\subsubsection{Construction of pullbacks ( Voevodsky)}
+
+
+
+\begin{lemma}
+ If \cat{C} is a tree-structured category with operations, q, * and s satisfying
+axioms q1-q5 and s1-s3 then for all objects $w$ of \cat{C}, and for all
+morphisms $h_1: w \rightarrow x$ and $h_2: w \rightarrow z$  such that
+
+$h_1 \circ f = h_2 \circ p_z$ 
+there exists a unique $h:w \rightarrow f \sub z$ in \cat{C}   such that
+$h \circ p_{f \sub z} = h_1$ and $h \circ q(f,z) = h_2$.
+\end{lemma}
+\begin{proof}
+
+Use the following construction of such an $h$ as given by Voevodsky  (see diagram (\ref{voevodsky}):
+\begin{equation}
+h = s(h_2) \circ q(h_1,f \sub z)
+\end{equation}
+as shown in the following diagram:
+\vspace{3mm}
+\begin{center}
+\begin{equation}
+\label{voevodsky}
+\begin{array}{cp{0.5cm}cp{1.2cm}c}
+\Rnode{gpz}{(g_2 \circ p_z)\sub z = g_1 \sub f \sub z} &&    &&   \\ [1.7cm]
+\Rnode{w}{w} &&                     &&           \\ [0.3cm]
+             &&\Rnode{fstarz}{f^*z} && \Rnode{z}{z}\\ [1.2cm]
+             &&\Rnode{x}{x}         && \Rnode{y}{y}
+\end{array}
+\end{equation}
+\ncbsar{p_{f \sub z}}{fstarz}{x}
+\jcbarr{f}{x}{y}
+\ncaarr{q(f,z)}{fstarz}{z}
+\ncasar{p_z}{z}{y}
+\setlength{\arrnodesepA}{3pt}
+\jcbarr[-35]{h_1}{w}{x}
+\ncaarr[35]{}{w}{z}
+\naput[labelsep=0.05]{\footnotesize $h_2$}
+\ncaarr[30]{s(g_2)}{w}{gpz}
+\ncasar{p_{g_1 \sub f \sub z}}{gpz}{w}
+\ncaarr[10]{}{gpz}{fstarz}
+\naput[npos=0.3, labelsep=0.05]{\footnotesize $q(g_1,f \sub z)$}
+\psset{linestyle=dashed}
+\ncaarr{h}{w}{fstarz}
+\end{center}
+\noindent
+As required we have 
+\begin{align*}
+h \circ p_{f \sub z}
+                 & = s(h_2) \circ q(h_1,f \sub z) \circ p_{f \sub z} &\\
+                 & = s(h_2) \circ p_{h_1 \sub f \sub z} \circ h_1 &&\mbox{by (\ref{q1})}\\
+								& = s(h_2) \circ p_{(h_1 \circ f) \sub z} \circ h_1 &&\mbox{by (\ref{q4})}\\
+								& = s(h_2) \circ p_{(h_2 \circ p_z) \sub z} \circ h_1 &&\mbox{since }h_1 \circ f = h_2 \circ p_z \\
+                 & = h_1                                              &&\mbox{by (\ref{s1})}
+\end{align*}
+\noindent
+and we have:
+
+\begin{align*}
+h \circ q(f,z)
+                 & = s(h_2) \circ q(h_1,f \sub z) \circ q(f,z) &\\
+                 & = s(h_2) \circ q(h_1 \circ f,z)   &&\mbox{by (\ref{q5})}\\
+								 & = s(h_2) \circ q(h_2 \circ p_z ,z)&&\mbox{since }h_1 \circ f = h_2 \circ p_z \\
+                 & = h_2  \circ id_w                 &&\mbox{by (\ref{s2})}
+								 & = h_2
+\end{align*}
+
+\noindent 
+To show that such an $h$ is unique assume that we also have $h'$ satisfying
+\begin{equation}
+\label{hprime1}
+h' \circ p_{f \sub z} = h_1
+\end{equation}
+and
+\begin{equation}
+\label{hprime2}
+h' \circ q(f,z) = h_2
+\end{equation}
+\noindent then
+\begin{align*}
+h'
+        & = s(h')              \circ q(h' \circ p_{f \sub z},f \sub z) &&\mbox{by (\ref{s2})}\\
+			  & = s(h' \circ q(f,z)) \circ q(h' \circ p_{f \sub z},f \sub z)&&\mbox{by \ref{s3} }\\
+        & = s(h  \circ q(f,z)) \circ q(h \circ p_{f \sub z},f \sub z) &&\mbox{by (\ref{hprime1}) and (\ref{hprime2})} \\
+				& = s(h)               \circ q(h \circ p_{f \sub z},f \sub z) &&\mbox{by (\ref{s3})}\\
+				& = h                                                         &&\mbox{by (\ref{s2})}
+\end{align*}
+\end{proof}
 
 \subsection{GAT of Contextual Categories}
 
-\noindent Following Voevosky's insight, the GAT of Contextual Categories is defined to be the GAT of Tree-Structured Categories plus
+\noindent To summarise, the GAT of Contextual Categories is defined to be the GAT of Tree-Structured Categories plus
 the following additional structure: \\
 \vspace{0.1cm} 
 \begin{tabular}{>{\itshape}l l}
@@ -475,7 +562,7 @@ $s(f \circ q(g,z))=s(f),$
 
 \begin{lemma} [lemma s4]
 \label{s4}  
-For all morphisms $f: x \rightarrow y$ and $g:y \rightarrow z$,
+If \cat{C} is a contextual category then for all morphisms $f: x \rightarrow y$ and $g:y \rightarrow z$ in \cat{C},
 $$s(f \circ s(g)) = s(f \circ g)$$
 \end{lemma}
 \begin{proof}
@@ -557,7 +644,6 @@ $$s(id_x) \circ q(s(f),(p_{(f \circ p_y) \sub y} \circ p_x) \sub x)) = s(f) \cir
 \nbput[npos=0.7]{\footnotesize $s(f)$}
 \jcbarr[-25]{s(p_{f \circ p_y} \sub y)}{D}{C}
 %\nbput[npos=0.5]{\footnotesize $s(p_(f \circ p_y) \sub y)$}
-
 \end{center}
 \end{lemma}
 \begin{proof}
@@ -567,6 +653,64 @@ s(id_x) \circ q(s(f),(p_{(f \circ p_y) \sub y} \circ p_x) \sub x))
     & = s(f) \circ s( p_{(f \circ p_y) \sub y} )&\mbox{by lemma s6}\\
 \end{align*}
 \end{proof}
+
+\begin{lemma} [lemma sinjection]
+\label{s4}  
+If \cat{C} is a contextual category then for all morphisms $f: x \rightarrow y$ and $f':x \rightarrow y$ in \cat{C},
+if $s(f)=s(f')$ and $f \circ p_y=f' \circ p_y$ then $f=f'$.
+\end{lemma}
+\begin{proof}
+\begin{align*}
+f 
+    & = s(f)  \circ q(f \circ p_y),y)  &&\mbox{by axiom \ref{s2}}\\
+    & = s(f') \circ q(f'\circ p_y),y)  &&\mbox{from givens}\\
+		& = f'                             &&\mbox{by axiom \ref{s2}}
+\end{align*}
+\end{proof}
+
+\subsection{Extended * Notation}
+Use of the $\sub$ notation can be extended in two ways.
+\subsubsection{Extending * to Morphisms}
+If $f:x \rightarrow y_p$ in a contextual category \cat{C}, and if $y_p \base y_1$ and $y_p \base y_2$ and 
+$g: y_1 \rightarrow y_2$ in \cat{C} such that $g \circ p_{y_2}=p_{y_1}$ then we can use the Voevodsky construction (or, equally, the pullback structure)
+and define a morphism $f\sub g:f \sub y_1 \rightarrow f \sub y_2$ by:
+\begin{equation}
+f \sub g = s(q(f,y_1) \circ g) \circ q(p_{f \sub y_1},f \sub y_2)
+\end{equation}
+as shown in the following diagram:
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{cccp{1.5cm}ccc}
+ \Rnode{fy1}{f \sub y_1} &     & \Rnode{fy2}{f \sub y_2} && \Rnode{y1}{\ \ y_1} &       & \Rnode{y2}{\ \ y_2}\\ [1.2cm]
+                         &\ \ \Rnode{x}{x}\ \ &                  &&                 &\ \ \Rnode{y_p}{y}\ \ &            
+\end{array}
+\end{displaymath}
+\psset{labelsep=0.05}
+\ncbsar{p_{f \sub y_1}}{fy1}{x}
+\ncasar{}{fy2}{x}
+\ncbsar{p_{y_1}}{y1}{y_p}
+\ncasar{p_{y_2}}{y2}{y_p}
+\jcbarr{f}{x}{y_p}
+\ncaarr{g}{y1}{y2}
+\ncaarr[35]{q(f,y_1)}{fy1}{y1}
+\ncaarr[25]{q(f,y_2)}{fy2}{y2}
+\ncaarr[55]{q(f,y_1) \circ g}{fy1}{y2}
+\psset{linestyle=dashed}
+\ncaarr{f\sub g}{fy1}{fy2}
+\end{center}
+
+Now we have:
+\begin{align*}
+f \sub g \circ p_{f \sub y_2}
+    & = s(q(f,y_1) \circ g) \circ q(p_{f \sub y_1},f \sub y_2) \circ p_{f \sub y_2}  &&\mbox{by defn.}\\
+    & = s(q(f,y_1) \circ g) \circ p_{(p_{f \sub y_1})\sub {f \sub y_2}} \circ p_{f \sub y_1}  &&\mbox{by \ref{q1}}\\
+		& = s(q(f,y_1) \circ g) \circ p_{(p_{f \sub y_1} \circ f) \sub y_2} \circ p_{f \sub y_1}  &&\mbox{by \ref{q4}}\\
+		& = s(q(f,y_1) \circ g) \circ q(f,y_1) \circ p_{y_1} \circ p_{f \sub y_1}  &&\mbox{by \ref{q1}}\\
+		& = s(q(f,y_1) \circ g) \circ q(f,y_1) \circ g \circ p_{y_2} \circ p_{f \sub y_1}  &&\mbox{since $g \circ p_{y_2}=p_{y_1}$}\\
+		& = p_{f \sub y_1}                             &&\mbox{by axiom \ref{s1}}
+\end{align*}
+\noindent (This proof more long-winded than I feel it needs to be. Drop suffixes to p's and rely ion well-typed-ness would be simpler.No - woprse something not right.)
 
 
 \bibliography{../SharedBibliography/temp/bibliography}
