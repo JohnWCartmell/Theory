@@ -667,10 +667,17 @@ f
 		& = f'                             &&\mbox{by axiom \ref{s2}}
 \end{align*}
 \end{proof}
-
-\subsection{Extended * Notation}
-Use of the $\sub$ notation can be extended in two ways.
-\subsubsection{Extending * to Morphisms}
+\section{Project - 7th June 2018 }
+At the broadest level :
+\begin{enumerate}[I]
+	\item define and prove the equivalence between contextual categories and meta-GAT algebras
+	\item give an alternative definition of the category of contextual categories as a fixed point of a higher-order functor
+	\item develop the way of talking about, postulating, imagining context that motivates context algebra. 
+\end{enumerate}
+\section{I. Equivalent Algebras}
+\subsection{I.A Alternative operators and axioms for Contextual Categories.}
+\subsubsection{Extending $\sub$ to local morphisms.}
+ 
 If $f:x \rightarrow y_p$ in a contextual category \cat{C}, and if $y_p \base y_1$ and $y_p \base y_2$ and 
 $g: y_1 \rightarrow y_2$ in \cat{C} such that $g \circ p_{y_2}=p_{y_1}$ then we can use the Voevodsky construction (or, equally, the pullback structure)
 and define a morphism $f\sub g:f \sub y_1 \rightarrow f \sub y_2$ by:
@@ -681,21 +688,27 @@ as shown in the following diagram:
 
 \begin{center}
 \begin{displaymath}
-\begin{array}{cccp{1.5cm}ccc}
- \Rnode{fy1}{f \sub y_1} &     & \Rnode{fy2}{f \sub y_2} && \Rnode{y1}{\ \ y_1} &       & \Rnode{y2}{\ \ y_2}\\ [1.2cm]
+\begin{array}{lccp{2.0cm}ccc}
+\Rnode{TOP}{{p_{f \sub y_1}}\sub {f \sub y_2}} &   &  &&  &       & \\ [2.5cm]
+
+ \Rnode{fy1}{f \sub y_1} &     & \Rnode{fy2}{f \sub y_2} && \Rnode{y1}{\ \ y_1} &       & \Rnode{y2}{\ \ y_2}\\ [1.4cm]
                          &\ \ \Rnode{x}{x}\ \ &                  &&                 &\ \ \Rnode{y_p}{y}\ \ &            
 \end{array}
 \end{displaymath}
 \psset{labelsep=0.05}
 \ncbsar{p_{f \sub y_1}}{fy1}{x}
-\ncasar{}{fy2}{x}
+\ncasar{p_{f \sub y_2}}{fy2}{x}
 \ncbsar{p_{y_1}}{y1}{y_p}
 \ncasar{p_{y_2}}{y2}{y_p}
+\ncasar[0]{p_{{{p_{f \sub y_1}}\sub {f \sub y_2}}}}{TOP}{fy1}
 \jcbarr{f}{x}{y_p}
 \ncaarr{g}{y1}{y2}
-\ncaarr[35]{q(f,y_1)}{fy1}{y1}
+\ncaarr[25]{q(f,y_1)}{fy1}{y1}
 \ncaarr[25]{q(f,y_2)}{fy2}{y2}
-\ncaarr[55]{q(f,y_1) \circ g}{fy1}{y2}
+\ncaarr[45]{q(f,y_1) \circ g}{fy1}{y2}
+\ncaarr[15]{}{TOP}{fy2}
+\naput[npos=0.3]{\footnotesize $q(p_{f \sub y_1},f \sub y_2)$}
+\ncaarr[80]{s(q(f,y_1) \circ g)}{fy1}{TOP}
 \psset{linestyle=dashed}
 \ncaarr{f\sub g}{fy1}{fy2}
 \end{center}
@@ -706,11 +719,94 @@ f \sub g \circ p_{f \sub y_2}
     & = s(q(f,y_1) \circ g) \circ q(p_{f \sub y_1},f \sub y_2) \circ p_{f \sub y_2}  &&\mbox{by defn.}\\
     & = s(q(f,y_1) \circ g) \circ p_{(p_{f \sub y_1})\sub {f \sub y_2}} \circ p_{f \sub y_1}  &&\mbox{by \ref{q1}}\\
 		& = s(q(f,y_1) \circ g) \circ p_{(p_{f \sub y_1} \circ f) \sub y_2} \circ p_{f \sub y_1}  &&\mbox{by \ref{q4}}\\
-		& = s(q(f,y_1) \circ g) \circ q(f,y_1) \circ p_{y_1} \circ p_{f \sub y_1}  &&\mbox{by \ref{q1}}\\
-		& = s(q(f,y_1) \circ g) \circ q(f,y_1) \circ g \circ p_{y_2} \circ p_{f \sub y_1}  &&\mbox{since $g \circ p_{y_2}=p_{y_1}$}\\
+		& = s(q(f,y_1) \circ g) \circ {p_{q(f,y_1) \circ p_{y_1}}} \sub y_2 \circ p_{f \sub y_1}  &&\mbox{by \ref{q1}}\\
+		& = s(q(f,y_1) \circ g) \circ {p_{q(f,y_1) \circ g \circ p_{y_2}}} \sub y_2 \circ p_{f \sub y_1}  &&\mbox{since $g \circ p_{y_2}=p_{y_1}$}\\
 		& = p_{f \sub y_1}                             &&\mbox{by axiom \ref{s1}}
 \end{align*}
-\noindent (This proof more long-winded than I feel it needs to be. Drop suffixes to p's and rely ion well-typed-ness would be simpler.No - woprse something not right.)
+\noindent (This proof more long-winded than I feel it needs to be. Drop suffixes to p's and rely on well-typed-ness would be simpler.)
+
+\begin{lemma} 
+\label{fstarfunctorial1}  
+If $f:x \rightarrow y_p$ in a contextual category \cat{C}, then
+\begin{enumerate} [(i)]
+	\item if $y_P \base y$  then $f \sub id_y = id_{f \sub y}$,
+	\item $y_p \base y_1$, $y_p \base y_2$ and $y_p \base y_3$ and if $g_1: y_1 \rightarrow y_2$ and $g_2: y_2 \rightarrow y_3$ then
+	$f \sub (g_1 \circ g_2) = f \sub g_1 \circ f \sub g_2$
+\end{enumerate}
+\end{lemma}
+
+\subsubsection {Extending $\sub$ to sections}
+If $f:x \longrightarrow y_p$ and $y_p \base y$, if $g:y_p \longrightarrow y$ is a section i.e. if $g \circ p_y = id_{y_p}$, then
+define $f \sub g$ to be the morphism $s(f \circ g)$. \\
+
+
+\noindent Show that $s(f \circ g) : x \longrightarrow f \sub y$.
+
+\noindent show that if g is a section that f sub g is a section.
+
+\begin{lemma} 
+\label{fstarfunctorial2}  
+If $f:x \rightarrow y_p$ in a contextual category \cat{C},
+$y_p \base y_1$ and $y_p \base y_2$,
+if $g:y_p \longrightarrow y_1$ is a section
+ if $h: y_1 \rightarrow y_2$ is local to $y_p$
+ then
+	$f \sub (g \circ h) = f \sub g \circ f \sub h$.
+\end{lemma}
+
+\subsubsection {Definition of $\delta$}
+
+If x is an object of a contextual category \cat{C} then define $\delta_x: x \longrightarrow p_x \sub x$ to be
+the morphism $s(id_x)$.
+
+\begin{lemma}
+\label {deltalemma}
+If x is an object of a contextual category \cat{C} then $\delta_x$ satisfies:
+\begin{enumerate}[(i)]
+\item $\delta_x$ is a section i.e $\delta_x \circ p_x = id_x$.
+\item $\delta_x \circ q(p_x,x) = id_x$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Follows from definition of $\delta$ and from axioms \ref{s1} and axiom \ref{s3}.
+\end{proof}
+
+\subsection{I.B Detailed proof that this is an alternative axiom system.}
+Need to fill this in to know what lemmas necessary above the axioms should be.
+Define s as f \sub delta_x . 
+
+Need prove 
+
+
+\subsection{I.C Show meta-GAT axioms hold of the extended $\sub$, $\cross$, $\delta$
+operations}.
+\subsection {I.D Show that contexual category as a whole is determined by its sections}
+\subsection{I.E Statement of equivalence and summary of proof.}
+
+\section{II. Alternative categorical definition by way of fixed points to a functor}
+NNOTE: Need re-read notes on this to see if I can see this.
+\section{Motivating context algebra}
+A citizen in the context of a triangle is written as:
+$$
+triangle \cross citizen
+$$
+and since a citizen needs a country for context:
+$$
+country \base citizen
+$$
+ therefore $triangle \cross citizen$ requires $triangle \cross country$:
+$$ triangle \cross country \base triangle \cross citizen$$.
+
+
+
+One citizen in the context of another, when written as:
+$$citizen \cross citizen$$
+is ambiguous and is therefore written instead as:
+$$citizen \cross_{country} citizen$$
+if we imagine a citizen of the same country or is written as as
+$$citizen \cross_1 citizen$$
+if we imagine absolutely any other citizen of any country whatsoever, 
+where $1$ represents \textit{the absolute}. 
 
 
 \bibliography{../SharedBibliography/temp/bibliography}
