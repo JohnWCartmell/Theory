@@ -742,7 +742,7 @@ define $f \sub g$ to be the morphism $s(f \circ g)$. \\
 
 \noindent Show that $s(f \circ g) : x \longrightarrow f \sub y$.
 
-\noindent show that if g is a section that f sub g is a section.
+\noindent Show that if $g$ is a section that $f \sub g$ is a section.
 
 \begin{lemma} 
 \label{fstarfunctorial2}  
@@ -771,11 +771,134 @@ If x is an object of a contextual category \cat{C} then $\delta_x$ satisfies:
 Follows from definition of $\delta$ and from axioms \ref{s1} and axiom \ref{s3}.
 \end{proof}
 
-\subsection{I.B Detailed proof that this is an alternative axiom system.}
-Need to fill this in to know what lemmas necessary above the axioms should be.
-Define s as f \sub delta_x . 
+\subsection{I.B delta-star system.}
 
-Need prove 
+\subsubsection{Definition}
+
+A delta-star system is a tree category \cat(C) with an operations $\sub$ and
+$q$ satisfying axioms q1 - q5 given above and with the following additional structure:
+ \begin{enumerate}[I.]
+\item
+If $f:x \longrightarrow y_p$ and $y_p \base y$ and  $g:y_p \longrightarrow y$ in \cat(C) then a morphism $f \sub g : x \longrightarrow (f \circ g \circ p_y)*y$
+as shown here:
+\vspace{3mm}
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{.9cm}c}
+\Rnode{fgpy}{(f \circ g \circ p_y)\sub y} & & \Rnode{y}{y}\\ [1.2cm]
+\Rnode{x}{x}         & & \Rnode{yp}{y_p}
+\end{array}
+\end{displaymath}
+\ncbsar{}{fgpy}{x}
+\jcbarr{f}{x}{yp}
+\ncaarr{q(f\circ g \circ p_y,y)}{fgpy}{y}
+\ncasar{}{y}{yp}
+\ncaarr[35]{g}{yp}{y}
+\ncaarr[35]{f \sub g}{x}{fgpy}
+\end{center}
+
+satisfying 
+\begin{tageqn}{star1}
+f \sub g \circ q(f \circ g \circ p_y,y) = f \circ g
+\end{tageqn}
+
+and such that if $f_1:x_1 \longrightarrow x_2$ and $f_1:x_2 \longrightarrow y_p$
+and $y_p \base y$ and  $g:y_p \longrightarrow y$ in \cat(C) as here:
+
+\vspace{3mm}
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{.9cm}cp{.9cm}c}
+ & & & &\Rnode{y}{y}\\ [1.2cm]
+\Rnode{x1}{x_1}         & & \Rnode{x2}{x_2}         & & \Rnode{yp}{y_p}
+\end{array}
+\end{displaymath}
+\ncbsar{}{ffgpy}{x_1}
+\jcbarr{f_1}{x1}{x2}
+\jcbarr{f_2}{x2}{yp}
+\ncasar{}{y}{yp}
+\ncaarr[35]{g}{yp}{y}
+\end{center}
+
+ then
+\begin{tageqn}{star2}
+f_1 \sub f_2 \sub g = (f_1 \circ f_2) \sub g
+\end{tageqn}
+
+\item
+For any object $x$ of \cat(C) a morphism $\delta_x:x \longrightarrow p_x \sub x$ such that
+\noindent
+$\delta_x$ is a section i.e :
+\begin{tageqn}{delta1}
+\delta_x \circ p_x = id_x
+\end{tageqn}
+\noindent
+and
+\begin{tageqn}{delta2}
+\delta_x \circ q(p_x,x) = id_x
+\end{tageqn}
+
+and whenever $y_p \base y$, 
+$f: x \longrightarrow y_p$  in \cat{C}
+as here:
+
+\vspace{3mm}
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{.9cm}cp{.9cm}c}
+\Rnode{pfy}{{p_{f \sub y}}\sub f \sub y}  & &\Rnode{py}{p_y \sub y}\\ [1.2cm]
+\Rnode{fy}{f \sub y} & &\Rnode{y}{y}\\ [1.2cm]
+\Rnode{x}{x}         & & \Rnode{yp}{y_p}
+\end{array}
+\end{displaymath}
+\jcbarr{f}{x}{yp}
+\ncbsar{}{fy}{x}
+\jcbarr{q(f,y)}{fy}{y}
+\ncasar{}{y}{yp}
+\ncasar{}{pfy}{fy}
+\ncasar{}{py}{y}
+\ncaarr{q(q(f,y),p_y \sub y)}{pfy}{py}
+\ncaarr[35]{\delta_y}{y}{py}
+\ncaarr[35]{\delta_{f \sub y}}{fy}{pfy}
+\end{center}
+then 
+\begin{tageqn}{delta3}
+q(f,y) \sub \delta_y   = delta_{f \sub y}
+\end{tageqn}
+\end{enumerate}
+
+
+\subsubsection{Recovery of $s$ from $*$ and $delta$}
+Define $s(f)$ to be $f \sub \delta_y$ . 
+\noindent
+Need to be able to prove axiom s2 
+\begin{equation}
+s(f) \circ q( f \circ p_y     ,y)=f
+\end{equation}
+\noindent
+which we prove as follows:
+\begin{align*}
+lhs &= f \sub \delta_y \circ q(f \circ p_y, y)  && \mbox{from defn of s} \\
+  &= f \sub \delta_y \circ q(f,p_y \sub y) \circ q(p_y,y)&&\mbox{by \ref{q5}} \\
+  &= f \circ \delta_y \circ q(p_y,y)        && \mbox{from \ref{star1}} \\
+	&= f \circ id_y                           && \mbox{by \ref{delta2}} \\
+	&= rhs                                    && \mbox{as required.}
+\end{align*}
+
+\noindent
+Show s3
+\begin{equation}
+s(f \circ q(g,z))=s(f)
+\end{equation}
+
+\noindent
+which we prove as follows:
+\begin{align*}
+lhs &= (f \circ q(g,z)) \sub \delta_z    && \mbox{from defn of s} \\
+  &= f \sub (  q(g,z) \sub \delta_z)     &&\mbox{by \ref{star2}} \\
+  &= f \sub \delta_{g \sub z}            && \mbox{from \ref{delta3}} \\
+	&= rhs                                 && \mbox{as required.}
+\end{align*}
 
 
 \subsection{I.C Show meta-GAT axioms hold of the extended $\sub$, $\cross$, $\delta$
