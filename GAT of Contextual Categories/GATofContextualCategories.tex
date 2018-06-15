@@ -23,31 +23,28 @@
 \usepackage{esvect}
 \usepackage{float}
 \usepackage[section]{placeins}
-
 \usepackage{graphicx}
 \setcounter{equation}{0}
-
-
-\title{The Generalised Algebraic Theory of Contextual Categories}
-\subtitle{Corrected 6 April 2018}
-
+\title{Generalised Algebraic Axiomatisations of Contextual Categories}
+\subtitle{Corrected 6 April 2018 \\
+          Extended 14 June 2018}
 
 \author{John Cartmell}
+\date{}
 \begin{document}
 \maketitle
 \bibliographystyle{plain}
 
 \section{Introduction}
-The syntactical notion of \textit{generalised algebraic theory} (GAT) and the  equivalent algebraic notion of \textit{contextual category} were introduced in  \cite{Cartmell78} and summarised in \cite{Cartmell86}. Whereas generally the objects of categories can be taken to represent types, the objects of a contextual categories can be taken to represent what I have described as `types that vary' but which subsequently have become know as dependent types. Equally they can be taken to represent contexts: the algebra of contextual categories is an algebra of context. 
+The syntactic notion of \textit{generalised algebraic theory} (GAT) and the  equivalent algebraic notion of \textit{contextual category} were introduced in  \cite{Cartmell78} and summarised in \cite{Cartmell86}. Whereas generally the objects of categories can be taken to represent types, the objects of contextual categories can be taken to represent what I have described as `types that vary' but which subsequently have become know as dependent types. Equally they can be taken to represent contexts: the algebra of contextual categories is an algebra of context. 
 
-I remarked in
-\cite{Cartmell78} that the theory of contextual categories can be expressed as a generalised algebraic theory by the axiomatisation of identity types on the morphism types of the category 
-(the identity types are required in order to phrase the pullback structure required by the definition of contextual category). I made the remark in order to point out that contextual categories are a generalised algebraic equivalent of GATs and that, in this sense, the machinary of GATs is able to self-describe.  The same thing cannot be said of Lawvere algebraic theories nor of many-sorted algebraic theories.  
+In \cite{Cartmell78} it was noted that the theory of contextual categories can be expressed as a generalised algebraic theory by the axiomatisation of identity types on the morphism types of the category 
+(the identity types are required in order to phrase the pullback structure required by the definition of contextual category); thus contextual categories are a generalised algebraic equivalent of GATs and, in this sense, the machinary of GATs is able to self-describe; something which cannot be said of Lawvere algebraic theories nor of many-sorted algebraic theories.  
 
- Voevodsky in \cite{Voevodsky14C} has shown a better way of representing contextual categories as generalised algebraic which doesn't necessitate the introdution of types other than those for objects and morphisms. To do this he introduces an operator `s' which cannonically maps any morphism to a representative section; he shows that suitably axiomatised this implies the existence of pullbacks.  The purpose of this paper is to document the generalised algebraic theory
-of contextual categories which results from following this approach. Note that Voevodsky used the term \textit{C-system} in place of \textit{contextual category}.
+ Voevodsky in \cite{Voevodsky14C} has shown a better way of representing contextual categories as generalised algebraic; one which doesn't necessitate the introdution of types other than those for objects and morphisms. To do this he introduces an operator `s' which cannonically maps any morphism to a representative section; he shows that suitably axiomatised this implies the existence of pullbacks.  The purpose of this paper is to describe the generalised algebraic theory
+of contextual categories which results from following this approach (note however that Voevodsky used the term \textit{c-system} in preference to \textit{contextual category}) and then to introduce a further generalised algebraic axiomatisation using operators $\sub$ and $\delta$ in place of Voevodsky's operator $s$.   
 
-To give readability to the theory we introduce a schematic notation for representing chains of dependent variables. As a prelude to presenting the theory we first present two simpler but related theories (previously presented in \cite{Cartmell78} and \cite{Cartmell86}): the GAT of categories and the GAT of trees.
+As a prelude to presenting the theory we first present two simpler but related theories (previously presented in \cite{Cartmell78} and \cite{Cartmell86}): the GAT of categories and the GAT of trees.
 
 \section{Background Theories and Notations}
 \subsection {The GAT of Categories}
@@ -264,9 +261,9 @@ $
 
 in \cat{C}, an object $f \sub z$ such that $x \base f \sub z$, a morphism $q(f,z): f \sub z \rightarrow z$ such that
 
-\begin{tageqn}{q1}
+\begin{axiom}{q1}
 q(f,z) \circ p_z = p_{f \sub z} \circ f
-\end{tageqn}
+\end{axiom}
 
 i.e. such that the diagram:
 
@@ -290,18 +287,18 @@ and, (ii), so that each such diagram is a pullback diagram, that is: for all obj
 morphisms $h_1: w \rightarrow x$ and $h_2: w \rightarrow z$ (see diagram \ref{pullback} below) such that
 $h_1 \circ f = h_2 \circ p_z$ 
 there exists a unique $h:w \rightarrow f \sub z$ in \cat{C} such that
-$h \circ p_{f \sub z} = h_1$ and $h \circ q(f,z) = h_2$.
+$h \circ p_{f \sub z} = h_1$ and $h \circ q(f,z) = h_2$, as shown here:
 
 \vspace{3mm}
 \begin{center}
-\begin{equation}
+\begin{equation*}
 \label{pullback}
 \begin{array}{cp{0.5cm}cp{1.2cm}c}
 \Rnode{w}{w} &&                     &&           \\ [0.7cm]
              &&\Rnode{fstarz}{f^*z} && \Rnode{z}{z}\\ [1.2cm]
              &&\Rnode{x}{x}         && \Rnode{y}{y}
 \end{array}
-\end{equation}
+\end{equation*}
 \ncbsar{p_{f \sub z}}{fstarz}{x}
 \jcbarr{f}{x}{y}
 \ncaarr{q(f,z)}{fstarz}{z}
@@ -315,19 +312,19 @@ $h \circ p_{f \sub z} = h_1$ and $h \circ q(f,z) = h_2$.
 
 \vspace {0.25cm}
 \noindent and so that (iii) whenever $x \base y$ in \cat{C}, 
-\begin{tageqn}{q2}
+\begin{axiom}{q2}
 id_x^*y=y
-\end{tageqn}
+\end{axiom}
 
 and
 
-\begin{tageqn}{q3}
+\begin{axiom}{q3}
 q(id_x,y) = id_y
-\end{tageqn}
+\end{axiom}
 
 
 
-\noindent (iv) whenever 
+\noindent and (iv) whenever 
 $
 \begin{array}{c p{.9cm} c p{.9cm} c}
              &   &             &   & \Rnode{z}{z} \\ [1.2cm]
@@ -341,29 +338,29 @@ in \cat{C},
 
 then
 
-\begin{tageqn}{q4}
+\begin{axiom}{q4}
 (f \circ g)^*z =  f^* (g ^* z)
-\end{tageqn}
+\end{axiom}
 
 and 
-\begin{tageqn}{q5}
+\begin{axiom}{q5}
 q(f \circ g,z) = q(f,g^*z) \circ q(g,z)
-\end{tageqn}
+\end{axiom}
 
 \subsubsection{Equational Definition following Voevodsky}
 Following Voevodsky, however, we may replace the pullback condition, (ii), above, by additional structure as follows:
 
 \noindent (ii') for all morphisms $f: x \rightarrow y$, a morphism $s(f) : x \rightarrow f \sub p_y \sub y$ such that:
 
-\begin{tageqn}{s1}
+\begin{axiom}{s1}
 s(f) \circ p_{f\sub p_y \sub y}=id_x
-\end{tageqn}
+\end{axiom}
 
 \noindent and
 
-\begin{tageqn}{s2}
+\begin{axiom}{s2}
 s(f) \circ q( f \circ p_y     ,y)=f
-\end{tageqn}	
+\end{axiom}	
 
 \noindent i.e. such that the following diagrams commute:
 \begin{center}
@@ -401,9 +398,9 @@ and such that whenever
 
 \noindent in \cat{C} then
 
-\begin{tageqn}{s3}
+\begin{axiom}{s3}
 s(f \circ q(g,z))=s(f)
-\end{tageqn}
+\end{axiom}
 
 \noindent
 This equation is well-typed because
@@ -428,7 +425,7 @@ because
 
 
 \begin{lemma}
- If \cat{C} is a tree-structured category with operations, q, * and s satisfying
+ If \cat{C} is a tree-structured category with operators, q, * and s satisfying
 axioms q1-q5 and s1-s3 then for all objects $w$ of \cat{C}, and for all
 morphisms $h_1: w \rightarrow x$ and $h_2: w \rightarrow z$  such that
 
@@ -487,7 +484,7 @@ h \circ q(f,z)
                  & = s(h_2) \circ q(h_1,f \sub z) \circ q(f,z) &\\
                  & = s(h_2) \circ q(h_1 \circ f,z)   &&\mbox{by (\ref{q5})}\\
 								 & = s(h_2) \circ q(h_2 \circ p_z ,z)&&\mbox{since }h_1 \circ f = h_2 \circ p_z \\
-                 & = h_2  \circ id_w                 &&\mbox{by (\ref{s2})}
+                 & = h_2  \circ id_w                 &&\mbox{by (\ref{s2})} \\
 								 & = h_2
 \end{align*}
 
@@ -556,10 +553,9 @@ $s(f \circ q(g,z))=s(f),$
           whenever $\ofObi{w}{n} ,\  \ofObi{x}{m}  ,\   \ofObi{y}{p} ,\    \ofHomij{g}{m}{p}{x}{y} ,\ \ofT{z}{\Obi{p+1}(y)} ,\ \ofHomij{f}{n}{m+1}{w}{g \sub z} $ \\ [0.25cm]				
 					
 \end{tabular}  \\
-\vspace{.1cm}  \\
 \vspace{.03cm} \\
-
-
+\noindent
+Before we go further we have one useful lemma:
 \begin{lemma} [lemma s4]
 \label{s4}  
 If \cat{C} is a contextual category then for all morphisms $f: x \rightarrow y$ and $g:y \rightarrow z$ in \cat{C},
@@ -573,186 +569,89 @@ s( f \circ s(g))
 \end{align*}
 \end{proof}
 
-\begin{lemma} [lemma s5]
-\label{s5}  
-For all morphisms $f: x \rightarrow y$,
-$$s(s(f)) = s(f)$$
-\end{lemma}
-\begin{proof}
 
-Substitute $id_x$ for $f$  and $f$ for $g$ in lemma s4.
+\subsubsection {Extending the $\sub$ operator}
 
-\end{proof}
-
-
-\begin{lemma} [lemma s6]
-\label{s6}  
-For all morphisms $f: x \rightarrow y$ and $g:y \rightarrow z$,
-$$s( f \circ g) \circ q(f,  (g \circ p_z) \sub z )=f \circ s(g)$$
-\end{lemma}
-\begin{proof}
-\begin{align*}
-s( f \circ g) \circ q(f,  (g \circ p_z) \sub z )
-    & = s( f \circ s(g)) \circ q(f,  (g \circ p_z) \sub z )  &\mbox{by lemma s4}\\
-    & = s( f \circ s(g)) \circ q(f \circ s(g) \circ p_{(g \circ p_z) \sub z},  (g \circ p_z) \sub z )  &\mbox{by axiom s1}\\
-		& = f \circ s(g)  &\mbox{by axiom s2}
-\end{align*}
-\end{proof}
-
-\begin{lemma} [lemma s7\footnote{implemented as rule 17}]
-\label{s7}  
-For all morphisms $f: x \rightarrow y$ ,
-$$s(f) \circ q(f,p_y ) \sub y =f \circ s(id_y)$$
-
-\end{lemma}
-\begin{proof}
-
-We have $f: x \rightarrow y$ and $id_y:y \rightarrow y$ therefore by lemma s6 we
-have:
-$$s(f \circ id_y) \circ q(f, (id_y \circ p_y) \sub y )=f \circ s(id_y)$$
-\noindent
-Simplifying we get:
-$$s(f) \circ q(f,p_y) \sub y =f \circ s(id_y)$$
-as required.
-\end{proof}
-
-\begin{lemma} [lemma 30v]
-\label{30v}  
-For all morphisms $f: x \rightarrow y$ ,
-
-$$s(id_x) \circ q(s(f),(p_{(f \circ p_y) \sub y} \circ p_x) \sub x)) = s(f) \circ s( p_{(f \circ p_y) \sub y} )$$.
-\begin{center}
-\begin{displaymath}
-\begin{array}{c p{.5cm} c p{.01cm} c c}
-                   &&&& \Rnode{CLEFT}{}\Rnode{C}{(p_{(f \circ p_y) \sub y} \circ p_x) \sub x}  \\ [1.2cm]
-\Rnode{px*x}{p_x \sub x} &&&& \Rnode{D}{(f \circ p_y) \sub y}  \\ [1.2cm]
-           && \Rnode{x}{x} &&& \Rnode{y}{y} \\ [1.2cm]
-					&& \Rnode{xp}{x_p} \\ [0.2cm]  
-\end{array}
-\end{displaymath}
-\ncaarr{q(s(f),(p_{(f \circ p_y) \sub y} \circ p_x) \sub x)}{px*x }{CLEFT}
-\jcbarr{f}{x}{y}
-
-\ncbsar{p_{(f \circ p_y) \sub p_y }}{C}{D}
-\ncasar{p_{p_x \sub x}}{px*x}{x}
-\ncasar{}{D}{x}
-\ncbsar{p_x}{x}{xp}
-
-\ncarr[30]{x}{px*x }
-\naput[npos=0.7]{\footnotesize $s(id_x)$}
-\ncarr[-25]{x}{D}
-\nbput[npos=0.7]{\footnotesize $s(f)$}
-\jcbarr[-25]{s(p_{f \circ p_y} \sub y)}{D}{C}
-%\nbput[npos=0.5]{\footnotesize $s(p_(f \circ p_y) \sub y)$}
-\end{center}
-\end{lemma}
-\begin{proof}
-\begin{align*}
-s(id_x) \circ q(s(f),(p_{(f \circ p_y) \sub y} \circ p_x) \sub x))
-    & = s(s(f) \circ p_{(f \circ p_y) \sub y}) \circ q(s(f), (p_{(f \circ p_y) \sub y} \circ p_x) \sub x) &\mbox{by axiom s is a section}\\
-    & = s(f) \circ s( p_{(f \circ p_y) \sub y} )&\mbox{by lemma s6}\\
-\end{align*}
-\end{proof}
-
-\begin{lemma} [lemma sinjection]
-\label{s4}  
-If \cat{C} is a contextual category then for all morphisms $f: x \rightarrow y$ and $f':x \rightarrow y$ in \cat{C},
-if $s(f)=s(f')$ and $f \circ p_y=f' \circ p_y$ then $f=f'$.
-\end{lemma}
-\begin{proof}
-\begin{align*}
-f 
-    & = s(f)  \circ q(f \circ p_y),y)  &&\mbox{by axiom \ref{s2}}\\
-    & = s(f') \circ q(f'\circ p_y),y)  &&\mbox{from givens}\\
-		& = f'                             &&\mbox{by axiom \ref{s2}}
-\end{align*}
-\end{proof}
-\section{Project - 7th June 2018 }
-At the broadest level :
-\begin{enumerate}[I]
-	\item define and prove the equivalence between contextual categories and meta-GAT algebras
-	\item give an alternative definition of the category of contextual categories as a fixed point of a higher-order functor
-	\item develop the way of talking about, postulating, imagining context that motivates context algebra. 
-\end{enumerate}
-\section{I. Equivalent Algebras}
-\subsection{I.A Alternative operators and axioms for Contextual Categories.}
-\subsubsection{Extending $\sub$ to local morphisms.}
- 
-If $f:x \rightarrow y_p$ in a contextual category \cat{C}, and if $y_p \base y_1$ and $y_p \base y_2$ and 
-$g: y_1 \rightarrow y_2$ in \cat{C} such that $g \circ p_{y_2}=p_{y_1}$ then we can use the Voevodsky construction (or, equally, the pullback structure)
-and define a morphism $f\sub g:f \sub y_1 \rightarrow f \sub y_2$ by:
-\begin{equation}
-f \sub g = s(q(f,y_1) \circ g) \circ q(p_{f \sub y_1},f \sub y_2)
-\end{equation}
-as shown in the following diagram:
-
-\begin{center}
-\begin{displaymath}
-\begin{array}{lccp{2.0cm}ccc}
-\Rnode{TOP}{{p_{f \sub y_1}}\sub {f \sub y_2}} &   &  &&  &       & \\ [2.5cm]
-
- \Rnode{fy1}{f \sub y_1} &     & \Rnode{fy2}{f \sub y_2} && \Rnode{y1}{\ \ y_1} &       & \Rnode{y2}{\ \ y_2}\\ [1.4cm]
-                         &\ \ \Rnode{x}{x}\ \ &                  &&                 &\ \ \Rnode{y_p}{y}\ \ &            
-\end{array}
-\end{displaymath}
-\psset{labelsep=0.05}
-\ncbsar{p_{f \sub y_1}}{fy1}{x}
-\ncasar{p_{f \sub y_2}}{fy2}{x}
-\ncbsar{p_{y_1}}{y1}{y_p}
-\ncasar{p_{y_2}}{y2}{y_p}
-\ncasar[0]{p_{{{p_{f \sub y_1}}\sub {f \sub y_2}}}}{TOP}{fy1}
-\jcbarr{f}{x}{y_p}
-\ncaarr{g}{y1}{y2}
-\ncaarr[25]{q(f,y_1)}{fy1}{y1}
-\ncaarr[25]{q(f,y_2)}{fy2}{y2}
-\ncaarr[45]{q(f,y_1) \circ g}{fy1}{y2}
-\ncaarr[15]{}{TOP}{fy2}
-\naput[npos=0.3]{\footnotesize $q(p_{f \sub y_1},f \sub y_2)$}
-\ncaarr[80]{s(q(f,y_1) \circ g)}{fy1}{TOP}
-\psset{linestyle=dashed}
-\ncaarr{f\sub g}{fy1}{fy2}
-\end{center}
-
-Now we have:
-\begin{align*}
-f \sub g \circ p_{f \sub y_2}
-    & = s(q(f,y_1) \circ g) \circ q(p_{f \sub y_1},f \sub y_2) \circ p_{f \sub y_2}  &&\mbox{by defn.}\\
-    & = s(q(f,y_1) \circ g) \circ p_{(p_{f \sub y_1})\sub {f \sub y_2}} \circ p_{f \sub y_1}  &&\mbox{by \ref{q1}}\\
-		& = s(q(f,y_1) \circ g) \circ p_{(p_{f \sub y_1} \circ f) \sub y_2} \circ p_{f \sub y_1}  &&\mbox{by \ref{q4}}\\
-		& = s(q(f,y_1) \circ g) \circ {p_{q(f,y_1) \circ p_{y_1}}} \sub y_2 \circ p_{f \sub y_1}  &&\mbox{by \ref{q1}}\\
-		& = s(q(f,y_1) \circ g) \circ {p_{q(f,y_1) \circ g \circ p_{y_2}}} \sub y_2 \circ p_{f \sub y_1}  &&\mbox{since $g \circ p_{y_2}=p_{y_1}$}\\
-		& = p_{f \sub y_1}                             &&\mbox{by axiom \ref{s1}}
-\end{align*}
-\noindent (This proof more long-winded than I feel it needs to be. Drop suffixes to p's and rely on well-typed-ness would be simpler.)
+As a preliminary to presenting an alternative axiomatisation of the generalised algbraic theory of contextual categories
+we introduce two new operators. The first we consider to be an extension to the $\sub$ operator and applies to certain morphisms as follows: 
+if $f:x \longrightarrow y_p$, $y_p \base y$, and $g:y_p \longrightarrow y$ in a contextual category \cat{C} then
+define $f \sub g: x \longrightarrow (f \circ g \circ p_y) \sub y$ to be the morphism $s(f \circ g)$. \\
 
 \begin{lemma} 
-\label{fstarfunctorial1}  
-If $f:x \rightarrow y_p$ in a contextual category \cat{C}, then
-\begin{enumerate} [(i)]
-	\item if $y_P \base y$  then $f \sub id_y = id_{f \sub y}$,
-	\item $y_p \base y_1$, $y_p \base y_2$ and $y_p \base y_3$ and if $g_1: y_1 \rightarrow y_2$ and $g_2: y_2 \rightarrow y_3$ then
-	$f \sub (g_1 \circ g_2) = f \sub g_1 \circ f \sub g_2$
-\end{enumerate}
+\label{lemmastarsection} 
+\noindent If $f:x \longrightarrow y_p$, $y_p \base y$, and $g:y_p \longrightarrow y$ in a contextual category \cat{C} then if $g$ is a section i.e. if $g \circ p_y = id_{y_p}$ then  $f \sub g : x \longrightarrow f \sub y$ and 
+$f \sub g$ is a section.
 \end{lemma}
-
-\subsubsection {Extending $\sub$ to sections}
-If $f:x \longrightarrow y_p$ and $y_p \base y$, if $g:y_p \longrightarrow y$ is a section i.e. if $g \circ p_y = id_{y_p}$, then
-define $f \sub g$ to be the morphism $s(f \circ g)$. \\
-
-
-\noindent Show that $s(f \circ g) : x \longrightarrow f \sub y$.
-
-\noindent Show that if $g$ is a section that $f \sub g$ is a section.
+\begin{proof}
+If $g$ is a section then the codomain $(f \circ g \circ p_y) \sub y$ of $f \sub g$ simplifies to $f \sub y$.
+To show that $f \sub g$ is a section we
+need to show $s(f \circ g) \circ p_{f \sub y} = id_x$. This follows from axiom s1.
+\end{proof}
 
 \begin{lemma} 
-\label{fstarfunctorial2}  
-If $f:x \rightarrow y_p$ in a contextual category \cat{C},
-$y_p \base y_1$ and $y_p \base y_2$,
-if $g:y_p \longrightarrow y_1$ is a section
- if $h: y_1 \rightarrow y_2$ is local to $y_p$
- then
-	$f \sub (g \circ h) = f \sub g \circ f \sub h$.
+\label{lemmastar1}  
+If $f:x \longrightarrow y_p$ and $y_p \base y$ and  $g:y_p \longrightarrow y$ in \cat(C) 
+as shown here:
+\vspace{3mm}
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{.9cm}c}
+\Rnode{fgpy}{(f \circ g \circ p_y)\sub y} & & \Rnode{y}{y}\\ [1.2cm]
+\Rnode{x}{x}         & & \Rnode{yp}{y_p}
+\end{array}
+\end{displaymath}
+\ncbsar{}{fgpy}{x}
+\jcbarr{f}{x}{yp}
+\ncaarr{q(f\circ g \circ p_y,y)}{fgpy}{y}
+\ncasar{}{y}{yp}
+\ncaarr[35]{g}{yp}{y}
+\ncaarr[35]{f \sub g}{x}{fgpy}
+\end{center}
+
+then 
+$$
+f \sub g \circ q(f \circ g \circ p_y,y) = f \circ g
+$$
 \end{lemma}
+\begin{proof}
+Follows directly from the definition of $\sub$ and by axiom s2.
+\end{proof}
+
+\begin{lemma}
+\label{lemmastar2}
+if $f_1:x_1 \longrightarrow x_2$ and $f_1:x_2 \longrightarrow y_p$
+and $y_p \base y$ and  $g:y_p \longrightarrow y$ in a contextual category \cat{C} as here:
+
+\vspace{3mm}
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{.9cm}cp{.9cm}c}
+ & & & &\Rnode{y}{y}\\ [1.2cm]
+\Rnode{x1}{x_1}         & & \Rnode{x2}{x_2}         & & \Rnode{yp}{y_p}
+\end{array}
+\end{displaymath}
+\ncbsar{}{ffgpy}{x_1}
+\jcbarr{f_1}{x1}{x2}
+\jcbarr{f_2}{x2}{yp}
+\ncasar{}{y}{yp}
+\ncaarr[35]{g}{yp}{y}
+\end{center}
+
+then
+\begin{equation*}
+f_1 \sub f_2 \sub g = (f_1 \circ f_2) \sub g
+\end{equation*}
+\end{lemma}
+\begin{proof}
+\begin{align*}
+lhs &= s(f_1 \circ f_2 \circ g)  && \mbox{from defn. of extended $\sub$} \\
+    &= s(f_1 \circ s(f_2 \circ g))&&\mbox{by lemma \ref{s4}} \\
+		&= f_1 \sub f_2 \sub g       && \mbox{from defn. of extended $\sub$} \\
+	  &= rhs                                    && \mbox{as required.}
+\end{align*}
+
+\end{proof}
+
 
 \subsubsection {Definition of $\delta$}
 
@@ -771,11 +670,26 @@ If x is an object of a contextual category \cat{C} then $\delta_x$ satisfies:
 Follows from definition of $\delta$ and from axioms \ref{s1} and axiom \ref{s3}.
 \end{proof}
 
-\subsection{I.B delta-star system.}
+
+\begin{lemma}
+\label {deltalemma2}
+Whenever $y_p \base y$ and
+$f: x \longrightarrow y_p$ in a contextual category \cat{C} then 
+\begin{equation*}
+q(f,y) \sub \delta_y   = delta_{f \sub y}
+\end{equation*}
+\end{lemma}
+\begin{proof}
+Use lemma \ref{s4} and axiom \ref{s3}.
+\end{proof}
+
+
+\subsection{$\delta\sub$ axiomatisation.}
+We can now give an alternative axiomatision of the generalised algebraic theory of contextual categories which we provisionally call a $\delta\sub$-structure. 
 
 \subsubsection{Definition}
 
-A delta-star system is a tree category \cat(C) with an operations $\sub$ and
+A $\delta\sub$-structure is a tree category \cat(C) with  operators $\sub$ and
 $q$ satisfying axioms q1 - q5 given above and with the following additional structure:
  \begin{enumerate}[I.]
 \item
@@ -798,9 +712,9 @@ as shown here:
 \end{center}
 
 satisfying 
-\begin{tageqn}{star1}
+\begin{axiom}{star1}
 f \sub g \circ q(f \circ g \circ p_y,y) = f \circ g
-\end{tageqn}
+\end{axiom}
 
 and such that if $f_1:x_1 \longrightarrow x_2$ and $f_1:x_2 \longrightarrow y_p$
 and $y_p \base y$ and  $g:y_p \longrightarrow y$ in \cat(C) as here:
@@ -821,22 +735,22 @@ and $y_p \base y$ and  $g:y_p \longrightarrow y$ in \cat(C) as here:
 \end{center}
 
  then
-\begin{tageqn}{star2}
+\begin{axiom}{star2}
 f_1 \sub f_2 \sub g = (f_1 \circ f_2) \sub g
-\end{tageqn}
+\end{axiom}
 
 \item
 For any object $x$ of \cat(C) a morphism $\delta_x:x \longrightarrow p_x \sub x$ such that
 \noindent
 $\delta_x$ is a section i.e :
-\begin{tageqn}{delta1}
+\begin{axiom}{delta1}
 \delta_x \circ p_x = id_x
-\end{tageqn}
+\end{axiom}
 \noindent
 and
-\begin{tageqn}{delta2}
+\begin{axiom}{delta2}
 \delta_x \circ q(p_x,x) = id_x
-\end{tageqn}
+\end{axiom}
 
 and whenever $y_p \base y$, 
 $f: x \longrightarrow y_p$  in \cat{C}
@@ -862,21 +776,29 @@ as here:
 \ncaarr[35]{\delta_{f \sub y}}{fy}{pfy}
 \end{center}
 then 
-\begin{tageqn}{delta3}
+\begin{axiom}{delta3}
 q(f,y) \sub \delta_y   = delta_{f \sub y}
-\end{tageqn}
+\end{axiom}
 \end{enumerate}
 
 
+
 \subsubsection{Recovery of $s$ from $*$ and $delta$}
+
+That a contextual category has $\delta\sub$-structure we have shown in lemmas \ref{lemmastar1}, \ref{lemmastar2},
+\ref{deltalemma} and \ref{deltalemma2}.
+It remains to show that within any $\delta\sub$-structure an operator $s$ can be defined and satisfies axioms s1,s2 and s3.
+\noindent
 Define $s(f)$ to be $f \sub \delta_y$ . 
 \noindent
-Need to be able to prove axiom s2 
-\begin{equation}
-s(f) \circ q( f \circ p_y     ,y)=f
-\end{equation}
+Axiom s1 holds because of lemma \ref{lemmastarsection} and axiom \ref{delta1}.
 \noindent
-which we prove as follows:
+We prove axiom s2, which is:
+\begin{equation*}
+s(f) \circ q( f \circ p_y     ,y)=f,
+\end{equation*}
+\noindent
+ as follows:
 \begin{align*}
 lhs &= f \sub \delta_y \circ q(f \circ p_y, y)  && \mbox{from defn of s} \\
   &= f \sub \delta_y \circ q(f,p_y \sub y) \circ q(p_y,y)&&\mbox{by \ref{q5}} \\
@@ -886,50 +808,19 @@ lhs &= f \sub \delta_y \circ q(f \circ p_y, y)  && \mbox{from defn of s} \\
 \end{align*}
 
 \noindent
-Show s3
-\begin{equation}
-s(f \circ q(g,z))=s(f)
-\end{equation}
+Finally we prove axiom s3, which is
+\begin{equation*}
+s(f \circ q(g,z))=s(f),
+\end{equation*}
 
 \noindent
-which we prove as follows:
+ as follows:
 \begin{align*}
 lhs &= (f \circ q(g,z)) \sub \delta_z    && \mbox{from defn of s} \\
   &= f \sub (  q(g,z) \sub \delta_z)     &&\mbox{by \ref{star2}} \\
   &= f \sub \delta_{g \sub z}            && \mbox{from \ref{delta3}} \\
 	&= rhs                                 && \mbox{as required.}
 \end{align*}
-
-
-\subsection{I.C Show meta-GAT axioms hold of the extended $\sub$, $\cross$, $\delta$
-operations}.
-\subsection {I.D Show that contexual category as a whole is determined by its sections}
-\subsection{I.E Statement of equivalence and summary of proof.}
-
-\section{II. Alternative categorical definition by way of fixed points to a functor}
-NNOTE: Need re-read notes on this to see if I can see this.
-\section{Motivating context algebra}
-A citizen in the context of a triangle is written as:
-$$
-triangle \cross citizen
-$$
-and since a citizen needs a country for context:
-$$
-country \base citizen
-$$
- therefore $triangle \cross citizen$ requires $triangle \cross country$:
-$$ triangle \cross country \base triangle \cross citizen$$.
-
-
-
-One citizen in the context of another, when written as:
-$$citizen \cross citizen$$
-is ambiguous and is therefore written instead as:
-$$citizen \cross_{country} citizen$$
-if we imagine a citizen of the same country or is written as as
-$$citizen \cross_1 citizen$$
-if we imagine absolutely any other citizen of any country whatsoever, 
-where $1$ represents \textit{the absolute}. 
 
 
 \bibliography{../SharedBibliography/temp/bibliography}
