@@ -27,7 +27,8 @@
 \setcounter{equation}{0}
 \title{Generalised Algebraic Axiomatisations of Contextual Categories}
 \subtitle{Corrected 6 April 2018 \\
-          Extended 14 June 2018}
+          Extended 14 June 2018 \\
+					Corrected 5 July 2018}
 
 \author{John Cartmell}
 \date{}
@@ -422,8 +423,6 @@ because
 
 \subsubsection{Construction of pullbacks ( Voevodsky)}
 
-
-
 \begin{lemma}
  If \cat{C} is a tree-structured category with operators, q, * and s satisfying
 axioms q1-q5 and s1-s3 then for all objects $w$ of \cat{C}, and for all
@@ -579,13 +578,11 @@ define $f \sub g: x \longrightarrow (f \circ g \circ p_y) \sub y$ to be the morp
 
 \begin{lemma} 
 \label{lemmastarsection} 
-\noindent If $f:x \longrightarrow y_p$, $y_p \base y$, and $g:y_p \longrightarrow y$ in a contextual category \cat{C} then if $g$ is a section i.e. if $g \circ p_y = id_{y_p}$ then  $f \sub g : x \longrightarrow f \sub y$ and 
-$f \sub g$ is a section.
+\noindent If $f:x \longrightarrow y_p$, $y_p \base y$, and $g:y_p \longrightarrow y$ in a contextual category \cat{C} then
+$f \sub g$ is a section i.e. $f \sub g \circ p_{(f \circ g \circ p_y) \sub y} = id_x$
 \end{lemma}
 \begin{proof}
-If $g$ is a section then the codomain $(f \circ g \circ p_y) \sub y$ of $f \sub g$ simplifies to $f \sub y$.
-To show that $f \sub g$ is a section we
-need to show $s(f \circ g) \circ p_{f \sub y} = id_x$. This follows from axiom s1.
+This follows from the definition of $\sub$ and from axiom s1.
 \end{proof}
 
 \begin{lemma} 
@@ -713,6 +710,10 @@ as shown here:
 
 satisfying 
 \begin{axiom}{star1}
+f \sub g \circ p_{(f \circ g \circ p_y) \sub y} = id_x
+\end{axiom}
+and 
+\begin{axiom}{star2}
 f \sub g \circ q(f \circ g \circ p_y,y) = f \circ g
 \end{axiom}
 
@@ -735,7 +736,7 @@ and $y_p \base y$ and  $g:y_p \longrightarrow y$ in \cat(C) as here:
 \end{center}
 
  then
-\begin{axiom}{star2}
+\begin{axiom}{star3}
 f_1 \sub f_2 \sub g = (f_1 \circ f_2) \sub g
 \end{axiom}
 
@@ -781,8 +782,6 @@ q(f,y) \sub \delta_y   = delta_{f \sub y}
 \end{axiom}
 \end{enumerate}
 
-
-
 \subsubsection{Recovery of $s$ from $*$ and $delta$}
 
 That a contextual category has $\delta\sub$-structure we have shown in lemmas \ref{lemmastar1}, \ref{lemmastar2},
@@ -791,7 +790,7 @@ It remains to show that within any $\delta\sub$-structure an operator $s$ can be
 \noindent
 Define $s(f)$ to be $f \sub \delta_y$ . 
 \noindent
-Axiom s1 holds because of lemma \ref{lemmastarsection} and axiom \ref{delta1}.
+That axiom s1 holds follows from axiom \ref{star1}.
 \noindent
 We prove axiom s2, which is:
 \begin{equation*}
@@ -802,7 +801,7 @@ s(f) \circ q( f \circ p_y     ,y)=f,
 \begin{align*}
 lhs &= f \sub \delta_y \circ q(f \circ p_y, y)  && \mbox{from defn of s} \\
   &= f \sub \delta_y \circ q(f,p_y \sub y) \circ q(p_y,y)&&\mbox{by \ref{q5}} \\
-  &= f \circ \delta_y \circ q(p_y,y)        && \mbox{from \ref{star1}} \\
+  &= f \circ \delta_y \circ q(p_y,y)        && \mbox{from \ref{star2}} \\
 	&= f \circ id_y                           && \mbox{by \ref{delta2}} \\
 	&= rhs                                    && \mbox{as required.}
 \end{align*}
@@ -817,7 +816,7 @@ s(f \circ q(g,z))=s(f),
  as follows:
 \begin{align*}
 lhs &= (f \circ q(g,z)) \sub \delta_z    && \mbox{from defn of s} \\
-  &= f \sub (  q(g,z) \sub \delta_z)     &&\mbox{by \ref{star2}} \\
+  &= f \sub (  q(g,z) \sub \delta_z)     &&\mbox{by \ref{star3}} \\
   &= f \sub \delta_{g \sub z}            && \mbox{from \ref{delta3}} \\
 	&= rhs                                 && \mbox{as required.}
 \end{align*}
