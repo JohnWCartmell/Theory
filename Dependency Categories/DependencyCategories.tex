@@ -1,0 +1,223 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=3cm]{geometry}
+\usepackage{pstricks}
+\usepackage{pst-node}
+\usepackage{pst-tree}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage{enumerate}
+\usepackage{calc}
+\input{../SharedMacros/ccategories.macros}
+\input{../SharedMacros/gats.macros}
+\input{../SharedMacros/metagat.macros}
+\input{../SharedMacros/ermacros}
+\setcounter{equation}{0}
+\bibliographystyle{plain} % was hplain
+
+\title{Dependency Categories}
+\author{John Cartmell}
+\begin{document}
+\maketitle
+
+\section{Directed Graphs and Systems of Dependent Type}
+
+\noindent The directed graph:
+
+\begin{center}
+\begin{equation}
+\begin{array}{p{1.5cm}cccp{2cm}c}
+&                & \Rnode{C2}{C}&   \\ [0.8cm]
+&                & \Rnode{B}{B} &  \\ [0.8cm]
+&\Rnode{A1}{A_1} &              & \Rnode{A2}{A_2}\\ 
+\end{array}
+\ncsar{C2}{B}
+\ncsar{B}{A1}
+\ncsar{B}{A2}
+\setlength {\saroffsetA}{-2pt}
+\setlength {\saroffsetB}{-2pt}
+\ncsar[-15]{C3}{B3}
+\setlength {\saroffsetA}{2pt}
+\setlength {\saroffsetB}{2pt}
+\ncsar[15]{C3}{B3}
+\sarreset
+\ncsar{B3}{A3}
+\end{equation}
+\end{center}
+
+\noindent can be interpreted as representing the following type system:
+
+%\addtocounter{equation}{-1}
+\begin{align}
+&A_1\mbox{ is a type} && \tag*{(\theequation a)}\\
+&A_2\mbox{ is a type} && \tag*{(\theequation b)}\\
+&x_1\in A_1, x_2 \in A_2 : B(x_1,x_2) \mbox{ is a type} && \tag*{(\theequation c)}\\
+&x_1\in A_1, x_2 \in A_2, y \in B(x_1,x_2): C(x_1,x_2,y) \mbox{ is a type} && \tag*{(\theequation d)}
+\end{align}
+
+
+\section {Acyclic Categories}
+A category C is called \textit{acyclic}, if it has no inverses and no nonidentity
+endomorphisms. This definition is given by Kozlov (see \cite{Kozlov2007}) who offers the following intuition:
+\begin{erquote}
+Another way to visualize acyclic categories is to think of them as those
+that can be drawn on a sheet of paper, with dots indicating the objects, and
+straight or slightly bent arrows, all pointing down, indicating the nonidentity
+morphisms...
+\end{erquote}
+
+
+\noindent
+Previous authors had referred to such categories as being \textit{loop-free}. \\
+
+\noindent
+The following is an example of an acyclic category given by Kolozov which we have rearranged and relabelled:
+
+\begin{center}
+\begin{equation}
+\begin{array}{p{1.5cm}cccp{2cm}c}
+&                & \Rnode{C}{C}&   \\ [1.4cm]
+&                & \Rnode{B}{B} &  \\ [0.8cm]
+&                & \Rnode{A}{A} &  
+\end{array}
+\end{equation}
+\ncasar[-30]{y_1}{C}{B}
+\ncasar[30]{y_2}{C}{B}
+\ncasar{x}{B}{A}
+\setlength {\saroffsetA}{-2pt}
+\setlength {\saroffsetB}{-2pt}
+\ncbsar[-50]{y_1 \circ x = y_2 \circ x}{C}{A}
+\sarreset
+\end{center}
+
+
+\noindent This category can be taken as representing the following type system:
+\addtocounter{equation}{-1}
+\begin{align}
+&A\mbox{ is a type} && \tag*{(\theequation a)}\\
+&x\in A: B(x) \mbox{ is a type} && \tag*{(\theequation b)}\\
+&x\in A_1, y_1 \in B(x), y_2 \in B(x) : C(x,y_1,y_2) \mbox{ is a type} && \tag*{(\theequation c)}
+\end{align}
+
+\noindent
+Contrast with this acyclic category:
+\begin{center}
+\begin{equation}
+\begin{array}{p{1.5cm}cccp{2cm}c}
+&                & \Rnode{C}{C}&   \\ [1.4cm]
+&                & \Rnode{B}{B} &  \\ [0.8cm]
+&                & \Rnode{A}{A} &  
+\end{array}
+\end{equation}
+\ncasar[-30]{y_1}{C}{B}
+\ncasar[30]{y_2}{C}{B}
+\ncasar{x}{B}{A}
+
+\setlength {\saroffsetA}{-2pt}
+\setlength {\saroffsetB}{-2pt}
+\ncbsar[-60]{x_1 = y_1 \circ x}{C}{A}
+\setlength {\saroffsetA}{2pt}
+\setlength {\saroffsetB}{2pt}
+\ncasar[60]{x_2 = y_2 \circ x}{C}{A}
+\sarreset
+\end{center}
+\noindent
+which represents :
+\addtocounter{equation}{-1}
+\begin{align}
+&A\mbox{ is a type} && \tag*{(\theequation a)}\\
+&x\in A: B(x) \mbox{ is a type} && \tag*{(\theequation b)}\\
+&x_1\in A_1, y_1 \in B(x_1), x_2\in A_1, y_2 \in B(x_2) : C(x_1,x_2,y_1,y_2) \mbox{ is a type} && \tag*{(\theequation c)}
+\end{align}
+
+\section{Cones and Tight Cones}
+Recall the definition of cone $\tuple{ N,\psi}$ to a diagram $F:J \morph C$ of a category $C$ as an object $N$ of $C$ and a family of morphisms $\psi_j$ indexed by objects $j$ of $J$ such that for all $f: j \morph j'$ in $J$, $\psi_j \circ F(f) = \psi_{j'}$. Define a cone $\tuple{ N,\psi}$to be \textit{tight} iff there does not exists an epimorphic image $G: J \epi K$ and a diagram $H:K \morph C$ such that $J=G \circ K$ and such that $\tuple{N,\psi}$ is a cone to $K$.
+
+\section{Definition of Dependency Catgegory}
+A \textit{dependency category} is a category \cat{C} with terminal object $1$ along with a distinguished subset of morphisms which we call \textit{dependencies} or \textit{d-morphisms} which form an acyclic subcategory of \cat{C} and such that:
+
+\begin{enumerate} [(i)]
+	\item for any object A of \cat{C} the unique morphism $t_A:A \morph 1$ is a d-morphism
+	\item Existence and properties of pullbacks: if
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{.9cm}c}
+            & & \Rnode{X}{X} \\ [1.2cm]
+\Rnode{A}{A}& & \Rnode{B}{B} \\
+\end{array}
+\end{displaymath}
+\jcbarr{f}{A}{B}
+\ncasar{b}{X}{B}
+\end{center}
+
+then there is a pullback 
+\vspace{3mm}
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{.9cm}c}
+\Rnode{fstarX}{X[f|b]} & & \Rnode{X}{X}\\ [1.2cm]
+\Rnode{A}{A}         & & \Rnode{B}{B}
+\end{array}
+\end{displaymath}
+\ncbsar{f^*b}{fstarX}{A}
+\jcbarr{f}{A}{B}
+\ncaarr{q(f,b)}{fstarX}{X}
+\ncasar{b}{X}{B}
+\end{center}
+and pullbacks cohere\footnote{exactly as for contextual category}
+and if also:
+\begin{center}
+$
+\begin{array}{cp{.9cm}c}
+            & & \Rnode{X}{X} \\ [1.2cm]
+& & \Rnode{Bprime}{B'} \\
+\end{array}
+$
+\ncasar{$b'$}{X}{Bprime}
+\end{center}
+and $b \neq b'$ then $q(f,B) \circ b'$ is a d-morphism. 
+
+\item In the pullback  along a dependency the q term is a dependency and pullbacks of depedencies are symetric as follows:
+
+\noindent if
+\begin{center}
+$
+\begin{array}{cp{0cm}cp{0cm}c}
+\Rnode{B1}{B_1}& &            &  &\Rnode{B2}{B_2} \\ [1.2cm]
+               & &\Rnode{A}{A}& &
+\end{array}
+$
+\ncbsar{b_1}{B1}{A}
+\ncasar{b_2}{B2}{A}
+\end{center}
+
+\noindent then
+$B_2[b_1|b_2]=B_1[b_2|b_1]$ and $q(b_1,b_2)= b_2\sub b_1 $ and $q(b_2,b_1)= b_1 \sub b_2$
+\noindent
+so that we have:
+
+\begin{center}
+$
+\begin{array}{ccc}
+               & \Rnode{X}{B_2[b_1|b_2]=B_1[b_2|b_1]}&                \\ [1.2cm]
+\Rnode{B1}{B_1}&                                     &\Rnode{B2}{B_2} \\ [1.2cm]
+               & \Rnode{A}{A}                        & 
+\end{array}
+$
+\ncbsar{b_1}{B1}{A}
+\ncasar{b_2}{B2}{A}
+\ncbsar{q(b_2,b_1)=b_1*b_2}{X}{B1}
+\ncasar{q(b_1,b_2)=b_2*b_1}{X}{B2}
+\end{center}
+
+
+
+\item For any diagram $J$ of d-morphisms having limit $L$, if $\tuple{N,\psi}$ is a cone of d-morphisms 
+to diagram $J$ then the mediating morphism $H:N \morph L$ is a d-morphism.
+\end{enumerate}
+ 
+
+\bibliography{../SharedBibliography/temp/bibliography}
+
+\end{document}
