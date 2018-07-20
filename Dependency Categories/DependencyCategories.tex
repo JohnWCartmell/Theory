@@ -9,6 +9,8 @@
 \usepackage{verbatim}
 \usepackage{enumerate}
 \usepackage{calc}
+
+\input{../SharedMacros/theorems.macros}
 \input{../SharedMacros/ccategories.macros}
 \input{../SharedMacros/gats.macros}
 \input{../SharedMacros/metagat.macros}
@@ -130,6 +132,143 @@ which represents :
 &x\in A: B(x) \mbox{ is a type} && \tag*{(\theequation b)}\\
 &x_1\in A_1, y_1 \in B(x_1), x_2\in A_1, y_2 \in B(x_2) : C(x_1,x_2,y_1,y_2) \mbox{ is a type} && \tag*{(\theequation c)}
 \end{align}
+
+\section{Preliminary Definitions\protect\footnote{Please regard the terminology introduced here as provisional -- the author would be glad to receive suggested improvements especially where he has failed to use prior established terminology.}}
+\begin{definition}
+\noindent If \cat{C} is a category  then a diagram 
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.4cm}cp{0.4cm} c}
+            & &\Rnode{A1}{A_1}                  \\ [0.4cm]
+\Rnode{C}{C}& &                & & \Rnode{B}{B} \\ [0.4cm]
+            & &\Rnode{A2}{A_2} 
+\end{array}
+\end{displaymath}
+\ncaarr{f_1}{C}{A1}
+\ncaarr{x}{A1}{B}
+\jcbarr{f_2}{C}{A2}
+\jcbarr{y}{A2}{B}
+\end{center}
+\noindent is said to factor through a second diagram 
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.4cm}cp{0.4cm} c}
+            & &\Rnode{A1}{A_1}                  \\ [0.4cm]
+\Rnode{C}{C}& &                & & \Rnode{B}{B'} \\ [0.4cm]
+            & &\Rnode{A2}{A_2} 
+\end{array}
+\end{displaymath}
+\ncaarr{f_1}{C}{A1}
+\ncaarr{x'}{A1}{B}
+\jcbarr{f_2}{C}{A2}
+\jcbarr{y'}{A2}{B}
+\end{center}
+
+\noindent iff both diagrams commute and there exists a morphism $h: B' \morph B$ such that 
+both
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{ccp{1cm}c}
+\Rnode{A1}{A_1}                               \\ [0.5cm]
+               &\Rnode{Bp}{B'}& & \Rnode{B}{B} 
+\end{array}
+\end{displaymath}
+\ncaarr{x}{A1}{B}
+\jcbarr{h}{Bp}{B}
+\jcbarr{x'}{A1}{Bp}
+\end{center}
+
+\noindent and
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{ccp{1cm}c}
+               &\Rnode{Bp}{B'}& & \Rnode{B}{B} \\ [0.5cm]
+							\Rnode{A2}{A_2}    
+\end{array}
+\end{displaymath}
+\jcbarr{y}{A2}{B}
+\ncaarr{h}{Bp}{B}
+\ncaarr{y'}{A2}{Bp}
+\end{center}
+
+\noindent commute. 
+\end{definition}
+\begin{definition}
+\noindent If \cat{C} is a category  then a \textit{characterising family} for a diagram
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.4cm}c}
+            & &\Rnode{A1}{A_1}               \\ [0.4cm]
+\Rnode{C}{C}& &                              \\ [0.4cm]
+            & &\Rnode{A2}{A_2} 
+\end{array}
+\end{displaymath}
+\ncaarr{f_1}{C}{A1}
+\jcbarr{f_2}{C}{A2}
+\end{center}
+\noindent of \cat{C} consists of 
+\begin{enumerate} [(i)]
+	\item for some $m$, $m \geq 1$, a family of objects $B_j$,$1 \leq j \leq m$,
+	\item a family of morphisms $x_j:A_1 \morph B_j, 1 \leq j \leq m$,
+	\item a family of morphisms $y_j:A_2 \morph B_j, 1 \leq j \leq m$,
+\end{enumerate}
+\noindent satisfying, for all $j$, $1 \leq j \leq m$,
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.4cm}cp{0.4cm} c}
+            & &\Rnode{A1}{A_1}                  \\ [0.4cm]
+\Rnode{C}{C}& &                & & \Rnode{Bj}{B_j} \\ [0.4cm]
+            & &\Rnode{A2}{A_2} 
+\end{array}
+\end{displaymath}
+\ncaarr{f_1}{C}{A1}
+\ncaarr{x_j}{A1}{Bj}
+\jcbarr{f_2}{C}{A2}
+\jcbarr{y_j}{A2}{Bj}
+\end{center}
+\noindent commutes.
+\end{definition}
+
+\begin{definition}
+\noindent A category $\cat{C}$ is \textit{well-founded} provided that for 
+any object $A$ of $C$ the set of morphisms with domain $A$ is finite. 
+\end{definition}
+\noindent 
+
+\begin{lemma}
+ If \cat{C} is a well-founded category then every pair of morphisms with common domain has a unique characterising family.
+\end{lemma}
+\begin{proof}
+\end{proof}
+\begin{definition}
+Denote by \cat{$M_{\alpha\beta}$} the category with three objects and two morphisms, $\alpha$ and $\beta$ so:
+
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.4cm} c}
+\Rnode{A1}{\bullet}                  \\ [0.4cm]
+                & & \Rnode{target}{\bullet} \\ [0.4cm]
+\Rnode{A2}{\bullet} 
+\end{array}
+\end{displaymath}
+\ncaarr{\alpha}{A1}{target}
+\jcbarr{\beta}{A2}{target}
+\end{center}
+\end{definition}
+
+\begin{definition}
+If $\tuple{f_1,...f_n}$ is a tuple of morphisms with common domain in a well-founded category \cat{C} then define the \textit{characterising diagram} for the tuple of morphisms
+to be the diagram with shape category :
+$$\cat{S}=\sum_{\substack{i,\\1 \leq i \leq n}} \  \sum_{\substack{j,\\ 1 \leq j \leq n,\\ j \neq i}} \ \sum_{k \in \chi_{f_i,f_j}} \cat{M}_{\alpha\beta}$$
+and with functor $D: S \morph \cat{C}$ defined by
+$$ \tuple {i,j,k,\alpha}   \mapsto x_{i,j,k}$$
+and
+$$ \tuple {i,j,k,\beta}   \mapsto y_{i,j,k}$$
+where the kth element of the characterising family of the pair $f_i,f_j$ is the  pair of \cat{C} morphisms $x_{i,j,k}, y_{i,j,k}$.
+\end{definition}
 
 \section{Cones and Tight Cones}
 Recall the definition of cone $\tuple{ N,\psi}$ to a diagram $F:J \morph C$ of a category $C$ as an object $N$ of $C$ and a family of morphisms $\psi_j$ indexed by objects $j$ of $J$ such that for all $f: j \morph j'$ in $J$, $\psi_j \circ F(f) = \psi_{j'}$. Define a cone $\tuple{ N,\psi}$to be \textit{tight} iff there does not exists an epimorphic image $G: J \epi K$ and a diagram $H:K \morph C$ such that $J=G \circ K$ and such that $\tuple{N,\psi}$ is a cone to $K$.
