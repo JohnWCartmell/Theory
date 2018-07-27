@@ -133,68 +133,168 @@ which represents :
 &x_1\in A_1, y_1 \in B(x_1), x_2\in A_1, y_2 \in B(x_2) : C(x_1,x_2,y_1,y_2) \mbox{ is a type} && \tag*{(\theequation c)}
 \end{align}
 
-\section{Preliminary Definitions\protect\footnote{Please regard the terminology introduced here as provisional -- the author would be glad to receive suggested improvements especially where he has failed to use prior established terminology.}}
-\begin{definition}
-\noindent If \cat{C} is a category  then a diagram 
+\section{Spans and Cospans}
+
+\noindent
+The category $\Lambda$ is defined to be this category:
 \begin{center}
 \begin{displaymath}
-\begin{array}{cp{0.4cm}cp{0.4cm} c}
-            & &\Rnode{A1}{A_1}                  \\ [0.4cm]
-\Rnode{C}{C}& &                & & \Rnode{B}{B} \\ [0.4cm]
-            & &\Rnode{A2}{A_2} 
+\begin{array}{cp{0.1cm}cp{0.1cm} c}
+            & &\Rnode{d}{\bullet}                  \\ [0.4cm]
+\Rnode{c1}{\bullet}& &                & & \Rnode{c2}{\bullet} 
 \end{array}
 \end{displaymath}
-\ncaarr{f_1}{C}{A1}
-\ncaarr{x}{A1}{B}
-\jcbarr{f_2}{C}{A2}
-\jcbarr{y}{A2}{B}
-\end{center}
-\noindent is said to factor through a second diagram 
-\begin{center}
-\begin{displaymath}
-\begin{array}{cp{0.4cm}cp{0.4cm} c}
-            & &\Rnode{A1}{A_1}                  \\ [0.4cm]
-\Rnode{C}{C}& &                & & \Rnode{B}{B'} \\ [0.4cm]
-            & &\Rnode{A2}{A_2} 
-\end{array}
-\end{displaymath}
-\ncaarr{f_1}{C}{A1}
-\ncaarr{x'}{A1}{B}
-\jcbarr{f_2}{C}{A2}
-\jcbarr{y'}{A2}{B}
+\ncarr{d}{c1}
+\ncarr{d}{c2}
 \end{center}
 
-\noindent iff both diagrams commute and there exists a morphism $h: B' \morph B$ such that 
-both
-
+\noindent
+If we need names for the individual objects and morphisms we will use the names show here:
 \begin{center}
 \begin{displaymath}
-\begin{array}{ccp{1cm}c}
-\Rnode{A1}{A_1}                               \\ [0.5cm]
-               &\Rnode{Bp}{B'}& & \Rnode{B}{B} 
+\begin{array}{cp{0.1cm}cp{0.1cm} c}
+            & &\Rnode{d}{\Delta}                  \\ [0.4cm]
+\Rnode{c1}{\Gamma_1}& &                & & \Rnode{c2}{\Gamma_2} 
 \end{array}
 \end{displaymath}
-\ncaarr{x}{A1}{B}
-\jcbarr{h}{Bp}{B}
-\jcbarr{x'}{A1}{Bp}
+\jcbarr{\xi}{d}{c1}
+\ncaarr{\gamma}{d}{c2}
 \end{center}
 
-\noindent and
+\noindent
+A \textit{span} within a category \cat{C} is exactly a functor 
+$S: \Lambda \morph \cat{C}$; it is a pair of morphisms of \cat{C} that have a common domain object i.e it is any diagram of this form:
 
 \begin{center}
-\begin{displaymath}
-\begin{array}{ccp{1cm}c}
-               &\Rnode{Bp}{B'}& & \Rnode{B}{B} \\ [0.5cm]
-							\Rnode{A2}{A_2}    
+\begin{equation}
+\label{genericspan}
+\begin{array}{cp{0.1cm}cp{0.1cm} c}
+            & &\Rnode{d}{D}                  \\ [0.4cm]
+\Rnode{c1}{C_1}& &                & & \Rnode{c2}{C_2} 
 \end{array}
-\end{displaymath}
-\jcbarr{y}{A2}{B}
+\end{equation}
+\jcbarr{f}{d}{c1}
+\ncaarr{g}{d}{c2}
+\end{center}
+
+
+\noindent Similarly a \textit{cospan} in a category \cat{C} is exactly a functor $S: \Lambda^{op} \morph \cat{C}$ and so it is exactly a diagram of this form:
+\begin{center}
+\begin{equation}
+\begin{array}{cp{0.1cm}cp{0.1cm} c}
+\Rnode{c1}{C_1}& &                & & \Rnode{c2}{C_2} \\ [0.4cm]
+            & &\Rnode{b}{B}
+\end{array}
+\end{equation}
+\jcbarr{x_1}{c1}{b}
+\ncaarr{x_2}{c2}{b}
+\end{center}
+
+\noindent
+The cospan (\ref{genericcospan}) of $C_1$ and $C_2$ is said to be a 
+\textit{coincident cospan} of the span (\ref{genericspan}) iff the 
+diagram:
+\begin{center}
+\begin{equation}
+\begin{array}{cp{0.1cm}cp{0.1cm} c}
+            & &\Rnode{d}{D}                           \\ [0.4cm]
+\Rnode{c1}{C_1}& &                & & \Rnode{c2}{C_2} \\ [0.4cm]
+            & &\Rnode{b}{B}
+\end{array}
+\end{equation}
+\jcbarr{f}{d}{c1}
+\ncaarr{g}{d}{c2}
+\jcbarr{x_1}{c1}{b}
+\ncaarr{x_2}{c2}{b}
+\end{center}
+
+\noindent commutes.
+
+\noindent We will say that the cospan (\ref{genericcospan}) is a 
+\textit{minimal coincident cospan} for the span (\ref{genericspan}) iff it is 
+coincident  and there does no exist cospan 
+\begin{center}
+\begin{equation}
+\begin{array}{cp{0.1cm}cp{0.1cm} c}
+\Rnode{c1}{C_1}& &                & & \Rnode{c2}{C_2} \\ [0.4cm]
+            & &\Rnode{b}{B'}
+\end{array}
+\end{equation}
+\jcbarr{x'_1}{c1}{b}
+\ncaarr{x'_2}{c2}{b}
+\end{center}
+
+
+
+that is coincident to (\ref{genericspan}) and such that there is a morphism 
+$h: B' \morph B$ such that both \\
+\vspace {0.25cm}
+
+$
+\begin{array}{cc}
+\Rnode{C1}{C_1}                             \\ [0.7cm]
+               & \Rnode{Bp}{B'}             \\ [0.8cm]
+							 &  \Rnode{B}{B} 
+\end{array}
+$
+\jcbarr[-30]{x_1}{C1}{B}
 \ncaarr{h}{Bp}{B}
-\ncaarr{y'}{A2}{Bp}
+\ncaarr{x'_1}{C1}{Bp}
+and
+$
+\begin{array}{p{1.5cm}cc}
+&                &\Rnode{C2}{C_2}     \\ [0.7cm]
+&\Rnode{Bp}{B'}                       \\ [0.8cm]
+&\Rnode{B}{B}
+\end{array}
+$
+\ncaarr[30]{x_2}{C2}{B}
+\jcbarr{h}{Bp}{B}
+\jcbarr{x'_2}{C2}{Bp}
+commute. 
+\noindent
+A cospan $F:\Lambda^{op} \morph \cat{C}$ is said to \textit{factor through}  a diagram 
+$J:S \morph \cat{C}$ iff there exists a cospan $F': \Lambda^{op} \morph S$ 
+such that $F' \circ J = F$.
+  
+\section{Higher Cospans and Quotiented Higher Cospans}
+The notion of a \textit{higher cospan} was
+ introduced in \cite{Grandis2007} for diagrams
+in a category of shape $\Lambda^{op^n}$but for us there are significant diagrams whose 
+shape category is a quotient of  ${\Lambda^{op}}^n$ and since we are not aware
+of further terminology in this area we introduce some here. It is appropriate to make use the join symbol ($\Join$) from relational algebra. \\
+
+\noindent For any $n \geq 2$ define the category \ndidly to be this category:
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.3cm}c         p{0.3cm}  c p{0.2cm} c}
+\Rnode{d1}{\Delta_1}& &               & &     & &\Rnode{d2}{\Delta_2}  \\ [1.2cm]
+\Rnode{c1}{\Gamma_1}& &\Rnode{c2}{\Gamma_2}& & ... & &\Rnode{cn}{\Gamma_n}
+\end{array}
+\end{displaymath}
+\ncarr{d1}{c1}
+\nbput[npos=0.4, labelsep=1pt]{\footnotesize $\xi_1$}
+\ncarr{d1}{c2}
+\nbput[npos=0.3, labelsep=1pt]{\footnotesize $\xi_2$}
+\ncarr{d1}{cn}
+\naput[npos=0.3, labelsep=1pt]{\footnotesize $\xi_n$}
+\ncarr{d2}{c1}
+\nbput[npos=0.3, labelsep=1pt]{\footnotesize $\gamma_1$}
+\ncarr{d2}{c2}
+\naput[npos=0.25, labelsep=1pt]{\footnotesize $\gamma_2$}
+\ncarr{d2}{cn}
+\naput[npos=0.4, labelsep=1pt]{\footnotesize $\gamma_n$}
 \end{center}
 
-\noindent commute. 
+\begin{definition}
+A \textit{\ndidlycospan}
+ in category \cat{C}  is any diagram in \cat{C} having 
+shape $\ndidly$  i.e. it is any function $F: \ndidly \morph \cat{C}$
 \end{definition}
+
+\section{ Some Other Preliminary Definitions\protect\footnote{Please regard the terminology introduced here as provisional -- the author would be glad to receive suggested improvements especially where he has failed to use prior established terminology.}}
+
 \begin{definition}
 \noindent If \cat{C} is a category  then a \textit{characterising family} for a diagram
 \begin{center}
@@ -242,49 +342,82 @@ any object $A$ of $C$ the set of morphisms with domain $A$ is finite.
 \end{lemma}
 \begin{proof}
 \end{proof}
-\begin{definition}
-Denote by \cat{$M_{\alpha\beta}$} the category with three objects and two morphisms, $\alpha$ and $\beta$ so:
-
-
-\begin{center}
-\begin{displaymath}
-\begin{array}{cp{0.4cm} c}
-\Rnode{A1}{\bullet}                  \\ [0.4cm]
-                & & \Rnode{target}{\bullet} \\ [0.4cm]
-\Rnode{A2}{\bullet} 
-\end{array}
-\end{displaymath}
-\ncaarr{\alpha}{A1}{target}
-\jcbarr{\beta}{A2}{target}
-\end{center}
-\end{definition}
 
 \begin{definition}
 If $\tuple{f_1,...f_n}$ is a tuple of morphisms with common domain in a well-founded category \cat{C} then define the \textit{characterising diagram} for the tuple of morphisms
-to be the diagram with shape category :
-$$\cat{S}=\sum_{\substack{i,\\1 \leq i \leq n}} \  \sum_{\substack{j,\\ 1 \leq j \leq n,\\ j \neq i}} \ \sum_{k \in \chi_{f_i,f_j}} \cat{M}_{\alpha\beta}$$
-and with functor $D: S \morph \cat{C}$ defined by
-$$ \tuple {i,j,k,\alpha}   \mapsto x_{i,j,k}$$
+to be the diagram with shape category \ndidly where 
+$$n = 
+\sum_{\substack{i,\\1 \leq i \leq n}} \  \sum_{\substack{j,\\ 1 \leq j \leq n,\\ j \neq i}} \ | \chi_{i,j} | $$
+where $\chi_{i,j}$ is the characterising family for the pair $f_i,f_j$ and 
+$|\chi_{i,j}|$ is its cardinality,
+and with functor $D: S \morph \cat{C}$ defined for $1 \leq i \leq n$, $1 \leq j \leq n$, $i \neq j$, $1 \leq k \leq | \chi_{i,j}$ by
+$$ \xi_{i,j,k}   \mapsto F_{i,j,k}(\xi)$$
 and
-$$ \tuple {i,j,k,\beta}   \mapsto y_{i,j,k}$$
-where the kth element of the characterising family of the pair $f_i,f_j$ is the  pair of \cat{C} morphisms $x_{i,j,k}, y_{i,j,k}$.
+$$ \gamma_{i,j,k}   \mapsto F_{i,j,k}(\gamma) $$
+where $F_{i,j,k}$ is the $k$'th cospan within the characteristic family of the pair $f_i,f_j$.
 \end{definition}
 
 \begin{definition}
-If \cat{C} is a well-founded category then a family of morphisms  $f_i: C \morph B_i$ is a family of morphisms is said to
-be a basis for object C iff for every morphism $f: C \morph X$ in \cat{C} either the codomain $X$ is a limit of its characterising diagram or else $f$ factors through one of $f_i$ for some $i$ i.e there exists $g:B_i \morph X$, for some $i$, such that $f_i \circ g = f$.
+If \cat{C} is a well-founded category then a family of morphisms  $f_i: C \morph B_i$ is said to
+be a basis for object C iff for every morphism $f: C \morph X$ in \cat{C} either 
+$X$ is a limit of its characterising diagram or else $f$ factors through one of $f_i$ for some $i$ i.e there exists $g:B_i \morph X$, for some $i$, such that $f_i \circ g = f$.
 \end{definition}
 
-
 \section{Cones and Tight Cones}
-Recall the definition of cone $\tuple{ N,\psi}$ to a diagram $F:J \morph C$ of a category $C$ as an object $N$ of $C$ and a family of morphisms $\psi_j$ indexed by objects $j$ of $J$ such that for all $f: j \morph j'$ in $J$, $\psi_j \circ F(f) = \psi_{j'}$. Define a cone $\tuple{ N,\psi}$to be \textit{tight} iff there does not exists an epimorphic image $G: J \epi K$ and a diagram $H:K \morph C$ such that $J=G \circ K$ and such that $\tuple{N,\psi}$ is a cone to $K$.
+Recall the definition of cone $\tuple{ N,\psi}$ to a diagram $F:J \morph C$ of a category $C$ as an object $N$ of $C$ and a family of morphisms $\psi_j$ indexed by objects $j$ of $J$ such that for all $f: j \morph j'$ in $J$, $\psi_j \circ F(f) = \psi_{j'}$. Define a cone $\tuple{ N,\psi}$to be \textit{tight} iff for all pairs $j,j'$ of objects of shape category $J$, every minimal coincident cospan of the span:
 
-\section{Definition of Dependency Catgegory}
+\begin{center}
+\begin{equation}
+\begin{array}{cp{0cm}cp{0cm} c}
+            & &\Rnode{d}{N}                           \\ [0.4cm]
+\Rnode{c1}{F(j_1)}& &                & & \Rnode{c2}{F(j_2)} 
+\end{array}
+\end{equation}
+\jcbarr{\psi_{j_1}}{d}{c1}
+\ncaarr{\psi_{j_2}}{d}{c2}
+\end{center}
+
+factors through the diagram $F$.
+
+\section{Definition of Dependency Category}
 A \textit{dependency category} is a category \cat{C} with terminal object $1$ along with a distinguished subset of morphisms which we call \textit{dependencies} or \textit{d-morphisms} which form an acyclic subcategory of \cat{C} and such that:
 
 \begin{enumerate} [(i)]
 	\item for any object A of \cat{C} the unique morphism $t_A:A \morph 1$ is a d-morphism
-	\item Existence and properties of pullbacks: if
+	
+	
+	\item for all diagrams D of d-morphisms \begin{center}
+$
+\begin{array}{cp{0cm}cp{0cm}c}
+\Rnode{B1}{B}& &            &  &\Rnode{B2}{B'} \\ [1.2cm]
+               & &\Rnode{A}{A}& &
+\end{array}
+$
+\ncbsar{x}{B1}{A}
+\ncasar{x'}{B2}{A}
+\end{center}
+	
+an object  $ \fibrex{B_1}{B_2}{D}$ of \cat{C} and d-morphisms 
+$p_1: \fibrex{B_1}{B_2}{D} \dmorph B_1$ and  $p_1: \fibrex{B_1}{B_2}{D} \dmorph B_1$ such that :
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.1cm}cp{0.1cm} c}
+            & &\Rnode{d}{\fibrex{B_1}{B_2}{D}}                  \\ [0.4cm]
+\Rnode{c1}{B_1}& &                & & \Rnode{c2}{B_2} 
+\end{array}
+\end{displaymath}
+\ncbsar{p_1}{d}{c1}
+\ncasar{p_2}{d}{c2}
+\end{center}
+
+is a pullback in category \cat{C} and such that for any 
+cone $\tuple{N,\psi}$ to diagram $D$
+the mediating morphism $h: N \morph B_1 \underset{D}{\Join} B_2$ is a d-moprphism iff the cone $\tuple{N,\psi}$ is tight. [Rephrase this using characteristic diagram?] 
+
+
+	
+	\item Other pullbacks: if
 \begin{center}
 \begin{displaymath}
 \begin{array}{cp{.9cm}c}
@@ -293,7 +426,7 @@ A \textit{dependency category} is a category \cat{C} with terminal object $1$ al
 \end{array}
 \end{displaymath}
 \jcbarr{f}{A}{B}
-\ncasar{b}{X}{B}
+\ncasar{y}{X}{B}
 \end{center}
 
 then there is a pullback 
@@ -301,14 +434,14 @@ then there is a pullback
 \begin{center}
 \begin{displaymath}
 \begin{array}{cp{.9cm}c}
-\Rnode{fstarX}{X[f|b]} & & \Rnode{X}{X}\\ [1.2cm]
+\Rnode{fstarX}{X[f|y]} & & \Rnode{X}{X}\\ [1.2cm]
 \Rnode{A}{A}         & & \Rnode{B}{B}
 \end{array}
 \end{displaymath}
-\ncbsar{f^*b}{fstarX}{A}
+\ncbsar{f^*y}{fstarX}{A}
 \jcbarr{f}{A}{B}
-\ncaarr{q(f,b)}{fstarX}{X}
-\ncasar{b}{X}{B}
+\ncaarr{q(f,y)}{fstarX}{X}
+\ncasar{y}{X}{B}
 \end{center}
 and pullbacks cohere\footnote{exactly as for contextual category}
 and if also:
@@ -319,13 +452,51 @@ $
 & & \Rnode{Bprime}{B'} \\
 \end{array}
 $
-\ncasar{$b'$}{X}{Bprime}
+\ncasar{$y'$}{X}{Bprime}
 \end{center}
-and $b \neq b'$ then $q(f,B) \circ b'$ is a d-morphism. 
+and $y \neq y'$ then $q(f,y) \circ y'$ is a d-morphism. 
+\noindent Further, if
+\begin{center}
+$
+\begin{array}{p{2cm}p{0.5cm}p{0.5cm}p{0.5cm}}
+& & \Rnode{X}{X}& \\ [1.4cm]
+\Rnode{A}{A} & \Rnode{B1}{$B_1$} & ... & \Rnode{Bm}{$B_m$}\\
+\end{array}
+$
+\jcbarr{f}{A}{B1}
+\ncbsar{y_1}{X}{B1}
+\ncasar{y_m}{X}{Bm}
+\end{center}
+and $y_1,...y_m$ is a basis for $X$ 
+\noindent then the set:
+\vspace{2mm}
+\begin{center}
+\psset{arrowsize=5pt,arrowinset=0.7}
+\psset{nodesep=7pt}
+\setlength{\arraycolsep}{0.3cm}
+\begin{displaymath}
+\begin{array}{ccp{0.2cm}p{0.075cm}c}
+&&\Rnode{top}{$X[f|y_1]$}& & \\[1.5cm]
+\Rnode{A}{A}&\Rnode{B2}{B_2}&& ... & \Rnode{Bm}{B_m}\\
+\end{array}
+\end{displaymath}
+\psset{nodesepA=4pt,nodesepB=7pt}
+\ncline{-}{top}{A}
+\tlput{\footnotesize $f^*y_1$}
+\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
+\ncline{-}{top}{B2}
+\trput{\footnotesize $f_*y_2$}
+\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
+\ncline{-}{top}{Bm}
+\trput{\footnotesize $f_*y_m$}
+\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
+\end{center}
+is a basis for  $f^*X$.
 
-\item In the pullback  along a dependency the q term is a dependency and pullbacks of depedencies are symetric as follows:
 
-\noindent if
+\item If in (iii) the morphism f is a dependency then  $q(f,y)$ is also a dependency and 
+
+\noindent for any diagram D:
 \begin{center}
 $
 \begin{array}{cp{0cm}cp{0cm}c}
@@ -333,35 +504,289 @@ $
                & &\Rnode{A}{A}& &
 \end{array}
 $
-\ncbsar{b_1}{B1}{A}
-\ncasar{b_2}{B2}{A}
+\ncbsar{x_1}{B1}{A}
+\ncasar{x_2}{B2}{A}
 \end{center}
 
 \noindent then
-$B_2[b_1|b_2]=B_1[b_2|b_1]$ and $q(b_1,b_2)= b_2\sub b_1 $ and $q(b_2,b_1)= b_1 \sub b_2$
+$B_2[x_1|x_2]=B_1[x_2|x_1] = \fibrex{B_1}{B_2}{D}$ and $q(x_1,x_2)= x_2\sub x_1 $ and $q(x_2,x_1)= x_1 \sub x_2$
 \noindent
 so that we have:
 
 \begin{center}
 $
-\begin{array}{ccc}
-               & \Rnode{X}{B_2[b_1|b_2]=B_1[b_2|b_1]}&                \\ [1.2cm]
-\Rnode{B1}{B_1}&                                     &\Rnode{B2}{B_2} \\ [1.2cm]
-               & \Rnode{A}{A}                        & 
+\begin{array}{cp{0cm}cp{0cm}c}
+               && \Rnode{X}{\fibrex{x_1}{x_2}{D}}&&                \\ [1.2cm]
+\Rnode{B1}{x_1}&&                                && \Rnode{B2}{x_2} \\ [1.2cm]
+               &&\Rnode{A}{A}                    && 
 \end{array}
 $
-\ncbsar{b_1}{B1}{A}
-\ncasar{b_2}{B2}{A}
-\ncbsar{q(b_2,b_1)=b_1*b_2}{X}{B1}
-\ncasar{q(b_1,b_2)=b_2*b_1}{X}{B2}
+\ncbsar{x_1}{B1}{A}
+\ncasar{x_2}{B2}{A}
+\ncbsar{q(x_2,x_1)=x_1*x_2=p_1}{X}{B1}
+\ncasar{q(x_1,x_2)=x_2*x_1=p_2}{X}{B2}
 \end{center}
 
 
 
-\item For any diagram $J$ of d-morphisms having limit $L$, if $\tuple{N,\psi}$ is a cone of d-morphisms 
-to diagram $J$ then the mediating morphism $H:N \morph L$ is a d-morphism.
+
+
+
+\item Equalisers and properties of equalisers: If
+\setlength{\arraycolsep}{1cm}
+\psset{arrowsize=5pt,arrowinset=0.7}
+\psset{nodesep=7pt}
+$
+\begin{array}{c}
+\Rnode{B}{B} \\ [1.1cm]
+\Rnode{A}{A} \\
+\end{array}
+$
+\psset{nodesepA=4pt,nodesepB=7pt}
+\ncarc[arcangle=-30]{-}{B}{A}
+\nbput{\footnotesize $x_1$}
+\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
+\ncarc[arcangle=30]{-}{B}{A}
+\naput{\footnotesize $x_2$}
+\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
+then there is an equaliser:
+\setlength{\arraycolsep}{.75cm}
+$
+\begin{array}{ccc}
+\Rnode{Eq}{\underset{x_1=x_2}{\sigma}B} & \Rnode{B}{B}  & \Rnode{A}{A} \\
+\end{array}
+$
+\psset{nodesepA=4pt,nodesepB=7pt}
+\ncline[offset=4pt]{-}{B}{A}
+\naput{\footnotesize $x_1$}
+\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
+\ncline [offset=-4pt]{-}{B}{A}
+\nbput{\footnotesize $x_2$}
+\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
+\ncline{->}{Eq}{B}
+\naput{\footnotesize $e$}
+\noindent and the morphism $e \circ x_1$ which equals, by definition, $e \circ a_2$  is a d-morphism as shown
+in the following diagram:
+\vspace{.2cm}
+\begin{center}
+\setlength{\arraycolsep}{.3cm}
+$
+\begin{array}{ccc}
+\Rnode{Eq}{\underset{x_1=x_2}{\sigma}B} & &\Rnode{B}{B} \\[1.4cm]
+ & \Rnode{A}{A} &\\
+\end{array}
+$
+\psset{nodesepA=3pt,nodesepB=9pt}
+\ncarc[arcangle=-15]{-}{B}{A}
+\nbput{\footnotesize $x_1$}
+\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
+\psset{nodesepA=4pt,nodesepB=7pt}
+\ncarc[arcangle=15]{-}{B}{A}
+\naput{\footnotesize $x_2$}
+\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
+\ncline{->}{Eq}{B}
+\naput{\footnotesize $e$}
+\ncarc[arcangle=-5]{-}{Eq}{A}
+\nbput{\footnotesize $e \circ x_1 = e \circ x_2$}
+\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
+\end{center}
+
+\noindent For any other d-morphism $a':B\darrow A'$ leaving B, the morphism $e \circ a'$ is a d-morphism; furthermore, if
+\begin{center}
+\setlength{\arraycolsep}{.1cm}
+$
+\begin{array}{ccp{.3cm}c}
+                  & \multicolumn{2}{c}{\Rnode{B}{B}}& \\ [1.4cm]
+\Rnode{A1}{A_1} &\Rnode{A2}{A_2}& ... & \Rnode{Am}{A_m}\\
+\end{array}
+$
+\psset{labelsep=1pt,npos=0.6}
+\ncbsar{x_1}{B}{A1}
+\ncasar{x_2}{B}{A2}
+\ncasar{x_m}{B}{Am}
+\end{center}
+and $x_1,...x_m$ is a basis for B 
+then
+
+\begin{center}
+\setlength{\arraycolsep}{.1cm}
+$
+\begin{array}{cp{.35cm}cp{.4cm}c}
+                  & \multicolumn{3}{c}{\Rnode{diamondB}{\underset{x_1=x_2}{\sigma}B}}& \\ [1.4cm]
+\Rnode{A1}{A_1} & &\Rnode{A3}{A_3} &... & \Rnode{Am}{A_m}\\
+\end{array}
+$
+\psset{labelsep=1pt,npos=0.6}
+\ncbsar{e \circ a_1 = e \circ x_2}{diamondB}{A1}
+\psset{labelsep=1pt,npos=0.8}
+\ncasar{e \circ x_3}{diamondB}{A3}
+\ncasar{e \circ x_m}{diamondB}{Am}
+\end{center}
+\setlength{\arraycolsep}{0.1cm}
+\noindent is a basis for $\underset{x_1=x_2}{\sigma}B$. 
+
+\noindent For any 
+cone $\tuple{N,\psi}$ to diagram $D$  [REPHRASE!!]
+the mediating morphism $h: N \morph \underset{x_1=x_2}{\sigma}B$ is a d-moprphism iff the cone $\tuple{N,\psi}$ is tight. [Then rephrase again this using characteristic diagram?] 
+
+
+This completes the definition.
+
 \end{enumerate}
+
+\section{Construction of Limits of Other Dependency Diagrams}
+
+\begin{lemma}
+For all diagrams D of d-morphisms with shape \ndidly:
+	
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.3cm}c         p{0.3cm}  c p{0.2cm} c}
+\Rnode{d1}{B}& &               & &     & &\Rnode{d2}{B'}  \\ [1.4cm]
+\Rnode{c1}{A_1}& &\Rnode{c2}{A_2}& & ... & &\Rnode{cn}{A_n}
+\end{array}
+\end{displaymath}
+\ncsar{d1}{c1}
+\nbput[npos=0.4, labelsep=1pt]{\footnotesize $x_1$}
+\ncsar{d1}{c2}
+\nbput[npos=0.3, labelsep=1pt]{\footnotesize $x_2$}
+\ncsar{d1}{cn}
+\naput[npos=0.3, labelsep=1pt]{\footnotesize $x_n$}
+\ncsar{d2}{c1}
+\nbput[npos=0.3, labelsep=1pt]{\footnotesize $x'_1$}
+\ncsar{d2}{c2}
+\naput[npos=0.25, labelsep=1pt]{\footnotesize $x'_2$}
+\ncsar{d2}{cn}
+\naput[npos=0.4, labelsep=1pt]{\footnotesize $x'_n$}
+\end{center}
+
+there is an object  $ \fibrex{B_1}{B_2}{D}$ of \cat{C} and d-morphisms 
+$p_1: \fibrex{B_1}{B_2}{D} \dmorph B_1$ and  $p_1: \fibrex{B_1}{B_2}{D} \dmorph B_1$ such that :
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0cm}cp{0cm} c}
+            & &\Rnode{d}{\fibrex{B_1}{B_2}{D}}                  \\ [0.6cm]
+\Rnode{c1}{B_1}& &                & & \Rnode{c2}{B_2} 
+\end{array}
+\end{displaymath}
+\ncbsar{p_1}{d}{c1}
+\ncasar{p_2}{d}{c2}
+\end{center}
+
+is a limit of diagram $D$ in category \cat{C} and such that for any cone $\tuple{N,\psi}$ to diagram $D$
+the mediating morphism $h: N \morph B_1 \underset{D}{\Join} B_2$ is a d-moprphism iff the 
+cone $\tuple{N,\psi}$ is tight. [Rephrase this using characteristic diagram?] 
+
+\end{lemma}
+\begin{proof}
+\noindent This lemma can be proved by induction using the next lemma.
+\end{proof}
+\begin{lemma}
+In any category \cat{C} if $F: S \morph \cat{C}$ is a diagram with limit $\tuple{L,\phi}$,
+if $S'$ is a category extending $S$ by an object $\beta_0$ and a pair of morphisms $\xi_1: \beta_1 \morph \beta_0$ and $\xi_2: \beta_2 \morph \beta_0$, where $\beta_1$ and $\beta_2$ are objects of $S$, if $G: S \morph \cat{C}$ is a diagram that extends $F$, then if :
+\begin{center}
+\begin{equation}
+\label{equaliser}
+\begin{array}{cp{1cm}cp{1cm} c}
+\Rnode{E}{E}& &    \Rnode{L}{L}  & & \Rnode{A}{\beta_0} 
+\end{array}
+\end{equation}
+\ncaarr{e}{E}{L}
+\setlength{\arroffsetA}{3pt}
+\setlength{\arroffsetB}{3pt}
+\ncarr{L}{A}
+\naput{$\phi_B \circ G(\xi_1)$}
+\setlength{\arroffsetA}{-3pt}
+\setlength{\arroffsetB}{-3pt}
+\ncarr{L}{A}
+\nbput{$\phi_{B'} \circ G(\xi_2)$}
+\arreset
+\end{center}
+is an equaliser in \cat{C} then $\tuple{E,\phi'}$ is a limit of the diagram $G$, where
+$\phi'$ is the cone defined by
+\begin{equation*}
+\phi'_\beta =
+\left\{
+	\begin{array}{ll}
+		e \circ \phi_\beta           & \mbox{if } \beta \mbox{ is an object of } S  \\
+		\phi_{\beta_1} \circ G(\xi_1) & \mbox{if } \beta \mbox{ is } \beta_0 
+	\end{array}
+\right.
+\end{equation*}
+
+\end{lemma}
+\begin{proof}
+If $\tuple{N,\psi'}$is a cone to the diagram $G$ then, the restriction $\psi$ to objects in $F$ is a cone to  $S$. Therefore there exists a unique $h : N \morph L$ such that 
+\begin{equation}
+\label{hmediates}
+h \circ \phi = \psi
+\end{equation}
+
+\noindent
+Now, we have 
+\begin{align*}
+h \circ \phi_{\beta_1} \circ G(x)
+             & = \psi_{\beta_1} \circ G(\xi_1)         && \mbox{by (\ref{hmediates})}\\
+             & = \psi_{\beta_2} \circ G(\xi_2)         && \mbox{because } \psi \mbox{ is a cone to } G \\
+             & = h \circ \phi_{\beta_2} \circ G(\xi_2) && \mbox{by (\ref{hmediates}) }\\
+\end{align*}
+
+\noindent
+and so it follows, since (\ref{equaliser}) is an equaliser diagram,
+that there is a unique $g: N \morph E$ such that 
+\begin{equation}
+\label{gmediates}
+g \circ e = h
+\end{equation}
+
+\noindent
+To show that $\tuple{E,\phi'}$ is a limit to the diagram G we show that 
+$g \circ \phi' = \psi'$ and that $g$ is the unique such morphism,
+$g: N \morph E$.
+\noindent
+We need show that for all objects $\beta$ of $S'$,  $(g \circ \phi')_\beta =\psi'_\beta$. 
+We need consider two cases. In the first case for objects $\beta$ of $S$ we have:
+\begin{align*}
+g \circ \phi'_\beta
+             & = (g \circ e) \circ \phi_\beta   &&  \mbox{ by definition of } \phi\\
+             & = h \circ \phi_\beta             && \mbox{ by (\ref{gmediates})}   \\
+             & = \psi_\beta                     && \mbox{ by (\ref{hmediates})}   \\
+						 & = \psi'_\beta                    && \mbox{ by definition of } \psi\\
+\end{align*}
+
+\noindent
+In the second case the object $\beta$ is the additional object $\beta_0$ of $S'$. For this object we have:
+\begin{align*}
+g \circ \phi'_{\beta_0}
+   & = g \circ e \circ \phi_{\beta_1} \circ G(\xi_1)  && \mbox{by definition of }\phi' \\ 
+             & = h \circ \phi_{\beta_1} \circ G(\xi_1) && \mbox{ by (\ref{gmediates})} \\
+             & = \psi_{\beta_1}  \circ G(\xi_1)       && \mbox{ by (\ref{hmediates})} \\
+						 & = \psi'_{\beta_1} \circ G(\xi_1)       && \mbox{ by definition of} \psi \\
+						& = \psi'_{\beta_0}                        && \mbox{since }\psi' \mbox{ is a cone} \\ 
+\end{align*}
+and so, as required, we have shown that 
+$g \circ \phi' = \psi'$.
+\noindent Finally, if $g':N \morph E$ such that $g' \circ \phi' = \psi'$ then we have 
+for any object $\beta$ of S that
+$$(g'\circ\phi')_\beta = \psi'_\beta$$
+\noindent
+and therefore from the defintions of $\phi'$ and $\psi$ we have
+that, for all objects $\beta$ of S,
+$$
+g' \circ e \circ \phi_\beta = \psi_\beta
+$$
+\noindent
+and  from the definition of $h$ as the unique morphism such that
+$h \circ \phi = \psi$ we have that 
+$g' \circ e = h$.\\
+
+\noindent
+Now we have:
  
+$$g' \circ e = h = g \circ e$$
+from which it follows $g=g'$ because $e$ is an equaliser and therefore is a monomorphism. 
+\end{proof}
 
 \bibliography{../SharedBibliography/temp/bibliography}
 
