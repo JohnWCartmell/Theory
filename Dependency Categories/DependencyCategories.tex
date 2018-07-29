@@ -139,11 +139,12 @@ which represents :
 
 \section{Category with Distinguished Morphisms}
 
-This definition is a stepping stone along the way to the definition that 
-we are trying to get to:
-\noindent
 \begin{definition}
-Define a \textit{category with distinguished morphisms} to be a category \cat{C} along with a wide acyclic subcategory \cat{D}. 
+\noindent A category $\cat{C}$ is \textit{well-founded} provided that for 
+any object $A$ of $C$ the set of morphisms with domain $A$ is finite. 
+\end{definition}
+\begin{definition}
+Define a \textit{category with distinguished morphisms} to be a category \cat{C} along with a wide acyclic subcategory \cat{D} that is well-founded. 
 Morphisms of the subcategory are referred to as d-morphism. 
 We will write $f:B \dmorph A$ in \cat{C}
 to mean that 
@@ -201,6 +202,7 @@ $S: \Lambda \morph \cat{C}$; it is a pair of morphisms of \cat{C} that have a co
 \noindent Similarly a \textit{cospan} in a category \cat{C} is exactly a functor $S: \Lambda^{op} \morph \cat{C}$ and so it is exactly a diagram of this form:
 \begin{center}
 \begin{equation}
+\label{genericcospan}
 \begin{array}{cp{0.1cm}cp{0.1cm} c}
 \Rnode{c1}{C_1}& &                & & \Rnode{c2}{C_2} \\ [0.4cm]
             & &\Rnode{b}{B}
@@ -228,11 +230,11 @@ diagram:
 \ncaarr{x_2}{c2}{b}
 \end{center}
 
-\noindent commutes.
+\noindent commutes. \\
 
 \noindent We will say that the cospan (\ref{genericcospan}) is a 
 \textit{minimal coincident cospan} for the span (\ref{genericspan}) iff it is 
-coincident  and there does no exist cospan 
+coincident  and there does no exist a cospan 
 \begin{center}
 \begin{equation}
 \begin{array}{cp{0.1cm}cp{0.1cm} c}
@@ -244,6 +246,7 @@ coincident  and there does no exist cospan
 \ncaarr{x'_2}{c2}{b}
 \end{center}
 
+\noindent
 that is coincident to (\ref{genericspan}) and such that there is a morphism 
 $h: B' \morph B$ such that both \\
 \vspace {0.25cm}
@@ -317,10 +320,7 @@ shape $\ndidly$  i.e. it is any function $F: \ndidly \morph \cat{C}$
 \noindent If \cat{C} is a category  then a \textit{characterising family} for a span $s$ of \cat{C} is defined to be the set of its minimal coincident cospans.
 \end{definition}
 
-\begin{definition}
-\noindent A category $\cat{C}$ is \textit{well-founded} provided that for 
-any object $A$ of $C$ the set of morphisms with domain $A$ is finite. 
-\end{definition}
+
 \noindent 
 
 \begin{definition}
@@ -342,7 +342,8 @@ where $F_{i,j,k}$ is the $k$'th cospan within the characteristic family of the p
 \end{definition}
 
 \begin{definition}
-If \cat{C} is a category with a well-founded subcategory of distinguished morphisms then a family of d-morphisms  $f_i: B \dmorph A_i$ is said to
+If \cat{C} is a category with distinguished morphisms then a family of 
+d-morphisms  $f_i: B \dmorph A_i$ is said to
 be a basis for object B iff for every morphism $f: B \dmorph X$ in \cat{C} either 
 \begin{enumerate}[(i)]
 \item
@@ -386,7 +387,7 @@ Monitor this situation to see whether a problem or not. I think it is a minor an
 \end{definition}
 
 \section{Cones and Tight Cones}
-Recall the definition of cone $\tuple{ N,\psi}$ to a diagram $F:J \morph C$ of a category $C$ as an object $N$ of $C$ and a family of morphisms $\psi_j$ indexed by objects $j$ of $J$ such that for all $f: j \morph j'$ in $J$, $\psi_j \circ F(f) = \psi_{j'}$. Define a cone $\tuple{ N,\psi}$to be \textit{tight} iff for all pairs $j,j'$ of objects of shape category $J$, every minimal coincident cospan of the span:
+Recall the definition of cone $\tuple{ N,\psi}$ to a diagram $F:J \morph C$ of a category $C$ as an object $N$ of $C$ and a family of morphisms $\psi_j$ indexed by objects $j$ of $J$ such that for all $f: j \morph j'$ in $J$, $\psi_j \circ F(f) = \psi_{j'}$. Define a cone $\tuple{ N,\psi}$to be \textit{tight} iff for all pairs $j_1,j_2$ of objects of shape category $J$, every minimal coincident cospan of the span:
 
 \begin{center}
 \begin{equation}
@@ -402,7 +403,7 @@ Recall the definition of cone $\tuple{ N,\psi}$ to a diagram $F:J \morph C$ of a
 factors through the diagram $F$.
 
 \section{Definition of Dependency Category}
-A \textit{dependency category} is a category \cat{C} with terminal object $1$ along with a distinguished subset of morphisms which we call \textit{dependencies} or \textit{d-morphisms} which form an acyclic subcategory of \cat{C} and such that:
+A \textit{dependency category} is a category \cat{C} with distinguished morphisms and a terminal object $1$ and :
 
 \begin{enumerate} [(i)]
 	\item for any object A of \cat{C} the unique morphism $t_A:A \morph 1$ is a d-morphism
@@ -435,10 +436,9 @@ $p_1: \fibrex{B_1}{B_2}{D} \dmorph B_1$ and  $p_1: \fibrex{B_1}{B_2}{D} \dmorph 
 
 is a pullback in category \cat{C} and such that for any 
 cone $\tuple{N,\psi}$ to diagram $D$
-the mediating morphism $h: N \morph B_1 \underset{D}{\Join} B_2$ is a d-moprphism iff the cone $\tuple{N,\psi}$ is tight. [Rephrase this using characteristic diagram?] 
+the mediating morphism $h: N \morph B_1 \underset{D}{\Join} B_2$ is a d-moprphism iff 
+every morphism in the cone \ $\tuple{N,\psi}$ is a d-morphism and the cone is tight.
 
-
-	
 	\item Other pullbacks: if
 \begin{center}
 \begin{displaymath}
@@ -647,12 +647,34 @@ $
 \setlength{\arraycolsep}{0.1cm}
 \noindent is a basis for $\underset{x_1=x_2}{\sigma}B$. 
 
-\noindent For any 
-cone $\tuple{N,\psi}$ to diagram $D$  [REPHRASE!!]
-the mediating morphism $h: N \morph \underset{x_1=x_2}{\sigma}B$ is a d-moprphism iff the cone $\tuple{N,\psi}$ is tight. [Then rephrase again this using characteristic diagram?] 
+\noindent For any object $C$ and morphism $y: C \morph B$ such that
+$y \circ x_1 = y \circ x_2$
+the mediating morphism $h: C \morph \underset{x_1=x_2}{\sigma}B$ is a d-morphism iff 
+the morphism $y$ is a d-morphism and the cone $\tuple{C,y}$ is tight i.e iff there does not exist an object $A'$ distinct from 
+$A$ and morphisms $x'_1: B \dmorph A'$, $x'_2: B \dmorph A'$ and $x:A' \dmorph A$ such that each of the three diagrams contained here:
+
+\begin{center}
+$
+\begin{array}{cp{0.5cm}cp{0.5cm}c}
+               && \Rnode{X}{C}&&                  \\ [0.6cm]
+\Rnode{B1}{B}&&                  && \Rnode{B2}{B} \\ [0.6cm]
+               &&\Rnode{Ap}{A'}  &&               \\ [1cm]
+               &&\Rnode{A}{A}    && 
+\end{array}
+$
+\ncbsar{y}{X}{B1}
+\ncasar{y}{X}{B2}
+\ncbsar{x'_1}{B1}{Ap}
+\ncasar{x'_2}{B2}{Ap}
+\ncasar{x}{Ap}{A}
+\ncbsar[-30]{x_1}{B1}{A}
+\ncasar[30]{x_2}{B2}{A}
+\end{center}
+
+\noindent commute. \\
 
 
-This completes the definition.
+\noindent This completes the definition.
 
 \end{enumerate}
 
@@ -697,8 +719,9 @@ $p_1: \fibrex{B_1}{B_2}{D} \dmorph B_1$ and  $p_1: \fibrex{B_1}{B_2}{D} \dmorph 
 \end{center}
 
 is a limit of diagram $D$ in category \cat{C} and such that for any cone $\tuple{N,\psi}$ to diagram $D$
-the mediating morphism $h: N \morph B_1 \underset{D}{\Join} B_2$ is a d-moprphism iff the 
-cone $\tuple{N,\psi}$ is tight. [Rephrase this using characteristic diagram?] 
+the mediating morphism $h: N \morph B_1 \underset{D}{\Join} B_2$ is a d-morphism iff 
+each morphism in the cone $\tuple{N,\psi}$ is a d-morphism and the 
+cone is tight. 
 
 \end{lemma}
 \begin{proof}
