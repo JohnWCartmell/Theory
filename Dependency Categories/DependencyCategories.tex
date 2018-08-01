@@ -16,6 +16,8 @@
 \input{../SharedMacros/gats.macros}
 \input{../SharedMacros/metagat.macros}
 \input{../SharedMacros/ermacros}
+\input{../SharedMacros/erdiagram}
+
 \setcounter{equation}{0}
 \bibliographystyle{plain} % was hplain
 
@@ -28,22 +30,49 @@
 \section{Context, Information Theory, Categories and Types That Vary}
 
 \noindent Under a new name, \textit{dependency category}, this paper corrects the description of \textit{network categories} given in  
-\cite{Cartmell86B}. Dependency categories are a variation on the notion of contextual category (\cite{Cartmell78}, \cite{Cartmell86})--  the category of dependency categories, as defined here, is equivalent to the category of contextual categories.
+\cite{Cartmell86B}. Dependency categories are a variation on the notion of contextual category (\cite{Cartmell78}, \cite{Cartmell86}) in that  the category of dependency categories, as defined here, is equivalent to the category of contextual categories.
 
 As in \cite{Cartmell86B} the motivation has been to formalise
-and foreground the network structure of type dependencies so as to provide a theoretical foundation for the use of networks of composition relationships in entity modelling as applied both conceptually and, for the most practical of purposes, in systems development.
+and foreground the network structure of type dependencies so as to provide a theoretical foundation for the use of networks of composition relationships in entity modelling as applied both conceptually and, for the most practical of purposes, in systems development. 
 
-\noindent The objects of contextual categories can be thought of as contexts or as 
-types that vary (also known as dependent types) but equally they can be thought of as entity types in the sense used in entity modelling. In the entity modelling domain the
-morphisms of a contextual category correspond with the many-one binary relationships that are the staple fare of entity modelling. There  is a distinguished subset of morphisms in a contextual category  that collectively form a hierarchical backbone. This contrasts
-with the situation in a dependency category where the distinguished morphisms do not form a hierarchy but a wide acyclic subcategory. In either case the distinguished morphisms correspond to distinguished many-one binary relationships in a certain style 
-of entity modelling where they are called composition relationships (\cite{ECMA-149}, \cite{Munck1988}, \cite{entitymodelling}) .
-
-\noindent 
-Previously the inflential paper by Chen \cite{Chen1976} introduced the idea of entities being dependent on binary relationships 
+The objects of  categories of either persuasion, either contextual categories or dependency categories, can be thought 
+of as contexts or as types that vary (also known as dependent types) but equally they can be thought of as entity 
+types in the sense used in entity modelling. The
+morphisms of either correspond with the many-one binary relationships that are the staple fare of entity modelling and in either case there is a  distinguished subset of morphisms depicted on diagrams using a triangular headed arrow ($\darrow$). In a contextual category  the distinguished 
+subset forms a hierarchy, in a dependency category the distinguished morphisms form not a hierarchy but a wide acyclic subcategory.
+In either case the distinguished morphisms correspond to certain relationships known as composition relationships which are a feature
+of certain styles of entity modelling (\cite{ECMA-149}, \cite{Munck1988}, \cite{entitymodelling}) and as first implied in the influential paper by Chen \cite{Chen1976} who introduced the idea of entities being dependent on binary relationships 
 with others for both their identification and their existence.
 
+As a motivating example consider the entity types and binary relationships involved in the representation of a numeric matrix. 
+A matrix has rows, columns, elements and, for each element, numeric content. In the style of modelling introduced in \cite{entitymodelling} the structure of a numeric matrix can be represented by entity types and binary relationships as shown in figure \ref{matrixNumeric}.
 
+The types in this example can be represented as types that  vary as shown here: \\
+
+\begin{tabular}{l l}
+Symbol & \itshape{Introductory Rule} \\ 
+\hline 
+$matrix$ &$\tstyle \isT{matrix} $\\
+$row$ &$x \in matrix \tstyle row(x) \mbox{ is a type} $\\
+$column$ &$x \in matrix \tstyle column(x) \mbox{ is a type} $\\
+$element$&$x \in matrix, y_1 \in row(x), y_2 \in column(x) \tstyle element(y_1,y_2) \mbox{ is a type} $\\
+$value$&$x \in matrix, y_1 \in row(x), y_2 \in column(x), e \in element(y_1,y_2) \tstyle value(e) \in number$ \\
+\end{tabular}
+
+
+\begin{figure}
+\begin{center}
+\begin{tabular} { c p{0.5cm} p{6cm}}
+\raisebox{-4.8cm}{\input{sparseMatrix}} & &
+\textit{In this style of modelling, boxes represent types of entity, connections between boxes represent
+many-one binary relationships. Each composition relationship is shown leaving the lower edge of a parent type and meeting the upper
+edge of a dependent type. Other relationships, those connecting to left and right sides of boxes, are reference relationships.
+The unnamed open box at the top of the diagram represents the absolute or the whole -- it corresponds to the terminal object of category theory.}
+\end{tabular}
+\end{center}
+\caption{Representation of a numeric matrix. Note that the diamond of relationships is a commutative diagram and this has a strong influence on the data representation for data of this type.}
+\label{matrixNumeric}
+\end{figure}
 
 \section{Directed Graphs and Systems of Dependent Type}
 
