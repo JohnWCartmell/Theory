@@ -26,8 +26,8 @@
 \bibliographystyle{plain} % was hplain
 
 \title{Dependency Categories}
-\author{John Cartmell}
-\subtitle{Status: DRAFT\footnote{Treat with caution!}}
+\author{John Cartmell\footnote{john.w.cartmell gmail.com}\\ \normalsize{\textit{Ad Otium}}}
+\subtitle{Status: \normalsize{DRAFT --TREAT WITH CAUTION}}
 \begin{document}
 \maketitle
 
@@ -44,42 +44,10 @@ of as contexts or as types that vary (also known as dependent types) but equally
 types in the sense used in entity modelling. The
 morphisms of either correspond with the many-one binary relationships that are the staple fare of entity modelling and in either case there is a  distinguished subset of morphisms depicted on diagrams using a triangular headed arrow ($\darrow$). In a contextual category  the distinguished 
 subset forms a hierarchy, in a dependency category the distinguished morphisms form not a hierarchy but a wide acyclic subcategory.
-In either case the distinguished morphisms correspond to certain relationships known as composition relationships which are a feature
-of certain styles of entity modelling (\cite{ECMA-149}, \cite{Munck1988}, \cite{entitymodelling}) and as first implied in the influential paper by Chen \cite{Chen1976} who introduced the idea of entities being dependent on binary relationships 
+In either case the distinguished morphisms correspond to certain relationships known as composition relationships which feature
+in certain styles of entity modelling (\cite{ECMA-149}, \cite{Munck1988}, \cite{entitymodelling}) and which were implied in the influential paper by Chen \cite{Chen1976} who introduced the idea of certain entities being dependent on binary relationships 
 with others for both their identification and their existence.
 \end{abstract}
-
-As a motivating example consider the entity types and binary relationships involved in the representation of a numeric matrix. 
-A matrix has rows, columns, elements and, for each element, numeric content. 
-In the style of modelling introduced in \cite{entitymodelling} the structure of a numeric matrix can be represented 
-by entity types and binary relationships as shown in figure \ref{sparseMatrix}.
-
-The types in this example can be represented as types that  vary as shown here: \\
-
-\begin{tabular}{l l}
-Symbol & \itshape{Introductory Rule} \\ 
-\hline 
-$matrix$ &$\tstyle \isT{matrix} $\\
-$row$ &$x \in matrix \tstyle row(x) \mbox{ is a type} $\\
-$column$ &$x \in matrix \tstyle column(x) \mbox{ is a type} $\\
-$element$&$x \in matrix, y_1 \in row(x), y_2 \in column(x) \tstyle element(y_1,y_2) \mbox{ is a type} $\\
-$value$&$x \in matrix, y_1 \in row(x), y_2 \in column(x), e \in element(y_1,y_2) \tstyle value(e) \in number$ \\
-\end{tabular}
-
-
-\begin{figure}
-\begin{center}
-\begin{tabular} { c p{0.5cm} p{6cm}}
-\raisebox{-4.8cm}{\input{\erpictureFolder/sparseMatrix}} & &
-\textit{In this style of modelling, boxes represent types of entity, connections between boxes represent
-many-one binary relationships. Each composition relationship is shown leaving the lower edge of a parent type and meeting the upper
-edge of a dependent type. Other relationships, those connecting to left and right sides of boxes, are reference relationships.
-The unnamed open box at the top of the diagram represents the absolute or the whole -- it corresponds to the terminal object of category theory.}
-\end{tabular}
-\end{center}
-\caption{Representation of a numeric matrix. Note that the diamond of relationships is a commutative diagram and this has a strong influence on the data representation for data of this type.}
-\label{matrixNumeric}
-\end{figure}
 
 \section{Introduction}
 \noindent In this figure
@@ -98,33 +66,17 @@ this possibility comes about
 because in the statement that the two triangles have six sides we are understanding \textit{side}
 to be \textit{side of triangle} which is to say that we understand it to be a concept that varies as
 triangle varies. A side, therefore, is a dependent type of thing -- it is some thing held in the mind
-in the context of some other thing. \\
-\noindent
-Similarly in the phases:
-\begin{equation}
-\mbox{\textit{I program the computer.}}
-\end{equation}
-\noindent and
-\begin{equation}
-\mbox{\textit{I write a computer program.}}
-\end{equation}
-the word 'program' occurs on the one as a `verb' and in the other as a `noun'. 
-This illustrates that a word in and by itself cannot be said to 
-be a `noun', `verb', 'adjective' or such part of speech like lest it be appearing in some grammatical sentence so `noun' and `verb`
-and other parts of speech as types of thing are dependent on sentence-like types of thing.
-In fact, in turn, the type of sentence-like types of thing depends on the language that is being spoken or written,English, French or
-whatever. \\
-
-\noindent
-Types such as these may be described by entity modelling or more flexibly by a mathematical notation. Types
-that vary we say are dependent types.  \\
+in the context of some other thing. 
+Similarly, certain words, such as the word `pop', appear in sentences sometimes as
+nouns but also sometimes as verbs, or adjectives or as adverbs, so illustrating that a word, in and by itself, cannot be said to 
+be a `noun', `verb', 'adjective' or other such part of speech,  lest it be appearing in some grammatical sentence and so `noun' and `verb`
+and the like -- as types of thing -- are dependent on sentence-like types of thing.  \\
 
 \noindent If in a situation temperature varies over position then it is implied - and might educate us if our notion of temperature was only half formed - that the concept of temperature had somehow in its make up a dependency on the concept of spatial position. 
 So it is  with types that vary. 
-Concepts like `angle', `edge', `boundary', `bounding line' as we learn the concepts,
-we learn that do not stand alone; they are dependent concepts as are  face of cube,  endpoint of line,   junction between lines, citizen (of a country), tangent (to a curve), atom of a molecule,  nucleus of a cell, character of play. \\
+Concepts like `angle', `edge', `boundary', `bounding line' as we learn these concepts,
+we learn that they do not stand alone; they are dependent concepts as are  face of cube,  endpoint of line,   junction between lines, citizen (of a country), tangent (to a curve), atom of a molecule,  nucleus of a cell, character of a play. \\
 
-\subsection{Quantities that Vary}
 \noindent  When a quantity y varies as some variable x varies then as matter of course the quantity might be written $y_{x}$ with the x subscript  reminding us of the dependency; or the quantity might be written $y(x)$ so using the notation of function application.  
 If the quantities in question are real numbers then we may write either
 
@@ -142,7 +94,7 @@ y_{x)x\in R}
 The point that is being made here is that in scientific enquiry \textit{quantities that vary} precede functions and quantities that vary do so according to context. \\
 
 \noindent In a formal mathematical notation (\cite{Cartmell86} we introduce symbols for functions and, subsequently, dependent types by way of formal rules. For example we 
-introduce types $A$ and $B$ and some function$f$ delivering entities of type $B$ from entities of type $A$ by the rules:
+introduce types $A$ and $B$ and some function $f$ delivering entities of type $B$ from entities of type $A$ by the rules:
 \begin{align}
 &\text{                                  }\tstyle \isT{A} \\
 &\text{                                  }\tstyle \isT{B} \\
@@ -150,14 +102,14 @@ introduce types $A$ and $B$ and some function$f$ delivering entities of type $B$
 \end{align}
 \noindent In rules such as these, variables are introduced to the left of the turnstyle($\tstyle$) and 
 an assertion is given to the right. The left hand side presents a context in which the right hand side is asserted. 
-We also write $f: A \rightarrow B$ for such a function and consider there to be a category of types and functional dependencies and represent in the diagrams of catgeory theory.
+We also write $f: A \rightarrow B$ for such a function and consider there to be a category of types and functional dependencies and represent such in the diagrams of catgeory theory. \\
 
 \noindent
-A different diagrammatic notation is available from the sphere of Information Systems Development,  entity model diagrams in the style of Barker, Ellis, Martin, Schlaer-Mellor and others (see \cite{Rock-Evans1989}), focus  on binary relationships between types of entity; 
+A somewhat different diagrammatic notation is available within the sphere of Information Systems Development,  entity model diagrams in the style of Barker, Ellis, Martin, Schlaer-Mellor and others (see \cite{Rock-Evans1989}), focus  on binary relationships between types of entity --
 functional dependencies between types of entity are said to be many-one relationships and are depicted using the crows foot notation as, for example, here:
 \erplainFig{functionfAB}{H}{Many-one Binary Relationship f between entity types A and B}
 
-\noindent Of course there are quantities which do not vary (such as $\pi$ and $e$ and the gravitational constant $G$) - they are constant - they do not have contexts they depend  on.  If $a$ is a constant of type $A$ then we assert: 
+\noindent Of course there are quantities which do not vary  -- they are constant -- they do not have contexts they depend  on.  If $a$ is a constant of type $A$ then we assert: 
 \begin{equation*}
 \tstyle \ofT{a}{A}
 \end{equation*}
@@ -193,32 +145,29 @@ $
 
 \end{center}
 \setlength{\arraycolsep}{.2cm}
-or as a function with whose domain is the cartesian product of $A1$ and $A2$ which generally would be represented as $A_1 \times A_2$. 
+or as a function whose domain is the cartesian product of $A1$ and $A2$, which generally would be represented as $A_1 \times A_2$. \\
 
-
-\subsection{Types that Vary - Dependent Types}
- Consider that types are a kind of abstract quantity and we are led to the possibility that types
+\noindent Consider that types are a kind of abstract quantity and we are led to the possibility that types
 may vary just as quantities do and in particular that the \textit{type} of a quantity may vary as the \textit{quantity} itself  does.  \\
 
-\noindent Various notations are used to express such dependencies. For formal
+\noindent Various notations are used to express such type dependencies. For formal
 mathematical purposes, the functional
-notation used for quantities that vary can equally be used for types that vary i.e. dependent types. 
-
-\noindent If the type of quantity f varies as f varies then we can assert this as follows: \\
+notation used for quantities that vary can equally be used for types that vary. 
+If the type of quantity f varies as f varies then we can assert this as follows: \\
 \begin{align*}
 &\text{                                  }\tstyle \isT{A} \\
 &\ofT{x}{A} \tstyle \isT{B(x)} \\
 &\ofT{x}{A} \tstyle \ofT{f(x)}{B(x)} 
 \end{align*}
-
-
-\noindent So, for example, `the side opposite an angle' in a study of triangles is a quantity ( an entity)  which varies both as the triangle varies and as the angle varies:
+Such a $B$ is said to be dependent on type $A$. 
+So, for example, `the side opposite an angle' in a study of triangles is a quantity (an entity)  which varies both as the triangle varies and as the angle varies:
 
 \begin{equation*}
-x \in Triangle, y \in Angle(x): oppositeSide(x,y) \in Side(x)
+x \in Triangle, y \in Angle(x): oppositeSide(y) \in Side(x)
 \end{equation*}
 
-\noindent Having this notation then leads us to be able to make type assertions such as
+\noindent Similarly we can 
+make type assertions such as
 \begin{equation*}
 x \in Country \tstyle headOfState(x) \in Citizen(x)
 \end{equation*}
@@ -226,7 +175,7 @@ x \in Country \tstyle headOfState(x) \in Citizen(x)
 \noindent In this type assertion `headOfState' is a quantity which is varying, dependent on Country and is of a type which varies as the country varies.\\
 
 \noindent
-If $B$ as a type dependent on $A$ then instead of imagining type $B$ to have a set 
+If $B$ is a type dependent on $A$ then instead of imagining type $B$ as having a set 
 of instances we can imagine instead an A-indexed family of sets of instances. If in addition 
 there is a $b$ such that $x \in A, b(x) \in B(x)$ (as `headOfState' above) then think 
 of a  section of the family of sets of instances of $B$, see figure \ref{section}. 
@@ -262,20 +211,21 @@ between entities of type $B$ and the entities of type $A$ that they depend on.\\
 \noindent Furthermore, any directed graph makes sense as, and can be interpreted as, a set of types and type dependencies 
 providing (i) there are no cycles in
 the graph and provided that (ii) all nodes B there are only finitely many A, such that $B \darrow A$ and (iii) there are 
-no infinite sequences of the form $A_1 \darrow A_2 \darrow A_3 ....$. We will call any directed graph that 
-meets these conditions a dependency graph or  d-graph and we will call the edges dependencies. 
+no infinite sequences of the form $A_1 \darrow A_2 \darrow A_3 ....$. 
 \\
 
 \noindent As an example, the directed graph:
 \begin{equation}
 \begin{array}{ccc}
-\Rnode{C}{C}   &            &                 \\ [0.8cm]
-\Rnode{B1}{B_1}&            &\Rnode{B2}{B_2}  \\ [0.8cm]
-               &\Rnode{A}{A}&                 
+\Rnode{C}{C}   &            &                  \\ [0.8cm]
+\Rnode{B1}{B_1}&            &\Rnode{B2}{B_2}   \\ [0.8cm]
+               &\Rnode{A}{A}&                  \\ [0.8cm]
+               &\Rnode{absolute}{1}&                
 \end{array}
 \ncsar{C}{B1}
 \ncsar{B1}{A}
 \ncsar{B2}{A} 
+\ncsar{A}{absolute}
 \end{equation}
 \\
 
@@ -293,41 +243,61 @@ meets these conditions a dependency graph or  d-graph and we will call the edges
 
 \noindent Similarly the directed graph:
 
-\begin{center}
-$
+\begin{equation}
 \begin{array}{p{1.5cm}cccp{2cm}c}
-&                & \Rnode{C2}{C}&   \\ [0.8cm]
-&                & \Rnode{B}{B} &  \\ [0.8cm]
-&\Rnode{A1}{A_1} &              & \Rnode{A2}{A_2}\\ [0.4cm]
-&                &\stepcounter{equation}(\theequation) &  \\
+&                 & \Rnode{C2}{C}      &                  \\ [0.8cm]
+&                 & \Rnode{B}{B}       &                  \\ [0.8cm]
+& \Rnode{A1}{A_1} &                    & \Rnode{A2}{A_2}  \\ [0.8cm]
+&                 & \Rnode{absolute}{1}&  
 \end{array}
-$
 \ncsar{C2}{B}
 \ncsar{B}{A1}
 \ncsar{B}{A2}
-\setlength {\saroffsetA}{-2pt}
-\setlength {\saroffsetB}{-2pt}
-\ncsar[-15]{C3}{B3}
-\setlength {\saroffsetA}{2pt}
-\setlength {\saroffsetB}{2pt}
-\ncsar[15]{C3}{B3}
-\sarreset
 \ncsar{B3}{A3}
-\end{center}
+\ncsar{A1}{absolute}
+\ncsar{A2}{absolute}
+\end{equation}
 
 \noindent can be interpreted as representing the following type system:
 
-\addtocounter{equation}{-1}
-\begin{align}
+
+\begin{align*}
 &A_1\mbox{ is a type} && \tag*{(\theequation a)}\\
 &A_2\mbox{ is a type} && \tag*{(\theequation b)}\\
 &x_1\in A_1, x_2 \in A_2 : B(x_1,x_2) \mbox{ is a type} && \tag*{(\theequation c)}\\
 &x_1\in A_1, x_2 \in A_2, y \in B(x_1,x_2): C(x_1,x_2,y) \mbox{ is a type} && \tag*{(\theequation d)}\\
-\end{align}
+\end{align*}
+
+
+\noindent
+and this example can be represented in form  (\ref{contextualcategory}) within a contextual category werein the cartesian product of $A_1$ and $A_2$ can represented
+as $p_{A_1}\sub A_2$
+In this example type $B$ is explicitly dependent on two types ($A_1$ and $A_2$). In the approach of \cite{Cartmell78}, \cite{Cartmell86} this double dependency needs be  represented (in a contextual category) by a dependency of $B$ on a cartesian product
+of $A_1$ and $A_2$. Two such cartesian products are available: $p_{A_1}\sub A_2$
+and $p_{A_2}\sub A_1$. The resulting graph if the first one is chosen is shown in (\ref{contextualcategory}).
+
+\begin{equation}
+\label{contextualcategory}
+\begin{array}{p{1.5cm}cccp{2cm}c}
+& \Rnode{C}{C}                    &                  \\ [0.8cm]
+& \Rnode{B}{B}                    &                  \\ [0.8cm]
+& \Rnode{A1A2}{p_{A_1} \sub A_2}  &                  \\ [0.8cm]
+& \Rnode{A1}{A_1}                 &                     & \Rnode{A2}{A_2}  \\ [0.8cm]
+&                                 & \Rnode{absolute}{1} &  
+\end{array}
+\ncsar{C}{B}
+\ncsar{B}{A1A2}
+\ncsar{A1A2}{A1}
+%\ncsar{B}{A2}
+%\ncsar{B3}{A3}
+\ncsar{A1}{absolute}
+\ncsar{A2}{absolute}
+\end{equation}
+
 
 \noindent 
-A third notation is an extended style of entity modelling style developed by the author and documented at \href{www.entitymodelling.org}{www.entitymodelling.org}. In this notation, type dependencies are represented by what are called composition relationships; these are distinguished from other functional relationships by being draw leaving the
-lower edge of a box and entering the upper edge of the box representing the dependent type. \\
+Such type dependencies as these can be represented by \textit{composition relationships} within certain styles of entity modelling (for one of these, see \href{www.entitymodelling.org}{www.entitymodelling.org}). Composition relationships may be distinguished on diagrams from other functional relationships by being drawn leaving the
+lower edge of a box representing the type being depended on and entering the upper edge of the box representing the dependent type. \\
 
 \noindent Examples are given in figures \ref{partsOfSpeech} and \ref{citizen}.
 
@@ -368,34 +338,20 @@ $
 \ncsar{verb}{sentence}
 \ncsar{adjective}{sentence}
 \caption{Three representations of a system of types (a) rules in a formal mathematical syntax,
-(b) a graph of  type dependencies (c) entity modelling notation.}
+(b) a graph of  type dependencies (c) an entity modelling diagram.}
 \label{partsOfSpeech}
 \end{figure}
 \end{center}
 
 \begin{center}
 \begin{figure} [H]
-(a) \erinlinePicture{performanceOfPlayAnnotated}{3.5}
-
-(b)
-\begin{minipage}[c]{0.6 \textwidth}
-\begin{tabular}{l l}
-Symbol & \itshape{Introductory Rule} \\ 
-\hline 
-$play$ &$\tstyle \isT{play} $\\
-$performance$ &$\tstyle \isT{performance} $\\
-$of       $& $ x \in performance \tstyle \ofT{of(x)}{play}$ \\
-$character$&$x \in play \tstyle character(x) \mbox{ is a type} $\\
-$castMember$&$x \in performance \tstyle castMember(x) \mbox{ is a type}$ \\
-$playsPartOf$& $ x \in performance ,\ y \in castMember(x) \tstyle \ofT{playsPartOf(y)}{character} $\\
-\end{tabular}
-\end{minipage}
-\caption{A cast member plays a part in the same play that they are pert of the performance of. This is reflected in (b) by examination of the variables in the intoductory rule for $playsPartOf$. In the entity modelling diagram, (a), this is documented in a scope constraint (~/.. = ../of)  which specifies that the square of relationships commutes. See \href{http://www.entitymodelling.org/tutorialone/scopediagrams.html}
-{www.entitymodelling.org/tutorialone/scopediagrams}}.
-\label{citizen}
+\begin{center}
+\erinlinePicture{latex/performanceOfPlayCompositional}{3.5}
+\end{center}
+\caption{A player plays the part of a character in the same play that they are performing in. }
+\label{performance}
 \end{figure}
 \end{center}
-
 
 
 Consider the following two rules:
@@ -407,7 +363,7 @@ Consider the following two rules:
 \end{align}
 \end{subequations}
 
-\noindent They both give rise to a graph like this:
+\noindent They both give rise to a graph shaped like this:
 
 \begin{equation}
 \begin{array}{ccc}
@@ -423,12 +379,21 @@ Consider the following two rules:
 \\
 
 \noindent In the case of \eqref{singleInstanceA}, $C$ relies for context on instances of $B_1$ and $B_2$ which themselves are based within the context of a common instance of $A$.
-\noindent In the case of \eqref{singleInstanceA}, but not in case \eqref{multipleInstanceA}, we say that the path:
-$ C \darrow B_1 \darrow A$ is equivalent to the path: $ C \darrow B_2 \darrow A$.
-\\
+\noindent In the case of \eqref{singleInstanceA}, but not, significantly, 
+in the case \eqref{multipleInstanceA}, the path:
+$ C \darrow B_1 \darrow A$ is equivalent to the path: $ C \darrow B_2 \darrow A$
+and the diagram commutes. So dependencies compose in different ways and so
+represent the types dependencies (the variables over which types vary); therefore it is the category of dependencies (not just the directed graph) which is significant to characterising the type dependency relationships.
+\noindent  
+Note that the model in figure \ref{performance} 
+follows the pattern of (\ref{singleInstanceA}) rather than (\ref{multipleInstanceA}) which is to say that the diagram of relationships in figure \ref{performance} commutes.
 
-\noindent We see now that dependencies compose in different ways in the two cases and that therefore the category of dependencies is significant to characterising the type dependency relationships.
-
+\vspace{0.25cm}
+\noindent We now proceed to give a series of definitions which
+lead eventually to the definition of  \textit{dependency category}.
+Dependency categories contain all the structure needed to represent dependent types in the 
+sense that these are in the syntax of generalised algebraic theories (\cite{Cartmell86}).
+As such the category of dependency categories is equivalent to the category of contextual categories.
 \section {Acyclic Categories}
 A category C is called \textit{acyclic}, if it has no inverses and no nonidentity
 endomorphisms. This definition is given by Kozlov (see \cite{Kozlov2007}) who offers the following intuition:
@@ -438,7 +403,6 @@ that can be drawn on a sheet of paper, with dots indicating the objects, and
 straight or slightly bent arrows, all pointing down, indicating the nonidentity
 morphisms...
 \end{erquote}
-
 
 \noindent
 Previous authors had referred to such categories as being \textit{loop-free}. \\
@@ -485,7 +449,6 @@ Contrast with this acyclic category:
 \ncasar[-30]{y_1}{C}{B}
 \ncasar[30]{y_2}{C}{B}
 \ncasar{x}{B}{A}
-
 \setlength {\saroffsetA}{-2pt}
 \setlength {\saroffsetB}{-2pt}
 \ncbsar[-60]{x_1 = y_1 \circ x}{C}{A}
