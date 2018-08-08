@@ -6,3 +6,6 @@ tex files in the latex folder were built by
 - creating a temp subfolder
 - then
     powershell ..\..\..\..\Scripting\ERScript_r4\commands\quickbuild.ps1 -l -tex performanceOfPlayCompositional.xml
+	
+	
+Alternatively tex could be copied from a suitable build of ERmodel - I did have one because this was a newkly created example.
