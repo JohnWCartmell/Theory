@@ -1,0 +1,154 @@
+\documentclass[10pt,a4paper]{scrartcl}
+\usepackage[margin=3cm]{geometry}
+\usepackage{pstricks}
+\usepackage{pst-node}
+\usepackage{pst-tree}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage{enumerate}
+\usepackage{calc}
+\usepackage{url}
+\usepackage{hyperref}
+
+\input{../SharedMacros/theorems.macros}
+\input{../SharedMacros/ccategories.macros}
+\input{../SharedMacros/gats.macros}
+\input{../SharedMacros/metagat.macros}
+\input{../SharedMacros/ermacros}
+\input{../SharedMacros/erdiagram}
+\input{../SharedMacros/indexedsets.macros}
+
+\renewcommand{\erpictureFolder}[0]{../SharedPictures}
+
+\setcounter{equation}{0}
+\bibliographystyle{plain} % was hplain
+
+\title{Dependency Categories - Part Two - Work in Progress}
+\author{John Cartmell\footnote{john.w.cartmell gmail.com}\\ \normalsize{\textit{Ad Otium}}}
+\subtitle{Status: \normalsize{DRAFT --TREAT WITH CAUTION}}
+\begin{document}
+\maketitle
+
+\section{Equivalence Classes of Contexts}
+\subsection{Subcontexts}
+By a \textit{subcontext} of a context $\context{x}{\Delta}{n}$ we mean any context
+of the form
+$\subcontext{x}{{\Delta}}{i}{k}$ for some sequence 
+$1 \leq i_1 \leq i_2 \leq ... i_k \leq n$. \\
+
+\noindent
+For example:
+\begin {itemize}
+\item the empty context  is a subcontext of every 
+context,
+\item any initial subsequence of a context is a subcontext of that context.
+\end{itemize}
+
+\noindent
+In addition to the above, a context such as $\ofT{x_1}{A_1},\ofT{x_2}{A2},\ofT{y}{B(x_1)}$ has 
+$\ofT{x_2}{A2}$ as a subcontext. This illustrates that each non-initial subcontext is indicative of a type in the context ($A_2$ in this case)
+which does not depend on one of the earlier variables.
+ 
+
+\section{Example Source}
+\noindent In this figure
+
+\begin{align*}
+&\text{                                  }\tstyle \isT{A_1} \\
+&\text{                                  }\tstyle \isT{A_2} \\
+&\text{                                  }\tstyle \isT{B} \\
+&\ofT{x_1}{A_1},\ofT{x_2}{A_2} \tstyle \ofT{f(x_1,x_2)}{B} 
+\end{align*}
+\noindent
+ in a study of triangles is a quantity (an entity)  which varies both as the triangle varies and as the angle varies:
+
+\begin{equation*}
+x \in Triangle, y \in Angle(x): oppositeSide(y) \in Side(x)
+\end{equation*}
+
+
+\noindent In this type assertion `headOfState' is a quantity \\
+
+\noindent As an example, the directed graph:
+\begin{equation}
+\begin{array}{ccc}
+\Rnode{C}{C}   &            &                  \\ [0.8cm]
+\Rnode{B1}{B_1}&            &\Rnode{B2}{B_2}   \\ [0.8cm]
+               &\Rnode{A}{A}&                  \\ [0.8cm]
+               &\Rnode{absolute}{1}&                
+\end{array}
+\ncsar{C}{B1}
+\ncsar{B1}{A}
+\ncsar{B2}{A} 
+\ncsar{A}{absolute}
+\end{equation}
+\\
+
+
+\begin{lemma}
+In any category \cat{C} if $F: S \morph \cat{C}$ is a diagram with limit $\tuple{L,\phi}$,
+if $S'$ is a category extending $S$  then if :
+\begin{center}
+\begin{equation}
+\label{equaliser}
+\begin{array}{cp{1cm}cp{1cm} c}
+\Rnode{E}{E}& &    \Rnode{L}{L}  & & \Rnode{A}{\beta_0} 
+\end{array}
+\end{equation}
+\ncaarr{e}{E}{L}
+\setlength{\arroffsetA}{3pt}
+\setlength{\arroffsetB}{3pt}
+\ncarr{L}{A}
+\naput{$\phi_B \circ G(\xi_1)$}
+\setlength{\arroffsetA}{-3pt}
+\setlength{\arroffsetB}{-3pt}
+\ncarr{L}{A}
+\nbput{$\phi_{B'} \circ G(\xi_2)$}
+\arreset
+\end{center}
+is an equaliser in \cat{C} then $\tuple{E,\phi'}$ is a limit of the diagram $G$, where
+$\phi'$ is the cone defined by
+\begin{equation*}
+\phi'_\beta =
+\left\{
+	\begin{array}{ll}
+		e \circ \phi_\beta           & \mbox{if } \beta \mbox{ is an object of } S  \\
+		\phi_{\beta_1} \circ G(\xi_1) & \mbox{if } \beta \mbox{ is } \beta_0 
+	\end{array}
+\right.
+\end{equation*}
+
+\end{lemma}
+\begin{proof}
+If $\tuple{N,\psi'}$is a cone to the diagram $G$ then, the restriction $\psi$ to objects in $F$ is a cone to  $S$. Therefore there exists a unique $h : N \morph L$ such that 
+\begin{equation}
+\label{hmediates}
+h \circ \phi = \psi
+\end{equation}
+
+\noindent
+Now, we have 
+\begin{align*}
+h \circ \phi_{\beta_1} \circ G(x)
+             & = \psi_{\beta_1} \circ G(\xi_1)         && \mbox{by (\ref{hmediates})}\\
+             & = \psi_{\beta_2} \circ G(\xi_2)         && \mbox{because } \psi \mbox{ is a cone to } G \\
+             & = h \circ \phi_{\beta_2} \circ G(\xi_2) && \mbox{by (\ref{hmediates}) }\\
+\end{align*}
+
+\noindent
+and so it follows, since (\ref{equaliser}) is an equaliser diagram,
+that there is a unique $g: N \morph E$ such that 
+\begin{equation}
+\label{gmediates}
+g \circ e = h
+\end{equation}
+
+
+
+\end{proof}
+
+\bibliography{../SharedBibliography/temp/bibliography}
+
+\end{document}
