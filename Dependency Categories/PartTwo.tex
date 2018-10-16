@@ -11,6 +11,13 @@
 \usepackage{calc}
 \usepackage{url}
 \usepackage{hyperref}
+\usepackage{environ}
+\NewEnviron{shrunkdisplay}{%
+\begin{equation*}
+\scalebox{0.9}{$\BODY$}
+\end{equation*}
+}
+
 
 \input{../SharedMacros/theorems.macros}
 \input{../SharedMacros/ccategories.macros}
@@ -31,6 +38,258 @@
 \begin{document}
 \maketitle
 
+\section{Notation for composed pullbacks}
+In \cite{Cartmell86}, the structure of contextual categories is introduced and subsequently
+the basic notation is extended so that 
+\begin{itemize}
+\item{if $A \leq B$ in a contextual category then the composed dependency of
+$B$ on $A$ is 
+denoted $\pc{B}{A}$ and depicted in diagrams as $\pc{B}{A}:B \raisebox{1pt}{---}\!\!\!\!\!\!\geqslant A$,}
+\item{if $f: A \morph B_0$ in a contextual category \cat{C} and if 
+$B_0 \base B_1 ... \base B_m$ there is a  pullback of $\pc{B_m}{B_0}$ along $f$
+is described by diagram:
+
+\begin{displaymath}
+\begin{array}{cp{2cm}c}
+\Rnode{fBm} {f \sub B_m}    &            &  \Rnode{Bm}{B_m}   \\ [0.8cm]
+\Rnode{A}{A}                &            &  \Rnode{B0}{B_0}   
+\end{array}
+\end{displaymath}
+\ncbpar{\pc{f \sub B_m}{A}}{fBm}{A}
+\ncapar{\pc{B_m}{B_0}}{Bm}{B0}
+\ncaarr{q(f,B_m)}{fBm}{Bm}
+\jcbarr{f}{A}{B0}
+}
+\end{itemize}
+
+
+We extend the notation further. If $X \base A_1 ... A_{n-1} \base A_n$ in \cat{C} and
+if $X \base B$ then we will write $\crossx{A_n}{B}{X}$ in place of $\pc{A_n}{X}\,\sub B$ so that 
+we have a pullback diagram as follows:
+\begin{displaymath}
+\begin{array}{c p{0.45cm} c c}
+\Rnode{AnxB}{\crossx{A_n}{B}{X}}&&            &              \\ [1.1cm]
+\Rnode{An}{A_n}                 &&            &               \\ [0.3cm]
+                                &&            & \Rnode{B}{B}  \\ [0.8cm]
+                                &&\Rnode{X}{X}&                
+\end{array}
+\end{displaymath}
+\ncsar{AnxB}{An}
+\ncbpar{\pc{A_n}{X}}{An}{X}
+\ncsar{B}{X}
+\ncaarr{q(\pc{A_n}{X},B)}{AnxB}{B}.
+
+similarly, if $X \base B_1 \base ... B_{m-1} \base B_m$ then we have a series of pullback diagrams that fit together so:
+
+\begin{displaymath}
+\begin{array}{cccp{2cm}c}
+\begin{array} {c}
+\Rnode{AnxBm}{\crossx{A_n}{B_m}{X}}      \\ [1.0cm]
+\Rnode{AnxBm1}{\crossx{A_n}{B_{m-1}}{X}} \\ [0.5cm]
+\raisebox{1.0cm}{$\Rnode{Rvdots}{\vdots}$}\\ [-0.5cm]
+\Rnode{AnxB2}{\crossx{A_n}{B_2}{X}}       \\ [1.0cm]
+\Rnode{AnxB1}{\crossx{A_n}{B_1}{X}}\\ [1.0cm]
+\Rnode{An}{A_n}                    \\ [1.0cm]
+         
+\end{array} 
+& & & &
+\begin{array}{c}
+                                    \\ [1.0cm]
+              \Rnode{Bm}{B_m}       \\ [1.0cm]
+              \Rnode{Bm1}{B_{m-1}}  \\ [0.5cm]
+							\Rnode{Rvdots}{\vdots}\\ [0.5cm]
+              \Rnode{B2}{B_2}       \\ [1.0cm]
+              \Rnode{B1}{B_1}          
+\end{array} \\
+&\begin{array}{ccccc}
+\Rnode{An1}{A_{n-1}}  \\ [0.25cm]
+     &\Rnode{Rddots}{\ddots} \\ [0.25cm]
+              &&&\Rnode{A1}{A_1}  \\ [1.0cm]
+                 &&&&\hspace{1cm}\Rnode{X}{X} \\
+\end{array} & & &
+\end{array}
+\end{displaymath}
+ 
+\ncsar{AnxBm}{AnxBm1}
+\ncsar{AnxB2}{AnxB1}
+\ncsar{AnxB1}{An}
+\ncsar{An}{An1}
+\ncsar{A1}{X}
+\ncsar{Bm}{Bm1}
+\ncsar{B2}{B1}
+\ncsar{B1}{X}
+\ncaarr{q(\pc{A_n}{X},B_m)}{AnxBm}{Bm}
+\ncaarr{q(\pc{A_n}{X},B_{m-1})}{AnxBm1}{Bm1}
+\ncaarr{q(\pc{A_n}{X},B_2)}{AnxB2}{B2}
+\ncaarr{q(\pc{A_n}{X},B_1)}{AnxB1}{B1}
+
+
+\section{Equivalent Contexts -- Example}
+
+In a g.a.t. \gat which includes the following type definitions:
+\begin{displaymath}
+\begin{array}{l}
+\tstyle \isT{A_1} \\
+\tstyle \isT{A_2} \\
+\ofT{x}{A_1}\tstyle \isT{B_1(x)} \\
+\ofT{x}{A_2}\tstyle \isT{B_2(x)} \\
+\end{array}
+\end{displaymath}
+
+The context 
+\begin{equation}
+\ofT{x_1}{A_1},\ofT{x_2}{A_2},\ofT{y_1}{B_1(x_1)},\ofT{y_2}{B_2(x_2)}
+\end{equation}
+can be rearranged in five different ways to give, all in all, six different ways of expressing
+what is much the same context:
+\begin{equation}
+\ofT{x_1}{A_1}, \ofT{x_2}{A_2}, \ofT{y_1}{B_1(x_1)}, \ofT{y_2}{B_2(x_2)}
+\end{equation}
+\begin{equation}
+\ofT{x_1}{A_1}, \ofT{x_2}{A_2}, \ofT{y_2}{B_2(x_2)}, \ofT{y_1}{B_1(x_1)}
+\end{equation}
+\begin{equation}
+\ofT{x_1}{A_1}, \ofT{y_1}{B_1(x_1)}, \ofT{x_2}{A_2}, \ofT{y_2}{B_2(x_2)}
+\end{equation}
+\begin{equation}
+\ofT{x_2}{A_2}, \ofT{x_1}{A_1}, \ofT{y_1}{B_1(x_1)}, \ofT{y_2}{B_2(x_2)}
+\end{equation}
+\begin{equation}
+\ofT{x_2}{A_2}, \ofT{x_1}{A_1}, \ofT{y_2}{B_2(x_2)}, \ofT{y_1}{B_1(x_1)}
+\end{equation}
+\begin{equation}
+\ofT{x_2}{A_2}, \ofT{y_2}{B_2(x_2)}, \ofT{x_1}{A_1}, \ofT{y_1}{B_1(x_1)}
+\end{equation}
+
+
+Each one of these contexts and each subcontext is represented by an object
+in the contextual category  \cat{C(\gat)} that corresponds to the theory. This is
+shown in this diagram:
+
+%\scalebox{0.9}{
+\begin{shrunkdisplay}
+%\scalebox{0.9}{
+\begin{array}{cccccc}
+\Rnode{c1}{\crossx
+              {(\crossx
+							     {(\crossx{A_1}{A_2}{1})}
+									 {B_1}
+									 {A_1}
+								) 
+								\hspace{-0.2cm}
+							}
+							{\hspace{-0.2cm}(\crossx{A_1}{B_2}{1})}
+							{\crossx{A_1}{A_2}{1}} 
+				  } 
+&
+\Rnode {c2}{\crossx
+              {(\crossx{A_1}{B_2}{1})}
+							{B_1}
+							{A1}
+           }
+&
+\Rnode{c3}{
+           \crossx{B_1}{B_2}{1}
+					}
+&
+\Rnode{c4}{
+           \crossx{B_2}{B_1}{1}
+					}
+&
+\Rnode{c5}{\crossx
+           {(\crossx{A_2}{B_1}{1})}
+					 {B_2}
+					 {A_2}
+					}
+&
+\Rnode{c6}{\crossx
+              {(\crossx
+							     {(\crossx{A_2}{A_1}{1})}
+									 {B_2}
+									 {A_2}
+								) 
+								\hspace{-0.2cm}
+							}
+							{\hspace{-0.2cm}(\crossx{A_2}{B_1}{1})}
+							{\crossx{A_2}{A_1}{1}} 
+				  } \\ [1.2cm]
+\Rnode{sc1}{\crossx
+							     {(\crossx{A_1}{A_2}{1})}
+									 {B_1}
+									 {A_1}				
+				   } 
+&
+\Rnode {sc2}{
+             \crossx{A_1}{B_2}{1}
+           }
+&
+\Rnode{sc3}{
+           \crossx{B_1}{A_2}{1}
+					}   
+&
+\Rnode{sc4}{
+           \crossx{B_2}{A_1}{1}
+					}   
+&
+\Rnode{sc5}{
+           \crossx{A_2}{B_1}{1}
+					}   
+&
+\Rnode{sc6}{
+           \crossx
+					         {(\crossx{A_2}{A_1}{1})}
+					         {B_2}
+									 {A_2}
+					}  \\ [1.2cm]
+\multicolumn{2}{c}{
+         \ \ \ \ \ \ \ \Rnode{A1xA2}{\crossx{A_1}{A_2}{1}}   
+} 
+& \Rnode{B1}{B_1} 
+& \Rnode{B2}{B_2}
+& \multicolumn{2}{c}{\Rnode{A2xA1}{\crossx{A_2}{A_1}{1}}}
+\\ [1.2cm] 
+  \multicolumn{3}{c}{ \hspace{3cm}\Rnode{A1}{A_1}}
+& \multicolumn{3}{c}{             \Rnode{A2}{A_2}} \hspace{3cm} \\ [1.2cm]
+\multicolumn{6}{c}{
+         \Rnode{abs}{1}
+					        }
+\end{array}
+\end{shrunkdisplay}
+%}
+ 
+\ncsar{c1}{sc1}
+\ncsar{c2}{sc2}
+\ncsar{c3}{sc3}
+\ncsar{c4}{sc4}
+\ncsar{c5}{sc5}
+\ncsar{c6}{sc6}
+\ncsar{sc1}{A1xA2}
+\ncsar{sc2}{A1xA2}
+\ncsar{sc3}{B1}
+\ncsar{sc4}{B2}
+\ncsar{sc5}{A2xA1}
+\ncsar{sc6}{A2xA1}
+\ncsar{A1xA2}{A1}
+\ncsar{B1}{A1}
+\ncsar{A1}{abs}
+\ncsar{B2}{A2}
+\ncsar{A2xA1}{A2}
+\ncsar{A2}{abs}
+
+\section{Sketch}
+\begin{enumerate}
+\item{
+from a contextual category $\cat{C}$ we may construct a dependency category $dep(\cat{C})$ as a quotient category
+}
+\item{
+The functor $q:\cat{C} \morph dep(\cat{C})$ is surjective and faithful.
+Therefore it preserves limits.
+}
+\end{enumerate}
+
+
+
+
 \section{Equivalence Classes of Contexts}
 \subsection{Subcontexts}
 By a \textit{subcontext} of a context $\context{x}{\Delta}{n}$ we mean any context
@@ -41,6 +300,8 @@ $1 \leq i_1 \leq i_2 \leq ... i_k \leq n$. \\
 \noindent
 For example:
 \begin {itemize}
+
+
 \item the empty context  is a subcontext of every 
 context,
 \item any initial subsequence of a context is a subcontext of that context.
