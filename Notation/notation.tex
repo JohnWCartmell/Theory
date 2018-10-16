@@ -15,15 +15,39 @@
 
 \begin{document}
 \maketitle
-\section {Review }
+\section {cccategories.macros }
 \vspace{5mm}
-
-
-\subsection {Macros for arrows and s-arrows}
-The following macros supplement the node connection macros (prefix 'nc') from pstricks and are implemented by combining pstricks 'nc' macros and put macros naput (put above) and nbput (put below). Arrowheads are either open or open triangles (representing S-morphisms).
+\subsection{General}
 \begin{table}[h]
-	\centering
+\centering
+\begin{tabular}{|l|p{5cm}|}
+\hline
+\verb!A \morph B! & $A \morph B $\\
+\verb!A \epi B  ! & $A \epi B$ \\ 
+\verb!A \base B! & $A \base B$\\
+\verb!f \comp g !& $ f \comp g$\\
+\verb!\pc{B}{A} !& $ \pc{B}{A}$\\
+\verb!A \cross B!&$A \cross B$\\
+\verb!\crossx{A}{B}{X}!& $\crossx{A}{B}{X}$\\
+\verb!f \sub B!&$f \sub B$\\
+\verb!\diag_A!&$\diag_A$\\
+\verb!\cat{C}!& \cat{C} \\
+\verb!\tuple{x,y,z}!& $\tuple{x,y,z}$ \\
+\verb!\ndidly!& $\ndidly$ \\
+\verb!\ndidlycospan!& \ndidlycospan\\
+\verb!\fibrex{B_1}{B_2}{D}!& $\fibrex{B_1}{B_2}{D}$\\
+\verb!B \darrow A!& $B \darrow A$\\
+\verb!A \dmorph B!& $A \dmorph B$\\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection {pstricks macros for arrows and s-arrows}
+The following macros supplement the node connection macros (prefix 'nc') from pstricks and are implemented by combining pstricks 'nc' macros and put macros naput (put above) and nbput (put below). Arrowheads are either open or open triangles (representing S-morphisms). \\
+%\begin{table}[h]
+%	\centering
 		\begin{tabular}{|l |  p{5cm} | }
+		\multicolumn{2}{|c|}{pstricks macros for arrows and s-arrows} \\
 		   \hline	   
 		   \verb!\ncarr[ang]{A}{B}! &  an arrow between nodes A and B optionally an arc of angle ang (default 0)\\
 		   \hline
@@ -40,7 +64,8 @@ The following macros supplement the node connection macros (prefix 'nc') from ps
 		   \verb!\nrsarr{A}{B}! &  a recursive S-arrow between nodes A and B i.e one that loops around\\ 
 			\hline		
 		\end{tabular}
-\end{table}
+%\end{table}
+\vspace{0.5cm}
 
 \noindent For example:
 \begin{verbatim}
@@ -190,11 +215,18 @@ $
 \end{center}
 \setlength{\arraycolsep}{.2cm}
 
-\subsection{Macros for Rules}
+\newpage
+\section{gats.macros.tex}
 
 \begin{table}[h]
 	\centering
 \begin{tabular}{| l | l |}
+ \hline 
+ \verb'\gat[U]' & \gat[U] \\
+ \hline
+ \verb'\isagat[U]' & \isagat[U] \\
+ \hline
+ \verb!\tstyle!               &   $\tstyle$ \\
  \hline
  \verb!\isT{X}!            &   $\isT{X}$        \\
  \hline
@@ -202,8 +234,10 @@ $
  \hline
  \verb!\context{x}{X}{n}!     &   $\context{x}{X}{n}$ \\
  \hline
- \verb!\tstyle!               &   $\tstyle$ \\
+ \verb!\subcontext{x}{\Delta}{i}{k}!&$\subcontext{x}{\Delta}{i}{k}$ \\
  \hline
+ \verb!\schmcon!&$\schmcon{x}{\Delta}{n}$ \\
+	\hline
 \end{tabular}
 \end{table}
 
@@ -231,29 +265,6 @@ gives \\
  \hline
 \end{tabular}
 \end{table}
-
-\subsection{Just to prove we can do it...}
-
-\noindent Take a look at this:
-\begin{equation}
-\left.\begin{array}{ccc}
-\Rnode{C}{C}   &            &                 \\ [0.8cm]
-\Rnode{B1}{B_1}&            &\Rnode{B2}{B_2}  \\ [0.8cm]
-               &\Rnode{A}{A}&                 \\
-\end{array}
-\qquad
-\right |
-\qquad
-\begin{aligned}
-&A\mbox{ is a type} \\
-&x\in A : B_1(x) \mbox{ is a type} \\
-&x\in A : B_2(x) \mbox{ is a type} \\
-&x\in A, y\in B_1(x): C(x,y) \mbox{ is a type}
-\end{aligned}
-\ncsar{C}{B1}
-\ncsar{B1}{A}
-\ncsar{B2}{A} 
-\end{equation}
 
 
 

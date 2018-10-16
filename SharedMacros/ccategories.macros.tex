@@ -9,11 +9,16 @@
 \newcommand{\epi}{\twoheadrightarrow}
 \newcommand{\base}{\triangleleft}
 \newcommand{\comp}{\circ}
+\newcommand{\cross}{\otimes}
+\newcommand{\pc}[2]{p_{#1,#2}}
+\newcommand{\sub}{^*}
+\newcommand{\diag}{\delta}
 \newcommand{\cat}[1]{\textbf{#1}}
 \newcommand{\tuple}[1]{\left\langle#1\right\rangle}
 \newcommand{\ndidly}{\ensuremath{\Join_n}}
 \newcommand{\ndidlycospan}{quotiented n-cospan}
 
+\newcommand{\crossx}[3]{#1 \underset{#3}{\cross} #2}
 \newcommand{\fibrex}[3]{#1 \underset{#3}{\Join} #2}
 
 % darrow
@@ -88,6 +93,31 @@
 \ncsar[#1]{#3}{#4}
 \naput{\footnotesize $#2$}
 }
+
+% par - p-arrow
+\newcommand{\ncpar}[3][0]{
+\setlength{\sarnodesepAsav}{\sarnodesepA}
+\setlength{\sarnodesepBsav}{\sarnodesepB}
+\addtolength{\sarnodesepA}{3pt}
+\addtolength{\sarnodesepB}{3pt}
+\ncarc[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,arcangle=#1]{-}{#2}{#3}
+\ncput[nrot=:L, npos=1]{\psline(0,0)(0.13,0.2)}
+\ncput[nrot=:L, npos=1]{\psline(0.05,-0.05)(.20,0.15)}
+\ncput[nrot=:L, npos=1]{\psline(0,0)(-0.13,0.2)}
+\setlength{\sarnodesepA}{\sarnodesepAsav}
+\setlength{\sarnodesepB}{\sarnodesepBsav}
+}
+% bpar - below labelled p-arrow
+\newcommand{\ncbpar}[4][0]{
+\ncpar[#1]{#3}{#4}
+\nbput{\footnotesize $#2$}
+}
+% apar - above labelled p-arrow
+\newcommand{\ncapar}[4][0]{
+\ncpar[#1]{#3}{#4}
+\naput{\footnotesize $#2$}
+}
+
 
 % rsar - recursive S-arrow
 \newcommand{\ncrsar}[2]{
