@@ -34,7 +34,7 @@
 \begin{abstract}
 
 \noindent Under a new name, \textit{dependency category}, this paper corrects the description of \textit{network categories} given in  
-\cite{Cartmell86B}. Dependency categories are a variation on the notion of contextual category (\cite{Cartmell78}, \cite{Cartmell86}) in that  the category of dependency categories, as defined here, is equivalent to the category of contextual categories.
+\cite{Cartmell86B}. Dependency categories are a variation on the notion of contextual category (\cite{Cartmell78}, \cite{Cartmell86}) in that  the category of dependency categories, as defined here, is equivalent to the category of cancellative contextual categories.
 
 As in \cite{Cartmell86B} the motivation has been to formalise
 and foreground the network structure of type dependencies so as to provide a theoretical foundation for the use of networks of composition relationships in entity modelling as applied both conceptually and, for the most practical of purposes, in systems development. 
@@ -299,7 +299,7 @@ and $p_{A_2}\sub A_1$. The resulting graph if the first one is chosen is shown i
 Such type dependencies as these can be represented by \textit{composition relationships} within certain styles of entity modelling (for one of these, see \href{www.entitymodelling.org}{www.entitymodelling.org}). Composition relationships may be distinguished on diagrams from other functional relationships by being drawn leaving the
 lower edge of a box representing the type being depended on and entering the upper edge of the box representing the dependent type. \\
 
-\noindent Examples are given in figures \ref{partsOfSpeech} and \ref{citizen}.
+\noindent Examples are given in figures \ref{partsOfSpeech} and \ref{performance}.
 
 \begin{center}
 \begin{figure} [H]
@@ -392,8 +392,9 @@ follows the pattern of (\ref{singleInstanceA}) rather than (\ref{multipleInstanc
 \noindent We now proceed to give a series of definitions which
 lead eventually to the definition of  \textit{dependency category}.
 Dependency categories contain all the structure needed to represent dependent types in the 
-sense that these are in the syntax of generalised algebraic theories (\cite{Cartmell86}).
-As such the category of dependency categories is equivalent to the category of contextual categories.
+sense that these are in the syntax of generalised algebraic theories (\cite{Cartmell86}) provided we restrict
+ourselves to theories having the cancellation property.
+As such the category of dependency categories is equivalent to the category of cancellative contextual categories.
 \section {Acyclic Categories}
 A category C is called \textit{acyclic}, if it has no inverses and no nonidentity
 endomorphisms. This definition is given by Kozlov (see \cite{Kozlov2007}) who offers the following intuition:
@@ -601,11 +602,12 @@ $
 \ncaarr[30]{x_2}{C2}{B}
 \jcbarr{h}{Bp}{B}
 \jcbarr{x'_2}{C2}{Bp}
-commute. 
+commute. \\
 \noindent
 A cospan $F:\Lambda^{op} \morph \cat{C}$ is said to \textit{factor through}  a diagram 
 $J:S \morph \cat{C}$ iff there exists a cospan $F': \Lambda^{op} \morph S$ 
-such that $F' \circ J = F$.
+such that $F' \circ J = F$. Intuitively, then, a cospan factors through a diagram iff it is a 
+part of the diagram.
   
 \section{Higher Cospans and Quotiented Higher Cospans}
 The notion of a \textit{higher cospan} was
@@ -640,7 +642,7 @@ of further terminology in this area we introduce some here. It is appropriate to
 \begin{definition}
 A \textit{\ndidlycospan}
  in category \cat{C}  is any diagram in \cat{C} having 
-shape $\ndidly$  i.e. it is any function $F: \ndidly \morph \cat{C}$
+shape $\ndidly$  i.e. it is any functor $F: \ndidly \morph \cat{C}$
 \end{definition}
 
 \section{ Some Other Preliminary Definitions\protect\footnote{Please regard the terminology introduced here as provisional -- the author would be glad to receive suggested improvements especially where he has failed to use prior established terminology.}}
@@ -682,10 +684,26 @@ there exists $1 \leq k_1 \leq k_2 ... k_m \leq n$, and d-morphisms
 $g_1,...,g_m$ such that for each $j$, $1 \leq j \leq m$, 
 $g_j: X \dmorph A_{k_j}$ and
 
-$$
-f \circ g_j = f_{k_j}
-$$
-and such that the diagram
+\begin{center}
+\psset{arrowsize=5pt,arrowinset=0.7}
+\psset{nodesep=7pt}
+\setlength{\arraycolsep}{0.3cm}
+\begin{displaymath}
+\begin{array}{cp{0.5cm}c}
+&&\Rnode{B}{B}\\ [1.5cm]
+&&\Rnode{X}{X}\\ [1.5cm]
+\Rnode{Akj}{A_{k_j}}&&\\
+\end{array}
+\end{displaymath}
+\setlength{\sarnodesepB}{4pt}
+\ncasar{f}{B}{X}
+\ncbsar{f_{k_j}}{B}{Akj}
+\psset{nodesepA=4pt,nodesepB=9pt}
+\ncline{-}{X}{Akj}
+\trput{\footnotesize $g_j$}
+\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
+\end{center}
+commutes and such that the diagram
 
 \begin{center}
 \psset{arrowsize=5pt,arrowinset=0.7}
@@ -694,7 +712,7 @@ and such that the diagram
 \begin{displaymath}
 \begin{array}{ccp{0.2cm}p{0.075cm}c}
 &&\Rnode{top}{$X$}& & \\[1.5cm]
-\Rnode{A}{A_{j_1}}&\Rnode{B2}{A_{j_2}}&& ... & \Rnode{Bm}{A_{j_m}}\\
+\Rnode{A}{A_{k_1}}&\Rnode{B2}{A_{k_2}}&& ... & \Rnode{Bm}{A_{k_m}}\\
 \end{array}
 \end{displaymath}
 \psset{nodesepA=4pt,nodesepB=7pt}
@@ -716,12 +734,26 @@ Monitor this situation to see whether a problem or not. I think it is a minor an
 \end{definition}
 
 \section{Cones and Tight Cones}
-Recall the definition of cone $\tuple{ N,\psi}$ to a diagram $F:J \morph C$ of a category $C$ as an object $N$ of $C$ and a family of morphisms $\psi_j$ indexed by objects $j$ of $J$ such that for all $f: j \morph j'$ in $J$, $\psi_j \circ F(f) = \psi_{j'}$. Define a cone $\tuple{ N,\psi}$to be \textit{tight} iff for all pairs $j_1,j_2$ of objects of shape category $J$, every minimal coincident cospan of the span:
+Recall the definition of cone $\tuple{ N,\psi}$ to a diagram $F:J \morph C$ of a category $C$ as an object $N$ of $C$ and a family of morphisms $\psi_j$ indexed by objects $j$ of $J$ such that for all $f: j \morph j'$ in $J$, ($\psi_j \circ F(f) = \psi_{j'}$) the diagram 
+\begin{center}
+\begin{equation}
+\begin{array}{cp{0cm}cp{0cm}c}
+                  &&\Rnode{d}{N}  &&                   \\ [0.4cm]
+\Rnode{c1}{F(j_1)}&&              && \Rnode{c2}{F(j_2)} 
+\end{array}
+\end{equation}
+\jcbarr{\psi_{j}}{d}{c1}
+\ncaarr{\psi_{j'}}{d}{c2}
+\jcbarr{F(f)}{c1}{c2}
+\end{center}
+commutes.
+
+We shall define a cone $\tuple{ N,\psi}$to be \textit{tight}\footnote{My terminology as I don't know standard terminology for this property.} iff for all pairs $j_1,j_2$ of objects of shape category $J$, every minimal coincident cospan of the span:
 
 \begin{center}
 \begin{equation}
 \begin{array}{cp{0cm}cp{0cm} c}
-            & &\Rnode{d}{N}                           \\ [0.4cm]
+            & &\Rnode{d}{N}                           \\ [0.7cm]
 \Rnode{c1}{F(j_1)}& &                & & \Rnode{c2}{F(j_2)} 
 \end{array}
 \end{equation}
@@ -729,7 +761,21 @@ Recall the definition of cone $\tuple{ N,\psi}$ to a diagram $F:J \morph C$ of a
 \ncaarr{\psi_{j_2}}{d}{c2}
 \end{center}
 
-factors through the diagram $F$.
+factors through the diagram $F$ i.e. every minimal coincident cospan is of the form:
+\begin{center}
+\begin{equation}
+\begin{array}{cp{0cm}cp{0cm} c}                        
+\Rnode{c1}{F(j_1)}& &                & & \Rnode{c2}{F(j_2)} \\ [1.0cm]
+            & &\Rnode{d}{F(j)}  
+\end{array}
+\end{equation}
+\jcbarr{F(f_1)}{c1}{d}
+\ncaarr{F(f_2)}{c2}{d}
+\end{center}
+
+for some object $j$ of $J$ and for some morphisms 
+$f_1:j_1 \morph j$, 
+$f_2:j_2 \morph j$ in $J$. 
 
 \section{Definition of Dependency Category}
 A \textit{dependency category} is a category \cat{C} with distinguished morphisms and a terminal object $1$ and :
@@ -868,7 +914,7 @@ so that we have:
 $
 \begin{array}{cp{0cm}cp{0cm}c}
                && \Rnode{X}{\fibrex{x_1}{x_2}{D}}&&                \\ [1.2cm]
-\Rnode{B1}{x_1}&&                                && \Rnode{B2}{x_2} \\ [1.2cm]
+\Rnode{B1}{B_1}&&                                && \Rnode{B2}{B_2} \\ [1.2cm]
                &&\Rnode{A}{A}                    && 
 \end{array}
 $
@@ -900,13 +946,15 @@ $
 \ncarc[arcangle=30]{-}{B}{A}
 \naput{\footnotesize $x_2$}
 \ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
-then there is an equaliser:
+
+then there is an equaliser: \\
+\
 \setlength{\arraycolsep}{.75cm}
-$
+$$
 \begin{array}{ccc}
 \Rnode{Eq}{\underset{x_1=x_2}{\sigma}B} & \Rnode{B}{B}  & \Rnode{A}{A} \\
 \end{array}
-$
+$$
 \psset{nodesepA=4pt,nodesepB=7pt}
 \ncline[offset=4pt]{-}{B}{A}
 \naput{\footnotesize $x_1$}
@@ -916,7 +964,7 @@ $
 \ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
 \ncline{->}{Eq}{B}
 \naput{\footnotesize $e$}
-\noindent and the morphism $e \circ x_1$ which equals, by definition, $e \circ a_2$  is a d-morphism as shown
+\noindent and the morphism $e \circ x_1$ which equals, by definition, $e \circ a_2$,  is a d-morphism as shown
 in the following diagram:
 \vspace{.2cm}
 \begin{center}
