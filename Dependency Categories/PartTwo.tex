@@ -401,69 +401,47 @@ $\proj{Y}{X}$, recursively as follows:
 $$\proj{Y}{X} = id_Y$$
 
 \vspace{2cm}
-\item if $Y$ is $\crossx{A}{B}{X'}$ for some $A$, $B$ and $X'$ where $X < X'$ and $X' \base B$ and $X' < A$ then
-$$
-\proj{\crossx{A}{B}{X'}}{X} = \{ \tuple{\pc{\crossx{A}{B}{X'}}{A},\proj{A}{X}   };\tuple{q(\pc{A}{X'},B),\proj{B}{X'}} \}
-$$
-\vspace{0.5cm}
-\begin{displaymath}
-\begin{array}{cp{1.0cm}cp{0.3cm}cp{1.0cm}cp{0.3cm}c}
-\Rnode{X} {X}  && \Rnode{Xp}{X'} && && \Rnode{A}{A} && \Rnode{AB}{\crossx{A}{B}{X'}}                     \\ [0.5cm]
-               &&                && \Rnode{B}{B}  &&  &&     
-\end{array}
-\end{displaymath}
-\ncsar{B}{Xp}
-\ncsar{AB}{A}
-\ncaarr[15]{q(\pc{A}{X'},B)}{AB}{B}
-\xxsar{Xp}{X}
-\xxsar{A}{Xp}
 
-\vspace{0.5cm}
-
-
-\item if $Y$ is $\crossx{A}{B_m}{X'}$ for some $A$, $B_1,...B_m$ and $X'$ where $X < X'$ and $X' \base B_1 \base ... \base B_m$ and $X' < A$ then
-$$
-\proj{\crossx{A}{B_m}{X'}}{X} = \{ \tuple{\pc{\crossx{A}{B_m}{X'}}{A},\proj{A}{X}   };\tuple{q(\pc{A}{X'},B_m),\proj{B_m}{X'}} \}
-$$
-
+\item
+if $Y$ is $\crossx{B}{C_m}{A}$ for some $B$, $C_1,...C_m$ and $A$ where  $A \base C_1 \base ... \base C_m$ and $A < B$ then
 \vspace{1.0cm}
 \begin{displaymath}
 \begin{array}{cp{0.5cm}cp{0.2cm}c   p{0.2cm}c c  p{0.2cm}l   p{0.2cm}c   c  p{0.1cm}c }
-\Rnode{X} {X}  && \Rnode{Xp}{X'} &&    &&&     \Rnode{A}{A} && \Rnode{AB1}{\crossx{A}{B_1}{X'}} 
-&& \Rnode{AB2}{\crossx{A}{B_2}{X'}}     &\Rnode{ABe}{\hdots}    && \Rnode{ABm}{\crossx{A}{B_m}{X'}}           \\ [0.6cm]
-               &&                && \Rnode{B1}{B_1}   && \Rnode{B2}{B_2} &\Rnode{Be}{\hdots}   && \Rnode{Bm}{Bm}     &&  &&     
+&& \Rnode{A}{A} &&    &&&     \Rnode{B}{B} && \Rnode{AC1}{\crossx{B}{C_1}{A}} 
+&& \Rnode{AC2}{\crossx{B}{C_2}{A}}     &\Rnode{BCe}{\hdots}    && \Rnode{BCm}{\crossx{B}{C_m}{A}}           \\ [0.6cm]
+               &&                && \Rnode{C1}{C_1}   && \Rnode{C2}{C_2} &\Rnode{Ce}{\hdots}   && \Rnode{Cm}{Cm}     &&  &&     
 \end{array}
 \end{displaymath}
-\ncsar{B1}{Xp}
-\ncsar{B2}{B1}
-\ncsar{Bm}{Be}
-\ncsar{AB1}{A}
-\ncsar{AB2}{AB1}
-\ncsar{ABm}{ABe}
-\ncaarr[15]{q(\pc{A}{X'},B_m)}{ABm}{Bm}
-\ncpar{Xp}{X}
-\ncpar{A}{Xp}
-\ncbpar[-30]{\pc{\crossx{A}{B_m}{X'}}{A}}{ABm}{A}
+\ncsar{C1}{A}
+\ncsar{C2}{C1}
+\ncsar{Cm}{Ce}
+\ncsar{AC1}{B}
+\ncsar{AC2}{AC1}
+\ncsar{BCm}{BCe}
+\ncaarr[15]{q(\pc{B}{A},C_m)}{BCm}{Cm}
+\ncpar{B}{A}
+\ncbpar[-30]{\pc{\crossx{B}{C_m}{A}}{B}}{BCm}{B}
 \vspace{0.5cm}
 
-\item if $Y$ is $\crossx{A}{B'}{X}$ where $X < A$, $X < B$ and $B \base B'$ then
+\begin{enumerate}
+\item 
+if $X < B$
 $$
-\proj{\crossx{A}{B'}{X}}{\crossx{A}{B}{X}} = \{\tuple{q(\pc{A}{X},B'),\proj{B'}{B}}\}
+\proj{\crossx{B}{C_m}{A}}{X} = \{ \tuple{\pc{\crossx{B}{C_m}{A}}{B},\proj{B}{X}} ;\tuple{q(\pc{B}{A},C_m),\proj{C_m}{A}} \}
 $$
-\vspace{0.5cm}
-\begin{displaymath}
-\begin{array}{cp{1.0cm}cp{0.3cm}cp{0.3cm}cp{0.3cm}c}
-\Rnode{X} {X}  &&              && \Rnode{A}{A} && \Rnode{AB}{\crossx{A}{B}{X}} && \Rnode{ABp}{\crossx{A}{B'}{X}}  \\ [0.5cm]
-               && \Rnode{B}{B} && \Rnode{Bp}{B'}  &&  &&     
-\end{array}
-\end{displaymath}
-\ncsar{B}{X}
-\ncsar{Bp}{B}
-\ncsar{AB}{A}
-\ncsar{ABp}{AB}
-\ncaarr[15]{q(\pc{A}{X},B')}{ABp}{Bp}
-\ncpar{A}{X}
-\vspace{0.5cm}
+\item 
+if $X = B$
+$$
+\proj{\crossx{B}{C_m}{A}}{B} = \{  ;\tuple{q(\pc{B}{A},C_m),\proj{C_m}{A}} \}
+$$
+
+
+\item if $X$ is $\crossx{B}{C_i}{X}$ 
+$$
+\proj{\crossx{B}{C_m}{A}}{\crossx{B}{C_i}{A}} = \{\tuple{q(\pc{B}{A},C_m),\proj{C_m}{C_i}}\}
+$$
+
+\end{enumerate}
 \end{enumerate}
 
 \newpage
