@@ -320,6 +320,153 @@ isomorphisms in the contextual catgory between the six objects: \\
 
 \end{array}
 \end{displaymath}
+\section{Cancellative Property}
+\noindent 
+\begin{definition}
+A contextual category \con is said to be cancellative iff for all objects $X$, $A$, $B$ and $B'$ such that
+$X < A$, $X < B$ and $X < B'$ in \con, 
+if $\crossx{A}{B}{X} = \crossx{A}{B'}{X}$ then $B=B'$. \footnote{What about requiring q's to b equal?}.
+\end{definition} 
+\textbf{Assume from now on that we always mean contextual categories to be cancellative.}
+
+\section{Decompositions and Projections of Objects}
+For any given object $Y$ of a contextual category there may or may not be objects $A$, $B$ and $X$ so that
+$Y = \crossx{A}{B}{X}$. If there are we say the object is decomposable. If an object $Y$ is decomposable into objects that
+are themselves decomposable then there may be a number of decompositions implied by coherence conditions of contextual
+categories but since we we assume the cancellative property upto these equivalent decompositions given by coherence
+the decomposition is unique. 
+\noindent
+For example if $X < A$, $X < B$, $X < C$ in a \con then from coherence of pullbacks in \con we have:
+$\crossx{A}{(\crossx{B}{C}{X})}{X} = \crossx{(\crossx{A}{B}{X})}{C}{X}$ as shown here:
+ 
+\begin{displaymath}
+\begin{array}{cp{1.0cm}cp{1.0cm}c}
+\Rnode{J1}{}\Rnode{D1} {\crossx{(\crossx{A}{B}{X})}{C}{X}}\Rnode{J2}{} \ \ \ \ \   &&  &&  \\ 
+= && && \\
+\Rnode{D2} {\crossx{A}{(\crossx{B}{C}{X})}{X}}    &&  &&                        \\ [1.3cm]
+\Rnode{AB}{\crossx{A}{B}{X}}&& \Rnode{BC}{\crossx{B}{C}{X}} &&                      \\[1.3cm]
+\Rnode{A}{A}&& \Rnode{B}{B} && \ \ \ \ \ \ \ \ \ \ \ \ \ \Rnode{C}{C}                                        \\[1.3cm]
+             && \Rnode{X}{X} &&                                                     
+\end{array}
+\end{displaymath}
+
+\ncaarr[50]{q(\pc{\crossx{A}{B}{X}}{X},C)}{J2}{C}
+%\ncsar[-30]{J1}{AB}
+\ncsar{D2}{AB}
+\ncsar{AB}{A}
+\ncsar{BC}{B}
+\ncsar{A}{X}
+\ncsar{B}{X} 
+\ncsar{C}{X}
+\ncaarr{q(\pc{A}{X},B)}{AB}{B}
+\ncaarr{q(\pc{B}{X},C)}{BC}{C}
+\ncaarr{q(\pc{A}{X},\crossx{B}{C}{X})}{D2}{BC}
+
+\noindent Say that an object is primitive if it cannot be decomposed.
+\noindent Anyway we look at it we can decompose an object into an n-tuple of simple objects. 
+\noindent Any object $Y$ of a contextual category \con is either primitive or else there is an $n > 1$ and a tuple of morphisms $f_i: Y \morph A_i$, $1 \leq i \leq n$, such that for each $i$, $1 \leq i \leq n$,  $A_i$ is primitive, 
+and the diagram
+\begin{center}
+\psset{arrowsize=5pt,arrowinset=0.7}
+\psset{nodesep=7pt}
+\setlength{\arraycolsep}{0.3cm}
+\begin{displaymath}
+\begin{array}{ccp{0.2cm}p{0.075cm}c}
+&&\Rnode{top}{$Y$}& & \\[1.5cm]
+\Rnode{A}{A_1}&\Rnode{B2}{A_2}&& ... & \Rnode{Bm}{A_n}\\
+\end{array}
+\end{displaymath}
+\psset{nodesepA=4pt,nodesepB=7pt}
+\ncline{-}{top}{A}
+\tlput{\footnotesize $f_1$}
+\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
+\ncline{-}{top}{B2}
+\trput{\footnotesize $f_2$}
+\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
+\ncline{-}{top}{Bm}
+\trput{\footnotesize $f_n$}
+\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
+\end{center}
+ is a limit cone to its own characteristic diagram.
+
+\noindent The object $\crossx{A}{B}{X}$ has projections $\pc{\crossx{A}{B}{X}}{A}: \crossx{A}{B}{X} \dmorph A$ and
+$q(\pc{A}{X},B): \crossx{A}{B}{X} \morph B$. Given that  $A$ and $B$ are maybe themselves decomposable then we  can define a tree of morphisms which we shall call the projection tree. Whereas the projection tree is not unique the leaves of the tree are and the composed morphisms to the leaves of the tree are too. The composed morphisms to the leaves of the tree we
+will call the \textit{basis} of the object $Y$. 
+
+\newpage
+\noindent If $X < Y$ in a contextual category \con then we define the projection tree of $Y$ beyond $X$, which we denote
+$\proj{Y}{X}$, recursively as follows:
+\begin{enumerate}
+\item if $Y$ is primitive then 
+$$\proj{Y}{X} = id_Y$$
+
+\vspace{2cm}
+\item if $Y$ is $\crossx{A}{B}{X'}$ for some $A$, $B$ and $X'$ where $X < X'$ and $X' \base B$ and $X' < A$ then
+$$
+\proj{\crossx{A}{B}{X'}}{X} = \{ \tuple{\pc{\crossx{A}{B}{X'}}{A},\proj{A}{X}   };\tuple{q(\pc{A}{X'},B),\proj{B}{X'}} \}
+$$
+\vspace{0.5cm}
+\begin{displaymath}
+\begin{array}{cp{1.0cm}cp{0.3cm}cp{1.0cm}cp{0.3cm}c}
+\Rnode{X} {X}  && \Rnode{Xp}{X'} && && \Rnode{A}{A} && \Rnode{AB}{\crossx{A}{B}{X'}}                     \\ [0.5cm]
+               &&                && \Rnode{B}{B}  &&  &&     
+\end{array}
+\end{displaymath}
+\ncsar{B}{Xp}
+\ncsar{AB}{A}
+\ncaarr[15]{q(\pc{A}{X'},B)}{AB}{B}
+\xxsar{Xp}{X}
+\xxsar{A}{Xp}
+
+\vspace{0.5cm}
+
+
+\item if $Y$ is $\crossx{A}{B_m}{X'}$ for some $A$, $B_1,...B_m$ and $X'$ where $X < X'$ and $X' \base B_1 \base ... \base B_m$ and $X' < A$ then
+$$
+\proj{\crossx{A}{B_m}{X'}}{X} = \{ \tuple{\pc{\crossx{A}{B_m}{X'}}{A},\proj{A}{X}   };\tuple{q(\pc{A}{X'},B_m),\proj{B_m}{X'}} \}
+$$
+
+\vspace{1.0cm}
+\begin{displaymath}
+\begin{array}{cp{0.5cm}cp{0.2cm}c   p{0.2cm}c c  p{0.2cm}l   p{0.2cm}c   c  p{0.1cm}c }
+\Rnode{X} {X}  && \Rnode{Xp}{X'} &&    &&&     \Rnode{A}{A} && \Rnode{AB1}{\crossx{A}{B_1}{X'}} 
+&& \Rnode{AB2}{\crossx{A}{B_2}{X'}}     &\Rnode{ABe}{\hdots}    && \Rnode{ABm}{\crossx{A}{B_m}{X'}}           \\ [0.6cm]
+               &&                && \Rnode{B1}{B_1}   && \Rnode{B2}{B_2} &\Rnode{Be}{\hdots}   && \Rnode{Bm}{Bm}     &&  &&     
+\end{array}
+\end{displaymath}
+\ncsar{B1}{Xp}
+\ncsar{B2}{B1}
+\ncsar{Bm}{Be}
+\ncsar{AB1}{A}
+\ncsar{AB2}{AB1}
+\ncsar{ABm}{ABe}
+\ncaarr[15]{q(\pc{A}{X'},B_m)}{ABm}{Bm}
+\ncpar{Xp}{X}
+\ncpar{A}{Xp}
+\ncbpar[-30]{\pc{\crossx{A}{B_m}{X'}}{A}}{ABm}{A}
+\vspace{0.5cm}
+
+\item if $Y$ is $\crossx{A}{B'}{X}$ where $X < A$, $X < B$ and $B \base B'$ then
+$$
+\proj{\crossx{A}{B'}{X}}{\crossx{A}{B}{X}} = \{\tuple{q(\pc{A}{X},B'),\proj{B'}{B}}\}
+$$
+\vspace{0.5cm}
+\begin{displaymath}
+\begin{array}{cp{1.0cm}cp{0.3cm}cp{0.3cm}cp{0.3cm}c}
+\Rnode{X} {X}  &&              && \Rnode{A}{A} && \Rnode{AB}{\crossx{A}{B}{X}} && \Rnode{ABp}{\crossx{A}{B'}{X}}  \\ [0.5cm]
+               && \Rnode{B}{B} && \Rnode{Bp}{B'}  &&  &&     
+\end{array}
+\end{displaymath}
+\ncsar{B}{X}
+\ncsar{Bp}{B}
+\ncsar{AB}{A}
+\ncsar{ABp}{AB}
+\ncaarr[15]{q(\pc{A}{X},B')}{ABp}{Bp}
+\ncpar{A}{X}
+\vspace{0.5cm}
+\end{enumerate}
+
+\newpage
 
 \section{Sketch}
 \begin{enumerate}
