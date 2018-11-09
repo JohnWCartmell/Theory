@@ -655,9 +655,7 @@ shape $\ndidly$  i.e. it is any functor $F: \ndidly \morph \cat{C}$
 \noindent If \cat{C} is a category  then a \textit{characterising family} for a span $s$ of \cat{C} is defined to be the set of its minimal coincident cospans.
 \end{definition}
 
-
 \noindent 
-
 \begin{definition}
 If \cat{C} is a category with distinguished morphisms 
 and if $\tuple{f_1,...f_n}$ is a tuple of d-morphisms of \cat{C} 
@@ -681,194 +679,6 @@ Remark: Roughly speaking, if $\tuple{f_1,...f_n}$ have common domain $N$
 and if they uniquely determine a limit cone $\tuple{N,\phi}$ for some diagram $J$  then they uniquely determine a limit cone $\tuple{N,\phi'}$
  of the characteristic diagram of $\tuple{f_1,...f_n}$.
 
-\begin{definition}
-If \cat{C} is a category with distinguished morphisms then a family of 
-d-morphisms  $f_i: B \dmorph A_i$ is said to
-be a basis for object B iff for every morphism $f: B \dmorph X$ in \cat{C} either 
-\begin{enumerate}[(i)]
-\item
-$f$ factors through  $f_i$ for some $i$ i.e there exists $g:A_i \morph X$, for some $i$, such that $f_i \circ g = f$ or
-\item
-there exists $1 \leq k_1 \leq k_2 ... k_m \leq n$, and d-morphisms 
-$g_1,...,g_m$ such that for each $j$, $1 \leq j \leq m$, 
-$g_j: X \dmorph A_{k_j}$ and
-
-\begin{center}
-\psset{arrowsize=5pt,arrowinset=0.7}
-\psset{nodesep=7pt}
-\setlength{\arraycolsep}{0.3cm}
-\begin{displaymath}
-\begin{array}{cp{0.5cm}c}
-&&\Rnode{B}{B}\\ [1.5cm]
-&&\Rnode{X}{X}\\ [1.5cm]
-\Rnode{Akj}{A_{k_j}}&&\\
-\end{array}
-\end{displaymath}
-\setlength{\sarnodesepB}{4pt}
-\ncasar{f}{B}{X}
-\ncbsar{f_{k_j}}{B}{Akj}
-\psset{nodesepA=4pt,nodesepB=9pt}
-\ncline{-}{X}{Akj}
-\trput{\footnotesize $g_j$}
-\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
-\end{center}
-commutes and such that the diagram
-
-\begin{center}
-\psset{arrowsize=5pt,arrowinset=0.7}
-\psset{nodesep=7pt}
-\setlength{\arraycolsep}{0.3cm}
-\begin{displaymath}
-\begin{array}{ccp{0.2cm}p{0.075cm}c}
-&&\Rnode{top}{$X$}& & \\[1.5cm]
-\Rnode{A}{A_{k_1}}&\Rnode{B2}{A_{k_2}}&& ... & \Rnode{Bm}{A_{k_m}}\\
-\end{array}
-\end{displaymath}
-\psset{nodesepA=4pt,nodesepB=7pt}
-\ncline{-}{top}{A}
-\tlput{\footnotesize $g_1$}
-\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
-\ncline{-}{top}{B2}
-\trput{\footnotesize $g_2$}
-\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
-\ncline{-}{top}{Bm}
-\trput{\footnotesize $g_m$}
-\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
-\end{center}
-
-is a limit cone\footnote{I want to say cannonical limit here but I can't.
-Monitor this situation to see whether a problem or not. I think it is a minor annoyance. The question is whether if X dependent on Y and Y' isomorphic to Y then X is dependent on Y'. This in turn has an effect on the round trip from presentation to category back to presentation. } in category \cat{C} for the characteristic diagram of $g_1,...g_m$.
-\end{enumerate}
-
-\end{definition}
-
-\section{Cones and Tight Cones}
-Recall the definition of cone $\tuple{ N,\psi}$ to a diagram $F:J \morph C$ of a category $C$ as an object $N$ of $C$ and a family of morphisms $\psi_j$ indexed by objects $j$ of $J$ such that for all $f: j \morph j'$ in $J$, ($\psi_j \circ F(f) = \psi_{j'}$) the diagram 
-\begin{center}
-\begin{equation}
-\begin{array}{cp{0cm}cp{0cm}c}
-                  &&\Rnode{d}{N}  &&                   \\ [0.4cm]
-\Rnode{c1}{F(j_1)}&&              && \Rnode{c2}{F(j_2)} 
-\end{array}
-\end{equation}
-\jcbarr{\psi_{j}}{d}{c1}
-\ncaarr{\psi_{j'}}{d}{c2}
-\jcbarr{F(f)}{c1}{c2}
-\end{center}
-commutes.
-
-We shall define a cone $\tuple{ N,\psi}$to be \textit{tight}\footnote{My terminology as I don't know standard terminology for this property.} iff for all pairs $j_1,j_2$ of objects of shape category $J$, every minimal coincident cospan of the span:
-
-\begin{center}
-\begin{equation}
-\begin{array}{cp{0cm}cp{0cm} c}
-            & &\Rnode{d}{N}                           \\ [0.7cm]
-\Rnode{c1}{F(j_1)}& &                & & \Rnode{c2}{F(j_2)} 
-\end{array}
-\end{equation}
-\jcbarr{\psi_{j_1}}{d}{c1}
-\ncaarr{\psi_{j_2}}{d}{c2}
-\end{center}
-
-\noindent factors through the diagram $F$ i.e. every minimal coincident cospan is of the form:
-\begin{center}
-\begin{equation}
-\begin{array}{cp{0cm}cp{0cm} c}                        
-\Rnode{c1}{F(j_1)}& &                & & \Rnode{c2}{F(j_2)} \\ [1.0cm]
-            & &\Rnode{d}{F(j)}  
-\end{array}
-\end{equation}
-\jcbarr{F(f_1)}{c1}{d}
-\ncaarr{F(f_2)}{c2}{d}
-\end{center}
-
-\noindent for some object $j$ of $J$ and for some morphisms 
-$f_1:j_1 \morph j$, 
-$f_2:j_2 \morph j$ in $J$. \\
-
-\noindent
-Illustration. Suppose the following diagram commutes in a category \cat{C}: 
-\begin{center}
-\begin{equation}
-\begin{array}{cp{0.1cm}cp{0.1cm} c}
-            & &\Rnode{A1}{A_1}                           \\ [0.4cm]
-\Rnode{X}{X}& &                & & \Rnode{B}{B} \\ [0.4cm]
-            & &\Rnode{A2}{A_2}
-\end{array}
-\end{equation}
-\ncaarr{h_1}{X}{A1}
-\jcbarr{h_2}{X}{A2}
-\ncaarr{f_1}{A1}{B}
-\jcbarr{f_2}{A2}{B}
-\end{center}
-\noindent
-and suppose that $g: B \morph C$ is not an isomorphism. In this situation the cone
-$
-\begin{array}{cp{0.1cm}cp{0.1cm} c}
-            & &\Rnode{A1}{A_1}                           \\ [0.4cm]
-\Rnode{X}{X}& &                & &  \\ [0.4cm]
-            & &\Rnode{A2}{A_2}
-\end{array}
-$
-\ncaarr{h_1}{X}{A1}
-\jcbarr{h_2}{X}{A2}
-is a tight cone to the diagram
-$
-\begin{array}{cp{0.1cm}cp{0.1cm} c}
-            & &\Rnode{A1}{A_1}                           \\ [0.4cm]
-            & &                & & \Rnode{B}{B} \\ [0.4cm]
-            & &\Rnode{A2}{A_2}
-\end{array}
-$
-\ncaarr{f_1}{A1}{B}
-\jcbarr{f_2}{A2}{B}
-but not to the diagram 
-$
-\begin{array}{cp{0.1cm}cp{0.1cm} c}
-            & &\Rnode{A1}{A_1}                           \\ [0.4cm]
-            & &                & & \Rnode{C}{C} \\ [0.4cm]
-            & &\Rnode{A2}{A_2}
-\end{array}
-$
-\ncaarr{f_1 \circ g}{A1}{C}
-\jcbarr{f_2 \circ g}{A2}{C}. If C has finite limits then we will have mediating morphisms $h$ and $h'$ as shown in the following diagram 
-
-\begin{center}
-\begin{equation}
-\begin{array}{cp{0.1cm}cp{0.1cm}cp{0.1cm}cp{0.1cm} cp{0.1cm} c}
- &&&&           & &\Rnode{A1}{A_1}                           \\ [0.6cm]
- \Rnode{X}{X}&&\Rnode{J1}{\fibrex{}{}{f_1,f_2}}&&\Rnode{J2}{\fibrex{}{}{f_1 \circ g, f_2\circ g}}& &   & & \Rnode{B}{B} & &\Rnode{C}{C}\\ [0.6cm]
-  &&&&           & &\Rnode{A2}{A_2}
-\end{array}
-\end{equation}
-\ncaarr[25]{h_1}{X}{A1}
-\jcbarr[-25]{h_2}{X}{A2}
-\ncaarr{}{X}{J1}
-\ncaarr[15]{}{J1}{A1}
-\jcbarr[-15]{}{J1}{A2}
-\ncaarr{}{J1}{J2}
-\ncaarr{}{J2}{A1}
-\jcbarr{}{J2}{A2}
-\ncaarr{f_1}{A1}{B}
-\jcbarr{f_2}{A2}{B}
-\ncaarr{g}{B}{C}
-\end{center}
-
-
-\noindent and in which you can sort of see that cone/span
-$
-\begin{array}{cp{0.1cm}cp{0.1cm} c}
-            & &\Rnode{A1}{}                           \\ [0.4cm]
-\Rnode{X}{X}& &                & &  \\ [0.4cm]
-            & &\Rnode{A2}{}
-\end{array}
-$
-\ncaarr{h_1}{X}{A1}
-\jcbarr{h_2}{X}{A2} is `tighter' too
-$\fibrex{}{}{f_1,f_2}$ than to 
-$\fibrex{}{}{f_1 \circ g, f_2\circ g}$.
-
-\noindent Aside: If $\tuple{f_1,...f_n}$ have a common domain then they uniquely extend to a tight cone of their characteristic diagram. 
 
 \section{Definition of Dependency Category}
 A \textit{dependency category} is a category \cat{C} with distinguished morphisms and a terminal object $1$ and :
@@ -880,12 +690,12 @@ A \textit{dependency category} is a category \cat{C} with distinguished morphism
 	\item for all diagrams D of d-morphisms \begin{center}
 $
 \begin{array}{cp{0cm}cp{0cm}c}
-\Rnode{B1}{B}& &            &  &\Rnode{B2}{B'} \\ [1.2cm]
+\Rnode{B1}{B_1}& &            &  &\Rnode{B2}{B_2} \\ [1.2cm]
                & &\Rnode{A}{A}& &
 \end{array}
 $
-\ncbsar{x}{B1}{A}
-\ncasar{x'}{B2}{A}
+\ncbsar{x_1}{B1}{A}
+\ncasar{x_2}{B2}{A}
 \end{center}
 	
 an object  $ \fibrex{B_1}{B_2}{D}$ of \cat{C} and d-morphisms 
@@ -903,9 +713,34 @@ $p_1: \fibrex{B_1}{B_2}{D} \dmorph B_1$ and  $p_1: \fibrex{B_1}{B_2}{D} \dmorph 
 \end{center}
 
 is a pullback in category \cat{C} and such that for any 
-cone $\tuple{N,\psi}$ to diagram $D$
+object $C$ and for cones $f_1:C \morph B_1$ and $f_2:C \morph B_2$ to diagram $D$,
 the mediating morphism $h: N \morph B_1 \underset{D}{\Join} B_2$ is a d-moprphism iff 
-every morphism in the cone \ $\tuple{N,\psi}$ is a d-morphism and the cone is tight.
+each of $f_1$ and $f_2$  is a d-morphism and and the characteristic diagram
+of
+
+\begin{center}
+$
+\setlength{\arraycolsep}{.25cm}
+\begin{array}{ccc}
+             & \Rnode{C}{C}&               \\ [0.6cm]
+\Rnode{B1}{B_1}&             & \Rnode{B2}{B_2} \\ 
+\end{array}
+$
+\jcbarr{f_1}{C}{B1}
+\ncaarr{f_2}{C}{B2}
+\end{center}
+is
+\begin{center}
+$
+\setlength{\arraycolsep}{.25cm}
+\begin{array}{ccc}
+\Rnode{B1}{B_1}&            & \Rnode{B2}{B_2} \\ [0.6cm]
+             &\Rnode{A}{A}& 
+\end{array}
+$
+\ncbsar{x_1}{B1}{A}
+\ncasar{x_2}{B2}{A}
+\end{center}
 
 	\item if
 \begin{center}
@@ -1012,9 +847,6 @@ $
 
 
 
-
-
-\iffalse
 \item Equalisers and properties of equalisers: If
 \setlength{\arraycolsep}{1cm}
 \psset{arrowsize=5pt,arrowinset=0.7}
@@ -1034,9 +866,10 @@ $
 \ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
 
 then there is an equaliser: \\
-\
-\setlength{\arraycolsep}{.75cm}
+
+
 $$
+\setlength{\arraycolsep}{.75cm}
 \begin{array}{ccc}
 \Rnode{Eq}{\underset{x_1=x_2}{\sigma}B} & \Rnode{B}{B}  & \Rnode{A}{A} \\
 \end{array}
@@ -1054,8 +887,9 @@ $$
 in the following diagram:
 \vspace{.2cm}
 \begin{center}
-\setlength{\arraycolsep}{.3cm}
+
 $
+\setlength{\arraycolsep}{.3cm}
 \begin{array}{ccc}
 \Rnode{Eq}{\underset{x_1=x_2}{\sigma}B} & &\Rnode{B}{B} \\[1.4cm]
  & \Rnode{A}{A} &\\
@@ -1076,66 +910,39 @@ $
 \ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
 \end{center}
 
-\noindent For any other d-morphism $a':B\darrow A'$ leaving B, the morphism $e \circ a'$ is a d-morphism; furthermore, if
-\begin{center}
-\setlength{\arraycolsep}{.1cm}
-$
-\begin{array}{ccp{.3cm}c}
-                  & \multicolumn{2}{c}{\Rnode{B}{B}}& \\ [1.4cm]
-\Rnode{A1}{A_1} &\Rnode{A2}{A_2}& ... & \Rnode{Am}{A_m}\\
-\end{array}
-$
-\psset{labelsep=1pt,npos=0.6}
-\ncbsar{x_1}{B}{A1}
-\ncasar{x_2}{B}{A2}
-\ncasar{x_m}{B}{Am}
-\end{center}
-and $x_1,...x_m$ is a basis for B 
-then
-
-\begin{center}
-\setlength{\arraycolsep}{.1cm}
-$
-\begin{array}{cp{.35cm}cp{.4cm}c}
-                  & \multicolumn{3}{c}{\Rnode{diamondB}{\underset{x_1=x_2}{\sigma}B}}& \\ [1.4cm]
-\Rnode{A1}{A_1} & &\Rnode{A3}{A_3} &... & \Rnode{Am}{A_m}\\
-\end{array}
-$
-\psset{labelsep=1pt,npos=0.6}
-\ncbsar{e \circ a_1 = e \circ x_2}{diamondB}{A1}
-\psset{labelsep=1pt,npos=0.8}
-\ncasar{e \circ x_3}{diamondB}{A3}
-\ncasar{e \circ x_m}{diamondB}{Am}
-\end{center}
-\setlength{\arraycolsep}{0.1cm}
-\noindent is a basis for $\underset{x_1=x_2}{\sigma}B$. 
+\noindent For any other d-morphism $a':B\darrow A'$ leaving B, the morphism $e \circ a'$ is a d-morphism.
 
 \noindent For any object $C$ and morphism $y: C \morph B$ such that
 $y \circ x_1 = y \circ x_2$
 the mediating morphism $h: C \morph \underset{x_1=x_2}{\sigma}B$ is a d-morphism iff 
-the morphism $y$ is a d-morphism and the cone $\tuple{C,y}$ is tight i.e iff there does not exist an object $A'$ distinct from 
-$A$ and morphisms $x'_1: B \dmorph A'$, $x'_2: B \dmorph A'$ and $x:A' \dmorph A$ such that each of the three diagrams contained here:
+the morphisms $y \circ x_1$ and $y \circ x_2$ are d-morphisms and the characteristic diagram
+of
 
 \begin{center}
 $
-\begin{array}{cp{0.5cm}cp{0.5cm}c}
-               && \Rnode{X}{C}&&                  \\ [0.6cm]
-\Rnode{B1}{B}&&                  && \Rnode{B2}{B} \\ [0.6cm]
-               &&\Rnode{Ap}{A'}  &&               \\ [1cm]
-               &&\Rnode{A}{A}    && 
+\setlength{\arraycolsep}{.25cm}
+\begin{array}{ccc}
+             & \Rnode{X}{C}&               \\ [0.6cm]
+\Rnode{B1}{B}&             & \Rnode{B2}{B} \\ 
 \end{array}
 $
-\ncbsar{y}{X}{B1}
-\ncasar{y}{X}{B2}
-\ncbsar{x'_1}{B1}{Ap}
-\ncasar{x'_2}{B2}{Ap}
-\ncasar{x}{Ap}{A}
-\ncbsar[-30]{x_1}{B1}{A}
-\ncasar[30]{x_2}{B2}{A}
+\jcbarr{y}{X}{B1}
+\ncaarr{y}{X}{B2}
 \end{center}
 
-\noindent commute. \\
-\fi
+is
+\begin{center}
+$
+\setlength{\arraycolsep}{.25cm}
+\begin{array}{ccc}
+\Rnode{B1}{B}&            & \Rnode{B2}{B} \\ [0.6cm]
+             &\Rnode{A}{A}& 
+\end{array}
+$
+\ncbsar{x_1}{B1}{A}
+\ncasar{x_2}{B2}{A}
+\end{center}
+
 
 \noindent This completes the definition.
 
@@ -1167,29 +974,56 @@ For all diagrams D of d-morphisms with shape \ndidly:
 \naput[npos=0.4, labelsep=1pt]{\footnotesize $x'_n$}
 \end{center}
 
-there is an object  $ \fibrex{B_1}{B_2}{D}$ of \cat{C} and d-morphisms 
-$p_1: \fibrex{B_1}{B_2}{D} \dmorph B_1$ and  $p_1: \fibrex{B_1}{B_2}{D} \dmorph B_1$ such that :
+there is an object  $ \fibrex{B}{B'}{D}$ of \cat{C} and d-morphisms 
+$p_1: \fibrex{B}{B'}{D} \dmorph B$ and  $p': \fibrex{B}{B'}{D} \dmorph B'$ such that :
 
 \begin{center}
 \begin{displaymath}
 \begin{array}{cp{0cm}cp{0cm} c}
-            & &\Rnode{d}{\fibrex{B_1}{B_2}{D}}                  \\ [0.6cm]
-\Rnode{c1}{B_1}& &                & & \Rnode{c2}{B_2} 
+            & &\Rnode{d}{\fibrex{B}{B'}{D}}                  \\ [0.6cm]
+\Rnode{c1}{B}& &                & & \Rnode{c2}{B'} 
 \end{array}
 \end{displaymath}
-\ncbsar{p_1}{d}{c1}
-\ncasar{p_2}{d}{c2}
+\ncbsar{p}{d}{c1}
+\ncasar{p'}{d}{c2}
 \end{center}
 
 is a limit of diagram $D$ in category \cat{C} and such that for any cone $\tuple{N,\psi}$ to diagram $D$
-the mediating morphism $h: N \morph B_1 \underset{D}{\Join} B_2$ is a d-morphism iff 
-each morphism in the cone $\tuple{N,\psi}$ is a d-morphism and the 
-cone is tight. 
+the mediating morphism $h: N \morph B \underset{D}{\Join} B'$ is a d-morphism iff 
+the characteristic diagram of the cone $\tuple{N,\psi}$ factors through $D$.
 
 \end{lemma}
 \begin{proof}
-\noindent This lemma can be proved by induction using the next lemma.
+\noindent This lemma can be proved by induction on $n$. 
+The inductive step is described by this diagram:
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.3cm}cp{0.3cm}c         p{0.3cm}  c p{0.2cm} c}
+\Rnode{E}{\underset{p_{n-1} \circ x_n=p'_{n-1} \circ x'_n}{\sigma}L_{n-1}}&&\Rnode{Ln1}{L_{n-1}}& &               & &     & &                \\ [1.4cm]
+&&\Rnode{d1}{B}& &               & &     & &\Rnode{d2}{B'}  \\ [1.4cm]
+&&\Rnode{c1}{A_1}& &\Rnode{c2}{A_2}& & ... & &\Rnode{cn}{A_n}
+\end{array}
+\end{displaymath}
+\ncsar{d1}{c1}
+\nbput[npos=0.4, labelsep=1pt]{\footnotesize $x_1$}
+\ncsar{d1}{c2}
+\nbput[npos=0.3, labelsep=1pt]{\footnotesize $x_2$}
+\ncsar{d1}{cn}
+\naput[npos=0.3, labelsep=1pt]{\footnotesize $x_n$}
+\ncsar{d2}{c1}
+\nbput[npos=0.3, labelsep=1pt]{\footnotesize $x'_1$}
+\ncsar{d2}{c2}
+\naput[npos=0.25, labelsep=1pt]{\footnotesize $x'_2$}
+\ncsar{d2}{cn}
+\naput[npos=0.4, labelsep=1pt]{\footnotesize $x'_n$}
+\ncasar{p_{n-1}}{Ln1}{d1}
+\ncasar{p'_{n-1}}{Ln1}{d2}
+\ncaarr{e}{E}{Ln1}
+\end{center}
+
 \end{proof}
+\iffalse
 \begin{lemma}
 In any category \cat{C} if $F: S \morph \cat{C}$ is a diagram with limit $\tuple{L,\phi}$,
 if $S'$ is a category extending $S$ by an object $\beta_0$ and a pair of morphisms $\xi_1: \beta_1 \morph \beta_0$ and $\xi_2: \beta_2 \morph \beta_0$, where $\beta_1$ and $\beta_2$ are objects of $S$, if $G: S \morph \cat{C}$ is a diagram that extends $F$, then if :
@@ -1279,7 +1113,7 @@ $g \circ \phi' = \psi'$.
 for any object $\beta$ of S that
 $$(g'\circ\phi')_\beta = \psi'_\beta$$
 \noindent
-and therefore from the defintions of $\phi'$ and $\psi$ we have
+and therefore from the definitions of $\phi'$ and $\psi$ we have
 that, for all objects $\beta$ of S,
 $$
 g' \circ e \circ \phi_\beta = \psi_\beta
@@ -1295,6 +1129,7 @@ Now we have:
 $$g' \circ e = h = g \circ e$$
 from which it follows $g=g'$ because $e$ is an equaliser and therefore is a monomorphism. 
 \end{proof}
+\fi
 
 \bibliography{../SharedBibliography/temp/bibliography}
 
