@@ -38,6 +38,105 @@
 \begin{document}
 \maketitle
 
+\section{Restricting the class of Generalised Algebraic Theores}
+For this paper restrict the class of generalised algrebraic theories under 
+discussion to be those with the property 
+\begin{enumerate}[(i)]
+\item 
+If
+$$
+\frac{\con{x}{\Delta}{n}}{\Delta=\Delta'}
+$$
+\intheory and if variable $x_n$ is a variable which does not appear in either
+$\Delta$ or $\Delta'$ then
+$$
+\frac{\con{x}{\Delta}{n-1}}{\Delta=\Delta'}
+$$
+\intheory.
+\item
+what else needed? 
+\end{enumerate}
+\section{Definitions}
+\subsection{Strongly Equivalent Contexts}
+\begin{definition}
+Contexts $\tuple{\con{x}{\Delta}{n}}$ 
+and $\tuple{\con{y}{\Omega}{m}}$ will be said to be \textit{strongly equivalent} iff $n=m$ and for each $i$, $1 \leq i \leq n$ the rule 
+$$
+\frac{\con{x}{\Delta}{i-1}}{\Delta_i=\Omega_i[x_1|y_1,...,x_{i-1}|y_{i-1}]}
+$$
+\intheory.
+\end{definition}
+
+This definition is that of equivalence from (\cite{Cartmell78})  and, as described there, the  equivalence classes of contexts for a generalised algebraic theory \gat\  are the objects of the contextual category $\conu$ corresponding to \gat.
+
+\subsection{Aside: Middling Equivalent Contexts}
+I failed to make progress on \textbf{all} generatlised algebriac theories
+(not just the proper ones) with this definition:
+A context $\tuple{\con{x}{\Delta}{n}}$ 
+is  \textit{middling equivalent}  to a $\tuple{\con{y}{\Omega}{m}}$ iff $n=m$ and for each $i$, $1 \leq i \leq n$ the rule 
+$$
+\frac{\con{x}{\Delta}{n}}{\Delta_i=\Omega_i[x_1|y_1,...,x_{i-1}|y_{i-1}]}
+$$
+is a derived rule of \gat. \\
+
+This definition doesn't work -- it doesn't result in an equivalence relation because it is not symmetric for improper theories.
+
+\subsection{Weakly Equivalent Contexts}
+\begin{definition}
+A context $\tuple{\con{x}{\Delta}{n}}$ 
+is \textit{weakly equivalent} to a context $\tuple{\con{y}{\Omega}{m}}$  iff $n=m$ and there exists a permutation $\sigma$ of the set $\{1,2,..n\}$
+such that the sequence 
+$\tuple{\permcon{y}{\Omega}{m}{\sigma}}$
+is a context and 
+is strongly equivalent to $\tuple{\con{x}{\Delta}{n}}$.
+\end{definition}
+\begin{lemma}
+In a restricted generalised algebraic theory, weak equivalence is an
+equivalence relation.
+\end{lemma}
+\begin{proof}
+
+\end{proof}
+
+\noindent 
+If $\tuple{\con{x}{\Delta}{n}}$ 
+and $\tuple{\con{y}{\Omega}{m}}$ are weakly equivalent 
+and if $\sigma$ is a permutation of the set $\{1,2,..n\}$
+such that the sequence 
+$\tuple{\permcon{y}{\Omega}{m}{\sigma}}$
+is a context and 
+is strongly equivalent to $\tuple{\con{x}{\Delta}{n}}$
+then define $\sigma$ to be \textit{cannonical} iff
+for $i_1$,$i_2$,$1 \leq i_1  < i_2 \leq n$, if 
+$$
+\frac{\con{x}{\Delta}{n}}{\Delta_{i_1}=\Delta_{i_2}}
+$$
+then $\sigma(i_1) < \sigma(i_2)$.\\
+
+With this weaker definition of equivalence we will show that the 
+equivalence classes of contexts are the objects of a dependency category
+$\depu$ corresponding to a theory \gat. \\
+\noindent
+Note that if there is an admittable  permutation between two contexts then it is the unique such permutation. 
+
+\subsection{Weakly Equivalent Realisations}
+If $\tuple{r_1,...r_m}: \tuple{\con{x}{\Delta}{n}} \morph \tuple{\con{y}{\Omega}{m}}$ and
+$\tuple{r'_1,...r'_m}: \tuple{\con{x}{\Delta'}{n}} \morph \tuple{\con{y'}{\Omega'}{m}}$ are realisations 
+and if $\tuple{\con{x}{\Delta}{n}}$ and 
+$\tuple{\con{x}{\Delta'}{n}}$ are weakly equivalent and 
+$\tuple{\con{y}{\Omega}{m}}$ and $\tuple{\con{y'}{\Omega'}{m}}$ are weakly equivalent then
+define $\tuple{r_1,...r_m}$ and $\tuple{r'_1,...r'_m}$ to be weakly equivalent 
+iff 
+$\tuple{r_1,...r_m}$
+and
+$\tuple{r'_{\pi(1)},...r'_{\pi{m}}}[x_1|x'_{\sigma(1)},...,x_n|x'_{\sigma(n)}]$
+are strongly equivalent
+where
+$\sigma$ is unique permutation such that 
+and $\pi$ is unique permutation such that .
+
+
+
 \section{Notation for composed pullbacks}
 In \cite{Cartmell86}, the structure of contextual categories is introduced and subsequently
 the basic notation is extended so that 
@@ -323,8 +422,8 @@ isomorphisms in the contextual catgory between the six objects: \\
 \section{Cancellative Property}
 \noindent 
 \begin{definition}
-A contextual category \con is said to be cancellative iff for all objects $X$, $A$, $B$ and $B'$ such that
-$X < A$, $X < B$ and $X < B'$ in \con, 
+A contextual category \ccat is said to be cancellative iff for all objects $X$, $A$, $B$ and $B'$ such that
+$X < A$, $X < B$ and $X < B'$ in \ccat, 
 if $\crossx{A}{B}{X} = \crossx{A}{B'}{X}$ then $B=B'$. \footnote{What about requiring q's to b equal?}.
 \end{definition} 
 \textbf{Assume from now on that we always mean contextual categories to be cancellative.}
@@ -336,7 +435,7 @@ are themselves decomposable then there may be a number of decompositions implied
 categories but since we we assume the cancellative property upto these equivalent decompositions given by coherence
 the decomposition is unique. 
 \noindent
-For example if $X < A$, $X < B$, $X < C$ in a \con then from coherence of pullbacks in \con we have:
+For example if $X < A$, $X < B$, $X < C$ in a \ccat then from coherence of pullbacks in \ccat we have:
 $\crossx{A}{(\crossx{B}{C}{X})}{X} = \crossx{(\crossx{A}{B}{X})}{C}{X}$ as shown here:
  
 \begin{displaymath}
@@ -364,7 +463,7 @@ $\crossx{A}{(\crossx{B}{C}{X})}{X} = \crossx{(\crossx{A}{B}{X})}{C}{X}$ as shown
 
 \noindent Say that an object is primitive if it cannot be decomposed.
 \noindent Anyway we look at it we can decompose an object into an n-tuple of simple objects. 
-\noindent Any object $Y$ of a contextual category \con is either primitive or else there is an $n > 1$ and a tuple of morphisms $f_i: Y \morph A_i$, $1 \leq i \leq n$, such that for each $i$, $1 \leq i \leq n$,  $A_i$ is primitive, 
+\noindent Any object $Y$ of a contextual category \ccat is either primitive or else there is an $n > 1$ and a tuple of morphisms $f_i: Y \morph A_i$, $1 \leq i \leq n$, such that for each $i$, $1 \leq i \leq n$,  $A_i$ is primitive, 
 and the diagram
 \begin{center}
 \psset{arrowsize=5pt,arrowinset=0.7}
@@ -394,7 +493,7 @@ $q(\pc{A}{X},B): \crossx{A}{B}{X} \morph B$. Given that  $A$ and $B$ are maybe t
 will call the \textit{basis} of the object $Y$. 
 
 \newpage
-\noindent If $X < Y$ in a contextual category \con then we define the projection tree of $Y$ beyond $X$, which we denote
+\noindent If $X < Y$ in a contextual category \ccat then we define the projection tree of $Y$ beyond $X$, which we denote
 $\proj{Y}{X}$, recursively as follows:
 \begin{enumerate}
 \item if $Y$ is primitive then 
