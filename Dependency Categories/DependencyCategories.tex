@@ -33,8 +33,12 @@
 
 \begin{abstract}
 
-\noindent Under a new name, \textit{dependency category}, this paper corrects the description of \textit{network categories} given in  
-\cite{Cartmell86B}. Dependency categories are a variation on the notion of contextual category (\cite{Cartmell78}, \cite{Cartmell86}) in that  the category of dependency categories, as defined here, is equivalent to the category of (?cancellative?) contextual categories.
+An earlier draft of this paper presented a faulty definition of dependency category. This draft substantially revises and simplifies the definition. It is hoped but not yet proved that the revised definition is correct
+but I am uncertain at the moment whether or not I need restrict the equivalence result to contextual categories which are cancellative. 
+
+\noindent Under the new name, \textit{dependency category}, this paper is intended to correct the description of \textit{network categories} given in  
+\cite{Cartmell86B}. The goal is that dependency categories are a variation on the notion of
+.0 contextual category (\cite{Cartmell78}, \cite{Cartmell86}) in that  the category of dependency categories, as defined here, is equivalent to the category of (?cancellative?) contextual categories.
 
 As in \cite{Cartmell86B} the motivation has been to formalise
 and foreground the network structure of type dependencies so as to provide a theoretical foundation for the use of networks of composition relationships in entity modelling as applied both conceptually and, for the most practical of purposes, in systems development. 
@@ -903,16 +907,16 @@ cone $\tuple{N,\psi}$ to diagram $D$
 the mediating morphism $h: N \morph B_1 \underset{D}{\Join} B_2$ is a d-moprphism iff 
 every morphism in the cone \ $\tuple{N,\psi}$ is a d-morphism and the cone is tight.
 
-	\item Other pullbacks: if
+	\item if
 \begin{center}
 \begin{displaymath}
 \begin{array}{cp{.9cm}c}
-            & & \Rnode{X}{X} \\ [1.2cm]
+            & & \Rnode{C}{C} \\ [1.2cm]
 \Rnode{A}{A}& & \Rnode{B}{B} \\
 \end{array}
 \end{displaymath}
 \jcbarr{f}{A}{B}
-\ncasar{y}{X}{B}
+\ncasar{y}{C}{B}
 \end{center}
 
 then there is a pullback 
@@ -920,64 +924,57 @@ then there is a pullback
 \begin{center}
 \begin{displaymath}
 \begin{array}{cp{.9cm}c}
-\Rnode{fstarX}{X[f|y]} & & \Rnode{X}{X}\\ [1.2cm]
+\Rnode{fstarC}{C[f|y]} & & \Rnode{C}{C}\\ [1.2cm]
 \Rnode{A}{A}         & & \Rnode{B}{B}
 \end{array}
 \end{displaymath}
-\ncbsar{f^*y}{fstarX}{A}
+\ncbsar{f^*y}{fstarC}{A}
 \jcbarr{f}{A}{B}
-\ncaarr{q(f,y)}{fstarX}{X}
-\ncasar{y}{X}{B}
+\ncaarr{q(f,y)}{fstarC}{C}
+\ncasar{y}{C}{B}
 \end{center}
 and pullbacks cohere\footnote{exactly as for contextual category}
 and if also:
 \begin{center}
 $
 \begin{array}{cp{.9cm}c}
-            & & \Rnode{X}{X} \\ [1.2cm]
+            & & \Rnode{C}{C} \\ [1.2cm]
 & & \Rnode{Bprime}{B'} \\
 \end{array}
 $
-\ncasar{$y'$}{X}{Bprime}
+\ncasar{$y'$}{C}{Bprime}
 \end{center}
-and $y \neq y'$ then $q(f,y) \circ y'$ is a d-morphism. 
-\noindent Further, if
+and $y \neq y'$ then $q(f,y) \circ y'$ is a d-morphism iff for all objects X and for all dependencies $x:B \dmorph X$ and 
+$x':B' \dmorph X$ such that
 \begin{center}
-$
-\begin{array}{p{2cm}p{0.5cm}p{0.5cm}p{0.5cm}}
-& & \Rnode{X}{X}& \\ [1.4cm]
-\Rnode{A}{A} & \Rnode{B1}{$B_1$} & ... & \Rnode{Bm}{$B_m$}\\
-\end{array}
-$
-\jcbarr{f}{A}{B1}
-\ncbsar{y_1}{X}{B1}
-\ncasar{y_m}{X}{Bm}
-\end{center}
-and $y_1,...y_m$ is a basis for $X$ 
-\noindent then the set:
-\vspace{2mm}
-\begin{center}
-\psset{arrowsize=5pt,arrowinset=0.7}
-\psset{nodesep=7pt}
-\setlength{\arraycolsep}{0.3cm}
 \begin{displaymath}
-\begin{array}{ccp{0.2cm}p{0.075cm}c}
-&&\Rnode{top}{$X[f|y_1]$}& & \\[1.5cm]
-\Rnode{A}{A}&\Rnode{B2}{B_2}&& ... & \Rnode{Bm}{B_m}\\
+\begin{array}{cp{0.1cm}cp{0.1cm}c}   
+  & & \Rnode{C}{C} \\    [1.2cm] 
+ \Rnode{B}{B} & & &&\Rnode{Bp}{B'}\\ [1.2cm]
+  & & \Rnode{X}{X} \\
 \end{array}
 \end{displaymath}
-\psset{nodesepA=4pt,nodesepB=7pt}
-\ncline{-}{top}{A}
-\tlput{\footnotesize $f^*y_1$}
-\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
-\ncline{-}{top}{B2}
-\trput{\footnotesize $f_*y_2$}
-\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
-\ncline{-}{top}{Bm}
-\trput{\footnotesize $f_*y_m$}
-\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
+\ncbsar{y}{C}{B}
+\ncasar{y'}{C}{Bp}
+\ncbsar{x}{B}{X}
+\ncasar{x'}{Bp}{X}
 \end{center}
-is a basis for  $f^*X$.
+commutes there exists a dependency $p:A \dmorph X$ such that the following diagram 
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{.9cm}c}
+          
+\Rnode{A}{A}& & \Rnode{B}{B} \\ [1.2cm]
+  & & \Rnode{X}{X} \\
+\end{array}
+\end{displaymath}
+\ncaarr{f}{A}{B}
+\ncasar{x}{B}{X}
+\ncbsar{p}{A}{X}
+\end{center}
+commutes. Further every dependency from object $C[f|y]$ factors through either $f^*y$ or through $q(f,y)$
+  
+\noindent
 
 
 \item If in (iii) the morphism f is a dependency then  $q(f,y)$ is also a dependency and 
@@ -1017,7 +1014,7 @@ $
 
 
 
-
+\iffalse
 \item Equalisers and properties of equalisers: If
 \setlength{\arraycolsep}{1cm}
 \psset{arrowsize=5pt,arrowinset=0.7}
@@ -1138,7 +1135,7 @@ $
 \end{center}
 
 \noindent commute. \\
-
+\fi
 
 \noindent This completes the definition.
 
