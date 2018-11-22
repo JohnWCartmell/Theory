@@ -4,8 +4,10 @@
 % Macros for diagrams in contextual categories and related categories
 
 \usepackage{twoopt}
+\usepackage{scalerel} 
 
-
+%\usepackage{mathabx}  %Caused font problems
+%\usepackage{MnSymbol}  % caused font problems
 
 \newcommand{\conu}
 {\mathbf{C}(U)}
@@ -33,8 +35,13 @@
 \newcommand{\fibrex}[3]{#1 \underset{#3}{\Join} #2}
 
 % darrow
-\newcommand{\darrow}{\rightarrowtriangle}
-\newcommand{\dmorph}{\rightarrowtriangle}
+%\newcommand{\darrow}{\rightarrowtriangle} %use \smorph instead
+\newcommand{\smorph}{\rightarrowtriangle}
+
+ 
+
+\newcommand\dhead{\scaleobj{0.6}{\triangleright}}
+\newcommand{\dmorph}{\, \mbox{---} \! \cdot \! \raisebox{1.1pt}{\dhead}}
 
 % projection tree
 %\newcommand{\proj}[2]{proj_{#2}(#1)}
@@ -101,35 +108,6 @@
 \setlength{\sarnodesepB}{\sarnodesepBsav}
 }
 
-% xxar - experimental S-arrow
-\newcommand{\xxsar}[3][0]{
-\setlength{\sarnodesepAsav}{\sarnodesepA}
-\setlength{\sarnodesepBsav}{\sarnodesepB}
-\addtolength{\sarnodesepA}{3pt}
-\addtolength{\sarnodesepB}{7pt}
-\ncarc[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,arcangle=#1]{-}{#2}{#3}
-%\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
-%\ncput[nrot=:R, npos=1]{\psline(0.1,0)(0,0.2)}
-%\ncput[nrot=:R, npos=1]{\psline(0,0)(-0.1,0)}
-%\ncput[nrot=:R, npos=1]{\psline(-0.1,0)(0,0.2)}
-\ncput[nrot=:R, npos=1]{\psline(0.08,0)(0,0.18)}
-\ncput[nrot=:R, npos=1]{\psline(0,0)(-0.08,0)}
-\ncput[nrot=:R, npos=1]{\psline(-0.08,0)(0,0.18)}
-\setlength{\sarnodesepA}{\sarnodesepAsav}
-\setlength{\sarnodesepB}{\sarnodesepBsav}
-}
-
-%experiment
-\newcommand{\xsar}[3][0]{
-\setlength{\sarnodesepAsav}{\sarnodesepA}
-\setlength{\sarnodesepBsav}{\sarnodesepB}
-\addtolength{\sarnodesepA}{3pt}
-\addtolength{\sarnodesepB}{7pt}
-\ncarc[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,arcangle=#1,linestyle=dashed]{-}{#2}{#3}
-\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
-\setlength{\sarnodesepA}{\sarnodesepAsav}
-\setlength{\sarnodesepB}{\sarnodesepBsav}
-}
 
 % bsar - below labelled S-arrow
 \newcommand{\ncbsar}[4][0]{
@@ -142,32 +120,28 @@
 \naput{\footnotesize $#2$}
 }
 
-% par - p-arrow
-\newcommand{\oldncpar}[3][0]{
+% cdar - composite dependency arrow
+\newcommand{\nccdar}[3][0]{
 \setlength{\sarnodesepAsav}{\sarnodesepA}
 \setlength{\sarnodesepBsav}{\sarnodesepB}
 \addtolength{\sarnodesepA}{3pt}
-\addtolength{\sarnodesepB}{3pt}
+\addtolength{\sarnodesepB}{11pt}
 \ncarc[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,arcangle=#1]{-}{#2}{#3}
-\ncput[nrot=:L, npos=1]{\psline(0,0)(0.13,0.2)}
-\ncput[nrot=:L, npos=1]{\psline(0.05,-0.05)(.20,0.15)}
-\ncput[nrot=:L, npos=1]{\psline(0,0)(-0.13,0.2)}
+\ncput[nrot=:R,npos=1]{\pstriangle(0,0.1)(.2,.2)}
+\ncput[nrot=:R,npos=1]{\psdot[dotsize=1pt](-0.0075,0.05)}   %!!
 \setlength{\sarnodesepA}{\sarnodesepAsav}
 \setlength{\sarnodesepB}{\sarnodesepBsav}
 }
 
-\newcommand{\ncpar}[3][0]{
-\xxsar[#1]{#2}{#3}
-}
 
-% bpar - below labelled p-arrow
-\newcommand{\ncbpar}[4][0]{
-\ncpar[#1]{#3}{#4}
+% bcdar - below labelled composite dependency arrow
+\newcommand{\ncbcdar}[4][0]{
+\nccdar[#1]{#3}{#4}
 \nbput{\footnotesize $#2$}
 }
-% apar - above labelled p-arrow
-\newcommand{\ncapar}[4][0]{
-\ncpar[#1]{#3}{#4}
+% acdar - above labelled composite dependency arrow
+\newcommand{\ncacdar}[4][0]{
+\nccdar[#1]{#3}{#4}
 \naput{\footnotesize $#2$}
 }
 

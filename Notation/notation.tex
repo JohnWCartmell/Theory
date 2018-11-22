@@ -23,7 +23,7 @@
 \begin{tabular}{|l|p{5cm}|}
 \hline
 \verb!\cat{C}!& \cat{C} \\
-\verb!\con[C]!& \con \\
+\verb!\ccat[C]!& \ccat \\
 \verb!A \morph B! & $A \morph B $\\
 \verb!A \epi B  ! & $A \epi B$ \\ 
 \verb!A \base B! & $A \base B$\\
@@ -38,32 +38,78 @@
 \verb!\ndidly!& $\ndidly$ \\
 \verb!\ndidlycospan!& \ndidlycospan\\
 \verb!\fibrex{B_1}{B_2}{D}!& $\fibrex{B_1}{B_2}{D}$\\
-\verb!B \darrow A!& $B \darrow A$\\
+\verb!B \darrow A! deprecated& $B \darrow A$\\
+\verb!A \smorph B!& $A \smorph B$\\
 \verb!A \dmorph B!& $A \dmorph B$\\
 \hline
 \end{tabular}
 \end{table}
 
-\subsection {pstricks macros for arrows and s-arrows}
+\subsection {pstricks macros for arrows, s-arrows and d-arrows}
 The following macros supplement the node connection macros (prefix 'nc') from pstricks and are implemented by combining pstricks 'nc' macros and put macros naput (put above) and nbput (put below). Arrowheads are either open or open triangles (representing S-morphisms). \\
 %\begin{table}[h]
 %	\centering
-		\begin{tabular}{|l |  p{5cm} | }
-		\multicolumn{2}{|c|}{pstricks macros for arrows and s-arrows} \\
+		\begin{tabular}{|l |  p{5cm} | c |}
+		\hline
+		\multicolumn{3}{|c|}{pstricks macros for arrows and s-arrows} \\
 		   \hline	   
-		   \verb!\ncarr[ang]{A}{B}! &  an arrow between nodes A and B optionally an arc of angle ang (default 0)\\
+		   \verb!\ncarr[ang]{A}{B}! &  an arrow between nodes A and B optionally an arc of angle ang (default 0)
+			&
+			\\
 		   \hline
-		 	 \verb!\jcbarr[ang]{f}{A}{B}! & an arrow f between nodes A and B labelled below optionally an arc of angle ang (default 0)\\
+		 	 \verb!\jcbarr[ang]{f}{A}{B}! & an arrow f between nodes A and B labelled below optionally an arc of angle ang (default 0)
+			&
+			\\
 		 	 \hline
-		 	 \verb!\ncaarr[ang]{f}{A}{B}! & an arrow f between nodes A and B labelled above optionally an arc of angle ang (default 0)\\
+		 	 \verb!\ncaarr[ang]{f}{A}{B}! & an arrow f between nodes A and B labelled above optionally an arc of angle ang (default 0)
+			&
+			\\
 			\hline	   
-		   \verb!\ncsarr[ang]{A}{B}! &  an S-arrow between nodes A and B optionally an arc of angle ang (default 0)\\
+		   \verb!\ncsar[ang]{A}{B}! &  an S-arrow between nodes A and B optionally an arc of angle ang (default 0)
+			&
+			\raisebox{-0.6cm}{$
+\begin{array} {c}
+\Rnode{A}{A} \\ [0.6cm]
+\Rnode{B}{B}
+\end{array}$\ncsar{A}{B}} \\
 		 	 \hline			
-		 	 \verb!\ncbsar[ang]{f}{A}{B}! & an S-arrow f between nodes A and B labelled below optionally an arc of angle ang (default 0)\\
+		 	 \verb!\ncbsar[ang]{f}{A}{B}! & an s-arrow f between nodes A and B labelled below optionally an arc of angle ang (default 0)
+			&
+			\\
 		 	 \hline
-		 	 \verb!\ncasar[ang]{f}{A}{B}! & an S-arrow f between nodes A and B labelled above optionally an arc of angle ang (default 0)\\
+		 	 \verb!\ncasar[ang]{f}{A}{B}! & an s-arrow f between nodes A and B labelled above optionally an arc of angle ang (default 0)
+			&
+			\\
+						\hline	   
+		   \verb!\nccdar[ang]{A}{B}! &  a composite dependency arrow between nodes A and B optionally an arc of angle ang (default 0)
+			&
+			\raisebox{-0.75cm}{$
+\begin{array} {c}
+\Rnode{A}{A} \\ [0.75cm]
+\Rnode{B}{B}
+\end{array}$\nccdar{A}{B}} \\
+		 	 \hline			
+		 	 \verb!\ncbcdar[ang]{f}{A}{B}! & a composite dependency arrow f between nodes A and B labelled below optionally an arc of angle ang (default 0)
+			&
+			\raisebox{-0.75cm}{$
+\begin{array} {c}
+\Rnode{A}{A} \\ [0.75cm]
+\Rnode{B}{B}
+\end{array}$\ncbcdar{f}{A}{B}}
+			\\
+			\hline
+		 	 \verb!\ncacdar[ang]{f}{A}{B}! & a composite dependency arrow f between nodes A and B labelled above optionally an arc of angle ang (default 0)
+						&
+			\raisebox{-0.75cm}{$
+\begin{array} {c}
+\Rnode{A}{A} \\ [0.75cm]
+\Rnode{B}{B}
+\end{array}$\ncacdar{f}{A}{B}}
+			\\
 		 	 \hline	   
-		   \verb!\nrsarr{A}{B}! &  a recursive S-arrow between nodes A and B i.e one that loops around\\ 
+		   \verb!\nrsarr{A}{B}! &  a recursive S-arrow between nodes A and B i.e one that loops around
+			&
+			\\ 
 			\hline		
 		\end{tabular}
 %\end{table}

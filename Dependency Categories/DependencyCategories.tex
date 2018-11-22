@@ -33,8 +33,9 @@
 
 \begin{abstract}
 
-An earlier draft of this paper presented a faulty definition of dependency category. This draft substantially revises and simplifies the definition. It is hoped but not yet proved that the revised definition is correct
-but I am uncertain at the moment whether or not I need restrict the equivalence result to contextual categories which are cancellative. 
+This draft presents a further revised definition of dependency category after
+earlier drafts presented faulty definitions.  It is hoped but not yet proved that the revised definition  is the correct one.
+I still remain uncertain whether or not I need restrict the equivalence result to contextual categories which are cancellative. 
 
 \noindent Under the new name, \textit{dependency category}, this paper is intended to correct the description of \textit{network categories} given in  
 \cite{Cartmell86B}. The goal is that dependency categories are a variation on the notion of
@@ -46,7 +47,7 @@ and foreground the network structure of type dependencies so as to provide a the
 The objects of  categories of either persuasion, either contextual categories or dependency categories, can be thought 
 of as contexts or as types that vary (also known as dependent types) but equally they can be thought of as entity 
 types in the sense used in entity modelling. The
-morphisms of either correspond with the many-one binary relationships that are the staple fare of entity modelling and in either case there is a  distinguished subset of morphisms depicted on diagrams using a triangular headed arrow ($\darrow$). In a contextual category  the distinguished 
+morphisms of either correspond with the many-one binary relationships that are the staple fare of entity modelling and in either case there is a  distinguished subset of morphisms depicted on diagrams using a triangular headed arrow ($\smorph$). In a contextual category  the distinguished 
 subset forms a hierarchy, in a dependency category the distinguished morphisms form not a hierarchy but a wide acyclic subcategory.
 In either case the distinguished morphisms correspond to certain relationships known as composition relationships which feature
 in certain styles of entity modelling (\cite{ECMA-149}, \cite{Munck1988}, \cite{entitymodelling}) and which were implied in the influential paper by Chen \cite{Chen1976} who introduced the idea of certain entities being dependent on binary relationships 
@@ -205,7 +206,7 @@ for each $a \in A, b(a) \in B(a)$.
 \end{figure}
 
 
-\noindent A second possibility, by analogy with the representation of a function as an arrow $f:B \morph A$, is to represent a dependency between one type $B$ and another $A$ by a directed edge $B \darrow A$ which then represents the functional relationship
+\noindent A second possibility, by analogy with the representation of a function as an arrow $f:B \morph A$, is to represent a dependency between one type $B$ and another $A$ by a directed edge $B \dmorph A$ which then represents the functional relationship
 between entities of type $B$ and the entities of type $A$ that they depend on.\\
 
 
@@ -214,8 +215,8 @@ between entities of type $B$ and the entities of type $A$ that they depend on.\\
 
 \noindent Furthermore, any directed graph makes sense as, and can be interpreted as, a set of types and type dependencies 
 providing (i) there are no cycles in
-the graph and provided that (ii) all nodes B there are only finitely many A, such that $B \darrow A$ and (iii) there are 
-no infinite sequences of the form $A_1 \darrow A_2 \darrow A_3 ....$. 
+the graph and provided that (ii) all nodes B there are only finitely many A, such that $B \dmorph A$ and (iii) there are 
+no infinite sequences of the form $A_1 \dmorph A_2 \dmorph A_3 ....$. 
 \\
 
 \noindent As an example, the directed graph:
@@ -385,7 +386,7 @@ Consider the following two rules:
 \noindent In the case of \eqref{singleInstanceA}, $C$ relies for context on instances of $B_1$ and $B_2$ which themselves are based within the context of a common instance of $A$.
 \noindent In the case of \eqref{singleInstanceA}, but not, significantly, 
 in the case \eqref{multipleInstanceA}, the path:
-$ C \darrow B_1 \darrow A$ is equivalent to the path: $ C \darrow B_2 \darrow A$
+$ C \dmorph B_1 \dmorph A$ is equivalent to the path: $ C \dmorph B_2 \dmorph A$
 and the diagram commutes. So dependencies compose in different ways and so
 represent the types dependencies (the variables over which types vary); therefore it is the category of dependencies (not just the directed graph) which is significant to characterising the type dependency relationships.
 \noindent  
@@ -408,6 +409,27 @@ that can be drawn on a sheet of paper, with dots indicating the objects, and
 straight or slightly bent arrows, all pointing down, indicating the nonidentity
 morphisms...
 \end{erquote}
+
+\section{Category with Distinguished Morphisms}
+
+\begin{definition}
+Define a \textit{category with distinguished morphisms} to be a category \cat{C} along with a wide acyclic subcategory \cat{D} such that for any object $A$ of $C$ the set of morphisms with domain $A$ is finite.
+\end{definition} 
+
+\noindent
+Notation:
+If \cat{C} is a category with distingusihed morphisms then :
+\begin{enumerate}[(i)]
+\item Morphisms of the subcategory we will refer to as d-morphisms and we will write  
+$f: A \dmorph B$ in \cat{C}
+to mean that 
+$f: B \morph A$ in \cat{C} and that $f$ is a d-morphism i.e. is in the subcategory \cat{D} of distinguished morphisms. 
+\item If a morphism $f: B \morph A$ in \cat{C} is a d-morphisms and in addition
+there does not exist an object $X$ distinct from $A$ and $B$ and d-morphisms $d_1$ and $d_2$
+such that $f=d_1 \circ d_2$ then we will say f is a simple distinguished morphism (or s-morphism). We will write  $f:B \smorph A$ in \cat{C}
+to mean that 
+$f: B \morph A$ in \cat{C} and that $f$ is a s-morphism.
+\end{enumerate}
 
 \noindent
 Previous authors had referred to such categories as being \textit{loop-free}. \\
@@ -471,24 +493,11 @@ which represents :
 &x_1\in A_1, y_1 \in B(x_1), x_2\in A_1, y_2 \in B(x_2) : C(x_1,x_2,y_1,y_2) \mbox{ is a type} && \tag*{(\theequation c)}
 \end{align}
 
-\section{Category with Distinguished Morphisms}
 
-\begin{definition}
-\noindent A category $\cat{C}$ is \textit{well-founded} provided that for 
-any object $A$ of $C$ the set of morphisms with domain $A$ is finite. 
-\end{definition}
-\begin{definition}
-Define a \textit{category with distinguished morphisms} to be a category \cat{C} along with a wide acyclic subcategory \cat{D} that is well-founded. 
-Morphisms of the subcategory are referred to as d-morphism. 
-We will write $f:B \dmorph A$ in \cat{C}
-to mean that 
-$f: B \morph A$ in \cat{C} and that $f$ is a d-morphism i.e is in the subcategory \cat{D} of distinguished morphisms\footnote{
-Note that this the same notation has been used differently in \cite{Cartmell86} -- a contextual category does give rise to a category with distinguished morphisms but only
-if the distinguished morphisms are taken to be not just those
-denoted $p_B: B \dmorph A$ in that paper
-but also all those in  the subcategory generated by such.
-}. 
-\end{definition} 
+
+
+ 
+
 
 \section{Spans and Cospans}
 \noindent
@@ -680,43 +689,51 @@ and if they uniquely determine a limit cone $\tuple{N,\phi}$ for some diagram $J
  of the characteristic diagram of $\tuple{f_1,...f_n}$.
 
 
-\section{Definition of Dependency Category}
-A \textit{dependency category} is a category \cat{C} with distinguished morphisms and a terminal object $1$ and :
+\section{Aximas of Dependency Category}
+A  \textit{dependency category} 
+is a category \cat{C} with distinguished morphisms and a terminal object $1$ and with the following daxima\footnote{as yet undifferentiated definitions, axioms and lemmas}: 
 
-\begin{enumerate} [(i)]
-	\item for any object A of \cat{C} the unique morphism $t_A:A \morph 1$ is a d-morphism
+\begin{enumerate} [A.,leftmargin=0.5cm]
+	\item For any object A of \cat{C} the unique morphism $t_A:A \morph 1$ is a d-morphism.
 	
 	
-	\item for all diagrams D of d-morphisms \begin{center}
+	\item For all diagrams D of s-morphisms 
+	\begin{center}
 $
 \begin{array}{cp{0cm}cp{0cm}c}
-\Rnode{B1}{B_1}& &            &  &\Rnode{B2}{B_2} \\ [1.2cm]
+\Rnode{B1}{B_1}& &            &  &\Rnode{B2}{B_2} \\ [1.0cm]
                & &\Rnode{A}{A}& &
 \end{array}
 $
 \ncbsar{x_1}{B1}{A}
 \ncasar{x_2}{B2}{A}
 \end{center}
-	
-an object  $ \fibrex{B_1}{B_2}{D}$ of \cat{C} and d-morphisms 
-$p_1: \fibrex{B_1}{B_2}{D} \dmorph B_1$ and  $p_1: \fibrex{B_1}{B_2}{D} \dmorph B_1$ such that :
+\begin{enumerate}[label*=\arabic*]
+\item	
+an object  $ \fibrex{B_1}{B_2}{D}$ of \cat{C} and s-morphisms\footnote{Correction: $p_1$ and $p_2$ may not be s-morphisms - check and change and document as footnote.} 
+$p_1: \fibrex{B_1}{B_2}{D} \smorph B_1$ and  $p_1: \fibrex{B_1}{B_2}{D} \smorph B_1$ such that :
 
 \begin{center}
 \begin{displaymath}
 \begin{array}{cp{0.1cm}cp{0.1cm} c}
-            & &\Rnode{d}{\fibrex{B_1}{B_2}{D}}                  \\ [0.4cm]
-\Rnode{c1}{B_1}& &                & & \Rnode{c2}{B_2} 
+            & &\Rnode{d}{\fibrex{B_1}{B_2}{D}}                  \\ [1.0cm]
+\Rnode{B1}{B_1}& &                & & \Rnode{B2}{B_2}           \\ [1.0cm]
+                   & &\Rnode{A}{A}& &
 \end{array}
 \end{displaymath}
-\ncbsar{p_1}{d}{c1}
-\ncasar{p_2}{d}{c2}
+\ncbsar{p_1}{d}{B1}
+\ncasar{p_2}{d}{B2}
+ 
+\ncbsar{x_1}{B1}{A}
+\ncasar{x_2}{B2}{A}
 \end{center}
 
-is a pullback in category \cat{C} and such that for any 
+is a pullback in category \cat{C}
+
+\item \label{mediatingone} such that for any 
 object $C$ and for cones $f_1:C \morph B_1$ and $f_2:C \morph B_2$ to diagram $D$,
 the mediating morphism $h: N \morph B_1 \underset{D}{\Join} B_2$ is a d-moprphism iff 
-each of $f_1$ and $f_2$  is a d-morphism and and the characteristic diagram
-of
+each of $f_1$ and $f_2$  is a d-morphism and and the characteristic diagram of
 
 \begin{center}
 $
@@ -726,8 +743,8 @@ $
 \Rnode{B1}{B_1}&             & \Rnode{B2}{B_2} \\ 
 \end{array}
 $
-\jcbarr{f_1}{C}{B1}
-\ncaarr{f_2}{C}{B2}
+\ncbcdar{f_1}{C}{B1}
+\ncacdar{f_2}{C}{B2}
 \end{center}
 is
 \begin{center}
@@ -741,8 +758,123 @@ $
 \ncbsar{x_1}{B1}{A}
 \ncasar{x_2}{B2}{A}
 \end{center}
+\end{enumerate} %END of B items
 
-	\item if
+\item 
+For all diagrams D of d-morphisms 
+	\begin{center}
+$
+\begin{array}{cp{0cm}cp{0cm}c}
+\Rnode{B1}{B_1}& &            &  &\Rnode{B2}{B_2} \\ [1.0cm]
+               & &\Rnode{A}{A}& &
+\end{array}
+$
+\ncbcdar{x_1}{B1}{A}
+\ncacdar{x_2}{B2}{A}
+\end{center}
+\begin{enumerate}[label*=\arabic*]  
+
+\item	
+an object  $ \fibrex{B_1}{B_2}{D}$ of \cat{C} and s-morphisms 
+$p_1: \fibrex{B_1}{B_2}{D} \smorph B_1$ and  $p_1: \fibrex{B_1}{B_2}{D} \smorph B_1$ such that :
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.1cm}cp{0.1cm} c}
+            & &\Rnode{d}{\fibrex{B_1}{B_2}{D}}                  \\ [1.0cm]
+\Rnode{B1}{B_1}& &                & & \Rnode{B2}{B_2}           \\ [1.0cm]
+                   & &\Rnode{A}{A}& &
+\end{array}
+\end{displaymath}
+\ncbsar{p_1}{d}{B1}
+\ncasar{p_2}{d}{B2}
+ 
+\ncbcdar{x_1}{B1}{A}
+\ncacdar{x_2}{B2}{A}
+\end{center}
+
+is a pullback in category \cat{C}
+
+\item \label{mediatingtwo} such that for any 
+object $C$ and for cones $f_1:C \morph B_1$ and $f_2:C \morph B_2$ to diagram $D$,
+the mediating morphism $h: N \morph B_1 \underset{D}{\Join} B_2$ is a d-moprphism iff 
+each of $f_1$ and $f_2$  is a d-morphism and and the characteristic diagram of
+\begin{center}
+$
+\setlength{\arraycolsep}{.25cm}
+\begin{array}{ccc}
+             & \Rnode{C}{C}&               \\ [0.6cm]
+\Rnode{B1}{B_1}&             & \Rnode{B2}{B_2} \\ 
+\end{array}
+$
+\ncbcdar{f_1}{C}{B1}
+\ncacdar{f_2}{C}{B2}
+\end{center}
+is
+\begin{center}
+$
+\setlength{\arraycolsep}{.25cm}
+\begin{array}{ccc}
+\Rnode{B1}{B_1}&            & \Rnode{B2}{B_2} \\ [0.6cm]
+             &\Rnode{A}{A}& 
+\end{array}
+$
+\ncbcdar{x_1}{B1}{A}
+\ncacdar{x_2}{B2}{A}
+\end{center}
+
+\item \label{coherenceone}
+Coherence of the above pullbacks -- so pullbacks of composite d-morphisms are notational convenience for repeated
+pullbacks of component s-morphisms.
+
+\item \label{hypothesis} Laxima \ref{mediatingtwo} follows from from earlier \ref{mediatingone} and from \ref{coherenceone}.
+
+\end{enumerate} %END of C items
+
+\item
+an object $X$ of \cat(C) is said to be a $\cross$-object iff there exists 
+a diagram D of s-morphisms :
+	\begin{center}
+$
+\begin{array}{cp{0cm}cp{0cm}c}
+\Rnode{B1}{B_1}& &            &  &\Rnode{B2}{B_2} \\ [1.0cm]
+               & &\Rnode{A}{A}& &
+\end{array}
+$
+\ncbsar{x_1}{B1}{A}
+\ncasar{x_2}{B2}{A}
+\end{center}
+
+such that $X=\fibrex{B_1}{B_2}{D}$ .
+\item
+a dependency $p:X \dmorph A$ is said to be a prime dependency iff its domain object $X$ is a $\cross$-object and 
+codomain $A$ is not a $\cross$-object and there does not exist and object $B$ which is not a $\cross$-object and dependencies $p_1:X \dmorph B$ and $p_2: B \dmorph A$ such that $p_1 \circ p_2 = p$. 
+
+\item 
+if $X$ is a $\cross$-object then a \textit{key}\footnote{was previously \textit{basis}} to $X$ is a set of prime dependencies $p_i: X \dmorph A_i$ 
+such that 
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.3cm}c         p{0.3cm}  c p{0.2cm} c}
+               & & \Rnode{d1}{B} & &     & &  \\ [1.4cm]
+\Rnode{c1}{A_1}& &\Rnode{c2}{A_2}& & ... & &\Rnode{cn}{A_n}
+\end{array}
+\end{displaymath}
+\ncsar{d1}{c1}
+\nbput[npos=0.4, labelsep=1pt]{\footnotesize $p_1$}
+\ncsar{d1}{c2}
+\nbput[npos=0.3, labelsep=1pt]{\footnotesize $p_2$}
+\ncsar{d1}{cn}
+\naput[npos=0.3, labelsep=1pt]{\footnotesize $p_n$}
+\end{center}
+
+is a cannonical limit to its characteristic diagram.
+\item
+if a dependency category \cat{C} is $cancellative$ then each $\cross$-object X has only a single key and it consists 
+of the set of all prime-dependencies of $X$.
+
+	\item  
+	if
 \begin{center}
 \begin{displaymath}
 \begin{array}{cp{.9cm}c}
@@ -779,7 +911,7 @@ $
 $
 \ncasar{$y'$}{C}{Bprime}
 \end{center}
-and $y \neq y'$ then $q(f,y) \circ y'$ is a d-morphism iff for all objects X and for all dependencies $x:B \dmorph X$ and 
+and $y \neq y'$ then $q(f,y) \circ y'$ is a s-morphism iff it is a d-morphism iff for all objects X and for all d-morphisms $x:B \dmorph X$ and 
 $x':B' \dmorph X$ such that
 \begin{center}
 \begin{displaymath}
@@ -791,10 +923,10 @@ $x':B' \dmorph X$ such that
 \end{displaymath}
 \ncbsar{y}{C}{B}
 \ncasar{y'}{C}{Bp}
-\ncbsar{x}{B}{X}
-\ncasar{x'}{Bp}{X}
+\ncbcdar{x}{B}{X}
+\ncacdar{x'}{Bp}{X}
 \end{center}
-commutes there exists a dependency $p:A \dmorph X$ such that the following diagram 
+commutes there exists a d-morphism $p:A \smorph X$ such that the following diagram 
 \begin{center}
 \begin{displaymath}
 \begin{array}{cp{.9cm}c}
@@ -804,8 +936,8 @@ commutes there exists a dependency $p:A \dmorph X$ such that the following diagr
 \end{array}
 \end{displaymath}
 \ncaarr{f}{A}{B}
-\ncasar{x}{B}{X}
-\ncbsar{p}{A}{X}
+\ncacdar{x}{B}{X}
+\ncbcdar{p}{A}{X}
 \end{center}
 commutes. Further every dependency from object $C[f|y]$ factors through either $f^*y$ or through $q(f,y)$
   
@@ -883,7 +1015,8 @@ $$
 \ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
 \ncline{->}{Eq}{B}
 \naput{\footnotesize $e$}
-\noindent and the morphism $e \circ x_1$ which equals, by definition, $e \circ a_2$,  is a d-morphism as shown
+
+\noindent and the morphism $e \circ x_1$ which equals, by definition, $e \circ a_2$,  is an s-morphism as shown
 in the following diagram:
 \vspace{.2cm}
 \begin{center}
@@ -910,12 +1043,12 @@ $
 \ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
 \end{center}
 
-\noindent For any other d-morphism $a':B\darrow A'$ leaving B, the morphism $e \circ a'$ is a d-morphism.
+\noindent For any other s-morphism $a':B\dmorph A'$ leaving B, the morphism $e \circ a'$ is an s-morphism.
 
 \noindent For any object $C$ and morphism $y: C \morph B$ such that
 $y \circ x_1 = y \circ x_2$
 the mediating morphism $h: C \morph \underset{x_1=x_2}{\sigma}B$ is a d-morphism iff 
-the morphisms $y \circ x_1$ and $y \circ x_2$ are d-morphisms and the characteristic diagram
+\footnote{do we need add here that y is a d-morphism??}the morphisms $y \circ x_1$ and $y \circ x_2$ are d-morphisms and the characteristic diagram
 of
 
 \begin{center}
@@ -975,7 +1108,7 @@ For all diagrams D of d-morphisms with shape \ndidly:
 \end{center}
 
 there is an object  $ \fibrex{B}{B'}{D}$ of \cat{C} and d-morphisms 
-$p_1: \fibrex{B}{B'}{D} \dmorph B$ and  $p': \fibrex{B}{B'}{D} \dmorph B'$ such that :
+$p_1: \fibrex{B}{B'}{D} \smorph B$ and  $p': \fibrex{B}{B'}{D} \smorph B'$ such that :
 
 \begin{center}
 \begin{displaymath}
