@@ -426,7 +426,7 @@ to mean that
 $f: B \morph A$ in \cat{C} and that $f$ is a d-morphism i.e. is in the subcategory \cat{D} of distinguished morphisms. 
 \item If a morphism $f: B \morph A$ in \cat{C} is a d-morphisms and in addition
 there does not exist an object $X$ distinct from $A$ and $B$ and d-morphisms $d_1$ and $d_2$
-such that $f=d_1 \circ d_2$ then we will say f is a simple distinguished morphism (or s-morphism). We will write  $f:B \smorph A$ in \cat{C}
+such that $f=d_1 \comp d_2$ then we will say f is a simple distinguished morphism (or s-morphism). We will write  $f:B \smorph A$ in \cat{C}
 to mean that 
 $f: B \morph A$ in \cat{C} and that $f$ is a s-morphism.
 \end{enumerate}
@@ -450,7 +450,7 @@ The following is an example of an acyclic category given by Kolozov which we hav
 \ncasar{x}{B}{A}
 \setlength {\saroffsetA}{-2pt}
 \setlength {\saroffsetB}{-2pt}
-\ncbsar[-50]{y_1 \circ x = y_2 \circ x}{C}{A}
+\ncbsar[-50]{y_1 \comp x = y_2 \comp x}{C}{A}
 \sarreset
 \end{center}
 
@@ -477,10 +477,10 @@ Contrast with this acyclic category:
 \ncasar{x}{B}{A}
 \setlength {\saroffsetA}{-2pt}
 \setlength {\saroffsetB}{-2pt}
-\ncbsar[-60]{x_1 = y_1 \circ x}{C}{A}
+\ncbsar[-60]{x_1 = y_1 \comp x}{C}{A}
 \setlength {\saroffsetA}{2pt}
 \setlength {\saroffsetB}{2pt}
-\ncasar[60]{x_2 = y_2 \circ x}{C}{A}
+\ncasar[60]{x_2 = y_2 \comp x}{C}{A}
 \sarreset
 \end{center}
 \noindent
@@ -613,7 +613,7 @@ commute. \\
 \noindent
 A cospan $F:\Lambda^{op} \morph \cat{C}$ is said to \textit{factor through}  a diagram 
 $J:S \morph \cat{C}$ iff there exists a cospan $F': \Lambda^{op} \morph S$ 
-such that $F' \circ J = F$. Intuitively, then, a cospan factors through a diagram iff it is a 
+such that $F' \comp J = F$. Intuitively, then, a cospan factors through a diagram iff it is a 
 part of the diagram.
   
 \section{Higher Cospans and Quotiented Higher Cospans}
@@ -832,6 +832,7 @@ pullbacks of component s-morphisms.
 \end{enumerate} %END of D items
 
 \item
+\vlabel[Definition of cross-object]{crossobj}
 an object $X$ of \cat(C) is said to be a $\cross$-object iff there exists 
 a diagram D of s-morphisms :
 	\begin{center}
@@ -847,10 +848,33 @@ $
 
 such that $X=\fibrex{B_1}{B_2}{D}$ .
 \item
+\begin{enumerate}[label*=\arabic*]
+\item
+\vlabel[Definition of prime dependency]{primed}
 a dependency $p:X \dmorph A$ is said to be a prime dependency iff its domain object $X$ is a $\cross$-object and 
-codomain $A$ is not a $\cross$-object and there does not exist and object $B$ which is not a $\cross$-object and dependencies $p_1:X \dmorph B$ and $p_2: B \dmorph A$ such that $p_1 \circ p_2 = p$. 
+codomain $A$ is not a $\cross$-object and there does not exist and object $B$ which is not a $\cross$-object and dependencies $p_1:X \dmorph B$ and $p_2: B \dmorph A$ such that $p_1 \comp p_2 = p$. 
+\item
+\vlabel[Dependency constraint on cross objects]{crossdconstraint}
+if $X$ of is  a $\cross$-object of \cat{C}
+and $p:X \dmorph  P$ is a prime dependency of $X$ then there exists
+a diagram D of s-morphisms :
+	\begin{center}
+$
+\begin{array}{cp{0cm}cp{0cm}c}
+\Rnode{B1}{B_1}& &            &  &\Rnode{B2}{B_2} \\ [1.0cm]
+               & &\Rnode{A}{A}& &
+\end{array}
+$
+\ncbsar{x_1}{B1}{A}
+\ncasar{x_2}{B2}{A}
+\end{center}
+
+
+such that $X=\fibrex{B_1}{B_2}{D}$  and such that dependency $p$ factors through $x_1$ (or, equivalently, $x_1$ or $x_2$. 
+\end{enumerate}
 
 \item 
+\vlabel[Definition of key]{keydef}
 if $X$ is a $\cross$-object then a \textit{key}\footnote{was previously \textit{basis}} to $X$ is a set of prime dependencies $p_i: X \dmorph A_i$ 
 such that 
 \begin{center}
@@ -870,10 +894,14 @@ such that
 
 is a cannonical limit to its characteristic diagram.
 \item
+\vlabel[Definition of dependency catagory being cancellative]{dcatcancellative}
 if a dependency category \cat{C} is $cancellative$ then each $\cross$-object X has only a single key and it consists 
 of the set of all prime-dependencies of $X$.
 
-	\item  
+\item  
+\begin{enumerate}[label*=\arabic*]
+\item 
+\vlabel[Pullbacks of s-morphsims along any other morphisms]{fspullback}
 	if
 \begin{center}
 \begin{displaymath}
@@ -900,8 +928,22 @@ then there is a pullback
 \ncaarr{q(f,y)}{fstarC}{C}
 \ncasar{y}{C}{B}
 \end{center}
-and pullbacks cohere\footnote{exactly as for contextual category}
-and if also:
+\item 
+\vlabel[Dependency constraint]{fsprimes}
+every prime dependency $p$ of $C[f|y]$ either factors through $f \sub y$ or else factors 
+through $q(f,C)$ but not through $q(f,C) \comp p_C$. 
+\item 
+\vlabel[Dependency constraint alternative form of expression]{fsprimesalt}
+
+$$\primeds{C[f|y]}= f \sub y \compset \primeds{A} \cup \{ q(f,C) \compset \primeds {C} - q(f,C) \comp p_C \compset \primeds{B}\}$$
+\item 
+\vlabel[Pullbacks cohere]{fscoherence}
+
+pullbacks cohere\footnote{exactly as for contextual category}
+
+\item 
+\vlabel[Status unknown one]{fsdotherone}
+if also:
 \begin{center}
 $
 \begin{array}{cp{.9cm}c}
@@ -911,7 +953,7 @@ $
 $
 \ncasar{$y'$}{C}{Bprime}
 \end{center}
-and $y \neq y'$ then $q(f,y) \circ y'$ is a s-morphism iff it is a d-morphism iff for all objects X and for all d-morphisms $x:B \dmorph X$ and 
+and $y \neq y'$ then $q(f,y) \comp y'$ is a s-morphism iff it is a d-morphism iff for all objects X and for all d-morphisms $x:B \dmorph X$ and 
 $x':B' \dmorph X$ such that
 $
 \begin{array}{cp{0.1cm}cp{0.1cm}c}   
@@ -937,9 +979,12 @@ commutes there exists a d-morphism $p:A \smorph X$ such that the following diagr
 \ncacdar{x}{B}{X}
 \ncbcdar{p}{A}{X}
 \end{center}
-commutes. Further every dependency from object $C[f|y]$ factors through either $f^*y$ or through $q(f,y)$
+commutes. 
+\item 
+\vlabel[Status unknown two]{fsdothertwo}
+Further every dependency from object $C[f|y]$ factors through either $f^*y$ or through $q(f,y)$
   
-\noindent
+\end{enumerate}
 
 
 \item If in (iii) the morphism f is a dependency then  $q(f,y)$ is also a dependency and 
@@ -975,28 +1020,13 @@ $
 \ncasar{q(x_1,x_2)=x_2*x_1=p_2}{X}{B2}
 \end{center}
 
+\item \vlabel[Equalisers and properties of equalisers]{equaliserall} If
+$x_1:A \dmorph B$ and $x_2:A \dmorph B$ are d-morphisms then 
 
-
-\item \vlabel[Equalisers and properties of equalisers]{equalisers}: If
-\setlength{\arraycolsep}{1cm}
-\psset{arrowsize=5pt,arrowinset=0.7}
-\psset{nodesep=7pt}
-$
-\begin{array}{c}
-\Rnode{B}{B} \\ [1.1cm]
-\Rnode{A}{A} \\
-\end{array}
-$
-\psset{nodesepA=4pt,nodesepB=7pt}
-\ncarc[arcangle=-30]{-}{B}{A}
-\nbput{\footnotesize $x_1$}
-\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
-\ncarc[arcangle=30]{-}{B}{A}
-\naput{\footnotesize $x_2$}
-\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
-
-then there is an equaliser: \\
-
+\begin{enumerate}[label*=\arabic*]
+\item
+\vlabel[Existence of equaliser]{eqexists}
+there is an equaliser: \\
 
 $$
 \setlength{\arraycolsep}{.75cm}
@@ -1004,21 +1034,21 @@ $$
 \Rnode{Eq}{\underset{x_1=x_2}{\sigma}B} & \Rnode{B}{B}  & \Rnode{A}{A} \\
 \end{array}
 $$
-\psset{nodesepA=4pt,nodesepB=7pt}
-\ncline[offset=4pt]{-}{B}{A}
-\naput{\footnotesize $x_1$}
-\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
-\ncline [offset=-4pt]{-}{B}{A}
-\nbput{\footnotesize $x_2$}
-\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
-\ncline{->}{Eq}{B}
-\naput{\footnotesize $e$}
+\jcbarr{e}{Eq}{B}
+\setlength{\saroffsetA}{4pt}
+\setlength{\saroffsetB}{4pt}
+\ncacdar{x_1}{B}{A}
+\setlength{\saroffsetA}{-4pt}
+\setlength{\saroffsetB}{-4pt}
+\ncbcdar{x_2}{B}{A}
+\sarreset
 
-\noindent and the morphism $e \circ x_1$ which equals, by definition, $e \circ a_2$,  is an s-morphism as shown
+\item
+\vlabel[Dependency existence]{eqdependency}
+ the morphism $e \comp x_1$ which equals, by definition, $e \comp a_2$,  is a d-morphism as shown
 in the following diagram:
 \vspace{.2cm}
 \begin{center}
-
 $
 \setlength{\arraycolsep}{.3cm}
 \begin{array}{ccc}
@@ -1026,58 +1056,52 @@ $
  & \Rnode{A}{A} &\\
 \end{array}
 $
-\psset{nodesepA=3pt,nodesepB=9pt}
-\ncarc[arcangle=-15]{-}{B}{A}
-\nbput{\footnotesize $x_1$}
-\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
-\psset{nodesepA=4pt,nodesepB=7pt}
-\ncarc[arcangle=15]{-}{B}{A}
-\naput{\footnotesize $x_2$}
-\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
-\ncline{->}{Eq}{B}
-\naput{\footnotesize $e$}
-\ncarc[arcangle=-5]{-}{Eq}{A}
-\nbput{\footnotesize $e \circ x_1 = e \circ x_2$}
-\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
+
+\jcbarr{e}{Eq}{B}
+\ncbcdar{e \comp x_1 = e \comp x_2}{Eq}{A}
+\setlength{\saroffsetA}{4pt}
+\setlength{\saroffsetB}{4pt}
+\ncacdar{x_1}{B}{A}
+\setlength{\saroffsetA}{-4pt}
+\setlength{\saroffsetB}{-4pt}
+\ncbcdar{x_2}{B}{A}
+\sarreset
 \end{center}
 
-\noindent For any other s-morphism $a':B\dmorph A'$ leaving B, the morphism $e \circ a'$ is an s-morphism.
+\item
+\vlabel[Dependency constraint]{eqdconstraint}
+ For any other d-morphism $a':B\dmorph A'$ leaving B, the morphism $e \comp a'$ is a d-morphism.
 
-\noindent For any object $C$ and morphism $y: C \morph B$ such that
-$y \circ x_1 = y \circ x_2$
+\item
+\vlabel[Mediating morphism condition]{eqmediating}
+ For any object $C$ and morphism $y: C \morph B$ such that
+$y \comp x_1 = y \comp x_2$
 the mediating morphism $h: C \morph \underset{x_1=x_2}{\sigma}B$ is a d-morphism iff 
-\footnote{do we need add here that y is a d-morphism??}the morphisms $y \circ x_1$ and $y \circ x_2$ are d-morphisms and the characteristic diagram
-of
+\footnote{do we need add here that y is a d-morphism??}the morphisms $y \comp x_1$ and $y \comp x_2$ are d-morphisms (??was this deliberate??) and the  diagram
 
 \begin{center}
 $
 \setlength{\arraycolsep}{.25cm}
 \begin{array}{ccc}
              & \Rnode{X}{C}&               \\ [0.6cm]
-\Rnode{B1}{B}&             & \Rnode{B2}{B} \\ 
-\end{array}
-$
-\jcbarr{y}{X}{B1}
-\ncaarr{y}{X}{B2}
-\end{center}
-
-is
-\begin{center}
-$
-\setlength{\arraycolsep}{.25cm}
-\begin{array}{ccc}
-\Rnode{B1}{B}&            & \Rnode{B2}{B} \\ [0.6cm]
+\Rnode{B1}{B}&             & \Rnode{B2}{B} \\ [0.6cm]
              &\Rnode{A}{A}& 
 \end{array}
 $
-\ncbsar{x_1}{B1}{A}
-\ncasar{x_2}{B2}{A}
+\ncbcdar{y}{X}{B1}
+\ncacdar{y}{X}{B2}
+\ncbcdar{x_1}{B1}{A}
+\ncacdar{x_2}{B2}{A}
 \end{center}
 
+is a pushout diagram in the subcategory of distinguished morphisms.
+
+\end{enumerate}
+\end{enumerate}
 
 \noindent This completes the definition.
 
-\end{enumerate}
+
 
 \section{Construction of Limits of Other Dependency Diagrams}
 
@@ -1131,7 +1155,7 @@ The inductive step is described by this diagram:
 \begin{center}
 \begin{displaymath}
 \begin{array}{cp{0.3cm}cp{0.3cm}c         p{0.3cm}  c p{0.2cm} c}
-\Rnode{E}{\underset{p_{n-1} \circ x_n=p'_{n-1} \circ x'_n}{\sigma}L_{n-1}}&&\Rnode{Ln1}{L_{n-1}}& &               & &     & &                \\ [1.4cm]
+\Rnode{E}{\underset{p_{n-1} \comp x_n=p'_{n-1} \comp x'_n}{\sigma}L_{n-1}}&&\Rnode{Ln1}{L_{n-1}}& &               & &     & &                \\ [1.4cm]
 &&\Rnode{d1}{B}& &               & &     & &\Rnode{d2}{B'}  \\ [1.4cm]
 &&\Rnode{c1}{A_1}& &\Rnode{c2}{A_2}& & ... & &\Rnode{cn}{A_n}
 \end{array}
@@ -1169,11 +1193,11 @@ if $S'$ is a category extending $S$ by an object $\beta_0$ and a pair of morphis
 \setlength{\arroffsetA}{3pt}
 \setlength{\arroffsetB}{3pt}
 \ncarr{L}{A}
-\naput{$\phi_B \circ G(\xi_1)$}
+\naput{$\phi_B \comp G(\xi_1)$}
 \setlength{\arroffsetA}{-3pt}
 \setlength{\arroffsetB}{-3pt}
 \ncarr{L}{A}
-\nbput{$\phi_{B'} \circ G(\xi_2)$}
+\nbput{$\phi_{B'} \comp G(\xi_2)$}
 \arreset
 \end{center}
 is an equaliser in \cat{C} then $\tuple{E,\phi'}$ is a limit of the diagram $G$, where
@@ -1182,8 +1206,8 @@ $\phi'$ is the cone defined by
 \phi'_\beta =
 \left\{
 	\begin{array}{ll}
-		e \circ \phi_\beta           & \mbox{if } \beta \mbox{ is an object of } S  \\
-		\phi_{\beta_1} \circ G(\xi_1) & \mbox{if } \beta \mbox{ is } \beta_0 
+		e \comp \phi_\beta           & \mbox{if } \beta \mbox{ is an object of } S  \\
+		\phi_{\beta_1} \comp G(\xi_1) & \mbox{if } \beta \mbox{ is } \beta_0 
 	\end{array}
 \right.
 \end{equation*}
@@ -1193,16 +1217,16 @@ $\phi'$ is the cone defined by
 If $\tuple{N,\psi'}$is a cone to the diagram $G$ then, the restriction $\psi$ to objects in $F$ is a cone to  $S$. Therefore there exists a unique $h : N \morph L$ such that 
 \begin{equation}
 \label{hmediates}
-h \circ \phi = \psi
+h \comp \phi = \psi
 \end{equation}
 
 \noindent
 Now, we have 
 \begin{align*}
-h \circ \phi_{\beta_1} \circ G(x)
-             & = \psi_{\beta_1} \circ G(\xi_1)         && \mbox{by (\ref{hmediates})}\\
-             & = \psi_{\beta_2} \circ G(\xi_2)         && \mbox{because } \psi \mbox{ is a cone to } G \\
-             & = h \circ \phi_{\beta_2} \circ G(\xi_2) && \mbox{by (\ref{hmediates}) }\\
+h \comp \phi_{\beta_1} \comp G(x)
+             & = \psi_{\beta_1} \comp G(\xi_1)         && \mbox{by (\ref{hmediates})}\\
+             & = \psi_{\beta_2} \comp G(\xi_2)         && \mbox{because } \psi \mbox{ is a cone to } G \\
+             & = h \comp \phi_{\beta_2} \comp G(\xi_2) && \mbox{by (\ref{hmediates}) }\\
 \end{align*}
 
 \noindent
@@ -1210,20 +1234,20 @@ and so it follows, since (\ref{equaliser}) is an equaliser diagram,
 that there is a unique $g: N \morph E$ such that 
 \begin{equation}
 \label{gmediates}
-g \circ e = h
+g \comp e = h
 \end{equation}
 
 \noindent
 To show that $\tuple{E,\phi'}$ is a limit to the diagram G we show that 
-$g \circ \phi' = \psi'$ and that $g$ is the unique such morphism,
+$g \comp \phi' = \psi'$ and that $g$ is the unique such morphism,
 $g: N \morph E$.
 \noindent
-We need show that for all objects $\beta$ of $S'$,  $(g \circ \phi')_\beta =\psi'_\beta$. 
+We need show that for all objects $\beta$ of $S'$,  $(g \comp \phi')_\beta =\psi'_\beta$. 
 We need consider two cases. In the first case for objects $\beta$ of $S$ we have:
 \begin{align*}
-g \circ \phi'_\beta
-             & = (g \circ e) \circ \phi_\beta   &&  \mbox{ by definition of } \phi\\
-             & = h \circ \phi_\beta             && \mbox{ by (\ref{gmediates})}   \\
+g \comp \phi'_\beta
+             & = (g \comp e) \comp \phi_\beta   &&  \mbox{ by definition of } \phi\\
+             & = h \comp \phi_\beta             && \mbox{ by (\ref{gmediates})}   \\
              & = \psi_\beta                     && \mbox{ by (\ref{hmediates})}   \\
 						 & = \psi'_\beta                    && \mbox{ by definition of } \psi\\
 \end{align*}
@@ -1231,33 +1255,33 @@ g \circ \phi'_\beta
 \noindent
 In the second case the object $\beta$ is the additional object $\beta_0$ of $S'$. For this object we have:
 \begin{align*}
-g \circ \phi'_{\beta_0}
-   & = g \circ e \circ \phi_{\beta_1} \circ G(\xi_1)  && \mbox{by definition of }\phi' \\ 
-             & = h \circ \phi_{\beta_1} \circ G(\xi_1) && \mbox{ by (\ref{gmediates})} \\
-             & = \psi_{\beta_1}  \circ G(\xi_1)       && \mbox{ by (\ref{hmediates})} \\
-						 & = \psi'_{\beta_1} \circ G(\xi_1)       && \mbox{ by definition of} \psi \\
+g \comp \phi'_{\beta_0}
+   & = g \comp e \comp \phi_{\beta_1} \comp G(\xi_1)  && \mbox{by definition of }\phi' \\ 
+             & = h \comp \phi_{\beta_1} \comp G(\xi_1) && \mbox{ by (\ref{gmediates})} \\
+             & = \psi_{\beta_1}  \comp G(\xi_1)       && \mbox{ by (\ref{hmediates})} \\
+						 & = \psi'_{\beta_1} \comp G(\xi_1)       && \mbox{ by definition of} \psi \\
 						& = \psi'_{\beta_0}                        && \mbox{since }\psi' \mbox{ is a cone} \\ 
 \end{align*}
 and so, as required, we have shown that 
-$g \circ \phi' = \psi'$.
-\noindent Finally, if $g':N \morph E$ such that $g' \circ \phi' = \psi'$ then we have 
+$g \comp \phi' = \psi'$.
+\noindent Finally, if $g':N \morph E$ such that $g' \comp \phi' = \psi'$ then we have 
 for any object $\beta$ of S that
-$$(g'\circ\phi')_\beta = \psi'_\beta$$
+$$(g'\comp\phi')_\beta = \psi'_\beta$$
 \noindent
 and therefore from the definitions of $\phi'$ and $\psi$ we have
 that, for all objects $\beta$ of S,
 $$
-g' \circ e \circ \phi_\beta = \psi_\beta
+g' \comp e \comp \phi_\beta = \psi_\beta
 $$
 \noindent
 and  from the definition of $h$ as the unique morphism such that
-$h \circ \phi = \psi$ we have that 
-$g' \circ e = h$.\\
+$h \comp \phi = \psi$ we have that 
+$g' \comp e = h$.\\
 
 \noindent
 Now we have:
  
-$$g' \circ e = h = g \circ e$$
+$$g' \comp e = h = g \comp e$$
 from which it follows $g=g'$ because $e$ is an equaliser and therefore is a monomorphism. 
 \end{proof}
 \fi
