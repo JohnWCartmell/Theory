@@ -11,6 +11,7 @@
 \usepackage{calc}
 \usepackage{url}
 \usepackage{hyperref}
+\usepackage{marginnote}
 
 \input{../SharedMacros/theorems.macros}
 \input{../SharedMacros/ccategories.macros}
@@ -688,8 +689,61 @@ A  \textit{dependency category}
 is a category \cat{C} with distinguished morphisms and a terminal object $1$ and with the following daxima\footnote{as yet undifferentiated definitions, axioms and lemmas}: 
 
 \begin{enumerate} [A.,leftmargin=0.5cm]
-	\item For any object A of \cat{C} the unique morphism $t_A:A \morph 1$ is a d-morphism.
-	\item Within the category of distinguished morphsims every morphisms is an epimorphism.
+	\item 
+	\vlabel{terminals} \marginnote{testlabel} For any object A of \cat{C} the unique morphism $t_A:A \morph 1$ is a d-morphism.
+	\item 
+	\vlabel {epimorphisms} Within the category of distinguished morphsims every morphisms is an epimorphism.
+	\item
+	\vlabel [Joins and properties of joins]{joins}
+	For all diagrams D of d-morphisms with shape \ndidly:
+	
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.3cm}c         p{0.3cm}  c p{0.2cm} c}
+\Rnode{d1}{B}& &               & &     & &\Rnode{d2}{B'}  \\ [1.4cm]
+\Rnode{c1}{A_1}& &\Rnode{c2}{A_2}& & ... & &\Rnode{cn}{A_n}
+\end{array}
+\end{displaymath}
+\ncsar{d1}{c1}
+\nbput[npos=0.4, labelsep=1pt]{\footnotesize $x_1$}
+\ncsar{d1}{c2}
+\nbput[npos=0.3, labelsep=1pt]{\footnotesize $x_2$}
+\ncsar{d1}{cn}
+\naput[npos=0.3, labelsep=1pt]{\footnotesize $x_n$}
+\ncsar{d2}{c1}
+\nbput[npos=0.3, labelsep=1pt]{\footnotesize $x'_1$}
+\ncsar{d2}{c2}
+\naput[npos=0.25, labelsep=1pt]{\footnotesize $x'_2$}
+\ncsar{d2}{cn}
+\naput[npos=0.4, labelsep=1pt]{\footnotesize $x'_n$}
+\end{center}
+
+\begin{enumerate}[label*=\arabic*]
+\item
+\vlabel [Existence of a join]{joinexists}
+there is an object  $ \fibrex{B}{B'}{D}$ of \cat{C} and d-morphisms 
+$p_1: \fibrex{B}{B'}{D} \smorph B$ and  $p': \fibrex{B}{B'}{D} \smorph B'$ such that :
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0cm}cp{0cm} c}
+            & &\Rnode{d}{\fibrex{B}{B'}{D}}                  \\ [0.6cm]
+\Rnode{c1}{B}& &                & & \Rnode{c2}{B'} 
+\end{array}
+\end{displaymath}
+\ncbsar{p}{d}{c1}
+\ncasar{p'}{d}{c2}
+\end{center}
+
+is a limit of diagram $D$ in category \cat{C} and 
+\item 
+\vlabel [Mediating d-morphism condition]{joinmediating}
+such that for any cone $\tuple{N,\psi}$ to diagram $D$
+the mediating morphism $h: N \morph B \underset{D}{\Join} B'$ is a d-morphism iff 
+the characteristic diagram of the cone $\tuple{N,\psi}$ factors through $D$.
+
+
+\end{enumerate}
 	
 	\item For all diagrams D of s-morphisms 
 	\begin{center}
@@ -1067,34 +1121,7 @@ $
 \ncbcdar{x_2}{B}{A}
 \sarreset
 \end{center}
-
-\item
-\vlabel[Dependency constraint]{eqdconstraint}
- For any other d-morphism $a':B\dmorph A'$ leaving B, the morphism $e \comp a'$ is a d-morphism.
-
-\item
-\vlabel[Mediating morphism condition]{eqmediating}
- For any object $C$ and morphism $y: C \morph B$ such that
-$y \comp x_1 = y \comp x_2$
-the mediating morphism $h: C \morph \underset{x_1=x_2}{\sigma}B$ is a d-morphism iff 
-\footnote{do we need add here that y is a d-morphism??}the morphisms $y \comp x_1$ and $y \comp x_2$ are d-morphisms (??was this deliberate??) and the  diagram
-
-\begin{center}
-$
-\setlength{\arraycolsep}{.25cm}
-\begin{array}{ccc}
-             & \Rnode{X}{C}&               \\ [0.6cm]
-\Rnode{B1}{B}&             & \Rnode{B2}{B} \\ [0.6cm]
-             &\Rnode{A}{A}& 
-\end{array}
-$
-\ncbcdar{y}{X}{B1}
-\ncacdar{y}{X}{B2}
-\ncbcdar{x_1}{B1}{A}
-\ncacdar{x_2}{B2}{A}
-\end{center}
-
-is a pushout diagram in the subcategory of distinguished morphisms.
+  
 
 \end{enumerate}
 \end{enumerate}

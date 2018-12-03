@@ -33,7 +33,7 @@
 \setcounter{equation}{0}
 \bibliographystyle{plain} % was hplain
 
-\title{Dependency Categories - Part Two - Work in Progress}
+\title{Dependency Categories - Part Three Theories and Unused}
 \author{John Cartmell\footnote{john.w.cartmell gmail.com}\\ \normalsize{\textit{Ad Otium}}}
 \subtitle{Status: \normalsize{DRAFT --TREAT WITH CAUTION}}
 \begin{document}
@@ -138,90 +138,8 @@ and $\pi$ is unique permutation such that .
 
 
 
-\section{Notation for composed pullbacks}
-In \cite{Cartmell86}, the structure of contextual categories is introduced and subsequently
-the basic notation is extended so that 
-\begin{itemize}
-\item{if $A \leq B$ in a contextual category then the composed dependency of
-$B$ on $A$ is 
-denoted $\pc{B}{A}$ and depicted in diagrams as $\pc{B}{A}:B \raisebox{1pt}{---}\!\!\!\!\!\!\geqslant A$,}
-\item{if $f: A \morph B_0$ in a contextual category \cat{C} and if 
-$B_0 \base B_1 ... \base B_m$ there is a  pullback of $\pc{B_m}{B_0}$ along $f$
-is described by diagram:
-
-\begin{displaymath}
-\begin{array}{cp{2cm}c}
-\Rnode{fBm} {f \sub B_m}    &            &  \Rnode{Bm}{B_m}   \\ [0.8cm]
-\Rnode{A}{A}                &            &  \Rnode{B0}{B_0}   
-\end{array}
-\end{displaymath}
-\ncbcdar{\pc{f \sub B_m}{A}}{fBm}{A}
-\ncacdar{\pc{B_m}{B_0}}{Bm}{B0}
-\ncaarr{q(f,B_m)}{fBm}{Bm}
-\jcbarr{f}{A}{B0}
-}
-\end{itemize}
 
 
-We extend the notation further. If $X \base A_1 ... A_{n-1} \base A_n$ in \cat{C} and
-if $X \base B$ then we will write $\crossx{A_n}{B}{X}$ in place of $\pc{A_n}{X}\,\sub B$ so that 
-we have a pullback diagram as follows:
-\begin{displaymath}
-\begin{array}{c p{0.45cm} c c}
-\Rnode{AnxB}{\crossx{A_n}{B}{X}}&&            &              \\ [1.1cm]
-\Rnode{An}{A_n}                 &&            &               \\ [0.3cm]
-                                &&            & \Rnode{B}{B}  \\ [0.8cm]
-                                &&\Rnode{X}{X}&                
-\end{array}
-\end{displaymath}
-\ncsar{AnxB}{An}
-\ncbcdar{\pc{A_n}{X}}{An}{X}
-\ncsar{B}{X}
-\ncaarr{q(\pc{A_n}{X},B)}{AnxB}{B}.
-
-similarly, if $X \base B_1 \base ... B_{m-1} \base B_m$ then we have a series of pullback diagrams that fit together so:
-
-\begin{displaymath}
-\begin{array}{cccp{2cm}c}
-\begin{array} {c}
-\Rnode{AnxBm}{\crossx{A_n}{B_m}{X}}      \\ [1.0cm]
-\Rnode{AnxBm1}{\crossx{A_n}{B_{m-1}}{X}} \\ [0.5cm]
-\raisebox{1.0cm}{$\Rnode{Rvdots}{\vdots}$}\\ [-0.5cm]
-\Rnode{AnxB2}{\crossx{A_n}{B_2}{X}}       \\ [1.0cm]
-\Rnode{AnxB1}{\crossx{A_n}{B_1}{X}}\\ [1.0cm]
-\Rnode{An}{A_n}                    \\ [1.0cm]
-         
-\end{array} 
-& & & &
-\begin{array}{c}
-                                    \\ [1.0cm]
-              \Rnode{Bm}{B_m}       \\ [1.0cm]
-              \Rnode{Bm1}{B_{m-1}}  \\ [0.5cm]
-							\Rnode{Rvdots}{\vdots}\\ [0.5cm]
-              \Rnode{B2}{B_2}       \\ [1.0cm]
-              \Rnode{B1}{B_1}          
-\end{array} \\
-&\begin{array}{ccccc}
-\Rnode{An1}{A_{n-1}}  \\ [0.25cm]
-     &\Rnode{Rddots}{\ddots} \\ [0.25cm]
-              &&&\Rnode{A1}{A_1}  \\ [1.0cm]
-                 &&&&\hspace{1cm}\Rnode{X}{X} \\
-\end{array} & & &
-\end{array}
-\end{displaymath}
- 
-\ncsar{AnxBm}{AnxBm1}
-\ncsar{AnxB2}{AnxB1}
-\ncsar{AnxB1}{An}
-\ncsar{An}{An1}
-\ncsar{A1}{X}
-\ncsar{Bm}{Bm1}
-\ncsar{B2}{B1}
-\ncsar{B1}{X}
-\ncaarr{q(\pc{A_n}{X},B_m)}{AnxBm}{Bm}
-\ncaarr{q(\pc{A_n}{X},B_{m-1})}{AnxBm1}{Bm1}
-\ncaarr{q(\pc{A_n}{X},B_2)}{AnxB2}{B2}
-\ncaarr{q(\pc{A_n}{X},B_1)}{AnxB1}{B1}
 
 
 \section{Equivalent Contexts -- Example}
@@ -583,40 +501,7 @@ $\ofT{x_2}{A2}$ as a subcontext. This illustrates that each non-initial subconte
 which does not depend on one of the earlier variables.
  
 
-\section{Example Source}
-\noindent In this figure
-
-\begin{align*}
-&\text{                                  }\tstyle \isT{A_1} \\
-&\text{                                  }\tstyle \isT{A_2} \\
-&\text{                                  }\tstyle \isT{B} \\
-&\ofT{x_1}{A_1},\ofT{x_2}{A_2} \tstyle \ofT{f(x_1,x_2)}{B} 
-\end{align*}
-\noindent
- in a study of triangles is a quantity (an entity)  which varies both as the triangle varies and as the angle varies:
-
-\begin{equation*}
-x \in Triangle, y \in Angle(x): oppositeSide(y) \in Side(x)
-\end{equation*}
-
-
-\noindent In this type assertion `headOfState' is a quantity \\
-
-\noindent As an example, the directed graph:
-\begin{equation}
-\begin{array}{ccc}
-\Rnode{C}{C}   &            &                  \\ [0.8cm]
-\Rnode{B1}{B_1}&            &\Rnode{B2}{B_2}   \\ [0.8cm]
-               &\Rnode{A}{A}&                  \\ [0.8cm]
-               &\Rnode{absolute}{1}&                
-\end{array}
-\ncsar{C}{B1}
-\ncsar{B1}{A}
-\ncsar{B2}{A} 
-\ncsar{A}{absolute}
-\end{equation}
-\\
-
+\section{Unused Lemma}
 
 \begin{lemma}
 In any category \cat{C} if $F: S \morph \cat{C}$ is a diagram with limit $\tuple{L,\phi}$,

@@ -1,0 +1,499 @@
+
+\documentclass[10pt,a4paper]{scrartcl}
+\usepackage[margin=3cm]{geometry}
+\usepackage{pstricks}
+\usepackage{pst-node}
+\usepackage{pst-tree}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage{enumerate}
+\usepackage{calc}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{environ}
+\NewEnviron{shrunkdisplay}{%
+\begin{equation*}
+\scalebox{0.9}{$\BODY$}
+\end{equation*}
+}
+
+
+\input{../SharedMacros/theorems.macros}
+\input{../SharedMacros/ccategories.macros}
+\input{../SharedMacros/gats.macros}
+\input{../SharedMacros/metagat.macros}
+\input{../SharedMacros/ermacros}
+\input{../SharedMacros/erdiagram}
+\input{../SharedMacros/indexedsets.macros}
+
+\renewcommand{\erpictureFolder}[0]{../SharedPictures}
+
+\setcounter{equation}{0}
+\bibliographystyle{plain} % was hplain
+
+\title{Notes on Contextual Categories - Work in Progress}
+\author{John Cartmell\footnote{john.w.cartmell gmail.com}\\ \normalsize{\textit{Ad Otium}}}
+\begin{document}
+\maketitle
+
+\begin{proof}
+Inductive step
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{c c c c c}
+               & & \Rnode{Z}{Z} & &                    \\ [1.4cm]
+  \Rnode{Y}{Y} & &              & &  \Rnode{Yp}{Y'}    \\ [1.4cm]
+	             & & \Rnode{X}{X} & &                    \\ [1.0cm]
+               & & \Rnode{A}{A} & &                    \\ [1.0cm]
+	 \begin{array}{cp{0.3cm}c         p{0.3cm}  c}					
+   \Rnode{B1}{B_1}&  ... & \Rnode{Bji}{B_{j_i}} & ... & \Rnode{Bm}{B_m}
+	 \end{array} 
+	 & & & &
+	\begin{array}{c c c c c}					
+   \Rnode{Bp1}{B'_1}& ... & \Rnode{Bpji}{B'_{j'_i}}&  ... & \Rnode{Bpm}{B'_m}
+	 \end{array}                                                
+\end{array} 
+\end{displaymath}
+\vspace{1.0cm}
+\begin{displaymath}
+\begin{array}{c c c c c}
+ & &               &  & \Rnode{Ai}{A_i}    \\
+\end{array}
+\end{displaymath}
+\ncbcdar{\pc{Z}{Y}}{Z}{Y}
+\ncaarr{q(\pc{Z}{Y},Y')}{Z}{Yp}
+\nccdar{Y}{X}
+\nccdar{X}{A}
+\jcbarr{b_1}{Y}{B1}
+\jcbarr{b_{j_i}}{Y}{Bji}
+\jcbarr{b_m}{Y}{Bm}
+\nccdar{Yp}{X}
+\ncaarr{b'_1}{Yp}{Bp1}
+\ncaarr{b'_{j_i}}{Yp}{Bpji}
+\ncaarr{b'_m}{Yp}{Bpm}
+\ncaarr[10]{a_i}{X}{Ai}
+\nccdar[10]{Bji}{Ai}
+\nccdar[10]{Bpji}{Ai}
+\end{center}
+
+
+\end{proof}
+\newpage
+
+\begin{lemma}
+\vlabel{taketwo}
+if $Z$ is an object of a contextual category \ccat then either $Z$ is prime or else 
+there exists a prime object $\tilde{Z}$, $\tilde{Z} < Z$, and prime objects $B_1,...B_m$, for some $m > 1$, and morphisms $b_j : Z \morph B_j$ such that
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.3cm}c         p{0.3cm}  c p{0.2cm} c}
+               & & \Rnode{Z}{Z} & &     & &  \\ [1.4cm]
+\Rnode{tildeZ}{\tilde{Z}}& &\Rnode{B1}{B_1}& & ... & &\Rnode{Bm}{B_m}
+\end{array}
+\end{displaymath}
+\ncbcdar{\pc{Z}{\tilde{Z}}}{Z}{tildeZ}
+\ncaarr{b_1}{Z}{B1}
+\ncaarr{b_m}{Z}{Bm}
+\end{center}
+\noindent
+is a limit cone to its characteristic diagram within the subcategory of dependencies of \ccat and such that if for some $X$,
+ $\tilde{Z} \leq X < Z$, and for some prime objects $A_1,...A_n$ and morphisms $a_1,...a_n$, such that the diagram
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.3cm}c         p{0.3cm}  c p{0.2cm} c}
+               & & \Rnode{X}{X} & &     & &  \\ [1.4cm]
+\Rnode{tildeZ}{\tilde{Z}}& &\Rnode{A1}{A_1}& & ... & &\Rnode{An}{A_n}
+\end{array}
+\end{displaymath}
+\ncbcdar{\pc{X}{\tilde{Z}}}{X}{tildeZ}
+\ncaarr{a_1}{X}{A1}
+\ncaarr{a_n}{X}{An}
+\end{center}
+is a limit cone to its characteristic diagram then for each $i$, $1 \leq i \leq n$, there exists $j_i$, $1 \leq j_i \leq m$, such that
+$A_i \leq B_{j_i}$ and
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.3cm}c         p{0.3cm}  c p{0.2cm} c}
+\Rnode{Z}{Z} & &     & & & &  \\ [1.4cm]
+\Rnode{X}{X}& &\Rnode{Bji}{B_{j_i}}& &    & & \\[1.4cm]
+            & &\Rnode{Ai}{A_i}     & &    & &
+\end{array}
+\end{displaymath}
+\ncbcdar{\pc{Z}{X}}{Z}{X}
+\ncaarr{b_{j_i}}{Z}{Bji}
+\ncacdar{\pc{B_{j_i}}{A_i}}{Bji}{Ai}
+\jcbarr{a_i}{X}{Ai}
+\end{center}
+
+commutes.
+\end{lemma}
+
+\newpage
+
+
+\section{Notation for composed pullbacks}
+In \cite{Cartmell86}, the structure of contextual categories is introduced and subsequently
+the basic notation is extended so that 
+\begin{itemize}
+\item{if $A \leq B$ in a contextual category then the composed dependency of
+$B$ on $A$ is 
+denoted $\pc{B}{A}$ and depicted in diagrams as $\pc{B}{A}:B \raisebox{1pt}{---}\!\!\!\!\!\!\geqslant A$,}
+\item{if $f: A \morph B_0$ in a contextual category \cat{C} and if 
+$B_0 \base B_1 ... \base B_m$ there is a  pullback of $\pc{B_m}{B_0}$ along $f$
+is described by diagram:
+
+\begin{displaymath}
+\begin{array}{cp{2cm}c}
+\Rnode{fBm} {f \sub B_m}    &            &  \Rnode{Bm}{B_m}   \\ [0.8cm]
+\Rnode{A}{A}                &            &  \Rnode{B0}{B_0}   
+\end{array}
+\end{displaymath}
+\ncbcdar{\pc{f \sub B_m}{A}}{fBm}{A}
+\ncacdar{\pc{B_m}{B_0}}{Bm}{B0}
+\ncaarr{q(f,B_m)}{fBm}{Bm}
+\jcbarr{f}{A}{B0}
+}
+\end{itemize}
+
+
+We extend the notation further. If $X \base A_1 ... A_{n-1} \base A_n$ in \cat{C} and
+if $X \base B$ then we will write $\crossx{A_n}{B}{X}$ in place of $\pc{A_n}{X}\,\sub B$ so that 
+we have a pullback diagram as follows:
+\begin{displaymath}
+\begin{array}{c p{0.45cm} c c}
+\Rnode{AnxB}{\crossx{A_n}{B}{X}}&&            &              \\ [1.1cm]
+\Rnode{An}{A_n}                 &&            &               \\ [0.3cm]
+                                &&            & \Rnode{B}{B}  \\ [0.8cm]
+                                &&\Rnode{X}{X}&                
+\end{array}
+\end{displaymath}
+\ncsar{AnxB}{An}
+\ncbcdar{\pc{A_n}{X}}{An}{X}
+\ncsar{B}{X}
+\ncaarr{q(\pc{A_n}{X},B)}{AnxB}{B}.
+
+similarly, if $X \base B_1 \base ... B_{m-1} \base B_m$ then we have a series of pullback diagrams that fit together so:
+
+\begin{displaymath}
+\begin{array}{cccp{2cm}c}
+\begin{array} {c}
+\Rnode{AnxBm}{\crossx{A_n}{B_m}{X}}      \\ [1.0cm]
+\Rnode{AnxBm1}{\crossx{A_n}{B_{m-1}}{X}} \\ [0.5cm]
+\raisebox{1.0cm}{$\Rnode{Rvdots}{\vdots}$}\\ [-0.5cm]
+\Rnode{AnxB2}{\crossx{A_n}{B_2}{X}}       \\ [1.0cm]
+\Rnode{AnxB1}{\crossx{A_n}{B_1}{X}}\\ [1.0cm]
+\Rnode{An}{A_n}                    \\ [1.0cm]
+         
+\end{array} 
+& & & &
+\begin{array}{c}
+                                    \\ [1.0cm]
+              \Rnode{Bm}{B_m}       \\ [1.0cm]
+              \Rnode{Bm1}{B_{m-1}}  \\ [0.5cm]
+							\Rnode{Rvdots}{\vdots}\\ [0.5cm]
+              \Rnode{B2}{B_2}       \\ [1.0cm]
+              \Rnode{B1}{B_1}          
+\end{array} \\
+&\begin{array}{ccccc}
+\Rnode{An1}{A_{n-1}}  \\ [0.25cm]
+     &\Rnode{Rddots}{\ddots} \\ [0.25cm]
+              &&&\Rnode{A1}{A_1}  \\ [1.0cm]
+                 &&&&\hspace{1cm}\Rnode{X}{X} \\
+\end{array} & & &
+\end{array}
+\end{displaymath}
+ 
+\ncsar{AnxBm}{AnxBm1}
+\ncsar{AnxB2}{AnxB1}
+\ncsar{AnxB1}{An}
+\ncsar{An}{An1}
+\ncsar{A1}{X}
+\ncsar{Bm}{Bm1}
+\ncsar{B2}{B1}
+\ncsar{B1}{X}
+\ncaarr{q(\pc{A_n}{X},B_m)}{AnxBm}{Bm}
+\ncaarr{q(\pc{A_n}{X},B_{m-1})}{AnxBm1}{Bm1}
+\ncaarr{q(\pc{A_n}{X},B_2)}{AnxB2}{B2}
+\ncaarr{q(\pc{A_n}{X},B_1)}{AnxB1}{B1}
+
+
+\section{Equivalent Contexts -- Example}
+
+In a g.a.t. \gat which includes the following type definitions:
+\begin{displaymath}
+\begin{array}{l}
+\tstyle \isT{A_1} \\
+\tstyle \isT{A_2} \\
+\ofT{x}{A_1}\tstyle \isT{B_1(x)} \\
+\ofT{x}{A_2}\tstyle \isT{B_2(x)} \\
+\end{array}
+\end{displaymath}
+
+The context 
+\begin{equation}
+\ofT{x_1}{A_1},\ofT{x_2}{A_2},\ofT{y_1}{B_1(x_1)},\ofT{y_2}{B_2(x_2)}
+\end{equation}
+can be rearranged in five different ways to give, all in all, six different ways of expressing
+what is much the same context:
+\begin{equation}
+\ofT{x_1}{A_1}, \ofT{x_2}{A_2}, \ofT{y_1}{B_1(x_1)}, \ofT{y_2}{B_2(x_2)}
+\end{equation}
+\begin{equation}
+\ofT{x_1}{A_1}, \ofT{x_2}{A_2}, \ofT{y_2}{B_2(x_2)}, \ofT{y_1}{B_1(x_1)}
+\end{equation}
+\begin{equation}
+\ofT{x_1}{A_1}, \ofT{y_1}{B_1(x_1)}, \ofT{x_2}{A_2}, \ofT{y_2}{B_2(x_2)}
+\end{equation}
+\begin{equation}
+\ofT{x_2}{A_2}, \ofT{x_1}{A_1}, \ofT{y_1}{B_1(x_1)}, \ofT{y_2}{B_2(x_2)}
+\end{equation}
+\begin{equation}
+\ofT{x_2}{A_2}, \ofT{x_1}{A_1}, \ofT{y_2}{B_2(x_2)}, \ofT{y_1}{B_1(x_1)}
+\end{equation}
+\begin{equation}
+\ofT{x_2}{A_2}, \ofT{y_2}{B_2(x_2)}, \ofT{x_1}{A_1}, \ofT{y_1}{B_1(x_1)}
+\end{equation}
+
+
+Each one of these contexts and each subcontext is represented by an object
+in the contextual category  \cat{C(\gat)} that corresponds to the theory. This is
+shown in this diagram:
+
+%\scalebox{0.9}{
+\begin{shrunkdisplay}
+%\scalebox{0.9}{
+\begin{array}{cccccc}
+\Rnode{c1}{\crossx
+              {(\crossx
+							     {(\crossx{A_1}{A_2}{1})}
+									 {B_1}
+									 {A_1}
+								) 
+								\hspace{-0.2cm}
+							}
+							{\hspace{-0.2cm}(\crossx{A_1}{B_2}{1})}
+							{\crossx{A_1}{A_2}{1}} 
+				  } 
+&
+\Rnode {c2}{\crossx
+              {(\crossx{A_1}{B_2}{1})}
+							{B_1}
+							{A_1}
+           }
+&
+\Rnode{c3}{
+           \crossx{B_1}{B_2}{1}
+					}
+&
+\Rnode{c4}{
+           \crossx{B_2}{B_1}{1}
+					}
+&
+\Rnode{c5}{\crossx
+           {(\crossx{A_2}{B_1}{1})}
+					 {B_2}
+					 {A_2}
+					}
+&
+\Rnode{c6}{\crossx
+              {(\crossx
+							     {(\crossx{A_2}{A_1}{1})}
+									 {B_2}
+									 {A_2}
+								) 
+								\hspace{-0.2cm}
+							}
+							{\hspace{-0.2cm}(\crossx{A_2}{B_1}{1})}
+							{\crossx{A_2}{A_1}{1}} 
+				  } \\ [1.2cm]
+\Rnode{sc1}{\crossx
+							     {(\crossx{A_1}{A_2}{1})}
+									 {B_1}
+									 {A_1}				
+				   } 
+&
+\Rnode {sc2}{
+             \crossx{A_1}{B_2}{1}
+           }
+&
+\Rnode{sc3}{
+           \crossx{B_1}{A_2}{1}
+					}   
+&
+\Rnode{sc4}{
+           \crossx{B_2}{A_1}{1}
+					}   
+&
+\Rnode{sc5}{
+           \crossx{A_2}{B_1}{1}
+					}   
+&
+\Rnode{sc6}{
+           \crossx
+					         {(\crossx{A_2}{A_1}{1})}
+					         {B_2}
+									 {A_2}
+					}  \\ [1.2cm]
+\multicolumn{2}{c}{
+         \ \ \ \ \ \ \ \Rnode{A1xA2}{\crossx{A_1}{A_2}{1}}   
+} 
+& \Rnode{B1}{B_1} 
+& \Rnode{B2}{B_2}
+& \multicolumn{2}{c}{\Rnode{A2xA1}{\crossx{A_2}{A_1}{1}}}
+\\ [1.2cm] 
+  \multicolumn{3}{c}{ \hspace{3cm}\Rnode{A1}{A_1}}
+& \multicolumn{3}{c}{             \Rnode{A2}{A_2}} \hspace{3cm} \\ [1.2cm]
+\multicolumn{6}{c}{
+         \Rnode{abs}{1}
+					        }
+\end{array}
+\end{shrunkdisplay}
+%}
+ 
+\ncsar{c1}{sc1}
+\ncsar{c2}{sc2}
+\ncsar{c3}{sc3}
+\ncsar{c4}{sc4}
+\ncsar{c5}{sc5}
+\ncsar{c6}{sc6}
+\ncsar{sc1}{A1xA2}
+\ncsar{sc2}{A1xA2}
+\ncsar{sc3}{B1}
+\ncsar{sc4}{B2}
+\ncsar{sc5}{A2xA1}
+\ncsar{sc6}{A2xA1}
+\ncsar{A1xA2}{A1}
+\ncsar{B1}{A1}
+\ncsar{A1}{abs}
+\ncsar{B2}{A2}
+\ncsar{A2xA1}{A2}
+\ncsar{A2}{abs}
+
+Each of the six contexts are equivalents. This is reflected by the facts that there are cannonical 
+isomorphisms in the contextual catgory between the six objects: \\
+\begin{displaymath}
+\def\arraystretch{2.2}
+\begin{array} {l}
+      \crossx
+          {(\crossx
+			       {(\crossx{A_1}{A_2}{1})}
+						 {B_1}
+						 {A_1}
+			     ) 
+			     \hspace{-0.2cm}
+					}
+					{\hspace{-0.2cm}(\crossx{A_1}{B_2}{1})}
+					{\crossx{A_1}{A_2}{1}}
+\\
+    \crossx
+       {(\crossx{A_1}{B_2}{1})}
+							{B_1}
+							{A_1}
+\\
+
+     \crossx{B_1}{B_2}{1}
+\\
+     \crossx{B_2}{B_1}{1}
+\\
+     \crossx
+           {(\crossx{A_2}{B_1}{1})}
+					 {B_2}
+					 {A_2}
+\\
+     \crossx
+              {(\crossx
+							     {(\crossx{A_2}{A_1}{1})}
+									 {B_2}
+									 {A_2}
+								) 
+								\hspace{-0.2cm}
+							}
+							{\hspace{-0.2cm}(\crossx{A_2}{B_1}{1})}
+							{\crossx{A_2}{A_1}{1}} 
+
+\end{array}
+\end{displaymath}
+\section{Cancellative Property}
+\noindent 
+\begin{definition}
+A contextual category \ccat is said to be cancellative iff for all objects $X$, $A$, $B$ and $B'$ such that
+$X < A$, $X < B$ and $X < B'$ in \ccat, 
+if $\crossx{A}{B}{X} = \crossx{A}{B'}{X}$ then $B=B'$. \footnote{What about requiring q's to b equal?}.
+\end{definition} 
+
+
+\section{Decompositions and Projections of Objects}
+For any given object $Y$ of a contextual category there may or may not be objects $A$, $B$ and $X$ so that
+$Y = \crossx{A}{B}{X}$. If there are we say the object is decomposable. If an object $Y$ is decomposable into objects that
+are themselves decomposable then there may be a number of decompositions implied by coherence conditions of contextual
+categories but if we assume the cancellative property upto these equivalent decompositions given by coherence
+the decomposition is unique. 
+\noindent
+For example if $X < A$, $X < B$, $X < C$ in a \ccat then from coherence of pullbacks in \ccat we have:
+$\crossx{A}{(\crossx{B}{C}{X})}{X} = \crossx{(\crossx{A}{B}{X})}{C}{X}$ as shown here:
+ 
+\begin{displaymath}
+\begin{array}{cp{1.0cm}cp{1.0cm}c}
+\Rnode{J1}{}\Rnode{D1} {\crossx{(\crossx{A}{B}{X})}{C}{X}}\Rnode{J2}{} \ \ \ \ \   &&  &&  \\ 
+= && && \\
+\Rnode{D2} {\crossx{A}{(\crossx{B}{C}{X})}{X}}    &&  &&                        \\ [1.3cm]
+\Rnode{AB}{\crossx{A}{B}{X}}&& \Rnode{BC}{\crossx{B}{C}{X}} &&                      \\[1.3cm]
+\Rnode{A}{A}&& \Rnode{B}{B} && \ \ \ \ \ \ \ \ \ \ \ \ \ \Rnode{C}{C}                                        \\[1.3cm]
+             && \Rnode{X}{X} &&                                                     
+\end{array}
+\end{displaymath}
+
+\ncaarr[50]{q(\pc{\crossx{A}{B}{X}}{X},C)}{J2}{C}
+%\ncsar[-30]{J1}{AB}
+\ncsar{D2}{AB}
+\ncsar{AB}{A}
+\ncsar{BC}{B}
+\ncsar{A}{X}
+\ncsar{B}{X} 
+\ncsar{C}{X}
+\ncaarr{q(\pc{A}{X},B)}{AB}{B}
+\ncaarr{q(\pc{B}{X},C)}{BC}{C}
+\ncaarr{q(\pc{A}{X},\crossx{B}{C}{X})}{D2}{BC}
+
+\noindent Say that an object is \textit{prime} if it cannot be decomposed.
+\noindent Anyway we look at it we can decompose an object into an n-tuple of prime objects. 
+\noindent Any object $Y$ of a contextual category \ccat is either prime or else there is an $n > 1$ and a tuple of morphisms $f_i: Y \morph A_i$, $1 \leq i \leq n$, such that for each $i$, $1 \leq i \leq n$,  $A_i$ is primitive, 
+and the diagram
+\begin{center}
+\psset{arrowsize=5pt,arrowinset=0.7}
+\psset{nodesep=7pt}
+\setlength{\arraycolsep}{0.3cm}
+\begin{displaymath}
+\begin{array}{ccp{0.2cm}p{0.075cm}c}
+&&\Rnode{top}{$Y$}& & \\[1.5cm]
+\Rnode{A}{A_1}&\Rnode{B2}{A_2}&& ... & \Rnode{Bm}{A_n}\\
+\end{array}
+\end{displaymath}
+\psset{nodesepA=4pt,nodesepB=7pt}
+\ncline{-}{top}{A}
+\tlput{\footnotesize $f_1$}
+\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
+\ncline{-}{top}{B2}
+\trput{\footnotesize $f_2$}
+\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
+\ncline{-}{top}{Bm}
+\trput{\footnotesize $f_n$}
+\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
+\end{center}
+ is a limit cone to its own characteristic diagram.
+
+\noindent The object $\crossx{A}{B}{X}$ has projections $\pc{\crossx{A}{B}{X}}{A}: \crossx{A}{B}{X} \smorph A$ and
+$q(\pc{A}{X},B): \crossx{A}{B}{X} \morph B$. Given that  $A$ and $B$ are maybe themselves decomposable then we  can define a tree of morphisms which we shall call the projection tree. Whereas the projection tree is not unique the leaves of the tree are and the composed morphisms to the leaves of the tree are too. The composed morphisms to the leaves of the tree we
+will call the \textit{key} of the object $Y$. This is made formal in the following lemma.
+
+
+
+
+
+\bibliography{../SharedBibliography/temp/bibliography}
+
+\end{document}
