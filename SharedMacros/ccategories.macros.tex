@@ -5,6 +5,7 @@
 
 \usepackage{twoopt}
 \usepackage{scalerel} 
+\usepackage{xargs}
 
 %\usepackage{mathabx}  %Caused font problems
 %\usepackage{MnSymbol}  % caused font problems
@@ -26,6 +27,7 @@
 \newcommand{\pc}[2]{p^{#1}_{#2}}
 \newcommand{\sub}{^*}
 \newcommand{\diag}{\delta}
+\newcommand{\pbase}[1]{\tilde{#1}}
 
 \newcommand{\tuple}[1]{\langle#1\rangle}
 \newcommand{\ndidly}{\ensuremath{\Join_n}}
@@ -74,12 +76,21 @@
 }
 \newcommand{\jcbarr}[4][0]{ % ncbarr is defined in some thridy party package so do not use!\emph{}
 \ncarr[#1]{#3}{#4}
-\nbput{\footnotesize $#2$}
+\nbput[labelsep=2pt]{\footnotesize $#2$}
 }
 
 \newcommand{\ncaarr}[4][0]{
 \ncarr[#1]{#3}{#4}
-\naput{\footnotesize $#2$}
+\naput[labelsep=2pt]{\footnotesize $#2$}
+}
+
+% \alabel{label}[npos][labelsep_pts]
+\newcommandx*\alabel[3][2=0.5,3=2,usedefault]{
+\naput[labelsep=#3pt,npos=#2]{\footnotesize $#1$}
+}
+% \blabel{label}[npos][labelsep_pts]
+\newcommandx*\blabel[3][2=0.5,3=2,usedefault]{
+\nbput[labelsep=#3pt,npos=#2]{\footnotesize $#1$}
 }
 
 % pstrick supplements for s-arrows (previous name for d-arrow - should convert}
@@ -116,12 +127,12 @@
 % bsar - below labelled S-arrow
 \newcommand{\ncbsar}[4][0]{
 \ncsar[#1]{#3}{#4}
-\nbput{\footnotesize $#2$}
+\nbput[labelsep=2pt]{\footnotesize $#2$}
 }
 % asar - above labelled S-arrow
 \newcommand{\ncasar}[4][0]{
 \ncsar[#1]{#3}{#4}
-\naput{\footnotesize $#2$}
+\naput[labelsep=2pt]{\footnotesize $#2$}
 }
 
 % cdar - composite dependency arrow
@@ -141,12 +152,12 @@
 % bcdar - below labelled composite dependency arrow
 \newcommand{\ncbcdar}[4][0]{
 \nccdar[#1]{#3}{#4}
-\nbput{\footnotesize $#2$}
+\nbput[labelsep=2pt]{\footnotesize $#2$}
 }
 % acdar - above labelled composite dependency arrow
 \newcommand{\ncacdar}[4][0]{
 \nccdar[#1]{#3}{#4}
-\naput{\footnotesize $#2$}
+\naput[labelsep=2pt]{\footnotesize $#2$}
 }
 
 
