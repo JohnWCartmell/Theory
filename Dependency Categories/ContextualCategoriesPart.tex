@@ -1,4 +1,4 @@
-
+ 
 \documentclass[10pt,a4paper]{scrartcl}
 \usepackage[margin=3cm]{geometry}
 \usepackage{pstricks}
@@ -28,6 +28,8 @@
 \input{../SharedMacros/indexedsets.macros}
 
 \renewcommand{\erpictureFolder}[0]{../SharedPictures}
+
+\newcommand{\ccatc}{contextual category \ccat}
 
 \setcounter{equation}{0}
 \bibliographystyle{plain} % was hplain
@@ -82,6 +84,282 @@ of $\tuple{a_1,... a_n}$.
 Follows because any cospan that is coincident with the span $\tuple{a_i,a_j}$
 is coincident with the span $\tuple{x \circ a_i, x \circ a_j}$.
 \end{proof}
+
+\begin{lemma}
+\vlabel{pbselflimit}
+If 
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.3cm}c    p{0.3cm}  c }
+               & & \Rnode{Z}{Z} & &                                  \\ [1.3cm]
+\Rnode{Y}{Y}   &&                               & & \Rnode{Yp}{Y'}   \\ [1.4cm]
+               & & \Rnode{X}{X} & &   
+\end{array}
+\end{displaymath}
+\ncarr{Z}{Y}
+\blabel{f}
+\ncarr{Z}{Yp}
+\alabel{f'}
+\ncbcdar{\pc{Y}{X}}{Y}{X}
+\ncacdar{\pc{Y'}{X}}{Yp}{X}
+\end{center}
+
+is a pullback in a \ccatc 
+then 
+\begin{center}
+\begin{equation}
+\label{pbselflimitcone}
+\begin{array}{cp{0.3cm}c    p{0.3cm}  c }
+               & & \Rnode{Z}{Z} & &                                  \\ [1.0cm]
+\Rnode{Y}{Y}   &&                               & & \Rnode{Yp}{Y'}  
+\end{array}
+\end{equation}
+\ncarr{Z}{Y}
+\blabel{f}
+\ncarr{Z}{Yp}
+\alabel{f'}
+\end{center}
+is a limit cone to its characteristic diagram in \ccat.
+\end{lemma}
+\begin{proof}
+Suppose the characteristic diagram is 
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.3cm}c    p{0.3cm}  c }
+\Rnode{Y}{Y}   &&                               & & \Rnode{Yp}{Y'}   \\ [1.4cm]
+               & & \Rnode{Xp}{X'} & &   
+\end{array}
+\end{displaymath}
+\ncbcdar{\pc{Y}{X'}}{Y}{Xp}
+\ncacdar{\pc{Y'}{X'}}{Yp}{Xp}
+\end{center}
+for some $X \leq X'$. Consider object H and morphisms $h$, $h'$ such that $h \circ \pc{Y}{X} = h' \circ \pc{Y}{X'}$. In this diagram:
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.3cm}c    p{0.3cm}  c }
+               & & \Rnode{Z}{Z}   & &                  \\ [1.4cm]
+\Rnode{Y}{Y}   &&                 & & \Rnode{Yp}{Y'}   \\ [1.4cm]
+               & & \Rnode{Xp}{X'} & &                  \\ [1.2cm]
+							 & & \Rnode{X}{X}   & &   
+\end{array}
+\end{displaymath}
+\ncarr{Z}{Y}
+\blabel{f}
+\ncarr{Z}{Yp}
+\alabel{f'}
+\nccdar{Y}{Xp}
+\nccdar{Yp}{Xp}
+\nccdar{Xp}{X}
+\ncbcdar[-15]{\pc{Y}{X}}{Y}{X}
+\ncacdar[15]{\pc{Y'}{X}}{Yp}{X}
+\end{center}
+the outer square is a pullback diagram and the triangles commute therefore the inner square is  a pullback diagram. Therefore (\ref{pbselflimitcone}) is a limit to its characteristic diagram as required.
+
+\end{proof}
+\begin{lemma}
+\vlabel{pbdrilldown}
+If 
+
+\begin{center}
+\begin{equation}
+\label{pbdrilldownpullback}
+\begin{array}{cp{0.3cm}c    p{0.3cm}  c }
+               & & \Rnode{Z}{Z} & &                                  \\ [1.3cm]
+\Rnode{Y}{Y}   &&                               & & \Rnode{Yp}{Y'}   \\ [1.4cm]
+               & & \Rnode{W}{W} & &   
+\end{array}
+\end{equation}
+\ncarr{Z}{Y}
+\blabel{f}
+\ncarr{Z}{Yp}
+\alabel{f'}
+\ncbcdar{\pc{Y}{W}}{Y}{W}
+\ncacdar{\pc{Y'}{W}}{Yp}{W}
+\end{center}
+
+is a pullback in a \ccatc,
+and if 
+\begin{center}
+\begin{displaymath}
+\begin{array}{c p{0.4cm} c  }
+\Rnode{Y}{Y} &&   \\ [1.4cm]
+\begin{array}{cp{0cm}c   p{0.1cm}     c  }					
+                             \Rnode{B1}{B_1}&   & ... & & \Rnode{Bm}{B_m}
+	                      \end{array} 
+	 && \Rnode{X}{X}                                              
+\end{array} 
+\end{displaymath}
+
+\ncarr[5]{Y}{B1}
+\blabel{ b_1}[.60][-2]
+\ncarr[5]{Y}{Bm}
+\blabel{b_m}[.60][-3]
+\nccdar{Y}{X}
+\alabel{\pc{Y}{X}}[.60][2]
+\end{center}
+is a limit cone to its characteristic diagram in \ccat  for some $X$, $W \leq X \leq Y$, then  
+\begin{center}
+\begin{equation}
+\label{pbdrilldowncone}
+\begin{array}{c p{0.4cm} c p{0.4cm} c }
+\Rnode{Z}{Z} && &&      \\ [2.6cm]
+\Rnode{X}{X}&& \begin{array}{cp{0cm}c   p{0.1cm}     c  }					
+                             \Rnode{B1}{B_1}&   & ... & & \Rnode{Bm}{B_m}
+	                      \end{array} 
+	 && \Rnode{Yp}{Y'}                                              
+\end{array} 
+\end{equation}
+\ncarr{Z}{X}
+\blabel{f \circ\pc{Y}{X}}[.60]
+\ncarr[5]{Z}{B1}
+\blabel{f\circ b_1}[.60][-2]
+\ncarr[5]{Z}{Bm}
+\blabel{f\circ b_m}[.60][-3]
+\ncarr[5]{Z}{Yp}
+\alabel{f'}[.60]
+\end{center}
+is a limit cone to its characteristic diagram in \ccat.
+\end{lemma}
+
+\begin{proof}
+We have this situation
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{c c p{1.0cm} c p{0.2cm}c}
+  \Rnode{Z}{Z} & &                       & &  &                  \\ [1.6cm]
+  \Rnode{Y}{Y} & &                       & &  & \Rnode{Yp}{Y'}   \\ [0.7cm]
+	             &  \Rnode{X}{X} & &  &                  \\ [0.7cm]
+	             & &                       & \Rnode{W}{W} & &      \\
+	 \begin{array}{cp{0cm}c   p{0cm}     c  }					
+   \Rnode{B1}{B_1}&   & ... & & \Rnode{Bm}{B_m}
+	 \end{array} 
+	 & & & &                                                
+\end{array} 
+\end{displaymath}
+\ncarr{Z}{Y}
+\blabel{f}
+\ncaarr{f'}{Z}{Yp}
+\nccdar{Y}{X}
+\nccdar{X}{W}
+\jcbarr{b_1}{Y}{B1}
+\jcbarr{b_m}{Y}{Bm}
+\nccdar{Yp}{W}
+\end{center}
+
+
+Suppose there is an object $D$ and a cone 
+\begin{center}
+\begin{displaymath}
+\begin{array}{c c p{0.4cm} c p{0.4cm} c }
+\Rnode{D}{D}&  && &&      \\ [2.6cm]
+      & \Rnode{X}{X}&& \begin{array}{cp{0cm}c   p{0.1cm}     c  }					
+                             \Rnode{B1}{B_1}&   & ... & & \Rnode{Bm}{B_m}
+	                      \end{array} 
+	 && \Rnode{Yp}{Y'}                                              
+\end{array} 
+\end{displaymath}
+\ncarr{D}{X}
+\blabel{g_0}
+\ncarr[5]{D}{B1}
+\blabel{g_1}
+\ncarr[5]{D}{Bm}
+\blabel{g_m}
+\ncarr[5]{D}{Yp}
+\alabel{g_{m+1}}
+\end{center}
+to the characteristic diagram of  (\ref{pbdrilldowncone}).
+
+From this it follows that $\tuple{g_0,...g_m}$ is a cone to the characteristic diagram of
+$\tuple{f \circ \pc{Y}{X}, f \circ b_1, ... f \circ b_m}$.
+Therefore by lemma \ref{conepass} $\tuple{g_0,...g_m}$ is also a cone to the characteristic
+diagram of $\tuple{\pc{Y}{X}, b_1, ... b_m}$. Since $\tuple{\pc{Y}{X}, b_1, ... b_m}$ is a limit cone it follows that there exists a unique $g:D \morph Y$ such that $g \circ \pc{Y}{X}=g_0$ and , for each $j$, $1 \leq j \leq m$, $g \circ b_j=g_j$.
+
+\noindent Since (\ref{pbdrilldownpullback})
+is a pullback diagram then, in particular, it commutes.Therefore cospan 
+
+
+\begin{center}
+\begin{equation}
+\label{pbdrilldowncospan}
+\begin{array}{cp{0.1cm}cp{0.1cm} c}
+\Rnode{X}{X}& &                & & \Rnode{Yp}{Y'} \\ [0.4cm]
+            & &\Rnode{W}{W}
+\end{array}
+\end{equation}
+\nccdar{X}{W}
+\nccdar{Yp}{W}
+\end{center}
+is a coincident  to span 
+\begin{center}
+\begin{equation}
+\begin{array}{cp{0.1cm}cp{0.1cm} c}
+            & &\Rnode{Z}{Z}                  \\ [0.4cm]
+\Rnode{X}{X}& &                & & \Rnode{Yp}{Y'} 
+\end{array}
+\end{equation}
+\jcbarr{f \circ \pc{Y}{X}}{Z}{X}
+\ncaarr{f'}{Z}{Yp}
+\end{center}
+
+Therefore (\ref{pbdrilldowncospan}) is in the characteristic diagram of
+$\tuple{f \circ \pc{Y}{X}, f \circ b_1, ... f \circ b_m,f'}$ and therefore from the initial assumption that $\tuple{g_0,...g_m, g_{m+1}}$ is a cone to this characteristic diagram it follows that diagram 
+\begin{center}
+\begin{displaymath}
+\begin{array}{c c p{1.0cm} c p{0.2cm}c}
+  \Rnode{D}{D} & &                       & &  &                  \\ [1.6cm]
+               & &                       & &  & \Rnode{Yp}{Y'}   \\ [0.7cm]
+	             &  \Rnode{X}{X} & &  &                  \\ [0.7cm]
+	             & &                       & \Rnode{W}{W} & & 
+\end{array} 
+\end{displaymath}
+\ncaarr{g_{m+1}}{D}{Yp}
+\ncaarr{g_0}{D}{X}
+\nccdar{X}{W}
+\nccdar{Yp}{W}
+\end{center}
+commutes. But $g_0 = f \circ \pc{Y}{X}$ and therefore diagram
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{c c p{1.0cm} c p{0.2cm}c}
+  \Rnode{D}{D} & &                       & &  &                  \\ [1.6cm]
+  \Rnode{Y}{Y} & &                       & &  & \Rnode{Yp}{Y'}   \\ [0.7cm]
+	             &  \Rnode{X}{X} & &  &                  \\ [0.7cm]
+	             & &                       & \Rnode{W}{W} & & 
+\end{array} 
+\end{displaymath}
+\ncaarr{g_{m+1}}{D}{Yp}
+\ncarr{D}{Y}
+\blabel{g}
+\nccdar{Y}{X}
+\nccdar{X}{W}
+\nccdar{Yp}{W}
+\end{center}
+
+commutes.
+
+Because (\ref{pbdrilldownpullback}) is a pullback diagram  it follows that there is a unique $h:D \morph Z$
+such that $h \circ f=g$ and $h \circ f'=g_{m+1}$.
+\noindent
+Now we have $h \circ f \circ \pc{Y}{X}= g \circ \pc{Y}{X}=g_0$
+and $h \circ f \circ b_j = g \circ b_j = g_j$ as required.
+
+\noindent
+Suppose also there is a $h' :F \morph Z$ such that
+$h' \circ q(f=g_{m+1}$
+and
+$h' \circ f\circ \pc{Y}{X}=g_0$
+and 
+$h' \circ f \circ b_j=g_j$.
+then it follows first that $h' \circ f=g$ and then from this that $h'=h$. 
+
+\end{proof}
+
+\newpage
+
+
 
 \section{The representation theorem for non-prime objects of contextual categories.}
 \begin{lemma}
