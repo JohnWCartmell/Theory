@@ -408,224 +408,61 @@ $A_i \leq B_{j_i}$ and
 commutes.
 \end{lemma}
 \begin{proof}
-Inductive step. Assume  that the lemma holds of all objects with a height less than the height of $Z$. Suppose $Z=\crossx{Y}{Y'}{X}$. We show by cases that required limit cone exists.
+Inductive step. Assume  that the lemma holds of all objects with a height less than the height of $Z$. Suppose $Z=\crossx{Y}{Y'}{X}$. First note that in this situation 
+$\pbase{Z}=\pbase{Y}$. We show by cases that required limit cone exists.
 \begin{enumerate}[(i)]
 \item{Y, Y' and X are all prime objects}
-Show that
-\begin{center}
-\begin{displaymath}
-\begin{array}{cp{0.3cm}c         p{0.3cm}  c }
-               & & \Rnode{Z}{\crossx{Y}{Y'}{X}} & &     \\ [1.4cm]
-\Rnode{Y}{Y}   &&                               & & \Rnode{Yp}{Y'}  
-\end{array}
-\end{displaymath}
-\ncbcdar{\pc{Z}{Y}}{Z}{Y}
-\ncaarr{q(\pc{Z}{Y},Y')}{Z}{Yp}
-\end{center}
+Because $X$ is prime it follows that $X \leq  \pbase{Y}$. 
+This is lemma \ref{pbselflimit}.
 
-is a limit cone to its characteristic diagram.
-
-Suppose the characteristic diagram is 
-\begin{center}
-\begin{displaymath}
-\begin{array}{cp{0.3cm}c    p{0.3cm}  c }
-\Rnode{Y}{Y}   &&                               & & \Rnode{Yp}{Y'}   \\ [1.4cm]
-               & & \Rnode{Xp}{X'} & &   
-\end{array}
-\end{displaymath}
-\ncbcdar{\pc{Y}{X'}}{Y}{Xp}
-\ncacdar{\pc{Y'}{X'}}{Yp}{Xp}
-\end{center}
-for some $X \leq X'$. Consider object H and morphisms $h$, $h'$ such that $h \circ \pc{Y}{X} = h' \circ \pc{Y}{X'}$. In this diagram:
-
-\begin{center}
-\begin{displaymath}
-\begin{array}{cp{0.3cm}c    p{0.3cm}  c }
-               & & \Rnode{Z}{\crossx{Y}{Y'}{X}} & &     \\ [1.4cm]
-\Rnode{Y}{Y}   &&                               & & \Rnode{Yp}{Y'}   \\ [1.4cm]
-               & & \Rnode{Xp}{X'} & &                                \\ [1.2cm]
-							 & & \Rnode{X}{X} & &   
-\end{array}
-\end{displaymath}
-\ncbcdar{\pc{Z}{Y}}{Z}{Y}
-\ncaarr{q(\pc{Z}{Y},Y')}{Z}{Yp}
-\nccdar{Y}{Xp}
-\nccdar{Yp}{Xp}
-\nccdar{Xp}{X}
-\ncbcdar[-15]{\pc{Y}{X}}{Y}{X}
-\ncacdar[15]{\pc{Y'}{X}}{Yp}{X}
-\end{center}
-the outer square is a pullback diagram and the triangles commute therefore the inner square is  a pullback diagram. Therefore \ref{primecone} is a limit to its characteristic diagram as required.
 
 \item {Y is decomposable and X and Y' are prime}
-Because $X$ is prime it follows $X \leq \pbase{Y}$. We have this situation
-
+Suppose as the inductive hypothesis that the following is a limit cone to its characteristic diagram 
 \begin{center}
 \begin{displaymath}
-\begin{array}{c c p{1.0cm} c p{0.2cm}c}
-  \Rnode{Z}{Z=\crossx{Y}{Y'}{X}} & &                       & &  &                  \\ [1.6cm]
-  \Rnode{Y}{Y} & &                       & &  & \Rnode{Yp}{Y'}   \\ [0.7cm]
-	             &  \Rnode{tY}{\pbase{Y}} & &  &                  \\ [0.7cm]
-	             & &                       & \Rnode{X}{X} & &      \\
-	 \begin{array}{cp{0cm}c   p{0cm}     c  }					
-   \Rnode{B1}{B_1}&   & ... & & \Rnode{Bm}{B_m}
-	 \end{array} 
-	 & & & &                                                
-\end{array} 
-\end{displaymath}
-\ncbcdar{\pc{Z}{Y}}{Z}{Y}
-\ncaarr{q(\pc{Y}{X},Y')}{Z}{Yp}
-\nccdar{Y}{tY}
-\nccdar{tY}{X}
-\jcbarr{b_1}{Y}{B1}
-\jcbarr{b_m}{Y}{Bm}
-\nccdar{Yp}{X}
-\end{center}
-
-Show that 
-
-\begin{center}
-\begin{displaymath}
-\begin{array}{c p{0.4cm} c p{0.4cm} c }
-\Rnode{Z}{Z=\crossx{Y}{Y'}{X}} && &&      \\ [2.6cm]
-\Rnode{tY}{\pbase{Y}}&& \begin{array}{cp{0cm}c   p{0.1cm}     c  }					
+\begin{array}{c p{0.4cm} c  }
+\Rnode{Y}{Y} &&   \\ [1.4cm]
+\begin{array}{cp{0cm}c   p{0.1cm}     c  }					
                              \Rnode{B1}{B_1}&   & ... & & \Rnode{Bm}{B_m}
 	                      \end{array} 
-	 && \Rnode{Yp}{Y'}                                              
+	 && \Rnode{tY}{\pbase{Y}}                                              
 \end{array} 
 \end{displaymath}
-\nccdar{Z}{tY}
-\blabel{\pc{Z}{\pbase{Y}}}
+
+\ncarr[5]{Y}{B1}
+\blabel{ b_1}[.60][-2]
+\ncarr[5]{Y}{Bm}
+\blabel{b_m}[.60][-3]
+\nccdar{Y}{tY}
+\alabel{\pc{Y}{\pbase{Y}}}[.60][2]
+\end{center}
+
+
+It follows from  lemma \ref{pbdrilldown}and since $\pbase{Z}=\pbase{Y}$  that
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{c p{0.4cm} c  }
+\Rnode{Z}{Z} &&   \\ [1.6cm]
+\begin{array}{c  p{0.1cm}c   p{0.1cm}c  p{1.2cm}c }					
+                             \Rnode{B1}{B_1}&& ... & & \Rnode{Bm}{B_m} && \Rnode{Yp}{Y'}
+	                      \end{array} 
+	 && \Rnode{tZ}{\pbase{Z}}                                              
+\end{array} 
+\end{displaymath}
+
 \ncarr[5]{Z}{B1}
-\blabel{\pc{Z}{Y}\circ b_1}[.60][-2]
+\blabel{ \pc{Z}{Y} \circ b_1}[.70][0]
 \ncarr[5]{Z}{Bm}
-\blabel{\pc{Z}{Y}\circ b_m}[.60][-3]
+\blabel{\pc{Z}{Y} \circ b_m}[.70][0]
 \ncarr[5]{Z}{Yp}
-\alabel{q(\pc{Y}{X},Y')}
+\blabel{q(\pc{Y}{X},Y')}[.70][-1]
+\nccdar{Z}{tZ}
+\alabel{\pc{Z}{\pbase{Z}}}[.70][1]
 \end{center}
 
- is a limit cone to its characteristic diagram.
-Suppose there is an object $D$ and a cone 
-\begin{center}
-\begin{displaymath}
-\begin{array}{c c p{0.4cm} c p{0.4cm} c }
-\Rnode{D}{D}&  && &&      \\ [2.6cm]
-      & \Rnode{tY}{\pbase{Y}}&& \begin{array}{cp{0cm}c   p{0.1cm}     c  }					
-                             \Rnode{B1}{B_1}&   & ... & & \Rnode{Bm}{B_m}
-	                      \end{array} 
-	 && \Rnode{Yp}{Y'}                                              
-\end{array} 
-\end{displaymath}
-\ncarr{D}{tY}
-\blabel{f_0}
-\ncarr[5]{D}{B1}
-\blabel{f_1}
-\ncarr[5]{D}{Bm}
-\blabel{f_m}
-\ncarr[5]{D}{Yp}
-\alabel{f_{m+1}}
-\end{center}
-to the characteristic diagram of the above \ref{}.
-
-From this it follows that $\tuple{f_0,...f_m}$ is a cone to the characteristic diagram of
-$\tuple{\pc{Z}{Y} \circ \pc{Y}{\pbase{Y}}, \pc{Z}{Y} \circ b_1, ... \pc{Z}{Y} \circ b_m}$.
-Therefore by lemma \ref{conepass} $\tuple{f_0,...f_m}$ is also a cone to the characteristic
-diagram of $\tuple{\pc{Y}{\pbase{Y}}, b_1, ... b_m}$. Since $\tuple{\pc{Y}{\pbase{Y}}, b_1, ... b_m}$ is a limit cone it follws that there exists a unique $f:D \morph Y$ such that $f\circ \pc{Y}{\pbase{Y}}=f_0$ and , for each $j$, $1 \leq j \leq m$, $f \circ b_j=f_j$.
-
-\noindent Since
-\begin{center}
-\begin{displaymath}
-\begin{array}{c c p{1.0cm} c p{0.2cm}c}
-  \Rnode{Z}{Z=\crossx{Y}{Y'}{X}} & &                       & &  &                  \\ [1.6cm]
-  \Rnode{Y}{Y} & &                       & &  & \Rnode{Yp}{Y'}   \\ [0.7cm]
-	             &  \Rnode{tY}{\pbase{Y}} & &  &                  \\ [0.7cm]
-	             & &                       & \Rnode{X}{X} & & 
-\end{array} 
-\end{displaymath}
-\ncbcdar{\pc{Z}{Y}}{Z}{Y}
-\ncaarr{q(\pc{Y}{X},Y')}{Z}{Yp}
-\nccdar{Y}{tY}
-\nccdar{tY}{X}
-\nccdar{Yp}{X}
-\end{center} 
-is a pullback diagram then, in particular, it commutes.Therefore cospan 
-
-
-\begin{center}
-\begin{equation}
-\begin{array}{cp{0.1cm}cp{0.1cm} c}
-\Rnode{tY}{\pbase{Y}}& &                & & \Rnode{Yp}{Y'} \\ [0.4cm]
-            & &\Rnode{X}{X}
-\end{array}
-\end{equation}
-\nccdar{tY}{X}
-\nccdar{Yp}{X}
-\end{center}
-is a coincident  to span 
-\begin{center}
-\begin{equation}
-\begin{array}{cp{0.1cm}cp{0.1cm} c}
-            & &\Rnode{Z}{Z}                  \\ [0.4cm]
-\Rnode{tY}{\pbase{Y}}& &                & & \Rnode{Yp}{Y'} 
-\end{array}
-\end{equation}
-\jcbarr{\pc{Z}{\pbase{Y}}}{Z}{tY}
-\ncaarr{q(\pc{Y}{X},Y')}{Z}{Yp}
-\end{center}
-
-and therefore from the initial assumption that $\tuple{f_0,...f_m, f_{m+1}}$ is a cone to the characteristic diagram of
-$\tuple{\pc{Z}{Y} \circ \pc{Y}{\pbase{Y}}, \pc{Z}{Y} \circ b_1, ... \pc{Z}{Y} \circ b_m,q(\pc{Y}{X},Y')}$ it follows that diagram 
-\begin{center}
-\begin{displaymath}
-\begin{array}{c c p{1.0cm} c p{0.2cm}c}
-  \Rnode{D}{D} & &                       & &  &                  \\ [1.6cm]
-               & &                       & &  & \Rnode{Yp}{Y'}   \\ [0.7cm]
-	             &  \Rnode{tY}{\pbase{Y}} & &  &                  \\ [0.7cm]
-	             & &                       & \Rnode{X}{X} & & 
-\end{array} 
-\end{displaymath}
-\ncaarr{f_{m+1}}{D}{Yp}
-\ncaarr{f_0}{D}{tY}
-\nccdar{tY}{X}
-\nccdar{Yp}{X}
-\end{center}
-commutes. But $f_0 = f \circ \pc{Y}{\pbase{Y}}$ and therefore diagram
-
-\begin{center}
-\begin{displaymath}
-\begin{array}{c c p{1.0cm} c p{0.2cm}c}
-  \Rnode{D}{D} & &                       & &  &                  \\ [1.6cm]
-  \Rnode{Y}{Y} & &                       & &  & \Rnode{Yp}{Y'}   \\ [0.7cm]
-	             &  \Rnode{tY}{\pbase{Y}} & &  &                  \\ [0.7cm]
-	             & &                       & \Rnode{X}{X} & & 
-\end{array} 
-\end{displaymath}
-\ncaarr{f_{m+1}}{D}{Yp}
-\ncaarr{f}{D}{Y}
-\nccdar{Y}{tY}
-\nccdar{tY}{X}
-\nccdar{Yp}{X}
-\end{center}
-
-commutes.
-
-Because \ref{} is a pullback diagram  it follows that there is a unique $g:D \morph Z$
-such that $g \circ \pc{Z}{Y}=f$ and $g \circ q(\pc{Y}{X},Y')=f_{m+1}$.
-\noindent
-Now we have $g \circ \pc{Z}{\pbase{Y}}=g \circ \pc{Z}{Y} \circ \pc{Y}{\pbase{Y}}= f \circ \pc{Y}{\pbase{Y}}=f_0$
-and $g \circ \pc{Z}{Y} \circ b_j = f \circ b_j = f_j$ as required.
-
-\noindent
-Suppose also there is a $g' :F \morph Z$ such that
-$g' \circ q(\pc{Y}{X},Y')=f_{m+1}$
-and
-$g' \circ \pc{Z}{\pbase{Y}}=f_0$
-and 
-$g' \circ \pc{Z}{Y} \circ b_j=f_j$.
-then it follows first that $g' \circ\pc{Z}{Y}=f$ and then from this that $g'=g$. 
-
-
-\newpage
+is a limit cone to its characteristic diagram in \ccat, 
+as required.
 
 \item{Y, Y' and X are decomposable}
 \begin{center}
