@@ -1,4 +1,3 @@
- 
 \documentclass[10pt,a4paper]{scrartcl}
 \usepackage[margin=3cm]{geometry}
 \usepackage{pstricks}
@@ -40,6 +39,169 @@
 \maketitle
 
 
+\section{Work in Progress}
+
+\begin{enumerate} [(a)]
+\item $W < \pbase{Y}$ and $W < \pbase{Y'}$
+\begin{center}
+\begin{displaymath}
+\begin{array}{c c c c c}
+  \Rnode{Z}{Z} & &              &                               &              \\ [1.4cm]
+  \Rnode{Y}{Y} & &              &                               &\Rnode{Yp}{Y'}\\ [1.4cm]
+	\hspace{2.8cm}\Rnode{tY}{\pbase{Y}}&&&&\Rnode{tYp}{\pbase{Y'}}\hspace{2.6cm}\Rnode{dummy}{}\\ [1.0cm]
+	             & & \Rnode{W}{W} &                               &              \\ [1.0cm]
+               & & \Rnode{tW}{\pbase{W}} &                      &              \\ [0.2cm]
+	 \begin{array}{cp{0.3cm}c         p{0.3cm}  c}					
+   \Rnode{B1}{B_1}&  ... & \Rnode{Bji}{B_{j_i}} & ... & \Rnode{Bm}{B_m}
+	 \end{array} 
+	 & & & &
+	\begin{array}{c c c c c}					
+   \Rnode{Bp1}{B'_1}& ... & \Rnode{Bpji}{B'_{j'_i}}&  ... & \Rnode{Bpm}{B'_m}
+	 \end{array}                                                
+\end{array} 
+\end{displaymath}
+\vspace{1.0cm}
+\begin{displaymath}
+\begin{array}{c c c c c}
+ & &               &  & \Rnode{Ai}{A_i}    \\
+\end{array}
+\end{displaymath}
+\ncbcdar{\pc{Z}{Y}}{Z}{Y}
+\ncaarr{q(\pc{Z}{Y},Y')}{Z}{Yp}
+\nccdar{Y}{tY}
+\nccdar{tY}{W}
+\nccdar{W}{tW}
+\ncarr{Y}{B1}
+\blabel{b_1}[.80]
+\ncarr{Y}{Bji}
+\blabel{b_{j_i}}[.80]
+\ncarr{Y}{Bm}
+\blabel{b_m}[.80]
+\nccdar{Yp}{tYp}
+\nccdar{tYp}{W}
+\ncarr{Yp}{Bp1}
+\alabel{b'_1}[.80]
+\ncarr{Yp}{Bpji}
+\alabel{b'_{j_i}}[.80]
+\ncarr{Yp}{Bpm}
+\alabel{b'_m}[.80]
+\ncarr[10]{W}{Ai}
+\alabel{a_i}[.40]
+\nccdar[10]{Bji}{Ai}
+\nccdar[10]{Bpji}{Ai}
+\end{center}
+
+    
+\item $W < \pbase{Y}$ and $\pbase{Y'} < W$
+In this case $\pbase{W} = \pbase{Y'}$.
+This case follows from lemma \ref{drilldowntwo}.
+\begin{center}
+\begin{displaymath}
+\begin{array}{c c c c c}
+  \Rnode{Z}{Z} & &              &                               &              \\ [1.4cm]
+  \Rnode{Y}{Y} & &              &                               &\Rnode{Yp}{Y'}\\ [1.4cm]
+	&&&&\Rnode{tYp}{\pbase{Y'}}\hspace{2.6cm}\Rnode{dummy}{}\\ [1.0cm]
+	             & & \Rnode{W}{W} &                               &              \\ [1.0cm]
+               & & \Rnode{tW}{\pbase{W}} &                      &              \\ [0.2cm]
+	 \begin{array}{cp{0.3cm}c         p{0.3cm}  c}					
+   \Rnode{B1}{B_1}&  ... & \Rnode{Bji}{B_{j_i}} & ... & \Rnode{Bm}{B_m}
+	 \end{array} 
+	 & & & &
+	\begin{array}{c c c c c}					
+   \Rnode{Bp1}{B'_1}& ... & \Rnode{Bpji}{B'_{j'_i}}&  ... & \Rnode{Bpm}{B'_m}
+	 \end{array}                                                
+\end{array} 
+\end{displaymath}
+\vspace{1.0cm}
+\begin{displaymath}
+\begin{array}{c c c c c}
+ & &               &  & \Rnode{Ai}{A_i}    \\
+\end{array}
+\end{displaymath}
+\ncbcdar{\pc{Z}{Y}}{Z}{Y}
+\ncaarr{q(\pc{Z}{Y},Y')}{Z}{Yp}
+\nccdar{Y}{W}
+\nccdar{tY}{W}
+\nccdar{W}{tW}
+\ncarr{Y}{B1}
+\blabel{b_1}[.80]
+\ncarr{Y}{Bji}
+\blabel{b_{j_i}}[.80]
+\ncarr{Y}{Bm}
+\blabel{b_m}[.80]
+\nccdar{Yp}{tYp}
+\nccdar{tYp}{W}
+\ncarr{Yp}{Bp1}
+\alabel{b'_1}[.80]
+\ncarr{Yp}{Bpji}
+\alabel{b'_{j_i}}[.80]
+\ncarr{Yp}{Bpm}
+\alabel{b'_m}[.80]
+\ncarr[10]{W}{Ai}
+\alabel{a_i}[.40]
+\nccdar[10]{Bji}{Ai}
+\nccdar[10]{Bpji}{Ai}
+\end{center}
+
+\item  $\pbase{Y} < W $ and $W < \pbase{Y'}$
+In this case $\pbase{W} = \pbase{Y}$.
+This case follows from lemma \ref{drilldowntwo}.
+
+\item  $\pbase{Y} < W $ and $\pbase{Y'} < W$
+In this case $\pbase{W} = \pbase{Y} =\pbase{Y'}$.
+\begin{center}
+\begin{displaymath}
+\begin{array}{c c c c c}
+  \Rnode{Z}{Z} & &              & &                   \\ [1.4cm]
+  \Rnode{Y}{Y} & &              & &  \Rnode{Yp}{Y'}    \\ [1.4cm]
+	             & & \Rnode{W}{W} & &                    \\ [1.0cm]
+               & & \Rnode{tW}{\pbase{W}} & &                    \\ [1.0cm]
+	 \begin{array}{cp{0.3cm}c         p{0.3cm}  c}					
+   \Rnode{B1}{B_1}&  ... & \Rnode{Bji}{B_{j_i}} & ... & \Rnode{Bm}{B_m}
+	 \end{array} 
+	 & & & &
+	\begin{array}{c c c c c}					
+   \Rnode{Bp1}{B'_1}& ... & \Rnode{Bpji}{B'_{j'_i}}&  ... & \Rnode{Bpm}{B'_m}
+	 \end{array}                                                
+\end{array} 
+\end{displaymath}
+\vspace{1.0cm}
+\begin{displaymath}
+\begin{array}{c c c c c}
+ & &               &  & \Rnode{Ai}{A_i}    \\
+\end{array}
+\end{displaymath}
+\ncbcdar{\pc{Z}{Y}}{Z}{Y}
+\ncaarr{q(\pc{Z}{Y},Y')}{Z}{Yp}
+\nccdar{Y}{W}
+\nccdar{tY}{W}
+\nccdar{W}{tW}
+\ncarr{Y}{B1}
+\blabel{b_1}[.80]
+\ncarr{Y}{Bji}
+\blabel{b_{j_i}}[.80]
+\ncarr{Y}{Bm}
+\blabel{b_m}[.80]
+\nccdar{Yp}{W}
+\ncarr{Yp}{Bp1}
+\alabel{b'_1}[.80]
+\ncarr{Yp}{Bpji}
+\alabel{b'_{j_i}}[.80]
+\ncarr{Yp}{Bpm}
+\alabel{b'_m}[.80]
+\ncarr[10]{W}{Ai}
+\alabel{a_i}[.40]
+\nccdar[10]{Bji}{Ai}
+\nccdar[10]{Bpji}{Ai}
+\end{center}
+
+\end{enumerate}
+
+
+\subsection{Unused}
+
+
+\section{Drilldown Lemmas}
 \begin{definition}
 If $A$ is a non-prime object of a contextual category \ccat then let the prime base of $A$, denoted $\pbase{A}$,  be the 
 prime object of \ccat greatest height such that $\pbase{A} \leq A$.
@@ -67,7 +229,6 @@ If
 \alabel{a_2}[0.4]
 \ncarr[-5]{X}{An}
 \alabel{a_n}
-
 \ncarr[-5]{D}{A1}
 \blabel{a'_1}
 \ncarr[-5]{D}{A2}
@@ -75,7 +236,6 @@ If
 \ncarr[-5]{D}{An}
 \alabel{a'_n}
 \end{center}
-
 in a contextual category \ccat then if $\tuple{a'_1,...a'_n}$ is a cone to the characteristic diagram 
 of $\tuple{x \circ a_1,... x \circ a_n}$ then it is a cone to the characteristic diagram
 of $\tuple{a_1,... a_n}$.
@@ -88,7 +248,7 @@ is coincident with the span $\tuple{x \circ a_i, x \circ a_j}$.
 \begin{lemma}
 \vlabel{pbselflimit}
 If 
-\begin{center}
+%\begin{center}
 \begin{displaymath}
 \begin{array}{cp{0.3cm}c    p{0.3cm}  c }
                & & \Rnode{Z}{Z} & &                                  \\ [1.3cm]
@@ -102,8 +262,9 @@ If
 \alabel{f'}
 \ncbcdar{\pc{Y}{X}}{Y}{X}
 \ncacdar{\pc{Y'}{X}}{Yp}{X}
-\end{center}
 
+%\end{center}
+\noindent
 is a pullback in a \ccatc 
 then 
 \begin{center}
@@ -354,9 +515,527 @@ $h' \circ f\circ \pc{Y}{X}=g_0$
 and 
 $h' \circ f \circ b_j=g_j$.
 then it follows first that $h' \circ f=g$ and then from this that $h'=h$. 
-
 \end{proof}
 
+
+\begin{lemma}
+\vlabel{drilldowntwo}
+If 
+\begin{center}
+\begin{equation}
+\label{ddtwopb}
+\begin{array}{cp{0.3cm}c    p{0.3cm}  c }
+               & & \Rnode{Z}{Z} & &                                  \\ [1.3cm]
+\Rnode{Y}{Y}   &&                               & & \Rnode{Yp}{Y'}   \\ [1.4cm]
+               & & \Rnode{W}{W} & &   
+\end{array}
+\end{equation}
+\ncarr{Z}{Y}
+\blabel{f}
+\ncarr{Z}{Yp}
+\alabel{f'}
+\ncbcdar{\pc{Y}{W}}{Y}{W}
+\ncacdar{\pc{Y'}{W}}{Yp}{W}
+\end{center}
+
+\noindent
+is a pullback in a \ccatc,
+and if 
+\begin{center}
+\begin{equation}
+\label{ddtwoYlimit}
+\begin{array}{c p{0.4cm} l  }
+ && \Rnode{Y}{Y}  \\ [1.4cm]
+\Rnode{X}{X} &&
+\begin{array}{cp{0cm}c   p{0.1cm}     c  }					
+                             \Rnode{B1}{B_1}&   & ... & & \Rnode{Bm}{B_{m}}
+	                      \end{array}           
+\end{array} 
+\end{equation}
+\nccdar{Y}{X}
+\blabel{\pc{Y}{X}}[.70][-2]
+\ncarr[5]{Y}{B1}
+\alabel{b_1}[.70][1]
+\ncarr[5]{Y}{Bm}
+\alabel{b_{m}}[.60][0]
+\end{center}
+
+\noindent
+and
+\begin{center}
+\begin{equation}
+\label{ddtwoWlimit}
+\begin{array}{c p{0.4cm} l  }
+ && \Rnode{W}{W}  \\ [1.4cm]
+\Rnode{V}{V} &&
+\begin{array}{cp{0cm}c   p{0.1cm}     c  }					
+                             \Rnode{A1}{A_1}&   & ... & & \Rnode{An}{A_n}
+	                      \end{array}         
+\end{array} 
+\end{equation}
+\nccdar{W}{V}
+\blabel{\pc{W}{V}}[.70][-2]
+\ncarr[5]{W}{A1}
+\alabel{a_1}[.70][1]
+\ncarr[5]{W}{An}
+\alabel{a_n}[.60][0]
+\end{center}
+
+\noindent
+and 
+\begin{center}
+\begin{equation}
+\label{ddtwoYprimelimit}
+\begin{array}{c p{0.4cm} l  }
+ && \Rnode{Yp}{Y'}  \\ [1.4cm]
+\Rnode{V}{V} &&
+\begin{array}{cp{0cm}c   p{0.1cm}     c  }					
+                             \Rnode{Bp1}{B'_1}&   & ... & & \Rnode{Bpm}{B'_{m'}}
+	                      \end{array}           
+\end{array} 
+\end{equation}
+\nccdar{Yp}{V}
+\blabel{\pc{Y'}{V}}[.70][-2]
+\ncarr[5]{Yp}{Bp1}
+\alabel{b'_1}[.70][1]
+\ncarr[5]{Yp}{Bpm}
+\alabel{b'_{m'}}[.60][0]
+\end{center}
+
+\noindent
+are all limit cones to their characteristic diagrams in \ccat  
+for some objects $X$ and $W$, $W < X < Y$ and $W < Y'$ and some $V$, $V < W$, 
+and such that for all $i$, $1 \leq i \leq n$, there exists $j_i$, $1 \leq j_i \leq m$
+such that $A_i \leq B_{j_i}$
+and there exists $j'_i$, $1 \leq j'_i \leq m'$, such that $A_i \leq B'_{j'_i}$ and such that
+\begin{equation}
+\label {ddtwobjai}
+b_{j_i} \circ \pc{B_{j_i}}{A_i} = \pc{Y}{W} \circ a_i
+\end{equation}
+and 
+\begin{equation}
+\label {ddtwobpjpai}
+b'_{j'_i} \circ \pc{B'_{j'_i}}{A_i} = \pc{Y}{W} \circ a_i
+\end{equation}
+
+
+ then  
+\begin{center}
+\begin{equation}
+\label{ddtwolimitcone}
+\begin{array}{c p{0.6cm} c p{0.75cm} l p{0.4cm} c }
+&& &&  \Rnode{Z}{Z}  && \\ [2.6cm]
+\Rnode{X}{X}&& \begin{array}{cp{0cm}c   p{0.5cm}     c  }					
+                             \Rnode{B1}{B_1}&   & ... & & \Rnode{Bm}{B_m}
+	                      \end{array} 
+	 && \begin{array}{cp{0cm}c   p{0.5cm}     c  }					
+                             \Rnode{A1}{A_1}&   & ... & & \Rnode{An}{A_n}
+	                      \end{array}
+	 && \begin{array}{cp{0cm}c   p{0.1cm}     c  }					
+                             \Rnode{Bp1}{B'_1}&   & ... & & \Rnode{Bpm}{B'_{m'}}
+	                      \end{array}												
+\end{array} 
+\end{equation}
+\ncarr[-10]{Z}{X}
+\blabel{f \circ\pc{Y}{X}}[.55]
+\ncarr[-5]{Z}{B1}
+\blabel{f\circ b_1}[.60][0]
+\ncarr[-5]{Z}{Bm}
+\blabel{f\circ b_m}[.75][0]
+\ncarr[5]{Z}{A1}
+\blabel{f \circ \pc{Y}{W} \circ a_1}[.85][-1]
+\ncarr[5]{Z}{An}
+\blabel{f \circ \pc{Y}{W} \circ a_n}[.75][-2]
+\ncarr[5]{Z}{Bp1}
+\alabel{f' \circ b'_1}[.75][3]
+\ncarr[10]{Z}{Bpm}
+\alabel{f' \circ b'_{m'}}[.65][3]
+\end{center}
+is a limit cone to its characteristic diagram in \ccat.
+
+\end{lemma}
+\begin{proof} % of lemma drilldown two i.e ddtwo
+Suppose
+\begin{equation}
+\label{ddtwoDcone}
+\begin{array}{c p{0.6cm} c p{0.75cm} l p{0.4cm} c }
+&& &&  \Rnode{D}{D}  && \\ [2.6cm]
+\Rnode{X}{X}&& \begin{array}{cp{0cm}c   p{0.5cm}     c  }					
+                             \Rnode{B1}{B_1}&   & ... & & \Rnode{Bm}{B_m}
+	                      \end{array} 
+	 && \begin{array}{cp{0cm}c   p{0.5cm}     c  }					
+                             \Rnode{A1}{A_1}&   & ... & & \Rnode{An}{A_n}
+	                      \end{array}
+	 && \begin{array}{cp{0cm}c   p{0.1cm}     c  }					
+                             \Rnode{Bp1}{B'_1}&   & ... & & \Rnode{Bpm}{B'_{m'}}
+	                      \end{array}												
+\end{array} 
+\end{equation}
+\ncarr[-10]{D}{X}
+\blabel{g_0}[.55]
+\ncarr[-5]{D}{B1}
+\blabel{g_1}[.60][0]
+\ncarr[-5]{D}{Bm}
+\blabel{g_m'}[.75][0]
+\ncarr[5]{D}{A1}
+\blabel{g''_1}[.85][-1]
+\ncarr[5]{D}{An}
+\blabel{g''_n}[.75][-2]
+\ncarr[5]{D}{Bp1}
+\alabel{g'_1}[.75][3]
+\ncarr[10]{D}{Bpm}
+\alabel{g'_{m'}}[.65][3]
+
+\noindent
+is a cone to the characteristic diagram of (\ref{ddtwolimitcone}).
+We need show that there is a unique $h:D \morph Z$ such that
+
+\begin{equation}
+\label{ddtwohfactorg0}
+h \circ f \circ \pc{Y}{X} = g_0
+\end{equation}
+and for each $j$, $1 \leq j \leq m$,
+\begin{equation}
+\label{ddtwohfactorgj}
+h \circ f \circ b_j = g_j
+\end{equation}
+and for each $i$, $1 \leq i \leq n$,
+\begin{equation}
+\label{ddtwohfactorgppi}
+h \circ f \circ \pc{Y}{W} \circ a_i = g''_i
+\end{equation}
+and for each $j'$, $1 \leq j' \leq m'$,
+\begin{equation}
+\label{ddtwohfactorgpj}
+h \circ f' \circ b'_{j'} = g'_{j'}
+\end{equation}
+
+\noindent
+By lemma \ref{conepass}, $\tuple {g_1,...g_m}$ is a cone to the characteristic diagram of 
+diagram (\ref{ddtwoYprimelimit}). Therefore there exists a unique morphism $g: D \morph Y$, such that:
+\begin{equation}
+\label{ddtwogfactorg0}
+g \circ \pc{Y}{X} = g_0
+\end{equation}
+and for each $j$, $1 \leq j \leq m$,
+\begin{equation}
+\label{ddtwofactorgj}
+g \circ b_j = g_j
+\end{equation}
+
+\noindent
+Next we show that $\tuple{g_0 \circ \pc{X}{V},g'_1,...g'_{m'}}$ is a cone to the characteristic diagram of cone (\ref{ddtwoYprimelimit}). The only non-trivial part of this is to show that if for some $j'$ and for some object $U$, the diagram
+\begin{center}
+\begin{equation}
+\label{ddtwoYpdiamond}
+\begin{array}{cp{0.3cm}c    p{0.3cm}  c }
+               & & \Rnode{Yp}{Y'} & &                                  \\ [1.3cm]
+\Rnode{V}{V}   &&                               & & \Rnode{Bpj}{B'_{j'}}   \\ [1.4cm]
+               & & \Rnode{U}{U} & &   
+\end{array}
+\end{equation}
+\ncarr{Yp}{V}
+\blabel{\pc{Y'}{V}}
+\ncarr{Yp}{Bpj}
+\alabel{b'_{j'}}
+\ncbcdar{\pc{V}{U}}{V}{U}
+\ncacdar{\pc{B'_{j'}}{U}}{Bpj}{U}
+\end{center}
+
+commutes
+then the diagram
+
+\begin{center}
+\begin{equation}
+\label{ddtwoDdiamond}
+\begin{array}{cp{0.3cm}c    p{0.3cm}  c }
+               & & \Rnode{D}{D} & &                                  \\ [1.3cm]
+\Rnode{V}{V}   &&                               & & \Rnode{Bpj}{B'_{j'}}   \\ [1.4cm]
+               & & \Rnode{U}{U} & &   
+\end{array}
+\end{equation}
+\ncarr{D}{V}
+\blabel{g_0 \circ \pc{X}{V}}
+\ncarr{D}{Bpj}
+\alabel{g'_{j'}}
+\ncbcdar{\pc{V}{U}}{V}{U}
+\ncacdar{\pc{B'_{j'}}{U}}{Bpj}{U}
+\end{center}
+
+commutes. So assume  diagram (\ref{ddtwoYpdiamond}) commutes, then
+\begin{align*}
+f' \circ b'_j \circ \pc{B'_{j'}}{U}
+            &= f' \circ \pc{Y'}{V} \circ \pc{V}{U} & & \mbox{by }(\ref{ddtwoYpdiamond}) \\
+            &= f' \circ \pc{Y'}{W} \circ \pc{W}{U} & & \mbox{by associativity}         \\
+						&= f \circ \pc{Y}{W} \circ \pc{W}{U} & & \mbox{since (\ref{ddtwopb}) commutes} \\
+						&= f \circ \pc{Y}{X} \circ \pc{X}{U} & & \mbox{by associativity} 
+\end{align*}
+Therefore
+\begin{center}
+\begin{equation}
+%\label{pbdrilldowncospan}
+\begin{array}{cp{0.1cm}cp{0.1cm} c}
+\Rnode{X}{X}& &                & & \Rnode{Bpj}{B'_{j'}} \\ [0.4cm]
+            & &\Rnode{U}{U}
+\end{array}
+\end{equation}
+\nccdar{X}{U}
+\blabel{\pc{X}{U}}
+\nccdar{Bpj}{U}
+\alabel{\pc{B'_{j'}}{U}}
+\end{center}
+is a coincident  to span 
+\begin{center}
+\begin{equation}
+\begin{array}{cp{0.1cm}cp{0.1cm} c}
+            & &\Rnode{Z}{Z}                  \\ [0.4cm]
+\Rnode{X}{X}& &                & & \Rnode{Bpj}{b'_{j'}} 
+\end{array}
+\end{equation}
+\nccdar{Z}{X}
+\blabel{f \circ \pc{Y}{X}}
+\nccdar{Z}{Bpj}
+\alabel{f' \circ b'_{j'}}
+\end{center}
+
+\noindent
+Now it follows that diagram (\ref{ddtwoDdiamond}) commutes from the initial assumption that (\ref{ddtwoDcone}) is a cone to the characteristic diagram of (\ref{ddtwolimitcone}).
+We have established
+that $\tuple{g_0 \circ \pc{X}{V},g'_1,...g'_{m'}}$ is a cone to the characteristic diagram of cone (\ref{ddtwoYprimelimit}) and so  it follows from this 
+that there exists a unique morphism $g': D \morph Y'$ such that 
+\begin{equation}
+\label{ddtwogpfactorg0}
+g' \circ \pc{Y'}{V} = g_0 \circ \pc{X}{V}
+\end{equation}
+and such that for each $j'$, $1 \leq j' \leq m'$,
+\begin{equation}
+\label{ddtwofactorgpj}
+g' \circ b'_{j'} = g'_{j'}
+\end{equation}
+
+\noindent Now we show that
+\begin{equation}
+\label{ddtwoggpcone}
+g \circ \pc{Y}{W} = g' \circ \pc{Y'}{W}
+\end{equation}
+Because (\ref{ddtwoWlimit}) is a limit cone
+it suffices to show that
+\begin{equation}
+\label{ddtwoggpp}
+g \circ \pc{Y}{W} \circ \pc{W}{V} = g' \circ \pc{Y'}{W} \circ \pc{W}{V}
+\end{equation}
+and for each $i$, $1 \leq i \leq n$,
+\begin{equation}
+\label{ddtwoggpa}
+g \circ \pc{Y}{W} \circ a_i = g' \circ \pc{Y'}{W} \circ a_i
+\end{equation}
+
+\noindent
+(\ref{ddtwoggpp})  is proved as follows:
+
+\begin{align*}
+g \circ \pc{Y}{W} \circ \pc{W}{V} 
+      &= g \circ \pc{Y}{X} \circ \pc{X}{V}   && \mbox{by associativity} \\
+      &= g_0 \circ \pc{X}{V}                 && \mbox{by (\ref{ddtwogfactorg0})} \\
+		  &= g' \circ \pc{Y'}{V}                 && \mbox{by (\ref{ddtwogpfactorg0})} \\
+			&= g' \circ \pc{Y'}{W} \circ \pc{W}{V} && \mbox{by associativity} \\
+\end{align*}
+
+\noindent
+Condition (\ref{ddtwobjai}) implies that, for each $i$, $1 \leq i \leq n$,
+\begin{center}
+\begin{equation}
+%\label{pbdrilldowncospan}
+\begin{array}{cp{0.1cm}cp{0.1cm} c}
+\Rnode{Bji}{B_{j_i}}& &                & & \Rnode{Ai}{A_i} \\ [0.4cm]
+            & &\Rnode{AiBottom}{A_i}
+\end{array}
+\end{equation}
+\nccdar{Bji}{AiBottom}
+\blabel{\pc{B_{j_i}}{A_i}}
+\nccdar{Ai}{AiBottom}
+\alabel{id_{A_i}}
+\end{center}
+is a coincident  to span 
+\begin{center}
+\begin{equation}
+\begin{array}{cp{0.1cm}cp{0.1cm} c}
+            & &\Rnode{Z}{Z}                  \\ [0.4cm]
+\Rnode{Bji}{B_{j_i}}& &                & & \Rnode{Ai}{A_i} 
+\end{array}
+\end{equation}
+\nccdar{Z}{Bji}
+\blabel{f \circ b_{j_i}}
+\nccdar{Z}{Ai}
+\alabel{f \circ \pc{Y}{W} \circ a_i}
+\end{center}
+Since (\ref{ddtwoDcone}) is a cone to the characteristic diagram
+of (\ref{ddtwolimitcone}) it follows that
+
+\begin{center}
+\begin{equation}
+\label{ddtwogjigppi}
+\begin{array}{cp{0.3cm}c    p{0.3cm}  c }
+               & & \Rnode{D}{D} & &                                  \\ [1.3cm]
+\Rnode{Bji}{B_{j_i}}   &&                          & & \Rnode{Ai}{A_i}   \\ [1.4cm]
+               & & \Rnode{AiBottom}{A_i} & &   
+\end{array}
+\end{equation}
+\ncarr{D}{Bji}
+\blabel{g_{j_i}}
+\ncarr{D}{Ai}
+\alabel{g''_i}
+\nccdar{Bji}{AiBottom}
+\blabel{\pc{B_{j_i}}{A_i}}
+\nccdar{Ai}{AiBottom}
+\alabel{id_{A_i}}
+\end{center}
+commutes. By a similar argument it also follows that 
+\begin{center}
+\begin{equation}
+\label{ddtwogpjpigppi}
+\begin{array}{cp{0.3cm}c    p{0.3cm}  c }
+               & & \Rnode{D}{D} & &                                  \\ [1.3cm]
+\Rnode{Bpji}{B'_{j'_i}}   &&                   & & \Rnode{Ai}{A_i}   \\ [1.4cm]
+               & & \Rnode{AiBottom}{A_i} & &   
+\end{array}
+\end{equation}
+\ncarr{D}{Bpji}
+\blabel{g'_{j'_i}}
+\ncarr{D}{Ai}
+\alabel{g''_i}
+\nccdar{Bpji}{AiBottom}
+\blabel{\pc{B'_{j'_i}}{A_i}}
+\nccdar{Ai}{AiBottom}
+\alabel{id_{A_i}}
+\end{center}
+ commutes.
+
+\noindent
+Now we prove (\ref{ddtwoggpa})  by showing that both lhs and rhs of (\ref{ddtwoggpa}) 
+simplify to $g''_i$. 
+\begin{equation}
+\label{ddtwogaigpp}
+g \circ \pc{Y}{W} \circ a_i=g''_i
+\end{equation}
+is shown as follows:
+\begin{align*}
+g \circ \pc{Y}{W} \circ a_i                      
+     &= g \circ b_{j_i} \circ \pc{B_{j_i}}{A_i}  && \mbox{by (\ref{ddtwobjai})}  \\
+     &= g_{j_i} \circ \pc{B_{j_i}}{A_i}          && \mbox{by (\ref{ddtwofactorgj})}  \\
+		&=g''_i                                      && \mbox{by (\ref{ddtwogjigppi})}  \\
+\end{align*}
+The proof for the rhs is similar and so (\ref{ddtwoggpa}) is proved. 
+
+\noindent
+Now, using (\ref{ddtwoggpp}) and (\ref{ddtwoggpa}), we can define a unique $h:D \morph Z$ such that
+
+\begin{equation}
+  \label{ddtwohfEQg}
+	h \circ f =g
+\end{equation}
+
+and
+
+\begin{equation}
+  \label{ddtwohfpEQgp}
+	h \circ f' =g'
+\end{equation}
+
+
+\noindent
+We show that, as required, equations (\ref{ddtwohfactorg0}) - (\ref{ddtwohfactorgpj}) hold of such an $h$.
+
+\noindent
+Equation (\ref{ddtwohfactorg0}) follows because
+\begin{align*}
+h \circ f \circ \pc{Y}{X} & = g \circ \pc{Y}{X} && \mbox{by (\ref{ddtwohfEQg})} \\
+                          & = g_0               && \mbox{by (\ref{ddtwogfactorg0})}  
+\end{align*}
+
+\noindent
+and equation (\ref{ddtwohfactorgj}) since
+\begin{align*}
+h \circ f \circ b_j       &= g \circ b_j        && \mbox{by (\ref{ddtwohfEQg})} \\
+                          &= g_j                && \mbox{by (\ref{ddtwofactorgj})} 
+\end{align*}
+
+\noindent
+Equation (\ref{ddtwohfactorgppi}) follows since
+\begin{align*}
+h \circ f \circ \pc{Y}{W} \circ a_i
+            &= g \circ \pc{Y}{W} \circ a_i      && \mbox{by (\ref{ddtwohfEQg})} \\
+						&= g''_i                            && \mbox{by (\ref{ddtwogaigpp})}
+\end{align*}
+
+\noindent
+and equation (\ref{ddtwohfactorgpj}) since
+\begin{align*}
+h \circ f' \circ b'_{j'}       &= g' \circ b'_{j'}  && \mbox{by (\ref{ddtwohfpEQgp})} \\
+                          &= g'_{j'}                && \mbox{by (\ref{ddtwofactorgpj})} 
+\end{align*}
+
+
+\noindent
+Finally we need to show the uniqueness of $h$. Suppose the that $h': D \morph Z$ such that
+
+\begin{equation}
+\label{ddtwohpfactorg0}
+h' \circ f \circ \pc{Y}{X} = g_0
+\end{equation}
+and for each $j$, $1 \leq j \leq m$,
+\begin{equation}
+\label{ddtwohpfactorgj}
+h' \circ f \circ b_j = g_j
+\end{equation}
+and for each $i$, $1 \leq i \leq n$,
+\begin{equation}
+\label{ddtwohpfactorgppi}
+h' \circ f \circ \pc{Y}{W} \circ a_i = g''_i
+\end{equation}
+ and for each $j'$, $1 \leq j' \leq m'$,
+\begin{equation}
+\label{ddtwohpfactorgpj}
+h' \circ f' \circ b'_{j'} = g'_{j'}
+\end{equation}
+
+\noindent
+First we establish that
+\begin{equation}
+\label{ddtwohpfppcg}
+h' \circ f' \circ \pc{Y'}{V}  =  g_0 \circ \pc{X}{V}
+\end{equation}
+\noindent
+This follows because
+\begin{align*}
+h' \circ f' \circ \pc{Y'}{V} 
+&= h' \circ f' \circ \pc{Y'}{W} \circ \pc{W}{V} && \mbox{by associativity} \\
+&= h' \circ f \circ \pc{Y}{W} \circ \pc{W}{V} && \mbox{because (\ref{ddtwopb}) commutes} \\
+&= h' \circ f \circ \pc{Y}{X} \circ \pc{X}{V} && \mbox{by associativity} \\
+&= g_0 \circ \pc{X}{V}                        && \mbox{by (\ref{ddtwohpfactorg0})}
+\end{align*}
+
+\noindent
+Now we can show that
+\begin{equation}
+\label{ddtwohpfg}
+h' \circ f  =  g
+\end{equation}
+because $g$ is the unique morphism such that (\ref{ddtwogfactorg0}) and
+(\ref{ddtwofactorgj}) and these hold of $h' \circ f$ 
+by (\ref{ddtwohpfactorg0}) and (\ref{ddtwohpfactorgj}).
+\noindent
+Similarly we can show that
+\begin{equation}
+\label{ddtwohpfpgp}
+h' \circ f'  =  g'
+\end{equation}
+because $g'$ is the unique morphism such that (\ref{ddtwogpfactorg0}) and (\ref{ddtwofactorgpj}) and these hold of $h' \circ f'$ by (\ref{ddtwohpfppcg}) and (\ref{ddtwohpfactorgpj}).
+\noindent
+Finally, because we have shown that (\ref{ddtwohpfg}) and (\ref{ddtwohpfpgp}), because $h$ is the unique morphism 
+such that (\ref{ddtwohfEQg}) and (\ref{ddtwohfpEQgp}) then
+it follows that $h=h'$, as required.
+\end{proof} % end of drilldown 2 lemma labelled ddtwo
 
 \section{The representation theorem for non-prime objects of contextual categories.}
 \begin{lemma}
@@ -408,15 +1087,15 @@ $A_i \leq B_{j_i}$ and
 commutes.
 \end{lemma}
 \begin{proof}
-Inductive step. Assume  that the lemma holds of all objects with a height less than the height of $Z$. Suppose $Z=\crossx{Y}{Y'}{X}$. First note that in this situation 
+Inductive step. Assume  that the lemma holds of all objects with a height less than the height of $Z$. Suppose $Z=\crossx{Y}{Y'}{W}$. First note that in this situation 
 $\pbase{Z}=\pbase{Y}$. We show by cases that required limit cone exists.
 \begin{enumerate}[(i)]
-\item{Y, Y' and X are all prime objects}
-Because $X$ is prime it follows that $X \leq  \pbase{Y}$. 
+\item{Y, Y' and W are all prime objects}
+Because $W$ is prime it follows that $W \leq  \pbase{Y}$. 
 This is lemma \ref{pbselflimit}.
 
 
-\item {Y is decomposable and X and Y' are prime}
+\item {Y is decomposable and W and Y' are prime}
 Suppose as the inductive hypothesis that the following is a limit cone to its characteristic diagram 
 \begin{center}
 \begin{displaymath}
@@ -456,7 +1135,7 @@ It follows from  lemma \ref{pbdrilldown}and since $\pbase{Z}=\pbase{Y}$  that
 \ncarr[5]{Z}{Bm}
 \blabel{\pc{Z}{Y} \circ b_m}[.70][0]
 \ncarr[5]{Z}{Yp}
-\blabel{q(\pc{Y}{X},Y')}[.70][-1]
+\blabel{q(\pc{Y}{W},Y')}[.70][-1]
 \nccdar{Z}{tZ}
 \alabel{\pc{Z}{\pbase{Z}}}[.70][1]
 \end{center}
@@ -464,47 +1143,13 @@ It follows from  lemma \ref{pbdrilldown}and since $\pbase{Z}=\pbase{Y}$  that
 is a limit cone to its characteristic diagram in \ccat, 
 as required.
 
-\item{Y, Y' and X are decomposable}
-\begin{center}
-\begin{displaymath}
-\begin{array}{c c c c c}
-  \Rnode{Z}{Z} & &              & &                   \\ [1.4cm]
-  \Rnode{Y}{Y} & &              & &  \Rnode{Yp}{Y'}    \\ [1.4cm]
-	             & & \Rnode{X}{X} & &                    \\ [1.0cm]
-               & & \Rnode{A}{A} & &                    \\ [1.0cm]
-	 \begin{array}{cp{0.3cm}c         p{0.3cm}  c}					
-   \Rnode{B1}{B_1}&  ... & \Rnode{Bji}{B_{j_i}} & ... & \Rnode{Bm}{B_m}
-	 \end{array} 
-	 & & & &
-	\begin{array}{c c c c c}					
-   \Rnode{Bp1}{B'_1}& ... & \Rnode{Bpji}{B'_{j'_i}}&  ... & \Rnode{Bpm}{B'_m}
-	 \end{array}                                                
-\end{array} 
-\end{displaymath}
-\vspace{1.0cm}
-\begin{displaymath}
-\begin{array}{c c c c c}
- & &               &  & \Rnode{Ai}{A_i}    \\
-\end{array}
-\end{displaymath}
-\ncbcdar{\pc{Z}{Y}}{Z}{Y}
-\ncaarr{q(\pc{Z}{Y},Y')}{Z}{Yp}
-\nccdar{Y}{X}
-\nccdar{X}{A}
-\jcbarr{b_1}{Y}{B1}
-\jcbarr{b_{j_i}}{Y}{Bji}
-\jcbarr{b_m}{Y}{Bm}
-\nccdar{Yp}{X}
-\ncaarr{b'_1}{Yp}{Bp1}
-\ncaarr{b'_{j_i}}{Yp}{Bpji}
-\ncaarr{b'_m}{Yp}{Bpm}
-\ncaarr[10]{a_i}{X}{Ai}
-\nccdar[10]{Bji}{Ai}
-\nccdar[10]{Bpji}{Ai}
-\end{center}
+\item{Y, Y' and W are decomposable}
 
+
+%  INSERT FOUR CASES HERE
 \end{enumerate}
 \end{proof}
+
 \newpage
 
 
@@ -862,9 +1507,6 @@ and the diagram
 \noindent The object $\crossx{A}{B}{X}$ has projections $\pc{\crossx{A}{B}{X}}{A}: \crossx{A}{B}{X} \smorph A$ and
 $q(\pc{A}{X},B): \crossx{A}{B}{X} \morph B$. Given that  $A$ and $B$ are maybe themselves decomposable then we  can define a tree of morphisms which we shall call the projection tree. Whereas the projection tree is not unique the leaves of the tree are and the composed morphisms to the leaves of the tree are too. The composed morphisms to the leaves of the tree we
 will call the \textit{key} of the object $Y$. This is made formal in the following lemma.
-
-
-
 
 
 \bibliography{../SharedBibliography/temp/bibliography}
