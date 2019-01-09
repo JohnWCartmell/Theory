@@ -1,0 +1,358 @@
+\documentclass[10pt,a4paper]{scrartcl}
+\usepackage[margin=3cm]{geometry}
+\usepackage{pstricks}
+\usepackage{pst-node}
+\usepackage{pst-tree}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage{enumerate}
+\usepackage{calc}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{environ}
+\NewEnviron{shrunkdisplay}{%
+\begin{equation*}
+\scalebox{0.9}{$\BODY$}
+\end{equation*}
+}
+
+\input{../SharedMacros/theorems.macros}
+\input{../SharedMacros/ccategories.macros}
+\input{../SharedMacros/gats.macros}
+\input{../SharedMacros/metagat.macros}
+\input{../SharedMacros/ermacros}
+\input{../SharedMacros/erdiagram}
+\input{../SharedMacros/indexedsets.macros}
+
+\renewcommand{\erpictureFolder}[0]{../SharedPictures}
+
+
+
+\setcounter{equation}{0}
+\bibliographystyle{plain} % was hplain
+
+\title{Notes on Contextual Categories - Definition of Fam}
+\author{John Cartmell\footnote{john.w.cartmell gmail.com}\\ \normalsize{\textit{Ad Otium}}}
+\begin{document}
+\maketitle
+
+\section{Definitions}
+\subsection{Terminology}
+In my thesis I use the terms  `type' and also `types that vary' and develop the syntax of generalised algebraic theories based on concepts and syntax found in Martin-Lof type theory.
+Since then, in this area of type theory,  it has become the practice to speak of `dependent types'. In this document I stay faithful to the term `types that vary' because, though it might be thought a little awkward, I believe it gets closer to the heart of a matter which is both important and elusive.
+By way of approach I suggest that the first use of functions in mathematics comes about as representations of quantities which vary -- understanding quantities that vary, distance, velocity, temperature, for instance. How quantities vary is core to much of science but we don't speak of dependent quantities in science\footnote{For the counter argument, we do speak of `dependent variables' so I may be on thin ice here.}. Further, I would also say that a quantity that varies,  electric potential for instance, is not a function it \textit{is} a quantity that varies and for which we then have a mathematical best representation as a function; scientific enquiries concern quantities which vary, not functions and in 
+this manner `quantities that vary' precede `functions'. 
+\noindent
+In fact my interest in type theory would be better served if we could use the
+word `concept' in place of the word `type'. For instance I have a concept `citizen' and I might use it in several different contexts - in one context it might mean a citizen of Europe and in another a citizen of the US - likewise in one context it might mean citizen past, present and future whilst in another it might mean citizen at this very moment\footnote{the rub is that what we mean by `at this very moment' or Now varies also ref Hegel passage on this Here and this Now}  -- the conclusion is that `citizen' is a concept that varies and at very least it varies as `state' or `country' vary. If we were concept modelling or data modelling\footnote{??} we would model the dependency relationship between `citizen' 
+and `state'. On the otherhand we can formalise mathematically by asserting that there is a set of countries
+and also, for each country, a set of citizens of that country and we could say that there is a country indexed family of sets of citizens. Finally, in type theory we formalise 'citizen' as 
+a type that varies i.e as a dependent type.  
+
+\subsection{Variable sets}
+\noindent In the past I have written of `sets, 
+set indexed families of sets, indexed families of families of sets and so on' (literally so) which is  a both a mouthful and slightly unhelpful when it comes to
+defining what a model of a generalised algebraic theory $U$ (aka $U$-algebra) is.
+\noindent
+Here I shall use the term `variable set', which I will write as `varset', to include all of the above and use the term `element'  of `variable set' in place of the term `operator'.
+\noindent
+Varsets have a height which is some positive natural number i.e. some $n$, $n \geq 1$. A varsets of height $n+1$ are defined to vary wrt some other varset of height $n$. The large set of all variable sets of height $i$ will be written $\varset[i]$.
+\varset[1] is defined to be the large set $U$ of all sets. Thus, a varset of height 1 is exactly a set. 
+
+\subsubsection{Definitions in Type Theory}
+Personally I find it helpful to first consider how families and families of families of sets and so on might be defined using quantifiers in the style of Martin-L\"of but playing fast and loose with the notation and blurring the distinction between sets and types. Afterwards we recode the definitions in the language of set theory. 
+
+\noindent
+If $U$ is the universe of small sets  and $A \in U$ then the type 
+of $A$-indexed families of sets will be given by:
+\begin{equation*}
+\prod_{x \in A}U
+\end{equation*}
+and so the type of all indexed families of sets, $\varset[2]$ will be given by
+\begin{equation*}
+\varset[2]=\sum_{A \in U}\prod_{x \in A}U
+\end{equation*}
+With \varset[2] so defined then if $\tuple{A,B} \in \varset[2]$ then
+\begin{equation*}
+x \in A \tstyle B(x) \in U 
+\end{equation*}
+as we require.
+\noindent
+Likewise if  $A \in U$ and $B \in \prod_{x \in A}U$ the the type of all
+family $B$ indexed families of sets is
+\begin{equation*}
+\prod_{x \in A}\prod_{y \in B(a)}U
+\end{equation*}
+and so the type of all families of families of sets is:
+\begin{equation*}
+\varset[3]=\sum_{A \in U}\sum_{B \in \prod_{x \in A}U} \prod_{x \in A}\prod_{y \in B(a)}U
+\end{equation*}
+
+\noindent
+With \varset[3] so defined then we have that if $\tuple{A,B,C} \in \varset[3]$ then
+\begin{equation*}
+x \in A, y \in B(x) \tstyle C(x,y) \in U 
+\end{equation*}
+also as required.
+
+\subsubsection{In set theory}
+Now we recode these definitions, so to speak, in set theory.
+Recall that a function in set theory is defined as a set $f$ all of whose elements are ordered pairs\footnote{In turn an ordered pair is defined to be a set of the form \{a,\{a,b\}\} for some sets $a$ and $b$ and is which is then written as $\tuple{a,b}$} 
+and satisfying the condition that for all 
+ $\tuple{a,b} \in f$ and for all $\tuple{a',b'} \in f$, $a=a'$ implies $b=b'$. Recall also that from this definition it follows that for such a set $f$ we can define a set which is the domain of the function $f$ and furthermore a set which is the range of the $f$. In this way
+a large set of all functions and also (large) domain and range functions can be defined. \\ 
+
+\noindent Note also that if $s$ is a set of $n+1$-tuples, for some $n \geq 1$, then there 
+is a set of
+all $n$-tuples $\tuple{x_1,...x_n}$ satisfying the condition that there exists $x_{n+1}$ 
+such that $\tuple{x_1,...x_n,x_{n+1}} \in s$. 
+We will denote by $dom_n$ the (large) function that delivers this 
+	set of $n$ tuples for any set of $n+1$-tuples. \\
+	
+\noindent
+We now proceed to  define \varset[2], \varset[3], etc. set theoretically, and to define functions 
+$dom_i: \varset[i+1] \morph \varset[i]$. \\
+
+\noindent
+We define \varset[1] to be the large set of all (small) sets $U$. \\
+
+\noindent
+We will say a set is \varset[2]-like if it satisfies the definition above of being a function. We will interpret the codomain as being $U$ and so if $v$ is \varset[2]-like then it is a set of ordered pairs such that for all $x \in dom_1(v)$, there exists a unique $y \in U$ such that
+$\tuple{x,y} \in U$ and we will write $v(x)$ for the unique such $y$. We define the large set \varset[2] to be the large set of all \varset[2]-like  sets.\\
+
+\noindent
+We will say a set $v$ is \varset[3]-like if it is a set of ordered triples and 
+$dom_2(v)$ is \varset[2]-like and for all $x \in dom_1(dom_2(v))$, for all $y \in dom_2(v)(x)$ 
+there exists a unique $z$ such that $\tuple{x,y,z} \in v$. We will write $v(x,y)$ for the
+unique such $z$. We will define the large set \varset[3] to be the large set of  all \varset[3]-like sets.
+
+\noindent 
+
+\subsection{Old material}
+\begin{equation*}
+\varset[n+1]=\bigcup_{A \in U}{\varset[n]^A}
+\end{equation*}
+So defined, a varset of height $n+1$ consists of a pair $\tuple{A,X}$ where
+$A$ is any set and $X:A \morph U$ is a function and this completes the definition of varset.
+
+\noindent
+Now we define for any varset of height $n+1$ the varset of height $n$ that it is defined to vary with respect to (wrt) by defining a functions $wrt_n$, for each $n >1$ such that $wrt_n: \varset[n+1] \morph \varset[n]$. 
+We define $wrt_2$ to by
+\begin{align*}
+  &wrt_{2}                                               \\
+\left\langle A,X\right\rangle &\longmapsto A
+\end{align*}
+\noindent
+and define   $wrt_{n+1}$ for each $n$, $n > 2$, by:
+\begin{align*}
+  &wrt_{n+1}                 \\
+\left\langle A,F\right\rangle &\longmapsto F \circ wrt_n
+\end{align*}
+
+
+Finally, denote the functional inverse to 
+function $wrt_n: \varset[n+1] \morph \varset[n]$ by $\localvarsets_n :
+\varset[n] \morph \powerset(\varset[n+1])$. 
+
+We have the notation that we need now, for example if $A \in U$ and $B \in \localvarsets_2(A)$ then $B$ represents an $A$-indexed family of sets, for there is a set $p2(B)(a)$ for each element $a \in A$.
+
+If in addition $C \in \localvarsets_3(B)$ then $C$ is  an $A$-indexed family of families of sets because for each $a \in A$,
+for each $b \in p2(B)(a)$,
+$p2(p2(C)(a))(b)$ is a set.
+
+(see figures  \ref{BindexedbyA} and \ref{familyoffamilies}).
+ 
+\subsection{Notation}
+If \ccat[C] is a contextual category then the set of objects of \ccat[C]
+will be written as \cobj{C} 
+and the subset of objects of \ccat[C] at height $i$, for some $i$, $i \geq 0$  will be written as \cobj[i]{C}.
+
+\noindent
+If \ccat[C] is a contextual category and if $A$ is an object of \ccat[C] then \cslice{C}{A} is the contextual category equivalent of the slice category at A.
+ %Recall that the categorical slice category has morphisms with codomian A as objects. 
+The objects of the contextual slice category \cslice{C}{A} are exactly those distinguished morphisms of the contextual category \ccat[C] having codomain $A$.  The morphisms between any two such objects are as defined for the categorical slice category.
+
+\noindent
+\noindent
+We have
+\begin{equation}
+\label{objectsall}
+\cobj{C}=\bigcup_{n \geq 0}\cobj[n]{C}
+\end{equation}
+and also, since $\cobj[1]{C}=\cobj{C}$, we have
+\begin{equation}
+\label{objectsone}
+\csliceobj[1]{C}{1}=\cobj[1]{C}
+\end{equation}
+From the definitions, we also have that
+\begin{equation}
+\label{objectssuccessor}
+\cobj[n+1]{C}=\bigcup_{A \in \cobj[n]{C}}\csliceobj[1]{C}{A}
+\end{equation}
+
+
+
+\subsection{Sets, indexed families of sets, indexed famillies of indexed families and so on.}
+\subsubsection{Set Indexed Families of Sets}
+An indexed family of sets $B_{a)a\in A}$ (see figure \ref{BindexedbyA}) 
+% Example family - BindexedbyA
+\begin{figure}[h]
+\begin{pspicture}(0,0.5)(9,5.5)
+%\psgrid
+%\putfamilyOfSets[rot]{basescale}{childscale}{x}{y}{childoffset}{nodeprefix}
+\rput{*270}(1,5){
+  \putfamilyOfSets[*270]{.75}{0.4}{2cm}{2.5cm}{2.3cm}{FAM}
+  }
+\rput[l](1.5,4.2){ \psframebox*{set A} }
+\rput[l](6.5,2){ \psframebox*{set $B_a$, for every $a \in A$} }
+\end{pspicture}
+\caption{A set indexed families of sets}
+\label{BindexedbyA}
+\end{figure}
+can be defined as a function $B:A \rightarrow U$. 
+\subsubsection{An Indexed Family of Families of Sets}
+\noindent An indexed family of families of sets(see figure \ref{familyoffamilies})
+% Example family of families
+\begin{figure}[h]
+\begin{center}
+\begin{pspicture}(0,0)(10,10)
+%\psgrid
+%\putfamilyOfSets[rot]{basescale}{childscale}{x}{y}{childoffset}{nodeprefix}
+\rput{*270}(1,10){
+  \putthreeset[*270]{.75}{5cm}{1cm}{BASE}
+  \putfamilyOfSets[*270]{.5}{0.25}{2cm}{2.5cm}{1.3cm}{FAML}
+  \putfamilyOfSets[*270]{.5}{0.25}{5cm}{3cm}{1.3cm}{FAMM}
+  \putfamilyOfSets[*270]{.5}{0.25}{8cm}{2.5cm}{1.3cm}{FAMR}
+}
+\ncline[nodesep=3pt]{|->}{BASEl}{FAMLBASEc}
+\ncline[nodesep=3pt]{|->}{BASEm}{FAMMBASEc}
+\ncline[nodesep=3pt]{|->}{BASEr}{FAMRBASEc}
+\rput[l](.6,6.6){\psframebox*{set A} }
+\rput[l](6,2){\psframebox*{a set indexed family $B_a$, for every $a \in A$} }
+\end{pspicture}
+\caption {A set indexed family of set indexed families of sets}
+\label{familyoffamilies}
+\end{center}
+\end{figure}
+\noindent can be defined to be a function from a set A to the (large) set \Fam[2] of all set indexed families. 
+
+\subsection{Motivation for definition of Fam}
+In the definition of a model of a generalised theory just as we interpret types by sets of instances so we interpret types that vary by sets which vary and by this we mean
+set indexed families of sets, set indexed families of set indexed famillies of sets and so on.
+
+In speaking this way, by keep having to say `and so on' is an indication that there isn't any good terminology in this area.  We want to be able to define what we mean by a 'set which varies' or maybe a better term `a variable set'. 
+
+\subsection{Initial Definition of \Fam}
+
+\noindent We define a large set $\Famobj[n]$, for all $n, n > 0$,  and we define functions $dep_n:\,\Famobj[n] \rightarrow\,\Famobj[n-1]$, for all $n, n \ge 1$.
+$\Fam[1]$ is defined to the U, the set of all sets.
+\Famobj[2] is defined to the set of all set indexed families. 
+We define $dep_1$ to be the unique function $dep_1: \Famobj[1] \morph \Famobj[0]$
+$dep_2$ is defined to the function that maps the A-indexed family B to the set A.
+\Famobj[n+1], for $n \geq 2$ is defined to the set of all set-indexed families of elements of \Famobj[n]. That is:
+\begin{equation}
+\Famobj[n+1] = \bigcup_{A\in U}(\Famobj[n])^A
+\end{equation}
+
+
+\noindent To define $dep_{n+1}$, for $n \geq 2$ we need to define $dep_{n+1}(X_{n+1})$, for any $X_{n+1} \in\,\Famobj[n+1]$. Such an $X_{n+1}$ consists of a pair $\left\langle A,F\right\rangle$,
+where A is a set and $F:A \rightarrow\, \Famobj[n]$. Define:
+\begin{align}
+  &dep_{n+1}              \notag     \\
+\left\langle A,F\right\rangle &\longmapsto F \circ dep_n
+\end{align}
+\noindent In summary, we have defined sets and functions:
+
+\vspace{0.25cm}
+\begin{center}
+\begin{math}
+\setlength{\arraycolsep}{.5cm}
+\begin{array}{cccccccc}
+\Rnode{U0}{\Famobj[0]}&\Rnode{U1}{\Famobj[1]}&\Rnode{U2}{\Famobj[2]}&\cdots&\Rnode{Unp}{\Famobj[n-1]}&\Rnode{Un}{\Famobj[n]}&\Rnode{Uns}{\Famobj[n+1]}&\cdots
+\end{array}
+\ncline{<-}{U0}{U1}
+\naput{dep_1}
+\ncline{<-}{U1}{U2}
+\naput{dep_2}
+\ncline{<-}{Unp}{Un}
+\naput{dep_n}
+\ncline{<-}{Un}{Uns}
+\naput{dep_{n+1}}
+\end{math}
+\end{center}
+
+\noindent 
+\subsection{Initial Uniform Definition}
+The initial definition had $\Famobj[1]=U$. If instead we represent $\Famobj[1]$ as 
+$1^U$ where 1 is a chosen singleton set - the set containing the empty set, say, which we can do because $1^U \simeq U$, then the definition is more uniform. 
+We define the terminal object of \Fam\  to be the set containing the empty set i.e. the Von Neuman ordinal 1. 
+So, define
+\begin{equation*}
+\Famobj[0] = \left\{\{\{\}\}\right\} 
+\end{equation*}
+Then we can define \Famobj[n+1],
+for each $n$, $n \geq 0$, by
+\begin{align*}
+\Famobj[n+1] &= \bigcup_{A \in U} (\Famobj[n])^A  
+\end{align*}
+where $U$ is the large set of all sets.
+We define $dep_1$ to be the unique function $dep_1: \Famobj[1] \morph \Famobj[0]$.
+and define $depn+1$ for each 
+\noindent Now we can define $dep_{n+1}$ for each $n$, $n geq 1$, by:
+\begin{align}
+  &dep_{n+1}              \notag     \\
+\left\langle A,F\right\rangle &\longmapsto F \circ dep_n
+\end{align}
+
+\subsection {Sections}
+\subsubsection{Sections of an indexed family of sets}
+If $B{a)a\in A}$ in an A-indexed family of sets \textit{a section} of B is a function $b:A \rightarrow \bigcup_{a \in A}{B(a)}$ such that
+for each $a \in A, b(a) \in B(a)$. Here is a picture:  
+\begin{figure}[h]
+
+\begin{pspicture}(0,0.5)(9,5.5)
+%\psgrid
+%\putfamilyOfSets[rot]{basescale}{childscale}{x}{y}{childoffset}{nodeprefix}
+\rput{*270}(1,5){
+  \putfamilyOfSets[*270]{.75}{0.4}{2cm}{2.5cm}{2.3cm}{FAM}
+  }
+\rput[l](1.5,4.2){ \psframebox*{set A} }
+\rput[l](6.5,2){ \psframebox*{set $B_a$, for every $a \in A$} }
+\rput[l](6.5,1.5){ \psframebox*{elemnt b(a) of the set $B_a$, for every $a \in A$} }
+
+\ncarc[nodesep=2pt,arcangle=20]{->}{FAMBASEl}{Ll}
+\ncarc[nodesep=2pt,arcangle=20]{->}{FAMBASEm}{Mm}
+\ncarc[nodesep=2pt,arcangle=-20]{->}{FAMBASEr}{Rr}
+\end{pspicture}
+
+\caption{A section b of A-indexed family of sets B}
+\end{figure}
+
+\subsubsection{Sections of a indexed family of family of sets}
+Diagram here.
+Mathematical definition.
+\subsubsection{Sections in General}
+Diagram here.
+Mathematical definition.
+
+\subsection{Section Structures}
+Each element of $^\omega U$ has a set of sections and sections can be combined to give new ones by functional composition and the combination operation satisfies simple associativity/distributive laws (can't remember them right now - need to work them out again or find 30-odd year old notes).
+
+We define a section structure to be any dependency graph endowed with a set of sections for each element and a composition operator which satisfies the aforesaid associativity/distributive laws.
+
+If B is an A-indexed family of sets and then we say: $A \triangleleft B$ in $^\omega U$ and we represent sections of B as arrows.
+$\langle$ Diagram Here $\rangle$
+//
+
+\noindent A cartesian section structure si defined to be a section structure with product operation obeying the following rules:
+$\langle$ Can't remember them right now - need to work them out again? $\rangle$
+
+\noindent What is troubling me here is whether I can manage to make sense of product types before I introduce sections or non-d-morphisms. I *can* but what meaningful things can be said: (i) each dependency graph can be represented by a hierarchical graph with product structure - use dependency coverings to define it (ii) I can define a network version of 
+omega U (iii) I can show that models(realisations) of a dependency graph in network set correspond to realisations of its hierarchical equivalent in omega U.
+  
+  
+\bibliography{../SharedBibliography/temp/bibliography}
+
+\end{document}
