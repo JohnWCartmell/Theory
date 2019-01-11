@@ -41,16 +41,19 @@
 \section{Definitions}
 \subsection{Terminology}
 In my thesis I use the terms  `type' and also `types that vary' and develop the syntax of generalised algebraic theories based on concepts and syntax found in Martin-Lof type theory.
-Since then, in this area of type theory,  it has become the practice to speak of `dependent types'. In this document I stay faithful to the term `types that vary' because, though it might be thought a little awkward, I believe it gets closer to the heart of a matter which is both important and elusive.
-By way of approach I suggest that the first use of functions in mathematics comes about as representations of quantities which vary -- understanding quantities that vary, distance, velocity, temperature, for instance. How quantities vary is core to much of science but we don't speak of dependent quantities in science\footnote{For the counter argument, we do speak of `dependent variables' so I may be on thin ice here.}. Further, I would also say that a quantity that varies,  electric potential for instance, is not a function it \textit{is} a quantity that varies and for which we then have a mathematical best representation as a function; scientific enquiries concern quantities which vary, not functions and in 
+Since then, in this area of type theory,  it has become the practice to speak of `dependent types'. In this document I stay faithful to the term `types that vary' because, though it might be a little awkward, I believe it gets closer to the heart of a matter which is both important and elusive.
+By way of approach I suggest that the first use of functions in mathematics comes about as representations of quantities which vary; understanding quantities that vary, distance, velocity, temperature, for instance and understanding how quantities vary is core to much of science;
+In physics I find reference to scale-dependent quantities, wave-number dependent quantities, gauge dependent quantities and so on but I don't think it commonplace to speak of dependent 
+quantities in science
+Am I right or wrong here? Of course it is commonplace to speak of dependent and independent variables. 
+Further, I would also say that a quantity that varies,  electric potential for instance, is not a function it \textit{is} a quantity that varies -- and for which we then have a mathematical best representation as a function; scientific enquiries concern quantities which vary, not functions and in 
 this manner `quantities that vary' precede `functions'. 
 \noindent
 In fact my interest in type theory would be better served if we could use the
 word `concept' in place of the word `type'. For instance I have a concept `citizen' and I might use it in several different contexts - in one context it might mean a citizen of Europe and in another a citizen of the US - likewise in one context it might mean citizen past, present and future whilst in another it might mean citizen at this very moment\footnote{the rub is that what we mean by `at this very moment' or Now varies also ref Hegel passage on this Here and this Now}  -- the conclusion is that `citizen' is a concept that varies and at very least it varies as `state' or `country' vary. If we were concept modelling or data modelling\footnote{??} we would model the dependency relationship between `citizen' 
 and `state'. On the otherhand we can formalise mathematically by asserting that there is a set of countries
-and also, for each country, a set of citizens of that country and we could say that there is a country indexed family of sets of citizens. Finally, in type theory we formalise 'citizen' as 
-a type that varies i.e as a dependent type.  
-
+and also, for each country, a set of citizens of that country and we could say that there is a country indexed family of sets of citizens. Finally, in type theory we can formalise 'citizen' as 
+a type that varies, in fact as a country-dependent type.
 \subsection{Variable sets}
 \noindent In the past I have written of `sets, 
 set indexed families of sets, indexed families of families of sets and so on' (literally so) which is  a both a mouthful and slightly unhelpful when it comes to
@@ -62,7 +65,7 @@ Varsets have a height which is some positive natural number i.e. some $n$, $n \g
 \varset[1] is defined to be the large set $U$ of all sets. Thus, a varset of height 1 is exactly a set. 
 
 \subsubsection{Definitions in Type Theory}
-Personally I find it helpful to first consider how families and families of families of sets and so on might be defined using quantifiers in the style of Martin-L\"of but playing fast and loose with the notation and blurring the distinction between sets and types. Afterwards we recode the definitions in the language of set theory. 
+I find it helpful to first consider how families and families of families of sets and so on might be defined using quantifiers in the style of Martin-L\"of but playing fast and loose with the notation and blurring the distinction between sets and types. Afterwards we recode the definitions in the language of set theory. 
 
 \noindent
 If $U$ is the universe of small sets  and $A \in U$ then the type 
@@ -95,13 +98,13 @@ With \varset[3] so defined then we have that if $\tuple{A,B,C} \in \varset[3]$ t
 \begin{equation*}
 x \in A, y \in B(x) \tstyle C(x,y) \in U 
 \end{equation*}
-also as required.
+which, again, is as required.
 
 \subsubsection{In set theory}
-Now we recode these definitions, so to speak, in set theory.
+Now we recode these definitions, so to speak, in (good old ZF) set theory.
 Recall that a function in set theory is defined as a set $f$ all of whose elements are ordered pairs\footnote{In turn an ordered pair is defined to be a set of the form \{a,\{a,b\}\} for some sets $a$ and $b$ and is which is then written as $\tuple{a,b}$} 
 and satisfying the condition that for all 
- $\tuple{a,b} \in f$ and for all $\tuple{a',b'} \in f$, $a=a'$ implies $b=b'$. Recall also that from this definition it follows that for such a set $f$ we can define a set which is the domain of the function $f$ and furthermore a set which is the range of the $f$. In this way
+ $\tuple{a,b} \in f$ and for all $\tuple{a',b'} \in f$, $a=a'$ implies $b=b'$. Recall also that from this definition it follows that for such a set $f$ we can define a set which is the domain of the function $f$ and furthermore a set which is the range of $f$. In this way
 a large set of all functions and also (large) domain and range functions can be defined. \\ 
 
 \noindent Note also that if $s$ is a set of $n+1$-tuples, for some $n \geq 1$, then there 
@@ -113,7 +116,8 @@ We will denote by $dom_n$ the (large) function that delivers this
 	
 \noindent
 We now proceed to  define \varset[2], \varset[3], etc. set theoretically, and to define functions 
-$dom_i: \varset[i+1] \morph \varset[i]$. \\
+$dom_i: \varset[i+1] \morph \varset[i]$. If $v_{i+1} \in \varset[i+1]$ and $v_i \in \varset[i]$
+then we will say the $v_{i+1}$ depends on $v_i$ iff $dom_i(v_{i+1})=v{i}$.
 
 \noindent
 We define \varset[1] to be the large set of all (small) sets $U$. \\
@@ -128,7 +132,19 @@ $dom_2(v)$ is \varset[2]-like and for all $x \in dom_1(dom_2(v))$, for all $y \i
 there exists a unique $z$ such that $\tuple{x,y,z} \in v$. We will write $v(x,y)$ for the
 unique such $z$. We will define the large set \varset[3] to be the large set of  all \varset[3]-like sets.
 
-\noindent 
+\noindent
+Checkout these definitions: If $a \in \varset[1]$ then $a$ is a set. If $b \in \varset[2]$ and
+$b$ depend on $a$ then from definition of \varset[2]-like it follows that:
+\begin{equation*}
+\mbox{for all }x \in a \mbox{, } b(x) \in U
+\end{equation*}  
+and, in other words, $b$ is an A-index family of sets. Futhermore, if $c \in \varset[3]$
+and $c$ depends on $b$ then it folows from the definition of \varset[3]-like that
+\begin{equation*}
+\mbox{for all }x \in a \mbox{, for all } y \in b(x) \mbox{, }c(x,y) \in U
+\end{equation*}
+so the definitions check out OK and deliver up families  of sets and families of families of sets as
+required.
 
 \subsection{Old material}
 \begin{equation*}
