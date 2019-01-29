@@ -1,0 +1,230 @@
+\documentclass[10pt,a4paper]{article}
+
+
+\usepackage{mathptmx}
+
+\usepackage{amsfonts}
+\usepackage{wasysym}
+
+\usepackage[margin=3cm]{geometry}
+\usepackage{pstricks}
+\usepackage{pst-node}
+\usepackage{pst-tree}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage{enumerate}
+\usepackage{calc}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{environ}
+\NewEnviron{shrunkdisplay}{%
+\begin{equation*}
+\scalebox{0.9}{$\BODY$}
+\end{equation*}
+}
+
+\input{../SharedMacros/theorems.macros}
+\input{../SharedMacros/ccategories.macros}
+\input{../SharedMacros/gats.macros}
+\input{../SharedMacros/metagat.macros}
+\input{../SharedMacros/ermacros}
+\input{../SharedMacros/erdiagram}
+\input{../SharedMacros/indexedsets.macros}
+
+\renewcommand{\erpictureFolder}[0]{../SharedPictures}
+
+
+
+\setcounter{equation}{0}
+\bibliographystyle{plain} % was hplain
+
+\title{Categories with Attributes Revisited}
+\author{John Cartmell\footnote{john.w.cartmell gmail.com}\\ \normalsize{\textit{Ad Otium}}}
+\begin{document}
+\maketitle
+
+\section{Categories with Attributes}
+
+\scalebox{0.6}{
+\input{\erpictureFolder/relationalMetaModel3.relational}
+}
+
+\subsection{Cartmell 1978}
+
+In my DPhil thesis (\cite{Cartmell78}) and also as published in \cite{Cartmell86}
+I defined the notion of a \textit{contextual category} and proved that contextual
+categories provide the\footnote{Note the use of the definite article -- meaning that they provide a semantics which is initial among semantics.} algebraic semantics of \textit{generalised algebraic theories}. \\
+
+\noindent 
+Contextual categories are, by design,  algebraically equivalent to the raw syntax of dependent type theories as described very nicely by Kapulkin-Lumsdaine (\cite{kapulkinlumsdaine2012}): \\
+
+\begin{quote}
+Rather than constructing an interpretation of the syntax directly, we may work via the intermediary notion of contextual categories, a class of algebraic objects abstracting the key structure carried by the syntax. The plain definition of a contextual category corresponds to the structural core of the syntax; further syntactic rules (logical constructors, etc.) correspond to extra algebraic structure that contextual categories may carry. Essentially, contextual categories provide a completely equivalent alternative to the syntactic presentation of type theory.
+
+Why is this duplication of notions desirable? The trouble with the syntax is that it is mathematically tricky to handle. Any full presentation must account for (among other things) variable binding, capture-free substitution, and the possibility of multiple derivations of a judgement; and so a direct interpretation must deal with all of these, at the same time as tackling the details of the particular model in question. By passing to contextual categories, one deals with these subtleties and bureaucracy once and for all, and obtains a clear framework for subsequently constructing models. Conversely, why not work only with contextual categories, dispensing with syntax entirely?
+
+The trouble on this side is that working with higher-order logical structure in contextual categories quickly becomes unreadable. The reader preferring to take contextual categories as primary may regard the syntax as essentially a notation for working within them: a powerful, flexible, and intuitive notation, but one whose validity requires non-trivial work to establish. (The situation is comparable to that of string diagrams, as used in monoidal and more elaborately structured categories.)
+\end{quote}
+
+\noindent
+Also in \cite{Cartmell78} I defined the notion of a \textit{category with attributes}(
+subsequently the term category with attributes was redefined and repurposed\footnote{Vladimir Voevodsy on the hott group commented 
+that \textit {There is an inconsistency in terminology related to categories with attributes. 
+What is called today a category with attributes is substantially different from what John Cartmell defined on pp. 172-173 of his thesis. The current concept is what one would get if one took only parts i - iv of Cartmell's definition and removed parts v and vi.}}\footnote{Peter LeFanu Lumsdaine replied that \textit{
+I remember being surprised  by this ... I’ve never quite worked out who first repurposed “CwA” to have its current meaning...}}.
+I defined these as a stepping stone between contextual categories with additional structure and certain kinds of hyperdoctrine to show how such hyperdoctrines could provide a semantics for
+a particular variant of Martin-L\"of type theory.  
+
+For the purposes of this note the crucial result is that contextual categories with the additional structure of existential quantification are equivalent to categories with attributes.
+What this means is that \textit{certain} contextual 
+categories (those with existential quantification) may be defined indirectly by way of a definition of the equivalent category with attributes. Two such, which have existential quantification, are:
+\begin{enumerate}
+\item the contextual category \cat{Fam} of sets, indexed families of sets, indexed families of families of sets and so on,
+\item the contextual category of categories, indexed families of categories, indexed families of families and so on.
+\end{enumerate}
+
+
+\subsection{Erhart 1988}
+In a 1988 paper Erhart \cite{erhard88} writes in the introduction that
+\begin{quote}
+This paper is based on a common work with P.L. Curien (\cite{curien89}\footnote{I have replaced the original ordinal with mine so that the reader can correlate with my references below}). We built up together some categorical structures for first order type dependency which we learned while finishing this work to be identical to Cartmell's contextual categories.
+\end{quote}
+\noindent
+Well, I am confused by this for two distinct reasons:
+\begin{enumerate} [(i)]
+\item Though Erhard does show a relationship with my notion of \textit{category with attributes} 
+the association between types, contexts and objects seems different to the association that I 
+established. However I do not see existentially quantified types appearing in their paper and these are crucial in my use of categories with attributes so maybe I just don't understand the 
+type syntax that they are using.
+\item In my presentation categories with attributes are representative of only certain particular generalised algebraic theories -- those with existential quantification.
+\end{enumerate}
+It is possible that these two discrepancies cancel out but I would like to understand how this is. It would be quite remarkable if they did -- it would mean that  categories with attributes specified for the very purpose of representing contextual categories with existential quantification inadvertently (from my point of view), and with a different mapping, represented all contextual categories (though there is a free contextual category with existential quantification generated by a contextual category I don't believe this to be an equivalence of categories.
+
+
+\subsection{Curien 1989}
+See \cite{curien89}.
+
+\subsection{E.Moggi} 
+I don't have Moggi's published paper \cite{moggi91} available to me but in notes having the same  title filed by Edinburgh University (\cite{moggi94}) I find:
+\begin{quote}
+Contextual categories, class of display maps, D-categories and categories with
+attributes provide essentially equivalent accounts of dependent types. Unlike
+the approach based on locally cartesian closed categories, they give a general
+category-theoretic understanding of dependent types
+\end{quote}
+
+Moggi's definition of category with attributes is straightforward (an advantage here over Erhard's definitions) and from thsi definition it is clear that categories with attributes are not categories with attributes as I defined them and used them but are much closer to my contextaul categories
+and, I believe,  are intended to be equivalent. However the problem that I have with his definitions
+is  that by following them distinct dependent types may be mapped to the same extended contexts -- so we get an interpretation of types that are not equivalent forming contexts that are,  which is nonsense.  I ought to investigate whether his definition may be patched to yield a definition equivalent to my definition of contextual category.
+
+\noindent
+Differences are:
+\begin{enumerate}
+\item the functor G is not a monomorphism
+\item the functor G is not surjective onto objects other than 1 and therefore there may be objects in C (which purportedly represent contexts) which do not correspond to extensions of contexts by types. 
+\item also need the relation of dependency to be well-founded.
+\item not even acyclic - is this true!!
+\end{enumerate}
+
+\noindent
+If categories with attributes as defined by Moggi are to be the algebraic equivalents of GATs then we require the above conditions to hold. Then we are able to build a round trip
+ from categories with 
+attributes to contexual categories and back. 
+\noindent From a moggi category with attributes define the contextual category as follows:
+\begin{enumerate}
+\item the underlying category is the base category C of the moggi catgeory with attributes.
+\item the distinguised morphisms are those that are of the form $p_a$ for some object $a \in D(X)$.
+\end{enumerate}
+
+
+\subsection{Pitts}
+See Pitts \cite{pitts2000}.
+
+\subsection{Streicher}
+Thomas Streicher PhD.(can we source this?).
+
+\subsection{Jacobs 1993}
+See \cite{jacobs93}.
+Bart Jacobs refers back to Curien \cite{curien89}.
+
+\subsection {Hofmann94}
+\subsubsection{Hofmann 1994}
+This paper refers to Hofmann's PhD definition of category with attributes.
+(postcript downloaded from U. of Edinburgh). PhD probably covered in \cite{hofmann94}.
+Hofmann's thesis refers to Bart Jacobs paper \cite{jacobs93}.
+\noindent
+Hofmann defines a \textit{syntactic category with attributes}.
+This definition starts out as Moggi but deviates in that the  type substitution square is defined only to commute (i.e. not as a pullback)then comes the interesting twist - 
+a sort of terms is introduced for each type and  the equivalent of Vladimir's s operator is defined. The sort of terms is then shown to be isomorphic 
+to the sets of sections of the projection maps. Hoffman explains that
+the additional sort is introduced just so that an equational definition and references Curien for this approach. I need to get hold of the Curruien paper.
+\begin{quote}
+The original definition of categories with attributes involves conditional equa­ 
+tions, since certain diagrams are required to be pullbacks. This is a disadvantage if 
+one wants to construct models internally in some type theory and check the model 
+equations using normalisation. We thus describe a notion of model without con­ 
+ditional equations inspired by Curien's categorical combinators [21,22,23]. This 
+means that in addition to abstract contexts and families we introduce a third sort 
+of abstract sections which are in one­one correspondence to sections (right inverses) 
+to projections. Their separate introduction allows to quantify over them without 
+using conditional equations. Ehrhard [30] and Ritter [92] achieves the same goal 
+by introducing arbitrary morphisms between families as a new sort. For our pur­ 
+poses this appears overly general and the price to pay is that a formal unit type 
+must be introduced and that the equational theory becomes more complicated. 
+Since a guideline in our description of the semantics of dependent types is to 
+stay as close to the syntax as possible without losing the advantages which abstract 
+semantics offers, we have chosen the name syntactic categories with attributes for 
+the notion of model to be described here. 
+\end{quote}
+
+This definition probably ends up equivalent and definitely 
+has same weaknesses from my point of view as the Moggi definition.
+
+\noindent
+In a discussion of the definition and one of these features which I consider a weakness Hofmann states that:
+\begin{quote}
+In particular, 
+the map which assigns the corresponding context extension to a family need not 
+be injective. This extra generality will be required in almost all the model con­ 
+structions we shall study. 
+\end{quote}
+
+Hofmann also makes reference to categories with attributes of cartmell and moggi and category with types of pitts.
+READ THIS 
+
+\subsubsection{Hoffman 1995}
+I have also found another Hofmann paper \cite{hofmann95} in Springer LNotes.
+
+\section{Categories with Families}
+
+The first definition of category with families is found in \cite{dybjer96}.
+
+\section{Display Structures}
+\subsection{Taylor}
+\begin{quote}
+EXAMPLE 8.3.3 Let C be a category with specified terminal object 1 and specified binary products. Then the class D of maps that are specified left projections, p0:DxX® D, forms a display structure. The resulting interpretation of the context [x1:\typeX1,¼,xn:\typeXn] is the left-associated product ((···(((1x \typeX1)x \typeX2)x \typeX3) x···)x \typeXn) which was defined in Remark 4.5.15.
+
+PROOF: Given any map u:G® D, let the specified product projection p0:GxX® G serve as the choice of pullback. The ``dependent'' types in this example are in fact constant. []
+
+PROPOSITION 8.3.4 Let C be a category with a class of displays. If all product projections and pullback diagonals are displays, then every map is (isomorphic to) a composite of displays, and C has all finite limits.
+
+PROOF: Consider the graph of u:X® Y (Remark  5.1.7):
+
+omitted diagram environment
+
+Then the pullback of u against any |:Z® Y must exist. []
+
+REMARK 8.3.5 The diagonal is the equality type,
+
+^
+= 
+ 
+:{y0,y1|y0 = y1} ® [y0,y1:Y],
+so Proposition 8.3.4 says that the classifying category of a generalised algebraic theory has all finite limits (and all of its maps are isomorphic to displays) iff the theory has all equality types.
+\end{quote}
+  
+\bibliography{../SharedBibliography/temp/bibliography}
+
+\end{document}
