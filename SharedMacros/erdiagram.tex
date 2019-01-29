@@ -1,7 +1,16 @@
 %
-%  erdiag
-%
-  
+%  erdiagram.tex
+%  *************
+%  Macros to represent ER diagrams
+%  *******************************
+% 29/01/2019 Modify so that not reliant on the
+%            default fontsize being 10pt by using
+%            package anyfontsize and then
+%            \fontsize{8}{10}\selectfont to set font to 8pt
+% ***********************************************************
+ \usepackage{anyfontsize}             % 29/01/2019 
+ 
+ 
 %\begin{erdiagram}{#1 height}{#2 width} 
 % ....
 % ....
@@ -89,11 +98,18 @@
 {\psframe[fillstyle=solid,fillcolor=white](#1,#2)(#3,#4)}
 }
 
+% \ertext{#1 text}
+% 29/01/2019
+\newcommand {\ersmallitalictext}[1]
+{\fontsize{8}{10}\selectfont \textit{#1}}
+\newcommand {\ermediumitalictext}[1]
+{\fontsize{10}{12}\selectfont \textit{#1}}
+
 % \eretname {#1 x left of text} {#2 y top of text} {#3 text}
 \newcommand {\eretname}[3]
 {
 %shift down 0.1 for height of text the anchor at baseline (B)
-\rput[bl]{0}(0,-0.1){\rput[Bl]{0}(#1,#2){\footnotesize \textit{#3}}}
+\rput[bl]{0}(0,-0.1){\rput[Bl]{0}(#1,#2){\ersmallitalictext{#3}}}
 }
 
 % \errelarm {#1 x0} {#2 y0} {#3 x1} {#4 y1} {#5 ismandatory} {#6 isconstructed}
@@ -166,25 +182,35 @@
 % \errelname {#1 x} {#2 y} {#3 text}
 \newcommand {\errelname}[3]
 {
-\rput[l]{0}(#1,#2){\textit{#3}}
+\rput[l]{0}(#1,#2){\ERmediumtext{#3}}
 }
 % \errelseq {#1 x} {#2 y}
 \newcommand {\erelseq}[2]
 {
 }
+
+\newcommand {\erattrmarkermand}
+{\fontsize{6}{8}\selectfont $\blacksquare$}
+\newcommand {\erattrmarkeropt}
+{\fontsize{6}{8}\selectfont \CIRCLE}
+\newcommand {\erderattrmarkermand}
+{\fontsize{6}{8}\selectfont $\square$}
+\newcommand {\erderattrmarkeropt}
+{\fontsize{8}{10}\selectfont $\circ$}
+
 % \erattr {#1 x} {#2 y} {#3 ismandatory}{#4 idenitfying} {#5 text}
 \newcommand {\erattr}[5]
 {
 \ifthenelse{\equal{#3}{1}}
-{\rput[l]{0}(#1,#2){{\tiny $\blacksquare$} {\footnotesize \textit{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}}
-{\rput[l]{0}(#1,#2){{\tiny \CIRCLE} {\footnotesize \textit{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}}
+{\rput[l]{0}(#1,#2){\erattrmarkermand \ersmallitalictext{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}
+{\rput[l]{0}(#1,#2){\erattrmarkeropt \ersmallitalictext{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}
 }
 
 \newcommand {\erdattr}[5]
 {
 \ifthenelse{\equal{#3}{1}}
-{\rput[l]{0}(#1,#2){{\tiny $\square$} {\footnotesize \textit{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}}
-{\rput[l]{0}(#1,#2){\footnotesize $\circ$ \textit{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}
+{\rput[l]{0}(#1,#2){\erderattrmarkermand \ersmallitalictext{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}
+{\rput[l]{0}(#1,#2){\erderattrmarkeropt \ersmallitalictext{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}
 }
 
 %\ifthenelse{\equal{#4}{1}}
@@ -192,7 +218,7 @@
 %{\rput[l]{0}(#1,#2){\footnotesize $\circ$ \underline{\textit{#5}}}}
 \newcommand {\ertext}[4]
 {
-\rput[B#3]{0}(#1,#2){{\footnotesize #4}}
+\rput[B#3]{0}(#1,#2){\fontsize{8}{10}\selectfont #4}
 }
 % \erarc {#1 x0} {#2 y0} {#3 x1} {#4 y1} {#5 x2} {#6 y2} {#7 x3} {#8 y3}
 \newcommand {\erarc}[8]
