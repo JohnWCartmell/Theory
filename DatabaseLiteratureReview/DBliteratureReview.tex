@@ -1,0 +1,211 @@
+\documentclass[11pt,a4paper]{scrartcl}
+
+\input{../SharedMacros/theorems.macros}
+\input{../SharedMacros/ccategories.macros}
+\input{../SharedMacros/gats.macros}
+\input{../SharedMacros/metagat.macros}
+\input{../SharedMacros/ermacros}
+\input{../SharedMacros/erdiagram}
+\input{../SharedMacros/indexedsets.macros}
+
+\usepackage{mathptmx}
+\usepackage{anyfontsize}
+%\usepackage{amsfonts}
+\usepackage{wasysym}
+\usepackage[margin=3cm]{geometry}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{environ}
+\NewEnviron{shrunkdisplay}{%
+\begin{equation*}
+\scalebox{0.9}{$\BODY$}
+\end{equation*}
+}
+
+\renewcommand{\erpictureFolder}[0]{../SharedPictures}
+
+\setcounter{equation}{0}
+\bibliographystyle{apalike} 
+
+\title{Review of Data/Database Specification Literature}
+\author{John Cartmell\footnote{john.w.cartmell gmail.com}\\ \normalsize{\textit{Ad Otium}}}
+\begin{document}
+\maketitle
+
+\section {Johnson and others}
+\subsection{\cite{Johnson93}      }
+Having define a directed graph in which nodes are either types of entity or
+else attributes and the edges are functional (many-one) relationships
+they argue that there is a composition structure on this graph
+and that the resulting category should be thought of as a classifying category
+for the ER-model (there is no technical meaning to this term classifying category by the way, 
+the term is used descriptively):
+\begin{quote}
+Since the many-to-one relations in the
+model are intended to represent real world many-to-one relations (functions)
+there are real world compositions and we argue that these should be represented
+in the model. Many of the compositions are free in the sense that formal 
+composites can just be added to the model (or indeed left out since such formality
+can be added later), but when there is a closed loop of arrows it is important to
+determine, by considering the real world semantics, whether the diagram commutes. 
+Once this has been done for all possible composites we have constructed
+a classifying category for the ER-model.
+\end{quote}
+
+Now for the good bit - as true today as when they wrote it twenty five years ago:
+\begin{quote}
+It is remarkable that extant ER-modelling methodologies have ignored this
+question of commuting diagrams. Typically an analyst spends a great deal of
+time and effort developing a model and eventually passes it to a programmer
+to implement. Often it is important that the resultant program check the 
+constraint implied by the commutativity of certain diagrams, but since the analyst
+has not recorded which diagrams commute it is up to the less experienced 
+programmer to try to reconstruct the intended semantics and to decide whether a
+given diagram should commute!
+\end{quote}
+
+Next the authors state that certain additional \textit{exactness properties} are required of the category
+- no rationale for this at this point:
+\begin{quote}
+We need a terminal object I, 
+and arrows $I \morph A$ will be used to specify instances of the entity A. We
+need finite coproducts for two reasons. First, entities often have substructure
+which is best indicated by coproducts (so for example in a small retail 
+business the entity EMPLOYEE might be the coproduct of the entities DRIVER,
+SALESPERSON, CLERICAL STAFF and MANAGEMENT). Secondly, attributes
+are fixed sets (so for example PRODUCT NO might be the set of all four digit
+numbers -- of course most of these numbers won't be used at any particular point
+in time, but the relationship between PRODUCT and PRODUCT NO allows us
+to see which ones are currently valid product numbers). Thus attributes are
+usually $\sum^nI $ for some n (n = 10000 in our product numbers example). This
+is technically very important since the injection $i_k:I \morph \sum^nI$  allows us to
+pick out attribute number k from which, if the attribute is a key attribute, we
+can obtain information about a particular instance of the corresponding entity.
+
+Finally we need pullbacks, both to allow us to compose relations and to allow
+us to access the entity instances with particular attribute values.
+
+Furthermore we expect the coproducts to behave well. They should be
+disjoint and universal. Thus in the presence of pullbacks and a 
+terminal object
+we expect our classifying category to be a \textit{lextensive category} [2] [[Replace this by a citation of my own]].
+\end{quote}
+Finally, they add that:
+\begin{quote}
+we expect subobjects to be complemented with I + I acting as
+a subobject classifier. 
+\end{quote}
+and note that an extensive category with this property is called a
+\textit{Boolean category} and is necessarily lextensive. 
+They note that
+\begin{quote}
+ the internal logic of the lextensive
+classifying category of an information model forms a query language for that
+model. Thus the standard queries arise as objects of the classifying category.
+
+The semantics of the information model will be given by lextensive functors
+from its classifying category to set. Such functors will necessarily carry the
+object representing a query to the set of records which satisfy the query.
+\end{quote}
+Now we are at the heart of the matter. By the way your can contrast this by my 1985 paper where I am interested in queries that can
+be executed in O(log n) time, where n is number of instances involved in the query. The idea there is that there is a lesser
+categorical structure which encapsulates there more performant queries which in turn are directly supported by the database structure.
+(Remember what telephone directories looked like - open one that has perversely ordered by telephone number instead of by name -
+how long will it take to find the number you are looking for - does this distinguish between data (its there somewhere) and information
+(its there and I know how to quickly find it).  
+
+
+I disagree with the following:
+\begin{quote}
+in order to update the information system, it is usually necessary to
+update an instance at each vertex of the diagram and then finally to check that
+commutativity has been preserved
+\end{quote}
+because commutativity should be built into the information content.
+
+\begin{quote}
+One particularly difficult problem in dealing with large information systems
+is the presentation of different views of the system for different users. The
+problem is essentially one of how to partition the system so that users can see
+a relatively complete view related to the aspects that are of relevance to them
+without having to look at the whole system. The recognition of commuting
+diagrams as processes suggests that the best partitioning would be obtained
+by choosing a related group of commutative diagrams. This will be developed
+in work currently in progress. An early example is shown in Figure 8 where
+four views of an information model have been derived by selecting commuting
+diagrams from a much larger and more detailed model.
+\end{quote}
+This is because commuting diagrams indicate locality. Hence composition relationships!
+
+Regarding the above description of coproducts as inheritance: I suggest could model this categorically by adding that
+there are canonical coproducts (or at least can be presented canonically) and that all objects are domain to at most
+one cannonical injection. Then it follows that for each  morphism $1 \morph A$ in the presentation there is a an object
+$A_a$ and a cannonical injection $A_a \morph A$ which represents $a$ as a singular subtype of $A$. We can claim that
+$A_a$, and, by association, $a$, are universals. 
+
+Bertrand Russell\footnote{Problems of philosophy, page 59 in 1967 edition} in consideration of the proposition
+that `two and two are four' is of the view that this proposition:
+\begin{quote}
+...states a relationship between the universal `two' and the universal `four'.
+\end{quote}
+and from which he `endeavours to establish':
+\begin{quote}
+\textit{All} a priori \textit{knowledge deals exclusively with the relations of universals.}
+\end{quote}
+
+\subsection{\cite{johnson2002REL} }
+
+\subsection{\cite{Johnson2002ERA} }
+Discussion of overloading of the term`model'.
+Introduction of the term `EA-sketch'. 
+
+
+Algebraic Methodology and Software Technology 12th International Conference Johnson and Rosebrugh page 236
+\begin{quote}
+An EA sketch E=(G,D,L,C) is a sketch with only finite cones and finite discrete cocones and with a 
+specified cone with empty base whose vertex is called 1. Edges with domain 1 are called elements. 
+Nodes which are vertices of cocones all of whose injections are elements are called attributes. 
+Nodes which are neither attributes, nor 1, are called entitites.
+\end{quote}
+The theory associated with a sketch is a category of models in a certain 2-category(!).
+\begin{quote}
+we drop the distinction between entities and relationships. This point of view is also
+espoused by other writers on database theory, for example C. J. Date, [7]. It explains
+why we have chosen to speak of `EA' sketches rather than `ERA' sketches.
+\end{quote}
+\begin{quote}
+As a special case we mention the `keyed' EA sketches in which every entity has
+a specified monomorphism to a key attribute.
+\end{quote}
+Discrete cocones just means coproducts!
+
+What is the rub with entity types which have elements?
+
+Now the claim is that models have to be in categories which are lextensive -- which is to say
+that coproducts and limits behave nicely. sums are universal and disjoint (see [\cite {carboni1993}])
+
+universal means
+
+disjoint means 
+Why is this?
+
+\section{IDL}
+See Lamb 1987 [\cite{Lamb1987}]
+On why you should use IDL:
+\begin{quote}
+1. IDL can describe complex data structures in a simple but formal way.
+It gives you a way to talk about the information content of your data
+separately from its representation, much more clearly than most programming 
+languages do.
+2. IDL tools can automatically generate stereotypical modules of a program,
+such as input/output procedures.
+3. The automatically-generated modules support passing data between programs 
+that might be written in different programming languages, and
+might run on different machines.
+\end{quote}
+  
+\bibliography{../SharedBibliography/temp/bibliography}
+
+\end{document}
