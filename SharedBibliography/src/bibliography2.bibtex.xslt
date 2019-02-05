@@ -6,7 +6,7 @@
   <xsl:apply-templates select="child::*"/>
 </xsl:template>
 
-<xsl:template match="phdthesis|incollection|inproceedings|misc|article|book">
+<xsl:template match="phdthesis|incollection|inproceedings|misc|article|book|techreport">
   <xsl:text>@</xsl:text>
   <xsl:value-of select="name()"/>
   <xsl:text>{</xsl:text>

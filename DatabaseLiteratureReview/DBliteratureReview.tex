@@ -34,6 +34,76 @@
 \begin{document}
 \maketitle
 
+\section{Carboni, Lack and Walters}
+
+From [\cite{Carboni1993}]:
+\begin{quote}
+In a category with sums and pullbacks along injections, sums are
+said to be disjoint if the pullback of the injections of a binary sum is the initial
+object, and all injections are monic.
+\end{quote}
+
+and
+\begin{quote}
+In a category with finite sums and pullbacks along their injections,
+a coproduct diagram
+
+\begin{displaymath}
+\begin{array} {cp{0.5cm}cp{0.5cm}c}
+\Rnode{X1}{X_1} && \Rnode{sumX1X2}{X_1+X_2} && \Rnode{X2}{X_2} \\
+\end{array}
+\ncarr{X1}{sumX1X2}
+\naput{x_1}
+\ncarr{X2}{sumX1X2}
+\nbput{x_2}
+\end{displaymath}
+
+is said to be universal if pulling it back along any morphism into $X_1 + X_2$, gives a
+coproduct diagram.
+\end{quote}
+So if $f: A \morph x_1+X_2$ and $A_1$ is the pullback of $X_1$ along $f$ and $A_2$ is the pullback of $X_2$ along $f$
+as here:
+\begin{displaymath}
+\begin{array} {cp{0.5cm}cp{0.5cm}c}
+\Rnode{A1}{A_1} && \Rnode{A}{A} && \Rnode{A2}{A_2} \\[1.5cm]
+\Rnode{X1}{X_1} && \Rnode{sumX1X2}{X_1+X_2} && \Rnode{X2}{X_2} \\
+\end{array}
+\ncarr{A}{sumX1X2}
+\nbput{f}
+\ncarr{A1}{X1}
+\nbput{f_1}
+\ncarr{A2}{X2}
+\nbput{f_2}
+\ncarr{A1}{A}
+\naput{a_1}
+\ncarr{A2}{A}
+\nbput{a_2}
+\ncarr{X1}{sumX1X2}
+\naput{x_1}
+\ncarr{X2}{sumX1X2}
+\nbput{x_2}
+\end{displaymath}
+then
+\begin{displaymath}
+\begin{array} {cp{0.5cm}cp{0.5cm}c}
+\Rnode{A1}{A_1} && \Rnode{A}{A} && \Rnode{A2}{A_2} \\
+\end{array}
+\ncarr{A1}{A}
+\naput{a_1}
+\ncarr{A2}{A}
+\nbput{a_2}
+\end{displaymath}
+is a coproduct diagram.
+
+This is effectively relationship specialisation, in CAIS-A
+ data model $f_1$ an d $f_2$ are specialisations of $f$: 
+
+\begin{center}
+\input{\erpictureFolder/relationshipSpecialisation}
+\end{center}
+In Toolbuilder $f$ would be modelled as an aggregation of $f_1$ and $f_2$ i.e. as 
+a derived relationship.
+
 \section {Johnson and others}
 \subsection{\cite{Johnson93}      }
 Having define a directed graph in which nodes are either types of entity or
@@ -137,11 +207,16 @@ in work currently in progress. An early example is shown in Figure 8 where
 four views of an information model have been derived by selecting commuting
 diagrams from a much larger and more detailed model.
 \end{quote}
+\textbf{Coomment}\\
+
 This is because commuting diagrams indicate locality. Hence composition relationships!
 
-Regarding the above description of coproducts as inheritance: I suggest could model this categorically by adding that
+\textbf{Comment}
+Regarding the above example of coproducts as what in ER modelling is called inheritance: I suggest could restrict to single inheritance by adding that
 there are canonical coproducts (or at least can be presented canonically) and that all objects are domain to at most
-one cannonical injection. Then it follows that for each  morphism $1 \morph A$ in the presentation there is a an object
+one cannonical injection. 
+
+From this it also follows that for each  morphism $1 \morph A$ in the presentation there is a an object
 $A_a$ and a cannonical injection $A_a \morph A$ which represents $a$ as a singular subtype of $A$. We can claim that
 $A_a$, and, by association, $a$, are universals. 
 
@@ -184,7 +259,7 @@ Discrete cocones just means coproducts!
 What is the rub with entity types which have elements?
 
 Now the claim is that models have to be in categories which are lextensive -- which is to say
-that coproducts and limits behave nicely. sums are universal and disjoint (see [\cite {carboni1993}])
+that coproducts and limits behave nicely. sums are universal and disjoint (see [\cite {Carboni1993}])
 
 universal means
 
@@ -192,7 +267,7 @@ disjoint means
 Why is this?
 
 \section{IDL}
-See Lamb 1987 [\cite{Lamb1987}]
+See Lamb 1997 [\cite{Lamb1997}]
 On why you should use IDL:
 \begin{quote}
 1. IDL can describe complex data structures in a simple but formal way.
