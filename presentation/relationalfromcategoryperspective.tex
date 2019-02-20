@@ -1,0 +1,116 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{framed}
+
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{helvet}
+\usepackage{hyperref}
+\usepackage{mathptmx}
+\usepackage{amssymb}  % this is required if document class                 
+                      % is `article' for the \blacksquarerequired for
+											% attributes on ER diagrams
+
+% The following combination of packages doesn't work
+% if document class is `article' but works ok if document class 
+% is `beamer'
+%\usepackage{mathptmx}
+%\usepackage{amsfonts}
+%\usepackage{wasysym}
+
+\input{../SharedMacros/ccategories.macros}
+\input{../SharedMacros/gats.macros}
+\input{../SharedMacros/indexedsets.macros}
+\input{../SharedMacros/ermacros}
+\input{../SharedMacros/erdiagram}
+
+\renewcommand*\familydefault{\sfdefault}
+\setcounter{equation}{0}
+\renewcommand{\erpictureFolder}[0]{../SharedPictures}
+
+% This document to be built using LaTeX => PS => pdf because it uses pstricks
+
+\title{Relational Model from a Categorical perspective}
+\author{John Cartmell}
+\begin{document}
+\maketitle
+\noindent For the relational model of data the only permissible primitives are morphisms $f:E \morph A$ where $E$ is an 
+entity object and $A$ is an attribute type (called domain in relational theory).
+
+\noindent This directed graph as a sketch with monic sources  
+\newcommand{\barthat}{\ncput[npos=0.2,nrot=:U]{\psline(0,-0.07)(0,0.07)}}
+
+\begin{equation}
+\begin{array}{ccc}
+\Rnode{E1}{E_1}&            &\Rnode{E2}{E_2}  \\ [0.8cm]
+               &\Rnode{A}{A}&                 
+\end{array}
+\end{equation}
+\ncarr{E1}{A}
+\blabel{a_1}[0.3]
+\barthat
+\ncarr{E2}{A}
+\alabel{a_2}[0.3]
+\barthat
+\ncarr{E1}{E2}
+\alabel{f}[0.3]
+\\
+is represented in a relational presentation as:
+\begin{equation}
+\begin{array}{ccc}
+\Rnode{E1}{E_1}&            &\Rnode{E2}{E_2}  \\ [0.8cm]
+               &\Rnode{A}{A}&                 
+\end{array}
+\end{equation}
+\ncarr[30]{E1}{A}
+\blabel{a_1}[0.3]
+\barthat
+\ncarr[-30]{E1}{A}
+\blabel{fk}[0.3]
+\ncarr{E2}{A}
+\alabel{a_2}[0.3]
+\barthat
+\\
+with the axiom
+$$
+\mbox{for all }x \in E_1,\mbox{ there exists }y \in E_2\mbox{ such that }a_2(y)=fk(x)
+$$
+The attribute $fk$ is said to be a foreign key implementing the relationship $f$ and the axiom is said to be a foreign key constraint.
+
+\noindent More generally if $f: E_1 \morph E_2$ in a theory
+and $E_2$ is keyed by:
+\begin{samepage}
+\begin{equation}
+\begin{array}{c c c} 
+               &\Rnode{E2}{E_2} &                 \\ [1.0cm]
+\Rnode{A1}{A_1}&  ...           &\Rnode{An}{A_n}
+\end{array}  
+\end{equation}
+\ncarr{E2}{A1}
+\blabel{k_1}[0.3]
+\ncarr{E2}{An}
+\alabel{k_n}[0.3]
+\\
+\end{samepage}
+\begin{samepage}
+\noindent then in the relational presentation $f$ is replaced by the combination of primitives
+\begin{equation}
+\begin{array}{c c c} 
+               &\Rnode{E1}{E_1} &                 \\ [1.0cm]
+\Rnode{A1}{A_1}&  ...           &\Rnode{An}{A_n}
+\end{array}  
+\end{equation}
+\ncarr{E1}{A1}
+\blabel{fk_1}[0.3]
+\ncarr{E1}{An}
+\alabel{fk_n}[0.3]
+\\
+\end{samepage}
+and the axiom: 
+$$
+\mbox{for all }x \in E_1,\mbox{ there exists }y \in E_2\mbox{ such that } \bigwedge_{1 \leq i \leq n} k_i(y) = fk_i(x)
+% ( k_1(y)=fk_1(x)  \& ... \& k_n(y)=fk_n(x))
+$$
+
+\noindent more trextr to see 
+if triggers ARROWSA.
+
+\end{document}
