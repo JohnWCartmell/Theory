@@ -89,11 +89,9 @@
 
 \maketitle
 \begin{center}
-DRAFT
+DRAFT \marginpar{\footnotesize Dated 2016 with margin notes 21 Feb 2019}
 \end{center}
 
-% comment out following for ams
-%\bibliographystyle{hplain} 
 
 \section{Introduction}
 
@@ -249,7 +247,7 @@ $E_{p_i, 1 \leq i \leq n}$  is jointly invertible.
 Consider that the various database normal forms (3NF, BCNF, 4NF, 5NF and the like) each 
 prescribe that a database schema be complete in some way as a description of the facts of its instances\footnote{Essentially
  because being good as a schema is to be a good theory and a good theory is one that is a good fit to the facts.} and observe 
-in particular that BCNF can be paraphrased as saying that those relationships (i.e. functional dependencies) that exist in the data ought to be \term{represented} in the schema. These considerations motivate the definitions which now follow and conclude with the definition of a \term{well-formulated} entity model. This definition generalises that of a relational schema being in Boyce-Codd Normal Form (BCNF). 
+in particular that BCNF can be paraphrased as saying that those relationships (i.e. functional dependencies) that exist in the data ought to be \term{represented} in the schema\footnote{21/02/2019 Is this not the representation principle?}. These considerations motivate the definitions which now follow and conclude with the definition of a \term{well-formulated} entity model. This definition generalises that of a relational schema being in Boyce-Codd Normal Form (BCNF). 
    
 \noindent \textbf{Notation}
 If $X_1,...X_n$ are sets and if $J=\{i_1,...i_j\} \subseteq \{1,...n\}$ then denote by $P_J$ the projection function :
@@ -425,7 +423,7 @@ $\langle q_1,...q_n \rangle$
 with respect to $b$, where for each $i$, $q_i: b \rightarrow b_i$,
 for each  family of edges $f_i: a \rightarrow b_i$  such that  
 $\langle f_1,...f_n \rangle$ references $b$ with respect to $\langle q_1,...q_n \rangle$,
-the path $\langle f_1,...f_n,I_{\langle q_1,...q_n \rangle} \rangle$ is explicitly represented.
+the path $\langle f_1,...f_n,I_{\langle q_1,...q_n \rangle} \rangle$\marginpar{\footnotesize $I_{\langle q_1,...q_n \rangle}$ isn't defined!} is explicitly represented.
 }
 \item{
 if for some $n \geq 1$, $a$, $b_{i, 1 \leq i \leq n}$,  and $c$ are entity types and if  $x_{i, 1 \leq i \leq n}$, and $y$ are simple paths such
@@ -447,18 +445,18 @@ $
 \simplepatha{$x_n$}{a}{bn}
 \simplepathb{$y$}{a}{c}
 \end{center}
-\noindent then if in each instance $E$ there exists a unique 
-function $f_E: E_{b_1} \times E_{b_n} \rightarrow E_c$ 
+\noindent then if in each instance $E$ there exists a unique\marginpar{\footnotesize why unique?}
+function $f_E: E_{b_1} \times E_{b_n} \rightarrow E_c$ \marginpar{\footnotesize partial function}
 
 \noindent such that 
 domain of $f_E \subseteq img(E_{\langle x_1,... x_n \rangle})$ 
-and  for each $i$, $1 \leq i \leq n$, $E_{\langle x_1,..x_n \rangle} \circ f_E = E_y$ 
+and  for each $i$,\marginpar{\footnotesize what has $i$ got to do with it} $1 \leq i \leq n$, $E_{\langle x_1,..x_n \rangle} \circ f_E = E_y$ 
 and the family of functions $f_E$ is irreducible 
 then
 either in every instance $E$, $E_{\langle x_1,..x_n \rangle}$ is invertible or else
 the family of functions $f_E$ are represented in the model
 by an entity type $d$, and an identifying tuple of simple paths with respect to $d$,
- $q_1,...q_n$, $z$ such that  $\langle x_1,..x_n \rangle$ references $d$ with respect to
+ $q_1,...q_n$, $z$ \marginpar{\footnotesize not clear what z is}such that  $\langle x_1,..x_n \rangle$ references $d$ with respect to
 $q_1,...q_n$ 
 and from which it follows (from note in clause (ii)) that there is a simple path $p:a \rightarrow d$ such
 that in all instances $E$,
@@ -502,18 +500,18 @@ $
 \noindent If $\sigma$ is a equi-join condition between two entity types $a$ and $b$ then we will denote the i'th pairing of attributes as $\sigma_{i,1},\sigma_{i,2}$. 
 Thus we have that  $\sigma_{i,1} \in \attrs{a}$ and $\sigma_{i,2} \in \attrs{b}$. \\
 
-\noindent If $\sigma$ is a equi-join condition within a schema $s$ and if $E$ is an instance of $s$ then denote by $E_\sigma$
+\noindent If $\sigma$ is a equi-join condition within a schema $s$\marginpar{\footnotesize model $M$?} and if $E$ is an instance of $s$ then denote by $E_\sigma$
 the many-valued function from $E_a$ to $E_b$
 defined by $\sigma(e) = \{ e' \in E_b : \forall i \in N_n, \sigma_{i,1}(e)=\sigma_{i,2}(e') \}$. \\
 
 \begin{definition}
 An equi-join condition  $\sigma$ between two entity types $a$ and $b$ is defined to be an 
 \term{inclusion dependency}
-iff the set $E_\sigma(e)$ is non-empty, for all instances E of s and for all $e \in E_a$. \\
+iff the set $E_\sigma(e)$ is non-empty, for all instances E of s\marginpar{\footnotesize wherefore $s$?} and for all $e \in E_a$. \\
 \end{definition}
 
 \noindent
-By the \term{domain} of a join condition $\sigma$ in an instance $E$ we shall mean the  set $\{ e \in E_a \| \forall i, 1 \leq i \leq n, \sigma_{i,1(e)} \mbox{is defined} \}$. \\
+By the \term{domain} of a join condition $\sigma$ in an instance $E$ we shall mean the  set $\{ e \in E_a \| \forall i, 1 \leq i \leq n, \sigma_{i,1}(e) \mbox{is defined} \}$.\marginpar{\tiny typesetting error has been corrected} \\
 
 
 \begin{definition}
@@ -527,10 +525,10 @@ iff the set $E_\sigma(e)$ is a singleton set, for all instances E and for all $e
 \begin{definition}
 A well-formulated ER model is \term{purely-logical}  iff it 
 also satisfies:
-(i) there are no edges $r$ such that there is 
 a simple path $p$ which does not include $r$ in its definition and such that $r \simeq p$  
 and (ii) there are no non-trivial referential inclusion dependencies. \\
 \end{definition}
+(i) there are no edges $r$ such that there is 
 \noindent
 We say that an ER model is a \term{logical ER model} iff it is purely logical.
 
@@ -635,10 +633,11 @@ r_0
 \end{multline}
 \section{Boyce-Codd Normal Form}
 \noindent One measure of the goodness of a physical model is whether it satisfies the well-formedness condition know as Boyce Codd Normal Form.
-Written in the terminology we are using here it can be expressed as follows: a physical ER model is in Boyce Codd Normal Form (BCNF) iff
+Written in the terminology we are using here it can be expressed as follows: a physical ER model is in Boyce Codd Normal Form (BCNF) 
+\marginpar{\footnotesize  Need to come to terms with the partiality -  isn't quite right in this area. Would be good if could say if y defined then y equals but I dont think that OK either.} iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$, $n \geq 1$, if in all instances $E$, there exists a unique n-ary partial function
 $f$ such that $E_{<x_1,...x_n>} \circ f = E_y$ then either $y$ is $x_i$ for some $i$ or else in all instances
-$E$, $E_{<x_1,...x_n>}$ is invertible. \\
+$E$, $E_{<x_1,...x_n>}$ is invertible.  \\
 
 \noindent The next lemma simplifies the requirement for showing BCNF to consideration of irreducible families of functions:
 \begin{lemma}
