@@ -88,6 +88,18 @@ with two keys (D\#, ACC\#) and  (MGID, ACC\#) unchanged and FDs f1 and f2
 as before then this extended schema is in EKNF because 
 the attributes MGID and ACC\# are now elementary key attributes?
 \end{quote}
+\begin{center}
+\input{\erpictureFolder/zanioloExample1}
+\end{center}
+
+
+\textbf{Zaniolo Second Example}
+This is an example of a relational schema which is in Elementary Key Normal Form but not in BCNF. When expressed in ER terms we have:
+\begin{center}
+\input{\erpictureFolder/zanioloExample2}
+\end{center}
+\textit{The `telephone.area' relationship shown here is identifying. Therefore so to is the `telephone.at' relationship.
+The relationsal model is therefore not in BCNF. It is not possible to express such a  model in my formalisation of ER model as I  have it currently in my Relational Data Design document. It would be possible in Johnstone I think. Neither is it supported in Oracle. My ERScript software doesn't support it either.} 
 
 
 \section{Carboni, Lack and Walters}
@@ -294,7 +306,7 @@ in work currently in progress. An early example is shown in Figure 8 where
 four views of an information model have been derived by selecting commuting
 diagrams from a much larger and more detailed model.
 \end{quote}
-\textbf{Coomment}\\
+\textbf{Comment}\\
 
 This is because commuting diagrams indicate locality. Hence composition relationships!
 
@@ -469,6 +481,38 @@ two slots filled by BONDING).
 \begin{quote}
 Unfortunately, Bennett’s mereology runs into some trouble ...
 \end{quote}
+
+\section{Wikipedia BCNF Entry}
+This has an example based on the following which has similarity to Zaniolo Example 2.
+I need find the original source of this example.
+\begin{center}
+\input{\erpictureFolder/nearestShop}
+\end{center}
+This is a useful example because without the reference relationship the model in not `well-formulated'. With the reference relationship added
+then the identifying relationship `nearestShop.ofType' is a derived relationship. Therefore this is a model which cannot be well-formulated.
+In the wikipedia article this is given as if adding a relation yields Elementary Key Normal Form but I think this is misleading because 
+the table is in EKNF. Rather it is an example of EKNF not being in BCNF.
+
+\section{Explaining proper formulation}
+Example from 8th March 2019 notebook:
+Suppose we start with this initial model:
+
+\begin{center}
+\input{\erpictureFolder/warehouseDeliveryInitial}
+\end{center}
+
+Because there is a dependency orderNo, deliveryNo $\longrightarrow$  of(stock)/warehouseName 
+then there we introduce and  entity identified by orderNo and by deliveryNo and give it a warehouseName attribute:
+\begin{center}
+\input{\erpictureFolder/warehouseDeliveryIntermediate}
+\end{center}
+Finally because there is an identity of derived attributes (warehouse reached from stock\_item via both delivery and stock\_item) then
+we introduce an entity to factor these derived attributes to reach a final model:
+
+
+\begin{center}
+\input{\erpictureFolder/warehouseDeliveryFinal}
+\end{center}
 
  
 \bibliography{../SharedBibliography/temp/bibliography}
