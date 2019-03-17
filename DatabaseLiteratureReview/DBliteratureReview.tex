@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper]{scrartcl}
+\documentclass[10pt,a4paper]{scrartcl}
 
 \input{../SharedMacros/theorems.macros}
 \input{../SharedMacros/ccategories.macros}
@@ -497,31 +497,49 @@ This is a useful example because without the reference relationship the model in
 then the identifying relationship `nearestShop.ofType' is a derived relationship. Therefore this is a model which cannot be well-formulated.
 In the wikipedia article this is given as if adding a relation yields Elementary Key Normal Form but I think this is misleading because 
 the table is in EKNF. Rather it is an example of EKNF not being in BCNF.
-\newpage
-\section{Explaining proper formulation}
-Example from 8th March 2019 notebook:
-Suppose we are presented with an  initial model which represents items that either have been or will be delivered from various warehouses.
 
+\section{Explaining proper formulation}
+Example from 8-15 March 2019 Notebook.
+Suppose we are presented with an  initial model which represents items that either have been or will be picked from crates held in various warehouses.
+As shown here:
 \begin{center}
 \input{\erpictureFolder/pickingsInitial}
 \end{center}
+each `crate' holds items of a certain type and is identified by `crateId'. There is record of 
+the `quantity' picked from each crate to satisfy a `delivery'.  
 
-If we wish to decide whether this model is properly formulated we need  examine possible functional dependencies amongst the entitites
-we are modelling. 
+With knowledge of the business or by examination of the data we might find that  within the context 
+of entities of type `pick' there is a functional dependency of the 'warehouse' attribute of each  related `crate' entity upon the `deliveryId' attribute.
 
-Because there is a dependency orderNo, deliveryNo $\longrightarrow$  of(stock)/warehouseName 
-then there we introduce and  entity identified by orderNo and by deliveryNo and give it a warehouseName attribute:
+Formally this can be represented so:
+\begin{equation}
+\label{warehousefd}
+pick: deliveryId \longrightarrow  from[crate]/warehouse
+\end{equation}
+This functional dependency is not represented in the model and therefore the model cannot be 
+considered complete.
+
+As a next step we should introduce an entity identified by the left hand side 
+of the fd (\ref{warehousefd})), i.e.
+ `deliveryId' and assign to it a `warehouse' attribute as shown here:
 \begin{center}
 \input{\erpictureFolder/pickingsIntermediate}
 \end{center}
-Finally because there is an identity of derived attributes (warehouse reached from stock\_item via both delivery and stock\_item) then
-we introduce an entity to factor these derived attributes to reach a final model:
+This model makes explicit the dependency of warehouse upon deliveryId - the fact that each delivery consists of items picked from a single warehouse. We now have to note however that there is now
+an identity of derived attributes of the entity `pick' (warehouse reached from pick via both delivery and crate). Formally:
 
+\begin{equation}
+pick:for/warehouse=from/warehouse
+\end{equation}
+
+To make this explicit as a commuting diagram of relationships between entities
+we need introduce a `warehouse' entity  to reach a final model:
 
 \begin{center}
 \input{\erpictureFolder/pickingsFinal}
 \end{center}
-\newpage
+In this final model the square of relationships commutes as depicted by the scope constraint annotation.
+
  
 \bibliography{../SharedBibliography/temp/bibliography}
 
