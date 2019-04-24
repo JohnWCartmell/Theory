@@ -7,6 +7,8 @@
 \usepackage{hyperref}
 
 %\input{../SharedMacros/theorems.macros}
+\newtheorem{proposition}[theorem]{Proposition}
+
 \input{../SharedMacros/ccategories.macros}
 \input{../SharedMacros/gats.macros}
 \input{../SharedMacros/metagat.macros}
@@ -121,9 +123,7 @@ is a limit cone.
 \end{frame}
 
 
-
 \begin{frame}{Each entity type has at least on mono source defined}
-
 \begin{tabular}{l}
 \scalebox{0.60}{
 \input{chemicalElementElementSymbolMonoSource}
@@ -180,5 +180,41 @@ In the category there are two further \textit{derived}  mono sources: \\
 \end{tabular}
 \end{frame}
 
+\begin{frame}{Normalisation}
+\begin{definition}
+{ \footnotesize
+If $T$ is a theory and $W \subset |Mod(T,FinSet)|$ is an intended usage then an interpretation (theory morphism) $I: T \morph T'$ is an improvement of $T$ wrt $W$ iff 
+$Mod(I,Finset): Mod(U',Finset) \morph Mod(U,Finset)$ is injective but not surjective
+and $W \subseteq img(Mod(I,Finset))$.
+i.e. for all models $U \in W$ there exists $U' \in Mod(T,Finset)$ such that $I \circ U'=U$
+$
+\begin{array} {c p{2cm} c}
+\Rnode{T}{T} && \\ [0.25cm]
+             && \Rnode{finset}{Finset} \\ [0.25cm]
+\Rnode{Tp}{T'}  
+\end{array}
+$
+\ncarr {T}{finset}
+\alabel{U}
+\ncarr{T}{Tp}
+\blabel{I}
+\ncarr{Tp}{finset}
+\blabel{U'} 
+}
+\end{definition}
+
+\begin{definition}
+If a theory $T$ has no improvement wrt to an intended usage $W$ then $T$ is said to be \textit{optimally formulated} wrt $W$.
+\end{definition}
+\end{frame}
+
+\begin{frame}
+\begin{proposition}
+If a relational schema $R$ can be normalised to $R'$ then the associated theory $T$ of $R$ can be improved to the associated thery $T'$ of $R'$.
+\end{proposition}
+\begin{proposition}
+If a relational database schema is in normal form then its associated theory is optimally formulated.
+\end{proposition}
+\end{frame} 
 
 \end{document}
