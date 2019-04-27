@@ -79,8 +79,6 @@
 \newcommand{\srcattrs}[1]{\mathbb{S}_{#1}}
 
 
-
-
 \begin{document}
 \title{Documenting commutative diagrams of relationships to eliminate sources of redundancy in relational data design - Part Two - Logical to Physical Mathematically}
 % abstract here for ams
@@ -89,7 +87,8 @@
 
 \maketitle
 \begin{center}
-DRAFT \marginpar{\footnotesize Dated 2016 with margin notes 21 Feb 2019}
+DRAFT \marginpar{\footnotesize Dated 2016 with margin notes 21 Feb 2019. }
+      \marginpar{\footnotesize Further variant definitions, notes and  corrections 25 April 2019.}
 \end{center}
 
 
@@ -117,6 +116,7 @@ comprise the primary key to the data whereas in logical entity relationship (ER)
 
 \noindent
 From this starting position we provide a set of general definitions of \term{ER schema}, \term{ER schema instance},
+\marginpar{\footnotesize is there a use somewhere for the terms \textit{logically redundant} and \textit{physically redundant}?}
 and \term{ER model} so that from the definition of \term{ER model} we capture the notion of a database schema 
 and all its envisaged usages (to a meta-mathematician the ER schema notion equates to a \term{theory} of some kind
 and an ER model to a theory and all its instances i.e. all its models\footnote{This is my first and last usage of the term \term{model} 
@@ -158,28 +158,29 @@ be the set of identifying relationships of $a$ and is  denoted $\idRels{a}$. \\
 \noindent That subset of those attributes of $a$ that are also in the distinguished set of identifying edges is said 
 to be the set of identifying attributes of $a$  and is denoted $\idAttrs{a}$.\\
 
-\noindent The set of all outgoing identifying edges from a node $a$ will be denoted $\kappa_a$. \\
+\noindent The set of all outgoing identifying edges from a node $a$ will be denoted $\idEdges{a}$ \marginpar{\footnotesize Previously $\kappa_a$}. \\
 
-\noindent So that we can define the characteristics of $\kappa_a$ as a set of identifying properties for entitites of type
+\noindent So that we can define the characteristics of $\idEdges{a}$ as a set of identifying properties for entitites of type
 $a$ we need the following definition:
 
 \begin{definition}
 If $s$ is a set and if $f_{i, 1\leq i \leq n}$ is a family of partial functions, $f_i: s \rightarrow s_i$   for some sets $s_{i, 1 \leq i \leq n}$,  then
-we will say that the family of functions $f_{i, 1\leq i \leq n}$, is \term{jointly invertible} if the partial function $\langle f_1,...f_n\rangle: s \rightarrow
-s_1 \times ... \times s_n $ is invertible i.e. iff there is a partial function $inv_{\langle f_1,...f_n\rangle} : s_1 \times ... \times s_n \rightarrow s$ such that
+we will say that the family of functions $f_{i, 1\leq i \leq n}$, is \term{jointly injective} if the partial function $\langle f_1,...f_n\rangle: s \rightarrow
+s_1 \times ... \times s_n $ is injective. In this case the partial function $\langle f_1,...f_n\rangle: s \rightarrow
+s_1 \times ... \times s_n $ is also invertible i.e. iff there is a partial function $inv_{\langle f_1,...f_n\rangle} : s_1 \times ... \times s_n \rightarrow s$ such that
 (i) for all $x \in s$, $inv_{\langle f_1,...f_n\rangle}(\langle f_1(x),...f_2(x) \rangle ) = x$ and (ii) if $y \in s_1 \times ... \times s_n $ and
 $y \notin img(\langle f_1,...f_n\rangle)$ then $inv_{\langle f_1,...f_n\rangle}(y)$ is undefined. \\
 \end{definition}
-\noindent which we then use to define the notion of a database instance as follows:
+\noindent The notion of a database instance is defined as follows:
 \begin{definition}
 \noindent A \term{database instance}  of an ER schema is
 a set of entities $E_a$ for each node $a$ of the graph of the schema and 
 a partial function $E_r : E_a \rightarrow E_b$ for each edge of the graph $r:a \rightarrow b$ such that 
-for each entity type $a$ the family of functions $E_{r, r \in \idEdges{a}}$, is jointly invertible. 
+for each entity type $a$ the family of functions $E_{r, r \in \idEdges{a}}$, is jointly injective. 
 \end{definition}
 
 \noindent It follows that in every database instance $E$, for every entity type $a$ there is a function 
-$inv_{E_{\kappa_a}}$ that represents navigation to an entity from an identifying set of related entities or attributes. 
+$inv_{E_{\idEdges{a}}}$ that represents navigation to an entity from an identifying set of related entities or attributes. 
 In a physical model this will equate to keyed lookup. \\
 
 \noindent Without change to the underlying concept then we can say that each ER schema comes equipped with a multi-edge $I_a$ for every entity type a such that if 
@@ -216,7 +217,7 @@ is defined to be the functional composition $E_p \circ E_f$.
 
 \item{ for all entity types $b$ such that $I_b: \langle b_1,...b_n\rangle \rightarrow b$ and where
 for each $i$, $1 \leq i \leq n$, $p_i$ is a path, $p_i: a \rightarrow b_i$, $E_{\langle p_1,...p_n,I_b\rangle}$ is defined to be 
-$\langle E_{p1},...E_{p_n} \rangle \circ inv_{E_{\kappa_b}}$.
+$\langle E_{p1},...E_{p_n} \rangle \circ inv_{E_{\idEdges{b}}}$.
 }
 \end{enumerate}
 
@@ -240,7 +241,7 @@ entities $e \in E_a$, if $E_r(e)$ is defined then $E_s(e)$ is defined and $E_r(e
 \begin{definition}
 A family of paths $p_i: a \rightarrow a_i$ within a model $\genericmodel$ is said to be \term{jointly monomorphic} iff in all instances E,
 the family of functions 
-$E_{p_i, 1 \leq i \leq n}$  is jointly invertible. 
+$E_{p_i, 1 \leq i \leq n}$  is jointly injective. 
 \end{definition}
 
 \noindent
@@ -424,6 +425,57 @@ with respect to $b$, where for each $i$, $q_i: b \rightarrow b_i$,
 for each  family of edges $f_i: a \rightarrow b_i$  such that  
 $\langle f_1,...f_n \rangle$ references $b$ with respect to $\langle q_1,...q_n \rangle$,
 the path $\langle f_1,...f_n,I_{\langle q_1,...q_n \rangle} \rangle$\marginpar{\footnotesize $I_{\langle q_1,...q_n \rangle}$ isn't defined!} is explicitly represented.
+
+\begin{center}
+$
+\begin{array}{cp{0.5cm}c c c }
+   \Rnode{a}{a}     & &                 & \Rnode{b}{b} &          \\[1.5cm]     
+	                  & & \Rnode{b1}{b_1} & \ \hdots   \ \     & \Rnode{bn}{b_n}  
+\end{array}
+$
+\ncarr{a}{b1} 
+\blabel{f_1}[0.25]
+\ncarr{a}{bn}
+\alabel{f_n}[0.25]
+\ncarr{b}{b1}
+\blabel{k_1}[0.25][1]
+\ncput[npos=0.1, nrot=:U]{\psline(0,-0.1)(0,0.1)}
+\ncarr{b}{bn}
+\alabel{k_n}[0.25]
+\ncput[npos=0.1, nrot=:U]{\psline(0,-0.1)(0,0.1)}
+\end{center}
+}
+\item [(ii')]{  \marginpar{\footnotesize (ii') spells out condition(ii)}
+for all entity types $a$ and for all entity types $b$ with identifying outgoing edges
+$k_{i, 1 \leq i \leq n}$ where for each $i$, $k_i: b \rightarrow b_i$,
+for each  family of edges $f_i: a \rightarrow b_i$
+if in every instance $E$ of $\genericmodel$ the function $\tuple{E_{f_1},...E_{f_n}}:E_a \morph E_{b_1} \cross ... \cross E_{b_n}$
+factors through the function $\tuple{E_{b_1},...E_{b_n}}:E_b \morph E_{b_1} \cross ... \cross E_{b_n}$ then there exists a simple path
+$p:a \morph b$ in $M$ such that in each instance $E$, for each $i$, $1 \leq i \leq n$, $E_{f_i} = E_{f} \circ E_{k_i}$. 
+}
+
+\item [(ii'')]{ 
+\marginpar{ \footnotesize(ii'') the category with products variant of condition (ii). To get (ii') from (ii'') substitute
+$b1 \times ... \times b_n$ for $x$, $\tuple{f_1,...f_n}$ for $f$, $\tuple{b_1,...b_n}$ for $b$.}
+for all diagrams 
+\begin{center}
+$
+\begin{array}{cp{0.75cm}c}
+   \Rnode{a}{a}     & & \Rnode{x}{x}  \\[1.2cm]     
+	                  & & \Rnode{b}{b}  
+\end{array}
+$
+\ncarr{a}{x} 
+\alabel{f}[0.33]
+\ncarr{b}{x}
+\blabel{m}[0.3]
+\ncput[npos=0.1, nrot=:U]{\psline(0,-0.1)(0,0.1)}
+\end{center}
+
+in \cat{C} if in all instances $I \in M$, 
+$I(f)$ factors through $I(m)$ then $f$ factors through $m$ i.e. there is an $f_0: a \morph b$ in \cat{C} such that 
+$f_0 \circ m =f$. Note that because $m$ is monic $f_0$ is the unique such morphism and if in some instance $I$
+$e: I(a) \morph I(b)$ is a function such that $e \circ I(m) = I(f)$ then $I(f_0)=e$. 
 }
 \item{
 if for some $n \geq 1$, $a$, $b_{i, 1 \leq i \leq n}$,  and $c$ are entity types and if  $x_{i, 1 \leq i \leq n}$, and $y$ are simple paths such
@@ -453,7 +505,7 @@ domain of $f_E \subseteq img(E_{\langle x_1,... x_n \rangle})$
 and  for each $i$,\marginpar{\footnotesize what has $i$ got to do with it} $1 \leq i \leq n$, $E_{\langle x_1,..x_n \rangle} \circ f_E = E_y$ 
 and the family of functions $f_E$ is irreducible 
 then
-either in every instance $E$, $E_{\langle x_1,..x_n \rangle}$ is invertible or else
+either in every instance $E$, $E_{\langle x_1,..x_n \rangle}$ is injective or else
 the family of functions $f_E$ are represented in the model
 by an entity type $d$, and an identifying tuple of simple paths with respect to $d$,
  $q_1,...q_n$, $z$ \marginpar{\footnotesize not clear what z is}such that  $\langle x_1,..x_n \rangle$ references $d$ with respect to
@@ -637,7 +689,7 @@ Written in the terminology we are using here it can be expressed as follows: a p
 \marginpar{\footnotesize  Need to come to terms with the partiality -  isn't quite right in this area. Would be good if could say if y defined then y equals but I dont think that OK either.} iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$, $n \geq 1$, if in all instances $E$, there exists a unique n-ary partial function
 $f$ such that $E_{<x_1,...x_n>} \circ f = E_y$ then either $y$ is $x_i$ for some $i$ or else in all instances
-$E$, $E_{<x_1,...x_n>}$ is invertible.  \\
+$E$, $E_{<x_1,...x_n>}$ is injective.  \\
 
 \noindent The next lemma simplifies the requirement for showing BCNF to consideration of irreducible families of functions:
 \begin{lemma}
@@ -647,7 +699,7 @@ in all instances $E$, there exists a unique n-ary partial function
 $f$ such that $E_{<x_1,...x_n>} \circ f = E_y$ and if the family of functions $f_E$ is irreducible then either 
 $n=1$, $x_1=y$ and $E_f=id_{E_y}$
  or else in all instances
-$E$, $E_{<x_1,...x_n>}$ is invertible. 
+$E$, $E_{<x_1,...x_n>}$ is injective. 
 \end{lemma}
 \begin{proof}
 Suppose $\genericmodel$ is an ER model and that $a$ is an entity type of $\genericmodel$ and that $x_1,...x_n$ and $y$ 
@@ -674,8 +726,8 @@ $$
 E_{\langle x_{i_1},...x_{i_j} \rangle} \circ g_E = E_y.
 $$
 Since $g_E$ is irreducible it follows from the initial assumption that either $j=1$ and $x_{i_1}=y$ and $y$ is one of the 
-$x_1,...x_n$ as required or else $E_{\langle x_{i_1},...x_{i_j} \rangle}$ is invertible from which it follows that 
-$E_{\langle x_1,...x_n \rangle}$ is invertible, as required.
+$x_1,...x_n$ as required or else $E_{\langle x_{i_1},...x_{i_j} \rangle}$ is injective from which it follows that 
+$E_{\langle x_1,...x_n \rangle}$ is injective, as required.
 \end{proof}
 
 \noindent We aim to show:\\
@@ -693,7 +745,7 @@ $E_f$ such that
 $E_{<\phys{x}_1,...\phys{x}_n>} \circ E_f = E_{\phys{y}}$ 
 we need to show that 
 either $\phys{y}$ is $\phys{x}_i$ for some $i$ or else in all instances
-$E$ of $\genericphysical$, $E_{<\phys{x}_1,...\phys{x}_n>}$ is invertible. \\
+$E$ of $\genericphysical$, $E_{<\phys{x}_1,...\phys{x}_n>}$ is injective. \\
 
 
 \noindent From the definition of $\logtophys$ it follows that 
@@ -752,8 +804,8 @@ $
 \noindent
 From the assumption that the model $\genericmodel$ is well-formulated and from condition (iii) 
 of the definition of well-formulated, either 
-$E_{\langle x_1,...x_n \rangle}$ is invertible in every instance $E$ of $\genericmodel$ in which case 
-$\logtophys(E)_{\langle \phys{x}_1,...\phys{x}_n \rangle}$ is invertible in every instance $E$ of $\genericmodel$ and the proof is completed or else
+$E_{\langle x_1,...x_n \rangle}$ is injective in every instance $E$ of $\genericmodel$ in which case 
+$\logtophys(E)_{\langle \phys{x}_1,...\phys{x}_n \rangle}$ is injective in every instance $E$ of $\genericmodel$ and the proof is completed or else
 the family of function $f_E$ are represented in the model $\genericmodel$. From the definition of a function family being represented it follows that
 either (i)  y is $x_i$ for some $i$ 
 from which it follows that $\phys{y}$ is $\phys{x}_i$ for some $i$ and the proof is complete or (ii) there
@@ -780,8 +832,8 @@ a path $\langle p_1,...p_k \rangle:a \rightarrow b$, $k \geq 0$, such that:
 \ineveryinstance \langle E_{x_1},...E_{x_n} \rangle \circ inv_{E_{\langle q_1,...q_n \rangle}} = E_{\langle p_1,...p_k \rangle}
 \end{equation}
 \noindent Either $k=0$ and $\langle q_1,...q_n \rangle = \langle x_1,...x_n \rangle$ in which case $E_{\langle x_1,...x_n \rangle}$ is
-invertible in every instance $E$ of $\genericmodel$ and thus $\logtophys(E)_{\langle \phys{x}_1,...\phys{x}_n \rangle}$ is
-invertible in every instance $\logtophys(E)$ of $\genericphysical$ and the proof is complete 
+injective in every instance $E$ of $\genericmodel$ and thus $\logtophys(E)_{\langle \phys{x}_1,...\phys{x}_n \rangle}$ is
+injective in every instance $\logtophys(E)$ of $\genericphysical$ and the proof is complete 
 \noindent or else $k \geq 1$ and it follows from (\ref{representationByIdentifyingRelationships}) and (\ref{simpleRepresentationOfFirstPart}) that:
 \begin{equation} 
 \label{simpleRepresentation}
