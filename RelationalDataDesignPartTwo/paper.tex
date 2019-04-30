@@ -4,16 +4,23 @@
 \input{../SharedMacros/ermacros}
 \input{../SharedMacros/erdiagram}
 \input{../SharedMacros/theorems.macros}
-%\input{../SharedMacros/JCMacros}
-\usepackage{mathtools}
-\usepackage{alltt}
-\usepackage{mnsymbol}
+\usepackage{mathptmx}  % This changes font to roman
+\usepackage{anyfontsize}
+
+
+\usepackage{mathtools}  % why have we got this?
+\usepackage{alltt}    
+\usepackage{mnsymbol} %used for rightpitchfork
 \usepackage{cmll}
 \usepackage{ulem}
 \renewcommand{\ttdefault}{txtt}
 \usepackage[left=1.5cm, right=4cm, marginparwidth=3cm, top=2cm, bottom=1.5cm]{geometry}
 \usepackage[font=small]{caption}
 \setlength{\captionmargin}{2cm}
+
+
+
+\renewcommand{\erpictureFolder}[0]{../SharedPictures}
 
 \newcommand{\simplepath}[2]{
 \ncline[linestyle=dotted,linewidth=0.1pt]{#1}{#2}
@@ -230,6 +237,21 @@ entities $e \in E_a$, if $E_r(e)$ is defined then $E_s(e)$ is defined and $E_r(e
 \noindent With these definitions,  the (meta-relationship) $\leq$ is a partial order on the classes of equivalent paths. \\
 
 \noindent For paths $r$ and $s$ we define $r < s$ to be equivalent to $r \leq s$ and not $r \simeq s$. \\
+
+Examples\footnote{These two next diagrams need their `.tex' regenerating to get updated fontsizes.}
+
+\begin{center}
+\scalebox{0.5}{
+\input{\erpictureFolder/relationalForeignKeyColumnToScope.tex}
+}
+\end{center}
+\begin{center}
+\scalebox{1.0}{
+\input{\erpictureFolder/relationalForeignKeyColumnToScope2.tex}
+}
+\end{center}
+
+
 
 \begin{definition}
 \noindent An \term{ER model} is an ER schema and a set of database instances of the schema. \\
@@ -693,6 +715,8 @@ $s_j$ is not identifying. \\
 \item $\langle r_0,r_1,...r_n \rangle <  \langle s_0,s_1,...s_m \rangle$ and $r_0 \neq s_0$.
 \end{enumerate}
 
+
+
 \noindent
 We define $\chiOne{a}$ to be the subset of $\chenFKattrs{a}$ consisting of those paths for which there are no paths that subsume them. \\
  
@@ -895,7 +919,9 @@ E_{y_1}=E_{\langle p_1,...p_k \rangle} \circ E_{\langle z_1,...z_l \rangle}
 E_{y_1}=E_{\langle p_1,...p_k ,z_1,...z_l \rangle}
 \end{equation}
 \noindent
-We have shown, therefore, that $y_1$ is an outgoing edge of $a$ in $\genericmodel$ which is equivalent to a simple path of $\genericmodel$ of length $\geq 2$ which contradicts  the 
+We have shown, therefore, that $y_1$ is an outgoing edge of $a$ in $\genericmodel$ 
+\marginpar{\footnotesize This isn't correct if defs revised to allow foreign keys. Need understand this better. }
+which is equivalent to a simple path of $\genericmodel$ of length $\geq 2$ which contradicts  the 
  initial assumption that the model $\genericmodel$ is purely logical and so completes the proof.
 
 \end{document}
