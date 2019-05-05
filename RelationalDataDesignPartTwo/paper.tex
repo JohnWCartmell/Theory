@@ -454,6 +454,37 @@ then $\langle p_1,...p_{i-1},\langle p_i,k_1 \rangle ... \langle p_i,k_m \rangle
 
 \end{definition}
 
+\begin{lemma}
+\label{identifyingpathslemma}
+If
+\setlength{\arraycolsep}{.2cm}
+
+$
+\begin{array}{cp{2cm}c c}
+              &         & & \Rnode{v1}{v}  \\ [0.5cm]
+              &         & & \Rnode{v2}{v}  \\ [0.2cm]
+ \Rnode{b}{b} &         &  \vdots &                \\ [0.3cm]
+              &         & & \Rnode{vn}{v}  
+\end{array}
+$
+\simplepathb{$q_1$}{b}{v1}
+\simplepathb{$q_2$}{b}{v2}
+\simplepathb{$q_n$}{b}{vn}
+is an identifying tuple of simple paths wrt $b$
+and if $z=\tuple{z_1,...z_l}$ is a simple path,
+\setlength{\arraycolsep}{.2cm}
+$
+\begin{array}{cp{2.2cm}c}
+\Rnode{b}{z:b}  & &\Rnode{v}{v}
+\end{array}
+$
+\simplepatha{}{b}{v},
+  in which each $z_j$ is identifying
+then $z \simeq q_i$, for some $i$,$1 \leq i \leq n$.
+\end{lemma}
+\begin{proof}
+Follows from definition of identifying tuple of simple paths\footnote{Think this through!!}.
+\end{proof}
 
 \begin{definition}
 If $\genericmodel$ is an entity model, 
@@ -560,18 +591,16 @@ then the family of functions ${p_i}_{_E}$ are represented in model $\genericmode
 for each entity type $a$, there is no proper subset $I$ of the set of identifying edges $\idEdges{a}$ that  is jointly monomorphic
 }
 \item{ 
-
-\marginpar{\footnotesize{In logical model no such $f_1,...f_n$ distinct from $k_1,...k_n$. Could redefine logical model so that fks are allowed. But how many - relational or hierarchical? ... physically necessary are logically redundant...}}
-
 for all entity types $a$ and for all entity types $b$ with identifying outgoing edges
 $k_{i, 1 \leq i \leq n}$ where for each $i$, $k_i: b \rightarrow b_i$,
-for each  family of edges $f_i: a \rightarrow b_i$  such that  
+for each  family of paths\footnote{Prior to 2 May 2019 this read `edges' where it now reads `paths'.} $f_i: a \rightarrow b_i$  such that  
 $\langle f_1,...f_n \rangle$ references $b$ with respect to $\langle k_1,...k_n \rangle$,
-the path $\langle f_1,...f_n,I_b \rangle$ is explicitly represented. Note that from this condition it follows
+the path $\langle f_1,...f_n,I_b \rangle$ is explicitly represented. 
+Note that from this condition it follows
 that for all entity types $a$ and for all entity types $b$,  for all  identifying tuples 
 $\langle q_1,...q_n \rangle$ 
 with respect to $b$, where for each $i$, $q_i: b \rightarrow b_i$,
-for each  family of edges $f_i: a \rightarrow b_i$  such that  
+for each  family of paths\footnote{previousl `edges'} $f_i: a \rightarrow b_i$  such that  
 $\langle f_1,...f_n \rangle$ references $b$ with respect to $\langle q_1,...q_n \rangle$,
 the path $\langle f_1,...f_n,I_{\langle q_1,...q_n \rangle} \rangle$\marginpar{\footnotesize $I_{\langle q_1,...q_n \rangle}$ isn't defined!} is explicitly represented.
 
@@ -720,6 +749,89 @@ $$
 }
 \end{enumerate}
 \end{definition}
+
+Figure \ref{rawdatatablegraph} gives an example of a model that fails condition(ii) of the avove definition and
+therefore is not well formed. This situation can be rectified by replacing the SeqNo attribute of 
+the data cell entity (dc) by an identifying relationship $R_0:dc \morph c$ as shown previously in figure \ref{datatablegraph}.
+
+\begin{figure} [H]
+\begin{center}
+\begin{tabular}{c c}
+$
+\begin{array}{cp{0.75cm}cp{0.75cm}c}
+   \Rnode{r}{r}     & & \Rnode{t}{t} & & \Rnode{v}{v} \\[1.2cm]     
+	 \Rnode{d}{d}   & & \Rnode{c}{c} & &               
+\end{array}
+$
+\ncarr{r}{t} 
+\alabel{S_1}
+\idcomp
+\ncarr{t}{v} 
+\alabel{TN}
+\idcomp
+\ncarr{c}{v} 
+\blabel{CN}
+\idcomp
+\ncarr[-90]{d}{v}
+\blabel{SeqNo}
+\idcomp
+\ncarr{d}{r}
+\alabel{S_0}
+\idcomp
+\ncarr{c}{t}
+\blabel{R_1}
+\idcomp
+\ncarr[50]{r}{v}
+\alabel{rN}
+\idcomp
+
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+t & table & Having identifying attribute TN the name of the table. \\
+c & column & Identified by a combination of column number CN and relationship $R_1$ to the table it is a column of.\\
+r & row & Identified by its row number $rN$ and its relationship $S_1$ to the table it is a row of.\\
+d & data cell & Identified by relationship $S_0$ to the row it is in and its $seqNo$ attribute
+representing its ordinal position within data cells of the row. \\
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{This model fails condition (ii) for being well-formulated
+because there is a referential inclusion dependency of $d[ \tuple{S_0,S_1},\tuple{SeqNo}]$
+in $c[\tuple{R_0},\tuple{CN}]$ which is not explicitly represented in the model.}
+\label{rawdatatablegraph}
+\end{figure}
+
+
+\begin{figure} [H]
+\begin{center}
+$
+\begin{array}{cp{0.5cm}c c c }
+   \Rnode{d}{d} &                  &                       & \Rnode{c}{c}  &       \\[.5cm]  
+		            & \ \ \ \Rnode{r}{r} &                     &               &       \\[.5cm] 
+	              &                  & \Rnode{b1}{b_1} \ \ \ &               &  \Rnode{bn}{b_n}  
+\end{array}
+$
+\ncarr{d}{r} 
+\blabel{S_0}[0.25]
+\ncarr{r}{b1} 
+\blabel{S_1}[0.25]
+\ncarr{d}{bn}
+\alabel{SeqNo}[0.25]
+\ncarr{c}{b1}
+\blabel{R_1}[0.25][1]
+\idcomp
+%\ncput[npos=0.1, nrot=:U]{\psline(0,-0.1)(0,0.1)}
+\ncarr{c}{bn}
+\alabel{CN}[0.25]
+\idcomp
+%\ncput[npos=0.1, nrot=:U]{\psline(0,-0.1)(0,0.1)}
+\end{center}
+\caption{Composite Referential Inclusion Dependency}
+\label{compositereferentialinclusiongraph}
+\end{figure}
+
 
 
 \section{Definitions Of Logical and Physical Entity Models}
@@ -1049,7 +1161,9 @@ injective in every instance $\logtophys(E)$ of $\genericphysical$ and the proof 
 that $p_2,...p_k,z_1,...z_l$ subsume $\langle y_1,..y_m \rangle$, 
 which implies that $\langle y_1,..y_m \rangle$ is excluded from $\chiOne{a}$ and thus that 
  $\phys{y}=\left[\langle y_1,..y_m \rangle\right]$ is not an attribute of $\genericphysical$ contrary to our 
-initial assumption. We must conclude that $m=1$.
+initial assumption. 
+
+We must conclude that $m=1$.
 In this case we have $y_1$ an attribute of $a$ in $\genericmodel$ and from (\ref{simpleRepresentation})  we have in all instances $E$ of $\genericmodel$:
 \begin{equation}
 E_{y_1}=E_{\langle p_1,...p_k \rangle} \circ E_{\langle z_1,...z_l \rangle}
