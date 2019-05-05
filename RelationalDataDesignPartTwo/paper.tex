@@ -444,10 +444,11 @@ if $k_i$, $1 \leq i \leq n$ is the set of all identifying outgoing edges of $a$ 
 $\langle \langle k_1 \rangle ,... \langle k_n \rangle \rangle$ is an identifying tuple with respect to $a$,
 }
 
-\item{
+\item{\marginpar{\footnotesize Review this clause, modified 5 May 2019.}
 if $\langle p_1,...p_n \rangle$ is an identifying tuple with respect to $a$ and if for some $i$, $1 \leq i \leq n$, the
-destination of $p_i$ is $b$ and if $k_j$, $1 \leq j \leq m$ is the set of all identifying outgoing edges of $b$
-then $\langle p_1,...p_{i-1},\langle p_i,k_1 \rangle ... \langle p_i,k_m \rangle, p_{i+1},...p_n \rangle$ is an identifying tuple with respect to $a$.
+destination of $p_i$ is $b$ and if $k_j$, $1 \leq j \leq m$ is a set of  identifying outgoing edges of $b$
+then $\langle p_1,...p_{i-1},\langle p_i,k_1 \rangle ... \langle p_i,k_m \rangle, p_{i+1},...p_n \rangle$ is an identifying tuple with respect to $a$ providing that for any outgoing identifying edge $l$ of $b$, there exists $j$, $1 /leq j /leq m$ such that 
+ $\tuple{p_i,l} \simeq \tuple{p_i,k_j}$.
 }
 
 \end{enumerate}
@@ -1130,10 +1131,14 @@ is an entity type $b$ in $\genericmodel$ and an identifying family of simple pat
 $q_i: b \rightarrow v$ and a 
 path $z: b \rightarrow v$ such that in every instance $E$ of $\genericmodel$:
 \newcommand{\ineveryinstance}{\forall E \in inst_\genericmodel ,  \hspace{0.25cm} }
-\begin{equation*}
+\begin{equation}
+\label{initialRepresentation}
 inv_{E_{\langle q_1,...q_n \rangle}} \circ E_{z} = f_E
-\end{equation*}
-\noindent from which it follows that in every instance $E$ of $\genericmodel$:  
+\end{equation}
+
+Suppose $z$ is the path $\tuple{z_1,...z_l}$, from lemma \ref{identifyingpathslemma} it follows that not all of $z_1$,...$z_l$ are identifying. \\
+
+\noindent From (\ref{initialRepresentation}) it follows that in every instance $E$ of $\genericmodel$:  
 \begin{equation*}
 E_{\langle x_1,...x_n \rangle}\circ inv_{E_{\langle q_1,...q_n \rangle}} \circ E_{z}  = E_{\langle x_1,...x_n \rangle} \circ f_E 
 \end{equation*}
@@ -1156,9 +1161,11 @@ injective in every instance $\logtophys(E)$ of $\genericphysical$ and the proof 
 \label{simpleRepresentation}
 \ineveryinstance  E_{\langle p_1,...p_k \rangle} \circ E_{\langle z_1,...z_l \rangle} = E_{\langle y_1,..y_m \rangle} 
 \end{equation}
-\noindent We will show that this leads to a contradiction and so complete the proof. If $m >1$ it follows 
- from  (\ref{simpleRepresentation}) 
-that $p_2,...p_k,z_1,...z_l$ subsume $\langle y_1,..y_m \rangle$, 
+\noindent We will show that this leads to a contradiction and so complete the proof. //
+If $m >1$ then
+ from  (\ref{simpleRepresentation}),
+from clause (i) of the definition of subsumes and from the fact that not all of $z_1,...z_l$ are identifying 
+it follows that $p_1,...p_k,z_1,...z_l$ subsume $\langle y_1,..y_m \rangle$, 
 which implies that $\langle y_1,..y_m \rangle$ is excluded from $\chiOne{a}$ and thus that 
  $\phys{y}=\left[\langle y_1,..y_m \rangle\right]$ is not an attribute of $\genericphysical$ contrary to our 
 initial assumption. 
@@ -1174,7 +1181,6 @@ E_{y_1}=E_{\langle p_1,...p_k ,z_1,...z_l \rangle}
 \end{equation}
 \noindent
 We have shown, therefore, that $y_1$ is an outgoing edge of $a$ in $\genericmodel$ 
-\marginpar{\footnotesize This isn't correct if defs revised to allow foreign keys. Need understand this better. }
 which is equivalent to a simple path of $\genericmodel$ of length $\geq 2$ which contradicts  the 
  initial assumption that the model $\genericmodel$ is purely logical and so completes the proof.
 
