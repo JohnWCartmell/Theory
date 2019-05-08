@@ -48,6 +48,7 @@
 \newcommand{\genericmodel}{\mathcal{M}}
 \newcommand{\logtophys}{\mathcal{X}}
 \newcommand{\chen}{\mathcal{X}_0}
+\newcommand{\chiZero}{\chen}
 \newcommand{\chengenericmodel}{\chen(\genericmodel)}
 \newcommand{\chigenericmodel}{\logtophys(\genericmodel)}
 \newcommand{\allEdges}{\genericmodel^E}
@@ -72,10 +73,11 @@
 \newcommand{\chenFKattrs}[1]{\chen(\genericmodel)^{A+}_{#1}}
 \newcommand{\chenIdAttrs}[1]{\chen(\genericmodel)^{iA}_{\raisebox{2pt}{$\scriptstyle{#1}$}}}
 \newcommand{\chenFKidAttrs}[1]{\chen(\genericmodel)^{iA+}_{\raisebox{2pt}{$\scriptstyle{#1}$}}}
-\newcommand{\chiOne}[1]{{\mathcal{X}_1}(\genericmodel)^{A+}_{#1}}
-\newcommand{\chiOneId}[1]{{\mathcal{X}_1}(\genericmodel)^{iA+}_{#1}}
-\newcommand{\chenFKclasses}[1]{{\mathcal{X}_2}(\genericmodel)^{A+}_{#1}}
-\newcommand{\chenFKidClasses}[1]{{\mathcal{X}_2}(\genericmodel)^{iA+}_{#1}}
+\newcommand{\chiOne}{\mathcal{X}_1}
+\newcommand{\chiTwo}{\mathcal{X}_2}
+\newcommand{\chiOneFKs}[1]{\chiOne(\genericmodel)^{A+}_{#1}}
+\newcommand{\chenFKclasses}[1]{\chiTwo(\genericmodel)^{A+}_{#1}}
+\newcommand{\chenFKidClasses}[1]{\chiTwo(\genericmodel)^{iA+}_{#1}}
 \newcommand{\chiAttrs}[1]{\logtophys(\genericmodel)^A_{#1}}
 \newcommand{\chiFKattrs}[1]{\logtophys(\genericmodel)^{A+}_{#1}}
 \newcommand{\chiIdAttrs}[1]{\logtophys(\genericmodel)^{iA}_{\raisebox{2pt}{$\scriptstyle{#1}$}}}
@@ -166,7 +168,7 @@ be the set of identifying relationships of $a$ and is  denoted $\idRels{a}$. \\
 \noindent That subset of those attributes of $a$ that are also in the distinguished set of identifying edges is said 
 to be the set of identifying attributes of $a$  and is denoted $\idAttrs{a}$.\\
 
-\noindent The set of all outgoing identifying edges from a node $a$ will be denoted $\idEdges{a}$ \marginpar{\footnotesize Previously $\kappa_a$}. \\
+\noindent The set of all outgoing identifying edges from a node $a$ will be denoted $\idEdges{a}$. \\
 
 \noindent So that we can define the characteristics of $\idEdges{a}$ as a set of identifying properties for entitites of type
 $a$ we need the following definition:
@@ -277,7 +279,7 @@ KEY && \\
 \hline
 t & table & Having identifying attribute TN the name of the table. \\
 c & column & Identified by a combination of column name CN and relationship $R_1$ to the table it is a column of.\\
-fk & foreign key & Identified by its name $FkN$ and its relationship $S_1$ to the table it is a foreign key of.\\
+fk & foreign key & Identified by its name $FkN$.\\
 fkc & foreign key column & Identified by relationship $S_0$ to the foreign key it is a part of and its sequence number $SeqN$ i.e. the position it appears in within the foreign key. \\
 \end{tabular} 
 \end{tabular}
@@ -324,9 +326,64 @@ R0 & advised by & Represents the optional relationship between a student and a p
 \end{tabular} 
 \end{tabular}
 \end{center}
-\caption{Example of path  $\tuple{R_0,R_1} < \tuple{S_0,S_1}$. This example is based on one given in part one of this document. Here we specify that a student optionally has an advisor (suppose that the advisor is selected part way through a course). As before we assume that an advisor must be a professor of that department
-in which the student is enrolled. }
+\caption{Example of path  $\tuple{R_0,R_1} < \tuple{S_0,S_1}$. This example is based on one given in part one of this document. Here we specify that a student optionally has an advisor (suppose that the advisor is selected part way through a course). As before we assume that an advisor must be a professor of the department in which the student is enrolled. }
 \label{studentadvisorgraph}
+\end{figure}
+
+\begin{figure} [H]
+\begin{center}
+\begin{tabular}{c c}
+\begin{tabular}{|cp{0.75cm}cp{0.75cm}c|}
+   \Rnode{o}{o}    & &                & &             \\[1.2cm]  
+   \Rnode{d}{d}    & & \Rnode{w}{w}   & & \Rnode{v}{v}\\[1.2cm]     
+	 \Rnode{di}{di}  & & \Rnode{si}{si} & &               
+\end{tabular}
+\ncarr{d}{o}
+\alabel{Q}
+\idcomp
+\ncarr[40]{o}{v} 
+\alabel{oN}[0.3]
+\idcomp
+\ncarr{d}{w} 
+\alabel{S_1}
+\ncarr{w}{v} 
+\alabel{wN}
+\idcomp
+\ncarr{si}{v} 
+\blabel{iN}
+\idcomp
+\ncarr{di}{si}
+\blabel{R_0}
+\idcomp
+\ncarr{di}{d}
+\alabel{S_0}
+\idcomp
+\ncarr{si}{w}
+\blabel{R_1}
+\idcomp
+\ncarr[40]{d}{v}
+\alabel{dN}[0.4]
+\idcomp
+\ncarr[-40]{si}{v} 
+\blabel{sC}
+& \footnotesize
+\begin{tabular}{|c p{1.5cm} p{4cm}|}
+KEY && \\
+\hline
+o & order & Identified by a order number ($oN$) attribute. \\
+d & delivery & Identified by a combination of relationship $Q$ to an order that it part fulfills and a
+delivery number  attribute ($dN$). \\
+w & warehouse & Identified by a warehouse number attribute ($wN$). \\
+si & stock item & Identified by a combination of  item number iN and relationship $R_1$ to the warehouse in which it is stocked.\\
+di & delivery item & Identified by relationship $S_0$ to the delivery  it is part of and relationship $R_0$ to the item it constitutes the delivery of. \\
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{Example of transitive dependence - In this model the path $\tuple{R_0,R_1}$ is equivalent to path $\tuple{S_0,S_1}$. The path $\tuple{R_0,sC}$ depends transitively on the paths
+$\tuple{S_0,Q,oN}$, $\tuple{S_0,dN}$ and $\tuple{R_0,iN}$. The dependence is transitive
+because there is a path $P=\tuple{S_0,S_1}$ and $P$ depends on $\tuple{S_0,Q,oN}$ and $\tuple{S_0,dN}$
+and $\tuple{R_0,sC}$ depends on $P$ and $\tuple{R_0,iN}$. }
+\label{deliveryexample}
 \end{figure}
 
 \begin{figure} [H]
@@ -447,7 +504,7 @@ $\langle \langle k_1 \rangle ,... \langle k_n \rangle \rangle$ is an identifying
 \item{\marginpar{\footnotesize Review this clause, modified 5 May 2019.}
 if $\langle p_1,...p_n \rangle$ is an identifying tuple with respect to $a$ and if for some $i$, $1 \leq i \leq n$, the
 destination of $p_i$ is $b$ and if $k_j$, $1 \leq j \leq m$ is a set of  identifying outgoing edges of $b$
-then $\langle p_1,...p_{i-1},\langle p_i,k_1 \rangle ... \langle p_i,k_m \rangle, p_{i+1},...p_n \rangle$ is an identifying tuple with respect to $a$ providing that for any outgoing identifying edge $l$ of $b$, there exists $j$, $1 /leq j /leq m$ such that 
+then $\langle p_1,...p_{i-1},\langle p_i,k_1 \rangle ... \langle p_i,k_m \rangle, p_{i+1},...p_n \rangle$ is an identifying tuple with respect to $a$ providing that for any outgoing identifying edge $l$ of $b$, there exists $j$, $1 \leq j \leq m$ such that 
  $\tuple{p_i,l} \simeq \tuple{p_i,k_j}$.
 }
 
@@ -455,37 +512,6 @@ then $\langle p_1,...p_{i-1},\langle p_i,k_1 \rangle ... \langle p_i,k_m \rangle
 
 \end{definition}
 
-\begin{lemma}
-\label{identifyingpathslemma}
-If
-\setlength{\arraycolsep}{.2cm}
-
-$
-\begin{array}{cp{2cm}c c}
-              &         & & \Rnode{v1}{v}  \\ [0.5cm]
-              &         & & \Rnode{v2}{v}  \\ [0.2cm]
- \Rnode{b}{b} &         &  \vdots &                \\ [0.3cm]
-              &         & & \Rnode{vn}{v}  
-\end{array}
-$
-\simplepathb{$q_1$}{b}{v1}
-\simplepathb{$q_2$}{b}{v2}
-\simplepathb{$q_n$}{b}{vn}
-is an identifying tuple of simple paths wrt $b$
-and if $z=\tuple{z_1,...z_l}$ is a simple path,
-\setlength{\arraycolsep}{.2cm}
-$
-\begin{array}{cp{2.2cm}c}
-\Rnode{b}{z:b}  & &\Rnode{v}{v}
-\end{array}
-$
-\simplepatha{}{b}{v},
-  in which each $z_j$ is identifying
-then $z \simeq q_i$, for some $i$,$1 \leq i \leq n$.
-\end{lemma}
-\begin{proof}
-Follows from definition of identifying tuple of simple paths\footnote{Think this through!!}.
-\end{proof}
 
 \begin{definition}
 If $\genericmodel$ is an entity model, 
@@ -556,8 +582,6 @@ the family $f_E$ is reducible to an irreducible family $g_E$ and the family $g_E
 \end{enumerate}
 \end{definition}
 
-
-
 \begin{remark}
 For any entity model $\genericmodel$ and for any type $b$ of $\genericmodel$ the family of identity functions on 
 entities of type $b$ :
@@ -581,8 +605,6 @@ $$
 $$
 then the family of functions ${p_i}_{_E}$ are represented in model $\genericmodel$. This is because this family of functions is reducible to the family of identify functions on $E_{b_i}$ and this family is represented as previously remarked.
 \end{remark}
-
-
 
 \begin{definition}
 \noindent An ER model $\genericmodel$ is \term{well-formulated} 
@@ -653,8 +675,6 @@ $
 \blabel{m}[0.3]
 \idcomp
 \end{center}
-
-
 
 in \cat{C} if in all instances $I \in M$, 
 $I(f)$ factors through $I(m)$ then $f$ factors through $m$ i.e. there is an $f_0: a \morph b$ in \cat{C} such that 
@@ -894,7 +914,7 @@ that also satisfies:
 \end{definition}
 \marginpar{\footnotesize Consider move no `redundancy except for foreign keys' back into definition of well formulated.}
 
-\section{First Cut Chen Transformation}
+\section{First Cut Chen Transformation -- $\chiZero$}
 \noindent The transformation described by Chen provides a  first cut transformation from a logical model to a physical model recursively.
 
 \noindent If $\genericmodel$ is a model then in the Chen transformed model $\chengenericmodel$ 
@@ -935,8 +955,9 @@ $$
 $$
 
 \noindent These reformulated definitions are the starting point for the definitions that follow.
-
-\section{Corrections required to the Chi Transform - One}
+\section{Chi Transform - a Revised Chen Transformation}
+\subsection{Corrections required to the $\chiZero$ Transform - Definition of $\chiOne$}
+\subsubsection*{Requirements - Shortcomings of $\chiOne$}
 Example 1 is of the model given in figure \ref{foreignkeygraph}. In the first cut  relational model 
 there is a column of table $fkc$ corresponding to the path $\tuple{R_0,R_1,TN}$ but this value is functionally
 determinable by the alternate path $\tuple{S_0,S_1,TN}$ and so to achieve inclusion dependency normal form this 
@@ -946,11 +967,10 @@ Example 2 is of the model given in figure \ref{studentadvisorgraph}.In the first
 there is a column of table $s$ corresponding to path $\tuple{R_1,R_1,Id}$. But this value when defined is functionally determinable by the alternate path $\tuple{S_1,Id}$. 
 Therefore this attribute should be
 omitted from the relational design. Note that the presence or absence of the relationship $R_0$ will be determined by whether or not the column corresponding to path $\tuple{R_0,PNo}$ has a non null value or not.
-\section{Corrections required of the Chi Transform -- Two}
-Example 3 is of the model given in figure someothermodel and shows equivalent paths.
-In this case it is not that a column has to be excluded it is more so that it must not be included twice over.
 
-\section{Chi Transform - a Revised Chen Transformation}
+
+
+\subsubsection*{Removing the first level of redundancy from $\chiZero$ -- Definition $\chiOne$}
 
 \newcommand{\pathclasses}[1]{\chenFKattrs{#1}\hspace{-1pt}/\hspace{-2pt}\simeq}
 
@@ -961,24 +981,30 @@ Say that a path $\langle r_0,r_1,...r_n \rangle \in \chenFKattrs{a}$ \textit{is 
 $\langle s_0,s_1,...s_m \rangle$ iff $m \geq 1$ and either:
 \begin{enumerate} [(i)]
 
-\item $\langle r_0,r_1,...r_n \rangle \simeq  \langle s_0,s_1,...s_m \rangle$ and for some j, $j > 1$,
-$s_j$ is not identifying. \\
+\item $\tuple{r_0,r_1,...r_n} \simeq  \tuple{s_0,s_1,...s_m}$ and 
+\marginpar{\footnotesize previously : for some j, $j > 1$,
+$s_j$ is not identifying}
+$\tuple{s_1,...s_m}$ is not a primary key attribute.\\
 
  \hspace{1cm} or:
 \item $\langle r_0,r_1,...r_n \rangle <  \langle s_0,s_1,...s_m \rangle$ and $r_0 \neq s_0$.
 \end{enumerate}
 
-
-
 \noindent
-We define $\chiOne{a}$ to be the subset of $\chenFKattrs{a}$ consisting of those paths for which there are no paths that subsume them. \\
+We define $\chiOneFKs{a}$ to be the subset of $\chenFKattrs{a}$ consisting of those paths for which there are no paths that subsume them. \\
  
+\subsection{Corrections required of the $\chiOne$ Transform -- Definition of $\logtophys$}
 
+\subsubsection*{Requirement}
+Example 3 is of the model given in figure \ref{datatablegraph} and shows equivalent paths.
+In this case it is not that a column has to be excluded it is more so that it must not be included twice over. Mathematically we can represent as an equivalence class.
+
+\subsubsection*{Correction to definition - Definition of Chi}
 \noindent We define the Chi transformed model $\chigenericmodel$ by:
 $$
 \chiAttrs{a} = \attrs{a} \cup \chenFKclasses{a}
 $$
-\noindent where $\chenFKclasses{a}$ is the set of equivalence classes of paths in $\chiOne{a}$
+\noindent where $\chenFKclasses{a}$ is the set of equivalence classes of paths in $\chiOneFKs{a}$
 with respect to the $\simeq$ equivalence relation. \\ 
 
 \noindent and by:
@@ -999,6 +1025,7 @@ r_0
 \mbox{ is identifying and }    
 \langle r_0,r_1,...r_n \rangle \mbox{ is subsumed by } \langle s_0, s'_1,...s'_{m} \rangle  \}
 \end{multline}
+
 \section{Boyce-Codd Normal Form}
 \noindent One measure of the goodness of a physical model is whether it satisfies the well-formedness condition know as Boyce Codd Normal Form.
 Written in the terminology we are using here it can be expressed as follows: a physical ER model is in Boyce Codd Normal Form (BCNF) 
@@ -1127,7 +1154,9 @@ $\logtophys(E)_{\langle \phys{x}_1,...\phys{x}_n \rangle}$ is injective in every
 the family of function $f_E$ are represented in the model $\genericmodel$. From the definition of a function family being represented it follows that
 either (i)  y is $x_i$ for some $i$ 
 from which it follows that $\phys{y}$ is $\phys{x}_i$ for some $i$ and the proof is complete or (ii) there
-is an entity type $b$ in $\genericmodel$ and an identifying family of simple paths $q_1,...q_n$, 
+is an entity type $b$ in $\genericmodel$ 
+\marginpar{\footnotesize previously : and an identifying family of simple paths}
+with primary key  $q_1,...q_n$, 
 $q_i: b \rightarrow v$ and a 
 path $z: b \rightarrow v$ such that in every instance $E$ of $\genericmodel$:
 \newcommand{\ineveryinstance}{\forall E \in inst_\genericmodel ,  \hspace{0.25cm} }
@@ -1136,7 +1165,9 @@ path $z: b \rightarrow v$ such that in every instance $E$ of $\genericmodel$:
 inv_{E_{\langle q_1,...q_n \rangle}} \circ E_{z} = f_E
 \end{equation}
 
-Suppose $z$ is the path $\tuple{z_1,...z_l}$, from lemma \ref{identifyingpathslemma} it follows that not all of $z_1$,...$z_l$ are identifying. \\
+Note that $z$ cannot be equivalent to a primary key attribute for if it were it would be equivalent to $q_i$,
+for some $i$, $1 \leq i \leq n$ from which it would follow that $f_E = E_{q_i}$ which would
+contradict ???.\\
 
 \noindent From (\ref{initialRepresentation}) it follows that in every instance $E$ of $\genericmodel$:  
 \begin{equation*}
@@ -1164,9 +1195,9 @@ injective in every instance $\logtophys(E)$ of $\genericphysical$ and the proof 
 \noindent We will show that this leads to a contradiction and so complete the proof. //
 If $m >1$ then
  from  (\ref{simpleRepresentation}),
-from clause (i) of the definition of subsumes and from the fact that not all of $z_1,...z_l$ are identifying 
+from clause (i) of the definition of subsumes and from the fact that $z$ is not equivalent to a foreign key 
 it follows that $p_1,...p_k,z_1,...z_l$ subsume $\langle y_1,..y_m \rangle$, 
-which implies that $\langle y_1,..y_m \rangle$ is excluded from $\chiOne{a}$ and thus that 
+which implies that $\langle y_1,..y_m \rangle$ is excluded from $\chiOneFKs{a}$ and thus that 
  $\phys{y}=\left[\langle y_1,..y_m \rangle\right]$ is not an attribute of $\genericphysical$ contrary to our 
 initial assumption. 
 
