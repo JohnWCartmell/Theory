@@ -6,8 +6,6 @@
 \input{../SharedMacros/theorems.macros}
 \usepackage{mathptmx}  % This changes font to roman
 \usepackage{anyfontsize}
-
-
 \usepackage{mathtools}  % why have we got this?
 \usepackage{alltt}    
 \usepackage{mnsymbol} %used for rightpitchfork
@@ -17,11 +15,7 @@
 \usepackage[left=1.5cm, right=4cm, marginparwidth=3cm, top=2cm, bottom=1.5cm]{geometry}
 \usepackage[font=small]{caption}
 \setlength{\captionmargin}{2cm}
-
-
-
 \renewcommand{\erpictureFolder}[0]{../SharedPictures}
-
 \newcommand{\simplepath}[2]{
 \ncline[linestyle=dotted,linewidth=0.1pt]{#1}{#2}
 \ncput[npos=0.05]{\pnode{dot#21}}
@@ -97,10 +91,12 @@
 
 \maketitle
 \begin{center}
-DRAFT \marginpar{\footnotesize Dated 2016 with margin notes 21 Feb 2019. }
-      \marginpar{\footnotesize Further variant definitions, notes and  corrections 25/29 April 2019.}
+DRAFT \marginpar{\footnotesize Original Dated 2016 }
+      \marginpar{\footnotesize Review started 21 Feb 2019. }
+      \marginpar{\footnotesize Addition of variant definitions, notes and  corrections 25/29 April 2019.}
+			\marginpar{\footnotesize Major change to terminology to support fix to definition of well-                               formulated including specification of intransitive functional 
+			                         dependencies and addition of many examples. 1-10 May 2019.}
 \end{center}
-
 
 \section{Introduction}
 
@@ -333,59 +329,50 @@ R0 & advised by & Represents the optional relationship between a student and a p
 \begin{figure} [H]
 \begin{center}
 \begin{tabular}{c c}
-\begin{tabular}{|cp{0.75cm}cp{0.75cm}c|}
-   \Rnode{o}{o}    & &                & &             \\[1.2cm]  
+\begin{tabular}{cp{0.75cm}cp{0.75cm}c}
    \Rnode{d}{d}    & & \Rnode{w}{w}   & & \Rnode{v}{v}\\[1.2cm]     
-	 \Rnode{di}{di}  & & \Rnode{si}{si} & &               
+	 \Rnode{p}{p}  & & \Rnode{c}{c} & &               
 \end{tabular}
-\ncarr{d}{o}
-\alabel{Q}
+\ncarr[90]{d}{v}
+\alabel{oId}[0.4]
 \idcomp
-\ncarr[40]{o}{v} 
-\alabel{oN}[0.3]
+\ncarr[40]{d}{v}
+\alabel{dSn}[0.4]
 \idcomp
 \ncarr{d}{w} 
 \alabel{S_1}
 \ncarr{w}{v} 
-\alabel{wN}
+\alabel{wId}
 \idcomp
-\ncarr{si}{v} 
-\blabel{iN}
+\ncarr{c}{v} 
+\blabel{cSn}
 \idcomp
-\ncarr{di}{si}
+\ncarr{p}{c}
 \blabel{R_0}
 \idcomp
-\ncarr{di}{d}
+\ncarr{p}{d}
 \alabel{S_0}
 \idcomp
-\ncarr{si}{w}
+\ncarr{c}{w}
 \blabel{R_1}
 \idcomp
-\ncarr[40]{d}{v}
-\alabel{dN}[0.4]
-\idcomp
-\ncarr[-40]{si}{v} 
-\blabel{sC}
 & \footnotesize
-\begin{tabular}{|c p{1.5cm} p{4cm}|}
+\begin{tabular}{c p{1.5cm} p{4cm}}
 KEY && \\
 \hline
-o & order & Identified by a order number ($oN$) attribute. \\
-d & delivery & Identified by a combination of relationship $Q$ to an order that it part fulfills and a
-delivery number  attribute ($dN$). \\
-w & warehouse & Identified by a warehouse number attribute ($wN$). \\
-si & stock item & Identified by a combination of  item number iN and relationship $R_1$ to the warehouse in which it is stocked.\\
-di & delivery item & Identified by relationship $S_0$ to the delivery  it is part of and relationship $R_0$ to the item it constitutes the delivery of. \\
+d & delivery & Identified by a combination of an order id attribute ($oId$) and a
+delivery serial number  attribute ($dSn$). \\
+w & warehouse & Identified by a warehouse id attribute ($wId$). \\
+c & crate & Identified by a combination of a crate serial number attribute ($cSn$) and a relationship $R_1$ to the warehouse in which it is held.
+             Also has an item type attribute (not shown).\\
+p & pick & Identified by relationship $S_0$ to the delivery  it is part of and relationship $R_0$ to the crate being picked from. Has a quantity picked attribute (not shown). \\
 \end{tabular} 
 \end{tabular}
 \end{center}
-\caption{Example of transitive dependence - In this model the path $\tuple{R_0,R_1}$ is equivalent to path $\tuple{S_0,S_1}$. The path $\tuple{R_0,sC}$ depends transitively on the paths
-$\tuple{S_0,Q,oN}$, $\tuple{S_0,dN}$ and $\tuple{R_0,iN}$. The dependence is transitive
-because there is a path $P=\tuple{S_0,S_1}$ and $P$ depends on $\tuple{S_0,Q,oN}$ and $\tuple{S_0,dN}$
-and $\tuple{R_0,sC}$ depends on $P$ and $\tuple{R_0,iN}$. }
-\label{deliveryexample}
+\caption{Pick Example}
+\label{pickexample}
 \end{figure}
-
+ 
 \begin{figure} [H]
 \begin{center}
 \begin{tabular}{c c}
@@ -452,40 +439,8 @@ prescribe that a database schema be complete in some way as a description of the
  because being good as a schema is to be a good theory and a good theory is one that is a good fit to the facts.} and observe 
 in particular that BCNF can be paraphrased as saying that those relationships (i.e. functional dependencies) that exist in the data ought to be \term{represented} in the schema\footnote{21/02/2019 Is this not the representation principle?}. These considerations motivate the definitions which now follow and conclude with the definition of a \term{well-formulated} entity model. This definition generalises that of a relational schema being in Boyce-Codd Normal Form (BCNF). 
    
-\noindent \textbf{Notation}
-If $X_1,...X_n$ are sets and if $J=\{i_1,...i_j\} \subseteq \{1,...n\}$ then denote by $P_J$ the projection function :
-$$
-P_J : X_1 \times X_2 \times ...X_n \rightarrow X_{i_1} \times X_{i_2} \times ... X_{i_j}
-$$
-\noindent i.e. the function given by:
-$$
-P_J(\langle x_1,...x_n \rangle ) = \langle x_{i_1},...x_{i_j} \rangle.
-$$
 
-\begin{definition}
-If $\genericmodel$ is an entity model, if $b_1,...b_n$ and $c$ are entity types of model $\genericmodel$  and if $f_E$ is a family of functions 
-such that in every instance $E$ of $\genericmodel$:
-$$
-f_E : E_{b_1} \times ... \times E_{b_n} \rightarrow E_c
-$$
-then 
-\begin {itemize}
-\item{the family of functions $f_E$ is said to be \term{reducible} to a family of functions:
-$$
-g_E : E_{b_{i_1}} \times ... \times E_{b_{i_j}} \rightarrow E_c
-$$
-for some $J=\{i_1,...i_j\} \subseteq \{1,...n\}$, iff in all instances E:
-$$
-f_E = P_J \circ g_E
-$$
-}
-\item{
-the family of functions $f_E$ is said to be \term{irreducible} iff there is no proper subset
- $J=\{i_1,...i_j\} \subset \{1,...n\}$, and no family of functions 
-$g_E : E_{b_{i_1}},...E_{b_{i_j}} \rightarrow E_c$ such that $f_E$ is reducible to $g_E$.
-}
-\end{itemize}
-\end{definition}
+
 
 \begin{definition}
 A tuple of simple paths $\langle p_1,...p_n \rangle$ is said to be an 
@@ -507,9 +462,7 @@ destination of $p_i$ is $b$ and if $k_j$, $1 \leq j \leq m$ is a set of  identif
 then $\langle p_1,...p_{i-1},\langle p_i,k_1 \rangle ... \langle p_i,k_m \rangle, p_{i+1},...p_n \rangle$ is an identifying tuple with respect to $a$ providing that for any outgoing identifying edge $l$ of $b$, there exists $j$, $1 \leq j \leq m$ such that 
  $\tuple{p_i,l} \simeq \tuple{p_i,k_j}$.
 }
-
 \end{enumerate}
-
 \end{definition}
 
 
@@ -523,14 +476,98 @@ then say that $\langle f_1,...f_n \rangle$ \term{references $b$ with respect to 
 $img(E_{\langle f_1,...f_n \rangle}) \subseteq img(E_{\langle q_1,...q_n \rangle})$. 
 \end{definition}
 
+
+
+
+
+
+
+\begin{definition} %functional dependency
+In an entity model $\genericmodel$  
+if for some $n \geq 1$, $a$, $b_{i, 1 \leq i \leq n}$,  and $c$ are entity types and 
+if  $x_{i, 1 \leq i \leq n}$, and $y$ are simple paths such
+that for each $i$, $x_i : a \rightarrow b_i$, and such that $y: a \rightarrow c$ 
+as shown here:
+\setlength{\arraycolsep}{.2cm}
+\begin{center}
+$
+\begin{array}{cp{2cm}cc}
+             & &         & \Rnode{b1}{b_1} \\ [0.5cm]
+						 & &         & \Rnode{b2}{b_2} \\ [0.6cm]
+						 & & \vdots  &                 \\ [0.2cm]
+\Rnode{a}{a} & &         & \Rnode{bn}{b_n} \\ [1.0cm]
+             & &         & \Rnode{c}{c}   \\
+\end{array}
+$
+\simplepatha{$x_1$}{a}{b1}
+\simplepatha{$x_2$}{a}{b2}
+\simplepatha{$x_n$}{a}{bn}
+\simplepathb{$y$}{a}{c}
+\end{center}
+\noindent 
+then path $y$ is said to be $functional dependent$ on the set of paths $\{x_1,...x_n\}$ iff
+ in each instance $E$ there exists a unique partial \marginpar{\footnotesize why unique?}
+function $f_E: E_{b_1} \times E_{b_n} \rightarrow E_c$ \marginpar{\footnotesize partial function}
+\noindent such that 
+domain of $f_E \subseteq img(E_{\langle x_1,... x_n \rangle})$ 
+and  
+$E_{\langle x_1,..x_n \rangle} \circ f_E = E_y$ 
+\begin{center}
+$
+\begin{array}{cp{2cm}ccp{0.5cm}cc}
+						    & &         & \Rnode{Eb1}{E_{b_1}}& &                            &        \\ [0.6cm]
+						    & &         & \Rnode{Eb2}{E_{b_2}}& &                            &        \\ [0.6cm]
+						    & &\vdots  &                      & &                            &        \\ [0.2cm]												
+\Rnode{Ea}{E_a} & &         & \Rnode{Ebn}{E_{b_n}}& & \Rnode{Jnctn}{}&  \\ [1.0cm]
+						    & &         & \Rnode{Ec}{{E_c}}   & &                            &        \\
+\end{array}
+$
+\simplepatha{$E_{x_1}$}{Ea}{Eb1}
+\simplepatha{$E_{x_2}$}{Ea}{Eb2}
+\simplepatha{$E_{x_n}$}{Ea}{Ebn}
+\simplepathb{$E_y$}{Ea}{Ec}
+\nchmarr[15][45]{Eb1}{Ebn}{Jnctn}{Ec}
+\naput[npos=-0.1]{$f_E$}
+\ncarc[arcangle=15]{Eb2}{Jnctn}
+\end{center}
+
+\end{definition}
+\begin{definition} %transitive
+In an entity model $\genericmodel$, a functional dependency $\{x_1,...x_n\} \morph y$
+is said to be transitive if there exists a set of paths $\{x'_1,...x'_{n'}\}$ such that
+$\{x_1,...x_n\} \morph \{x'_1,...x'_{n'}\}$ and $\{x'_1,...x'_{n'}\} \morph y$ but not
+$\{x'_1,...x'_{n'}\} \morph \{x_1,...x_n\}$.
+\end{definition}
+\begin{definition} %intransitive
+In an entity model $\genericmodel$, a functional dependency $\{x_1,...x_n\} \morph y$
+is said to be intransitive if it is not transitive.
+\end{definition}
+\begin{definition} %elementary
+In an entity model $\genericmodel$, a functional dependency $\{x_1,...x_n\} \morph y$
+is said to be elementary if there is no  subset $X' \subset$, such that $X' \morph y$.
+\end{definition}
+\begin{figure}[H]
+\begin{tabular}{p{3.0cm} c p{1cm} c}
+The dependency of &\input{pickExampleTransitiveDependencyRHS} 
+                    & on & \input{pickExampleTransitiveDependencyLHS} \\[0.5cm]
+										follows from \\[0.5cm]
+the dependency of & \input{pickExampleTransitiveDependencyRHS} & on    &
+\input{pickExampleTransitiveDependencyIntermediate}        \\[0.5cm]
+and from \\[0.5cm]
+the dependency of & 
+\input{pickExampleS0S1}
+& on&
+\input{pickExampleTransitiveDependencyIntermediateLHS} 
+\end{tabular}
+\caption{Example of a Transitive Functional Dependency based on the example in figure \ref{pickexample}}
+\end{figure}
+
 \begin{definition}
-\noindent If $\genericmodel$ is an entity model and if $b_1,...b_n$ and $c$ are entity types within $\genericmodel$ 
-and if $f_E$ is a family of functions such that for each instance 
-$E$ of $\genericmodel$, 
-$f_E: E_{b_1} \times ... \times E_{b_n} \rightarrow E_c$, then the family of functions $f_E$ is \term{represented} in the ER model iff 
-either
-\begin{enumerate}[(i)]
-\item{the family $f_E$ is irreducible and there exists an entity type $d$ and 
+\noindent In an entity model $\genericmodel$  
+if for some $n \geq 1$, $a$, $b_{i, 1 \leq i \leq n}$,  and $c$ are entity types and 
+if  $x_{i, 1 \leq i \leq n}$, and $y$ are simple paths such
+that there is an elementary intransitive functional dependency $\{x_1,...x_n\} \morph y$
+ then the functional dependency $\{x_1,...x_n\} \morph y$ is said to be \term{represented} in the ER model $\genericmodel$ iff  there exists an entity type $d$ and 
 an identifying tuple of simple paths with respect to
 $d$, $\langle q1,...q_n \rangle$, such that for each $q_i:d \rightarrow b_i$ and a simple
 path $z=\langle z_1,...z_l \rangle$ such that $z:d\rightarrow c$, for some $l \geq 0$ as here:
@@ -552,8 +589,8 @@ $
 \simplepatha{$z$}{d}{c}
 \end{center}
 
-where $z_1$ not identifying  and such that in all instances $E$, $inv_{E_{\langle q_1,...q_n\rangle}}\circ E_{\langle z_1,...z_l \rangle} = f_E$
-\marginpar{\footnotesize This is equivalent to $f_E=E(\tuple{I_{\tuple{q_1...q_n}},z_1,...z_n})$.}
+where $z_1$ not identifying  and such that in all instances $E$, 
+$\tuple{ E_{x_1},...E_{x_n}} \circ inv_{E_{\tuple{q_1,...q_n}}}\circ E_{\tuple{z_1,...z_l}} = E_y$
 \begin{center}
 $
 \begin{array}{cp{0.75cm}cp{0.55cm}c}
@@ -573,38 +610,9 @@ $
 \ncarc[arcangle=20]{Eb2}{RightJnctn}
 \ncarc[arcangle=15]{->}{Ed}{Ec}
 \naput[npos=0.4]{$E_{\langle z_1,...z_n \rangle}$}
-\end{center}
-} 
-\noindent or
-\item{
-the family $f_E$ is reducible to an irreducible family $g_E$ and the family $g_E$ is represented in the model. 
-}
-\end{enumerate}
+\end{center} 
 \end{definition}
 
-\begin{remark}
-For any entity model $\genericmodel$ and for any type $b$ of $\genericmodel$ the family of identity functions on 
-entities of type $b$ :
-$$
-id_{E_b} : E_b \rightarrow E_b
-$$
-is represented because we can choose both $q: b \rightarrow b$ and and
-$z: b \rightarrow b$ to be the empty path $\langle \rangle$; then we have:
-\begin{align*}
-inv_{E_{\langle q_1,...q_n\rangle}}\circ E_{\langle z_1,...z_l \rangle} & = inv_{E_{\langle \rangle}} \circ E_{\langle \rangle} \\
-                                                                        & = id_{E_b}^{-1} \circ id_{E_b} \\
-                                                                        & = id_{E_b} 
-\end{align*}
-as required.
-\end{remark}
-\begin{remark}
-For any entity model $\genericmodel$, for any $n \geq 1$, for any tuple of types $b_1,...b_n$ and for any $i$, $1 \leq i \leq n$, if in any instance
-$E$ of $\genericmodel$, ${p_i}_{_E}$ is the i'th projection function:
-$$
-{p_i}_{_E}: E_{b_1} \times ... \times E_{b_n} \rightarrow E_{b_i}
-$$
-then the family of functions ${p_i}_{_E}$ are represented in model $\genericmodel$. This is because this family of functions is reducible to the family of identify functions on $E_{b_i}$ and this family is represented as previously remarked.
-\end{remark}
 
 \begin{definition}
 \noindent An ER model $\genericmodel$ is \term{well-formulated} 
@@ -683,61 +691,18 @@ $e: I(a) \morph I(b)$ is a function such that $e \circ I(m) = I(f)$ then $I(f_0)
 }
 \item[(iii)]{
 if for some $n \geq 1$, $a$, $b_{i, 1 \leq i \leq n}$,  and $c$ are entity types and if  $x_{i, 1 \leq i \leq n}$, and $y$ are simple paths such
-that for each $i$, $x_i : a \rightarrow b_i$, and such that $y: a \rightarrow c$ 
-as shown here:
-\setlength{\arraycolsep}{.2cm}
-\begin{center}
-$
-\begin{array}{cp{2cm}cc}
-             & &         & \Rnode{b1}{b_1} \\ [0.5cm]
-						 & &         & \Rnode{b2}{b_2} \\ [0.6cm]
-						 & & \vdots  &                 \\ [0.2cm]
-\Rnode{a}{a} & &         & \Rnode{bn}{b_n} \\ [1.0cm]
-             & &         & \Rnode{c}{c}   \\
-\end{array}
-$
-\simplepatha{$x_1$}{a}{b1}
-\simplepatha{$x_2$}{a}{b2}
-\simplepatha{$x_n$}{a}{bn}
-\simplepathb{$y$}{a}{c}
-\end{center}
-\noindent  if in each instance $E$ there exists a unique partial \marginpar{\footnotesize why unique?}
-function $f_E: E_{b_1} \times E_{b_n} \rightarrow E_c$ \marginpar{\footnotesize partial function}
-\noindent such that 
-domain of $f_E \subseteq img(E_{\langle x_1,... x_n \rangle})$ 
-and  
-$E_{\langle x_1,..x_n \rangle} \circ f_E = E_y$ 
-\begin{center}
-$
-\begin{array}{cp{2cm}ccp{0.5cm}cc}
-						    & &         & \Rnode{Eb1}{E_{b_1}}& &                            &        \\ [0.6cm]
-						    & &         & \Rnode{Eb2}{E_{b_2}}& &                            &        \\ [0.6cm]
-						    & &\vdots  &                      & &                            &        \\ [0.2cm]												
-\Rnode{Ea}{E_a} & &         & \Rnode{Ebn}{E_{b_n}}& & \Rnode{Jnctn}{}&  \\ [1.0cm]
-						    & &         & \Rnode{Ec}{{E_c}}   & &                            &        \\
-\end{array}
-$
-\simplepatha{$E_{x_1}$}{Ea}{Eb1}
-\simplepatha{$E_{x_2}$}{Ea}{Eb2}
-\simplepatha{$E_{x_n}$}{Ea}{Ebn}
-\simplepathb{$E_y$}{Ea}{Ec}
-\nchmarr[15][45]{Eb1}{Ebn}{Jnctn}{Ec}
-\naput[npos=-0.1]{$f_E$}
-\ncarc[arcangle=15]{Eb2}{Jnctn}
-\end{center}
-
-and the family of functions $f_E$ is irreducible 
+that for each $i$, $x_i : a \rightarrow b_i$, and such that $y: a \rightarrow c$   
+and if there is an elementary $y$ intransitive functional dependency  $\{x_1,...x_n\} \morph y$
 then
 either in every instance $E$, $E_{\langle x_1,..x_n \rangle}$ is injective or else
-the family of functions $f_E$ are represented in the model
-\marginpar{\footnotesize More general form of representation needed. See sketchmonics?}
+the functional dependency  $\{x_1,...x_n\} \morph y$ is represented in the model 
 by a path $\tuple{\tuple{q_1,...q_n,I_d},z}$ for some 
  entity type $d$, and some identifying tuple $q_1,...q_n$ of simple paths with respect to $d$,
 and some path  $z:d \morph c$ such that  $\langle x_1,..x_n \rangle$ references $d$ with respect to
 $q_1,...q_n$ 
 \setlength{\arraycolsep}{.2cm}
 \begin{center}
-\marginpar{\footnotesize Achieve more general form via definition of transitive and, in this way, intransitive?}
+
 $
 \begin{array}{cp{2cm}cc p{1.3cm} c}
              & &         & \Rnode{b1}{b_1} & & \\ [0.5cm]
@@ -776,7 +741,9 @@ therefore is not well formed. This situation can be rectified by replacing the S
 the data cell entity (dc) by an identifying relationship $R_0:dc \morph c$ as shown previously in figure \ref{datatablegraph}.
 
 \begin{figure} [H]
-\begin{center}
+\begin{tabular}{c p {0.5cm} c}
+
+(a) & &
 \begin{tabular}{c c}
 $
 \begin{array}{cp{0.75cm}cp{0.75cm}c}
@@ -816,17 +783,8 @@ r & row & Identified by its row number $rN$ and its relationship $S_1$ to the ta
 d & data cell & Identified by relationship $S_0$ to the row it is in and its $seqNo$ attribute
 representing its ordinal position within data cells of the row. \\
 \end{tabular} 
-\end{tabular}
-\end{center}
-\caption{This model fails condition (ii) for being well-formulated
-because there is a referential inclusion dependency of $d[ \tuple{S_0,S_1},\tuple{SeqNo}]$
-in $c[\tuple{R_0},\tuple{CN}]$ which is not explicitly represented in the model.}
-\label{rawdatatablegraph}
-\end{figure}
-
-
-\begin{figure} [H]
-\begin{center}
+\end{tabular} \\
+(b) &   & 
 $
 \begin{array}{cp{0.5cm}c c c }
    \Rnode{d}{d} &                  &                       & \Rnode{c}{c}  &       \\[.5cm]  
@@ -843,17 +801,60 @@ $
 \ncarr{c}{b1}
 \blabel{R_1}[0.25][1]
 \idcomp
-%\ncput[npos=0.1, nrot=:U]{\psline(0,-0.1)(0,0.1)}
 \ncarr{c}{bn}
 \alabel{CN}[0.25]
 \idcomp
-%\ncput[npos=0.1, nrot=:U]{\psline(0,-0.1)(0,0.1)}
-\end{center}
-\caption{Composite Referential Inclusion Dependency}
-\label{compositereferentialinclusiongraph}
+\end{tabular}
+\caption{(a) The model fails condition (ii) for being well-formulated
+because there is a referential inclusion dependency of $d[ \tuple{S_0,S_1},\tuple{SeqNo}]$
+in $c[\tuple{R_0},\tuple{CN}]$, as indicated in (b), which is not explicitly represented in the model.}
+\label{rawdatatablegraph}
 \end{figure}
 
-
+\begin{figure} [H]
+\begin{center}
+\begin{tabular}{c c}
+$
+\begin{array}{cp{0.75cm}cp{0.75cm}c}
+   \Rnode{p}{p}     & & \Rnode{c}{c} & & \Rnode{v}{v}    
+\end{array}
+$
+\ncarr{p}{c} 
+\alabel{R}
+\idcomp
+\ncarr[25]{c}{v} 
+\alabel{wId}
+\idcomp
+\ncarr[-10]{c}{v} 
+\blabel{cSn}
+\idcomp
+\ncarr[-65]{c}{v}
+\blabel{iC}
+\ncarr[80]{p}{v}
+\alabel{dI}
+\idcomp
+\ncarr[-100]{p}{v}
+\blabel{q}
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+p & pick & Identified by a combination of relationship $R$ to the crate being picked from
+                and the delivery id attribute ($dI$). Also  having a quantity picked 
+								attribute ($q$).\\
+c & crate & Identified by a combination of warehouse name attribute ($wN$)
+              and crate serial number attribute ($cSn$). Also has an item type ($iT$) attribute.
+ to the table it is 
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{If all deliveries are made from items picked from a single warehouse 
+then this model fails clause (iii) of the definition of well-formulated because, with tespect to entity type $p$, the path $\tuple{R,wN}$ will be dependent on the path $\tuple{dI}$ but neither is the set 
+$\{\tuple{dI}\}$ jointly monic nor has the dependency a representation within the model. A well-formulated and fully factored model for this situation was described previously in 
+figure \ref{pickexample}.
+}
+\label{pickexamplebeforenormalisation}
+\end{figure}
 
 \section{Definitions Of Logical and Physical Entity Models}
 \subsection{Preliminaries}
@@ -1214,5 +1215,172 @@ E_{y_1}=E_{\langle p_1,...p_k ,z_1,...z_l \rangle}
 We have shown, therefore, that $y_1$ is an outgoing edge of $a$ in $\genericmodel$ 
 which is equivalent to a simple path of $\genericmodel$ of length $\geq 2$ which contradicts  the 
  initial assumption that the model $\genericmodel$ is purely logical and so completes the proof.
+\section{Discussion}
+\begin{figure}
+\begin{tabular}{c l c l}
+\input{pickExampleTransitiveDependencyRHS}
+\\
+\\
+DEPENDS ON  \\
+\\
+$
+\begin{array}{cp{0.5cm}cp{0.5cm}c}
+               &  &                  & &     \Rnode{w}{w}   \\[-0.35cm]
+               &  &   \Rnode{c1}{c}  & &                    \\[-0.05cm]
+\Rnode{p}{p}   &  &                  & &                    \\[-0.05cm]
+               &  &   \Rnode{c2}{c}  & &                    \\[-0.25cm]
+               &  &                  & &     \Rnode{v}{v}
+\end{array}
+$
+\ncarr[5]{p}{c1}
+\alabel{R_0}
+\idcomp 
+\ncarr[-5]{p}{c2}
+\blabel{R_0}
+\idcomp 
+\ncarr[5]{c1}{w}
+\alabel{R_1}
+\idcomp
+\ncarr[-5]{c2}{v} 
+\blabel{cSn}
+\idcomp & because & 
+$
+\begin{array}{cp{0.5cm}c}
+               & &     \Rnode{w}{w}   \\[-0.15cm]
+\Rnode{c}{c}  & &                    \\[-0.05cm]
+               &  &    \Rnode{v}{v}
+\end{array}
+$
+\ncarr[5]{c}{w}
+\alabel{R_1}
+\idcomp
+\ncarr[-5]{c}{v} 
+\blabel{cSn}
+\idcomp
+ & is an identifying family \\
+\\
+EQUIVALENT TO  \\
+\\
+\input{pickExampleTransitiveDependencyIntermediate}
+ & because & $\tuple{R_0,R_1} \simeq \tuple{S_0,S_1}$ \\
+\\
+DEPENDS ON  \\
+\\
+$
+\begin{array}{cp{0.5cm}cp{0.5cm}c}
+               &  &   \Rnode{d}{d}  & &                    \\[-0.05cm]
+\Rnode{p}{p}   &  &                  & &                    \\[-0.05cm]
+               &  &   \Rnode{c2}{c}  & &                    \\[-0.25cm]
+               &  &                  & &     \Rnode{v}{v}
+\end{array}
+$
+\ncarr[5]{p}{d}
+\alabel{S_0}
+\idcomp 
+\ncarr[-5]{p}{c2}
+\blabel{R_0}
+\idcomp 
+\ncarr[-5]{c2}{v} 
+\blabel{cSn}
+\idcomp & by weakening & \\
+\\
+DEPENDS ON  \\
+\\
+\input{pickExampleTransitiveDependencyLHS} & because & 
+$
+\begin{array}{cp{0.5cm}c}
+               & &     \Rnode{v1}{v}   \\[-0.15cm]
+\Rnode{d}{d}  & &                    \\[-0.05cm]
+               &  &    \Rnode{v2}{v}
+\end{array}
+$
+\ncarr[5]{d}{v1}
+\alabel{oId}
+\idcomp
+\ncarr[-5]{d}{v2} 
+\blabel{dSn}
+\idcomp
+ & is an identifying family. \\
+\end{tabular}
+
+\caption{Illustration of transitive dependence and Representation- In this model the path $\tuple{R_0,R_1}$ is equivalent to path $\tuple{S_0,S_1}$. The path $\tuple{R_0}$ depends transitively on the paths
+$\tuple{S_0,oId}$, $\tuple{S_0,dSn}$ and $\tuple{R_0,cSn}$. The dependence is transitive
+because there is a path $P=\tuple{S_0,S_1}$ and $P$ depends on $\tuple{S_0,oId}$ and $\tuple{S_0,cSn}$
+and $\tuple{R_0,sC}$ depends on $P$ and $\tuple{R_0,iN}$. }
+\label{transitiverepresenationillustration}
+\end{figure}
+
+
+\begin{figure}
+The dependency of 
+\input{pickExampleTransitiveDependencyRHS} on 
+\input{pickExampleTransitiveDependencyLHS} is represented by the following diagram:
+\input{pickExampleTransitiveDependencyRepresentationDiagram}
+\vspace{1.0cm}
+\caption{Representation of dependencies}
+\end{figure}
+\iffalse
+\subsection*{NOT NEEDED}
+\noindent \textbf{Notation}
+\marginpar{\footnotesize Try and get rid of this in favour of fds being `elementary'.}
+If $X_1,...X_n$ are sets and if $J=\{i_1,...i_j\} \subseteq \{1,...n\}$ then denote by $P_J$ the projection function :
+$$
+P_J : X_1 \times X_2 \times ...X_n \rightarrow X_{i_1} \times X_{i_2} \times ... X_{i_j}
+$$
+\noindent i.e. the function given by:
+$$
+P_J(\langle x_1,...x_n \rangle ) = \langle x_{i_1},...x_{i_j} \rangle.
+$$
+
+\begin{definition}
+\marginpar{\footnotesize Try and get rid of this in favour of fds being `elementary'.}
+If $\genericmodel$ is an entity model, if $b_1,...b_n$ and $c$ are entity types of model $\genericmodel$  and if $f_E$ is a family of functions 
+such that in every instance $E$ of $\genericmodel$:
+$$
+f_E : E_{b_1} \times ... \times E_{b_n} \rightarrow E_c
+$$
+then 
+\begin {itemize}
+\item{the family of functions $f_E$ is said to be \term{reducible} to a family of functions:
+$$
+g_E : E_{b_{i_1}} \times ... \times E_{b_{i_j}} \rightarrow E_c
+$$
+for some $J=\{i_1,...i_j\} \subseteq \{1,...n\}$, iff in all instances E:
+$$
+f_E = P_J \circ g_E
+$$
+}
+\item{
+the family of functions $f_E$ is said to be \term{irreducible} iff there is no proper subset
+ $J=\{i_1,...i_j\} \subset \{1,...n\}$, and no family of functions 
+$g_E : E_{b_{i_1}},...E_{b_{i_j}} \rightarrow E_c$ such that $f_E$ is reducible to $g_E$.
+}
+\end{itemize}
+\end{definition}
+
+\begin{remark}
+For any entity model $\genericmodel$ and for any type $b$ of $\genericmodel$ the family of identity functions on 
+entities of type $b$ :
+$$
+id_{E_b} : E_b \rightarrow E_b
+$$
+is represented because we can choose both $q: b \rightarrow b$ and and
+$z: b \rightarrow b$ to be the empty path $\langle \rangle$; then we have:
+\begin{align*}
+inv_{E_{\langle q_1,...q_n\rangle}}\circ E_{\langle z_1,...z_l \rangle} & = inv_{E_{\langle \rangle}} \circ E_{\langle \rangle} \\
+                                                                        & = id_{E_b}^{-1} \circ id_{E_b} \\
+                                                                        & = id_{E_b} 
+\end{align*}
+as required.
+\end{remark}
+\begin{remark}
+For any entity model $\genericmodel$, for any $n \geq 1$, for any tuple of types $b_1,...b_n$ and for any $i$, $1 \leq i \leq n$, if in any instance
+$E$ of $\genericmodel$, ${p_i}_{_E}$ is the i'th projection function:
+$$
+{p_i}_{_E}: E_{b_1} \times ... \times E_{b_n} \rightarrow E_{b_i}
+$$
+then the family of functions ${p_i}_{_E}$ are represented in model $\genericmodel$. This is because this family of functions is reducible to the family of identify functions on $E_{b_i}$ and this family is represented as previously remarked.
+\end{remark}
+\fi
 
 \end{document}
