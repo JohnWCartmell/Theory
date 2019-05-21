@@ -84,47 +84,10 @@
 
 \begin{document}
 
-%from berkley
-\newcommand{\langl}{\begin{picture}(4.5,7)
-\put(1.1,2.5){\rotatebox{60}{\line(1,0){5.5}}}
-\put(1.1,2.5){\rotatebox{300}{\line(1,0){5.5}}}
-\end{picture}}
-\newcommand{\rangl}{\begin{picture}(4.5,7)
-\put(.9,2.5){\rotatebox{120}{\line(1,0){5.5}}}
-\put(.9,2.5){\rotatebox{240}{\line(1,0){5.5}}}
-\end{picture}}
-\newcommand{\lang}{\begin{picture}(5,7)
-\put(1.1,2.5){\rotatebox{45}{\line(1,0){6.0}}}
-\put(1.1,2.5){\rotatebox{315}{\line(1,0){6.0}}}
-\end{picture}}
-\newcommand{\rang}{\begin{picture}(5,7)
-\put(.1,2.5){\rotatebox{135}{\line(1,0){6.0}}}
-\put(.1,2.5){\rotatebox{225}{\line(1,0){6.0}}}
-\end{picture}}
-%Try sharper tuple brackets
-\renewcommand{\tuple}[1]{\lang #1 \rang}
 
-\newcommand{\genericmodel}{\mathcal{M}}
-\renewcommand{\genericmodel}{{m}}
-\newcommand{\chiZero}{\mathcal{X}_0}
-\newcommand{\chiZeroM}{\chiZero(\genericmodel)}
-\newcommand{\chiOne}{\mathcal{X}_1}
-\newcommand{\chiOneM}{\chiOne(\genericmodel)}
-\newcommand{\chiM}{\mathcal{X}(\genericmodel)}
-\newcommand{\veee}{v}
-\newcommand{\et}[1][\genericmodel]{et_{#1}}
-\newcommand{\edge}[3][\genericmodel]{Edge_{#1}(#2,#3)}
-\newcommand{\iedge}[3][\genericmodel]{IEdge_{#1}(#2,#3)}
-\newcommand{\path}[3][\genericmodel]{Path_{#1}(#2,#3)}
-\newcommand{\ipath}[3][\genericmodel]{IPath_{#1}(#2,#3)}
-\newcommand{\attr}[2] [\genericmodel]{attr_{#1}(#2)}
-\newcommand{\iattr}[2] [\genericmodel]{IAttr_{#1}(#2)}
-\newcommand{\rel}[3][\genericmodel]{rel_{#1}(#2,#3)}
-\newcommand{\irel}[3][\genericmodel]{IRel_{#1}(#2,#3)}
-\newcommand{\pk}[2] [\genericmodel]{pk_{#1}(#2)}
-\newcommand{\fk}[2] [\genericmodel]{fk_{#1}(#2)}
-\newcommand{\fkp}[2] [\genericmodel]{fk'_{#1}(#2)}
-\newcommand{\fkpp}[2] [\genericmodel]{fk''_{#1}(#2)}
+
+
+
 
 %\section{Notation}
 \begin{tabular}{l l p{0.5cm} l }
@@ -143,53 +106,11 @@ Basics \\
 \verb'\chiZeroM'    & $\chiZeroM  $ &      &                        \\
 \end{tabular}
 
-\newcommand{\set}[1]{\left\{#1\right\}}
-\newcommand{\setsuchthat}[2]{\left\{#1 \ \middle|\ #2\right\}}
 
 
-\begin{align}
-&\et[\chiZeroM]        && = \et        && \\
-&\rel[\chiZeroM]{x}{y} && = \rel{x}{y}  &&\\
-&\attr[\chiZeroM]{x}   && = \attr{x}  \cup  \sum_{y \in \et} \sum_{r \in \rel{x}{y}} \pk{y} && \\
-& && = \attr{x}  \cup  \setsuchthat{\tuple{y,r,k}}{y \in \et, r \in \rel{x}{y} \& k \in \pk{y}} \\
-& && = \attr{x}  \cup  \setsuchthat{\tuple{r,k}}{\text{for some }
-			                  y \in \et, \ r \in \rel{x}{y} \text{ and } k \in \pk{y}} 
-\end{align}
-
-Alternatively, we can define $\attr[\chiZeroM]{x}$ as the union of $\attr{x}$ and foreign keys $\fk{x}$
-where we define the latter by:
-\begin{equation}
-\fk{x} = \setsuchthat{\tuple{r,q_1,...q_n,a}}
-                               {r \in \rel{x}{y},
-                                  \text{ for some } y \in \et,
-																	\text{ and } \tuple{q_1,...q_n,a} \in \pk{y},
-																	\text{ for some } n \geq 0
-			                   }
-\end{equation}
 
 
-This then needs revision\footnote{Check this!} as follows:
-\begin{multline}
-\fkp{x} = \setsuchthat{\tuple{r,q_1,...q_n,a}}
-                      {r \in \rel{x}{y},
-                                  \text{ for some } y \in \et,
-																	\text{ and } \tuple{q_1,...q_n,a} \in \pk{y},
-																	\text{ for some } n \geq 0,                   \right. \\        
-											\left.		\text{ and } \tuple{r, q_1,...q_n,a}
-																	\text{ is not subsumed by any path }
-																	      \tuple{s_1,...s_m} \in \path{x}{v}
-											}			                   
-\end{multline}
 
-Finally we can define:
 
-\begin{equation}
-\fkpp{x} = \fkp{x}/\simeq
-\end{equation}
-and 
-
-\begin{equation}
-\attr[\chiM]{x}  = \attr{x}  \cup  \fkpp{x}
-\end{equation}
 
 \end{document}
