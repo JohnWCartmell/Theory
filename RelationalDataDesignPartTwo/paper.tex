@@ -143,7 +143,38 @@ DRAFT \commentary{ Original Dated 2016 }
 
 \section{Introduction}
 
+\noindent 
+
+We can make use of the distinction made in philosophy between 
+\textit{particulars} and \textit{universals} and of the fact that types of things and relationships between these are generally considered to be universals, and set out with the viewpoint that
+particulars are communicated as data\footnote{Note that we consider data storage to be a special case of data communication} by some systematic use of universals and universals alone and that data specification is the act of defining such a system. The style of data specification system that we study here involves description of types of particulars in terms of their relationships with other types,
+of which there are two kinds,  those, such as represent numbers, character strings, booleans and so on, all of whose instances are \textit{universals} and the definienda  -- those types all of whose instances are \textit{particulars}. 
+
+Types all of whose instances are universals  are said to be \textit{attribute types} in entity relational 
+modelling, though confusingly called \textit{attributes} by Johnstone et al. and earlier
+in Chen were called \textit{value sets}; they are said to be \textit{domains} in relational data modelling theory. 
+
+Types of particulars are said to be 
+types of entities or \textit{entity types} in modern entity relational modelling\footnote{In  his paper  introducing the entity-relationship model Chen explains that his model adopts the view that the real world consists of entities and relationships. He also introduces the  terms \textit{entity set} and \textit{relationship set} for the types of respective entity and relationship particulars. Later authors kept the terms entity and relationship, and the philosophy, but changed the way that they were used. In this paper we use the modern terminology.} or sometimes, confusingly, just \textit{entities}  and 
+are modelled as \textit{relational tables} in relational data modelling. For the purposes of the theory presented in this paper there is no loss if we assume a single set $\Veee$ of universals.  We will represent data specifications as directed graphs with 
+some additional information; the nodes of the graph being types, and having a distinguished node $\veee$ representing the type of universals; from a mathematical point of view it is impossible to progress the theory too far without forming an opinion that a data specification is a presentation of a category with some additional structure or, meta-mathematically, that it is an axiomatisation of a theory of some kind. 
+
+The styles of data specification that we are concerned with here are predicated on the assumption that the particulars that we describe in data correspond uniquely to real world entities and that the data 
+alone is sufficient to establish a 1-1 correspondence. This requires in turn that the logical 
+principle of identity of indiscernibles holds of the real world entities. In fact we assume a bit more 
+that each type of entity has identifying features that distinguish it from  others of the type. 
+In relational data modelling this set of identifying features as a set of columns of the table and is called the primary key.  If we think of the primary key columns as functions assocaiting universals
+with rows :
+
+the the set of functions $k_1,k_2,k_3$ are jointly injective i.e. the function:
+$$
+\tuple{k_1,k_2,k_3}: r \morph \veee \times \veee \times \veee
+$$
+is injective. Any such set of columns, in relational data theory, is called a candidate key and 
+one such is chosen as the primary key. 
+
 \noindent According to the functional view of data, the content of a 
+\commentary{Describe that more general relationships are simplified to functional relationships i.e.many-many n-place simplified to many-one binary relationships}
 database instance can be described as a collection of sets 
 and functions in that (i) for each entity type $a$ there is defined in 
 the database instance a set $E_a$ of entities of type $a$;
@@ -151,20 +182,12 @@ the database instance a set $E_a$ of entities of type $a$;
 many-one relationship $a \overset{r}{\rightpitchfork \hspace{-0.35em} -}b$
 there is defined a possibly partial function $f_r : E_a \rightarrow E_b$. 
 In this view, an instance of such a relationship $r$ is defined to be a pair 
-of entities $e,e'$ such that $f_r(e)=e'$. Without loss of generality
-there can be assumed a single set $\Veee$ of all values 
-that potentially might be held in columns of tables, 
-such as all possible texts, numerics, booleans and so on,
-so that for each attribute $attr$
+of entities $e,e'$ such that $f_r(e)=e'$. For each attribute $attr$
 of entity type $et$ there is defined in the database instance a function
 $f_{attr}: E_{et} \rightarrow \Veee$. \\
 
-\noindent 
-In relational data modelling, each row of data is uniquely distinguishable from the values of a specific set of columns said to 
-comprise the primary key to the data whereas in logical entity relationship (ER) modelling each entity is distinguishable from the values of a specific set of attributes taken in combination with a specific set of relationships with other entities\footnote{Whichever methodology is followed the goal is to achieve for the database instances the logical principal of identity of indiscernibles.}. \\
-
 \noindent
-From this starting position we provide a set of general definitions of \term{ER schema}, \term{ER schema instance},
+With this as background we provide a set of general definitions of \term{ER schema}, \term{ER schema instance},
 \commentary{ Might there be a use somewhere for the terms \textit{logically redundant} and \textit{physically redundant}?}
 and \term{ER model} so that from the definition of \term{ER model} we capture the notion of a database schema 
 and all its envisaged usages (to a meta-mathematician the ER schema notion equates to a \term{theory} of some kind
@@ -174,8 +197,73 @@ the term \term{logical data design} and, in contrast, the conditions for an ER m
 a \term{physical ER model} is pretty much the same thing as a  relational database schema. We define the first-cut Chen mapping for generating a first 
 cut physical ER model from a logical ER model and then develop this definition in a way that reduces redundancy in the generated physical model by taking account of commuting and near commuting diagrams of relationships in the logical model
 and thereby establish a revised Chen mapping $\logtophys$ so that for any logical ER model $\genericmodel$, $\logtophys(\genericmodel)$ is a physical ER model. Finally we define what it is for a logical model to be well-formulated and prove that if $\genericmodel$ is a well-formulated logical ER model then 
-the generated physical ER model $\logtophys(\genericmodel)$ is in Boyce-Codd normal form (BCNF).   
+the generated physical ER model $\logtophys(\genericmodel)$ is in Boyce-Codd normal form (BCNF). 
 
+\section{Background}
+\noindent 
+In relational data modelling, every row of data is distinguishable from others by the values of a specific set of columns said to 
+comprise the primary key whereas in the earliest presentation of entity relationship modelling \commentary{Previously: whereas in logical entity relationship (ER) modelling each entity is distinguishable from the values of a specific set of attributes taken in combination with a specific set of relationships with other entities\footnote{Whichever methodology is followed the goal is to achieve for the database instances the logical principal of identity of indiscernibles.}}
+Chen (\ref{Chen76}) depicts specifications of certain types of entity to include specification of
+ their primary keys in a syntax that enables the primary key to be a combination of an attribute in conjunction with a relationship with another entity\footnote{Other types of entity have a combination of relationships to other entities as their primary keys. These are his 'relationships' but they are not what later authors and ourselves here mean by this term.}. This essential feature 
+is retained as the entity relationship model is re-imagined by other authors and it is represented fully in the Barker book where identifying attributes and relationships are distinguished from others on entity model diagrams. 
+We simplify the Barker notation for theoretical purposes so that attributes and relationships are shown as edges of a directed graph and identifying features are shown by a bar\footnote{A Barker bar, we might say.} across the corresponding edge of the graph. 
+In this style a fragment of an example from Chen is shown in figure (\ref{chenexample}). This diagram and others that follow are given to illustrate the theoretical possibilities for the Barker notation and notations of a similar ilk  -- we need emphasise that we do not offer the directed graph notation for practical use but use it to illustrate theory. 
+\begin{figure} [H]  % chen fragment
+\begin{center}
+\begin{tabular}{c c}
+$
+\begin{array}{c p{0.05cm}c p{0.5cm}c}
+                        & & \Rnode{p}{p}& &             \\ [0.3cm]
+	 \Rnode{w}{w}	& &                   & & \Rnode{v}{v} \\ [0.3cm]     
+	                      & & \Rnode{e}{e}      & &             \\ [0.6cm]     
+	                      & & \Rnode{dep}{dep}  & &             
+\end{array}
+$
+\ncarr{w}{p} 
+\alabel{R_1}[0.5][-1]
+\idcomp
+\ncarr{w}{e} 
+\blabel{R_2}[0.5][-1]
+\idcomp
+\ncarr{dep}{e} 
+\alabel{S_0}
+\idcomp
+\ncarr{p}{v}
+\alabel{pNo}[0.4][-1]
+\idcomp
+\ncarr{e}{v}
+\alabel{eNo}[0.45][1]
+\idcomp
+\ncarr[-25]{e}{v}
+\blabel{eN}[.3][0]
+%\ncarr[-90]{e}{v}
+%\blabel{eDob}
+\ncarr[-20]{dep}{v}
+\blabel{dN}[0.3][-1]
+\idcomp
+\ncarr[-60]{dep}{v}
+\blabel{ddoB}[0.3][-1]
+\nccurve[angleA=90,angleB=90,nodesep=2pt,ncurv=0.9]{->}{w}{v}
+\alabel{pcnt}[0.3][-1]
+
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+p & project & Identified by project number attribute ($pNo$).\\
+e & employee & Identified by employee number attribute ($eNo$). \\
+w  & project-worker & Identified by combination of relationship $R_0$ to an employee and relationship $R_1$ to a project. Has a percentage of time attribute ($pcnt$) which is percentage of time employee is allocated to work on the project.\\
+dep & dependent & Identified by a combination of relationship $S_0$ to an employee and a name attribute ($dN$).\\
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{A directed graph representing a fragment of Chen's example that illustrates analysis of information for a manufacturing firm. Other attributes such as project name, employee date of birth (dob) and so on not shown.}
+\label{chenfragment}
+\end{figure}
+
+\noindent
+This first example instances all the most significant features of second generation entity relationship modelling. It has entity types representing employees(e), departments(dept), dependent(d)  and
+for the  
 
 \section{Definition of ER model}
 The functional view of data summarised above taken with the requirement of specifying the attributes and relationships from which entities may be identified suggests a mathematical definition of an ER-schema  as  follows:
