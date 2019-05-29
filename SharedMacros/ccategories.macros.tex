@@ -97,8 +97,12 @@
 % \blabel{label}[npos][labelsep_pts]
 \newcommandx*\blabel[3][2=0.5,3=2,usedefault]{\nbput[labelsep=#3pt,npos=#2]{\footnotesize $#1$}}
 
+
+\newif \ifbars
+% to supress display of bars use \barsfalse to swith them on use \barstrue
+\barstrue 
 % \idcomp mark an arrow as one component of an identifier
-\newcommand{\idcomp}{\ncput[npos=0, nrot=:U]{\psline(0.2,-0.075)(0.2,0.075)}}  %add a bar to a node connection arrow
+\newcommand{\idcomp}{\ifbars{\ncput[npos=0, nrot=:U]{\psline(0.2,-0.075)(0.2,0.075)}}\fi}  %add a bar to a node connection arrow
 % pstrick supplements for s-arrows (previous name for d-arrow - should convert}
 
 \newlength{\sarnodesepA}
