@@ -147,8 +147,16 @@ DRAFT \commentary{ Original Dated 2016 }
 
 We can make use of the distinction made in philosophy between 
 \textit{particulars} and \textit{universals} and of the fact that types of things and relationships between these are generally considered to be universals, and set out with the viewpoint that
-particulars are communicated as data\footnote{Note that we consider data storage to be a special case of data communication} by some systematic use of universals and universals alone and that data specification is the act of defining such a system. The style of data specification system that we study here involves description of types of particulars in terms of their relationships with other types,
+particulars are communicated\footnote{Note that we consider data storage to be a special case of data communication} as data by some systematic use of universals and universals alone and that data specification is the act of defining such a system. The style of data specification system that we study here involves description of types of particulars in terms of their relationships with other types,
 of which there are two kinds,  those, such as represent numbers, character strings, booleans and so on, all of whose instances are \textit{universals} and the definienda  -- those types all of whose instances are \textit{particulars}. 
+
+In the original presentation by Chen of the
+ entity relationship model as a unified model of data the term relationship is used 
+for general n-ary relationships;  the modern style exemplified by the book of Barker moves away from the Chen notation and terminology and eliminates use more general 
+relationships in favour of functional relationships.
+By \textit{relationship}, here, then, we mean binary functional relationship so that if $x$ and $y$ are types then a relationship $R: x \morph y$ is a relationship between
+instances of $x$ and instances of $y$ such that for all instances $e_x$ of $x$
+there exists at most one $e_y$ of type $y$ such that $x R y$. Some authors have presented  systems of such types and relationships as the functional model of data and emphasised navigation through data as functional composition and the modern style of entity relationship modelling, though with some restrictions, has been formalised in the language of category theory by Johnstone et al. 
 
 Types all of whose instances are universals  are said to be \textit{attribute types} in entity relational 
 modelling, though confusingly called \textit{attributes} by Johnstone et al. and earlier
@@ -159,32 +167,189 @@ types of entities or \textit{entity types} in modern entity relational modelling
 are modelled as \textit{relational tables} in relational data modelling. For the purposes of the theory presented in this paper there is no loss if we assume a single set $\Veee$ of universals.  We will represent data specifications as directed graphs with 
 some additional information; the nodes of the graph being types, and having a distinguished node $\veee$ representing the type of universals; from a mathematical point of view it is impossible to progress the theory too far without forming an opinion that a data specification is a presentation of a category with some additional structure or, meta-mathematically, that it is an axiomatisation of a theory of some kind. 
 
-The styles of data specification that we are concerned with here are predicated on the assumption that the particulars that we describe in data correspond uniquely to real world entities and that the data 
-alone is sufficient to establish a 1-1 correspondence. This requires in turn that the logical 
-principle of identity of indiscernibles holds of the real world entities. In fact we assume a bit more 
-that each type of entity has identifying features that distinguish it from  others of the type. 
-In relational data modelling this set of identifying features as a set of columns of the table and is called the primary key.  If we think of the primary key columns as functions assocaiting universals
-with rows :
+\begin{figure} [H]  % chen fragment SANS bars
+\begin{center}
+\begin{tabular}{c c}
+\barsfalse % supresses \idcomp macro
+\input{chenFragment}
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+p & project & Identified by project number attribute ($pNo$).\\
+e & employee & Identified by employee number attribute ($eNo$). \\
+w  & project-worker & Identified by combination of relationship $R_0$ to an employee and relationship $R_1$ to a project. Has a percentage of time attribute ($pcnt$) which is percentage of time employee is allocated to work on the project.\\
+dep & dependent & Identified by a combination of relationship $S_0$ to an employee and a name attribute ($dN$).\\
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{A directed graph representing a fragment of Chen's example that illustrates analysis of information for a manufacturing firm. Other attributes such as project name, employee date of birth (dob) and so on not shown.}
+\label{chenfragmentSANSbars}
+\end{figure}
 
-the the set of functions $k_1,k_2,k_3$ are jointly injective i.e. the function:
-$$
-\tuple{k_1,k_2,k_3}: r \morph \veee \times \veee \times \veee
-$$
-is injective. Any such set of columns, in relational data theory, is called a candidate key and 
-one such is chosen as the primary key. 
+The style of data specification that we are concerned with here, is 
+predicated on the assumption that the particulars that we describe in data 
+correspond uniquely to real world entities and that the data 
+alone is sufficient to establish a 1-1 correspondence. 
+This requires in turn that the logical principle of identity of 
+indiscernibles holds of the real world entities. In fact we assume a bit more 
+that each type of entity has identifying features that distinguish it from  
+others of the type. 
+In relational data modelling this set of identifying features as a set of columns of the table and is called the primary key.  
 
-\noindent According to the functional view of data, the content of a 
-\commentary{Describe that more general relationships are simplified to functional relationships i.e.many-many n-place simplified to many-one binary relationships}
-database instance can be described as a collection of sets 
-and functions in that (i) for each entity type $a$ there is defined in 
-the database instance a set $E_a$ of entities of type $a$;
-(ii) for each, possibly optional, 
-many-one relationship $a \overset{r}{\rightpitchfork \hspace{-0.35em} -}b$
-there is defined a possibly partial function $f_r : E_a \rightarrow E_b$. 
-In this view, an instance of such a relationship $r$ is defined to be a pair 
-of entities $e,e'$ such that $f_r(e)=e'$. For each attribute $attr$
-of entity type $et$ there is defined in the database instance a function
-$f_{attr}: E_{et} \rightarrow \Veee$. \\
+We require that 
+for a directed graph to be considered an ER schema each entity type has a primary
+key specified. 
+A primary key $pk_1,...pk_n$ for an entity type $x$ specifies a jointly injective set of functions(the set of functions $f_1,...f_n$ are said to be jointly injective iff the function:
+$$
+\tuple{f_1,f2,,,,f_n}: x \morph \veee \times \veee ... \times \veee
+$$
+is injective); by this means every entity is defined to have a primary key and two entities are necessarily identical if they have the same entity (so implementing the identity of indiscernibles). Each element of a primary key for entity type $x$ must be specified as a path through the directed graph from node $x$ to the node $\veee$ representing the type of universals.  In the Chen fragment the primary keys are specified as follows:
+$$
+\begin{array}{l l}
+p & \set{\tuple{pNo}} \\
+e & \set{\tuple{eNo}} \\
+w & \set{\tuple{R_1,pNo},\tuple{R_2,eNo}} \\
+dep & \set{\tuple{S_0,eNo},dN}
+\end{array}
+$$
+
+
+
+What specify here is theoretically sound but less than ideal from a practical point of view.  In practice both in Chen and in Barker but not in the theory papers of Johnstone et al. there is a more pragmatic approach. As described by Chen the entity type 
+$w$ in his example is identified uniquely by a combination of the relationships with a project ($p$) and a worker($w$). It can be identified uniquely therefore by a combination of its relationships. The entity type dependent, on the other hand, can
+be identified uniquely by a combination of its relationship $S$ with a employee ($e$) 
+who supports them and an their name attribute $dN$. It can be uniquely identified 
+by a certain combination of its relationships and attributes.   In the Barker 
+style of entity relationship modelling primary keys come about indirectly via specification of these identifying relationships and attributes. 
+The primary key specified in table xxx above can be inferred from the annotated directed graph shiwn 
+in figure \ref{chenfragment} in which the identifying attributes and relationships
+have been annotated with bars - so adapting a style used by Barker.
+This is a good practical approach but we show that isn't applicable in 100\% of cases.
+\begin{figure} [H]  % chen fragment with bars
+\begin{center}
+\barstrue
+\input{chenFragment}
+\end{center}
+\caption{The same Chen fragment with bars indicating the identifying relationships and attributes. In this example the primary key for each entity type consists of the set of paths through the graph consisting entirely
+of identifying (bar'ed) attributes and relationships and leading from itself to the universal type $\veee$ .}
+\label{chenfragment}
+\end{figure}
+
+ The first refinement that we need is illustrated by the example shown in figure
+\ref{datatablegraph}. This example has two equivalent paths because 
+each data cell is part of a row which is part of a table and is also part 
+of a column that is part of a table and these two tables are one and the same.
+Which is to say that paths $\tuple{S_0,S_1}$ and $\tuple{R_0,R_1}$ are equivalent 
+paths that is represent identical functions and so to then are the paths
+derived from these that might be considered for the primary key namely
+$\tuple{S_0,S_1,tN}$ and $\tuple{R_0,R_1,tN}$; clearly just one of these needs
+to be included in the primary key. 
+\begin{figure} [H] % data table
+\begin{center}
+\begin{tabular}{c c}
+$
+\begin{array}{cp{0.75cm}cp{0.75cm}c}
+   \Rnode{r}{r}     & & \Rnode{t}{t} & & \Rnode{v}{v} \\[1.2cm]     
+	 \Rnode{d}{d}   & & \Rnode{c}{c} & &               
+\end{array}
+$
+\ncarr{r}{t} 
+\alabel{S_1}
+\idcomp
+\ncarr{t}{v} 
+\alabel{tN}
+\idcomp
+\ncarr{c}{v} 
+\blabel{cN}
+\idcomp
+\ncarr{d}{c}
+\blabel{R_0}
+\idcomp
+\ncarr{d}{r}
+\alabel{S_0}
+\idcomp
+\ncarr{c}{t}
+\blabel{R_1}
+\idcomp
+\ncarr[50]{r}{v}
+\alabel{rN}
+\idcomp
+
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+t & table & Having identifying attribute tN the name of the table. \\
+c & column & Identified by a combination of column number cN and relationship $R_1$ to the table it is a column of.\\
+r & row & Identified by its row number $rN$ and its relationship $S_1$ to the table it is a row of.\\
+d & data cell & Identified by relationship $S_0$ to the row it is in and relationship $R_0$ to the row it is in. \\
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{Example of path equivalence - the path $\tuple{R_0,R_1}$ is equivalent to path $\tuple{S_0,S_1}$}.
+\label{datatablegraph}
+\end{figure}
+
+A second refinement is required as shown in figure \ref{pickexample}.Sometimes
+the need for a primary key is subsumed. To include the key would be to 
+have a badly formulated entity model.
+
+\begin{figure} [H]
+\begin{center}
+\begin{tabular}{c c}
+\begin{tabular}{cp{0.75cm}cp{0.75cm}c}
+   \Rnode{d}{d}    & & \Rnode{w}{w}   & & \Rnode{v}{v}\\[1.2cm]     
+	 \Rnode{p}{p}  & & \Rnode{c}{c} & &               
+\end{tabular}
+\ncarr[90]{d}{v}
+\alabel{oId}[0.4]
+\idcomp
+\ncarr[40]{d}{v}
+\alabel{dSn}[0.4]
+\idcomp
+\ncarr{d}{w} 
+\alabel{S_1}
+\ncarr{w}{v} 
+\alabel{wId}
+\idcomp
+\ncarr{c}{v} 
+\blabel{cSn}
+\idcomp
+\ncarr{p}{c}
+\blabel{R_0}
+\idcomp
+\ncarr{p}{d}
+\alabel{S_0}
+\idcomp
+\ncarr{c}{w}
+\blabel{R_1}
+\idcomp
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+d & delivery & Identified by a combination of an order id attribute ($oId$) and a
+delivery serial number  attribute ($dSn$). \\
+w & warehouse & Identified by a warehouse id attribute ($wId$). \\
+c & crate & Identified by a combination of a crate serial number attribute ($cSn$) and a relationship $R_1$ to the warehouse in which it is held.
+             Also has an item type attribute (not shown).\\
+p & pick & Identified by relationship $S_0$ to the delivery  it is part of and relationship $R_0$ to the crate being picked from. Has a quantity picked attribute (not shown). \\
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{Pick Example}
+\label{pickexample}
+\end{figure}
+
+Blindly following the rules for primary keys would result in us determining
+a primary key for the data cell entity as including a path 
+$\tuple{R_0,R_1,wId}$. This would be incorrect for the pick entity 
+is determined uniquely from 
+$\tuple{S_0,oId}$, $S_0,dSn$ and $\tuple{R_0,cSn}$ alone because 
+warehouse us uniquely determined by delivery and so not necesssry as a separate 
+element of the key. 
+
 
 \noindent
 With this as background we provide a set of general definitions of \term{ER schema}, \term{ER schema instance},
@@ -199,115 +364,59 @@ cut physical ER model from a logical ER model and then develop this definition i
 and thereby establish a revised Chen mapping $\logtophys$ so that for any logical ER model $\genericmodel$, $\logtophys(\genericmodel)$ is a physical ER model. Finally we define what it is for a logical model to be well-formulated and prove that if $\genericmodel$ is a well-formulated logical ER model then 
 the generated physical ER model $\logtophys(\genericmodel)$ is in Boyce-Codd normal form (BCNF). 
 
-\section{Background}
-\noindent 
-In relational data modelling, every row of data is distinguishable from others by the values of a specific set of columns said to 
-comprise the primary key whereas in the earliest presentation of entity relationship modelling \commentary{Previously: whereas in logical entity relationship (ER) modelling each entity is distinguishable from the values of a specific set of attributes taken in combination with a specific set of relationships with other entities\footnote{Whichever methodology is followed the goal is to achieve for the database instances the logical principal of identity of indiscernibles.}}
-Chen (\ref{Chen76}) depicts specifications of certain types of entity to include specification of
- their primary keys in a syntax that enables the primary key to be a combination of an attribute in conjunction with a relationship with another entity\footnote{Other types of entity have a combination of relationships to other entities as their primary keys. These are his 'relationships' but they are not what later authors and ourselves here mean by this term.}. This essential feature 
-is retained as the entity relationship model is re-imagined by other authors and it is represented fully in the Barker book where identifying attributes and relationships are distinguished from others on entity model diagrams. 
-We simplify the Barker notation for theoretical purposes so that attributes and relationships are shown as edges of a directed graph and identifying features are shown by a bar\footnote{A Barker bar, we might say.} across the corresponding edge of the graph. 
-In this style a fragment of an example from Chen is shown in figure (\ref{chenexample}). This diagram and others that follow are given to illustrate the theoretical possibilities for the Barker notation and notations of a similar ilk  -- we need emphasise that we do not offer the directed graph notation for practical use but use it to illustrate theory. 
-\begin{figure} [H]  % chen fragment
-\begin{center}
-\begin{tabular}{c c}
-$
-\begin{array}{c p{0.05cm}c p{0.5cm}c}
-                        & & \Rnode{p}{p}& &             \\ [0.3cm]
-	 \Rnode{w}{w}	& &                   & & \Rnode{v}{v} \\ [0.3cm]     
-	                      & & \Rnode{e}{e}      & &             \\ [0.6cm]     
-	                      & & \Rnode{dep}{dep}  & &             
-\end{array}
-$
-\ncarr{w}{p} 
-\alabel{R_1}[0.5][-1]
-\idcomp
-\ncarr{w}{e} 
-\blabel{R_2}[0.5][-1]
-\idcomp
-\ncarr{dep}{e} 
-\alabel{S_0}
-\idcomp
-\ncarr{p}{v}
-\alabel{pNo}[0.4][-1]
-\idcomp
-\ncarr{e}{v}
-\alabel{eNo}[0.45][1]
-\idcomp
-\ncarr[-25]{e}{v}
-\blabel{eN}[.3][0]
-%\ncarr[-90]{e}{v}
-%\blabel{eDob}
-\ncarr[-20]{dep}{v}
-\blabel{dN}[0.3][-1]
-\idcomp
-\ncarr[-60]{dep}{v}
-\blabel{ddoB}[0.3][-1]
-\nccurve[angleA=90,angleB=90,nodesep=2pt,ncurv=0.9]{->}{w}{v}
-\alabel{pcnt}[0.3][-1]
-
-& \footnotesize
-\begin{tabular}{c p{1.5cm} p{4cm}}
-KEY && \\
-\hline
-p & project & Identified by project number attribute ($pNo$).\\
-e & employee & Identified by employee number attribute ($eNo$). \\
-w  & project-worker & Identified by combination of relationship $R_0$ to an employee and relationship $R_1$ to a project. Has a percentage of time attribute ($pcnt$) which is percentage of time employee is allocated to work on the project.\\
-dep & dependent & Identified by a combination of relationship $S_0$ to an employee and a name attribute ($dN$).\\
-\end{tabular} 
-\end{tabular}
-\end{center}
-\caption{A directed graph representing a fragment of Chen's example that illustrates analysis of information for a manufacturing firm. Other attributes such as project name, employee date of birth (dob) and so on not shown.}
-\label{chenfragment}
-\end{figure}
-
-\noindent
-This first example instances all the most significant features of second generation entity relationship modelling. It has entity types representing employees(e), departments(dept), dependent(d)  and
-for the  
-
 \section{Definition of ER model}
-The functional view of data summarised above taken with the requirement of specifying the attributes and relationships from which entities may be identified suggests a mathematical definition of an ER-schema  as  follows:
+The functional view of data summarised above\commentary{No it isn't.} taken with the requirement of specifying the attributes and relationships from which entities may be identified suggests a mathematical definition of an ER-schema  as  follows:
 
 \begin{definition}
-An \term{ER-schema} is a directed graph having the following additional structure:
+An \term{ER-schema} $\genericmodel$ is a directed graph having the following additional structure:
 
 \begin{enumerate} [(i)]
-\item{a distinguished node $\veee$ for which there are no outgoing edges and which represents the type of all scalar values }
+\item{a distinguished node $\veee$ for which there are no outgoing edges and which represents the type of all scalar values, }
 
-\item{a distinguished subset  of edges representing identifying edges.  
+\item{for each node $x$ other than $\veee$  a set  of paths $\pk{x} $  
+representing the primary key of $x$ and satisfying the following key coherence property:
+if $\tuple{r_1,r_2...r_n,a} \in \pk{x_1}$  where $r_1:x_1 \morph x_2$ in $\genericmodel$ 
+then $\tuple{r_2,...r_n,a} \in \pk{x_2}$.
 }
 \end{enumerate}
+
 \end{definition}
+Later we consider why it is sometimes not possible for keys to cohere in the manner described the
+implications are described. 
 
-
-
-\noindent If $\genericmodel$ is an ER-schema (or an ER-model which, as we define below, 
+If $\genericmodel$ is an ER-schema (or an ER-model which, as we define below, 
 includes an ER-schema) then the nodes of $\genericmodel$ other than $\veee$ we say are entity types and we denote by $\et$.
 
-\noindent
 The set $\attr{a}$ of attributes of an entity type $a$ is defined as the set of edges that have $a$ as source and  $\veee$ as destination. 
 
 
-\noindent That subset of those attributes of $a$ that are also in the distinguished set of identifying edges is said 
-to be the set of identifying attributes of $a$  and is denoted $\iattr{a}$.\\
 
-\noindent We have the following notation:
 
-\begin{tabular}{l l p{0.5cm} l }
-\verb'\et'          & $\et$ \\
-\verb'\edge{x}{y}'  & $\edge{x}{y}$ \\
-\verb'\path{x}{y}'  & $\path{x}{y}$ \\
-\verb'\iedge{x}{y}' & $\iedge{x}{y}$ \\
-\verb'\ipath{x}{y}' & $\ipath{x}{y}$ \\
-\verb'\pk{x}'       & $\pk{x} $      \\
-\verb'\attr{x}'     & $\attr{x} $  &       & $=_{def} \edge{x}{\veee}$ \\
-\verb'\iattr{x}'    & $\iattr{x} $ &       & $=_{def} \iedge{x}{\veee}$ \\
-\verb'\rel{x}{y}'   & $\rel{x}{y}$  &      & $=_{def} \edge{x}{y}$ \\
-\verb'\irel{x}{y}'  & $\irel{x}{y}$ &      & $=_{def} \iedge{x}{y}$ \\
-\verb'\chiZeroM'    & $\chiZeroM  $ &      &                        \\
-\verb'\iedges{x}'   & $\iedges{x} $ &      & $=_{def} \bigcup_{y \in \et}\iedge{x}{y}$
-\end{tabular}
+\noindent A
+database instance will be described as a collection of sets 
+and functions in that (i) for each entity type $a$ there is defined in 
+the database instance a set $E_a$ of entities of type $a$;
+(ii) for each edge $a \morph b$
+there is defined a possibly partial function $f_r : E_a \rightarrow E_b$. 
+In this functional view, an instance of such a relationship $r$ is defined to be a pair 
+of entities $e,e'$ such that $f_r(e)=e'$. For each attribute $attr$
+of entity type $et$ there is defined in the database instance a function
+$f_{attr}: E_{et} \rightarrow \Veee$. \\
 
+\noindent A simple navigation path through an ER scehma  is a
+sequence of  $n$ edges:
+$\overset{r_1}{x_0 \morph   x_1} \overset{r_2}{\morph} x_2 ... \overset{r_n}{\morph} x_n$.  $x_0$ is said to be the source of the path and $x_n$ is said to be the destination of the path. 
+
+\noindent For any database instance $E$ we can  extend  the definition of
+$E_f$, for edges $f$,  so that to every path $p$, $p: a \rightarrow b$,  we have defined a function $E_p: E_a \rightarrow E_b$. From the initial definition of $E_f$ that applies to 
+edges the definition proceeds recursively as follows: 
+\begin{enumerate} [(i)]
+\item{  For each entity type $a$, $E_{\langle \rangle}: E_a \rightarrow E_a$ is defined to be the identity function.
+}
+\item{   if $p$ is a navigation path $p: a \rightarrow b$ and $f$ is an edge $p: b \rightarrow c$ then $E_{\langle p,f \rangle}$ is 
+is defined to be the functional composition $E_p \circ E_f$.
+}
+\end{enumerate}
 
 \begin{definition}
 If $s$ is a set and if $f_{i, 1\leq i \leq n}$ is a family of partial functions, $f_i: s \rightarrow s_i$   for some sets $s_{i, 1 \leq i \leq n}$,  then
@@ -317,21 +426,98 @@ s_1 \times ... \times s_n $ is also invertible i.e. iff there is a partial funct
 (i) for all $x \in s$, $inv_{\langle f_1,...f_n\rangle}(\langle f_1(x),...f_2(x) \rangle ) = x$ and (ii) if $y \in s_1 \times ... \times s_n $ and
 $y \notin img(\langle f_1,...f_n\rangle)$ then $inv_{\langle f_1,...f_n\rangle}(y)$ is undefined. \\
 \end{definition}
-\noindent The notion of a database instance is defined as follows:
+
+
+\noindent We can now define database instance  as follows:
 \begin{definition}
 \noindent A \term{database instance}  of an ER schema is
-a set of entities $E_a$ for each node $a$ of the graph of the schema and 
-a partial function $E_r : E_a \rightarrow E_b$ for each edge of the graph $r:a \rightarrow b$ 
+a set of entities $E_x$ for each node $x$ of the graph of the schema and 
+a partial function $E_r : E_x \rightarrow E_y$ for each edge of the graph $r:x \rightarrow y$ 
 such that $E_\veee=\Veee$
 and such that 
-for each entity type $a$ 
-\begin{enumerate}
-\item
-the family of functions $E_{r, r \in \iedges{a}}$, is jointly injective,
-\item
-the family of functions $E_{r, r \in \pk{a}}$, is jointly injective.
+for each entity type $x$ 
+the family of functions $E_{p, p \in \pk{x}}$\commentary{Need define $E_p$, for $p$ a path}, is jointly injective.
+\end{definition}
+
+\begin{definition}
+\noindent An \term{ER model} is an ER schema and a set of database instances of the schema. \\
+\end{definition}
+
+In the example shown in figure \ref{chenfragment} indication of the primary keys of each of the four entity types $p$, $e$, $w$ and $dep$ has been given indirectly by marking certain attributes and relationships as \textit{identifying} by way of a bar across the corresponding arrow
+in the diagram. This borrows from the bar notation used in Barker's book (but of course I use arrows for the edges representing relationship which the Barker-Ellis notation in which the arrow head is swapped for a crowsfoot at the other end of the line). If identifying relationships are used instead
+of primary keys then in the simplest cases\commentary{Need path equivalence and new defn. subsumes for the full algorithm}the implied primary keys of an entity type $x$ are those paths from $x$ to
+$\veee$ that consist entirely of identifying attributes and relationships. 
+It is almost always the case that in this way the primary keys of an entity type can be determined solely from the identifying relationships
+and attributes. So it is that in the Barker book it is the identifying relationships and attributes
+which are specified in an entity model and the primary keys are derived from them. It is because there 
+are a few exceptional cases where this is not possible that in the theory described here and 
+with the requirement to cover the most general case
+it is the primary keys that are the primitives and
+from these the identifying relationships can be inferred.  
+Not withstanding this, in examples, unless otherwise stated,
+we define the identifying relationships and have the primary keys implied from them. 
+
+From the primary key definitions in a model $\genericmodel$ the identifying attributes and relationships can be inferred as follows:
+
+\begin{definition}
+A set of simple paths $\set{p_1,...p_n}$ is said to be an 
+\term{identifying set with respect to an entity type $x$} iff for every primary key $k$
+ there is an $i$, $1 \leq i \leq n$ such that in every 
+instance $E$, the function $E_k$ factors through $E_{p_i}$. 
+\end{definition}
+We say that a relationship is \textit{identifying} if it is part of an identifying set. 
+
+Note that with these definitions it follows that the set of all identifying relationships exiting an entity type $x$ is an identifying set. 
+
+\subsection{Path equivalence and subsumption}
+
+\noindent If $r$ and $s$ are paths both having source $a$ and destination $b$ then we will say $r \leq s$ iff in all instances E, for all 
+entities $e \in E_a$, if $E_r(e)$ is defined then $E_s(e)$ is defined and $E_r(e)=E_s(e)$. \\
+
+\noindent If $r$ and $s$ are paths both having source $a$ and destination $b$ then we will say $r \simeq s$ iff $r \leq s$ and $s \leq r$. \\
+
+\noindent With these definitions,  the (meta-relationship) $\leq$ is a partial order on the classes of equivalent paths. \\
+
+\noindent For paths $r$ and $s$ we define $r < s$ to be equivalent to $r \leq s$ and not $r \simeq s$. \\
+
+\noindent Figure \ref{foreignkeygraph} gives an example of equivalent paths from an entity model\footnote{Careful because model is slightly different in choice of identifiers and this is significant - so not quite the same model.} discussed in part one of this paper.
+
+
+\begin{definition}
+Say that a simple path $\tuple{r_0,r_1,...r_n}$ \textit{is subsumed by} a simple path 
+$\tuple{s_0,s_1,...s_m}$ iff $m \geq 1$ and either:
+\begin{enumerate} [(i)]
+
+\item $\tuple{r_0,r_1,...r_n} \simeq  \tuple{s_0,s_1,...s_m}$ and 
+$\tuple{s_1,...s_m}$ is not a primary key attribute\\
+
+ \hspace{1cm} or:
+\item $\tuple{r_0,r_1,...r_n} <  \tuple{s_0,s_1,...s_m}$ and $r_0 \neq s_0$.
 \end{enumerate}
 \end{definition}
+
+
+\section{Background}
+\noindent 
+In relational data modelling, every row of data is distinguishable from others by the values of a specific set of columns said to 
+comprise the primary key whereas in the earliest presentation of entity relationship modelling \commentary{Previously: whereas in logical entity relationship (ER) modelling each entity is distinguishable from the values of a specific set of attributes taken in combination with a specific set of relationships with other entities\footnote{Whichever methodology is followed the goal is to achieve for the database instances the logical principal of identity of indiscernibles.}}
+Chen (\ref{Chen76}) depicts specifications of certain types of entity to include specification of
+ their primary keys in a syntax that enables the primary key to be a combination of an attribute in conjunction with a relationship with another entity\footnote{Other types of entity have a combination of relationships to other entities as their primary keys. These are his 'relationships' but they are not what later authors and ourselves here mean by this term.}. This essential feature 
+is retained as the entity relationship model is re-imagined by other authors and it is represented fully in the Barker book where identifying attributes and relationships are distinguished from others on entity model diagrams. 
+We simplify the Barker notation for theoretical purposes so that attributes and relationships are shown as edges of a directed graph and identifying features are shown by a bar\footnote{A Barker bar, we might say.} across the corresponding edge of the graph. 
+In this style a fragment of an example from Chen is shown in figure (\ref{chenexample}). This diagram and others that follow are given to illustrate the theoretical possibilities for the Barker notation and notations of a similar ilk  -- we need emphasise that we do not offer the directed graph notation for practical use but use it to illustrate theory. 
+
+
+\noindent
+This first example instances all the most significant features of second generation entity relationship modelling. It has entity types representing employees(e), departments(dept), dependent(d)  and
+for the  
+
+
+
+
+
+
+
 
 \noindent It follows that in every database instance $E$, for every entity type $a$ there is a function 
 $inv_{E_{\iedges{a}}}$\footnote{Strange notation here.}  that represents navigation to an entity from an identifying set of related entities or attributes. 
@@ -340,11 +526,7 @@ In a physical model this will equate to keyed lookup. \\
 \noindent Without change to the underlying concept then we can say that each ER schema comes equipped with a multi-edge $I_a$ for every entity type a such that if 
 the outgoing identifying edges of $a$ are $k_i: a \rightarrow a_i$, for $1 \leq i \leq n$  then the multi-edge has source nodes $\langle a_1,...a_n\rangle$ and destination node $a$.  
 
-\noindent A simple navigation path over an ER model  is a
-sequence of  $n$ edges:
-$\overset{r_1}{x_0 \morph   x_1} \overset{r_2}{\morph} et_2 ... \overset{r_n}{\morph} x_n$.  $x_0$ is said to be the source of the path and $x_n$ is said to be the destination of the path. 
-
-\noindent We extend this definition to take account of navigation along the multi-edges. To do so we define the set of navigation paths recursively:
+\noindent We extend the earlier  definition of simple path to take account of navigation along the multi-edges. To do so we define the set of navigation paths recursively:
 
 \begin{enumerate} [(i)]
 \item{ Each edge $f: a \rightarrow b$ is a navigation path.
@@ -375,16 +557,7 @@ $\langle E_{p1},...E_{p_n} \rangle \circ inv_{E_{\i{b}}}$.
 }
 \end{enumerate}
 
-\noindent If $r$ and $s$ are paths both having source $a$ and destination $b$ then we will say $r \leq s$ iff in all instances E, for all 
-entities $e \in E_a$, if $E_r(e)$ is defined then $E_s(e)$ is defined and $E_r(e)=E_s(e)$. \\
 
-\noindent If $r$ and $s$ are paths both having source $a$ and destination $b$ then we will say $r \simeq s$ iff $r \leq s$ and $s \leq r$. \\
-
-\noindent With these definitions,  the (meta-relationship) $\leq$ is a partial order on the classes of equivalent paths. \\
-
-\noindent For paths $r$ and $s$ we define $r < s$ to be equivalent to $r \leq s$ and not $r \simeq s$. \\
-
-\noindent Figure \ref{foreignkeygraph} gives an example of equivalent paths from an entity model\footnote{Careful because model is slightly different in choice of identifiers and this is significant - so not quite the same model.} discussed in part one of this paper.
 
 \begin{figure} [H]
 \begin{center}
@@ -398,10 +571,10 @@ $
 \ncarr{fk}{t} 
 \alabel{S_1}
 \ncarr{t}{v} 
-\alabel{TN}
+\alabel{tN}
 \idcomp
 \ncarr{c}{v} 
-\blabel{CN}
+\blabel{cN}
 \idcomp
 \ncarr{fkc}{c}
 \blabel{R_0}
@@ -421,8 +594,8 @@ $
 \begin{tabular}{c p{1.5cm} p{4cm}}
 KEY && \\
 \hline
-t & table & Having identifying attribute TN the name of the table. \\
-c & column & Identified by a combination of column name CN and relationship $R_1$ to the table it is a column of.\\
+t & table & Having identifying attribute tN the name of the table. \\
+c & column & Identified by a combination of column name cN and relationship $R_1$ to the table it is a column of.\\
 fk & foreign key & Identified by its name $FkN$.\\
 fkc & foreign key column & Identified by relationship $S_0$ to the foreign key it is a part of and its sequence number $SeqN$ i.e. the position it appears in within the foreign key. \\
 \end{tabular} 
@@ -474,103 +647,12 @@ R0 & advised by & Represents the optional relationship between a student and a p
 \label{studentadvisorgraph}
 \end{figure}
 
-\begin{figure} [H]
-\begin{center}
-\begin{tabular}{c c}
-\begin{tabular}{cp{0.75cm}cp{0.75cm}c}
-   \Rnode{d}{d}    & & \Rnode{w}{w}   & & \Rnode{v}{v}\\[1.2cm]     
-	 \Rnode{p}{p}  & & \Rnode{c}{c} & &               
-\end{tabular}
-\ncarr[90]{d}{v}
-\alabel{oId}[0.4]
-\idcomp
-\ncarr[40]{d}{v}
-\alabel{dSn}[0.4]
-\idcomp
-\ncarr{d}{w} 
-\alabel{S_1}
-\ncarr{w}{v} 
-\alabel{wId}
-\idcomp
-\ncarr{c}{v} 
-\blabel{cSn}
-\idcomp
-\ncarr{p}{c}
-\blabel{R_0}
-\idcomp
-\ncarr{p}{d}
-\alabel{S_0}
-\idcomp
-\ncarr{c}{w}
-\blabel{R_1}
-\idcomp
-& \footnotesize
-\begin{tabular}{c p{1.5cm} p{4cm}}
-KEY && \\
-\hline
-d & delivery & Identified by a combination of an order id attribute ($oId$) and a
-delivery serial number  attribute ($dSn$). \\
-w & warehouse & Identified by a warehouse id attribute ($wId$). \\
-c & crate & Identified by a combination of a crate serial number attribute ($cSn$) and a relationship $R_1$ to the warehouse in which it is held.
-             Also has an item type attribute (not shown).\\
-p & pick & Identified by relationship $S_0$ to the delivery  it is part of and relationship $R_0$ to the crate being picked from. Has a quantity picked attribute (not shown). \\
-\end{tabular} 
-\end{tabular}
-\end{center}
-\caption{Pick Example}
-\label{pickexample}
-\end{figure}
+
  
-\begin{figure} [H]
-\begin{center}
-\begin{tabular}{c c}
-$
-\begin{array}{cp{0.75cm}cp{0.75cm}c}
-   \Rnode{r}{r}     & & \Rnode{t}{t} & & \Rnode{v}{v} \\[1.2cm]     
-	 \Rnode{d}{d}   & & \Rnode{c}{c} & &               
-\end{array}
-$
-\ncarr{r}{t} 
-\alabel{S_1}
-\idcomp
-\ncarr{t}{v} 
-\alabel{TN}
-\idcomp
-\ncarr{c}{v} 
-\blabel{CN}
-\idcomp
-\ncarr{d}{c}
-\blabel{R_0}
-\idcomp
-\ncarr{d}{r}
-\alabel{S_0}
-\idcomp
-\ncarr{c}{t}
-\blabel{R_1}
-\idcomp
-\ncarr[50]{r}{v}
-\alabel{rN}
-\idcomp
 
-& \footnotesize
-\begin{tabular}{c p{1.5cm} p{4cm}}
-KEY && \\
-\hline
-t & table & Having identifying attribute TN the name of the table. \\
-c & column & Identified by a combination of column number CN and relationship $R_1$ to the table it is a column of.\\
-r & row & Identified by its row number $rN$ and its relationship $S_1$ to the table it is a row of.\\
-d & data cell & Identified by relationship $S_0$ to the row it is in and relationship $R_0$ to the row it is in. \\
-\end{tabular} 
-\end{tabular}
-\end{center}
-\caption{Example of path equivalence - the path $\tuple{R_0,R_1}$ is equivalent to path $\tuple{S_0,S_1}$}.
-\label{datatablegraph}
-\end{figure}
 
-\begin{definition}
-\noindent An \term{ER model} is an ER schema and a set of database instances of the schema. \\
-\end{definition}
 
+\commentary{Defn of model moved earlier}.
 \noindent If $p$ is a path within an ER model $\genericmodel$ then say that the path is \term{explicitly represented} wrt the model iff it is equivalent to a simple path. \\
 
 \noindent We generalise the relational data model concept of a candidate key as follows:
@@ -588,11 +670,9 @@ prescribe that a database schema be complete in some way as a description of the
 in particular that BCNF can be paraphrased as saying that those relationships (i.e. functional dependencies) that exist in the data ought to be \term{represented} in the schema\footnote{21/02/2019 Is this not the representation principle?}. These considerations motivate the definitions which now follow and conclude with the definition of a \term{well-formulated} entity model. This definition generalises that of a relational schema being in Boyce-Codd Normal Form (BCNF). 
    
 
-
-
 \begin{definition}
 A tuple of simple paths $\langle p_1,...p_n \rangle$ is said to be an 
-\term{identifying tuple with respect to an entity type $a$}
+\term{identifying tuple with respect to an entity type $a$}\commentary{an alternate defn. now given earlier}
 iff it is in the set of tuples defined recursively as follows:
 \begin{enumerate}[(i)]
 \item{
@@ -903,10 +983,10 @@ $
 \alabel{S_1}
 \idcomp
 \ncarr{t}{v} 
-\alabel{TN}
+\alabel{tN}
 \idcomp
 \ncarr{c}{v} 
-\blabel{CN}
+\blabel{cN}
 \idcomp
 \ncarr[-90]{d}{v}
 \blabel{SeqNo}
@@ -925,8 +1005,8 @@ $
 \begin{tabular}{c p{1.5cm} p{4cm}}
 KEY && \\
 \hline
-t & table & Having identifying attribute TN the name of the table. \\
-c & column & Identified by a combination of column number CN and relationship $R_1$ to the table it is a column of.\\
+t & table & Having identifying attribute tN the name of the table. \\
+c & column & Identified by a combination of column number cN and relationship $R_1$ to the table it is a column of.\\
 r & row & Identified by its row number $rN$ and its relationship $S_1$ to the table it is a row of.\\
 d & data cell & Identified by relationship $S_0$ to the row it is in and its $seqNo$ attribute
 representing its ordinal position within data cells of the row. \\
@@ -950,12 +1030,12 @@ $
 \blabel{R_1}[0.25][1]
 \idcomp
 \ncarr{c}{bn}
-\alabel{CN}[0.25]
+\alabel{cN}[0.25]
 \idcomp
 \end{tabular}
 \caption{(a) The model fails condition (ii) for being well-formulated
 because there is a referential inclusion dependency of $d[ \tuple{S_0,S_1},\tuple{SeqNo}]$
-in $c[\tuple{R_0},\tuple{CN}]$, as indicated in (b), which is not explicitly represented in the model.}
+in $c[\tuple{R_0},\tuple{cN}]$, as indicated in (b), which is not explicitly represented in the model.}
 \label{rawdatatablegraph}
 \end{figure}
 
