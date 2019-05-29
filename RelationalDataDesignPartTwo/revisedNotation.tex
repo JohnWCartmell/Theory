@@ -16,6 +16,32 @@
 \usepackage[font=small]{caption}
 \setlength{\captionmargin}{2cm}
 \renewcommand{\erpictureFolder}[0]{../SharedPictures}
+
+\newcommand{\genericmodel}{\mathcal{M}}
+\renewcommand{\genericmodel}{{m}}
+\newcommand{\chiZero}{\mathcal{X}_0}
+\newcommand{\chiZeroM}{\chiZero(\genericmodel)}
+%\newcommand{\chiOne}{\mathcal{X}_1}
+%\newcommand{\chiOneM}{\chiOne(\genericmodel)}
+\newcommand{\chiM}{\mathcal{X}(\genericmodel)}
+\newcommand{\veee}{v}
+\newcommand{\Veee}{V}
+\newcommand{\et}[1][\genericmodel]{et_{#1}}
+\newcommand{\edge}[3][\genericmodel]{Edge_{#1}(#2,#3)}
+\newcommand{\iedge}[3][\genericmodel]{IEdge_{#1}(#2,#3)}
+\newcommand{\path}[3][\genericmodel]{Path_{#1}(#2,#3)}
+\newcommand{\ipath}[3][\genericmodel]{IPath_{#1}(#2,#3)}
+\newcommand{\attr}[2] [\genericmodel]{attr_{#1}(#2)}
+\newcommand{\iattr}[2] [\genericmodel]{IAttr_{#1}(#2)}
+\newcommand{\rel}[3][\genericmodel]{rel_{#1}(#2,#3)}
+\newcommand{\irel}[3][\genericmodel]{IRel_{#1}(#2,#3)}
+\newcommand{\iedges}[2] [\genericmodel]{i_{#1}(#2)}
+\newcommand{\pk}[2] [\genericmodel]{pk_{#1}(#2)}
+\newcommand{\fk}[2] [\genericmodel]{fk_{#1}(#2)}
+\newcommand{\fkp}[2] [\genericmodel]{fk'_{#1}(#2)}
+\newcommand{\fkpp}[2] [\genericmodel]{fk''_{#1}(#2)}
+
+
 \newcommand{\simplepath}[2]{
 \ncline[linestyle=dotted,linewidth=0.1pt]{#1}{#2}
 \ncput[npos=0.05]{\pnode{dot#21}}
@@ -39,47 +65,11 @@
 \nbput[labelsep=1pt]{#1}
 }
 \newcommand{\term}[1]{\textit{{#1}}}
-
 \newcommand{\logtophys}{\mathcal{X}}
-
+\newcommand{\chen}{\mathcal{X}_0}
 \newcommand{\chengenericmodel}{\chen(\genericmodel)}
 \newcommand{\chigenericmodel}{\logtophys(\genericmodel)}
-\newcommand{\allEdges}{\genericmodel^E}
-\newcommand{\allAttrs}{\genericmodel^A}
-\newcommand{\allRels}{\genericmodel^R}
-\newcommand{\edges}[1]{\allEdges_{#1}}
-\newcommand{\attrs}[1]{\allAttrs_{#1}}
-\newcommand{\rels}[1]{\allRels_{#1}}
-\newcommand{\allIdentifying}{\genericmodel^{iE}}
-\newcommand{\allIdAttrs}{\genericmodel^{iA}}
-\newcommand{\allIdRels}{\genericmodel^{iR}}
-\newcommand{\idEdges}[1]{\allIdentifying_{\raisebox{2pt}{$\scriptstyle{#1}$}}}
-\newcommand{\idAttrs}[1]{\allIdAttrs_{\raisebox{2pt}{$\scriptstyle{#1}$}}}
-\newcommand{\idRels}[1]{\allIdRels_{\raisebox{2pt}{$\scriptstyle{#1}$}}}
-\newcommand{\allMandatory}{\allEdges^m}
-\newcommand{\allMAttrs}{\allAttrs^m}
-\newcommand{\allMRels}{\allRels^m}
-\newcommand{\mEdges}[1]{\allIdentifying_{\raisebox{2pt}{$\scriptstyle{#1}$}}}
-\newcommand{\mAttrs}[1]{\allIdAttrs_{\raisebox{2pt}{$\scriptstyle{#1}$}}}
-\newcommand{\mRels}[1]{\allIdRels_{\raisebox{2pt}{$\scriptstyle{#1}$}}}
-\newcommand{\chenAttrs}[1]{\chen(\genericmodel)^A_{#1}}
-\newcommand{\chenFKattrs}[1]{\chen(\genericmodel)^{A+}_{#1}}
-\newcommand{\chenIdAttrs}[1]{\chen(\genericmodel)^{iA}_{\raisebox{2pt}{$\scriptstyle{#1}$}}}
-\newcommand{\chenFKidAttrs}[1]{\chen(\genericmodel)^{iA+}_{\raisebox{2pt}{$\scriptstyle{#1}$}}}
 
-\newcommand{\chiTwo}{\mathcal{X}_2}
-\newcommand{\chiOneFKs}[1]{\chiOne(\genericmodel)^{A+}_{#1}}
-\newcommand{\chenFKclasses}[1]{\chiTwo(\genericmodel)^{A+}_{#1}}
-\newcommand{\chenFKidClasses}[1]{\chiTwo(\genericmodel)^{iA+}_{#1}}
-\newcommand{\chiAttrs}[1]{\logtophys(\genericmodel)^A_{#1}}
-\newcommand{\chiFKattrs}[1]{\logtophys(\genericmodel)^{A+}_{#1}}
-\newcommand{\chiIdAttrs}[1]{\logtophys(\genericmodel)^{iA}_{\raisebox{2pt}{$\scriptstyle{#1}$}}}
-\newcommand{\chiFKidAttrs}[1]{\logtophys(\genericmodel)^{iA+}_{\raisebox{2pt}{$\scriptstyle{#1}$}}}
-\newcommand{\Vtype}{v}
-\newcommand{\idAttrsDep}[1]{\allIdentifying_{p_#1}}
-\newcommand{\idAttrsFromRefs}[1]{\bigcup_{r \in \idRels{#1} }{\srcattrs{r}}}
-\newcommand{\destattrs}[1]{\mathbb{D}_{#1}}
-\newcommand{\srcattrs}[1]{\mathbb{S}_{#1}}
 
 
 \begin{document}
@@ -90,9 +80,9 @@
 
 
 %\section{Notation}
+\noindent We have the following notation:
+
 \begin{tabular}{l l p{0.5cm} l }
-Basics \\
-\hline
 \verb'\et'          & $\et$ \\
 \verb'\edge{x}{y}'  & $\edge{x}{y}$ \\
 \verb'\path{x}{y}'  & $\path{x}{y}$ \\
@@ -104,6 +94,7 @@ Basics \\
 \verb'\rel{x}{y}'   & $\rel{x}{y}$  &      & $=_{def} \edge{x}{y}$ \\
 \verb'\irel{x}{y}'  & $\irel{x}{y}$ &      & $=_{def} \iedge{x}{y}$ \\
 \verb'\chiZeroM'    & $\chiZeroM  $ &      &                        \\
+\verb'\iedges{x}'   & $\iedges{x} $ &      & $=_{def} \bigcup_{y \in \et}\iedge{x}{y}$
 \end{tabular}
 
 
