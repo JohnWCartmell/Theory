@@ -28,7 +28,6 @@
 \end{framed}
 }
 
-
 %from berkley
 \newcommand{\langl}{\begin{picture}(4.5,7)
 \put(1.1,2.5){\rotatebox{60}{\line(1,0){5.5}}}
@@ -111,6 +110,7 @@
 
 \newcommand {\bntuple}{\ensuremath{\ntuple{b}}}
 \newcommand {\fntuple}{\ensuremath{\ntuple{f}}}
+\newcommand {\pntuple}{\ensuremath{\ntuple{p}}}
 \newcommand {\qntuple}{\ensuremath{\ntuple{q}}}
 \newcommand {\xntuple}{\ensuremath{\ntuple{x}}}
 \newcommand{\foreachi}[1][n]{for each $i$, $1 \leq i \leq #1$}
@@ -641,44 +641,73 @@ R0 & advised by & Represents the optional relationship between a student and a p
  
 \noindent If $p$ is a path within an ER model $\genericmodel$ then say that the path is \term{explicitly represented} wrt the model iff it is equivalent to a simple path. \\
 
-\noindent We generalise the relational data model concept of a candidate key as follows:
+\subsection{Identifying Sets}
+
+The following definition takes the place of that of super key in the relational model:
+\begin{definition}
+A set of paths $p_i: a \rightarrow a_i$ within a model $\genericmodel$ is said to be \term{jointly monomorphic} iff in all instances E, the  function $E_{\pntuple}$  is  injective and total.
+\end{definition}
+
+From the definition of ER model it follows that the set of outgoing edges of an entity type 
+$a$ in a model \genericmodel\ is jointly monomorphic. 
+By piecing together identifying edges further jointly monomorphic sets can be constructed 
+as we now show. First we need these definitions:
 
 \begin{definition}
-A family of paths $p_i: a \rightarrow a_i$ within a model $\genericmodel$ is said to be \term{jointly monomorphic} iff in all instances E,
-the family of functions 
-$E_{p_i, 1 \leq i \leq n}$  is jointly injective. 
+If $a$ is an entity type in an entity model \genericmodel\ then a \term{primary key path}
+of $a$ is any path $p:a \morph v$ consisting entirely of identifying edges. 
 \end{definition}
+
+\begin{lemma}
+\label{primarykeypathsjointlymonomorphic}
+If If $a$ is an entity type in an entity model \genericmodel\ then the set of all primary key paths 
+of $a$ is jointly monomorphic.
+\end{lemma}
+\begin{proof}
+Because all sets of identifying edges are jointly monomorphic and because jointly injective sets
+yield jointly injective sets when composed. \commentary{Do a better job of this proof.}
+\end{proof}
+
+\begin{definition}
+If $a$ is an entity type in an entity model \genericmodel\ then a set $Q$ of paths 
+leaving $a$ is said to be \term{an identifying set of paths} with respect 
+to an entity type $a$ iff for every primary key path $p:a \morph v$, there exists 
+a path $q \in Q$ and a path $q'$ in \genericmodel\ such that $q \circ q' \simeq p$.
+\end{definition}
+
+\begin{lemma}
+If $Q$ is an identifying set of paths in a model \genericmodel\ then it is jointly monomorphic.
+\end{lemma}
+\begin{proof}
+Use lemma \ref{primarykeypathsjointlymonomorphic} and lemma \ref{jointlyinjectivededuction} as follows. 
+\end{proof}
+
+\begin{lemma}
+\label{jointlyinjectivededuction}
+If $A$ is a set and if  $H$ is a jointly injective set of functions with domain $A$ and if $F$ is
+some other set of functions with domain $A$ and having the property that for all $h \in H$,
+there exists $f \in  F$ and a function $g$ such that $f \circ g = h$ then $F$ is jointly injective.
+\end{lemma}
+\begin{proof}
+Suppose $x,y \in A$ and for all $f \in F$, $f(x)=f(y)$. For all $h \in H$ we have, for some $f$, that
+$h(x) = g(f(x)) = g(f(y)) = h(y)$; therefore because $H$ is jointly injective we have that $x=y$.
+Therefore $F$ is jointly injective. 
+\end{proof}
+
+
+\begin{lemma}
+In a model M if $Q$ a set of identifying paths from entity type $a$ to $v$
+and if every such identifying path is equivalent to a path in $Q$ then
+$Q$ is an identifying set of paths. 
+\end{lemma}
+\begin{proof}
+\end{proof}
 
 \noindent
 Consider that the various database normal forms (3NF, BCNF, 4NF, 5NF and the like) each 
 prescribe that a database schema be complete in some way as a description of the facts of its instances\footnote{Essentially
  because being good as a schema is to be a good theory and a good theory is one that is a good fit to the facts.} and observe 
 in particular that BCNF can be paraphrased as saying that those relationships (i.e. functional dependencies) that exist in the data ought to be \term{represented} in the schema\footnote{21/02/2019 Is this not the representation principle?}. These considerations motivate the definitions which now follow and conclude with the definition of a \term{well-formulated} entity model. This definition generalises that of a relational schema being in Boyce-Codd Normal Form (BCNF). 
-   
-
-\begin{definition}
-A tuple of simple paths $\langle p_1,...p_n \rangle$ is said to be an 
-\term{identifying tuple with respect to an entity type $a$}\commentary{an alternate defn. now given earlier}
-iff it is in the set of tuples defined recursively as follows:
-\begin{enumerate}[(i)]
-\item{
-the empty tuple $\langle \rangle$ is an identifying tuple with respect to $a$,
-}
-
-\item{
-if $k_i$, $1 \leq i \leq n$ is the set of all identifying outgoing edges of $a$ then
-$\langle \langle k_1 \rangle ,... \langle k_n \rangle \rangle$ is an identifying tuple with respect to $a$,
-}
-
-\item{\commentary{ Review this clause, modified 5 May 2019.}
-if $\langle p_1,...p_n \rangle$ is an identifying tuple with respect to $a$ and if for some $i$, $1 \leq i \leq n$, the
-destination of $p_i$ is $b$ and if $k_j$, $1 \leq j \leq m$ is a set of  identifying outgoing edges of $b$
-then $\langle p_1,...p_{i-1},\langle p_i,k_1 \rangle ... \langle p_i,k_m \rangle, p_{i+1},...p_n \rangle$ is an identifying tuple with respect to $a$ providing that for any outgoing identifying edge $l$ of $b$, there exists $j$, $1 \leq j \leq m$ such that 
- $\tuple{p_i,l} \simeq \tuple{p_i,k_j}$.
-}
-\end{enumerate}
-\end{definition}
-
 
 \subsection{Referential Inclusion Dependencies}
 
@@ -718,22 +747,31 @@ $img(E_{\fntuple}) \subseteq img(E_{\qntuple})$.
 \end{definition}
 
 \begin{definition}
-We say that a referential inclusion dependency
+We say that a path $p:a \morph b$ represents a referential inclusion dependency
 $\incd{a}{f_1,...f_n}{b}{q_1,...q_n}$  in an ER model $\genericmodel$ 
- is explicitly represented in the model
-iff the path $\tuple{f_1,...f_n,I_b}$ is explicitly represented
-i.e. iff there is a simple path $p:a \morph b$ in $\genericmodel$
-such that in all instances $E$ of $\genericmodel$, $E_{\fntuple} \circ E_{I_b}=E_p$.
+  in all instances $E$ of $\genericmodel$, $E_{\fntuple} \circ E_{\qntuple}^{-1}=E_p$.
 \end{definition}
+We say that an referential inclusion dependency in model \genericmodel\ is represented provided that
+there exists a path which represents it. 
 \begin{lemma}
 \label{refinclusionlemma}
 A referential inclusion dependency
-$\incd{a}{f_1,...f_n}{b}{q_1,...q_n}$  in an ER model $\genericmodel$ 
- is explicitly represented in the model 
-iff there is a path $p:a \morph b$ in $\genericmodel$ such that \foreachi, $p \circ q_i \simeq f_i$.
+$\incd{a}{f_1,...f_n}{b}{q_1,...q_n}$  in an ER model $\genericmodel$ is  represented 
+by path $p:a \morph b$ in $\genericmodel$ iff  \foreachi, $p \circ q_i \simeq f_i$.
 \end{lemma}
 \begin{proof}
-TBD.
+\begin{align*}
+\text{In the model \genericmodel,}
+            &\text{in each instance $E$, }E_p = E_{\fntuple} \circ E_{\qntuple}^{-1}  \\
+\text{iff } & \text{in each instance $E$, } E_p \circ E_{\qntuple} = E_{\fntuple}  
+                        && \text{because } E_{\qntuple} \text{ injective and total}   \\
+\text{iff } & \text{in each instance $E$, } \tuple{E_p \circ E_{q_1},...E_p \circ E_{q_n}} 
+                                                      = \tuple{E_{f_1},...E_{f_n}}
+									                                            && \text{ by defn. of }E \\
+\text{iff } & \text{in each instance $E$, \foreachi, } E_p \circ E_{q_i} = E_{f_i} 
+                                                              && \text{because tuples are equal iff they are pointwise equal}  \\
+\text{iff } & \text{\foreachi, } p \circ q_i \simeq f_i          && \text{by defn of } \simeq.
+\end{align*}
 \end{proof}
 
 
@@ -763,17 +801,21 @@ $f_0 \circ m =f$. Note that because $m$ is monic then such an $f_0$ is the uniqu
 $e: F(a) \morph F(b)$ is a function such that $e \circ F(m) = F(f)$ then $F(f_0)=e$. 
 \end{categoricalaside}
 
+\begin{definition}
+Say that an inclusion dependency $\incd{a}{x_1,...x_n}{b}{q_1,...q_n}$ is \textit{simple}
+iff each $q_i$ is a singleton path, i.e. is simply an edge. 
+\end{definition}
+
 \begin{lemma}
 \label{simplerepresentationlemma}
 If in an ER model \genericmodel\ all simple referential inclusion dependencies
-have explicit representations  then all referential inclusion dependencies have explicit representations. 
+have representations  then all referential inclusion dependencies have representations. 
 \end{lemma}
 \begin{proof}
-TBD.
+Proof by induction TBD. \commentary{Start by drawing a diagram of the inductive step.} 
 \end{proof}
 
 \subsection{Functional Dependencies}
-
 
 \begin{definition} %functional dependency
 In an entity model $\genericmodel$  
@@ -801,15 +843,15 @@ $
 
 
 \noindent 
-then path $y$ is said to be \term{functionally dependent} on the set of paths $\{x_1,...x_n\}$ 
-and  we write  \sfd{x_1,...x_n}{y}
+then path $y$ is said to be \term{functionally dependent} on the set of paths $\{x_1,...x_n\}$, 
+for which  we write  \sfd{x_1,...x_n}{y},
 iff
  in each instance $E$ there exists a  partial 
 function $f_E: E_{b_1} \times E_{b_n} \rightarrow E_c$ 
 \noindent such that 
 domain of $f_E \subseteq img(E_{\langle x_1,... x_n \rangle})$ 
 and  
-$E_{\langle x_1,..x_n \rangle} \circ f_E = E_y$ 
+$E_{\xntuple} \circ f_E = E_y$ 
 \begin{center}
 $
 \begin{array}{cp{2cm}ccp{0.5cm}cc}
@@ -832,7 +874,7 @@ $
 
 \begin{remark}
 In the above definition, if within an instance $E$ there exists such a partial function $f$ such that
-$E_{\langle x_1,..x_n \rangle} \circ f_E = E_y$ then $f$ will be the unique such partial function. For if 
+$E_{\xntuple} \circ f_E = E_y$ then $f$ will be the unique such partial function. For if 
 partial function $f'$ is another such then given a $\tuple{E_{x_1}(e),...E_{x_n}(e)} \in img(E_{\tuple{x_1,...x_n}})$
 we have that $f(\tuple{E_{x_1}(e),...E_{x_n}(e)})=E_y(e)=f'(\tuple{E_{x_1}(e),...E_{x_n}(e)})$.
 \end{remark}
@@ -844,7 +886,7 @@ A functional dependency \sfd{x_1,...x_n}{y} is said to be \term{trivial} if $y\s
 \begin{definition}
 In an entity model $\genericmodel$, if
 $e$ is an entity type and $\set{x_1,...x_n}$ and $\set{y_1,...y_m}$ are sets of simple paths with source $a$
-then we say the set $\set{y_1,...y_m}$ is functionally dependent on the set $\set{x_1,...x_n}$ and write
+then we say the set $\set{y_1,...y_m}$ \textit{is functionally dependent on the set} $\set{x_1,...x_n}$ and write
 \fd{x_1,...x_n}{y_1,...y_m} 
 iff  each $y_j$, $1 \leq j \leq m$, is functionally dependent on $\set{x_1,...x_n}$.
 \end{definition}
@@ -904,14 +946,11 @@ the dependency of &
 \noindent In an entity model $\genericmodel$  
 if for some $n \geq 1$, $a$, $b_{i, 1 \leq i \leq n}$,  and $c$ are entity types and 
 if  $x_{i, 1 \leq i \leq n}$, and $y$ are simple paths such
-that there is an elementary intransitive functional dependency $\{x_1,...x_n\} \morph y$
+that there is a \commentary{Removed elementary intransitive}functional dependency $\{x_1,...x_n\} \morph y$
  then the functional dependency $\{x_1,...x_n\} \morph y$ is said to be \term{represented} in the ER model $\genericmodel$ iff  there exists an entity type $d$ and 
 an identifying tuple of simple paths with respect to
-$d$, $\qntuple$, such that for each $q_i:d \rightarrow b_i$ and a simple
+$d$, $\qntuple$, such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$, and a simple
 path $z=\langle z_1,...z_l \rangle$ such that $z:d\rightarrow c$, for some $l \geq 0$ as here:
-
-
-
 
 
 \setlength{\arraycolsep}{.2cm}
@@ -939,7 +978,7 @@ $
 
 
 and
-\commentary {Removed that $z_1$ is not identifying}         
+\commentary {Removed that $z_1$ is not identifying but expect to prove not identifying.}         
 such that in all instances $E$, 
 $\tuple{ E_{x_1},...E_{x_n}} \circ inv_{E_{\tuple{q_1,...q_n}}}\circ E_{\tuple{z_1,...z_l}} = E_y$
 \begin{center}
@@ -964,7 +1003,6 @@ $
 \end{center} 
 \end{definition}
 
-
 \begin{definition}
 \noindent An ER model $\genericmodel$ is \term{well-formulated} 
  iff 
@@ -974,11 +1012,11 @@ for each entity type $a$, there is no proper subset $I$ of the set of identifyin
 }
 \item{ 
 all referential inclusion dependencies\footnote{Equivalently, by lemma
-\ref{simplerepresentationlemma}, sufficient that all simple referential inclusion dependencies be explicitly represented.} are explicitly represented,
+\ref{simplerepresentationlemma}, sufficient that all simple referential inclusion dependencies be represented.} are  represented,
 }
 \item{
 for each intransitive functional dependencies $\{x_1,...x_n\} \morph y$ in model \genericmodel\
-either in every instance $E$, $E_{\langle x_1,..x_n \rangle}$ is injective and total
+either in every instance $E$, $E_{\xntuple}$ is injective and total
 or else the functional dependency is represented in the model.
 }
 \end{enumerate}
@@ -999,7 +1037,7 @@ the functional dependency
 $\{x_1,...x_n\} \morph y$   is represented 
 by  an entity type $d$ and 
 an identifying tuple of simple paths with respect to
-$d$, $\qntuple$, such that for each $q_i:d \rightarrow b_i$ and a simple
+$d$, $\qntuple$, such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$ and a simple
 path $z=\langle z_1,...z_l \rangle$ such that $z:d\rightarrow c$, for some $l \geq 0$ as here:
 
 \setlength{\arraycolsep}{.2cm}
@@ -1024,25 +1062,32 @@ $
 \simplepathb{$q_n$}{d}{bn}
 \simplepatha{$z$}{d}{c}
 \end{center}
+such that
+\begin{equation}
+\label{fundependency}
+E_y = E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_z
+\end{equation}
 
-Because $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$, because \genericmodel\ is well formed and from
-clause (ii) of the definition of well-formedness it follows that
+Because $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$,  and from
+clause (ii) of the definition of well-formedness since \genericmodel\ is well formed, it follows that
 there  is a simple path $p:a \rightarrow d$ such
-that \foreachi, $p \circ q_i \simeq x_i$ and therefore
+that 
+%\foreachi, $p \circ q_i \simeq x_i$ and therefore
 in all instances $E$,
-$$
-E_{\langle x_1,..x_n \rangle} \circ inv_{E_{\qntuple}} = E_p
-$$.
-From xxx it follows that in all instances $E$ that 
+
+\begin{equation}
+\label{incdependency}
+E_{\xntuple} \circ inv_{E_{\qntuple}} = E_p
+\end{equation}
+Now we have  that in all instances $E$ that 
 \begin{align*}
-E_y &= E_{\xntuple} \circ E_{I_{\qntuple}} \circ E_z\\
-    &= E_p \circ E_z  \\
-		&= E_{p \circ z} 
-\end{align*}
-Therefore $y\simeq p \circ z$ as required.
+E_y &= E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_z  && \text{ (\ref{fundependency}), above,}\\
+    &= E_p \circ E_z                                   && \text{by (\ref{incdependency}),}\\
+		&= E_{p \circ z}                                   && \text{from defn. of instance }E.\\
+\end{align*} 
+\vspace{-0.3cm}
+From which, by definition, $y\simeq p \circ z$, as required. \\
 \end{proof}
-
-
 Now we give two examples of ER models that fail to be well formed. First see figure \ref{rawdatatablegraph} as an example of a model that fails condition(ii) of the above definition and
 therefore is not well formed. This situation can be rectified by replacing the SeqNo attribute of 
 the data cell entity (dc) by an identifying relationship $R_0:dc \morph c$ as shown previously in figure \ref{datatablegraph}.
