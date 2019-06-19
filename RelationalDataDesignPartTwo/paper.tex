@@ -132,6 +132,7 @@ DRAFT \commentary{ Original Dated 2016 }
 			\commentary{ Major change to terminology to support fix to definition of well-                               formulated including specification of intransitive functional 
 			                         dependencies and addition of many examples. 1-10 May 2019.}
 			\commentary{ After changes of 20th May 2019 rolled back and further consolidation of definitions. 10 June 2019}
+			\commentary{ Continued restructure. Breakout of lemmas from main proof. 19 June 2019}
 \end{center}
 
 \section{Introduction}
@@ -388,20 +389,6 @@ cut physical ER model from a logical ER model and then develop this definition i
 and thereby establish a revised Chen mapping $\logtophys$ so that for any logical ER model $\genericmodel$, $\logtophys(\genericmodel)$ is a physical ER model. Finally we define what it is for a logical model to be well-formulated and prove that if $\genericmodel$ is a well-formulated logical ER model then 
 the generated physical ER model $\logtophys(\genericmodel)$ is in Boyce-Codd normal form (BCNF). 
 
-Before we commence the theory we give one further example. 
-\commentary{Was to give the example
-from black notebook 7th May 2019 as
-a counter to the inference of primary keys from identifying relationships 
-but now realise it isn't -- provided the model is extended to be well formulated.
-See black notebook 29 May 2019. Handbrake turn.}
-It is an example that puts paid to the idea that 
-identifying relationships and equivalence of paths can replace primary keys in the definition of an ER model. 
-The example is shown in figure \ref{} 
-
-and identifying relationships and attributes and shown. In this example there is
-a path equivalence of $\tuple{}$ and $\tuple{}$.
-
-
 
 \section{Definition of ER model}
 The functional view of data summarised above\commentary{No it isn't.} taken with the requirement of specifying the attributes and relationships from which entities may be identified suggests a mathematical definition of an ER-schema  as  follows:
@@ -513,39 +500,6 @@ $\tuple{s_1,...s_m}$ is not a primary key attribute\\
 $inv_{E_{\iedges{a}}}$\footnote{Strange notation here.}  that represents navigation to an entity from an identifying set of related entities or attributes. 
 In a physical model this will equate to keyed lookup. \\
 
-\noindent Without change to the underlying concept then we can say that each ER schema comes equipped with a multi-edge $I_a$ for every entity type a such that if 
-the outgoing identifying edges of $a$ are $k_i: a \rightarrow a_i$, for $1 \leq i \leq n$  then the multi-edge has source nodes $\langle a_1,...a_n\rangle$ and destination node $a$.  
-
-\noindent We extend the earlier  definition of simple path to take account of navigation along the multi-edges. To do so we define the set of navigation paths recursively:
-
-\begin{enumerate} [(i)]
-\item{ Each edge $f: a \rightarrow b$ is a navigation path.
-}
-\item{ The empty sequence  $\langle \rangle : a \rightarrow a$ is a navigation path for every entity type $a$.
-}
-\item{ $\langle p,f \rangle : a \rightarrow c$ is a navigation path  if $p$ is a navigation path $p: a \rightarrow b$ and $f $is an edge $p: b \rightarrow c$
-}
-\item{ $\langle p_1,...p_n,I_b\rangle : a \rightarrow b$ is a navigation path for all entity types $b$ such that $I_b: \langle b_1,...b_n\rangle$ and where
-for each $i$, $1 \leq i \leq n$, $p_i$ is a path, $p_i: a \rightarrow b_i$.   
-}
-\end{enumerate}
-
-\noindent For any database instance $E$ we can  extend  the definition of
-$E_f$, for edges $f$,  so that to every path $p$, $p: a \rightarrow b$,  we have defined a function $E_p: E_a \rightarrow E_b$. From the initial definition of $E_f$ that applies to 
-edges the definition proceeds recursively as follows: 
-\begin{enumerate} [(i)]
-\item{  For each entity type $a$, $E_{\langle \rangle}: E_a \rightarrow E_a$ is defined to be the identity function.
-}
-
-\item{   if $p$ is a navigation path $p: a \rightarrow b$ and $f$ is an edge $p: b \rightarrow c$ then $E_{\langle p,f \rangle}$ is 
-is defined to be the functional composition $E_p \circ E_f$.
-}
-
-\item{ for all entity types $b$ such that $I_b: \langle b_1,...b_n\rangle \rightarrow b$ and where
-for each $i$, $1 \leq i \leq n$, $p_i$ is a path, $p_i: a \rightarrow b_i$, $E_{\langle p_1,...p_n,I_b\rangle}$ is defined to be 
-$\langle E_{p1},...E_{p_n} \rangle \circ inv_{E_{\i{b}}}$.
-}
-\end{enumerate}
 
 
 
@@ -639,7 +593,7 @@ R0 & advised by & Represents the optional relationship between a student and a p
 
 
  
-\noindent If $p$ is a path within an ER model $\genericmodel$ then say that the path is \term{explicitly represented} wrt the model iff it is equivalent to a simple path. \\
+
 
 \subsection{Identifying Sets}
 
@@ -659,13 +613,20 @@ of $a$ is any path $p:a \morph v$ consisting entirely of identifying edges.
 \end{definition}
 
 \begin{lemma}
+\label{identifyingsetcompositionlemma}
+If identifying sets are composed then the composed set\marginpar{need proper definition here} is jointly monomorphic.
+\end{lemma}
+\begin{proof}
+\end{proof}
+
+\begin{lemma}
 \label{primarykeypathsjointlymonomorphic}
 If If $a$ is an entity type in an entity model \genericmodel\ then the set of all primary key paths 
 of $a$ is jointly monomorphic.
 \end{lemma}
 \begin{proof}
 Because all sets of identifying edges are jointly monomorphic and because jointly injective sets
-yield jointly injective sets when composed. \commentary{Do a better job of this proof.}
+yield jointly injective sets when composed \ref{identifyingsetcompositionlemma}. \commentary{Do a better job of this proof.}
 \end{proof}
 
 \begin{definition}
@@ -695,9 +656,10 @@ Therefore $F$ is jointly injective.
 \end{proof}
 
 
-\begin{lemma}
-In a model M if $Q$ a set of identifying paths from entity type $a$ to $v$
-and if every such identifying path is equivalent to a path in $Q$ then
+\begin{lemma} 
+\label{primarypathrepresentativesidentifying}
+In a model \genericmodel\ if $Q$ a set of primary key paths from entity type $a$ 
+and if every primary key path from $a$ is equivalent to a path in $Q$ then
 $Q$ is an identifying set of paths. 
 \end{lemma}
 \begin{proof}
@@ -1008,7 +970,7 @@ $
  iff 
 \begin{enumerate} [(i)]
 \item{
-for each entity type $a$, there is no proper subset $I$ of the set of identifying edges $\i{a}$ that  is jointly monomorphic,
+for each entity type $a$, there is no proper subset $I$ of the set of identifying edges leaving $a$ that  is jointly monomorphic,
 }
 \item{ 
 all referential inclusion dependencies\footnote{Equivalently, by lemma
@@ -1022,8 +984,16 @@ or else the functional dependency is represented in the model.
 \end{enumerate}
 \end{definition}
 
+This lemma is a converse to lemma \ref{primarypathrepresentativesidentifying}
+\begin{lemma} 
+\label{identifyingconverse}
+In a well-founded model \genericmodel\ if $Q$ is a identifying set of paths from entity type $a$ to $\veee$
+then for every primary key path $p$ from $a$ there is a $q$ in $Q$ such that $p \simeq q$.
+\end{lemma}
+\begin{proof}
+This is non trivial -- we need use the fact that all functional dependencies are represented.
+\end{proof}
 
-\newpage
 \begin{lemma}
 \label{mainlemma}
 In a well-formed model \genericmodel\ if $\{x_1,...x_n\} \morph y$  is a non-trivial
@@ -1477,7 +1447,7 @@ such that in every instance $E$ of $\genericmodel$:
 inv_{E_{\qntuple}} \circ E_{z} = f_E
 \end{equation}
 
-Note that $z$ cannot be equivalent to a primary key attribute for if it were then by lemma xxxx 
+Note that $z$ cannot be equivalent to a primary key attribute for if it were then by lemma \ref{identifyingconverse}
 it would be equivalent to $q_i$,
 for some $i$, $1 \leq i \leq n$ from which it would follow that $E_y=E_{x_i}$ in each instance $E$ and therefore, from the definitions, 
 we would have that $y \simeq x_i$ and therefore that $\phys{y}=\phys{x_i}$.\\
@@ -1509,7 +1479,6 @@ injective and total in every instance $\logtophys(E)$ of $\genericphysical$ and 
 
 We will show that this leads to a contradiction and so complete the proof. 
 
-
 If $m >1$ then
  from  (\ref{simpleRepresentation}),
 from clause (i) of the definition of subsumes and from the fact demonstrated above that $z$ is not equivalent to a primary key 
@@ -1533,8 +1502,45 @@ which is equivalent to a simple path of $\genericmodel$ of length $\geq 2$ which
  initial assumption that the model $\genericmodel$ is purely logical and so completes the proof.
 
 
-
 \section{Discussion}
+
+\subsection{Query path expressions}
+\noindent Without change to the underlying concept then we can say that each ER schema comes equipped with a multi-edge $I_a$ for every entity type a such that if 
+the outgoing identifying edges of $a$ are $k_i: a \rightarrow a_i$, for $1 \leq i \leq n$  then the multi-edge has source nodes $\langle a_1,...a_n\rangle$ and destination node $a$.  
+
+\noindent We extend the earlier  definition of simple path to take account of navigation along the multi-edges. To do so we define the set of navigation paths recursively:
+
+\begin{enumerate} [(i)]
+\item{ Each edge $f: a \rightarrow b$ is a navigation path.
+}
+\item{ The empty sequence  $\langle \rangle : a \rightarrow a$ is a navigation path for every entity type $a$.
+}
+\item{ $\langle p,f \rangle : a \rightarrow c$ is a navigation path  if $p$ is a navigation path $p: a \rightarrow b$ and $f $is an edge $p: b \rightarrow c$
+}
+\item{ $\langle p_1,...p_n,I_b\rangle : a \rightarrow b$ is a navigation path for all entity types $b$ such that $I_b: \langle b_1,...b_n\rangle$ and where
+for each $i$, $1 \leq i \leq n$, $p_i$ is a path, $p_i: a \rightarrow b_i$.   
+}
+\end{enumerate}
+
+\noindent For any database instance $E$ we can  extend  the definition of
+$E_f$, for edges $f$,  so that to every path $p$, $p: a \rightarrow b$,  we have defined a function $E_p: E_a \rightarrow E_b$. From the initial definition of $E_f$ that applies to 
+edges the definition proceeds recursively as follows: 
+\begin{enumerate} [(i)]
+\item{  For each entity type $a$, $E_{\langle \rangle}: E_a \rightarrow E_a$ is defined to be the identity function.
+}
+
+\item{   if $p$ is a navigation path $p: a \rightarrow b$ and $f$ is an edge $p: b \rightarrow c$ then $E_{\langle p,f \rangle}$ is 
+is defined to be the functional composition $E_p \circ E_f$.
+}
+
+\item{ for all entity types $b$ such that $I_b: \langle b_1,...b_n\rangle \rightarrow b$ and where
+for each $i$, $1 \leq i \leq n$, $p_i$ is a path, $p_i: a \rightarrow b_i$, $E_{\langle p_1,...p_n,I_b\rangle}$ is defined to be 
+$\langle E_{p1},...E_{p_n} \rangle \circ inv_{E_{\i{b}}}$.
+}
+\end{enumerate}
+\noindent If $p$ is a query path expression within an ER model $\genericmodel$ then say that the path is \term{explicitly represented} wrt the model iff it is equivalent to a simple path. \\
+
+\subsection{Transitivity}
 \begin{figure}
 \begin{tabular}{c l c l}
 \input{pickExampleTransitiveDependencyRHS}
