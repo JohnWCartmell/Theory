@@ -145,13 +145,15 @@ We can make use of the distinction made in philosophy between
 particulars are communicated\footnote{Note that we consider data storage to be a special case of data communication} as data by some systematic use of universals and universals alone and that data specification is the act of defining such a system. The style of data specification system that we study here involves description of types of particulars in terms of their relationships with other types,
 of which there are two kinds,  those, such as represent numbers, character strings, booleans and so on, all of whose instances are \textit{universals} and the definienda  -- those types all of whose instances are \textit{particulars}. 
 
-In the original presentation by Chen of the
+In the presentation by Chen of the
  entity relationship model as a unified model of data the term relationship is used 
-for general n-ary relationships;  the modern style exemplified by the book of Barker moves away from the Chen notation and terminology and eliminates use more general 
-relationships in favour of functional relationships.
-By \textit{relationship}, here, then, we mean binary functional relationship so that if $x$ and $y$ are types then a relationship $R: x \morph y$ is a relationship between
-instances of $x$ and instances of $y$ such that for all instances $e_x$ of $x$
-there exists at most one $e_y$ of type $y$ such that $x R y$. Some authors have presented  systems of such types and relationships as the functional model of data and emphasised navigation through data as functional composition and the modern style of entity relationship modelling, though with some restrictions, has been formalised in the language of category theory by Johnstone et al. 
+to mean n-ary relationship, for some $n$. Subsequent authors retained use of the terms entity and relationship
+but moved away from the Chen notation and terminology and eliminated n-ary relationaships from the modelling
+in favour of binary relationships that are functional, inclusive of partial functional,  in character.
+In this style, what is modelled  for  types of entity $x$ and $y$, are  relationships $R: x \morph y$ such that for all instances $e_x$ of $x$
+there exists at most one $e_y$ of type $y$ such that $x R y$. It is reasonable to describe this   as the functional style of entity relationship modelling to distinguish it from the Chen style and
+and some authors have presented  systems of such types and relationships as the functional model of data and emphasised navigation through data as functional composition. What we are calling the functional style of ER modelling is exemplified by the
+book of Barker, and a limited version of a functional style ER model has been formalised in the language of category theory by Johnstone et al. 
 
 Types all of whose instances are universals  are said to be \textit{attribute types} in entity relational 
 modelling, though confusingly called \textit{attributes} by Johnstone et al. and earlier
@@ -182,7 +184,7 @@ dep & dependent & Identified by a combination of relationship $S_0$ to an employ
 \label{chenfragmentSANSbars}
 \end{figure}
 
-The style of data specification that we are concerned with here, is 
+All styles of entity relationship modelling, and, for that matter, relational modelling too, are 
 predicated on the assumption that the particulars that we describe in data 
 correspond uniquely to real world entities and that the data 
 alone is sufficient to establish a 1-1 correspondence. 
@@ -193,9 +195,9 @@ others of the type.
 In relational data modelling this set of identifying features as a set of columns of the table and is called the primary key.  
 
 We require that 
-for a directed graph to be considered an ER schema each entity type has a primary
-key specified. 
-A primary key $pk_1,...pk_n$ for an entity type $x$ specifies a jointly injective set of functions(the set of functions $f_1,...f_n$ are said to be jointly injective iff the function:
+for a directed graph to be considered an ER schema each entity type has a set of identifying features
+ specified. 
+An identifying set of features  $pk_1,...pk_n$ for an entity type $x$ specifies a jointly injective set of functions(the set of functions $f_1,...f_n$ are said to be jointly injective iff the function:
 $$
 \tuple{f_1,f2,,,,f_n}: x \morph \veee \times \veee ... \times \veee
 $$
@@ -584,7 +586,7 @@ R0 & advised by & Represents the optional relationship between a student and a p
 \end{tabular} 
 \end{tabular}
 \end{center}
-\caption{Example of path  $\tuple{R_0,R_1} < \tuple{S_0,S_1}$. This example is based on one given in part one of this document. Here we specify that a student optionally has an advisor (suppose that the advisor is selected part way through a course). As before we assume that an advisor must be a professor of the department in which the student is enrolled. }
+\caption{Example of path  $\tuple{R_0,R_1} < \tuple{S_1}$. This example is based on one given in part one of this document. Here we specify that a student optionally has an advisor (suppose that the advisor is selected part way through a course). As before we assume that an advisor must be a professor of the department in which the student is enrolled. }
 \label{studentadvisorgraph}
 \end{figure}
 
@@ -623,7 +625,7 @@ of $a$ is jointly monomorphic.
 \end{lemma}
 \begin{proof}
 Because all sets of identifying edges are jointly monomorphic and because jointly injective sets
-yield jointly injective sets when composed \ref{identifyingsetcompositionlemma}. \commentary{Do a better job of this proof.}
+yield jointly injective sets when composed by lemma \ref{identifyingsetcompositionlemma}. \commentary{Do a better job of this proof.}
 \end{proof}
 
 \begin{definition}
@@ -967,7 +969,7 @@ $
  iff 
 \begin{enumerate} [(i)]
 \item{
-for each entity type $a$, there is no proper subset $I$ of the set of identifying edges leaving $a$ that  is jointly monomorphic,
+for each entity type $a$, there is no proper subset $I$ of any set of identifying paths leaving $a$ that  is jointly monomorphic,
 }
 \item{ 
 all referential inclusion dependencies\footnote{Equivalently, by lemma
@@ -988,7 +990,7 @@ In a well-founded model \genericmodel\ if $Q$ is a identifying set of paths from
 then for every primary key path $p$ from $a$ there is a $q$ in $Q$ such that $p \simeq q$.
 \end{lemma}
 \begin{proof}
-This is non trivial -- we need use the fact that all functional dependencies are represented.
+We have modified clause (i) of the definition of well-formed to achieve this.
 \end{proof}
 
 \begin{lemma}
@@ -1055,9 +1057,71 @@ E_y &= E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_z  && \text{ (\ref{fundepend
 \vspace{-0.3cm}
 From which, by definition, $y\simeq p \circ z$, as required. \\
 \end{proof}
-Now we give two examples of ER models that fail to be well formed. First see figure \ref{rawdatatablegraph} as an example of a model that fails condition(ii) of the above definition and
-therefore is not well formed. This situation can be rectified by replacing the SeqNo attribute of 
-the data cell entity (dc) by an identifying relationship $R_0:dc \morph c$ as shown previously in figure \ref{datatablegraph}.
+Now we give three examples of ER models that fail to be well formed. 
+Figures \ref{clubpresidentbeforenormalisation}, \ref{rawdatatablegraph}and  \ref{pickexamplebeforenormalisation}
+show examples that fail, respectively, conditions (i), (ii) and (iii) respectively of the definition of well-foundedness. 
+
+The failure of the example in figure \ref{rawdatatablegraph} to be well-formed can be rectified by 
+replacing the SeqNo attribute of 
+the data cell entity (dc) by an identifying relationship $R_0:dc \morph c$. The resuting model was given in figure \ref{datatablegraph}.
+
+\begin{figure} [h]
+\begin{center}
+\begin{tabular}{c c}
+$
+\begin{array}{cp{0.4cm}cp{0.5cm}cp{0.75cm}cp{0.75cm}c}
+              &&                &&               &&                &&               \\[0.25cm]
+              && \Rnode{cm}{cm} &&               &&                &&               \\[0.25cm]
+\Rnode{p}{p}	&&                && \Rnode{m}{m}  &&   \Rnode{c}{c} && \Rnode{v}{v}  \\[0.25cm]
+	            &&  
+\end{array}
+$
+
+\ncarr[5]{p}{cm} 
+\alabel{I_0}
+\idcomp
+\ncarr[-30]{p}{v}
+\blabel{yr}
+\idcomp
+\ncarr[-5]{cm}{m}
+\blabel{I_1}
+\idcomp
+\ncarr[50]{cm}{v}
+\alabel{yr1}
+\idcomp
+\ncarr[25]{m}{v}
+\alabel{mNo}
+\idcomp
+\ncarr{m}{c}
+\blabel{M}
+\idcomp
+\ncarr{c}{v}
+\blabel{cId}
+\idcomp
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+p  & president        & Identified by a combination of inclusion relationship ($I_0$) that identifies a
+                       president as being a committee members and a year attribute ($yr$). \\
+cm & committee member & Identified by an inclusion relationship ($I_1$)that identifies a committee member 
+                         as a member and a first year of service attribute ($y1$).\\
+m  & member           & Identified by a member relationship ($M$) to a club and a by membership 
+                         number attribute ($mNo$). \\
+c  & club             & Identified by club identifier attribute ($cId$)
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{Club president example. This example fails clause (i) of the definition of well-formedness because
+the set of paths $\set{\tuple{I_0,yr1},\tuple{I_0,I_1,mNo}, \tuple{I_0,I_1,M,cId}, \tuple{yr}}$ is 
+an identiofying set of paths wrt $p$ but is not minimum because a club has at most one president a year and sothe subset $\set{\tuple{I_0,yr1}, \tuple{I_0,I_1,M,cId}, \tuple{yr}}$ is jointly monomorphic. 
+This problem can be fixed by introducing a clum membership relationship $R: p \morph c$ which is equivalent to
+path $\tuple{I_0,I_1,M}$ and by specifying $R$ in place of $I_0$ which is to be combined with $yr$ to identify entitites of type $p$.
+}
+\label{clubpresidentbeforenormalisation}
+\end{figure}
+
+
 
 \begin{figure} [h]
 \begin{tabular}{c p {0.5cm} c}
