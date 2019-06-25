@@ -201,7 +201,9 @@ An identifying set of features  $pk_1,...pk_n$ for an entity type $x$ specifies 
 $$
 \tuple{f_1,f2,,,,f_n}: x \morph \veee \times \veee ... \times \veee
 $$
-is injective); by this means every entity is defined to have a primary key and two entities are necessarily identical if they have the primary entity (so implementing the identity of indiscernibles). Each element of a primary key for entity type $x$ must be specified as a path through the directed graph from node $x$ to the node $\veee$ representing the type of universals.  In the Chen fragment (figure \ref{chenfragmentSANSbars}) the primary keys are specified as follows:
+is injective).
+
+by this means every entity is defined to have a primary key and two entities are necessarily identical if they have the primary entity (so implementing the identity of indiscernibles). Each element of a primary key for entity type $x$ must be specified as a path through the directed graph from node $x$ to the node $\veee$ representing the type of universals.  In the Chen fragment (figure \ref{chenfragmentSANSbars}) the primary keys are specified as follows:
 $$
 \begin{array}{l l}
 p & \set{\tuple{pNo}} \\
@@ -211,34 +213,22 @@ dep & \set{\tuple{S_0,eNo},dN}
 \end{array}
 $$
 
-At this point our provisional definition of an ER schema has it having underlying directed graph, 
-a distinguished node $\veee$   and for each 
-node other than $\veee$,  a primary key is specified as a set of paths to $\veee$.
-What is so described
-is theoretically necessary but less than ideal from a practical point of view.  In practice both in Chen and in Barker 
-(but not, interestingly, in the theory papers of Johnstone et al.) there is a more pragmatic approach and, for each entity type,
-the necessity to specify a primary key as a set of paths is replaced by the necessity to specify a set of
-\textit{identifying attributes and relationships}. For example, as described by Chen, the entity type 
-$w$ in his example is identified uniquely by a combination of the relationships with a project ($p$) and a worker($w$). 
+For example, as described by Chen and as shown in text in the key on figure \ref{chenfragmentSANSbars}, each
+type of entity can be identified by a specified combination of relationships and attributes. For instance the entity type 
+project worker ($w$) in the example in figure \ref{chenfragmentSANSbars} is identified uniquely by a combination of the relationships with a project ($p$) being worked on  and to employee($e$). 
 In the book of Barker these relationships can be said to be identifying relationships. 
 The entity type dependent, on the other hand, can
 be identified uniquely by a combination of its relationship $S$ with a employee ($e$), 
 who supports them, and their name, represented by the name attribute $dN$. 
 In this case entities of the type can uniquely identified 
 by a certain combination of its relationships and attributes.   In the Barker 
-style of entity relationship modelling primary keys come about indirectly via specification of these identifying relationships and attributes. In the example shown in figure \ref{chenfragment} indication of the primary keys of each of the four entity types $p$, $e$, $w$ and $dep$ has been given indirectly by marking certain attributes and relationships as \textit{identifying} by way of a bar across the corresponding arrowan adaption of the bar notation used in Barker's book (but of course in the Barker-Ellis notation the arrow head is swapped for a crowsfoot at the other end of the line). If identifying relationships are used instead
-of primary keys then in the simplest cases\commentary{Need path equivalence and new defn. subsumes for the full algorithm}the implied primary keys of an entity type $x$ are those paths from $x$ to
+style of entity relationship modelling primary keys come about indirectly via specification of these identifying relationships and attributes. In the example shown in figure \ref{chenfragment} indication of the primary keys of each of the four entity types $p$, $e$, $w$ and $dep$ has been given indirectly by marking certain attributes and relationships as \textit{identifying} by way of a bar across the corresponding arrowan adaption of the bar notation used in Barker's book (but in the Barker-Ellis notation is different rougghly speaking the arrow head is swapped for a crowsfoot at the other end of the line). If identifying relationships are used instead
+of primary keys then in the simplest cases the implied primary keys of an entity type $x$ are those paths from $x$ to
 $\veee$ that consist entirely of identifying attributes and relationships. 
 It is almost always the case that in this way the primary keys of an entity type can be determined solely from the identifying relationships
 and attributes. So it is that in the Barker book it is the identifying relationships and attributes
 which are specified in an entity model and the primary keys are derived from them. This is a good practical approach but as we see later it isn't applicable in 100\% of cases.
-It is because there 
-are a few exceptional cases where this is not possible that in the theory described here and 
-with the requirement to cover the most general case
-it is the primary keys that are the primitives and
-from these the identifying relationships can be inferred.  
-Not withstanding this, in examples, unless otherwise stated,
-we define the identifying relationships and have the primary keys implied from them. 
+
 \begin{figure} [h]  % chen fragment with bars
 \begin{center}
 \barstrue
@@ -249,7 +239,7 @@ of identifying (bar'ed) attributes and relationships and leading from itself to 
 \label{chenfragment}
 \end{figure}
 
-The rule that an entity type has primary keys comprising exactly the paths through the directed graph leading from it
+The rule that an entity type has primary keys generated as exactly the paths through the directed graph leading from it
 to the type $\veee$ and consisting entirely of identifying relationships and attributes is 
 an over simplification\footnote{This is not generally recognised because 
 of lack of a proper theory (which we are trying to rectify  here) and because it is obscured by a reliance on
@@ -312,8 +302,7 @@ d & data cell & Identified by relationship $S_0$ to the row it is in and relatio
 \label{datatablegraph}
 \end{figure}
 
-A second example is shown in figure \ref{pickexample}. In this example there is a path 
-from  entity type The default rule for inference of primary keys would result in us determining
+A second example is shown in figure \ref{pickexample}. In this example the default rule for inference of primary keys would result in us determining
 a primary key for the data cell entity as including a path 
 $\tuple{R_0,R_1,wId}$. This would be incorrect for the pick entity 
 is determined uniquely from 
