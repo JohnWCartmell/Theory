@@ -1320,8 +1320,9 @@ Functional depedencies in \genericmodel\ carries through to functional depdencie
 Written in the terminology we are using here it can be defined as follows:
 \begin{definition} % BCNF
 A physical ER model is in Boyce Codd Normal Form (BCNF) \commentary{See Zaniolo definition 2.} iff
-whenever  \sfd{x_1,...x_n}{y} is a non trivial functional dependency 
-then in each instance $E$, the function $E_{<x_1,...x_n>}$ is injective and total.  
+for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
+for which  there is a non-trivial functional dependency \sfd{x_1,...x_n}{y}, 
+in all instances $E$  of $\genericmodel$, the function $E_{<x_1,...x_n>}$ is injective and total.  
 \end{definition}
 
 \noindent The next lemma simplifies the requirement for showing BCNF to consideration of non-trivial
@@ -1329,42 +1330,29 @@ intransitive functional dependencies:
 \begin{lemma}
 \label{BCNFsublemma}
 A model $\genericmodel$ is in BCNF iff
-for all entity types $a$, for all attributes $x_1,...x_n$ and $y$, $n \geq 1$, 
-if there is an non trivial intransitive functional dependency
-\sfd{x_1,...x_n}{y}
-then in all instances $E$, $E_{<x_1,...x_n>}$ is injective and total. 
-
+for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
+for which there is an non trivial intransitive functional dependency \sfd{x_1,...x_n}{y},
+in all instances $E$, $E_{<x_1,...x_n>}$ is injective and total. 
 \end{lemma}
 \begin{proof}Use lemma \ref{transitiveinjectivelemma}.
 \end{proof}
 
 \noindent Now for the main theorem:\\
-\noindent \textbf{Theorem}\\
+\begin{theorem}
 \noindent If an ER model $\genericmodel$ is well-formulated  then the 
-transformed model $\logtophys(\genericmodel)$  is in Boyce-Codd Normal Form.  \\
-
-\noindent \textbf{Proof}\\
-\noindent
+transformed model $\logtophys(\genericmodel)$  is in Boyce-Codd Normal Form.\commentary{Either add condition that purely logical 
+or, preferable, extend definition of subsumes also get rid of paths of length 1.}
+\end{theorem}
+\begin{proof}
 By lemma \ref{BCNFsublemma} it suffices to show that if 
-$\sfd{\phys{x}_1,...\phys{x}_n}{\phys{y}}$ is a non-trivial intransitive functional dependency
+$\sfd{\phys{x}_1,...\phys{x}_n}{\phys{y}}$ is a non-trivial intransitive functional dependency of model $\genericphysical$
 where $\phys{x}_1,...\phys{x}_n,\phys{y}$ are attributes of the entity type $a$ of model $\genericphysical$ 
 then  in all instances
 $E$ of $\genericphysical$, $E_{<\phys{x}_1,...\phys{x}_n>}$ is injective and total. \\
 
-\iffalse
-\noindent 
-for each $\phys{x}_i$  there is a $m_i, m_i \geq 1$ and 
-a simple path $\langle x_{i,1},...x_{i,m_i} \rangle$ in $\genericmodel$
-where $x_{i,j}$ is identifying, for $j > 1$ and $dest(x_{i,m_i})=v$ 
-such that either, $m_i = 1$ and $\phys{x}_i = x_{i,1}$ or $m_i > 1$ 
-and $\phys{x}_i= \left[ \langle x_{i,1},...x_{i,m_i}\rangle \right]$. 
-It follows likewise that for some $m \geq 1$, there is a simple path
-$\langle y_1,..y_m \rangle$ in $\genericmodel$ such that either $m=1$ and $\phys{y}=y_m$ or $m >1$ and 
-$\phys{y}=\left[\langle y_1,..y_m \rangle\right]$. \\
-\fi
 
 \noindent Assume, then, such a functional depedency $\sfd{\phys{x}_1,...\phys{x}_n}{\phys{y}}$ in  $\genericphysical$. 
-By lemma \ref{fdcarrythroughlemma} it follows that in the model $\genericmodel$ therefore, for each $i$, $1 \leq i \leq n$, 
+By lemma \ref{fdcarrythroughlemma} it follows that in the model $\genericmodel$, for each $i$, $1 \leq i \leq n$, 
 for some $m_i$, $m_i \geq 1$, we have a 
 path of length $m_i$ which we denote $x_i = \langle x_{i,1},...x_{i,m_i} \rangle$  and for some $m$, $m \geq 1$ we have a path 
 of length $m$ which we denote 
@@ -1387,54 +1375,19 @@ $
 \end{center}
 and that \sfd{x_1,...x_n}{y} in \genericmodel.
 
-
-\iffalse {%Maybe move this text later
-\noindent Each instance $E$  of $\genericmodel$ gives rise to an instance $\logtophys(E)$ of $\genericphysical$ and from the
-definition of $\logtophys(E)$ it follows that for every instance $E$ of $\genericmodel$ there is a unique 
-function $E_f$ such that $E_{<x_1,...x_n>} \circ E_f = E_{y}$, as shown here:
-\begin{center}
-$
-\begin{array}{cp{2cm}ccp{0.5cm}cc}
-						    & &         & \Rnode{Eb1}{E_{v}}& &                            &        \\ [0.6cm]
-						    & &         & \Rnode{Eb2}{E_{v}}& &                            &        \\ [0.6cm]
-						    & &\vdots  &                      & &                            &        \\ [0.2cm]												
-\Rnode{Ea}{E_a} & &         & \Rnode{Ebn}{E_{v}}& & \Rnode{Jnctn}{}&  \\ [1.0cm]
-						    & &         & \Rnode{Ec}{{E_v}}   & &                            &        \\
-\end{array}
-$
-\simplepatha{$E_{x_1}$}{Ea}{Eb1}
-\simplepatha{$E_{x_2}$}{Ea}{Eb2}
-\simplepatha{$E_{x_n}$}{Ea}{Ebn}
-\simplepathb{$E_y$}{Ea}{Ec}
-\nchmarr[15][45]{Eb1}{Ebn}{Jnctn}{Ec}
-\naput[npos=-0.1]{$f_E$}
-\ncarc[arcangle=15]{Eb2}{Jnctn}
-\end{center}
-}
-}
-\fi
-%Above text moves later maybe
-
-\noindent
 From the assumption that the model $\genericmodel$ is well-formulated and from condition (iii) 
 of the definition of well-formulated, either 
-$E_{\langle x_1,...x_n \rangle}$ is injective and total in every instance $E$ of $\genericmodel$ in which case 
-$\logtophys(E)_{\langle \phys{x}_1,...\phys{x}_n \rangle}$ is injective and total in every instance $E$ of $\genericmodel$ and the proof is completed or else
+$E_{\langle x_1,...x_n \rangle}$ is injective and total in every instance $E$ of $\genericmodel$, in which case 
+$\logtophys(E)_{\langle \phys{x}_1,...\phys{x}_n \rangle}$ is injective and total in every instance $E$ of $\genericmodel$ and the proof is completed, or else
 the functional dependency  \sfd{x_1,...x_n}{y} is represented in the model $\genericmodel$. 
 
-In the latter case the fucntional dependency implies that in every instance instance $E$ of $\genericmodel$ there is a unique 
-function $E_f$ such that 
-\begin{equation}
-\label{givenfd}
-E_{<x_1,...x_n>} \circ E_f = E_{y}
-\end{equation}
 
-From the definition of a functional depedency being represented it follows that
-there
-is an entity type $b$ in $\genericmodel$ 
-and an identifying family of simple paths $q_1,...q_n$, 
+From the definition of a functional dependency being represented it follows that
+there is an entity type $b$ in $\genericmodel$  and an identifying family of simple paths $q_1,...q_n$, 
 $q_i: b \rightarrow v$ and a 
 path $z: b \rightarrow v$, as shown here: 
+such that
+
 
 \setlength{\arraycolsep}{.2cm}
 \begin{center}
@@ -1456,12 +1409,16 @@ $
 \simplepathb{$q_n$}{b}{bn}
 \simplepatha{$z$}{b}{c}
 \end{center}
-
-such that in every instance $E$ of $\genericmodel$:
-\newcommand{\ineveryinstance}{\forall E \in inst_\genericmodel ,  \hspace{0.25cm} }
+such that
 \begin{equation}
-\label{initialRepresentation}
-inv_{E_{\qntuple}} \circ E_{z} = f_E
+\label{inclusiondependency}
+\incd{a}{x_1,...x_n}{d}{q_1,...q_n}
+\end{equation}
+and such that in every instance $E$ of $\genericmodel$:
+%\newcommand{\ineveryinstance}{\forall E \in inst_\genericmodel ,  \hspace{0.25cm} }
+\begin{equation}
+\label{representationByIdentifyingRelationships}
+E_{\langle x_1,...x_n \rangle}\circ inv_{E_{\qntuple}} \circ E_{z} = E_{\langle y_1,..y_m \rangle} 
 \end{equation}
 
 Note that $z$ cannot be equivalent to a primary key attribute for if it were then by lemma \ref{identifyingconverse}
@@ -1470,22 +1427,14 @@ for some $i$, $1 \leq i \leq n$ from which it would follow that $E_y=E_{x_i}$ in
 we would have that $y \simeq x_i$ and therefore that $\phys{y}=\phys{x_i}$ contradicting the assumption that
 the fucntional dependency $\sfd{\phys{x}_1,...\phys{x}_n}{\phys{y}}$ is non-trivial.
 
-\noindent From  (\ref{initialRepresentation}) it follows that in every instance $E$ of $\genericmodel$:  
-\begin{equation*}
-E_{\langle x_1,...x_n \rangle}\circ inv_{E_{\qntuple}} \circ E_{z}  = E_{\langle x_1,...x_n \rangle} \circ f_E 
-\end{equation*}
-\noindent and thus from (\ref{givenfd}) it follows  that:
-\begin{equation}
-\label{representationByIdentifyingRelationships}
-\ineveryinstance E_{\langle x_1,...x_n \rangle}\circ inv_{E_{\qntuple}} \circ E_{z} = E_{\langle y_1,..y_m \rangle} 
-\end{equation}
 
-FRom (ref{representationByIdentifyingRelationships}) it follows that there is an inclusion dependency $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$ in $\genericmodel$ and from the assumtion that  $\genericmodel$ is well-formulated it follows
+Since there is an inclusion dependency (\ref{inclusiondependency}) in $\genericmodel$ and from the assumption that  model
+$\genericmodel$ is well-formulated it follows
  from condition (ii) of the definition of well-formulated  that there exists
 a path $\langle p_1,...p_k \rangle:a \rightarrow b$, $k \geq 0$, such that:
 \begin{equation}
 \label{simpleRepresentationOfFirstPart}
-\ineveryinstance \langle E_{x_1},...E_{x_n} \rangle \circ inv_{E_{\qntuple}} = E_{\langle p_1,...p_k \rangle}
+\langle E_{x_1},...E_{x_n} \rangle \circ inv_{E_{\qntuple}} = E_{\langle p_1,...p_k \rangle}
 \end{equation}
 \noindent Either $k=0$ and $\qntuple = \langle x_1,...x_n \rangle$ in which case $E_{\langle x_1,...x_n \rangle}$ is
 injective and total in every instance $E$ of $\genericmodel$ and thus $\logtophys(E)_{\langle \phys{x}_1,...\phys{x}_n \rangle}$ is
@@ -1493,7 +1442,7 @@ injective and total in every instance $\logtophys(E)$ of $\genericphysical$ and 
 \noindent or else $k \geq 1$ and it follows from (\ref{representationByIdentifyingRelationships}) and (\ref{simpleRepresentationOfFirstPart}) that:
 \begin{equation} 
 \label{simpleRepresentation}
-\ineveryinstance  E_{\langle p_1,...p_k \rangle} \circ E_{\langle z_1,...z_l \rangle} = E_{\langle y_1,..y_m \rangle} 
+ E_{\langle p_1,...p_k \rangle} \circ E_{\langle z_1,...z_l \rangle} = E_{\langle y_1,..y_m \rangle} 
 \end{equation}
 
 
@@ -1501,26 +1450,27 @@ We will show that this leads to a contradiction and so complete the proof.
 
 If $m >1$ then
  from  (\ref{simpleRepresentation}),
-from clause (i) of the definition of subsumes and from the fact demonstrated above that $z$ is not equivalent to a primary key 
+from clause (i) of the definition of subsumes and from the fact demonstrated above that $z$ is not equivalent to a 
+primary key attribute
 it follows that $p_1,...p_k,z_1,...z_l$ subsume $\langle y_1,..y_m \rangle$, 
 which implies that $\langle y_1,..y_m \rangle$ is excluded from $\fkp{a}$ and thus that 
  $\phys{y}=\left[\langle y_1,..y_m \rangle\right]$ is not an attribute of $\genericphysical$ contrary to our 
 initial assumption. 
 
 We must conclude that $m=1$.
-In this case we have $y_1$ an attribute of $a$ in $\genericmodel$ and from (\ref{simpleRepresentation})  we have in all instances $E$ of $\genericmodel$:
+In this case we have $y_1$, an attribute of $a$ in $\genericmodel$, and from (\ref{simpleRepresentation})  we have in all instances $E$ of $\genericmodel$:
 \begin{equation}
 E_{y_1}=E_{\langle p_1,...p_k \rangle} \circ E_{\langle z_1,...z_l \rangle}
 \end{equation}
-\noindent which is to say in all instances $E$ of $\genericmodel$:
+\noindent which is to say that in all instances $E$ of $\genericmodel$:
 \begin{equation}
 E_{y_1}=E_{\langle p_1,...p_k ,z_1,...z_l \rangle}
 \end{equation}
 \noindent
 We have shown, therefore, that $y_1$ is an outgoing edge of $a$ in $\genericmodel$ 
 which is equivalent to a simple path of $\genericmodel$ of length $\geq 2$ which contradicts  the 
- initial assumption that the model $\genericmodel$ is purely logical and so completes the proof.
-
+ initial assumption that the model $\genericmodel$ is purely logical\commentary{TBD} and so completes the proof.
+\end{proof}
 
 \section{Discussion}
 
@@ -1552,7 +1502,6 @@ An inclusion dependency $\sigma$ between two entity types $a$ and $b$ is
 \term{referential}\footnote{Also called a referential constraint or a foreign key constraint. Oracle Database Concepts Documentation: \textit{If any column of a composite foreign key is null, then the non-null portions of the key do not have to match any corresponding portion of a parent key.}  } 
 iff the set $E_\sigma(e)$ is a singleton set, for all instances E and for all $e$ in the domain of  $\sigma$ . 
 \end{definition}
-
 
 \subsection{Query path expressions}
 \noindent Without change to the underlying concept then we can say that each ER schema comes equipped with a multi-edge $I_a$ for every entity type a such that if 
