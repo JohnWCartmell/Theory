@@ -480,16 +480,13 @@ $\tuple{s_0,s_1,...s_m}$ iff $m \geq 1$ and either:
 \begin{enumerate} [(i)]
 
 \item $\tuple{r_0,r_1,...r_n} \simeq  \tuple{s_0,s_1,...s_m}$ and 
-$\tuple{s_1,...s_m}$ is not a primary key attribute\\
+\commentary{In most general case this will become not $s_1$ uses $s_2$ ... uses $s_m$.}
+for some $j$, $1 \leq j \leq m$, $s_j$ is not an identifying edge. \\
 
  \hspace{1cm} or:
 \item $\tuple{r_0,r_1,...r_n} <  \tuple{s_0,s_1,...s_m}$ and $r_0 \neq s_0$.
 \end{enumerate}
 \end{definition}
-
-\noindent It follows that in every database instance $E$, for every entity type $a$ there is a function 
-$inv_{E_{\iedges{a}}}$\footnote{Strange notation here.}  that represents navigation to an entity from an identifying set of related entities or attributes. 
-In a physical model this will equate to keyed lookup. \\
 
 \begin{figure} [h]
 \begin{center}
@@ -580,9 +577,6 @@ R0 & advised by & Represents the optional relationship between a student and a p
 \end{figure}
 
 
- 
-
-
 \subsection{Identifying Sets}
 
 The following definition takes the place of that of super key in the relational model:
@@ -654,6 +648,48 @@ $Q$ is an identifying set of paths.
 \end{lemma}
 \begin{proof}
 \end{proof}
+
+\subsubsection{Extended 11 July 2019}
+Notation
+
+$I$ is a set of sets of outgoing identifying edges.
+
+$\bar{I}$ is the closure of $I$ under composition.
+
+$\bar{I}_v$ is the subset of $\bar{I}$ comprising all sets of identifying edges all of whose
+edges have destination $\veee$.
+
+For a model to be well-formalated then each $S \in \bar{I}$ must be minimal.
+
+\begin{definition}
+A set $I$ of sets of sets of identifying edges is \term{fully-factored} iff 
+there does not exists $H \in I$ and a partition $H=H_0 \cup H_1$, $H_1$ non-empty, $H_0$ maybe empty,
+and an edge $f: a \morph b$ and a set of paths $G \in \bar{I}$ sourced at $a$ such that
+$$H \simeq H_0 \cup \set{f}  \textvisiblespace_f G$$
+\end{definition}
+
+Equivalently:
+
+\begin{definition}
+A set $I$ of sets of sets of identifying edges is \term{fully-factored} iff 
+there does not exists $H \in I$ such that for some subset $\set{h_1,...h_n} \subset H$
+there is an edge $f:a \morph b$ and a set of sourced at $b$, $\set{g_1,...g_n} \in \bar{I}$
+such that for each $i$, $1 \leq i \leq n$, $f \circ g_i \simeq h_i$.
+\end{definition}
+
+Show that these two  definitions are equivalent. \\
+
+Show that if $I' = (I \backslash H) \cup \set{H_0 \cup \set{f}}$ then $\bar{I'} \supset \bar{I}$.\\
+
+Show that if $\bar{I'} \supset \bar{I}$ then $\bar{I'}_v=\bar{I}_v$.\\
+
+This implies $\tuple{G,I}$ and $\tuple{G,I'}$ are equivalent i.e. have exactly the same models.\\
+
+Finally show that $\tuple{G,I'}$  can be pruned to $\tuple{G',I'}$ by removal of edges $\set{h_1,...h_n}$.\\
+
+This establishes that every model $\tuple{G,I}$ has an equivalent logical model.\\
+
+
 
 \noindent
 Consider that the various database normal forms (3NF, BCNF, 4NF, 5NF and the like) each 
@@ -1103,7 +1139,8 @@ c  & club             & Identified by club identifier attribute ($cId$)
 \end{tabular} 
 \end{tabular}
 \end{center}
-\caption{Club president example. This example fails clause (i) of the definition of well-formedness because
+\caption{Club president example. 
+This example fails clause (i) of the definition of well-formedness because
 the set of paths $\set{\tuple{I_0,yr1},\tuple{I_0,I_1,mNo}, \tuple{I_0,I_1,M,cId}, \tuple{yr}}$ is 
 an identiofying set of paths wrt $p$ but is not minimum because a club has at most one president a year and sothe subset $\set{\tuple{I_0,yr1}, \tuple{I_0,I_1,M,cId}, \tuple{yr}}$ is jointly monomorphic. 
 This problem can be fixed by introducing a clum membership relationship $R: p \morph c$ which is equivalent to
@@ -1111,12 +1148,10 @@ path $\tuple{I_0,I_1,M}$ and by specifying $R$ in place of $I_0$ which is to be 
 }
 \label{clubpresidentbeforenormalisation}
 \end{figure}
-
-
+\commentary{Club president example is isomorphic to the nearest shop example!}
 
 \begin{figure} [h]
 \begin{tabular}{c p {0.5cm} c}
-
 (a) & &
 \begin{tabular}{c c}
 $
@@ -1238,13 +1273,13 @@ figure \ref{pickexample}.
 \begin{definition}
 A well-formulated ER model is \term{purely-logical}  iff it 
 also satisfies:
-(i) 
-\commentary{(i) no redundancy}
-there are no edges $r$ such that there is 
-a simple path $p$ which does not include $r$ in its definition and such that $r \simeq p$  
-and (ii)
-\commentary{(ii) no foreign keys}
- there are no non-trivial referential inclusion dependencies. \\
+\begin{enumerate}[(i)]
+\item
+for all edges $r$ if there is a
+a simple path $p$  not including $r$ such that
+ $r \simeq p$  then $r$ is identifying and there is an edge $e$ in $p$ which is not identifying,
+\item the set of identifying sets I of the model is fully-factored.
+\end{enumerate} 
 \end{definition}
 
 \noindent
@@ -1253,14 +1288,16 @@ We say that an ER model is a \term{logical ER model} iff it is purely logical.
 \subsection{Definition of Physical ER Model}
 \begin{definition}
 \noindent 
-A \term{physical ER model} is a well formulated ER model
-\commentary{ could add some of no redundancy condition (i) of defn. of logical here}
-\commentary{ alternatively could move some of no redundancy condition (i) of defn. of logical back to well-formulated}
-that also satisfies:
- (i) all identifying edges are attributes and 
-(ii) for each relationship $r$ there is navigational path $p$ containing only attributes such that $r \simeq p$. 
+A \term{physical ER model} is a well formulated ER model that also satisfies:
+\begin{enumerate}[(i)]
+\item
+all identifying edges are attributes, \commentary{the set of sets of identifying edges $I$ is closed under composition i.e. $I = \bar{I}$.}
+
+\item
+for each relationship $r$ there is there is an inclusion dependency that it represents.
+\end{enumerate} 
 \end{definition}
-\commentary{ Consider move no `redundancy except for foreign keys' back into definition of well formulated.}
+
 
 \section{First Cut Chen Transformation -- $\chiZero$}
 
@@ -1327,6 +1364,14 @@ for which  there is a non-trivial functional dependency \sfd{x_1,...x_n}{y},
 in all instances $E$  of $\genericmodel$, the function $E_{<x_1,...x_n>}$ is injective and total.  
 \end{definition}
 
+\begin{definition} % TNF
+A physical ER model is in Third Normal Form (TNF)  iff
+for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
+for which  there is a non-trivial functional dependency \sfd{x_1,...x_n}{y}, 
+in all instances $E$  of $\genericmodel$, either the function $E_{<x_1,...x_n>}$ is injective and total
+or else $y$ is all identifying.\commentary{new - justify this}.  
+\end{definition}
+
 \noindent The next lemma simplifies the requirement for showing BCNF to consideration of non-trivial
 intransitive functional dependencies:
 \begin{lemma}
@@ -1341,9 +1386,10 @@ in all instances $E$, $E_{<x_1,...x_n>}$ is injective and total.
 
 \noindent Now for the main theorem:\\
 \begin{theorem}
-\noindent If an ER model $\genericmodel$ is well-formulated  then the 
-transformed model $\logtophys(\genericmodel)$  is in Boyce-Codd Normal Form.\commentary{Either add condition that purely logical 
-or, preferable, extend definition of subsumes also get rid of paths of length 1.}
+\noindent If an ER model $\genericmodel$ is well-formulated and logical then the 
+transformed model $\logtophys(\genericmodel)$  is in Third Normal Form. If in $\genericmodel$
+there are no identifying edges $r$ such that $r \simeq p$ for some path $p$ of length greater than $1$
+then $\logtophys(\genericmodel)$ is in Boyce-Codd Normal form. \commentary{Needs modifying to TNF}.
 \end{theorem}
 \begin{proof}
 By lemma \ref{BCNFsublemma} it suffices to show that if 
@@ -1470,8 +1516,10 @@ E_{y_1}=E_{\langle p_1,...p_k ,z_1,...z_l \rangle}
 \end{equation}
 \noindent
 We have shown, therefore, that $y_1$ is an outgoing edge of $a$ in $\genericmodel$ 
-which is equivalent to a simple path of $\genericmodel$ of length $\geq 2$ which contradicts  the 
- initial assumption that the model $\genericmodel$ is purely logical\commentary{TBD} and so completes the proof.
+which is equivalent to a simple path of $\genericmodel$ of length $\geq 2$.
+Therefore since $m$ is logical,  $y_1$ is identifying as required to establishing TNF
+or if we have assumed no such $y_1$ the assumption is contradicted and we establish BCNF.
+This completes the proof.
 \end{proof}
 
 \section{Discussion}
