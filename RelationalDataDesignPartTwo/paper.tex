@@ -596,12 +596,53 @@ of $a$ is any path $p:a \morph v$ consisting entirely of identifying edges.
 \end{definition}
 
 \begin{lemma}
-\label{identifyingsetcompositionlemma}
-\commentary{If identifying sets are composed then the composed set is jointly monomorphic.}
-If $F$ is a mono-source with domain $a$ 
+\label{jointlyinjectivecomposition}
+If $A$ is a set, if $I$ is a jointly injective set of functions with domain $A$ and if $f \in I$, $f: A \morph B$ is a function,
+and is $J$ is a jointly injective set of functions with domain $B$ then the set of functions
+$(I \backslash f) \cup \set{f \circ j | j \in J}$ is jointly injective.
 \end{lemma}
 \begin{proof}
+
 \end{proof}
+
+\begin{lemma}
+\label{jointlyinjectivededuction}
+If $A$ is a set and if  $K$ is a jointly injective set of functions with domain $A$, if $I$ is
+some other set of functions with domain $A$ and having the property that for all $k \in K$,
+there exists $i \in  I$ and a function $j$ such that $i \circ j = k$ then $I$ is jointly injective.
+\end{lemma}
+\begin{proof}
+Suppose $x,y \in A$ and for all $i \in I$, $i(x)=i(y)$. For all $k \in K$ we have, for some $j$, that
+$k(x) = j(i(x)) = j(i(y)) = k(y)$; therefore because $K$ is jointly injective we have that $x=y$.
+Therefore $I$ is jointly injective. 
+\end{proof}
+
+
+
+
+
+\begin{lemma}
+\label{identifyingsetcompositionlemma}
+\commentary{If identifying sets are composed then the composed set is jointly monomorphic.}
+If $F$ is a mono-source with domain $a$,if $f \in F$, $f: a \morph b$, and if $G$ is a mono-source with domain $b$
+then $(F \backslash \set{f}) \cup \set{f \circ g |  g \in G}$ is a mono-source with domain $a$.
+\end{lemma}
+\begin{proof}
+We need show that the family of functions $E_{e ) e \in H}$ is jointly injective for any instance $E$ of \genericmodel\
+where $H$ is the set of paths $(F \backslash \set{f}) \cup \set{f \circ g |  g \in G}$.
+
+For this use  lemma \ref{jointlyinjectivecomposition}.
+\end{proof}
+
+
+\begin{lemma}
+In a model \genericmodel\ if $a$ is an entity type and if $(I_a \simeq J_0 \cup \set{f})\textvisiblespace_f G$,
+for some $f: a \morph b$ and some $G \in \bar{I}_b$ then 
+$I_a$ is a mono-source iff $J \cup \set{f}$ is a mono-source.
+\end{lemma}
+\begin{proof}
+\end{proof} 
+
 
 \begin{lemma}
 \label{primarykeypathsjointlymonomorphic}
@@ -627,17 +668,7 @@ If $Q$ is an identifying set of paths in a model \genericmodel\ then it is joint
 Use lemma \ref{primarykeypathsjointlymonomorphic} and lemma \ref{jointlyinjectivededuction} as follows. 
 \end{proof}
 
-\begin{lemma}
-\label{jointlyinjectivededuction}
-If $A$ is a set and if  $H$ is a jointly injective set of functions with domain $A$ and if $F$ is
-some other set of functions with domain $A$ and having the property that for all $h \in H$,
-there exists $f \in  F$ and a function $g$ such that $f \circ g = h$ then $F$ is jointly injective.
-\end{lemma}
-\begin{proof}
-Suppose $x,y \in A$ and for all $f \in F$, $f(x)=f(y)$. For all $h \in H$ we have, for some $f$, that
-$h(x) = g(f(x)) = g(f(y)) = h(y)$; therefore because $H$ is jointly injective we have that $x=y$.
-Therefore $F$ is jointly injective. 
-\end{proof}
+
 
 
 \begin{lemma} 
