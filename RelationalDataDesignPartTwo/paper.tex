@@ -41,8 +41,9 @@
 \newcommand{\rang}{\begin{picture}(5,7)\put(.1,2.5){\rotatebox{135}{\line(1,0){6.0}}}\put(.1,2.5){\rotatebox{225}{\line(1,0){6.0}}}\end{picture}}
 %Try sharper tuple brackets -- except gives errors nested in captions so comment out
 %\renewcommand{\tuple}[1]{\lang #1 \rang}
-\newcommand{\set}[1]{\left\{#1\right\}}
+
 \newcommand{\setsuchthat}[2]{\left\{#1 \ \middle|\ #2\right\}}
+\newcommand{\set}[1]{\left\{#1\right\}} 
 
 \newcommand{\genericmodel}{\mathcal{M}}
 \renewcommand{\genericmodel}{{m}}
@@ -390,7 +391,8 @@ An \term{ER-schema} $\genericmodel$ is a directed graph having the following add
 \begin{enumerate} [(i)]
 \item{a distinguished node $\veee$ for which there are no outgoing edges and which represents the type of all scalar values, }
 
-\item{a distinguished subset of edges representing identifying edges.
+\item{a distinguished acyclic subset $I$ of edges, called the identifying edges, such that
+for every node $a$ other than $\veee$ there is a non-empty set $I_a$ of identifying edges with domain $a$. 
 }
 \end{enumerate}
 
@@ -448,10 +450,9 @@ a set of entities $E_x$ for each node $x$ of the graph of the schema and
 a partial function $E_r : E_x \rightarrow E_y$ for each edge of the graph $r:x \rightarrow y$ 
 such that $E_\veee=\Veee$
 and such that 
-for each entity type $x$ if $\set{i_1,...i_n}$ is the subset of all the outgoing and identifying edges
-of $x$ then
-the functions $E_\tuple{x_1,...x_n}$, is injective
-and total.
+for each entity type $x$ if $I_x$ is the subset of all the outgoing and identifying edges
+of $x$ then for each $e \in I_x$ the function $E_e$ is total and
+the set of functions $\setsuchthat{E_e}{e \in I_x}$, is jointly injective.
 \end{definition}
 
 \begin{definition}
@@ -597,100 +598,83 @@ of $a$ is any path $p:a \morph v$ consisting entirely of identifying edges.
 
 \begin{lemma}
 \label{jointlyinjectivecomposition}
-If $A$ is a set, if $I$ is a jointly injective set of functions with domain $A$ and if $f \in I$, $f: A \morph B$ is a function,
-and is $J$ is a jointly injective set of functions with domain $B$ then the set of functions
-$(I \backslash f) \cup \set{f \circ j | j \in J}$ is jointly injective.
+If $A$ is a set and $I$  a jointly injective set of functions with domain $A$, if $F \in I$, $F: A \morph B$ is a function,
+and if $J$ is a jointly injective set of functions with domain $B$ then the set of functions
+$(I \backslash \set{F}) \cup \setsuchthat{F \circ G}{G \in J}$ is jointly injective.
 \end{lemma}
 \begin{proof}
 
-\end{proof}
-
-\begin{lemma}
-\label{jointlyinjectivededuction}
-If $A$ is a set and if  $K$ is a jointly injective set of functions with domain $A$, if $I$ is
-some other set of functions with domain $A$ and having the property that for all $k \in K$,
-there exists $i \in  I$ and a function $j$ such that $i \circ j = k$ then $I$ is jointly injective.
-\end{lemma}
-\begin{proof}
-Suppose $x,y \in A$ and for all $i \in I$, $i(x)=i(y)$. For all $k \in K$ we have, for some $j$, that
-$k(x) = j(i(x)) = j(i(y)) = k(y)$; therefore because $K$ is jointly injective we have that $x=y$.
-Therefore $I$ is jointly injective. 
-\end{proof}
-
-
-
-
-
-\begin{lemma}
-\label{identifyingsetcompositionlemma}
-\commentary{If identifying sets are composed then the composed set is jointly monomorphic.}
-If $F$ is a mono-source with domain $a$,if $f \in F$, $f: a \morph b$, and if $G$ is a mono-source with domain $b$
-then $(F \backslash \set{f}) \cup \set{f \circ g |  g \in G}$ is a mono-source with domain $a$.
-\end{lemma}
-\begin{proof}
-We need show that the family of functions $E_{e ) e \in H}$ is jointly injective for any instance $E$ of \genericmodel\
-where $H$ is the set of paths $(F \backslash \set{f}) \cup \set{f \circ g |  g \in G}$.
-
-For this use  lemma \ref{jointlyinjectivecomposition}.
 \end{proof}
 
 
 \begin{lemma}
-In a model \genericmodel\ if $a$ is an entity type and if $(I_a \simeq J_0 \cup \set{f})\textvisiblespace_f G$,
-for some $f: a \morph b$ and some $G \in \bar{I}_b$ then 
-$I_a$ is a mono-source iff $J \cup \set{f}$ is a mono-source.
+\label{jointlyinjectivefactorisation}
+If $A$ is a set and $I$  a set of functions with domain $A$, if $F \in I$, $F: A \morph B$ is a function,
+and if $J$ is a jointly injective set of functions with domain $B$ then if the set of functions
+$(I \backslash \set{F}) \cup \setsuchthat{F \circ G}{G \in J}$ is jointly injective then the
+set $I$ is jointly injective.
 \end{lemma}
 \begin{proof}
-\end{proof} 
+Suppose $x_1,x_2 \in A$ and that for all $f \in I$, $f(x_1)=f(x_2)$. We need show that $x_1=x_2$.
+Because $(I \backslash \set{F}) \cup \setsuchthat{F \circ G}{G \in J}$ is jointly injective
+it suffices to show that 
+\begin{enumerate}[(i)]
+\item
+for all $f \in I \backslash \set{F}$, $f(x_1)=f(x_2)$, 
+\item that for all $f \in \setsuchthat{F \circ G}{G \in J}$, $f(x_1)=f(x_2)$
+\end{enumerate}
+(i) follows directly from the initial assumption. 
+(ii) follows because for such an $f$, 
+\begin{align*}
+f(x_1)&=G(F(x_1) & & \\
+      &=G(F(x_2) & & \mbox{from the initial assumption since }F \in I \\
+			&=f(x_2). & &
+\end{align*}
+\end{proof}
 
 
 \begin{lemma}
-\label{primarykeypathsjointlymonomorphic}
-If If $a$ is an entity type in an entity model \genericmodel\ then the set of all primary key paths 
-of $a$ is jointly monomorphic.
+\label{identifyingsetdeduction}
+
+In a model \genericmodel, if $i$ is a source with domain $a$,
+if $f \in i$, $f: a \morph b$, 
+and if $j$ is a mono-source with domain $b$
+then 
+$i$ is a mono-source iff $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source.
 \end{lemma}
 \begin{proof}
-Because all sets of identifying edges are jointly monomorphic and because jointly injective sets
-yield jointly injective sets when composed by lemma \ref{identifyingsetcompositionlemma}. \commentary{Do a better job of this proof.}
+First note that from the definition of database instance it follows that 
+\begin{equation}
+\label{eequivalentsets}
+\setsuchthat{E_e}{e \in (i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}}
+= \setsuchthat{E_e}{e \in i} \backslash \set{E_f} \cup \setsuchthat{E_f \circ E_g}{g \in j}
+\end{equation}
+
+We can show that if $i$ is a mono-source 
+then $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source
+by showing that for any instance $E$ of \genericmodel\ the family of functions 
+$\setsuchthat{E_e}{e \in (i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}}$
+is jointly injective. Because of (\ref{eequivalentsets}) this follows by applying lemma \ref{jointlyinjectivecomposition} with $I$ being $\setsuchthat{E_e}{e \in i}$,
+$F$ being $E_f$,  and $G$ being $\setsuchthat{E_g}{g \in j}$.
+
+\textit{Vice-versa}, we can show that if $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source then $i$ is a mono-source by applying lemma \ref{jointlyinjectivefactorisation} 
+with, as above, $I$ being $\setsuchthat{E_e}{e \in i}$,
+$F$ being $E_f$,  and $G$ being $\setsuchthat{E_g}{g \in j}$.
 \end{proof}
 
-\begin{definition}
-If $a$ is an entity type in an entity model \genericmodel\ then a set $Q$ of paths 
-leaving $a$ is said to be \term{an identifying set of paths} with respect 
-to an entity type $a$ iff for every primary key path $p:a \morph v$, there exists 
-a path $q \in Q$ and a path $q'$ in \genericmodel\ such that $q \circ q' \simeq p$.
-\end{definition}
 
-\begin{lemma}
-If $Q$ is an identifying set of paths in a model \genericmodel\ then it is jointly monomorphic.
-\end{lemma}
-\begin{proof}
-Use lemma \ref{primarykeypathsjointlymonomorphic} and lemma \ref{jointlyinjectivededuction} as follows. 
-\end{proof}
-
-
-
-
-\begin{lemma} 
-\label{primarypathrepresentativesidentifying}
-In a model \genericmodel\ if $Q$ a set of primary key paths from entity type $a$ 
-and if every primary key path from $a$ is equivalent to a path in $Q$ then
-$Q$ is an identifying set of paths. 
-\end{lemma}
-\begin{proof}
-\end{proof}
 
 \subsubsection{Extended 11 July 2019}
-Notation
 
-$I$ is a set of sets of outgoing identifying edges.
+\begin{definition}
+$\bar{I}$ is the closure of $I$ under composition.\commentary{Need expand on this.}
+\end{definition}
 
-$\bar{I}$ is the closure of $I$ under composition.
-
+\begin{definition}
 $\bar{I}_v$ is the subset of $\bar{I}$ comprising all sets of identifying edges all of whose
-edges have destination $\veee$.
+edges have destination $\veee$. \commentary{Need do better than this}.
+\end{definition}
 
-For a model to be well-formalated then each $S \in \bar{I}$ must be minimal.
 
 \begin{definition}
 A set $I$ of sets of sets of identifying edges is \term{fully-factored} iff 
@@ -702,25 +686,55 @@ $$H \simeq H_0 \cup \set{f}  \textvisiblespace_f G$$
 Equivalently:
 
 \begin{definition}
-A set $I$ of sets of sets of identifying edges is \term{fully-factored} iff 
-there does not exists $H \in I$ such that for some subset $\set{h_1,...h_n} \subset H$
+The set $I$ of sets of sets of identifying edges of a model \genericmodel\  is \term{fully-factored} iff 
+there does not exist an entity type $a$ $H \in I$ such that for some subset $\set{h_1,...h_n} \subset I_a$
 there is an edge $f:a \morph b$ and a set of sourced at $b$, $\set{g_1,...g_n} \in \bar{I}$
 such that for each $i$, $1 \leq i \leq n$, $f \circ g_i \simeq h_i$.
 \end{definition}
 
 Show that these two  definitions are equivalent. \\
 
+
+
+
+
 Show that if $I' = (I \backslash H) \cup \set{H_0 \cup \set{f}}$ then $\bar{I'} \supset \bar{I}$.\\
 
-Show that if $\bar{I'} \supset \bar{I}$ then $\bar{I'}_v=\bar{I}_v$.\\
+Show that if $\bar{I'} \supset \bar{I}$ then $\bar{I'}_v=\bar{I}_v$\commentary{Not true}.\\
 
 This implies $\tuple{G,I}$ and $\tuple{G,I'}$ are equivalent i.e. have exactly the same models.\\
 
 Finally show that $\tuple{G,I'}$  can be pruned to $\tuple{G',I'}$ by removal of edges $\set{h_1,...h_n}$.\\
 
-This establishes that every model $\tuple{G,I}$ has an equivalent logical model.\\
+This establishes that every model $\tuple{G,I}$ has an equivalent fully factored model.
+ \commentary{Not so!}.
+\\
 
-
+\subsubsection*{Extended 17 July 2019}
+\begin{definition}
+Define the core graph $C(\genericmodel)$ of a model \genericmodel\ to be the graph whose edges are 
+those edges $e$
+of (the underlying graph) of \genericmodel\ such that there does not exist a path $p$ of length
+greater than 1 such that $p \simeq e$. 
+\end{definition}
+\begin{definition}
+Define two models \genericmodel\ and $\genericmodel'$ to be equivalent iff (i) $C(\genericmodel)=C(\genericmodel')$ and (ii) preinstances of $schema(\genericmodel)$, 
+equivalently of $schema(\genericmodel')$, \commentary{Sharpen this.}
+is an database instance of $schema(\genericmodel)$ iff it is a database instance of
+$schema(\genericmodel')$ and (iii) the set of instances when restricted to the core are identical sets.
+\end{definition}
+\begin{lemma}
+If \genericmodel\ is an ER model then there is an equivalent model which is fully-factored.
+\end{lemma}
+\begin{proof}
+Use lemma \ref{identifyingsetdeduction}.
+\end{proof}
+\begin{lemma}
+If \genericmodel\ is an ER model then there is an equivalent model which is primarily keyed.
+\end{lemma}
+\begin{proof}
+Again, use lemma \ref{identifyingsetdeduction}.
+\end{proof}
 
 \noindent
 Consider that the various database normal forms (3NF, BCNF, 4NF, 5NF and the like) each 
@@ -1027,7 +1041,10 @@ $
  iff 
 \begin{enumerate} [(i)]
 \item{
-for each entity type $a$, there is no proper subset $I$ of any set of identifying paths leaving $a$ that  is jointly monomorphic,
+\commentary{Was: for each entity type $a$, there is no proper subset $J$ of any set of identifying paths leaving $a$ that  is a mono-source i.e. for all $K \in \bar{I}$ there does not exist $J \subset K$ such that 
+$K$ is a mono-source}
+for all $K \in \bar{I}$, for all $e \in K$, if $K \backslash \set{e}$ is a mono-source then
+there exists $k \in K$ such that $k \simeq e$,
 }
 \item{ 
 all referential inclusion dependencies\footnote{Equivalently, by lemma
@@ -1799,5 +1816,61 @@ instance $E$, the function $E_k$ factors through $E_{p_i}$.
 We say that a relationship is \textit{identifying} if it is part of an identifying set. 
 
 Note that with these definitions it follows that the set of all identifying relationships exiting an entity type $x$ is an identifying set.
+
+\subsection*{Unused as at 17 July 2019}
+
+\begin{lemma}
+In a model \genericmodel\ if $a$ is an entity type and if $(I_a \simeq J_0 \cup \set{f})\textvisiblespace_f G$,
+for some $f: a \morph b$ and some $G \in \bar{I}_b$ then 
+$I_a$ is a mono-source iff $J \cup \set{f}$ is a mono-source.
+\end{lemma}
+\begin{proof}
+\end{proof} 
+
+
+\begin{lemma}
+\label{primarykeypathsjointlymonomorphic}
+If If $a$ is an entity type in an entity model \genericmodel\ then the set of all primary key paths 
+of $a$ is jointly monomorphic.
+\end{lemma}
+\begin{proof}
+Because all sets of identifying edges are jointly monomorphic and because jointly injective sets
+yield jointly injective sets when composed by lemma \ref{identifyingsetcomposition}. \commentary{Do a better job of this proof.}
+\end{proof}
+
+\begin{definition}
+If $a$ is an entity type in an entity model \genericmodel\ then a set $Q$ of paths 
+leaving $a$ is said to be \term{an identifying set of paths} with respect 
+to an entity type $a$ iff for every primary key path $p:a \morph v$, there exists 
+a path $q \in Q$ and a path $q'$ in \genericmodel\ such that $q \circ q' \simeq p$.
+\end{definition}
+
+\begin{lemma}
+If $Q$ is an identifying set of paths in a model \genericmodel\ then it is jointly monomorphic.
+\end{lemma}
+\begin{proof}
+Use lemma \ref{primarykeypathsjointlymonomorphic} and lemma \ref{jointlyinjectivededuction} as follows. 
+\end{proof}
+
+\begin{lemma} 
+\label{primarypathrepresentativesidentifying}
+In a model \genericmodel\ if $Q$ a set of primary key paths from entity type $a$ 
+and if every primary key path from $a$ is equivalent to a path in $Q$ then
+$Q$ is an identifying set of paths. 
+\end{lemma}
+\begin{proof}
+\end{proof}
+
+\begin{lemma}
+\label{jointlyinjectivededuction}
+If $A$ is a set and if  $K$ is a jointly injective set of functions with domain $A$, if $I$ is
+some other set of functions with domain $A$ and having the property that for all $k \in K$,
+there exists $i \in  I$ and a function $j$ such that $i \circ j = k$ then $I$ is jointly injective.
+\end{lemma}
+\begin{proof}
+Suppose $x,y \in A$ and for all $i \in I$, $i(x)=i(y)$. For all $k \in K$ we have, for some $j$, that
+$k(x) = j(i(x)) = j(i(y)) = k(y)$; therefore because $K$ is jointly injective we have that $x=y$.
+Therefore $I$ is jointly injective. 
+\end{proof}
 
 \end{document}
