@@ -662,7 +662,25 @@ with, as above, $I$ being $\setsuchthat{E_e}{e \in i}$,
 $F$ being $E_f$,  and $G$ being $\setsuchthat{E_g}{g \in j}$.
 \end{proof}
 
+\begin{lemma}
+\label{identifyingfactorminimal}
 
+In a model \genericmodel, if $i$ is a source with domain $a$,
+if $f \in i$, $f: a \morph b$, 
+and if $j$ is a mono-source with domain $b$
+then  if $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a minimum mono-source
+then $i$ is a minimum mono-source.
+\end{lemma}
+\begin{proof}
+We assume that $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source and that no subset of it is a mono-source.
+By lemma \ref{identifyingsetdeduction} it follows that $i$ is a mono-source we need to show that
+for no edge $e \in i$ is $i \ \set{e}$ a mono source. Assume to the contrary that there is such an $e$ then  either $e = f$ or else
+$e \in i \backslash \set{f}$. In the first case $(i \backslash f)$ is a subset of  $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ which is a mono-source which contradicts the initial assumption. In the second  case 
+by lemma \ref{identifyingsetdeduction} since $i \backslash \set{e}$ is a mono-source it follows that
+$((i \backslash \set{e})\backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source which again is to say that a subset
+of $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source contradicting the initial assumption.
+We conclude that no subset of $i$ is a mono-source.
+\end{proof}
 
 \subsubsection{Extended 11 July 2019}
 
@@ -692,23 +710,24 @@ there is an edge $f:a \morph b$ and a set of sourced at $b$, $\set{g_1,...g_n} \
 such that for each $i$, $1 \leq i \leq n$, $f \circ g_i \simeq h_i$.
 \end{definition}
 
-Show that these two  definitions are equivalent. \\
+Show that these two  definitions are equivalent.\commentary{Add a third form using composition notation used in lemmas.}
 
+Show that if $I' = (I \backslash H) \cup \set{H_0 \cup \set{f}}$ then $\bar{I'} = \bar{I} \cup \set{H_0 \cup \set{f}}$.
+\commentary{By lemma 
+\ref{identifyingfactorminimal} 
+$H_0 \cup \set{f}$ is minimal which helps get that if model well-formed then its factored
+model is well formed.}\\
 
+Hence that $\bar{I'}_v=\bar{I}_v$.\\
 
-
-
-Show that if $I' = (I \backslash H) \cup \set{H_0 \cup \set{f}}$ then $\bar{I'} \supset \bar{I}$.\\
-
-Show that if $\bar{I'} \supset \bar{I}$ then $\bar{I'}_v=\bar{I}_v$\commentary{Not true}.\\
-
-This implies $\tuple{G,I}$ and $\tuple{G,I'}$ are equivalent i.e. have exactly the same models.\\
+This suggests $\tuple{G,I}$ and $\tuple{G,I'}$ are equivalent i.e. have exactly the same models\commentary{Does it?}.\\
 
 Finally show that $\tuple{G,I'}$  can be pruned to $\tuple{G',I'}$ by removal of edges $\set{h_1,...h_n}$.\\
 
 This establishes that every model $\tuple{G,I}$ has an equivalent fully factored model.
+In fact a model has one or more fully-factored 'equivalents' not just one.
  \commentary{Not so!}.
-\\
+
 
 \subsubsection*{Extended 17 July 2019}
 \begin{definition}
