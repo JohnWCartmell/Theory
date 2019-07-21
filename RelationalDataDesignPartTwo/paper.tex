@@ -577,25 +577,7 @@ R0 & advised by & Represents the optional relationship between a student and a p
 \label{studentadvisorgraph}
 \end{figure}
 
-
-\subsection{Identifying Sets}
-
-The following definition takes the place of that of super key in the relational model:
-\begin{definition}
-A set of paths $p_i: a \rightarrow a_i$ within a model $\genericmodel$ is said to be a \term{mono-source} iff in all instances E, the  function $E_{\pntuple}$  is  injective and total.
-\end{definition}
-
-From the definition of ER model it follows that the set of outgoing edges of an entity type 
-$a$ in a model \genericmodel\ is a mono-source. 
-By piecing together mono-sources further mono-sources can be constructed 
-as we now show. First we need these definitions:
-
-
-\begin{definition}
-If $a$ is an entity type in an entity model \genericmodel\ then a \term{primary key path}
-of $a$ is any path $p:a \morph v$ consisting entirely of identifying edges. 
-\end{definition}
-
+\subsection{Jointly Injective Sets of Functions}
 \begin{lemma}
 \label{jointlyinjectivecomposition}
 If $A$ is a set and $I$  a jointly injective set of functions with domain $A$, if $F \in I$, $F: A \morph B$ is a function,
@@ -633,6 +615,23 @@ f(x_1)&=G(F(x_1) & & \\
 \end{proof}
 
 
+\subsection{Identifying Sets}
+
+The following definition takes the place of that of super key in the relational model:
+\begin{definition}
+A set of paths $P$  within a model $\genericmodel$ is said to be a \term{mono-source} at entity type $a$
+iff each path $p \in P$ has domain $a$ and such that in all instances E, 
+(i) the function $E_p$ is total, for each $p \in P$, and (ii) the set of functions
+$\setsuchthat{E_p}{p\in P}$ is a jointly injective.
+\end{definition}
+
+From the definition of ER model it follows that the set of outgoing edges of an entity type 
+$a$ in a model \genericmodel\ is a mono-source. 
+By piecing together mono-sources further mono-sources can be constructed 
+as we now show. First we need these definitions:
+
+\subsection{Composition}
+
 \begin{lemma}
 \label{identifyingsetdeduction}
 
@@ -662,63 +661,66 @@ with, as above, $I$ being $\setsuchthat{E_e}{e \in i}$,
 $F$ being $E_f$,  and $G$ being $\setsuchthat{E_g}{g \in j}$.
 \end{proof}
 
-\begin{lemma}
-\label{identifyingfactorminimal}
-
-In a model \genericmodel, if $i$ is a source with domain $a$,
-if $f \in i$, $f: a \morph b$, 
-and if $j$ is a mono-source with domain $b$
-then  if $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a minimum mono-source
-then $i$ is a minimum mono-source.
-\end{lemma}
-\begin{proof}
-We assume that $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source and that no subset of it is a mono-source.
-By lemma \ref{identifyingsetdeduction} it follows that $i$ is a mono-source we need to show that
-for no edge $e \in i$ is $i \ \set{e}$ a mono source. Assume to the contrary that there is such an $e$ then  either $e = f$ or else
-$e \in i \backslash \set{f}$. In the first case $(i \backslash f)$ is a subset of  $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ which is a mono-source which contradicts the initial assumption. In the second  case 
-by lemma \ref{identifyingsetdeduction} since $i \backslash \set{e}$ is a mono-source it follows that
-$((i \backslash \set{e})\backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source which again is to say that a subset
-of $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source contradicting the initial assumption.
-We conclude that no subset of $i$ is a mono-source.
-\end{proof}
-
-\subsubsection{Extended 11 July 2019}
-
 \begin{definition}
 $\bar{I}$ is the closure of $I$ under composition.\commentary{Need expand on this.}
 \end{definition}
 
-\begin{definition}
-$\bar{I}_v$ is the subset of $\bar{I}$ comprising all sets of identifying edges all of whose
-edges have destination $\veee$. \commentary{Need do better than this}.
-\end{definition}
-
+\subsubsection{Fully Factored}
 
 \begin{definition}
-A set $I$ of sets of sets of identifying edges is \term{fully-factored} iff 
-there does not exists $H \in I$ and a partition $H=H_0 \cup H_1$, $H_1$ non-empty, $H_0$ maybe empty,
-and an edge $f: a \morph b$ and a set of paths $G \in \bar{I}$ sourced at $a$ such that
-$$H \simeq H_0 \cup \set{f}  \textvisiblespace_f G$$
+In an entity model \genericmodel\ if $a$ is an entity type then say that
+the set $I_a$ can be \term{factored} iff for some subset $\set{h_1,...h_n} \subset I_a$
+there is an path $f:a \morph b$ and a set of paths sourced at $b$, $\set{g_1,...g_n} \in \bar{I}$
+such that for each $i$, $1 \leq i \leq n$, $f \circ g_i \simeq h_i$. 
 \end{definition}
-
-Equivalently:
+Note that if a model \genericmodel\
+factorises at $a$ then the factorisation consists  
+of a base set of edges: $h=I \backslash {h_1,...h_n}$, a mediating path $f:a \morph b$ and a remainder 
+set $j$ paths sourced at $b$, $j \in \bar{I}$, such that $I_a \simeq h \cup {f\circ g}{g \in j}$.
 
 \begin{definition}
-The set $I$ of sets of sets of identifying edges of a model \genericmodel\  is \term{fully-factored} iff 
-there does not exist an entity type $a$ $H \in I$ such that for some subset $\set{h_1,...h_n} \subset I_a$
-there is an edge $f:a \morph b$ and a set of sourced at $b$, $\set{g_1,...g_n} \in \bar{I}$
-such that for each $i$, $1 \leq i \leq n$, $f \circ g_i \simeq h_i$.
+If \genericmodel\ is a model and if there is a factorisation at entity type $a$ with
+base set $h$, mediating path $f: a \morph b$ and remainder $j \in \bar{I}$ then define
+a factored model $genericmodel'$ determined by the factorisation to be the model
+whose underlying graph is the graph of \genericmodel\ with edges $h_1,...h_n$ removed 
+(database instances restricted) and
+an edge $k$ added, $k:a \morph b$, each database instance $E$ extended $E_k = E_f$.
+Identifying sets of $genericmodel'$ are exactly as for \genericmodel\ except for at the entity
+type $a$ where the identifying set $I_a$ in $\genericmodel'$ is defined to be $h \cup \set{k}$.
 \end{definition}
 
-Show that these two  definitions are equivalent.\commentary{Add a third form using composition notation used in lemmas.}
+\begin{definition}
+Define  the abstraction level of a model $genericmodel$ to be
+sum sum distance v.
+\end{definition}
 
-Show that if $I' = (I \backslash H) \cup \set{H_0 \cup \set{f}}$ then $\bar{I'} = \bar{I} \cup \set{H_0 \cup \set{f}}$.
-\commentary{By lemma 
+\begin{lemma}
+If $\genericmodel'$ is a factorisation of model $\genericmodel$ then abstraction level 
+of $\genericmodel'$ is greater than abstraction level of $\genericmodel$ and the number of edges
+is not increased. 
+\end{lemma}
+\begin{proof}
+\end{proof}
+
+
+
+  
+
+
+
+\begin{definition}
+Define an entity model \genericmodel\ to be fully-factored iff no entity type $a$ can be factored.
+\end{definition}
+
+\begin{definition}
+If \genericmodel\ can be factored  
+\end{definition}
+
+Show that if $I' = (I \backslash H) \cup \set{H_0 \cup \set{f}}$ then $\bar{I'} = \bar{I} \cup \set{H_0 \cup \set{f}}$. \commentary{Wrong! But idea was that by lemma 
 \ref{identifyingfactorminimal} 
 $H_0 \cup \set{f}$ is minimal which helps get that if model well-formed then its factored
 model is well formed.}\\
 
-Hence that $\bar{I'}_v=\bar{I}_v$.\\
 
 This suggests $\tuple{G,I}$ and $\tuple{G,I'}$ are equivalent i.e. have exactly the same models\commentary{Does it?}.\\
 
@@ -754,6 +756,41 @@ If \genericmodel\ is an ER model then there is an equivalent model which is prim
 \begin{proof}
 Again, use lemma \ref{identifyingsetdeduction}.
 \end{proof}
+
+\subsubsection{Primarily keyed}
+
+\begin{definition}
+$\bar{I}_v$ is the subset of $\bar{I}$ comprising all sets of identifying edges all of whose
+edges have destination $\veee$. \commentary{Need better notation and better explanation.}.
+\end{definition}
+
+\begin{definition}
+If $a$ is an entity type in an entity model \genericmodel\ then a \term{primary key path}
+\commentary{Need show equivalence of this and alternate definitions.}
+of $a$ is any path $p:a \morph v$ consisting entirely of identifying edges. 
+\end{definition}
+
+\subsubsection{Minimality}
+\begin{lemma}
+\label{identifyingfactorminimal}
+In a model \genericmodel, if $i$ is a source with domain $a$,
+if $f \in i$, $f: a \morph b$, 
+and if $j$ is a mono-source with domain $b$
+then  if $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a minimum mono-source
+then $i$ is a minimum mono-source.
+\end{lemma}
+\begin{proof}
+We assume that $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source and that no subset of it is a mono-source.
+By lemma \ref{identifyingsetdeduction} it follows that $i$ is a mono-source we need to show that
+for no edge $e \in i$ is $i \ \set{e}$ a mono source. Assume to the contrary that there is such an $e$ then  either $e = f$ or else
+$e \in i \backslash \set{f}$. In the first case $(i \backslash f)$ is a subset of  $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ which is a mono-source which contradicts the initial assumption. In the second  case 
+by lemma \ref{identifyingsetdeduction} since $i \backslash \set{e}$ is a mono-source it follows that
+$((i \backslash \set{e})\backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source which again is to say that a subset
+of $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source contradicting the initial assumption.
+We conclude that no subset of $i$ is a mono-source.
+\end{proof}
+
+\newpage
 
 \noindent
 Consider that the various database normal forms (3NF, BCNF, 4NF, 5NF and the like) each 
