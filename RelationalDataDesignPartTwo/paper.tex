@@ -673,10 +673,12 @@ the set $I_a$ can be \term{factored} iff for some subset $\set{h_1,...h_n} \subs
 there is an path $f:a \morph b$ and a set of paths sourced at $b$, $\set{g_1,...g_n} \in \bar{I}$
 such that for each $i$, $1 \leq i \leq n$, $f \circ g_i \simeq h_i$. 
 \end{definition}
+
 Note that if a model \genericmodel\
 factorises at $a$ then the factorisation consists  
 of a base set of edges: $h=I \backslash {h_1,...h_n}$, a mediating path $f:a \morph b$ and a remainder 
-set $j$ paths sourced at $b$, $j \in \bar{I}$, such that $I_a \simeq h \cup {f\circ g}{g \in j}$.
+set $j$ paths sourced at $b$, $j \in \bar{I}$, 
+such that $I_a \simeq h \cup \setsuchthat{f\circ g}{g \in j}$.
 
 \begin{definition}
 If \genericmodel\ is a model and if there is a factorisation at entity type $a$ with
@@ -684,14 +686,32 @@ base set $h$, mediating path $f: a \morph b$ and remainder $j \in \bar{I}$ then 
 a factored model $genericmodel'$ determined by the factorisation to be the model
 whose underlying graph is the graph of \genericmodel\ with edges $h_1,...h_n$ removed 
 (database instances restricted) and
-an edge $k$ added, $k:a \morph b$, each database instance $E$ extended $E_k = E_f$.
+an edge $k$ added, $k:a \morph b$, each database instance $E$ extends to $E'$, $E'_k = E_f$.
 Identifying sets of $genericmodel'$ are exactly as for \genericmodel\ except for at the entity
 type $a$ where the identifying set $I_a$ in $\genericmodel'$ is defined to be $h \cup \set{k}$.
+Note that by lemma \ref{identifyingsetdeduction} the modified $E'$ is a database instance because
+the family 
+$\setsuchthat{E'_e}{e \in \set{h \cup set{k}}}$ is jointly injective because 
+$\setsuchthat{E'_e}{e \in \set{h \cup set{k}}} =\setsuchthat{E_e}{e \in \set{h \cup set{f}}}$
+and in model \genericmodel, $h \cup set{f}$ is a mono-source because 
+$h \cup \set{f} \backslash f \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source and $j$ is a mono-source.
 \end{definition}
 
 \begin{definition}
+If $a$ is an entity type in an entity model \genericmodel\ then a \term{primary key path}
+\commentary{Need show equivalence of this and alternate definitions.}
+of $a$ is any path $p:a \morph v$ consisting entirely of identifying edges. 
+\end{definition}
+
+\begin{definition}
+If $a$ is an entity type in an entity model \genericmodel\ then define the abstraction
+level of $a$ to be the sum of the lengths of the primary key paths sourced at $a$.
+\end{definition}
+
+
+\begin{definition}
 Define  the abstraction level of a model $genericmodel$ to be
-sum sum distance v.
+the sum over all entity types $a$ of the abstraction level of $a$.
 \end{definition}
 
 \begin{lemma}
@@ -702,19 +722,30 @@ is not increased.
 \begin{proof}
 \end{proof}
 
-
-
-  
-
-
-
 \begin{definition}
 Define an entity model \genericmodel\ to be fully-factored iff no entity type $a$ can be factored.
 \end{definition}
 
 \begin{definition}
-If \genericmodel\ can be factored  
+If \genericmodel\ is a model then say that a $\genericmodel'$ is a fully-factored 
+equivalent to \genericmodel\
+if it results from successive factorisations of \genericmodel\ until the resulting model can no longer be
+factorised. 
 \end{definition}
+
+\begin{lemma}
+Every model \genericmodel\ has a fully factorised equivalent. 
+\end{lemma}
+\begin{proof}
+We need to show that the factorisation process will terminate. 
+to do this note that we can put a (crude) bound on the abstraction level of an entity model
+of number of entity types multiplied by the square of the  number of edges
+\commentary{Need revise this most likely}.  Because the number of nodes remains constant during
+factorisation and because the number of edges does not increase this bound can be calculated
+for the model \genericmodel\ and serves as an upper bound for the abstraction level of 
+any successive factorisation of \genericmodel\. Since factorisation increases abstraction level
+and there is an upper bound to abstraction level then the process cannot continue indefinitely. 
+\end{proof}
 
 Show that if $I' = (I \backslash H) \cup \set{H_0 \cup \set{f}}$ then $\bar{I'} = \bar{I} \cup \set{H_0 \cup \set{f}}$. \commentary{Wrong! But idea was that by lemma 
 \ref{identifyingfactorminimal} 
@@ -764,11 +795,6 @@ $\bar{I}_v$ is the subset of $\bar{I}$ comprising all sets of identifying edges 
 edges have destination $\veee$. \commentary{Need better notation and better explanation.}.
 \end{definition}
 
-\begin{definition}
-If $a$ is an entity type in an entity model \genericmodel\ then a \term{primary key path}
-\commentary{Need show equivalence of this and alternate definitions.}
-of $a$ is any path $p:a \morph v$ consisting entirely of identifying edges. 
-\end{definition}
 
 \subsubsection{Minimality}
 \begin{lemma}
@@ -1916,6 +1942,7 @@ and if every primary key path from $a$ is equivalent to a path in $Q$ then
 $Q$ is an identifying set of paths. 
 \end{lemma}
 \begin{proof}
+here
 \end{proof}
 
 \begin{lemma}
