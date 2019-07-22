@@ -617,7 +617,7 @@ f(x_1)&=G(F(x_1) & & \\
 
 \subsection{Identifying Sets}
 
-The following definition takes the place of that of super key in the relational model:
+The following definition generalises that of super key in the relational model:
 \begin{definition}
 A set of paths $P$  within a model $\genericmodel$ is said to be a \term{mono-source} at entity type $a$
 iff each path $p \in P$ has domain $a$ and such that in all instances E, 
@@ -627,18 +627,49 @@ $\setsuchthat{E_p}{p\in P}$ is a jointly injective.
 
 From the definition of ER model it follows that the set of outgoing edges of an entity type 
 $a$ in a model \genericmodel\ is a mono-source. 
-By piecing together mono-sources further mono-sources can be constructed 
-as we now show. First we need these definitions:
 
-\subsection{Composition}
+\subsubsection{Equivalent Models}
+
+First we need to define equivalence for sets of paths then we can define what we mean by 
+models being equivalent.
+\begin{definition}
+If \genericmodel\ is a model and if $P$ and $P'$ are sets of paths in \genericmodel\ then say that
+$P \simeq P'$ in \genericmodel\ iff
+\begin{enumerate}
+\item for all $p \in P$ there exists $p' \in P'$ such that $p \simeq p'$ in \genericmodel,
+\item for all $p' \in P'$ there exists $p \in P$ such that $p \simeq p'$ in \genericmodel,
+\end{enumerate} 
+\end{definition}
+
+\begin{definition}
+If \genericmodel\ is a model then say that a model $\genericmodel'$ is an extension of 
+$\genericmodel$ iff 
+\begin{enumerate}
+\item the underlying graph of $\genericmodel'$ is an extension the graph of \genericmodel\
+by edges alone, 
+\item for each defining instance $E$ of $\genericmodel$ there is a unique defining
+instance $E'$ of $\genericmodel'$ such that for edges $e$ in \genericmodel,
+$E'_e=E_e$ and all defining instances $E'$ of $\genericmodel'$ arise in this way,
+\item for all edges $e$ of $\genericmodel'$ that are not in \genericmodel\ there is a path 
+$p$ in \genericmodel\ such that for all the defining instances $E'$ of $\genericmodel'$,
+$E'_e=E'_p$, or, equivalently, $E'_e=E_p$,
+\item for each entity type $a$ if $P_a$ is the set of primary key paths of $a$ in \genericmodel\
+and $P'_a$ is the set of primary key paths in $\genericmodel'$ then $P \simeq P'$ in $\genericmodel'$. 
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+Say that two models are \term{equivalent} iff there is a third model that they are both extensions.
+\commentary{May need replace this by a symetric transitive closure.}
+\end{definition}
+
+\subsubsection{Composing mono-sources}
 
 \begin{lemma}
 \label{identifyingsetdeduction}
 
 In a model \genericmodel, if $i$ is a source with domain $a$,
-if $f \in i$, $f: a \morph b$, 
-and if $j$ is a mono-source with domain $b$
-then 
+if $f \in i$, $f: a \morph b$, and if $j$ is a mono-source with domain $b$ then 
 $i$ is a mono-source iff $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source.
 \end{lemma}
 \begin{proof}
@@ -665,7 +696,35 @@ $F$ being $E_f$,  and $G$ being $\setsuchthat{E_g}{g \in j}$.
 $\bar{I}$ is the closure of $I$ under composition.\commentary{Need expand on this.}
 \end{definition}
 
-\subsubsection{Fully Factored}
+\subsubsection{Primarily keyed models}
+
+\begin{definition}
+If $a$ is an entity type in an entity model \genericmodel\ then a \term{primary key path}
+\commentary{Need show equivalence of this and alternate definitions.}
+of $a$ is any path $p:a \morph v$ consisting entirely of identifying edges. 
+\end{definition}
+
+\begin{lemma}
+\label{primarykeylemma}
+If \genericmodel\ is an entity model then the set of all primary key paths leaving an entity type $a$ is a mono-source.
+\end{lemma}
+\begin{proof}
+Follows from lemma \ref{identifyingsetdeduction}.
+\end{proof}
+
+\begin{lemma}
+If \genericmodel\ is an ER model then it can be extended to a model $genericmodel'$
+which is primarily keyed.
+\end{lemma}
+\begin{proof}
+For each entity type $a$ we extend \genericmodel\ by edges $E_a$, where each edge 
+$E_a$ corresponds to a distinct primary key path $p$ from $a$ to $\veee$
+and in the extended model \genericmodel'\ by lemma \ref{primarykeylemma} 
+we can define the identifying set $I'_a$ at $a$ to be the set
+$E_a$. 
+\end{proof}
+
+\subsubsection{Factoring of models}
 
 \begin{definition}
 In an entity model \genericmodel\ if $a$ is an entity type then say that
@@ -687,21 +746,17 @@ a factored model $genericmodel'$ determined by the factorisation to be the model
 whose underlying graph is the graph of \genericmodel\ with edges $h_1,...h_n$ removed 
 (database instances restricted) and
 an edge $k$ added, $k:a \morph b$, each database instance $E$ extends to $E'$, $E'_k = E_f$.
-Identifying sets of $genericmodel'$ are exactly as for \genericmodel\ except for at the entity
+Identifying sets of $\genericmodel'$ are exactly as for \genericmodel\ except for at the entity
 type $a$ where the identifying set $I_a$ in $\genericmodel'$ is defined to be $h \cup \set{k}$.
 Note that by lemma \ref{identifyingsetdeduction} the modified $E'$ is a database instance because
 the family 
-$\setsuchthat{E'_e}{e \in \set{h \cup set{k}}}$ is jointly injective because 
-$\setsuchthat{E'_e}{e \in \set{h \cup set{k}}} =\setsuchthat{E_e}{e \in \set{h \cup set{f}}}$
-and in model \genericmodel, $h \cup set{f}$ is a mono-source because 
-$h \cup \set{f} \backslash f \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source and $j$ is a mono-source.
+$\setsuchthat{E'_e}{e \in \set{h \cup \set{k}}}$ is jointly injective because 
+$\setsuchthat{E'_e}{e \in \set{h \cup \set{k}}} =\setsuchthat{E_e}{e \in \set{h \cup \set{f}}}$
+and in model \genericmodel, $h \cup \set{f}$ is a mono-source because both
+$h \cup \set{f} \backslash f \cup \setsuchthat{f \circ g}{g \in j}$ and $j$ are  mono-sources.
 \end{definition}
 
-\begin{definition}
-If $a$ is an entity type in an entity model \genericmodel\ then a \term{primary key path}
-\commentary{Need show equivalence of this and alternate definitions.}
-of $a$ is any path $p:a \morph v$ consisting entirely of identifying edges. 
-\end{definition}
+
 
 \begin{definition}
 If $a$ is an entity type in an entity model \genericmodel\ then define the abstraction
@@ -747,56 +802,16 @@ any successive factorisation of \genericmodel\. Since factorisation increases ab
 and there is an upper bound to abstraction level then the process cannot continue indefinitely. 
 \end{proof}
 
-Show that if $I' = (I \backslash H) \cup \set{H_0 \cup \set{f}}$ then $\bar{I'} = \bar{I} \cup \set{H_0 \cup \set{f}}$. \commentary{Wrong! But idea was that by lemma 
-\ref{identifyingfactorminimal} 
-$H_0 \cup \set{f}$ is minimal which helps get that if model well-formed then its factored
-model is well formed.}\\
 
 
-This suggests $\tuple{G,I}$ and $\tuple{G,I'}$ are equivalent i.e. have exactly the same models\commentary{Does it?}.\\
-
-Finally show that $\tuple{G,I'}$  can be pruned to $\tuple{G',I'}$ by removal of edges $\set{h_1,...h_n}$.\\
-
-This establishes that every model $\tuple{G,I}$ has an equivalent fully factored model.
-In fact a model has one or more fully-factored 'equivalents' not just one.
- \commentary{Not so!}.
-
-
-\subsubsection*{Extended 17 July 2019}
-\begin{definition}
-Define the core graph $C(\genericmodel)$ of a model \genericmodel\ to be the graph whose edges are 
-those edges $e$
-of (the underlying graph) of \genericmodel\ such that there does not exist a path $p$ of length
-greater than 1 such that $p \simeq e$. 
-\end{definition}
-\begin{definition}
-Define two models \genericmodel\ and $\genericmodel'$ to be equivalent iff (i) $C(\genericmodel)=C(\genericmodel')$ and (ii) preinstances of $schema(\genericmodel)$, 
-equivalently of $schema(\genericmodel')$, \commentary{Sharpen this.}
-is an database instance of $schema(\genericmodel)$ iff it is a database instance of
-$schema(\genericmodel')$ and (iii) the set of instances when restricted to the core are identical sets.
-\end{definition}
-\begin{lemma}
-If \genericmodel\ is an ER model then there is an equivalent model which is fully-factored.
-\end{lemma}
-\begin{proof}
-Use lemma \ref{identifyingsetdeduction}.
-\end{proof}
-\begin{lemma}
-If \genericmodel\ is an ER model then there is an equivalent model which is primarily keyed.
-\end{lemma}
-\begin{proof}
-Again, use lemma \ref{identifyingsetdeduction}.
-\end{proof}
-
-\subsubsection{Primarily keyed}
+\subsubsection{Minimality Condition}
 
 \begin{definition}
-$\bar{I}_v$ is the subset of $\bar{I}$ comprising all sets of identifying edges all of whose
-edges have destination $\veee$. \commentary{Need better notation and better explanation.}.
+A model \genericmodel\ satisfies the minimality condition 
+iff for all entity type $a$, for all path mono-sources $j  \in \bar{I}$
+there are no proper subsets of $j$ which are monosources in \genericmodel. 
 \end{definition}
 
-
-\subsubsection{Minimality}
 \begin{lemma}
 \label{identifyingfactorminimal}
 In a model \genericmodel, if $i$ is a source with domain $a$,
