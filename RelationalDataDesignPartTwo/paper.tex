@@ -696,6 +696,13 @@ $F$ being $E_f$,  and $G$ being $\setsuchthat{E_g}{g \in j}$.
 $\bar{I}$ is the closure of $I$ under composition.\commentary{Need expand on this.}
 \end{definition}
 
+\begin{definition}
+A model \genericmodel\ satisfies the minimality condition 
+iff for all entity type $a$, for all path mono-sources $j  \in \bar{I}$
+if $j'$ is a proper subsets of $j$ which is a  monosource in \genericmodel then $j \simeq j'$. 
+\end{definition}
+
+
 \subsubsection{Primarily keyed models}
 
 \begin{definition}
@@ -713,8 +720,10 @@ Follows from lemma \ref{identifyingsetdeduction}.
 \end{proof}
 
 \begin{lemma}
-If \genericmodel\ is an ER model then it can be extended to a model $genericmodel'$
-which is primarily keyed.
+If \genericmodel\ is an ER model then it can be extended to a model $\genericmodel'$
+which is primarily keyed. If \genericmodel\ satisfies the minimality condition then the
+extended model $\genericmodel'$ satisfies the  condition that each $I_a$ has no proper subsets which
+are mono-sources. 
 \end{lemma}
 \begin{proof}
 For each entity type $a$ we extend \genericmodel\ by edges $E_a$, where each edge 
@@ -804,13 +813,8 @@ and there is an upper bound to abstraction level then the process cannot continu
 
 
 
-\subsubsection{Minimality Condition}
+\subsubsection{Minimality Condition of Factored Model}
 
-\begin{definition}
-A model \genericmodel\ satisfies the minimality condition 
-iff for all entity type $a$, for all path mono-sources $j  \in \bar{I}$
-there are no proper subsets of $j$ which are monosources in \genericmodel. 
-\end{definition}
 
 \begin{lemma}
 \label{identifyingfactorminimal}
@@ -829,6 +833,14 @@ by lemma \ref{identifyingsetdeduction} since $i \backslash \set{e}$ is a mono-so
 $((i \backslash \set{e})\backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source which again is to say that a subset
 of $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source contradicting the initial assumption.
 We conclude that no subset of $i$ is a mono-source.
+\end{proof}
+
+\begin{lemma}
+If a model \genericmodel\ satisfies the minimality condition then it has a fully factored
+equivalent $\genericmodel'$  and $\genericmodel'$ satisfies the minimality condition. 
+\end{lemma}
+\begin{proof}
+Uses lemma \ref{identifyingfactorminimal} but isn't trivial -- needs writing out in full.
 \end{proof}
 
 \newpage
