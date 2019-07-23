@@ -149,19 +149,19 @@ of which there are two kinds,  those, such as represent numbers, character strin
 In the presentation by Chen of the
  entity relationship model as a unified model of data the term relationship is used 
 to mean n-ary relationship, for some $n$. Subsequent authors retained use of the terms entity and relationship
-but moved away from the Chen notation and terminology and eliminated n-ary relationaships from the modelling
+but departed from the Chen notation and terminology and eliminated n-ary relationaships from the modelling
 in favour of binary relationships that are functional, inclusive of partial functional,  in character.
 In this style, what is modelled  for  types of entity $x$ and $y$, are  relationships $R: x \morph y$ such that for all instances $e_x$ of $x$
 there exists at most one $e_y$ of type $y$ such that $x R y$. It is reasonable to describe this   as the functional style of entity relationship modelling to distinguish it from the Chen style and
-and some authors have presented  systems of such types and relationships as the functional model of data and emphasised navigation through data as functional composition. What we are calling the functional style of ER modelling is exemplified by the
-book of Barker, and a limited version of a functional style ER model has been formalised in the language of category theory by Johnstone et al. 
+and some authors have presented  systems of such types and relationships as the functional model of data and emphasised navigation through data as functional composition. This functional style of ER modelling is exemplified by the
+book of Barker, and a limited version of such a functional style of ER model has been formalised in the language of category theory by Johnstone et al. 
 
 Types all of whose instances are universals  are said to be \textit{attribute types} in entity relational 
 modelling, though confusingly called \textit{attributes} by Johnstone et al. and earlier
 in Chen were called \textit{value sets}; they are said to be \textit{domains} in relational data modelling theory. 
 
 Types of particulars are said to be 
-types of entities or \textit{entity types} in modern entity relational modelling\footnote{In  his paper  introducing the entity-relationship model Chen explains that his model adopts the view that the real world consists of entities and relationships. He also introduces the  terms \textit{entity set} and \textit{relationship set} for the types of respective entity and relationship particulars. Later authors kept the terms entity and relationship, and the philosophy, but changed the way that they were used. In this paper we use the modern terminology.} or sometimes, confusingly, just \textit{entities}  and 
+types of entities or \textit{entity types} in modern entity relational modelling\footnote{In  his paper  introducing the entity-relationship model Chen explains that his model adopts the view that the real world consists of entities and relationships. He also introduces the  terms \textit{entity set} and \textit{relationship set} for the types of respective entity and relationship particulars. Later authors kept the terms entity and relationship, and the philosophy, but changed the way that they were used. In this paper we use the later terminology.} or sometimes, confusingly, just \textit{entities}  and 
 are modelled as \textit{relational tables} in relational data modelling. For the purposes of the theory presented in this paper there is no loss if we assume a single set $\Veee$ of universals.  We will represent data specifications as directed graphs with 
 some additional information; the nodes of the graph being types, and having a distinguished node $\veee$ representing the type of universals; from a mathematical point of view it is impossible to progress the theory too far without forming an opinion that a data specification is a presentation of a category with some additional structure or, meta-mathematically, that it is an axiomatisation of a theory of some kind. 
 
@@ -204,15 +204,7 @@ $$
 $$
 is injective).
 
-by this means every entity is defined to have a primary key and two entities are necessarily identical if they have the primary entity (so implementing the identity of indiscernibles). Each element of a primary key for entity type $x$ must be specified as a path through the directed graph from node $x$ to the node $\veee$ representing the type of universals.  In the Chen fragment (figure \ref{chenfragmentSANSbars}) the primary keys are specified as follows:
-$$
-\begin{array}{l l}
-p & \set{\tuple{pNo}} \\
-e & \set{\tuple{eNo}} \\
-w & \set{\tuple{R_1,pNo},\tuple{R_2,eNo}} \\
-dep & \set{\tuple{S_0,eNo},dN}
-\end{array}
-$$
+In this way, every entity is defined to have identifying features and two entities are necessarily identical if their identifying features are identical (so implementing the identity of indiscernibles). 
 
 For example, as described by Chen and as shown in text in the key on figure \ref{chenfragmentSANSbars}, each
 type of entity can be identified by a specified combination of relationships and attributes. For instance the entity type 
@@ -223,12 +215,11 @@ be identified uniquely by a combination of its relationship $S$ with a employee 
 who supports them, and their name, represented by the name attribute $dN$. 
 In this case entities of the type can uniquely identified 
 by a certain combination of its relationships and attributes.   In the Barker 
-style of entity relationship modelling primary keys come about indirectly via specification of these identifying relationships and attributes. In the example shown in figure \ref{chenfragment} indication of the primary keys of each of the four entity types $p$, $e$, $w$ and $dep$ has been given indirectly by marking certain attributes and relationships as \textit{identifying} by way of a bar across the corresponding arrowan adaption of the bar notation used in Barker's book (but in the Barker-Ellis notation is different rougghly speaking the arrow head is swapped for a crowsfoot at the other end of the line). If identifying relationships are used instead
+style of entity relationship modelling primary keys come about indirectly via specification of these identifying relationships and attributes. In the example shown in figure \ref{chenfragment} indication of the identifying features of each of the four entity types $p$, $e$, $w$ and $dep$ has been given indirectly by marking certain attributes and relationships as \textit{identifying} by way of a bar across the corresponding arrow -- an adaption of the bar notation used in Barker's book (but in the Barker-Ellis notation is different roughly speaking the arrow head is swapped for a crowsfoot at the other end of the line). If identifying relationships are used instead
 of primary keys then in the simplest cases the implied primary keys of an entity type $x$ are those paths from $x$ to
 $\veee$ that consist entirely of identifying attributes and relationships. 
 It is almost always the case that in this way the primary keys of an entity type can be determined solely from the identifying relationships
-and attributes. So it is that in the Barker book it is the identifying relationships and attributes
-which are specified in an entity model and the primary keys are derived from them. This is a good practical approach but as we see later it isn't applicable in 100\% of cases.
+and attributes. 
 
 \begin{figure} [h]  % chen fragment with bars
 \begin{center}
@@ -363,8 +354,8 @@ p & pick & Identified by relationship $S_0$ to the delivery  it is part of and r
 Both these examples show the importance of taking note of equivalent paths through the directed graph. It is the
 jumping off point for saying that there is more to an ER model than so far considered -- somehow account must be taken 
 of equivalent paths. There are two ways this might be done. A first possible approach ts to include in the idea of an ER model
-some notional idea of set of instances that we envisage for it. A second approach would be to add to the structure of a directed
-graph an equivalence relation of paths -- mathematicians will recognise this 
+some notional idea of set of instances that we envisage for it. A second approach is to extend the structure of a directed
+graph by adding an equivalence relation of paths -- mathematicians will recognise this 
 as specifying a sketch for a category; this second approach is followed by Johnstone et al. but we shall take the first 
 approach which gives us a little more freedom and also, I think, is a little less technical.
 
@@ -456,14 +447,15 @@ the set of functions $\setsuchthat{E_e}{e \in I_x}$, is jointly injective.
 \end{definition}
 
 \begin{definition}
-\noindent An \term{ER model} is an ER schema and a set of database instances of the schema. \\
+\noindent An \term{ER model} is an ER schema and a set of database instances of the schema called the
+\term{defining instances} of the model. \\
 \end{definition}
 
 
 
 \subsection{Path equivalence and subsumption}
 
-\noindent If $r$ and $s$ are paths both having source $a$ and destination $b$ then we will say $r \leq s$ iff in all instances E, for all 
+\noindent If $r$ and $s$ are paths both having source $a$ and destination $b$ then we will say $r \leq s$ iff in all defining instances E, for all 
 entities $e \in E_a$, if $E_r(e)$ is defined then $E_s(e)$ is defined and $E_r(e)=E_s(e)$. \\
 
 \noindent If $r$ and $s$ are paths both having source $a$ and destination $b$ then we will say $r \simeq s$ iff $r \leq s$ and $s \leq r$. \\
@@ -620,9 +612,9 @@ f(x_1)&=G(F(x_1) & & \\
 The following definition generalises that of super key in the relational model:
 \begin{definition}
 A set of paths $P$  within a model $\genericmodel$ is said to be a \term{mono-source} at entity type $a$
-iff each path $p \in P$ has domain $a$ and such that in all instances E, 
+iff each path $p \in P$ has domain $a$ and such that in all defining instances E, 
 (i) the function $E_p$ is total, for each $p \in P$, and (ii) the set of functions
-$\setsuchthat{E_p}{p\in P}$ is a jointly injective.
+$\setsuchthat{E_p}{p\in P}$ is jointly injective.
 \end{definition}
 
 From the definition of ER model it follows that the set of outgoing edges of an entity type 
@@ -654,7 +646,7 @@ $E'_e=E_e$ and all defining instances $E'$ of $\genericmodel'$ arise in this way
 $p$ in \genericmodel\ such that for all the defining instances $E'$ of $\genericmodel'$,
 $E'_e=E'_p$, or, equivalently, $E'_e=E_p$,
 \item for each entity type $a$ if $P_a$ is the set of primary key paths of $a$ in \genericmodel\
-and $P'_a$ is the set of primary key paths in $\genericmodel'$ then $P \simeq P'$ in $\genericmodel'$. 
+and $P'_a$ is the set of primary key paths in $\genericmodel'$ then $P_a \simeq P'_a$ in $\genericmodel'$. 
 \end{enumerate}
 \end{definition}
 
@@ -702,6 +694,58 @@ iff for all entity type $a$, for all path mono-sources $j  \in \bar{I}$
 if $j'$ is a proper subsets of $j$ which is a  monosource in \genericmodel then $j \simeq j'$. 
 \end{definition}
 
+\begin{figure} [h]
+\begin{center}
+\begin{tabular}{c c}
+$
+\begin{array}{cp{0.4cm}cp{0.75cm}cp{0.75cm}c}
+              &&               &&                &&               \\[0.25cm]
+              &&               &&                &&               \\[0.25cm]
+\Rnode{p}{p}	&& \Rnode{m}{m}  &&   \Rnode{c}{c} && \Rnode{v}{v}  \\[0.25cm]
+	            &&  
+\end{array}
+$
+
+\ncarr{p}{m} 
+\alabel{I}
+\idcomp
+\ncarr[-35]{p}{v}
+\blabel{yr}
+\idcomp
+\ncarr[30]{m}{v}
+\alabel{mNo}
+\idcomp
+\ncarr{m}{c}
+\blabel{M}
+\idcomp
+\ncarr{c}{v}
+\blabel{cId}
+\idcomp
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+p  & president        & Identified by a combination of inclusion relationship ($I$) that identifies a
+                       president as being a committee members and a year attribute ($yr$). \\
+m  & member           & Identified by a member relationship ($M$) to a club and a by membership 
+                         number attribute ($mNo$). \\
+c  & club             & Identified by club identifier attribute ($cId$)
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{Club president example. 
+This is an example of an ER model that fails the minimality condition.
+because
+the set of paths $\set{\tuple{I,mNo}, \tuple{I,cId}, \tuple{yr}}$ is
+in $\bar{I}$ and is therefore a mono-source but it is not minimal because
+ a club has at most one president a year and so the subset $\set{\tuple{I,cId}, \tuple{yr}}$ is  a
+mono-source and the path $\tuple{I,mNo}$ is not equivalent to either of these two paths.
+This problem can be fixed by introducing a club membership relationship $R: p \morph c$ which is definining it to be equivalent to
+path $\tuple{I,M}$ and by re-specifying the identifying features of $\set{R,yr}$.
+}
+\label{clubpresidentbeforenormalisation}
+\end{figure}
+\commentary{Club president example is isomorphic to the nearest shop example!}
 
 \subsubsection{Primarily keyed models}
 
@@ -733,6 +777,19 @@ we can define the identifying set $I'_a$ at $a$ to be the set
 $E_a$. 
 \end{proof}
 
+\begin{definition}
+If $P$ and $Q$ is a set of paths of model \genericmodel\ then say that set of paths $P$ 
+\term{is representative of} $Q$ 
+iff $P \simeq Q$ and no proper subset of $P$ is equivalent to $Q$.
+\end{definition}
+
+\begin{lemma}
+A model \genericmodel\ satisfies the minimality condition iff whenever $P$ is representative
+of the set $Q$  of key paths of \genericmodel\ then no proper subset of $P$ is a mono-source.
+\end{lemma}
+\begin{proof}
+\end{proof}
+
 \subsubsection{Factoring of models}
 
 \begin{definition}
@@ -751,7 +808,7 @@ such that $I_a \simeq h \cup \setsuchthat{f\circ g}{g \in j}$.
 \begin{definition}
 If \genericmodel\ is a model and if there is a factorisation at entity type $a$ with
 base set $h$, mediating path $f: a \morph b$ and remainder $j \in \bar{I}$ then define
-a factored model $genericmodel'$ determined by the factorisation to be the model
+a factored model $\genericmodel'$ determined by the factorisation to be the model
 whose underlying graph is the graph of \genericmodel\ with edges $h_1,...h_n$ removed 
 (database instances restricted) and
 an edge $k$ added, $k:a \morph b$, each database instance $E$ extends to $E'$, $E'_k = E_f$.
