@@ -739,8 +739,8 @@ path $\tuple{I,M}$ and by re-specifying the identifying features of $\set{R,yr}$
 \end{figure}
 \commentary{Club president example is isomorphic to the nearest shop example!}
 
-\subsubsection{Primarily keyed models}
-
+\subsubsection{Primarily key Paths and Minimality Condition}
+\label{minimalitycondition}
 \begin{definition}
 If $a$ is an entity type in an entity model \genericmodel\ then a \term{primary key path}
 \commentary{Need show equivalence of this and alternate definitions.}
@@ -754,6 +754,29 @@ If \genericmodel\ is an entity model then the set of all primary key paths leavi
 \begin{proof}
 Follows from lemma \ref{identifyingsetdeduction}.
 \end{proof}
+
+\begin{definition}
+If $P$ and $Q$ is a set of paths of model \genericmodel\ then say that set of paths $P$ 
+\term{is representative of} $Q$ 
+iff $P \simeq Q$ and no proper subset of $P$ is equivalent to $Q$.
+\end{definition}
+
+\begin{definition}
+A model \genericmodel\ satisfies the minimality conditions iff 
+\begin{enumerate}
+\item for every entity type $a$, the set $I_a$ is a minimum mono-source i.e 
+there is no proper subset which is a mono-source,
+\item whenever $P$ is representative
+of the set $Q$  of key paths of \genericmodel\ then no proper subset of $P$ is a mono-source.
+\end{enumerate}
+\end{definition}
+
+\subsubsection{Primarily Keyed Models}
+
+\begin{definition}
+Say that a model is \term{primarily keyed} iff all identifying edges 
+have codomain $\veee$.
+\end{definition}
 
 \begin{lemma}
 If \genericmodel\ is an ER model then it can be extended to a model $\genericmodel'$
@@ -769,18 +792,6 @@ we can define the identifying set $I'_a$ at $a$ to be the set
 $E_a$. 
 \end{proof}
 
-\begin{definition}
-If $P$ and $Q$ is a set of paths of model \genericmodel\ then say that set of paths $P$ 
-\term{is representative of} $Q$ 
-iff $P \simeq Q$ and no proper subset of $P$ is equivalent to $Q$.
-\end{definition}
-
-\begin{lemma}
-A model \genericmodel\ satisfies the minimality condition iff whenever $P$ is representative
-of the set $Q$  of key paths of \genericmodel\ then no proper subset of $P$ is a mono-source.
-\end{lemma}
-\begin{proof}
-\end{proof}
 
 \subsubsection{Factoring of models}
 
@@ -1209,10 +1220,7 @@ $
  iff 
 \begin{enumerate} [(i)]
 \item{
-\commentary{Was: for each entity type $a$, there is no proper subset $J$ of any set of identifying paths leaving $a$ that  is a mono-source i.e. for all $K \in \bar{I}$ there does not exist $J \subset K$ such that 
-$K$ is a mono-source}
-for all $K \in \bar{I}$, for all $e \in K$, if $K \backslash \set{e}$ is a mono-source then
-there exists $k \in K$ such that $k \simeq e$,
+it satisfies the minimality condition (see section \ref{minimalitycondition}),
 }
 \item{ 
 all referential inclusion dependencies\footnote{Equivalently, by lemma
