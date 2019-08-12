@@ -1,0 +1,1370 @@
+ \section{Definition of ER model}
+
+\begin{definition}
+An \term{ER-schema} $\genericmodel$ is a directed graph having the following additional structure:
+
+\begin{enumerate} [(i)]
+\item{a distinguished node $\veee$ for which there are no outgoing edges and which represents the type of universals, }
+
+\item{a distinguished acyclic subset $I$ of edges, called the identifying edges, such that
+for every node $a$ other than $\veee$ there is a non-empty set $I_a$ of identifying edges with domain $a$. 
+}
+\end{enumerate}
+
+\end{definition}
+
+If $\genericmodel$ is an ER-schema (or an ER-model which, as we define below, 
+includes an ER-schema) then the nodes of $\genericmodel$ other than $\veee$ we say are entity types and we denote by $\et$.
+
+The set $\attr{a}$ of attributes of an entity type $a$ is defined as the set of edges that have $a$ as source and  $\veee$ as destination. 
+
+\begin{definition}
+\noindent A \term{database instance}  of an ER schema is
+a set of entities $E_x$ for each node $x$ of the graph of the schema and 
+a partial function $E_r : E_x \rightarrow E_y$ for each edge of the graph $r:x \rightarrow y$ 
+such that $E_\veee=\Veee$
+and such that 
+for each entity type $x$ if $I_x$ is the subset of all the outgoing and identifying edges
+of $x$ then for each $e \in I_x$ the function $E_e$ is total and
+the set of functions $\setsuchthat{E_e}{e \in I_x}$, is jointly injective.
+\end{definition}
+
+\noindent A  path through an ER schema  is a
+sequence of  $n$ edges:
+$\overset{r_1}{x_0 \morph   x_1} \overset{r_2}{\morph} x_2 ... \overset{r_n}{\morph} x_n$.  $x_0$ is said to be the source of the path and $x_n$ is said to be the destination of the path. 
+
+\noindent For any database instance $E$ we can  extend  the definition of
+$E_f$, for edges $f$,  so that to every path $p$, $p: a \rightarrow b$,  we have defined a function $E_p: E_a \rightarrow E_b$. From the initial definition of $E_f$ that applies to 
+edges the definition proceeds recursively as follows: 
+\begin{enumerate} [(i)]
+\item{  For each entity type $a$, $E_{\langle \rangle}: E_a \rightarrow E_a$ is defined to be the identity function.
+}
+\item{   if $p$ is a path $p: a \rightarrow b$ and $f$ is an edge $p: b \rightarrow c$ then $E_{\langle p,f \rangle}$ is 
+is defined to be the functional composition $E_p \circ E_f$.
+}
+\end{enumerate}
+
+We can extend this notation further and define $E$ on n-tuples of paths so that if 
+$\tuple{p_1,...p_n}$ is an n-tuple of paths from entity type $a$ then in an instance E
+the function  $E_{\tuple{p_1,...p_n}}$ is defined to be the function mapping each element $e$ 
+of $E_a$ to the n-tuple
+$\tuple{E_{p_1}(e),...E_{p_n}(e)}$.
+
+
+\begin{definition}
+If $s$ is a set and if $f_{i, 1\leq i \leq n}$ is a family of partial functions, $f_i: s \rightarrow s_i$   for some sets $s_{i, 1 \leq i \leq n}$,  then
+we previously defined that the family of functions $f_{i, 1\leq i \leq n}$, is \term{jointly injective} if the partial function $\langle f_1,...f_n\rangle: s \rightarrow
+s_1 \times ... \times s_n $ is injective. 
+In this case \commentary{Not sure if this para is reqd and if so where it is required}.
+ the partial function $\langle f_1,...f_n\rangle: s \rightarrow
+s_1 \times ... \times s_n $ is also invertible i.e. iff there is a partial function $inv_{\langle f_1,...f_n\rangle} : s_1 \times ... \times s_n \rightarrow s$ such that
+(i) for all $x \in s$, $inv_{\langle f_1,...f_n\rangle}(\langle f_1(x),...f_2(x) \rangle ) = x$ and (ii) if $y \in s_1 \times ... \times s_n $ and
+$y \notin img(\langle f_1,...f_n\rangle)$ then $inv_{\langle f_1,...f_n\rangle}(y)$ is undefined. \\
+\end{definition}
+
+
+
+
+\begin{definition}
+\noindent An \term{ER model} is an ER schema and a set of database instances of the schema called the
+\term{defining instances} of the model. \\
+\end{definition}
+
+
+
+\subsection{Path equivalence and subsumption}
+
+\noindent If $r$ and $s$ are paths both having source $a$ and destination $b$ then we will say $r \leq s$ iff in all defining instances E, for all 
+entities $e \in E_a$, if $E_r(e)$ is defined then $E_s(e)$ is defined and $E_r(e)=E_s(e)$. \\
+
+\noindent If $r$ and $s$ are paths both having source $a$ and destination $b$ then we will say $r \simeq s$ iff $r \leq s$ and $s \leq r$. \\
+
+\noindent With these definitions,  the (meta-relationship) $\leq$ is a partial order on the classes of equivalent paths. \\
+
+\noindent For paths $r$ and $s$ we define $r < s$ to be equivalent to $r \leq s$ and not $r \simeq s$. \\
+
+
+\begin{definition}
+Say that a simple path $\tuple{r_0,r_1,...r_n}$ \textit{is subsumed by} a simple path 
+$\tuple{s_0,s_1,...s_m}$ iff $m \geq 1$ and either:
+\begin{enumerate} [(i)]
+
+\item $\tuple{r_0,r_1,...r_n} \simeq  \tuple{s_0,s_1,...s_m}$ and 
+\commentary{In most general case this will become not $s_1$ uses $s_2$ ... uses $s_m$.}
+for some $j$, $1 \leq j \leq m$, $s_j$ is not an identifying edge. \\
+
+ \hspace{1cm} or:
+\item $\tuple{r_0,r_1,...r_n} <  \tuple{s_0,s_1,...s_m}$ and $r_0 \neq s_0$.
+\end{enumerate}
+\end{definition}
+
+\begin{figure} [h]
+\begin{center}
+\begin{tabular}{c c}
+$
+\begin{array}{cp{0.75cm}cp{0.75cm}c}
+   \Rnode{fk}{fk}     & & \Rnode{t}{t} & & \Rnode{v}{v} \\[1.2cm]     
+	 \Rnode{fkc}{fkc}   & & \Rnode{c}{c} & &               
+\end{array}
+$
+\ncarr{fk}{t} 
+\alabel{S_1}
+\ncarr{t}{v} 
+\alabel{tN}
+\idcomp
+\ncarr{c}{v} 
+\blabel{cN}
+\idcomp
+\ncarr{fkc}{c}
+\blabel{R_0}
+\ncarr{fkc}{fk}
+\alabel{S_0}
+\idcomp
+\ncarr{c}{t}
+\blabel{R_1}
+\idcomp
+\ncarr[50]{fk}{v}
+\alabel{FkN}
+\idcomp
+\ncarr[-90]{fkc}{v}
+\blabel{SeqN}
+\idcomp
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+t & table & Having identifying attribute tN the name of the table. \\
+c & column & Identified by a combination of column name cN and relationship $R_1$ to the table it is a column of.\\
+fk & foreign key & Identified by its name $FkN$.\\
+fkc & foreign key column & Identified by relationship $S_0$ to the foreign key it is a part of and its sequence number $SeqN$ i.e. the position it appears in within the foreign key. \\
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{Example of path equivalence - the path $\tuple{R_0,R_1}$ is equivalent to path $\tuple{S_0,S_1}$.}
+\label{foreignkeygraph}
+\end{figure}
+\commentary{Relational meta-schema path equivalence example is a little inaccessible therefore consider replcing to reference to figure 3 which is the table row column data cell example. actually called example of path euivalence currently.}
+
+\begin{figure} [h]  % student advisor
+\begin{center}
+\begin{tabular}{c c}
+$
+\begin{array}{cp{0.05cm}c  p{0.05cm}c p{0.5cm}c}
+                & & \Rnode{d}{d} & &              & &             \\ [0.3cm]
+								& &              & &              & & \Rnode{v}{v} \\ [0.6cm]     
+	 \Rnode{s}{s} & &              & & \Rnode{p}{p} & &             
+\end{array}
+$
+\ncarr{s}{d} 
+\alabel{S_1}
+\idcomp
+\ncarr{d}{v} 
+\alabel{Id}
+\idcomp
+\ncarr{p}{v} 
+\blabel{PNo}
+\idcomp
+\ncarr{p}{d} 
+\blabel{R_1}
+\idcomp
+\ncline[linestyle=dashed,nodesepA=\arrnodesepA,nodesepB=\arrnodesepB]{->}{s}{p} 
+\blabel{R_0}
+\ncarr[-90]{s}{v} 
+\blabel{sNo}
+\idcomp
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+d & department & Having identifying attribute Id the department identifier. \\
+s & student & Identified by relationship $S_0$ to department enrolled in and  attribute student number SNo. \\
+p & professor & Identified by their relationship $R_1$ to a department and their professor number attribute pNo yyy \\
+R0 & advised by & Represents the relationship\footnote{How significant is it that this may be optional?Need draw this out.} between a student and a professor.\\
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{Example of path  $\tuple{R_0,R_1} < \tuple{S_1}$. This example is based on one given Shlaer-Long. Here we specify that a student optionally has an advisor (suppose that the advisor is selected part way through a course). As before we assume that an advisor must be a professor of the department in which the student is enrolled. }
+\label{studentadvisorgraph}
+\end{figure}
+
+\subsection{Jointly Injective Sets of Functions}
+\begin{lemma}
+\label{jointlyinjectivecomposition}
+If $A$ is a set and if $I$  is a jointly injective set of functions with domain $A$, if $F \in I$, $F: A \morph B$ is a function,
+and if $J$ is a jointly injective set of functions with domain $B$ then the set of functions
+$(I \backslash \set{F}) \cup \setsuchthat{F \circ G}{G \in J}$ is jointly injective.
+\end{lemma}
+\begin{proof}
+
+\end{proof}
+
+
+\begin{lemma}
+\label{jointlyinjectivefactorisation}
+If $A$ is a set and $I$  a set of functions with domain $A$, if $F \in I$, $F: A \morph B$ is a function,
+and if $J$ is a jointly injective set of functions with domain $B$ then if the set of functions
+$(I \backslash \set{F}) \cup \setsuchthat{F \circ G}{G \in J}$ is jointly injective then the
+set $I$ is jointly injective.
+\end{lemma}
+\begin{proof}
+Suppose $x_1,x_2 \in A$ and that for all $f \in I$, $f(x_1)=f(x_2)$. We need show that $x_1=x_2$.
+Because $(I \backslash \set{F}) \cup \setsuchthat{F \circ G}{G \in J}$ is jointly injective
+it suffices to show that 
+\begin{enumerate}[(i)]
+\item
+for all $f \in I \backslash \set{F}$, $f(x_1)=f(x_2)$, 
+\item that for all $f \in \setsuchthat{F \circ G}{G \in J}$, $f(x_1)=f(x_2)$
+\end{enumerate}
+(i) follows directly from the initial assumption. 
+(ii) follows because for such an $f$, 
+\begin{align*}
+f(x_1)&=G(F(x_1) & & \\
+      &=G(F(x_2) & & \mbox{from the initial assumption since }F \in I \\
+			&=f(x_2). & &
+\end{align*}
+\end{proof}
+
+
+\subsection{Identifying Sets}
+
+The following definition generalises that of super key in the relational model:
+\begin{definition}
+A set of paths $P$  within a model $\genericmodel$ is said to be a \term{mono-source} at entity type $a$
+iff each path $p \in P$ has domain $a$ and such that in all defining instances E, 
+(i) the function $E_p$ is total, for each $p \in P$, and (ii) the set of functions
+$\setsuchthat{E_p}{p\in P}$ is jointly injective.
+\end{definition}
+
+From the definition of ER model it follows that the set of outgoing edges of an entity type 
+$a$ in a model \genericmodel\ is a mono-source. 
+
+\subsubsection{Equivalent Models}
+
+First we need to define equivalence for sets of paths then we can define what we mean by 
+models being equivalent.
+\begin{definition}
+If \genericmodel\ is a model and if $P$ and $P'$ are sets of paths in \genericmodel\ then say that
+$P \simeq P'$ in \genericmodel\ iff
+\begin{enumerate}
+\item for all $p \in P$ there exists $p' \in P'$ such that $p \simeq p'$ in \genericmodel,
+\item for all $p' \in P'$ there exists $p \in P$ such that $p \simeq p'$ in \genericmodel,
+\end{enumerate} 
+\end{definition}
+
+\begin{definition}
+If \genericmodel\ is a model then say that a model $\genericmodel'$ is an extension of 
+$\genericmodel$ iff 
+\begin{enumerate}
+\item the underlying graph of $\genericmodel'$ is an extension the graph of \genericmodel\
+by edges alone, 
+\item for each defining instance $E$ of $\genericmodel$ there is a unique defining
+instance $E'$ of $\genericmodel'$ such that for edges $e$ in \genericmodel,
+$E'_e=E_e$ and all defining instances $E'$ of $\genericmodel'$ arise in this way,
+\item for all edges $e$ of $\genericmodel'$ that are not in \genericmodel\ there is a path 
+$p$ in \genericmodel\ such that for all the defining instances $E'$ of $\genericmodel'$,
+$E'_e=E'_p$, or, equivalently, $E'_e=E_p$,
+\item for each entity type $a$ if $P_a$ is the set of primary key paths of $a$ in \genericmodel\
+and $P'_a$ is the set of primary key paths in $\genericmodel'$ then $P_a \simeq P'_a$ in $\genericmodel'$. 
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+Say that two models are \term{co-extensional} \commentary{was \term{equivalent}} iff there is a third model that they are both extensions.
+\commentary{Co-extsionnality is not a transitive and so we need equivalence needs be the symetric transitive closure.
+But do I need this closure? And is this closure the right thing categoricaly?}
+\end{definition}
+
+\subsubsection{Composing mono-sources}
+
+\begin{lemma}
+\label{identifyingsetdeduction}
+
+In a model \genericmodel, if $i$ is a source with domain $a$,
+if $f \in i$, $f: a \morph b$, and if $j$ is a mono-source with domain $b$ then 
+$i$ is a mono-source iff $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source.
+\end{lemma}
+\begin{proof}
+First note that from the definition of database instance it follows that 
+\begin{equation}
+\label{eequivalentsets}
+\setsuchthat{E_e}{e \in (i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}}
+= \setsuchthat{E_e}{e \in i} \backslash \set{E_f} \cup \setsuchthat{E_f \circ E_g}{g \in j}
+\end{equation}
+
+We can show that if $i$ is a mono-source 
+then $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source
+by showing that for any instance $E$ of \genericmodel\ the family of functions 
+$\setsuchthat{E_e}{e \in (i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}}$
+is jointly injective. Because of (\ref{eequivalentsets}) this follows by applying lemma \ref{jointlyinjectivecomposition} with $I$ being $\setsuchthat{E_e}{e \in i}$,
+$F$ being $E_f$,  and $G$ being $\setsuchthat{E_g}{g \in j}$.
+
+\textit{Vice-versa}, we can show that if $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source then $i$ is a mono-source by applying lemma \ref{jointlyinjectivefactorisation} 
+with, as above, $I$ being $\setsuchthat{E_e}{e \in i}$,
+$F$ being $E_f$,  and $G$ being $\setsuchthat{E_g}{g \in j}$ \commentary{can improve this wording instead of repeating the mapping}.
+\end{proof}
+
+
+
+\begin{figure} [h]
+\begin{center}
+\begin{tabular}{c c}
+$
+\begin{array}{cp{0.4cm}cp{0.75cm}cp{0.75cm}c}
+              &&               &&                &&               \\[0.25cm]
+              &&               &&                &&               \\[0.25cm]
+\Rnode{p}{p}	&& \Rnode{m}{m}  &&   \Rnode{c}{c} && \Rnode{v}{v}  \\[0.25cm]
+	            &&  
+\end{array}
+$
+
+\ncarr{p}{m} 
+\alabel{I}
+\idcomp
+\ncarr[-35]{p}{v}
+\blabel{yr}
+\idcomp
+\ncarr[30]{m}{v}
+\alabel{mNo}
+\idcomp
+\ncarr{m}{c}
+\blabel{M}
+\idcomp
+\ncarr{c}{v}
+\blabel{cId}
+\idcomp
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+p  & president        & Identified by a combination of inclusion relationship ($I$) that identifies a
+                       president as being a committee members and a year attribute ($yr$). \\
+m  & member           & Identified by a member relationship ($M$) to a club and a by membership 
+                         number attribute ($mNo$). \\
+c  & club             & Identified by club identifier attribute ($cId$)
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{Club president example. 
+This is an example of an ER model that fails the minimality condition defined in section \ref{minimalitycondition}.
+The failure arises at entity type p (president) because 
+the set of paths $\set{\tuple{I,mNo}, \tuple{I,cId}, \tuple{yr}}$ is
+in $\bar{I}$ and is therefore a mono-source but it is not minimal because
+ a club has at most one president a year and so the subset $\set{\tuple{I,cId}, \tuple{yr}}$ is  a
+mono-source. Further, the path $\tuple{I,mNo}$ is not equivalent to either of the two paths in the subset.
+This problem can be fixed by introducing a club membership relationship $R: p \morph c$ which is definining it to be equivalent to
+path $\tuple{I,M}$ and by re-specifying the identifying features of $\set{R,yr}$.
+}
+\label{clubpresidentbeforenormalisation}
+\end{figure}
+\commentary{Club president example is isomorphic to the nearest shop example. And is more general than the Zanilo tel-place-location example.}
+\commentary{$\bar{I}$ has not been defined.}
+
+\subsubsection{Primarily key Paths and Minimality Condition}
+\label{minimalitycondition}
+\begin{definition}
+If $a$ is an entity type in an entity model \genericmodel\ then a \term{primary key path}
+\commentary{Need show equivalence of this and alternate definitions.}
+of $a$ is any path $p:a \morph v$ consisting entirely of identifying edges. 
+\end{definition}
+
+Denote the set of all primary key paths leaving an entity type $a$ in a model \genericmodel\ by 
+$\pk{a}$.
+
+
+\begin{lemma}
+\label{primarykeylemma}
+If \genericmodel\ is an entity model then the set $\pk{a}$of all primary key paths 
+leaving an entity type $a$ is a mono-source.
+\end{lemma}
+\begin{proof}
+Follows from lemma \ref{identifyingsetdeduction}.
+\end{proof}
+
+
+\begin{definition}
+If $P$ and $Q$ is a set of paths of model \genericmodel\ then say that the set of paths $P$ 
+\term{is representative of} $Q$ 
+iff $P \simeq Q$ and no proper subset of $P$ is equivalent to $Q$.
+\end{definition}
+
+\begin{definition}
+A model \genericmodel\ satisfies the minimality condition iff for every entity type $a$,
+\begin{enumerate}
+\item the set $I_a$ is a minimum mono-source i.e 
+there is no proper subset which is a mono-source,
+\item whenever a set of paths $P$ is representative
+of the set $\pk{a}$  of key paths of \genericmodel\ then no proper subset of $P$ is a mono-source.
+\end{enumerate}
+\end{definition}
+
+\subsubsection{Primarily Keyed Models}
+
+\begin{definition}
+Say that a model is \term{primarily keyed} iff all identifying edges 
+have codomain $\veee$.
+\end{definition}
+
+\begin{lemma}
+If \genericmodel\ is an ER model then it can be extended to a model $\genericmodel'$
+which is primarily keyed. If \genericmodel\ satisfies the minimality condition then the
+extended model $\genericmodel'$ satisfies the  condition that each $I_a$ has no proper subsets which
+are mono-sources. 
+\end{lemma}
+\begin{proof}
+For each entity type $a$ we extend \genericmodel\ by edges $E_a$, where each edge 
+$E_a$ corresponds to a distinct primary key path $p$ from $a$ to $\veee$
+and in the extended model \genericmodel'\ by lemma \ref{primarykeylemma} 
+we can define the identifying set $I'_a$ at $a$ to be the set
+$E_a$. 
+\end{proof}
+
+
+\subsubsection{Factoring of models}
+
+\begin{definition}
+In an entity model \genericmodel\ if $a$ is an entity type then say that
+a \term{factorisation} of the set $I_a$ is a subset $\set{h_1,...h_n} \subset I_a$
+and a  path $f:a \morph b$ and a set of paths sourced at $b$, $\set{g_1,...g_n} \in \bar{I}$\commentary{not defined}
+such that for each $i$, $1 \leq i \leq n$, $f \circ g_i \simeq h_i$. 
+\end{definition}
+
+The factorisation consists  
+of a base set of edges: $h=I \backslash \set{h_1,...h_n}$, a mediating path $f:a \morph b$ and a remainder 
+set $j$ paths sourced at $b$, $j \in \bar{I}$, 
+such that $I_a \simeq h \cup \setsuchthat{f\circ g}{g \in j}$.
+
+\begin{definition}
+If \genericmodel\ is a model and if there is a factorisation at entity type $a$ with
+base set $h$, mediating path $f: a \morph b$ and remainder $j \in \bar{I}$ then define
+a factored model $\genericmodel'$ determined by the factorisation to be the model
+whose underlying graph is the graph of \genericmodel\ with edges $h_1,...h_n$ removed 
+(defining database instances restricted) and
+an edge $k$ added, $k:a \morph b$, each database instance $E$ extends to $E'$, $E'_k = E_f$.
+Identifying sets of $\genericmodel'$ are exactly as for \genericmodel\ except for at the entity
+type $a$ where the identifying set $I_a$ in $\genericmodel'$ is defined to be $h \cup \set{k}$.
+Note that by lemma \ref{identifyingsetdeduction} the modified $E'$ is a database instance because
+the family 
+$\setsuchthat{E'_e}{e \in \set{h \cup \set{k}}}$ is jointly injective because 
+$\setsuchthat{E'_e}{e \in \set{h \cup \set{k}}} =\setsuchthat{E_e}{e \in \set{h \cup \set{f}}}$
+and in model \genericmodel, $h \cup \set{f}$ is a mono-source because both
+$h \cup \set{f} \backslash f \cup \setsuchthat{f \circ g}{g \in j}
+=h  \cup \setsuchthat{f \circ g}{g \in j}=I_a$ and $j$ are  mono-sources.
+
+
+\end{definition}
+
+\begin{definition}
+If $a$ is an entity type in an entity model \genericmodel\ then define the abstraction
+level of $a$ to be the sum of the lengths of the primary key paths sourced at $a$.
+\end{definition}
+
+
+\begin{definition}
+Define  the abstraction level of a model $\genericmodel$ to be
+the sum over all entity types $a$ of the abstraction level of $a$.
+\end{definition}
+
+\begin{lemma}
+If $\genericmodel'$ is a factorisation of model $\genericmodel$ then abstraction level 
+of $\genericmodel'$ is greater than abstraction level of $\genericmodel$ and the number of edges
+is not increased. 
+\end{lemma}
+\begin{proof}
+\end{proof}
+
+\begin{definition}
+Define an entity model \genericmodel\ to be fully-factored iff there no entity types $a$
+for which the set $I_a$ has  factorisations.
+\end{definition}
+
+\begin{definition}
+If \genericmodel\ is a model then say that a $\genericmodel'$ is a fully-factored 
+equivalent to \genericmodel\
+if it results from successive factorisations of \genericmodel\ until the resulting model can no longer be
+factorised. 
+\end{definition}
+
+\begin{lemma}
+Every model \genericmodel\ has a fully factorised equivalent. 
+\end{lemma}
+\begin{proof}
+We need to show that the factorisation process will terminate. 
+to do this note that we can put a (crude) bound on the abstraction level of an entity model
+of number of entity types multiplied by the square of the  number of edges
+\commentary{Need revise this most likely}.  Because the number of nodes remains constant during
+factorisation and because the number of edges does not increase this bound can be calculated
+for the model \genericmodel\ and serves as an upper bound for the abstraction level of 
+any successive factorisation of \genericmodel. Since factorisation increases abstraction level
+and there is an upper bound to abstraction level then the process cannot continue indefinitely. 
+\end{proof}
+
+\subsubsection{Minimality Condition of Factored Model}
+
+\begin{lemma}
+\label{identifyingfactorminimal}
+In a model \genericmodel, if $i$ is a source with domain $a$,
+if $f \in i$, $f: a \morph b$, 
+and if $j$ is a mono-source with domain $b$
+then  if $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a minimum mono-source
+then $i$ is a minimum mono-source.
+\end{lemma}
+\begin{proof}
+We assume that $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source and that no subset of it is a mono-source.
+By lemma \ref{identifyingsetdeduction} it follows that $i$ is a mono-source we need to show that
+for no edge $e \in i$ is $i \backslash \set{e}$ a mono source. Assume to the contrary that there is such an $e$ then  either $e = f$ or else
+$e \in i \backslash \set{f}$. In the first case $(i \backslash \set{f})$ is a subset of  $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ which is a mono-source which contradicts the initial assumption. In the second  case 
+by lemma \ref{identifyingsetdeduction} since $i \backslash \set{e}$ is a mono-source it follows that
+$((i \backslash \set{e})\backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source which again is to say that a subset
+of $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source contradicting the initial assumption.
+We conclude that no subset of $i$ is a mono-source.
+\end{proof}
+
+\begin{lemma}
+If a model \genericmodel\ satisfies the minimality condition then it has a fully factored
+equivalent $\genericmodel'$  and $\genericmodel'$ satisfies the minimality condition. 
+\end{lemma}
+\begin{proof}
+By lemma \ref{identifyingfactorminimal} we have the minimality of $I_a$ in $\genericmodel'$.
+
+To show that representative sets of primary key paths in $\genericmodel'$ are minimal mono-sources
+first note that to each path $p'$ in $\genericmodel'$ there is a corresponding path 
+$p$ in \genericmodel\  
+ such that for all instances $E$ of \genericmodel\ with corresponding $E'$ of $\genericmodel'$, 
+$E_p=E'_{p'}$ and that this correspondence establishes a 1-1 correspondence between the set of primary key paths $P'$ in $\genericmodel'$
+and the set of primary key paths $P'$ in \genericmodel. Because $E_p=E'_{p'}$, for all defining instances
+$E$, it follows that a representative set for $P'$ corresponds to a representative set for $P'$ and also
+that mono-sources in $\genericmodel'$ correspond to mono-sources in \genericmodel. From this it follows that representative sets of primary key paths in $\genericmodel'$ are minimal mono-sources.
+\end{proof}
+
+
+\noindent
+Consider that the various database normal forms (3NF, BCNF, 4NF, 5NF and the like) each 
+prescribe that a database schema be complete in some way as a description of the facts of its instances\footnote{Essentially
+ because being good as a schema is to be a good theory and a good theory is one that is a good fit to the facts.} and observe 
+in particular that BCNF can be paraphrased as saying that those relationships (i.e. functional dependencies) that exist in the data ought to be \term{represented} in the schema\footnote{21/02/2019 Is this not the representation principle?}. These considerations motivate the definitions which now follow and conclude with the definition of a \term{well-formulated} entity model. This definition generalises that of a relational schema being in Boyce-Codd Normal Form (BCNF). 
+
+
+\subsection{Referential Inclusion Dependencies}
+
+\commentary{aka referential integrity constraints/foreign keys/foreign key constraints}
+
+\begin{definition}
+If $\genericmodel$ is an entity model, 
+if $a$ and $b$ are entity types of  $\genericmodel$ and  if $\set{q_q,...q_n} \in \bar(I)_b$
+\commentary{used to say an identifying tuple with respect to $b$},
+if \fntuple is a tuple of outgoing paths from entity type $a$  
+so that we have the following diagram of paths in $\genericmodel$
+\setlength{\arraycolsep}{.2cm}
+\begin{center}
+$
+\begin{array}{cp{2cm}ccp{2cm}c}
+             & &         & \Rnode{b1}{b_1} &&               \\ [0.5cm]
+						 & &         & \Rnode{b2}{b_2} &&               \\ [0.2cm]
+\Rnode{a}{a} & &         &                 &&  \Rnode{b}{b} \\ [-0.2cm]						
+             & &         &    \vdots       &&               \\ [0.2cm]
+             & &         & \Rnode{bn}{b_n} &&               \\ 
+\end{array}
+$
+\simplepatha{$f_1$}{a}{b1}
+\simplepatha{$f_2$}{a}{b2}
+\simplepathb{$f_n$}{a}{bn}
+\simplepathb{$q_1$}{b}{b1}
+\simplepathb{$q_2$}{b}{b2}
+\simplepatha{$q_n$}{b}{bn}
+\end{center}
+then say that $a$ represented by $\fntuple$ 
+has a referential inclusion dependency with $b$ represented by $\qntuple$, and for which we shall summarily write:
+$$
+\incd{a}{f_1,...f_n}{b}{q_1,...q_n},
+$$
+iff in all instances $E$ of $\genericmodel$,
+$img(E_{\fntuple}) \subseteq img(E_{\qntuple})$. 
+\end{definition}
+
+Here or hereabouts maybe need define $E_{\qntuple}^{-1}$ where $\set{q_1,...q_n} \in \bar{I}_a$, for some entity 
+type $a$.
+
+\begin{definition}
+We say that a path $p:a \morph b$ represents a referential inclusion dependency
+$\incd{a}{f_1,...f_n}{b}{q_1,...q_n}$  in an ER model $\genericmodel$ 
+  in all instances $E$ of $\genericmodel$, $E_{\fntuple} \circ E_{\qntuple}^{-1}=E_p$.
+\end{definition}
+We say that an referential inclusion dependency in model \genericmodel\ is represented provided that
+there exists a path which represents it. 
+\begin{lemma}
+\label{refinclusionlemma}
+A referential inclusion dependency
+$\incd{a}{f_1,...f_n}{b}{q_1,...q_n}$  in an ER model $\genericmodel$ is  represented 
+by path $p:a \morph b$ in $\genericmodel$ iff  \foreachi, $p \circ q_i \simeq f_i$.
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\text{In the model \genericmodel,}
+            &\text{in each instance $E$, }E_p = E_{\fntuple} \circ E_{\qntuple}^{-1}  \\
+\text{iff } & \text{in each instance $E$, } E_p \circ E_{\qntuple} = E_{\fntuple}  
+                        && \text{because } E_{\qntuple} \text{ injective and total}   \\
+\text{iff } & \text{in each instance $E$, } \tuple{E_p \circ E_{q_1},...E_p \circ E_{q_n}} 
+                                                      = \tuple{E_{f_1},...E_{f_n}}
+									                                            && \text{ by defn. of }E \\
+\text{iff } & \text{in each instance $E$, \foreachi, } E_p \circ E_{q_i} = E_{f_i} 
+                                                              && \text{because tuples are equal iff they are pointwise equal}  \\
+\text{iff } & \text{\foreachi, } p \circ q_i \simeq f_i          && \text{by defn of } \simeq.
+\end{align*}
+\end{proof}
+
+
+\begin{categoricalaside}
+If an ER schema is represented as a category with finite products (\textit{a la} Johnstone \textit{et al}) then
+a referential inclusion dependency is a  diagram
+\begin{center}
+$
+\begin{array}{cp{0.75cm}c}
+   \Rnode{a}{a}     & & \Rnode{x}{x}  \\[1.2cm]     
+	                  & & \Rnode{b}{b}  
+\end{array}
+$
+\ncarr{a}{x} 
+\alabel{f}[0.33]
+\ncarr{b}{x}
+\blabel{m}[0.3]
+\idcomp
+\end{center}
+\noindent
+in \cat{C} such that in all instance functors $F$, 
+$F(f)$ factors through $F(m)$.
+
+Such a referential inclusion dependency is explicitly represented iff
+ $f$ factors through $m$ i.e. there is an $f_0: a \morph b$ in \cat{C} such that 
+$f_0 \circ m =f$. Note that because $m$ is monic then such an $f_0$ is the unique such morphism and if in some instance $F$,
+$e: F(a) \morph F(b)$ is a function such that $e \circ F(m) = F(f)$ then $F(f_0)=e$. 
+\end{categoricalaside}
+
+\begin{definition}
+Say that an inclusion dependency $\incd{a}{x_1,...x_n}{b}{q_1,...q_n}$ is \textit{simple}
+iff each $q_i$ is a singleton path, i.e. is simply an edge. 
+\end{definition}
+
+\begin{lemma}
+\label{simplerepresentationlemma}
+If in an ER model \genericmodel\ all simple referential inclusion dependencies
+have representations  then all referential inclusion dependencies have representations. 
+\end{lemma}
+\begin{proof}
+Proof by induction TBD. \commentary{Start by drawing a diagram of the inductive step.} 
+\end{proof}
+
+\subsection{Functional Dependencies}
+
+\begin{definition} %functional dependency
+In an entity model $\genericmodel$  
+if for some $n \geq 1$, $a$, $b_{i, 1 \leq i \leq n}$,  and $c$ are entity types and 
+if  $x_{i, 1 \leq i \leq n}$, and $y$ are simple paths such
+that for each $i$, $x_i : a \rightarrow b_i$, and such that $y: a \rightarrow c$ 
+as shown here:
+\setlength{\arraycolsep}{.2cm}
+\begin{center}
+$
+\begin{array}{cp{2cm}cc}
+             & &         & \Rnode{b1}{b_1} \\ [0.5cm]
+						 & &         & \Rnode{b2}{b_2} \\ [0.6cm]
+						 & & \vdots  &                 \\ [0.2cm]
+\Rnode{a}{a} & &         & \Rnode{bn}{b_n} \\ [1.0cm]
+             & &         & \Rnode{c}{c}   \\
+\end{array}
+$
+\simplepatha{$x_1$}{a}{b1}
+\simplepatha{$x_2$}{a}{b2}
+\simplepatha{$x_n$}{a}{bn}
+\simplepathb{$y$}{a}{c}
+\end{center}
+
+
+
+\noindent 
+then path $y$ is said to be \term{functionally dependent} on the set of paths $\{x_1,...x_n\}$, 
+for which  we write  \sfd{x_1,...x_n}{y},
+iff
+ in each instance $E$ there exists a  partial 
+function $f_E: E_{b_1} \times E_{b_n} \rightarrow E_c$ 
+\noindent such that 
+domain of $f_E \subseteq img(E_{\langle x_1,... x_n \rangle})$ 
+and  
+$E_{\xntuple} \circ f_E = E_y$ 
+\begin{center}
+$
+\begin{array}{cp{2cm}ccp{0.5cm}cc}
+						    & &         & \Rnode{Eb1}{E_{b_1}}& &                            &        \\ [0.6cm]
+						    & &         & \Rnode{Eb2}{E_{b_2}}& &                            &        \\ [0.6cm]
+						    & &\vdots  &                      & &                            &        \\ [0.2cm]												
+\Rnode{Ea}{E_a} & &         & \Rnode{Ebn}{E_{b_n}}& & \Rnode{Jnctn}{}&  \\ [1.0cm]
+						    & &         & \Rnode{Ec}{{E_c}}   & &                            &        \\
+\end{array}
+$
+\simplepatha{$E_{x_1}$}{Ea}{Eb1}
+\simplepatha{$E_{x_2}$}{Ea}{Eb2}
+\simplepatha{$E_{x_n}$}{Ea}{Ebn}
+\simplepathb{$E_y$}{Ea}{Ec}
+\nchmarr[15][45]{Eb1}{Ebn}{Jnctn}{Ec}
+\naput[npos=-0.1]{$f_E$}
+\ncarc[arcangle=15]{Eb2}{Jnctn}
+\end{center}
+\end{definition}
+
+\begin{remark}
+In the above definition, if within an instance $E$ there exists such a partial function $f$ such that
+$E_{\xntuple} \circ f_E = E_y$ then $f$ will be the unique such partial function. For if 
+partial function $f'$ is another such then given a $\tuple{E_{x_1}(e),...E_{x_n}(e)} \in img(E_{\tuple{x_1,...x_n}})$
+we have that $f(\tuple{E_{x_1}(e),...E_{x_n}(e)})=E_y(e)=f'(\tuple{E_{x_1}(e),...E_{x_n}(e)})$.
+\end{remark}
+
+\begin{definition}
+A functional dependency \sfd{x_1,...x_n}{y} is said to be \term{trivial} if $y\simeq x_i$, for some $i$, $1 \leq i \leq n$.
+\end{definition}
+
+\begin{definition}
+In an entity model $\genericmodel$, if
+$e$ is an entity type and $\set{x_1,...x_n}$ and $\set{y_1,...y_m}$ are sets of simple paths with source $a$
+then we say the set $\set{y_1,...y_m}$ \textit{is functionally dependent on the set} $\set{x_1,...x_n}$ and write
+\fd{x_1,...x_n}{y_1,...y_m} 
+iff  each $y_j$, $1 \leq j \leq m$, is functionally dependent on $\set{x_1,...x_n}$.
+\end{definition}
+\begin{definition} %transitive
+In an entity model $\genericmodel$, a functional dependency $\set{x_1,...x_n} \morph z$
+is said to be \term{transitive} if there exists a set of paths $\{y_1,...y_{m}\}$ such that
+$\set{x_1,...x_n} \morph \set{y_1,...y_{m}}$ and $\set{y_1,...y_{m}} \morph y$ but not
+$\{y_1,...y_{m}\} \morph \{x_1,...x_n\}$.
+\end{definition}
+\begin{definition} %intransitive
+In an entity model $\genericmodel$, a functional dependency $\set{x_1,...x_n} \morph y$
+is said to be \term{intransitive} if it is not transitive.
+\end{definition}
+\begin{lemma}
+\label{transitiveinjectivelemma}
+If $\set{x_1,...x_n} \morph \set{y_1,...y_{m}}$ then if in an instances $E$ the function $E_{\tuple{y_1,...y_{m}}}$ is 
+injective then the function $E_{\tuple{x_1,...x_n}}$  is injective.
+\end{lemma}
+\begin{proof}
+Follows from the definition of functional dependency that for each $j$, $1 \leq j \leq m$  there is a function ${f_j}$,  such that
+$E_{y_j}=E_{\tuple{x_1,...x_n}}\circ f_j$. Therefore there is a function $f=\tuple{f_1,...f_m}$ such that
+$E_{\tuple{y_1,...y_m}}= E_{\tuple{x_1,...x_n}}\circ f $. Therefore since  the function $E_{\tuple{y_1,...y_{m}}}$ is 
+injective then the function $E_{\tuple{x_1,...x_n}}$  is injective.
+\end{proof}
+
+\iffalse
+\begin{definition} %elementary
+In an entity model $\genericmodel$, a functional dependency $\{x_1,...x_n\} \morph y$
+is said to be elementary if there is no  subset $X' \subset$, such that $X' \morph y$.
+\end{definition}
+\fi
+
+\begin{figure}[h]
+\begin{center}
+\begin{tabular}{p{3.0cm} c p{1cm} c}
+The dependency of &\input{pickExampleTransitiveDependencyRHS} 
+                    & on & \input{pickExampleTransitiveDependencyLHS} \\[0.5cm]
+										follows from \\[0.5cm]
+the dependency of & \input{pickExampleTransitiveDependencyRHS} & on    &
+\input{pickExampleTransitiveDependencyIntermediate}        \\[0.5cm]
+and from \\[0.5cm]
+the dependency of & 
+\input{pickExampleS0S1}
+& on&
+\input{pickExampleTransitiveDependencyIntermediateLHS} 
+\end{tabular}
+\caption{Example of a Transitive Functional Dependency based on the example in figure \ref{pickexample}}
+\end{center}
+\end{figure}
+
+
+
+\begin{definition}
+\noindent In an entity model $\genericmodel$  
+if for some $n \geq 1$, $a$, $b_{i, 1 \leq i \leq n}$,  and $c$ are entity types and 
+if  $x_{i, 1 \leq i \leq n}$, and $y$ are simple paths such
+that there is a \commentary{Removed elementary intransitive}functional dependency $\{x_1,...x_n\} \morph y$
+ then the functional dependency $\{x_1,...x_n\} \morph y$ is said to be \term{represented} in the ER model $\genericmodel$ iff  there exists an entity type $d$ and 
+an identifying tuple of simple paths with respect to
+$d$, $\qntuple$, such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$, and a simple
+path $z=\langle z_1,...z_l \rangle$ such that $z:d\rightarrow c$, for some $l \geq 0$ as here:
+
+
+\setlength{\arraycolsep}{.2cm}
+\begin{center}
+
+$
+\begin{array}{cp{2cm}c p{2cm} c}
+             &  & \Rnode{b1}{b_1} & &               \\ [0.7cm]
+						 &  & \Rnode{b2}{b_2} & &               \\ [0.4cm]
+						 &  &     \vdots      & &               \\ [0.2cm]
+\Rnode{a}{a} &  &                 & & \Rnode{d}{d}  \\ [-0.2cm]
+             &  & \Rnode{bn}{b_n} & &               \\ [0.9cm]
+             &  & \Rnode{c}{c}    & &               \\
+\end{array}
+$
+\simplepatha{$x_1$}{a}{b1}
+\simplepatha{$x_2$}{a}{b2}
+\simplepatha{$x_n$}{a}{bn}
+\simplepathb{$y$}{a}{c}
+\simplepathb{$q_1$}{d}{b1}
+\simplepathb{$q_2$}{d}{b2}
+\simplepathb{$q_n$}{d}{bn}
+\simplepatha{$z$}{d}{c}
+\end{center}
+
+
+and
+\commentary {Removed that $z_1$ is not identifying but expect to prove not identifying.}         
+such that in all instances $E$, 
+$\tuple{ E_{x_1},...E_{x_n}} \circ inv_{E_{\tuple{q_1,...q_n}}}\circ E_{\tuple{z_1,...z_l}} = E_y$
+\begin{center}
+$
+\begin{array}{cp{0.75cm}cp{0.55cm}c}
+               &&\Rnode{Eb1}{E_{b_1}}   &&                      \\ [0.6cm]
+               &&\Rnode{Eb2}{E_{b_2}}   &&                      \\ [0.2cm]
+\Rnode{Jnctn}{}&&  \vdots               &&\Rnode{RightJnctn}{}  \\ [0.1cm]							
+               &&\Rnode{Ebn}{E_{b_n}}   &&                      \\ [0cm]
+							 &&                       &&\mbox{ }\Rnode{Ed}{E_d}       \\ [0.5cm]
+               &&\Rnode{Ec}{{E_c}}      &&                      \\
+\end{array}
+$
+\nchmarr[-20][-45]{Eb1}{Ebn}{Jnctn}{Ec}
+\nbput[npos=0.2]{$f_E$}
+\ncarc[arcangle=-20]{Eb2}{Jnctn}
+\nchmarr[20][15]{Eb1}{Ebn}{RightJnctn}{Ed}
+\naput[npos=-0.2]{$ inv_{E_{\qntuple}}   $}
+\ncarc[arcangle=20]{Eb2}{RightJnctn}
+\ncarc[arcangle=15]{->}{Ed}{Ec}
+\naput[npos=0.4]{$E_{\langle z_1,...z_n \rangle}$}
+\end{center} 
+\end{definition}
+ 
+\begin{definition}
+\noindent An ER model $\genericmodel$ is \term{well-formulated} 
+ iff 
+\begin{enumerate} [(i)]
+\item{
+it satisfies the minimality condition (see section \ref{minimalitycondition}),
+}
+\item{ 
+all referential inclusion dependencies\footnote{Equivalently, by lemma
+\ref{simplerepresentationlemma}, sufficient that all simple referential inclusion dependencies be represented.} are  represented,
+}
+\item{
+for each intransitive functional dependencies $\{x_1,...x_n\} \morph y$ in model \genericmodel\
+either in every instance $E$, $E_{\xntuple}$ is injective and total
+or else the functional dependency is represented in the model.
+}
+\end{enumerate}
+\end{definition}
+
+This lemma is a converse to lemma \ref{primarypathrepresentativesidentifying}
+\begin{lemma} 
+\label{identifyingconverse}
+In a well-founded model \genericmodel\ if $Q$ is a identifying set of paths from entity type $a$ to $\veee$
+then for every primary key path $p$ from $a$ there is a $q$ in $Q$ such that $p \simeq q$.
+\end{lemma}
+\begin{proof}
+We have modified clause (i) of the definition of well-formed to achieve this.
+\end{proof}
+
+\begin{lemma}
+\label{mainlemma}
+In a well-formed model \genericmodel\ if $\{x_1,...x_n\} \morph y$  is a non-trivial
+functional dependency then either $E_{\xntuple}$ is injective and total in every instance $E$ 
+or else there is a non-empty  simple path $p:a \rightarrow d$
+and a non-identifying path $z:d \morph c$ such that $y \simeq p \circ z$.
+\end{lemma}
+\begin{proof}
+Since \genericmodel\ is well formed then either $E_{\xntuple}$ is injective and total in every instance $E$ and we are done or else the
+the functional dependency
+$\{x_1,...x_n\} \morph y$   is represented 
+by  an entity type $d$ and 
+an identifying tuple of simple paths with respect to
+$d$, $\qntuple$, such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$ and a simple
+path $z=\langle z_1,...z_l \rangle$ such that $z:d\rightarrow c$, for some $l \geq 0$ as here:
+
+\setlength{\arraycolsep}{.2cm}
+\begin{center}
+
+$
+\begin{array}{cp{2cm}c p{2cm} c}
+             &  & \Rnode{b1}{b_1} & &               \\ [0.7cm]
+						 &  & \Rnode{b2}{b_2} & &               \\ [0.4cm]
+						 &  &     \vdots      & &               \\ [0.2cm]
+\Rnode{a}{a} &  &                 & & \Rnode{d}{d}  \\ [-0.2cm]
+             &  & \Rnode{bn}{b_n} & &               \\ [0.9cm]
+             &  & \Rnode{c}{c}    & &               \\
+\end{array}
+$
+\simplepatha{$x_1$}{a}{b1}
+\simplepatha{$x_2$}{a}{b2}
+\simplepatha{$x_n$}{a}{bn}
+\simplepathb{$y$}{a}{c}
+\simplepathb{$q_1$}{d}{b1}
+\simplepathb{$q_2$}{d}{b2}
+\simplepathb{$q_n$}{d}{bn}
+\simplepatha{$z$}{d}{c}
+\end{center}
+such that
+\begin{equation}
+\label{fundependency}
+E_y = E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_z
+\end{equation}
+
+Because $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$,  and from
+clause (ii) of the definition of well-formedness since \genericmodel\ is well formed, it follows that
+there  is a simple path $p:a \rightarrow d$ such
+that 
+%\foreachi, $p \circ q_i \simeq x_i$ and therefore
+in all instances $E$,
+
+\begin{equation}
+\label{incdependency}
+E_{\xntuple} \circ inv_{E_{\qntuple}} = E_p
+\end{equation}
+Now we have  that in all instances $E$ that 
+\begin{align*}
+E_y &= E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_z  && \text{ (\ref{fundependency}), above,}\\
+    &= E_p \circ E_z                                   && \text{by (\ref{incdependency}),}\\
+		&= E_{p \circ z}                                   && \text{from defn. of instance }E.\\
+\end{align*} 
+\vspace{-0.3cm}
+From which, by definition, $y\simeq p \circ z$, as required. \\
+\end{proof}
+Now we give three examples of ER models that fail to be well formed. 
+Figures \ref{clubpresidentbeforenormalisation}, \ref{rawdatatablegraph} and  \ref{pickexamplebeforenormalisation}
+show examples that fail, respectively, conditions (i), (ii) and (iii) respectively of the definition of well-foundedness. 
+
+The failure of the example in figure \ref{rawdatatablegraph} to be well-formed can be rectified by 
+replacing the SeqNo attribute of 
+the data cell entity (dc) by an identifying relationship $R_0:dc \morph c$. The resuting model was given in figure \ref{datatablegraph}.
+
+\begin{figure} [h]
+\begin{center}
+\begin{tabular}{c c}
+$
+\begin{array}{cp{0.4cm}cp{0.5cm}cp{0.75cm}cp{0.75cm}c}
+              &&                &&               &&                &&               \\[0.25cm]
+              && \Rnode{cm}{cm} &&               &&                &&               \\[0.25cm]
+\Rnode{p}{p}	&&                && \Rnode{m}{m}  &&   \Rnode{c}{c} && \Rnode{v}{v}  \\[0.25cm]
+	            &&  
+\end{array}
+$
+
+\ncarr[5]{p}{cm} 
+\alabel{I_0}
+\idcomp
+\ncarr[-30]{p}{v}
+\blabel{yr}
+\idcomp
+\ncarr[-5]{cm}{m}
+\blabel{I_1}
+\idcomp
+\ncarr[50]{cm}{v}
+\alabel{yr1}
+\idcomp
+\ncarr[25]{m}{v}
+\alabel{mNo}
+\idcomp
+\ncarr{m}{c}
+\blabel{M}
+\idcomp
+\ncarr{c}{v}
+\blabel{cId}
+\idcomp
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+p  & president        & Identified by a combination of inclusion relationship ($I_0$) that identifies a
+                       president as being a committee members and a year attribute ($yr$). \\
+cm & committee member & Identified by an inclusion relationship ($I_1$)that identifies a committee member 
+                         as a member and a first year of service attribute ($y1$).\\
+m  & member           & Identified by a member relationship ($M$) to a club and a by membership 
+                         number attribute ($mNo$). \\
+c  & club             & Identified by club identifier attribute ($cId$)
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{Club president example. 
+This example fails clause (i) of the definition of well-formedness because
+the set of paths $\set{\tuple{I_0,yr1},\tuple{I_0,I_1,mNo}, \tuple{I_0,I_1,M,cId}, \tuple{yr}}$ is 
+an identiofying set of paths wrt $p$ but is not minimum because a club has at most one president a year and sothe subset $\set{\tuple{I_0,yr1}, \tuple{I_0,I_1,M,cId}, \tuple{yr}}$ is jointly monomorphic. 
+This problem can be fixed by introducing a clum membership relationship $R: p \morph c$ which is equivalent to
+path $\tuple{I_0,I_1,M}$ and by specifying $R$ in place of $I_0$ which is to be combined with $yr$ to identify entitites of type $p$.
+}
+\label{clubpresidentbeforenormalisation}
+\end{figure}
+\commentary{Club president example is isomorphic to the nearest shop example!}
+
+\begin{figure} [h]
+\begin{tabular}{c p {0.5cm} c}
+(a) & &
+\begin{tabular}{c c}
+$
+\begin{array}{cp{0.75cm}cp{0.75cm}c}
+   \Rnode{r}{r}     & & \Rnode{t}{t} & & \Rnode{v}{v} \\[1.2cm]     
+	 \Rnode{d}{d}   & & \Rnode{c}{c} & &               
+\end{array}
+$
+\ncarr{r}{t} 
+\alabel{S_1}
+\idcomp
+\ncarr{t}{v} 
+\alabel{tN}
+\idcomp
+\ncarr{c}{v} 
+\blabel{cN}
+\idcomp
+\ncarr[-90]{d}{v}
+\blabel{SeqNo}
+\idcomp
+\ncarr{d}{r}
+\alabel{S_0}
+\idcomp
+\ncarr{c}{t}
+\blabel{R_1}
+\idcomp
+\ncarr[50]{r}{v}
+\alabel{rN}
+\idcomp
+
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+t & table & Having identifying attribute tN the name of the table. \\
+c & column & Identified by a combination of column number cN and relationship $R_1$ to the table it is a column of.\\
+r & row & Identified by its row number $rN$ and its relationship $S_1$ to the table it is a row of.\\
+d & data cell & Identified by relationship $S_0$ to the row it is in and its $seqNo$ attribute
+representing its ordinal position within data cells of the row. \\
+\end{tabular} 
+\end{tabular} \\
+(b) &   & 
+$
+\begin{array}{cp{0.5cm}c c c }
+   \Rnode{d}{d} &                  &                       & \Rnode{c}{c}  &       \\[.5cm]  
+		            & \ \ \ \Rnode{r}{r} &                     &               &       \\[.5cm] 
+	              &                  & \Rnode{b1}{b_1} \ \ \ &               &  \Rnode{bn}{b_n}  
+\end{array}
+$
+\ncarr{d}{r} 
+\blabel{S_0}[0.25]
+\ncarr{r}{b1} 
+\blabel{S_1}[0.25]
+\ncarr{d}{bn}
+\alabel{SeqNo}[0.25]
+\ncarr{c}{b1}
+\blabel{R_1}[0.25][1]
+\idcomp
+\ncarr{c}{bn}
+\alabel{cN}[0.25]
+\idcomp
+\end{tabular}
+\caption{(a) The model fails condition (ii) for being well-formulated
+because there is a referential inclusion dependency of $d[ \tuple{S_0,S_1},\tuple{SeqNo}]$
+in $c[\tuple{R_0},\tuple{cN}]$, as indicated in (b), which is not explicitly represented in the model.}
+\label{rawdatatablegraph}
+\end{figure}
+
+\begin{figure} [h]
+\begin{center}
+\begin{tabular}{c c}
+$
+\begin{array}{cp{0.75cm}cp{0.75cm}c}
+   \Rnode{p}{p}     & & \Rnode{c}{c} & & \Rnode{v}{v}    
+\end{array}
+$
+\ncarr{p}{c} 
+\alabel{R}
+\idcomp
+\ncarr[25]{c}{v} 
+\alabel{wId}
+\idcomp
+\ncarr[-10]{c}{v} 
+\blabel{cSn}
+\idcomp
+\ncarr[-65]{c}{v}
+\blabel{iC}
+\ncarr[80]{p}{v}
+\alabel{dI}
+\idcomp
+\ncarr[-100]{p}{v}
+\blabel{q}
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+p & pick & Identified by a combination of relationship $R$ to the crate being picked from
+                and the delivery id attribute ($dI$). Also  having a quantity picked 
+								attribute ($q$).\\
+c & crate & Identified by a combination of warehouse name attribute ($wN$)
+              and crate serial number attribute ($cSn$). Also has an item type ($iT$) attribute.
+ to the table it is 
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{If all deliveries are made from items picked from a single warehouse 
+then this model fails clause (iii) of the definition of well-formulated because, with tespect to entity type $p$, the path $\tuple{R,wN}$ will be dependent on the path $\tuple{dI}$ but neither is the set 
+$\{\tuple{dI}\}$ a mono-source nor has the dependency a representation within the model. A well-formulated and fully factored model for this situation was described previously in 
+figure \ref{pickexample}.
+}
+\label{pickexamplebeforenormalisation}
+\end{figure}
+\commentary{need review mono-source injective terminology}
+\section{Definitions Of Logical and Physical Entity Models}
+
+	
+\subsection{Definition of Logical ER Model}
+
+\begin{definition}
+A well-formulated ER model is \term{purely-logical}  iff it 
+also satisfies:
+\begin{enumerate}[(i)]
+\item
+for all edges $r$ if there is a
+a simple path $p$  not including $r$ such that
+ $r \simeq p$  then $r$ is identifying and there is an edge $e$ in $p$ which is not identifying,
+\item the set of identifying sets I of the model is fully-factored.
+\end{enumerate} 
+\end{definition}
+
+\noindent
+We say that an ER model is a \term{logical ER model} iff it is purely logical.
+
+\subsection{Definition of Physical ER Model}
+\begin{definition}
+\noindent 
+A \term{physical ER model} is a well formulated ER model that also satisfies:
+\begin{enumerate}[(i)]
+\item
+all identifying edges are attributes, \commentary{the set of sets of identifying edges $I$ is closed under composition i.e. $I = \bar{I}$.}
+
+\item
+for each relationship $r$ there is there is an inclusion dependency that it represents.
+\end{enumerate} 
+\end{definition}
+
+
+\section{First Cut Chen Transformation -- $\chiZero$}
+
+\begin{align}
+&\et[\chiZeroM]        && = \et        && \\
+&\rel[\chiZeroM]{x}{y} && = \rel{x}{y}  &&\\
+&\attr[\chiZeroM]{x}   && = \attr{x}  \cup  \setsuchthat{\tuple{r,k}}{\text{for some }
+			                  y \in \et, \ r \in \rel{x}{y} \text{ and } k \in \pk{y}} 
+\end{align}
+
+Alternatively, we can define $\attr[\chiZeroM]{x}$ as the union of $\attr{x}$ and foreign keys $\fk{x}$
+where we define the latter by:
+\begin{equation}
+\fk{x} = \setsuchthat{\tuple{r,q_1,...q_n,a}}
+                               {r \in \rel{x}{y},
+                                  \text{ for some } y \in \et,
+																	\text{ and } \tuple{q_1,...q_n,a} \in \pk{y},
+																	\text{ for some } n \geq 0
+			                   }
+\end{equation}
+
+\section{Chi Transform - a Revised Chen Transformation}
+
+This then needs revision\footnote{Check this!} as follows:
+\begin{multline}
+\fkp{x} = \setsuchthat{\tuple{r,q_1,...q_n,a}}
+                      {r \in \rel{x}{y},
+                                  \text{ for some } y \in \et,
+																	\text{ and } \tuple{q_1,...q_n,a} \in \pk{y},
+																	\text{ for some } n \geq 0,                   \right. \\        
+											\left.		\text{ and } \tuple{r, q_1,...q_n,a}
+																	\text{ is not subsumed by any path }
+																	      \tuple{s_1,...s_m} \in \path{x}{v}
+											}			                   
+\end{multline}
+
+Finally we can define:
+
+\begin{equation}
+\fkpp{x} = \fkp{x}/\simeq
+\end{equation}
+and 
+
+\begin{equation}
+\attr[\chiM]{x}  = \attr{x}  \cup  \fkpp{x}
+\end{equation}
+
+
+\begin{lemma}
+\label{fdcarrythroughlemma}
+Functional depedencies in \genericmodel\ carries through to functional depdencies in $\genericphysical$ \commentary{Expand}
+\end{lemma}
+\begin{proof}
+
+\end{proof}
+
+\section{Boyce-Codd Normal Form}
+\noindent One measure of the goodness of a physical model is whether it satisfies the well-formedness condition know as Boyce Codd Normal Form.
+Written in the terminology we are using here it can be defined as follows:
+\begin{definition} % BCNF
+A physical ER model is in Boyce Codd Normal Form (BCNF) \commentary{See Zaniolo definition 2.} iff
+for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
+for which  there is a non-trivial functional dependency \sfd{x_1,...x_n}{y}, 
+in all instances $E$  of $\genericmodel$, the function $E_{<x_1,...x_n>}$ is injective and total.  
+\end{definition}
+
+\begin{definition} % TNF
+A physical ER model is in Third Normal Form (TNF)  iff
+for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
+for which  there is a non-trivial functional dependency \sfd{x_1,...x_n}{y}, 
+in all instances $E$  of $\genericmodel$, either the function $E_{<x_1,...x_n>}$ is injective and total
+or else $y$ is all identifying.\commentary{new - justify this}.  
+\end{definition}
+
+\noindent The next lemma simplifies the requirement for showing BCNF to consideration of non-trivial
+intransitive functional dependencies:
+\begin{lemma}
+\label{BCNFsublemma}
+A model $\genericmodel$ is in BCNF iff
+for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
+for which there is an non trivial intransitive functional dependency \sfd{x_1,...x_n}{y},
+in all instances $E$, $E_{<x_1,...x_n>}$ is injective and total. 
+\end{lemma}
+\begin{proof}Use lemma \ref{transitiveinjectivelemma}.
+\end{proof}
+
+\noindent Now for the main theorem:\\
+\begin{theorem}
+\noindent If an ER model $\genericmodel$ is well-formulated and logical then the 
+transformed model $\logtophys(\genericmodel)$  is in Third Normal Form. If in $\genericmodel$
+there are no identifying edges $r$ such that $r \simeq p$ for some path $p$ of length greater than $1$
+then $\logtophys(\genericmodel)$ is in Boyce-Codd Normal form. \commentary{Needs modifying to TNF}.
+\end{theorem}
+\begin{proof}
+By lemma \ref{BCNFsublemma} it suffices to show that if 
+$\sfd{\phys{x}_1,...\phys{x}_n}{\phys{y}}$ is a non-trivial intransitive functional dependency of model $\genericphysical$
+where $\phys{x}_1,...\phys{x}_n,\phys{y}$ are attributes of the entity type $a$ of model $\genericphysical$ 
+then  in all instances
+$E$ of $\genericphysical$, $E_{<\phys{x}_1,...\phys{x}_n>}$ is injective and total. \\
+
+
+\noindent Assume, then, such a functional depedency $\sfd{\phys{x}_1,...\phys{x}_n}{\phys{y}}$ in  $\genericphysical$. 
+By lemma \ref{fdcarrythroughlemma} it follows that in the model $\genericmodel$, for each $i$, $1 \leq i \leq n$, 
+for some $m_i$, $m_i \geq 1$, we have a 
+path of length $m_i$ which we denote $x_i = \langle x_{i,1},...x_{i,m_i} \rangle$  and for some $m$, $m \geq 1$ we have a path 
+of length $m$ which we denote 
+$y=\langle y_1,..y_m \rangle$ as shown here: 
+\setlength{\arraycolsep}{.2cm}
+\begin{center}
+$
+\begin{array}{cp{2cm}cc}
+             & &         & \Rnode{b1}{v} \\ [0.5cm]
+						 & &         & \Rnode{b2}{v} \\ [0.6cm]
+						 & & \vdots  &                 \\ [0.2cm]
+\Rnode{a}{a} & &         & \Rnode{bn}{v} \\ [1.0cm]
+             & &         & \Rnode{c}{v}   \\
+\end{array}
+$
+\simplepatha{$x_1$}{a}{b1}
+\simplepatha{$x_2$}{a}{b2}
+\simplepatha{$x_n$}{a}{bn}
+\simplepathb{$y$}{a}{c}
+\end{center}
+and that \sfd{x_1,...x_n}{y} in \genericmodel.
+
+From the assumption that the model $\genericmodel$ is well-formulated and from condition (iii) 
+of the definition of well-formulated, either 
+$E_{\langle x_1,...x_n \rangle}$ is injective and total in every instance $E$ of $\genericmodel$, in which case 
+$\logtophys(E)_{\langle \phys{x}_1,...\phys{x}_n \rangle}$ is injective and total in every instance $E$ of $\genericmodel$ and the proof is completed, or else
+the functional dependency  \sfd{x_1,...x_n}{y} is represented in the model $\genericmodel$. 
+
+
+From the definition of a functional dependency being represented it follows that
+there is an entity type $b$ in $\genericmodel$  and an identifying family of simple paths $q_1,...q_n$, 
+$q_i: b \rightarrow v$ and a 
+path $z: b \rightarrow v$, as shown here: 
+such that
+
+
+\setlength{\arraycolsep}{.2cm}
+\begin{center}
+$
+\begin{array}{cp{2cm}ccp{2cm}c}
+             & &         & \Rnode{b1}{v} &&              \\ [0.5cm]
+						 & &         & \Rnode{b2}{v} &&              \\ [0.6cm]
+						 & &         &    \vdots     &&              \\ [0.2cm]
+\Rnode{a}{a} & &         & \Rnode{bn}{v} && \Rnode{b}{b} \\ [1.0cm]
+             & &         & \Rnode{c}{v}  &&              \\
+\end{array}
+$
+\simplepatha{$x_1$}{a}{b1}
+\simplepatha{$x_2$}{a}{b2}
+\simplepatha{$x_n$}{a}{bn}
+\simplepathb{$y$}{a}{c}
+\simplepathb{$q_1$}{b}{b1}
+\simplepathb{$q_2$}{b}{b2}
+\simplepathb{$q_n$}{b}{bn}
+\simplepatha{$z$}{b}{c}
+\end{center}
+such that
+\begin{equation}
+\label{inclusiondependency}
+\incd{a}{x_1,...x_n}{d}{q_1,...q_n}
+\end{equation}
+and such that in every instance $E$ of $\genericmodel$:
+%\newcommand{\ineveryinstance}{\forall E \in inst_\genericmodel ,  \hspace{0.25cm} }
+\begin{equation}
+\label{representationByIdentifyingRelationships}
+E_{\langle x_1,...x_n \rangle}\circ inv_{E_{\qntuple}} \circ E_{z} = E_{\langle y_1,..y_m \rangle} 
+\end{equation}
+
+Note that $z$ cannot be equivalent to a primary key attribute for if it were then by lemma \ref{identifyingconverse}
+it would be equivalent to $q_i$,
+for some $i$, $1 \leq i \leq n$ from which it would follow that $E_y=E_{x_i}$ in each instance $E$ and therefore, from the definitions, 
+we would have that $y \simeq x_i$ and therefore that $\phys{y}=\phys{x_i}$ contradicting the assumption that
+the fucntional dependency $\sfd{\phys{x}_1,...\phys{x}_n}{\phys{y}}$ is non-trivial.
+
+
+Since there is an inclusion dependency (\ref{inclusiondependency}) in $\genericmodel$ and from the assumption that  model
+$\genericmodel$ is well-formulated it follows
+ from condition (ii) of the definition of well-formulated  that there exists
+a path $\langle p_1,...p_k \rangle:a \rightarrow b$, $k \geq 0$, such that:
+\begin{equation}
+\label{simpleRepresentationOfFirstPart}
+\langle E_{x_1},...E_{x_n} \rangle \circ inv_{E_{\qntuple}} = E_{\langle p_1,...p_k \rangle}
+\end{equation}
+\noindent Either $k=0$ and $\qntuple = \langle x_1,...x_n \rangle$ in which case $E_{\langle x_1,...x_n \rangle}$ is
+injective and total in every instance $E$ of $\genericmodel$ and thus $\logtophys(E)_{\langle \phys{x}_1,...\phys{x}_n \rangle}$ is
+injective and total in every instance $\logtophys(E)$ of $\genericphysical$ and the proof is complete 
+\noindent or else $k \geq 1$ and it follows from (\ref{representationByIdentifyingRelationships}) and (\ref{simpleRepresentationOfFirstPart}) that:
+\begin{equation} 
+\label{simpleRepresentation}
+ E_{\langle p_1,...p_k \rangle} \circ E_{\langle z_1,...z_l \rangle} = E_{\langle y_1,..y_m \rangle} 
+\end{equation}
+
+
+We will show that this leads to a contradiction and so complete the proof. 
+
+If $m >1$ then
+ from  (\ref{simpleRepresentation}),
+from clause (i) of the definition of subsumes and from the fact demonstrated above that $z$ is not equivalent to a 
+primary key attribute
+it follows that $p_1,...p_k,z_1,...z_l$ subsume $\langle y_1,..y_m \rangle$, 
+which implies that $\langle y_1,..y_m \rangle$ is excluded from $\fkp{a}$ and thus that 
+ $\phys{y}=\left[\langle y_1,..y_m \rangle\right]$ is not an attribute of $\genericphysical$ contrary to our 
+initial assumption. 
+
+We must conclude that $m=1$.
+In this case we have $y_1$, an attribute of $a$ in $\genericmodel$, and from (\ref{simpleRepresentation})  we have in all instances $E$ of $\genericmodel$:
+\begin{equation}
+E_{y_1}=E_{\langle p_1,...p_k \rangle} \circ E_{\langle z_1,...z_l \rangle}
+\end{equation}
+\noindent which is to say that in all instances $E$ of $\genericmodel$:
+\begin{equation}
+E_{y_1}=E_{\langle p_1,...p_k ,z_1,...z_l \rangle}
+\end{equation}
+\noindent
+We have shown, therefore, that $y_1$ is an outgoing edge of $a$ in $\genericmodel$ 
+which is equivalent to a simple path of $\genericmodel$ of length $\geq 2$.
+Therefore since $m$ is logical,  $y_1$ is identifying as required to establishing TNF
+or if we have assumed no such $y_1$ the assumption is contradicted and we establish BCNF.
+This completes the proof.
+\end{proof}
