@@ -143,7 +143,8 @@ fkc & foreign key column & Identified by relationship $S_0$ to the foreign key i
 \caption{Example of path equivalence - the path $\tuple{R_0,R_1}$ is equivalent to path $\tuple{S_0,S_1}$.}
 \label{foreignkeygraph}
 \end{figure}
-\commentary{Relational meta-schema path equivalence example is a little inaccessible therefore consider replcing to reference to figure 3 which is the table row column data cell example. actually called example of path euivalence currently.}
+\commentary{Relational meta-schema path equivalence example is a little inaccessible therefore consider replacing by
+the table row column data cell example from earlier draft as figure 3 where also given as example of path ewuivalence.}
 
 \begin{figure} [h]  % student advisor
 \begin{center}
@@ -269,7 +270,7 @@ and $P'_a$ is the set of primary key paths in $\genericmodel'$ then $P_a \simeq 
 \end{definition}
 
 \begin{definition}
-Say that two models are \term{co-extensional} \commentary{was \term{equivalent}} iff there is a third model that they are both extensions.
+Say that two models are \term{co-extensional} \commentary{was \term{equivalent}} iff there is a third model that they are both extensions of.
 \commentary{Co-extsionnality is not a transitive and so we need equivalence needs be the symetric transitive closure.
 But do I need this closure? And is this closure the right thing categoricaly?}
 \end{definition}
@@ -303,6 +304,9 @@ with, as above, $I$ being $\setsuchthat{E_e}{e \in i}$,
 $F$ being $E_f$,  and $G$ being $\setsuchthat{E_g}{g \in j}$ \commentary{can improve this wording instead of repeating the mapping}.
 \end{proof}
 
+From lemma \ref{identifyingsetdeduction} it follows that any set of paths arrived at by repeated composition 
+of mono-sources specified for a model \genericmodel\ in $\setsuchthat{I_a}{a \in \et}$ is itelf  
+a mono-source im \genericmodel. Denote by $\bar{I}$ the set  of all such mono-sources.
 
 
 \begin{figure} [h]
@@ -357,7 +361,6 @@ path $\tuple{I,M}$ and by re-specifying the identifying features of $\set{R,yr}$
 \label{clubpresidentbeforenormalisation}
 \end{figure}
 \commentary{Club president example is isomorphic to the nearest shop example. And is more general than the Zanilo tel-place-location example.}
-\commentary{$\bar{I}$ has not been defined.}
 
 \subsubsection{Primarily key Paths and Minimality Condition}
 \label{minimalitycondition}
@@ -368,17 +371,14 @@ of $a$ is any path $p:a \morph v$ consisting entirely of identifying edges.
 \end{definition}
 
 Denote the set of all primary key paths leaving an entity type $a$ in a model \genericmodel\ by 
-$\pk{a}$.
+$\pk{a}$. From this definition it follows that $\pk{a} \in \bar{I}$. From this we get the following corollary.
 
 
-\begin{lemma}
-\label{primarykeylemma}
+\begin{corollary}
+\label{primarykeycorallary}
 If \genericmodel\ is an entity model then the set $\pk{a}$of all primary key paths 
 leaving an entity type $a$ is a mono-source.
-\end{lemma}
-\begin{proof}
-Follows from lemma \ref{identifyingsetdeduction}.
-\end{proof}
+\end{corollary}
 
 
 \begin{definition}
@@ -413,7 +413,7 @@ are mono-sources.
 \begin{proof}
 For each entity type $a$ we extend \genericmodel\ by edges $E_a$, where each edge 
 $E_a$ corresponds to a distinct primary key path $p$ from $a$ to $\veee$
-and in the extended model \genericmodel'\ by lemma \ref{primarykeylemma} 
+and in the extended model \genericmodel'\ by corollary \ref{primarykeycorallary} 
 we can define the identifying set $I'_a$ at $a$ to be the set
 $E_a$. 
 \end{proof}
