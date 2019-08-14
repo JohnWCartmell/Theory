@@ -63,13 +63,10 @@ $y \notin img(\langle f_1,...f_n\rangle)$ then $inv_{\langle f_1,...f_n\rangle}(
 \end{definition}
 
 
-
-
 \begin{definition}
 \noindent An \term{ER model} is an ER schema and a set of database instances of the schema called the
 \term{defining instances} of the model. \\
 \end{definition}
-
 
 
 \subsection{Path equivalence and subsumption}
@@ -238,11 +235,20 @@ $\setsuchthat{E_p}{p\in P}$ is jointly injective.
 
 From the definition of ER model it follows that the set of outgoing edges of an entity type 
 $a$ in a model \genericmodel\ is a mono-source. 
+\subsubsection{Primary Key Paths}
+\begin{definition}
+If $a$ is an entity type in an entity model \genericmodel\ then a \term{primary key path}
+\commentary{Need show equivalence of this and alternate definitions.}
+of $a$ is any path $p:a \morph v$ consisting entirely of identifying edges. 
+\end{definition}
+
+Denote the set of all primary key paths leaving an entity type $a$ in a model \genericmodel\ by 
+$\pk{a}$.
 
 \subsubsection{Equivalent Models}
 
 First we need to define equivalence for sets of paths then we can define what we mean by 
-models being equivalent.
+one model being an extension of another.
 \begin{definition}
 If \genericmodel\ is a model and if $P$ and $P'$ are sets of paths in \genericmodel\ then say that
 $P \simeq P'$ in \genericmodel\ iff
@@ -264,18 +270,52 @@ $E'_e=E_e$ and all defining instances $E'$ of $\genericmodel'$ arise in this way
 \item for all edges $e$ of $\genericmodel'$ that are not in \genericmodel\ there is a path 
 $p$ in \genericmodel\ such that for all the defining instances $E'$ of $\genericmodel'$,
 $E'_e=E'_p$, or, equivalently, $E'_e=E_p$,
-\item for each entity type $a$ if $P_a$ is the set of primary key paths of $a$ in \genericmodel\
-and $P'_a$ is the set of primary key paths in $\genericmodel'$ then $P_a \simeq P'_a$ in $\genericmodel'$. 
+\item for each entity type $a$  then $\pk[\genericmodel]{a} \simeq \pk[\genericmodel']{a}$ in $\genericmodel'$. 
 \end{enumerate}
 \end{definition}
 
 \begin{definition}
 Say that two models are \term{co-extensional} \commentary{was \term{equivalent}} iff there is a third model that they are both extensions of.
 \commentary{Co-extsionnality is not a transitive and so we need equivalence needs be the symetric transitive closure.
-But do I need this closure? And is this closure the right thing categoricaly?}
+But do I need this closure? We can show that this closure is the right thing categoricaly.}
 \end{definition}
 
 \subsubsection{Composing mono-sources}
+
+
+A source $i$ at $a$ that includes a path $f:a \morph b$ can be composed with a source $j$ at $b$ by taking
+the union of paths in $i$ other than $f$, which we shall denote $i\backslash \set{f}$, and the set 
+$\setsuchthat{f \circ g}{g \in j}$. The following diagram gives an idea of the arrangement of sets of 
+paths $i$ and $j$ as well as the composed set
+$(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ :
+
+\setlength{\arraycolsep}{.2cm}
+\begin{center}
+$
+\begin{array}{cp{1.5cm}ccp{1.5cm}ccp{1.25cm}c}
+             & &         & \dotnode[dotsize=1pt]{b1} & &        &                              && \pnode{bracehigh}  \\ [0.3cm]
+						 & &         & \dotnode[dotsize=1pt]{b2} & &        &                                \\ [0.3cm]
+\Rnode{a}{a} & & \vdots  &                           & &        &                                \\ [0.02cm]
+						 & &         &                           & &        & \dotnode[dotsize=1pt]{x1}      \\ [0.1cm]
+             & &         & \Rnode{b}{b}              & & \vdots &                                \\ [0.1cm]
+             & &         &                           & &        & \dotnode[dotsize=1pt]{xn}   && \pnode{bracelow}   \\ [0.5cm]
+\psbrace[rot=90, nodesepA=-2pt, nodesepB=10pt, braceWidth=1pt, braceWidthInner=3pt](0,0.5)(2.7cm,0.5){i}	
+	&  &         & 
+\psbrace[rot=90, nodesepA=-2pt, nodesepB=10pt, braceWidth=1pt, braceWidthInner=3pt](0,0.5)(2.7cm,0.5){j} & & \\
+\end{array}
+$
+\psbrace[rot=0, nodesepA=10pt, braceWidth=1pt, braceWidthInner=3pt, ,ref=lC](bracelow)(bracehigh)
+{$(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$}
+\simplepatha{}{b}{x1}
+\simplepatha{}{b}{xn}
+\simplepatha{}{a}{b1}
+\simplepatha{}{a}{b2}
+%\simplepatha{}{a}{bn}
+\simplepathb{$f$}{a}{b}
+\end{center}
+.
+
+In the next lemma we show that if $j$ is a mono-source then the above composition of $i$ with $j$ though $f$ is a mono-source iff $i$ is a mono-source.
 
 \begin{lemma}
 \label{identifyingsetdeduction}
@@ -364,14 +404,7 @@ path $\tuple{I,M}$ and by re-specifying the identifying features of $\set{R,yr}$
 
 \subsubsection{Primarily key Paths and Minimality Condition}
 \label{minimalitycondition}
-\begin{definition}
-If $a$ is an entity type in an entity model \genericmodel\ then a \term{primary key path}
-\commentary{Need show equivalence of this and alternate definitions.}
-of $a$ is any path $p:a \morph v$ consisting entirely of identifying edges. 
-\end{definition}
-
-Denote the set of all primary key paths leaving an entity type $a$ in a model \genericmodel\ by 
-$\pk{a}$. From this definition it follows that $\pk{a} \in \bar{I}$. From this we get the following corollary.
+ From this definition it follows that $\pk{a} \in \bar{I}$. From this we get the following corollary.
 
 
 \begin{corollary}
@@ -399,11 +432,14 @@ of the set $\pk{a}$  of key paths of \genericmodel\ then no proper subset of $P$
 
 \subsubsection{Primarily Keyed Models}
 
+One of the characteristics of a relational model is that each of the identifying features of a table is a column
+and this translates into our unified framework as each identifying edge of each entity type being an attribute i.e. 
+an edge with codomain $\veee$. This leads to this definition: 
 \begin{definition}
 Say that a model is \term{primarily keyed} iff all identifying edges 
 have codomain $\veee$.
 \end{definition}
-
+To reach the goal of showing that to every ER model there is an equivalent relational model we require the following:
 \begin{lemma}
 If \genericmodel\ is an ER model then it can be extended to a model $\genericmodel'$
 which is primarily keyed. If \genericmodel\ satisfies the minimality condition then the
@@ -419,122 +455,6 @@ $E_a$.
 \end{proof}
 
 
-\subsubsection{Factoring of models}
-
-\begin{definition}
-In an entity model \genericmodel\ if $a$ is an entity type then say that
-a \term{factorisation} of the set $I_a$ is a subset $\set{h_1,...h_n} \subset I_a$
-and a  path $f:a \morph b$ and a set of paths sourced at $b$, $\set{g_1,...g_n} \in \bar{I}$\commentary{not defined}
-such that for each $i$, $1 \leq i \leq n$, $f \circ g_i \simeq h_i$. 
-\end{definition}
-
-The factorisation consists  
-of a base set of edges: $h=I \backslash \set{h_1,...h_n}$, a mediating path $f:a \morph b$ and a remainder 
-set $j$ paths sourced at $b$, $j \in \bar{I}$, 
-such that $I_a \simeq h \cup \setsuchthat{f\circ g}{g \in j}$.
-
-\begin{definition}
-If \genericmodel\ is a model and if there is a factorisation at entity type $a$ with
-base set $h$, mediating path $f: a \morph b$ and remainder $j \in \bar{I}$ then define
-a factored model $\genericmodel'$ determined by the factorisation to be the model
-whose underlying graph is the graph of \genericmodel\ with edges $h_1,...h_n$ removed 
-(defining database instances restricted) and
-an edge $k$ added, $k:a \morph b$, each database instance $E$ extends to $E'$, $E'_k = E_f$.
-Identifying sets of $\genericmodel'$ are exactly as for \genericmodel\ except for at the entity
-type $a$ where the identifying set $I_a$ in $\genericmodel'$ is defined to be $h \cup \set{k}$.
-Note that by lemma \ref{identifyingsetdeduction} the modified $E'$ is a database instance because
-the family 
-$\setsuchthat{E'_e}{e \in \set{h \cup \set{k}}}$ is jointly injective because 
-$\setsuchthat{E'_e}{e \in \set{h \cup \set{k}}} =\setsuchthat{E_e}{e \in \set{h \cup \set{f}}}$
-and in model \genericmodel, $h \cup \set{f}$ is a mono-source because both
-$h \cup \set{f} \backslash f \cup \setsuchthat{f \circ g}{g \in j}
-=h  \cup \setsuchthat{f \circ g}{g \in j}=I_a$ and $j$ are  mono-sources.
-
-
-\end{definition}
-
-\begin{definition}
-If $a$ is an entity type in an entity model \genericmodel\ then define the abstraction
-level of $a$ to be the sum of the lengths of the primary key paths sourced at $a$.
-\end{definition}
-
-
-\begin{definition}
-Define  the abstraction level of a model $\genericmodel$ to be
-the sum over all entity types $a$ of the abstraction level of $a$.
-\end{definition}
-
-\begin{lemma}
-If $\genericmodel'$ is a factorisation of model $\genericmodel$ then abstraction level 
-of $\genericmodel'$ is greater than abstraction level of $\genericmodel$ and the number of edges
-is not increased. 
-\end{lemma}
-\begin{proof}
-\end{proof}
-
-\begin{definition}
-Define an entity model \genericmodel\ to be fully-factored iff there no entity types $a$
-for which the set $I_a$ has  factorisations.
-\end{definition}
-
-\begin{definition}
-If \genericmodel\ is a model then say that a $\genericmodel'$ is a fully-factored 
-equivalent to \genericmodel\
-if it results from successive factorisations of \genericmodel\ until the resulting model can no longer be
-factorised. 
-\end{definition}
-
-\begin{lemma}
-Every model \genericmodel\ has a fully factorised equivalent. 
-\end{lemma}
-\begin{proof}
-We need to show that the factorisation process will terminate. 
-to do this note that we can put a (crude) bound on the abstraction level of an entity model
-of number of entity types multiplied by the square of the  number of edges
-\commentary{Need revise this most likely}.  Because the number of nodes remains constant during
-factorisation and because the number of edges does not increase this bound can be calculated
-for the model \genericmodel\ and serves as an upper bound for the abstraction level of 
-any successive factorisation of \genericmodel. Since factorisation increases abstraction level
-and there is an upper bound to abstraction level then the process cannot continue indefinitely. 
-\end{proof}
-
-\subsubsection{Minimality Condition of Factored Model}
-
-\begin{lemma}
-\label{identifyingfactorminimal}
-In a model \genericmodel, if $i$ is a source with domain $a$,
-if $f \in i$, $f: a \morph b$, 
-and if $j$ is a mono-source with domain $b$
-then  if $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a minimum mono-source
-then $i$ is a minimum mono-source.
-\end{lemma}
-\begin{proof}
-We assume that $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source and that no subset of it is a mono-source.
-By lemma \ref{identifyingsetdeduction} it follows that $i$ is a mono-source we need to show that
-for no edge $e \in i$ is $i \backslash \set{e}$ a mono source. Assume to the contrary that there is such an $e$ then  either $e = f$ or else
-$e \in i \backslash \set{f}$. In the first case $(i \backslash \set{f})$ is a subset of  $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ which is a mono-source which contradicts the initial assumption. In the second  case 
-by lemma \ref{identifyingsetdeduction} since $i \backslash \set{e}$ is a mono-source it follows that
-$((i \backslash \set{e})\backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source which again is to say that a subset
-of $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source contradicting the initial assumption.
-We conclude that no subset of $i$ is a mono-source.
-\end{proof}
-
-\begin{lemma}
-If a model \genericmodel\ satisfies the minimality condition then it has a fully factored
-equivalent $\genericmodel'$  and $\genericmodel'$ satisfies the minimality condition. 
-\end{lemma}
-\begin{proof}
-By lemma \ref{identifyingfactorminimal} we have the minimality of $I_a$ in $\genericmodel'$.
-
-To show that representative sets of primary key paths in $\genericmodel'$ are minimal mono-sources
-first note that to each path $p'$ in $\genericmodel'$ there is a corresponding path 
-$p$ in \genericmodel\  
- such that for all instances $E$ of \genericmodel\ with corresponding $E'$ of $\genericmodel'$, 
-$E_p=E'_{p'}$ and that this correspondence establishes a 1-1 correspondence between the set of primary key paths $P'$ in $\genericmodel'$
-and the set of primary key paths $P'$ in \genericmodel. Because $E_p=E'_{p'}$, for all defining instances
-$E$, it follows that a representative set for $P'$ corresponds to a representative set for $P'$ and also
-that mono-sources in $\genericmodel'$ correspond to mono-sources in \genericmodel. From this it follows that representative sets of primary key paths in $\genericmodel'$ are minimal mono-sources.
-\end{proof}
 
 
 \noindent
@@ -1367,4 +1287,123 @@ which is equivalent to a simple path of $\genericmodel$ of length $\geq 2$.
 Therefore since $m$ is logical,  $y_1$ is identifying as required to establishing TNF
 or if we have assumed no such $y_1$ the assumption is contradicted and we establish BCNF.
 This completes the proof.
+\end{proof}
+
+\section{Logical Models}
+I am using the term \term{logical} in the sense that it is used in certain ER modelling methodolgies such as ???.
+\subsection{Fully Factored Models}
+
+\begin{definition}
+In an entity model \genericmodel\ if $a$ is an entity type then say that
+a \term{factorisation} of the set $I_a$ is a subset $\set{h_1,...h_n} \subset I_a$
+and a  path $f:a \morph b$ and a set of paths sourced at $b$, $\set{g_1,...g_n} \in \bar{I}$\commentary{not defined}
+such that for each $i$, $1 \leq i \leq n$, $f \circ g_i \simeq h_i$. 
+\end{definition}
+
+The factorisation consists  
+of a base set of edges: $h=I \backslash \set{h_1,...h_n}$, a mediating path $f:a \morph b$ and a remainder 
+set $j$ paths sourced at $b$, $j \in \bar{I}$, 
+such that $I_a \simeq h \cup \setsuchthat{f\circ g}{g \in j}$.
+
+\begin{definition}
+If \genericmodel\ is a model and if there is a factorisation at entity type $a$ with
+base set $h$, mediating path $f: a \morph b$ and remainder $j \in \bar{I}$ then define
+a factored model $\genericmodel'$ determined by the factorisation to be the model
+whose underlying graph is the graph of \genericmodel\ with edges $h_1,...h_n$ removed 
+(defining database instances restricted) and
+an edge $k$ added, $k:a \morph b$, each database instance $E$ extends to $E'$, $E'_k = E_f$.
+Identifying sets of $\genericmodel'$ are exactly as for \genericmodel\ except for at the entity
+type $a$ where the identifying set $I_a$ in $\genericmodel'$ is defined to be $h \cup \set{k}$.
+Note that by lemma \ref{identifyingsetdeduction} the modified $E'$ is a database instance because
+the family 
+$\setsuchthat{E'_e}{e \in \set{h \cup \set{k}}}$ is jointly injective because 
+$\setsuchthat{E'_e}{e \in \set{h \cup \set{k}}} =\setsuchthat{E_e}{e \in \set{h \cup \set{f}}}$
+and in model \genericmodel, $h \cup \set{f}$ is a mono-source because both
+$h \cup \set{f} \backslash f \cup \setsuchthat{f \circ g}{g \in j}
+=h  \cup \setsuchthat{f \circ g}{g \in j}=I_a$ and $j$ are  mono-sources.
+
+
+\end{definition}
+
+\begin{definition}
+If $a$ is an entity type in an entity model \genericmodel\ then define the abstraction
+level of $a$ to be the sum of the lengths of the primary key paths sourced at $a$.
+\end{definition}
+
+
+\begin{definition}
+Define  the abstraction level of a model $\genericmodel$ to be
+the sum over all entity types $a$ of the abstraction level of $a$.
+\end{definition}
+
+\begin{lemma}
+If $\genericmodel'$ is a factorisation of model $\genericmodel$ then abstraction level 
+of $\genericmodel'$ is greater than abstraction level of $\genericmodel$ and the number of edges
+is not increased. 
+\end{lemma}
+\begin{proof}
+\end{proof}
+
+\begin{definition}
+Define an entity model \genericmodel\ to be fully-factored iff there no entity types $a$
+for which the set $I_a$ has  factorisations.
+\end{definition}
+
+\begin{definition}
+If \genericmodel\ is a model then say that a $\genericmodel'$ is a fully-factored 
+equivalent to \genericmodel\
+if it results from successive factorisations of \genericmodel\ until the resulting model can no longer be
+factorised. 
+\end{definition}
+
+\begin{lemma}
+Every model \genericmodel\ has a fully factorised equivalent. 
+\end{lemma}
+\begin{proof}
+We need to show that the factorisation process will terminate. 
+to do this note that we can put a (crude) bound on the abstraction level of an entity model
+of number of entity types multiplied by the square of the  number of edges
+\commentary{Need revise this most likely}.  Because the number of nodes remains constant during
+factorisation and because the number of edges does not increase this bound can be calculated
+for the model \genericmodel\ and serves as an upper bound for the abstraction level of 
+any successive factorisation of \genericmodel. Since factorisation increases abstraction level
+and there is an upper bound to abstraction level then the process cannot continue indefinitely. 
+\end{proof}
+
+\subsection{Minimality Condition of Factored Model}
+
+\begin{lemma}
+\label{identifyingfactorminimal}
+In a model \genericmodel, if $i$ is a source with domain $a$,
+if $f \in i$, $f: a \morph b$, 
+and if $j$ is a mono-source with domain $b$
+then  if $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a minimum mono-source
+then $i$ is a minimum mono-source.
+\end{lemma}
+\begin{proof}
+We assume that $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source and that no subset of it is a mono-source.
+By lemma \ref{identifyingsetdeduction} it follows that $i$ is a mono-source we need to show that
+for no edge $e \in i$ is $i \backslash \set{e}$ a mono source. Assume to the contrary that there is such an $e$ then  either $e = f$ or else
+$e \in i \backslash \set{f}$. In the first case $(i \backslash \set{f})$ is a subset of  $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ which is a mono-source which contradicts the initial assumption. In the second  case 
+by lemma \ref{identifyingsetdeduction} since $i \backslash \set{e}$ is a mono-source it follows that
+$((i \backslash \set{e})\backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source which again is to say that a subset
+of $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source contradicting the initial assumption.
+We conclude that no subset of $i$ is a mono-source.
+\end{proof}
+
+\begin{lemma}
+If a model \genericmodel\ satisfies the minimality condition then it has a fully factored
+equivalent $\genericmodel'$  and $\genericmodel'$ satisfies the minimality condition. 
+\end{lemma}
+\begin{proof}
+By lemma \ref{identifyingfactorminimal} we have the minimality of $I_a$ in $\genericmodel'$.
+
+To show that representative sets of primary key paths in $\genericmodel'$ are minimal mono-sources
+first note that to each path $p'$ in $\genericmodel'$ there is a corresponding path 
+$p$ in \genericmodel\  
+ such that for all instances $E$ of \genericmodel\ with corresponding $E'$ of $\genericmodel'$, 
+$E_p=E'_{p'}$ and that this correspondence establishes a 1-1 correspondence between the set of primary key paths $P'$ in $\genericmodel'$
+and the set of primary key paths $P'$ in \genericmodel. Because $E_p=E'_{p'}$, for all defining instances
+$E$, it follows that a representative set for $P'$ corresponds to a representative set for $P'$ and also
+that mono-sources in $\genericmodel'$ correspond to mono-sources in \genericmodel. From this it follows that representative sets of primary key paths in $\genericmodel'$ are minimal mono-sources.
 \end{proof}
