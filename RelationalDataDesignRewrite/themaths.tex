@@ -95,95 +95,13 @@ for some $j$, $1 \leq j \leq m$, $s_j$ is not an identifying edge. \\
 \end{enumerate}
 \end{definition}
 
-\begin{figure} [h]
-\begin{center}
-\begin{tabular}{c c}
-$
-\begin{array}{cp{0.75cm}cp{0.75cm}c}
-   \Rnode{fk}{fk}     & & \Rnode{t}{t} & & \Rnode{v}{v} \\[1.2cm]     
-	 \Rnode{fkc}{fkc}   & & \Rnode{c}{c} & &               
-\end{array}
-$
-\ncarr{fk}{t} 
-\alabel{S_1}
-\ncarr{t}{v} 
-\alabel{tN}
-\idcomp
-\ncarr{c}{v} 
-\blabel{cN}
-\idcomp
-\ncarr{fkc}{c}
-\blabel{R_0}
-\ncarr{fkc}{fk}
-\alabel{S_0}
-\idcomp
-\ncarr{c}{t}
-\blabel{R_1}
-\idcomp
-\ncarr[50]{fk}{v}
-\alabel{FkN}
-\idcomp
-\ncarr[-90]{fkc}{v}
-\blabel{SeqN}
-\idcomp
-& \footnotesize
-\begin{tabular}{c p{1.5cm} p{4cm}}
-KEY && \\
-\hline
-t & table & Having identifying attribute tN the name of the table. \\
-c & column & Identified by a combination of column name cN and relationship $R_1$ to the table it is a column of.\\
-fk & foreign key & Identified by its name $FkN$.\\
-fkc & foreign key column & Identified by relationship $S_0$ to the foreign key it is a part of and its sequence number $SeqN$ i.e. the position it appears in within the foreign key. \\
-\end{tabular} 
-\end{tabular}
-\end{center}
-\caption{Example of path equivalence - the path $\tuple{R_0,R_1}$ is equivalent to path $\tuple{S_0,S_1}$.}
-\label{foreignkeygraph}
-\end{figure}
+\input{examples/relationalmetamodel}
+
 \commentary{Relational meta-schema path equivalence example is a little inaccessible therefore consider replacing by
 the table row column data cell example from earlier draft as figure 3 where also given as example of path ewuivalence.}
 
-\begin{figure} [h]  % student advisor
-\begin{center}
-\begin{tabular}{c c}
-$
-\begin{array}{cp{0.05cm}c  p{0.05cm}c p{0.5cm}c}
-                & & \Rnode{d}{d} & &              & &             \\ [0.3cm]
-								& &              & &              & & \Rnode{v}{v} \\ [0.6cm]     
-	 \Rnode{s}{s} & &              & & \Rnode{p}{p} & &             
-\end{array}
-$
-\ncarr{s}{d} 
-\alabel{S_1}
-\idcomp
-\ncarr{d}{v} 
-\alabel{Id}
-\idcomp
-\ncarr{p}{v} 
-\blabel{PNo}
-\idcomp
-\ncarr{p}{d} 
-\blabel{R_1}
-\idcomp
-\ncline[linestyle=dashed,nodesepA=\arrnodesepA,nodesepB=\arrnodesepB]{->}{s}{p} 
-\blabel{R_0}
-\ncarr[-90]{s}{v} 
-\blabel{sNo}
-\idcomp
-& \footnotesize
-\begin{tabular}{c p{1.5cm} p{4cm}}
-KEY && \\
-\hline
-d & department & Having identifying attribute Id the department identifier. \\
-s & student & Identified by relationship $S_0$ to department enrolled in and  attribute student number SNo. \\
-p & professor & Identified by their relationship $R_1$ to a department and their professor number attribute pNo yyy \\
-R0 & advised by & Represents the relationship\footnote{How significant is it that this may be optional?Need draw this out.} between a student and a professor.\\
-\end{tabular} 
-\end{tabular}
-\end{center}
-\caption{Example of path  $\tuple{R_0,R_1} < \tuple{S_1}$. This example is based on one given Shlaer-Long. Here we specify that a student optionally has an advisor (suppose that the advisor is selected part way through a course). As before we assume that an advisor must be a professor of the department in which the student is enrolled. }
-\label{studentadvisorgraph}
-\end{figure}
+\input{examples/studentadvisor}
+
 
 \subsection{Jointly Injective Sets of Functions}
 \begin{lemma}
@@ -350,60 +268,8 @@ From lemma \ref{identifyingsetdeduction} it follows that any set of paths arrive
 of mono-sources specified for a model \genericmodel\ in $\setsuchthat{I_a}{a \in \et}$ is itelf  
 a mono-source in \genericmodel. Denote by $\bar{I}$ the set  of all such mono-sources.
 
+\input{examples/clubpresident}
 
-\begin{figure} [h]
-\begin{center}
-\begin{tabular}{c c}
-$
-\begin{array}{cp{0.4cm}cp{0.75cm}cp{0.75cm}c}
-              &&               &&                &&               \\[0.25cm]
-              &&               &&                &&               \\[0.25cm]
-\Rnode{p}{p}	&& \Rnode{m}{m}  &&   \Rnode{c}{c} && \Rnode{v}{v}  \\[0.25cm]
-	            &&  
-\end{array}
-$
-
-\ncarr{p}{m} 
-\alabel{I}
-\idcomp
-\ncarr[-35]{p}{v}
-\blabel{yr}
-\idcomp
-\ncarr[30]{m}{v}
-\alabel{mNo}
-\idcomp
-\ncarr{m}{c}
-\blabel{M}
-\idcomp
-\ncarr{c}{v}
-\blabel{cId}
-\idcomp
-& \footnotesize
-\begin{tabular}{c p{1.5cm} p{4cm}}
-KEY && \\
-\hline
-p  & president        & Identified by a combination of inclusion relationship ($I$) that identifies a
-                       president as being a committee members and a year attribute ($yr$). \\
-m  & member           & Identified by a member relationship ($M$) to a club and a by membership 
-                         number attribute ($mNo$). \\
-c  & club             & Identified by club identifier attribute ($cId$)
-\end{tabular} 
-\end{tabular}
-\end{center}
-\caption{Club president example. 
-This is an example of an ER model that fails the minimality condition defined in section \ref{minimalitycondition}.
-The failure arises at entity type p (president) because 
-the set of paths $\set{I\circ mNo, I \circ M \circ cId, yr}$ is
-in $\bar{I}$ and is therefore a mono-source but it is not minimal because
- a club has at most one president a year and so the subset $\set{I \circ M \circ cId, yr}$ is  a
-mono-source. Further, the path $I \circ mNo$ is not equivalent to either of the two paths in the subset.
-This problem can be fixed by introducing a club membership relationship $R: p \morph c$ and extended each defining instance $E$
- by which is defining $E'_R=E_{I \circ M}$  and by re-specifying the identifying features $p$ to be the set $\set{R,yr}$,
-so obtaining an extended model in which $R$ it to be equivalent to
-path $I \circ M$.
-}
-\label{clubpresidentbeforenormalisation}
-\end{figure}
 \commentary{Club president example is isomorphic to the nearest shop example. And is more general than the Zanilo tel-place-location example.}
 
 \subsubsection{Primarily key Paths and Minimality Condition}
@@ -457,9 +323,6 @@ and in the extended model \genericmodel'\ by corollary \ref{primarykeycorallary}
 we can define the identifying set $I'_a$ at $a$ to be the set
 $E_a$. 
 \end{proof}
-
-
-
 
 \noindent
 Consider that the various database normal forms (3NF, BCNF, 4NF, 5NF and the like) each 
@@ -863,178 +726,14 @@ The failure of the example in figure \ref{rawdatatablegraph} to be well-formed c
 replacing the SeqNo attribute of 
 the data cell entity (dc) by an identifying relationship $R_0:dc \morph c$. The resuting model was given in figure \ref{datatablegraph}.
 
-\begin{figure} [h]
-\begin{center}
-\begin{tabular}{c c}
-$
-\begin{array}{cp{0.4cm}cp{0.5cm}cp{0.75cm}cp{0.75cm}c}
-              &&                &&               &&                &&               \\[0.25cm]
-              && \Rnode{cm}{cm} &&               &&                &&               \\[0.25cm]
-\Rnode{p}{p}	&&                && \Rnode{m}{m}  &&   \Rnode{c}{c} && \Rnode{v}{v}  \\[0.25cm]
-	            &&  
-\end{array}
-$
+\input{examples/clubpresidentcommitteemember}
 
-\ncarr[5]{p}{cm} 
-\alabel{I_0}
-\idcomp
-\ncarr[-30]{p}{v}
-\blabel{yr}
-\idcomp
-\ncarr[-5]{cm}{m}
-\blabel{I_1}
-\idcomp
-\ncarr[50]{cm}{v}
-\alabel{yr1}
-\idcomp
-\ncarr[25]{m}{v}
-\alabel{mNo}
-\idcomp
-\ncarr{m}{c}
-\blabel{M}
-\idcomp
-\ncarr{c}{v}
-\blabel{cId}
-\idcomp
-& \footnotesize
-\begin{tabular}{c p{1.5cm} p{4cm}}
-KEY && \\
-\hline
-p  & president        & Identified by a combination of inclusion relationship ($I_0$) that identifies a
-                       president as being a committee members and a year attribute ($yr$). \\
-cm & committee member & Identified by an inclusion relationship ($I_1$)that identifies a committee member 
-                         as a member and a first year of service attribute ($y1$).\\
-m  & member           & Identified by a member relationship ($M$) to a club and a by membership 
-                         number attribute ($mNo$). \\
-c  & club             & Identified by club identifier attribute ($cId$)
-\end{tabular} 
-\end{tabular}
-\end{center}
-\caption{Club president example. 
-This example fails clause (i) of the definition of well-formedness because
-the set of paths $\set{\tuple{I_0,yr1},\tuple{I_0,I_1,mNo}, \tuple{I_0,I_1,M,cId}, \tuple{yr}}$ is 
-an identiofying set of paths wrt $p$ but is not minimum because a club has at most one president a year and sothe subset $\set{\tuple{I_0,yr1}, \tuple{I_0,I_1,M,cId}, \tuple{yr}}$ is jointly monomorphic. 
-This problem can be fixed by introducing a clum membership relationship $R: p \morph c$ which is equivalent to
-path $\tuple{I_0,I_1,M}$ and by specifying $R$ in place of $I_0$ which is to be combined with $yr$ to identify entitites of type $p$.
-}
-\label{clubpresidentbeforenormalisation}
-\end{figure}
 \commentary{Club president example is isomorphic to the nearest shop example!}
 
-\begin{figure} [h]
-\begin{tabular}{c p {0.5cm} c}
-(a) & &
-\begin{tabular}{c c}
-$
-\begin{array}{cp{0.75cm}cp{0.75cm}c}
-   \Rnode{r}{r}     & & \Rnode{t}{t} & & \Rnode{v}{v} \\[1.2cm]     
-	 \Rnode{d}{d}   & & \Rnode{c}{c} & &               
-\end{array}
-$
-\ncarr{r}{t} 
-\alabel{S_1}
-\idcomp
-\ncarr{t}{v} 
-\alabel{tN}
-\idcomp
-\ncarr{c}{v} 
-\blabel{cN}
-\idcomp
-\ncarr[-90]{d}{v}
-\blabel{SeqNo}
-\idcomp
-\ncarr{d}{r}
-\alabel{S_0}
-\idcomp
-\ncarr{c}{t}
-\blabel{R_1}
-\idcomp
-\ncarr[50]{r}{v}
-\alabel{rN}
-\idcomp
+\input{examples/rawtabledatacell}
 
-& \footnotesize
-\begin{tabular}{c p{1.5cm} p{4cm}}
-KEY && \\
-\hline
-t & table & Having identifying attribute tN the name of the table. \\
-c & column & Identified by a combination of column number cN and relationship $R_1$ to the table it is a column of.\\
-r & row & Identified by its row number $rN$ and its relationship $S_1$ to the table it is a row of.\\
-d & data cell & Identified by relationship $S_0$ to the row it is in and its $seqNo$ attribute
-representing its ordinal position within data cells of the row. \\
-\end{tabular} 
-\end{tabular} \\
-(b) &   & 
-$
-\begin{array}{cp{0.5cm}c c c }
-   \Rnode{d}{d} &                  &                       & \Rnode{c}{c}  &       \\[.5cm]  
-		            & \ \ \ \Rnode{r}{r} &                     &               &       \\[.5cm] 
-	              &                  & \Rnode{b1}{b_1} \ \ \ &               &  \Rnode{bn}{b_n}  
-\end{array}
-$
-\ncarr{d}{r} 
-\blabel{S_0}[0.25]
-\ncarr{r}{b1} 
-\blabel{S_1}[0.25]
-\ncarr{d}{bn}
-\alabel{SeqNo}[0.25]
-\ncarr{c}{b1}
-\blabel{R_1}[0.25][1]
-\idcomp
-\ncarr{c}{bn}
-\alabel{cN}[0.25]
-\idcomp
-\end{tabular}
-\caption{(a) The model fails condition (ii) for being well-formulated
-because there is a referential inclusion dependency of $d[ \tuple{S_0,S_1},\tuple{SeqNo}]$
-in $c[\tuple{R_0},\tuple{cN}]$, as indicated in (b), which is not explicitly represented in the model.}
-\label{rawdatatablegraph}
-\end{figure}
+\input{examples/pickexampleprenormalisation}
 
-\begin{figure} [h]
-\begin{center}
-\begin{tabular}{c c}
-$
-\begin{array}{cp{0.75cm}cp{0.75cm}c}
-   \Rnode{p}{p}     & & \Rnode{c}{c} & & \Rnode{v}{v}    
-\end{array}
-$
-\ncarr{p}{c} 
-\alabel{R}
-\idcomp
-\ncarr[25]{c}{v} 
-\alabel{wId}
-\idcomp
-\ncarr[-10]{c}{v} 
-\blabel{cSn}
-\idcomp
-\ncarr[-65]{c}{v}
-\blabel{iC}
-\ncarr[80]{p}{v}
-\alabel{dI}
-\idcomp
-\ncarr[-100]{p}{v}
-\blabel{q}
-& \footnotesize
-\begin{tabular}{c p{1.5cm} p{4cm}}
-KEY && \\
-\hline
-p & pick & Identified by a combination of relationship $R$ to the crate being picked from
-                and the delivery id attribute ($dI$). Also  having a quantity picked 
-								attribute ($q$).\\
-c & crate & Identified by a combination of warehouse name attribute ($wN$)
-              and crate serial number attribute ($cSn$). Also has an item type ($iT$) attribute.
- to the table it is 
-\end{tabular} 
-\end{tabular}
-\end{center}
-\caption{If all deliveries are made from items picked from a single warehouse 
-then this model fails clause (iii) of the definition of well-formulated because, with tespect to entity type $p$, the path $\tuple{R,wN}$ will be dependent on the path $\tuple{dI}$ but neither is the set 
-$\{\tuple{dI}\}$ a mono-source nor has the dependency a representation within the model. A well-formulated and fully factored model for this situation was described previously in 
-figure \ref{pickexample}.
-}
-\label{pickexamplebeforenormalisation}
-\end{figure}
 \commentary{need review mono-source injective terminology}
 \section{Definitions Of Logical and Physical Entity Models}
 

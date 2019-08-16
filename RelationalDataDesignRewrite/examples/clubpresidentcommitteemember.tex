@@ -1,0 +1,56 @@
+\begin{figure} [h]
+\begin{center}
+\begin{tabular}{c c}
+$
+\begin{array}{cp{0.4cm}cp{0.5cm}cp{0.75cm}cp{0.75cm}c}
+              &&                &&               &&                &&               \\[0.25cm]
+              && \Rnode{cm}{cm} &&               &&                &&               \\[0.25cm]
+\Rnode{p}{p}	&&                && \Rnode{m}{m}  &&   \Rnode{c}{c} && \Rnode{v}{v}  \\[0.25cm]
+	            &&  
+\end{array}
+$
+
+\ncarr[5]{p}{cm} 
+\alabel{I_0}
+\idcomp
+\ncarr[-30]{p}{v}
+\blabel{yr}
+\idcomp
+\ncarr[-5]{cm}{m}
+\blabel{I_1}
+\idcomp
+\ncarr[50]{cm}{v}
+\alabel{yr1}
+\idcomp
+\ncarr[25]{m}{v}
+\alabel{mNo}
+\idcomp
+\ncarr{m}{c}
+\blabel{M}
+\idcomp
+\ncarr{c}{v}
+\blabel{cId}
+\idcomp
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+p  & president        & Identified by a combination of inclusion relationship ($I_0$) that identifies a
+                       president as being a committee members and a year attribute ($yr$). \\
+cm & committee member & Identified by an inclusion relationship ($I_1$)that identifies a committee member 
+                         as a member and a first year of service attribute ($y1$).\\
+m  & member           & Identified by a member relationship ($M$) to a club and a by membership 
+                         number attribute ($mNo$). \\
+c  & club             & Identified by club identifier attribute ($cId$)
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{Club president example. 
+This example fails clause (i) of the definition of well-formedness because
+the set of paths $\set{\tuple{I_0,yr1},\tuple{I_0,I_1,mNo}, \tuple{I_0,I_1,M,cId}, \tuple{yr}}$ is 
+an identiofying set of paths wrt $p$ but is not minimum because a club has at most one president a year and sothe subset $\set{\tuple{I_0,yr1}, \tuple{I_0,I_1,M,cId}, \tuple{yr}}$ is jointly monomorphic. 
+This problem can be fixed by introducing a clum membership relationship $R: p \morph c$ which is equivalent to
+path $\tuple{I_0,I_1,M}$ and by specifying $R$ in place of $I_0$ which is to be combined with $yr$ to identify entitites of type $p$.
+}
+\label{clubpresidentbeforenormalisation}
+\end{figure}

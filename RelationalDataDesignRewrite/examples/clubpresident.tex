@@ -1,0 +1,53 @@
+\begin{figure} [h]
+\begin{center}
+\begin{tabular}{c c}
+$
+\begin{array}{cp{0.4cm}cp{0.75cm}cp{0.75cm}c}
+              &&               &&                &&               \\[0.25cm]
+              &&               &&                &&               \\[0.25cm]
+\Rnode{p}{p}	&& \Rnode{m}{m}  &&   \Rnode{c}{c} && \Rnode{v}{v}  \\[0.25cm]
+	            &&  
+\end{array}
+$
+
+\ncarr{p}{m} 
+\alabel{I}
+\idcomp
+\ncarr[-35]{p}{v}
+\blabel{yr}
+\idcomp
+\ncarr[30]{m}{v}
+\alabel{mNo}
+\idcomp
+\ncarr{m}{c}
+\blabel{M}
+\idcomp
+\ncarr{c}{v}
+\blabel{cId}
+\idcomp
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+p  & president        & Identified by a combination of inclusion relationship ($I$) that identifies a
+                       president as being a committee members and a year attribute ($yr$). \\
+m  & member           & Identified by a member relationship ($M$) to a club and a by membership 
+                         number attribute ($mNo$). \\
+c  & club             & Identified by club identifier attribute ($cId$)
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{Club president example. 
+This is an example of an ER model that fails the minimality condition defined in section \ref{minimalitycondition}.
+The failure arises at entity type p (president) because 
+the set of paths $\set{I\circ mNo, I \circ M \circ cId, yr}$ is
+in $\bar{I}$ and is therefore a mono-source but it is not minimal because
+ a club has at most one president a year and so the subset $\set{I \circ M \circ cId, yr}$ is  a
+mono-source. Further, the path $I \circ mNo$ is not equivalent to either of the two paths in the subset.
+This problem can be fixed by introducing a club membership relationship $R: p \morph c$ and extended each defining instance $E$
+ by which is defining $E'_R=E_{I \circ M}$  and by re-specifying the identifying features $p$ to be the set $\set{R,yr}$,
+so obtaining an extended model in which $R$ it to be equivalent to
+path $I \circ M$.
+}
+\label{clubpresidentbeforenormalisation}
+\end{figure}
