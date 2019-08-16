@@ -265,7 +265,9 @@ $\genericmodel$ iff
 \item the underlying graph of $\genericmodel'$ is an extension the graph of \genericmodel\
 by edges alone, 
 \item for each defining instance $E$ of $\genericmodel$ there is a unique defining
-instance $E'$ of $\genericmodel'$ such that for edges $e$ in \genericmodel,
+instance $E'$ of $\genericmodel'$ such that 
+(i) for each entity types $a$ of \genericmodel, $E'_a=E_a$,
+(ii) for each edge  $e$ in \genericmodel,
 $E'_e=E_e$ and all defining instances $E'$ of $\genericmodel'$ arise in this way,
 \item for all edges $e$ of $\genericmodel'$ that are not in \genericmodel\ there is a path 
 $p$ in \genericmodel\ such that for all the defining instances $E'$ of $\genericmodel'$,
@@ -346,7 +348,7 @@ $F$ being $E_f$,  and $G$ being $\setsuchthat{E_g}{g \in j}$ \commentary{can imp
 
 From lemma \ref{identifyingsetdeduction} it follows that any set of paths arrived at by repeated composition 
 of mono-sources specified for a model \genericmodel\ in $\setsuchthat{I_a}{a \in \et}$ is itelf  
-a mono-source im \genericmodel. Denote by $\bar{I}$ the set  of all such mono-sources.
+a mono-source in \genericmodel. Denote by $\bar{I}$ the set  of all such mono-sources.
 
 
 \begin{figure} [h]
@@ -391,12 +393,14 @@ c  & club             & Identified by club identifier attribute ($cId$)
 \caption{Club president example. 
 This is an example of an ER model that fails the minimality condition defined in section \ref{minimalitycondition}.
 The failure arises at entity type p (president) because 
-the set of paths $\set{\tuple{I,mNo}, \tuple{I,cId}, \tuple{yr}}$ is
+the set of paths $\set{I\circ mNo, I \circ M \circ cId, yr}$ is
 in $\bar{I}$ and is therefore a mono-source but it is not minimal because
- a club has at most one president a year and so the subset $\set{\tuple{I,cId}, \tuple{yr}}$ is  a
-mono-source. Further, the path $\tuple{I,mNo}$ is not equivalent to either of the two paths in the subset.
-This problem can be fixed by introducing a club membership relationship $R: p \morph c$ which is definining it to be equivalent to
-path $\tuple{I,M}$ and by re-specifying the identifying features of $\set{R,yr}$.
+ a club has at most one president a year and so the subset $\set{I \circ M \circ cId, yr}$ is  a
+mono-source. Further, the path $I \circ mNo$ is not equivalent to either of the two paths in the subset.
+This problem can be fixed by introducing a club membership relationship $R: p \morph c$ and extended each defining instance $E$
+ by which is defining $E'_R=E_{I \circ M}$  and by re-specifying the identifying features $p$ to be the set $\set{R,yr}$,
+so obtaining an extended model in which $R$ it to be equivalent to
+path $I \circ M$.
 }
 \label{clubpresidentbeforenormalisation}
 \end{figure}
