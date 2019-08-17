@@ -1,0 +1,54 @@
+\begin{figure} [h]
+\begin{center}
+\begin{tabular}{c c}
+$
+\begin{array}{cp{0.4cm}cp{0.75cm}cp{0.75cm}c}
+              &&               &&                &&               \\[0.25cm]
+              &&               &&                &&               \\[0.25cm]
+\Rnode{t}{t}	&& \Rnode{p}{p}  &&   \Rnode{a}{a} && \Rnode{v}{v}  \\[0.25cm]
+	            &&  
+\end{array}
+$
+
+\ncarr{t}{p} 
+\alabel{ptin}
+\idcomp
+\ncarr[-35]{t}{v}
+\blabel{ltno}
+\idcomp
+\ncarr[30]{p}{v}
+\alabel{pname}
+\idcomp
+\ncarr{p}{a}
+\blabel{apin}
+\idcomp
+\ncarr{a}{v}
+\blabel{acode}
+\idcomp
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+t  & telephone       & Identified by a combination of the place a telephone is in ($ptin$) 
+                      and the local telephone number ($ltno$). \\
+p  & place           & Identified by a combination of the area a place is in ($apin$)
+                         and the place name ($pname$). \\
+a  & area            & Identified by the area code ($acode$).
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{Example based on Zaniolo's telephone,place.area example. 
+This is an example of an ER model that fails the minimality condition defined in section \ref{minimalitycondition}.
+The failure arises at entity type t (telephone) because 
+the set of paths $\set{ptin\circ pname, ptin \circ apin \circ dcode, ltno}$ is
+in $\bar{I}$ and is therefore a mono-source but it is not minimal because
+ an area has at most one telephone per local telephone number and so the 
+subset $\set{ptin \circ apin \circ dcode, ltno}$ is  a
+mono-source. Further, the path $ptin \circ pname$ is not equivalent to either of the two paths in the subset.
+This problem can be fixed by introducing an area relationship $atin: t \morph a$ and extended each defining instance $E$
+ by which is defining $E'_atin=E_{ptin \circ apin}$  and by re-specifying the identifying features $t$ to be the set $\set{atin,ltno}$,
+so obtaining an extended model in which $atin$ it to be equivalent to
+path $ptin \circ apin$.
+}
+\label{clubpresidentbeforenormalisation}
+\end{figure}
