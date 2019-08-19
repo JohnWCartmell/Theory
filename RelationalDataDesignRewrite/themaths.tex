@@ -7,7 +7,8 @@ An \term{ER-schema} $\genericmodel$ is a directed graph having the following add
 \item{a distinguished node $\veee$ for which there are no outgoing edges and which represents the type of universals, }
 
 \item{a distinguished acyclic subset $I$ of edges, called the identifying edges, such that
-for every node $a$ other than $\veee$ there is a non-empty set $I_a$ of identifying edges with domain $a$. 
+for every node $a$ other than $\veee$ there is a non-empty set  of identifying edges with domain $a$.
+ We denote by $I_a$ this non-empty set of identifying edges leaving an entity type $a$.
 }
 \end{enumerate}
 
@@ -95,12 +96,6 @@ for some $j$, $1 \leq j \leq m$, $s_j$ is not an identifying edge. \\
 \end{enumerate}
 \end{definition}
 
-\input{examples/relationalmetamodel}
-
-\commentary{Relational meta-schema path equivalence example is a little inaccessible therefore consider replacing by
-the table row column data cell example from earlier draft as figure 3 where also given as example of path ewuivalence.}
-
-\input{examples/studentadvisor}
 
 
 \subsection{Jointly Injective Sets of Functions}
@@ -268,9 +263,6 @@ From lemma \ref{identifyingsetdeduction} it follows that any set of paths arrive
 of mono-sources specified for a model \genericmodel\ in $\setsuchthat{I_a}{a \in \et}$ is itelf  
 a mono-source in \genericmodel. Denote by $\bar{I}$ the set  of all such mono-sources.
 
-\input{examples/clubpresident}
-
-\commentary{Club president example is isomorphic to the nearest shop example. And is more general than the Zanilo tel-place-location example.}
 
 \subsubsection{Primarily key Paths and Minimality Condition}
 \label{minimalitycondition}
@@ -324,20 +316,13 @@ we can define the identifying set $I'_a$ at $a$ to be the set
 $E_a$. 
 \end{proof}
 
-\noindent
-Consider that the various database normal forms (3NF, BCNF, 4NF, 5NF and the like) each 
-prescribe that a database schema be complete in some way as a description of the facts of its instances\footnote{Essentially
- because being good as a schema is to be a good theory and a good theory is one that is a good fit to the facts.} and observe 
-in particular that BCNF can be paraphrased as saying that those relationships (i.e. functional dependencies) that exist in the data ought to be \term{represented} in the schema\footnote{21/02/2019 Is this not the representation principle?}. These considerations motivate the definitions which now follow and conclude with the definition of a \term{well-formulated} entity model. This definition generalises that of a relational schema being in Boyce-Codd Normal Form (BCNF). 
-
-
 \subsection{Referential Inclusion Dependencies}
 
 \commentary{aka referential integrity constraints/foreign keys/foreign key constraints}
 
 \begin{definition}
 If $\genericmodel$ is an entity model, 
-if $a$ and $b$ are entity types of  $\genericmodel$ and  if $\set{q_q,...q_n} \in \bar(I)_b$
+if $a$ and $b$ are entity types of  $\genericmodel$ and  if $\set{q_q,...q_n} \in \bar{I}_b$
 \commentary{used to say an identifying tuple with respect to $b$},
 if \fntuple is a tuple of outgoing paths from entity type $a$  
 so that we have the following diagram of paths in $\genericmodel$
@@ -360,7 +345,7 @@ $
 \simplepatha{$q_n$}{b}{bn}
 \end{center}
 then say that $a$ represented by $\fntuple$ 
-has a referential inclusion dependency with $b$ represented by $\qntuple$, and for which we shall summarily write:
+has a \term{referential inclusion dependency} with $b$ represented by $\qntuple$, and for which we shall summarily write:
 $$
 \incd{a}{f_1,...f_n}{b}{q_1,...q_n},
 $$
@@ -376,33 +361,13 @@ We say that a path $p:a \morph b$ represents a referential inclusion dependency
 $\incd{a}{f_1,...f_n}{b}{q_1,...q_n}$  in an ER model $\genericmodel$ 
   in all instances $E$ of $\genericmodel$, $E_{\fntuple} \circ E_{\qntuple}^{-1}=E_p$.
 \end{definition}
-We say that an referential inclusion dependency in model \genericmodel\ is represented provided that
+We say that a referential inclusion dependency in model \genericmodel\ is represented provided that
 there exists a path which represents it. 
-\begin{lemma}
-\label{refinclusionlemma}
-A referential inclusion dependency
-$\incd{a}{f_1,...f_n}{b}{q_1,...q_n}$  in an ER model $\genericmodel$ is  represented 
-by path $p:a \morph b$ in $\genericmodel$ iff  \foreachi, $p \circ q_i \simeq f_i$.
-\end{lemma}
-\begin{proof}
-\begin{align*}
-\text{In the model \genericmodel,}
-            &\text{in each instance $E$, }E_p = E_{\fntuple} \circ E_{\qntuple}^{-1}  \\
-\text{iff } & \text{in each instance $E$, } E_p \circ E_{\qntuple} = E_{\fntuple}  
-                        && \text{because } E_{\qntuple} \text{ injective and total}   \\
-\text{iff } & \text{in each instance $E$, } \tuple{E_p \circ E_{q_1},...E_p \circ E_{q_n}} 
-                                                      = \tuple{E_{f_1},...E_{f_n}}
-									                                            && \text{ by defn. of }E \\
-\text{iff } & \text{in each instance $E$, \foreachi, } E_p \circ E_{q_i} = E_{f_i} 
-                                                              && \text{because tuples are equal iff they are pointwise equal}  \\
-\text{iff } & \text{\foreachi, } p \circ q_i \simeq f_i          && \text{by defn of } \simeq.
-\end{align*}
-\end{proof}
 
-
+\iffalse
 \begin{categoricalaside}
 If an ER schema is represented as a category with finite products (\textit{a la} Johnstone \textit{et al}) then
-a referential inclusion dependency is a  diagram
+a referential inclusion dependency is a diagram
 \begin{center}
 $
 \begin{array}{cp{0.75cm}c}
@@ -425,6 +390,7 @@ Such a referential inclusion dependency is explicitly represented iff
 $f_0 \circ m =f$. Note that because $m$ is monic then such an $f_0$ is the unique such morphism and if in some instance $F$,
 $e: F(a) \morph F(b)$ is a function such that $e \circ F(m) = F(f)$ then $F(f_0)=e$. 
 \end{categoricalaside}
+\fi
 
 \begin{definition}
 Say that an inclusion dependency $\incd{a}{x_1,...x_n}{b}{q_1,...q_n}$ is \textit{simple}
@@ -433,8 +399,8 @@ iff each $q_i$ is a singleton path, i.e. is simply an edge.
 
 \begin{lemma}
 \label{simplerepresentationlemma}
-If in an ER model \genericmodel\ all simple referential inclusion dependencies
-have representations  then all referential inclusion dependencies have representations. 
+If  \genericmodel\ is an ER model in which all simple referential inclusion dependencies
+have representations then all referential inclusion dependencies have representations. 
 \end{lemma}
 \begin{proof}
 Proof by induction TBD. \commentary{Start by drawing a diagram of the inductive step.} 
@@ -544,24 +510,6 @@ is said to be elementary if there is no  subset $X' \subset$, such that $X' \mor
 \end{definition}
 \fi
 
-\begin{figure}[h]
-\begin{center}
-\begin{tabular}{p{3.0cm} c p{1cm} c}
-The dependency of &\input{pickExampleTransitiveDependencyRHS} 
-                    & on & \input{pickExampleTransitiveDependencyLHS} \\[0.5cm]
-										follows from \\[0.5cm]
-the dependency of & \input{pickExampleTransitiveDependencyRHS} & on    &
-\input{pickExampleTransitiveDependencyIntermediate}        \\[0.5cm]
-and from \\[0.5cm]
-the dependency of & 
-\input{pickExampleS0S1}
-& on&
-\input{pickExampleTransitiveDependencyIntermediateLHS} 
-\end{tabular}
-\caption{Example of a Transitive Functional Dependency based on the example in figure \ref{pickexample}}
-\end{center}
-\end{figure}
-
 
 
 \begin{definition}
@@ -570,8 +518,8 @@ if for some $n \geq 1$, $a$, $b_{i, 1 \leq i \leq n}$,  and $c$ are entity types
 if  $x_{i, 1 \leq i \leq n}$, and $y$ are simple paths such
 that there is a \commentary{Removed elementary intransitive}functional dependency $\{x_1,...x_n\} \morph y$
  then the functional dependency $\{x_1,...x_n\} \morph y$ is said to be \term{represented} in the ER model $\genericmodel$ iff  there exists an entity type $d$ and 
-an identifying tuple of simple paths with respect to
-$d$, $\qntuple$, such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$, and a simple
+$\qntuple \in \bar{I}_d$ \commentary{Need to CHECK THIS OUT AFTER REWORD}
+ such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$, and a simple
 path $z=\langle z_1,...z_l \rangle$ such that $z:d\rightarrow c$, for some $l \geq 0$ as here:
 
 
@@ -602,7 +550,7 @@ $
 and
 \commentary {Removed that $z_1$ is not identifying but expect to prove not identifying.}         
 such that in all instances $E$, 
-$\tuple{ E_{x_1},...E_{x_n}} \circ inv_{E_{\tuple{q_1,...q_n}}}\circ E_{\tuple{z_1,...z_l}} = E_y$
+$\tuple{ E_{x_1},...E_{x_n}} \circ E^{-1}_{\tuple{q_1,...q_n}}\circ E_{\tuple{z_1,...z_l}} = E_y$
 \begin{center}
 $
 \begin{array}{cp{0.75cm}cp{0.55cm}c}
@@ -618,7 +566,7 @@ $
 \nbput[npos=0.2]{$f_E$}
 \ncarc[arcangle=-20]{Eb2}{Jnctn}
 \nchmarr[20][15]{Eb1}{Ebn}{RightJnctn}{Ed}
-\naput[npos=-0.2]{$ inv_{E_{\qntuple}}   $}
+\naput[npos=-0.2]{$ E^{-1}_{\qntuple}   $}
 \ncarc[arcangle=20]{Eb2}{RightJnctn}
 \ncarc[arcangle=15]{->}{Ed}{Ec}
 \naput[npos=0.4]{$E_{\langle z_1,...z_n \rangle}$}
@@ -644,10 +592,9 @@ or else the functional dependency is represented in the model.
 \end{enumerate}
 \end{definition}
 
-This lemma is a converse to lemma \ref{primarypathrepresentativesidentifying}
 \begin{lemma} 
 \label{identifyingconverse}
-In a well-founded model \genericmodel\ if $Q$ is a identifying set of paths from entity type $a$ to $\veee$
+In a well-founded model \genericmodel\ if $Q$ is a identifying set of paths\commentary{WHAT IS ALL THIS ABOUT?} from entity type $a$ to $\veee$
 then for every primary key path $p$ from $a$ there is a $q$ in $Q$ such that $p \simeq q$.
 \end{lemma}
 \begin{proof}
@@ -707,7 +654,7 @@ in all instances $E$,
 
 \begin{equation}
 \label{incdependency}
-E_{\xntuple} \circ inv_{E_{\qntuple}} = E_p
+E_{\xntuple} \circ E^{-1}_{\qntuple} = E_p
 \end{equation}
 Now we have  that in all instances $E$ that 
 \begin{align*}
@@ -718,28 +665,12 @@ E_y &= E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_z  && \text{ (\ref{fundepend
 \vspace{-0.3cm}
 From which, by definition, $y\simeq p \circ z$, as required. \\
 \end{proof}
-Now we give three examples of ER models that fail to be well formed. 
-Figures \ref{clubpresidentbeforenormalisation}, \ref{rawdatatablegraph} and  \ref{pickexamplebeforenormalisation}
-show examples that fail, respectively, conditions (i), (ii) and (iii) respectively of the definition of well-foundedness. 
 
-The failure of the example in figure \ref{rawdatatablegraph} to be well-formed can be rectified by 
-replacing the SeqNo attribute of 
-the data cell entity (dc) by an identifying relationship $R_0:dc \morph c$. The resuting model was given in figure \ref{datatablegraph}.
 
-\input{examples/clubpresidentcommitteemember}
-
-\commentary{Club president example is isomorphic to the nearest shop example!}
-
-\input{examples/rawtabledatacell}
-
-\input{examples/pickexampleprenormalisation}
-
-\commentary{need review mono-source injective terminology}
 \section{Definitions Of Logical and Physical Entity Models}
-
 	
 \subsection{Definition of Logical ER Model}
-
+\commentary{Want to move this to end but currently this is used in main theorem.}
 \begin{definition}
 A well-formulated ER model is \term{purely-logical}  iff it 
 also satisfies:
@@ -764,7 +695,7 @@ A \term{physical ER model} is a well formulated ER model that also satisfies:
 all identifying edges are attributes, \commentary{the set of sets of identifying edges $I$ is closed under composition i.e. $I = \bar{I}$.}
 
 \item
-for each relationship $r$ there is there is an inclusion dependency that it represents.
+for each relationship $r$ there is there is an inclusion dependency that it represents.\commentary{Dont think this is enough}.
 \end{enumerate} 
 \end{definition}
 
@@ -936,7 +867,7 @@ and such that in every instance $E$ of $\genericmodel$:
 %\newcommand{\ineveryinstance}{\forall E \in inst_\genericmodel ,  \hspace{0.25cm} }
 \begin{equation}
 \label{representationByIdentifyingRelationships}
-E_{\langle x_1,...x_n \rangle}\circ inv_{E_{\qntuple}} \circ E_{z} = E_{\langle y_1,..y_m \rangle} 
+E_{\langle x_1,...x_n \rangle}\circ E^{-1}_{\qntuple} \circ E_{z} = E_{\langle y_1,..y_m \rangle} 
 \end{equation}
 
 Note that $z$ cannot be equivalent to a primary key attribute for if it were then by lemma \ref{identifyingconverse}
@@ -952,7 +883,7 @@ $\genericmodel$ is well-formulated it follows
 a path $\langle p_1,...p_k \rangle:a \rightarrow b$, $k \geq 0$, such that:
 \begin{equation}
 \label{simpleRepresentationOfFirstPart}
-\langle E_{x_1},...E_{x_n} \rangle \circ inv_{E_{\qntuple}} = E_{\langle p_1,...p_k \rangle}
+\langle E_{x_1},...E_{x_n} \rangle \circ E^{-1}_{\qntuple} = E_{\langle p_1,...p_k \rangle}
 \end{equation}
 \noindent Either $k=0$ and $\qntuple = \langle x_1,...x_n \rangle$ in which case $E_{\langle x_1,...x_n \rangle}$ is
 injective and total in every instance $E$ of $\genericmodel$ and thus $\logtophys(E)_{\langle \phys{x}_1,...\phys{x}_n \rangle}$ is
