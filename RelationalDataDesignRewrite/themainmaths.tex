@@ -70,7 +70,7 @@ $y \notin img(\langle f_1,...f_n\rangle)$ then $inv_{\langle f_1,...f_n\rangle}(
 \end{definition}
 
 
-\subsection{Path equivalence and subsumption}
+\subsection{Path equivalence}
 
 \noindent If $r$ and $s$ are paths both having source $a$ and destination $b$ then we will say $r \leq s$ iff in all defining instances E, for all 
 entities $e \in E_a$, if $E_r(e)$ is defined then $E_s(e)$ is defined and $E_r(e)=E_s(e)$. \\
@@ -82,19 +82,6 @@ entities $e \in E_a$, if $E_r(e)$ is defined then $E_s(e)$ is defined and $E_r(e
 \noindent For paths $r$ and $s$ we define $r < s$ to be equivalent to $r \leq s$ and not $r \simeq s$. \\
 
 
-\begin{definition}
-Say that a simple path $\tuple{r_0,r_1,...r_n}$ \textit{is subsumed by} a simple path 
-$\tuple{s_0,s_1,...s_m}$ iff $m \geq 1$ and either:
-\begin{enumerate} [(i)]
-
-\item $\tuple{r_0,r_1,...r_n} \simeq  \tuple{s_0,s_1,...s_m}$ and 
-\commentary{In most general case this will become not $s_1$ uses $s_2$ ... uses $s_m$.}
-for some $j$, $1 \leq j \leq m$, $s_j$ is not an identifying edge. \\
-
- \hspace{1cm} or:
-\item $\tuple{r_0,r_1,...r_n} <  \tuple{s_0,s_1,...s_m}$ and $r_0 \neq s_0$.
-\end{enumerate}
-\end{definition}
 
 
 
@@ -317,13 +304,17 @@ $E_a$.
 \end{proof}
 
 \subsection{Referential Inclusion Dependencies}
+\begin{definition}
+If $Q \in \bar{I}_a$ and $Q'$is representative of $Q$ then $Q'$ is said to be
+a \term{primary mono source} at $a$.
+\end{definition}
 
 \commentary{aka referential integrity constraints/foreign keys/foreign key constraints}
 
 \begin{definition}
 If $\genericmodel$ is an entity model, 
-if $a$ and $b$ are entity types of  $\genericmodel$ and  if $\set{q_q,...q_n} \in \bar{I}_b$
-\commentary{used to say an identifying tuple with respect to $b$},
+if $a$ and $b$ are entity types of  $\genericmodel$ and  if $\set{q_1,...q_n}$
+is a primary mono-source ,
 if \fntuple is a tuple of outgoing paths from entity type $a$  
 so that we have the following diagram of paths in $\genericmodel$
 \setlength{\arraycolsep}{.2cm}
@@ -353,8 +344,9 @@ iff in all instances $E$ of $\genericmodel$,
 $img(E_{\fntuple}) \subseteq img(E_{\qntuple})$. 
 \end{definition}
 
-Here or hereabouts maybe need define $E_{\qntuple}^{-1}$ where $\set{q_1,...q_n} \in \bar{I}_a$, for some entity 
-type $a$.
+If $\qntuple$ is a primary mono-source at $a$ then define $E_{\qntuple}^{-1}$ to be the right inverse of
+$E_{\qntuple}$ i.e. the unique partial function such that:
+$E_{\qntuple} \circ E_{\qntuple}^{-1} = id{E_a}$
 
 \begin{definition}
 We say that a path $p:a \morph b$ represents a referential inclusion dependency
@@ -511,17 +503,15 @@ is said to be elementary if there is no  subset $X' \subset$, such that $X' \mor
 \fi
 
 
-
 \begin{definition}
 \noindent In an entity model $\genericmodel$  
 if for some $n \geq 1$, $a$, $b_{i, 1 \leq i \leq n}$,  and $c$ are entity types and 
 if  $x_{i, 1 \leq i \leq n}$, and $y$ are simple paths such
 that there is a \commentary{Removed elementary intransitive}functional dependency $\{x_1,...x_n\} \morph y$
- then the functional dependency $\{x_1,...x_n\} \morph y$ is said to be \term{represented} in the ER model $\genericmodel$ iff  there exists an entity type $d$ and 
-$\qntuple \in \bar{I}_d$ \commentary{Need to CHECK THIS OUT AFTER REWORD}
+ then the functional dependency $\{x_1,...x_n\} \morph y$ is said to be \term{represented} in the ER model $\genericmodel$ iff  there exists an entity type $d$ and a primary mono-source
+$\qntuple$ 
  such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$, and a simple
 path $z=\langle z_1,...z_l \rangle$ such that $z:d\rightarrow c$, for some $l \geq 0$ as here:
-
 
 \setlength{\arraycolsep}{.2cm}
 \begin{center}
@@ -592,29 +582,21 @@ or else the functional dependency is represented in the model.
 \end{enumerate}
 \end{definition}
 
-\begin{lemma} 
-\label{identifyingconverse}
-In a well-founded model \genericmodel\ if $Q$ is a identifying set of paths\commentary{WHAT IS ALL THIS ABOUT?} from entity type $a$ to $\veee$
-then for every primary key path $p$ from $a$ there is a $q$ in $Q$ such that $p \simeq q$.
-\end{lemma}
-\begin{proof}
-We have modified clause (i) of the definition of well-formed to achieve this.
-\end{proof}
 
 \begin{lemma}
 \label{mainlemma}
 In a well-formed model \genericmodel\ if $\{x_1,...x_n\} \morph y$  is a non-trivial
 functional dependency then either $E_{\xntuple}$ is injective and total in every instance $E$ 
 or else there is a non-empty  simple path $p:a \rightarrow d$
-and a non-identifying path $z:d \morph c$ such that $y \simeq p \circ z$.
+and a  path $z:d \morph c$ which is not equivalent to an identifying path such that $y \simeq p \circ z$.
 \end{lemma}
 \begin{proof}
 Since \genericmodel\ is well formed then either $E_{\xntuple}$ is injective and total in every instance $E$ and we are done or else the
 the functional dependency
 $\{x_1,...x_n\} \morph y$   is represented 
 by  an entity type $d$ and 
-an identifying tuple of simple paths with respect to
-$d$, $\qntuple$, such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$ and a simple
+a primary mono-source $\qntuple$ with respect to
+$d$, such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$ and a simple
 path $z=\langle z_1,...z_l \rangle$ such that $z:d\rightarrow c$, for some $l \geq 0$ as here:
 
 \setlength{\arraycolsep}{.2cm}
@@ -667,24 +649,9 @@ From which, by definition, $y\simeq p \circ z$, as required. \\
 \end{proof}
 
 
-\section{Definitions Of Logical and Physical Entity Models}
+\section{Definition Physical Entity Models}\commentary{relational?}
 	
-\subsection{Definition of Logical ER Model}
-\commentary{Want to move this to end but currently this is used in main theorem.}
-\begin{definition}
-A well-formulated ER model is \term{purely-logical}  iff it 
-also satisfies:
-\begin{enumerate}[(i)]
-\item
-for all edges $r$ if there is a
-a simple path $p$  not including $r$ such that
- $r \simeq p$  then $r$ is identifying and there is an edge $e$ in $p$ which is not identifying,
-\item the set of identifying sets I of the model is fully-factored.
-\end{enumerate} 
-\end{definition}
 
-\noindent
-We say that an ER model is a \term{logical ER model} iff it is purely logical.
 
 \subsection{Definition of Physical ER Model}
 \begin{definition}
@@ -721,6 +688,25 @@ where we define the latter by:
 \end{equation}
 
 \section{Chi Transform - a Revised Chen Transformation}
+
+First:
+\begin{definition}
+If $n,m \geq 1$ then say that a simple path $\tuple{r_1,...r_n}$ \textit{is subsumed by} a simple path 
+$\tuple{s_0,s_1,...s_m}$ iff $m \geq 1$ and either:
+\begin{enumerate} [(i)]
+
+\item $n > 1$ and $\tuple{r_1,...r_n} \simeq  \tuple{s_0,s_1,...s_m}$ and 
+\commentary{In most general case this will become not $s_1$ uses $s_2$ ... uses $s_m$.}
+for some $j$, $1 \leq j \leq m$, $s_j$ is not an identifying edge. \\
+\commentary{Get slightly different subsumes relationship if we say instead
+that $\tuple{s_1,...s_m}$ not equivalent to a primary key path. But in context defn. used
+achieve the same thing.} 
+ \hspace{1cm} or:
+\item $n=1$ and $r_1 \simeq \tuple{s_0,s_1,...s_m}$ and $r_1$ is not identifying.
+\item $\tuple{r_1,...r_n} <  \tuple{s_0,s_1,...s_m}$ and $r_0 \neq s_0$.
+\end{enumerate}
+\end{definition}
+
 
 This then needs revision\footnote{Check this!} as follows:
 \begin{multline}
@@ -787,7 +773,7 @@ in all instances $E$, $E_{<x_1,...x_n>}$ is injective and total.
 
 \noindent Now for the main theorem:\\
 \begin{theorem}
-\noindent If an ER model $\genericmodel$ is well-formulated and logical then the 
+\noindent If an ER model $\genericmodel$ is well-formulated  then the 
 transformed model $\logtophys(\genericmodel)$  is in Third Normal Form. If in $\genericmodel$
 there are no identifying edges $r$ such that $r \simeq p$ for some path $p$ of length greater than $1$
 then $\logtophys(\genericmodel)$ is in Boyce-Codd Normal form. \commentary{Needs modifying to TNF}.
@@ -800,7 +786,7 @@ then  in all instances
 $E$ of $\genericphysical$, $E_{<\phys{x}_1,...\phys{x}_n>}$ is injective and total. \\
 
 
-\noindent Assume, then, such a functional depedency $\sfd{\phys{x}_1,...\phys{x}_n}{\phys{y}}$ in  $\genericphysical$. 
+\noindent Assume, then, such a functional dependency $\sfd{\phys{x}_1,...\phys{x}_n}{\phys{y}}$ in  $\genericphysical$. 
 By lemma \ref{fdcarrythroughlemma} it follows that in the model $\genericmodel$, for each $i$, $1 \leq i \leq n$, 
 for some $m_i$, $m_i \geq 1$, we have a 
 path of length $m_i$ which we denote $x_i = \langle x_{i,1},...x_{i,m_i} \rangle$  and for some $m$, $m \geq 1$ we have a path 
@@ -824,84 +810,25 @@ $
 \end{center}
 and that \sfd{x_1,...x_n}{y} in \genericmodel.
 
-From the assumption that the model $\genericmodel$ is well-formulated and from condition (iii) 
-of the definition of well-formulated, either 
-$E_{\langle x_1,...x_n \rangle}$ is injective and total in every instance $E$ of $\genericmodel$, in which case 
-$\logtophys(E)_{\langle \phys{x}_1,...\phys{x}_n \rangle}$ is injective and total in every instance $E$ of $\genericmodel$ and the proof is completed, or else
-the functional dependency  \sfd{x_1,...x_n}{y} is represented in the model $\genericmodel$. 
+From the assumption that the model $\genericmodel$ is well-formulated 
+by lemma \ref{mainlemma} there is a path $\tuple{p_1,...p_k}$
+and a path $\tuple{z_1,...z_l}$ not a primary key path such that
 
-
-From the definition of a functional dependency being represented it follows that
-there is an entity type $b$ in $\genericmodel$  and an identifying family of simple paths $q_1,...q_n$, 
-$q_i: b \rightarrow v$ and a 
-path $z: b \rightarrow v$, as shown here: 
-such that
-
-
-\setlength{\arraycolsep}{.2cm}
-\begin{center}
-$
-\begin{array}{cp{2cm}ccp{2cm}c}
-             & &         & \Rnode{b1}{v} &&              \\ [0.5cm]
-						 & &         & \Rnode{b2}{v} &&              \\ [0.6cm]
-						 & &         &    \vdots     &&              \\ [0.2cm]
-\Rnode{a}{a} & &         & \Rnode{bn}{v} && \Rnode{b}{b} \\ [1.0cm]
-             & &         & \Rnode{c}{v}  &&              \\
-\end{array}
-$
-\simplepatha{$x_1$}{a}{b1}
-\simplepatha{$x_2$}{a}{b2}
-\simplepatha{$x_n$}{a}{bn}
-\simplepathb{$y$}{a}{c}
-\simplepathb{$q_1$}{b}{b1}
-\simplepathb{$q_2$}{b}{b2}
-\simplepathb{$q_n$}{b}{bn}
-\simplepatha{$z$}{b}{c}
-\end{center}
-such that
 \begin{equation}
-\label{inclusiondependency}
-\incd{a}{x_1,...x_n}{d}{q_1,...q_n}
-\end{equation}
-and such that in every instance $E$ of $\genericmodel$:
-%\newcommand{\ineveryinstance}{\forall E \in inst_\genericmodel ,  \hspace{0.25cm} }
-\begin{equation}
-\label{representationByIdentifyingRelationships}
-E_{\langle x_1,...x_n \rangle}\circ E^{-1}_{\qntuple} \circ E_{z} = E_{\langle y_1,..y_m \rangle} 
-\end{equation}
-
-Note that $z$ cannot be equivalent to a primary key attribute for if it were then by lemma \ref{identifyingconverse}
-it would be equivalent to $q_i$,
-for some $i$, $1 \leq i \leq n$ from which it would follow that $E_y=E_{x_i}$ in each instance $E$ and therefore, from the definitions, 
-we would have that $y \simeq x_i$ and therefore that $\phys{y}=\phys{x_i}$ contradicting the assumption that
-the fucntional dependency $\sfd{\phys{x}_1,...\phys{x}_n}{\phys{y}}$ is non-trivial.
-
-
-Since there is an inclusion dependency (\ref{inclusiondependency}) in $\genericmodel$ and from the assumption that  model
-$\genericmodel$ is well-formulated it follows
- from condition (ii) of the definition of well-formulated  that there exists
-a path $\langle p_1,...p_k \rangle:a \rightarrow b$, $k \geq 0$, such that:
-\begin{equation}
-\label{simpleRepresentationOfFirstPart}
-\langle E_{x_1},...E_{x_n} \rangle \circ E^{-1}_{\qntuple} = E_{\langle p_1,...p_k \rangle}
-\end{equation}
-\noindent Either $k=0$ and $\qntuple = \langle x_1,...x_n \rangle$ in which case $E_{\langle x_1,...x_n \rangle}$ is
-injective and total in every instance $E$ of $\genericmodel$ and thus $\logtophys(E)_{\langle \phys{x}_1,...\phys{x}_n \rangle}$ is
-injective and total in every instance $\logtophys(E)$ of $\genericphysical$ and the proof is complete 
-\noindent or else $k \geq 1$ and it follows from (\ref{representationByIdentifyingRelationships}) and (\ref{simpleRepresentationOfFirstPart}) that:
-\begin{equation} 
 \label{simpleRepresentation}
  E_{\langle p_1,...p_k \rangle} \circ E_{\langle z_1,...z_l \rangle} = E_{\langle y_1,..y_m \rangle} 
 \end{equation}
 
-
+Either $k=0$ and $\qntuple = \langle x_1,...x_n \rangle$ in which case $E_{\langle x_1,...x_n \rangle}$ is
+injective and total in every instance $E$ of $\genericmodel$ and thus $\logtophys(E)_{\langle \phys{x}_1,...\phys{x}_n \rangle}$ is
+injective and total in every instance $\logtophys(E)$ of $\genericphysical$ and the proof is complete.
 We will show that this leads to a contradiction and so complete the proof. 
 
-If $m >1$ then
+If $k \ge 1$ then if $m >1$ then
  from  (\ref{simpleRepresentation}),
 from clause (i) of the definition of subsumes and from the fact demonstrated above that $z$ is not equivalent to a 
 primary key attribute
-it follows that $p_1,...p_k,z_1,...z_l$ subsume $\langle y_1,..y_m \rangle$, 
+it follows that $p_1,...p_k,z_1,...z_l$ subsume $\langle y_1,..y_m \rangle$\commentary{CHECK THIS}, 
 which implies that $\langle y_1,..y_m \rangle$ is excluded from $\fkp{a}$ and thus that 
  $\phys{y}=\left[\langle y_1,..y_m \rangle\right]$ is not an attribute of $\genericphysical$ contrary to our 
 initial assumption. 
@@ -918,126 +845,8 @@ E_{y_1}=E_{\langle p_1,...p_k ,z_1,...z_l \rangle}
 \noindent
 We have shown, therefore, that $y_1$ is an outgoing edge of $a$ in $\genericmodel$ 
 which is equivalent to a simple path of $\genericmodel$ of length $\geq 2$.
-Therefore since $m$ is logical,  $y_1$ is identifying as required to establishing TNF
+Therefore from the defintion of subsumes ,  $y_1$ is identifying as required to establishing TNF
 or if we have assumed no such $y_1$ the assumption is contradicted and we establish BCNF.
 This completes the proof.
 \end{proof}
 
-\section{Logical Models}
-I am using the term \term{logical} in the sense that it is used in certain ER modelling methodolgies such as ???.
-\subsection{Fully Factored Models}
-
-\begin{definition}
-In an entity model \genericmodel\ if $a$ is an entity type then say that
-a \term{factorisation} of the set $I_a$ is a subset $\set{h_1,...h_n} \subset I_a$
-and a  path $f:a \morph b$ and a set of paths sourced at $b$, $\set{g_1,...g_n} \in \bar{I}$\commentary{not defined}
-such that for each $i$, $1 \leq i \leq n$, $f \circ g_i \simeq h_i$. 
-\end{definition}
-
-The factorisation consists  
-of a base set of edges: $h=I \backslash \set{h_1,...h_n}$, a mediating path $f:a \morph b$ and a remainder 
-set $j$ paths sourced at $b$, $j \in \bar{I}$, 
-such that $I_a \simeq h \cup \setsuchthat{f\circ g}{g \in j}$.
-
-\begin{definition}
-If \genericmodel\ is a model and if there is a factorisation at entity type $a$ with
-base set $h$, mediating path $f: a \morph b$ and remainder $j \in \bar{I}$ then define
-a factored model $\genericmodel'$ determined by the factorisation to be the model
-whose underlying graph is the graph of \genericmodel\ with edges $h_1,...h_n$ removed 
-(defining database instances restricted) and
-an edge $k$ added, $k:a \morph b$, each database instance $E$ extends to $E'$, $E'_k = E_f$.
-Identifying sets of $\genericmodel'$ are exactly as for \genericmodel\ except for at the entity
-type $a$ where the identifying set $I_a$ in $\genericmodel'$ is defined to be $h \cup \set{k}$.
-Note that by lemma \ref{identifyingsetdeduction} the modified $E'$ is a database instance because
-the family 
-$\setsuchthat{E'_e}{e \in \set{h \cup \set{k}}}$ is jointly injective because 
-$\setsuchthat{E'_e}{e \in \set{h \cup \set{k}}} =\setsuchthat{E_e}{e \in \set{h \cup \set{f}}}$
-and in model \genericmodel, $h \cup \set{f}$ is a mono-source because both
-$h \cup \set{f} \backslash f \cup \setsuchthat{f \circ g}{g \in j}
-=h  \cup \setsuchthat{f \circ g}{g \in j}=I_a$ and $j$ are  mono-sources.
-
-
-\end{definition}
-
-\begin{definition}
-If $a$ is an entity type in an entity model \genericmodel\ then define the abstraction
-level of $a$ to be the sum of the lengths of the primary key paths sourced at $a$.
-\end{definition}
-
-
-\begin{definition}
-Define  the abstraction level of a model $\genericmodel$ to be
-the sum over all entity types $a$ of the abstraction level of $a$.
-\end{definition}
-
-\begin{lemma}
-If $\genericmodel'$ is a factorisation of model $\genericmodel$ then abstraction level 
-of $\genericmodel'$ is greater than abstraction level of $\genericmodel$ and the number of edges
-is not increased. 
-\end{lemma}
-\begin{proof}
-\end{proof}
-
-\begin{definition}
-Define an entity model \genericmodel\ to be fully-factored iff there no entity types $a$
-for which the set $I_a$ has  factorisations.
-\end{definition}
-
-\begin{definition}
-If \genericmodel\ is a model then say that a $\genericmodel'$ is a fully-factored 
-equivalent to \genericmodel\
-if it results from successive factorisations of \genericmodel\ until the resulting model can no longer be
-factorised. 
-\end{definition}
-
-\begin{lemma}
-Every model \genericmodel\ has a fully factorised equivalent. 
-\end{lemma}
-\begin{proof}
-We need to show that the factorisation process will terminate. 
-to do this note that we can put a (crude) bound on the abstraction level of an entity model
-of number of entity types multiplied by the square of the  number of edges
-\commentary{Need revise this most likely}.  Because the number of nodes remains constant during
-factorisation and because the number of edges does not increase this bound can be calculated
-for the model \genericmodel\ and serves as an upper bound for the abstraction level of 
-any successive factorisation of \genericmodel. Since factorisation increases abstraction level
-and there is an upper bound to abstraction level then the process cannot continue indefinitely. 
-\end{proof}
-
-\subsection{Minimality Condition of Factored Model}
-
-\begin{lemma}
-\label{identifyingfactorminimal}
-In a model \genericmodel, if $i$ is a source with domain $a$,
-if $f \in i$, $f: a \morph b$, 
-and if $j$ is a mono-source with domain $b$
-then  if $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a minimum mono-source
-then $i$ is a minimum mono-source.
-\end{lemma}
-\begin{proof}
-We assume that $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source and that no subset of it is a mono-source.
-By lemma \ref{identifyingsetdeduction} it follows that $i$ is a mono-source we need to show that
-for no edge $e \in i$ is $i \backslash \set{e}$ a mono source. Assume to the contrary that there is such an $e$ then  either $e = f$ or else
-$e \in i \backslash \set{f}$. In the first case $(i \backslash \set{f})$ is a subset of  $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ which is a mono-source which contradicts the initial assumption. In the second  case 
-by lemma \ref{identifyingsetdeduction} since $i \backslash \set{e}$ is a mono-source it follows that
-$((i \backslash \set{e})\backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source which again is to say that a subset
-of $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source contradicting the initial assumption.
-We conclude that no subset of $i$ is a mono-source.
-\end{proof}
-
-\begin{lemma}
-If a model \genericmodel\ satisfies the minimality condition then it has a fully factored
-equivalent $\genericmodel'$  and $\genericmodel'$ satisfies the minimality condition. 
-\end{lemma}
-\begin{proof}
-By lemma \ref{identifyingfactorminimal} we have the minimality of $I_a$ in $\genericmodel'$.
-
-To show that representative sets of primary key paths in $\genericmodel'$ are minimal mono-sources
-first note that to each path $p'$ in $\genericmodel'$ there is a corresponding path 
-$p$ in \genericmodel\  
- such that for all instances $E$ of \genericmodel\ with corresponding $E'$ of $\genericmodel'$, 
-$E_p=E'_{p'}$ and that this correspondence establishes a 1-1 correspondence between the set of primary key paths $P'$ in $\genericmodel'$
-and the set of primary key paths $P'$ in \genericmodel. Because $E_p=E'_{p'}$, for all defining instances
-$E$, it follows that a representative set for $P'$ corresponds to a representative set for $P'$ and also
-that mono-sources in $\genericmodel'$ correspond to mono-sources in \genericmodel. From this it follows that representative sets of primary key paths in $\genericmodel'$ are minimal mono-sources.
-\end{proof}
