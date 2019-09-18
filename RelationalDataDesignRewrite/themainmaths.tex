@@ -518,10 +518,7 @@ $
 \simplepatha{$z$}{d}{c}
 \end{center}
 
-
-and
-\commentary {Removed that $z_1$ is not identifying but expect to prove not identifying.}         
-such that in all defining instances $E$, 
+and such that in all defining instances $E$, 
 $\tuple{ E_{x_1},...E_{x_n}} \circ E^{-1}_{\tuple{q_1,...q_n}}\circ E_z = E_y$
 \end{definition}
  
@@ -538,29 +535,36 @@ all referential inclusion dependencies\footnote{Equivalently, by lemma
 }
 \item{
 for each intransitive functional dependency $\{x_1,...x_n\} \morph y$ in model $\genericmodel$
-either in every instance $E$, $E_{\xntuple}$ is injective and total
+either in every defining instance $E$, $E_{\xntuple}$ is injective and total
 or else the functional dependency is represented in the model.
 }
+\item{every transitive functional dependency can be factored through an intransitive functional dependency}
+\commentary{This is new from 18 september 2019. Need spell this out.}
 \end{enumerate}
 \end{definition}
 
 
 \begin{lemma}
 \label{mainlemma}
-In a well-formed model $\genericmodel$ if $\{x_1,...x_n\} \morph y$  is a non-trivial
-functional dependency then either $E_{\xntuple}$ is injective and total in every instance $E$ 
-or else there is a non-empty  simple path $p:a \rightarrow d$
-and a  path $z:d \morph c$  such that $y \simeq p \circ z$. If $c$ is $\veee$ then
-the path $z$ is not equivalent to an identifying path.
+In a well-formed model $\genericmodel$ if $\{x_1,...x_n\} \morph z$  is a non-trivial
+functional dependency then either $E_{\xntuple}$ is injective and total in every defining instance $E$ 
+or else there is a non-empty path $p:a \rightarrow d$
+and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
+the path $w$ is not equivalent to an identifying path.
 \end{lemma}
 \begin{proof}
-Since $\genericmodel$ is well formed then either $E_{\xntuple}$ is injective and total in every instance $E$ and we are done or else the
-the functional dependency
-$\{x_1,...x_n\} \morph y$   is represented 
+\commentary{this proof currently assuming an intransitive functional dependency.
+Now have added to defn. of well-formulated that any functional dependency can be factored 
+through such} 
+Since the model $\genericmodel$ is well-formulated then the functional dependency $\set{x_1,...x_n} \morph z$ can be factored through an intransitive functional
+dependency $\set{y_1,...y_m} \morph z$. 
+
+Since $\genericmodel$ is well formed  and there is an intransitive functional dependency $\set{y_1,...y_m} \morph z$ then either $E_{\ymtuple}$ is injective and total in every defining instance $E$ and therefore by lemma \ref{transitiveinjectivelemma} $E_{\xntuple}$ is injective and total in every defining instance $E$ and we are done or else the the functional dependency
+$\set{y_1,...y_m} \morph z$   is represented 
 by  an entity type $d$ and 
 a primary mono-source $\qntuple$ with respect to
-$d$, such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$ and a 
-path $z:d\rightarrow c$, for some $l \geq 0$ as here:
+$d$, such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_m}$ and a 
+path $w:d\rightarrow c$, for some $l \geq 0$ as here:
 
 \setlength{\arraycolsep}{.2cm}
 \begin{center}
@@ -570,44 +574,46 @@ $
 						 &  & \Rnode{b2}{b_2} & &               \\ [0.4cm]
 						 &  &     \vdots      & &               \\ [0.2cm]
 \Rnode{a}{a} &  &                 & & \Rnode{d}{d}  \\ [-0.2cm]
-             &  & \Rnode{bn}{b_n} & &               \\ [0.9cm]
+             &  & \Rnode{bm}{b_m} & &               \\ [0.9cm]
              &  & \Rnode{c}{c}    & &               \\
 \end{array}
 $
-\simplepatha{$x_1$}{a}{b1}
-\simplepatha{$x_2$}{a}{b2}
-\simplepatha{$x_n$}{a}{bn}
-\simplepathb{$y$}{a}{c}
+\simplepatha{$y_1$}{a}{b1}
+\simplepatha{$y_2$}{a}{b2}
+\simplepatha{$y_m$}{a}{bm}
+\simplepathb{$z$}{a}{c}
 \simplepathb{$q_1$}{d}{b1}
 \simplepathb{$q_2$}{d}{b2}
-\simplepathb{$q_n$}{d}{bn}
-\simplepatha{$z$}{d}{c}
+\simplepathb{$q_m$}{d}{bm}
+\simplepatha{$w$}{d}{c}
 \end{center}
 such that
 \begin{equation}
 \label{fundependency}
-E_y = E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_z
+E_y = E_{\ymtuple} \circ E_{\qmtuple}^{-1} \circ E_w
 \end{equation}
 
-Because $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$,  and from
+Because $\incd{a}{y_1,...y_m}{d}{q_1,...q_m}$,  and from
 clause (ii) of the definition of well-formedness since $\genericmodel$ is well formed, it follows that
 there  is a simple path $p:a \rightarrow d$ such
 that 
 %\foreachi, $p \circ q_i \simeq x_i$ and therefore
-in all instances $E$,
+in all defining instances $E$,
 
 \begin{equation}
 \label{incdependency}
-E_{\xntuple} \circ E^{-1}_{\qntuple} = E_p
+E_{\ymtuple} \circ E^{-1}_{\qmtuple} = E_p
 \end{equation}
-Now we have  that in all instances $E$ that 
+Now we have  that in all defining instances $E$ that 
 \begin{align*}
-E_y &= E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_z  && \text{ (\ref{fundependency}), above,}\\
-    &= E_p \circ E_z                                   && \text{by (\ref{incdependency}),}\\
-		&= E_{p \circ z}                                   && \text{from defn. of instance }E.\\
+E_y &= E_{\ymtuple} \circ E_{\qmtuple}^{-1} \circ E_w  && \text{ (\ref{fundependency}), above,}\\
+    &= E_p \circ E_w                                   && \text{by (\ref{incdependency}),}\\
+		&= E_{p \circ w}                                   && \text{from defn. of instance }E.\\
 \end{align*} 
 \vspace{-0.3cm}
-From which, by definition, $y\simeq p \circ z$, as required. \\
+From which, by definition, $y\simeq p \circ w$, as required. \\
+
+\commentary{Now show that if $c=\veee$ then w is not all identifying.}
 \end{proof}
 
 
