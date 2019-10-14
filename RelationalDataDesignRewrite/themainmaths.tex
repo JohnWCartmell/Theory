@@ -534,12 +534,14 @@ all referential inclusion dependencies\footnote{Equivalently, by lemma
 \ref{simplerepresentationlemma}, sufficient that all simple referential inclusion dependencies be represented.} are  represented,
 }
 \item{
-for each intransitive functional dependency $\{x_1,...x_n\} \morph y$ in model $\genericmodel$
+for each intransitive functional dependency $\set{x_1,...x_n} \morph y$ in model $\genericmodel$
 either in every defining instance $E$, $E_{\xntuple}$ is injective and total
 or else the functional dependency is represented in the model.
 }
-\item{every transitive functional dependency can be factored through an intransitive functional dependency}
-\commentary{This is new from 18 september 2019. Need spell this out.}
+\item{to every functional dependency $\set{x_1,...x_n} \morph z$ there is an intransitive functional dependency 
+$\set{y_1,...y_m} \morph z$ which it factors through
+i.e. such that $\set{x_1,...x_n} \morph \set{y_1,...y_m}$
+}
 \end{enumerate}
 \end{definition}
 
@@ -553,9 +555,6 @@ and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ th
 the path $w$ is not equivalent to an identifying path.
 \end{lemma}
 \begin{proof}
-\commentary{this proof currently assuming an intransitive functional dependency.
-Now have added to defn. of well-formulated that any functional dependency can be factored 
-through such} 
 Since the model $\genericmodel$ is well-formulated then the functional dependency $\set{x_1,...x_n} \morph z$ can be factored through an intransitive functional
 dependency $\set{y_1,...y_m} \morph z$. 
 
@@ -613,9 +612,27 @@ E_y &= E_{\ymtuple} \circ E_{\qmtuple}^{-1} \circ E_w  && \text{ (\ref{fundepend
 \vspace{-0.3cm}
 From which, by definition, $y\simeq p \circ w$, as required. \\
 
-\commentary{Now show that if $c=\veee$ then w is not all identifying.}
+Now suppose that $c$ is the type representing universals $\veee$.
+We wish to show that $w$ is not equivalent in $\genericmodel$ to
+a primary key path. This follows from the following lemma.
 \end{proof}
 
+\begin{lemma}
+If for some $m \geq 1$, $qmtuple$ is a primary mono-source at $b$ such that for each $j$, $1 \leq j \leq m$, $q_j : b \morph b_j$,
+and if  $p$ is a primary key path such that $p: a \morph \veee$   
+then there exists $j$, $1 \leq j \leq m$ and there exists $p'$, $p': b_j \morph \veee$ such that $p \simeq q_j \circ p'$.
+\end{lemma}
+\begin{proof}
+Follows from the next lemma.
+\end{proof}
+
+\begin{lemma}
+If $Q \in \bar{I_a}$ and if $p$ is a primary key path at $a$ then for some node $b$ there exists $q \in Q$, $q: a \morph b$, and there exists 
+a path $q'$, $q': b \morph \veee$,  all of whose edges are identifying and such that $q \circ q' = p$. 
+\end{lemma}
+\begin{proof}
+How to make this observation a proof?.
+\end{proof}
 
 \section{Definition Physical Entity Models}\commentary{relational?}
 	
