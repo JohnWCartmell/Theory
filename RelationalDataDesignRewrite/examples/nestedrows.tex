@@ -1,0 +1,102 @@
+\begin{figure} [h]
+\begin{center}
+\begin{tabular}{c c}
+\begin{tabular}{c p{0.5cm} c p{0.7cm} c}
+   \Rnode{r}{r}   & &                  & &              \\[0.8cm]
+                      & & \Rnode{c}{c} & & \Rnode{v}{v} \\[0.8cm]
+   \Rnode{d}{d} & &                  & & 
+\end{tabular}
+\nccircle[angleA=80, nodesep=3pt]{->}{r}{.5cm}
+\blabel{P}[0.4]
+\ncarr[30]{r}{v}
+\alabel{rId}[0.4]
+\idcomp
+\ncarr{c}{v} 
+\alabel{cN}
+\idcomp
+\ncarr[-30]{d}{v} 
+\blabel{cId}
+\idcomp
+\ncarr{d}{r} 
+\alabel{S0}
+\ncarr{d}{c} 
+\blabel{R0}
+\ncarr{c}{r} 
+\blabel{R1}
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+r & row & Identified by $rId$ attribute ($pId$) and
+           nested within a parent ($P$) row. Root rows in the hierarchy
+				  are represented have themselves as their own parent.\\
+c & column & Identified by $cId$ attribute and applying to all rows
+              nested within a root row given by the relationship $R1$. \\
+d & data call & Identified by $cId$ attribute and related to a particular
+                row ($S0$) and a particular column ($R0$). \\
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{Table with Nested Rows. If the rows of a table can be indefinitely nested then the whole table can be equated with,
+and therefore modelled as, the root row of the table. This is what is described here and it is an example of an ER model 
+which is well formulated but which exhibits a transitive functional dependency which does not factor through an intransitive dependency.
+}
+\label{nestedrowsexample}
+\end{figure}
+
+Since columns are parented by root rows in the hierarchy and these are self-parenting the following diagram commutes:
+$
+\begin{array}{c p{0.3cm} c p{0.3cm} c}
+                  & &              & &                 \\ %need bit of v space
+   \Rnode{r1}{r}  & &              & &  \Rnode{r2}{r}  \\[0.8cm]
+                  & & \Rnode{c}{c} & &                 
+\end{array}
+$
+\ncarr{r1}{r2}
+\alabel{P}[0.4]
+\ncarr{c}{r1}
+\alabel{R1}[0.4]
+\ncarr{c}{r2}
+\blabel{R1}[0.4]
+commutes. 
+
+
+There are infinitely many functional dependencies sourced at entity type $d$ as follows
+\begin{equation*}
+\sfd{S0}{R0/R1}
+\end{equation*}
+\begin{equation*}
+\sfd{S0/P}{R0/R1}
+\end{equation*}
+\begin{equation*}
+\sfd{S0/P/P}{R0/R1} \mbox{ and so on.}
+\end{equation*}
+
+Each of these dependencies is an intranstive dependency because each
+factors through the one that follows it in the sequence because
+\begin{equation}
+S0 \morph S0/P \morph s0/P/P \morph s0/P/P/P \mbox{ and so on.}
+\end{equation}
+
+
+The relational design determined by the entity model has relations as follows:
+\begin{equation}
+\label{rowrelation}
+row(\underline{rId}, prId)
+\end{equation}
+\begin{equation}
+\label{columnrelation}
+column(\underline{cN}, prId)
+\end{equation}
+\begin{equation}
+\label{rowrelation}
+datacell(\underline{dId}, prId, cN)
+\end{equation}
+
+These relations are each in BCNF.
+
+
+
+
+
+

@@ -1,0 +1,126 @@
+\begin{figure} [h]
+\begin{center}
+\begin{tabular}{c c}
+\begin{tabular}{c p{1.5cm} c}
+   \Rnode{p}{p} & & \Rnode{v}{v}
+\end{tabular}
+\nccircle[nodesep=3pt]{<-}{p}{.4cm}
+\blabel{s}
+\ncarr[-40]{p}{v}
+\alabel{c}[0.4]
+\ncarr{p}{v} 
+\alabel{pId}
+\idcomp
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+p & person & Identified by id attribute ($pId$). \\
+s & selects & each person selects one other person \\
+c & colour & each person is given a coloured vest 
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{Team Selection Example. This is an example of an ER model 
+which is well formulated but which exhibits a transitive functional dependency which does not factor through an intransitive dependency.
+}
+\label{teamselectionexample}
+\end{figure}
+
+In this example the colour of a person's vest is the same as the 
+colour of vest of the person they select to be in the same team, which is to say that  the diagram
+$
+\begin{array}{c p{0.75cm} c}
+   \Rnode{p1}{p}  & &                  \\[0.5cm]
+	                 & &    \Rnode{v}{v} \\[0.5cm]
+   \Rnode{p2}{p}  & &
+			
+\end{array}
+$
+\ncarr{p1}{v}
+\alabel{c}[0.4]
+\ncarr{p2}{v}
+\blabel{c}[0.4]
+\ncarr{p1}{p2}
+\blabel{s}[0.4]
+commutes. 
+
+
+Consider the functional dependency
+\begin{equation*}
+\sfd{s}{c}
+\end{equation*}
+sourced at entity type $p$. It is transitive
+because though we also have functional dependencies
+\begin{equation*}
+\sfd{s}{s/s}
+\end{equation*}
+and
+\begin{equation*}
+\sfd{s/s}{c}
+\end{equation*}
+The latter is transitive because we also have
+\begin{equation*}
+\sfd{s/s}{s/s/s}
+\end{equation*}
+and
+\begin{equation*}
+\sfd{s/s/s}{c} 
+\end{equation*} 
+We can continue in this way and establish that the model has transitive functional dependencies which cannot be factored 
+through intransitive functional dependencies. Therefore the model doesn't meet
+the conditions to establish that the relational design it determines  be
+in 3NF.
+
+In the relational design the person entity type, abbreviated $p$ in the diagram, maps to the following relation:
+\begin{equation}
+\label{personrelation}
+person(\underline{pId}, spId, c)
+\end{equation}
+The  attribute of this relation are related by the following  functional dependencies:
+\begin{equation}
+\sfd{pId}{spId}
+\end{equation}
+\begin{equation}
+\label{colourfd}
+\sfd{pId}{c}
+\end{equation}
+\begin{equation}
+\sfd{spId}{c}
+\end{equation}
+and the following  inclusion dependency:
+\begin{equation}
+\label{spIdcolour1}
+person[spId,c] \subseteq person[pId,c]
+\end{equation}
+
+The $person$ relation (\ref{personrelation}) is not in 3NF because the dependency (\ref{colourfd}) is transitive but its rhs, $c$, is not a key attribute wrt the relation. However this
+relation (\ref{personrelation}) can be normalised into relations (\ref{person1relation}) and (\ref{person2relation}):
+\begin{equation}
+\label{person1relation}
+selected(\underline{spId},  c)
+\end{equation}
+\begin{equation}
+\label{person2relation}
+person(\underline{pId}, spId)
+\end{equation}
+satisfying the inclusion dependencies
+\begin{equation}
+selected[spId] \subseteq person[pId]
+\end{equation}
+and
+\begin{equation}
+\label{spIdcolour}
+selected[spId,c] \subseteq (selected \bowtie_{spId=pId} 
+                                       (person \bowtie selected [pId,c]) )
+																			[spId,c];
+\end{equation}
+The latter inclusion dependency is a database constraint that
+is more difficult to police in an implementation
+than the prior equivalent (\ref{spIdcolour1}) and
+this gives one advantage to the unnormalised design as generated
+directly from the entity model. 
+
+
+
+
