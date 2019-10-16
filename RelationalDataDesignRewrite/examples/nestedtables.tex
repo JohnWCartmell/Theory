@@ -15,10 +15,10 @@ $
 \alabel{S_1}
 \idcomp
 \ncarr[-35]{t}{v} 
-\alabel{tN}
+\alabel{tId}
 \idcomp
 \ncarr[-30]{c}{v} 
-\blabel{cN}
+\blabel{cNo}
 \idcomp
 \ncarr{d}{c}
 \blabel{R_0}
@@ -31,7 +31,7 @@ $
 \idcomp
 %\ncarr[80]{r}{v}
 \nccurve[angleA=120, angleB=170, ncurv=0.9, nodesep=0.1, arrowsize=5pt,arrowinset=0.7]{->}{r}{v}
-\alabel{rN}[0.25]
+\alabel{rNo}[0.25]
 \idcomp
 
 & \footnotesize
@@ -45,6 +45,113 @@ d & data cell & Identified by relationship $S_0$ to the row it is in and relatio
 \end{tabular} 
 \end{tabular}
 \end{center}
-\caption{Example of path equivalence - the path $\tuple{R_0,R_1}$ is equivalent to path $\tuple{S_0,S_1}$}.
+\caption{Nested Tables. Tables are nested within other tables. This is an example of an ER model which is well formulated but which exhibits a transitive functional dependency which does not factor through an intransitive dependency. The relational design that i determines is not 
+in normal form. JUST THINKING MAYBE THIS CALLS FOR SUBOBJECT FACTORING.
+}
 \label{datatablegraph}
 \end{figure}
+
+This example determines a relational design with the following
+relations and inclusion dependencies:
+\begin{equation}
+table(\underline{tableId},
+\underline{parentTableId})
+\end{equation}
+\begin{equation}
+row(
+\underline{containingTableId},
+\underline{rowNo}
+)
+\end{equation}
+\begin{equation}
+row[containingTableId] \subseteq table[tableId]
+\end{equation}
+\begin{equation}
+column(\underline{outermostTableId},
+\underline{columnNo})
+\end{equation}
+\begin{equation}
+column[outermostTableId] \subseteq table[tableId]
+\end{equation}
+\begin{equation}
+datum(\underline{containingTableId},
+\underline{rowNo},
+\underline{outermostTableId},
+\underline{columnNo},value)
+\end{equation}
+\begin{equation}
+dataum[containingTableId,rowNo] \subseteq row[containingTableId,rowNo]
+\end{equation}
+\begin{equation}
+dataum[outermostTableId,columNo] \subseteq column[outermostTableId,columNo]
+\end{equation}
+Additionally the $dataum$ relation has the following functional dependency:
+\begin{equation}
+\sfd{containingTableId,rowNo}{outermostTableId}
+\end{equation}
+and so $datum$ is not in normal form. To normalise create replace dataum 
+by two relations:
+\begin{equation}
+datum(\underline{containingTableId},
+\underline{rowNo},
+\underline{columnNo},value)
+\end{equation}
+and
+\begin{equation}
+containingTable(\underline{tableId},
+\underline{outermostTableId}
+\end{equation}
+
+This amounts to the following revised ER model:
+
+$
+\begin{array}{cp{0.5cm}cp{0.5cm}cp{0.3cm}c}
+            &&                && \Rnode{v}{v} &&              \\[1.1cm]
+            && \Rnode{t}{t}   &&              &&              \\[0.9cm] 
+						&& \Rnode{ct}{ct} &&              &&              \\[0.5cm] 
+\Rnode{r}{r}&&                && \Rnode{c}{c} &&              \\[0.5cm]
+	          && \Rnode{d}{d}   &&              &&               
+\end{array}
+$
+\nccircle[angleA=20, nodesep=3pt]{<-}{t}{.4cm}
+\blabel{P}[0.7]
+\ncarr{ct}{t} 
+\alabel{I}[0.4]
+\idcomp
+\ncarr[50]{ct}{t}
+\alabel{O}[0.4]
+\ncarr{r}{ct} 
+\alabel{S_1}
+\idcomp
+\ncarr[-35]{t}{v} 
+\alabel{tId}
+\idcomp
+\ncarr[-30]{c}{v} 
+\blabel{cNo}
+\idcomp
+\ncarr{d}{c}
+\blabel{R_0}
+\idcomp
+\ncarr{d}{r}
+\alabel{S_0}
+\idcomp
+\ncarr{c}{t}
+\blabel{R_1}
+\idcomp
+%\ncarr[80]{r}{v}
+\nccurve[angleA=120, angleB=170, ncurv=0.9, nodesep=0.1, arrowsize=5pt,arrowinset=0.7]{->}{r}{v}
+\alabel{rNo}[0.25]
+\idcomp
+
+Essentially the entity type $ct$ represents the image of $S_0/S_1$
+as a sub object of entity type $t$. Now the functional dependency
+$\sfd{S_0/S_1}{R_0}{R_1}$ is represented by the relationship $O$
+and we have the equivalence $S_0/S_1/O \simeq R_0/R_1$. The $dataum$
+relation determined by entity type $d$ now does not contain an attribute
+corresponding to $R_0/R_1/tId$ because this path is subsumed by the path
+$S_0/S_1/O/tId$ and this path does not have attribute characteristics
+because the relationship $O$ is non-identifying. \textit{voil\'a.}
+
+Note that there is still a transitive fd that does not factor but now it doesn't involve attributes. SPELL THIS OUT.
+
+
