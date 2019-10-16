@@ -1,6 +1,6 @@
  \section{Introduction}
 
-We  define a notion of entity-relationship (ER) model which in the tradition of Chen [] is sufficiently generic to encompass relational, hierarchical and purely logical  notions of data.
+We  define a notion of entity-relationship (ER) model which in the tradition of Chen\cite{Chen1976} is sufficiently generic to encompass relational, hierarchical and purely logical  notions of data.
 The system that we describe involves definition of types of particulars in terms of their relationships with other types, of which there are two kinds, those, such as represent numbers, character strings, booleans and so on, all of whose instances, we say, are universals and the remaining types, the definienda, those types all of whose instances are particulars. Binary many-one relationships which are functional in character are presented as the edges of a directed graph whose nodes comprise all types - both the types of particulars and the types of universals. 
 
 If $u$ is a type all of whose instances are universals then we will refer to each binary many-one functional relationship $f: x \morph u$ as an \term{attribute} of $x$. In relational data modelling such functional relationships are presented as columns of tables. Similarly types all of whose instances are universals  are said to be \textit{attribute types} in entity relational modelling  (though called \textit{attributes} in Johnstone et al.); in the initial work by Chen such types were called \textit{value sets}; they are said to be \textit{domains} in relational data modelling theory. Types of particulars are said to be types of entities or \textit{entity types} in modern entity relational modelling\footnote{In  his paper  introducing the entity-relationship model Chen explains that his model adopts the view that the real world consists of entities and relationships. He also introduces the  terms \textit{entity set} and \textit{relationship set} for the types of respective entity and relationship particulars. Later authors kept the terms entity and relationship, and the Chen philosophy, but changed the way that the terms were used. In this paper we use the later, post-Chen, terminology.} or sometimes, confusingly, just \textit{entities}  and are modelled as \textit{relational tables} in relational data modelling. For the purposes of the theory presented in this paper there is no loss if we assume a single set $\Veee$ of universals.  We will represent data specifications as directed graphs with some additional information; the nodes of the graph being types, and having a distinguished node $\veee$ representing the type of universals; from a mathematical point of view it is impossible to progress the theory too far without forming an opinion that a data specification is a presentation of a category with some additional structure (as in Johnstone et al.) or, meta-mathematically, that it is an axiomatisation of a theory of some kind. This is so but it must be emphasised that the presentation (i.e. the sketch) is vitally important to the goodness of the data specification for it is the primitives in the presentation that determine the units of storage or communication; removing redundancy from the presentation (or sketch) reduces redundancy in the data and this is one half of relational data theory's  normal form notion of goodness of a data schema (the other half being that the theory be optimally tightened to best fit the facts).
@@ -464,8 +464,7 @@ is said to be \term{intransitive} if it is not transitive.
 \end{definition} \commentary{Pause for thought see markups}.
 \begin{lemma}
 \label{transitiveinjectivelemma}
-If $\set{x_1,...x_n} \morph \set{y_1,...y_{m}}$ then if in an instance $E$ the function $E_{\tuple{y_1,...y_{m}}}$ is 
-injective then the function $E_{\tuple{x_1,...x_n}}$  is injective. \commentary{change to jointly-injective sets?}
+In an entity model $\genericmodel$ if $\set{x_1,...x_n} \morph \set{y_1,...y_{m}}$ is a functional dependency then if in an instance $E$ the function $E_{\tuple{y_1,...y_{m}}}$ is injective then the function $E_{\tuple{x_1,...x_n}}$  is injective.
 \end{lemma}
 \begin{proof}
 Follows from the definition of functional dependency that for each $j$, $1 \leq j \leq m$  there is a function ${f_j}$,  such that
@@ -480,8 +479,8 @@ if for some $n \geq 1$, $a$, $b_{i, 1 \leq i \leq n}$,  and $c$ are nodes and
 if  $x_{i}, 1 \leq i \leq n$, and $y$ are paths such
 that there is a functional dependency $\{x_1,...x_n\} \morph y$
  then the functional dependency $\{x_1,...x_n\} \morph y$ is said to be \term{represented} in the ER model $\genericmodel$ iff  there exists an entity type $d$ and a primary mono-source
-$\qntuple$  such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$, and a simple
-path $z:d\rightarrow c$ as here:
+$\qntuple$  such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$, and a 
+path $w:d\rightarrow c$ as here:
 
 \setlength{\arraycolsep}{.2cm}
 \begin{center}
@@ -502,11 +501,11 @@ $
 \simplepathb{$q_1$}{d}{b1}
 \simplepathb{$q_2$}{d}{b2}
 \simplepathb{$q_n$}{d}{bn}
-\simplepatha{$z$}{d}{c}
+\simplepatha{$w$}{d}{c}
 \end{center}
 
 and such that in all defining instances $E$, 
-$\tuple{ E_{x_1},...E_{x_n}} \circ E^{-1}_{\tuple{q_1,...q_n}}\circ E_z = E_y$
+$\tuple{ E_{x_1},...E_{x_n}} \circ E^{-1}_{\tuple{q_1,...q_n}}\circ E_w = E_y$
 \end{definition}
  
 \begin{definition}
@@ -525,26 +524,24 @@ for each intransitive functional dependency $\set{x_1,...x_n} \morph y$ in model
 either in every defining instance $E$, $E_{\xntuple}$ is injective and total
 or else the functional dependency is represented in the model.
 }
-
 \end{enumerate}
 \end{definition}
 
 \begin{lemma}
 \label{intransitivelemma}
-In a well-formed model $\genericmodel$ if $\{x_1,...x_n\} \morph z$  is a non-trivial intransitive
-functional dependency then either $E_{\xntuple}$ is injective and total in every defining instance $E$ 
-or else there is a non-empty path $p:a \rightarrow d$
+In a well-formed model $\genericmodel$ if $\set{x_1,...x_n} \morph y$  is a non-trivial intransitive
+functional dependency sourced at some entity type $a$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$ 
+or else for some entity type $d$ there is a non-empty path $p:a \rightarrow d$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
-the path $w$ is not equivalent to an identifying path.
+the path $w$ is non-empty and is not equivalent to an identifying path.
 \end{lemma}
 \begin{proof}
-
-Since $\genericmodel$ is well formed  and there is an intransitive functional dependency $\set{y_1,...y_m} \morph z$ then either $E_{\ymtuple}$ is injective and total in every defining instance $E$ and therefore by lemma \ref{transitiveinjectivelemma} $E_{\xntuple}$ is injective and total in every defining instance $E$ and we are done or else the the functional dependency
-$\set{y_1,...y_m} \morph z$   is represented 
+Since $\genericmodel$ is well formed  and there is an intransitive functional dependency $\set{x_1,...x_n} \morph y$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$  and we are done or else the functional dependency
+$\set{x_1,...x_n} \morph y$   is represented 
 by  an entity type $d$ and 
 a primary mono-source $\qntuple$ with respect to
-$d$, such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_m}$ and a 
-path $w:d\rightarrow c$, for some $l \geq 0$ as here:
+$d$, such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$ and a 
+path $w:d\rightarrow c$ as shown here:
 
 \setlength{\arraycolsep}{.2cm}
 \begin{center}
@@ -558,22 +555,22 @@ $
              &  & \Rnode{c}{c}    & &               \\
 \end{array}
 $
-\simplepatha{$y_1$}{a}{b1}
-\simplepatha{$y_2$}{a}{b2}
-\simplepatha{$y_m$}{a}{bm}
-\simplepathb{$z$}{a}{c}
+\simplepatha{$x_1$}{a}{b1}
+\simplepatha{$x_2$}{a}{b2}
+\simplepatha{$x_n$}{a}{bm}
+\simplepathb{$y$}{a}{c}
 \simplepathb{$q_1$}{d}{b1}
 \simplepathb{$q_2$}{d}{b2}
-\simplepathb{$q_m$}{d}{bm}
+\simplepathb{$q_n$}{d}{bm}
 \simplepatha{$w$}{d}{c}
 \end{center}
 such that
 \begin{equation}
 \label{fundependency}
-E_y = E_{\ymtuple} \circ E_{\qmtuple}^{-1} \circ E_w
+E_y = E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_w
 \end{equation}
 
-Because $\incd{a}{y_1,...y_m}{d}{q_1,...q_m}$,  and from
+Because $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$,  and from
 clause (ii) of the definition of well-formedness since $\genericmodel$ is well formed, it follows that
 there  is a simple path $p:a \rightarrow d$ such
 that 
@@ -582,38 +579,24 @@ in all defining instances $E$,
 
 \begin{equation}
 \label{incdependency}
-E_{\ymtuple} \circ E^{-1}_{\qmtuple} = E_p
+E_{\xntuple} \circ E^{-1}_{\qntuple} = E_p
 \end{equation}
 Now we have  that in all defining instances $E$ that 
 \begin{align*}
-E_y &= E_{\ymtuple} \circ E_{\qmtuple}^{-1} \circ E_w  && \text{ (\ref{fundependency}), above,}\\
+E_y &= E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_w  && \text{ (\ref{fundependency}), above,}\\
     &= E_p \circ E_w                                   && \text{by (\ref{incdependency}),}\\
 		&= E_{p \circ w}                                   && \text{from defn. of instance }E.\\
 \end{align*} 
 \vspace{-0.3cm}
 From which, by definition, $y\simeq p \circ w$, as required. \\
 
-Now suppose that $c$ is the type representing universals $\veee$.
+Now suppose that $c$ is the type representing universals $\veee$. The path $w$ must be non-empty because its source $d$ being 
+an entity type must be distinct from its destination $\veee$ which is not an entity type. 
 We wish to show that $w$ is not equivalent in $\genericmodel$ to
 a primary key path. This follows from the following lemma.
 \end{proof}
 
-\newcommand{\fdfactoring}{fd factoring}
-\begin{definition}
-\noindent An ER model $\genericmodel$ has the \term{\fdfactoring} property iff to every functional dependency $\set{x_1,...x_n} \morph z$ there is an intransitive functional dependency $\set{y_1,...y_m} \morph z$ which it factors through i.e. such that $\set{x_1,...x_n} \morph \set{y_1,...y_m}$
-\end{definition}
-\begin{lemma}
-\label{mainlemma}
-In a well-formed model $\genericmodel$ if $\{x_1,...x_n\} \morph z$  is a non-trivial intransitive
-functional dependency then either $E_{\xntuple}$ is injective and total in every defining instance $E$ 
-or else there is a non-empty path $p:a \rightarrow d$
-and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
-the path $w$ is not equivalent to an identifying path.
-\end{lemma}
-\begin{proof}
-Since the model $\genericmodel$ is has the \fdfactoring the functional dependency $\set{x_1,...x_n} \morph z$ can be factored through an intransitive functional
-dependency $\set{y_1,...y_m} \morph z$. 
-\end{proof}
+
 
 
 \begin{lemma}
@@ -632,11 +615,27 @@ a path $q'$, $q': b \morph \veee$,  all of whose edges are identifying and such 
 \begin{proof}
 How to make this observation a proof?.
 \end{proof}
+\newcommand{\fdfactoring}{fd factoring}
+\begin{definition}
+\noindent An ER model $\genericmodel$ has the \term{\fdfactoring} property iff to every functional dependency $\set{x_1,...x_n} \morph z$ there is an intransitive functional dependency $\set{y_1,...y_m} \morph z$ which it factors through i.e. such that $\set{x_1,...x_n} \morph \set{y_1,...y_m}$
+\end{definition}
+\begin{lemma}
+\label{mainlemma}
+In a well-formed model $\genericmodel$ that has the \fdfactoring\ property if $\{x_1,...x_n\} \morph z$ is a non-trivial 
+functional dependency sourced
+at some entity type $a$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$ 
+or else there is an entity type $d$ and there is a path $p:a \rightarrow d$
+and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
+the path $w$ is non-empty and is not equivalent to an identifying path.
+\end{lemma}
+\begin{proof}
+Since the model $\genericmodel$  has the \fdfactoring\ property, the functional dependency $\set{x_1,...x_n} \morph z$ can be factored through an intransitive functional
+dependency $\set{y_1,...y_m} \morph z$. Therefore by lemma \ref{intransitivelemma} either there exists $d$, $p$ and $w$ as required
+or else in each defining instance $E$, $E_{\ymtuple}$ is injective and total in which case, by lemma \ref{transitiveinjectivelemma}, $E_{\xntuple}$ is injective and total as required.
+\end{proof}
 
 \section{Definition Physical Entity Models}\commentary{relational?}
 	
-
-
 \subsection{Definition of Physical ER Model}
 \begin{definition}
 \noindent 
