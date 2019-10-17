@@ -48,20 +48,20 @@ commutes.
 
 Consider the functional dependency
 \begin{equation*}
-\sfd{S}{c}
+\sfd{S/pId}{c}
 \end{equation*}
 sourced at entity type $p$. It is transitive
 because though we also have functional dependencies
 \begin{equation*}
-\sfd{S}{S/S}
+S/Pid \morph S 
 \end{equation*}
 and
 \begin{equation*}
-\sfd{S/S}{c}
+\sfd{S}{c}
 \end{equation*}
 The latter is transitive because we also have
 \begin{equation*}
-\sfd{S/S}{S/S/S}
+\sfd{S}{S/S}
 \end{equation*}
 and
 \begin{equation*}
@@ -71,12 +71,10 @@ and
 We have :
 
 \begin{equation}
-pId \morph S \morph S/S \morph S/S/S \morph S/S/S/S .. \morph c
+S/pId \morph S \morph S/S \morph S/S/S \morph S/S/S/S .. \morph c
 \end{equation}
-The model has a transitive functional dependency $pId \morph c$ between
-attribute-like paths which cannot be factored right-intransitively. Therefore the model doesn't meet
-the conditions to establish that the relational design it determines  be
-in 3NF.
+We can see that the model has a transitive functional dependency $S/pId \morph c$ which is between
+attribute-like paths but which cannot be factored right-intransitively. The left hand side, $S/pId$, is not a mono-source, therefore the model doesn't meet he conditions that are required to ensure that the relational design it determines  be in 3NF.
 
 In the relational design the person entity type, abbreviated $p$ in the diagram, maps to the following relation:
 \begin{equation}
@@ -149,6 +147,7 @@ In the revised model we have
 \begin{equation}
 I/pId \morph I/S \morph I/S/S \morph I/S/S/S ... \morph c
 \end{equation}
-and $I/pId \morph c$ is an transitive fd between attribute-like paths which cannot
-be factored right-intransitively. \commentary{So how come the determined relational design is in normal form?}
+and $I/pId \morph c$ is a transitive fd between attribute-like paths which cannot
+be factored right-intransitively. However  the left  hand side, $I/pId$, is a mono-source and
+so the condition for the determined relational design to be in normal form is met.
 
