@@ -1,5 +1,6 @@
 \begin{figure} [h] % nested tables
 \begin{center}
+
 \begin{tabular}{c c}
 $
 \begin{array}{cp{0.5cm}cp{0.5cm}cp{0.3cm}c}
@@ -38,15 +39,20 @@ $
 \begin{tabular}{c p{1.5cm} p{3cm}}
 KEY && \\
 \hline
-t & table & Having identifying attribute tN the name of the table. \\
-c & column & Identified by a combination of column number cN and relationship $R_1$ to the table it is a column of.\\
+t & table & Having identifying attribute tNo the name of the table. \\
+c & column & Identified by a combination of column number cNo and relationship $R_1$ to the table it is a column of.\\
 r & row & Identified by its row number $rN$ and its relationship $S_1$ to the table it is a row of.\\
 d & data cell & Identified by relationship $S_0$ to the row it is in and relationship $R_0$ to the row it is in. \\
 \end{tabular} 
 \end{tabular}
 \end{center}
-\caption{Nested Tables. Tables are nested within other tables. This is an example of an ER model which is well formulated but which exhibits a transitive functional dependency which does not factor through an intransitive dependency. The relational design that i determines is not 
-in normal form. JUST THINKING MAYBE THIS CALLS FOR SUBOBJECT FACTORING.
+\caption{Nested Tables. Tables are nested within other tables. This is an example of an ER model which is well formulated but which exhibits a transitive functional dependency
+$S_0/S_1/tId \morph R_0/R_1/tId$
+between attribute-like paths which, because of the following chain of functional dependencies:
+$
+S_0/S_1/tId \morph S_0/S_1/P \morph S_0/S_1/P/P \morph S_0/S_1/P/P/P  ... \morph R_0/R_1/tId
+$
+does not factor through an intransitive dependency. This model determines a relational design that is not in 3NF. 
 }
 \label{datatablegraph}
 \end{figure}
@@ -145,13 +151,29 @@ $
 
 Essentially the entity type $ct$ represents the image of $S_0/S_1$
 as a sub object of entity type $t$. Now the functional dependency
-$\sfd{S_0/S_1}{R_0}{R_1}$ is represented by the relationship $O$
+$\sfd{S_0/S_1}{R_0}/{R_1}$ is represented by the relationship $O$
 and we have the equivalence $S_0/S_1/O \simeq R_0/R_1$. The $dataum$
 relation determined by entity type $d$ now does not contain an attribute
 corresponding to $R_0/R_1/tId$ because this path is subsumed by the path
-$S_0/S_1/O/tId$ and this path does not have attribute characteristics
-because the relationship $O$ is non-identifying. \textit{voil\'a.}
+$S_0/S_1/O/tId$ and this path is not attribute-like
+as the relationship $O$ is non-identifying. \commentary{\textit{voil\'a.}}
 
-Note that there is still a transitive fd that does not factor but now it doesn't involve attributes. SPELL THIS OUT.
+In this revised ER model there still is a 
+a transitive dependency, $S_0/S_1/I/tId \morph R_0/R_1/tId$ between attribute-like paths 
+and a chain of intermediate dependencies 
+\begin{equation}
+S_0/S_1/I/tId \morph S_0/S_1/I/P \morph S_0/S_1/I/P/P \morph S_0/S_1/I/P/P/P  ... \morph R_0/R_1/tId
+\end{equation}
+and now there is a intransitive dependency $S_0/S_1/O \morph R_0/R_1/tId$ which has a place in this chain like so:
+\begin{equation}
+S_0/S_1/I/tId \morph S_0/S_1/I/P \morph S_0/S_1/I/P/P \morph S_0/S_1/I/P/P/P  ... \morph S_0/S_1/O \morph R_0/R_1/tId
+\end{equation}
+
+and therefore the dependency $S_0/S_1/I/tId \morph R_0/R_1/tId$ can be right transitively factored.
+Note that there is still a transitive functional dependency that does not factor right transitively:
+\begin{equation}
+S_0/S_1/I/tId \morph S_0/S_1/I/P \morph S_0/S_1/I/P/P \morph S_0/S_1/I/P/P/P  ... \morph S_0/S_1/O
+\end{equation}
+ but this now isn't between attribute-like paths. The revised model meets the condition required for the determined relational model to be in normal form.
 
 
