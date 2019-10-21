@@ -1,11 +1,11 @@
  \section{Introduction}
 
 We  define a notion of entity-relationship (ER) model which in the tradition of Chen\cite{Chen1976} is sufficiently generic to encompass relational, hierarchical and purely logical  notions of data.
-The system that we describe involves definition of types of particulars in terms of their relationships with other types, of which there are two kinds, those, such as represent numbers, character strings, booleans and so on, all of whose instances, we say, are universals and the remaining types, the definienda, those types all of whose instances are particulars. Binary many-one relationships which are functional in character are presented as the edges of a directed graph whose nodes comprise all types - both the types of particulars and the types of universals. 
+The system that we describe involves definition of types of particulars in terms of their relationships with other types, of which there are two kinds, those, such as represent numbers, character strings, booleans and so on, all of whose instances, we say, are universals and the remaining types, the definienda, those types all of whose instances are particulars. Binary many-one relationships which are functional in character are presented as the edges of a directed graph whose nodes comprise both the types of particulars and the types of universals. 
 
 If $u$ is a type all of whose instances are universals then we will refer to each binary many-one functional relationship $f: x \morph u$ as an \term{attribute} of $x$. In relational data modelling such functional relationships are presented as columns of tables. Similarly types all of whose instances are universals  are said to be \textit{attribute types} in entity relational modelling  (though called \textit{attributes} in Johnstone et al.); in the initial work by Chen such types were called \textit{value sets}; they are said to be \textit{domains} in relational data modelling theory. Types of particulars are said to be types of entities or \textit{entity types} in modern entity relational modelling\footnote{In  his paper  introducing the entity-relationship model Chen explains that his model adopts the view that the real world consists of entities and relationships. He also introduces the  terms \textit{entity set} and \textit{relationship set} for the types of respective entity and relationship particulars. Later authors kept the terms entity and relationship, and the Chen philosophy, but changed the way that the terms were used. In this paper we use the later, post-Chen, terminology.} or sometimes, confusingly, just \textit{entities}  and are modelled as \textit{relational tables} in relational data modelling. For the purposes of the theory presented in this paper there is no loss if we assume a single set $\Veee$ of universals.  We will represent data specifications as directed graphs with some additional information; the nodes of the graph being types, and having a distinguished node $\veee$ representing the type of universals; from a mathematical point of view it is impossible to progress the theory too far without forming an opinion that a data specification is a presentation of a category with some additional structure (as in Johnstone et al.) or, meta-mathematically, that it is an axiomatisation of a theory of some kind. This is so but it must be emphasised that the presentation (i.e. the sketch) is vitally important to the goodness of the data specification for it is the primitives in the presentation that determine the units of storage or communication; removing redundancy from the presentation (or sketch) reduces redundancy in the data and this is one half of relational data theory's  normal form notion of goodness of a data schema (the other half being that the theory be optimally tightened to best fit the facts).
 
-Entity relationship modelling, and, for that matter, relational modelling too, are predicated on the assumption that the particulars described by data correspond uniquely to real world entities and that the data alone is sufficient to establish a 1-1 correspondence. There is an implicit assumption that the logical principle of identity of indiscernibles holds of the real world entities and it is assumed more specifically that each type of real world entity has identifying relationships and attributes that distinguish it from  others of the type. In relational data modelling this set of identifying features is represented as a set of columns of the table and is called the primary key. In entity relationship modelling in the style of Barker each identifying feature may be either a relationship or an attribute.   
+Entity relationship modelling, and, for that matter, relational modelling too, are predicated on the assumption that the particulars described by data correspond uniquely to real world entities and that the data alone is sufficient to establish a 1-1 correspondence. There is an implicit assumption that the logical principle of identity of indiscernibles holds of the real world entities and, more specifically, that each type of real world entity has identifying relationships and attributes that distinguish it from  others of the type. In relational data modelling this set of identifying features is represented as a set of columns of the table and is called the primary key. In entity relationship modelling in the style of Barker an identifying feature may be either a relationship or an attribute.   
 
 Regarding directed graphs we will use terminology as follows. If $f: a \morph b$ in an edge of a directed graph $G$ then we will say that $a$ is the \term{domain} of $f$ and $b$ is the \term{codomain} of $f$.
 
@@ -171,8 +171,8 @@ $E'_e=E'_p$, equivalently, $E'_e=E_p$,
 \begin{definition}
 Say that two models are \term{co-extensional}  iff there is a third model that they are both extensions of.
 \end{definition}
-We consider co-extensional models to be equivalent models. More generally we define the equivalence 
-relation between models as the transitive symmetric closure of the extension relation.  
+We consider co-extensional models to be equivalent models. More generally we define equivalence 
+of models as the transitive symmetric closure of the extension relation.  
 
 \subsubsection{Composing mono-sources}
 
@@ -234,6 +234,7 @@ $F$ being $E_f$,  and $G$ being $\setsuchthat{E_g}{g \in j}$ \commentary{can imp
 \end{proof}
 
 From lemma \ref{identifyingsetdeduction} it follows that any set of paths arrived at by repeated composition of mono-sources specified for a model $\genericmodel$ in $\setsuchthat{I_a}{a \in \et}$ is itelf a mono-source in $\genericmodel$. Denote by $\bar{I}$ the set  of all such mono-sources.
+
 Denote by $\bar{I}_a$ the subset of $\bar{I}$ comprising all mono-sources in $\bar{I}$ with domain $a$.
 
 \subsubsection{Primary Key Paths and Minimality Condition}
@@ -244,7 +245,7 @@ Denote by $\bar{I}_a$ the subset of $\bar{I}$ comprising all mono-sources in $\b
 \begin{corollary}
 \label{primarykeycorallary}
 If $\genericmodel$ is an entity model then the set $\pk{a}$of all primary key paths 
-leaving an entity type $a$ is a mono-source.
+with domain entity type $a$ is a mono-source.
 \end{corollary}
 
 
@@ -275,8 +276,7 @@ To reach the goal of showing that to every ER model there is an equivalent relat
 \begin{lemma}
 If $\genericmodel$ is an ER model then it can be extended to a model $\genericmodel'$
 which is primarily keyed. If $\genericmodel$ satisfies the minimality condition then the
-extended model $\genericmodel'$ satisfies the  condition that each $I_a$ has no proper subsets which
-are mono-sources. 
+extended model $\genericmodel'$ satisfies the  condition that each set $I_a$ has no proper subsets which are mono-sources. 
 \end{lemma}
 \begin{proof}
 For each entity type $a$ we extend $\genericmodel$ by edges $E_a$, where each edge \commentary{work on this proof. Cannot use this notation.}
@@ -376,7 +376,7 @@ If  $\genericmodel$ is an ER model in which all simple referential inclusion dep
 have representations then all referential inclusion dependencies have representations. 
 \end{lemma}
 \begin{proof}
-Proof by induction TBD. \commentary{Start by drawing a diagram of the inductive step.} 
+Proof by induction TBD. Start by drawing a diagram of the inductive step.
 \end{proof}
 
 \subsection{Functional Dependencies}
@@ -461,7 +461,7 @@ $\{y_1,...y_{m}\} \morph \{x_1,...x_n\}$.
 \begin{definition} %intransitive
 In an entity model $\genericmodel$, a functional dependency $\set{x_1,...x_n} \morph y$
 is said to be \term{intransitive} if it is not transitive.
-\end{definition} \commentary{Pause for thought see markups}.
+\end{definition} 
 \begin{lemma}
 \label{transitiveinjectivelemma}
 In an entity model $\genericmodel$ if $\set{x_1,...x_n} \morph \set{y_1,...y_{m}}$ is a functional dependency then if in an instance $E$ the function $E_{\tuple{y_1,...y_{m}}}$ is injective then the function $E_{\tuple{x_1,...x_n}}$  is injective.
@@ -617,7 +617,8 @@ How to make this observation a proof?.
 \end{proof}
 \newcommand{\fdfactoring}{fd factoring}
 \begin{definition}
-\noindent An ER model $\genericmodel$ has the \term{\fdfactoring} property iff to every functional dependency $\set{x_1,...x_n} \morph z$ there is an intransitive functional dependency $\set{y_1,...y_m} \morph z$ which it factors through i.e. such that $\set{x_1,...x_n} \morph \set{y_1,...y_m}$
+\noindent An ER model $\genericmodel$ has the \term{\fdfactoring} property iff to every functional dependency $\set{x_1,...x_n} \morph z$ where $x1, x_2, ... x_n$ and $z$ are attribute-like paths either $\set{x_1,...x_n}$ is
+a mono-source or else there is an intransitive functional dependency $\set{y_1,...y_m} \morph z$ which it factors through i.e. such that $\set{x_1,...x_n} \morph \set{y_1,...y_m}$
 \end{definition}
 \begin{lemma}
 \label{mainlemma}
@@ -634,9 +635,9 @@ dependency $\set{y_1,...y_m} \morph z$. Therefore by lemma \ref{intransitivelemm
 or else in each defining instance $E$, $E_{\ymtuple}$ is injective and total in which case, by lemma \ref{transitiveinjectivelemma}, $E_{\xntuple}$ is injective and total as required.
 \end{proof}
 
-\section{Definition Physical Entity Models}\commentary{relational?}
+\section{Relational Models}\commentary{relational?}
 	
-\subsection{Definition of Physical ER Model}
+\subsection{Definition of Relational ER Model}
 \begin{definition}
 \noindent 
 A \term{physical ER model} is a well formulated ER model that also satisfies:
@@ -650,7 +651,7 @@ for each relationship $r$ there is  an inclusion dependency that it represents.\
 \end{definition}
 
 
-\section{First Cut Chen Transformation -- $\chiZero$}
+\subsection{First Cut Chen Transformation -- $\chiZero$}
 
 \begin{align}
 &\et[\chiZeroM]        && = \et        && \\
@@ -670,7 +671,7 @@ where we define the latter by:
 			                   }
 \end{equation}
 
-\section{Chi Transform - a Revised Chen Transformation}
+\subsection{Chi Transform - a Revised Chen Transformation}
 
 First:
 \begin{definition}
@@ -724,22 +725,22 @@ Functional depedencies in $\genericmodel$ carries through to functional depdenci
 
 \end{proof}
 
-\section{Boyce-Codd Normal Form}
+\section{Normal Forms}
 \noindent One measure of the goodness of a physical model is whether it satisfies the well-formedness condition know as Boyce Codd Normal Form.
 Written in the terminology we are using here it can be defined as follows:
 \begin{definition} % BCNF
-A physical ER model is in Boyce Codd Normal Form (BCNF) \commentary{See Zaniolo definition 2.} iff
+A relational ER model is in Boyce Codd Normal Form (BCNF) \commentary{See Zaniolo definition 2.} iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
 for which  there is a non-trivial functional dependency \sfd{x_1,...x_n}{y}, 
 in all instances $E$  of $\genericmodel$, the function $E_{<x_1,...x_n>}$ is injective and total.  
 \end{definition}
 
 \begin{definition} % TNF
-A physical ER model is in Third Normal Form (TNF)  iff
+A relational ER model is in Third Normal Form (TNF)  iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
 for which  there is a non-trivial functional dependency \sfd{x_1,...x_n}{y}, 
 in all instances $E$  of $\genericmodel$, either the function $E_{<x_1,...x_n>}$ is injective and total
-or else $y$ is all identifying.\commentary{new - justify this}.  
+or else $y$ is all identifying.\commentary{new - justify this}
 \end{definition}
 
 \noindent The next lemma simplifies the requirement for showing BCNF to consideration of non-trivial
@@ -829,7 +830,7 @@ E_{y_1}=E_{\tuple{p_1,...p_k ,z_1,...z_l }}
 We have shown, therefore, that $y_1$ is an outgoing edge of $a$ in $\genericmodel$ 
 which is equivalent to a simple path of $\genericmodel$ of length $\geq 2$.
 Therefore from the defintion of subsumes ,  $y_1$ is identifying as required to establishing TNF
-or if we have assumed no such $y_1$ the assumption is contradicted and we establish BCNF.
-This completes the proof.
+or if we have assumed no such $y_1$ the assumption is contradicted and we establish BCNF
+and so complete the proof.
 \end{proof}
 
