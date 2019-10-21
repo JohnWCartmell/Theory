@@ -5,7 +5,7 @@
    \Rnode{p}{p} & & \Rnode{v}{v}
 \end{tabular}
 \nccircle[nodesep=3pt]{<-}{p}{.4cm}
-\blabel{s}
+\blabel{S}
 \ncarr[-40]{p}{v}
 \alabel{c}[0.4]
 \ncarr{p}{v} 
@@ -42,35 +42,39 @@ $
 \ncarr{p2}{v}
 \blabel{c}[0.4]
 \ncarr{p1}{p2}
-\blabel{s}[0.4]
+\blabel{S}[0.4]
 commutes. 
 
 
 Consider the functional dependency
 \begin{equation*}
-\sfd{s}{c}
+\sfd{S/pId}{c}
 \end{equation*}
 sourced at entity type $p$. It is transitive
 because though we also have functional dependencies
 \begin{equation*}
-\sfd{s}{s/s}
+S/Pid \morph S 
 \end{equation*}
 and
 \begin{equation*}
-\sfd{s/s}{c}
+\sfd{S}{c}
 \end{equation*}
 The latter is transitive because we also have
 \begin{equation*}
-\sfd{s/s}{s/s/s}
+\sfd{S}{S/S}
 \end{equation*}
 and
 \begin{equation*}
-\sfd{s/s/s}{c} 
+\sfd{S/S/S}{c} 
 \end{equation*} 
-We can continue in this way and establish that the model has transitive functional dependencies which cannot be factored 
-through intransitive functional dependencies. Therefore the model doesn't meet
-the conditions to establish that the relational design it determines  be
-in 3NF.
+
+We have :
+
+\begin{equation}
+S/pId \morph S \morph S/S \morph S/S/S \morph S/S/S/S .. \morph c
+\end{equation}
+We can see that the model has a transitive functional dependency $S/pId \morph c$ which is between
+attribute-like paths but which cannot be factored right-intransitively. The left hand side, $S/pId$, is not a mono-source, therefore the model doesn't meet he conditions that are required to ensure that the relational design it determines  be in 3NF.
 
 In the relational design the person entity type, abbreviated $p$ in the diagram, maps to the following relation:
 \begin{equation}
@@ -121,6 +125,29 @@ than the prior equivalent (\ref{spIdcolour1}) and
 this gives one advantage to the unnormalised design as generated
 directly from the entity model. 
 
+A revised model which reflects the normalised relational design is this:
+\begin{center}
+\begin{tabular}{c p{1.5cm} c}
+   \Rnode{sp}{sp} & &           \\[1.4cm]
+   \Rnode{p}{p}   & & \Rnode{v}{v}
+\end{tabular}
+\ncarr[40]{p}{sp}
+\alabel{S}
+\ncarr{sp}{p}
+\alabel{I}
+\idcomp
+\ncarr[20]{sp}{v}
+\alabel{c}[0.4]
+\ncarr{p}{v} 
+\alabel{pId}
+\idcomp
+\end{center}
 
-
+In the revised model we have
+\begin{equation}
+I/pId \morph I/S \morph I/S/S \morph I/S/S/S ... \morph c
+\end{equation}
+and $I/pId \morph c$ is a transitive fd between attribute-like paths which cannot
+be factored right-intransitively. However  the left  hand side, $I/pId$, is a mono-source and
+so the condition for the determined relational design to be in normal form is met.
 
