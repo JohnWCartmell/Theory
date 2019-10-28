@@ -754,83 +754,72 @@ in all instances $E$, $E_{<x_1,...x_n>}$ is injective and total.
 \end{lemma}
 \begin{proof}Use lemma \ref{transitiveinjectivelemma}.
 \end{proof}
+\begin{lemma}
+\label{S3NFsublemma}
+A model $\genericmodel$ is in S3NF iff
+for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
+for which there is an non trivial  functional dependency \sfd{x_1,...x_n}{y},
+in all instances $E$, $E_{<x_1,...x_n>}$ is injective and total or $y$ is a primary key. 
+\end{lemma}
+
+
 
 \noindent Now for the main theorem:\\
 \begin{theorem}
 \noindent If an ER model $\genericmodel$ is well-formulated  and has the \fdfactoring property then the 
-transformed model $\logtophys(\genericmodel)$  is in Third Normal Form. If in $\genericmodel$
+transformed model $\logtophys(\genericmodel)$  is in Strong Third Normal Form. If in $\genericmodel$
 there are no identifying edges $r$ such that $r \simeq p$ for some path $p$ of length greater than $1$
 then $\logtophys(\genericmodel)$ is in Boyce-Codd Normal form.
 \end{theorem}
 \begin{proof}
-By lemma \ref{BCNFsublemma} it suffices to show that if 
+To prove S3NF it suffices, by lemma \ref{S3NFsublemma},  to show that if 
 $\sfd{\phys{x}_1,...\phys{x}_n}{\phys{y}}$ is a non-trivial intransitive functional dependency of model $\genericphysical$
 where $\phys{x}_1,...\phys{x}_n,\phys{y}$ are attributes of the entity type $a$ of model $\genericphysical$ 
 then  in all instances
-$E$ of $\genericphysical$, $E_{<\phys{x}_1,...\phys{x}_n>}$ is injective and total. \\
-
+$E$ of $\genericphysical$, $E_{<\phys{x}_1,...\phys{x}_n>}$ is injective and total or that $\bar{y}$
+is identifying. \\
 
 \noindent Assume, then, such a functional dependency $\sfd{\phys{x}_1,...\phys{x}_n}{\phys{y}}$ in  $\genericphysical$. 
-By lemma \ref{fdcarrythroughlemma} it follows that in the model $\genericmodel$, for each $i$, $1 \leq i \leq n$, 
-for some $m_i$, $m_i \geq 1$, we have a 
-path of length $m_i$ which we denote $x_i = \tuple{x_{i,1},...x_{i,m_i} }$  and for some $m$, $m \geq 1$ we have a path 
-of length $m$ which we denote 
-$y=\tuple{y_1,..y_m }$ as shown here: 
-\setlength{\arraycolsep}{.2cm}
-\begin{center}
-$
-\begin{array}{cp{2cm}cc}
-             & &         & \Rnode{b1}{v} \\ [0.5cm]
-						 & &         & \Rnode{b2}{v} \\ [0.6cm]
-						 & & \vdots  &                 \\ [0.2cm]
-\Rnode{a}{a} & &         & \Rnode{bn}{v} \\ [1.0cm]
-             & &         & \Rnode{c}{v}   \\
-\end{array}
-$
-\simplepatha{$x_1$}{a}{b1}
-\simplepatha{$x_2$}{a}{b2}
-\simplepatha{$x_n$}{a}{bn}
-\simplepathb{$y$}{a}{c}
-\end{center}
-and that \sfd{x_1,...x_n}{y} in $\genericmodel$.
+By lemma \ref{fdcarrythroughlemma} it follows that in the model $\genericmodel$, for each $i$, $1 \leq i \leq n$, there is a path
+ $x_i : a \morph v$  and there is  a path 
+$y: a \morph v$ and such that
+ \sfd{x_1,...x_n}{y} in $\genericmodel$.
 
 From the assumption that the model $\genericmodel$ is well-formulated 
-by lemma \ref{mainlemma} there is a path $\tuple{p_1,...p_k}$
-and a path $\tuple{z_1,...z_l}$ not a primary key path such that
+then by lemma \ref{mainlemma} 
+either $E_{\tuple{x_1,...x_n }}$ is
+injective and total in every instance $E$ of $\genericmodel$
+or there is a non-empty path $p$ in $\genericmodel$
+and a path $w$ of $\genericmodel$ that is not a primary key path such that
 
 \begin{equation}
 \label{simpleRepresentation}
- E_{\tuple{p_1,...p_k }} \circ E_{\tuple{z_1,...z_l }} = E_{\tuple{y_1,..y_m }} 
+ E_p \circ E_w = E_y
 \end{equation}
 
-Either $k=0$ and $\qntuple = \tuple{x_1,...x_n }$ in which case $E_{\tuple{x_1,...x_n }}$ is
+If $E_{\tuple{x_1,...x_n }}$ is
 injective and total in every instance $E$ of $\genericmodel$ and thus $\logtophys(E)_{\tuple{\phys{x}_1,...\phys{x}_n }}$ is
-injective and total in every instance $\logtophys(E)$ of $\genericphysical$ and the proof is complete.
-We will show that this leads to a contradiction and so complete the proof. 
+injective and total in every instance $\logtophys(E)$ of $\genericphysical$ as required.
 
-If $k \ge 1$ then if $m >1$ then
+Otherwise if length of y greater than 1 then \commentary{what is y given that we have $\bar{y}$}
  from  (\ref{simpleRepresentation}),
 from clause (i) of the definition of subsumes and from the fact demonstrated above that $z$ is not equivalent to a 
 primary key attribute
-it follows that $p_1,...p_k,z_1,...z_l$ subsume $\tuple{y_1,..y_m }$\commentary{CHECK THIS}, 
-which implies that $\tuple{y_1,..y_m }$ is excluded from $\fkp{a}$ and thus that 
- $\phys{y}=\left[\tuple{y_1,..y_m }\right]$ is not an attribute of $\genericphysical$ contrary to our 
+it follows that $p \circ z $ subsumes $y$ in $\genericmodel$, 
+which implies that $y$ is excluded from $\fkp{a}$ and thus that 
+ $\phys{y}=\left[y\right]$ is not an attribute of $\genericphysical$ contrary to our 
 initial assumption. 
 
-We must conclude that $m=1$.
-In this case we have $y_1$, an attribute of $a$ in $\genericmodel$, and from (\ref{simpleRepresentation})  we have in all instances $E$ of $\genericmodel$:
+We must conclude that the length of $y$ is 1.
+In this case we have $y$, an attribute of $a$ in $\genericmodel$, and from (\ref{simpleRepresentation})  we have in all instances $E$ of $\genericmodel$:
 \begin{equation}
-E_{y_1}=E_{\tuple{p_1,...p_k }} \circ E_{\tuple{z_1,...z_l }}
-\end{equation}
-\noindent which is to say that in all instances $E$ of $\genericmodel$:
-\begin{equation}
-E_{y_1}=E_{\tuple{p_1,...p_k ,z_1,...z_l }}
+E_y=E_p \circ E_w
 \end{equation}
 \noindent
-We have shown, therefore, that $y_1$ is an outgoing edge of $a$ in $\genericmodel$ 
+We have shown, therefore, that $y$ is an outgoing edge of $a$ in $\genericmodel$ 
 which is equivalent to a simple path of $\genericmodel$ of length $\geq 2$.
-Therefore from the defintion of subsumes ,  $y_1$ is identifying as required to establishing TNF
-or if we have assumed no such $y_1$ the assumption is contradicted and we establish BCNF
+Therefore from the defintion of subsumes ,  $y$ is identifying as required to establishing S3NF
+or if we have assumed no such $y$ the assumption is contradicted and, by lemma \ref{BCNFsublemma} we establish BCNF
 and so complete the proof.
 \end{proof}
 
