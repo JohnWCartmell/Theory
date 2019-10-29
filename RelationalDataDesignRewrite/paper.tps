@@ -10,9 +10,9 @@ MinPos.y=-1
 MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
-NormalPos.top=53
-NormalPos.right=2847
-NormalPos.bottom=1119
+NormalPos.top=26
+NormalPos.right=1384
+NormalPos.bottom=750
 Class=LaTeXView
 Document=paper.tex
 
@@ -28,9 +28,9 @@ MinPos.y=-1
 MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
-NormalPos.top=53
-NormalPos.right=2847
-NormalPos.bottom=1119
+NormalPos.top=26
+NormalPos.right=1384
+NormalPos.bottom=750
 Class=LaTeXView
 Document=theabstract.tex
 
@@ -46,14 +46,14 @@ MinPos.y=-1
 MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
-NormalPos.top=53
-NormalPos.right=2847
-NormalPos.bottom=1119
+NormalPos.top=26
+NormalPos.right=1384
+NormalPos.bottom=750
 Class=LaTeXView
 Document=themainmaths.tex
 
 [Frame2_View0,0]
-TopLine=340
+TopLine=424
 Cursor=19550
 
 [SessionInfo]
