@@ -335,7 +335,7 @@ referential inclusion dependency $\incd{a}{f_1,...f_n}{b}{q_1,...q_n}$
 such that $\set{q_1,...q_n}$ is a primary mono-source.
 \end{definition}
 
-If $\qntuple$ is a primary mono-source at $a$ then define $E_{\qntuple}^{-1}$ to be the right inverse of
+If $\qntuple$ is a mono-source at $a$ then define $E_{\qntuple}^{-1}$ to be the right inverse of
 $E_{\qntuple}$ i.e. the unique partial function such that:
 $E_{\qntuple} \circ E_{\qntuple}^{-1} = id_{E_a}$
 
@@ -651,9 +651,10 @@ A \term{relational ER model} is an  ER model that also satisfies:
 \item
 it is primarily keyed i.e. all identifying edges are attributes, 
 \item
-for each relationship $r$ there is  a referential inclusion dependency that it represents,
+for each relationship $r$ there is a referential inclusion dependency not using $r$ \commentary{Need define \term{not using}.Rememeber $r$ might have equivalent path I think. PROBLEM: CIRCULARITY}that it represents,
+\vspace{1cm}
 \item 
-for each minimal referential inclusion dependency there is a unique relationship which represents it.
+for each minimal [intransitive?] \commentary{Think about this.} referential inclusion dependency there is a unique relationship which represents it.
 \end{enumerate} 
 \end{definition}
 \begin{remark}
@@ -687,10 +688,10 @@ where we define the latter by:
 \subsection{Chi Transform - a Revised Chen Transformation}
 In this section we define a relational  entity model $\genericphysical$ corresponding 
 to any given ER model $\genericmodel$. The $\chi$ transformation that we so describe is a refinement
-of a transformation first described by Chen and subsequently described in a range of software design methodologies and implemented in associated CASE tools. This earlier transformation is sometimes said to produce a first-cut relational design because generally the model produced requires normalisation
+of a transformation first described by Chen and subsequently prescribed in a range of software design methodologies and implemented in associated CASE tools. This earlier transformation is sometimes said to produce a first-cut relational design because generally the model produced requires normalisation
 to achieve an appropriate database normal form such as 3NF or BCNF. 
-We shall show that with these refinements 
-the transformation $\chi$ produces relational models that are in 3NF and, if appropriate, BCNF.
+We shall show that 
+the transformation $\chi$ defined here produces relational models that are in 3NF and, if appropriate, BCNF.
 First we give some preliminary definitions.
 
 From an ER model $\genericmodel$ a first-cut relational design is achieved by extending each
@@ -720,15 +721,19 @@ is not attribute-like, \\
 \item $\tuple{r_1,...r_n} <  \tuple{s_0,s_1,...s_m}$ and $r_1 \neq s_0$.
 \end{enumerate}
 \end{definition}
+\begin{problem}
+Can have $\tuple{r_1,...r_n}$ rendered redundant by $\tuple{s_0,...s_m}$
+and also $\tuple{s_1,...s_m}$ rendered redundant by $\tuple{r_0,...r_n}$. Or, worse, tangled dependencies. See examples.
+\end{problem}
 
-The final refinement is in recognition that certain attribute-like paths may be equivalents of one another.
+In recognition that certain attribute-like paths may be equivalents of one another. if two edges are equivalent then omit one of them.
 We define the attributes of the transformed model $\genericphysical$ by choosing just one attribute-like path
 from the equivalents or, in other words, by considering the attributes of the transformed model to
 be equivalence classes of the non-redundant  attribute-like paths of the model $\genericmodel$.
 
 Define $\attr[\chiZeroM]{a}$ to be the first-cut attributes of entity type $a$ i.e. the set of attribute-like paths with source $a$ in model $\genericmodel$. Define $\attr[\chiOneM]{a}$
 as the subset of $\attr[\chiZeroM]{a}$ of all those attribute-like paths for which there does not exist
-a path which renders them redundant. If we denote the set of equivalence classes of $\attr[\chiOneM]{a}$
+a path which renders it redundant. If we denote the set of equivalence classes of $\attr[\chiOneM]{a}$
 under the equivalence relation defined in section \ref{equivalencedefinition} by $\attr[\chiOneM]{a}/\simeq$
 then the transformed ER model $\genericphysical$ corresponding to an entity 
 model $\genericmodel$ is defined by:
