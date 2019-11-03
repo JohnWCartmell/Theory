@@ -1,0 +1,90 @@
+\begin{figure} [h]  % chen fragment with bars
+\begin{center}
+$
+\begin{array}{c p{0.75cm}c p{0.5cm}c p{0.5cm}c}
+ \Rnode{project}{project}  && \Rnode{dept}{dept}  &&              &&              \\ [0.3cm]
+	 	           &&               && \Rnode{site}{site} && \Rnode{v}{v} \\ [0.3cm]     
+ \Rnode{employee}{employee}  && \Rnode{intake}{intake}  &&              &&              \\ 
+\end{array}
+$
+\ncarr[60]{project}{v}
+\alabel{pcode}[0.3][0]
+\idcomp
+\ncarr{project}{dept} 
+\alabel{S_1}[0.5][0]
+\ncarr[30]{dept}{v}
+\alabel{dName}[0.3][0]
+\idcomp
+\ncarr{dept}{site} 
+\alabel{S_2}[0.3][0]
+\idcomp
+\ncarr{site}{v}
+\alabel{sName}[0.4][0]
+\idcomp
+\ncarr[-30]{project}{employee}
+\blabel{R_0}[0.35][0]
+\ncarr[-30]{employee}{project}
+\blabel{S_0}[.35][0]
+\ncarr{employee}{intake}
+\blabel{R_1}[0.5][1]
+\ncarr{intake}{site}
+\blabel{R_2}[0.3][0]
+\idcomp
+\ncarr[-30]{intake}{v}
+\blabel{dName}[0.3][0]
+\idcomp
+\ncarr[-60]{employee}{v}
+\blabel{empNo}[0.3][0]
+\idcomp
+%\nccurve[angleA=90,angleB=90,nodesep=2pt,ncurv=0.9]{->}{w}{v}
+%\alabel{pcnt}[0.3][-1]
+\vspace{1.5cm}
+\newline
+such that \hspace{0.5cm}
+$
+\begin{array}{c p{0.75cm}c p{0.5cm}c}
+ \Rnode{project}{project}  && \Rnode{dept}{dept}  &&              \\ [0.3cm]
+	 	           &&               && \Rnode{site}{site}  \\ [0.3cm]     
+ \Rnode{employee}{employee}  && \Rnode{intake}{intake}  &&              \\ 
+\end{array}
+$
+\ncarr{project}{dept} 
+\alabel{S_1}[0.5][0]
+\ncarr{dept}{site} 
+\alabel{S_2}[0.3][0]
+\idcomp
+\ncarr{employee}{project}
+\alabel{S_0}[.5][1]
+\ncarr{employee}{intake}
+\blabel{R_1}[0.5][1]
+\ncarr{intake}{site}
+\blabel{R_2}[0.3][0]
+\idcomp
+\hspace {0.25cm} and \hspace{0.5cm}
+$
+\begin{array}{c p{0.75cm}c p{0.5cm}c}
+ \Rnode{project}{project}  && \Rnode{dept}{dept}  &&              \\ [0.3cm]
+	 	           &&               && \Rnode{site}{site}  \\ [0.3cm]     
+ \Rnode{employee}{employee}  && \Rnode{intake}{intake}  &&               \\ 
+\end{array}
+$
+\ncarr{project}{dept} 
+\alabel{S_1}[0.5][0]
+\ncarr{dept}{site} 
+\alabel{S_2}[0.3][0]
+\idcomp
+\ncarr{project}{employee}
+\blabel{R_0}[0.5][1]
+\ncarr{employee}{intake}
+\blabel{R_1}[0.5][1]
+\ncarr{intake}{site}
+\blabel{R_2}[0.3][0]
+\idcomp
+\hspace{0.2cm} commute.
+
+\end{center}
+\caption{An example  of how \textit{rendered redundant} may lead to circularity in that
+$R_1/R_2/sName$  rendered redundant by a path $S_O/S_1/S_2/sName$  and, \textit{vice-versa}, 
+$S_1/S_2/sName$ rendered redundant by $R_0/R_1/R_2/sName$}
+\label{employeeintake}
+\end{figure}
