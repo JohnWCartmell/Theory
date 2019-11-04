@@ -771,7 +771,6 @@ injective and total in every defining instance $\logtophys(E)$ of $\genericphysi
 TBD
 \end{proof}
 
-
 \section{Normal Forms}
 
 \noindent One measure of the goodness of a relational model is whether it satisfies the condition called Boyce Codd Normal Form (BCNF). In some modelling situations this condition cannot be 
@@ -834,7 +833,7 @@ then  in all instances
 $E$ of $\genericphysical$, $E_{<\phys{x}_1,...\phys{x}_n>}$ is injective and total or that $\bar{y}$
 is identifying. \\
 
-\noindent Assume, then, such a functional dependency $\sfd{\phys{x}_1,...\phys{x}_n}{\phys{y}}$ in  $\genericphysical$. 
+\noindent Assume, then, such a non-trivial functional dependency $\sfd{\phys{x}_1,...\phys{x}_n}{\phys{y}}$ in  $\genericphysical$. 
 By lemma \ref{fdcarrythroughlemma} it follows that in the model $\genericmodel$, for each $i$, $1 \leq i \leq n$, there is a path
  $x_i : a \morph v$  and there is  a path 
 $y: a \morph v$ and such that
@@ -852,7 +851,6 @@ and a path $w$ of $\genericmodel$ that is not a primary key path such that
  E_p \circ E_w = E_y
 \end{equation}
 
-
 If $E_{\tuple{x_1,...x_n }}$ is
 injective and total in every instance $E$ of $\genericmodel$ then by 
 lemma \ref{injectivecarrythroughlemma} $\logtophys(E)_{\tuple{\phys{x}_1,...\phys{x}_n }}$ is
@@ -862,7 +860,7 @@ Otherwise if length of y greater than 1 then \commentary{what is y given that we
  from  (\ref{simpleRepresentation}),
 from clause (i) of the definition of redundancy and from the fact demonstrated above that $w$ is not equivalent to a 
 primary key attribute
-it follows that $y$ is rendered redundant by $p \circ z $ in $\genericmodel$, 
+it follows that $y$ is rendered redundant by $p \circ w$ in $\genericmodel$, 
 which implies that $y$ is excluded from $\fkp{a}$ and thus that 
  $\phys{y}=\left[y\right]$ is not an attribute of $\genericphysical$ contrary to our 
 initial assumption. 
@@ -875,8 +873,6 @@ E_y=E_p \circ E_w
 \noindent
 We have shown, therefore, that $y$ is an outgoing edge of $a$ in $\genericmodel$ 
 which, in $\genericmodel$, is equivalent to a simple path of length $\geq 2$.
-Therefore from the definition of redundancy,  $y$ is identifying as required to establishing S3NF
-or if we have assumed no such $y$ the assumption is contradicted and, by lemma \ref{BCNFsublemma} we establish BCNF
-and so complete the proof.
+Therefore from the clause (ii) of the definition of redundancy,  $y$ is identifying as required to establishing S3NF or if we have assumed no such $y$ the assumption is contradicted and, by lemma \ref{BCNFsublemma} we establish BCNF and so complete the proof.
 \end{proof}
 
