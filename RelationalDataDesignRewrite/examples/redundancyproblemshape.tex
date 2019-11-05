@@ -82,3 +82,104 @@ $R_1/R_2/K_e$  rendered redundant by a path $S_O/S_1/S_2/K_e$  and, \textit{vice
 $S_1/S_2/K_e$ rendered redundant by $R_0/R_1/R_2/K_e$}
 \label{redundancyproblemshape}
 \end{figure}
+
+The first-cut relational design will include tables $a$ and $b$ as follows
+\begin{equation}
+\label{relationa}
+a(\underline{\qq{K_a}},\qq{R_0/K_b},\qq{S_1/S_2/K_e})
+\end{equation}
+and
+\begin{equation}
+\label{relationb}
+a(\underline{\qq{K_b}},\qq{S_0/K_a},\qq{R_1/R_2/K_e})
+\end{equation}
+
+Because of the equivalence of paths $R_0/R_1/R_2 \simeq S_1/S_2$ (shown as the rightmost of the two
+commuting diagram in figure \ref{redundancyproblemshape}) it follows that 
+there is a functional dependency
+\begin{equation}
+\fd{R_0}{S_1/S_2}
+\end{equation}
+from this and because $K_b$ is a mono-source it follows that
+\begin{equation}
+\fd{R_0/K_b}{S_1/S_2}
+\end{equation}
+By an unproven lemma it follows that 
+\begin{equation}
+\fd{\qq{R_0/K_b}}{\qq{S_1/S_2}}
+\end{equation}
+Relation $a$ defined in (\ref{relationa}) is, therefore, not in 3NF. Similarly relation $b$ as given in
+(\ref{relationb}) is not in 3NF because of this functional dependency:
+\begin{equation}
+\fd{\qq{S_0/K_a}}{\qq{R_1/R_2}}
+\end{equation}
+
+To normalise relations $a$ we need to modify relation $a$ and introduce a relation $X$ keyed by $\qq{R_0/K_b}$ as follows:
+\begin{equation}
+\label{normalrelationa}
+a(\underline{\qq{K_a}},\qq{R_0/K_b})
+\end{equation}
+\begin{equation}
+\label{relationX}
+X(\underline{\qq{R_0/K_b}},\qq{S_1/S_2/K_e})
+\end{equation}
+similarly relations $b$ must be split into
+\begin{equation}
+\label{normalrelationb}
+b(\underline{\qq{K_b}},\qq{S_0/K_a})
+\end{equation}
+\begin{equation}
+\label{relationY}
+Y(\underline{\qq{S_0/K_a}},\qq{R_1/R_2/K_e})
+\end{equation}
+In this design there are referential inclusion dependencies 
+\begin{equation}
+X[\qq{R_0/K_b}] \subseteq b[K_b]
+\end{equation}
+and
+\begin{equation}
+Y[\qq{S_0/K_a}] \subseteq a[K_a]
+\end{equation}
+Therefore this relational design corresponds to the following ER model:
+\vspace{1.5cm}
+\begin{center}
+$
+\begin{array}{c p{0.75cm} c p{0.75cm}c p{0.5cm}c p{0.5cm}c}
+ \Rnode{a}{a}  && \Rnode{X}{X}  && \Rnode{c}{c}  &&              &&              \\ [0.35cm]
+	 	           &&               &&               && \Rnode{e}{e} && \Rnode{v}{v} \\ [0.35cm]     
+ \Rnode{b}{b}  && \Rnode{Y}{Y}  && \Rnode{d}{d}  &&              &&              \\ 
+\end{array}
+$
+\ncarr[60]{a}{v}
+\alabel{K_a}[0.3][0]
+\idcomp
+\ncarr{a}{X}
+\alabel{R_0}[0.3][0]
+\ncarr{X}{b}
+\blabel{I_b}[0.25][0]
+\idcomp
+\ncarr{X}{c} 
+\alabel{S_1}[0.5][0]
+\ncarr{c}{e} 
+\alabel{S_2}[0.3][0]
+\idcomp
+\ncarr{e}{v}
+\alabel{K_e}[0.4][0]
+\idcomp
+\ncarr{Y}{d}
+\blabel{R_1}[0.5][1]
+\ncarr{d}{e}
+\blabel{R_2}[0.3][0]
+\idcomp
+\ncarr{Y}{a}
+\alabel{I_a}[0.25][0]
+\idcomp
+\ncarr{b}{Y}
+\blabel{S_0}[0.3][0]
+\ncarr[-60]{b}{v}
+\blabel{K_b}[0.3][0]
+\idcomp
+\end{center}
+%\nccurve[angleA=90,angleB=90,nodesep=2pt,ncurv=0.9]{->}{w}{v}
+%\alabel{pcnt}[0.3][-1]
+\vspace{1.5cm}
