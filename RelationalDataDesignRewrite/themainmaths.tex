@@ -118,7 +118,7 @@ f(x_1)&=G(F(x_1) & & \\
 			&=f(x_2). & &
 \end{align*}
 \end{proof}
-\subsection{Identifying Sets}
+\subsection{Mono-Sources}
 
 The following definition generalises that of super key in the relational model:
 \begin{definition}
@@ -130,6 +130,9 @@ $\setsuchthat{E_p}{p\in P}$ is jointly injective.
 
 From the definition of ER model it follows that the set of outgoing edges of an entity type 
 $a$ in a model $\genericmodel$ is a mono-source. 
+
+Note also that it follows from this definition that for each entity type $a$ the set containing just
+the empty path $\tuple{}$ considered as a path $\tuple{}_a$, leaving $a$, is a mono-source.  
 \subsubsection{Primary Key Paths}
 \label{primarykeypath}
 \begin{definition}
@@ -173,8 +176,7 @@ $E'_e=E'_p$, equivalently, $E'_e=E_p$,
 \begin{definition}
 Say that two models are \term{co-extensional}  iff there is a third model that they are both extensions of.
 \end{definition}
-We consider co-extensional models to be equivalent models. More generally we define equivalence 
-of models as the transitive symmetric closure of the extension relation.  
+We consider co-extensional models to be equivalent models. 
 
 \subsubsection{Composing mono-sources}
 
@@ -325,6 +327,10 @@ iff in all instances $E$ of $\genericmodel$,
 $img(E_{\fntuple}) \subseteq img(E_{\qntuple})$. 
 \end{definition}
 
+Note that it follows from this definition that for any entity type $a$ there is a trivial
+referential inclusion dependency $
+\incd{a}{\tuple{}_a}{b}{\tuple{}_a}$
+
 \begin{definition}
 If $Q \in \bar{I}_a$ and $Q'$ is representative of $Q$ then $Q'$ is said to be
 a \term{primary mono source} at $a$. 
@@ -464,7 +470,8 @@ iff  each $y_j$, $1 \leq j \leq m$, is functionally dependent on $\set{x_1,...x_
 \begin{definition} %transitive
 In an entity model $\genericmodel$, a functional dependency $\set{x_1,...x_n} \morph z$
 is said to be \term{transitive} if there exists a set of paths $\{y_1,...y_{m}\}$ such that
-$\set{x_1,...x_n} \morph \set{y_1,...y_{m}}$ and $\set{y_1,...y_{m}} \morph z$ but not
+$\set{x_1,...x_n} \morph \set{y_1,...y_{m}}$ and there is a non-trivial functional
+dependency $\set{y_1,...y_{m}} \morph z$ but there is no functional dependency 
 $\{y_1,...y_{m}\} \morph \{x_1,...x_n\}$.
 \end{definition}
 \begin{definition} %intransitive
@@ -486,9 +493,9 @@ injective then the function $E_{\tuple{x_1,...x_n}}$  is injective.
 \noindent In an entity model $\genericmodel$  
 if for some $n \geq 1$, $a$, $b_{i, 1 \leq i \leq n}$,  and $c$ are nodes and 
 if  $x_{i}, 1 \leq i \leq n$, and $y$ are paths such
-that there is a functional dependency $\{x_1,...x_n\} \morph y$
+that there is a intransitive functional dependency $\{x_1,...x_n\} \morph y$
  then the functional dependency $\{x_1,...x_n\} \morph y$ is said to be \term{represented} in the ER model $\genericmodel$ iff  there exists an entity type $d$ and a primary mono-source
-$\qntuple$  such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$, and a 
+$\qntuple$  such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$, and a (possibly empty)
 path $w:d\rightarrow c$ as here:
 
 \setlength{\arraycolsep}{.2cm}
@@ -516,6 +523,11 @@ $
 and such that in all defining instances $E$, 
 $\tuple{ E_{x_1},...E_{x_n}} \circ E^{-1}_{\tuple{q_1,...q_n}}\circ E_w = E_y$
 \end{definition}
+
+Note that  if $x$ is a path, $x:a \morph b$, and $y$ is a path, $y: a \morph c$, and if $w$ is a
+relationship $w: b \morph c$ so that there is a functional dependency $\sfd{x}{y}$ in $\genericmodel$
+given in any instance $E$ by the function $E_w$. This functional dependency is represented in the model, according to the above definition, because the mono-source in the definition, i.e the $\set{q_1,...q_n}$,
+can be taken to be the singleton consisting of the empty path $\tuple{}_b$.
  
 \begin{definition}
 \noindent An ER model $\genericmodel$ is \term{well-formulated} 
@@ -642,7 +654,17 @@ or else in each defining instance $E$, $E_{\ymtuple}$ is injective and total in 
 \end{proof}
 
 \section{Relational Models}
-	
+
+Generally a relational schema is defined to consist of (i) a finite set of relations each consisting of a
+finite set of attributes (ii) a set of semantic constraints. The latter include functional dependencies, usually expressed as in terms of keys and key attributes. If  an n-ary relation $R$ has attributes
+$X_1,X_2...X_n$ then we shall write it as $R(X_1,...X_n)$. We restrict our attention, for the time being, to those schemas in which for each relation there is a subset of its attributes that comprise a primary key and between these relations there are defined  a set of inclusion dependencies of the 
+form $\incd{R}{X}{S}{K}$ where $S$ is a relation and $K$ is the primary key of $S$.
+Any inclusion dependency of the form $\incd{R}{X}{S}{K}$ where $S$ is a relation and $K$ is a key for that relation is called a \term{keyed inclusion dependency} (see Levene and Vincent) or a \term{referential constraint} (SQL ISO standard).
+If $K$ is the primary key we shall say that such an inclusion dependency is a \term{primary keyed inclusion dependency}. If $R$ is a relation having primary key consisting
+of $X_1,X_2,...X_n$ and attributes $Y_1,...Y_m$ in addition to the primary key 
+ then we shall write the relation as $R(\underline{X_1},...,\underline{X_n},Y_1,...Y_m)$.
+
+It is usually the case that attributes are annotated with specific domains of values but for our purpose we can assume that each attribute is $v$-valued where $v$ is our type of universals for domains play no role in the theory with which we concern ourselves here.
 \subsection{Definition of Relational ER Model}
 \begin{definition}
 \noindent 
@@ -651,17 +673,15 @@ A \term{relational ER model} is an  ER model that also satisfies:
 \item
 it is primarily keyed i.e. all identifying edges are attributes, 
 \item
-for each relationship $r$ there is a referential inclusion dependency not using $r$ \commentary{Need define \term{not using}.Rememeber $r$ might have equivalent path I think. PROBLEM: CIRCULARITY}that it represents,
-\vspace{1cm}
+for each relationship $r$ there is a simple primary referential inclusion dependency that it represents,
 \item 
-for each minimal [intransitive?] \commentary{Think about this.} referential inclusion dependency there is a unique relationship which represents it.
+for each simple primary referential inclusion dependency there is a unique relationship which represents it.
 \end{enumerate} 
 \end{definition}
 \begin{remark}
 From this definition it follows that in a relational ER model there is a 1-1 corespondence between relationships
-and minimal referential inclusion dependencies.
+and simple primary referential inclusion dependencies.
 \end{remark}
-The definition that we give next shows that from any ER model there is a corresponding relational ER model in which relationships are in 1-1 correspondence with minimum primary referential inclusion dependencies. 
 
 \iffalse
 \subsection{First Cut Chen Transformation -- $\chiZero$}
@@ -706,6 +726,16 @@ and either $n=0$ or $\tuple{r_1,...r_n}$ is a primary key path i.e. each $r_i$ i
 \begin{noteforfuture}
 In most general case this will become not $s_1$ uses $s_2$ ... uses $s_m$.
 \end{noteforfuture}
+
+\subsubsection{Shortcomings of the First-cut Transformation}
+There are several ways that a perfectly well-expressed ER model can be transformed
+by the first-cut transformation into a relational schema which either fails to be in BCNF, or EKNF, as appropriate, or else includes some other redundancy. 
+
+I can describe these in general terms or by way of examples. Would start with an example where everything is fine. 
+ 
+
+\subsubsection{A Corrected Transformation}
+
 The refinements to the first-cut transformation that we need are two-fold. First we need
 to exclude attribute-like paths that are rendered redundant because of alternative paths through the 
 model. 
@@ -726,9 +756,8 @@ Can have $\tuple{r_1,...r_n}$ rendered redundant by $\tuple{s_0,...s_m}$
 and also $\tuple{s_1,...s_m}$ rendered redundant by $\tuple{r_0,...r_n}$. Or, worse, tangled dependencies. See examples.
 \end{problem}
 
-In recognition that certain attribute-like paths may be equivalents of one another. if two edges are equivalent then omit one of them.
-We define the attributes of the transformed model $\genericphysical$ by choosing just one attribute-like path
-from the equivalents or, in other words, by considering the attributes of the transformed model to
+Secondy, in recognition that certain attribute-like paths may be equivalents of one another, if two edges are equivalent then we omit one of them.
+We define the attributes of the transformed model $\genericphysical$ by choosing just one attribute-like path from the equivalents or, in other words, by considering the attributes of the transformed model to
 be equivalence classes of the non-redundant  attribute-like paths of the model $\genericmodel$.
 
 Define $\attr[\chiZeroM]{a}$ to be the first-cut attributes of entity type $a$ i.e. the set of attribute-like paths with source $a$ in model $\genericmodel$. Define $\attr[\chiOneM]{a}$
