@@ -11,14 +11,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=44
-NormalPos.right=2556
-NormalPos.bottom=865
+NormalPos.right=2546
+NormalPos.bottom=689
 Class=LaTeXView
 Document=paper.tex
 
 [Frame0_View0,0]
-TopLine=2
-Cursor=150
+TopLine=15
+Cursor=474
 
 [Frame1]
 Flags=0
@@ -29,8 +29,8 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=44
-NormalPos.right=2556
-NormalPos.bottom=865
+NormalPos.right=2546
+NormalPos.bottom=689
 Class=LaTeXView
 Document=theabstract.tex
 
@@ -47,14 +47,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=44
-NormalPos.right=2556
-NormalPos.bottom=865
+NormalPos.right=2546
+NormalPos.bottom=689
 Class=LaTeXView
 Document=themainmaths.tex
 
 [Frame2_View0,0]
-TopLine=987
-Cursor=48031
+TopLine=807
+Cursor=39863
 
 [Frame3]
 Flags=0
@@ -65,18 +65,18 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=44
-NormalPos.right=2556
-NormalPos.bottom=865
+NormalPos.right=2546
+NormalPos.bottom=689
 Class=LaTeXView
 Document=thepreamble.tex
 
 [Frame3_View0,0]
-TopLine=32
-Cursor=950
+TopLine=52
+Cursor=1987
 
 [SessionInfo]
 FrameCount=4
-ActiveFrame=0
+ActiveFrame=2
 
 [Bookmarks]
 themainmaths.tex=638 634 635 631 
