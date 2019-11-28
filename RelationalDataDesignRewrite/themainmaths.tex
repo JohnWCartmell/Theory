@@ -133,6 +133,10 @@ $a$ in a model $\gmodel$ is a mono-source.
 
 Note also that it follows from this definition that for each entity type $a$ the set containing just
 the empty path $\tuple{}$ considered as a path $\tuple{}_a$, leaving $a$, is a mono-source.  
+\begin{definition}
+A mono source $P$ is said to be a \term{leaf mono source} iff for path $p \in P$, $p$ has destination $\veee$.
+\end{definition}
+
 \subsubsection{Primary Key Paths}
 \label{primarykeypath}
 \begin{definition}
@@ -279,9 +283,9 @@ have codomain $\veee$.
 \end{definition}
 To reach the goal of showing that to every ER model there is an equivalent relational model we require the following:
 \begin{lemma}
-If $\gmodel$ is an ER model then it can be extended to a model $\gmodel'$
+If $\gmodel$ is an ER model then it can be extended to a model $P(\gmodel)$
 which is primarily keyed. If $\gmodel$ satisfies the minimality condition then the
-extended model $\gmodel'$ satisfies the  condition that each set $I_a$ has no proper subsets which are mono-sources. 
+extended model $P(\gmodel)$ satisfies the  condition that each set $I_a$ has no proper subsets which are mono-sources. 
 \end{lemma}
 \begin{proof}
 For each entity type $a$ we extend $\gmodel$ by edges $E_a$, where each edge \commentary{work on this proof. Cannot use this notation.}
@@ -335,10 +339,16 @@ referential inclusion dependency $
 If $Q \in \bar{I}_a$ and $Q'$ is representative of $Q$ then $Q'$ is said to be
 a \term{primary mono source} at $a$. 
 \end{definition}
+
 \begin{definition}
 Define a \term{primary referential inclusion dependency} to be a
 referential inclusion dependency $\incd{a}{f_1,...f_n}{b}{q_1,...q_n}$
 such that $\set{q_1,...q_n}$ is a primary mono-source.
+\end{definition}
+
+\begin{definition} 
+A referential inclusion dependency $\incd{a}{f_1,...f_n}{b}{q_1,...q_n}$ is said to be a \term{leaf
+referential inclusion dependency} iff $\set{q_1,...q_n}$ is a leaf mono source.
 \end{definition}
 
 If $\qntuple$ is a mono-source at $a$ then define $E_{\qntuple}^{-1}$ to be the right inverse of
@@ -528,7 +538,14 @@ Note that  if $x$ is a path, $x:a \morph b$, and $y$ is a path, $y: a \morph c$,
 relationship $w: b \morph c$ so that there is a functional dependency $\sfd{x}{y}$ in $\gmodel$
 given in any instance $E$ by the function $E_w$. This functional dependency is represented in the model, according to the above definition, because the mono-source in the definition, i.e the $\set{q_1,...q_n}$,
 can be taken to be the singleton consisting of the empty path $\tuple{}_b$.
- 
+
+\begin{lemma}
+An intransitive functional dependency if there is a intransitive functional dependency $\{x_1,...x_n\} \morph y$ represented by an entity type $d$, a primary mono-source$\qntuple$ and a path $w$ then the
+codomain of each path $x_i$ is the node $v$ and thus $\qntuple$ is a leaf primary mono-source.
+\commentary{This isnt true. Reconsider how we show $P(\gmodel)$ to be well formulated.}
+\end{lemma}
+
+\subsection{ER model Goodness Condition}\
 \begin{definition}
 \noindent An ER model $\gmodel$ is \term{well-formulated} 
  iff 
@@ -653,22 +670,35 @@ dependency $\set{y_1,...y_m} \morph z$. Therefore by lemma \ref{intransitivelemm
 or else in each defining instance $E$, $E_{\ymtuple}$ is injective and total in which case, by lemma \ref{transitiveinjectivelemma}, $E_{\xntuple}$ is injective and total as required.
 \end{proof}
 
+\subsection{Ranking Relationships in an ER Model}
+For every ER model $\gmodel$ and for each natural number $n$, $n \geq 0$, we define which relationships of
+$\gmodel$ are of rank $n$. We do this  in such a way that each relationship of $\gmodel$ either has a rank $n$, for some $n \geq 0$, or if it is not of rank 
+$n$ for any $n$, is said to be unranked or of null rank. Denote by $\gmodel_n$ the ER model which is the ER model 
+$\gmodel$ less the relationships which are not of rank less than or equal to n. The definition proceeds by induction as follows:
+\begin{definition}
+The relationship $R: a \morph b$ in an entity model $\gmodel$ is said to be of rank $0$ iff for
+all primary key paths $q:b \morph v$ in $\gmodel$, there exists an attribute $x:a \morph v$ in $\gmodel$
+such that $R \circ q \simeq x$.
+The relationship $R: a \morph b$ in an entity model $\gmodel$ is said to be of rank $n+1$ iff for
+all primary key paths $q:b \morph v$ in $\gmodel$, there exists a path $p:a \morph v$ in $\gmodel_n$
+such that $R \circ q \simeq p$.
+\end{definition}
+
 \section{Relational Models}
 
 Generally a relational schema is defined to consist of a finite set of relations each consisting of a
-finite set of attributes along with a set of semantic constraints. The latter may include functional dependencies or keys and key attributes and inclusion depedencies. If  an n-ary relation $R$ has attributes
-$X_1,X_2...X_n$ then we shall write it as $R(X_1,...X_n)$. We restrict our attention, for the time being, to those schemas in which for each relation there is a subset of its attributes that comprise a primary key and between these relations there are defined  a set of inclusion dependencies of the 
+finite set of attributes along with a set of semantic constraints. The latter may include functional dependencies or keys and key attributes and inclusion dependencies.  We restrict our attention, for the time being, to those schemas in which for each relation there is a subset of its attributes that comprise a primary key and between these relations there are defined  a set of inclusion dependencies of the 
 form $\incd{R}{X}{S}{K}$ where $S$ is a relation and $K$ is the primary key of $S$.
 Any inclusion dependency of the form $\incd{R}{X}{S}{K}$ where $S$ is a relation and $K$ is a key for that relation is called a \term{keyed inclusion dependency} (see Levene and Vincent) or a \term{referential constraint} (SQL ISO standard).
-If $K$ is the primary key we shall say that such an inclusion dependency is a \term{primary keyed inclusion dependency}. If $R$ is a relation having primary key consisting
+If $K$ is the primary key we shall say that such an inclusion dependency is a \term{primary referential constraint}. If $R$ is a relation having primary key consisting
 of $X_1,X_2,...X_n$ and attributes $Y_1,...Y_m$ in addition to the primary key 
  then we shall write the relation as $R(\underline{X_1},...,\underline{X_n},Y_1,...Y_m)$.
 
 It is usually the case that attributes are annotated with specific domains of values but for our purpose we can assume that each attribute is $v$-valued where $v$ is our type of universals for domains play no role in the theory with which we concern ourselves here.
 \subsection{Definition of Primary Relational ER Model}
-The following definition uses the definitions of \term{primary referential inclusion dependency} and 
-\term{simple referential inclusion dependency} that were given in 
-section \ref{referentialinclusiondependency}.
+The terms \term{primary referential inclusion dependency} and 
+\term{simple referential inclusion dependency} were given in 
+section \ref{referentialinclusiondependency}. These are used in the follwoing definition:
 \begin{definition}
 \noindent 
 A \term{primary relational ER model} is an  ER model that also satisfies:
@@ -676,9 +706,9 @@ A \term{primary relational ER model} is an  ER model that also satisfies:
 \item
 it is primarily keyed i.e. all identifying edges are attributes, 
 \item
-for each relationship $r$ there is a simple primary referential inclusion dependency that it represents,
+all relationships are ranked i.e. there are no relationships of null rank,
 \item 
-for each simple primary referential inclusion dependency there is a unique relationship which represents it.
+for each intransitive primary referential inclusion dependency there is a unique relationship which represents it.
 \end{enumerate} 
 \end{definition}
 
@@ -687,14 +717,14 @@ Such a primary relational ER model $\gmodel$ gives rise to relational schema:
 \item relations (tables) of the relational schema correspond to entity types of $\gmodel$,
 \item attributes (columns) of a relation $a$ correspond to attributes of $a$ in $\gmodel$, 
 \item an attribute is part of the primary key iff the corresponding edge of $\gmodel$ is identifying,
-\item a keyed inclusion dependency is defined to correspond to every simple primary referential inclusion dependency of $\gmodel$ i.e. to correspond to every relationship of $\gmodel$. 
+\item a keyed referential constraint is defined to correspond to every simple primary referential inclusion dependency of $\gmodel$ i.e. to correspond to every relationship of $\gmodel$. 
 \end{itemize}
 
 The characteristic instances of such an ER model gives rise to a set of database instances of the corresponding relational schema.
 
-Likewise every relational schema that consists of relations with primary keys and primary keyed inclusion dependencies and has a set of characteristic database instances gives rise to an equivalent primary relational ER model. 
+Likewise every relational schema that consists of relations with primary keys and primary referential constraints and has a set of characteristic database instances gives rise to an equivalent primary relational ER model. 
 
-For the time being we restrict attention to prime relational ER models which stand-in for us for a large class of relational schemas. 
+For the time being we restrict attention to primary relational ER models which stand-in for us for a large class of relational schemas. 
 
 \subsection{Normal Form for a Relational Model}
 We restrict our attention for now to considerations of Elementary Key Normal Form (EKNF) (which is stronger than Third Normal Form (3NF)) and Boyce-Codd Normal Form (BCNF) and to consideration of redundancy of attributes. 
@@ -802,7 +832,7 @@ TBD
 \section{Normal Forms}
 
 \noindent One measure of the goodness of a relational model is whether it satisfies the condition called Boyce Codd Normal Form (BCNF). In some modelling situations this condition cannot be 
-met and in these situations a lesser goodness criteria that can be achieved is that of Third Normal Form (3NF). WE shall show that the relational model $\genericphysical$ generated from a well-formulated 
+met and in these situations a lesser goodness criteria that can be achieved is that of Third Normal Form (3NF). We shall show that the relational model $\genericphysical$ generated from a well-formulated 
 ER model $\gmodel$ satisfies a strong form of 3NF as follows:
 
 \begin{definition} % TNF
@@ -813,7 +843,7 @@ in all instances $E$  of $\gmodel$, either the function $E_{<x_1,...x_n>}$ is in
 or else $y$ is identifying.
 \end{definition}
 
-We shall also show that with a single additional condition on $gmodel$, which it may or not be possible to achieve in a given modelling situation,
+We shall also show that with a single additional condition on $\gmodel$, which it may or not be possible to achieve in a given modelling situation,
 the generated model $\genericphysical$ satisfies the BCNF condition.
 Written in the terminology we are using here BCNF can be defined as follows:
 \begin{definition} % BCNF
