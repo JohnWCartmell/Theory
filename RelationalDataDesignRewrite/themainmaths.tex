@@ -467,7 +467,12 @@ we have that $f_E(\tuple{E_{x_1}(e),...E_{x_n}(e)})=E_y(e)=f'_E(\tuple{E_{x_1}(e
 \end{remark}
 
 \begin{definition}
-A functional dependency \sfd{x_1,...x_n}{y} is said to be \term{trivial} if $y\simeq x_i$, for some $i$, $1 \leq i \leq n$.
+A functional dependency \sfd{x_1,...x_n}{y} is said to be \term{trivial} iff $y\simeq x_i$, for some $i$, $1 \leq i \leq n$.
+\end{definition}
+
+\begin{definition}
+A functional dependency \sfd{x_1,...x_n}{y} is said to be a \term{leaf functional dependency} iff
+ the codomain of each $x_i$, $1 \leq i \leq n$, is $\veee$.
 \end{definition}
 
 \begin{definition}
@@ -558,7 +563,7 @@ all primary\commentary{added `primary'} referential inclusion dependencies\footn
 \ref{simplerepresentationlemma}, sufficient that all simple primary referential inclusion dependencies be represented.} are  represented,
 }
 \item{
-for each intransitive functional dependency $\set{x_1,...x_n} \morph y$ in model $\gmodel$
+for each leaf intransitive functional dependency $\set{x_1,...x_n} \morph y$ in model $\gmodel$
 either in every defining instance $E$, $E_{\xntuple}$ is injective and total
 or else the functional dependency is represented in the model.
 }
@@ -567,7 +572,7 @@ or else the functional dependency is represented in the model.
 
 \begin{lemma}
 \label{intransitivelemma}
-In a well-formed model $\gmodel$ if $\set{x_1,...x_n} \morph y$  is a non-trivial intransitive
+In a well-formed model $\gmodel$ if $\set{x_1,...x_n} \morph y$  is a non-trivial intransitive leaf
 functional dependency sourced at some entity type $a$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$ 
 or else for some entity type $d$ there is a non-empty path $p:a \rightarrow d$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
@@ -585,21 +590,21 @@ path $w:d\rightarrow c$ as shown here:
 \begin{center}
 $
 \begin{array}{cp{2cm}c p{2cm} c}
-             &  & \Rnode{b1}{b_1} & &               \\ [0.7cm]
-						 &  & \Rnode{b2}{b_2} & &               \\ [0.4cm]
+             &  & \Rnode{v1}{\veee} & &               \\ [0.7cm]
+						 &  & \Rnode{v2}{\veee} & &               \\ [0.4cm]
 						 &  &     \vdots      & &               \\ [0.2cm]
 \Rnode{a}{a} &  &                 & & \Rnode{d}{d}  \\ [-0.2cm]
-             &  & \Rnode{bm}{b_m} & &               \\ [0.9cm]
+             &  & \Rnode{vm}{\veee} & &               \\ [0.9cm]
              &  & \Rnode{c}{c}    & &               \\
 \end{array}
 $
-\simplepatha{$x_1$}{a}{b1}
-\simplepatha{$x_2$}{a}{b2}
-\simplepatha{$x_n$}{a}{bm}
+\simplepatha{$x_1$}{a}{v1}
+\simplepatha{$x_2$}{a}{v2}
+\simplepatha{$x_n$}{a}{vm}
 \simplepathb{$y$}{a}{c}
-\simplepathb{$q_1$}{d}{b1}
-\simplepathb{$q_2$}{d}{b2}
-\simplepathb{$q_n$}{d}{bm}
+\simplepathb{$q_1$}{d}{v1}
+\simplepathb{$q_2$}{d}{v2}
+\simplepathb{$q_n$}{d}{vm}
 \simplepatha{$w$}{d}{c}
 \end{center}
 such that
@@ -657,8 +662,7 @@ a mono-source or else there is an intransitive functional dependency $\set{y_1,.
 \end{definition}
 \begin{lemma}
 \label{mainlemma}
-In a well-formed model $\gmodel$ that has the \fdfactoring\ property if $\{x_1,...x_n\} \morph z$ is a non-trivial 
-functional dependency sourced
+In a well-formed model $\gmodel$ that has the \fdfactoring\ property if $\{x_1,...x_n\} \morph z$ is a non-trivial leaf functional dependency sourced
 at some entity type $a$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$ 
 or else there is an entity type $d$ and there is a path $p:a \rightarrow d$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
@@ -726,12 +730,17 @@ Likewise every relational schema that consists of relations with primary keys an
 
 For the time being we restrict attention to primary relational ER models which stand-in for us for a large class of relational schemas. 
 
+\subsection{Attribute Redundancy}
+\begin{definition}
+In a relational ER model $\gmodel$ an attribute $x: a \morph v$ is said to be \term{redundant} if
+there exists a path $p$ in model $\gmodel - x$ such that $p \simeq x$ and such that $\gmodel - x$ is 
+a relational ER model.  
+\end{definition}
+\begin{definition}
+Say that a relational ER model $\gmodel$ is \term{free of attribute redundancy} iff none of its attributes are redundant.
+\end{definition}
 \subsection{Normal Form for a Relational Model}
 We restrict our attention for now to considerations of Elementary Key Normal Form (EKNF) (which is stronger than Third Normal Form (3NF)) and Boyce-Codd Normal Form (BCNF) and to consideration of redundancy of attributes. 
-
-We shall 
-
-
 
 
 \subsection{Chi Transform - a Revised Chen Transformation}
