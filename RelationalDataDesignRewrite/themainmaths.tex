@@ -739,9 +739,113 @@ a relational ER model.
 \begin{definition}
 Say that a relational ER model $\gmodel$ is \term{free of attribute redundancy} iff none of its attributes are redundant.
 \end{definition}
-\subsection{Normal Form for a Relational Model}
-We restrict our attention for now to considerations of Elementary Key Normal Form (EKNF) (which is stronger than Third Normal Form (3NF)) and Boyce-Codd Normal Form (BCNF) and to consideration of redundancy of attributes. 
+\begin{definition}
+Say that a relational ER model $\gmodel$ is \term{free of attribute redundancy without caveats} iff 
+it is free of attribute redundacy and ... \commentary{what goes here?}
+\end{definition}
 
+
+\subsection{Normal Forms}
+
+\noindent One measure of the goodness of a relational model is whether it satisfies the condition called Boyce Codd Normal Form (BCNF). In some modelling situations this condition cannot be 
+met and in these situations a lesser goodness criteria that can be achieved is that of Third Normal Form (3NF). We shall show that the relational model $\genericphysical$ generated from a well-formulated 
+ER model $\gmodel$ satisfies a strong form of 3NF as follows:
+
+\begin{definition} % TNF
+A relational ER model $\gmodel$ is in Strong Third Normal Form (S3NF)  iff
+for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
+for which  there is a non-trivial functional dependency \sfd{x_1,...x_n}{y}, 
+in all instances $E$  of $\gmodel$, either the function $E_{<x_1,...x_n>}$ is injective and total
+or else $y$ is identifying.
+\end{definition}
+
+We shall also show that with a single additional condition on $\gmodel$, which it may or not be possible to achieve in a given modelling situation,
+the generated model $\genericphysical$ satisfies the BCNF condition.
+Written in the terminology we are using here BCNF can be defined as follows:
+\begin{definition} % BCNF
+A relational ER model is in Boyce Codd Normal Form (BCNF) \commentary{See Zaniolo definition 2.} iff
+for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
+for which  there is a non-trivial functional dependency \sfd{x_1,...x_n}{y}, 
+in all instances $E$  of $\gmodel$, the function $E_{<x_1,...x_n>}$ is injective and total.  
+\end{definition}
+
+\noindent The next lemma simplifies the requirement for showing BCNF to consideration of non-trivial
+intransitive functional dependencies:
+\begin{lemma}
+\label{BCNFsublemma}
+If a model $\gmodel$ has the \fdfactoring\ property then it is in BCNF iff
+for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
+for which there is an non trivial  intransitive functional dependency \sfd{x_1,...x_n}{y},
+in all instances $E$, $E_{<x_1,...x_n>}$ is injective and total. 
+\end{lemma}
+\begin{proof}Use lemma \ref{transitiveinjectivelemma}.
+\end{proof}
+\begin{lemma}
+\label{S3NFsublemma}
+If a model $\gmodel$ has the \fdfactoring\ property then it is in S3NF iff
+for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
+for which there is an non trivial intransitive functional dependency \sfd{x_1,...x_n}{y},
+in all instances $E$, $E_{<x_1,...x_n>}$ is injective and total or $y$ is a primary key. 
+\end{lemma}
+
+\noindent Now for the main theorem:\\
+\begin{theorem}
+\noindent If an ER model $\gmodel$ is well-formulated, has the \fdfactoring\ property and is free 
+of attribute redundancy then it is in Strong Third Normal Form. If in addition $\gmodel$
+is free of attribute redundancy without caveat then is in Boyce-Codd Normal form.
+\end{theorem}
+\begin{proof}
+To prove S3NF it suffices, by lemma \ref{S3NFsublemma},  to show that if 
+$\sfd{\phys{x}_1,...\phys{x}_n}{\phys{y}}$ is a non-trivial intransitive functional dependency of model $\genericphysical$
+where $\phys{x}_1,...\phys{x}_n,\phys{y}$ are attributes of the entity type $a$ of model $\genericphysical$ 
+then  in all instances
+$E$ of $\genericphysical$, $E_{<\phys{x}_1,...\phys{x}_n>}$ is injective and total or that $\bar{y}$
+is identifying. \\
+
+\noindent Assume, then, such a non-trivial functional dependency $\sfd{\phys{x}_1,...\phys{x}_n}{\phys{y}}$ in  $\genericphysical$. 
+By lemma \ref{fdcarrythroughlemma} it follows that in the model $\gmodel$, for each $i$, $1 \leq i \leq n$, there is a path
+ $x_i : a \morph v$  and there is  a path 
+$y: a \morph v$ and such that
+ \sfd{x_1,...x_n}{y} in $\gmodel$.
+
+From the assumption that the model $\gmodel$ is well-formulated 
+then by lemma \ref{mainlemma} 
+either $E_{\tuple{x_1,...x_n }}$ is
+injective and total in every instance $E$ of $\gmodel$
+or there is a non-empty path $p$ in $\gmodel$
+and a path $w$ of $\gmodel$ that is not a primary key path such that
+
+\begin{equation}
+\label{simpleRepresentation}
+ E_p \circ E_w = E_y
+\end{equation}
+
+If $E_{\tuple{x_1,...x_n }}$ is
+injective and total in every instance $E$ of $\gmodel$ then by 
+lemma \ref{injectivecarrythroughlemma} $\logtophys(E)_{\tuple{\phys{x}_1,...\phys{x}_n }}$ is
+injective and total in every instance $\logtophys(E)$ of $\genericphysical$ as required.
+
+Otherwise if length of y greater than 1 then \commentary{what is y given that we have $\bar{y}$}
+ from  (\ref{simpleRepresentation}),
+from clause (i) of the definition of redundancy and from the fact demonstrated above that $w$ is not equivalent to a 
+primary key attribute
+it follows that $y$ is rendered redundant by $p \circ w$ in $\gmodel$, 
+which implies that $y$ is excluded from $\fkp{a}$ and thus that 
+ $\phys{y}=\left[y\right]$ is not an attribute of $\genericphysical$ contrary to our 
+initial assumption. 
+
+We must conclude that the length of $y$ is 1.
+In this case we have $y$, an attribute of $a$ in $\gmodel$, and from (\ref{simpleRepresentation})  we have in all instances $E$ of $\gmodel$:
+\begin{equation}
+E_y=E_p \circ E_w
+\end{equation}
+\noindent
+We have shown, therefore, that $y$ is an outgoing edge of $a$ in $\gmodel$ 
+which, in $\gmodel$, is equivalent to a simple path of length $\geq 2$.
+Therefore from the clause (ii) of the definition of redundancy,  $y$ is identifying as required to establishing S3NF or if we have assumed no such $y$ the assumption is contradicted and, by lemma \ref{BCNFsublemma} we establish BCNF and so complete the proof.
+\end{proof}
+
+\section{Transforms}
 
 \subsection{Chi Transform - a Revised Chen Transformation}
 In this section we define a relational  entity model $\genericphysical$ corresponding 
@@ -836,110 +940,5 @@ injective and total in every defining instance $\logtophys(E)$ of $\genericphysi
 \end{lemma}
 \begin{proof}
 TBD
-\end{proof}
-
-\section{Normal Forms}
-
-\noindent One measure of the goodness of a relational model is whether it satisfies the condition called Boyce Codd Normal Form (BCNF). In some modelling situations this condition cannot be 
-met and in these situations a lesser goodness criteria that can be achieved is that of Third Normal Form (3NF). We shall show that the relational model $\genericphysical$ generated from a well-formulated 
-ER model $\gmodel$ satisfies a strong form of 3NF as follows:
-
-\begin{definition} % TNF
-A relational ER model $\gmodel$ is in Strong Third Normal Form (S3NF)  iff
-for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
-for which  there is a non-trivial functional dependency \sfd{x_1,...x_n}{y}, 
-in all instances $E$  of $\gmodel$, either the function $E_{<x_1,...x_n>}$ is injective and total
-or else $y$ is identifying.
-\end{definition}
-
-We shall also show that with a single additional condition on $\gmodel$, which it may or not be possible to achieve in a given modelling situation,
-the generated model $\genericphysical$ satisfies the BCNF condition.
-Written in the terminology we are using here BCNF can be defined as follows:
-\begin{definition} % BCNF
-A relational ER model is in Boyce Codd Normal Form (BCNF) \commentary{See Zaniolo definition 2.} iff
-for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
-for which  there is a non-trivial functional dependency \sfd{x_1,...x_n}{y}, 
-in all instances $E$  of $\gmodel$, the function $E_{<x_1,...x_n>}$ is injective and total.  
-\end{definition}
-
-
-
-\noindent The next lemma simplifies the requirement for showing BCNF to consideration of non-trivial
-intransitive functional dependencies:
-\begin{lemma}
-\label{BCNFsublemma}
-If a model $\gmodel$ has the \fdfactoring\ property then it is in BCNF iff
-for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
-for which there is an non trivial  intransitive functional dependency \sfd{x_1,...x_n}{y},
-in all instances $E$, $E_{<x_1,...x_n>}$ is injective and total. 
-\end{lemma}
-\begin{proof}Use lemma \ref{transitiveinjectivelemma}.
-\end{proof}
-\begin{lemma}
-\label{S3NFsublemma}
-If a model $\gmodel$ has the \fdfactoring\ property then it is in S3NF iff
-for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
-for which there is an non trivial intransitive functional dependency \sfd{x_1,...x_n}{y},
-in all instances $E$, $E_{<x_1,...x_n>}$ is injective and total or $y$ is a primary key. 
-\end{lemma}
-
-
-
-\noindent Now for the main theorem:\\
-\begin{theorem}
-\noindent If an ER model $\gmodel$ is well-formulated  and has the \fdfactoring\ property then the 
-transformed model $\logtophys(\gmodel)$  is in Strong Third Normal Form. If in $\gmodel$
-there are no identifying edges $r$ such that $r \simeq p$ for some path $p$ of length greater than $1$
-then $\logtophys(\gmodel)$ is in Boyce-Codd Normal form.
-\end{theorem}
-\begin{proof}
-To prove S3NF it suffices, by lemma \ref{S3NFsublemma},  to show that if 
-$\sfd{\phys{x}_1,...\phys{x}_n}{\phys{y}}$ is a non-trivial intransitive functional dependency of model $\genericphysical$
-where $\phys{x}_1,...\phys{x}_n,\phys{y}$ are attributes of the entity type $a$ of model $\genericphysical$ 
-then  in all instances
-$E$ of $\genericphysical$, $E_{<\phys{x}_1,...\phys{x}_n>}$ is injective and total or that $\bar{y}$
-is identifying. \\
-
-\noindent Assume, then, such a non-trivial functional dependency $\sfd{\phys{x}_1,...\phys{x}_n}{\phys{y}}$ in  $\genericphysical$. 
-By lemma \ref{fdcarrythroughlemma} it follows that in the model $\gmodel$, for each $i$, $1 \leq i \leq n$, there is a path
- $x_i : a \morph v$  and there is  a path 
-$y: a \morph v$ and such that
- \sfd{x_1,...x_n}{y} in $\gmodel$.
-
-From the assumption that the model $\gmodel$ is well-formulated 
-then by lemma \ref{mainlemma} 
-either $E_{\tuple{x_1,...x_n }}$ is
-injective and total in every instance $E$ of $\gmodel$
-or there is a non-empty path $p$ in $\gmodel$
-and a path $w$ of $\gmodel$ that is not a primary key path such that
-
-\begin{equation}
-\label{simpleRepresentation}
- E_p \circ E_w = E_y
-\end{equation}
-
-If $E_{\tuple{x_1,...x_n }}$ is
-injective and total in every instance $E$ of $\gmodel$ then by 
-lemma \ref{injectivecarrythroughlemma} $\logtophys(E)_{\tuple{\phys{x}_1,...\phys{x}_n }}$ is
-injective and total in every instance $\logtophys(E)$ of $\genericphysical$ as required.
-
-Otherwise if length of y greater than 1 then \commentary{what is y given that we have $\bar{y}$}
- from  (\ref{simpleRepresentation}),
-from clause (i) of the definition of redundancy and from the fact demonstrated above that $w$ is not equivalent to a 
-primary key attribute
-it follows that $y$ is rendered redundant by $p \circ w$ in $\gmodel$, 
-which implies that $y$ is excluded from $\fkp{a}$ and thus that 
- $\phys{y}=\left[y\right]$ is not an attribute of $\genericphysical$ contrary to our 
-initial assumption. 
-
-We must conclude that the length of $y$ is 1.
-In this case we have $y$, an attribute of $a$ in $\gmodel$, and from (\ref{simpleRepresentation})  we have in all instances $E$ of $\gmodel$:
-\begin{equation}
-E_y=E_p \circ E_w
-\end{equation}
-\noindent
-We have shown, therefore, that $y$ is an outgoing edge of $a$ in $\gmodel$ 
-which, in $\gmodel$, is equivalent to a simple path of length $\geq 2$.
-Therefore from the clause (ii) of the definition of redundancy,  $y$ is identifying as required to establishing S3NF or if we have assumed no such $y$ the assumption is contradicted and, by lemma \ref{BCNFsublemma} we establish BCNF and so complete the proof.
 \end{proof}
 

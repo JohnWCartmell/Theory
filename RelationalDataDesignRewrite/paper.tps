@@ -12,13 +12,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=44
 NormalPos.right=2556
-NormalPos.bottom=865
+NormalPos.bottom=705
 Class=LaTeXView
 Document=paper.tex
 
 [Frame0_View0,0]
 TopLine=2
-Cursor=474
+Cursor=68
 
 [Frame1]
 Flags=0
@@ -30,7 +30,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=44
 NormalPos.right=2556
-NormalPos.bottom=865
+NormalPos.bottom=705
 Class=LaTeXView
 Document=theabstract.tex
 
@@ -48,13 +48,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=44
 NormalPos.right=2556
-NormalPos.bottom=865
+NormalPos.bottom=705
 Class=LaTeXView
 Document=themainmaths.tex
 
 [Frame2_View0,0]
-TopLine=621
-Cursor=30829
+TopLine=915
+Cursor=45177
 
 [Frame3]
 Flags=0
@@ -66,7 +66,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=44
 NormalPos.right=2556
-NormalPos.bottom=865
+NormalPos.bottom=705
 Class=LaTeXView
 Document=thepreamble.tex
 
