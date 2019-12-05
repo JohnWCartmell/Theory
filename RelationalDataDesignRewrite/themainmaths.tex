@@ -574,7 +574,7 @@ or else the functional dependency is represented in the model.
 \label{intransitivelemma}
 In a well-formed model $\gmodel$ if $\set{x_1,...x_n} \morph y$  is a non-trivial intransitive leaf
 functional dependency sourced at some entity type $a$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$ 
-or else for some entity type $d$ there is a non-empty path $p:a \rightarrow d$
+or else for some entity type $d$ there is a non-empty path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$\commentary{Added $\{x_1,...x_n\} \morph p$}
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
 the path $w$ is non-empty and is not equivalent to a primary key path.
 \end{lemma}
@@ -664,7 +664,7 @@ a mono-source or else there is an intransitive functional dependency $\set{y_1,.
 \label{mainlemma}
 In a well-formed model $\gmodel$ that has the \fdfactoring\ property if $\{x_1,...x_n\} \morph z$ is a non-trivial leaf functional dependency sourced
 at some entity type $a$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$ 
-or else there is an entity type $d$ and there is a path $p:a \rightarrow d$
+or else there is an entity type $d$ and there is a path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$\commentary{Added $\{x_1,...x_n\} \morph p$}
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
 the path $w$ is non-empty and is not equivalent to a primary key path (see section \ref{primarykeypath} for definition of 'primary key path').
 \end{lemma}
@@ -846,10 +846,11 @@ Now because $p$ represents an inclusion dependency then get to a relationship $R
 \label{simpleRepresentation}
  R \circ w \simeq E_y
 \end{equation}
+and such that $\sfd{x_1,...x_n}{R}$.
 
 Because the model $\gmodel$ is assumed to be dense then either $R$ is a mono-source or $w$ is equivalent to some primary key of $d$
- or $y$ is identifying. If $R$ is a mono-source then $R$ composed with $q_1,...q_n$ is a mono-source i.e. $x_1,...x_n$ is a mono source
-as required. 
+ or $y$ is identifying. If $R$ is a mono-source then $x_1,...x_n$ is a mono source, as required, since $\sfd{x_1,...x_n}{R}$.
+
 
 If $w$ is equivalent to some primary key of $d$ then it is equivalent to $q_i$, for some $i$, $1 \leq i \leq n$, therefore 
 $E_y =  R \circ w = R \circ q_i = x_i$ and the functional dependency $\sfd{x_1,...x_n}{y}$ is trivial, contradicting our initial assumption.

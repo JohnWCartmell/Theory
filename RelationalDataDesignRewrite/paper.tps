@@ -35,8 +35,8 @@ Class=LaTeXView
 Document=themainmaths.tex
 
 [Frame1_View0,0]
-TopLine=897
-Cursor=47741
+TopLine=895
+Cursor=47678
 
 [Frame2]
 Flags=0
