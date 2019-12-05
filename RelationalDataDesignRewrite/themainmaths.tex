@@ -356,7 +356,7 @@ $E_{\qntuple}$ i.e. the unique partial function such that:
 $E_{\qntuple} \circ E_{\qntuple}^{-1} = id_{E_a}$
 
 \begin{definition}
-We say that a path $p:a \morph b$ represents a referential inclusion dependency
+We say that a path $p:a \morph b$ \term{represents} a referential inclusion dependency
 $\incd{a}{f_1,...f_n}{b}{q_1,...q_n}$  in an ER model $\gmodel$ iff
   in all instances $E$ of $\gmodel$, $E_{\fntuple} \circ E_{\qntuple}^{-1}=E_p$.
 \end{definition}
@@ -702,7 +702,7 @@ It is usually the case that attributes are annotated with specific domains of va
 \subsection{Definition of Primary Relational ER Model}
 The terms \term{primary referential inclusion dependency} and 
 \term{simple referential inclusion dependency} were given in 
-section \ref{referentialinclusiondependency}. These are used in the follwoing definition:
+section \ref{referentialinclusiondependency}. These are used in the following definition:
 \begin{definition}
 \noindent 
 A \term{primary relational ER model} is an  ER model that also satisfies:
@@ -712,7 +712,7 @@ it is primarily keyed i.e. all identifying edges are attributes,
 \item
 all relationships are ranked i.e. there are no relationships of null rank,
 \item 
-for each intransitive primary referential inclusion dependency there is a unique relationship which represents it.
+for each primary referential inclusion dependency there is a unique relationship which represents it.
 \end{enumerate} 
 \end{definition}
 
@@ -820,23 +820,19 @@ If  $\gmodel$ is strongly dense then is in Boyce-Codd Normal form.
 \end{theorem}
 \begin{proof}
 To prove S3NF it suffices, by lemma \ref{S3NFsublemma},  to show that if 
-$\sfd{\phys{x}_1,...\phys{x}_n}{\phys{y}}$ is a non-trivial intransitive functional dependency of model $\genericphysical$
-where $\phys{x}_1,...\phys{x}_n,\phys{y}$ are attributes of the entity type $a$ of model $\genericphysical$ 
+$\sfd{x_1,...x_n}{y}$ is a non-trivial intransitive functional dependency of model $\gmodel$
+where $x_1,...x_n,y$ are attributes 
 then  in all instances
-$E$ of $\genericphysical$, $E_{<\phys{x}_1,...\phys{x}_n>}$ is injective and total or that $\bar{y}$
+$E$ of $\gmodel$, $E_{<x_1,...x_n>}$ is injective and total or that $y$
 is identifying. \\
 
-\noindent Assume, then, such a non-trivial functional dependency $\sfd{\phys{x}_1,...\phys{x}_n}{\phys{y}}$ in  $\genericphysical$. 
-By lemma \ref{fdcarrythroughlemma} it follows that in the model $\gmodel$, for each $i$, $1 \leq i \leq n$, there is a path
- $x_i : a \morph v$  and there is  a path 
-$y: a \morph v$ and such that
- \sfd{x_1,...x_n}{y} in $\gmodel$.
+Assume then such a functional dependency.
 
 From the assumption that the model $\gmodel$ is well-formulated 
 then by lemma \ref{mainlemma} 
 either $E_{\tuple{x_1,...x_n }}$ is
-injective and total in every instance $E$ of $\gmodel$
-or there is a non-empty path $p$ in $\gmodel$
+injective and total in every instance $E$ of $\gmodel$ and we are done
+or else there is a non-empty path $p$ in $\gmodel$
 and a path $w$ of $\gmodel$ that is not a primary key path such that
 
 \begin{equation}
@@ -844,29 +840,22 @@ and a path $w$ of $\gmodel$ that is not a primary key path such that
  E_p \circ E_w = E_y
 \end{equation}
 
-If $E_{\tuple{x_1,...x_n }}$ is
-injective and total in every instance $E$ of $\gmodel$ then by 
-lemma \ref{injectivecarrythroughlemma} $\logtophys(E)_{\tuple{\phys{x}_1,...\phys{x}_n }}$ is
-injective and total in every instance $\logtophys(E)$ of $\genericphysical$ as required.
+Now because $p$ represents an inclusion dependency then get to a relationship $R$ in place of $p$:
 
-Otherwise if length of y greater than 1 then \commentary{what is y given that we have $\bar{y}$}
- from  (\ref{simpleRepresentation}),
-from clause (i) of the definition of redundancy and from the fact demonstrated above that $w$ is not equivalent to a 
-primary key attribute
-it follows that $y$ is rendered redundant by $p \circ w$ in $\gmodel$, 
-which implies that $y$ is excluded from $\fkp{a}$ and thus that 
- $\phys{y}=\left[y\right]$ is not an attribute of $\genericphysical$ contrary to our 
-initial assumption. 
-
-We must conclude that the length of $y$ is 1.
-In this case we have $y$, an attribute of $a$ in $\gmodel$, and from (\ref{simpleRepresentation})  we have in all instances $E$ of $\gmodel$:
 \begin{equation}
-E_y=E_p \circ E_w
+\label{simpleRepresentation}
+ R \circ w \simeq E_y
 \end{equation}
-\noindent
-We have shown, therefore, that $y$ is an outgoing edge of $a$ in $\gmodel$ 
-which, in $\gmodel$, is equivalent to a simple path of length $\geq 2$.
-Therefore from the clause (ii) of the definition of redundancy,  $y$ is identifying as required to establishing S3NF or if we have assumed no such $y$ the assumption is contradicted and, by lemma \ref{BCNFsublemma} we establish BCNF and so complete the proof.
+
+Because the model $\gmodel$ is assumed to be dense then either $R$ is a mono-source or $w$ is equivalent to some primary key of $d$
+ or $y$ is identifying. If $R$ is a mono-source then $R$ composed with $q_1,...q_n$ is a mono-source i.e. $x_1,...x_n$ is a mono source
+as required. 
+
+If $w$ is equivalent to some primary key of $d$ then it is equivalent to $q_i$, for some $i$, $1 \leq i \leq n$, therefore 
+$E_y =  R \circ w = R \circ q_i = x_i$ and the functional dependency $\sfd{x_1,...x_n}{y}$ is trivial, contradicting our initial assumption.
+
+If the model $\gmodel$ is strongly dense then there are no other cases and we have established BCNF.
+If not there is the possibility that $y$ is identifying i.e. is a primary key attribute and we have proved S3NF.
 \end{proof}
 
 \section{Transforms}
