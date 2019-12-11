@@ -559,8 +559,11 @@ codomain of each path $x_i$ is the node $v$ and thus $\qntuple$ is a leaf primar
 it satisfies the minimality condition (see section \ref{minimalitycondition}),
 }
 \item{ 
-all primary\commentary{added `primary'} referential inclusion dependencies\footnote{Equivalently, by lemma
-\ref{simplerepresentationlemma}, sufficient that all simple primary referential inclusion dependencies be represented.} are  represented,
+each primary referential inclusion dependency of $\gmodel$ is represented in $\gmodel$ by some path $p$ \footnote{Equivalently, by lemma
+\ref{simplerepresentationlemma}, sufficient that all simple primary referential inclusion dependencies of $\gmodel$ be represented.},
+}
+\item{ 
+each leaf primary referential inclusion dependency of $\gmodel$ is represented in $\gmodel$ by some relationship-like path $p$, 
 }
 \item{
 for each leaf intransitive functional dependency $\set{x_1,...x_n} \morph y$ in model $\gmodel$
@@ -570,11 +573,19 @@ or else the functional dependency is represented in the model.
 \end{enumerate}
 \end{definition}
 
+\begin{definition}
+In an ER model $\gmodel$, a non-empty path $p: a \morph b$, where $a$ and $b$ are entity types, which consists
+of a relationship $R$ followed by a  path $t :a' \morph b$ is said to be \term{relationship-like} iff
+either  $t$ is the empty path (so that the path $p$ is exactly a relationship $R$) or $t$
+is a non-empty path and has the property that for all primary key paths $q:b \morph \veee$ there exists 
+a primary key path $q':a' \morph \veee$ such that $t \circ q \simeq q'$.
+\end{definition}
+
 \begin{lemma}
 \label{intransitivelemma}
 In a well-formed model $\gmodel$ if $\set{x_1,...x_n} \morph y$  is a non-trivial intransitive leaf
 functional dependency sourced at some entity type $a$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$ 
-or else for some entity type $d$ there is a non-empty path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$\commentary{Added $\{x_1,...x_n\} \morph p$}
+or else for some entity type $d$ there is a non-empty relationship-like path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
 the path $w$ is non-empty and is not equivalent to a primary key path.
 \end{lemma}
@@ -614,8 +625,8 @@ E_y = E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_w
 \end{equation}
 
 Because $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$,  and from
-clause (ii) of the definition of well-formedness since $\gmodel$ is well formed, it follows that
-there  is a simple path $p:a \rightarrow d$ such
+clause (iii) of the definition of well-formedness since $\gmodel$ is well formed, it follows that
+there  is a relationship-like path $p:a \rightarrow d$ such
 that 
 %\foreachi, $p \circ q_i \simeq x_i$ and therefore
 in all defining instances $E$,
@@ -664,7 +675,7 @@ a mono-source or else there is an intransitive functional dependency $\set{y_1,.
 \label{mainlemma}
 In a well-formed model $\gmodel$ that has the \fdfactoring\ property if $\{x_1,...x_n\} \morph z$ is a non-trivial leaf functional dependency sourced
 at some entity type $a$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$ 
-or else there is an entity type $d$ and there is a path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$\commentary{Added $\{x_1,...x_n\} \morph p$}
+or else there is an entity type $d$ and there is a relationship-like path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
 the path $w$ is non-empty and is not equivalent to a primary key path (see section \ref{primarykeypath} for definition of 'primary key path').
 \end{lemma}
@@ -739,10 +750,6 @@ a relational ER model.
 \begin{definition}
 Say that a relational ER model $\gmodel$ is \term{free of attribute redundancy} iff none of its attributes are redundant.
 \end{definition}
-\begin{definition}
-Say that a relational ER model $\gmodel$ is \term{free of attribute redundancy without caveats} iff 
-it is free of attribute redundacy and ... \commentary{what goes here?}
-\end{definition}
 
 
 \subsection{Normal Forms}
@@ -790,12 +797,12 @@ in all instances $E$, $E_{<x_1,...x_n>}$ is injective and total or $y$ is a prim
 \subsection{Sufficient Conditions}
 \begin{definition} 
 A relational ER model is \term{dense} iff for all attributes $x:a \morph \veee$
-such that there is a relation $R:a \morph b$ and a path $p:b \morph \veee$ such that
-$x \simeq R \circ p$ it follows that 
+such that there is a relationship-like path $r:a \morph b$ and a path $p:b \morph \veee$ such that
+$x \simeq r \circ p$ it follows that 
 either 
 \begin{enumerate} [(i)]
 \item there exists an identifying attribute $q:b \morph \veee$ such that $p \simeq q$, or
-\item the relationship $R$ is a mono-source, or
+\item the path $r$ is a mono-source, or
 \item the attribute $x$ is identifying.
 \end{enumerate}
 \end{definition}
@@ -804,18 +811,18 @@ We get a stronger condition if we drop condition (iii) in the above definition t
 
 \begin{definition} 
 A relational ER model is \term{strongly dense} iff for all attributes $x:a \morph \veee$
-such that there is a relation $R:a \morph b$ and a path $p:b \morph \veee$ such that
-$x \simeq R \circ p$ it follows that 
+such that there is a relationship-like path $r:a \morph b$ and a path $p:b \morph \veee$ such that
+$x \simeq r \circ p$ it follows that 
 either 
 \begin{enumerate} [(i)]
 \item there exists an identifying attribute $q:b \morph \veee$ such that $p \simeq q$, or
-\item the relationship $R$ is a mono-source.
+\item the path $r$ is a mono-source.
 \end{enumerate}
 \end{definition}
 
 \noindent Now for the main theorem:\\
 \begin{theorem}
-\noindent If an relation ER model $\gmodel$ is well-formulated, has the \fdfactoring\ property and is dense then it is in Strong Third Normal Form. 
+\noindent If a relational ER model $\gmodel$ is well-formulated, has the \fdfactoring\ property and is dense then it is in Strong Third Normal Form. 
 If  $\gmodel$ is strongly dense then is in Boyce-Codd Normal form.
 \end{theorem}
 \begin{proof}
@@ -827,36 +834,24 @@ $E$ of $\gmodel$, $E_{<x_1,...x_n>}$ is injective and total or that $y$
 is identifying. \\
 
 Assume then such a functional dependency.
-
 From the assumption that the model $\gmodel$ is well-formulated 
 then by lemma \ref{mainlemma} 
 either $E_{\tuple{x_1,...x_n }}$ is
 injective and total in every instance $E$ of $\gmodel$ and we are done
-or else there is a non-empty path $p$ in $\gmodel$
+or else there is a non-empty relationship-like path $r$ in $\gmodel$
 and a path $w$ of $\gmodel$ that is not a primary key path such that
 
 \begin{equation}
 \label{simpleRepresentation}
- E_p \circ E_w = E_y
+ E_r \circ E_w = E_y
 \end{equation}
-
-Now because $p$ represents an inclusion dependency then get to a relationship $R$ in place of $p$:
-
-\begin{equation}
-\label{simpleRepresentation}
- R \circ w \simeq E_y
-\end{equation}
-and such that $\sfd{x_1,...x_n}{R}$.
-
-Because the model $\gmodel$ is assumed to be dense then either $R$ is a mono-source or $w$ is equivalent to some primary key of $d$
- or $y$ is identifying. If $R$ is a mono-source then $x_1,...x_n$ is a mono source, as required, since $\sfd{x_1,...x_n}{R}$.
-
-
+and such that $\sfd{x_1,...x_n}{r}$.
+If the model $\gmodel$ is assumed to be strongly dense then either $r$ is a mono-source or $w$ is equivalent to some primary key of $d$.
+If $r$ is a mono-source then $x_1,...x_n$ is a mono source, as required, since $\sfd{x_1,...x_n}{r}$.
 If $w$ is equivalent to some primary key of $d$ then it is equivalent to $q_i$, for some $i$, $1 \leq i \leq n$, therefore 
-$E_y =  R \circ w = R \circ q_i = x_i$ and the functional dependency $\sfd{x_1,...x_n}{y}$ is trivial, contradicting our initial assumption.
-
+$E_y =  r \circ w = r \circ q_i = x_i$ and the functional dependency $\sfd{x_1,...x_n}{y}$ is trivial, contradicting our initial assumption.
 If the model $\gmodel$ is strongly dense then there are no other cases and we have established BCNF.
-If not there is the possibility that $y$ is identifying i.e. is a primary key attribute and we have proved S3NF.
+If not, with the weaker assumption that the model $\gmodel$ is dense, there is the possibility that $y$ is identifying i.e. is a primary key attribute and we have proved S3NF.
 \end{proof}
 
 \section{Transforms}
