@@ -903,6 +903,11 @@ I can describe these in general terms or by way of examples. Would start with an
 The refinements to the first-cut transformation that we need are two-fold. First we need
 to exclude attribute-like paths that are rendered redundant because of alternative paths through the 
 model. 
+
+\begin{definition}
+If $\tuple{r_1,...r_n}$ is an attribute-like path in a model $\gmodel$ then say that $\tuple{r_1,...r_n}$ is \term{dominated} iff there exists a path $\tuple{s_0,s_1,...s_m}$ such that $\tuple{r_1,...r_n} < \tuple{s_0,s_1,...s_m}$.
+\end{definition}
+
 \begin{definition}
 If $n,m \geq 1$ then say that an attribute-like  path $\tuple{r_1,...r_n}$ \textit{is rendered redundant by} a path 
 $\tuple{s_0,s_1,...s_m}$ iff $m \geq 1$ and either:
@@ -912,7 +917,10 @@ for some $j$, $1 \leq j \leq m$, $s_j$ is not an identifying edge i.e. $\tuple{s
 is not attribute-like, \\
  \hspace{1cm} or:
 \item $n=1$ and $r_1 \simeq \tuple{s_0,s_1,...s_m}$ and $r_1$ is not identifying.
-\item $\tuple{r_1,...r_n} <  \tuple{s_0,s_1,...s_m}$ and $r_1 \neq s_0$.
+\item $\tuple{r_1,...r_n} <  \tuple{s_0,s_1,...s_m}$ and $r_1 \neq s_0$ and
+for all paths $\tuple{t_1,t_2...t_{l}}$ in $\gmodel$ such that
+$\tuple{t_1,t_2...t_{l}} \simeq \tuple{r_1,...r_n}$ in $\gmodel$
+ there exists a path $\tuple{t_1,t'_2...t'_{l'}}$  in $\gmodel$ which is not dominated.
 \end{enumerate}
 \end{definition}
 
