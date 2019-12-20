@@ -24,7 +24,30 @@ This  is equivalent to saying that  the partial function $\tuple{f_1,...f_n}: s 
 \item  if $y \in s_1 \times ... \times s_n $ and
 $y \notin img(\tuple{f_1,...f_n})$ then $\tuple{f_1,...f_n}^{-1}(y)$ is undefined. 
 \end{enumerate}
- 
+
+If $f: a \morph b$ is a partial function then we shall define the partial function $\bar{f}: a \morph a$ to be the identity function on the set $a$
+restricted to the subset of all $x \in a$ such that $f(x)$ is defined. It follows that if $f: a \morph b$ and $g: a \morph c$ are partial functions
+then $\bar{f} \circ \bar{g} = \bar{g} \circ \bar{f}$ and we write this partial function as $\bar{f} \wedge \bar{g}$ since it represents the intersection
+of the domains of defintion of $f$ amd $g$. Likewise if $f_i:a \morph b_i$ are partial; functions for $1 \leq i \leq n$, for some $n$, then we write $\bigwedge\limits_{1 \leq i \leq n}{\bar{f_i}}$ for the intersection of the domains of definition of the $f_i$ i.e. for the composition
+$\bar{f_1}\circ \bar{f_2} .../ \circ \bar{f_n}$.
+
+We will have need of the following:
+\begin{lemma}
+\label{restrictionleftid}
+If $f: a \morph b$ is a partial function then $\bar{f} \circ f = f$.
+\end{lemma}
+
+\begin{lemma}
+\label{inequalityiffrestriction}
+If $f: a \morph b$ and  $g: a \morph b$ are partial functions then $f \leq g$ iff $\bar{f}\circ g= f$.
+\end{lemma}
+
+\begin{lemma}
+\label{tuplerestriction}
+If $f_i: a \morph b_i$ are partial functions, for $1 \leq i \leq n$, for some $n$, then $\overline{\tuple{f_1,...f_n}}=\bigwedge\limits_{1 \leq i \leq n}{\bar{f_i}}$.
+\end{lemma}
+
+
 \section{Definition of ER model}
 
 \begin{definition}
@@ -550,7 +573,7 @@ codomain of each path $x_i$ is the node $v$ and thus $\qntuple$ is a leaf primar
 \commentary{This isnt true. Reconsider how we show $P(\gmodel)$ to be well formulated.}
 \end{lemma}
 
-\subsection{ER model Goodness Condition}\
+\subsection{ER model Goodness Conditions}\
 \begin{definition}
 \noindent An ER model $\gmodel$ is \term{well-formulated} 
  iff 
@@ -574,6 +597,13 @@ or else the functional dependency is represented in the model.
 \end{definition}
 
 \begin{definition}
+An ER model $\gmodel$ is \term{restriction-free} iff for all entity types $a$ of $\gmodel$, and for all paths $x_1,...x_n$ and $y$  with domain
+$a$ in $\gmodel$,  if for some $j$, $1 \leq j \leq n$, in every defining instance $E$,  
+$$E_y = \bigwedge_{1 \leq i \leq n}{\overline{x_i}} \circ x_j$$
+then $y \simeq x_j$.
+\end{definition}
+
+\begin{definition}
 In an ER model $\gmodel$, a non-empty path $p: a \morph b$, where $a$ and $b$ are entity types, which consists
 of a relationship $R$ followed by a  path $t :a' \morph b$ is said to be \term{relationship-like} iff
 either  $t$ is the empty path (so that the path $p$ is exactly a relationship $R$) or $t$
@@ -583,7 +613,7 @@ a primary key path $q':a' \morph \veee$ such that $t \circ q \simeq q'$.
 
 \begin{lemma}
 \label{intransitivelemma}
-In a well-formed model $\gmodel$ if $\set{x_1,...x_n} \morph y$  is a non-trivial intransitive leaf
+In a well-formed model $\gmodel$ that is restriction-free, if $\set{x_1,...x_n} \morph y$  is a non-trivial intransitive leaf
 functional dependency sourced at some entity type $a$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$ 
 or else for some entity type $d$ there is a non-empty relationship-like path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
@@ -647,7 +677,10 @@ From which, by definition, $y\simeq p \circ w$, as required. \\
 Now suppose that $c$ is the type representing universals $\veee$. The path $w$ must be non-empty because its source $d$ being 
 an entity type must be distinct from its destination $\veee$ which is not an entity type. 
 We wish to show that $w$ is not equivalent in $\gmodel$ to
-a primary key path. This follows from the following lemma.
+a primary key path. Assume the contrary that $w$ is a primary key path. From the following lemma it follows that $w \simeq q_i$, for some
+$i$, $1 \leq i \leq n$.  Because $p$ represents the inclusion dependency we know  that $p \circ q_i \leq x_i$. 
+Hence $y \leq x_i$. See A4 page.  Hence $\gmodel$ is restriction-free then $y \simeq x_i$. This contradicts the assumption that the functional dependency
+is non-trivial.
 \end{proof}
 
 \begin{lemma}
@@ -691,12 +724,10 @@ $\gmodel$ are of rank $n$. We do this  in such a way that each relationship of $
 $n$ for any $n$, is said to be unranked or of null rank. Denote by $\gmodel_n$ the ER model which is the ER model 
 $\gmodel$ less the relationships which are not of rank less than or equal to n. The definition proceeds by induction as follows:
 \begin{definition}
-The relationship $R: a \morph b$ in an entity model $\gmodel$ is said to be of rank $0$ iff for
-all primary key paths $q:b \morph v$ in $\gmodel$, there exists an attribute $x:a \morph v$ in $\gmodel$
-such that $R \circ q \simeq x$.
-The relationship $R: a \morph b$ in an entity model $\gmodel$ is said to be of rank $n+1$ iff for
-all primary key paths $q:b \morph v$ in $\gmodel$, there exists a path $p:a \morph v$ in $\gmodel_n$
-such that $R \circ q \simeq p$.
+The relationship $R: a \morph b$ in an entity model $\gmodel$ is said to be of rank $0$ iff whenever 
+$\qntuple$ is a primary mono-source at $b$ in $\gmodel$, where $q_i:b \morph \veee$, for each $i$, $1 \leq i \leq n$  then there exists attributes $x_i:a \morph v$ in $\gmodel$ such that $\incd{a}{\xntuple}{b}{\qntuple}$ is an inclusion dependency and this inclusion dependency is represented by the relationship $R$. 
+The relationship $R: a \morph b$ in an entity model $\gmodel$ is said to be of rank $n+1$ iff whenever 
+$\qntuple$ is a primary mono-source at $b$ in $\gmodel$, there exists paths $p_i:a \morph v$ in $\gmodel_n$ such that $\incd{a}{\pntuple}{b}{\qntuple}$ is an inclusion dependency and this inclusion dependency  is represented by the relationship $R$. 
 \end{definition}
 
 \section{Relational Models}
