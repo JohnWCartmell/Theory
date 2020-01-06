@@ -928,7 +928,16 @@ There are several ways that a perfectly well-expressed ER model can be transform
 by the first-cut transformation into a relational schema which either fails to be in BCNF, or EKNF, as appropriate, or else includes some other redundancy. 
 
 I can describe these in general terms or by way of examples. Would start with an example where everything is fine. 
- 
+
+\subsection{Property X}
+For the transformation we describe to produce a relational model we require the model $\gmodel$ to have 
+property X defined as follows:
+\begin{definition}
+An ER model $\gmodel$ is said to have property X iff for all relationships $r: a \morph b$ in $\gmodel$ and for all
+primary mono-sources $\set{q_1,...q_n}$ with domain $b$, there exists $i$, $1 \leq i leq n$, such that $r \circ q_i$
+is not dominated i.e. such that there does not exist a path $s: s \morph v$ such that $r \circ q_i < s$.  
+\end{definition}
+
 \subsection{A Corrected Transformation}
 
 The refinements to the first-cut transformation that we need are two-fold. First we need
@@ -980,11 +989,12 @@ model $\gmodel$ is defined by:
 \end{align}
 
 We shall show that with these definitions if $\gmodel$ is well-formulated, tangle-free and has the fd factoring property
-then the transformed model $\genericphysical$ is a well-formulated, restriction-free relational ER model with the fd factoring property 
-which is therefore in S3NF.  Further we will show that if $\gmodel$ is without caveats then $\genericphysical$ is also without caveats
-and is therefore in BCNF. 
+and property X then the transformed model $\genericphysical$ is a well-formulated, restriction-free relational ER model with the fd factoring property which is therefore in S3NF.  Further we will show that if $\gmodel$ is without caveats then $\genericphysical$ is also without caveats and is therefore in BCNF. 
 
-
+\begin{lemma}
+If $\gmodel$ has property X and is tangle-free then $\genericphysical$ is relational.
+\end{lemma}
+ 
 \begin{lemma}
 \label{fdcarrythroughlemma}
 Functional depedencies in $\gmodel$ carries through to functional depdencies in $\genericphysical$ \commentary{Expand}
