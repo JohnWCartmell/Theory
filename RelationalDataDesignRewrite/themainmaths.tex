@@ -28,7 +28,7 @@ $y \notin img(\tuple{f_1,...f_n})$ then $\tuple{f_1,...f_n}^{-1}(y)$ is undefine
 If $f: a \morph b$ is a partial function then we shall define the partial function $\bar{f}: a \morph a$ to be the identity function on the set $a$
 restricted to the subset of all $x \in a$ such that $f(x)$ is defined. It follows that if $f: a \morph b$ and $g: a \morph c$ are partial functions
 then $\bar{f} \circ \bar{g} = \bar{g} \circ \bar{f}$ and we write this partial function as $\bar{f} \wedge \bar{g}$ since it represents the intersection
-of the domains of defintion of $f$ amd $g$. Likewise if $f_i:a \morph b_i$ are partial; functions for $1 \leq i \leq n$, for some $n$, then we write $\bigwedge\limits_{1 \leq i \leq n}{\bar{f_i}}$ for the intersection of the domains of definition of the $f_i$ i.e. for the composition
+of the domains of definition of $f$ and $g$. Likewise if $f_i:a \morph b_i$ are partial; functions for $1 \leq i \leq n$, for some $n$, then we write $\bigwedge\limits_{1 \leq i \leq n}{\bar{f_i}}$ for the intersection of the domains of definition of the $f_i$ i.e. for the composition
 $\bar{f_1}\circ \bar{f_2} .../ \circ \bar{f_n}$.
 
 We will have need of the following:
@@ -947,11 +947,11 @@ $\tuple{s_0,s_1,...s_m}$ iff $m \geq 1$ and either:
 for some $j$, $1 \leq j \leq m$, $s_j$ is not an identifying edge i.e. $\tuple{s_0,...s_m}$
 is not attribute-like, \\
  \hspace{1cm} or:
-\item $n=1$ and $r_1 \simeq \tuple{s_0,s_1,...s_m}$ and $r_1$ is not identifying.
+\item $n=1$ and $r_1 \simeq \tuple{s_0,s_1,...s_m}$ and $r_1$ is not identifying and $\tuple{s0,s_1,...s_m}$ is not attribute-like.
 \item $\tuple{r_1,...r_n} <  \tuple{s_0,s_1,...s_m}$ and $r_1 \neq s_0$ and
 for all paths $\tuple{t_1,t_2...t_{l}}$ in $\gmodel$ such that
 $\tuple{t_1,t_2...t_{l}} \simeq \tuple{r_1,...r_n}$ in $\gmodel$
- there exists a path $\tuple{t_1,t'_2...t'_{l'}}$  in $\gmodel$ which is not dominated.
+ there exists a \commentary{attribute-like path??} path $\tuple{t_1,t'_2...t'_{l'}}$  in $\gmodel$ which is not dominated.
 \end{enumerate}
 \end{definition}
 
@@ -979,8 +979,10 @@ model $\gmodel$ is defined by:
 &\attr[\genericphysical]{a}   && =  \attr[\chiOneM]{a}/\simeq
 \end{align}
 
-We shall show that with these definitions if $gmodel$ is well-formulated, tangle-free and has the fd factoring property
-then the transformed model $\genericphysical$ is a well-formulated, simple relational ER model in S3NF and free from attribute redundancy. Further if $gmodel$ is without caveats then $\genericphysical$ is in BCNF. 
+We shall show that with these definitions if $\gmodel$ is well-formulated, tangle-free and has the fd factoring property
+then the transformed model $\genericphysical$ is a well-formulated, restriction-free relational ER model with the fd factoring property 
+which is therefore in S3NF.  Further we will show that if $\gmodel$ is without caveats then $\genericphysical$ is also without caveats
+and is therefore in BCNF. 
 
 
 \begin{lemma}
