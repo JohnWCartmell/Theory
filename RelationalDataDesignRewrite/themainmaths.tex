@@ -47,6 +47,14 @@ If $f: a \morph b$ and  $g: a \morph b$ are partial functions then $f \leq g$ if
 If $f_i: a \morph b_i$ are partial functions, for $1 \leq i \leq n$, for some $n$, then $\overline{\tuple{f_1,...f_n}}=\bigwedge\limits_{1 \leq i \leq n}{\bar{f_i}}$.
 \end{lemma}
 
+\begin{lemma}
+\label{tupleprojection}
+If $f_i: a \morph b_i$ are partial functions, for $1 \leq i \leq n$, for some $n$, and if 
+$p_i : \prod\limits_{1 \leq i \leq n}{b_i} \morph b_i$ is the i'th projection function 
+then  $\tuple{f_1,...f_n} \circ p_i = \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq j \leq n}{ j \neq i}}{\bar{f_j}}\circ f_i$, and,
+in particular, $\tuple{f_1,...f_n} \circ p_i\leq f_i$ .
+\end{lemma}
+
 
 \section{Definition of ER model}
 
@@ -597,8 +605,9 @@ or else the functional dependency is represented in the model.
 \end{definition}
 
 \begin{definition}
-An ER model $\gmodel$ is \term{restriction-free} iff for all entity types $a$ of $\gmodel$, and for all paths $x_1,...x_n$ and $y$  with domain
-$a$ in $\gmodel$,  if for some $j$, $1 \leq j \leq n$, in every defining instance $E$,  
+An ER model $\gmodel$ is \term{restriction-free} iff for all entity types $a$ of $\gmodel$ and for all edges $y$ with domain $a$, if there 
+exists paths $x_1,...x_n$   with domain
+$a$ in $\gmodel$,  and for some $j$, $1 \leq j \leq n$, in every defining instance $E$,  
 $$E_y = \bigwedge_{1 \leq i \leq n}{\overline{x_i}} \circ x_j$$
 then $y \simeq x_j$.
 \end{definition}
@@ -613,11 +622,11 @@ a primary key path $q':a' \morph \veee$ such that $t \circ q \simeq q'$.
 
 \begin{lemma}
 \label{intransitivelemma}
-In a well-formed model $\gmodel$ that is restriction-free, if $\set{x_1,...x_n} \morph y$  is a non-trivial intransitive leaf
+In a well-formed model $\gmodel$  if $\set{x_1,...x_n} \morph y$  is a non-trivial intransitive leaf
 functional dependency sourced at some entity type $a$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$ 
 or else for some entity type $d$ there is a non-empty relationship-like path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
-the path $w$ is non-empty and is not equivalent to a primary key path.
+the path $w$ is non-empty and if $y$ is an edge and $\gmodel$ is restriction-free then $w$ is not equivalent to a primary key path.
 \end{lemma}
 \begin{proof}
 Since $\gmodel$ is well formed  and there is an intransitive functional dependency $\set{x_1,...x_n} \morph y$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$  and we are done or else the functional dependency
@@ -678,9 +687,19 @@ Now suppose that $c$ is the type representing universals $\veee$. The path $w$ m
 an entity type must be distinct from its destination $\veee$ which is not an entity type. 
 We wish to show that $w$ is not equivalent in $\gmodel$ to
 a primary key path. Assume the contrary that $w$ is a primary key path. From the following lemma it follows that $w \simeq q_i$, for some
-$i$, $1 \leq i \leq n$.  Because $p$ represents the inclusion dependency we know  that $p \circ q_i \leq x_i$. 
-Hence $y \leq x_i$. See A4 page.  Hence $\gmodel$ is restriction-free then $y \simeq x_i$. This contradicts the assumption that the functional dependency
-is non-trivial.
+$i$, $1 \leq i \leq n$.  
+Therefore
+\begin{align*}
+E_y &= E_p \circ E_w                                        && \text{}\\
+		&= E_p \circ E_{q_i}                                      && \text{}\\
+		&= E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_{q_i}     && \text{}\\
+		&= E_{\xntuple} \circ p_i                                 && \text{} \\
+		&= \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq j \leq n}{ j \neq i}}{\overline{E_{x_j}}}\circ E_{x_i}  
+		                                                        && \text{By lemma \ref{tupleprojection}}
+\end{align*} 
+
+Hence because $\gmodel$ is restriction-free we deduce that $y \simeq x_i$ and this contradicts the assumption that the functional dependency
+is non-trivial. Thus $w$ is not equivalent to a primary key path.
 \end{proof}
 
 \begin{lemma}
@@ -710,7 +729,7 @@ In a well-formed model $\gmodel$ that has the \fdfactoring\ property if $\{x_1,.
 at some entity type $a$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$ 
 or else there is an entity type $d$ and there is a relationship-like path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
-the path $w$ is non-empty and is not equivalent to a primary key path (see section \ref{primarykeypath} for definition of 'primary key path').
+the path $w$ is non-empty and and if $y$ is an edge and $\gmodel$ is restriction-free then $w$ is not equivalent to a primary key path(see section \ref{primarykeypath} for definition of 'primary key path').
 \end{lemma}
 \begin{proof}
 Since the model $\gmodel$  has the \fdfactoring\ property, the functional dependency $\set{x_1,...x_n} \morph z$ can be factored through an intransitive functional
@@ -833,29 +852,29 @@ $x \simeq r \circ p$ it follows that
 either 
 \begin{enumerate} [(i)]
 \item there exists an identifying attribute $q:b \morph \veee$ such that $p \simeq q$, or
-\item the attribute $x$ is identifying, or
-\item the path $r$ is a mono-source.
+\item the path $r$ is a mono-source, or
+\item the attribute $x$ is identifying.
 \end{enumerate}
 \end{definition}
-
-
 
 In a relational ER model $\gmodel$ if there are no identifying attributes $x$ such that $x \simeq r \circ p$ where $r$ is relationship-like, $r:a \morph a'$, and $p$ is a not a primary key path, $p:a' \morph \veee$ then the model is said to be \term{without caveats}.
 
 Thus we get:
-
 \begin{definition} 
-A relational ER model $\gmodel$ is \term{simple without caveat} iff for all attributes $x:a \morph \veee$
+A relational ER model $\gmodel$ is \term{reduced without caveat} iff for all attributes $x:a \morph \veee$
 such that there is a relationship-like path $r:a \morph b$ and a path $p:b \morph \veee$ such that
-$x \simeq r \circ p$ then there exists an identifying attribute $q:b \morph \veee$ such that $p \simeq q$.
+$x \simeq r \circ p$ it follows that 
+either 
+\begin{enumerate} [(i)]
+\item there exists an identifying attribute $q:b \morph \veee$ such that $p \simeq q$, or
+\item the path $r$ is a mono-source.
+\end{enumerate}
 \end{definition}
 
-
-
 \subsection{Main Theorem}
-\noindent Now for the main theorem:\\
+\noindent Now for the main theorem:
 \begin{theorem}
-\noindent If a relational ER model $\gmodel$ is well-formulated, has the \fdfactoring\ property and is reduced then it is in Strong Third Normal Form. 
+\noindent If a relational ER model $\gmodel$ is well-formulated and restrictiion-free, has the \fdfactoring\ property and is reduced then it is in Strong Third Normal Form. 
 If  $\gmodel$ is reduced without caveats then is in Boyce-Codd Normal form.
 \end{theorem}
 \begin{proof}
@@ -865,26 +884,21 @@ where $x_1,...x_n,y$ are attributes
 then  in all instances
 $E$ of $\gmodel$, $E_{<x_1,...x_n>}$ is injective and total or that $y$
 is identifying. \\
-
 Assume then such a functional dependency.
-From the assumption that the model $\gmodel$ is well-formulated 
+From the assumption that the model $\gmodel$ is well-formulated and restriction-free
 then by lemma \ref{mainlemma} 
 either $E_{\tuple{x_1,...x_n }}$ is
 injective and total in every instance $E$ of $\gmodel$ and we are done
 or else there is a non-empty relationship-like path $r$ in $\gmodel$
 and a path $w$ of $\gmodel$ that is not a primary key path such that
-
 \begin{equation}
 \label{simpleRepresentation}
  E_r \circ E_w = E_y
 \end{equation}
 and such that $\sfd{x_1,...x_n}{r}$.
-If the model $\gmodel$ is assumed to be reduced without caveat then either $r$ is a mono-source or $w$ is equivalent to some primary key of $d$.
-If $r$ is a mono-source then $x_1,...x_n$ is a mono source, as required, since $\sfd{x_1,...x_n}{r}$.
-If $w$ is equivalent to some primary key of $d$ then it is equivalent to $q_i$, for some $i$, $1 \leq i \leq n$, therefore 
-$E_y =  r \circ w = r \circ q_i = x_i$ and the functional dependency $\sfd{x_1,...x_n}{y}$ is trivial, contradicting our initial assumption.
-If the model $\gmodel$ is reduced without caveat then there are no other cases and we have established BCNF.
-If not, with the weaker assumption that the model $\gmodel$ is reduced, there is the possibility that $y$ is identifying i.e. is a primary key attribute and we have proved S3NF.
+If the model $\gmodel$ is assumed to be reduced without caveat then either $r$ is a mono-source since $w$ is not equivalent to some primary key of $d$.
+Since $r$ is a mono-source then $x_1,...x_n$ is a mono source, as required, since $\sfd{x_1,...x_n}{r}$ and we have established BCNF.
+With the weaker assumption that the model $\gmodel$ is reduced, there is the additional possibility that $y$ is identifying i.e. is a primary key attribute and we have proved S3NF.
 \end{proof}
 \subsection{Simple Relational Models}
 It is unusual in practice for reduced relational models not to meet the stronger condition that we get if we drop condition (iii) 
