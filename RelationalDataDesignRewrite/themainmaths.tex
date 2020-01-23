@@ -918,92 +918,55 @@ In the next sections we define a transformation that from an \commentary{what ad
 
 \section{Chi Transform - a Revised Chen Transformation}
 In this section we define a relational  entity model $\genericphysical$ corresponding 
-to any given ER model $\gmodel$. The $\chi$ transformation that we so describe is a refinement
-of a transformation first described by Chen and subsequently prescribed in a range of software design methodologies and implemented in associated CASE tools. This earlier transformation is sometimes said to produce a first-cut relational design because generally the model produced requires normalisation
+to certain ER models $\gmodel$. The $\chi$ transformation that we so describe is a refinement
+of a transformation, which we denote $\firstcut$, first described by Chen and subsequently prescribed in a range of software design methodologies and accordingly implemented in associated CASE tools. The transformation $\firstcut$ is sometimes said to produce a first-cut relational design because generally the model produced requires normalisation
 to achieve an appropriate database normal form such as 3NF or BCNF. 
-We shall show that the transformation $\chi$ defined here produces relational models that are in 3NF and, if appropriate, BCNF and are free of attribute redundancy.
-First we give some preliminary definitions.
+In contrast we shall show that the transformation $\chi$ defined here produces relational models $\chi(\gmodel)$ that are in 3NF and, if appropriate, BCNF and are free of attribute redundancy.
 
 From an ER model $\gmodel$ a first-cut relational design is achieved by extending each
 entity type $a$, by attributes,  one for each path in $\gmodel$ of the 
-form $\tuple{r_0,r_1,...r_n}$ where each of $r_1,...r_n$ are identifying. This consideration leads 
-to this definition:
+form $\tuple{r_0,r_1,...r_n}$ where each of $r_1,...r_n$ are identifying. 
+
+The transformation $\firstcut$ can be improved to by taking note of equivalent attribute-like paths and
+either dropping duplicates or equivalently thinking of the added attributes as corresponding to equivalence classes of 
+equivalent attribute-like paths wrt the equivalence relation $\simeq$ defined earlier (section \ref{xxx}). This improved transformation we can denote as $\firstcutimproved$.
+
+This consideration leads  to this definition:
 \begin{definition}
-A path $r=\tuple{r_0,r_1,...r_n}$, for some $n$, $n \geq 0$, in an ER model $\gmodel$ is 
+A path $r=r_0/r_1/r)2.../r_n$, for some $n$, $n \geq 0$, in an ER model $\gmodel$ is 
 said to be \term{attribute-like} iff $r: a \morph \veee$, for some entity type $a$,
 and either $n=0$ or $\tuple{r_1,...r_n}$ is a primary key path i.e. each $r_i$ is identifying.
 \end{definition}
 \begin{noteforfuture}
 In most general case this will become not $s_1$ uses $s_2$ ... uses $s_m$.
 \end{noteforfuture}
+If $\gmodel$ is an ER model then the model $\firstcutimproved(\gmodel)$ is defined to be the ER model whose schema extends the schema of $\gmodel$
+by extending the set of attributes of each entity type $a$ by the set 
+$\set{\qq{r_0/r_1/...r_n}  | \ r_0/r_1/...r_n: a \morph \veee \mbox{ is an attribute-like path}}$ and for which the defining instances are the defining  instances $E$ of $\gmodel$ extended to the schema of $\firstcutimproved(\gmodel)$ by defining for each attribute $\qq{r_0/r_1/...r_n}$, $E_{\qq{r_0/r_1/...r_n}} = E_{r_0} \circ E_{r_1}... \circ E_{r_n}$.
 
-\subsection{Shortcomings of the First-cut Transformation}
-There are several ways that a perfectly well-expressed ER model can be transformed
-by the first-cut transformation into a relational schema which either fails to be in BCNF, or EKNF, as appropriate, or else includes some other redundancy. 
-
-I can describe these in general terms or by way of examples. Would start with an example where everything is fine. 
-
-\subsection{Property X}
-For the transformation we describe to produce a relational model we require the model $\gmodel$ to have 
-property X defined as follows:
-\begin{definition}
-An ER model $\gmodel$ is said to have property X iff for all relationships $r: a \morph b$ in $\gmodel$ and for all
-primary mono-sources $\set{q_1,...q_n}$ with domain $b$, there exists $i$, $1 \leq i leq n$, such that $r \circ q_i$
-is not dominated i.e. such that there does not exist a path $s: s \morph v$ such that $r \circ q_i < s$.  
-\end{definition}
-
-\subsection{A Corrected Transformation}
-
-The refinements to the first-cut transformation that we need are two-fold. First we need
-to exclude attribute-like paths that are rendered redundant because of alternative paths through the 
-model. 
+We define the model $\chi(\gmodel)$ to be a further improvement to the first-cut transformation obtained by excluding 
+from  the transformed model $\firstcutimproved(\gmodel)$ those attributes $\qq{r \circ q}$ for which there exists a unique non attribute-like path $s$ such that  either $r \circ q \simeq s$ or $r \circ q < s$. 
 
 \begin{definition}
-If $\tuple{r_1,...r_n}$ is an attribute-like path in a model $\gmodel$ then say that $\tuple{r_1,...r_n}$ is \term{dominated} iff there exists a path $\tuple{s_0,s_1,...s_m}$ such that $\tuple{r_1,...r_n} < \tuple{s_0,s_1,...s_m}$.
+If for some relationship $r$ and primary key path $q$ of $\gmodel$ there exists a non attribute-like path $s_1/...s_n$ such that
+either $r \circ q \simeq s_1/...s_n$ or $r \circ q < s_1/...s_n$ then say that relationship $r$ \term{directly depends} on relationship $s_i$,
+for each $i$. Define one relationship to depend on another if it depends on it it directly or indirectly i.e. define dependency between relationships to be the transitive closure of direct dependency.
 \end{definition}
+
+For $\chi(\gmodel)$ to be a relational model, the implied dependency between relationships of $\gmodel$ will need be non-circular
+and in addition one further property is required:
 
 \begin{definition}
-If $n,m \geq 1$ then say that an attribute-like  path $\tuple{r_1,...r_n}$ \textit{is rendered redundant by} a path 
-$\tuple{s_0,s_1,...s_m}$ iff $m \geq 1$ and either:
-\begin{enumerate} [(i)]
-\item $n > 1$ and $\tuple{r_1,...r_n} \simeq  \tuple{s_0,s_1,...s_m}$ and 
-for some $j$, $1 \leq j \leq m$, $s_j$ is not an identifying edge i.e. $\tuple{s_0,...s_m}$
-is not attribute-like, \\
- \hspace{1cm} or:
-\item $n=1$ and $r_1 \simeq \tuple{s_0,s_1,...s_m}$ and $r_1$ is not identifying and $\tuple{s_0,s_1,...s_m}$ is not attribute-like.
-\item $\tuple{r_1,...r_n} <  \tuple{s_0,s_1,...s_m}$ and $r_1 \neq s_0$ and
-for all paths $\tuple{t_1,t_2...t_{l}}$ in $\gmodel$ such that
-$\tuple{t_1,t_2...t_{l}} \simeq \tuple{r_1,...r_n}$ in $\gmodel$
- there exists a \commentary{attribute-like path??} path $\tuple{t_1,t'_2...t'_{l'}}$  in $\gmodel$ which is not dominated.
-\end{enumerate}
+An ER model $\gmodel$ is said to have property X iff for all relationships $r: a \morph b$ in $\gmodel$ there exists at least
+one primary key path $q:a \morph \veee$ such that there does not exist a non attribute-like path $s:a \morph \veee$ such that
+$r \circ q < s$.
 \end{definition}
 
-\begin{problem}
-Can have $\tuple{r_1,...r_n}$ rendered redundant by $\tuple{s_0,...s_m}$
-and also $\tuple{s_1,...s_m}$ rendered redundant by $\tuple{r_0,...r_n}$. Or, worse, tangled dependencies. See examples.
-\end{problem}
-The definition only works if the ER model $\gmodel$ is tangle-free.
+If all these conditions are met then we say that $\gmodel$ is $\chi$-suitable and in these instances we can show that 
+the model $\chi(\gmodel)$ is a simple relational model. 
 
-
-Secondy, in recognition that certain attribute-like paths may be equivalents of one another, if two edges are equivalent then we omit one of them.
-We define the attributes of the transformed model $\genericphysical$ by choosing just one attribute-like path from the equivalents or, in other words, by considering the attributes of the transformed model to
-be equivalence classes of the non-redundant  attribute-like paths of the model $\gmodel$.
-
-Define $\attr[\chiZeroM]{a}$ to be the first-cut attributes of entity type $a$ i.e. the set of attribute-like paths with source $a$ in model $\gmodel$. Define $\attr[\chiOneM]{a}$
-as the subset of $\attr[\chiZeroM]{a}$ of all those attribute-like paths for which there does not exist
-a path which renders it redundant. If we denote the set of equivalence classes of $\attr[\chiOneM]{a}$
-under the equivalence relation defined in section \ref{equivalencedefinition} by $\attr[\chiOneM]{a}/\simeq$
-then the transformed ER model $\genericphysical$ corresponding to an entity 
-model $\gmodel$ is defined by:
-
-\begin{align}
-&\et[\genericphysical]        && = \et        && \\
-&\rel[\genericphysical]{a}{b} && = \rel{a}{b}  &&\\
-&\attr[\genericphysical]{a}   && =  \attr[\chiOneM]{a}/\simeq
-\end{align}
-
-We shall show that with these definitions if $\gmodel$ is well-formulated, tangle-free and has the fd factoring property
-and property X then the transformed model $\genericphysical$ is a well-formulated, restriction-free relational ER model with the fd factoring property which is therefore in S3NF.  Further we will show that if $\gmodel$ is without caveats then $\genericphysical$ is also without caveats and is therefore in BCNF. 
+We shall show that with these definitions if $\gmodel$ is well-formulated, simple, $\chi$-suitable and has the fd factoring property
+and property X then the transformed model $\genericphysical$ is a well-formulated, simple, restriction-free relational ER model with the fd factoring property which is therefore in S3NF.  Further we will show that if $\gmodel$ is without caveats then $\genericphysical$ is also without caveats and is therefore in BCNF. 
 
 \begin{lemma}
 If $\gmodel$ has property X and is tangle-free then $\genericphysical$ is relational.
