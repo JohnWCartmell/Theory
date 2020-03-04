@@ -4,8 +4,9 @@ I am using the term \term{logical} in the sense that it is used in certain ER mo
 \subsection{Fully Factored Models}
 
 \begin{definition}
-In an entity model \genericmodel\ if $a$ is an entity type then say that
-a \term{factorisation} of the set $I_a$ is a subset $\set{h_1,...h_n} \subset I_a$
+In an entity model $\gmodel$ if $a$ is an entity type then say that
+a \term{factorisation} of the set $I_a$ is a subset $\set{h_1,...h_n} \subset I_a$ \commentary{why not
+$\set{h_1,...h_n} \subseteq I_a$?}
 and a  path $f:a \morph b$ and a set of paths sourced at $b$, $\set{g_1,...g_n} \in \bar{I}$\commentary{not defined}
 such that for each $i$, $1 \leq i \leq n$, $f \circ g_i \simeq h_i$. 
 \end{definition}
@@ -34,19 +35,17 @@ We say that an ER model is a \term{logical ER model} iff it is purely logical.
 
 \subsection{Factorisation}
 \begin{definition}
-If \genericmodel\ is a model and if there is a factorisation at entity type $a$ with
+If $\gmodel$ is a model and if there is a factorisation at entity type $a$ with
 base set $h$, mediating path $f: a \morph b$ and remainder $j \in \bar{I}$ then define
-a factored model $\genericmodel'$ determined by the factorisation to be the model
-whose underlying graph is the graph of \genericmodel\ with edges $h_1,...h_n$ removed 
-(defining database instances restricted) and
-an edge $k$ added, $k:a \morph b$, each database instance $E$ extends to $E'$, $E'_k = E_f$.
-Identifying sets of $\genericmodel'$ are exactly as for \genericmodel\ except for at the entity
-type $a$ where the identifying set $I_a$ in $\genericmodel'$ is defined to be $h \cup \set{k}$.
-Note that by lemma \ref{identifyingsetdeduction} the modified $E'$ is a database instance because
-the family 
-$\setsuchthat{E'_e}{e \in \set{h \cup \set{k}}}$ is jointly injective because 
-$\setsuchthat{E'_e}{e \in \set{h \cup \set{k}}} =\setsuchthat{E_e}{e \in \set{h \cup \set{f}}}$
-and in model \genericmodel, $h \cup \set{f}$ is a mono-source because both
+a factored model $\gmodel'$ determined by the factorisation to be the model
+whose underlying graph is the graph of $\gmodel$ with edges $h_1,...h_n$ removed 
+(defining database instances restricted) and an edge $\lqq{f}$ added, $\lqq{f}:a \morph b$, each database instance $E$ extends to $E'$, $E'_{\lqq{f}} = E_f$.
+Identifying sets of $\gmodel'$ are exactly as for $\gmodel$ except for at the entity
+type $a$ where the identifying set $I_a$ in $\gmodel'$ is defined to be $h \cup \set{k}$.
+Note that by lemma \ref{identifyingsetdeduction} the modified $E'$ is a database instance because the family 
+$\setsuchthat{E'_e}{e \in \set{h \cup \set{\lqq{f}}}}$ is jointly injective because 
+$\setsuchthat{E'_e}{e \in \set{h \cup \set{\lqq{f}}}} =\setsuchthat{E_e}{e \in \set{h \cup \set{f}}}$
+and in model $\gmodel$, $h \cup \set{f}$ is a mono-source because both
 $h \cup \set{f} \backslash f \cup \setsuchthat{f \circ g}{g \in j}
 =h  \cup \setsuchthat{f \circ g}{g \in j}=I_a$ and $j$ are  mono-sources.
 
@@ -54,38 +53,38 @@ $h \cup \set{f} \backslash f \cup \setsuchthat{f \circ g}{g \in j}
 \end{definition}
 
 \begin{definition}
-If $a$ is an entity type in an entity model \genericmodel\ then define the abstraction
+If $a$ is an entity type in an entity model $\gmodel$ then define the abstraction
 level of $a$ to be the sum of the lengths of the primary key paths sourced at $a$.
 \end{definition}
 
 
 \begin{definition}
-Define  the abstraction level of a model $\genericmodel$ to be
+Define  the abstraction level of a model $\gmodel$ to be
 the sum over all entity types $a$ of the abstraction level of $a$.
 \end{definition}
 
 \begin{lemma}
-If $\genericmodel'$ is a factorisation of model $\genericmodel$ then abstraction level 
-of $\genericmodel'$ is greater than abstraction level of $\genericmodel$ and the number of edges
+If $\gmodel'$ is a factorisation of model $\gmodel$ then abstraction level 
+of $\gmodel'$ is greater than abstraction level of $\gmodel$ and the number of edges
 is not increased. 
 \end{lemma}
 \begin{proof}
 \end{proof}
 
 \begin{definition}
-Define an entity model \genericmodel\ to be fully-factored iff there no entity types $a$
+Define an entity model $\gmodel$ to be fully-factored iff there no entity types $a$
 for which the set $I_a$ has  factorisations.
 \end{definition}
 
 \begin{definition}
-If \genericmodel\ is a model then say that a $\genericmodel'$ is a fully-factored 
-equivalent to \genericmodel\
-if it results from successive factorisations of \genericmodel\ until the resulting model can no longer be
+If $\gmodel$ is a model then say that a $\gmodel'$ is a fully-factored 
+equivalent to $\gmodel$
+if it results from successive factorisations of $\gmodel$ until the resulting model can no longer be
 factorised. 
 \end{definition}
 
 \begin{lemma}
-Every model \genericmodel\ has a fully factorised equivalent. 
+Every model $\gmodel$ has a fully factorised equivalent. 
 \end{lemma}
 \begin{proof}
 We need to show that the factorisation process will terminate. 
@@ -93,8 +92,8 @@ to do this note that we can put a (crude) bound on the abstraction level of an e
 of number of entity types multiplied by the square of the  number of edges
 \commentary{Need revise this most likely}.  Because the number of nodes remains constant during
 factorisation and because the number of edges does not increase this bound can be calculated
-for the model \genericmodel\ and serves as an upper bound for the abstraction level of 
-any successive factorisation of \genericmodel. Since factorisation increases abstraction level
+for the model $\gmodel$ and serves as an upper bound for the abstraction level of 
+any successive factorisation of $\gmodel$. Since factorisation increases abstraction level
 and there is an upper bound to abstraction level then the process cannot continue indefinitely. 
 \end{proof}
 
@@ -102,7 +101,7 @@ and there is an upper bound to abstraction level then the process cannot continu
 
 \begin{lemma}
 \label{identifyingfactorminimal}
-In a model \genericmodel, if $i$ is a source with domain $a$,
+In a model $\gmodel$, if $i$ is a source with domain $a$,
 if $f \in i$, $f: a \morph b$, 
 and if $j$ is a mono-source with domain $b$
 then  if $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a minimum mono-source
@@ -120,18 +119,18 @@ We conclude that no subset of $i$ is a mono-source.
 \end{proof}
 
 \begin{lemma}
-If a model \genericmodel\ satisfies the minimality condition then it has a fully factored
-equivalent $\genericmodel'$  and $\genericmodel'$ satisfies the minimality condition. 
+If a model $\gmodel$ satisfies the minimality condition then it has a fully factored
+equivalent $\gmodel'$  and $\gmodel'$ satisfies the minimality condition. 
 \end{lemma}
 \begin{proof}
-By lemma \ref{identifyingfactorminimal} we have the minimality of $I_a$ in $\genericmodel'$.
+By lemma \ref{identifyingfactorminimal} we have the minimality of $I_a$ in $\gmodel'$.
 
-To show that representative sets of primary key paths in $\genericmodel'$ are minimal mono-sources
-first note that to each path $p'$ in $\genericmodel'$ there is a corresponding path 
-$p$ in \genericmodel\  
- such that for all instances $E$ of \genericmodel\ with corresponding $E'$ of $\genericmodel'$, 
-$E_p=E'_{p'}$ and that this correspondence establishes a 1-1 correspondence between the set of primary key paths $P'$ in $\genericmodel'$
-and the set of primary key paths $P'$ in \genericmodel. Because $E_p=E'_{p'}$, for all defining instances
+To show that representative sets of primary key paths in $\gmodel'$ are minimal mono-sources
+first note that to each path $p'$ in $\gmodel'$ there is a corresponding path 
+$p$ in $\gmodel$  
+ such that for all instances $E$ of $\gmodel$ with corresponding $E'$ of $\gmodel'$, 
+$E_p=E'_{p'}$ and that this correspondence establishes a 1-1 correspondence between the set of primary key paths $P'$ in $\gmodel'$
+and the set of primary key paths $P'$ in $\gmodel$. Because $E_p=E'_{p'}$, for all defining instances
 $E$, it follows that a representative set for $P'$ corresponds to a representative set for $P'$ and also
-that mono-sources in $\genericmodel'$ correspond to mono-sources in \genericmodel. From this it follows that representative sets of primary key paths in $\genericmodel'$ are minimal mono-sources.
+that mono-sources in $\gmodel'$ correspond to mono-sources in $\gmodel$. From this it follows that representative sets of primary key paths in $\gmodel'$ are minimal mono-sources.
 \end{proof}

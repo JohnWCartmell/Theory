@@ -805,7 +805,7 @@ Say that a relational ER model $\gmodel$ is \term{free of attribute redundancy} 
 \subsection{Normal Forms}
 
 \noindent One measure of the goodness of a relational model is whether it satisfies the condition called Boyce Codd Normal Form (BCNF). In some modelling situations this condition cannot be 
-met and in these situations a lesser goodness criteria that can be achieved is that of Third Normal Form (3NF). We shall show that the relational model $\genericphysical$ generated from a well-formulated 
+met and in these situations a lesser goodness criteria that can be achieved is that of Third Normal Form (3NF). We shall show that the relational model $\chigmodel$ generated from a well-formulated 
 ER model $\gmodel$ satisfies a strong form of 3NF as follows:
 
 \begin{definition} % TNF
@@ -817,7 +817,7 @@ or else $y$ is identifying.
 \end{definition}
 
 We shall also show that with a single additional condition on $\gmodel$, which it may or not be possible to achieve in a given modelling situation,
-the generated model $\genericphysical$ satisfies the BCNF condition.
+the generated model $\chigmodel$ satisfies the BCNF condition.
 Written in the terminology we are using here BCNF can be defined as follows:
 \begin{definition} % BCNF
 A relational ER model is in Boyce Codd Normal Form (BCNF) \commentary{See Zaniolo definition 2.} iff
@@ -846,12 +846,31 @@ in all instances $E$, $E_{<x_1,...x_n>}$ is injective and total or $y$ is a prim
 \end{lemma}
 \subsection{Other Conditions for Relational ER models}
 \begin{definition} 
-A relational ER model is \term{reduced} iff for all attributes $x:a \morph \veee$
+An ER model is \term{reduced} iff for all attributes $x:a \morph \veee$
 such that there is a relationship-like path $r:a \morph b$ and a path $p:b \morph \veee$ such that
-$x \simeq r \circ p$ it follows that 
+$x \simeq r \circ p$, as here,
+\setlength{\arraycolsep}{.2cm}
+\begin{center}
+$
+\begin{array}{cp{0.5cm}c p{0.5cm} c}
+\Rnode{a}{a} &  &              & & \Rnode{v}{\veee}  \\ [1cm]
+             &  & \Rnode{b}{b} & &               
+\end{array}
+$
+\ncarr{a}{v} 
+\alabel{x}
+\simplepatha{$r$}{a}{b}
+%\ncarr{a}{b} 
+%\blabel{r}
+\simplepatha{$p$}{b}{v}
+%\ncarr{b}{v} 
+%\blabel{p}
+\end{center}
+
+then it follows that 
 either 
 \begin{enumerate} [(i)]
-\item there exists an identifying attribute $q:b \morph \veee$ such that $p \simeq q$, or
+\item there exists a primary key path \commentary{was an identifying attribute} $q:b \morph \veee$ such that $p \simeq q$, or
 \item the path $r$ is a mono-source, or
 \item the attribute $x$ is identifying.
 \end{enumerate}
@@ -861,12 +880,12 @@ In a relational ER model $\gmodel$ if there are no identifying attributes $x$ su
 
 Thus we get:
 \begin{definition} 
-A relational ER model $\gmodel$ is \term{reduced without caveat} iff for all attributes $x:a \morph \veee$
+An ER model $\gmodel$ is \term{reduced without caveat} iff for all attributes $x:a \morph \veee$
 such that there is a relationship-like path $r:a \morph b$ and a path $p:b \morph \veee$ such that
 $x \simeq r \circ p$ it follows that 
 either 
 \begin{enumerate} [(i)]
-\item there exists an identifying attribute $q:b \morph \veee$ such that $p \simeq q$, or
+\item there exists a primary key path \commentary{an identifying attribute} $q:b \morph \veee$ such that $p \simeq q$, or
 \item the path $r$ is a mono-source.
 \end{enumerate}
 \end{definition}
@@ -874,6 +893,7 @@ either
 \subsection{Main Theorem}
 \noindent Now for the main theorem:
 \begin{theorem}
+\label{maintheorem}
 \noindent If a relational ER model $\gmodel$ is well-formulated and restriction-free, has the \fdfactoring\ property and is reduced then it is in Strong Third Normal Form. 
 If  $\gmodel$ is reduced without caveats then is in Boyce-Codd Normal form.
 \end{theorem}
@@ -904,12 +924,12 @@ With the weaker assumption that the model $\gmodel$ is reduced, there is the add
 It is unusual in practice for reduced relational models not to meet the stronger condition that we get if we drop condition (iii) 
 from the definition of a model being reduced. We shall say such models are \term{simple} and so these are defined as follows:
 \begin{definition} 
-A relational ER model is \term{simple} iff for all attributes $x:a \morph \veee$
+An \commentary{was relational} ER model is \term{simple} iff for all attributes $x:a \morph \veee$
 such that there is a relationship-like path $r:a \morph b$ and a path $p:b \morph \veee$ such that
 $x \simeq r \circ p$ it follows that 
 either 
 \begin{enumerate} [(i)]
-\item there exists an identifying attribute $q:b \morph \veee$ such that $p \simeq q$, or
+\item there exists a primary key path \commentary{an identifying attribute} $q:b \morph \veee$ such that $p \simeq q$, or
 \item the attribute $x$ is identifying.
 \end{enumerate}
 \end{definition}
@@ -917,18 +937,18 @@ either
 In the next sections we define a transformation that from an \commentary{what adjectives ought I to insert here?}ER model generates a simple relational ER model.
 
 \section{Chi Transform - a Revised Chen Transformation}
-In this section we define a relational  entity model $\genericphysical$ corresponding 
-to certain ER models $\gmodel$. The $\chi$ transformation that we so describe is a refinement
-of a transformation, which we denote $\firstcut$, first described by Chen and subsequently prescribed in a range of software design methodologies and accordingly implemented in associated CASE tools. The transformation $\firstcut$ is sometimes said to produce a first-cut relational design because generally the model produced requires normalisation
+In this section we define a relational  entity model $\chigmodel$ that corresponds
+to suitable ER models $\gmodel$. The $\chit$ transformation that we so describe is a refinement
+of a transformation which we denote $\firstcut$ that was first described by Chen and subsequently prescribed in a range of software design methodologies and accordingly implemented in associated CASE tools. The transformation $\firstcut$ is sometimes said to produce a first-cut relational design because generally the model produced requires normalisation
 to achieve an appropriate database normal form such as 3NF or BCNF. 
-In contrast we shall show that the transformation $\chi$ defined here produces relational models $\chi(\gmodel)$ that are in 3NF and, if appropriate, BCNF and are free of attribute redundancy.
+In contrast we shall show that the transformation $\chit$ defined here produces relational models $\chigmodel$ that are in 3NF and, if appropriate, BCNF and are free of attribute redundancy.
 
-From an ER model $\gmodel$ a first-cut relational design is achieved by extending each
+From an ER model $\gmodel$ a first-cut relational design $\firstcut(\gmodel)$ is achieved by extending each
 entity type $a$, by attributes,  one for each path in $\gmodel$ of the 
 form $\tuple{r_0,r_1,...r_n}$ where each of $r_1,...r_n$ are identifying. 
 
 The transformation $\firstcut$ can be improved to by taking note of equivalent attribute-like paths and
-either dropping duplicates or equivalently thinking of the added attributes as corresponding to equivalence classes of 
+either dropping duplicates or, equally, thinking of the added attributes as corresponding to equivalence classes of 
 equivalent attribute-like paths wrt the equivalence relation $\simeq$ defined earlier (section \ref{xxx}). This improved transformation we can denote as $\firstcutimproved$.
 
 This consideration leads  to this definition:
@@ -944,57 +964,305 @@ If $\gmodel$ is an ER model then the model $\firstcutimproved(\gmodel)$ is defin
 by extending the set of attributes of each entity type $a$ by the set 
 $\set{\qq{r_0/r_1/...r_n}  | \ r_0/r_1/...r_n: a \morph \veee \mbox{ is an attribute-like path}}$ and for which the defining instances are the defining  instances $E$ of $\gmodel$ extended to the schema of $\firstcutimproved(\gmodel)$ by defining for each attribute $\qq{r_0/r_1/...r_n}$, $E_{\qq{r_0/r_1/...r_n}} = E_{r_0} \circ E_{r_1}... \circ E_{r_n}$.
 
-We define the model $\chi(\gmodel)$ to be a further improvement to the first-cut transformation obtained by excluding 
-from  the transformed model $\firstcutimproved(\gmodel)$ those attributes $\qq{r \circ q}$ for which there exists a unique non attribute-like path $s$ such that  either $r \circ q \simeq s$ or $r \circ q < s$. 
+We define the model $\chigmodel$ to be a further improvement to the first-cut transformation obtained by excluding  from  the transformed model $\firstcutimproved(\gmodel)$ those attributes $\qq{r \circ q}$ for which there exists a unique  path $s$ such that  either  $r \circ q < s$ or $s$ is non attribute-like and $r \circ q \simeq s$. 
 
 \begin{definition}
-If for some relationship $r$ and primary key path $q$ of $\gmodel$ there exists a non attribute-like path $s_1/...s_n$ such that
-either $r \circ q \simeq s_1/...s_n$ or $r \circ q < s_1/...s_n$ then say that relationship $r$ \term{directly depends} on relationship $s_i$,
+If for some relationship $r$ and primary key path $q$ of $\gmodel$ there exists a  path $s_1/...s_n$ such that either   $r \circ q < s_1/...s_n$ or $s_1/...s_n$ is non attribute-like and $r \circ q \simeq s_1/...s_n$ or $r \circ q < s_1/...s_n$ then say that relationship $r$ \term{directly depends} on relationship $s_i$,
 for each $i$. Define one relationship to depend on another if it depends on it it directly or indirectly i.e. define dependency between relationships to be the transitive closure of direct dependency.
 \end{definition}
 
-For $\chi(\gmodel)$ to be a relational model, the implied dependency between relationships of $\gmodel$ will need be non-circular
+For $\chigmodel$ to be a relational model, the implied dependency between relationships of $\gmodel$ will need be non-circular
 and in addition one further property is required:
 
 \begin{definition}
-An ER model $\gmodel$ is said to have property X iff for all relationships $r: a \morph b$ in $\gmodel$ there exists at least
+An ER model $\gmodel$ is said to have \term{property X} iff for all relationships $r: a \morph b$ in $\gmodel$ there exists at least
 one primary key path $q:a \morph \veee$ such that there does not exist a non attribute-like path $s:a \morph \veee$ such that
 $r \circ q < s$.
 \end{definition}
 
-If all these conditions are met then we say that $\gmodel$ is $\chi$-suitable and in these instances we can show that 
-the model $\chi(\gmodel)$ is a simple relational model. 
+If these conditions are met (attribute-like paths have at most one equivalent non attribute-like path, implied dependencies are non-circular and property X holds) then we say that $\gmodel$ is $\chit$-suitable and in these instances we can show that 
+the model $\chigmodel$ is a simple relational model. 
 
-We shall show that with these definitions if $\gmodel$ is well-formulated, simple, $\chi$-suitable and has the fd factoring property
-and property X then the transformed model $\genericphysical$ is a well-formulated, simple, restriction-free relational ER model with the fd factoring property which is therefore in S3NF.  Further we will show that if $\gmodel$ is without caveats then $\genericphysical$ is also without caveats and is therefore in BCNF. 
+We shall show that with these definitions if $\gmodel$ is well-formulated, simple, $\chit$-suitable and has the fd factoring property
+then the transformed model $\chigmodel$ is a well-formulated, simple, restriction-free relational ER model with the fd factoring property which is therefore in S3NF.  Further we will show that if $\gmodel$ is without caveats then $\chigmodel$ is also without caveats and is therefore in BCNF. 
 
 \begin{lemma}
-If $\gmodel$ has property X and is tangle-free then $\genericphysical$ is relational.
-\end{lemma}
- 
-\begin{lemma}
-\label{fdcarrythroughlemma}
-Functional depedencies in $\gmodel$ carries through to functional depdencies in $\genericphysical$ \commentary{Expand}
+If $\gmodel$ is $\chit$-suitable then $\chigmodel$ is a relational model.
 \end{lemma}
 \begin{proof}
-
+The relationships $r: a \morph b$ of $\chigmodel$ are exactly those of $\gmodel$. If such a relationship does not directly depend on any path $s$ of $\gmodel$ then define its rank to be $1$.
+If instead a relationship $r$ directly depends one or more paths of $\gmodel$ then define its rank to be 1 greater than the maximum rank of the relationships it depends on. 
+This defintion is sound because dependency is non-circular.
+The relationship $r$ represents the inclusion dependency $\incd{a}{r \circ q_1,...r \circ q_n}{b}{q_1,...q_n}$ in $\gmodel$ therefore it represents
+the inclusion dependency $\incd{a}{p_1,...p_n}{b}{q_1,...q_n}$ where 
+$$
+p_i =
+\begin{cases} 
+    s_i         & \mbox{if $s_i$ is a path which either dominates path $r \circ q_i$ in $\gmodel$} \\
+    s_i         & \mbox{if $s_i$ is an attribute-like path and is equivalent to  $r \circ q_i$ in $\gmodel$ }  \\
+    r \circ q_i & \mbox{if there is no such $s_i$.}
+\end{cases} 
+$$
+It follows then that in $\chigmodel$ the relationship $r$ is represented by inclusion dependency $\incd{a}{p'_1,...p'_n}{b}{q_1,...q_n}$ where
+$$
+p'_i =
+\begin{cases}
+   s_i     & \mbox{if $s_i$ is a path which either dominates path $r \circ q_i$ in $\gmodel$} \\
+   s_i     & \mbox{if $s_i$ is an attribute-like path and is equivalent to  $r \circ q_i$ in $\gmodel$ }  \\
+   \qq{r \circ q_i}  & \mbox{if there is no such $s_i$.}
+\end{cases} 
+$$
+Therefore each relationship $r: a \morph b$ $\chigmodel$ is represented by an referential inclusion dependency $\incd{a}{p'_1,...p'_n}{b}{q_1,...q_n}$
+where the paths $p'_i$ are of lower rank than $r$. This completes the proof that $\chigmodel$ is relational.
 \end{proof}
 
+
+From the definition of $\chit$, it follows that for any $\chit$-suitable ER model $\gmodel$ there is an injection from the schema of $\gmodel$ to the schema of $\chigmodel$; for each path $p$ in $\gmodel$, therefore, there corresponds a path 
+in $\chigmodel$; denote this path by  $I_\gmodel(p)$. Also from the definition, it follows that
+if $p:b \morph \veee$ is a path in $\chigmodel$ then there exists a path $\retract(p):b \morph \veee$ in $\gmodel$ such that $I_\gmodel(p') \simeq p$ in $\chigmodel$. Finally note that if $\retract(p)$ is a primary key path in $\gmodel$ then there is an attribute $k$ which is a primary key path
+in $\chigmodel$ such that $I_\gmodel(p) \simeq k$. 
+
+From this follows the following observation:
+
+\begin{observation}
+\label{pathinjectionobservation}
+For any $\chit$-suitable ER model $\gmodel$ if $p:b \morph \veee$ is a path in $\chigmodel$ and  path $\retract(p):b \morph \veee$ is a primary key path in $\gmodel$  such that $I_\gmodel(\retract(p)) \simeq p$ then there is an primary key attribute $k$ in $\chigmodel$ such that $I_\gmodel(p) \simeq k$. 
+\end{observation}
+
 \begin{lemma}
-\label{fdfactoringcarrythroughlemma}
-If  $\gmodel$ has the $\fdfactoring$ property then so to does $\genericphysical$. 
+\label{relationshiplikecarrythroughlemma}
+If $\gmodel$ is $\chit$-suitable  and $r:a \morph b$ is a path in $\gmodel$ then $r$ is relationship-like in $\gmodel$ iff $r$ is relationship-like in $\chigmodel$ .\commentary{Check this}
 \end{lemma}
 \begin{proof}
 TBD
+\vspace{0.5cm}
+tbd
+\end{proof}
+
+
+\begin{lemma}
+\label{simplecarrythroughlemma}
+If $\gmodel$ is $\chit$-suitable and simple then $\chigmodel$ is simple.
+\end{lemma}
+\begin{proof}
+Suppose that in the model $\chigmodel$ there is an attribute $x:a \morph \veee$, a relationship-like path $r:a \morph b$ and a path $p:b \morph \veee$ such that$x \simeq r \circ p$ we need show that either 
+\begin{enumerate} [(i)]
+\item there exists an identifying attribute $q:b \morph \veee$ in $\chigmodel$ such that $p \simeq q$, or
+\item the attribute $x$ is identifying in $\chigmodel$.
+\end{enumerate}
+Assume such $x$, $r$ and $p$ in $\chigmodel$. Then we have 
+
+
+\begin{center}
+\begin{tabular}{c c c c c}
+$
+\begin{array}{cp{0.5cm}c p{0.5cm} c}
+\Rnode{a}{a} &  &              & & \Rnode{v}{\veee}  \\ [1cm]
+             &  & \Rnode{b}{b} & &               
+\end{array}
+$
+\simplepatha{$\retract(x)$}{a}{v}
+\simplepatha{$r$}{a}{b}
+\simplepatha{$\retract(p)$}{b}{v} in $\gmodel$
+&&
+$ \overset{I}{\mapsto}$
+&&
+$
+\begin{array}{cp{0.5cm}c p{0.5cm} c}
+\Rnode{a}{a} &  &              & & \Rnode{v}{\veee}  \\ [1cm]
+             &  & \Rnode{b}{b} & &               
+\end{array}
+$
+\ncarr{a}{v} 
+\alabel{x}
+\simplepatha{$r$}{a}{b}
+\simplepatha{$p$}{b}{v} in $\chigmodel$
+\end{tabular}
+\end{center}
+
+
+Either $x$ is an existing attribute of $\gmodel$ or it is an attribute $\qq{r' \circ q}$ for some relationship $r'$ and primary key path $q$ of $\gmodel$. \\
+
+In the first case it follows that there is a relationship-like path $r$ in $\gmodel$ 
+(lemma \ref{relationshiplikecarrythroughlemma}) and a path $\retract(p)$ in $\gmodel$ \commentary{check this} such
+that $x \simeq r \circ \retract(p)$ in $\gmodel$ \commentary{Because I is an injection   ... or is it?}. \\
+
+From this because $\gmodel$ is simple it follows that either  $\retract(p)$ is a primary key path in $\gmodel$ and by observation \ref{pathinjectionobservation} that $p$ is a primary key path in $\chigmodel$ \\
+
+\noindent or that $x$ is identifying in $\gmodel$ and therefore that $x$ is identifying\commentary{problem here maybe} in $\chigmodel$, as required.\\
+
+Otherwise, if $x$ is an attribute $\qq{\retract(r) \circ q}$ for some relationship $r$ and primary key path $q$ of $\gmodel$. If $\retract(p)$ is equivalent to a primary key path in $\gmodel$
+then we are done for then by observation \ref{pathinjectionobservation} it is equivalent to a primary key path in $\chigmodel$. \\
+
+
+\noindent If $\retract(p)$ is not equivalent to a primary key path in $\gmodel$ then $\retract(r) \circ \retract(p)$ 
+is not attribute-like \commentary{check this} and therefore, contradicting our earlier assumption,  $\qq{\retract(r) \circ q}$ is not an attribute of $\chigmodel$
+as $\retract(r) \circ q$ is equivalent to a non attribute-like path.
+\end{proof}
+
+\begin{lemma}
+\label{wocaveatcarrythroughlemma}
+If $\gmodel$ is $\chit$-suitable and simple without caveats then $\chigmodel$ is simple without caveats.
+\end{lemma}
+\begin{proof}
+TBD
+\vspace{0.5cm}
+tbd
+\end{proof}
+
+
+\begin{lemma}
+\label{inclusiondependencyrestrictionlemma}
+If $\incd{a}{x_1,...x_n}{b}{q_1,...q_n}$ is a referential inclusion dependencyin an ER model $\gmodel$ 
+represented by a path $p:a \morph b$ then for each $i$, $1 \leq j \leq n$, $p \circ q_j \leq x_j$
+and in each defining instance $E$,
+$$E_p \circ E_{q_j} = \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq i \leq n}{ i \neq j}}{\overline{E_{x_i}}}\circ E_{x_j}$$
+\end{lemma}
+\begin{proof}
+For each defining instance $E$
+\begin{align*}
+E_p \circ E_{q_j} &=  E_{\xntuple} \circ E ^{-1}_{\qntuple} \circ E_{q_j}  && \mbox{since $p$ represents $\incd{a}{x_1,...x_n}{b}{q_1,...q_n}$} \\
+                  &= E_{\xntuple} \circ p_i                              && \mbox{not obvious -- need justify this} \\                                                                 \\
+									&= \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq i \leq n}{ i \neq j}}{\overline{E_{x_i}}}\circ E_{x_j} && \mbox{by lemma \ref{tupleprojection}.}
+\end{align*}
+\end{proof}
+
+\begin{lemma}
+\label{logicalisrestrictionfreelemma}
+If $\gmodel$ is an ER model which is well-formulated and has no referential attributes\commentary{without logical redundancy?} 
+then it is leaf-restriction free.
+\end{lemma}
+\begin{proof}
+Suppose $\gmodel$ has a leaf-restriction. So there exists an
+entity type $a$ and an attribute $y$ with domain $a$ and there 
+exists paths $x_1,...x_n$   with domain
+$a$ in $\gmodel$,  and for some $j$, $1 \leq j \leq n$, in every defining instance $E$,  
+$$E_y = \bigwedge_{1 \leq i \leq n}{\overline{x_i}} \circ x_j$$then $y \simeq x_j$. In particular
+$\set{x_1,...x_n} \morph y$ is a leaf intransitive functional dependency\commentary{Fill this out a bit since might be flab}. 
+
+Since $\gmodel$ is well formed  and there is a leaf intransitive functional dependency $\set{x_1,...x_n} \morph y$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$  in which case $y \simeq x_j$  and we are done \commentary{why?} or else the functional dependency $\set{x_1,...x_n} \morph y$   is in part represented by  an entity type $d$ and a primary mono-source $\qntuple$ with respect to$d$, such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$ but this cannot be the case because if it were then by lemma \ref{inclusiondependencyrestrictionlemma}
+$$E_p \circ E_{q_j} = \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq i \leq n}{ i \neq j}}{\overline{E_{x_i}}}\circ E_{x_j}$$
+and we woud have that
+$$E_p \circ E_{q_j} = E_y$$
+in all defining instances so that
+$$p \circ q_j \simeq y$$
+contradicting that $\gmodel$ is free of unnecessary edges. 
+\end{proof}
+
+\begin{lemma}
+\label{restrictioncarrythroughlemma}
+If $\gmodel$ is $\chit$-suitable ER model which is well-formulated and has no referential attributes 
+then $\chigmodel$ is leaf-restriction free.
+\end{lemma}
+\begin{proof}
+Uses lemma  \ref{logicalisrestrictionfreelemma}.
+TBD
+\vspace{0.5cm}
+tbd
+\end{proof}
+
+
+\begin{lemma}
+\label{fdcarrythroughsublemma}
+If $\gmodel$ is a $\chit$-suitable ER model and if $\xn$ and $y$ are paths in $\chigmodel$
+such that there is a functional dependency
+\begin{equation}
+\label{targetfd}
+\fd{\xn}{y}
+\end{equation}
+ in $\chigmodel$ 
+then  there is a functional dependency
+\begin{equation}
+\label{sourcefd}
+\fd{\retract(x_1),...\retract(x_n)}{\retract(y)}
+\end{equation}
+in $\gmodel$. Further,  (\ref{targetfd}) is  leaf  iff (\ref{sourcefd}) is a leaf  and (\ref{targetfd}) is  intransitive iff (\ref{sourcefd}) is a intransitive.
+
+If a path $p$ represents (\ref{sourcefd}) in $\gmodel$ then $\inject(p)$ represents (\ref{targetfd})
+in $\chigmodel$.
+\end{lemma}
+\begin{proof}
+TBD
+
+\vspace{0.5cm}
+TBD
+\end{proof}
+
+\begin{lemma}
+\label{incdcarrythroughsublemma}
+If $\gmodel$ is a $\chit$-suitable ER model and if $\xn$ and $\qn$ are paths in $\chigmodel$
+such that there is an inclusion dependency
+\begin{equation}
+\label{targetincd}
+\incd{a}{\xn}{b}{\qn}
+\end{equation}
+ in $\chigmodel$ 
+then  there is a inclusion dependency
+\begin{equation}
+\label{sourceincd}
+\incd{a}{\retract(x_1),...\retract(x_n)}{b}{\retract(q_1),...\retract(q_n)}
+\end{equation}
+in $\gmodel$. 
+
+Further,  (\ref{targetfd}) is  ???  iff (\ref{sourcefd}) is a ???  and (\ref{targetfd}) is  ??? iff (\ref{sourcefd}) is a ???.
+
+If a path $p$ represents (\ref{sourceincd}) in $\gmodel$ then $\inject(p)$ represents (\ref{targetincd})
+in $\chigmodel$.
+\end{lemma}
+\begin{proof}
+TBD
+
+\vspace{0.5cm}
+TBD
+\end{proof}
+
+
+\begin{lemma}
+\label{wfcarrythroughlemma}
+If  $\gmodel$ is $\chit$-suitable and is well-formulated then  $\chigmodel$ is well-formulated. 
+\end{lemma}
+\begin{proof}
+Use lemma \ref{fdcarrythroughsublemma}.
+\vspace{0.5cm}
+tbd
+\end{proof}
+
+
+\begin{lemma}
+\label{fdfactoringcarrythroughlemma}
+If  $\gmodel$ is $\chit$-suitable and has the $\fdfactoring$ property then so to does $\chigmodel$. 
+\end{lemma}
+\begin{proof}
+Use lemma \ref{fdcarrythroughsublemma}.
+\vspace{0.5cm}
+tbd
 \end{proof}
 
 \begin{lemma}
 \label{injectivecarrythroughlemma}
-If $E_{\tuple{x_1,...x_n }}$ is
-injective and total in every defining instance $E$ of $\gmodel$ then $\logtophys(E)_{\tuple{\phys{x}_1,...\phys{x}_n }}$ is
-injective and total in every defining instance $\logtophys(E)$ of $\genericphysical$.
+If $E_{\tuple{x_1,...x_n }}$ is\commentary{Not required is it?}
+injective and total in every defining instance $E$ of $\gmodel$ then $\chit(E)_{\tuple{\inject{x}_1,...\inject{x}_n }}$ is
+injective and total in every defining instance $\chit(E)$ of $\chigmodel$.
 \end{lemma}
+
+
+\begin{theorem}
+\label{chitheorem}
+If $\gmodel$ is well-formulated, simple, $\chit$-suitable and has the fd factoring property
+then the transformed model $\chigmodel$ is a well-formulated, simple, restriction-free relational ER model with the fd factoring property.   
+If $\gmodel$ is without caveats then $\chigmodel$ is also without caveat.
+\end{theorem}
 \begin{proof}
-TBD
+Follows from lemmas \ref{simplecarrythroughlemma}, \ref{wocaveatcarrythroughlemma}, \ref{wfcarrythroughlemma} and
+\ref{fdfactoringcarrythroughlemma}.
 \end{proof}
 
+\begin{corollary}
+\label{goalcorollary}
+If $\gmodel$ is well-formulated, simple, $\chit$-suitable and has the fd factoring property
+then the transformed model $\chigmodel$ is a  relational ER model in third normal form.  
+If $\gmodel$ is simple without caveats then $\chigmodel$ is in BCNF.
+\end{corollary}
+\begin{proof}
+Follows directly from theorems \ref{maintheorem} and \ref{chitheorem}.
+\end{proof}
