@@ -3,19 +3,23 @@
 We  define a notion of entity-relationship (ER) model which in the tradition of Chen\cite{Chen1976} is sufficiently generic to encompass relational, hierarchical and purely logical  notions of data.
 The system that we describe involves definition of types of particulars in terms of their relationships with other types, of which there are two kinds, those, such as represent numbers, character strings, booleans and so on, all of whose instances, we say, are universals and the remaining types, the definienda, those types all of whose instances are particulars. Binary many-one relationships which are functional in character are presented as the edges of a directed graph whose nodes comprise both the types of particulars and the types of universals. 
 
-If $u$ is a type all of whose instances are universals then we will refer to each binary many-one functional relationship $f: x \morph u$ as an \term{attribute} of $x$. In relational data modelling such functional relationships are presented as columns of tables. Similarly types all of whose instances are universals  are said to be \textit{attribute types} in entity relational modelling  (though called \textit{attributes} in Johnstone et al.); in the initial work by Chen such types were called \textit{value sets}; they are said to be \textit{domains} in relational data modelling theory. Types of particulars are said to be types of entities or \textit{entity types} in modern entity relational modelling\footnote{In  his paper  introducing the entity-relationship model Chen explains that his model adopts the view that the real world consists of entities and relationships. He also introduces the  terms \textit{entity set} and \textit{relationship set} for the types of respective entity and relationship particulars. Later authors kept the terms entity and relationship, and the Chen philosophy, but changed the way that the terms were used. In this paper we use the later, post-Chen, terminology.} or sometimes, confusingly, just \textit{entities}  and are modelled as \textit{relational tables} in relational data modelling. For the purposes of the theory presented in this paper there is no loss if we assume a single set $\Veee$ of universals.  We will represent data specifications as directed graphs with some additional information; the nodes of the graph being types, and having a distinguished node $\veee$ representing the type of universals; from a mathematical point of view it is impossible to progress the theory too far without forming an opinion that a data specification is a presentation of a category with some additional structure (as in Johnstone et al.) or, meta-mathematically, that it is an axiomatisation of a theory of some kind. This is so but it must be emphasised that the presentation (i.e. the sketch) is vitally important to the goodness of the data specification for it is the primitives in the presentation that determine the units of storage or communication; removing redundancy from the presentation (or sketch) reduces redundancy in the data and this is one half of relational data theory's  normal form notion of goodness of a data schema (the other half being that the theory be optimally tightened to best fit the facts).
+If $u$ is a type all of whose instances are universals then we will refer to each binary many-one functional relationship $f: x \morph u$ as an \term{attribute} of $x$. In relational data modelling such functional relationships are presented as columns of tables. Similarly types all of whose instances are universals  are said to be \textit{attribute types} in entity relational modelling  (though called \textit{attributes} in Johnstone et al.); in the initial work by Chen such types were called \textit{value sets}; they are said to be \textit{domains} in relational data modelling theory. Types of particulars are said to be types of entities or \textit{entity types} in modern entity relationship modelling\footnote{In  his paper  introducing the entity-relationship model Chen explains that his model adopts the view that the real world consists of entities and relationships. He also introduces the  terms \textit{entity set} and \textit{relationship set} for the types of respective entity and relationship particulars. Later authors kept the terms entity and relationship, and the Chen philosophy, but changed the way that the terms were used. In this paper we use the later, post-Chen, terminology.} or sometimes, confusingly, just \textit{entities}  and are modelled as \textit{relational tables} in relational data modelling. For the purposes of the theory presented in this paper there is no loss if we assume a single set $\Veee$ of universals.  We will represent data specifications as directed graphs with some additional information; the nodes of the graph being types, and having a distinguished node $\veee$ representing the type of universals; from a mathematical point of view it is impossible to progress the theory too far without forming an opinion that a data specification is a presentation of a category with some additional structure (as in Johnstone et al.) or, meta-mathematically, that it is an axiomatisation of a theory of some kind. This is so but it must be emphasised that the presentation (i.e. the sketch) is vitally important to the goodness of the data specification for it is the primitives in the presentation that determine the units of storage or communication; removing redundancy from the presentation (or sketch) reduces redundancy in the data and this is one half of relational data theory's  normal form notion of goodness of a data schema (the other half being that the theory be optimally tightened to best fit the facts).
 
-Entity relationship modelling, and, for that matter, relational modelling too, are predicated on the assumption that the particulars described by data correspond uniquely to real world entities and that the data alone is sufficient to establish a 1-1 correspondence. There is an implicit assumption that the logical principle of identity of indiscernibles holds of the real world entities and, more specifically, that each type of real world entity has identifying relationships and attributes that distinguish it from  others of the type. In relational data modelling this set of identifying features is represented as a set of columns of the table and is called the primary key. In entity relationship modelling in the style of Barker an identifying feature may be either a relationship or an attribute.   
+Entity relationship modelling, and, for that matter, relational modelling too, are predicated on the assumption that the particulars described by data correspond uniquely to real world entities and that the data alone is sufficient to establish a 1-1 correspondence. There is thus an implicit assumption that the logical principle of identity of indiscernibles holds of the real world entities and, more specifically, that each type of real world entity has identifying relationships and attributes that distinguish it from  others of the type. In relational data modelling this set of identifying features is represented as a set of columns of the table and is called the primary key. In entity relationship modelling in the style of Barker an identifying feature may be either a relationship or an attribute.   
 
-Regarding directed graphs we will use terminology as follows. If $f: a \morph b$ in an edge of a directed graph $G$ then we will say that $a$ is the \term{domain} of $f$ and $b$ is the \term{codomain} of $f$.
-
+Regarding directed graphs and reflecting a category theory mindset we will use terminology as follows:
+\begin{itemize}
+\item
+ If $f: a \morph b$ in an edge of a directed graph $G$ then we will say that $a$ is the \term{domain} of $f$ and $b$ is the \term{codomain} of $f$.
+\item
 If $a$ and $b$ are nodes of a directed graph $G$ then a \term{path} through $G$ with domain $a$ and 
-codomain $b$ of length $n$, where $n \geq 0$, we define to be  an n-tuple of  $n$ edges: $p_i: x_i \morph x_{i+1} $ in $G$ where $x_0=a$ and $x_n=b$. We shall write this n-tuple as $p_1/p_2.../p_n$; if 
-$p$ is a path with domain $a$ and codomain $b$ and if $f$ is an edge with domain $b$ and codomain
-$c$ the path which is $p$ followed by $f$ aand has domain $a$ and codomain $c$ we will write as $p/f$.
+codomain $b$ of length $n$, where $n \geq 0$, we define to be  an n-tuple of  $n$ edges: $p_i: x_i \morph x_{i+1} $ in $G$ where $x_0=a$ and $x_n=b$. We shall write this n-tuple as $p_1 \circ p_2... \circ p_n$. 
+We will use the same notation if any of the $p_i$ are edges rather than paths as we will not need distinguish  an edge from a singleton path along that edge. 
+\item
 If $a$ is a node of a directed graph $G$ then by a \term{source} at $a$ in $G$ we mean a non-empty set of paths in $G$ each with domain $a$.
+\end{itemize}
 
-Finally, if $A$ is a set and if $J= \setsuchthat{f_i}{ 1\leq i \leq n}$ is a finite set of partial functions, $f_i: A \rightarrow B_i$   for some sets $B_{i, 1 \leq i \leq n}$,  then the set of functions 
+If $A$ is a set and if $J= \setsuchthat{f_i}{ 1\leq i \leq n}$ is a finite set of partial functions, $f_i: A \rightarrow B_i$   for some sets $B_{i, 1 \leq i \leq n}$,  then the set of functions 
 $J$ is said to be \term{jointly injective} iff for all $x,y \in A$ it is the case that  if  for each 
 $f \in J$, $f(x)=f(y)$ then $x=y$. 
 This  is equivalent to saying that  the partial function $\tuple{f_1,...f_n}: s \rightarrow s_1 \times ... \times s_n $ be injective. Note that this also implies that the partial function $\tuple{f_1,...f_n}: s \rightarrow s_1 \times ... \times s_n $ is invertible in the sense that there is a unique partial function $\tuple{f_1,...f_n}^{-1} : s_1 \times ... \times s_n \rightarrow s$ satisfying
@@ -26,9 +30,10 @@ $y \notin img(\tuple{f_1,...f_n})$ then $\tuple{f_1,...f_n}^{-1}(y)$ is undefine
 \end{enumerate}
 
 If $f: a \morph b$ is a partial function then we shall define the partial function $\bar{f}: a \morph a$ to be the identity function on the set $a$
-restricted to the subset of all $x \in a$ such that $f(x)$ is defined. It follows that if $f: a \morph b$ and $g: a \morph c$ are partial functions
-then $\bar{f} \circ \bar{g} = \bar{g} \circ \bar{f}$ and we write this partial function as $\bar{f} \wedge \bar{g}$ since it represents the intersection
-of the domains of definition of $f$ and $g$. Likewise if $f_i:a \morph b_i$ are partial; functions for $1 \leq i \leq n$, for some $n$, then we write $\bigwedge\limits_{1 \leq i \leq n}{\bar{f_i}}$ for the intersection of the domains of definition of the $f_i$ i.e. for the composition
+restricted to the subset of all $x \in a$ such that $f(x)$ is defined\footnote{
+This notation is introduced an a more general catehory theory setting by Crockett and ???, [???]}. It follows that if $f: a \morph b$ and $g: a \morph c$ are partial functions
+then $\bar{f} \circ \bar{g} = \bar{g} \circ \bar{f}$ and we also write this partial function as $\bar{f} \wedge \bar{g}$ since it represents the intersection
+of the domains of definition of $f$ and $g$. Likewise if $f_i:a \morph b_i$ are partial functions for $1 \leq i \leq n$, for some $n$, then we write $\bigwedge\limits_{1 \leq i \leq n}{\bar{f_i}}$ for the intersection of the domains of definition of the $f_i$ i.e. for the composition
 $\bar{f_1}\circ \bar{f_2} .../ \circ \bar{f_n}$.
 
 We will have need of the following:
@@ -82,15 +87,17 @@ the set of functions $\setsuchthat{E_e}{e \in I_x}$, is jointly injective.
 $E_f$, for edges $f$,  so that to every path $p$, $p: a \rightarrow b$,  we have defined a function $E_p: E_a \rightarrow E_b$. From the initial definition of $E_f$ that applies to 
 edges the definition proceeds recursively as follows: 
 \begin{enumerate} [(i)]
-\item{  For each node $a$, $E_{\tuple{}}: E_a \rightarrow E_a$ is defined to be the identity function.
+\item{
+For each node $a$, $E_{\tuple{}}: E_a \rightarrow E_a$ is defined to be the identity function.
 }
-\item{   if $p$ is a path $p: a \rightarrow b$ and $f$ is an edge $p: b \rightarrow c$ then $E_{p/f}$  
-is defined to be the functional composition $E_p \circ E_f$. 
+\item{
+if $p$ is a path $p: a \rightarrow b$ and $f$ is an edge $p: b \rightarrow c$ then $E_{p \circ f}$  
+is defined to be the functional composition $E_p \circ E_f$. \commentary{Define using the n-ary case instead}
 }
 \end{enumerate}
 
-We can extend this notation further and define $E$ on n-tuples of paths so that if 
-$\tuple{p_1,...p_n}$ is an n-tuple of paths from entity type $a$ then in an instance E
+We can extend this notation further and define $E$ on sources so that if 
+$\tuple{p_1,...p_n}$ is a source at entity type $a$ then in an instance E
 the function  $E_{\tuple{p_1,...p_n}}$ is defined to be the function mapping each element $e$ 
 of $E_a$ to the n-tuple
 $\tuple{E_{p_1}(e),...E_{p_n}(e)}$.
@@ -99,8 +106,7 @@ $\tuple{E_{p_1}(e),...E_{p_n}(e)}$.
 \noindent An \term{ER model} $\gmodel$ is an ER schema $\gmodel_S$ and a set of database instances of the schema $\gmodel_D$ called the set of
 \term{defining instances} of the model. \\
 \end{definition}
-
-If $\gmodel$ is an ER-mdel then the nodes of $\gmodel_S$ other than $\veee$ we say are entity types and we denote by $\et$.The set $\attr{a}$ of attributes of an entity type $a$ is defined as the set of edges of $\gmodel_S$ that have 
+If $\gmodel$ is an ER-mdel then the nodes of $\gmodel_S$ other than $\veee$ we say are entity types and we denote by $\et$. The set $\attr{a}$ of attributes of an entity type $a$ is defined as the set of edges of $\gmodel_S$ that have 
 domain $a$  and  codomain $\veee$.
 
 \subsection{Path equivalence}
@@ -110,7 +116,7 @@ domain $a$  and  codomain $\veee$.
 
 \noindent If $r$ and $s$ are paths both having source $a$ and destination $b$ then we will say $r \simeq s$ iff $r \leq s$ and $s \leq r$. \\
 
-\noindent With these definitions,  the (meta-relationship) $\leq$ is a partial order on the classes of equivalent paths. \\
+\noindent With these definitions,  the (meta-relationship) $\leq$ is a partial order on the classes of equivalent paths of a model $\gmodel$. \\
 
 \noindent For paths $r$ and $s$ we define $r < s$ to be equivalent to $r \leq s$ and not $r \simeq s$. \\
 
@@ -153,8 +159,7 @@ f(x_1)&=G(F(x_1) & & \\
 
 The following definition generalises that of super key in the relational model:
 \begin{definition}
-A set of paths $P$  within a model $\gmodel$ is said to be a \term{mono-source} at entity type $a$
-iff each path $p \in P$ has domain $a$ and  in all defining instances E, 
+A source $P$  at an entity type $a$ within a model $\gmodel$ is said to be a \term{mono-source} at entity type $a$ iff each path $p \in P$ has domain $a$ and  in all defining instances E, 
 (i) the function $E_p$ is total, for each $p \in P$, and (ii) the set of functions
 $\setsuchthat{E_p}{p\in P}$ is jointly injective.
 \end{definition}
