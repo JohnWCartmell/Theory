@@ -72,6 +72,21 @@ for every node $a$ other than $\veee$ there is a non-empty set  of identifying e
  We denote by $I_a$ the non-empty set of identifying edges leaving an entity type $a$.}
 \end{enumerate}
 \end{definition}
+
+\begin{definition}
+\label{ERschemamapping}
+If $\gmodel$ and  $\gmodel'$ are ER schemas then an \term{ER schema mapping} 
+$\varphi : \gmodel \morph \gmodel'$ consists of a mapping $\varphi_N$ (abbreviated $\varphi$)from nodes of
+$\gmodel$ to nodes of $\gmodel'$ and a mapping $\varphi_N$ (also abbreviated $\varphi$) from 
+paths of $\gmodel$ to paths of $\gmodel'$ such that
+\begin{itemize}
+\item  if $p:a \morph b$ is a path in $\gmodel$ then $\varphi(p):\varphi(a) \morph \varphi(b)$ in $\gmodel'$,
+\item the empty path at any node $a$ in $\gmodel$ is mapped to the empty path
+on $\varphi(a)$ in $\gmodel'$,
+\item if $p: a \morph b$ and $p': b \morph c$ are paths in $\gmodel$
+then $\varphi(a \circ b) = \varphi(a) \circ \varphi(b)$ in $\gmodel'$.
+\end{itemize}
+\end{definition}
  
 \begin{definition}
 \noindent A \term{database instance}  of an ER schema $S$ is
@@ -106,8 +121,19 @@ $\tuple{E_{p_1}(e),...E_{p_n}(e)}$.
 \noindent An \term{ER model} $\gmodel$ is an ER schema $\gmodel_S$ and a set of database instances of the schema $\gmodel_D$ called the set of
 \term{defining instances} of the model. \\
 \end{definition}
+
 If $\gmodel$ is an ER-mdel then the nodes of $\gmodel_S$ other than $\veee$ we say are entity types and we denote by $\et$. The set $\attr{a}$ of attributes of an entity type $a$ is defined as the set of edges of $\gmodel_S$ that have 
 domain $a$  and  codomain $\veee$.
+
+\subsubsection{Primary Key Paths}
+\label{primarykeypath}
+\begin{definition}
+If $a$ is an entity type in an entity model $\gmodel$ then a \term{primary key path}
+of $a$ is any path $p:a \morph v$ consisting entirely of identifying edges. 
+\end{definition}
+
+Denote the set of all primary key paths leaving an entity type $a$ in a model $\gmodel$ by 
+$\pk{a}$.
 
 \subsection{Path equivalence}
 \label{equivalencedefinition}
@@ -119,6 +145,34 @@ domain $a$  and  codomain $\veee$.
 \noindent With these definitions,  the (meta-relationship) $\leq$ is a partial order on the classes of equivalent paths of a model $\gmodel$. \\
 
 \noindent For paths $r$ and $s$ we define $r < s$ to be equivalent to $r \leq s$ and not $r \simeq s$. \\
+
+\subsection{Equivalence of sets of paths}
+\begin{definition}
+If $\gmodel$ is a model and if $P$ and $P'$ are sets of paths in $\gmodel$ then say that
+$P \simeq P'$ in $\gmodel$ iff
+\begin{enumerate}
+\item for all $p \in P$ there exists $p' \in P'$ such that $p \simeq p'$ in $\gmodel$,
+\item for all $p' \in P'$ there exists $p \in P$ such that $p \simeq p'$ in $\gmodel$.
+\end{enumerate} 
+\end{definition}
+
+If $P$ is a set of paths of an ER model $\gmodel$ and $\varphi : \gmodel \morph \gmodel'$ is an ER model mapping then we denote by $\varphi(P)$ the set of paths
+$\setsuchthat{\varphi(p)}{p \in P}$.
+
+\begin{definition}
+\label{ERmodelmapping}
+If $\gmodel$ and  $\gmodel'$ are ER models then an \term{ER model mapping}
+$\varphi : \gmodel \morph \gmodel'$ consists of an ER schema mapping $\varphi$ from $\gmodel$ and  $\gmodel'$ that satisfies
+\begin{itemize}
+\item for every entity type $a$ in $\gmodel$, $\varphi(\pk{a}) \simeq \pk{\varphi(a)}$
+in $\gmodel'$,
+\item  for each defining instance $E'$  of $\gmodel'$ there is a defining instance $E$ of $\gmodel$ such that
+\begin{enumerate}
+\item for each entity type $a$ of $\gmodel$, $E_a = E'_{\phi(a)}$,
+\item for each edge $e:a \morph b$ of $\gmodel$, $E_e = E'_{\varphi(e)}$.
+\end{enumerate} 
+\end{itemize}
+\end{definition}
 
 \subsection{Jointly Injective Sets of Functions}
 \begin{lemma}
@@ -173,29 +227,27 @@ the empty path $\tuple{}$ considered as a path $\tuple{}_a$, leaving $a$, is a m
 A mono source $P$ is said to be a \term{leaf mono source} iff for path $p \in P$, $p$ has destination $\veee$.
 \end{definition}
 
-\subsubsection{Primary Key Paths}
-\label{primarykeypath}
-\begin{definition}
-If $a$ is an entity type in an entity model $\gmodel$ then a \term{primary key path}
-of $a$ is any path $p:a \morph v$ consisting entirely of identifying edges. 
-\end{definition}
-
-Denote the set of all primary key paths leaving an entity type $a$ in a model $\gmodel$ by 
-$\pk{a}$.
 
 \subsubsection{Equivalent Models}
 
-First we need to define equivalence for sets of paths then we can define what we mean by 
-one model being an extension of another.
+In section \ref{definitionofrelational} we characterise those ER models which correspond to relational schemas and elsewhere\footnote{TBD} those that correspond to hierarchical schemas. 
+We can paraphrase and say that an ER model is relational or hierarchical, in a certain way,  providing it has a sufficiency of referential attributes (foreign keys) for the implementation  of non-compositional relationships. It follows from the definitions that we give that an ER model which doesn't have sufficient 
+referential attributes can be extended to one that does by the addition of certain
+edges and that  the original and the extended model will be equivalent in the way described by the definition of equivalence that we can now give.  
+
 \begin{definition}
-If $\gmodel$ is a model and if $P$ and $P'$ are sets of paths in $\gmodel$ then say that
-$P \simeq P'$ in $\gmodel$ iff
-\begin{enumerate}
-\item for all $p \in P$ there exists $p' \in P'$ such that $p \simeq p'$ in $\gmodel$,
-\item for all $p' \in P'$ there exists $p \in P$ such that $p \simeq p'$ in $\gmodel$,
-\end{enumerate} 
+A ER model mapping $\varphi: \gmodel \morph \gmodel'$ is said to be an equivalence
+and the models $\gmodel$ and $\gmodel'$ are said to be equivalent iff there is a ER model mapping $\psi: \gmodel' \morph \gmodel$ such that
+\begin{enumerate}[(i)]
+\item for each entity type $a$ of $\gmodel$, $\psi(\varphi(a))=a$,
+\item for each entity type $a'$ of $\gmodel'$, $\varphi(\psi(a'))=a'$,
+\item for each path $p: a \morph b$ of $\gmodel$, $\psi(\varphi(p)) \simeq p$,
+\item for each path $p':a' \morph b'$ of $\gmodel'$, $\varphi(\psi(p')) \simeq p'$.
+\end{enumerate}
+
 \end{definition}
 
+\iffalse
 \begin{definition}
 If $\gmodel$ is a model then say that a model $\gmodel'$ is an extension of 
 $\gmodel$ iff 
@@ -217,6 +269,10 @@ $E'_e=E'_p$, equivalently, $E'_e=E_p$,
 Say that two models are \term{co-extensional}  iff there is a third model that they are both extensions of.
 \end{definition}
 We consider co-extensional models to be equivalent models. 
+\fi
+
+
+
 
 \subsubsection{Composing mono-sources}
 
@@ -248,7 +304,7 @@ $
 \end{center}
 .
 
-In the next lemma we show that if $j$ is a mono-source then the above composition of $i$ with $j$ though $f$ is a mono-source iff $i$ is a mono-source.
+In the next lemma we show that if $j$ is a mono-source then the above composition of $i$ with $j$ through $f$ is a mono-source iff $i$ is a mono-source.
 
 \begin{lemma}
 \label{identifyingsetdeduction}
@@ -755,7 +811,7 @@ $\qntuple$ is a primary mono-source at $b$ in $\gmodel$, there exists paths $p_i
 \end{definition}
 
 \section{Relational Models}
-
+\label{definitionofrelational}
 Generally a relational schema is defined to consist of a finite set of relations each consisting of a
 finite set of attributes along with a set of semantic constraints. The latter may include functional dependencies or keys and key attributes and inclusion dependencies.  We restrict our attention, for the time being, to those schemas in which for each relation there is a subset of its attributes that comprise a primary key and between these relations there are defined  a set of inclusion dependencies of the 
 form $\incd{R}{X}{S}{K}$ where $S$ is a relation and $K$ is the primary key of $S$.
