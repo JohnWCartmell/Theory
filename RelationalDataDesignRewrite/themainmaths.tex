@@ -125,7 +125,7 @@ $\tuple{E_{p_1}(e),...E_{p_n}(e)}$.
 If $\gmodel$ is an ER-mdel then the nodes of $\gmodel_S$ other than $\veee$ we say are entity types and we denote by $\et$. The set $\attr{a}$ of attributes of an entity type $a$ is defined as the set of edges of $\gmodel_S$ that have 
 domain $a$  and  codomain $\veee$.
 
-\subsubsection{Primary Key Paths}
+\subsection{Primary Key Paths}
 \label{primarykeypath}
 \begin{definition}
 If $a$ is an entity type in an entity model $\gmodel$ then a \term{primary key path}
@@ -174,6 +174,47 @@ in $\gmodel'$,
 \end{itemize}
 \end{definition}
 
+\subsection{Equivalent Models}
+
+\begin{definition}
+A ER model mapping $\varphi: \gmodel \morph \gmodel'$ is said to be an equivalence
+and the models $\gmodel$ and $\gmodel'$ are said to be equivalent iff there is a ER model mapping $\psi: \gmodel' \morph \gmodel$ such that
+\begin{enumerate}[(i)]
+\item for each entity type $a$ of $\gmodel$, $\psi(\varphi(a))=a$,
+\item for each entity type $a'$ of $\gmodel'$, $\varphi(\psi(a'))=a'$,
+\item for each path $p: a \morph b$ of $\gmodel$, $\psi(\varphi(p)) \simeq p$,
+\item for each path $p':a' \morph b'$ of $\gmodel'$, $\varphi(\psi(p')) \simeq p'$.
+\end{enumerate}
+\end{definition}
+
+In section \ref{definitionofrelational} we characterise those ER models which correspond to relational schemas and elsewhere\footnote{TBD} those that correspond to hierarchical schemas. 
+We can paraphrase and say that an ER model is relational or hierarchical, in a certain way,  providing it has a sufficiency of referential attributes (foreign keys) for the implementation  of non-compositional relationships. It follows from the definitions that we give that an ER model which doesn't have sufficient 
+referential attributes can be extended to one that does by repeated use of the construction indicated in the following definition.
+\begin{definition}
+If $\gmodel$ is an ER model and if $p:a \morph b$ is a path in $\gmodel$ then define the ER model $\gmodel + \qq{p}$ to be the model whose schema is the schema of $\gmodel$ extended by a single edge with domain $a$ and codomain $b$, denoted $\qq{p}$, and with defining instances corresponding to the defining instances of $\gmodel$ extended to the schema of $\gmodel + \qq{p}$ by defining for each such defining instance $E$, $E_{\qq{p}}=E_p$.
+\end{definition} 
+
+\begin{definition}
+A ER model mapping $\varphi: \gmodel \morph \gmodel'$ is said to be an equivalence
+and the models $\gmodel$ and $\gmodel'$ are said to be equivalent iff there is a ER model mapping $\psi: \gmodel' \morph \gmodel$ such that
+\begin{enumerate}[(i)]
+\item for each entity type $a$ of $\gmodel$, $\psi(\varphi(a))=a$,
+\item for each entity type $a'$ of $\gmodel'$, $\varphi(\psi(a'))=a'$,
+\item for each path $p: a \morph b$ of $\gmodel$, $\psi(\varphi(p)) \simeq p$,
+\item for each path $p':a' \morph b'$ of $\gmodel'$, $\varphi(\psi(p')) \simeq p'$.
+\end{enumerate}
+\end{definition}
+
+The following lemma is straightforward:
+\begin{lemma}
+If $\gmodel$ is an ER model and if $p:a \morph b$ is a path in $\gmodel$ then
+there is an inclusion  $\mathcal{I}$ of the schema of $\gmodel$ in $\gmodel + \qq{p}$. This inclusion is an ER model mapping and is an equivalence. 
+\end{lemma}
+\begin{proof}
+The inverse mapping $\mathcal{R}$ simply replaces any instances of the edge $\qq{p}$ by the path $p$. The result follows easily and uses the observation that in $\gmodel + \qq{p}$, $p \simeq e$.
+\end{proof}
+
+
 \subsection{Jointly Injective Sets of Functions}
 \begin{lemma}
 \label{jointlyinjectivecomposition}
@@ -204,8 +245,8 @@ for all $f \in I \backslash \set{F}$, $f(x_1)=f(x_2)$,
 (i) follows directly from the initial assumption. 
 (ii) follows because for such an $f$, 
 \begin{align*}
-f(x_1)&=G(F(x_1) & & \\
-      &=G(F(x_2) & & \mbox{from the initial assumption since }F \in I \\
+f(x_1)&=G(F(x_1)) & & \\
+      &=G(F(x_2)) & & \mbox{from the initial assumption since }F \in I \\
 			&=f(x_2). & &
 \end{align*}
 \end{proof}
@@ -227,49 +268,6 @@ the empty path $\tuple{}$ considered as a path $\tuple{}_a$, leaving $a$, is a m
 A mono source $P$ is said to be a \term{leaf mono source} iff for path $p \in P$, $p$ has destination $\veee$.
 \end{definition}
 
-
-\subsubsection{Equivalent Models}
-
-In section \ref{definitionofrelational} we characterise those ER models which correspond to relational schemas and elsewhere\footnote{TBD} those that correspond to hierarchical schemas. 
-We can paraphrase and say that an ER model is relational or hierarchical, in a certain way,  providing it has a sufficiency of referential attributes (foreign keys) for the implementation  of non-compositional relationships. It follows from the definitions that we give that an ER model which doesn't have sufficient 
-referential attributes can be extended to one that does by the addition of certain
-edges and that  the original and the extended model will be equivalent in the way described by the definition of equivalence that we can now give.  
-
-\begin{definition}
-A ER model mapping $\varphi: \gmodel \morph \gmodel'$ is said to be an equivalence
-and the models $\gmodel$ and $\gmodel'$ are said to be equivalent iff there is a ER model mapping $\psi: \gmodel' \morph \gmodel$ such that
-\begin{enumerate}[(i)]
-\item for each entity type $a$ of $\gmodel$, $\psi(\varphi(a))=a$,
-\item for each entity type $a'$ of $\gmodel'$, $\varphi(\psi(a'))=a'$,
-\item for each path $p: a \morph b$ of $\gmodel$, $\psi(\varphi(p)) \simeq p$,
-\item for each path $p':a' \morph b'$ of $\gmodel'$, $\varphi(\psi(p')) \simeq p'$.
-\end{enumerate}
-
-\end{definition}
-
-\iffalse
-\begin{definition}
-If $\gmodel$ is a model then say that a model $\gmodel'$ is an extension of 
-$\gmodel$ iff 
-\begin{enumerate}
-\item the underlying graph of $\gmodel'$ is an extension the graph of $\gmodel$
-by edges alone, 
-\item each defining instance $E'$ of $\gmodel'$ when restricted to the graph of $\gmodel$
-is identical to a defining instance of $\gmodel$,
-\item for each defining instance $E$ of $\gmodel$ there is a defining instance $E'$ of $\gmodel'$ which when restricted to the graph of $\gmodel$
-is identical to $E$,
-\item for all edges $e$ of $\gmodel'$ that are not in $\gmodel$ there is a path 
-$p$ in $\gmodel$ such that for all the defining instances $E'$ of $\gmodel'$,
-$E'_e=E'_p$, equivalently, $E'_e=E_p$,
-\item for each entity type $a$  then $\pk[\gmodel]{a} \simeq \pk[\gmodel']{a}$ in $\gmodel'$. 
-\end{enumerate}
-\end{definition}
-
-\begin{definition}
-Say that two models are \term{co-extensional}  iff there is a third model that they are both extensions of.
-\end{definition}
-We consider co-extensional models to be equivalent models. 
-\fi
 
 
 
