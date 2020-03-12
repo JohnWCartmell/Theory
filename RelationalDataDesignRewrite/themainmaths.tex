@@ -371,18 +371,17 @@ an edge with codomain $\veee$. This leads to this definition:
 Say that a model is \term{primarily keyed} iff all identifying edges 
 have codomain $\veee$.
 \end{definition}
-To reach the goal of showing that to every ER model there is an equivalent relational model we require the following:
+To reach the goal of showing that to every ER model there is an equivalent relational model we require the following\commentary{is this true?}:
 \begin{lemma}
 If $\gmodel$ is an ER model then it can be extended to a model $P(\gmodel)$
 which is primarily keyed. If $\gmodel$ satisfies the minimality condition then the
 extended model $P(\gmodel)$ satisfies the  condition that each set $I_a$ has no proper subsets which are mono-sources. 
 \end{lemma}
 \begin{proof}
-For each entity type $a$ we extend $\gmodel$ by edges $E_a$, where each edge \commentary{work on this proof. Cannot use this notation.}
-$E_a$ corresponds to a distinct primary key path $p$ from $a$ to $\veee$
+For each entity type $a$ we extend $\gmodel$ by edges $\qq{p}$, where each edge \commentary{work on this}
+$\qq{p}$ corresponds to a distinct primary key path $p$ from $a$ to $\veee$
 and in the extended model $\gmodel'$ by corollary \ref{primarykeycorallary} 
-we can define the identifying set $I'_a$ at $a$ to be the set
-$E_a$. 
+we can define the identifying set $I'_a$ at $a$ by choosinga set $P_a$ which is representative of the set of all primary key paths from $a$ to $\veee$.
 \end{proof}
 
 \subsection{Referential Inclusion Dependencies}
@@ -556,6 +555,22 @@ In the above definition, if within an instance $E$ there does exist such a parti
 we have that $f_E(\tuple{E_{x_1}(e),...E_{x_n}(e)})=E_y(e)=f'_E(\tuple{E_{x_1}(e),...E_{x_n}(e)})$.
 \end{remark}
 
+
+\begin{lemma}
+\label{fdcarrythroughone}
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an ER model mapping from $\gmodel$  to $\gmodel'$,  if $\xn$ and $y$ are paths in $\gmodel$
+and there is a  functional dependency
+\begin{equation}
+\fd{\xn}{y}
+\end{equation} 
+in $gmodel$ then there is a functional dependency
+\fd{\varphi{\xn}}{\varphi{y}}
+in $\gmodel'$.
+\end{lemma}
+
+
+
+
 \begin{definition}
 A functional dependency \sfd{x_1,...x_n}{y} is said to be \term{trivial} iff $y\simeq x_i$, for some $i$, $1 \leq i \leq n$.
 \end{definition}
@@ -583,6 +598,31 @@ $\{y_1,...y_{m}\} \morph \{x_1,...x_n\}$.
 In an entity model $\gmodel$, a functional dependency $\set{x_1,...x_n} \morph y$
 is said to be \term{intransitive} if it is not transitive.
 \end{definition} 
+
+\begin{lemma}
+\label{fdcarrythroughone}
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an ER model equivalence between $\gmodel$  and $\gmodel'$,  if $\xn$ and $y$ are paths in $\gmodel$
+then there is a  functional dependency
+\begin{equation}
+\label{sourcefd}
+\fd{\xn}{y}
+\end{equation} 
+in $gmodel$ iff there is a functional dependency
+\begin{equation}
+\label{targetfd}
+\fd{\varphi{\xn}}{\varphi{y}}
+\end{equation}
+in $\gmodel'$.
+Further,  (\ref{targetfd}) is  leaf  iff (\ref{sourcefd}) is a leaf  and (\ref{targetfd}) is  intransitive iff (\ref{sourcefd}) is a intransitive.
+
+If a path $p$ represents (\ref{sourcefd}) in $\gmodel$ then $\inject(p)$ represents (\ref{targetfd})
+in $\chigmodel$.
+\end{lemma}
+\begin{proof}
+\vspace{0.5cm}
+TBD
+\end{proof}
+
 \begin{lemma}
 \label{transitiveinjectivelemma}
 In an entity model $\gmodel$ if $\set{x_1,...x_n} \morph \set{y_1,...y_{m}}$ is a functional dependency then if in an instance $E$ the function $E_{\tuple{y_1,...y_{m}}}$ is injective then the function $E_{\tuple{x_1,...x_n}}$  is injective.
@@ -685,7 +725,7 @@ In a well-formed model $\gmodel$  if $\set{x_1,...x_n} \morph y$  is a non-trivi
 functional dependency sourced at some entity type $a$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$ 
 or else for some entity type $d$ there is a non-empty relationship-like path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
-the path $w$ is non-empty and if $y$ is an edge and $\gmodel$ is restriction-free then $w$ is not equivalent to a primary key path.
+the path $w$ is non-empty and if $y$ is an edge and $\gmodel$ is leaf\commentary{check leaf is right} restriction-free then $w$ is not equivalent to a primary key path.
 \end{lemma}
 \begin{proof}
 Since $\gmodel$ is well formed  and there is an intransitive functional dependency $\set{x_1,...x_n} \morph y$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$  and we are done or else the functional dependency
@@ -757,7 +797,7 @@ E_y &= E_p \circ E_w                                        && \text{}\\
 		                                                        && \text{By lemma \ref{tupleprojection}}
 \end{align*} 
 
-Hence because $\gmodel$ is restriction-free we deduce that $y \simeq x_i$ and this contradicts the assumption that the functional dependency
+Hence because $\gmodel$ is leaf \commentary{check leaf} restriction-free we deduce that $y \simeq x_i$ and this contradicts the assumption that the functional dependency
 is non-trivial. Thus $w$ is not equivalent to a primary key path.
 \end{proof}
 
@@ -779,9 +819,22 @@ How to make this observation a proof?.
 \end{proof}
 
 \begin{definition}
-\noindent An ER model $\gmodel$ has the \term{\fdfactoring} property iff to every functional dependency $\set{x_1,...x_n} \morph z$ where $x1, x_2, ... x_n$ and $z$ are \attributelike paths either $\set{x_1,...x_n}$ is
+\noindent An ER model $\gmodel$ has the \term{\fdfactoring} property iff to every functional dependency $\set{x_1,...x_n} \morph z$ where $x1, x_2, ... x_n$ and $z$ are \attributelike\ paths either $\set{x_1,...x_n}$ is
 a mono-source or else there is an intransitive functional dependency $\set{y_1,...y_m} \morph z$ which it factors through i.e. such that $\set{x_1,...x_n} \morph \set{y_1,...y_m}$
 \end{definition}
+
+\begin{lemma}
+\label{fdfactoringcarrythroughlemma}
+If two models are equivalent then one has the fd factoring property ifff the other one does.
+\commentary{Previously:If  $\gmodel$ is $\chit$-suitable and has the $\fdfactoring$ property then so to does $\chigmodel$. }
+\end{lemma}
+\begin{proof}
+Use lemma \ref{fdcarrythroughsublemma}.
+\vspace{0.5cm}
+tbd
+\end{proof}
+
+
 \begin{lemma}
 \label{mainlemma}
 In a well-formed model $\gmodel$ that has the \fdfactoring\ property if $\{x_1,...x_n\} \morph z$ is a non-trivial leaf functional dependency sourced
@@ -802,7 +855,7 @@ $\gmodel$ are of rank $n$. We do this  in such a way that each relationship of $
 $n$ for any $n$, is said to be unranked or of null rank. Denote by $\gmodel_n$ the ER model which is the ER model 
 $\gmodel$ less the relationships which are not of rank less than or equal to n. The definition proceeds by induction as follows:
 \begin{definition}
-The relationship $R: a \morph b$ in an entity model $\gmodel$ is said to be of rank $0$ iff whenever 
+The relationship $R: a \morph b$ in an entity model $\gmodel$ is said to be of rank $1$\commentary{was rank 0  -- check} iff whenever 
 $\qntuple$ is a primary mono-source at $b$ in $\gmodel$, where $q_i:b \morph \veee$, for each $i$, $1 \leq i \leq n$  then there exists attributes $x_i:a \morph v$ in $\gmodel$ such that $\incd{a}{\xntuple}{b}{\qntuple}$ is an inclusion dependency and this inclusion dependency is represented by the relationship $R$. 
 The relationship $R: a \morph b$ in an entity model $\gmodel$ is said to be of rank $n+1$ iff whenever 
 $\qntuple$ is a primary mono-source at $b$ in $\gmodel$, there exists paths $p_i:a \morph v$ in $\gmodel_n$ such that $\incd{a}{\pntuple}{b}{\qntuple}$ is an inclusion dependency and this inclusion dependency  is represented by the relationship $R$. 
@@ -1050,7 +1103,7 @@ If $\gmodel$ is $\chit$-suitable then $\chigmodel$ is a relational model.
 \end{lemma}
 \begin{proof}
 The relationships $r: a \morph b$ of $\chigmodel$ are exactly those of $\gmodel$. If such a relationship does not directly depend on any path $s$ of $\gmodel$ then define its rank to be $1$.
-If instead a relationship $r$ directly depends one or more paths of $\gmodel$ then define its rank to be 1 greater than the maximum rank of the relationships it depends on. 
+If instead a relationship $r$ directly depends onone or more paths of $\gmodel$ then define its rank to be 1 greater than the maximum rank of the relationships it depends on. 
 This defintion is sound because dependency is non-circular.
 The relationship $r$ represents the inclusion dependency $\incd{a}{r \circ q_1,...r \circ q_n}{b}{q_1,...q_n}$ in $\gmodel$ therefore it represents
 the inclusion dependency $\incd{a}{p_1,...p_n}{b}{q_1,...q_n}$ where 
@@ -1058,7 +1111,7 @@ $$
 p_i =
 \begin{cases} 
     s_i         & \mbox{if $s_i$ is a path which either dominates path $r \circ q_i$ in $\gmodel$} \\
-    s_i         & \mbox{if $s_i$ is an attribute-like path and is equivalent to  $r \circ q_i$ in $\gmodel$ }  \\
+    s_i         & \mbox{if $s_i$ is a non-attribute-like path and is equivalent to  $r \circ q_i$ in $\gmodel$ }  \\
     r \circ q_i & \mbox{if there is no such $s_i$.}
 \end{cases} 
 $$
@@ -1067,7 +1120,7 @@ $$
 p'_i =
 \begin{cases}
    s_i     & \mbox{if $s_i$ is a path which either dominates path $r \circ q_i$ in $\gmodel$} \\
-   s_i     & \mbox{if $s_i$ is an attribute-like path and is equivalent to  $r \circ q_i$ in $\gmodel$ }  \\
+   s_i     & \mbox{if $s_i$ is a on-attribute-like path and is equivalent to  $r \circ q_i$ in $\gmodel$ }  \\
    \qq{r \circ q_i}  & \mbox{if there is no such $s_i$.}
 \end{cases} 
 $$
@@ -1078,7 +1131,7 @@ where the paths $p'_i$ are of lower rank than $r$. This completes the proof that
 
 From the definition of $\chit$, it follows that for any $\chit$-suitable ER model $\gmodel$ there is an injection from the schema of $\gmodel$ to the schema of $\chigmodel$; for each path $p$ in $\gmodel$, therefore, there corresponds a path 
 in $\chigmodel$; denote this path by  $I_\gmodel(p)$. Also from the definition, it follows that
-if $p:b \morph \veee$ is a path in $\chigmodel$ then there exists a path $\retract(p):b \morph \veee$ in $\gmodel$ such that $I_\gmodel(p') \simeq p$ in $\chigmodel$. Finally note that if $\retract(p)$ is a primary key path in $\gmodel$ then there is an attribute $k$ which is a primary key path
+if $p:b \morph \veee$ is a path in $\chigmodel$ then there exists a path $\retract(p):b \morph \veee$ in $\gmodel$ such that $I_\gmodel(\retract(p)) \simeq p$ in $\chigmodel$. Finally note that if $\retract(p)$ is a primary key path in $\gmodel$ then there is an attribute $k$ which is a primary key path
 in $\chigmodel$ such that $I_\gmodel(p) \simeq k$. 
 
 From this follows the following observation:
@@ -1205,7 +1258,7 @@ and we woud have that
 $$E_p \circ E_{q_j} = E_y$$
 in all defining instances so that
 $$p \circ q_j \simeq y$$
-contradicting that $\gmodel$ is free of unnecessary edges. 
+contradicting that $\gmodel$ is free of unnecessary edges\commentary{what does this mean?}. 
 \end{proof}
 
 \begin{lemma}
@@ -1215,37 +1268,12 @@ then $\chigmodel$ is leaf-restriction free.
 \end{lemma}
 \begin{proof}
 Uses lemma  \ref{logicalisrestrictionfreelemma}.
-TBD
 \vspace{0.5cm}
 tbd
 \end{proof}
 
 
-\begin{lemma}
-\label{fdcarrythroughsublemma}
-If $\gmodel$ is a $\chit$-suitable ER model and if $\xn$ and $y$ are paths in $\chigmodel$
-such that there is a functional dependency
-\begin{equation}
-\label{targetfd}
-\fd{\xn}{y}
-\end{equation}
- in $\chigmodel$ 
-then  there is a functional dependency
-\begin{equation}
-\label{sourcefd}
-\fd{\retract(x_1),...\retract(x_n)}{\retract(y)}
-\end{equation}
-in $\gmodel$. Further,  (\ref{targetfd}) is  leaf  iff (\ref{sourcefd}) is a leaf  and (\ref{targetfd}) is  intransitive iff (\ref{sourcefd}) is a intransitive.
 
-If a path $p$ represents (\ref{sourcefd}) in $\gmodel$ then $\inject(p)$ represents (\ref{targetfd})
-in $\chigmodel$.
-\end{lemma}
-\begin{proof}
-TBD
-
-\vspace{0.5cm}
-TBD
-\end{proof}
 
 \begin{lemma}
 \label{incdcarrythroughsublemma}
@@ -1287,21 +1315,14 @@ tbd
 \end{proof}
 
 
-\begin{lemma}
-\label{fdfactoringcarrythroughlemma}
-If  $\gmodel$ is $\chit$-suitable and has the $\fdfactoring$ property then so to does $\chigmodel$. 
-\end{lemma}
-\begin{proof}
-Use lemma \ref{fdcarrythroughsublemma}.
-\vspace{0.5cm}
-tbd
-\end{proof}
+
 
 \begin{lemma}
 \label{injectivecarrythroughlemma}
 If $E_{\tuple{x_1,...x_n }}$ is\commentary{Not required is it?}
 injective and total in every defining instance $E$ of $\gmodel$ then $\chit(E)_{\tuple{\inject{x}_1,...\inject{x}_n }}$ is
 injective and total in every defining instance $\chit(E)$ of $\chigmodel$.
+\commentary{When emphasis is shifted to equivalent models then this lemma should be obvious as to become not worth stating.}
 \end{lemma}
 
 
@@ -1323,5 +1344,5 @@ then the transformed model $\chigmodel$ is a  relational ER model in third norma
 If $\gmodel$ is simple without caveats then $\chigmodel$ is in BCNF.
 \end{corollary}
 \begin{proof}
-Follows directly from theorems \ref{maintheorem} and \ref{chitheorem}.
+Follows from theorems \ref{maintheorem} and \ref{chitheorem} because every simple model is reduced.
 \end{proof}
