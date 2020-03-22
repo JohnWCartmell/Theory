@@ -80,6 +80,8 @@ $\varphi : \gmodel \morph \gmodel'$ consists of a mapping $\varphi_N$ (abbreviat
 $\gmodel$ to nodes of $\gmodel'$ and a mapping $\varphi_N$ (also abbreviated $\varphi$) from 
 paths of $\gmodel$ to paths of $\gmodel'$ such that
 \begin{itemize}
+\item $\varphi(\veee)=\veee$ and for any $a$ if $\varphi(a)=(\veee)$ then
+$a = \veee$\commentary{check this},
 \item  if $p:a \morph b$ is a path in $\gmodel$ then $\varphi(p):\varphi(a) \morph \varphi(b)$ in $\gmodel'$,
 \item the empty path at any node $a$ in $\gmodel$ is mapped to the empty path
 on $\varphi(a)$ in $\gmodel'$,
@@ -174,11 +176,20 @@ in $\gmodel'$,
 \end{itemize}
 \end{definition}
 
-\subsection{Equivalent Models}
+mappingrespectsequivalence
+\begin{lemma}
+\label{mappingrespectsequivalence}
+If $\varphi: \gmodel \morph \gmodel'$ is a mapping of ER models and
+if $p$ and $q$ are paths of $\gmodel$ such that $p \simeq q$ in $\gmodel$ then $\varphi(p) \simeq \varphi(q)$ in $\gmodel'$.
+\end{lemma}
+\begin{proof}
+To show that $\varphi(p) \simeq \varphi(q)$ in $\gmodel'$ we need show that for every model $E'$ of $\gmodel'$, $E'_p=E'_q$. But for each such $E'$ there exists a model $E$ of $\gmodel$ such that $E'_p=E_p$ and $E'_q=E_q$ and so the result follows since because since $p\simeq q$ in $\gmodel$, $E_p=E_q$.
+\end{proof}
+\subsection{Isomorphic Models}
 
 \begin{definition}
-A ER model mapping $\varphi: \gmodel \morph \gmodel'$ is said to be an equivalence
-and the models $\gmodel$ and $\gmodel'$ are said to be equivalent iff there is a ER model mapping $\psi: \gmodel' \morph \gmodel$ such that
+A ER model mapping $\varphi: \gmodel \morph \gmodel'$ is said to be an isomorphism
+and the models $\gmodel$ and $\gmodel'$ are said to be isomorphic iff there is a ER model mapping $\psi: \gmodel' \morph \gmodel$ such that
 \begin{enumerate}[(i)]
 \item for each entity type $a$ of $\gmodel$, $\psi(\varphi(a))=a$,
 \item for each entity type $a'$ of $\gmodel'$, $\varphi(\psi(a'))=a'$,
@@ -194,21 +205,11 @@ referential attributes can be extended to one that does by repeated use of the c
 If $\gmodel$ is an ER model and if $p:a \morph b$ is a path in $\gmodel$ then define the ER model $\gmodel + \qq{p}$ to be the model whose schema is the schema of $\gmodel$ extended by a single edge with domain $a$ and codomain $b$, denoted $\qq{p}$, and with defining instances corresponding to the defining instances of $\gmodel$ extended to the schema of $\gmodel + \qq{p}$ by defining for each such defining instance $E$, $E_{\qq{p}}=E_p$.
 \end{definition} 
 
-\begin{definition}
-A ER model mapping $\varphi: \gmodel \morph \gmodel'$ is said to be an equivalence
-and the models $\gmodel$ and $\gmodel'$ are said to be equivalent iff there is a ER model mapping $\psi: \gmodel' \morph \gmodel$ such that
-\begin{enumerate}[(i)]
-\item for each entity type $a$ of $\gmodel$, $\psi(\varphi(a))=a$,
-\item for each entity type $a'$ of $\gmodel'$, $\varphi(\psi(a'))=a'$,
-\item for each path $p: a \morph b$ of $\gmodel$, $\psi(\varphi(p)) \simeq p$,
-\item for each path $p':a' \morph b'$ of $\gmodel'$, $\varphi(\psi(p')) \simeq p'$.
-\end{enumerate}
-\end{definition}
 
 The following lemma is straightforward:
 \begin{lemma}
 If $\gmodel$ is an ER model and if $p:a \morph b$ is a path in $\gmodel$ then
-there is an inclusion  $\mathcal{I}$ of the schema of $\gmodel$ in $\gmodel + \qq{p}$. This inclusion is an ER model mapping and is an equivalence. 
+there is an inclusion  $\mathcal{I}$ of the schema of $\gmodel$ in $\gmodel + \qq{p}$. This inclusion is an ER model mapping and is an isomorphism. 
 \end{lemma}
 \begin{proof}
 The inverse mapping $\mathcal{R}$ simply replaces any instances of the edge $\qq{p}$ by the path $p$. The result follows easily and uses the observation that in $\gmodel + \qq{p}$, $p \simeq e$.
@@ -250,7 +251,8 @@ f(x_1)&=G(F(x_1)) & & \\
 			&=f(x_2). & &
 \end{align*}
 \end{proof}
-\subsection{Mono-Sources}
+
+\subsection{Mono Sources}
 
 The following definition generalises that of super key in the relational model:
 \begin{definition}
@@ -259,15 +261,14 @@ A source $P$  at an entity type $a$ within a model $\gmodel$ is said to be a \te
 $\setsuchthat{E_p}{p\in P}$ is jointly injective.
 \end{definition}
 
-From the definition of ER model it follows that the set of outgoing edges of an entity type 
-$a$ in a model $\gmodel$ is a mono-source. 
 
-Note also that it follows from this definition that for each entity type $a$ the set containing just
+
+From the definition of ER model it follows that the set of outgoing edges of an entity type 
+$a$ in a model $\gmodel$ is a mono-source. Note also that it follows from this definition that for each entity type $a$ the set containing just
 the empty path $\tuple{}$ considered as a path $\tuple{}_a$, leaving $a$, is a mono-source.  
 \begin{definition}
-A mono source $P$ is said to be a \term{leaf mono source} iff for path $p \in P$, $p$ has destination $\veee$.
+A mono source $P$ is said to be a \term{leaf mono-source} iff for path $p \in P$, $p$ has destination $\veee$.
 \end{definition}
-
 
 
 
@@ -362,6 +363,72 @@ A model $\gmodel$ satisfies \term{the minimality condition} iff for every entity
 \end{enumerate}
 \end{definition}
 
+
+\subsubsection{Primary Mono Sources}
+\begin{definition}
+If $Q \in \bar{I}_a$ and $Q'$ is representative of $Q$ then $Q'$ is said to be
+a \term{primary mono source} at $a$. 
+\end{definition}
+
+\subsubsection{Mapping, Isomorphisms and Mono Sources}
+
+monosourceequivalence
+\begin{lemma}
+\label{monosourceequivalence}
+If 
+\begin{equation}
+\label{putativemonosource}
+\set{p_1,...p_n}
+\end{equation}
+and 
+\begin{equation}
+\label{putativemonosourcedash}
+\set{p'_1,...p'_n}
+\end{equation}
+ are sources at some object $a$ in an ER model $\gmodel$ and if for each $i$, $1 \leq i \leq n$, $p_i \simeq p'_i$ then in $\gmodel$  (\ref{putativemonosource}) is a mono-source iff (\ref{putativemonosourcedash}) is a mono-source.  Further (\ref{putativemonosource}) is a leaf mono-source iff (\ref{putativemonosourcedash}) is a leaf mono-source and \ref{putativemonosource}) is a primary mono-source iff (\ref{putativemonosourcedash}) is a primary mono-source.
+\end{lemma}
+\begin{proof}
+That (\ref{putativemonosource}) is a mono-source iff (\ref{putativemonosourcedash}) is a mono-source follows from the definition of mono-source since if $p_i \simeq p'_i$ in $\gmodel$ then in each defining instance $E$ of $\gmodel$, $E_{p_i} = E_{p'_i}$.
+
+That (\ref{putativemonosource}) is leaf  iff (\ref{putativemonosourcedash }) is a leaf 
+follows because ...
+
+That \ref{putativemonosource}) is primary  iff (\ref{putativemonosourcedash}) is  primary follows because ??????.
+\end{proof}
+
+mappingspreservemonosources
+\begin{lemma}
+\label{mappingspreservemonosources}
+If $\varphi: \gmodel \morph \gmodel'$ is a mapping of ER models and
+if $P$ is a mono-source in $\gmodel$ then  
+$\setsuchthat{\phip}{p\in P}$ is a mono-source in $\gmodel'$. 
+Further if $P$ a leaf mono-source in $\gmodel$ then $\setsuchthat{\phip}{p\in P}$ is a leaf mono source in $\gmodel'$ and if $P$ a primary mono-source in $\gmodel$ then $\setsuchthat{\phip}{p\in P}$ is a primary mono source in $\gmodel'$.
+\end{lemma}
+\begin{proof}
+To show that $\setsuchthat{\phip}{p\in P}$ is a mono-source in $\gmodel'$ we need show that for every model $E'$ of $\gmodel'$, 
+each function $E'_{\phip}$ is total, for each $p \in P$, and that the set
+$\setsuchthat{E'_\phip}{p \in P}$ is jointly injective. 
+ But for each such $E'$ there exists a model $E$ of $\gmodel$ such that $E'_{\phip}=E_{p}$  and so the result follows because since $P$ is a mono-source in $\gmodel$ and therefore for each $p \in P$, $E_p$ is total and the set $\setsuchthat{E_p}{p\in P}$ is jointly injective.
+\end{proof}
+
+isospreserveandreflectmonosources
+\begin{lemma}
+\label{isospreserveandreflectmonosources}
+If $\varphi: \gmodel \morph \gmodel'$ is a isomorphism of ER models and
+if $P$ is a source in $\gmodel$ then 
+$P$ is a mon-source in $\gmodel$
+iff 
+$\setsuchthat{\phip}{p\in P}$ is a mono-source in $\gmodel'$. 
+Further  $P$ a leaf mono-source in $\gmodel$ iff $\setsuchthat{\phip}{p\in P}$ is a leaf mono source in $\gmodel'$ and $P$ a primary mono-source in $\gmodel$ iff $\setsuchthat{\phip}{p\in P}$ is a primary mono source in $\gmodel'$
+\end{lemma}
+\begin{proof}
+That $P$ is a mono-source implies $\setsuchthat{\phip}{p\in P}$ was proved
+in lemma \ref{mappingspreservemonosources}. For the reverse implication use 
+lemma \ref{mappingspreservemonosources} applied to the inverse mapping $\varphi^{-1}$
+and then use lemma \ref{monosourceequivalence}.
+\end{proof}
+
+
 \subsubsection{Primarily Keyed Models}
 
 One of the characteristics of a relational model is that each of the identifying features of a table is a column
@@ -371,7 +438,7 @@ an edge with codomain $\veee$. This leads to this definition:
 Say that a model is \term{primarily keyed} iff all identifying edges 
 have codomain $\veee$.
 \end{definition}
-To reach the goal of showing that to every ER model there is an equivalent relational model we require the following\commentary{is this true?}:
+To reach the goal of showing that to every ER model there is an isomorphic relational model we require the following\commentary{is this true?}:
 \begin{lemma}
 If $\gmodel$ is an ER model then it can be extended to a model $P(\gmodel)$
 which is primarily keyed. If $\gmodel$ satisfies the minimality condition then the
@@ -390,7 +457,7 @@ we can define the identifying set $I'_a$ at $a$ by choosinga set $P_a$ which is 
 \begin{definition}
 If $\gmodel$ is an entity model, 
 if $a$ and $b$ are entity types of  $\gmodel$ and  if $\set{q_1,...q_n}$
-is a mono-source ,
+is a mono-source,
 if \fntuple is a tuple of outgoing paths from entity type $a$  
 so that we have the following diagram of paths in $\gmodel$
 \setlength{\arraycolsep}{.2cm}
@@ -424,10 +491,34 @@ Note that it follows from this definition that for any entity type $a$ there is 
 referential inclusion dependency $
 \incd{a}{\tuple{}_a}{b}{\tuple{}_a}$
 
-\begin{definition}
-If $Q \in \bar{I}_a$ and $Q'$ is representative of $Q$ then $Q'$ is said to be
-a \term{primary mono source} at $a$. 
-\end{definition}
+mappingspreservereferentialincds
+\begin{lemma}
+\label{mappingspreservereferentialincds}
+If $\varphi: \gmodel \morph \gmodel'$ is a mapping of ER models and
+if 
+\begin{equation}
+\label{sourcerefincd}
+\incd{a}{\fn}{b}{\qn}
+\end{equation}
+is a referential inclusion dependency in $\gmodel$ then  
+\begin{equation}
+\label{targetrefincd}
+\incd{\phia}{\phifn}{\phib}{\phiqn}
+\end{equation}
+is a referential inclusion dependency in $\gmodel'$. 
+
+Further if (\ref()) is leaf then (\ref{}) is leaf and
+if (\ref()) is primary then (\ref{}) is primary.
+\end{lemma}
+\begin{proof}
+To show that (\ref{targetrefincd}) is a referential inclusion dependency
+ in $\gmodel'$ we need show that $\set{\qm}$ is a mono-source, which follows from lemma \ref{mappingspreservemonosources}, and that for every model $E'$ of $\gmodel'$, 
+$img(E'_{\fntuple}) \subseteq img(E'_{\qntuple})$. 
+This follows because for each such $E'$ there exists a model $E$ of $\gmodel$ such that 
+$E'_{\fntuple}=E_{\fntuple}$ and $E'_{\qntuple}=E_{\qntuple}$ and because 
+(\ref{sourcerefincd}) is a referential inclusion dependency in $\gmodel$.
+\end{proof}
+
 
 \begin{definition}
 Define a \term{primary referential inclusion dependency} to be a
@@ -440,6 +531,70 @@ A referential inclusion dependency $\incd{a}{f_1,...f_n}{b}{q_1,...q_n}$ is said
 referential inclusion dependency} iff $\set{q_1,...q_n}$ is a leaf mono source.
 \end{definition}
 
+incdequivalence
+\begin{lemma}
+\label{incdequivalence}
+If $\gmodel$ is an entity model, 
+if $a$ and $b$ are entity types of  $\gmodel$,  if $\set{q_1,...q_n}$
+and $\set{q'_1,...q'_n}$ are sources at $b$ , for some $n \geq 1$,
+and such that for each $i$, $1 \leq i \leq n$, $q_i \simeq q'_i$  
+and if $\set{f_1,...f_n}$ and $\set{f'_1,...f'_n}$ are sources at $a$
+such that for each $i$, $1 \leq i \leq n$, $f_i \simeq f'_i$
+then. in $\gmodel$, 
+$$
+\incd{a}{f_1,...f_n}{b}{q_1,...q_n}
+$$
+is a referential inclusion depdendency iff
+$$
+\incd{a}{f'_1,...f'_n}{b}{q'_1,...q'_n}
+$$
+is a referential inclusion dependency.
+
+\end{lemma}
+\begin{proof}
+Follows immediately from the definitions of path equivalence and of referential inclusion dependency.
+\end{proof}
+
+
+isospreserveandreflectreferentialincds
+\begin{lemma}
+\label{isospreserveandreflectreferentialincds}
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an ER model isomorphism between $\gmodel$  and $\gmodel'$,  
+if $\xn$ and $\qn$ are paths in 
+$\gmodel$
+then 
+\begin{equation}
+\label{sourceincd}
+\incd{a}{\xn}{b}{\qn}
+\end{equation}
+is a referential inclusion dependency in $\gmodel$ 
+iff 
+\begin{equation}
+\label{targetincd}
+\incd{a}{\phixn}{b}{\phiqn}
+\end{equation}
+is a referential inclusion dependency in $\gmodel'$. 
+
+Further, (\ref{targetincd}) is  primary  iff (\ref{sourceincd}) is a primary  and (\ref{targetincd}) is  leaf iff (\ref{sourceincd}) is a leaf.
+\end{lemma}
+\begin{proof}
+That (\ref{sourceincd}) is an inclusion dependency in $\gmodel$ implies 
+(\ref{targetincd}) is an inclusion dependency in $\gmodel'$ is established in lemma
+\ref{mappingspreservereferentialincds}. To establish the reverse implication use lemma
+\ref{mappingspreservereferentialincds} applied to the inverse mapping $\varphi^{-1}$
+to show that
+\begin{equation}
+\incd{a}{\phiminusonephixn}{b}{\phiminusonephiqn}
+\end{equation}
+is a referential inclusion dependency in $\gmodel$ and then use lemma
+\ref{incdequivalence}. 
+
+That (\ref{targetincd}) is  primary  iff (\ref{sourceincd}) is a primary 
+follows because ????????
+
+That (\ref{targetincd}) is  leaf iff (\ref{sourceincd}) is a leaf follows because ???????????????
+\end{proof}
+
 If $\qntuple$ is a mono-source at $a$ then define $E_{\qntuple}^{-1}$ to be the right inverse of
 $E_{\qntuple}$ i.e. the unique partial function such that:
 $E_{\qntuple} \circ E_{\qntuple}^{-1} = id_{E_a}$
@@ -449,8 +604,7 @@ We say that a path $p:a \morph b$ \term{represents} a referential inclusion depe
 $\incd{a}{f_1,...f_n}{b}{q_1,...q_n}$  in an ER model $\gmodel$ iff
   in all instances $E$ of $\gmodel$, $E_{\fntuple} \circ E_{\qntuple}^{-1}=E_p$.
 \end{definition}
-We say that a referential inclusion dependency in model $\gmodel$ is represented in model $\gmodel$ provided that
-there exists a path which represents it. 
+We say that a referential inclusion dependency in model $\gmodel$ is represented in model $\gmodel$ provided that there exists a path which represents it. 
 
 \iffalse
 \begin{categoricalaside}
@@ -480,11 +634,13 @@ $e: F(a) \morph F(b)$ is a function such that $e \circ F(m) = F(f)$ then $F(f_0)
 \end{categoricalaside}
 \fi
 
+
 \begin{definition}
 Say that a referential inclusion dependency $\incd{a}{x_1,...x_n}{b}{q_1,...q_n}$ is \textit{simple}
 iff each $q_i$ is a singleton path, i.e. is simply an edge. 
 \end{definition}
 
+simplerepresentationlemma
 \begin{lemma}
 \label{simplerepresentationlemma}
 If  $\gmodel$ is an ER model in which all simple primary referential inclusion dependencies
@@ -493,6 +649,34 @@ have representations then all primary referential inclusion dependencies have re
 \begin{proof}
 Proof by induction TBD. Start by drawing a diagram of the inductive step.
 \end{proof}
+
+
+
+isospreserveandreflectrepresentationsofincds
+\begin{lemma}
+\label{isospreserveandreflectrepresentationsofincds}
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an ER model isomorphism between $\gmodel$  and $\gmodel'$,  
+if $\xn$ and $\qn$ are paths in 
+$\gmodel$
+and there is a referential  inclusion dependency
+\begin{equation}
+\label{isosourceincd}
+\incd{a}{\xn}{b}{\qn}
+\end{equation}
+ in $\gmodel$ 
+so that also 
+\begin{equation}
+\label{isotargetincd}
+\incd{a}{\phixn}{b}{\phiqn}
+\end{equation}
+is a referential inclusion dependency in $\gmodel'$
+then (\ref{isosourceincd}) is represented in $\gmodel$ 
+iff (\ref{isotargetincd}) is represented in $\gmodel'$.
+\end{lemma}
+\begin{proof}
+TBD
+\end{proof}
+
 
 \subsection{Functional Dependencies}
 
@@ -555,25 +739,59 @@ In the above definition, if within an instance $E$ there does exist such a parti
 we have that $f_E(\tuple{E_{x_1}(e),...E_{x_n}(e)})=E_y(e)=f'_E(\tuple{E_{x_1}(e),...E_{x_n}(e)})$.
 \end{remark}
 
-
-\begin{lemma}
-\label{fdcarrythroughone}
-If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an ER model mapping from $\gmodel$  to $\gmodel'$,  if $\xn$ and $y$ are paths in $\gmodel$
-and there is a  functional dependency
-\begin{equation}
-\fd{\xn}{y}
-\end{equation} 
-in $gmodel$ then there is a functional dependency
-\fd{\varphi{\xn}}{\varphi{y}}
-in $\gmodel'$.
-\end{lemma}
-
-
-
-
 \begin{definition}
 A functional dependency \sfd{x_1,...x_n}{y} is said to be \term{trivial} iff $y\simeq x_i$, for some $i$, $1 \leq i \leq n$.
 \end{definition}
+
+mappingspreservefds
+\begin{lemma}
+\label{mappingspreservefds}
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an ER model mapping from $\gmodel$  to $\gmodel'$,  if $\xn$ and $y$ are paths in $\gmodel$
+and there is a  functional dependency
+\begin{equation}
+\label{carrythrusourcefd}
+\fd{\xn}{y}
+\end{equation} 
+in $\gmodel$ then there is a functional dependency
+\begin{equation}
+\label{carrythrutargetfd}
+\fd{\phixn}{\phiy}
+\end{equation}
+in $\gmodel'$.
+Further if (\ref{carrythrusourcefd}) is trivial then (\ref{carrythrutargetfd}) is trivial.
+\end{lemma}
+\begin{proof}
+Assume a functional dependency (\ref{carrythrusourcefd})  in $\gmodel$. To show that (\ref{carrythrutargetfd}) is a functional dependency in $\gmodel'$
+we need show that in every model $E'$ 
+of $\gmodel'$ there is a partial function $f_{E'}$ such that
+\begin{equation}
+\label{fdcarrythrucond1}
+\mbox{domain of }f_{E'} \subseteq img(E'_{\tuple{\phixn}})
+\end{equation}
+and
+\begin{equation}
+\label{fdcarrythrucond2}
+E'_{\tuple{\phixn}} \circ f_{E'} = E'_{\phiy}
+\end{equation}
+Assume then a model $E'$ of $\gmodel'$. 
+Since $\varphi$ is an ER model mapping then there exists a model $E$ of $\gmodel$ such that 
+$E_{\tuple{\xn}} = E'_{\tuple{\phixn}}$ and $E_y = E'_{\phiy}$. From the assumption that (\ref{carrythrusourcefd})
+is a functional dependency in $\gmodel$ it follows that there exists a  partial function $f_E$ such that
+$\mbox{domain of }f_{E} \subseteq img(E_{\tuple{\xn}})$
+and
+$E_{\tuple{\xn}} \circ f_{E} = E_y$ 
+i.e. such that 
+$\mbox{domain of }f_{E} \subseteq img(E_{\tuple{\phixn}})$
+and
+$E_{\tuple{\phixn}} \circ f_{E} = E_{\phiy}$.  The partial function $f_E$ therefore 
+meets the conditions (\ref{fdcarrythrucond1}) and (\ref{fdcarrythrucond2}) that
+we require of $f_{E'}$ and so we can choose the required partial function
+$f_{E'}$ to be the partial function $f_E$. 
+The further point regarding triviality follows from lemma \ref{mappingrespectsequivalence}.
+\end{proof}
+
+
+
 
 \begin{definition}
 A functional dependency \sfd{x_1,...x_n}{y} is said to be a \term{leaf functional dependency} iff
@@ -599,28 +817,106 @@ In an entity model $\gmodel$, a functional dependency $\set{x_1,...x_n} \morph y
 is said to be \term{intransitive} if it is not transitive.
 \end{definition} 
 
+fdequivalence
 \begin{lemma}
-\label{fdcarrythroughone}
-If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an ER model equivalence between $\gmodel$  and $\gmodel'$,  if $\xn$ and $y$ are paths in $\gmodel$
+\label{fdequivalence}
+If for some $n \geq 1$, $\xn$ and $\wanton{x'}$,  are paths in an ER model $\gmodel$
+such that for each $i$, $1 \leq i \leq n$, $x_i \simeq x'_i$,
+if $y$ and $y'$ are also paths in $\gmodel$ and are 
+such that $y \simeq y'$ in $\gmodel$ then $\fd{\xn}{y}$ is a functional dependency in $\gmodel$ iff 
+$\fd{\wanton{x'}}{y'}$ is a functional dependency in $\gmodel$.
+\end{lemma}
+\begin{proof}
+Follows immediately from the definitions of path equivalence and of functional dependency.
+\end{proof}
+isospreserveandreflectfds
+\begin{lemma}
+\label{isospreserveandreflectfds}
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an ER model isomorphism between $\gmodel$  and $\gmodel'$,  if $\xn$ and $y$ are paths in $\gmodel$
 then there is a  functional dependency
 \begin{equation}
 \label{sourcefd}
 \fd{\xn}{y}
 \end{equation} 
-in $gmodel$ iff there is a functional dependency
+in $\gmodel$ iff there is a functional dependency
 \begin{equation}
 \label{targetfd}
-\fd{\varphi{\xn}}{\varphi{y}}
+\fd{\phixn}{\phiy}
 \end{equation}
 in $\gmodel'$.
-Further,  (\ref{targetfd}) is  leaf  iff (\ref{sourcefd}) is a leaf  and (\ref{targetfd}) is  intransitive iff (\ref{sourcefd}) is a intransitive.
+Further(\ref{sourcefd}) is  leaf  iff (\ref{targetfd}) is a leaf.
 
-If a path $p$ represents (\ref{sourcefd}) in $\gmodel$ then $\inject(p)$ represents (\ref{targetfd})
-in $\chigmodel$.
 \end{lemma}
 \begin{proof}
 \vspace{0.5cm}
-TBD
+That (\ref{sourcefd}) is a functional dependency implies
+(\ref{targetfd}) is a functional dependency has been shown in lemma \ref{mappingspreservefds}. That (\ref{targetfd}) is a functional dependency implies
+(\ref{sourcefd}) is a functional dependency follows by using lemma 
+ \ref{mappingspreservefds}
+on the inverse mapping $\varphi^{-1}$ and by using lemma  \ref{fdequivalence}.
+
+(\ref{sourcefd}) is  leaf  iff (\ref{targetfd}) is a leaf 
+because for any node $a$ of $\gmodel$, $a= \veee$ in $\gmodel$ iff $\varphi(a)=\veee$ in $\gmodel'$.
+\end{proof}
+
+isospreserveandreflectmultiplefds:
+\begin{corollary}
+\label{isospreserveandreflectmultiplefds}
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an ER model isomorphism between $\gmodel$  and $\gmodel'$,  if $\xn$ and $\ym$ are paths 
+in $\gmodel$
+then there is a  functional dependency
+\begin{equation}
+\label{multiplesourcefd}
+\fd{\xn}{\ym}
+\end{equation} 
+in $\gmodel$ iff there is a functional dependency
+\begin{equation}
+\label{multipletargetfd}
+\fd{\phixn}{\phiym}
+\end{equation}
+in $\gmodel'$.
+Further (\ref{multiplesourcefd}) is reversible iff (\ref{multipletargetfd}) is reversible.
+\end{corollary}
+
+isospreserveandreflecttransitivefds:
+\begin{lemma}
+\label{isospreserveandreflecttransitivefds}
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an ER model isomorphism between $\gmodel$  and $\gmodel'$,  if $\xn$ and $z$ are paths in $\gmodel$
+and there is a  functional dependency
+\begin{equation}
+\label{transitivesourcefd}
+\fd{\xn}{z}
+\end{equation} 
+in $\gmodel$
+so that
+\begin{equation}
+\label{transitivetargetfd}
+\fd{\phixn}{\phiz}
+\end{equation}
+is a functional dependency in $\gmodel'$then:
+\begin{enumerate}
+\item (\ref{transitivesourcefd}) is  transitive iff (\ref{transitivetargetfd}) is transitive, 
+\item (\ref{transitivesourcefd}) is  intransitive iff (\ref{transitivetargetfd}) is intransitive,
+
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\vspace{0.5cm}
+(\ref{transitivesourcefd}) is transitive implies (\ref{transitivetargetfd}) 
+is trasitive because if (\ref{transitivesourcefd}) is transitive is transitive then
+there exists $\ym$ such that
+\fd{\xn}{\ym} is an irreversible functional dependency
+and such that \fd{\ym}{z} is a non-trivial functional dependency.
+From lemma \ref{isospreserveandreflectmultiplefds} this implies that in $\gmodel'$ there is an 
+\fd{\phixn}{\phiym} irreversible functional dependency \fd{\phixn}{\phiym}
+and by lemma \ref{isospreserveandreflectfds} there is a non-trivial functional dependency \fd{\phiym}{\phiz}. Hence it follows
+the function dependency (\ref{transitivetargetfd}) is transitive.
+
+That (\ref{transitivesourcefd}) is  intransitive iff (\ref{transitivetargetfd}) follows on directly because an instransitive functional depdency is a functional depdency that is not transitive.
+
+Finally, a path $p$ represents (\ref{sourcefd}) in $\gmodel$ iff $\varphi(p)$ represents (\ref{targetfd}) in $\gmodel'$
+because
+
 \end{proof}
 
 \begin{lemma}
@@ -672,13 +968,30 @@ $\tuple{ E_{x_1},...E_{x_n}} \circ E^{-1}_{\tuple{q_1,...q_n}}\circ E_w = E_y$
 Note that  if $x$ is a path, $x:a \morph b$, and $y$ is a path, $y: a \morph c$, and if $w$ is a
 relationship $w: b \morph c$ so that there is a functional dependency $\sfd{x}{y}$ in $\gmodel$
 given in any instance $E$ by the function $E_w$. This functional dependency is represented in the model, according to the above definition, because the mono-source in the definition, i.e the $\set{q_1,...q_n}$,
-can be taken to be the singleton consisting of the empty path $\tuple{}_b$.
+can be taken to be the singleton consisting of the empty path $\tuple{}_b$. \\
 
+isospreserveandreflectrepresentationsoffds
 \begin{lemma}
-An intransitive functional dependency if there is a intransitive functional dependency $\{x_1,...x_n\} \morph y$ represented by an entity type $d$, a primary mono-source$\qntuple$ and a path $w$ then the
-codomain of each path $x_i$ is the node $v$ and thus $\qntuple$ is a leaf primary mono-source.
-\commentary{This isnt true. Reconsider how we show $P(\gmodel)$ to be well formulated.}
+\label{isospreserveandreflectrepresentationsoffds}
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an ER model isomorphism between $\gmodel$  and $\gmodel'$,  if $\xn$ and $z$ are paths in $\gmodel$
+and there is an  intransitive functional dependency
+\begin{equation}
+\label{representationsourcefd}
+\fd{\xn}{z}
+\end{equation} 
+in $\gmodel$
+so that
+\begin{equation}
+\label{representationtargetfd}
+\fd{\phixn}{\phiz}
+\end{equation}
+is an intransitive  functional dependency in $\gmodel'$then
+(\ref{representationsourcefd}) is represented in $\gmodel$ iff
+(\ref{representationtargetfd}) is represented in $\gmodel'$.
 \end{lemma}
+\begin{proof}
+TBD
+\end{proof}
 
 \subsection{ER model Goodness Conditions}\
 \begin{definition}
@@ -825,11 +1138,11 @@ a mono-source or else there is an intransitive functional dependency $\set{y_1,.
 
 \begin{lemma}
 \label{fdfactoringcarrythroughlemma}
-If two models are equivalent then one has the fd factoring property ifff the other one does.
+If two models are isomorphic then one has the fd factoring property iff the other one does.
 \commentary{Previously:If  $\gmodel$ is $\chit$-suitable and has the $\fdfactoring$ property then so to does $\chigmodel$. }
 \end{lemma}
 \begin{proof}
-Use lemma \ref{fdcarrythroughsublemma}.
+Use lemma \ref{isospreserveandreflectfds}.
 \vspace{0.5cm}
 tbd
 \end{proof}
@@ -899,7 +1212,7 @@ Such a primary relational ER model $\gmodel$ gives rise to relational schema:
 
 The characteristic instances of such an ER model gives rise to a set of database instances of the corresponding relational schema.
 
-Likewise every relational schema that consists of relations with primary keys and primary referential constraints and has a set of characteristic database instances gives rise to an equivalent primary relational ER model. 
+Likewise every relational schema that consists of relations with primary keys and primary referential constraints and has a set of characteristic database instances gives rise to an isomorphic\commentary{check} primary relational ER model. 
 
 For the time being we restrict attention to primary relational ER models which stand-in for us for a large class of relational schemas. 
 
@@ -1275,33 +1588,7 @@ tbd
 
 
 
-\begin{lemma}
-\label{incdcarrythroughsublemma}
-If $\gmodel$ is a $\chit$-suitable ER model and if $\xn$ and $\qn$ are paths in $\chigmodel$
-such that there is an inclusion dependency
-\begin{equation}
-\label{targetincd}
-\incd{a}{\xn}{b}{\qn}
-\end{equation}
- in $\chigmodel$ 
-then  there is a inclusion dependency
-\begin{equation}
-\label{sourceincd}
-\incd{a}{\retract(x_1),...\retract(x_n)}{b}{\retract(q_1),...\retract(q_n)}
-\end{equation}
-in $\gmodel$. 
 
-Further,  (\ref{targetfd}) is  ???  iff (\ref{sourcefd}) is a ???  and (\ref{targetfd}) is  ??? iff (\ref{sourcefd}) is a ???.
-
-If a path $p$ represents (\ref{sourceincd}) in $\gmodel$ then $\inject(p)$ represents (\ref{targetincd})
-in $\chigmodel$.
-\end{lemma}
-\begin{proof}
-TBD
-
-\vspace{0.5cm}
-TBD
-\end{proof}
 
 
 \begin{lemma}
@@ -1309,7 +1596,7 @@ TBD
 If  $\gmodel$ is $\chit$-suitable and is well-formulated then  $\chigmodel$ is well-formulated. 
 \end{lemma}
 \begin{proof}
-Use lemma \ref{fdcarrythroughsublemma}.
+Use lemma \ref{isospreserveandreflectfds}.
 \vspace{0.5cm}
 tbd
 \end{proof}
@@ -1322,7 +1609,7 @@ tbd
 If $E_{\tuple{x_1,...x_n }}$ is\commentary{Not required is it?}
 injective and total in every defining instance $E$ of $\gmodel$ then $\chit(E)_{\tuple{\inject{x}_1,...\inject{x}_n }}$ is
 injective and total in every defining instance $\chit(E)$ of $\chigmodel$.
-\commentary{When emphasis is shifted to equivalent models then this lemma should be obvious as to become not worth stating.}
+\commentary{When emphasis is shifted to isomorpic models then this lemma should be obvious as to become not worth stating.}
 \end{lemma}
 
 
