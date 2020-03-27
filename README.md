@@ -8,7 +8,7 @@ Worthy of public view:
 * GAT of Contextual Categories - the generalised algebraic theory of contextual categories.
 * Generalised Algebaric Meta Theory - the generalised algebraic theory of generalised algebaric theories.
 * Introduction To Types That Vary - an attempt at a general purpose introduction.
-* Relational Data Design Part One - I have been thinking about this most of my workinbg life. This comes together in the MathematicalTheoryOfData.
+* Relational Data Design Part One - I have been thinking about this most of my working life. This comes together in the MathematicalTheoryOfData.
 * Mathematical Theory Of Data - This started life as Relational Data Design Part Two but actually is bigger than that.
 * Soundness of Ellipsis within Generalised Algebraic Theories - part solution to a problem from 1978.
 
