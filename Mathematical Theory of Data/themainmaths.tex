@@ -369,6 +369,7 @@ A model $\gmodel$ satisfies \term{the minimality condition} iff for every entity
 If $Q \in \bar{I}_a$ and $Q'$ is representative of $Q$ then $Q'$ is said to be
 a \term{primary mono source} at $a$. 
 \end{definition}
+\commentary{Is it the case that a leaf primary mono-source is equivalent to $\pk{a}$??}
 
 \subsubsection{Mapping, Isomorphisms and Mono Sources}
 
@@ -390,10 +391,12 @@ and
 \begin{proof}
 That (\ref{putativemonosource}) is a mono-source iff (\ref{putativemonosourcedash}) is a mono-source follows from the definition of mono-source since if $p_i \simeq p'_i$ in $\gmodel$ then in each defining instance $E$ of $\gmodel$, $E_{p_i} = E_{p'_i}$.
 
-That (\ref{putativemonosource}) is leaf  iff (\ref{putativemonosourcedash }) is a leaf 
-follows because ...
-
-That \ref{putativemonosource}) is primary  iff (\ref{putativemonosourcedash}) is  primary follows because ??????.
+That (\ref{putativemonosource}) is leaf  iff (\ref{putativemonosourcedash}) is a leaf 
+follows because for each $i$, $p_i \simeq p'_i$ implies codomain of $p_i$ is codomain
+of $p'_i$.
+That \ref{putativemonosource}) is primary  iff (\ref{putativemonosourcedash}) is  primary follows because if $Q \in \bar{I}_a$ then $\set{p_1,...p_n}$ equivalent to
+$Q$ has no  subset equivalent to $Q$ iff $\set{p'_1,...p'_n}$ equivalent to $Q$ and has no subset equivalent to $Q$ because $\set{p_1,...p_n} \simeq \set{p'_1,...p'_n}$
+and equivalence of sets of paths is transitive. \commentary{Do I need spell thuis out further?}
 \end{proof}
 
 mappingspreservemonosources
@@ -402,13 +405,14 @@ mappingspreservemonosources
 If $\varphi: \gmodel \morph \gmodel'$ is a mapping of ER models and
 if $P$ is a mono-source in $\gmodel$ then  
 $\setsuchthat{\phip}{p\in P}$ is a mono-source in $\gmodel'$. 
-Further if $P$ a leaf mono-source in $\gmodel$ then $\setsuchthat{\phip}{p\in P}$ is a leaf mono source in $\gmodel'$ and if $P$ a primary mono-source in $\gmodel$ then $\setsuchthat{\phip}{p\in P}$ is a primary mono source in $\gmodel'$.
+Further if $P$ a leaf mono-source in $\gmodel$ then $\setsuchthat{\phip}{p\in P}$ is a leaf mono source in $\gmodel'$ and if $P$ a leaf primary mono-source in $\gmodel$ then $\setsuchthat{\phip}{p\in P}$ is a leaf primary mono source in $\gmodel'$.
 \end{lemma}
 \begin{proof}
 To show that $\setsuchthat{\phip}{p\in P}$ is a mono-source in $\gmodel'$ we need show that for every model $E'$ of $\gmodel'$, 
 each function $E'_{\phip}$ is total, for each $p \in P$, and that the set
 $\setsuchthat{E'_\phip}{p \in P}$ is jointly injective. 
  But for each such $E'$ there exists a model $E$ of $\gmodel$ such that $E'_{\phip}=E_{p}$  and so the result follows because since $P$ is a mono-source in $\gmodel$ and therefore for each $p \in P$, $E_p$ is total and the set $\setsuchthat{E_p}{p\in P}$ is jointly injective.
+
 \end{proof}
 
 isospreserveandreflectmonosources
@@ -448,7 +452,7 @@ extended model $P(\gmodel)$ satisfies the  condition that each set $I_a$ has no 
 For each entity type $a$ we extend $\gmodel$ by edges $\qq{p}$, where each edge \commentary{work on this}
 $\qq{p}$ corresponds to a distinct primary key path $p$ from $a$ to $\veee$
 and in the extended model $\gmodel'$ by corollary \ref{primarykeycorallary} 
-we can define the identifying set $I'_a$ at $a$ by choosinga set $P_a$ which is representative of the set of all primary key paths from $a$ to $\veee$.
+we can define the identifying set $I'_a$ at $a$ by choosing a set $P_a$ which is representative of the set of all primary key paths from $a$ to $\veee$.
 \end{proof}
 
 \subsection{Referential Inclusion Dependencies}
@@ -507,8 +511,7 @@ is a referential inclusion dependency in $\gmodel$ then
 \end{equation}
 is a referential inclusion dependency in $\gmodel'$. 
 
-Further if (\ref()) is leaf then (\ref{}) is leaf and
-if (\ref()) is primary then (\ref{}) is primary.
+Further if (\ref{sourcerefincd}) is a leaf primary mono source then (\ref{targetrefincd}) is a leaf primary mono-source.
 \end{lemma}
 \begin{proof}
 To show that (\ref{targetrefincd}) is a referential inclusion dependency
@@ -517,6 +520,8 @@ $img(E'_{\fntuple}) \subseteq img(E'_{\qntuple})$.
 This follows because for each such $E'$ there exists a model $E$ of $\gmodel$ such that 
 $E'_{\fntuple}=E_{\fntuple}$ and $E'_{\qntuple}=E_{\qntuple}$ and because 
 (\ref{sourcerefincd}) is a referential inclusion dependency in $\gmodel$.
+
+That if  (\ref{sourcerefincd}) is a leaf primary mono source then (\ref{targetrefincd}) is a leaf primary mono-source also follows from lemma {mappingspreservemonosources}.\commentary{check this}
 \end{proof}
 
 
@@ -555,7 +560,6 @@ is a referential inclusion dependency.
 Follows immediately from the definitions of path equivalence and of referential inclusion dependency.
 \end{proof}
 
-
 isospreserveandreflectreferentialincds
 \begin{lemma}
 \label{isospreserveandreflectreferentialincds}
@@ -575,24 +579,25 @@ iff
 \end{equation}
 is a referential inclusion dependency in $\gmodel'$. 
 
-Further, (\ref{targetincd}) is  primary  iff (\ref{sourceincd}) is a primary  and (\ref{targetincd}) is  leaf iff (\ref{sourceincd}) is a leaf.
+Further, (\ref{targetincd}) is a leaf primary referential inclusion dependency  iff (\ref{sourceincd}) is a leaf primary referential inclusion dependency.
 \end{lemma}
 \begin{proof}
 That (\ref{sourceincd}) is an inclusion dependency in $\gmodel$ implies 
 (\ref{targetincd}) is an inclusion dependency in $\gmodel'$ is established in lemma
-\ref{mappingspreservereferentialincds}. To establish the reverse implication use lemma
+\ref{mappingspreservereferentialincds} which also
+establishes that if (\ref{sourceincd}) is a leaf primary referential inclusion dependency
+then so to is (\ref{targetincd}). To establish the reverse implication use lemma
 \ref{mappingspreservereferentialincds} applied to the inverse mapping $\varphi^{-1}$
 to show that
 \begin{equation}
 \incd{a}{\phiminusonephixn}{b}{\phiminusonephiqn}
 \end{equation}
-is a referential inclusion dependency in $\gmodel$ and then use lemma
-\ref{incdequivalence}. 
-
-That (\ref{targetincd}) is  primary  iff (\ref{sourceincd}) is a primary 
-follows because ????????
-
-That (\ref{targetincd}) is  leaf iff (\ref{sourceincd}) is a leaf follows because because for any node $?$ of $\gmodel$, $?= \veee$ in $\gmodel$ iff $\varphi(?)=\veee$ in $\gmodel'$.\commentary{how to express this?}
+is a referential inclusion dependency in $\gmodel$  and furthermore in the case that
+(\ref{targetincd}) is a leaf primary referential inclusion dependency that is
+a leaf primary referential inclusion dependency.
+Then use lemma
+\ref{incdequivalence} to show that (\ref{sourceincd}) is a referential inclusion dependency
+and is a leaf primary referential inclusion dependency in the case that (\ref{targetincd}) is.
 \end{proof}
 
 If $\qntuple$ is a mono-source at $a$ then define $E_{\qntuple}^{-1}$ to be the right inverse of
@@ -1016,26 +1021,24 @@ or else the functional dependency is represented in the model.
 \end{enumerate}
 \end{definition}
 
+isomorphismsreflectingprimariespreservewellformulated
 \begin{lemma}
 \label{isomorphismsreflectingprimariespreservewellformulated}
-If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an ER model isomorphism between $\gmodel$  and $\gmodel'$ that reflects \commentary{leaf?} primary mono-sources then if $\gmodel$ is well-formulated then $\gmodel'$ is well-formulated.
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an ER model isomorphism between $\gmodel$  and $\gmodel'$ that preserves relationships\footnote{meaning that it maps relationships to relationships} and reflects \commentary{leaf? probably make specific in this way} primary mono-sources then if $\gmodel$ is well-formulated then $\gmodel'$ is well-formulated.
 \end{lemma}
 \begin{proof}
 \begin{enumerate}
 \item Need primary referential inclusion dependencies to be reflected.
-      In application of this to $\chit$ all primary mono sources in the target
-			are leaf primary mono sources. And they will be reflected.
+      (In later application of this to $\chit$ all primary mono sources in the target
+			are leaf primary mono sources whuich, by lemma \ref{isospreserveandreflectreferentialincds} are indeed reflected.)
 \item Need representation by a path to be preserved. Believe this is so.
 \item Need leaf primary referential inclusion dependencies to be reflected.
-      This is always the case if primary monos-urces are reflected.
+      This is lemma \ref{isospreserveandreflectreferentialincds}.
 \item Need representation by a relationship-like path to be preserved.
       \begin{itemize}
 			\item need primary key paths to be reflected
-			\item need leaf primary key paths to be preerved
-			\item need relationships to be preserved - which feels to me like we might need 
-			additional conditions on $\gmodel$ along lines of no dervied relationships
-			 to achive this for $\chit$ and $\chit(\gmodel)$. Shouldn't be a show stopper.
-			Might have Zaniolo type derived relationships but this OK most likely.
+			\item need leaf primary key paths to be preserved. Maybe this is only upto equivalence?
+			\item need relationships to be preserved added as initial assumption.
 			\end{itemize}
 \end{enumerate}
 \end{proof}
@@ -1369,8 +1372,7 @@ Since $r$ is a mono-source then $x_1,...x_n$ is a mono source, as required, sinc
 With the weaker assumption that the model $\gmodel$ is reduced, there is the additional possibility that $y$ is identifying i.e. is a primary key attribute and we have proved S3NF.
 \end{proof}
 \subsection{Simple Relational Models}
-It is unusual in practice for reduced relational models not to meet the stronger condition that we get if we drop condition (iii) 
-from the definition of a model being reduced. We shall say such models are \term{simple} and so these are defined as follows:
+It is unusual in practice for reduced relational models not to meet the stronger condition that we get if we drop condition (ii) from the definition of a model being reduced. We shall say such models are \term{simple} and so these are defined as follows:
 \begin{definition} 
 An \commentary{was relational} ER model is \term{simple} iff for all attributes $x:a \morph \veee$
 such that there is a relationship-like path $r:a \morph b$ and a path $p:b \morph \veee$ such that
@@ -1470,18 +1472,22 @@ in $\chigmodel$; denote this path by  $I_\gmodel(p)$. Also from the definition, 
 if $p:b \morph \veee$ is a path in $\chigmodel$ then there exists a path $\retract(p):b \morph \veee$ in $\gmodel$ such that $I_\gmodel(\retract(p)) \simeq p$ in $\chigmodel$. Finally note that if $\retract(p)$ is a primary key path in $\gmodel$ then there is an attribute $k$ which is a primary key path
 in $\chigmodel$ such that $I_\gmodel(p) \simeq k$. 
 
+
+
 From this follows the following observation:
 
 \begin{observation}
 \label{pathinjectionobservation}
-For any $\chit$-suitable ER model $\gmodel$ if $p:b \morph \veee$ is a path in $\chigmodel$ and  path $\retract(p):b \morph \veee$ is a primary key path in $\gmodel$  such that $I_\gmodel(\retract(p)) \simeq p$ then there is an primary key attribute $k$ in $\chigmodel$ such that $I_\gmodel(p) \simeq k$. 
+For any $\chit$-suitable ER model $\gmodel$ if $p:b \morph \veee$ is a path in $\chigmodel$ and  path $\retract(p):b \morph \veee$ is a primary key path in $\gmodel$  then there is an primary key attribute $k$ in $\chigmodel$ such that $I_\gmodel(p) \simeq k$. 
 \end{observation}
 
+chiisanisomorphismwhichreflectsprimarymonosources
 \begin{lemma}
 \label{chiisanisomorphismwhichreflectsprimarymonosources}
-If $\gmodel$ is $\chit$-suitable  then $\chigmodel$ there is a primary mono-source reflecting isomorphim $?: \gmodel \morph \chigmodel$.
+If $\gmodel$ is $\chit$-suitable  then $\chigmodel$ there is a relationship preserving and primary mono-source reflecting isomorphim $?: \gmodel \morph \chigmodel$.
 \end{lemma}
 \begin{proof}
+TBD \commentary{work on this}
 \end{proof}
 
 \begin{lemma}
