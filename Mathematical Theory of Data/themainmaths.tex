@@ -166,7 +166,7 @@ $\setsuchthat{\varphi(p)}{p \in P}$.
 If $\gmodel$ and  $\gmodel'$ are ER models then an \term{ER model mapping}
 $\varphi : \gmodel \morph \gmodel'$ consists of an ER schema mapping $\varphi$ from $\gmodel$ and  $\gmodel'$ that satisfies
 \begin{itemize}
-\item for every entity type $a$ in $\gmodel$, $\varphi(\pk{a}) \simeq \pk{\varphi(a)}$
+\item for every entity type $a$ in $\gmodel$, $\varphi(\pk{a}) \simeq \pk[\gmodel']{\varphi(a)}$
 in $\gmodel'$,
 \item  for each defining instance $E'$  of $\gmodel'$ there is a defining instance $E$ of $\gmodel$ such that
 \begin{enumerate}
@@ -197,6 +197,17 @@ and the models $\gmodel$ and $\gmodel'$ are said to be isomorphic iff there is a
 \item for each path $p':a' \morph b'$ of $\gmodel'$, $\varphi(\psi(p')) \simeq p'$.
 \end{enumerate}
 \end{definition}
+
+isoinverseiso
+\begin{lemma}
+\label{isoinverseiso}
+If $\varphi: \gmodel \morph \gmodel'$ is an isomorphism of ER models then
+$\varphi^{-1}: \gmodel' \morph \gmodel$ is an isomorphism of ER models also and
+for each entity type $a$ of $\gmodel$, $\varphi^{-1}(\pk[\gmodel']{\varphi(a)}\simeq\pk{a}$.
+\end{lemma}
+\begin{proof}
+tbd
+\end{proof}
 
 In section \ref{definitionofrelational} we characterise those ER models which correspond to relational schemas and elsewhere\footnote{TBD} those that correspond to hierarchical schemas. 
 We can paraphrase and say that an ER model is relational or hierarchical, in a certain way,  providing it has a sufficiency of referential attributes (foreign keys) for the implementation  of non-compositional relationships. It follows from the definitions that we give that an ER model which doesn't have sufficient 
@@ -336,16 +347,23 @@ From lemma \ref{identifyingsetdeduction} it follows that any set of paths arrive
 
 Denote by $\bar{I}_a$ the subset of $\bar{I}$ comprising all mono-sources in $\bar{I}$ with domain $a$.
 
-\subsubsection{Primary Key Paths and Minimality Condition}
-\label{minimalitycondition}
- From this definition it follows that $\pk{a} \in \bar{I}$. From this we get the following corollary.
+\subsubsection{Primary Key Paths }
 
+From lemma \ref{identifyingsetdeduction} it follows that any set of paths arrived at by repeated composition of mono-sources specified for a model $\gmodel$ in $\setsuchthat{I_a}{a \in \et}$ is itelf a mono-source in $\gmodel$. Denote by $\bar{I}$ the set  of all such mono-sources.
 
+Denote by $\bar{I}_a$ the subset of $\bar{I}$ comprising all mono-sources in $\bar{I}$ with domain $a$.
+
+ From this definition it follows that $\pk{a} \in \bar{I_a}$. From this we get the following corollary.
+
+primarykeycorallary
 \begin{corollary}
 \label{primarykeycorallary}
 If $\gmodel$ is an entity model then the set $\pk{a}$of all primary key paths 
 with domain entity type $a$ is a mono-source.
 \end{corollary}
+
+\subsubsection{Primary Mono Sources and Minimality Condition}
+\label{minimalitycondition}
 
 
 \begin{definition}
@@ -354,22 +372,28 @@ If $P$ and $Q$ are sets of paths of model $\gmodel$ then say that the set of pat
 iff $P \simeq Q$ and no proper subset of $P$ is equivalent to $Q$.
 \end{definition}
 
+\begin{definition}
+If $Q \in \bar{I}_a$ and $Q'$ is representative of $Q$ then $Q'$ is said to be
+a \term{primary mono source} at $a$. 
+\end{definition}
 
 \begin{definition}
 A model $\gmodel$ satisfies \term{the minimality condition} iff for every entity type $a$,
 \begin{enumerate}
 \item the set $I_a$ is a minimum mono-source i.e. there is no proper subset which is a mono-source,
-\item whenever a set of paths $P$ is representative of the set $\pk{a}$  of primary key paths of $\gmodel$ then no proper subset of $P$ is a mono-source.
+\item whenever a set of paths $P$ is a leaf primary mono-source of $\gmodel$ then no proper subset of $P$ is a mono-source.
 \end{enumerate}
 \end{definition}
 
+\begin{conjecture}
+A model $\gmodel$ satisfies \term{the minimality condition} iff 
+for every entity type $a$ of $\gmodel$ and for every source $Q \in \bar{I_a}$, if $Q'$ is representative
+of  $Q$, then no proper subset of $Q'$ is a mono-source. \commentary{I may have been here before and found it to be false.}
 
-\subsubsection{Primary Mono Sources}
-\begin{definition}
-If $Q \in \bar{I}_a$ and $Q'$ is representative of $Q$ then $Q'$ is said to be
-a \term{primary mono source} at $a$. 
-\end{definition}
-\commentary{Is it the case that a leaf primary mono-source is equivalent to $\pk{a}$??}
+\end{conjecture}
+
+
+\commentary{It is the case that a leaf primary mono-source is equivalent to $\pk{a}$??}
 
 \subsubsection{Mapping, Isomorphisms and Mono Sources}
 
@@ -406,12 +430,20 @@ If $\varphi: \gmodel \morph \gmodel'$ is a mapping of ER models and
 if $P$ is a mono-source in $\gmodel$ then  
 $\setsuchthat{\phip}{p\in P}$ is a mono-source in $\gmodel'$. 
 Further if $P$ a leaf mono-source in $\gmodel$ then $\setsuchthat{\phip}{p\in P}$ is a leaf mono source in $\gmodel'$ and if $P$ a leaf primary mono-source in $\gmodel$ then $\setsuchthat{\phip}{p\in P}$ is a leaf primary mono source in $\gmodel'$.
+
+Further if there are no proper subsets of $\setsuchthat{\phip}{p\in P}$ which are mono-sources in $\gmodel'$ and which are not representative of $\setsuchthat{\phip}{p\in P}$ then there are no proper subsets of $P$ which are mono-sources in $\gmodel$ and which are not representative of $P$.
+
 \end{lemma}
 \begin{proof}
 To show that $\setsuchthat{\phip}{p\in P}$ is a mono-source in $\gmodel'$ we need show that for every model $E'$ of $\gmodel'$, 
 each function $E'_{\phip}$ is total, for each $p \in P$, and that the set
 $\setsuchthat{E'_\phip}{p \in P}$ is jointly injective. 
  But for each such $E'$ there exists a model $E$ of $\gmodel$ such that $E'_{\phip}=E_{p}$  and so the result follows because since $P$ is a mono-source in $\gmodel$ and therefore for each $p \in P$, $E_p$ is total and the set $\setsuchthat{E_p}{p\in P}$ is jointly injective.
+
+The further point, that absence from $\gmodel'$ of mono-sources which are non-representative proper subsets of $\setsuchthat{\phip}{p\in P}$
+ implies absence from $\gmodel'$ of mono-sources which are non-representative proper subsets of $P$, follows on from the fact that leaf mono-sources are preserved 
+and from the fact that a mapping $\varphi:\gmodel \morph \gmodel'$ preserves equivalence of paths
+(lemma \ref{mappingrespectsequivalence})and therefore preserves equivalent sets of paths.\commentary{say more?}
 
 \end{proof}
 
@@ -420,10 +452,12 @@ isospreserveandreflectmonosources
 \label{isospreserveandreflectmonosources}
 If $\varphi: \gmodel \morph \gmodel'$ is a isomorphism of ER models and
 if $P$ is a source in $\gmodel$ then 
-$P$ is a mon-source in $\gmodel$
+$P$ is a mono-source in $\gmodel$
 iff 
 $\setsuchthat{\phip}{p\in P}$ is a mono-source in $\gmodel'$. 
-Further  $P$ a leaf mono-source in $\gmodel$ iff $\setsuchthat{\phip}{p\in P}$ is a leaf mono source in $\gmodel'$ and $P$ a primary mono-source in $\gmodel$ iff $\setsuchthat{\phip}{p\in P}$ is a primary mono source in $\gmodel'$
+Further  $P$ a leaf mono-source in $\gmodel$ iff $\setsuchthat{\phip}{p\in P}$ is a leaf mono source in $\gmodel'$ and $P$ a leaf primary mono-source in $\gmodel$ iff $\setsuchthat{\phip}{p\in P}$ is a leaf primary mono source in $\gmodel'$.
+Further there are no proper subsets of $P$ which are mono-sources in $\gmodel$ and which are not representative of $P$
+iff there are no proper subsets of $\setsuchthat{\phip}{p\in P}$ which are mono-sources in $\gmodel'$ and which are not representative of $\setsuchthat{\phip}{p\in P}$.
 \end{lemma}
 \begin{proof}
 That $P$ is a mono-source implies $\setsuchthat{\phip}{p\in P}$ was proved
@@ -521,7 +555,7 @@ This follows because for each such $E'$ there exists a model $E$ of $\gmodel$ su
 $E'_{\fntuple}=E_{\fntuple}$ and $E'_{\qntuple}=E_{\qntuple}$ and because 
 (\ref{sourcerefincd}) is a referential inclusion dependency in $\gmodel$.
 
-That if  (\ref{sourcerefincd}) is a leaf primary mono source then (\ref{targetrefincd}) is a leaf primary mono-source also follows from lemma {mappingspreservemonosources}.\commentary{check this}
+That if  (\ref{sourcerefincd}) is a leaf primary mono source then (\ref{targetrefincd}) is a leaf primary mono-source also follows from lemma \ref{mappingspreservemonosources}.\commentary{check this}
 \end{proof}
 
 
@@ -923,7 +957,7 @@ Finally, a path $p$ represents (\ref{sourcefd}) in $\gmodel$ iff $\varphi(p)$ re
 because
 
 \end{proof}
-
+transitiveinjectivelemma
 \begin{lemma}
 \label{transitiveinjectivelemma}
 In an entity model $\gmodel$ if $\set{x_1,...x_n} \morph \set{y_1,...y_{m}}$ is a functional dependency then if in an instance $E$ the function $E_{\tuple{y_1,...y_{m}}}$ is injective then the function $E_{\tuple{x_1,...x_n}}$  is injective.
@@ -998,6 +1032,63 @@ is an intransitive  functional dependency in $\gmodel'$then
 TBD
 \end{proof}
 
+\subsection{Relationship-Like and Identifying-Like Paths}
+
+\begin{definition}
+In an ER model $\gmodel$, a non-empty path $t: a \morph b$, where $a$ and $b$ are entity types, is said to be \term{identifying-like} iff  for all primary key paths $q:b \morph \veee$ in $\gmodel$ there exists a primary key path $q':a' \morph \veee$ in $\gmodel'$ such that $t \circ q \simeq q'$.
+\end{definition}
+
+\begin{definition}
+In an ER model $\gmodel$, a non-empty path $p: a \morph b$, where $a$ and $b$ are entity types, which consists
+of a relationship $R$ followed by a  path $t :a' \morph b$ is said to be \term{relationship-like} iff
+either  $t$ is the empty path (so that the path $p$ is exactly a relationship $R$) or $t$
+is identifying-like.
+\end{definition}
+
+Certain significant isomorpisms, we call them key-realising isomorphisms, reflect primary key paths upto equivalence of paths and it is significant that these then preserves identifying-like paths and  relationship-like paths. 
+
+\begin{definition}
+If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi$ is an ER model isomorphism 
+$\varphi: \gmodel  \morph \gmodel'$ then $\varphi$ is said to be a \term{key-realising} isomorphism iff
+whenever $p':\varphi(a) \morph \varphi(b)$ is a primary key path in $\gmodel$ then there exists 
+a primary key path $p:a \morph b$ in $gmodel$ such that $\varphi(p) \simeq p'$ in $\gmodel'$.
+\end{definition} 
+
+
+certainisospreserveidentifyinglike
+\begin{lemma}
+\label{certainisospreserveidentifyinglike}
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an key-realising isomorphism between $\gmodel$and $\gmodel'$ then if $t:a \morph b$ is an identifying-like  path in $\gmodel$ then $\varphi(t)$ is an identfying-like in $\gmodel'$.
+\end{lemma}
+\begin{proof}
+TBD
+\end{proof}
+
+certainisospreserverelationshiplike:
+\begin{lemma}
+\label{certainisospreserverelationshiplike}
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is a key-realising isomorphism between $\gmodel$ and $\gmodel'$  which preserves relationships  i.e. if relationships of $\gmodel$ are mapped to relationships of $\gmodel'$ by  $\varphi$ then relationship-like paths are preserved by $\varphi$.
+\end{lemma}
+\begin{proof}
+Assume such an isomorphism of models and assume that a path $p$ is relationship-like.
+From the definition of relationship-like, either $p$ is exactly a relationship in which case it is preserved by $\varphi$ by initial assumption or $p$ consists of path $R \circ t$ where $t$ is an identifying-like path.
+In the latter case, from the definition of mapping, $\varphi(p)$ consists of $\varphi(R)$, which is a relationship in $\gmodel'$, from the initial assumption, followed by a path $\varphi(t)$ which is identifying-like since $t$ is, by lemma\ref{certainisospreserveidentifyinglike} since $\varphi$ is key-realising. Therefore $\varphi(p)$ is relationship-like.
+\end{proof}
+
+Finally note that key-realising isomorphisms reflect primary mono-sources as described by this
+lemma.
+
+keyrealisingisosreflectprimarymonosources
+\begin{lemma}
+\label{keyrealisingisosreflectprimarymonosources}
+If $\varphi: \gmodel \morph \gmodel'$ is a key-realising isomorphism of ER models then
+ $P$ is a primary mono-source in $\gmodel$ iff $\setsuchthat{\phip}{p\in P}$ is a primary mono source in $\gmodel'$.
+\end{lemma}
+\begin{proof}
+That $P$ is a primary mono-source implies $\setsuchthat{\phip}{p\in P}$ is a primary mono-source is lemma \ref{mappingspreservemonosources}.
+That $\setsuchthat{\phip}{p\in P}$ is a primary mono-source implies $P$ is a primary mono-source follows because ???????????
+\end{proof}
+
 \subsection{ER model Goodness Conditions}\
 \begin{definition}
 \noindent An ER model $\gmodel$ is \term{well-formulated} 
@@ -1015,31 +1106,42 @@ each leaf primary referential inclusion dependency of $\gmodel$ is represented i
 }
 \item{
 for each leaf intransitive functional dependency $\set{x_1,...x_n} \morph y$ in model $\gmodel$
-either in every defining instance $E$, $E_{\xntuple}$ is injective and total
+either $\set{x_1,...x_n}$ is a mono-source i.e. in every defining instance $E$, $E_{\xntuple}$ is injective and total
 or else the functional dependency is represented in the model.
 }
 \end{enumerate}
 \end{definition}
 
-isomorphismsreflectingprimariespreservewellformulated
+certainisomorphismspreservewellforulated
 \begin{lemma}
-\label{isomorphismsreflectingprimariespreservewellformulated}
-If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an ER model isomorphism between $\gmodel$  and $\gmodel'$ that preserves relationships\footnote{meaning that it maps relationships to relationships} and reflects \commentary{leaf? probably make specific in this way} primary mono-sources then if $\gmodel$ is well-formulated then $\gmodel'$ is well-formulated.
+\label{certainisomorphismspreservewellforulated}
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is a key-realising isomorphism between $\gmodel$  and $\gmodel'$ that preserves relationships\footnote{meaning that it maps relationships to relationships} and reflects primary mono-sources then if $\gmodel$ is well-formulated then $\gmodel'$ is well-formulated.
 \end{lemma}
 \begin{proof}
-\begin{enumerate}
-\item Need primary referential inclusion dependencies to be reflected.
-      (In later application of this to $\chit$ all primary mono sources in the target
-			are leaf primary mono sources whuich, by lemma \ref{isospreserveandreflectreferentialincds} are indeed reflected.)
-\item Need representation by a path to be preserved. Believe this is so.
-\item Need leaf primary referential inclusion dependencies to be reflected.
-      This is lemma \ref{isospreserveandreflectreferentialincds}.
-\item Need representation by a relationship-like path to be preserved.
-      \begin{itemize}
-			\item need primary key paths to be reflected
-			\item need leaf primary key paths to be preserved. Maybe this is only upto equivalence?
-			\item need relationships to be preserved added as initial assumption.
-			\end{itemize}
+Assume such a $\varphi$ and that $\gmodel$ is well-formulated. Then
+\begin{enumerate} [(i)]
+\item{
+That $\gmodel'$ satisfies the minimality condition (see section \ref{minimalitycondition}) follows from lemma \ref{isospreserveandreflectmonosources}.
+}
+\item{ 
+To show that each primary referential inclusion dependency of $\gmodel'$ is represented in $\gmodel'$ by some path $p$ we use the fact that each primary referential inclusion dependencies is reflected
+by the isomorphism $\varphi$ because $\varphi$ is assumed to reflect primary mono-sources (lemma \ref{isospreserveandreflectreferentialincds}) and then that representation of a referential inclusion dependencies by a path is  preserved by isomorphisms (lemma \ref{isospreserveandreflectrepresentationsofincds}).\commentary{Spell this out sometime??}
+}
+\item{ 
+That each leaf primary referential inclusion dependency of $\gmodel'$ is represented in $\gmodel'$ by some relationship-like path $p$
+follows because such leaf primary referential inclusion dependencies are reflected by isomorphisms
+(lemma \ref{isospreserveandreflectreferentialincds})
+ and because  representation by a relationship-like path is preserved 
+by $\varphi$  because $\varphi$ is assumed to reflect primary mono-sources and preserve relationships (lemma \ref{certainisospreserverelationshiplike}).
+
+}
+\item{
+That for each leaf intransitive functional dependency $\set{x_1,...x_n} \morph y$ in model $\gmodel'$
+either $\set{x_1,...x_n}$ is a mono-source 
+or else the functional dependency is represented in $\gmodel'$ 
+follows by lemmas \ref{isospreserveandreflectmultiplefds}, \ref{isospreserveandreflecttransitivefds},
+\ref{isospreserveandreflectrepresentationsoffds} and the fact that mono-sources are preserved (lemma \ref{mappingspreservemonosources}).
+}
 \end{enumerate}
 \end{proof}
 \begin{definition}
@@ -1048,14 +1150,6 @@ exists paths $x_1,...x_n$   with domain
 $a$ in $\gmodel$,  and for some $j$, $1 \leq j \leq n$, in every defining instance $E$,  
 $$E_y = \bigwedge_{1 \leq i \leq n}{\overline{x_i}} \circ x_j$$
 then $y \simeq x_j$.
-\end{definition}
-
-\begin{definition}
-In an ER model $\gmodel$, a non-empty path $p: a \morph b$, where $a$ and $b$ are entity types, which consists
-of a relationship $R$ followed by a  path $t :a' \morph b$ is said to be \term{relationship-like} iff
-either  $t$ is the empty path (so that the path $p$ is exactly a relationship $R$) or $t$
-is a non-empty path and has the property that for all primary key paths $q:b \morph \veee$ there exists 
-a primary key path $q':a' \morph \veee$ such that $t \circ q \simeq q'$.
 \end{definition}
 
 \begin{lemma}
@@ -1176,8 +1270,8 @@ tbd
 
 \begin{lemma}
 \label{mainlemma}
-In a well-formed model $\gmodel$ that has the \fdfactoring\ property if $\{x_1,...x_n\} \morph z$ is a non-trivial leaf functional dependency sourced
-at some entity type $a$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$ 
+In a well-formed model $\gmodel$ that has the \fdfactoring\ property if $\set{x_1,...x_n} \morph z$ is a non-trivial leaf functional dependency sourced
+at some entity type $a$ then either $\set{x_1,...x_n}$ is a mono-source in $\gmodel$
 or else there is an entity type $d$ and there is a relationship-like path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
 the path $w$ is non-empty and and if $y$ is an edge and $\gmodel$ is restriction-free then $w$ is not equivalent to a primary key path(see section \ref{primarykeypath} for definition of 'primary key path').
@@ -1195,7 +1289,7 @@ $n$ for any $n$, is said to be unranked or of null rank. Denote by $\gmodel_n$ t
 $\gmodel$ less the relationships which are not of rank less than or equal to n. The definition proceeds by induction as follows:
 \begin{definition}
 The relationship $R: a \morph b$ in an entity model $\gmodel$ is said to be of rank $1$\commentary{was rank 0  -- check} iff whenever 
-$\qntuple$ is a primary mono-source at $b$ in $\gmodel$, where $q_i:b \morph \veee$, for each $i$, $1 \leq i \leq n$  then there exists attributes $x_i:a \morph v$ in $\gmodel$ such that $\incd{a}{\xntuple}{b}{\qntuple}$ is an inclusion dependency and this inclusion dependency is represented by the relationship $R$. 
+$\qntuple$ is a \commentary{leaf?} ??? primary mono-source at $b$ in $\gmodel$, where $q_i:b \morph \veee$, for each $i$, $1 \leq i \leq n$  then there exists attributes $x_i:a \morph v$ in $\gmodel$ such that $\incd{a}{\xntuple}{b}{\qntuple}$ is an inclusion dependency and this inclusion dependency is represented by the relationship $R$. 
 The relationship $R: a \morph b$ in an entity model $\gmodel$ is said to be of rank $n+1$ iff whenever 
 $\qntuple$ is a primary mono-source at $b$ in $\gmodel$, there exists paths $p_i:a \morph v$ in $\gmodel_n$ such that $\incd{a}{\pntuple}{b}{\qntuple}$ is an inclusion dependency and this inclusion dependency  is represented by the relationship $R$. 
 \end{definition}
@@ -1473,7 +1567,6 @@ if $p:b \morph \veee$ is a path in $\chigmodel$ then there exists a path $\retra
 in $\chigmodel$ such that $I_\gmodel(p) \simeq k$. 
 
 
-
 From this follows the following observation:
 
 \begin{observation}
@@ -1481,10 +1574,11 @@ From this follows the following observation:
 For any $\chit$-suitable ER model $\gmodel$ if $p:b \morph \veee$ is a path in $\chigmodel$ and  path $\retract(p):b \morph \veee$ is a primary key path in $\gmodel$  then there is an primary key attribute $k$ in $\chigmodel$ such that $I_\gmodel(p) \simeq k$. 
 \end{observation}
 
-chiisanisomorphismwhichreflectsprimarymonosources
+chiisacertaintypeofisomorphism
 \begin{lemma}
-\label{chiisanisomorphismwhichreflectsprimarymonosources}
-If $\gmodel$ is $\chit$-suitable  then $\chigmodel$ there is a relationship preserving and primary mono-source reflecting isomorphim $?: \gmodel \morph \chigmodel$.
+\label{chiisacertaintypeofisomorphism}
+If $\gmodel$ is $\chit$-suitable  then $\chigmodel$ there is a key-realising and
+relationship preserving  and primary mono-source reflecting isomorphism $?: \gmodel \morph \chigmodel$. 
 \end{lemma}
 \begin{proof}
 TBD \commentary{work on this}
@@ -1549,7 +1643,7 @@ From this because $\gmodel$ is simple it follows that either  $\retract(p)$ is a
 
 \noindent or that $x$ is identifying in $\gmodel$ and therefore that $x$ is identifying\commentary{problem here maybe} in $\chigmodel$, as required.\\
 
-Otherwise, if $x$ is an attribute $\qq{\retract(r) \circ q}$ for some relationship $r$ and primary key path $q$ of $\gmodel$. If $\retract(p)$ is equivalent to a primary key path in $\gmodel$
+Otherwise, if $x$ is an attribute $\qq{\retract(s) \circ q}$ for some relationship $s$ and primary key path $q$ of $\gmodel$. If $\retract(p)$ is equivalent to a primary key path in $\gmodel$
 then we are done for then by observation \ref{pathinjectionobservation} it is equivalent to a primary key path in $\chigmodel$. \\
 
 
@@ -1625,7 +1719,7 @@ tbd
 If  $\gmodel$ is $\chit$-suitable and is well-formulated then  $\chigmodel$ is well-formulated. 
 \end{lemma}
 \begin{proof}
-Use lemmas \ref{chiisanisomorphismwhichreflectsprimarymonosources} and \ref{isomorphismsreflectingprimariespreservewellformulated}.
+Use lemmas \ref{chiisacertaintypeofisomorphism} and \ref{certainisomorphismspreservewellforulated}.
 \end{proof}
 
 
