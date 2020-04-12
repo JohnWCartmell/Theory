@@ -759,6 +759,26 @@ iff (\ref{isotargetincd}) is represented in $\gmodel'$ by the path $\varphi(p)$.
 TBD
 \end{proof}
 
+incdrepresentationshortcut
+\begin{lemma}
+\label{incdrepresentationshortcut}
+If $\gmodel$ is an ER model, if $a$ and $b$ are entity types, if $\set{\qntuple}$ is the set
+of primary key paths of $\gmodel$ sourced at $b$, if $r:a \morph b$ is a relationship, 
+if $J \subset \set{1,...n}$ and for each $j \in J$ there is an $s_j:a \morph \veee$ in $\gmodel$ such that $r \circ q_j < s_j$ \commentary{and no $s'_j$ etc????} and if $\incd{a}{\pntuple}{b}{\qntuple}$
+where for each $i$, $1 \leq i \leq n$, 
+$$
+p_i =
+\begin{cases} 
+    s_i         & \mbox{if $i \in J$} \\
+    r \circ q_i & \mbox{if $i \notin J$.}
+\end{cases} 
+$$
+then relationship $r$ represents the inclusion dependency  $\incd{a}{\pntuple}{b}{\qntuple}$.
+\end{lemma}
+\begin{proof}
+TBD
+\end{proof}
+
 
 \subsection{Functional Dependencies}
 
@@ -1561,15 +1581,19 @@ for each $i$. Define one relationship to depend on another if it depends on it i
 \end{definition}
 
 For $\chigmodel$ to be a relational model, the implied dependency between relationships of $\gmodel$ will need be non-circular
-and in addition one further property is required:
+and in addition one further property is required as we now descibe.
+
 
 \begin{definition}
-An ER model $\gmodel$ is said to have \term{property X} iff for all relationships $r: a \morph b$ in $\gmodel$ there exists at least
-one primary key path $q:a \morph \veee$ such that there does not exist a non attribute-like path $s:a \morph \veee$ such that
-$r \circ q < s$.
+In an  ER model $\gmodel$, if $a$ and $b$ are entity types and if $\set{\qntuple}$ is the set of primary key paths sourced at $b$, if $r: a \morph b$ is a relationship the $r$ is siad to be a \term{pseudo-restriction}\commentary{Find a better term here.}
+iff for each $i$, $1 \leq i \leq n$, there exists a path $s_i: a \morph \veee$ such that $r \circ q_I < s_i$,
+and there doesn't exist $s'_i$ such that $r \circ q_I < s'_i <s_i$ and  either
+$\incd{a}{\sntuple}{b}{\qntuple}$ and this inclusion dependency is represented by
+$r$ or else $\nincd{a}{\sntuple}{b}{\qntuple}$.
 \end{definition}
 
-If these conditions are met (attribute-like paths have at most one equivalent non attribute-like path, implied dependencies are non-circular and property X holds) then we say that $\gmodel$ is $\chit$-suitable and in these instances we can show that 
+
+If these conditions are met: that attribute-like paths have at most one equivalent non attribute-like path, that implied dependencies are non-circular and there are no pseudo-restriction relationships, then we say that $\gmodel$ is $\chit$-suitable and in these instances we can show that 
 the model $\chigmodel$ is a simple relational model. 
 
 We shall show that with these definitions if $\gmodel$ is well-formulated, simple, $\chit$-suitable and has the fd factoring property
@@ -1581,23 +1605,25 @@ If $\gmodel$ is $\chit$-suitable then $\chigmodel$ is a relational model.
 \begin{proof}
 The relationships $r: a \morph b$ of $\chigmodel$ are exactly those of $\gmodel$. If such a relationship does not directly depend on any path $s$ of $\gmodel$ then define its rank to be $1$.
 If instead a relationship $r$ directly depends onone or more paths of $\gmodel$ then define its rank to be 1 greater than the maximum rank of the relationships it depends on. 
-This defintion is sound because dependency is non-circular.
+This definition is sound because dependency is non-circular.
 The relationship $r$ represents the inclusion dependency $\incd{a}{r \circ q_1,...r \circ q_n}{b}{q_1,...q_n}$ in $\gmodel$ therefore it represents
 the inclusion dependency $\incd{a}{p_1,...p_n}{b}{q_1,...q_n}$ where 
 $$
 p_i =
 \begin{cases} 
-    s_i         & \mbox{if $s_i$ is a path which either dominates path $r \circ q_i$ in $\gmodel$} \\
+    s_i         & \mbox{if $s_i$ is a path which dominates path $r \circ q_i$ in $\gmodel$} \\
     s_i         & \mbox{if $s_i$ is a non-attribute-like path and is equivalent to  $r \circ q_i$ in $\gmodel$ }  \\
     r \circ q_i & \mbox{if there is no such $s_i$.}
 \end{cases} 
 $$
-It follows then that in $\chigmodel$ the relationship $r$ is represented by inclusion dependency $\incd{a}{p'_1,...p'_n}{b}{q_1,...q_n}$ where
+which we prove by using lemma \ref{incdrepresentationshortcut} (which is applicable because we have assumed 
+that there are no pseudo-restriction relationships in $\gmodel$), and lemma \ref{incdrepresentationequivalence}.
+It follows from lemmas yyyyyyyyyyy  and zxzzzzzz that in $\chigmodel$ the relationship $r$ is represented by inclusion dependency $\incd{a}{p'_1,...p'_n}{b}{q_1,...q_n}$ where
 $$
 p'_i =
 \begin{cases}
-   s_i     & \mbox{if $s_i$ is a path which either dominates path $r \circ q_i$ in $\gmodel$} \\
-   s_i     & \mbox{if $s_i$ is a on-attribute-like path and is equivalent to  $r \circ q_i$ in $\gmodel$ }  \\
+   \varphi(s_i)     & \mbox{if $s_i$ is a path  either dominates path $r \circ q_i$ in $\gmodel$} \\
+   \varphi(s_i)     & \mbox{if $s_i$ is a non-attribute-like path and is equivalent to  $r \circ q_i$ in $\gmodel$ }  \\
    \qq{r \circ q_i}  & \mbox{if there is no such $s_i$.}
 \end{cases} 
 $$
