@@ -354,7 +354,7 @@ From lemma \ref{identifyingsetdeduction} it follows that any set of paths arrive
 
 Denote by $\bar{I}_a$ the subset of $\bar{I}$ comprising all mono-sources in $\bar{I}$ with domain $a$.
 
- From this definition it follows that $\pk{a} \in \bar{I_a}$. From this we get the following corollary.
+From this definition it follows that $\pk{a} \in \bar{I_a}$. From this we get the following corollary.
 
 primarykeycorallary
 \begin{corollary}
@@ -363,9 +363,15 @@ If $\gmodel$ is an entity model then the set $\pk{a}$of all primary key paths
 with domain entity type $a$ is a mono-source.
 \end{corollary}
 
+factoringprimarykeypath
+\begin{observation}\commentary{Question over whether this is required.}
+\label{factoringprimarykeypath}
+If $Q \in \bar{I_a}$ and if $p$ is a primary key path at $a$ then for some node $b$ there exists $q \in Q$, $q: a \morph b$\commentary{q may be empty, may have $p \in Q$}, and there exists 
+a primary key path $q'$, $q': b \morph \veee$,  such that $q \circ q' = p$. 
+\end{observation}
+
 \subsubsection{Primary Mono Sources and Minimality Condition}
 \label{minimalitycondition}
-
 
 \begin{definition}
 If $P$ and $Q$ are sets of paths of model $\gmodel$ then say that the set of paths $P$ 
@@ -377,6 +383,17 @@ iff $P \simeq Q$ and no proper subset of $P$ is equivalent to $Q$.
 If $Q \in \bar{I}_a$ and $Q'$ is representative of $Q$ then $Q'$ is said to be
 a \term{primary mono source} at $a$. 
 \end{definition}
+
+primarykeypathfactorsthroughprimarymonosource
+\begin{lemma}{Question over whether this is required.}
+\label{primarykeypathfactorsthroughprimarymonosource}
+If for some $m \geq 1$, $\qmtuple$ is a primary mono-source at $b$ such that for each $j$, $1 \leq j \leq m$, $q_j : b \morph b_j$,
+and if  $p$ is a primary key path such that $p: b \morph \veee$   
+then there exists $j$, $1 \leq j \leq m$ and there exists $p'$, $p': b_j \morph \veee$ such that $p \simeq q_j \circ p'$.
+\end{lemma}
+\begin{proof}
+Follows from observation \ref{factoringprimarykeypath}.
+\end{proof}
 
 \begin{definition}
 A model $\gmodel$ satisfies \term{the minimality condition} iff for every entity type $a$,
@@ -1105,7 +1122,7 @@ In an ER model $\gmodel$, a non-empty path $t: a \morph b$, where $a$ and $b$ ar
 In an ER model $\gmodel$, a non-empty path $p: a \morph b$, where $a$ and $b$ are entity types, which consists
 of a relationship $R$ followed by a  path $t :a' \morph b$ is said to be \term{relationship-like} iff
 either  $t$ is the empty path (so that the path $p$ is exactly a relationship $R$) or $t$
-is identifying-like.
+is identifying-like.\commentary{A relationship-like path, as a relationship i.e. a path of length 1,  can be navigated in SQL without use of intermediate tables. Paths which have length greater than one and are not relationship-like need be navigated in SQL using intermediate tables.}
 \end{definition}
 
 Certain significant isomorpisms, we call them key-realising isomorphisms, reflect primary key paths upto equivalence of paths and it is significant that these then preserves identifying-like paths and  relationship-like paths. 
@@ -1210,23 +1227,21 @@ follows by lemmas \ref{isospreserveandreflectmultiplefds}, \ref{isospreserveandr
 \end{enumerate}
 \end{proof}
 \begin{definition}
-An ER model $\gmodel$ is \term{restriction-free} iff for all entity types $a$ of $\gmodel$ and for all edges $y$ with domain $a$, if there 
-exists paths $x_1,...x_n$   with domain
-$a$ in $\gmodel$,  and for some $j$, $1 \leq j \leq n$, in every defining instance $E$,  
-$$E_y = \bigwedge_{1 \leq i \leq n}{\overline{x_i}} \circ x_j$$
+An ER model $\gmodel$ is \term{restriction-free} iff for all entity types $a$ of $\gmodel$ and for all edges $y$ with domain $a$, if there exists paths $x_1,...x_n$   with domain $a$ in $\gmodel$,  and for some $j$, $1 \leq j \leq n$, in every defining instance $E$,  
+$$E_y = \bigwedge_{1 \leq i \leq n}{\overline{E_{x_i}}} \circ E_{x_j}$$
 then $y \simeq x_j$.
 \end{definition}
 
 \begin{lemma}
 \label{intransitivelemma}
-In a well-formed model $\gmodel$  if $\set{x_1,...x_n} \morph y$  is a non-trivial intransitive leaf
+In a well-formulated model $\gmodel$  if $\set{x_1,...x_n} \morph y$  is a non-trivial intransitive leaf
 functional dependency sourced at some entity type $a$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$ 
 or else for some entity type $d$ there is a non-empty relationship-like path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
 the path $w$ is non-empty and if $y$ is an edge and $\gmodel$ is leaf\commentary{check leaf is right} restriction-free then $w$ is not equivalent to a primary key path.
 \end{lemma}
 \begin{proof}
-Since $\gmodel$ is well formed  and there is an intransitive functional dependency $\set{x_1,...x_n} \morph y$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$  and we are done or else the functional dependency
+Since $\gmodel$ is well-formulated  and there is an intransitive functional dependency $\set{x_1,...x_n} \morph y$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$  and we are done or else the functional dependency
 $\set{x_1,...x_n} \morph y$   is represented 
 by  an entity type $d$ and 
 a primary mono-source $\qntuple$ with respect to
@@ -1261,7 +1276,7 @@ E_y = E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_w
 \end{equation}
 
 Because $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$,  and from
-clause (iii) of the definition of well-formedness since $\gmodel$ is well formed, it follows that
+clause (iii) of the definition of well-formulated since $\gmodel$ is well-formulated, it follows that
 there  is a relationship-like path $p:a \rightarrow d$ such
 that 
 %\foreachi, $p \circ q_i \simeq x_i$ and therefore
@@ -1280,10 +1295,10 @@ E_y &= E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_w  && \text{ (\ref{fundepend
 \vspace{-0.3cm}
 From which, by definition, $y\simeq p \circ w$, as required. \\
 
-Now suppose that $c$ is the type representing universals $\veee$. The path $w$ must be non-empty because its source $d$ being 
-an entity type must be distinct from its destination $\veee$ which is not an entity type. 
+Now suppose that $c$ is the type representing universals, $\veee$. The path $w$ must be non-empty because its source $d$ being an entity type must be distinct from its destination $\veee$ which is not an entity type. 
 We wish to show that $w$ is not equivalent in $\gmodel$ to
-a primary key path. Assume the contrary that $w$ is a primary key path. From the following lemma it follows that $w \simeq q_i$, for some
+a primary key path. Assume the contrary that $w$ is a primary key path. From lemma 
+\ref{primarykeypathfactorsthroughprimarymonosource} it follows that $w \simeq q_i$, for some
 $i$, $1 \leq i \leq n$.  
 Therefore
 \begin{align*}
@@ -1295,47 +1310,49 @@ E_y &= E_p \circ E_w                                        && \text{}\\
 		                                                        && \text{By lemma \ref{tupleprojection}}
 \end{align*} 
 
-Hence because $\gmodel$ is leaf \commentary{check leaf} restriction-free we deduce that $y \simeq x_i$ and this contradicts the assumption that the functional dependency
+Hence because $\gmodel$ is leaf \commentary{check leaf} restriction-free we deduce that $y \simeq x_i$ 
+\commentary{or $x_i$ is empty and $y \simeq x_j$ ???} and this contradicts the assumption that the functional dependency
 is non-trivial. Thus $w$ is not equivalent to a primary key path.
 \end{proof}
 
-\begin{lemma}
-If for some $m \geq 1$, $\qmtuple$ is a primary mono-source at $b$ such that for each $j$, $1 \leq j \leq m$, $q_j : b \morph b_j$,
-and if  $p$ is a primary key path such that $p: b \morph \veee$   
-then there exists $j$, $1 \leq j \leq m$ and there exists $p'$, $p': b_j \morph \veee$ such that $p \simeq q_j \circ p'$.
-\end{lemma}
-\begin{proof}
-Follows from the next lemma.
-\end{proof}
 
-\begin{lemma}
-If $Q \in \bar{I_a}$ and if $p$ is a primary key path at $a$ then for some node $b$ there exists $q \in Q$, $q: a \morph b$, and there exists 
-a path $q'$, $q': b \morph \veee$,  all of whose edges are identifying and such that $q \circ q' = p$. 
-\end{lemma}
-\begin{proof}
-How to make this observation a proof?.
-\end{proof}
 
 \begin{definition}
 \noindent An ER model $\gmodel$ has the \term{\fdfactoring} property iff to every functional dependency $\set{x_1,...x_n} \morph z$ where $x1, x_2, ... x_n$ and $z$ are \attributelike\ paths either $\set{x_1,...x_n}$ is
 a mono-source or else there is an intransitive functional dependency $\set{y_1,...y_m} \morph z$ which it factors through i.e. such that $\set{x_1,...x_n} \morph \set{y_1,...y_m}$
 \end{definition}
 
+fdfactoringcarrythroughlemma
 \begin{lemma}
 \label{fdfactoringcarrythroughlemma}
 If two models are isomorphic then one has the fd factoring property iff the other one does.
 \commentary{Previously:If  $\gmodel$ is $\chit$-suitable and has the $\fdfactoring$ property then so to does $\chigmodel$. }
 \end{lemma}
 \begin{proof}
-Use lemma \ref{isospreserveandreflectfds}.
-\vspace{0.5cm}
-tbd
+Use lemma \ref{isospreserveandreflectfds} and also lemma \ref{isospreserveandreflecttransitivefds}.
+To show that $\gmodel'$ has the fd factoring property if $\gmodel$ does assume $\gmodel$ has the fd factoring property and assume $\fd{\xnprimetuple}{z'}$ in $\gmodel'$.
+By lemma \ref{????} it follows that $\fd{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}{\varphi^{-1}(z')}$
+in $\gmodel$. Since $\gmodel$ is assumed to have the fd factoring property either $\set{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}$ is a mono-source in $\gmodel$ in which case $\set{\xntuple}$ is a mono-source in 
+$\gmodel'$ by lemma \ref{???} and we are done or else there exists paths $\yn$ in $\gmodel$ such that
+$\fd{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}{\yn}$ and 
+an intransitive fd $\fd{\yn}{\varphi^{-1}(z')}$ in $\gmodel$.  From this is follows by lemma 
+\ref{???} that $\fd{\xnprimetuple}{\varphi(y_1),...\varphi(y_n)}$ in $\gmodel'$
+and such that $\fd{\varphi(y_1),...\varphi(y_n)}{z'}$ is an intransitive fd in $\gmodel'$. We have shown that $\gmodel'$ has the fd factoring property.
+
+To show that $\gmodel$ has the fd factoring property if $\gmodel'$ does assume $\gmodel$ has the fd factoring property and assume $\fd{\xn}{z}$ in $\gmodel$. Then $\fd{\phixn}{\varphi(z)}$ in $\gmodel'$. 
+Since $\gmodel'$ is assumed to have the fd factoring property then either $\set{\phixn}$ is a mono-source
+in $\gmodel'$ in which case by lemma{???} $\set{\xn}$ is a mono-source in $\gmodel$ and we are done or else
+there exists $\set{y_1,...y_n}$ such that
+$\fd{\phixn}{\yn}$ is an non-trivial fd in $\gmodel'$ and $\fd{\yn}{\varphi(z)}$ is an intransitive fd
+in $\gmodel'$ from which it follows that 
+$\fd{\xn}{\varphi^{-1}(y_1),...\varphi^{-1}(y_n)}$ is an non-trivial fd in $\gmodel$ and $\fd{\varphi^{-1}(y_1),...\varphi^{-1}(y_n)}{z}$ is an intransitive fd
+in $\gmodel$, as required.
 \end{proof}
 
 
 \begin{lemma}
 \label{mainlemma}
-In a well-formed model $\gmodel$ that has the \fdfactoring\ property if $\set{x_1,...x_n} \morph z$ is a non-trivial leaf functional dependency sourced
+In a well-formulated model $\gmodel$ that has the \fdfactoring\ property if $\set{x_1,...x_n} \morph z$ is a non-trivial leaf functional dependency sourced
 at some entity type $a$ then either $\set{x_1,...x_n}$ is a mono-source in $\gmodel$
 or else there is an entity type $d$ and there is a relationship-like path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
@@ -1419,11 +1436,10 @@ met and in these situations a lesser goodness criteria that can be achieved is t
 ER model $\gmodel$ satisfies a strong form of 3NF as follows:
 
 \begin{definition} % TNF
-A relational ER model $\gmodel$ is in Strong Third Normal Form (S3NF)  iff
+A (relational) ER model $\gmodel$ is in Strong Third Normal Form (S3NF)  iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
 for which  there is a non-trivial functional dependency \sfd{x_1,...x_n}{y}, 
-in all instances $E$  of $\gmodel$, either the function $E_{<x_1,...x_n>}$ is injective and total
-or else $y$ is identifying.
+$\set{xn}$ is a mono-source or else $y$ is identifying.
 \end{definition}
 
 We shall also show that with a single additional condition on $\gmodel$, which it may or not be possible to achieve in a given modelling situation,
@@ -1433,7 +1449,7 @@ Written in the terminology we are using here BCNF can be defined as follows:
 A relational ER model is in Boyce Codd Normal Form (BCNF) \commentary{See Zaniolo definition 2.} iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
 for which  there is a non-trivial functional dependency \sfd{x_1,...x_n}{y}, 
-in all instances $E$  of $\gmodel$, the function $E_{<x_1,...x_n>}$ is injective and total.  
+$\set{xn}$ is a mono-source.  
 \end{definition}
 
 \noindent The next lemma simplifies the requirement for showing BCNF to consideration of non-trivial
@@ -1443,16 +1459,17 @@ intransitive functional dependencies:
 If a model $\gmodel$ has the \fdfactoring\ property then it is in BCNF iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
 for which there is an non trivial  intransitive functional dependency \sfd{x_1,...x_n}{y},
-in all instances $E$, $E_{<x_1,...x_n>}$ is injective and total. 
+$\set{xn}$ is a mono-source. 
 \end{lemma}
 \begin{proof}Use lemma \ref{transitiveinjectivelemma}.
 \end{proof}
+S3NFsublemma
 \begin{lemma}
 \label{S3NFsublemma}
 If a model $\gmodel$ has the \fdfactoring\ property then it is in S3NF iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
 for which there is an non trivial intransitive functional dependency \sfd{x_1,...x_n}{y},
-in all instances $E$, $E_{<x_1,...x_n>}$ is injective and total or $y$ is a primary key. 
+$\set{xn}$ is a mono-source or $y$ is a primary key. 
 \end{lemma}
 \subsection{Other Conditions for Relational ER models}
 \begin{definition} 
@@ -1517,19 +1534,19 @@ is identifying. \\
 Assume then such a functional dependency.
 From the assumption that the model $\gmodel$ is well-formulated and restriction-free
 then by lemma \ref{mainlemma} 
-either $E_{\tuple{x_1,...x_n }}$ is
-injective and total in every instance $E$ of $\gmodel$ and we are done
+either $\set{xn}$ is a mono-source and we are done
 or else there is a non-empty relationship-like path $r$ in $\gmodel$
 and a path $w$ of $\gmodel$ that is not a primary key path such that
 \begin{equation}
 \label{simpleRepresentation}
- E_r \circ E_w = E_y
+ r \circ w \simeq y
 \end{equation}
 and such that $\sfd{x_1,...x_n}{r}$.
 If the model $\gmodel$ is assumed to be reduced without caveat then either $r$ is a mono-source since $w$ is not equivalent to some primary key of $d$.
-Since $r$ is a mono-source then $x_1,...x_n$ is a mono source, as required, since $\sfd{x_1,...x_n}{r}$ and we have established BCNF.
+Since $r$ is a mono-source then $x_1,...x_n$ is a mono source, as required, since $\sfd{x_1,...x_n}{r}$ \commentary{lemma?} and we have established BCNF.
 With the weaker assumption that the model $\gmodel$ is reduced, there is the additional possibility that $y$ is identifying i.e. is a primary key attribute and we have proved S3NF.
 \end{proof}
+
 \subsection{Simple Relational Models}
 It is unusual in practice for reduced relational models not to meet the stronger condition that we get if we drop condition (ii) from the definition of a model being reduced. We shall say such models are \term{simple} and so these are defined as follows:
 \begin{definition} 
@@ -1763,7 +1780,7 @@ $a$ in $\gmodel$,  and for some $j$, $1 \leq j \leq n$, in every defining instan
 $$E_y = \bigwedge_{1 \leq i \leq n}{\overline{x_i}} \circ x_j$$then $y \simeq x_j$. In particular
 $\set{x_1,...x_n} \morph y$ is a leaf intransitive functional dependency\commentary{Fill this out a bit since might be flab}. 
 
-Since $\gmodel$ is well formed  and there is a leaf intransitive functional dependency $\set{x_1,...x_n} \morph y$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$  in which case $y \simeq x_j$  and we are done \commentary{why?} or else the functional dependency $\set{x_1,...x_n} \morph y$   is in part represented by  an entity type $d$ and a primary mono-source $\qntuple$ with respect to$d$, such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$ but this cannot be the case because if it were then by lemma \ref{inclusiondependencyrestrictionlemma}
+Since $\gmodel$ is well-formulated  and there is a leaf intransitive functional dependency $\set{x_1,...x_n} \morph y$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$  in which case $y \simeq x_j$  and we are done \commentary{why?} or else the functional dependency $\set{x_1,...x_n} \morph y$   is in part represented by  an entity type $d$ and a primary mono-source $\qntuple$ with respect to$d$, such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$ but this cannot be the case because if it were then by lemma \ref{inclusiondependencyrestrictionlemma}
 $$E_p \circ E_{q_j} = \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq i \leq n}{ i \neq j}}{\overline{E_{x_i}}}\circ E_{x_j}$$
 and we woud have that
 $$E_p \circ E_{q_j} = E_y$$
