@@ -364,10 +364,11 @@ with domain entity type $a$ is a mono-source.
 \end{corollary}
 
 factoringprimarykeypath
-\begin{observation}\commentary{Question over whether this is required.}
+\begin{observation}
 \label{factoringprimarykeypath}
-If $Q \in \bar{I_a}$ and if $p$ is a primary key path at $a$ then for some node $b$ there exists $q \in Q$, $q: a \morph b$\commentary{q may be empty, may have $p \in Q$}, and there exists 
+If $Q \in \bar{I_a}$ and if $p$ is a primary key path at $a$ then for some node $b$ there exists $q \in Q$, $q: a \morph b$, and there exists 
 a primary key path $q'$, $q': b \morph \veee$,  such that $q \circ q' = p$. 
+Note that it may be that $p \in Q$ in which case $q$ will simply be the empty path $\tuple{}:a \morph a$.
 \end{observation}
 
 \subsubsection{Primary Mono Sources and Minimality Condition}
@@ -385,11 +386,13 @@ a \term{primary mono source} at $a$.
 \end{definition}
 
 primarykeypathfactorsthroughprimarymonosource
-\begin{lemma}{Question over whether this is required.}
+\begin{lemma}
 \label{primarykeypathfactorsthroughprimarymonosource}
 If for some $m \geq 1$, $\qmtuple$ is a primary mono-source at $b$ such that for each $j$, $1 \leq j \leq m$, $q_j : b \morph b_j$,
 and if  $p$ is a primary key path such that $p: b \morph \veee$   
 then there exists $j$, $1 \leq j \leq m$ and there exists $p'$, $p': b_j \morph \veee$ such that $p \simeq q_j \circ p'$.
+Note that it may be that for some $j$, $1 \leq j \leq m$, $b_j = \veee$ and $p \simeq q_j$.
+Note further that if $\set{\qm}$ is a leaf primary mono-source then for some $j$, $1 \leq j \leq m$, $p \simeq q_j$.
 \end{lemma}
 \begin{proof}
 Follows from observation \ref{factoringprimarykeypath}.
@@ -407,7 +410,6 @@ A model $\gmodel$ satisfies \term{the minimality condition} iff for every entity
 A model $\gmodel$ satisfies \term{the minimality condition} iff 
 for every entity type $a$ of $\gmodel$ and for every source $Q \in \bar{I_a}$, if $Q'$ is representative
 of  $Q$, then no proper subset of $Q'$ is a mono-source. \commentary{I may have been here before and found it to be false.}
-
 \end{conjecture}
 
 
@@ -1122,7 +1124,7 @@ In an ER model $\gmodel$, a non-empty path $t: a \morph b$, where $a$ and $b$ ar
 In an ER model $\gmodel$, a non-empty path $p: a \morph b$, where $a$ and $b$ are entity types, which consists
 of a relationship $R$ followed by a  path $t :a' \morph b$ is said to be \term{relationship-like} iff
 either  $t$ is the empty path (so that the path $p$ is exactly a relationship $R$) or $t$
-is identifying-like.\commentary{A relationship-like path, as a relationship i.e. a path of length 1,  can be navigated in SQL without use of intermediate tables. Paths which have length greater than one and are not relationship-like need be navigated in SQL using intermediate tables.}
+is identifying-like.\commentary{A relationship-like path, as a relationship i.e. a path of length 1,  can be navigated in SQL without use of intermediate tables (only true in a first-cut model!!) . Paths which have length greater than one and are not relationship-like need be navigated in SQL using intermediate tables.}
 \end{definition}
 
 Certain significant isomorpisms, we call them key-realising isomorphisms, reflect primary key paths upto equivalence of paths and it is significant that these then preserves identifying-like paths and  relationship-like paths. 
@@ -1227,18 +1229,25 @@ follows by lemmas \ref{isospreserveandreflectmultiplefds}, \ref{isospreserveandr
 \end{enumerate}
 \end{proof}
 \begin{definition}
-An ER model $\gmodel$ is \term{restriction-free} iff for all entity types $a$ of $\gmodel$ and for all edges $y$ with domain $a$, if there exists paths $x_1,...x_n$   with domain $a$ in $\gmodel$,  and for some $j$, $1 \leq j \leq n$, in every defining instance $E$,  
+An ER model $\gmodel$ is \term{restriction-free} iff for all entity types $a$ of $\gmodel$ and for all edges $y$ with domain $a$, if there exists paths $x_1,...x_n$   with domain $a$ in $\gmodel$,  and for some $j$, $1 \leq j \leq n$, $x_j \not\simeq \tuple{}$ and in every defining instance $E$,  
 $$E_y = \bigwedge_{1 \leq i \leq n}{\overline{E_{x_i}}} \circ E_{x_j}$$
 then $y \simeq x_j$.
 \end{definition}
+
+Since if $y < x$ in an ER model $\gmodel$ then in each instance $E$, $E_y = \bar{E_y} \circ E_x$
+then we can deduce the following:
+\begin{observation}
+If $\gmodel$ is a restriction-free  ER model with an edge $y$ then there does not exist\commentary{This still isn't correct because we might want ide-mpotent $y$ less than idempotent $x$. CONSIDER FURTHER}
+a path  $x$ which is not equivalent to the empty path and for which $y < x$.
+\end{observation}
 
 \begin{lemma}
 \label{intransitivelemma}
 In a well-formulated model $\gmodel$  if $\set{x_1,...x_n} \morph y$  is a non-trivial intransitive leaf
 functional dependency sourced at some entity type $a$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$ 
-or else for some entity type $d$ there is a non-empty relationship-like path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$
+or else for some entity type $d$ there is a non-empty relationship-like path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$ is a functional dependency in $\gmodel$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
-the path $w$ is non-empty and if $y$ is an edge and $\gmodel$ is leaf\commentary{check leaf is right} restriction-free then $w$ is not equivalent to a primary key path.
+the path $w$ is non-empty and if $y$ is an edge and $\gmodel$ is leaf\commentary{notice that only need leaf restriction-free} restriction-free then $w$ is not equivalent to a primary key path.
 \end{lemma}
 \begin{proof}
 Since $\gmodel$ is well-formulated  and there is an intransitive functional dependency $\set{x_1,...x_n} \morph y$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$  and we are done or else the functional dependency
@@ -1315,38 +1324,36 @@ Hence because $\gmodel$ is leaf \commentary{check leaf} restriction-free we dedu
 is non-trivial. Thus $w$ is not equivalent to a primary key path.
 \end{proof}
 
-
-
 \begin{definition}
 \noindent An ER model $\gmodel$ has the \term{\fdfactoring} property iff to every functional dependency $\set{x_1,...x_n} \morph z$ where $x1, x_2, ... x_n$ and $z$ are \attributelike\ paths either $\set{x_1,...x_n}$ is
-a mono-source or else there is an intransitive functional dependency $\set{y_1,...y_m} \morph z$ which it factors through i.e. such that $\set{x_1,...x_n} \morph \set{y_1,...y_m}$
+a mono-source or else there is an intransitive functional dependency $\set{y_1,...y_m} \morph z$ which it factors through i.e. such that $\set{x_1,...x_n} \morph \set{y_1,...y_m}$.
 \end{definition}
 
 fdfactoringcarrythroughlemma
 \begin{lemma}
 \label{fdfactoringcarrythroughlemma}
-If two models are isomorphic then one has the fd factoring property iff the other one does.
-\commentary{Previously:If  $\gmodel$ is $\chit$-suitable and has the $\fdfactoring$ property then so to does $\chigmodel$. }
+If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi:\gmodel \morph \gmodel'$ is an isomorphism
+then if $\gmodel$ has the fd factoring property then so to does $\gmodel'$.
 \end{lemma}
 \begin{proof}
-Use lemma \ref{isospreserveandreflectfds} and also lemma \ref{isospreserveandreflecttransitivefds}.
-To show that $\gmodel'$ has the fd factoring property if $\gmodel$ does assume $\gmodel$ has the fd factoring property and assume $\fd{\xnprimetuple}{z'}$ in $\gmodel'$.
-By lemma \ref{????} it follows that $\fd{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}{\varphi^{-1}(z')}$
-in $\gmodel$. Since $\gmodel$ is assumed to have the fd factoring property either $\set{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}$ is a mono-source in $\gmodel$ in which case $\set{\xntuple}$ is a mono-source in 
-$\gmodel'$ by lemma \ref{???} and we are done or else there exists paths $\yn$ in $\gmodel$ such that
-$\fd{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}{\yn}$ and 
-an intransitive fd $\fd{\yn}{\varphi^{-1}(z')}$ in $\gmodel$.  From this is follows by lemma 
-\ref{???} that $\fd{\xnprimetuple}{\varphi(y_1),...\varphi(y_n)}$ in $\gmodel'$
-and such that $\fd{\varphi(y_1),...\varphi(y_n)}{z'}$ is an intransitive fd in $\gmodel'$. We have shown that $\gmodel'$ has the fd factoring property.
+%Use lemma \ref{isospreserveandreflectfds} and also lemma \ref{isospreserveandreflecttransitivefds}.
+To show that $\gmodel'$ has the fd factoring property if $\gmodel$ does assume $\gmodel$ has the fd factoring property and assume $\fd{\xnprime}{z'}$ in $\gmodel'$. 
+By lemma \ref{isospreserveandreflectfds} it follows since $\varphi^{-1}$ is an isomorphism that $\fd{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}{\varphi^{-1}(z')}$ is a functional depdendency
+in $\gmodel$. Since $\gmodel$ is assumed to have the fd factoring property either $\set{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}$ is a mono-source in $\gmodel$ in which case $\set{\xnprime}$ is a mono-source in 
+$\gmodel'$ since $\varphi^{-1}$ is an isomorphism  and isomorphisms reflect mono-sources (lemma \ref{isospreserveandreflectmonosources}) or else there exists paths $\yn$ in $\gmodel$ such that
+$\fd{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}{\yn}$ is a functional depdency in $\gmodel$ and 
+ $\fd{\yn}{\varphi^{-1}(z')}$ is an intransitive functional dependency in $\gmodel$.  
 
-To show that $\gmodel$ has the fd factoring property if $\gmodel'$ does assume $\gmodel$ has the fd factoring property and assume $\fd{\xn}{z}$ in $\gmodel$. Then $\fd{\phixn}{\varphi(z)}$ in $\gmodel'$. 
-Since $\gmodel'$ is assumed to have the fd factoring property then either $\set{\phixn}$ is a mono-source
-in $\gmodel'$ in which case by lemma{???} $\set{\xn}$ is a mono-source in $\gmodel$ and we are done or else
-there exists $\set{y_1,...y_n}$ such that
-$\fd{\phixn}{\yn}$ is an non-trivial fd in $\gmodel'$ and $\fd{\yn}{\varphi(z)}$ is an intransitive fd
-in $\gmodel'$ from which it follows that 
-$\fd{\xn}{\varphi^{-1}(y_1),...\varphi^{-1}(y_n)}$ is an non-trivial fd in $\gmodel$ and $\fd{\varphi^{-1}(y_1),...\varphi^{-1}(y_n)}{z}$ is an intransitive fd
-in $\gmodel$, as required.
+In the latter case it then follows by lemma
+\ref{isospreserveandreflectfds} that
+ $\fd{\varphi(\varphi^{-1}(x'_1)),...\varphi(\varphi^{-1}(x'_n))} {\varphi(y_1),...\varphi(y_n)}$
+is a functional dependency in $\gmodel'$
+and then by lemma \ref{fdequivalence}  that $\fd{\xnprime}{\varphi(y_1),...\varphi(y_n)}$ in $\gmodel'$
+because for each $i$, $1 \leq i \leq n$, $\varphi(\varphi^{-1}(x_i)) \simeq x_i$.
+Similarly, we can use lemmas \ref{isospreserveandreflecttransitivefds} and \ref{fdequivalence} to show that $\fd{\varphi(y_1),...\varphi(y_n)}{z'}$ is an intransitive functional dependency in $\gmodel'$. 
+
+From the assumption that $\gmodel$ has the fd factoring property we have shown that for each functional dependency $\fd{\xnprime}{z'}$ in $\gmodel'$ either $\set{\xnprime}$ is a mono-source  or
+that the functional dependency  $\fd{\xnprime}{z'}$ factors through an intransitive functional dependency and  therefore that $\gmodel'$ has the fd factoring property.
 \end{proof}
 
 
@@ -1435,11 +1442,11 @@ Say that a relational ER model $\gmodel$ is \term{free of attribute redundancy} 
 met and in these situations a lesser goodness criteria that can be achieved is that of Third Normal Form (3NF). We shall show that the relational model $\chigmodel$ generated from a well-formulated 
 ER model $\gmodel$ satisfies a strong form of 3NF as follows:
 
-\begin{definition} % TNF
+\begin{definition} % S3NF
 A (relational) ER model $\gmodel$ is in Strong Third Normal Form (S3NF)  iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
 for which  there is a non-trivial functional dependency \sfd{x_1,...x_n}{y}, 
-$\set{xn}$ is a mono-source or else $y$ is identifying.
+$\set{\xn}$ is a mono-source or else $y$ is identifying.
 \end{definition}
 
 We shall also show that with a single additional condition on $\gmodel$, which it may or not be possible to achieve in a given modelling situation,
@@ -1454,12 +1461,14 @@ $\set{xn}$ is a mono-source.
 
 \noindent The next lemma simplifies the requirement for showing BCNF to consideration of non-trivial
 intransitive functional dependencies:
+
+BCNFsublemma
 \begin{lemma}
 \label{BCNFsublemma}
 If a model $\gmodel$ has the \fdfactoring\ property then it is in BCNF iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
 for which there is an non trivial  intransitive functional dependency \sfd{x_1,...x_n}{y},
-$\set{xn}$ is a mono-source. 
+$\set{\xn}$ is a mono-source. 
 \end{lemma}
 \begin{proof}Use lemma \ref{transitiveinjectivelemma}.
 \end{proof}
@@ -1469,7 +1478,7 @@ S3NFsublemma
 If a model $\gmodel$ has the \fdfactoring\ property then it is in S3NF iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
 for which there is an non trivial intransitive functional dependency \sfd{x_1,...x_n}{y},
-$\set{xn}$ is a mono-source or $y$ is a primary key. 
+$\set{\xn}$ is a mono-source or $y$ is a primary key. 
 \end{lemma}
 \subsection{Other Conditions for Relational ER models}
 \begin{definition} 
@@ -1521,7 +1530,7 @@ either
 \noindent Now for the main theorem:
 \begin{theorem}
 \label{maintheorem}
-\noindent If a relational ER model $\gmodel$ is well-formulated and restriction-free, has the \fdfactoring\ property and is reduced then it is in Strong Third Normal Form. 
+\noindent If a (relational) ER model $\gmodel$ is well-formulated and restriction-free, has the \fdfactoring\ property and is reduced then it is in Strong Third Normal Form. 
 If  $\gmodel$ is reduced without caveats then is in Boyce-Codd Normal form.
 \end{theorem}
 \begin{proof}
@@ -1534,9 +1543,9 @@ is identifying. \\
 Assume then such a functional dependency.
 From the assumption that the model $\gmodel$ is well-formulated and restriction-free
 then by lemma \ref{mainlemma} 
-either $\set{xn}$ is a mono-source and we are done
+either $\set{\xn}$ is a mono-source and we are done
 or else there is a non-empty relationship-like path $r$ in $\gmodel$
-and a path $w$ of $\gmodel$ that is not a primary key path such that
+and a path $w$ of $\gmodel$ that is not  (equivalent to ????) a primary key path such that
 \begin{equation}
 \label{simpleRepresentation}
  r \circ w \simeq y
