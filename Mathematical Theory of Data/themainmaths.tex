@@ -1133,14 +1133,14 @@ Certain significant isomorpisms, we call them key-realising isomorphisms, reflec
 If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi$ is an ER model isomorphism 
 $\varphi: \gmodel  \morph \gmodel'$ then $\varphi$ is said to be a \term{key-realising} isomorphism iff
 whenever $p':\varphi(a) \morph \varphi(b)$ is a primary key path in $\gmodel$ then there exists 
-a primary key path $p:a \morph b$ in $gmodel$ such that $\varphi(p) \simeq p'$ in $\gmodel'$.
+a primary key path $p:a \morph b$ in $\gmodel$ such that $\varphi(p) \simeq p'$ in $\gmodel'$.
 \end{definition} 
 
 
 certainisospreserveidentifyinglike
 \begin{lemma}
 \label{certainisospreserveidentifyinglike}
-If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an key-realising isomorphism between $\gmodel$and $\gmodel'$ then if $t:a \morph b$ is an identifying-like  path in $\gmodel$ then $\varphi(t)$ is an identfying-like in $\gmodel'$.
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an key-realising isomorphism between $\gmodel$ and $\gmodel'$ then if $t:a \morph b$ is an identifying-like  path in $\gmodel$ then $\varphi(t)$ is an identfying-like in $\gmodel'$.
 \end{lemma}
 \begin{proof}
 TBD
@@ -1229,7 +1229,7 @@ follows by lemmas \ref{isospreserveandreflectmultiplefds}, \ref{isospreserveandr
 \end{enumerate}
 \end{proof}
 \begin{definition}
-An ER model $\gmodel$ is \term{restriction-free} iff for all entity types $a$ of $\gmodel$ and for all edges $y$ with domain $a$, if there exists paths $x_1,...x_n$   with domain $a$ in $\gmodel$,  and for some $j$, $1 \leq j \leq n$, $x_j \not\simeq \tuple{}$ and in every defining instance $E$,  
+An ER model $\gmodel$ is \term{restriction-free} iff for all distint nodes $a$, $b$ of $\gmodel$ and for all edges $y: a \morph b$, if there exist non-empty paths $x_1,...x_n$   with domain $a$ in $\gmodel$,  and for some $j$, $1 \leq j \leq n$, $x_j \not\simeq \tuple{}$ and in every defining instance $E$,  
 $$E_y = \bigwedge_{1 \leq i \leq n}{\overline{E_{x_i}}} \circ E_{x_j}$$
 then $y \simeq x_j$.
 \end{definition}
@@ -1237,8 +1237,7 @@ then $y \simeq x_j$.
 Since if $y < x$ in an ER model $\gmodel$ then in each instance $E$, $E_y = \bar{E_y} \circ E_x$
 then we can deduce the following:
 \begin{observation}
-If $\gmodel$ is a restriction-free  ER model with an edge $y$ then there does not exist\commentary{This still isn't correct because we might want ide-mpotent $y$ less than idempotent $x$. CONSIDER FURTHER}
-a path  $x$ which is not equivalent to the empty path and for which $y < x$.
+If $\gmodel$ is a restriction-free  ER model with an edge $y:a \morph b$, where  $a$ and $b$ are distinct nodes of $\gmodel$ then there does not exist a path  $x$ for which $y < x$.
 \end{observation}
 
 \begin{lemma}
@@ -1299,14 +1298,14 @@ Now we have  that in all defining instances $E$ that
 \begin{align*}
 E_y &= E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_w  && \text{ (\ref{fundependency}), above,}\\
     &= E_p \circ E_w                                   && \text{by (\ref{incdependency}),}\\
-		&= E_{p \circ w}                                   && \text{from defn. of instance }E.\\
+		&= E_{p \circ w}                                   && \text{from defn. of $E$ being an instance.}\\
 \end{align*} 
 \vspace{-0.3cm}
 From which, by definition, $y\simeq p \circ w$, as required. \\
 
 Now suppose that $c$ is the type representing universals, $\veee$. The path $w$ must be non-empty because its source $d$ being an entity type must be distinct from its destination $\veee$ which is not an entity type. 
 We wish to show that $w$ is not equivalent in $\gmodel$ to
-a primary key path. Assume the contrary that $w$ is a primary key path. From lemma 
+a primary key path. Assume the contrary that $w$ is equivalent to a primary key path. From lemma 
 \ref{primarykeypathfactorsthroughprimarymonosource} it follows that $w \simeq q_i$, for some
 $i$, $1 \leq i \leq n$.  
 Therefore
@@ -1319,8 +1318,8 @@ E_y &= E_p \circ E_w                                        && \text{}\\
 		                                                        && \text{By lemma \ref{tupleprojection}}
 \end{align*} 
 
-Hence because $\gmodel$ is leaf \commentary{check leaf} restriction-free we deduce that $y \simeq x_i$ 
-\commentary{or $x_i$ is empty and $y \simeq x_j$ ???} and this contradicts the assumption that the functional dependency
+Hence because $\gmodel$ is leaf  restriction-free we deduce that $y \simeq x_i$ 
+ and this contradicts the assumption that the functional dependency
 is non-trivial. Thus $w$ is not equivalent to a primary key path.
 \end{proof}
 
@@ -1445,7 +1444,7 @@ ER model $\gmodel$ satisfies a strong form of 3NF as follows:
 \begin{definition} % S3NF
 A (relational) ER model $\gmodel$ is in Strong Third Normal Form (S3NF)  iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
-for which  there is a non-trivial functional dependency \sfd{x_1,...x_n}{y}, 
+for which  \sfd{x_1,...x_n}{y} is a non-trivial functional dependency, 
 $\set{\xn}$ is a mono-source or else $y$ is identifying.
 \end{definition}
 
@@ -1455,7 +1454,7 @@ Written in the terminology we are using here BCNF can be defined as follows:
 \begin{definition} % BCNF
 A relational ER model is in Boyce Codd Normal Form (BCNF) \commentary{See Zaniolo definition 2.} iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
-for which  there is a non-trivial functional dependency \sfd{x_1,...x_n}{y}, 
+for which  \sfd{x_1,...x_n}{y} is a non-trivial functional dependency, 
 $\set{xn}$ is a mono-source.  
 \end{definition}
 
@@ -1467,7 +1466,7 @@ BCNFsublemma
 \label{BCNFsublemma}
 If a model $\gmodel$ has the \fdfactoring\ property then it is in BCNF iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
-for which there is an non trivial  intransitive functional dependency \sfd{x_1,...x_n}{y},
+for which \sfd{x_1,...x_n}{y} is a non trivial  intransitive functional dependency,
 $\set{\xn}$ is a mono-source. 
 \end{lemma}
 \begin{proof}Use lemma \ref{transitiveinjectivelemma}.
@@ -1477,12 +1476,12 @@ S3NFsublemma
 \label{S3NFsublemma}
 If a model $\gmodel$ has the \fdfactoring\ property then it is in S3NF iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
-for which there is an non trivial intransitive functional dependency \sfd{x_1,...x_n}{y},
+for which \sfd{x_1,...x_n}{y} is a non trivial intransitive functional dependency,
 $\set{\xn}$ is a mono-source or $y$ is a primary key. 
 \end{lemma}
 \subsection{Other Conditions for Relational ER models}
 \begin{definition} 
-An ER model is \term{reduced} iff for all attributes $x:a \morph \veee$
+An ER model is \term{reduced} iff for all attributes $x:a \morph \veee$ \commentary{move earlier?}
 such that there is a relationship-like path $r:a \morph b$ and a path $p:b \morph \veee$ such that
 $x \simeq r \circ p$, as here,
 \setlength{\arraycolsep}{.2cm}
@@ -1536,7 +1535,7 @@ If  $\gmodel$ is reduced without caveats then is in Boyce-Codd Normal form.
 \begin{proof}
 To prove S3NF it suffices, by lemma \ref{S3NFsublemma},  to show that if 
 $\sfd{x_1,...x_n}{y}$ is a non-trivial intransitive functional dependency of model $\gmodel$
-where $x_1,...x_n,y$ are attributes 
+where $x_1,...x_n$, $y$ are attributes 
 then  in all instances
 $E$ of $\gmodel$, $E_{<x_1,...x_n>}$ is injective and total or that $y$
 is identifying. \\
@@ -1545,7 +1544,7 @@ From the assumption that the model $\gmodel$ is well-formulated and restriction-
 then by lemma \ref{mainlemma} 
 either $\set{\xn}$ is a mono-source and we are done
 or else there is a non-empty relationship-like path $r$ in $\gmodel$
-and a path $w$ of $\gmodel$ that is not  (equivalent to ????) a primary key path such that
+and a path $w$ of $\gmodel$ that is not  equivalent to a primary key path such that
 \begin{equation}
 \label{simpleRepresentation}
  r \circ w \simeq y
@@ -1675,18 +1674,21 @@ chiisacertaintypeofisomorphism
 \begin{lemma}
 \label{chiisacertaintypeofisomorphism}
 If $\gmodel$ is $\chit$-suitable  then $\chigmodel$ there is a key-realising and
-relationship preserving  and primary mono-source reflecting isomorphism $?: \gmodel \morph \chigmodel$. 
+relationship preserving  isomorphism $I_\gmodel: \gmodel \morph \chigmodel$. 
 \end{lemma}
 \begin{proof}
 TBD \commentary{work on this}
 \end{proof}
 
 \begin{lemma}
-\label{relationshiplikecarrythroughlemma}\commentary{nonsense - it may reflect primaries and therefore reflect relationship-like which may be enough. Work forward from mappings and isomorphisms which reflect primaries and see where we get.}
-If $\gmodel$ is $\chit$-suitable  and $r:a \morph b$ is a path in $\gmodel$ then $r$ is relationship-like in $\gmodel$ iff $r$ is relationship-like in $\chigmodel$ .\commentary{Check this}
+\label{relationshiplikecarrythroughlemma}
+If $\gmodel$ is $\chit$-suitable  and $r:a \morph b$ is a path in $\gmodel$ then $r$ is relationship-like in $\gmodel$ iff $r$ is relationship-like in $\chigmodel$ .
 \end{lemma}
 \begin{proof}
-TBD
+That $r$ relationship-like in $\gmodel$ implies $I_\gmodel(r)$ is relationship-like in $\chigmodel$ follows from lemma
+\ref{chiisacertaintypeofisomorphism} and lemma \ref{certainisospreserverelationshiplike}. \\
+
+The converse has NOT BEEN ESTABLISHED.\commentary{PROBLEM ---- NOT PROVEN}
 \end{proof}
 
 \begin{lemma}
@@ -1819,14 +1821,6 @@ If  $\gmodel$ is $\chit$-suitable and is well-formulated then  $\chigmodel$ is w
 Use lemmas \ref{chiisacertaintypeofisomorphism} and \ref{certainisomorphismspreservewellformulatedness}.
 \end{proof}
 
-
-\begin{lemma}
-\label{injectivecarrythroughlemma}
-If $E_{\tuple{x_1,...x_n }}$ is\commentary{Not required is it?}
-injective and total in every defining instance $E$ of $\gmodel$ then $\chit(E)_{\tuple{\inject{x}_1,...\inject{x}_n }}$ is
-injective and total in every defining instance $\chit(E)$ of $\chigmodel$.
-\commentary{When emphasis is shifted to isomorpic models then this lemma should be obvious as to become not worth stating.}
-\end{lemma}
 
 \begin{theorem}
 \label{chitheorem}
