@@ -1,7 +1,8 @@
  \section{Introduction}
 
 We  define a notion of entity-relationship (ER) model which in the tradition of Chen\cite{Chen1976} is sufficiently generic to encompass relational, hierarchical and purely logical  notions of data.
-The system that we describe involves definition of types of particulars in terms of their relationships with other types, of which there are two kinds, those, such as represent numbers, character strings, booleans and so on, all of whose instances, we say, are universals and the remaining types, the definienda, those types all of whose instances are particulars. Binary many-one relationships which are functional in character are presented as the edges of a directed graph whose nodes comprise both the types of particulars and the types of universals. 
+The system that we describe involves definition of types of particulars in terms of their relationships with other types, of which there are two kinds, those, such as represent numbers, character strings, booleans and so on, all of whose instances, we say, are universals and the remaining types, the definienda, those types all of whose instances are particulars. Binary many-one relationships which are functional in character are presented as the edges of a directed graph whose nodes comprise both the types of particulars and the types of universals. \footnote{There are pure conceptual structures and there are data structures. In the later relationships bteween entitites are represented by universal
+referential values.}
 
 If $u$ is a type all of whose instances are universals then we will refer to each binary many-one functional relationship $f: x \morph u$ as an \term{attribute} of $x$. In relational data modelling such functional relationships are presented as columns of tables. Similarly types all of whose instances are universals  are said to be \textit{attribute types} in entity relational modelling  (though called \textit{attributes} in Johnstone et al.); in the initial work by Chen such types were called \textit{value sets}; they are said to be \textit{domains} in relational data modelling theory. Types of particulars are said to be types of entities or \textit{entity types} in modern entity relationship modelling\footnote{In  his paper  introducing the entity-relationship model Chen explains that his model adopts the view that the real world consists of entities and relationships. He also introduces the  terms \textit{entity set} and \textit{relationship set} for the types of respective entity and relationship particulars. Later authors kept the terms entity and relationship, and the Chen philosophy, but changed the way that the terms were used. In this paper we use the later, post-Chen, terminology.} or sometimes, confusingly, just \textit{entities}  and are modelled as \textit{relational tables} in relational data modelling. For the purposes of the theory presented in this paper there is no loss if we assume a single set $\Veee$ of universals.  We will represent data specifications as directed graphs with some additional information; the nodes of the graph being types, and having a distinguished node $\veee$ representing the type of universals; from a mathematical point of view it is impossible to progress the theory too far without forming an opinion that a data specification is a presentation of a category with some additional structure (as in Johnstone et al.) or, meta-mathematically, that it is an axiomatisation of a theory of some kind. This is so but it must be emphasised that the presentation (i.e. the sketch) is vitally important to the goodness of the data specification for it is the primitives in the presentation that determine the units of storage or communication; removing redundancy from the presentation (or sketch) reduces redundancy in the data and this is one half of relational data theory's  normal form notion of goodness of a data schema (the other half being that the theory be optimally tightened to best fit the facts).
 
@@ -1113,12 +1114,65 @@ is an intransitive  functional dependency in $\gmodel'$then
 \begin{proof}
 TBD
 \end{proof}
-
+\newpage
 \subsection{Relationship-Like and Identifying-Like Paths}
 
 \begin{definition}
-In an ER model $\gmodel$, a non-empty path $t: a \morph b$, where $a$ and $b$ are entity types, is said to be \term{identifying-like} iff  for all primary key paths $q:b \morph \veee$ in $\gmodel$ there exists a primary key path $q':a' \morph \veee$ in $\gmodel'$ such that $t \circ q \simeq q'$.
+In an ER model $\gmodel$, a non-empty path $t: a \morph b$, where $a$ and $b$ are entity types, is said to be \term{identifying-like} iff  for all primary key paths $q:b \morph \veee$ in $\gmodel$ there exists a primary key path $q':a \morph \veee$ in $\gmodel'$ such that $t \circ q \simeq q'$.
 \end{definition}
+
+identifyinglikeequivalence
+\begin{lemma}
+\label{identifyinglikeequivalence}
+In an ER model $\gmodel$ , if $t$ and $t'$ are paths, $t:a \morph b$ and $t':a \morph b$, where $a$ and $b$ are entity types
+then if $t \simeq t'$ in $\gmodel$ then $t$ is identifying-like iff $t'$ is identifying-like.
+\end{lemma}
+
+
+
+We have defined isomorpisms of ER models to preserve and reflect primary key paths upto equivalence of
+paths in the sense given by these lemmas:
+
+keypreservationuptoeqivalence
+\begin{lemma}
+\label{keypreservationuptoeqivalence}
+If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi$ is an ER model isomorphism $\varphi: \gmodel \morph \gmodel'$ then whenever $p':\varphi(a) \morph \veee$ is a primary key path in $\gmodel'$ then there exists a primary key path $p:a \morph \veee$ in $\gmodel$ such that $\varphi(p) \simeq p'$ in $\gmodel'$.
+\end{lemma}
+
+keyreflectionuptoeqivalence
+\begin{lemma}
+\label{keyreflectionuptoeqivalence}
+If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi$ is an ER model isomorphism $\varphi: \gmodel \morph \gmodel'$ then if $p:a \morph \veee$ in $\gmodel$ and $\varphi(p) :\varphi(a) \morph \veee$ is a primary key path in $\gmodel'$ then $p$ is equivalent to a primary key path in $\gmodel$.
+\end{lemma}
+
+
+certainisospreserveidentifyinglike % KEEP AS IS
+\begin{lemma}
+\label{certainisospreserveidentifyinglike}
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an key-realising isomorphism between $\gmodel$ and $\gmodel'$ then if $t:a \morph b$ is an identifying-like  path in $\gmodel$ then $\varphi(t)$ is an identfying-like in $\gmodel'$.
+\end{lemma}
+
+\begin{proof}
+Assume such an isomorphism and assume a path $t: a \morph b$ in $\gmodel$. 
+First show that if $t$ is identifying-like then $\varphi(t)$ is. Assume $t: b \morph \veee$ is identifying like in $\gmodel$. To show that $\varphi(t)$
+is identifying-like in $\gmodel$ let $q : \varphi(b) \morph \veee$ be a primary key path in $\gmodel'$. By lemma 2.33 there exists a primary key path $p : b \morph \veee$ in $\gmodel$ such that $\varphi(p) \simeq q$. Because $t$ is assumed to be identifying-like then there exiosts a primary key path $p': a  \morph  \veee$ in $\gmodel$ such that $t \circ p \simeq p'$. By lemma 2.32 there exists a primary key path $q' : \varphi(a)  \morph  \veee$ in $\gmodel'$
+such that $\varphi(p') \simeq q'$. $q'$ is the required primary key path such that $\varphi(t) \circ q \simeq q'$ since
+\begin{align*}
+\varphi(t) \circ q  & \simeq \varphi(t) \circ \varphi(p)       && \mbox{ since $q \simeq \varphi(p)$}    \\
+                    & =      \varphi(t) \circ  p)                && \mbox{ since $\varphi$ is a mapping} \\
+                    & \simeq \varphi(p')                        && \mbox{ from choice of $p'$}           \\
+                    & \simeq q'                                 && \mbox{ from choice of $q'$}   
+\end{align*}
+\end{proof}
+
+isospreserveandreflectidentifyinglike
+\begin{lemma}
+\label{isospreserveandreflectidentifyinglike}
+If $\gmodel$and $\gmodel'$ are ER models and if $\varphi$ is an isomorphism between $\gmodel$ and $\gmodel'$ then $t: a  \morph  b$ is an identifying-like path in $\gmodel$ iff $\varphi(t)$ is an identifying-like in $\gmodel'$.
+\end{lemma}
+\begin{proof}
+Use lemmas \ref{identifyinglikeequivalence} and \ref{certainisospreserveidentifyinglike}.
+\end{proof}
 
 \begin{definition}
 In an ER model $\gmodel$, a non-empty path $p: a \morph b$, where $a$ and $b$ are entity types, which consists
@@ -1126,25 +1180,6 @@ of a relationship $R$ followed by a  path $t :a' \morph b$ is said to be \term{r
 either  $t$ is the empty path (so that the path $p$ is exactly a relationship $R$) or $t$
 is identifying-like.\commentary{A relationship-like path, as a relationship i.e. a path of length 1,  can be navigated in SQL without use of intermediate tables (only true in a first-cut model!!) . Paths which have length greater than one and are not relationship-like need be navigated in SQL using intermediate tables.}
 \end{definition}
-
-Certain significant isomorpisms, we call them key-realising isomorphisms, reflect primary key paths upto equivalence of paths and it is significant that these then preserves identifying-like paths and  relationship-like paths. 
-
-\begin{definition}
-If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi$ is an ER model isomorphism 
-$\varphi: \gmodel  \morph \gmodel'$ then $\varphi$ is said to be a \term{key-realising} isomorphism iff
-whenever $p':\varphi(a) \morph \varphi(b)$ is a primary key path in $\gmodel$ then there exists 
-a primary key path $p:a \morph b$ in $\gmodel$ such that $\varphi(p) \simeq p'$ in $\gmodel'$.
-\end{definition} 
-
-
-certainisospreserveidentifyinglike
-\begin{lemma}
-\label{certainisospreserveidentifyinglike}
-If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an key-realising isomorphism between $\gmodel$ and $\gmodel'$ then if $t:a \morph b$ is an identifying-like  path in $\gmodel$ then $\varphi(t)$ is an identfying-like in $\gmodel'$.
-\end{lemma}
-\begin{proof}
-TBD
-\end{proof}
 
 certainisospreserverelationshiplike:
 \begin{lemma}
@@ -1377,9 +1412,9 @@ $n$ for any $n$, is said to be unranked or of null rank. Denote by $\gmodel_n$ t
 $\gmodel$ less the relationships which are not of rank less than or equal to n. The definition proceeds by induction as follows:
 \begin{definition}
 The relationship $R: a \morph b$ in an entity model $\gmodel$ is said to be of rank $1$\commentary{was rank 0  -- check} iff whenever 
-$\qntuple$ is a \commentary{leaf?} ??? primary mono-source at $b$ in $\gmodel$, where $q_i:b \morph \veee$, for each $i$, $1 \leq i \leq n$  then there exists attributes $x_i:a \morph v$ in $\gmodel$ such that $\incd{a}{\xntuple}{b}{\qntuple}$ is an inclusion dependency and this inclusion dependency is represented by the relationship $R$. 
+$\qntuple$ is a \commentary{leaf?} ??? primary mono-source at $b$ in $\gmodel$, where $q_i:b \morph \veee$, for each $i$, $1 \leq i \leq n$  then there exists attributes $x_i:a \morph \veee$ in $\gmodel$ such that $\incd{a}{\xntuple}{b}{\qntuple}$ is an inclusion dependency and this inclusion dependency is represented by the relationship $R$. 
 The relationship $R: a \morph b$ in an entity model $\gmodel$ is said to be of rank $n+1$ iff whenever 
-$\qntuple$ is a primary mono-source at $b$ in $\gmodel$, there exists paths $p_i:a \morph v$ in $\gmodel_n$ such that $\incd{a}{\pntuple}{b}{\qntuple}$ is an inclusion dependency and this inclusion dependency  is represented by the relationship $R$. 
+$\qntuple$ is a primary mono-source at $b$ in $\gmodel$, there exists paths $p_i:a \morph \veee$ in $\gmodel_n$ such that $\incd{a}{\pntuple}{b}{\qntuple}$ is an inclusion dependency and this inclusion dependency  is represented by the relationship $R$. 
 \end{definition}
 
 \section{Relational Models}
@@ -1426,7 +1461,7 @@ For the time being we restrict attention to primary relational ER models which s
 
 \subsection{Attribute Redundancy}
 \begin{definition}
-In a relational ER model $\gmodel$ an attribute $x: a \morph v$ is said to be \term{redundant} if
+In a relational ER model $\gmodel$ an attribute $x: a \morph \veee$ is said to be \term{redundant} if
 there exists a path $p$ in model $\gmodel - x$ such that $p \simeq x$ and such that $\gmodel - x$ is 
 a relational ER model.  
 \end{definition}
