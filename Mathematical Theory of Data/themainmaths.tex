@@ -1176,7 +1176,7 @@ such that $\varphi(p') \simeq q'$. $q'$ is the required primary key path such th
 isospreserveandreflectidentifyinglike
 \begin{lemma}
 \label{isospreserveandreflectidentifyinglike}
-If $\gmodel$and $\gmodel'$ are ER models and if $\varphi$ is an isomorphism between $\gmodel$ and $\gmodel'$ then $t: a  \morph  b$ is an identifying-like path in $\gmodel$ iff $\varphi(t)$ is an identifying-like in $\gmodel'$.
+If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi:\gmodel \morph \gmodel'$ is an isomorphism then $t: a  \morph  b$ is an identifying-like path in $\gmodel$ iff $\varphi(t)$ is an identifying-like in $\gmodel'$.
 \end{lemma}
 \begin{proof}
 Use lemmas \ref{identifyinglikeequivalence} and \ref{mappingspreserveidentifyinglike}.
@@ -1185,12 +1185,16 @@ Use lemmas \ref{identifyinglikeequivalence} and \ref{mappingspreserveidentifying
 isosssurjectiveonrelationshipsaresurjectiveonidentifyinglike
 \begin{lemma}
 \label{isossurjectiveonrelationshipsaresurjectiveonidentifyinglike}
+If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi:\gmodel \morph \gmodel'$ is an isomorphism then if $\varphi$ is 
+surjective on relationships, i.e. if every relationship of $\gmodel'$ is the mapping of a relationship of $\gmodel$ by  $\varphi$,
+then $\varphi$ is surjective on identifying-like paths i.e. for every identifying-like path $t': \varphi(a) \morph \varphi(b)$
+in $\gmodel'$ there exists an identifying-like path $t: a \morph b$ in $\gmodel$ such that $\varphi(t)=t'$. 
 \end{lemma}
 \begin{proof}
 If an isomorphism is surjective on relationships then it is surjective on paths between entity types.
 Therefore if $t':\varphi(a) \morph \varphi(b)$ is a path in $\gmodel'$ then it is equal to $\varphi(t)$ for some
 $t: a \morph b$ in $\gmodel$. For any $t':\varphi(a) \morph \varphi(b)$ that is identifying there is a $t$ such that 
-$\varphi(t)=t'$ and this $t$ is identifying by lemma \ref{isospreserveandreflectidentifyinglike}.  
+$\varphi(t)=t'$ and this $t$ is identifying-like by lemma \ref{isospreserveandreflectidentifyinglike}.  
 \end{proof}
 
 \begin{definition}
@@ -1208,33 +1212,24 @@ If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is ER model mapping
 \begin{proof}
 Assume such a mapping $\varphi$, and assume that a path $p$ of $\gmodel$ is relationship-like.
 From the definition of relationship-like, either $p$ is exactly a relationship in which case it is preserved by $\varphi$ by initial assumption or $p$ consists of path $R \circ t$ where $t$ is an identifying-like path.
-In the latter case, from the definition of mapping, $\varphi(p)$ consists of $\varphi(R)$, which is a relationship in $\gmodel'$, from the initial assumption, followed by a path $\varphi(t)$ which is identifying-like since $t$ is, by lemma\ref{mappingspreserveidentifyinglike}. Therefore $\varphi(p)$ is relationship-like in $\gmodel'$.
+In the latter case, from the definition of mapping, $\varphi(p)$ consists of $\varphi(R)$, which is a relationship in $\gmodel'$, from the initial assumption, followed by a path $\varphi(t)$ which is identifying-like since $t$ is, by lemma \ref{mappingspreserveidentifyinglike}. Therefore $\varphi(p)$ is relationship-like in $\gmodel'$.
 \end{proof}
 
 isossurjectiveonrelationshipsaresurjectiveonrelationshiplike
 \begin{lemma}
 \label{isossurjectiveonrelationshipsaresurjectiveonrelationshiplike}
-If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an isomormorphism, $\varphi: \gmodel \morph \gmodel'$, that is surjective on relationships   which preserves relationships  i.e. every relationship of $\gmodel'$ is the mapping of a relationship of $\gmodel'$ by  $\varphi$, 
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an isomormorphism, $\varphi: \gmodel \morph \gmodel'$, that is surjective on relationships    
 then $\varphi$ is surjective on relationship-like paths of $\gmodel'$. 
 \end{lemma}
 \begin{proof}
-Use lemma \ref{isossurjectiveonrelationshipsaresurjectiveonidentifyinglike}.
+If $r':\varphi(a) \morph \varphi(b)$ in $\gmodel'$ is relationship-like then it consists of a relationship $R': \varphi(a) \morph \varphi(a')$, for some $a'$,
+and a path $t':\varphi(a') \morph \varphi(b)$. Since $\varphi$ is assumed surjective on relationships there exists a relationship 
+$R:a \morph b$ in $\gmodel$ such that $\varphi(R)=R'$. 
+By lemma \ref{isossurjectiveonrelationshipsaresurjectiveonidentifyinglike} there also exists an identifying-like path $t:a' \morph b$ such that $\varphi(t)=t'$.
+The path $r=R \circ t$ is a relationship-like path such that $\varphi(r)=r'$ as required.
 \end{proof}
 
-
-Finally note that \colorbox{yellow}{key-realising} isomorphisms\commentary {what is this all about?} reflect primary mono-sources as described by this
-lemma.
-
-keyrealisingisosreflectprimarymonosources
-\begin{lemma}
-\label{keyrealisingisosreflectprimarymonosources}
-If $\varphi: \gmodel \morph \gmodel'$ is a \colorbox{yellow}{key-realising} isomorphism of ER models then
- $P$ is a primary mono-source in $\gmodel$ iff $\setsuchthat{\phip}{p\in P}$ is a primary mono source in $\gmodel'$.
-\end{lemma}
-\begin{proof}
-That $P$ is a primary mono-source implies $\setsuchthat{\phip}{p\in P}$ is a primary mono-source is lemma \ref{mappingspreservemonosources}.
-That $\setsuchthat{\phip}{p\in P}$ is a primary mono-source implies $P$ is a primary mono-source follows because ???????????
-\end{proof}
+ 
 
 \subsection{ER model Goodness Conditions}\
 \begin{definition}
@@ -1262,7 +1257,7 @@ or else the functional dependency is represented in the model.
 certainisomorphismspreservewellformulatedness
 \begin{lemma}
 \label{certainisomorphismspreservewellformulatedness}
-If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is a \colorbox{yellow}{key-realising} isomorphism between $\gmodel$  and $\gmodel'$ that preserves relationships\footnote{meaning that it maps relationships to relationships} and reflects primary mono-sources then if $\gmodel$ is well-formulated then $\gmodel'$ is well-formulated.
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is a \colorbox{yellow}{\sout{key-realising}} isomorphism between $\gmodel$  and $\gmodel'$ that preserves relationships\footnote{meaning that it maps relationships to relationships} and reflects primary mono-sources then if $\gmodel$ is well-formulated then $\gmodel'$ is well-formulated.
 \end{lemma}
 \begin{proof}
 Assume such a $\varphi$ and that $\gmodel$ is well-formulated. Then
@@ -1280,8 +1275,9 @@ and then use lemma \ref{incdrepresentationequivalence}.
 That each leaf primary referential inclusion dependency of $\gmodel'$ is represented in $\gmodel'$ by some relationship-like path $p$
 follows because such leaf primary referential inclusion dependencies are reflected by isomorphisms
 (lemma \ref{isospreserveandreflectreferentialincds})
- and because  representation by a relationship-like path is preserved 
-by $\varphi$  because $\varphi$ is assumed to reflect primary mono-sources and preserve relationships (lemma \ref{certainisospreserverelationshiplike}).
+ and because  representation by a path is preserved (lemma \ref{isospreserveandreflectrepresentationsofincds}) and relationship-like paths are preserved
+(lemma \ref{relationshippreservingmappingspreserverelationshiplike}) 
+by $\varphi$  because $\varphi$ is assumed to \colorbox{yellow}{\sout{reflect primary mono-sources and}} preserve relationships.
 
 }
 \item{
@@ -1738,8 +1734,8 @@ For any $\chit$-suitable ER model $\gmodel$ if $p:b \morph \veee$ is a path in $
 chiisacertaintypeofisomorphism
 \begin{lemma}
 \label{chiisacertaintypeofisomorphism}
-If $\gmodel$ is $\chit$-suitable  then $\chigmodel$ there is a \colorbox{yellow}{key-realising} and
-relationship preserving  isomorphism $I_\gmodel: \gmodel \morph \chigmodel$. 
+If $\gmodel$ is $\chit$-suitable  then $\chigmodel$ there is a \colorbox{yellow}{\sout{key-realising}} 
+relationship preserving  isomorphism $I_\gmodel: \gmodel \morph \chigmodel$ that \colorbox{yellow}{reflects primary mono-sources}????????.
 \end{lemma}
 \begin{proof}
 TBD \commentary{work on this}
