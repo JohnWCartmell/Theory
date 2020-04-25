@@ -162,6 +162,8 @@ $P \simeq P'$ in $\gmodel$ iff
 If $P$ is a set of paths of an ER model $\gmodel$ and $\varphi : \gmodel \morph \gmodel'$ is an ER model mapping then we denote by $\varphi(P)$ the set of paths
 $\setsuchthat{\varphi(p)}{p \in P}$.
 
+\subsection{ER Model Mappping}
+
 \begin{definition}
 \label{ERmodelmapping}
 If $\gmodel$ and  $\gmodel'$ are ER models then an \term{ER model mapping}
@@ -187,7 +189,8 @@ if $p$ and $q$ are paths of $\gmodel$ such that $p \simeq q$ in $\gmodel$ then $
 To show that $\varphi(p) \simeq \varphi(q)$ in $\gmodel'$ we need show that for every model $E'$ of $\gmodel'$, $E'_p=E'_q$. But for each such $E'$ there exists a model $E$ of $\gmodel$ such that $E'_p=E_p$ and $E'_q=E_q$ and so the result follows since because since $p\simeq q$ in $\gmodel$, $E_p=E_q$.
 It follows on from the definition of equivalence for sets of paths $P$ and $Q$ that $\varphi(P) \simeq \varphi(Q)$ if $P \simeq Q$.
 \end{proof}
-\subsection{Isomorphic Models}
+
+\subsection{ER Model Isomorphism}
 
 \begin{definition}
 A ER model mapping $\varphi: \gmodel \morph \gmodel'$ is said to be an isomorphism
@@ -210,6 +213,12 @@ for each entity type $a$ of $\gmodel$, $\varphi^{-1}(\pk[\gmodel']{\varphi(a)}\s
 \begin{proof}
 tbd
 \end{proof}
+
+keyreflectionuptoeqivalence
+\begin{lemma}
+\label{keyreflectionuptoeqivalence} \commentary{not required?}
+If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi$ is an ER model isomorphism $\varphi: \gmodel \morph \gmodel'$ then if $p:a \morph \veee$ in $\gmodel$ and $\varphi(p) :\varphi(a) \morph \veee$ is a primary key path in $\gmodel'$ then $p$ is equivalent to a primary key path in $\gmodel$.
+\end{lemma}
 
 In section \ref{definitionofrelational} we characterise those ER models which correspond to relational schemas and elsewhere\footnote{TBD} those that correspond to hierarchical schemas. 
 We can paraphrase and say that an ER model is relational or hierarchical, in a certain way,  providing it has a sufficiency of referential attributes (foreign keys) for the implementation  of non-compositional relationships. It follows from the definitions that we give that an ER model which doesn't have sufficient 
@@ -1130,37 +1139,36 @@ then if $t \simeq t'$ in $\gmodel$ then $t$ is identifying-like iff $t'$ is iden
 
 
 
-We have defined isomorpisms of ER models to preserve and reflect primary key paths upto equivalence of
-paths in the sense given by these lemmas:
+keypreservationuptoequivalence
+\begin{observation}
+\label{keypreservationuptoequivalence}
+If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi$ is an ER model mapping $\varphi: \gmodel \morph \gmodel'$ then whenever 
+$p:a \morph \veee$ is a primary key path in $\gmodel$ then there exists a primary key path 
+$p':\varphi(a) \morph \veee$ in $\gmodel$ such that $\varphi(p) \simeq p'$ in $\gmodel'$.
+\end{observation}
 
-keypreservationuptoeqivalence
+keysurjectionuptoequivalence
+\begin{observation}
+\label{keysurjectionuptoequivalence}
+If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi$ is an ER model mapping $\varphi: \gmodel \morph \gmodel'$ then whenever $p':\varphi(a) \morph \veee$ is a primary key path in $\gmodel'$ then there exists a primary key path $p:a \morph \veee$ in $\gmodel$ such that $\varphi(p) \simeq p'$ in $\gmodel'$.
+\end{observation}
+
+
+mappingspreserveidentifyinglike 
 \begin{lemma}
-\label{keypreservationuptoeqivalence}
-If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi$ is an ER model isomorphism $\varphi: \gmodel \morph \gmodel'$ then whenever $p':\varphi(a) \morph \veee$ is a primary key path in $\gmodel'$ then there exists a primary key path $p:a \morph \veee$ in $\gmodel$ such that $\varphi(p) \simeq p'$ in $\gmodel'$.
-\end{lemma}
-
-keyreflectionuptoeqivalence
-\begin{lemma}
-\label{keyreflectionuptoeqivalence}
-If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi$ is an ER model isomorphism $\varphi: \gmodel \morph \gmodel'$ then if $p:a \morph \veee$ in $\gmodel$ and $\varphi(p) :\varphi(a) \morph \veee$ is a primary key path in $\gmodel'$ then $p$ is equivalent to a primary key path in $\gmodel$.
-\end{lemma}
-
-
-certainisospreserveidentifyinglike % KEEP AS IS
-\begin{lemma}
-\label{certainisospreserveidentifyinglike}
-If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an key-realising isomorphism between $\gmodel$ and $\gmodel'$ then if $t:a \morph b$ is an identifying-like  path in $\gmodel$ then $\varphi(t)$ is an identfying-like in $\gmodel'$.
+\label{mappingspreserveidentifyinglike} 
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is a ER model mapping, $\varphi: \gmodel \morph \gmodel'$ then if $t:a \morph b$ is an identifying-like  path in $\gmodel$ then $\varphi(t)$ is an identfying-like in $\gmodel'$.
 \end{lemma}
 
 \begin{proof}
 Assume such an isomorphism and assume a path $t: a \morph b$ in $\gmodel$. 
 First show that if $t$ is identifying-like then $\varphi(t)$ is. Assume $t: b \morph \veee$ is identifying like in $\gmodel$. To show that $\varphi(t)$
-is identifying-like in $\gmodel$ let $q : \varphi(b) \morph \veee$ be a primary key path in $\gmodel'$. By lemma 2.33 there exists a primary key path $p : b \morph \veee$ in $\gmodel$ such that $\varphi(p) \simeq q$. Because $t$ is assumed to be identifying-like then there exiosts a primary key path $p': a  \morph  \veee$ in $\gmodel$ such that $t \circ p \simeq p'$. By lemma 2.32 there exists a primary key path $q' : \varphi(a)  \morph  \veee$ in $\gmodel'$
+is identifying-like in $\gmodel'$ let $q : \varphi(b) \morph \veee$ be a primary key path in $\gmodel'$. By observation \ref{keysurjectionuptoequivalence} there exists a primary key path $p : b \morph \veee$ in $\gmodel$ such that $\varphi(p) \simeq q$. Because $t$ is assumed to be identifying-like then there exists a primary key path $p': a  \morph  \veee$ in $\gmodel$ such that $t \circ p \simeq p'$. By observation\ref{keypreservationuptoequivalence} there exists a primary key path $q' : \varphi(a)  \morph  \veee$ in $\gmodel'$
 such that $\varphi(p') \simeq q'$. $q'$ is the required primary key path such that $\varphi(t) \circ q \simeq q'$ since
 \begin{align*}
 \varphi(t) \circ q  & \simeq \varphi(t) \circ \varphi(p)       && \mbox{ since $q \simeq \varphi(p)$}    \\
-                    & =      \varphi(t) \circ  p)                && \mbox{ since $\varphi$ is a mapping} \\
-                    & \simeq \varphi(p')                        && \mbox{ from choice of $p'$}           \\
+                    & =      \varphi(t \circ  p)                && \mbox{ since $\varphi$ is a mapping} \\
+                    & \simeq \varphi(p')                        && \mbox{ since $t \circ p \simeq p'$}           \\
                     & \simeq q'                                 && \mbox{ from choice of $q'$}   
 \end{align*}
 \end{proof}
@@ -1171,7 +1179,18 @@ isospreserveandreflectidentifyinglike
 If $\gmodel$and $\gmodel'$ are ER models and if $\varphi$ is an isomorphism between $\gmodel$ and $\gmodel'$ then $t: a  \morph  b$ is an identifying-like path in $\gmodel$ iff $\varphi(t)$ is an identifying-like in $\gmodel'$.
 \end{lemma}
 \begin{proof}
-Use lemmas \ref{identifyinglikeequivalence} and \ref{certainisospreserveidentifyinglike}.
+Use lemmas \ref{identifyinglikeequivalence} and \ref{mappingspreserveidentifyinglike}.
+\end{proof}
+
+isosssurjectiveonrelationshipsaresurjectiveonidentifyinglike
+\begin{lemma}
+\label{isossurjectiveonrelationshipsaresurjectiveonidentifyinglike}
+\end{lemma}
+\begin{proof}
+If an isomorphism is surjective on relationships then it is surjective on paths between entity types.
+Therefore if $t':\varphi(a) \morph \varphi(b)$ is a path in $\gmodel'$ then it is equal to $\varphi(t)$ for some
+$t: a \morph b$ in $\gmodel$. For any $t':\varphi(a) \morph \varphi(b)$ that is identifying there is a $t$ such that 
+$\varphi(t)=t'$ and this $t$ is identifying by lemma \ref{isospreserveandreflectidentifyinglike}.  
 \end{proof}
 
 \begin{definition}
@@ -1181,24 +1200,35 @@ either  $t$ is the empty path (so that the path $p$ is exactly a relationship $R
 is identifying-like.\commentary{A relationship-like path, as a relationship i.e. a path of length 1,  can be navigated in SQL without use of intermediate tables (only true in a first-cut model!!) . Paths which have length greater than one and are not relationship-like need be navigated in SQL using intermediate tables.}
 \end{definition}
 
-certainisospreserverelationshiplike:
+relationshippreservingmappingspreserverelationshiplike:
 \begin{lemma}
-\label{certainisospreserverelationshiplike}
-If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is a key-realising isomorphism between $\gmodel$ and $\gmodel'$  which preserves relationships  i.e. if relationships of $\gmodel$ are mapped to relationships of $\gmodel'$ by  $\varphi$ then relationship-like paths are preserved by $\varphi$.
+\label{relationshippreservingmappingspreserverelationshiplike}\commentary{not sure that this is required}
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is ER model mapping, $\varphi: \gmodel \morph \gmodel'$  which preserves relationships  i.e. if relationships of $\gmodel$ are mapped to relationships of $\gmodel'$ by  $\varphi$, then relationship-like paths are preserved by $\varphi$.
 \end{lemma}
 \begin{proof}
-Assume such an isomorphism of models and assume that a path $p$ is relationship-like.
+Assume such a mapping $\varphi$, and assume that a path $p$ of $\gmodel$ is relationship-like.
 From the definition of relationship-like, either $p$ is exactly a relationship in which case it is preserved by $\varphi$ by initial assumption or $p$ consists of path $R \circ t$ where $t$ is an identifying-like path.
-In the latter case, from the definition of mapping, $\varphi(p)$ consists of $\varphi(R)$, which is a relationship in $\gmodel'$, from the initial assumption, followed by a path $\varphi(t)$ which is identifying-like since $t$ is, by lemma\ref{certainisospreserveidentifyinglike} since $\varphi$ is key-realising. Therefore $\varphi(p)$ is relationship-like.
+In the latter case, from the definition of mapping, $\varphi(p)$ consists of $\varphi(R)$, which is a relationship in $\gmodel'$, from the initial assumption, followed by a path $\varphi(t)$ which is identifying-like since $t$ is, by lemma\ref{mappingspreserveidentifyinglike}. Therefore $\varphi(p)$ is relationship-like in $\gmodel'$.
 \end{proof}
 
-Finally note that key-realising isomorphisms reflect primary mono-sources as described by this
+isossurjectiveonrelationshipsaresurjectiveonrelationshiplike
+\begin{lemma}
+\label{isossurjectiveonrelationshipsaresurjectiveonrelationshiplike}
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an isomormorphism, $\varphi: \gmodel \morph \gmodel'$, that is surjective on relationships   which preserves relationships  i.e. every relationship of $\gmodel'$ is the mapping of a relationship of $\gmodel'$ by  $\varphi$, 
+then $\varphi$ is surjective on relationship-like paths of $\gmodel'$. 
+\end{lemma}
+\begin{proof}
+Use lemma \ref{isossurjectiveonrelationshipsaresurjectiveonidentifyinglike}.
+\end{proof}
+
+
+Finally note that \colorbox{yellow}{key-realising} isomorphisms\commentary {what is this all about?} reflect primary mono-sources as described by this
 lemma.
 
 keyrealisingisosreflectprimarymonosources
 \begin{lemma}
 \label{keyrealisingisosreflectprimarymonosources}
-If $\varphi: \gmodel \morph \gmodel'$ is a key-realising isomorphism of ER models then
+If $\varphi: \gmodel \morph \gmodel'$ is a \colorbox{yellow}{key-realising} isomorphism of ER models then
  $P$ is a primary mono-source in $\gmodel$ iff $\setsuchthat{\phip}{p\in P}$ is a primary mono source in $\gmodel'$.
 \end{lemma}
 \begin{proof}
@@ -1232,7 +1262,7 @@ or else the functional dependency is represented in the model.
 certainisomorphismspreservewellformulatedness
 \begin{lemma}
 \label{certainisomorphismspreservewellformulatedness}
-If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is a key-realising isomorphism between $\gmodel$  and $\gmodel'$ that preserves relationships\footnote{meaning that it maps relationships to relationships} and reflects primary mono-sources then if $\gmodel$ is well-formulated then $\gmodel'$ is well-formulated.
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is a \colorbox{yellow}{key-realising} isomorphism between $\gmodel$  and $\gmodel'$ that preserves relationships\footnote{meaning that it maps relationships to relationships} and reflects primary mono-sources then if $\gmodel$ is well-formulated then $\gmodel'$ is well-formulated.
 \end{lemma}
 \begin{proof}
 Assume such a $\varphi$ and that $\gmodel$ is well-formulated. Then
@@ -1264,7 +1294,7 @@ follows by lemmas \ref{isospreserveandreflectmultiplefds}, \ref{isospreserveandr
 \end{enumerate}
 \end{proof}
 \begin{definition}
-An ER model $\gmodel$ is \term{restriction-free} iff for all distint nodes $a$, $b$ of $\gmodel$ and for all edges $y: a \morph b$, if there exist non-empty paths $x_1,...x_n$   with domain $a$ in $\gmodel$,  and for some $j$, $1 \leq j \leq n$, $x_j \not\simeq \tuple{}$ and in every defining instance $E$,  
+An ER model $\gmodel$ is \term{restriction-free} iff for all distinct nodes $a$, $b$ of $\gmodel$ and for all edges $y: a \morph b$, if there exist non-empty paths $x_1,...x_n$   with domain $a$ in $\gmodel$,  and for some $j$, $1 \leq j \leq n$, $x_j \not\simeq \tuple{}$ and in every defining instance $E$,  
 $$E_y = \bigwedge_{1 \leq i \leq n}{\overline{E_{x_i}}} \circ E_{x_j}$$
 then $y \simeq x_j$.
 \end{definition}
@@ -1633,7 +1663,7 @@ If $\gmodel$ is an ER model then the model $\firstcutimproved(\gmodel)$ is defin
 by extending the set of attributes of each entity type $a$ by the set 
 $\set{\qq{r_0/r_1/...r_n}  | \ r_0/r_1/...r_n: a \morph \veee \mbox{ is an attribute-like path}}$ and for which the defining instances are the defining  instances $E$ of $\gmodel$ extended to the schema of $\firstcutimproved(\gmodel)$ by defining for each attribute $\qq{r_0/r_1/...r_n}$, $E_{\qq{r_0/r_1/...r_n}} = E_{r_0} \circ E_{r_1}... \circ E_{r_n}$.
 
-We define the model $\chigmodel$ to be a further improvement to the first-cut transformation obtained by excluding  from  the transformed model $\firstcutimproved(\gmodel)$ those attributes $\qq{r \circ q}$ for which there exists a unique  path $s$ such that  either  $r \circ q < s$ or $s$ is non attribute-like and $r \circ q \simeq s$. 
+We define the model $\chigmodel$ to be a further improvement to the first-cut transformation obtained by excluding  from  the transformed model $\firstcutimproved(\gmodel)$ those attributes $\qq{r \circ q}$ for which there exists a unique  path $s$ such that  either  $r \circ q < s$ or for which $s$ is non attribute-like and $r \circ q \simeq s$. 
 
 \begin{definition}
 If for some relationship $r$ and primary key path $q$ of $\gmodel$ there exists a  path $s_1/...s_n$ such that either   $r \circ q < s_1/...s_n$ or $s_1/...s_n$ is non attribute-like and $r \circ q \simeq s_1/...s_n$ or $r \circ q < s_1/...s_n$ then say that relationship $r$ \term{directly depends} on relationship $s_i$,
@@ -1708,7 +1738,7 @@ For any $\chit$-suitable ER model $\gmodel$ if $p:b \morph \veee$ is a path in $
 chiisacertaintypeofisomorphism
 \begin{lemma}
 \label{chiisacertaintypeofisomorphism}
-If $\gmodel$ is $\chit$-suitable  then $\chigmodel$ there is a key-realising and
+If $\gmodel$ is $\chit$-suitable  then $\chigmodel$ there is a \colorbox{yellow}{key-realising} and
 relationship preserving  isomorphism $I_\gmodel: \gmodel \morph \chigmodel$. 
 \end{lemma}
 \begin{proof}
