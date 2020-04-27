@@ -616,17 +616,14 @@ Further if (\ref{sourcerefincd}) is a leaf primary mono source then (\ref{target
 \end{lemma}
 \begin{proof}
 To show that (\ref{targetrefincd}) is a referential inclusion dependency
- in $\gmodel'$ we need show that $\set{\qm}$ is a mono-source, which follows from lemma \ref{mappingspreservemonosources}, and that for every model $E'$ of $\gmodel'$, 
+ in $\gmodel'$ we need show that $\set{\phiqm}$ is a mono-source, which follows from lemma \ref{mappingspreservemonosources}, and that for every model $E'$ of $\gmodel'$, 
 $img(E'_{\fntuple}) \subseteq img(E'_{\qntuple})$. 
 This follows because for each such $E'$ there exists a model $E$ of $\gmodel$ such that 
-$E'_{\fntuple}=E_{\fntuple}$ and $E'_{\qntuple}=E_{\qntuple}$ and because 
+$E'_{\fntuple}=E_{\fntuple}$ and $E'_{\qntuple}=E_{\qntuple}$ and because \commentary{CHECK THIS}
 (\ref{sourcerefincd}) is a referential inclusion dependency in $\gmodel$.
 
-That if  (\ref{sourcerefincd}) is a leaf primary mono source then (\ref{targetrefincd}) is a leaf primary mono-source also follows from lemma \ref{mappingspreservemonosources}.\commentary{check this}
+That if  (\ref{sourcerefincd}) is a leaf primary mono source then (\ref{targetrefincd}) is a leaf primary mono-source also follows from lemma \ref{mappingspreservemonosources}.\commentary{CHECK THIS}
 \end{proof}
-
-
-
 
 incdequivalence
 \begin{lemma}
@@ -651,7 +648,9 @@ is a referential inclusion dependency.
 
 \end{lemma}
 \begin{proof}
-Follows from the definition of referential inclusion dependency
+First of all it follows from lemma \ref{monosourceequivalence} that $\set{\qn}$ is a mono-source iff
+$\set{\qnprime}$ is a mono-source.
+Next, it follows from the definition of referential inclusion dependency
  since for each $i$, $1 \leq i \leq n$, $q_i \simeq q'_i$  implies $E_{\qntuple} =
 E_{\qnprimetuple}$ and,
 similarly, for each $i$, $1 \leq i \leq n$, $f_i \simeq f'_i$  implies $E_{\fntuple} =
@@ -1123,7 +1122,7 @@ is an intransitive  functional dependency in $\gmodel'$then
 \begin{proof}
 TBD
 \end{proof}
-\newpage
+
 \subsection{Relationship-Like and Identifying-Like Paths}
 
 \begin{definition}
@@ -1136,8 +1135,6 @@ identifyinglikeequivalence
 In an ER model $\gmodel$ , if $t$ and $t'$ are paths, $t:a \morph b$ and $t':a \morph b$, where $a$ and $b$ are entity types
 then if $t \simeq t'$ in $\gmodel$ then $t$ is identifying-like iff $t'$ is identifying-like.
 \end{lemma}
-
-
 
 keypreservationuptoequivalence
 \begin{observation}
@@ -1240,7 +1237,7 @@ The path $r=R \circ t$ is a relationship-like path such that $\varphi(r)=r'$ as 
 it satisfies the minimality condition (see section \ref{minimalitycondition}),
 }
 \item{ 
-each primary referential inclusion dependency of $\gmodel$ is represented in $\gmodel$ by some path $p$ \footnote{Equivalently, by lemma
+each\commentary{This is the first place we zero-in on primaries.} primary\commentary{What about secondary referential inclusion dependencies?} referential inclusion dependency of $\gmodel$ is represented in $\gmodel$ by some path $p$ \footnote{Equivalently, by lemma
 \ref{simplerepresentationlemma}, sufficient that all simple primary referential inclusion dependencies of $\gmodel$ be represented.},
 }
 \item{ 
@@ -1257,7 +1254,7 @@ or else the functional dependency is represented in the model.
 certainisomorphismspreservewellformulatedness
 \begin{lemma}
 \label{certainisomorphismspreservewellformulatedness}
-If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is a \colorbox{yellow}{\sout{key-realising}} isomorphism between $\gmodel$  and $\gmodel'$ that preserves relationships\footnote{meaning that it maps relationships to relationships} and reflects primary mono-sources then if $\gmodel$ is well-formulated then $\gmodel'$ is well-formulated.
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an isomorphism between $\gmodel$  and $\gmodel'$ that preserves relationships\footnote{meaning that it maps relationships to relationships} and reflects primary mono-sources then if $\gmodel$ is well-formulated then $\gmodel'$ is well-formulated.
 \end{lemma}
 \begin{proof}
 Assume such a $\varphi$ and that $\gmodel$ is well-formulated. Then
@@ -1269,7 +1266,7 @@ That $\gmodel'$ satisfies the minimality condition follows corollary \ref{isospr
 To show that each primary referential inclusion dependency of $\gmodel'$ is represented in $\gmodel'$ by some path $p$ we use the fact that each primary referential inclusion dependencies is reflected
 by the isomorphism $\varphi$ because $\varphi$ is assumed to reflect primary mono-sources (lemma \ref{isospreserveandreflectreferentialincds}) and then that representation of a referential inclusion dependencies by a path is  preserved by isomorphisms (lemma \ref{isospreserveandreflectrepresentationsofincds})
 and then use lemma \ref{incdrepresentationequivalence}.
-\commentary{Spell this out sometime??}
+\commentary{SPELL THIS OUT.}
 }
 \item{ 
 That each leaf primary referential inclusion dependency of $\gmodel'$ is represented in $\gmodel'$ by some relationship-like path $p$
@@ -1277,7 +1274,7 @@ follows because such leaf primary referential inclusion dependencies are reflect
 (lemma \ref{isospreserveandreflectreferentialincds})
  and because  representation by a path is preserved (lemma \ref{isospreserveandreflectrepresentationsofincds}) and relationship-like paths are preserved
 (lemma \ref{relationshippreservingmappingspreserverelationshiplike}) 
-by $\varphi$  because $\varphi$ is assumed to \colorbox{yellow}{\sout{reflect primary mono-sources and}} preserve relationships.
+by $\varphi$  because $\varphi$ is assumed to reflect primary mono-sources and preserve relationships.
 
 }
 \item{
@@ -1286,6 +1283,7 @@ either $\set{x_1,...x_n}$ is a mono-source
 or else the functional dependency is represented in $\gmodel'$ 
 follows by lemmas \ref{isospreserveandreflectmultiplefds}, \ref{isospreserveandreflecttransitivefds},
 \ref{isospreserveandreflectrepresentationsoffds} and the fact that mono-sources are preserved (lemma \ref{mappingspreservemonosources}).
+\commentary{SPELL THIS OUT.}
 }
 \end{enumerate}
 \end{proof}
@@ -1499,14 +1497,25 @@ Say that a relational ER model $\gmodel$ is \term{free of attribute redundancy} 
 \subsection{Normal Forms}
 
 \noindent One measure of the goodness of a relational model is whether it satisfies the condition called Boyce Codd Normal Form (BCNF). In some modelling situations this condition cannot be 
-met and in these situations a lesser goodness criteria that can be achieved is that of Third Normal Form (3NF). We shall show that the relational model $\chigmodel$ generated from a well-formulated 
-ER model $\gmodel$ satisfies a strong form of 3NF as follows:
+met and in these situations a lesser goodness criteria that can be achieved is that of Third Normal Form (3NF). 
+
+\begin{definition} % 3NF
+A (relational) ER model $\gmodel$ is in  Third Normal Form (3NF)  iff
+for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
+for which  \sfd{x_1,...x_n}{y} is a non-trivial functional dependency, 
+either $\set{\xn}$ is a mono-source or else $y$ is a key attribute.
+\end{definition}
+
+
+We shall show that the relational model $\chigmodel$ generated from a well-formulated 
+ER model $\gmodel$ satisfies a strong form of 3NF in which $y$ will be a primary key attribue i.e. will be identifying.
+We can define as follows:
 
 \begin{definition} % S3NF
 A (relational) ER model $\gmodel$ is in Strong Third Normal Form (S3NF)  iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
 for which  \sfd{x_1,...x_n}{y} is a non-trivial functional dependency, 
-$\set{\xn}$ is a mono-source or else $y$ is identifying.
+either $\set{\xn}$ is a mono-source or else $y$ is identifying.
 \end{definition}
 
 We shall also show that with a single additional condition on $\gmodel$, which it may or not be possible to achieve in a given modelling situation,
@@ -1516,7 +1525,7 @@ Written in the terminology we are using here BCNF can be defined as follows:
 A relational ER model is in Boyce Codd Normal Form (BCNF) \commentary{See Zaniolo definition 2.} iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
 for which  \sfd{x_1,...x_n}{y} is a non-trivial functional dependency, 
-$\set{xn}$ is a mono-source.  
+$\set{\xn}$ is a mono-source.  
 \end{definition}
 
 \noindent The next lemma simplifies the requirement for showing BCNF to consideration of non-trivial
@@ -1659,7 +1668,7 @@ If $\gmodel$ is an ER model then the model $\firstcutimproved(\gmodel)$ is defin
 by extending the set of attributes of each entity type $a$ by the set 
 $\set{\qq{r_0/r_1/...r_n}  | \ r_0/r_1/...r_n: a \morph \veee \mbox{ is an attribute-like path}}$ and for which the defining instances are the defining  instances $E$ of $\gmodel$ extended to the schema of $\firstcutimproved(\gmodel)$ by defining for each attribute $\qq{r_0/r_1/...r_n}$, $E_{\qq{r_0/r_1/...r_n}} = E_{r_0} \circ E_{r_1}... \circ E_{r_n}$.
 
-We define the model $\chigmodel$ to be a further improvement to the first-cut transformation obtained by excluding  from  the transformed model $\firstcutimproved(\gmodel)$ those attributes $\qq{r \circ q}$ for which there exists a unique  path $s$ such that  either  $r \circ q < s$ or for which $s$ is non attribute-like and $r \circ q \simeq s$. 
+We define the model $\chigmodel$ to be a further improvement to the first-cut transformation obtained by excluding  from  the transformed model $\firstcutimproved(\gmodel)$ those attributes $\qq{r \circ q}$ for which there exists a \sout{unique}  path $s$ such that  either  $r \circ q < s$ or for which $s$ is non attribute-like and $r \circ q \simeq s$. 
 
 \begin{definition}
 If for some relationship $r$ and primary key path $q$ of $\gmodel$ there exists a  path $s_1/...s_n$ such that either   $r \circ q < s_1/...s_n$ or $s_1/...s_n$ is non attribute-like and $r \circ q \simeq s_1/...s_n$ or $r \circ q < s_1/...s_n$ then say that relationship $r$ \term{directly depends} on relationship $s_i$,
@@ -1671,9 +1680,9 @@ and in addition one further property is required as we now descibe.
 
 
 \begin{definition}
-In an  ER model $\gmodel$, if $a$ and $b$ are entity types and if $\set{\qntuple}$ is the set of primary key paths sourced at $b$, if $r: a \morph b$ is a relationship the $r$ is siad to be a \term{pseudo-restriction}\commentary{Find a better term here.}
-iff for each $i$, $1 \leq i \leq n$, there exists a path $s_i: a \morph \veee$ such that $r \circ q_I < s_i$,
-and there doesn't exist $s'_i$ such that $r \circ q_I < s'_i <s_i$ and  either
+In an  ER model $\gmodel$, if $a$ and $b$ are entity types and if $\set{\qntuple}$ is the set of primary key paths sourced at $b$, if $r: a \morph b$ is a relationship the $r$ is said to be a \term{pseudo-restriction}\commentary{Find a better term here.}
+iff for each $i$, $1 \leq i \leq n$, there exists a path $s_i: a \morph \veee$ such that $r \circ q_i < s_i$,
+and there doesn't exist $s'_i$ such that $r \circ q_i < s'_i <s_i$ and  either
 $\incd{a}{\sntuple}{b}{\qntuple}$ and this inclusion dependency is represented by
 $r$ or else $\nincd{a}{\sntuple}{b}{\qntuple}$.
 \end{definition}
@@ -1734,23 +1743,13 @@ For any $\chit$-suitable ER model $\gmodel$ if $p:b \morph \veee$ is a path in $
 chiisacertaintypeofisomorphism
 \begin{lemma}
 \label{chiisacertaintypeofisomorphism}
-If $\gmodel$ is $\chit$-suitable  then $\chigmodel$ there is a \colorbox{yellow}{\sout{key-realising}} 
-relationship preserving  isomorphism $I_\gmodel: \gmodel \morph \chigmodel$ that \colorbox{yellow}{reflects primary mono-sources}????????.
+If $\gmodel$ is $\chit$-suitable  then  there is a 
+relationship preserving  and reflecting isomorphism $I_\gmodel: \gmodel \morph \chigmodel$ that reflects primary mono-sources.
 \end{lemma}
 \begin{proof}
 TBD \commentary{work on this}
 \end{proof}
 
-\begin{lemma}
-\label{relationshiplikecarrythroughlemma}
-If $\gmodel$ is $\chit$-suitable  and $r:a \morph b$ is a path in $\gmodel$ then $r$ is relationship-like in $\gmodel$ iff $r$ is relationship-like in $\chigmodel$ .
-\end{lemma}
-\begin{proof}
-That $r$ relationship-like in $\gmodel$ implies $I_\gmodel(r)$ is relationship-like in $\chigmodel$ follows from lemma
-\ref{chiisacertaintypeofisomorphism} and lemma \ref{certainisospreserverelationshiplike}. \\
-
-The converse has NOT BEEN ESTABLISHED.\commentary{PROBLEM ---- NOT PROVEN}
-\end{proof}
 
 \begin{lemma}
 \label{simplecarrythroughlemma}
@@ -1796,7 +1795,7 @@ $
 Either $x$ is an existing attribute of $\gmodel$ or it is an attribute $\qq{r' \circ q}$ for some relationship $r'$ and primary key path $q$ of $\gmodel$. \\
 
 In the first case it follows that there is a relationship-like path $r$ in $\gmodel$ 
-(lemma \ref{relationshiplikecarrythroughlemma}) and a path $\retract(p)$ in $\gmodel$ \commentary{check this} such
+(lemma \ref{isossurjectiveonrelationshipsaresurjectiveonrelationshiplike}) and a path $\retract(p)$ in $\gmodel$ \commentary{check this} such
 that $x \simeq r \circ \retract(p)$ in $\gmodel$ \commentary{Because I is an injection   ... or is it?}. \\
 
 From this because $\gmodel$ is simple it follows that either  $\retract(p)$ is a primary key path in $\gmodel$ and by observation \ref{pathinjectionobservation} that $p$ is a primary key path in $\chigmodel$ \\
@@ -1825,8 +1824,8 @@ tbd
 
 \begin{lemma}
 \label{inclusiondependencyrestrictionlemma}
-If $\incd{a}{x_1,...x_n}{b}{q_1,...q_n}$ is a referential inclusion dependencyin an ER model $\gmodel$ 
-represented by a path $p:a \morph b$ then for each $i$, $1 \leq j \leq n$, $p \circ q_j \leq x_j$
+If $\incd{a}{x_1,...x_n}{b}{q_1,...q_n}$ is a referential inclusion dependency in an ER model $\gmodel$ 
+represented by a path $p:a \morph b$ then for each $j$, $1 \leq j \leq n$, $p \circ q_j \leq x_j$
 and in each defining instance $E$,
 $$E_p \circ E_{q_j} = \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq i \leq n}{ i \neq j}}{\overline{E_{x_i}}}\circ E_{x_j}$$
 \end{lemma}
@@ -1839,41 +1838,63 @@ E_p \circ E_{q_j} &=  E_{\xntuple} \circ E ^{-1}_{\qntuple} \circ E_{q_j}  && \m
 \end{align*}
 \end{proof}
 
+\begin{definition} 
+An  ER model is \term{free of referential attributes} iff 
+there does not exist an attribute $x:a \morph \veee$
+such that there is a non-empty  path $p:a \morph b$ and a path $q:b \morph \veee$ such that
+$x \simeq p \circ q$.
+\end{definition}
+
+\begin{definition} 
+An  ER model is \term{free of non-identifying referential attributes} iff 
+for all attributes $x:a \morph \veee$
+such that there is a non-empty  path $p:a \morph b$ and a path $q:b \morph \veee$ such that
+$x \simeq p \circ q$ it follows that the attribute $x$ is identifying.
+\end{definition}
+
+wellformulatedandfreeofreferentialattributesimpliesleafrestrictionfree
 \begin{lemma}
-\label{logicalisrestrictionfreelemma}
-If $\gmodel$ is an ER model which is well-formulated and has no referential attributes\commentary{without logical redundancy?} 
+\label{wellformulatedandfreeofreferentialattributesimpliesleafrestrictionfree}
+If $\gmodel$ is an ER model which is well-formulated and is free of non-identifying referential attributes
 then it is leaf-restriction free.
 \end{lemma}
 \begin{proof}
 Suppose $\gmodel$ has a leaf-restriction. So there exists an
 entity type $a$ and an attribute $y$ with domain $a$ and there 
 exists paths $x_1,...x_n$   with domain
-$a$ in $\gmodel$,  and for some $j$, $1 \leq j \leq n$, in every defining instance $E$,  
-$$E_y = \bigwedge_{1 \leq i \leq n}{\overline{x_i}} \circ x_j$$then $y \simeq x_j$. In particular
+$a$ in $\gmodel$,  and for some $j$, $1 \leq j \leq n$, in every defining instance $E$, 
+\begin{equation}
+\label {restriction} 
+E_y = \bigwedge_{1 \leq i \leq n}{\overline{E_{x_i}}} \circ E_{x_j}
+\end{equation}
+then $y \simeq x_j$. In particular
 $\set{x_1,...x_n} \morph y$ is a leaf intransitive functional dependency\commentary{Fill this out a bit since might be flab}. 
 
-Since $\gmodel$ is well-formulated  and there is a leaf intransitive functional dependency $\set{x_1,...x_n} \morph y$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$  in which case $y \simeq x_j$  and we are done \commentary{why?} or else the functional dependency $\set{x_1,...x_n} \morph y$   is in part represented by  an entity type $d$ and a primary mono-source $\qntuple$ with respect to$d$, such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$ but this cannot be the case because if it were then by lemma \ref{inclusiondependencyrestrictionlemma}
+Since $\gmodel$ is well-formulated  and there is a leaf intransitive\commentary{why is it intransitive?} functional dependency $\set{x_1,...x_n} \morph y$ then either $\set{\xn}$ is a mono-source and thus $E_{\xntuple}$ is injective and total in every defining instance $E$  in which case $y \simeq x_j$  and we are done \commentary{why?} or else the functional dependency $\set{x_1,...x_n} \morph y$   is in part represented by  an entity type $d$ and a primary mono-source $\qntuple$ with respect to\commentary{sourced at $d$?} $d$, such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$ but this cannot be the case because if it were then by lemma \ref{inclusiondependencyrestrictionlemma}
 $$E_p \circ E_{q_j} = \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq i \leq n}{ i \neq j}}{\overline{E_{x_i}}}\circ E_{x_j}$$
-and we woud have that
+and we would have that
 $$E_p \circ E_{q_j} = E_y$$
 in all defining instances so that
 $$p \circ q_j \simeq y$$
-contradicting that $\gmodel$ is free of unnecessary edges\commentary{what does this mean?}. 
+Since $\gmodel$ is free of non-identifying referential attributes then $y$ is identifying and so $E_y$ is total in all instances $E$ and therefore 
+ from (\ref{restriction}) it follows that in any instance $E$, $E_{x_i}$ is total and therefore that $E_y =E_{x_j}$, that is 
+$y \simeq x_j$. We have shown that from the assumption (\ref{restriction}) it follows that $y \simeq x_j$. Thus we have shown that $\gmodel$ is leaf-restriction free.
 \end{proof}
 
+restrictioncarrythroughlemma
 \begin{lemma}
 \label{restrictioncarrythroughlemma}
 If $\gmodel$ is $\chit$-suitable ER model which is well-formulated and has no referential attributes 
 then $\chigmodel$ is leaf-restriction free.
 \end{lemma}
 \begin{proof}
-Uses lemma  \ref{logicalisrestrictionfreelemma}.
+Uses lemma  \ref{wellformulatedandfreeofreferentialattributesimpliesleafrestrictionfree}.
 \vspace{0.5cm}
 tbd
 \end{proof}
 
 
-
+wfcarrythroughlemma
 \begin{lemma}
 \label{wfcarrythroughlemma}
 If  $\gmodel$ is $\chit$-suitable and is well-formulated then  $\chigmodel$ is well-formulated. 
@@ -1883,23 +1904,42 @@ Use lemmas \ref{chiisacertaintypeofisomorphism} and \ref{certainisomorphismspres
 \end{proof}
 
 
-\begin{theorem}
-\label{chitheorem}
-If $\gmodel$ is well-formulated, simple, $\chit$-suitable and has the fd factoring property
-then the transformed model $\chigmodel$ is a well-formulated, simple, restriction-free relational ER model with the fd factoring property.   
-If $\gmodel$ is without caveats then $\chigmodel$ is also without caveat.
-\end{theorem}
+\begin{lemma}
+\label{chitlemma}
+If  $\gmodel$ is an an ER model that is well-formulated,  $\chit$-suitable, has the fd factoring property 
+and is free of non-identifying referential attributes
+then the transformed model $\chigmodel$ is a  relational ER model that is well-formulated, simple, leaf-restriction-free
+and has the fd factoring property.   
+Further if $\gmodel$ is free of any referential attributes at all then  $\chigmodel$ is simple without caveats.
+\end{lemma}
 \begin{proof}
-Follows from lemmas \ref{simplecarrythroughlemma}, \ref{wocaveatcarrythroughlemma}, \ref{wfcarrythroughlemma} and
-\ref{fdfactoringcarrythroughlemma}.
+Assume that $\gmodel$ is an an ER model that is well-formulated,  $\chit$-suitable, has the fd factoring property and
+is free of non-identifying referential attributes. 
+$\chigmodel$ is a  relational ER model by lemma \ref{}.
+$\chigmodel$ is well-formulated by lemma \ref{wfcarrythroughlemma}.
+$\chigmodel$ has the fd factoring property by lemma \ref{fdfactoringcarrythroughlemma}.
+$\chigmodel$ is leaf restriction free by lemma \ref{wellformulatedandfreeofreferentialattributesimpliesleafrestrictionfree}.
+
+It follows directly from definitions that $\gmodel$ is simple since it is free of non-identifying referential attributes.
+By lemma \ref{simplecarrythroughlemma} it follows that $\chigmodel$ is simple .
+
+
+Further, if $\gmodel$ is free of any referential attributes at all then it follows directly from definitions that $\gmodel$ is simple without caveats
+and hence  that $\chigmodel$ is simple without caveats by lemma \ref{wocaveatcarrythroughlemma}.
 \end{proof}
 
-\begin{corollary}
-\label{goalcorollary}
-If $\gmodel$ is well-formulated, simple, $\chit$-suitable and has the fd factoring property
-then the transformed model $\chigmodel$ is a  relational ER model in third normal form.  
-If $\gmodel$ is simple without caveats then $\chigmodel$ is in BCNF.
-\end{corollary}
+\begin{theorem}
+\label{goaltheorem}
+If  $\gmodel$ is an an ER model that is well-formulated,  $\chit$-suitable and has the fd factoring property
+then the transformed model $\chigmodel$ is a  relational ER model. Further
+\begin{enumerate}[(i)]
+\item  if $\gmodel$ is 
+free of non-identifying referential attributes
+then  $\chigmodel$ is in third normal form, 
+\item 
+if it is free of any referential attributes at all then  $\chigmodel$ is in BCNF.
+\end{enumerate}
+\end{theorem}
 \begin{proof}
-Follows from theorems \ref{maintheorem} and \ref{chitheorem} because every simple model is reduced.
+Follows from theorem \ref{maintheorem} and lemma \ref{chitlemma} because every simple model is reduced.
 \end{proof}
