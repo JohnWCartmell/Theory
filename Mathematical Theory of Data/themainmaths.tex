@@ -1288,7 +1288,7 @@ follows by lemmas \ref{isospreserveandreflectmultiplefds}, \ref{isospreserveandr
 \end{enumerate}
 \end{proof}
 \begin{definition}
-An ER model $\gmodel$ is \term{restriction-free} iff for all distinct nodes $a$, $b$ of $\gmodel$ and for all edges $y: a \morph b$, if there exist non-empty paths $x_1,...x_n$   with domain $a$ in $\gmodel$,  and for some $j$, $1 \leq j \leq n$, $x_j \not\simeq \tuple{}$ and in every defining instance $E$,  
+An ER model $\gmodel$ is \term{restriction free} iff for all distinct nodes $a$, $b$ of $\gmodel$ and for all edges $y: a \morph b$, if there exist non-empty paths $x_1,...x_n$   with domain $a$ in $\gmodel$,  and for some $j$, $1 \leq j \leq n$, $x_j \not\simeq \tuple{}$ and in every defining instance $E$,  
 $$E_y = \bigwedge_{1 \leq i \leq n}{\overline{E_{x_i}}} \circ E_{x_j}$$
 then $y \simeq x_j$.
 \end{definition}
@@ -1296,7 +1296,7 @@ then $y \simeq x_j$.
 Since if $y < x$ in an ER model $\gmodel$ then in each instance $E$, $E_y = \bar{E_y} \circ E_x$
 then we can deduce the following:
 \begin{observation}
-If $\gmodel$ is a restriction-free  ER model with an edge $y:a \morph b$, where  $a$ and $b$ are distinct nodes of $\gmodel$ then there does not exist a path  $x$ for which $y < x$.
+If $\gmodel$ is a restriction free  ER model with an edge $y:a \morph b$, where  $a$ and $b$ are distinct nodes of $\gmodel$ then there does not exist a path  $x$ for which $y < x$.
 \end{observation}
 
 \begin{lemma}
@@ -1305,7 +1305,7 @@ In a well-formulated model $\gmodel$  if $\set{x_1,...x_n} \morph y$  is a non-t
 functional dependency sourced at some entity type $a$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$ 
 or else for some entity type $d$ there is a non-empty relationship-like path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$ is a functional dependency in $\gmodel$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
-the path $w$ is non-empty and if $y$ is an edge and $\gmodel$ is leaf\commentary{notice that only need leaf restriction-free} restriction-free then $w$ is not equivalent to a primary key path.
+the path $w$ is non-empty and if $y$ is an edge and $\gmodel$ is leaf\commentary{notice that only need leaf-restriction free} restriction free then $w$ is not equivalent to a primary key path.
 \end{lemma}
 \begin{proof}
 Since $\gmodel$ is well-formulated  and there is an intransitive functional dependency $\set{x_1,...x_n} \morph y$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$  and we are done or else the functional dependency
@@ -1377,7 +1377,7 @@ E_y &= E_p \circ E_w                                        && \text{}\\
 		                                                        && \text{By lemma \ref{tupleprojection}}
 \end{align*} 
 
-Hence because $\gmodel$ is leaf  restriction-free we deduce that $y \simeq x_i$ 
+Hence because $\gmodel$ is leaf-restriction free we deduce that $y \simeq x_i$ 
  and this contradicts the assumption that the functional dependency
 is non-trivial. Thus $w$ is not equivalent to a primary key path.
 \end{proof}
@@ -1421,7 +1421,7 @@ In a well-formulated model $\gmodel$ that has the \fdfactoring\ property if $\se
 at some entity type $a$ then either $\set{x_1,...x_n}$ is a mono-source in $\gmodel$
 or else there is an entity type $d$ and there is a relationship-like path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
-the path $w$ is non-empty and and if $y$ is an edge and $\gmodel$ is restriction-free then $w$ is not equivalent to a primary key path(see section \ref{primarykeypath} for definition of 'primary key path').
+the path $w$ is non-empty and and if $y$ is an edge and $\gmodel$ is leaf-restriction free then $w$ is not equivalent to a primary key path.
 \end{lemma}
 \begin{proof}
 Since the model $\gmodel$  has the \fdfactoring\ property, the functional dependency $\set{x_1,...x_n} \morph z$ can be factored through an intransitive functional
@@ -1485,12 +1485,12 @@ For the time being we restrict attention to primary relational ER models which s
 
 \subsection{Attribute Redundancy}
 \begin{definition}
-In a relational ER model $\gmodel$ an attribute $x: a \morph \veee$ is said to be \term{redundant} if
+In a relational ER model $\gmodel$ an attribute $x: a \morph \veee$ is said to be \term{relationally redundant} if
 there exists a path $p$ in model $\gmodel - x$ such that $p \simeq x$ and such that $\gmodel - x$ is 
 a relational ER model.  
 \end{definition}
 \begin{definition}
-Say that a relational ER model $\gmodel$ is \term{free of attribute redundancy} iff none of its attributes are redundant.
+Say that a relational ER model $\gmodel$ is \term{free of relational redundancy} iff none of its attributes are relationally redundant.
 \end{definition}
 
 
@@ -1599,7 +1599,7 @@ either
 \noindent Now for the main theorem:
 \begin{theorem}
 \label{maintheorem}
-\noindent If a (relational) ER model $\gmodel$ is well-formulated and restriction-free, has the \fdfactoring\ property and is reduced then it is in Strong Third Normal Form. 
+\noindent If a (relational) ER model $\gmodel$ is well-formulated and leaf-restriction free, has the \fdfactoring\ property and is reduced then it is in Strong Third Normal Form. 
 If  $\gmodel$ is reduced without caveats then is in Boyce-Codd Normal form.
 \end{theorem}
 \begin{proof}
@@ -1610,7 +1610,7 @@ then  in all instances
 $E$ of $\gmodel$, $E_{<x_1,...x_n>}$ is injective and total or that $y$
 is identifying. \\
 Assume then such a functional dependency.
-From the assumption that the model $\gmodel$ is well-formulated and restriction-free
+From the assumption that the model $\gmodel$ is well-formulated and leaf-restriction free
 then by lemma \ref{mainlemma} 
 either $\set{\xn}$ is a mono-source and we are done
 or else there is a non-empty relationship-like path $r$ in $\gmodel$
@@ -1680,7 +1680,7 @@ and in addition one further property is required as we now descibe.
 
 
 \begin{definition}
-In an  ER model $\gmodel$, if $a$ and $b$ are entity types and if $\set{\qntuple}$ is the set of primary key paths sourced at $b$, if $r: a \morph b$ is a relationship the $r$ is said to be a \term{pseudo-restriction}\commentary{Find a better term here.}
+In an  ER model $\gmodel$, if $a$ and $b$ are entity types and if $\set{\qntuple}$ is the set of primary key paths sourced at $b$, if $r: a \morph b$ is a relationship then $r$ is said to be a \term{pseudo-restriction}\commentary{Find a better term here.}
 iff for each $i$, $1 \leq i \leq n$, there exists a path $s_i: a \morph \veee$ such that $r \circ q_i < s_i$,
 and there doesn't exist $s'_i$ such that $r \circ q_i < s'_i <s_i$ and  either
 $\incd{a}{\sntuple}{b}{\qntuple}$ and this inclusion dependency is represented by
@@ -1691,10 +1691,12 @@ $r$ or else $\nincd{a}{\sntuple}{b}{\qntuple}$.
 If these conditions are met: that attribute-like paths have at most one equivalent non attribute-like path, that implied dependencies are non-circular and there are no pseudo-restriction relationships, then we say that $\gmodel$ is $\chit$-suitable and in these instances we can show that 
 the model $\chigmodel$ is a simple relational model. 
 
-We shall show that with these definitions if $\gmodel$ is well-formulated, simple, $\chit$-suitable and has the fd factoring property
-then the transformed model $\chigmodel$ is a well-formulated, simple, restriction-free relational ER model with the fd factoring property which is therefore in S3NF.  Further we will show that if $\gmodel$ is without caveats then $\chigmodel$ is also without caveats and is therefore in BCNF. 
+We shall show that with these definitions if $\gmodel$ is well-formulated, simple, $\chit$-suitable and has the fd factoring property \commentary{check this summary}
+then the transformed model $\chigmodel$ is a well-formulated, simple, restriction free relational ER model with the fd factoring property which is therefore in S3NF.  Further we will show that if $\gmodel$ is without caveats then $\chigmodel$ is also without caveats and is therefore in BCNF. 
 
+chimodelisrelational
 \begin{lemma}
+\label{chimodelisrelational}
 If $\gmodel$ is $\chit$-suitable then $\chigmodel$ is a relational model.
 \end{lemma}
 \begin{proof}
@@ -1884,11 +1886,40 @@ $y \simeq x_j$. We have shown that from the assumption (\ref{restriction}) it fo
 restrictioncarrythroughlemma
 \begin{lemma}
 \label{restrictioncarrythroughlemma}
+If $\gmodel$ is $\chit$-suitable ER model which is leaf-restriction free then
+then $\chigmodel$ is leaf-restriction free.
+\end{lemma}
+\begin{proof}
+Assume such an ER model $\gmodel$ and suppose there is an entyity type $I_\gmodel(a)$ in $\chigmodel$ and an edge $y': I_\gmodel(a) \morph \veee$ and non-empty paths $x'_1,...x'_n$   with domain $I_\gmodel(a)$ in $\chigmodel$,  such that for some $j$, $1 \leq j \leq n$, $x'_j \not\simeq \tuple{}$ and in every defining instance $E'$ of $\chigmodel$  
+\begin{equation}
+\label{restrictioninchimodel}
+E'_{y'} = \bigwedge_{1 \leq i \leq n}{\overline{E'_{x'_i}}} \circ E'_{x'_j}
+\end{equation}
+We need show  $y' \simeq x'_j$.
+
+There are two cases to consider. First suppose that the edge $y'$ is in the image of $I_\gmodel$, suppose that $y'=I_\gmodel(y)$ for some edge
+$y:a \morph \veee$ in $\gmodel$. From the fact that $I_\gmodel$ is an isomorphism of models it follows that for each instance $E$ of  $\gmodel$
+$$E_{y} = \bigwedge_{1 \leq i \leq n}{\overline{E_{x_i}}} \circ E_{x_j}$$,
+where $x_i=I{-1}_\gmodel(x'_i)$, for each $i$, $1 \leq i \leq n$ and therefore, because $\gmodel$ is leaf-restriction free then we can conclude that
+$y \simeq x_j$ in $\gmodel$ and therefore, in this first case, we have that $y' \simeq x'_j$ in $\gmodel'$.
+
+
+Secondly suppose that $y'$ is of the form $\qq{r \circ q}$ for some relationship $r: a \morph b$ and primary key path $q :b \morph \veee$ in $\gmodel$.
+Now it follows from \ref{restrictioninchimodel} that, in $\chigmodel$, $\qq{r \circ q} < x'_j$. Therefore \commentary{what else to add here} 
+it follows that $r \circ q < x_j$ in $\gmodel$  where $x_j= I^{-1}_\gmodel(x'_j)$. From this it follows from the definition of $\chigmodel$ that
+ $\qq{r \circ q}$ is not an attribute in $\gmodel$ which contradicts the supposition. 
+
+This completes the proof.
+\end{proof}
+
+wellformulatedandfreeofreferentialattributesimplieschileafrestrictionfree
+\begin{lemma}
+\label{wellformulatedandfreeofreferentialattributesimplieschileafrestrictionfree}
 If $\gmodel$ is $\chit$-suitable ER model which is well-formulated and has no referential attributes 
 then $\chigmodel$ is leaf-restriction free.
 \end{lemma}
 \begin{proof}
-Uses lemma  \ref{wellformulatedandfreeofreferentialattributesimpliesleafrestrictionfree}.
+Uses lemma  \ref{wellformulatedandfreeofreferentialattributesimpliesleafrestrictionfree} and lemma \ref{restrictioncarrythroughlemma}. 
 \vspace{0.5cm}
 tbd
 \end{proof}
@@ -1903,26 +1934,29 @@ If  $\gmodel$ is $\chit$-suitable and is well-formulated then  $\chigmodel$ is w
 Use lemmas \ref{chiisacertaintypeofisomorphism} and \ref{certainisomorphismspreservewellformulatedness}.
 \end{proof}
 
-
+chitlemma
 \begin{lemma}
 \label{chitlemma}
 If  $\gmodel$ is an an ER model that is well-formulated,  $\chit$-suitable, has the fd factoring property 
 and is free of non-identifying referential attributes
-then the transformed model $\chigmodel$ is a  relational ER model that is well-formulated, simple, leaf-restriction-free
+then the transformed model $\chigmodel$ is a  relational ER model that is well-formulated, simple, leaf-restriction free
 and has the fd factoring property.   
 Further if $\gmodel$ is free of any referential attributes at all then  $\chigmodel$ is simple without caveats.
 \end{lemma}
 \begin{proof}
 Assume that $\gmodel$ is an an ER model that is well-formulated,  $\chit$-suitable, has the fd factoring property and
 is free of non-identifying referential attributes. 
-$\chigmodel$ is a  relational ER model by lemma \ref{}.
+
+$\chigmodel$ is a  relational ER model by lemma \ref{chimodelisrelational}.
+
 $\chigmodel$ is well-formulated by lemma \ref{wfcarrythroughlemma}.
+
 $\chigmodel$ has the fd factoring property by lemma \ref{fdfactoringcarrythroughlemma}.
-$\chigmodel$ is leaf restriction free by lemma \ref{wellformulatedandfreeofreferentialattributesimpliesleafrestrictionfree}.
+
+$\chigmodel$ is leaf-restriction free by lemma \ref{wellformulatedandfreeofreferentialattributesimpliesleafrestrictionfree}.
 
 It follows directly from definitions that $\gmodel$ is simple since it is free of non-identifying referential attributes.
 By lemma \ref{simplecarrythroughlemma} it follows that $\chigmodel$ is simple .
-
 
 Further, if $\gmodel$ is free of any referential attributes at all then it follows directly from definitions that $\gmodel$ is simple without caveats
 and hence  that $\chigmodel$ is simple without caveats by lemma \ref{wocaveatcarrythroughlemma}.
@@ -1933,11 +1967,9 @@ and hence  that $\chigmodel$ is simple without caveats by lemma \ref{wocaveatcar
 If  $\gmodel$ is an an ER model that is well-formulated,  $\chit$-suitable and has the fd factoring property
 then the transformed model $\chigmodel$ is a  relational ER model. Further
 \begin{enumerate}[(i)]
-\item  if $\gmodel$ is 
-free of non-identifying referential attributes
-then  $\chigmodel$ is in third normal form, 
+\item  if $\gmodel$ is free of non-identifying referential attributes then  $\chigmodel$ is in third normal form, 
 \item 
-if it is free of any referential attributes at all then  $\chigmodel$ is in BCNF.
+if $\gmodel$ is free of any referential attributes at all then  $\chigmodel$ is in BCNF.
 \end{enumerate}
 \end{theorem}
 \begin{proof}
