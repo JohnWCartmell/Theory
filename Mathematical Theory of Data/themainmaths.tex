@@ -4,10 +4,11 @@ We  define a notion of entity-relationship (ER) model which in the tradition of 
 The system that we describe involves definition of types of particulars in terms of their relationships with other types, of which there are two kinds, those, such as represent numbers, character strings, booleans and so on, all of whose instances, we say, are universals and the remaining types, the definienda, those types all of whose instances are particulars. Binary many-one relationships which are functional in character are presented as the edges of a directed graph whose nodes comprise both the types of particulars and the types of universals. \footnote{There are pure conceptual structures and there are data structures. In the later relationships bteween entitites are represented by universal
 referential values.}
 
-If $u$ is a type all of whose instances are universals then we will refer to each binary many-one functional relationship $f: x \morph u$ as an \term{attribute} of $x$. In relational data modelling such functional relationships are presented as columns of tables. Similarly types all of whose instances are universals  are said to be \textit{attribute types} in entity relational modelling  (though called \textit{attributes} in Johnstone et al.); in the initial work by Chen such types were called \textit{value sets}; they are said to be \textit{domains} in relational data modelling theory. Types of particulars are said to be types of entities or \textit{entity types} in modern entity relationship modelling\footnote{In  his paper  introducing the entity-relationship model Chen explains that his model adopts the view that the real world consists of entities and relationships. He also introduces the  terms \textit{entity set} and \textit{relationship set} for the types of respective entity and relationship particulars. Later authors kept the terms entity and relationship, and the Chen philosophy, but changed the way that the terms were used. In this paper we use the later, post-Chen, terminology.} or sometimes, confusingly, just \textit{entities}  and are modelled as \textit{relational tables} in relational data modelling. For the purposes of the theory presented in this paper there is no loss if we assume a single set $\Veee$ of universals.  We will represent data specifications as directed graphs with some additional information; the nodes of the graph being types, and having a distinguished node $\veee$ representing the type of universals; from a mathematical point of view it is impossible to progress the theory too far without forming an opinion that a data specification is a presentation of a category with some additional structure (as in Johnson and Roseburgh \cite{johnson2002REL}) or, meta-mathematically, that it is an axiomatisation of a theory of some kind. This is so but it must be emphasised that the presentation (i.e. the sketch) is vitally important to the goodness of the data specification for it is the primitives in the presentation that determine the units of storage or communication; removing redundancy from the presentation (or sketch) reduces redundancy in the data and this is one half of relational data theory's  normal form notion of goodness of a data schema (the other half being that the theory be optimally tightened to best fit the facts).
+If $u$ is a type all of whose instances are universals then we will refer to each binary many-one functional relationship $f: x \morph u$ as an \term{attribute} of $x$. In relational data modelling such functional relationships are presented as columns of tables. Similarly types all of whose instances are universals  are said to be \textit{attribute types} in entity relational modelling  (though called \textit{attributes} in Johnstone et al.\commentary{reference?}); in the initial work by Chen such types were called \textit{value sets}; they are said to be \textit{domains} in relational data modelling theory. Types of particulars are said to be types of entities or \textit{entity types} in modern entity relationship modelling\footnote{In  his paper  introducing the entity-relationship model Chen explains that his model adopts the view that the real world consists of entities and relationships. He also introduces the  terms \textit{entity set} and \textit{relationship set} for the types of respective entity and relationship particulars. Later authors kept the terms entity and relationship, and the Chen philosophy, but changed the way that the terms were used. In this paper we use the later, post-Chen, terminology.} or sometimes, confusingly, just \textit{entities}  and are modelled as \textit{relational tables} in relational data modelling. For the purposes of the theory presented in this paper there is no loss if we assume a single set $\Veee$ of universals.  We will represent data specifications as directed graphs with some additional information; the nodes of the graph being types, and having a distinguished node $\veee$ representing the type of universals; from a mathematical point of view it is impossible to progress the theory too far without forming an opinion that a data specification is a presentation of a category with some additional structure (as in Johnson and Roseburgh \cite{johnson2002REL}) or, meta-mathematically, that it is an axiomatisation of a theory of some kind. This is so but it must be emphasised that the presentation (i.e. the sketch) is vitally important to the goodness of the data specification for it is the primitives in the presentation that determine the units of storage or communication; removing redundancy from the presentation (or sketch) reduces redundancy in the data and this is one half of relational data theory's  normal form notion of goodness of a data schema (the other half being that the theory be optimally tightened to best fit the facts).
 
 Entity relationship modelling, and, for that matter, relational modelling too, are predicated on the assumption that the particulars described by data correspond uniquely to real world entities and that the data alone is sufficient to establish a 1-1 correspondence. There is thus an implicit assumption that the logical principle of identity of indiscernibles holds of the real world entities and, more specifically, that each type of real world entity has identifying relationships and attributes that distinguish it from  others of the type. In relational data modelling this set of identifying features is represented as a set of columns of the table and is called the primary key. In entity relationship modelling in the style of Barker an identifying feature may be either a relationship or an attribute.   
 
+\subsection{Directed Graphs}
 Regarding directed graphs and reflecting a category theory mindset we will use terminology as follows:
 \begin{itemize}
 \item
@@ -19,7 +20,27 @@ We will use the same notation if any of the $p_i$ are edges rather than paths as
 \item
 If $a$ is a node of a directed graph $G$ then by a \term{source} at $a$ in $G$ we mean a non-empty set of paths in $G$ each with domain $a$.
 \end{itemize}
+\begin{figure}
+\setlength{\arraycolsep}{.2cm}
+\begin{center}
+$
+\begin{array}{cp{2cm}ccp{2cm}c}
+             & &         & \Rnode{b1}{b_1} \\ [0.5cm]
+						 & &         & \Rnode{b2}{b_2} \\ [0.2cm]
+\Rnode{a}{a} & &         &                 \\ [-0.2cm]						
+             & &         &    \vdots       \\ [0.2cm]
+             & &         & \Rnode{bn}{b_n} \\ 
+\end{array}
+$
+\simplepatha{$p_1$}{a}{b1}
+\simplepatha{$p_2$}{a}{b2}
+\simplepathb{$p_n$}{a}{bn}
+\end{center}
+\caption{A source in a directed graph consists of any set of paths with a common domain. This figure illustrates a source $\set{\pn}$ at a node $a$.}
+\label{sourceillustration}
+\end{figure}
 
+\subsection{Partial Functions}
 If $A$ is a set and if $J= \setsuchthat{f_i}{ 1\leq i \leq n}$ is a finite set of partial functions, $f_i: A \rightarrow B_i$   for some sets $B_{i, 1 \leq i \leq n}$,  then the set of functions 
 $J$ is said to be \term{jointly injective} iff for all $x,y \in A$ it is the case that  if  for each 
 $f \in J$, $f(x)=f(y)$ then $x=y$. 
@@ -67,22 +88,35 @@ in particular, $\tuple{f_1,...f_n} \circ p_i\leq f_i$ .
 \begin{definition}
 An \term{ER-schema} $S$ is a directed graph having the following additional structure:
 \begin{enumerate} [(i)]
-\item{a distinguished node $\veee$ for which there are no outgoing edges and which represents the type of universals, }
+\item{a distinguished node $\veee$ for which there are no outgoing edges and which represents the type of universals, 
+ the nodes of $\gmodel_S$ other than $\veee$ we say are entity types and the set of entity types we denote by $\et[\gmodel]$,} 
+\commentary{we only use $\et[\gmodel]$ in proof of lemma \ref{ identifyingsetdeduction} and in commentary that follows it, nowhere else.}
 \item{a distinguished acyclic subset $I$ of edges, called the identifying edges, such that
 for every node $a$ other than $\veee$ there is a non-empty set  of identifying edges with domain $a$.
  We denote by $I_a$ the non-empty set of identifying edges leaving an entity type $a$.}
 \end{enumerate}
 \end{definition}
 
+If $\gmodel$ is an ER-model then the set $\attr{a}$ of attributes of an entity type $a$ is defined as the set of edges of $\gmodel_S$ that have 
+domain $a$  and  codomain $\veee$.
+
 \begin{definition}
 \label{ERschemamapping}
 If $\gmodel$ and  $\gmodel'$ are ER schemas then an \term{ER schema mapping} 
 $\varphi : \gmodel \morph \gmodel'$ consists of a mapping $\varphi_N$ (abbreviated $\varphi$)from nodes of
-$\gmodel$ to nodes of $\gmodel'$ and a mapping $\varphi_N$ (also abbreviated $\varphi$) from 
-paths of $\gmodel$ to paths of $\gmodel'$ such that
+$\gmodel$ to nodes of $\gmodel'$ 
+that mapps entity types to entity tyoes and the node $\veee$ of $\gmodel$ to the distingished node
+$\veee$ od $\gmodel'$ i.e. such that
 \begin{itemize}
 \item $\varphi(\veee)=\veee$ and for any $a$ if $\varphi(a)=(\veee)$ then
-$a = \veee$\commentary{check this},
+$a = \veee$
+\end{itemize}
+
+and a mapping $\varphi_P$ (also abbreviated $\varphi$) from 
+paths of $\gmodel$ to paths of $\gmodel'$ such that
+\begin{itemize}
+\item $\varphi(\veee)=\veee$ and for any $a$, if $\varphi(a)=(\veee)$ then
+$a = \veee$,
 \item  if $p:a \morph b$ is a path in $\gmodel$ then $\varphi(p):\varphi(a) \morph \varphi(b)$ in $\gmodel'$,
 \item the empty path at any node $a$ in $\gmodel$ is mapped to the empty path
 on $\varphi(a)$ in $\gmodel'$,
@@ -90,6 +124,10 @@ on $\varphi(a)$ in $\gmodel'$,
 then $\varphi(a \circ b) = \varphi(a) \circ \varphi(b)$ in $\gmodel'$.
 \end{itemize}
 \end{definition}
+
+It follows from this definition that a schema mapping is determined by 
+a mapping of entity types of $\gmodel$ to entity types of $\gmodel'$ and a mapping of edges of $\gmodel$ to paths of $\gmodel'$ subject to the constraint
+that if $e:a \morph b$ is an edge in $\gmodel$ then the path $\varphi(e)$ in $\gmodel'$ has source $\varphi(a)$ and codomain $\varphi(b)$.
  
 \begin{definition}
 \noindent A \term{database instance}  of an ER schema $S$ is
@@ -108,25 +146,22 @@ edges the definition proceeds recursively as follows:
 \item{
 For each node $a$, $E_{\tuple{}}: E_a \rightarrow E_a$ is defined to be the identity function.
 }
-\item{
-if $p$ is a path $p: a \rightarrow b$ and $f$ is an edge $p: b \rightarrow c$ then $E_{p \circ f}$  
-is defined to be the functional composition $E_p \circ E_f$. \commentary{Define using the n-ary case instead}
-}
+\item for and path $p_1 \circ p_2... \circ p_n: a \morph b$ in $\gmodel$ where $p_i: x_i \morph x_{i+1}$ are edges,
+define $E_{p_1 \circ p_2... \circ p_n}$ to be the functional composition $E_{p_1} \circ E_{p_2}... \circ E_{p_n}$.
 \end{enumerate}
 
 We can extend this notation further and define $E$ on sources so that if 
-$\tuple{p_1,...p_n}$ is a source at entity type $a$ then in an instance E
-the function  $E_{\tuple{p_1,...p_n}}$ is defined to be the function mapping each element $e$ 
+$\tuple{p_1,...p_n}$ is a source at entity type $a$ in $\gmodel$ as depicted in figure \ref{sourceillustration} then in an instance E
+define the function  $E_{\tuple{p_1,...p_n}}$  to be the function mapping each element $e$ 
 of $E_a$ to the n-tuple
-$\tuple{E_{p_1}(e),...E_{p_n}(e)}$.
+$\tuple{E_{p_1}(e),...E_{p_n}(e)} \in E_{b_1} \times E_{b_2} \times ... E_{b_n}$.
 
 \begin{definition}
 \noindent An \term{ER model} $\gmodel$ is an ER schema $\gmodel_S$ and a set of database instances of the schema $\gmodel_D$ called the set of
 \term{defining instances} of the model. \\
 \end{definition}
 
-If $\gmodel$ is an ER-mdel then the nodes of $\gmodel_S$ other than $\veee$ we say are entity types and we denote by $\et$. The set $\attr{a}$ of attributes of an entity type $a$ is defined as the set of edges of $\gmodel_S$ that have 
-domain $a$  and  codomain $\veee$.
+
 
 \subsection{Primary Key Paths}
 \label{primarykeypath}
@@ -1977,26 +2012,39 @@ Follows from theorem \ref{maintheorem} and lemma \ref{chitlemma} because every s
 \end{proof}
 
 \section{Future Work}
-\subsection{Further Explanation of current work}
-Explain redundancy for relational models in terms of SQL. Explain connection between restriction and SQL Exists operator.
+\subsection{Further Explanation of Current Work}
+Explain redundancy for relational models in terms of SQL. 
+Explain connection between restriction and SQL Exists operator.
+Describe how Codd's definition of normal form for tables having columns which are Nullable is flawed and how this work gives an improved definition. 
+Describe inclusion dependency normal form and how this works improves on the definition of ???. Explain problem with previous formulations
+in that they cannot deal with, for example, parallel or recursive relationships. 
 
 Explain how transitive functional depdendencies are represented in a well formulated model. 
 
 \subsection{Removing the current restriction to Primary Keys}
 Future work will also cover secondary keys, relationships implemented using secondary keys.
 
-\subsection{Hierarchical Data Models}
-Describe implementation by hierarchical models (aka distinguishing composition relationships) thus covering XML and IDL.
-
-Relate goodness criteria with  normal forms proposed in literature for XML. I should be able to generate huierarchical
-(think XML) models that are in suitable normal form.
-
-\subsection{Higher Dimension Data Models}
-Is there anything to be said about network models? Certainly there is a connection to Dependency Categories.
-Network models are higher dimensional models and we can generate such schemas but is there a practical application?  
-
 \subsection{Higher Normal Forms}
 Give definitions of 4th and 5th normal forms and relate to pullbacks and certain other limits.  
 
 \subsection {Abstract ER Models and Reverse Engineering}
-We will in future also consider condition for an ER model being maximally abstract from a design specification perspective. We seek to define a transformation from relational models to an abstract models (and for this seconday keys and relationships implemented by secondary keys required). What we look for is a reverse engineering transform from a relational model back to an abstract model so that when we go forward using the $\chi$ transform we get to some equivalent relational model. 
+We will in future also consider condition for an ER model being maximally abstract from a design specification perspective. We seek to define a transformation from relational models to an abstract models (and for this seconday keys and relationships implemented by secondary keys required). What we look for is a reverse engineering transform from a relational model back to an abstract model so that when we go forward using the $\chi$ transform we get to some equivalent relational model.
+
+\subsection{Hierarchical Data Models}
+Describe implementation by hierarchical models (aka distinguishing composition relationships) thus covering XML and IDL.
+WE can introduce a second type of universals - the type 'absolute' which is (one version) of the terminal object 1 in the restriction
+category. Edges sourced at 1 to the type $\veee$ represent constants. Edges $f: a \morph 1$ which are not total, i.e. for which
+$\bar{f} \neq id_a$, correspond to (are one way of representing) boolean attributes.  
+
+Relate goodness criteria with  normal forms proposed in literature for XML. I should be able to generate hierarchical
+(think XML) models that are in suitable normal form.
+
+\subsection{Inheritance, Disjunction, Coproducts}
+Not really covered what I think of entity models until covered inheritance as coproducts.
+Piessens and Steegmans and also Johnson et al have already covered much of this in an interesting way. 
+Inheritance maps nicely to IDL and XML but not so nicely to the relational model.  
+
+\subsection{Higher Dimension Data Models}
+Is there anything to be said about network models? Certainly there is a connection to Dependency Categories.
+Network models are higher dimensional models and we can generate such schemas but is there a practical application?  
+ 
