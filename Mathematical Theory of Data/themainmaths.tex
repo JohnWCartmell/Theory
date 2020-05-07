@@ -1,7 +1,7 @@
  \section{Introduction}
 
 We  define a notion of entity-relationship (ER) model which in the tradition of Chen\cite{Chen1976} is sufficiently generic to encompass relational, hierarchical and purely logical  notions of data.
-The system that we describe involves definition of types of particulars in terms of their relationships with other types, of which there are two kinds, those, such as represent numbers, character strings, booleans and so on, all of whose instances, we say, are universals and the remaining types, the definienda, those types all of whose instances are particulars. Binary many-one relationships which are functional in character are presented as the edges of a directed graph whose nodes comprise both the types of particulars and the types of universals. \footnote{There are pure conceptual structures and there are data structures. In the later relationships bteween entitites are represented by universal
+The system that we describe involves definition of types of particulars in terms of their relationships with other types, of which there are two kinds, those, such as represent numbers, character strings, booleans and so on, all of whose instances, we say, are universals and the remaining types, the definienda, those types all of whose instances are particulars. Binary many-one relationships which are functional in character are presented as the edges of a directed graph whose nodes comprise both the types of particulars and the types of universals. \footnote{There are pure conceptual structures and there are data structures. In the later relationships between entitites are represented by universal
 referential values.}
 
 If $u$ is a type all of whose instances are universals then we will refer to each binary many-one functional relationship $f: x \morph u$ as an \term{attribute} of $x$. In relational data modelling such functional relationships are presented as columns of tables. Similarly types all of whose instances are universals  are said to be \textit{attribute types} in entity relational modelling  (though called \textit{attributes} in Johnstone et al.\commentary{reference?}); in the initial work by Chen such types were called \textit{value sets}; they are said to be \textit{domains} in relational data modelling theory. Types of particulars are said to be types of entities or \textit{entity types} in modern entity relationship modelling\footnote{In  his paper  introducing the entity-relationship model Chen explains that his model adopts the view that the real world consists of entities and relationships. He also introduces the  terms \textit{entity set} and \textit{relationship set} for the types of respective entity and relationship particulars. Later authors kept the terms entity and relationship, and the Chen philosophy, but changed the way that the terms were used. In this paper we use the later, post-Chen, terminology.} or sometimes, confusingly, just \textit{entities}  and are modelled as \textit{relational tables} in relational data modelling. For the purposes of the theory presented in this paper there is no loss if we assume a single set $\Veee$ of universals.  We will represent data specifications as directed graphs with some additional information; the nodes of the graph being types, and having a distinguished node $\veee$ representing the type of universals; from a mathematical point of view it is impossible to progress the theory too far without forming an opinion that a data specification is a presentation of a category with some additional structure (as in Johnson and Roseburgh \cite{johnson2002REL}) or, meta-mathematically, that it is an axiomatisation of a theory of some kind. This is so but it must be emphasised that the presentation (i.e. the sketch) is vitally important to the goodness of the data specification for it is the primitives in the presentation that determine the units of storage or communication; removing redundancy from the presentation (or sketch) reduces redundancy in the data and this is one half of relational data theory's  normal form notion of goodness of a data schema (the other half being that the theory be optimally tightened to best fit the facts).
@@ -160,8 +160,6 @@ $\tuple{E_{p_1}(e),...E_{p_n}(e)} \in E_{b_1} \times E_{b_2} \times ... E_{b_n}$
 \noindent An \term{ER model} $\gmodel$ is an ER schema $\gmodel_S$ and a set of database instances of the schema $\gmodel_D$ called the set of
 \term{defining instances} of the model. \\
 \end{definition}
-
-
 
 \subsection{Primary Key Paths}
 \label{primarykeypath}
@@ -960,7 +958,7 @@ The further point regarding triviality follows from lemma \ref{mappingrespectseq
 
 \begin{definition}
 A functional dependency \sfd{x_1,...x_n}{y} is said to be a \term{leaf functional dependency} iff
- the codomain of each $x_i$, $1 \leq i \leq n$, is $\veee$.
+ the codomain of each $x_i$, $1 \leq i \leq n$, is $\veee$ \commentary{and the codomain of $y$ is $\veee$ I would have thought.}
 \end{definition}
 
 \begin{definition}
@@ -1323,9 +1321,9 @@ follows by lemmas \ref{isospreserveandreflectmultiplefds}, \ref{isospreserveandr
 \end{enumerate}
 \end{proof}
 \begin{definition}
-An ER model $\gmodel$ is \term{restriction free} iff for all distinct nodes $a$, $b$ of $\gmodel$ and for all edges $y: a \morph b$, if there exist non-empty paths $x_1,...x_n$   with domain $a$ in $\gmodel$,  and for some $j$, $1 \leq j \leq n$, $x_j \not\simeq \tuple{}$ and in every defining instance $E$,  
+An ER model $\gmodel$ is \term{restriction free} iff for all  nodes $a$, $b$ of $\gmodel$ and for all edges $y: a \morph b$, if there exist non-empty paths $x_1,...x_n$   with domain $a$ in $\gmodel$,  and for some $j$, $1 \leq j \leq n$, $x_j \not\simeq \tuple{}$ and in every defining instance $E$,  
 $$E_y = \bigwedge_{1 \leq i \leq n}{\overline{E_{x_i}}} \circ E_{x_j}$$
-then $y \simeq x_j$.
+then $y \simeq x_j$. \commentary{Qualification that $a$ and $b$ be distinct removed on Mon 4th May 2020.} 
 \end{definition}
 
 Since if $y < x$ in an ER model $\gmodel$ then in each instance $E$, $E_y = \bar{E_y} \circ E_x$
@@ -1334,16 +1332,17 @@ then we can deduce the following:
 If $\gmodel$ is a restriction free  ER model with an edge $y:a \morph b$, where  $a$ and $b$ are distinct nodes of $\gmodel$ then there does not exist a path  $x$ for which $y < x$.
 \end{observation}
 
+intransitivelemma
 \begin{lemma}
 \label{intransitivelemma}
 In a well-formulated model $\gmodel$  if $\set{x_1,...x_n} \morph y$  is a non-trivial intransitive leaf
-functional dependency sourced at some entity type $a$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$ 
+functional dependency sourced at some entity type $a$ then either $\set{\xn}$ is a mono-source
 or else for some entity type $d$ there is a non-empty relationship-like path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$ is a functional dependency in $\gmodel$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
 the path $w$ is non-empty and if $y$ is an edge and $\gmodel$ is leaf\commentary{notice that only need leaf-restriction free} restriction free then $w$ is not equivalent to a primary key path.
 \end{lemma}
 \begin{proof}
-Since $\gmodel$ is well-formulated  and there is an intransitive functional dependency $\set{x_1,...x_n} \morph y$ then either $E_{\xntuple}$ is injective and total in every defining instance $E$  and we are done or else the functional dependency
+Since $\gmodel$ is well-formulated  and there is an intransitive functional dependency $\set{x_1,...x_n} \morph y$ then either $\set{\xn}$ is a mono-source and we are done or else the functional dependency
 $\set{x_1,...x_n} \morph y$   is represented 
 by  an entity type $d$ and 
 a primary mono-source $\qntuple$ with respect to
@@ -1461,7 +1460,7 @@ the path $w$ is non-empty and and if $y$ is an edge and $\gmodel$ is leaf-restri
 \begin{proof}
 Since the model $\gmodel$  has the \fdfactoring\ property, the functional dependency $\set{x_1,...x_n} \morph z$ can be factored through an intransitive functional
 dependency $\set{y_1,...y_m} \morph z$. Therefore by lemma \ref{intransitivelemma} either there exists $d$, $p$ and $w$ as required
-or else in each defining instance $E$, $E_{\ymtuple}$ is injective and total in which case, by lemma \ref{transitiveinjectivelemma}, $E_{\xntuple}$ is injective and total as required.
+or else  $\set{\ym}$ is a mono-source in which case, by lemma \ref{transitiveinjectivelemma}, $\set{\xn}$ is a mono-source as required.
 \end{proof}
 
 \subsection{Ranking Relationships in an ER Model}
@@ -1632,6 +1631,7 @@ either
 
 \subsection{Main Theorem}
 \noindent Now for the main theorem:
+maintheorem
 \begin{theorem}
 \label{maintheorem}
 \noindent If a (relational) ER model $\gmodel$ is well-formulated and leaf-restriction free, has the \fdfactoring\ property and is reduced then it is in Strong Third Normal Form. 
@@ -1641,9 +1641,7 @@ If  $\gmodel$ is reduced without caveats then is in Boyce-Codd Normal form.
 To prove S3NF it suffices, by lemma \ref{S3NFsublemma},  to show that if 
 $\sfd{x_1,...x_n}{y}$ is a non-trivial intransitive functional dependency of model $\gmodel$
 where $x_1,...x_n$, $y$ are attributes 
-then  in all instances
-$E$ of $\gmodel$, $E_{<x_1,...x_n>}$ is injective and total or that $y$
-is identifying. \\
+then  $\set{\xn}$ is a mono-source or that $y$ is identifying. \\
 Assume then such a functional dependency.
 From the assumption that the model $\gmodel$ is well-formulated and leaf-restriction free
 then by lemma \ref{mainlemma} 
@@ -1718,10 +1716,17 @@ and in addition one further property is required as we now descibe.
 In an  ER model $\gmodel$, if $a$ and $b$ are entity types and if $\set{\qntuple}$ is the set of primary key paths sourced at $b$, if $r: a \morph b$ is a relationship then $r$ is said to be a \term{pseudo-restriction}\commentary{Find a better term here.}
 iff for each $i$, $1 \leq i \leq n$, there exists a path $s_i: a \morph \veee$ such that $r \circ q_i < s_i$,
 and there doesn't exist $s'_i$ such that $r \circ q_i < s'_i <s_i$ and  either
-$\incd{a}{\sntuple}{b}{\qntuple}$ and this inclusion dependency is represented by
+$\incd{a}{\sntuple}{b}{\qntuple}$ and this inclusion dependency is not \commentary{ `represented' changed to `not represented' 4 May 2020. Double check day book 11th April 2020.} represented by
 $r$ or else $\nincd{a}{\sntuple}{b}{\qntuple}$.
 \end{definition}
 
+goodformelemma
+\begin{lemma}
+If an edge is a restriction then it is a pseudo-restriction.
+\end{lemma}
+\begin{proof}
+TBD
+\end{proof}
 
 If these conditions are met: that attribute-like paths have at most one equivalent non attribute-like path, that implied dependencies are non-circular and there are no pseudo-restriction relationships, then we say that $\gmodel$ is $\chit$-suitable and in these instances we can show that 
 the model $\chigmodel$ is a simple relational model. 
