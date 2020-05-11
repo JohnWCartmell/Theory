@@ -1,7 +1,7 @@
  \section{Introduction}
 
 We  define a notion of entity-relationship (ER) model which in the tradition of Chen\cite{Chen1976} is sufficiently generic to encompass relational, hierarchical and purely logical  notions of data.
-The system that we describe involves definition of types of particulars in terms of their relationships with other types, of which there are two kinds, those, such as represent numbers, character strings, booleans and so on, all of whose instances, we say, are universals and the remaining types, the definienda, those types all of whose instances are particulars. Binary many-one relationships which are functional in character are presented as the edges of a directed graph whose nodes comprise both the types of particulars and the types of universals. \footnote{There are pure conceptual structures and there are data structures. In the later relationships between entitites are represented by universal
+The system that we describe involves definition of types of particulars in terms of their relationships with other types, of which there are two kinds, those, such as represent numbers, character strings, booleans and so on, all of whose instances, we say, are universals and the remaining types, the definienda, those types all of whose instances are particulars. Binary many-one relationships which are functional in character are presented as the edges of a directed graph whose nodes comprise both the types of particulars and the types of universals. \footnote{There are pure conceptual structures and there are data structures. In the latter, relationships between entitites are represented by universal
 referential values.}
 
 If $u$ is a type all of whose instances are universals then we will refer to each binary many-one functional relationship $f: x \morph u$ as an \term{attribute} of $x$. In relational data modelling such functional relationships are presented as columns of tables. Similarly types all of whose instances are universals  are said to be \textit{attribute types} in entity relational modelling  (though called \textit{attributes} in Johnstone et al.\commentary{reference?}); in the initial work by Chen such types were called \textit{value sets}; they are said to be \textit{domains} in relational data modelling theory. Types of particulars are said to be types of entities or \textit{entity types} in modern entity relationship modelling\footnote{In  his paper  introducing the entity-relationship model Chen explains that his model adopts the view that the real world consists of entities and relationships. He also introduces the  terms \textit{entity set} and \textit{relationship set} for the types of respective entity and relationship particulars. Later authors kept the terms entity and relationship, and the Chen philosophy, but changed the way that the terms were used. In this paper we use the later, post-Chen, terminology.} or sometimes, confusingly, just \textit{entities}  and are modelled as \textit{relational tables} in relational data modelling. For the purposes of the theory presented in this paper there is no loss if we assume a single set $\Veee$ of universals.  We will represent data specifications as directed graphs with some additional information; the nodes of the graph being types, and having a distinguished node $\veee$ representing the type of universals; from a mathematical point of view it is impossible to progress the theory too far without forming an opinion that a data specification is a presentation (i.e a sketch) of a category with some additional structure (as in Johnson and Roseburgh \cite{johnson2002REL}) or, meta-mathematically, that it is an axiomatisation of a theory of some kind. This is so but it must be emphasised that the presentation (i.e. the sketch) is vitally important to the goodness of the data specification for it is the primitives in the presentation that determine the units of storage or communication; removing redundancy from the presentation (or sketch) reduces redundancy in the data and this is one half of relational data theory's  normal form notion of goodness of a data schema (the other half being that the theory be optimally tightened to best fit the facts). 
@@ -151,7 +151,7 @@ define $E_{p_1 \circ p_2... \circ p_n}$ to be the functional composition $E_{p_1
 \end{enumerate}
 
 We can extend this notation further and define $E$ on sources so that if 
-$\tuple{p_1,...p_n}$ is a source at entity type $a$ in $\gmodel$ as depicted in figure \ref{sourceillustration} then in an instance E
+$\tuple{p_1,...p_n}$ is a source at entity type $a$ in $\gmodel$ as depicted in figure \lref{sourceillustration} then in an instance E
 define the function  $E_{\tuple{p_1,...p_n}}$  to be the function mapping each element $e$ 
 of $E_a$ to the n-tuple
 $\tuple{E_{p_1}(e),...E_{p_n}(e)} \in E_{b_1} \times E_{b_2} \times ... E_{b_n}$.
@@ -250,7 +250,7 @@ tbd
 If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi$ is an ER model isomorphism $\varphi: \gmodel \morph \gmodel'$ then if $p:a \morph \veee$ in $\gmodel$ and $\varphi(p) :\varphi(a) \morph \veee$ is a primary key path in $\gmodel'$ then $p$ is equivalent to a primary key path in $\gmodel$.
 \end{lemma}
 
-In section \ref{definitionofrelational} we characterise those ER models which correspond to relational schemas and elsewhere\footnote{TBD} those that correspond to hierarchical schemas. 
+In section \lref{definitionofrelational} we characterise those ER models which correspond to relational schemas and elsewhere\footnote{TBD} those that correspond to hierarchical schemas. 
 We can paraphrase and say that an ER model is relational or hierarchical, in a certain way,  providing it has a sufficiency of referential attributes (foreign keys) for the implementation  of non-compositional relationships. It follows from the definitions that we give that an ER model which doesn't have sufficient 
 referential attributes can be extended to one that does by repeated use of the construction indicated in the following definition.
 \begin{definition}
@@ -376,10 +376,10 @@ We can show that if $i$ is a mono-source
 then $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source
 by showing that for any instance $E$ of $\gmodel$ the family of functions 
 $\setsuchthat{E_e}{e \in (i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}}$
-is jointly injective. Because of (\ref{eequivalentsets}) this follows by applying lemma \ref{jointlyinjectivecomposition} with $I$ being $\setsuchthat{E_e}{e \in i}$,
+is jointly injective. Because of (\lref{eequivalentsets}) this follows by applying lemma \lref{jointlyinjectivecomposition} with $I$ being $\setsuchthat{E_e}{e \in i}$,
 $F$ being $E_f$,  and $G$ being $\setsuchthat{E_g}{g \in j}$.
 
-\textit{Vice-versa}, we can show that if $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source then $i$ is a mono-source by applying lemma \ref{jointlyinjectivefactorisation} 
+\textit{Vice-versa}, we can show that if $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source then $i$ is a mono-source by applying lemma \lref{jointlyinjectivefactorisation} 
 with, as above, $I$ being $\setsuchthat{E_e}{e \in i}$,
 $F$ being $E_f$,  and $G$ being $\setsuchthat{E_g}{g \in j}$.
 \end{proof}
@@ -388,7 +388,7 @@ $F$ being $E_f$,  and $G$ being $\setsuchthat{E_g}{g \in j}$.
 
 \subsubsection{Primary Key Paths }
 
-From the definition of ER model we have specified in the schema of each ER model $\gmodel$, for each entity type $a$ of $\gmodel$ a set of outgoing edges denoted $I_a$ specified as a mono-source in $\gmodel$. From lemma \ref{identifyingsetdeduction} it follows that any source arrived at by repeated composition of these given mono-sources, those of the form $I_a$, for $a$ an entity type of $\gmodel$, is itself a mono-source in $\gmodel$. 
+From the definition of ER model we have specified in the schema of each ER model $\gmodel$, for each entity type $a$ of $\gmodel$ a set of outgoing edges denoted $I_a$ specified as a mono-source in $\gmodel$. From lemma \lref{identifyingsetdeduction} it follows that any source arrived at by repeated composition of these given mono-sources, those of the form $I_a$, for $a$ an entity type of $\gmodel$, is itself a mono-source in $\gmodel$. 
 Denote by $\bar{I}$ the set  of all such mono-sources and denote by $\bar{I}_a$ the subset of $\bar{I}$ comprising all mono-sources in $\bar{I}$ with domain $a$.
 
 From this definition it follows that $\pk{a} \in \bar{I_a}$ and from this we get the following corollary.
@@ -452,7 +452,7 @@ Note that it may be that for some $j$, $1 \leq j \leq m$, $b_j = \veee$ and $p \
 Note further that if $\set{\qm}$ is a leaf primary mono-source then for some $j$, $1 \leq j \leq m$, $p \simeq q_j$.
 \end{lemma}
 \begin{proof}
-Follows from observation \ref{factoringprimarykeypath}.
+Follows from observation \lref{factoringprimarykeypath}.
 \end{proof}
 
 \begin{definition}
@@ -552,15 +552,15 @@ if $\varphi(P)$ is a leaf primary mono source in $\gmodel'$ then $P$ is a leaf p
 \begin{enumerate} [(i)]
 \item
 That $P$ is a mono-source implies $\varphi(P)$ was proved
-in lemma \ref{mappingspreservemonosources}. For the reverse implication use 
-lemma \ref{mappingspreservemonosources} applied to the inverse mapping $\varphi^{-1}$
-and then use lemma \ref{monosourceequivalence} since $\varphi^{-1}(P) \simeq P$.
+in lemma \lref{mappingspreservemonosources}. For the reverse implication use 
+lemma \lref{mappingspreservemonosources} applied to the inverse mapping $\varphi^{-1}$
+and then use lemma \lref{monosourceequivalence} since $\varphi^{-1}(P) \simeq P$.
 \item
 trivial
 \item
-get this from lemma \ref{isospreserverepresentativesets} 
+get this from lemma \lref{isospreserverepresentativesets} 
 \item
-follows from lemma \ref{injectiveisosreflectrepresentativesets}
+follows from lemma \lref{injectiveisosreflectrepresentativesets}
 \end{enumerate}
 
 \end{proof}
@@ -582,13 +582,13 @@ If $\varphi: \gmodel \morph \gmodel'$ is an injective isomorphism of ER models t
 Suppose such an injective isomorphism $\varphi$. \\
 
 First suppose that $\gmodel$ satisifes the minimality condition that no leaf primary mono-sources have proper subsets which are mono-sources. 
-To show that $\gmodel'$ has the minimality condition let $Q$ be a leaf-primary mono-source in $\gmodel'$. We need show that if $Q' \subseteq Q$ and $Q'$ is a mono-source then $Q'=Q$. Assume such a $Q$ and $Q'$. It follows that $\varphi^{-1}(Q') \subseteq \varphi^{-1} (Q)$ and, by lemma \ref{isospreserveandreflectmonosources}, that $\varphi^{-1}(Q)$
+To show that $\gmodel'$ has the minimality condition let $Q$ be a leaf-primary mono-source in $\gmodel'$. We need show that if $Q' \subseteq Q$ and $Q'$ is a mono-source then $Q'=Q$. Assume such a $Q$ and $Q'$. It follows that $\varphi^{-1}(Q') \subseteq \varphi^{-1} (Q)$ and, by lemma \lref{isospreserveandreflectmonosources}, that $\varphi^{-1}(Q)$
 is a leaf primary mono-source and that $\varphi^{-1}(Q')$ is a mono-source. Since $\gmodel'$ is assumed to have the minimality condition then we have that
-$\varphi^{-1}(Q') = \varphi^{-1} (Q)$. From this it follows that  $Q' \simeq \varphi(\varphi^{-1}(Q')) = \varphi(\varphi^{-1}(Q)) \simeq Q$ and so we have that both $Q' \subset Q$ and $Q' \simeq Q$ and, since $Q$ is representative, this implies, by lemma \ref{representativecontainmentlemma}, that $Q'=Q$ as required. \\
+$\varphi^{-1}(Q') = \varphi^{-1} (Q)$. From this it follows that  $Q' \simeq \varphi(\varphi^{-1}(Q')) = \varphi(\varphi^{-1}(Q)) \simeq Q$ and so we have that both $Q' \subset Q$ and $Q' \simeq Q$ and, since $Q$ is representative, this implies, by lemma \lref{representativecontainmentlemma}, that $Q'=Q$ as required. \\
 
 For the reverse implication consider that $\gmodel'$ satisfies the minimality condition. We are required to show that $\gmodel$ has the minimality condition for which we are required to show that if  $P$ is a leaf primary mono-source in $\gmodel$ and if $P' \subseteq P$ and 
  $P'$ is a mono-source in $\gmodel$ then $P'=P$.  Suppose then such a $P$ and $P'$. Since $P' \subseteq P$ then $\varphi(P') \subseteq \varphi(P)$. 
-By lemma \ref{isospreserveandreflectmonosources} $\varphi(P)$ is a leaf primary mono-source and, by the same lemma,  $\varphi(P')$ is a mono-source.
+By lemma \lref{isospreserveandreflectmonosources} $\varphi(P)$ is a leaf primary mono-source and, by the same lemma,  $\varphi(P')$ is a mono-source.
 Since $\gmodel'$ satisfies the minimality condition it now follows that $\varphi(P') = \varphi(P)$ from which  it follows since $\varphi$ is assumed to be injective
 that $P'=P$, as required.\\
 \end{proof}
@@ -608,7 +608,7 @@ $\varphi$ reflects primary mono-sources iff $\varphi^{-1}$ preserves primary mon
 \begin{proof}
 Suppose $\varphi$ reflects primary mono-sources. To show that $\varphi^{-1}$ preserves primary mono-sources suppose
  $P'$ is a primary mono-source in $\gmodel'$. By definition, then,  $P'$ is representable  and therefore $\varphi^{-1}(\varphi(P))$ is representatable 
-by lemma \ref{isospreserverepresentativesets}.  Now it follows that  $\varphi(\varphi^{-1}(P'))$ will be a primary mono-source by lemma \ref{monosourceequivalence} since $\varphi(\varphi^{-1}(P')) \simeq P'$ in $\gmodel'$ as $\varphi$ is an isomorphism. 
+by lemma \lref{isospreserverepresentativesets}.  Now it follows that  $\varphi(\varphi^{-1}(P'))$ will be a primary mono-source by lemma \lref{monosourceequivalence} since $\varphi(\varphi^{-1}(P')) \simeq P'$ in $\gmodel'$ as $\varphi$ is an isomorphism. 
 \end{proof}
 
 \begin{lemma}
@@ -620,9 +620,9 @@ then $\varphi$ reflects primary mono-sources.
 \begin{proof}
 Suppose $\varphi^{-1}$ preserves primary mono-sources then $\varphi$ reflects primary mono-sources because
 if $P$ is a source in $\gmodel$ and if $\varphi(P)$ is a primary mono-source in $\gmodel'$ then
-by definition $\varphi(P)$ is representative in $\gmodel'$ and therefore by lemma \ref{injectiveisosreflectrepresentativesets} 
-$P$ is representative in $\gmodel$ and by lemma \ref{isospreserverepresentativesets} $\varphi^{-1}(\varphi(P))$ is representative in $\gmodel$.
-Now by lemma \ref{monosourceequivalence} it follows that $P$ will be primary mono-source in $\gmodel$ because, from the definition of
+by definition $\varphi(P)$ is representative in $\gmodel'$ and therefore by lemma \lref{injectiveisosreflectrepresentativesets} 
+$P$ is representative in $\gmodel$ and by lemma \lref{isospreserverepresentativesets} $\varphi^{-1}(\varphi(P))$ is representative in $\gmodel$.
+Now by lemma \lref{monosourceequivalence} it follows that $P$ will be primary mono-source in $\gmodel$ because, from the definition of
 isomorphism,  $P \simeq \varphi^{-1}(\varphi(P))$ and $\varphi^{-1}(\varphi(P))$ is a primary mono-source since we have assumed
 that  $\varphi^{-1}$ preserves primary mono-sources. 
 \end{proof}
@@ -646,7 +646,7 @@ extended model $P(\gmodel)$ satisfies the  condition that each set $I_a$ has no 
 \begin{proof}
 For each entity type $a$ we extend $\gmodel$ by edges $\qq{p}$, where each edge \commentary{work on this}
 $\qq{p}$ corresponds to a distinct primary key path $p$ from $a$ to $\veee$
-and in the extended model $\gmodel'$ by corollary \ref{primarykeycorallary} 
+and in the extended model $\gmodel'$ by corollary \lref{primarykeycorallary} 
 we can define the identifying set $I'_a$ at $a$ by choosing a set $P_a$ which is representative of the set of all primary key paths from $a$ to $\veee$.
 \end{proof}
 
@@ -716,17 +716,17 @@ is a referential inclusion dependency in $\gmodel$ then
 \end{equation}
 is a referential inclusion dependency in $\gmodel'$. 
 
-Further if (\ref{sourcerefincd}) is a leaf primary mono source then (\ref{targetrefincd}) is a leaf primary mono-source.
+Further if (\lref{sourcerefincd}) is a leaf primary mono source then (\lref{targetrefincd}) is a leaf primary mono-source.
 \end{lemma}
 \begin{proof}
-To show that (\ref{targetrefincd}) is a referential inclusion dependency
- in $\gmodel'$ we need show that $\set{\phiqm}$ is a mono-source, which follows from lemma \ref{mappingspreservemonosources}, and that for every model $E'$ of $\gmodel'$, 
+To show that (\lref{targetrefincd}) is a referential inclusion dependency
+ in $\gmodel'$ we need show that $\set{\phiqm}$ is a mono-source, which follows from lemma \lref{mappingspreservemonosources}, and that for every model $E'$ of $\gmodel'$, 
 $img(E'_{\fntuple}) \subseteq img(E'_{\qntuple})$. 
 This follows because for each such $E'$ there exists a model $E$ of $\gmodel$ such that 
 $E'_{\fntuple}=E_{\fntuple}$ and $E'_{\qntuple}=E_{\qntuple}$ and because \commentary{CHECK THIS}
-(\ref{sourcerefincd}) is a referential inclusion dependency in $\gmodel$.
+(\lref{sourcerefincd}) is a referential inclusion dependency in $\gmodel$.
 
-That if  (\ref{sourcerefincd}) is a leaf primary mono source then (\ref{targetrefincd}) is a leaf primary mono-source also follows from lemma \ref{mappingspreservemonosources}.\commentary{CHECK THIS}
+That if  (\lref{sourcerefincd}) is a leaf primary mono source then (\lref{targetrefincd}) is a leaf primary mono-source also follows from lemma \lref{mappingspreservemonosources}.\commentary{CHECK THIS}
 \end{proof}
 
 \begin{lemma}
@@ -751,7 +751,7 @@ is a referential inclusion dependency.
 
 \end{lemma}
 \begin{proof}
-First of all it follows from lemma \ref{monosourceequivalence} that $\set{\qn}$ is a mono-source iff
+First of all it follows from lemma \lref{monosourceequivalence} that $\set{\qn}$ is a mono-source iff
 $\set{\qnprime}$ is a mono-source.
 Next, it follows from the definition of referential inclusion dependency
  since for each $i$, $1 \leq i \leq n$, $q_i \simeq q'_i$  implies $E_{\qntuple} =
@@ -778,24 +778,24 @@ iff
 \end{equation}
 is a referential inclusion dependency in $\gmodel'$. 
 
-Further, (\ref{targetincd}) is a leaf primary referential inclusion dependency  iff (\ref{sourceincd}) is a leaf primary referential inclusion dependency.
+Further, (\lref{targetincd}) is a leaf primary referential inclusion dependency  iff (\lref{sourceincd}) is a leaf primary referential inclusion dependency.
 \end{lemma}
 \begin{proof}
-That (\ref{sourceincd}) is an inclusion dependency in $\gmodel$ implies 
-(\ref{targetincd}) is an inclusion dependency in $\gmodel'$ is established in lemma
-\ref{mappingspreservereferentialincds} which also
-establishes that if (\ref{sourceincd}) is a leaf primary referential inclusion dependency
-then so to is (\ref{targetincd}). To establish the reverse implication use lemma
-\ref{mappingspreservereferentialincds} applied to the inverse mapping $\varphi^{-1}$
+That (\lref{sourceincd}) is an inclusion dependency in $\gmodel$ implies 
+(\lref{targetincd}) is an inclusion dependency in $\gmodel'$ is established in lemma
+\lref{mappingspreservereferentialincds} which also
+establishes that if (\lref{sourceincd}) is a leaf primary referential inclusion dependency
+then so to is (\lref{targetincd}). To establish the reverse implication use lemma
+\lref{mappingspreservereferentialincds} applied to the inverse mapping $\varphi^{-1}$
 to show that
 \begin{equation}
 \incd{a}{\phiminusonephixn}{b}{\phiminusonephiqn}
 \end{equation}
 is a referential inclusion dependency in $\gmodel$  and furthermore in the case that
-(\ref{targetincd}) is a leaf primary referential inclusion dependency that is
+(\lref{targetincd}) is a leaf primary referential inclusion dependency that is
 a leaf primary referential inclusion dependency.
 Now we can use lemma
-\ref{incdequivalence} to complete the proof since for each  $i$ $ 1 \leq i \leq n$, $\varphi^{-1}(\varphi(x_i)) \simeq x_i$ and $\varphi^{-1}(\varphi(q_i))\simeq q_i$ in $\gmodel$. 
+\lref{incdequivalence} to complete the proof since for each  $i$ $ 1 \leq i \leq n$, $\varphi^{-1}(\varphi(x_i)) \simeq x_i$ and $\varphi^{-1}(\varphi(q_i))\simeq q_i$ in $\gmodel$. 
 \end{proof}
 
 If $\qntuple$ is a mono-source at $a$ then define $E_{\qntuple}^{-1}$ to be the right inverse of
@@ -811,9 +811,9 @@ We say that a referential inclusion dependency in model $\gmodel$ is represented
 
 \begin{lemma}
 \llabel{incdrepresentationequivalence}
-In the situation of lemma \ref{incdequivalence}, if $p,p':a \morph b$
-are paths in $\gmodel$ and $p \simeq p'$ then $p$ represents (\ref{incdequivalence1})
-iff $p'$ represents (\ref{incdequivalence2}). 
+In the situation of lemma \lref{incdequivalence}, if $p,p':a \morph b$
+are paths in $\gmodel$ and $p \simeq p'$ then $p$ represents (\lref{incdequivalence1})
+iff $p'$ represents (\lref{incdequivalence2}). 
 \end{lemma}
 \begin{proof}
 tbd
@@ -879,8 +879,8 @@ so that also
 \incd{a}{\phixn}{b}{\phiqn}
 \end{equation}
 is a referential inclusion dependency in $\gmodel'$
-then (\ref{isosourceincd}) is represented in $\gmodel$ by a path $p$
-iff (\ref{isotargetincd}) is represented in $\gmodel'$ by the path $\varphi(p)$.
+then (\lref{isosourceincd}) is represented in $\gmodel$ by a path $p$
+iff (\lref{isotargetincd}) is represented in $\gmodel'$ by the path $\varphi(p)$.
 \end{lemma}
 \begin{proof}
 TBD
@@ -985,10 +985,10 @@ in $\gmodel$ then there is a functional dependency
 \fd{\phixn}{\phiy}
 \end{equation}
 in $\gmodel'$.
-Further if (\ref{carrythrusourcefd}) is trivial then (\ref{carrythrutargetfd}) is trivial.
+Further if (\lref{carrythrusourcefd}) is trivial then (\lref{carrythrutargetfd}) is trivial.
 \end{lemma}
 \begin{proof}
-Assume a functional dependency (\ref{carrythrusourcefd})  in $\gmodel$. To show that (\ref{carrythrutargetfd}) is a functional dependency in $\gmodel'$
+Assume a functional dependency (\lref{carrythrusourcefd})  in $\gmodel$. To show that (\lref{carrythrutargetfd}) is a functional dependency in $\gmodel'$
 we need show that in every model $E'$ 
 of $\gmodel'$ there is a partial function $f_{E'}$ such that
 \begin{equation}
@@ -1002,7 +1002,7 @@ E'_{\tuple{\phixn}} \circ f_{E'} = E'_{\phiy}
 \end{equation}
 Assume then a model $E'$ of $\gmodel'$. 
 Since $\varphi$ is an ER model mapping then there exists a model $E$ of $\gmodel$ such that 
-$E_{\tuple{\xn}} = E'_{\tuple{\phixn}}$ and $E_y = E'_{\phiy}$. From the assumption that (\ref{carrythrusourcefd})
+$E_{\tuple{\xn}} = E'_{\tuple{\phixn}}$ and $E_y = E'_{\phiy}$. From the assumption that (\lref{carrythrusourcefd})
 is a functional dependency in $\gmodel$ it follows that there exists a  partial function $f_E$ such that
 $\mbox{domain of }f_{E} \subseteq img(E_{\tuple{\xn}})$
 and
@@ -1011,10 +1011,10 @@ i.e. such that
 $\mbox{domain of }f_{E} \subseteq img(E_{\tuple{\phixn}})$
 and
 $E_{\tuple{\phixn}} \circ f_{E} = E_{\phiy}$.  The partial function $f_E$ therefore 
-meets the conditions (\ref{fdcarrythrucond1}) and (\ref{fdcarrythrucond2}) that
+meets the conditions (\lref{fdcarrythrucond1}) and (\lref{fdcarrythrucond2}) that
 we require of $f_{E'}$ and so we can choose the required partial function
 $f_{E'}$ to be the partial function $f_E$. 
-The further point regarding triviality follows from lemma \ref{mappingrespectsequivalence}.
+The further point regarding triviality follows from lemma \lref{mappingrespectsequivalence}.
 \end{proof}
 
 
@@ -1070,18 +1070,18 @@ in $\gmodel$ iff there is a functional dependency
 \fd{\phixn}{\phiy}
 \end{equation}
 in $\gmodel'$.
-Further(\ref{sourcefd}) is  leaf  iff (\ref{targetfd}) is a leaf.
+Further(\lref{sourcefd}) is  leaf  iff (\lref{targetfd}) is a leaf.
 
 \end{lemma}
 \begin{proof}
 \vspace{0.5cm}
-That (\ref{sourcefd}) is a functional dependency implies
-(\ref{targetfd}) is a functional dependency has been shown in lemma \ref{mappingspreservefds}. That (\ref{targetfd}) is a functional dependency implies
-(\ref{sourcefd}) is a functional dependency follows by using lemma 
- \ref{mappingspreservefds}
-on the inverse mapping $\varphi^{-1}$ and by using lemma  \ref{fdequivalence}.
+That (\lref{sourcefd}) is a functional dependency implies
+(\lref{targetfd}) is a functional dependency has been shown in lemma \lref{mappingspreservefds}. That (\lref{targetfd}) is a functional dependency implies
+(\lref{sourcefd}) is a functional dependency follows by using lemma 
+ \lref{mappingspreservefds}
+on the inverse mapping $\varphi^{-1}$ and by using lemma  \lref{fdequivalence}.
 
-(\ref{sourcefd}) is  leaf  iff (\ref{targetfd}) is a leaf 
+(\lref{sourcefd}) is  leaf  iff (\lref{targetfd}) is a leaf 
 because for any node $a$ of $\gmodel$, $a= \veee$ in $\gmodel$ iff $\varphi(a)=\veee$ in $\gmodel'$.
 \end{proof}
 
@@ -1101,7 +1101,7 @@ in $\gmodel$ iff there is a functional dependency
 \fd{\phixn}{\phiym}
 \end{equation}
 in $\gmodel'$.
-Further (\ref{multiplesourcefd}) is reversible iff (\ref{multipletargetfd}) is reversible.
+Further (\lref{multiplesourcefd}) is reversible iff (\lref{multipletargetfd}) is reversible.
 \end{corollary}
 
 \begin{lemma}
@@ -1120,26 +1120,26 @@ so that
 \end{equation}
 is a functional dependency in $\gmodel'$then:
 \begin{enumerate}
-\item (\ref{transitivesourcefd}) is  transitive iff (\ref{transitivetargetfd}) is transitive, 
-\item (\ref{transitivesourcefd}) is  intransitive iff (\ref{transitivetargetfd}) is intransitive,
+\item (\lref{transitivesourcefd}) is  transitive iff (\lref{transitivetargetfd}) is transitive, 
+\item (\lref{transitivesourcefd}) is  intransitive iff (\lref{transitivetargetfd}) is intransitive,
 
 \end{enumerate}
 \end{lemma}
 \begin{proof}
 \vspace{0.5cm}
-(\ref{transitivesourcefd}) is transitive implies (\ref{transitivetargetfd}) 
-is trasitive because if (\ref{transitivesourcefd}) is transitive is transitive then
+(\lref{transitivesourcefd}) is transitive implies (\lref{transitivetargetfd}) 
+is trasitive because if (\lref{transitivesourcefd}) is transitive is transitive then
 there exists $\ym$ such that
 \fd{\xn}{\ym} is an irreversible functional dependency
 and such that \fd{\ym}{z} is a non-trivial functional dependency.
-From lemma \ref{isospreserveandreflectmultiplefds} this implies that in $\gmodel'$ there is an 
+From lemma \lref{isospreserveandreflectmultiplefds} this implies that in $\gmodel'$ there is an 
 \fd{\phixn}{\phiym} irreversible functional dependency \fd{\phixn}{\phiym}
-and by lemma \ref{isospreserveandreflectfds} there is a non-trivial functional dependency \fd{\phiym}{\phiz}. Hence it follows
-the function dependency (\ref{transitivetargetfd}) is transitive.
+and by lemma \lref{isospreserveandreflectfds} there is a non-trivial functional dependency \fd{\phiym}{\phiz}. Hence it follows
+the function dependency (\lref{transitivetargetfd}) is transitive.
 
-That (\ref{transitivesourcefd}) is  intransitive iff (\ref{transitivetargetfd}) follows on directly because an instransitive functional depdency is a functional depdency that is not transitive.
+That (\lref{transitivesourcefd}) is  intransitive iff (\lref{transitivetargetfd}) follows on directly because an instransitive functional depdency is a functional depdency that is not transitive.
 
-Finally, a path $p$ represents (\ref{sourcefd}) in $\gmodel$ iff $\varphi(p)$ represents (\ref{targetfd}) in $\gmodel'$
+Finally, a path $p$ represents (\lref{sourcefd}) in $\gmodel$ iff $\varphi(p)$ represents (\lref{targetfd}) in $\gmodel'$
 because
 
 \end{proof}
@@ -1210,8 +1210,8 @@ so that
 \fd{\phixn}{\phiz}
 \end{equation}
 is an intransitive  functional dependency in $\gmodel'$then
-(\ref{representationsourcefd}) is represented in $\gmodel$ iff
-(\ref{representationtargetfd}) is represented in $\gmodel'$.
+(\lref{representationsourcefd}) is represented in $\gmodel$ iff
+(\lref{representationtargetfd}) is represented in $\gmodel'$.
 \end{lemma}
 \begin{proof}
 TBD
@@ -1251,7 +1251,7 @@ If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is a ER model mappi
 \begin{proof}
 Assume such an isomorphism and assume a path $t: a \morph b$ in $\gmodel$. 
 First show that if $t$ is identifying-like then $\varphi(t)$ is. Assume $t: b \morph \veee$ is identifying like in $\gmodel$. To show that $\varphi(t)$
-is identifying-like in $\gmodel'$ let $q : \varphi(b) \morph \veee$ be a primary key path in $\gmodel'$. By observation \ref{keysurjectionuptoequivalence} there exists a primary key path $p : b \morph \veee$ in $\gmodel$ such that $\varphi(p) \simeq q$. Because $t$ is assumed to be identifying-like then there exists a primary key path $p': a  \morph  \veee$ in $\gmodel$ such that $t \circ p \simeq p'$. By observation\ref{keypreservationuptoequivalence} there exists a primary key path $q' : \varphi(a)  \morph  \veee$ in $\gmodel'$
+is identifying-like in $\gmodel'$ let $q : \varphi(b) \morph \veee$ be a primary key path in $\gmodel'$. By observation \lref{keysurjectionuptoequivalence} there exists a primary key path $p : b \morph \veee$ in $\gmodel$ such that $\varphi(p) \simeq q$. Because $t$ is assumed to be identifying-like then there exists a primary key path $p': a  \morph  \veee$ in $\gmodel$ such that $t \circ p \simeq p'$. By observation\lref{keypreservationuptoequivalence} there exists a primary key path $q' : \varphi(a)  \morph  \veee$ in $\gmodel'$
 such that $\varphi(p') \simeq q'$. $q'$ is the required primary key path such that $\varphi(t) \circ q \simeq q'$ since
 \begin{align*}
 \varphi(t) \circ q  & \simeq \varphi(t) \circ \varphi(p)       && \mbox{ since $q \simeq \varphi(p)$}    \\
@@ -1266,7 +1266,7 @@ such that $\varphi(p') \simeq q'$. $q'$ is the required primary key path such th
 If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi:\gmodel \morph \gmodel'$ is an isomorphism then $t: a  \morph  b$ is an identifying-like path in $\gmodel$ iff $\varphi(t)$ is an identifying-like in $\gmodel'$.
 \end{lemma}
 \begin{proof}
-Use lemmas \ref{identifyinglikeequivalence} and \ref{mappingspreserveidentifyinglike}.
+Use lemmas \lref{identifyinglikeequivalence} and \lref{mappingspreserveidentifyinglike}.
 \end{proof}
 
 \begin{lemma}
@@ -1280,7 +1280,7 @@ in $\gmodel'$ there exists an identifying-like path $t: a \morph b$ in $\gmodel$
 If an isomorphism is surjective on relationships then it is surjective on paths between entity types.
 Therefore if $t':\varphi(a) \morph \varphi(b)$ is a path in $\gmodel'$ then it is equal to $\varphi(t)$ for some
 $t: a \morph b$ in $\gmodel$. For any $t':\varphi(a) \morph \varphi(b)$ that is identifying there is a $t$ such that 
-$\varphi(t)=t'$ and this $t$ is identifying-like by lemma \ref{isospreserveandreflectidentifyinglike}.  
+$\varphi(t)=t'$ and this $t$ is identifying-like by lemma \lref{isospreserveandreflectidentifyinglike}.  
 \end{proof}
 
 \begin{definition}
@@ -1297,7 +1297,7 @@ If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is ER model mapping
 \begin{proof}
 Assume such a mapping $\varphi$, and assume that a path $p$ of $\gmodel$ is relationship-like.
 From the definition of relationship-like, either $p$ is exactly a relationship in which case it is preserved by $\varphi$ by initial assumption or $p$ consists of path $R \circ t$ where $t$ is an identifying-like path.
-In the latter case, from the definition of mapping, $\varphi(p)$ consists of $\varphi(R)$, which is a relationship in $\gmodel'$, from the initial assumption, followed by a path $\varphi(t)$ which is identifying-like since $t$ is, by lemma \ref{mappingspreserveidentifyinglike}. Therefore $\varphi(p)$ is relationship-like in $\gmodel'$.
+In the latter case, from the definition of mapping, $\varphi(p)$ consists of $\varphi(R)$, which is a relationship in $\gmodel'$, from the initial assumption, followed by a path $\varphi(t)$ which is identifying-like since $t$ is, by lemma \lref{mappingspreserveidentifyinglike}. Therefore $\varphi(p)$ is relationship-like in $\gmodel'$.
 \end{proof}
 
 \begin{lemma}
@@ -1309,7 +1309,7 @@ then $\varphi$ is surjective on relationship-like paths of $\gmodel'$.
 If $r':\varphi(a) \morph \varphi(b)$ in $\gmodel'$ is relationship-like then it consists of a relationship $R': \varphi(a) \morph \varphi(a')$, for some $a'$,
 and a path $t':\varphi(a') \morph \varphi(b)$. Since $\varphi$ is assumed surjective on relationships there exists a relationship 
 $R:a \morph b$ in $\gmodel$ such that $\varphi(R)=R'$. 
-By lemma \ref{isossurjectiveonrelationshipsaresurjectiveonidentifyinglike} there also exists an identifying-like path $t:a' \morph b$ such that $\varphi(t)=t'$.
+By lemma \lref{isossurjectiveonrelationshipsaresurjectiveonidentifyinglike} there also exists an identifying-like path $t:a' \morph b$ such that $\varphi(t)=t'$.
 The path $r=R \circ t$ is a relationship-like path such that $\varphi(r)=r'$ as required.
 \end{proof}
 
@@ -1321,11 +1321,11 @@ The path $r=R \circ t$ is a relationship-like path such that $\varphi(r)=r'$ as 
  iff 
 \begin{enumerate} [(i)]
 \item{
-it satisfies the minimality condition (see section \ref{minimalitycondition}),
+it satisfies the minimality condition (see section \lref{minimalitycondition}),
 }
 \item{ 
 each\commentary{This is the first place we zero-in on primaries.} primary\commentary{What about secondary referential inclusion dependencies?} referential inclusion dependency of $\gmodel$ is represented in $\gmodel$ by some path $p$ \footnote{Equivalently, by lemma
-\ref{simplerepresentationlemma}, sufficient that all simple primary referential inclusion dependencies of $\gmodel$ be represented.},
+\lref{simplerepresentationlemma}, sufficient that all simple primary referential inclusion dependencies of $\gmodel$ be represented.},
 }
 \item{ 
 each leaf primary referential inclusion dependency of $\gmodel$ is represented in $\gmodel$ by some relationship-like path $p$, 
@@ -1346,20 +1346,20 @@ If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an isomorphism b
 Assume such a $\varphi$ and that $\gmodel$ is well-formulated. Then
 \begin{enumerate} [(i)]
 \item{
-That $\gmodel'$ satisfies the minimality condition follows corollary \ref{isospreserveandreflectmonosources}.
+That $\gmodel'$ satisfies the minimality condition follows corollary \lref{isospreserveandreflectmonosources}.
 }
 \item{ 
 To show that each primary referential inclusion dependency of $\gmodel'$ is represented in $\gmodel'$ by some path $p$ we use the fact that each primary referential inclusion dependencies is reflected
-by the isomorphism $\varphi$ because $\varphi$ is assumed to reflect primary mono-sources (lemma \ref{isospreserveandreflectreferentialincds}) and then that representation of a referential inclusion dependencies by a path is  preserved by isomorphisms (lemma \ref{isospreserveandreflectrepresentationsofincds})
-and then use lemma \ref{incdrepresentationequivalence}.
+by the isomorphism $\varphi$ because $\varphi$ is assumed to reflect primary mono-sources (lemma \lref{isospreserveandreflectreferentialincds}) and then that representation of a referential inclusion dependencies by a path is  preserved by isomorphisms (lemma \lref{isospreserveandreflectrepresentationsofincds})
+and then use lemma \lref{incdrepresentationequivalence}.
 \commentary{SPELL THIS OUT.}
 }
 \item{ 
 That each leaf primary referential inclusion dependency of $\gmodel'$ is represented in $\gmodel'$ by some relationship-like path $p$
 follows because such leaf primary referential inclusion dependencies are reflected by isomorphisms
-(lemma \ref{isospreserveandreflectreferentialincds})
- and because  representation by a path is preserved (lemma \ref{isospreserveandreflectrepresentationsofincds}) and relationship-like paths are preserved
-(lemma \ref{relationshippreservingmappingspreserverelationshiplike}) 
+(lemma \lref{isospreserveandreflectreferentialincds})
+ and because  representation by a path is preserved (lemma \lref{isospreserveandreflectrepresentationsofincds}) and relationship-like paths are preserved
+(lemma \lref{relationshippreservingmappingspreserverelationshiplike}) 
 by $\varphi$  because $\varphi$ is assumed to reflect primary mono-sources and preserve relationships.
 
 }
@@ -1367,8 +1367,8 @@ by $\varphi$  because $\varphi$ is assumed to reflect primary mono-sources and p
 That for each leaf intransitive functional dependency $\set{x_1,...x_n} \morph y$ in model $\gmodel'$
 either $\set{x_1,...x_n}$ is a mono-source 
 or else the functional dependency is represented in $\gmodel'$ 
-follows by lemmas \ref{isospreserveandreflectmultiplefds}, \ref{isospreserveandreflecttransitivefds},
-\ref{isospreserveandreflectrepresentationsoffds} and the fact that mono-sources are preserved (lemma \ref{mappingspreservemonosources}).
+follows by lemmas \lref{isospreserveandreflectmultiplefds}, \lref{isospreserveandreflecttransitivefds},
+\lref{isospreserveandreflectrepresentationsoffds} and the fact that mono-sources are preserved (lemma \lref{mappingspreservemonosources}).
 \commentary{SPELL THIS OUT.}
 }
 \end{enumerate}
@@ -1441,8 +1441,8 @@ E_{\xntuple} \circ E^{-1}_{\qntuple} = E_p
 \end{equation}
 Now we have  that in all defining instances $E$ that 
 \begin{align*}
-E_y &= E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_w  && \text{ (\ref{fundependency}), above,}\\
-    &= E_p \circ E_w                                   && \text{by (\ref{incdependency}),}\\
+E_y &= E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_w  && \text{ (\lref{fundependency}), above,}\\
+    &= E_p \circ E_w                                   && \text{by (\lref{incdependency}),}\\
 		&= E_{p \circ w}                                   && \text{from defn. of $E$ being an instance.}\\
 \end{align*} 
 \vspace{-0.3cm}
@@ -1451,7 +1451,7 @@ From which, by definition, $y\simeq p \circ w$, as required. \\
 Now suppose that $c$ is the type representing universals, $\veee$. The path $w$ must be non-empty because its source $d$ being an entity type must be distinct from its destination $\veee$ which is not an entity type. 
 We wish to show that $w$ is not equivalent in $\gmodel$ to
 a primary key path. Assume the contrary that $w$ is equivalent to a primary key path. From lemma 
-\ref{primarykeypathfactorsthroughprimarymonosource} it follows that $w \simeq q_i$, for some
+\lref{primarykeypathfactorsthroughprimarymonosource} it follows that $w \simeq q_i$, for some
 $i$, $1 \leq i \leq n$.  
 Therefore
 \begin{align*}
@@ -1460,7 +1460,7 @@ E_y &= E_p \circ E_w                                        && \text{}\\
 		&= E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_{q_i}     && \text{}\\
 		&= E_{\xntuple} \circ p_i                                 && \text{} \\
 		&= \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq j \leq n}{ j \neq i}}{\overline{E_{x_j}}}\circ E_{x_i}  
-		                                                        && \text{By lemma \ref{tupleprojection}}
+		                                                        && \text{By lemma \lref{tupleprojection}}
 \end{align*} 
 
 Hence because $\gmodel$ is leaf-restriction free we deduce that $y \simeq x_i$ 
@@ -1479,21 +1479,21 @@ If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi:\gmodel \morph \gmodel
 then if $\gmodel$ has the fd factoring property then so to does $\gmodel'$.
 \end{lemma}
 \begin{proof}
-%Use lemma \ref{isospreserveandreflectfds} and also lemma \ref{isospreserveandreflecttransitivefds}.
+%Use lemma \lref{isospreserveandreflectfds} and also lemma \lref{isospreserveandreflecttransitivefds}.
 To show that $\gmodel'$ has the fd factoring property if $\gmodel$ does assume $\gmodel$ has the fd factoring property and assume $\fd{\xnprime}{z'}$ in $\gmodel'$. 
-By lemma \ref{isospreserveandreflectfds} it follows since $\varphi^{-1}$ is an isomorphism that $\fd{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}{\varphi^{-1}(z')}$ is a functional depdendency
+By lemma \lref{isospreserveandreflectfds} it follows since $\varphi^{-1}$ is an isomorphism that $\fd{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}{\varphi^{-1}(z')}$ is a functional depdendency
 in $\gmodel$. Since $\gmodel$ is assumed to have the fd factoring property either $\set{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}$ is a mono-source in $\gmodel$ in which case $\set{\xnprime}$ is a mono-source in 
-$\gmodel'$ since $\varphi^{-1}$ is an isomorphism  and isomorphisms reflect mono-sources (lemma \ref{isospreserveandreflectmonosources}) or else there exists paths $\yn$ in $\gmodel$ such that
+$\gmodel'$ since $\varphi^{-1}$ is an isomorphism  and isomorphisms reflect mono-sources (lemma \lref{isospreserveandreflectmonosources}) or else there exists paths $\yn$ in $\gmodel$ such that
 $\fd{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}{\yn}$ is a functional depdency in $\gmodel$ and 
  $\fd{\yn}{\varphi^{-1}(z')}$ is an intransitive functional dependency in $\gmodel$.  
 
 In the latter case it then follows by lemma
-\ref{isospreserveandreflectfds} that
+\lref{isospreserveandreflectfds} that
  $\fd{\varphi(\varphi^{-1}(x'_1)),...\varphi(\varphi^{-1}(x'_n))} {\varphi(y_1),...\varphi(y_n)}$
 is a functional dependency in $\gmodel'$
-and then by lemma \ref{fdequivalence}  that $\fd{\xnprime}{\varphi(y_1),...\varphi(y_n)}$ in $\gmodel'$
+and then by lemma \lref{fdequivalence}  that $\fd{\xnprime}{\varphi(y_1),...\varphi(y_n)}$ in $\gmodel'$
 because for each $i$, $1 \leq i \leq n$, $\varphi(\varphi^{-1}(x_i)) \simeq x_i$.
-Similarly, we can use lemmas \ref{isospreserveandreflecttransitivefds} and \ref{fdequivalence} to show that $\fd{\varphi(y_1),...\varphi(y_n)}{z'}$ is an intransitive functional dependency in $\gmodel'$. 
+Similarly, we can use lemmas \lref{isospreserveandreflecttransitivefds} and \lref{fdequivalence} to show that $\fd{\varphi(y_1),...\varphi(y_n)}{z'}$ is an intransitive functional dependency in $\gmodel'$. 
 
 From the assumption that $\gmodel$ has the fd factoring property we have shown that for each functional dependency $\fd{\xnprime}{z'}$ in $\gmodel'$ either $\set{\xnprime}$ is a mono-source  or
 that the functional dependency  $\fd{\xnprime}{z'}$ factors through an intransitive functional dependency and  therefore that $\gmodel'$ has the fd factoring property.
@@ -1510,8 +1510,8 @@ the path $w$ is non-empty and and if $y$ is an edge and $\gmodel$ is leaf-restri
 \end{lemma}
 \begin{proof}
 Since the model $\gmodel$  has the \fdfactoring\ property, the functional dependency $\set{x_1,...x_n} \morph z$ can be factored through an intransitive functional
-dependency $\set{y_1,...y_m} \morph z$. Therefore by lemma \ref{intransitivelemma} either there exists $d$, $p$ and $w$ as required
-or else  $\set{\ym}$ is a mono-source in which case, by lemma \ref{transitiveinjectivelemma}, $\set{\xn}$ is a mono-source as required.
+dependency $\set{y_1,...y_m} \morph z$. Therefore by lemma \lref{intransitivelemma} either there exists $d$, $p$ and $w$ as required
+or else  $\set{\ym}$ is a mono-source in which case, by lemma \lref{transitiveinjectivelemma}, $\set{\xn}$ is a mono-source as required.
 \end{proof}
 
 \subsection{Ranking Relationships in an ER Model}
@@ -1540,7 +1540,7 @@ It is usually the case that attributes are annotated with specific domains of va
 \subsection{Definition of Primary Relational ER Model}
 The terms \term{primary referential inclusion dependency} and 
 \term{simple referential inclusion dependency} were given in 
-section \ref{referentialinclusiondependency}. These are used in the following definition:
+section \lref{referentialinclusiondependency}. These are used in the following definition:
 \begin{definition}
 \noindent 
 A \term{primary relational ER model} is an  ER model that also satisfies:
@@ -1623,7 +1623,7 @@ for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n
 for which \sfd{x_1,...x_n}{y} is a non trivial  intransitive functional dependency,
 $\set{\xn}$ is a mono-source. 
 \end{lemma}
-\begin{proof}Use lemma \ref{transitiveinjectivelemma}.
+\begin{proof}Use lemma \lref{transitiveinjectivelemma}.
 \end{proof}
 
 \begin{lemma}
@@ -1688,13 +1688,13 @@ maintheorem
 If  $\gmodel$ is reduced without caveats then is in Boyce-Codd Normal form.
 \end{theorem}
 \begin{proof}
-To prove S3NF it suffices, by lemma \ref{S3NFsublemma},  to show that if 
+To prove S3NF it suffices, by lemma \lref{S3NFsublemma},  to show that if 
 $\sfd{x_1,...x_n}{y}$ is a non-trivial intransitive functional dependency of model $\gmodel$
 where $x_1,...x_n$, $y$ are attributes 
 then  $\set{\xn}$ is a mono-source or that $y$ is identifying. \\
 Assume then such a functional dependency.
 From the assumption that the model $\gmodel$ is well-formulated and leaf-restriction free
-then by lemma \ref{mainlemma} 
+then by lemma \lref{mainlemma} 
 either $\set{\xn}$ is a mono-source and we are done
 or else there is a non-empty relationship-like path $r$ in $\gmodel$
 and a path $w$ of $\gmodel$ that is not  equivalent to a primary key path such that
@@ -1736,7 +1736,7 @@ form $\tuple{r_0,r_1,...r_n}$ where each of $r_1,...r_n$ are identifying.
 
 The transformation $\firstcut$ can be improved to by taking note of equivalent attribute-like paths and
 either dropping duplicates or, equally, thinking of the added attributes as corresponding to equivalence classes of 
-equivalent attribute-like paths wrt the equivalence relation $\simeq$ defined earlier (section \ref{xxx}). This improved transformation we can denote as $\firstcutimproved$.
+equivalent attribute-like paths wrt the equivalence relation $\simeq$ defined earlier (section \lref{xxx}). This improved transformation we can denote as $\firstcutimproved$.
 
 This consideration leads  to this definition:
 \begin{definition}
@@ -1777,7 +1777,7 @@ If an edge is a restriction then it is a pseudo-restriction.
 TBD
 \end{proof}
 
-If these conditions are met: that attribute-like paths have at most one equivalent non attribute-like path, that implied dependencies are non-circular and there are no pseudo-restriction relationships, then we say that $\gmodel$ is $\chit$-suitable and in these instances we can show that 
+If these conditions are met: that attribute-like paths have at most one equivalent non attribute-like path, that implied dependencies are non-circular and there are no pseudo-restriction relationships, then we say that $\gmodel$ is \term{$\chit$-suitable} and in these instances we can show that 
 the model $\chigmodel$ is a simple relational model. 
 
 We shall show that with these definitions if $\gmodel$ is well-formulated, simple, $\chit$-suitable and has the fd factoring property \commentary{check this summary}
@@ -1801,8 +1801,8 @@ p_i =
     r \circ q_i & \mbox{if there is no such $s_i$.}
 \end{cases} 
 $$
-which we prove by using lemma \ref{incdrepresentationshortcut} (which is applicable because we have assumed 
-that there are no pseudo-restriction relationships in $\gmodel$), and lemma \ref{incdrepresentationequivalence}.
+which we prove by using lemma \lref{incdrepresentationshortcut} (which is applicable because we have assumed 
+that there are no pseudo-restriction relationships in $\gmodel$), and lemma \lref{incdrepresentationequivalence}.
 It follows from lemmas yyyyyyyyyyy  and zxzzzzzz that in $\chigmodel$ the relationship $r$ is represented by inclusion dependency $\incd{a}{p'_1,...p'_n}{b}{q_1,...q_n}$ where
 $$
 p'_i =
@@ -1884,15 +1884,15 @@ $
 Either $x$ is an existing attribute of $\gmodel$ or it is an attribute $\qq{r' \circ q}$ for some relationship $r'$ and primary key path $q$ of $\gmodel$. \\
 
 In the first case it follows that there is a relationship-like path $r$ in $\gmodel$ 
-(lemma \ref{isossurjectiveonrelationshipsaresurjectiveonrelationshiplike}) and a path $\retract(p)$ in $\gmodel$ \commentary{check this} such
+(lemma \lref{isossurjectiveonrelationshipsaresurjectiveonrelationshiplike}) and a path $\retract(p)$ in $\gmodel$ \commentary{check this} such
 that $x \simeq r \circ \retract(p)$ in $\gmodel$ \commentary{Because I is an injection   ... or is it?}. \\
 
-From this because $\gmodel$ is simple it follows that either  $\retract(p)$ is a primary key path in $\gmodel$ and by observation \ref{pathinjectionobservation} that $p$ is a primary key path in $\chigmodel$ \\
+From this because $\gmodel$ is simple it follows that either  $\retract(p)$ is a primary key path in $\gmodel$ and by observation \lref{pathinjectionobservation} that $p$ is a primary key path in $\chigmodel$ \\
 
 \noindent or that $x$ is identifying in $\gmodel$ and therefore that $x$ is identifying\commentary{problem here maybe} in $\chigmodel$, as required.\\
 
 Otherwise, if $x$ is an attribute $\qq{\retract(s) \circ q}$ for some relationship $s$ and primary key path $q$ of $\gmodel$. If $\retract(p)$ is equivalent to a primary key path in $\gmodel$
-then we are done for then by observation \ref{pathinjectionobservation} it is equivalent to a primary key path in $\chigmodel$. \\
+then we are done for then by observation \lref{pathinjectionobservation} it is equivalent to a primary key path in $\chigmodel$. \\
 
 
 \noindent If $\retract(p)$ is not equivalent to a primary key path in $\gmodel$ then $\retract(r) \circ \retract(p)$ 
@@ -1923,7 +1923,7 @@ For each defining instance $E$
 \begin{align*}
 E_p \circ E_{q_j} &=  E_{\xntuple} \circ E ^{-1}_{\qntuple} \circ E_{q_j}  && \mbox{since $p$ represents $\incd{a}{x_1,...x_n}{b}{q_1,...q_n}$} \\
                   &= E_{\xntuple} \circ p_i                              && \mbox{not obvious -- need justify this} \\                                                                 \\
-									&= \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq i \leq n}{ i \neq j}}{\overline{E_{x_i}}}\circ E_{x_j} && \mbox{by lemma \ref{tupleprojection}.}
+									&= \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq i \leq n}{ i \neq j}}{\overline{E_{x_i}}}\circ E_{x_j} && \mbox{by lemma \lref{tupleprojection}.}
 \end{align*}
 \end{proof}
 
@@ -1958,15 +1958,15 @@ E_y = \bigwedge_{1 \leq i \leq n}{\overline{E_{x_i}}} \circ E_{x_j}
 then $y \simeq x_j$. In particular
 $\set{x_1,...x_n} \morph y$ is a leaf intransitive functional dependency\commentary{Fill this out a bit since might be flab}. 
 
-Since $\gmodel$ is well-formulated  and there is a leaf intransitive\commentary{why is it intransitive?} functional dependency $\set{x_1,...x_n} \morph y$ then either $\set{\xn}$ is a mono-source and thus $E_{\xntuple}$ is injective and total in every defining instance $E$  in which case $y \simeq x_j$  and we are done \commentary{why?} or else the functional dependency $\set{x_1,...x_n} \morph y$   is in part represented by  an entity type $d$ and a primary mono-source $\qntuple$ with respect to\commentary{sourced at $d$?} $d$, such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$ but this cannot be the case because if it were then by lemma \ref{inclusiondependencyrestrictionlemma}
+Since $\gmodel$ is well-formulated  and there is a leaf intransitive\commentary{why is it intransitive?} functional dependency $\set{x_1,...x_n} \morph y$ then either $\set{\xn}$ is a mono-source and thus $E_{\xntuple}$ is injective and total in every defining instance $E$  in which case $y \simeq x_j$  and we are done \commentary{why?} or else the functional dependency $\set{x_1,...x_n} \morph y$   is in part represented by  an entity type $d$ and a primary mono-source $\qntuple$ with respect to\commentary{sourced at $d$?} $d$, such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$ but this cannot be the case because if it were then by lemma \lref{inclusiondependencyrestrictionlemma}
 $$E_p \circ E_{q_j} = \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq i \leq n}{ i \neq j}}{\overline{E_{x_i}}}\circ E_{x_j}$$
 and we would have that
 $$E_p \circ E_{q_j} = E_y$$
 in all defining instances so that
 $$p \circ q_j \simeq y$$
 Since $\gmodel$ is free of non-identifying referential attributes then $y$ is identifying and so $E_y$ is total in all instances $E$ and therefore 
- from (\ref{restriction}) it follows that in any instance $E$, $E_{x_i}$ is total and therefore that $E_y =E_{x_j}$, that is 
-$y \simeq x_j$. We have shown that from the assumption (\ref{restriction}) it follows that $y \simeq x_j$. Thus we have shown that $\gmodel$ is leaf-restriction free.
+ from (\lref{restriction}) it follows that in any instance $E$, $E_{x_i}$ is total and therefore that $E_y =E_{x_j}$, that is 
+$y \simeq x_j$. We have shown that from the assumption (\lref{restriction}) it follows that $y \simeq x_j$. Thus we have shown that $\gmodel$ is leaf-restriction free.
 \end{proof}
 
 \begin{lemma}
@@ -1990,7 +1990,7 @@ $y \simeq x_j$ in $\gmodel$ and therefore, in this first case, we have that $y' 
 
 
 Secondly suppose that $y'$ is of the form $\qq{r \circ q}$ for some relationship $r: a \morph b$ and primary key path $q :b \morph \veee$ in $\gmodel$.
-Now it follows from \ref{restrictioninchimodel} that, in $\chigmodel$, $\qq{r \circ q} < x'_j$. Therefore \commentary{what else to add here} 
+Now it follows from \lref{restrictioninchimodel} that, in $\chigmodel$, $\qq{r \circ q} < x'_j$. Therefore \commentary{what else to add here} 
 it follows that $r \circ q < x_j$ in $\gmodel$  where $x_j= I^{-1}_\gmodel(x'_j)$. From this it follows from the definition of $\chigmodel$ that
  $\qq{r \circ q}$ is not an attribute in $\gmodel$ which contradicts the supposition. 
 
@@ -2003,7 +2003,7 @@ If $\gmodel$ is $\chit$-suitable ER model which is well-formulated and has no re
 then $\chigmodel$ is leaf-restriction free.
 \end{lemma}
 \begin{proof}
-Uses lemma  \ref{wellformulatedandfreeofreferentialattributesimpliesleafrestrictionfree} and lemma \ref{restrictioncarrythroughlemma}. 
+Uses lemma  \lref{wellformulatedandfreeofreferentialattributesimpliesleafrestrictionfree} and lemma \lref{restrictioncarrythroughlemma}. 
 \vspace{0.5cm}
 tbd
 \end{proof}
@@ -2013,7 +2013,7 @@ tbd
 If  $\gmodel$ is $\chit$-suitable and is well-formulated then  $\chigmodel$ is well-formulated. 
 \end{lemma}
 \begin{proof}
-Use lemmas \ref{chiisacertaintypeofisomorphism} and \ref{certainisomorphismspreservewellformulatedness}.
+Use lemmas \lref{chiisacertaintypeofisomorphism} and \lref{certainisomorphismspreservewellformulatedness}.
 \end{proof}
 
 \begin{lemma}
@@ -2028,19 +2028,19 @@ Further if $\gmodel$ is free of any referential attributes at all then  $\chigmo
 Assume that $\gmodel$ is an an ER model that is well-formulated,  $\chit$-suitable, has the fd factoring property and
 is free of non-identifying referential attributes. 
 
-$\chigmodel$ is a  relational ER model by lemma \ref{chimodelisrelational}.
+$\chigmodel$ is a  relational ER model by lemma \lref{chimodelisrelational}.
 
-$\chigmodel$ is well-formulated by lemma \ref{wfcarrythroughlemma}.
+$\chigmodel$ is well-formulated by lemma \lref{wfcarrythroughlemma}.
 
-$\chigmodel$ has the fd factoring property by lemma \ref{fdfactoringcarrythroughlemma}.
+$\chigmodel$ has the fd factoring property by lemma \lref{fdfactoringcarrythroughlemma}.
 
-$\chigmodel$ is leaf-restriction free by lemma \ref{wellformulatedandfreeofreferentialattributesimpliesleafrestrictionfree}.
+$\chigmodel$ is leaf-restriction free by lemma \lref{wellformulatedandfreeofreferentialattributesimpliesleafrestrictionfree}.
 
 It follows directly from definitions that $\gmodel$ is simple since it is free of non-identifying referential attributes.
-By lemma \ref{simplecarrythroughlemma} it follows that $\chigmodel$ is simple .
+By lemma \lref{simplecarrythroughlemma} it follows that $\chigmodel$ is simple .
 
 Further, if $\gmodel$ is free of any referential attributes at all then it follows directly from definitions that $\gmodel$ is simple without caveats
-and hence  that $\chigmodel$ is simple without caveats by lemma \ref{wocaveatcarrythroughlemma}.
+and hence  that $\chigmodel$ is simple without caveats by lemma \lref{wocaveatcarrythroughlemma}.
 \end{proof}
 
 \begin{theorem}
@@ -2054,7 +2054,7 @@ if $\gmodel$ is free of any referential attributes at all then  $\chigmodel$ is 
 \end{enumerate}
 \end{theorem}
 \begin{proof}
-Follows from theorem \ref{maintheorem} and lemma \ref{chitlemma} because every simple model is reduced.
+Follows from theorem \lref{maintheorem} and lemma \lref{chitlemma} because every simple model is reduced.
 \end{proof}
 
 \section{Future Work}
