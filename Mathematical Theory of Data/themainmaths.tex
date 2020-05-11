@@ -4,7 +4,7 @@ We  define a notion of entity-relationship (ER) model which in the tradition of 
 The system that we describe involves definition of types of particulars in terms of their relationships with other types, of which there are two kinds, those, such as represent numbers, character strings, booleans and so on, all of whose instances, we say, are universals and the remaining types, the definienda, those types all of whose instances are particulars. Binary many-one relationships which are functional in character are presented as the edges of a directed graph whose nodes comprise both the types of particulars and the types of universals. \footnote{There are pure conceptual structures and there are data structures. In the latter, relationships between entitites are represented by universal
 referential values.}
 
-If $u$ is a type all of whose instances are universals then we will refer to each binary many-one functional relationship $f: x \morph u$ as an \term{attribute} of $x$. In relational data modelling such functional relationships are presented as columns of tables. Similarly types all of whose instances are universals  are said to be \textit{attribute types} in entity relational modelling  (though called \textit{attributes} in Johnstone et al.\commentary{reference?}); in the initial work by Chen such types were called \textit{value sets}; they are said to be \textit{domains} in relational data modelling theory. Types of particulars are said to be types of entities or \textit{entity types} in modern entity relationship modelling\footnote{In  his paper  introducing the entity-relationship model Chen explains that his model adopts the view that the real world consists of entities and relationships. He also introduces the  terms \textit{entity set} and \textit{relationship set} for the types of respective entity and relationship particulars. Later authors kept the terms entity and relationship, and the Chen philosophy, but changed the way that the terms were used. In this paper we use the later, post-Chen, terminology.} or sometimes, confusingly, just \textit{entities}  and are modelled as \textit{relational tables} in relational data modelling. For the purposes of the theory presented in this paper there is no loss if we assume a single set $\Veee$ of universals.  We will represent data specifications as directed graphs with some additional information; the nodes of the graph being types, and having a distinguished node $\veee$ representing the type of universals; from a mathematical point of view it is impossible to progress the theory too far without forming an opinion that a data specification is a presentation (i.e a sketch) of a category with some additional structure (as in Johnson and Roseburgh \cite{johnson2002REL}) or, meta-mathematically, that it is an axiomatisation of a theory of some kind. This is so but it must be emphasised that the presentation (i.e. the sketch) is vitally important to the goodness of the data specification for it is the primitives in the presentation that determine the units of storage or communication; removing redundancy from the presentation (or sketch) reduces redundancy in the data and this is one half of relational data theory's  normal form notion of goodness of a data schema (the other half being that the theory be optimally tightened to best fit the facts). 
+If $u$ is a type all of whose instances are universals then we will refer to each binary many-one functional relationship $f: x \morph u$ as an \term{attribute} of $x$. In relational data modelling such functional relationships are presented as columns of tables. Similarly types all of whose instances are universals  are said to be \textit{attribute types} in entity relational modelling  (though called \textit{attributes} in Johnstone et al. \cite{Johnson2002ERA}); in the initial work by Chen such types were called \textit{value sets}; they are said to be \textit{domains} in relational data modelling theory. Types of particulars are said to be types of entities or \textit{entity types} in modern entity relationship modelling\footnote{In  his paper  introducing the entity-relationship model Chen explains that his model adopts the view that the real world consists of entities and relationships. He also introduces the  terms \textit{entity set} and \textit{relationship set} for the types of respective entity and relationship particulars. Later authors kept the terms entity and relationship, and the Chen philosophy, but changed the way that the terms were used. In this paper we use the later, post-Chen, terminology.} or sometimes, confusingly, just \textit{entities}  and are modelled as \textit{relational tables} in relational data modelling. For the purposes of the theory presented in this paper there is no loss if we assume a single set $\Veee$ of universals.  We will represent data specifications as directed graphs with some additional information; the nodes of the graph being types, and having a distinguished node $\veee$ representing the type of universals; from a mathematical point of view it is impossible to progress the theory too far without forming an opinion that a data specification is a presentation (i.e a sketch) of a category with some additional structure (as in Johnson and Roseburgh \cite{johnson2002REL}) or, meta-mathematically, that it is an axiomatisation of a theory of some kind. This is so but it must be emphasised that the presentation (i.e. the sketch) is vitally important to the goodness of the data specification for it is the primitives in the presentation that determine the units of storage or communication; removing redundancy from the presentation (or sketch) reduces redundancy in the data and this is one half of relational data theory's  normal form notion of goodness of a data schema (the other half being that the theory be optimally tightened to best fit the facts). 
 
 Entity relationship modelling, and, for that matter, relational modelling too, are predicated on the assumption that the particulars described by data correspond uniquely to real world entities and that the data alone is sufficient to establish a 1-1 correspondence. There is thus an implicit assumption that the logical principle of identity of indiscernibles holds of the real world entities and, more specifically, that each type of real world entity has identifying relationships and attributes that distinguish it from  others of the type. In relational data modelling this set of identifying features is represented as a set of columns of the table and is called the primary key. In entity relationship modelling in the style of Barker an identifying feature may be either a relationship or an attribute.   
 
@@ -246,11 +246,11 @@ tbd
 \end{proof}
 
 \begin{lemma}
-\llabel{keyreflectionuptoeqivalence} \commentary{not required?}
+\llabel{notusedkeyreflectionuptoeqivalence} 
 If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi$ is an ER model isomorphism $\varphi: \gmodel \morph \gmodel'$ then if $p:a \morph \veee$ in $\gmodel$ and $\varphi(p) :\varphi(a) \morph \veee$ is a primary key path in $\gmodel'$ then $p$ is equivalent to a primary key path in $\gmodel$.
 \end{lemma}
 
-In section \lref{definitionofrelational} we characterise those ER models which correspond to relational schemas and elsewhere\footnote{TBD} those that correspond to hierarchical schemas. 
+In section \lref{definitionofrelational} we characterise those ER models which correspond to relational schemas and elsewhere\footnote{in the future} those that correspond to hierarchical schemas. 
 We can paraphrase and say that an ER model is relational or hierarchical, in a certain way,  providing it has a sufficiency of referential attributes (foreign keys) for the implementation  of non-compositional relationships. It follows from the definitions that we give that an ER model which doesn't have sufficient 
 referential attributes can be extended to one that does by repeated use of the construction indicated in the following definition.
 \begin{definition}
@@ -376,7 +376,7 @@ We can show that if $i$ is a mono-source
 then $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source
 by showing that for any instance $E$ of $\gmodel$ the family of functions 
 $\setsuchthat{E_e}{e \in (i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}}$
-is jointly injective. Because of (\lref{eequivalentsets}) this follows by applying lemma \lref{jointlyinjectivecomposition} with $I$ being $\setsuchthat{E_e}{e \in i}$,
+is jointly injective. Because of (\ref{eequivalentsets}) this follows by applying lemma \lref{jointlyinjectivecomposition} with $I$ being $\setsuchthat{E_e}{e \in i}$,
 $F$ being $E_f$,  and $G$ being $\setsuchthat{E_g}{g \in j}$.
 
 \textit{Vice-versa}, we can show that if $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source then $i$ is a mono-source by applying lemma \lref{jointlyinjectivefactorisation} 
@@ -644,7 +644,7 @@ which is primarily keyed. If $\gmodel$ satisfies the minimality condition then t
 extended model $P(\gmodel)$ satisfies the  condition that each set $I_a$ has no proper subsets which are mono-sources. 
 \end{lemma}
 \begin{proof}
-For each entity type $a$ we extend $\gmodel$ by edges $\qq{p}$, where each edge \commentary{work on this}
+For each entity type $a$ we extend $\gmodel$ by edges $\qq{p}$, where each edge \commentary{Can we improve this description?}
 $\qq{p}$ corresponds to a distinct primary key path $p$ from $a$ to $\veee$
 and in the extended model $\gmodel'$ by corollary \lref{primarykeycorallary} 
 we can define the identifying set $I'_a$ at $a$ by choosing a set $P_a$ which is representative of the set of all primary key paths from $a$ to $\veee$.
@@ -716,17 +716,17 @@ is a referential inclusion dependency in $\gmodel$ then
 \end{equation}
 is a referential inclusion dependency in $\gmodel'$. 
 
-Further if (\lref{sourcerefincd}) is a leaf primary mono source then (\lref{targetrefincd}) is a leaf primary mono-source.
+%Further if (\ref{sourcerefincd}) is a leaf primary mono source then (\ref{targetrefincd}) is a leaf primary mono-source.
 \end{lemma}
 \begin{proof}
-To show that (\lref{targetrefincd}) is a referential inclusion dependency
+To show that (\ref{targetrefincd}) is a referential inclusion dependency
  in $\gmodel'$ we need show that $\set{\phiqm}$ is a mono-source, which follows from lemma \lref{mappingspreservemonosources}, and that for every model $E'$ of $\gmodel'$, 
 $img(E'_{\fntuple}) \subseteq img(E'_{\qntuple})$. 
 This follows because for each such $E'$ there exists a model $E$ of $\gmodel$ such that 
-$E'_{\fntuple}=E_{\fntuple}$ and $E'_{\qntuple}=E_{\qntuple}$ and because \commentary{CHECK THIS}
-(\lref{sourcerefincd}) is a referential inclusion dependency in $\gmodel$.
+$E'_{\fntuple}=E_{\fntuple}$ and $E'_{\qntuple}=E_{\qntuple}$ and because
+(\ref{sourcerefincd}) is a referential inclusion dependency in $\gmodel$.
 
-That if  (\lref{sourcerefincd}) is a leaf primary mono source then (\lref{targetrefincd}) is a leaf primary mono-source also follows from lemma \lref{mappingspreservemonosources}.\commentary{CHECK THIS}
+%That if  (\ref{sourcerefincd}) is a leaf primary mono source then (\ref{targetrefincd}) is a leaf primary mono-source also follows from lemma \lref{mappingspreservemonosources}.\commentary{CHECK THIS}
 \end{proof}
 
 \begin{lemma}
@@ -778,24 +778,27 @@ iff
 \end{equation}
 is a referential inclusion dependency in $\gmodel'$. 
 
-Further, (\lref{targetincd}) is a leaf primary referential inclusion dependency  iff (\lref{sourceincd}) is a leaf primary referential inclusion dependency.
+Further, if (\ref{targetincd}) is a leaf primary referential inclusion dependency  then (\ref{sourceincd}) is a leaf primary referential inclusion dependency
+and if $\varphi$ is injective then if (\ref{sourceincd}) is a leaf primary referential inclusion dependency
+then (\ref{targetincd}) is a leaf primary referential inclusion dependency.
 \end{lemma}
 \begin{proof}
-That (\lref{sourceincd}) is an inclusion dependency in $\gmodel$ implies 
-(\lref{targetincd}) is an inclusion dependency in $\gmodel'$ is established in lemma
-\lref{mappingspreservereferentialincds} which also
-establishes that if (\lref{sourceincd}) is a leaf primary referential inclusion dependency
-then so to is (\lref{targetincd}). To establish the reverse implication use lemma
+That (\ref{sourceincd}) is an inclusion dependency in $\gmodel$ implies 
+(\ref{targetincd}) is an inclusion dependency in $\gmodel'$ is established in lemma
+\lref{mappingspreservereferentialincds}whereas lemma \ref{isospreserveandreflectmonosources}
+establishes that if (\ref{sourceincd}) is a leaf primary referential inclusion dependency
+then so to is (\ref{targetincd}). To establish the reverse implication use lemma
 \lref{mappingspreservereferentialincds} applied to the inverse mapping $\varphi^{-1}$
 to show that
 \begin{equation}
 \incd{a}{\phiminusonephixn}{b}{\phiminusonephiqn}
 \end{equation}
-is a referential inclusion dependency in $\gmodel$  and furthermore in the case that
-(\lref{targetincd}) is a leaf primary referential inclusion dependency that is
-a leaf primary referential inclusion dependency.
+is a referential inclusion dependency in $\gmodel$.
 Now we can use lemma
 \lref{incdequivalence} to complete the proof since for each  $i$ $ 1 \leq i \leq n$, $\varphi^{-1}(\varphi(x_i)) \simeq x_i$ and $\varphi^{-1}(\varphi(q_i))\simeq q_i$ in $\gmodel$. 
+
+That if $\varphi$ is injective then (\ref{targetincd}) is a leaf primary referential inclusion dependency
+if (\ref{sourceincd}) is follows from point (iv) of lemma \lref{isospreserveandreflectmonosources}.
 \end{proof}
 
 If $\qntuple$ is a mono-source at $a$ then define $E_{\qntuple}^{-1}$ to be the right inverse of
@@ -812,8 +815,8 @@ We say that a referential inclusion dependency in model $\gmodel$ is represented
 \begin{lemma}
 \llabel{incdrepresentationequivalence}
 In the situation of lemma \lref{incdequivalence}, if $p,p':a \morph b$
-are paths in $\gmodel$ and $p \simeq p'$ then $p$ represents (\lref{incdequivalence1})
-iff $p'$ represents (\lref{incdequivalence2}). 
+are paths in $\gmodel$ and $p \simeq p'$ then $p$ represents (\ref{incdequivalence1})
+iff $p'$ represents (\ref{incdequivalence2}). 
 \end{lemma}
 \begin{proof}
 tbd
@@ -879,8 +882,8 @@ so that also
 \incd{a}{\phixn}{b}{\phiqn}
 \end{equation}
 is a referential inclusion dependency in $\gmodel'$
-then (\lref{isosourceincd}) is represented in $\gmodel$ by a path $p$
-iff (\lref{isotargetincd}) is represented in $\gmodel'$ by the path $\varphi(p)$.
+then (\ref{isosourceincd}) is represented in $\gmodel$ by a path $p$
+iff (\ref{isotargetincd}) is represented in $\gmodel'$ by the path $\varphi(p)$.
 \end{lemma}
 \begin{proof}
 TBD
@@ -985,10 +988,10 @@ in $\gmodel$ then there is a functional dependency
 \fd{\phixn}{\phiy}
 \end{equation}
 in $\gmodel'$.
-Further if (\lref{carrythrusourcefd}) is trivial then (\lref{carrythrutargetfd}) is trivial.
+Further if (\ref{carrythrusourcefd}) is trivial then (\ref{carrythrutargetfd}) is trivial.
 \end{lemma}
 \begin{proof}
-Assume a functional dependency (\lref{carrythrusourcefd})  in $\gmodel$. To show that (\lref{carrythrutargetfd}) is a functional dependency in $\gmodel'$
+Assume a functional dependency (\ref{carrythrusourcefd})  in $\gmodel$. To show that (\ref{carrythrutargetfd}) is a functional dependency in $\gmodel'$
 we need show that in every model $E'$ 
 of $\gmodel'$ there is a partial function $f_{E'}$ such that
 \begin{equation}
@@ -1002,7 +1005,7 @@ E'_{\tuple{\phixn}} \circ f_{E'} = E'_{\phiy}
 \end{equation}
 Assume then a model $E'$ of $\gmodel'$. 
 Since $\varphi$ is an ER model mapping then there exists a model $E$ of $\gmodel$ such that 
-$E_{\tuple{\xn}} = E'_{\tuple{\phixn}}$ and $E_y = E'_{\phiy}$. From the assumption that (\lref{carrythrusourcefd})
+$E_{\tuple{\xn}} = E'_{\tuple{\phixn}}$ and $E_y = E'_{\phiy}$. From the assumption that (\ref{carrythrusourcefd})
 is a functional dependency in $\gmodel$ it follows that there exists a  partial function $f_E$ such that
 $\mbox{domain of }f_{E} \subseteq img(E_{\tuple{\xn}})$
 and
@@ -1011,7 +1014,7 @@ i.e. such that
 $\mbox{domain of }f_{E} \subseteq img(E_{\tuple{\phixn}})$
 and
 $E_{\tuple{\phixn}} \circ f_{E} = E_{\phiy}$.  The partial function $f_E$ therefore 
-meets the conditions (\lref{fdcarrythrucond1}) and (\lref{fdcarrythrucond2}) that
+meets the conditions (\ref{fdcarrythrucond1}) and (\ref{fdcarrythrucond2}) that
 we require of $f_{E'}$ and so we can choose the required partial function
 $f_{E'}$ to be the partial function $f_E$. 
 The further point regarding triviality follows from lemma \lref{mappingrespectsequivalence}.
@@ -1022,7 +1025,7 @@ The further point regarding triviality follows from lemma \lref{mappingrespectse
 
 \begin{definition}
 A functional dependency \sfd{x_1,...x_n}{y} is said to be a \term{leaf functional dependency} iff
- the codomain of each $x_i$, $1 \leq i \leq n$, is $\veee$ \commentary{and the codomain of $y$ is $\veee$ I would have thought.}
+ the codomain of each $x_i$, $1 \leq i \leq n$, is $\veee$ and the codomain of $y$ is $\veee$.
 \end{definition}
 
 \begin{definition}
@@ -1070,18 +1073,18 @@ in $\gmodel$ iff there is a functional dependency
 \fd{\phixn}{\phiy}
 \end{equation}
 in $\gmodel'$.
-Further(\lref{sourcefd}) is  leaf  iff (\lref{targetfd}) is a leaf.
+Further(\ref{sourcefd}) is  leaf  iff (\ref{targetfd}) is a leaf.
 
 \end{lemma}
 \begin{proof}
 \vspace{0.5cm}
-That (\lref{sourcefd}) is a functional dependency implies
-(\lref{targetfd}) is a functional dependency has been shown in lemma \lref{mappingspreservefds}. That (\lref{targetfd}) is a functional dependency implies
-(\lref{sourcefd}) is a functional dependency follows by using lemma 
+That (\ref{sourcefd}) is a functional dependency implies
+(\ref{targetfd}) is a functional dependency has been shown in lemma \lref{mappingspreservefds}. That (\ref{targetfd}) is a functional dependency implies
+(\ref{sourcefd}) is a functional dependency follows by using lemma 
  \lref{mappingspreservefds}
 on the inverse mapping $\varphi^{-1}$ and by using lemma  \lref{fdequivalence}.
 
-(\lref{sourcefd}) is  leaf  iff (\lref{targetfd}) is a leaf 
+(\ref{sourcefd}) is  leaf  iff (\ref{targetfd}) is a leaf 
 because for any node $a$ of $\gmodel$, $a= \veee$ in $\gmodel$ iff $\varphi(a)=\veee$ in $\gmodel'$.
 \end{proof}
 
@@ -1101,7 +1104,7 @@ in $\gmodel$ iff there is a functional dependency
 \fd{\phixn}{\phiym}
 \end{equation}
 in $\gmodel'$.
-Further (\lref{multiplesourcefd}) is reversible iff (\lref{multipletargetfd}) is reversible.
+Further (\ref{multiplesourcefd}) is reversible iff (\ref{multipletargetfd}) is reversible.
 \end{corollary}
 
 \begin{lemma}
@@ -1120,26 +1123,26 @@ so that
 \end{equation}
 is a functional dependency in $\gmodel'$then:
 \begin{enumerate}
-\item (\lref{transitivesourcefd}) is  transitive iff (\lref{transitivetargetfd}) is transitive, 
-\item (\lref{transitivesourcefd}) is  intransitive iff (\lref{transitivetargetfd}) is intransitive,
+\item (\ref{transitivesourcefd}) is  transitive iff (\ref{transitivetargetfd}) is transitive, 
+\item (\ref{transitivesourcefd}) is  intransitive iff (\ref{transitivetargetfd}) is intransitive,
 
 \end{enumerate}
 \end{lemma}
 \begin{proof}
 \vspace{0.5cm}
-(\lref{transitivesourcefd}) is transitive implies (\lref{transitivetargetfd}) 
-is trasitive because if (\lref{transitivesourcefd}) is transitive is transitive then
+(\ref{transitivesourcefd}) is transitive implies (\ref{transitivetargetfd}) 
+is transitive because if (\ref{transitivesourcefd}) is transitive is transitive then
 there exists $\ym$ such that
 \fd{\xn}{\ym} is an irreversible functional dependency
 and such that \fd{\ym}{z} is a non-trivial functional dependency.
 From lemma \lref{isospreserveandreflectmultiplefds} this implies that in $\gmodel'$ there is an 
 \fd{\phixn}{\phiym} irreversible functional dependency \fd{\phixn}{\phiym}
 and by lemma \lref{isospreserveandreflectfds} there is a non-trivial functional dependency \fd{\phiym}{\phiz}. Hence it follows
-the function dependency (\lref{transitivetargetfd}) is transitive.
+the function dependency (\ref{transitivetargetfd}) is transitive.
 
-That (\lref{transitivesourcefd}) is  intransitive iff (\lref{transitivetargetfd}) follows on directly because an instransitive functional depdency is a functional depdency that is not transitive.
+That (\ref{transitivesourcefd}) is  intransitive iff (\ref{transitivetargetfd}) follows on directly because an instransitive functional depdency is a functional depdency that is not transitive.
 
-Finally, a path $p$ represents (\lref{sourcefd}) in $\gmodel$ iff $\varphi(p)$ represents (\lref{targetfd}) in $\gmodel'$
+Finally, a path $p$ represents (\ref{sourcefd}) in $\gmodel$ iff $\varphi(p)$ represents (\ref{targetfd}) in $\gmodel'$
 because
 
 \end{proof}
@@ -1210,8 +1213,8 @@ so that
 \fd{\phixn}{\phiz}
 \end{equation}
 is an intransitive  functional dependency in $\gmodel'$then
-(\lref{representationsourcefd}) is represented in $\gmodel$ iff
-(\lref{representationtargetfd}) is represented in $\gmodel'$.
+(\ref{representationsourcefd}) is represented in $\gmodel$ iff
+(\ref{representationtargetfd}) is represented in $\gmodel'$.
 \end{lemma}
 \begin{proof}
 TBD
@@ -1441,8 +1444,8 @@ E_{\xntuple} \circ E^{-1}_{\qntuple} = E_p
 \end{equation}
 Now we have  that in all defining instances $E$ that 
 \begin{align*}
-E_y &= E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_w  && \text{ (\lref{fundependency}), above,}\\
-    &= E_p \circ E_w                                   && \text{by (\lref{incdependency}),}\\
+E_y &= E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_w  && \text{ (\ref{fundependency}), above,}\\
+    &= E_p \circ E_w                                   && \text{by (\ref{incdependency}),}\\
 		&= E_{p \circ w}                                   && \text{from defn. of $E$ being an instance.}\\
 \end{align*} 
 \vspace{-0.3cm}
@@ -1659,7 +1662,7 @@ $
 then it follows that 
 either 
 \begin{enumerate} [(i)]
-\item there exists a primary key path \commentary{was an identifying attribute} $q:b \morph \veee$ such that $p \simeq q$, or
+\item there exists a primary key path $q:b \morph \veee$ such that $p \simeq q$, or
 \item the path $r$ is a mono-source, or
 \item the attribute $x$ is identifying.
 \end{enumerate}
@@ -1711,12 +1714,12 @@ With the weaker assumption that the model $\gmodel$ is reduced, there is the add
 \subsection{Simple Relational Models}
 It is unusual in practice for reduced relational models not to meet the stronger condition that we get if we drop condition (ii) from the definition of a model being reduced. We shall say such models are \term{simple} and so these are defined as follows:
 \begin{definition} 
-An \commentary{was relational} ER model is \term{simple} iff for all attributes $x:a \morph \veee$
+An  ER model is \term{simple} iff for all attributes $x:a \morph \veee$
 such that there is a relationship-like path $r:a \morph b$ and a path $p:b \morph \veee$ such that
 $x \simeq r \circ p$ it follows that 
 either 
 \begin{enumerate} [(i)]
-\item there exists a primary key path \commentary{an identifying attribute} $q:b \morph \veee$ such that $p \simeq q$, or
+\item there exists a primary key path  $q:b \morph \veee$ such that $p \simeq q$, or
 \item the attribute $x$ is identifying.
 \end{enumerate}
 \end{definition}
@@ -1780,8 +1783,9 @@ TBD
 If these conditions are met: that attribute-like paths have at most one equivalent non attribute-like path, that implied dependencies are non-circular and there are no pseudo-restriction relationships, then we say that $\gmodel$ is \term{$\chit$-suitable} and in these instances we can show that 
 the model $\chigmodel$ is a simple relational model. 
 
-We shall show that with these definitions if $\gmodel$ is well-formulated, simple, $\chit$-suitable and has the fd factoring property \commentary{check this summary}
-then the transformed model $\chigmodel$ is a well-formulated, simple, restriction free relational ER model with the fd factoring property which is therefore in S3NF.  Further we will show that if $\gmodel$ is without caveats then $\chigmodel$ is also without caveats and is therefore in BCNF. 
+We will define conditions for a well-formulated $\gmodel$  that if met ensure 
+ that the isomorphic relational model $\chigmodel$ is a well-formulated, simple, restriction free relational ER model with the fd factoring property 
+ensuring that it is therefore in S3NF.  Further we will show that if $\gmodel$ is without caveats then $\chigmodel$ is also without caveats and is therefore in BCNF. 
 
 \begin{lemma}
 \llabel{chimodelisrelational}
@@ -1965,8 +1969,8 @@ $$E_p \circ E_{q_j} = E_y$$
 in all defining instances so that
 $$p \circ q_j \simeq y$$
 Since $\gmodel$ is free of non-identifying referential attributes then $y$ is identifying and so $E_y$ is total in all instances $E$ and therefore 
- from (\lref{restriction}) it follows that in any instance $E$, $E_{x_i}$ is total and therefore that $E_y =E_{x_j}$, that is 
-$y \simeq x_j$. We have shown that from the assumption (\lref{restriction}) it follows that $y \simeq x_j$. Thus we have shown that $\gmodel$ is leaf-restriction free.
+ from (\ref{restriction}) it follows that in any instance $E$, $E_{x_i}$ is total and therefore that $E_y =E_{x_j}$, that is 
+$y \simeq x_j$. We have shown that from the assumption (\ref{restriction}) it follows that $y \simeq x_j$. Thus we have shown that $\gmodel$ is leaf-restriction free.
 \end{proof}
 
 \begin{lemma}
@@ -2030,14 +2034,14 @@ is free of non-identifying referential attributes.
 
 $\chigmodel$ is a  relational ER model by lemma \lref{chimodelisrelational}.
 
-$\chigmodel$ is well-formulated by lemma \lref{wfcarrythroughlemma}.
+$\chigmodel$ is well-formulated by lemma \lref{wfcarrythroughlemma} since $\gmodel$ is assumed to be well-formulated.
 
-$\chigmodel$ has the fd factoring property by lemma \lref{fdfactoringcarrythroughlemma}.
+$\chigmodel$ has the fd factoring property by lemma \lref{fdfactoringcarrythroughlemma}  since $\gmodel$ is assumed to have the fd factoring property.
 
-$\chigmodel$ is leaf-restriction free by lemma \lref{wellformulatedandfreeofreferentialattributesimpliesleafrestrictionfree}.
+$\chigmodel$ is leaf-restriction free by lemma \lref{wellformulatedandfreeofreferentialattributesimpliesleafrestrictionfree}  since $\gmodel$ is assumed
+to be leaf-restriction free and  to be well-formulated.
 
-It follows directly from definitions that $\gmodel$ is simple since it is free of non-identifying referential attributes.
-By lemma \lref{simplecarrythroughlemma} it follows that $\chigmodel$ is simple .
+$\chigmodel$ is simple by lemma \lref{simplecarrythroughlemma} because $\gmodel$ is simple because this follows directly from the definitions because, it is assumed, it is free of non-identifying referential attributes.
 
 Further, if $\gmodel$ is free of any referential attributes at all then it follows directly from definitions that $\gmodel$ is simple without caveats
 and hence  that $\chigmodel$ is simple without caveats by lemma \lref{wocaveatcarrythroughlemma}.
@@ -2058,6 +2062,10 @@ Follows from theorem \lref{maintheorem} and lemma \lref{chitlemma} because every
 \end{proof}
 
 \section{Future Work}
+
+\subsection{Examples}
+Examples are presented in a separate document (held in the same folder in Githib). Examples are given of ER models that fail to be well-formulated and how they can be changed so to become well-formulated.  Examples are given of models that do not have the fd factopring property. Some can be modified 
+so that then have this property but for others this is not so. 
 \subsection{Further Explanation of Current Work}
 Explain redundancy for relational models in terms of SQL. 
 Explain connection between restriction and SQL Exists operator.
