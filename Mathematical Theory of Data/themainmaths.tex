@@ -4,7 +4,7 @@ We  define a notion of entity-relationship (ER) model which in the tradition of 
 The system that we describe involves definition of types of particulars in terms of their relationships with other types, of which there are two kinds, those, such as represent numbers, character strings, booleans and so on, all of whose instances, we say, are universals and the remaining types, the definienda, those types all of whose instances are particulars. Binary many-one relationships which are functional in character are presented as the edges of a directed graph whose nodes comprise both the types of particulars and the types of universals. \footnote{There are pure conceptual structures and there are data structures. In the later relationships between entitites are represented by universal
 referential values.}
 
-If $u$ is a type all of whose instances are universals then we will refer to each binary many-one functional relationship $f: x \morph u$ as an \term{attribute} of $x$. In relational data modelling such functional relationships are presented as columns of tables. Similarly types all of whose instances are universals  are said to be \textit{attribute types} in entity relational modelling  (though called \textit{attributes} in Johnstone et al.\commentary{reference?}); in the initial work by Chen such types were called \textit{value sets}; they are said to be \textit{domains} in relational data modelling theory. Types of particulars are said to be types of entities or \textit{entity types} in modern entity relationship modelling\footnote{In  his paper  introducing the entity-relationship model Chen explains that his model adopts the view that the real world consists of entities and relationships. He also introduces the  terms \textit{entity set} and \textit{relationship set} for the types of respective entity and relationship particulars. Later authors kept the terms entity and relationship, and the Chen philosophy, but changed the way that the terms were used. In this paper we use the later, post-Chen, terminology.} or sometimes, confusingly, just \textit{entities}  and are modelled as \textit{relational tables} in relational data modelling. For the purposes of the theory presented in this paper there is no loss if we assume a single set $\Veee$ of universals.  We will represent data specifications as directed graphs with some additional information; the nodes of the graph being types, and having a distinguished node $\veee$ representing the type of universals; from a mathematical point of view it is impossible to progress the theory too far without forming an opinion that a data specification is a presentation of a category with some additional structure (as in Johnson and Roseburgh \cite{johnson2002REL}) or, meta-mathematically, that it is an axiomatisation of a theory of some kind. This is so but it must be emphasised that the presentation (i.e. the sketch) is vitally important to the goodness of the data specification for it is the primitives in the presentation that determine the units of storage or communication; removing redundancy from the presentation (or sketch) reduces redundancy in the data and this is one half of relational data theory's  normal form notion of goodness of a data schema (the other half being that the theory be optimally tightened to best fit the facts).
+If $u$ is a type all of whose instances are universals then we will refer to each binary many-one functional relationship $f: x \morph u$ as an \term{attribute} of $x$. In relational data modelling such functional relationships are presented as columns of tables. Similarly types all of whose instances are universals  are said to be \textit{attribute types} in entity relational modelling  (though called \textit{attributes} in Johnstone et al.\commentary{reference?}); in the initial work by Chen such types were called \textit{value sets}; they are said to be \textit{domains} in relational data modelling theory. Types of particulars are said to be types of entities or \textit{entity types} in modern entity relationship modelling\footnote{In  his paper  introducing the entity-relationship model Chen explains that his model adopts the view that the real world consists of entities and relationships. He also introduces the  terms \textit{entity set} and \textit{relationship set} for the types of respective entity and relationship particulars. Later authors kept the terms entity and relationship, and the Chen philosophy, but changed the way that the terms were used. In this paper we use the later, post-Chen, terminology.} or sometimes, confusingly, just \textit{entities}  and are modelled as \textit{relational tables} in relational data modelling. For the purposes of the theory presented in this paper there is no loss if we assume a single set $\Veee$ of universals.  We will represent data specifications as directed graphs with some additional information; the nodes of the graph being types, and having a distinguished node $\veee$ representing the type of universals; from a mathematical point of view it is impossible to progress the theory too far without forming an opinion that a data specification is a presentation (i.e a sketch) of a category with some additional structure (as in Johnson and Roseburgh \cite{johnson2002REL}) or, meta-mathematically, that it is an axiomatisation of a theory of some kind. This is so but it must be emphasised that the presentation (i.e. the sketch) is vitally important to the goodness of the data specification for it is the primitives in the presentation that determine the units of storage or communication; removing redundancy from the presentation (or sketch) reduces redundancy in the data and this is one half of relational data theory's  normal form notion of goodness of a data schema (the other half being that the theory be optimally tightened to best fit the facts). 
 
 Entity relationship modelling, and, for that matter, relational modelling too, are predicated on the assumption that the particulars described by data correspond uniquely to real world entities and that the data alone is sufficient to establish a 1-1 correspondence. There is thus an implicit assumption that the logical principle of identity of indiscernibles holds of the real world entities and, more specifically, that each type of real world entity has identifying relationships and attributes that distinguish it from  others of the type. In relational data modelling this set of identifying features is represented as a set of columns of the table and is called the primary key. In entity relationship modelling in the style of Barker an identifying feature may be either a relationship or an attribute.   
 
@@ -89,8 +89,8 @@ in particular, $\tuple{f_1,...f_n} \circ p_i\leq f_i$ .
 An \term{ER-schema} $S$ is a directed graph having the following additional structure:
 \begin{enumerate} [(i)]
 \item{a distinguished node $\veee$ for which there are no outgoing edges and which represents the type of universals, 
- the nodes of $\gmodel_S$ other than $\veee$ we say are entity types and the set of entity types we denote by $\et[\gmodel]$,} 
-\commentary{we only use $\et[\gmodel]$ in proof of lemma \ref{ identifyingsetdeduction} and in commentary that follows it, nowhere else.}
+ the nodes of $\gmodel_S$ other than $\veee$ we say are entity types.} 
+
 \item{a distinguished acyclic subset $I$ of edges, called the identifying edges, such that
 for every node $a$ other than $\veee$ there is a non-empty set  of identifying edges with domain $a$.
  We denote by $I_a$ the non-empty set of identifying edges leaving an entity type $a$.}
@@ -105,7 +105,7 @@ domain $a$  and  codomain $\veee$.
 If $\gmodel$ and  $\gmodel'$ are ER schemas then an \term{ER schema mapping} 
 $\varphi : \gmodel \morph \gmodel'$ consists of a mapping $\varphi_N$ (abbreviated $\varphi$)from nodes of
 $\gmodel$ to nodes of $\gmodel'$ 
-that mapps entity types to entity tyoes and the node $\veee$ of $\gmodel$ to the distingished node
+that maps entity types to entity types and the node $\veee$ of $\gmodel$ to the distingished node
 $\veee$ od $\gmodel'$ i.e. such that
 \begin{itemize}
 \item $\varphi(\veee)=\veee$ and for any $a$ if $\varphi(a)=(\veee)$ then
@@ -384,20 +384,17 @@ $F$ being $E_f$,  and $G$ being $\setsuchthat{E_g}{g \in j}$.
 
 \textit{Vice-versa}, we can show that if $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono-source then $i$ is a mono-source by applying lemma \ref{jointlyinjectivefactorisation} 
 with, as above, $I$ being $\setsuchthat{E_e}{e \in i}$,
-$F$ being $E_f$,  and $G$ being $\setsuchthat{E_g}{g \in j}$ \commentary{can improve this wording instead of repeating the mapping}.
+$F$ being $E_f$,  and $G$ being $\setsuchthat{E_g}{g \in j}$.
 \end{proof}
 
-From lemma \ref{identifyingsetdeduction} it follows that any set of paths arrived at by repeated composition of mono-sources specified for a model $\gmodel$ in $\setsuchthat{I_a}{a \in \et}$ is itelf a mono-source in $\gmodel$. Denote by $\bar{I}$ the set  of all such mono-sources.
 
-Denote by $\bar{I}_a$ the subset of $\bar{I}$ comprising all mono-sources in $\bar{I}$ with domain $a$.
 
 \subsubsection{Primary Key Paths }
 
-From lemma \ref{identifyingsetdeduction} it follows that any set of paths arrived at by repeated composition of mono-sources specified for a model $\gmodel$ in $\setsuchthat{I_a}{a \in \et}$ is itelf a mono-source in $\gmodel$. Denote by $\bar{I}$ the set  of all such mono-sources.
+From the definition of ER model we have specified in the schema of each ER model $\gmodel$, for each entity type $a$ of $\gmodel$ a set of outgoing edges denoted $I_a$ specified as a mono-source in $\gmodel$. From lemma \ref{identifyingsetdeduction} it follows that any source arrived at by repeated composition of these given mono-sources, those of the form $I_a$, for $a$ an entity type of $\gmodel$, is itself a mono-source in $\gmodel$. 
+Denote by $\bar{I}$ the set  of all such mono-sources and denote by $\bar{I}_a$ the subset of $\bar{I}$ comprising all mono-sources in $\bar{I}$ with domain $a$.
 
-Denote by $\bar{I}_a$ the subset of $\bar{I}$ comprising all mono-sources in $\bar{I}$ with domain $a$.
-
-From this definition it follows that $\pk{a} \in \bar{I_a}$. From this we get the following corollary.
+From this definition it follows that $\pk{a} \in \bar{I_a}$ and from this we get the following corollary.
 
 primarykeycorallary
 \begin{corollary}
@@ -420,13 +417,34 @@ Note that it may be that $p \in Q$ in which case $q$ will simply be the empty pa
 \begin{definition}
 If $P$ and $Q$ are sets of paths of model $\gmodel$ then say that the set of paths $P$ 
 \term{is representative of} $Q$ 
-iff $P \simeq Q$ and no proper subset of $P$ is equivalent to $Q$.
+iff $P \simeq Q$ and no proper subset of $P$ is equivalent to $Q$. 
+\end{definition}
+
+We can give another equivalent definition. First define
+a set of paths $P$ to be \term{representative} iff for all $p,p' \in P$,
+$p \simeq p'$ implies $p=p'$. It is easy to see that the following is an equivalent definition of one set of paths representing another:
+
+\begin{definition}
+If $P$ and $Q$ are sets of paths of a model $\gmodel$ then 
+say that the set of paths $P$ \term{is representative of} $Q$ iff $P \simeq Q$ and $P$ is representative. 
 \end{definition}
 
 \begin{definition}
 If $Q \in \bar{I}_a$ and $Q'$ is representative of $Q$ then $Q'$ is said to be
-a \term{primary mono source} at $a$. 
+a \term{primary mono source} at $a$. If in addition $Q'$ is leaf i.e. if the codomain of each $q \in Q'$ is $\veee$ then say that $Q'$ is a 
+\term{leaf primary mono-source}.
 \end{definition}
+
+leafprimarymonosourcerepresentativeofpka
+\begin{lemma}
+\label{leafprimarymonosourcerepresentativeofpka}
+If $\gmodel$ is an ER model and if $Q$ is a leaf primary mono-source with domain $a$, for some entity type $a$, then $Q$ is representative of $\pk{a}$.
+\end{lemma}
+\begin{proof}
+By definition, since $Q$ is a leaf primary mono-source with domain $a$ then it is representative of some $Q' \in \bar{I}_a$. Because
+$Q$ is leaf then $Q'$ is leaf also. But the only leaf monos-ource in $\bar{I}_a$ is $\pk{a}$. Therefore $Q'=\pk{a}$ and $Q$, therefore.
+is representative of  $\pk{a}$.
+\end{proof}
 
 primarykeypathfactorsthroughprimarymonosource
 \begin{lemma}
@@ -451,19 +469,16 @@ A model $\gmodel$ satisfies \term{the minimality condition} iff for every entity
 
 \begin{conjecture}
 A model $\gmodel$ satisfies \term{the minimality condition} iff 
-for every entity type $a$ of $\gmodel$ and for every source $Q \in \bar{I_a}$, if $Q'$ is representative
+for every entity type $a$ of $\gmodel$ and for every (mono-)source $Q \in \bar{I_a}$, if $Q'$ is representative
 of  $Q$, then no proper subset of $Q'$ is a mono-source. \commentary{I may have been here before and found it to be false.}
 \end{conjecture}
-
-
-\commentary{It is the case that a leaf primary mono-source is equivalent to $\pk{a}$??}
 
 \subsubsection{Mapping, Isomorphisms and Mono Sources}
 
 monosourceequivalence
 \begin{lemma}
 \label{monosourceequivalence}
-If  $P$ and $Q$ are sources at some object $a$ in an ER model $\gmodel$ and if $P \simeq Q$  then   $P$ is a mono-source in $\gmodel$ iff $Q$ is a mono-source in $\gmodel$.  Further $P$ is a leaf mono-source iff $Q$ is a leaf mono-source and $P$ is a primary mono-source iff $Q$ is a primary mono-source.
+If  $P$ and $Q$ are sources at some object $a$ in an ER model $\gmodel$ and if $P \simeq Q$  then   $P$ is a mono-source in $\gmodel$ iff $Q$ is a mono-source in $\gmodel$.  Further $P$ is a leaf mono-source iff $Q$ is a leaf mono-source. Further, if $P$ and $Q$ are both representative then $P$ is a primary mono-source iff $Q$ is a primary mono-source.
 \end{lemma}
 \begin{proof}
 It follows from the definition of set equivalence that if $P$ and $Q$ are sets of paths in a model $\gmodel$ and if $P \simeq Q$ in $\gmodel$ then in each defining instance $E$ of $\gmodel$, the set of functions $\setsuchthat{E_p}{p \in P}$ is equal to the set of functions $\setsuchthat{E_q}{q \in Q}$ since for
@@ -473,8 +488,7 @@ paths $p$ and $q$ such that $p \simeq q$, $E_p=E_q$. Therefore if $P$ and $Q$ ar
 That $P$ is leaf  iff $Q$ is a leaf 
 follows because $p \simeq q$ implies that the codomain of $p$ is equal to the codomain of $q$.
 
-That $P$ is a primary mono-source iff $Q$ is  primary mono-source follows because  $\simeq$ is an equivalence relation and therefore there exists a $J \in \bar(I_a)$ such that $P \simeq J$ iff there exists 
-$J \in \in \bar(I_a)$ such that $Q \simeq J$. \commentary{Work on this. LEMMA needed?}
+It follows that if $P$ and $Q$ are representative then $P$ is a primary mono-source iff $Q$ is  primary mono-source  because  $\simeq$ is an equivalence relation and therefore $P \simeq \pk{a}$ iff $Q \simeq \pk{a}$.
 \end{proof}
 
 mappingspreservemonosources
@@ -482,11 +496,8 @@ mappingspreservemonosources
 \label{mappingspreservemonosources}
 If $\varphi: \gmodel \morph \gmodel'$ is a mapping of ER models and
 if $P$ is a mono-source in $\gmodel$ then  
-$\varphi(P)$ is a mono-source in $\gmodel'$. 
-Further if $P$ a leaf mono-source in $\gmodel$ then $\varphi(P)$, i.e. the set $\setsuchthat{\phip}{p\in P}$, is a leaf mono source in $\gmodel'$ and if $P$ a leaf primary mono-source in $\gmodel$ then $\varphi(P)$ is a leaf primary mono source in $\gmodel'$.
-
-Further if there are no proper subsets of $\varphi(P)$ which are mono-sources in $\gmodel'$ and which are not representative of $\varphi(P)$ then there are no proper subsets of $P$ which are mono-sources in $\gmodel$ and which are not representative of $P$.
-
+$\varphi(P)$ i.e. the set $\setsuchthat{\phip}{p\in P}$, is a mono-source in $\gmodel'$. 
+Further if $P$ a leaf mono-source in $\gmodel$ then $\varphi(P)$,  is a leaf mono source in $\gmodel'$ .
 \end{lemma}
 \begin{proof}
 To show that $\varphi(P)$ is a mono-source in $\gmodel'$ given that $P$ is a mono-source in $\gmodel$ we need show that for every model $E'$ of $\gmodel'$, 
@@ -495,17 +506,37 @@ $\setsuchthat{E'_{\phip}}{p \in P}$ is jointly injective. But for each such $E'$
 
 That $P$ is leaf implies $\varphi(P)$ is leaf follows because for each $p \in P$, if the codomain of $p$ is 
 $\veee$ in $\gmodel$ then it follows from the definition of $\varphi$ being a mapping that the codomin of $\phip$ is  $\veee$ in $\gmodel'$. 
+\end{proof}
 
-If $P$ is a leaf primary mono-source then $P \simeq \pk{a}$ in $\gmodel$, for some entity type $a$ of $\gmodel$.
-It follows by lemma \ref{mappingrespectsequivalence} that $\varphi(P) \simeq \varphi(\pk{a})$
-and,  since $\varphi$ is a mapping and therefore $\varphi(\pk{a})\simeq \pk[\gmodel']{\varphi(a)}$ 
-that $\varphi(P) \simeq  \pk[\gmodel']{\varphi(a)}$ in $\gmodel'$ and therefore that  $\varphi(P)$ is a leaf primary mono-source in $\gmodel'$.
+isospreserverepresentativesets
+\begin{lemma}
+\label{isospreserverepresentativesets}
+If $\varphi: \gmodel \morph \gmodel'$ is a isomorphism of ER models and
+if $P$ is a  set of paths in $\gmodel$ that is representative then the set of paths $\varphi(P)$ in $\gmodel'$ is representative. 
+\end{lemma}
+\begin{proof}
+Assume such an isomorphism. To show that if $P$ is representative then $\varphi(P)$ is suppose $P$ is representative and that for some $p,p' \in P$,  $\varphi(p) \simeq \varphi(p')$ is $\gmodel'$.  Since $\varphi$ is an isomorphism
+it follows that $\varphi^{-1}(\varphi(p)) \simeq \varphi^{-1}(\varphi(p'))$ in $\gmodel$ and therefore $p \simeq p'$ in
+$\gmodel$. Now since $P$ is representative we can conclude that $p=p'$ and therefore that $\varphi(p)=\varphi(p')$.
+\end{proof}
 
-The further point, that absence from $\gmodel'$ of mono-sources which are non-representative proper subsets of $\varphi(P)$
- implies absence from $\gmodel$ of mono-sources which are non-representative proper subsets of $P$, follows on from the fact that leaf mono-sources are preserved 
-and from the fact that a mapping $\varphi:\gmodel \morph \gmodel'$ preserves equivalence of sets of paths
-(lemma \ref{mappingrespectsequivalence}).\commentary{say more?}
+\begin{definition}
+If $\varphi: \gmodel \morph \gmodel'$ is a isomorphism of ER models then define $\varphi$ to be injective iff
+it is injective as a mapping of paths i.e. iff  for all paths $p,p'$ of $\gmodel$, $\varphi(p)=\varphi(p')$ implies $p=p'$.
+\end{definition}
 
+
+injectiveisosreflectrepresentativesets
+\begin{lemma}
+\label{injectiveisosreflectrepresentativesets}
+If $\varphi: \gmodel \morph \gmodel'$ is an injective isomorphism of ER models and
+if $P$ is a  set of paths in $\gmodel$ then if the set of paths $\varphi(P)$ of $\gmodel'$ is representative 
+ then the set of paths $P$ of $\gmodel$ is representative. 
+\end{lemma}
+\begin{proof}
+Assume such an injective isomorphism $\varphi$. Suppose such a set $P$ in $\gmodel$ and suppose that $\varphi(P)$ is representative in $\gmodel'$.  Suppose that  for some $p,p' \in P$, $p \simeq p'$. Since $\varphi$ is an isomorphism it follows that $\varphi(p) \simeq \varphi(p')$ in $\gmodel'$ and then since $\varphi(P)$ is assumed to be representative 
+that $\varphi(p) = \varphi(p')$ in $\gmodel'$
+ from which we can deduce that $p=p'$ in $\gmodel$ since $\varphi$ is assumed to be injective. 
 \end{proof}
 
 isospreserveandreflectmonosources
@@ -513,23 +544,65 @@ isospreserveandreflectmonosources
 \label{isospreserveandreflectmonosources}
 If $\varphi: \gmodel \morph \gmodel'$ is a isomorphism of ER models and
 if $P$ is a source in $\gmodel$ then 
+\begin{enumerate}[(i)]
+\item
 $P$ is a mono-source in $\gmodel$ iff  $\varphi(P)$ is a mono-source in $\gmodel'$. 
-Further  $P$ is a leaf mono-source in $\gmodel$ iff $\varphi(P)$ is a leaf mono source in $\gmodel'$ and $P$ a leaf primary mono-source in $\gmodel$ iff $\varphi(P)$ is a leaf primary mono source in $\gmodel'$.
-Further there are no proper subsets of $P$ which are mono-sources in $\gmodel$ and which are not representative of $P$
-iff there are no proper subsets of $\varphi(P)$ which are mono-sources in $\gmodel'$ and which are not representative of $\varphi(P)$.
+\item
+Further  $P$ is a leaf mono-source in $\gmodel$ iff $\varphi(P)$ is a leaf mono source in $\gmodel'$ and 
+\item
+$P$ is a leaf primary mono-source in $\gmodel$ implies  $\varphi(P)$ is a leaf primary mono source in $\gmodel'$,
+\item
+If $\varphi$ is injective then
+if $\varphi(P)$ is a leaf primary mono source in $\gmodel'$ then $P$ is a leaf primary mono-source in $\gmodel$
+\end{enumerate}
 \end{lemma}
 \begin{proof}
+
+\begin{enumerate} [(i)]
+\item
 That $P$ is a mono-source implies $\varphi(P)$ was proved
 in lemma \ref{mappingspreservemonosources}. For the reverse implication use 
 lemma \ref{mappingspreservemonosources} applied to the inverse mapping $\varphi^{-1}$
 and then use lemma \ref{monosourceequivalence} since $\varphi^{-1}(P) \simeq P$.
+\item
+trivial
+\item
+get this from lemma \ref{isospreserverepresentativesets} 
+\item
+follows from lemma \ref{injectiveisosreflectrepresentativesets}
+\end{enumerate}
+
 \end{proof}
 
-isospreserveandreflectminimality
-\begin{corollary}
+representativecontainmentlemma
+\begin{lemma}
+\label{representativecontainmentlemma}
+In any ER model $\gmodel$ if $Q$ is a representative sets of paths and if $P \subseteq Q$ and $P \simeq Q$ then $P=Q$.
+\end{lemma}
+\begin{proof}
+Follows immediately from the definition of representative.
+\end{proof}
+
+
+injectiveisospreserveandreflectminimality
+\begin{lemma}
 \label{isospreserveandreflectminimality}
-If $\varphi: \gmodel \morph \gmodel'$ is a isomorphism of ER models then $\gmodel$ satisfies the minimality condition iff $\gmodel'$ does.
-\end{corollary}
+If $\varphi: \gmodel \morph \gmodel'$ is an injective isomorphism of ER models then $\gmodel$ satisfies the minimality condition iff $\gmodel'$ does.
+\end{lemma}
+\begin{proof}
+Suppose such an injective isomorphism $\varphi$. \\
+
+First suppose that $\gmodel$ satisifes the minimality condition that no leaf primary mono-sources have proper subsets which are mono-sources. 
+To show that $\gmodel'$ has the minimality condition let $Q$ be a leaf-primary mono-source in $\gmodel'$. We need show that if $Q' \subseteq Q$ and $Q'$ is a mono-source then $Q'=Q$. Assume such a $Q$ and $Q'$. It follows that $\varphi^{-1}(Q') \subseteq \varphi^{-1} (Q)$ and, by lemma \ref{isospreserveandreflectmonosources}, that $\varphi^{-1}(Q)$
+is a leaf primary mono-source and that $\varphi^{-1}(Q')$ is a mono-source. Since $\gmodel'$ is assumed to have the minimality condition then we have that
+$\varphi^{-1}(Q') = \varphi^{-1} (Q)$. From this it follows that  $Q' \simeq \varphi(\varphi^{-1}(Q')) = \varphi(\varphi^{-1}(Q)) \simeq Q$ and so we have that both $Q' \subset Q$ and $Q' \simeq Q$ and, since $Q$ is representative, this implies, by lemma \ref{representativecontainmentlemma}, that $Q'=Q$ as required. \\
+
+For the reverse implication consider that $\gmodel'$ satisfies the minimality condition. We are required to show that $\gmodel$ has the minimality condition for which we are required to show that if  $P$ is a leaf primary mono-source in $\gmodel$ and if $P' \subseteq P$ and 
+ $P'$ is a mono-source in $\gmodel$ then $P'=P$.  Suppose then such a $P$ and $P'$. Since $P' \subseteq P$ then $\varphi(P') \subseteq \varphi(P)$. 
+By lemma \ref{isospreserveandreflectmonosources} $\varphi(P)$ is a leaf primary mono-source and, by the same lemma,  $\varphi(P')$ is a mono-source.
+Since $\gmodel'$ satisfies the minimality condition it now follows that $\varphi(P') = \varphi(P)$ from which  it follows since $\varphi$ is assumed to be injective
+that $P'=P$, as required.\\
+\end{proof}
 
 \begin{definition}
 If $\varphi: \gmodel \morph \gmodel'$ is a mapping of ER models then
@@ -538,23 +611,35 @@ iff for all sources $P$ of  $\gmodel$ if
 $\varphi(P)$ is a primary mono-source in $\gmodel'$ then $P$ is a primary mono-source in $\gmodel$.
 \end{definition}
 
-anisoreflectsprimariesiffitsinversepreservesthem
+anisoreflectsprimariesthenitsinversepreservesthem
 \begin{lemma}
-\label{anisoreflectsprimariesiffitsinversepreservesthem}
+\commentary{Unused} %\label{anisoreflectsprimariesthenitsinversepreservesthem} 
 If $\varphi: \gmodel \morph \gmodel'$ is an isomorphism of ER models  then
 $\varphi$ reflects primary mono-sources iff $\varphi^{-1}$ preserves primary mono-sources.
 \end{lemma}
 \begin{proof}
-Suppose $\varphi$ reflects primary mono-sources then $\varphi^{-1}$ preserves primary mono-sources because
-if $P'$ is a primary mono-source in $\gmodel'$ then $\varphi(\varphi^{-1}(P'))$ will be a primary mono-source by lemma \ref{monosourceequivalence} since it is equivalent to $P'$ in $\gmodel'$ as $\varphi$ is an isomorphism. 
+Suppose $\varphi$ reflects primary mono-sources. To show that $\varphi^{-1}$ preserves primary mono-sources suppose
+ $P'$ is a primary mono-source in $\gmodel'$. By definition, then,  $P'$ is representable  and therefore $\varphi^{-1}(\varphi(P))$ is representatable 
+by lemma \ref{isospreserverepresentativesets}.  Now it follows that  $\varphi(\varphi^{-1}(P'))$ will be a primary mono-source by lemma \ref{monosourceequivalence} since $\varphi(\varphi^{-1}(P')) \simeq P'$ in $\gmodel'$ as $\varphi$ is an isomorphism. 
+\end{proof}
 
+aninjectiveisoreflectsprimariesifitsinversepreservesthem
+\begin{lemma}
+\commentary{Unused} %\label{anisoreflectsprimariesthenitsinversepreservesthem} 
+If $\varphi: \gmodel \morph \gmodel'$ is an injective isomorphism of ER models  then
+if $\varphi^{-1}$ preserves primary mono-sources
+then $\varphi$ reflects primary mono-sources.
+\end{lemma}
+\begin{proof}
 Suppose $\varphi^{-1}$ preserves primary mono-sources then $\varphi$ reflects primary mono-sources because
 if $P$ is a source in $\gmodel$ and if $\varphi(P)$ is a primary mono-source in $\gmodel'$ then
-by lemma \ref{monosourceequivalence} $P$ will be primary mono-source in $\gmodel$ because, from the definition of
-isomorphism, it is equivalent to $\varphi^{-1}(\varphi(P))$ which is primary mono-source since we have assumed
-that  $\varphi^{-1}$ preserves primary mono-sources.
-
+by definition $\varphi(P)$ is representative in $\gmodel'$ and therefore by lemma \ref{injectiveisosreflectrepresentativesets} 
+$P$ is representative in $\gmodel$ and by lemma \ref{isospreserverepresentativesets} $\varphi^{-1}(\varphi(P))$ is representative in $\gmodel$.
+Now by lemma \ref{monosourceequivalence} it follows that $P$ will be primary mono-source in $\gmodel$ because, from the definition of
+isomorphism,  $P \simeq \varphi^{-1}(\varphi(P))$ and $\varphi^{-1}(\varphi(P))$ is a primary mono-source since we have assumed
+that  $\varphi^{-1}$ preserves primary mono-sources. 
 \end{proof}
+
 
 \subsubsection{Primarily Keyed Models}
 
@@ -565,7 +650,7 @@ an edge with codomain $\veee$. This leads to this definition:
 Say that a model is \term{primarily keyed} iff all identifying edges 
 have codomain $\veee$.
 \end{definition}
-To reach the goal of showing that to every ER model there is an isomorphic relational model we require the following\commentary{is this true?}:
+To reach the goal of showing that to certain ER models there correspond isomorphic relational model we require the following:
 \begin{lemma}
 If $\gmodel$ is an ER model then it can be extended to a model $P(\gmodel)$
 which is primarily keyed. If $\gmodel$ satisfies the minimality condition then the
