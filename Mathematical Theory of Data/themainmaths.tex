@@ -1947,23 +1947,45 @@ $x \simeq p \circ q$ it follows that the attribute $x$ is identifying.
 
 \begin{lemma}
 \llabel{wellformulatedandfreeofreferentialattributesimpliesleafrestrictionfree}
-If $\gmodel$ is an ER model which is well-formulated and is free of non-identifying referential attributes
+If $\gmodel$ is an ER model which is well-formulated, has the fd factoring property and is free of non-identifying referential attributes
 then it is leaf-restriction free.
 \end{lemma}
 \begin{proof}
-Suppose $\gmodel$ has a leaf-restriction. So there exists an
+Assume such a model $\gmodel$. To show that it is leaf-restriction free we show that if we assume that there is an
 entity type $a$ and an attribute $y$ with domain $a$ and there 
 exists paths $x_1,...x_n$   with domain
-$a$ in $\gmodel$,  and for some $j$, $1 \leq j \leq n$, in every defining instance $E$, 
+$a$ in $\gmodel$ and codomain $\veee$,  and for some $j$, $1 \leq j \leq n$, in every defining instance $E$, 
 \begin{equation}
 \label {restriction} 
 E_y = \bigwedge_{1 \leq i \leq n}{\overline{E_{x_i}}} \circ E_{x_j}
 \end{equation}
-then $y \simeq x_j$. In particular
-$\set{x_1,...x_n} \morph y$ is a leaf intransitive functional dependency\commentary{Fill this out a bit since might be flab}. 
+then we deduce that $y \simeq x_j$. Assume then such an attribute $y$ and paths $x_1,...x_n$.  
 
-Since $\gmodel$ is well-formulated  and there is a leaf intransitive\commentary{why is it intransitive?} functional dependency $\set{x_1,...x_n} \morph y$ then either $\set{\xn}$ is a mono-source and thus $E_{\xntuple}$ is injective and total in every defining instance $E$  in which case $y \simeq x_j$  and we are done \commentary{why?} or else the functional dependency $\set{x_1,...x_n} \morph y$   is in part represented by  an entity type $d$ and a primary mono-source $\qntuple$ with respect to\commentary{sourced at $d$?} $d$, such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$ but this cannot be the case because if it were then by lemma \lref{inclusiondependencyrestrictionlemma}
-$$E_p \circ E_{q_j} = \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq i \leq n}{ i \neq j}}{\overline{E_{x_i}}}\circ E_{x_j}$$
+First note that if $\set{\xn}$ is a mono-source we are done because then in every defining instance $E$ each $E_{x_i}$ is total
+and so from (\ref{restriction}) it follows that $E_y = E_{x_j}$ in each defining instance. So, if $\set{\xn}$ is a mono-source
+then $y \simeq x_j$, as required.
+
+
+Now, from (\ref{restriction}) it follows that
+$\set{x_1,...x_n} \morph y$ is a leaf functional dependency in $\gmodel$. Since $\gmodel$ has the fd factoring propery then either $\set{\xn}$ is a mono-source 
+and we are done or else these exists  paths $x'_1,...x'_{n'}$ 
+such that 
+
+\begin{equation}
+\label{noninvertiblefd}
+\fd{x_1,...x_n}{x'_1,...x'_{n'}} 
+\end{equation}
+is a functional dependency and
+
+\begin{equation}
+\label{intransitivefd}
+\set{x'_1,...x'_{n'}} \morph y
+\end{equation}
+is a leaf intransitive functional dependency in $\gmodel$.
+
+Since $\gmodel$ is well-formulated  and since (\ref{intransitivefd}) is a leaf intransitive functional dependency  then either $\set{x'_1,...x'_{n'}}$ is a mono-source and thus by lemma \ref{fdrightmonosourceimpliesleftmonosource}
+$\set{\xn}$ is a mono-source  and we are done  or else the functional dependency $\set{x'_1,...x'_{n'}} \morph y$   is in part represented by  an entity type $d$ and a primary mono-source $\tuple{q_1,...q_{n'}}$ sourced at $d$, such that $\incd{a}{x'_1,...x'_{n'}}{d}{q_1,...q_{n'}}$ but this cannot be the case because if it were then by lemma \lref{inclusiondependencyrestrictionlemma}
+$$E_p \circ E_{q_j} = \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq i \leq n'}{ i \neq j}}{\overline{E_{x_i}}}\circ E_{x_j}$$   \commentary{\LARGE{NO!}}
 and we would have that
 $$E_p \circ E_{q_j} = E_y$$
 in all defining instances so that
@@ -2096,7 +2118,7 @@ Relate goodness criteria with  normal forms proposed in literature for XML. I sh
 \subsection{Inheritance, Disjunction, Coproducts}
 Not really covered what I think of entity models until covered inheritance as coproducts.
 Piessens and Steegmans and also Johnson et al have already covered much of this in an interesting way. 
-Inheritance maps nicely to IDL and XML but not so nicely to the relational model.  
+Inheritance maps nicely to IDL and XML but not so nicely to the relational model.  Recursion comes in as well if we want to try deal with models that do not have the fd factoring property.
 
 \subsection{Higher Dimension Data Models}
 Is there anything to be said about network models? Certainly there is a connection to Dependency Categories.
