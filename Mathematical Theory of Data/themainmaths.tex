@@ -8,6 +8,24 @@ If $u$ is a type all of whose instances are universals then we will refer to eac
 
 Entity relationship modelling, and, for that matter, relational modelling too, are predicated on the assumption that the particulars described by data correspond uniquely to real world entities and that the data alone is sufficient to establish a 1-1 correspondence. There is thus an implicit assumption that the logical principle of identity of indiscernibles holds of the real world entities and, more specifically, that each type of real world entity has identifying relationships and attributes that distinguish it from  others of the type. In relational data modelling this set of identifying features is represented as a set of columns of the table and is called the primary key. In entity relationship modelling in the style of Barker an identifying feature may be either a relationship or an attribute.   
 
+\subsection{New material}
+\begin{lemma}
+\llabel{intransitivefdsfactorthroughsingletonintransitivefds}
+If a model $gmodel$ is well-formulated and \fd{\xn}{z} is an intransitive functional dependency then there exists a path $y$
+such that \fd{\xn}{y} and \fd{y}{\xn} are functional dependencies and \fd{y}{z} is an intransitive functional dependency.
+\end{lemma}
+
+
+\begin{lemma}
+\llabel{wellformulatedimpliessingletonmonosourceshaveinverses}
+In a well-formulated model singleton mono-sources have inverses.
+\end{lemma}
+
+\begin{lemma}
+In a well-formulated model singleton intransitive fds are witnessed by paths.
+\end{lemma}
+
+
 \subsection{Directed Graphs}
 Regarding directed graphs and reflecting a category theory mindset we will use terminology as follows:
 \begin{itemize}
@@ -77,9 +95,9 @@ If $f_i: a \morph b_i$ are partial functions, for $1 \leq i \leq n$, for some $n
 \begin{lemma}
 \llabel{tupleprojection}
 If $f_i: a \morph b_i$ are partial functions, for $1 \leq i \leq n$, for some $n$, and if 
-$p_i : \prod\limits_{1 \leq i \leq n}{b_i} \morph b_i$ is the i'th projection function 
-then  $\tuple{f_1,...f_n} \circ p_i = \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq j \leq n}{ j \neq i}}{\bar{f_j}}\circ f_i$, and,
-in particular, $\tuple{f_1,...f_n} \circ p_i\leq f_i$ .
+$\proji{i} : \prod\limits_{1 \leq i \leq n}{b_i} \morph b_i$ is the i'th projection function 
+then  $\tuple{f_1,...f_n} \circ \proji{i} = \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq j \leq n}{ j \neq i}}{\bar{f_j}}\circ f_i$, and,
+in particular, $\tuple{f_1,...f_n} \circ \proji{i}\leq f_i$ .
 \end{lemma}
 
 
@@ -1149,21 +1167,32 @@ because
 
 \begin{lemma}
 \llabel{transitiveinjectivelemma}
-In an entity model $\gmodel$ if $\set{x_1,...x_n} \morph \set{y_1,...y_{m}}$ is a functional dependency then if in an instance $E$ the function $E_{\tuple{y_1,...y_{m}}}$ is injective then the function $E_{\tuple{x_1,...x_n}}$  is injective.
+In an entity model $\gmodel$ if $\set{x_1,...x_n} \morph \set{y_1,...y_{m}}$ is a functional dependency then if in an instance $E$ the function $E_{\tuple{y_1,...y_{m}}}$ is injective \newt{and total} then the function $E_{\tuple{x_1,...x_n}}$  is injective \newt{and total}.
 \end{lemma}
 \begin{proof}
 Follows from the definition of functional dependency that for each $j$, $1 \leq j \leq m$  there is a function ${f_j}$,  such that
 $E_{y_j}=E_{\tuple{x_1,...x_n}}\circ f_j$. Therefore there is a function $f=\tuple{f_1,...f_m}$ such that
 $E_{\tuple{y_1,...y_m}}= E_{\tuple{x_1,...x_n}}\circ f $. Therefore since  the function $E_{\tuple{y_1,...y_{m}}}$ is 
-injective then the function $E_{\tuple{x_1,...x_n}}$  is injective.
+injective \newt{and total} then the function $E_{\tuple{x_1,...x_n}}$  is injective \newt{and total}.
 \end{proof}
+
+\begin{newtt}
+\begin{lemma}
+\llabel{fdrightmonosourceimpliesfdleftmonosource}
+In an entity model $\gmodel$ if $\set{x_1,...x_n} \morph \set{y_1,...y_{m}}$ is a functional dependency then if 
+$\set{y_1,...y_{m}}$  is a mono-source in $\gmodel$ then $\set{x_1,...x_n}$ is a mono-source in $\gmodel$.
+\end{lemma}
+\begin{proof}
+Follows directly from lemma \lref{transitiveinjectivelemma}.
+\end{proof}
+\end{newtt}
 
 \begin{definition}
 \noindent In an entity model $\gmodel$  
 if for some $n \geq 1$, $a$, $b_{i, 1 \leq i \leq n}$,  and $c$ are nodes and 
 if  $x_{i}, 1 \leq i \leq n$, and $y$ are paths such
 that there is a intransitive functional dependency $\{x_1,...x_n\} \morph y$
- then the functional dependency $\{x_1,...x_n\} \morph y$ is said to be \term{represented} in the ER model $\gmodel$ iff  there exists an entity type $d$ and a primary mono-source
+ then the functional dependency $\{x_1,...x_n\} \morph y$ is said to be \term{represented} in the ER model $\gmodel$ iff  there exists an entity type $d$ and a primary mono-source \commentary{in case of a unary fd \fd{x}{y}, where $x:a \morph b$, need admit $\set{\tuple{}_b}$ as a possible primary mono-source.}
 $\qntuple$  such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$, and a (possibly empty)
 path $w:d\rightarrow c$ as here:
 
@@ -1382,6 +1411,12 @@ $$E_y = \bigwedge_{1 \leq i \leq n}{\overline{E_{x_i}}} \circ E_{x_j}$$
 then $y \simeq x_j$. \commentary{Qualification that $a$ and $b$ be distinct removed on Mon 4th May 2020.} 
 \end{definition}
 
+\begin{newtt}
+\begin{definition}
+An ER model $\gmodel$ is \term{restriction free} iff \newt{....}
+\end{definition}
+\end{newtt}
+
 Since if $y < x$ in an ER model $\gmodel$ then in each instance $E$, $E_y = \bar{E_y} \circ E_x$
 then we can deduce the following:
 \begin{observation}
@@ -1390,7 +1425,7 @@ If $\gmodel$ is a restriction free  ER model with an edge $y:a \morph b$, where 
 
 \begin{lemma}
 \llabel{intransitivelemma}
-In a well-formulated model $\gmodel$  if $\set{x_1,...x_n} \morph y$  is a non-trivial intransitive leaf
+In a well-formulated model $\gmodel$  if $\set{x_1,...x_n} \morph y$  is a non-trivial intransitive \oldt{leaf}
 functional dependency sourced at some entity type $a$ then either $\set{\xn}$ is a mono-source
 or else for some entity type $d$ there is a non-empty relationship-like path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$ is a functional dependency in $\gmodel$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
@@ -1449,7 +1484,7 @@ E_y &= E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_w  && \text{ (\ref{fundepend
 		&= E_{p \circ w}                                   && \text{from defn. of $E$ being an instance.}\\
 \end{align*} 
 \vspace{-0.3cm}
-From which, by definition, $y\simeq p \circ w$, as required. \\
+From which, by definition of $\simeq$, $y\simeq p \circ w$, as required. \\
 
 Now suppose that $c$ is the type representing universals, $\veee$. The path $w$ must be non-empty because its source $d$ being an entity type must be distinct from its destination $\veee$ which is not an entity type. 
 We wish to show that $w$ is not equivalent in $\gmodel$ to
@@ -1459,9 +1494,9 @@ $i$, $1 \leq i \leq n$.
 Therefore
 \begin{align*}
 E_y &= E_p \circ E_w                                        && \text{}\\
-		&= E_p \circ E_{q_i}                                      && \text{}\\
-		&= E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_{q_i}     && \text{}\\
-		&= E_{\xntuple} \circ p_i                                 && \text{} \\
+		&= E_p \circ E_{q_i}                                    && \text{}\\
+		&= E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_{q_i}   && \text{}\\
+		&= E_{\xntuple} \circ \proji{i}                         && \text{} \\
 		&= \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq j \leq n}{ j \neq i}}{\overline{E_{x_j}}}\circ E_{x_i}  
 		                                                        && \text{By lemma \lref{tupleprojection}}
 \end{align*} 
@@ -1471,9 +1506,11 @@ Hence because $\gmodel$ is leaf-restriction free we deduce that $y \simeq x_i$
 is non-trivial. Thus $w$ is not equivalent to a primary key path.
 \end{proof}
 
+
+ 
 \begin{definition}
-\noindent An ER model $\gmodel$ has the \term{\fdfactoring} property iff to every functional dependency $\set{x_1,...x_n} \morph z$ where $x1, x_2, ... x_n$ and $z$ are \attributelike\ paths either $\set{x_1,...x_n}$ is
-a mono-source or else there is an intransitive functional dependency $\set{y_1,...y_m} \morph z$ which it factors through i.e. such that $\set{x_1,...x_n} \morph \set{y_1,...y_m}$.
+\noindent An ER model $\gmodel$ has the \term{\fdfactoring} property iff to every functional dependency $\set{x_1,...x_n} \morph z$ where $x1, x_2, ... x_n$ and $z$ are \oldt{\attributelike} paths either $\set{x_1,...x_n}$ is
+a mono-source or else there is an intransitive functional dependency $\set{y_1,...y_m} \morph z$ which it factors through i.e. such that $\set{x_1,...x_n} \morph \set{y_1,...y_m}$. \commentary{what is the thinking behind the exception that $\set{\xn}$ being a mono-source?}
 \end{definition}
 
 \begin{lemma}
@@ -1505,17 +1542,39 @@ that the functional dependency  $\fd{\xnprime}{z'}$ factors through an intransit
 
 \begin{lemma}
 \llabel{mainlemma}
-In a well-formulated model $\gmodel$ that has the \fdfactoring\ property if $\set{x_1,...x_n} \morph z$ is a non-trivial leaf functional dependency sourced
+In a well-formulated model $\gmodel$ that has the \fdfactoring\ property if $\set{x_1,...x_n} \morph z$ is a non-trivial \oldt{leaf} functional dependency sourced
 at some entity type $a$ then either $\set{x_1,...x_n}$ is a mono-source in $\gmodel$
 or else there is an entity type $d$ and there is a relationship-like path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$
-and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
-the path $w$ is non-empty and and if $y$ is an edge and $\gmodel$ is leaf-restriction free then $w$ is not equivalent to a primary key path.
+and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If \newt{each $x_i$ has codomain $\veee$ and codomain of $y$,} $c$, is $\veee$ then
+the path $w$ is non-empty and if $y$ is an edge and $\gmodel$ is leaf-restriction free then $w$ is not equivalent to a primary key path.
 \end{lemma}
 \begin{proof}
 Since the model $\gmodel$  has the \fdfactoring\ property, the functional dependency $\set{x_1,...x_n} \morph z$ can be factored through an intransitive functional
 dependency $\set{y_1,...y_m} \morph z$. Therefore by lemma \lref{intransitivelemma} either there exists $d$, $p$ and $w$ as required
 or else  $\set{\ym}$ is a mono-source in which case, by lemma \lref{transitiveinjectivelemma}, $\set{\xn}$ is a mono-source as required.
 \end{proof}
+
+\begin{newtt}
+\begin{definition}
+In a model $\gmodel$ an edge $e$ is \term{design redundant} if $e$ is not an identifing edge and if for some path $p$
+which does not include $e$, $e \simeq p$.
+\end{definition}
+
+\begin{definition}
+A model $\gmodel$ is said to be \term{free of design redundancy} iff there are no design redundant edges in $\gmodel$.
+\end{definition}
+
+\begin{lemma}
+\llabel{freeofdesignredundancyimpliesfdrhsismonosource}
+In a well-formulated model $\gmodel$ that has the \fdfactoring\ property and which is free of design redundancy if $y$ is an attribute and if $\fd{\xn}{y}$
+is a functional dependency sourced at an entity type $a$ then $\set{\xn}$ is a mono-source.
+\end{lemma}
+\begin{proof}
+By lemma \lref{mainlemma} either $\set{\xn}$ is a mono-source or else there exist paths $p$ and $w$ such that $y=p \circ w$ but this is not so 
+since $y$ is an edge and $\gmodel$ is assumed to be free of design redundancy. \commentary{But what if $p$ or $w$ includes $y$?}.
+\end{proof}
+\end{newtt}
+
 
 \subsection{Ranking Relationships in an ER Model}
 For every ER model $\gmodel$ and for each natural number $n$, $n \geq 0$, we define which relationships of
@@ -1946,8 +2005,8 @@ $x \simeq p \circ q$ it follows that the attribute $x$ is identifying.
 \end{definition}
 
 \begin{lemma}
-\llabel{wellformulatedandfreeofreferentialattributesimpliesleafrestrictionfree}
-If $\gmodel$ is an ER model which is well-formulated, has the fd factoring property and is free of non-identifying referential attributes
+\llabel{wellformulatedandfreeofdesignredundancyimpliesleafrestrictionfree}
+If $\gmodel$ is an ER model which is well-formulated, has the fd factoring property and is free of \newt{design redundancy} \oldt{non-identifying referential attributes}
 then it is leaf-restriction free.
 \end{lemma}
 \begin{proof}
@@ -1961,28 +2020,27 @@ E_y = \bigwedge_{1 \leq i \leq n}{\overline{E_{x_i}}} \circ E_{x_j}
 \end{equation}
 then we deduce that $y \simeq x_j$. Assume then such an attribute $y$ and paths $x_1,...x_n$.  
 
-First note that if $\set{\xn}$ is a mono-source we are done because then in every defining instance $E$ each $E_{x_i}$ is total
+It follows from lemma \lref{freeofdesignredundancyimpliesfdrhsismonosource} that $\set{\xn}$ is a mono-source
+and so in every defining instance $E$ each $E_{x_i}$ is total
 and so from (\ref{restriction}) it follows that $E_y = E_{x_j}$ in each defining instance. So, if $\set{\xn}$ is a mono-source
 then $y \simeq x_j$, as required.
 
-
+\iffalse
+\begin{oldtt}
 Now, from (\ref{restriction}) it follows that
-$\set{x_1,...x_n} \morph y$ is a leaf functional dependency in $\gmodel$. Since $\gmodel$ has the fd factoring propery then either $\set{\xn}$ is a mono-source 
-and we are done or else these exists  paths $x'_1,...x'_{n'}$ 
-such that 
-
+$\set{x_1,...x_n} \morph y$ is a leaf functional dependency in $\gmodel$. Since $\gmodel$ has the fd factoring propery then 
+either $\set{\xn}$ is a mono-source 
+and we are done or else these exists  paths $x'_1,...x'_{n'}$ such that 
 \begin{equation}
 \label{noninvertiblefd}
 \fd{x_1,...x_n}{x'_1,...x'_{n'}} 
 \end{equation}
 is a functional dependency and
-
 \begin{equation}
 \label{intransitivefd}
 \set{x'_1,...x'_{n'}} \morph y
 \end{equation}
 is a leaf intransitive functional dependency in $\gmodel$.
-
 Since $\gmodel$ is well-formulated  and since (\ref{intransitivefd}) is a leaf intransitive functional dependency  then either $\set{x'_1,...x'_{n'}}$ is a mono-source and thus by lemma \ref{fdrightmonosourceimpliesleftmonosource}
 $\set{\xn}$ is a mono-source  and we are done  or else the functional dependency $\set{x'_1,...x'_{n'}} \morph y$   is in part represented by  an entity type $d$ and a primary mono-source $\tuple{q_1,...q_{n'}}$ sourced at $d$, such that $\incd{a}{x'_1,...x'_{n'}}{d}{q_1,...q_{n'}}$ but this cannot be the case because if it were then by lemma \lref{inclusiondependencyrestrictionlemma}
 $$E_p \circ E_{q_j} = \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq i \leq n'}{ i \neq j}}{\overline{E_{x_i}}}\circ E_{x_j}$$   \commentary{\LARGE{NO!}}
@@ -1992,7 +2050,10 @@ in all defining instances so that
 $$p \circ q_j \simeq y$$
 Since $\gmodel$ is free of non-identifying referential attributes then $y$ is identifying and so $E_y$ is total in all instances $E$ and therefore 
  from (\ref{restriction}) it follows that in any instance $E$, $E_{x_i}$ is total and therefore that $E_y =E_{x_j}$, that is 
-$y \simeq x_j$. We have shown that from the assumption (\ref{restriction}) it follows that $y \simeq x_j$. Thus we have shown that $\gmodel$ is leaf-restriction free.
+$y \simeq x_j$.
+ We have shown that from the assumption (\ref{restriction}) it follows that $y \simeq x_j$. Thus we have shown that $\gmodel$ is leaf-restriction free.
+\end{oldtt}
+\fi
 \end{proof}
 
 \begin{lemma}
@@ -2024,12 +2085,11 @@ This completes the proof.
 \end{proof}
 
 \begin{lemma}
-\llabel{wellformulatedandfreeofreferentialattributesimplieschileafrestrictionfree}
-If $\gmodel$ is $\chit$-suitable ER model which is well-formulated and has no referential attributes 
-then $\chigmodel$ is leaf-restriction free.
+\llabel{wellformulatedandfreeofdesignredundancyimplieschileafrestrictionfree}
+If $\gmodel$ is a $\chit$-suitable ER model which is well-formulated, \newt{has the fd factoring property} and \newt{is free of design redundancy} \oldt{has no referential attributes} then $\chigmodel$ is leaf-restriction free.
 \end{lemma}
 \begin{proof}
-Uses lemma  \lref{wellformulatedandfreeofreferentialattributesimpliesleafrestrictionfree} and lemma \lref{restrictioncarrythroughlemma}. 
+Uses lemma  \lref{wellformulatedandfreeofdesignredundancyimpliesleafrestrictionfree} and lemma \lref{restrictioncarrythroughlemma}. 
 \vspace{0.5cm}
 tbd
 \end{proof}
@@ -2060,8 +2120,8 @@ $\chigmodel$ is well-formulated by lemma \lref{wfcarrythroughlemma} since $\gmod
 
 $\chigmodel$ has the fd factoring property by lemma \lref{fdfactoringcarrythroughlemma}  since $\gmodel$ is assumed to have the fd factoring property.
 
-$\chigmodel$ is leaf-restriction free by lemma \lref{wellformulatedandfreeofreferentialattributesimpliesleafrestrictionfree}  since $\gmodel$ is assumed
-to be leaf-restriction free and  to be well-formulated.
+$\chigmodel$ is leaf-restriction free by lemma \lref{wellformulatedandfreeofdesignredundancyimpliesleafrestrictionfree}  since $\gmodel$ is assumed
+to be  well-formulated, to have the fd factpring property and to be free of design redundancy.
 
 $\chigmodel$ is simple by lemma \lref{simplecarrythroughlemma} because $\gmodel$ is simple because this follows directly from the definitions because, it is assumed, it is free of non-identifying referential attributes.
 
