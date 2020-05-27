@@ -407,7 +407,7 @@ $F$ being $E_f$,  and $G$ being $\setsuchthat{E_g}{g \in j}$.
 \subsubsection{Primary Key Paths }
 
 From the definition of ER model we have specified in the schema of each ER model $\gmodel$, for each entity type $a$ of $\gmodel$ a set of outgoing edges denoted $I_a$ specified as a mono-source in $\gmodel$. From lemma \lref{identifyingsetdeduction} it follows that any source arrived at by repeated composition of these given mono-sources, those of the form $I_a$, for $a$ an entity type of $\gmodel$, is itself a mono-source in $\gmodel$. 
-Denote by $\bar{I}$ the set  of all such mono-sources and denote by $\bar{I}_a$ the subset of $\bar{I}$ comprising all mono-sources in $\bar{I}$ with domain $a$.
+Denote by $\bar{I}$ the set  of all such mono-sources and denote by $\bar{I}_a$ the subset of $\bar{I}$ comprising all mono-sources in $\bar{I}$ with domain $a$.\commentary{\newt{Consider that $\set{\tuple{}_a}$ might} \newt{ be a member of $\bar{I}_a$}}
 
 From this definition it follows that $\pk{a} \in \bar{I_a}$ and from this we get the following corollary.
 
@@ -704,9 +704,8 @@ iff in all instances $E$ of $\gmodel$,
 $img(E_{\fntuple}) \subseteq img(E_{\qntuple})$. 
 \end{definition}
 
-Note that it follows from this definition that for any entity type $a$ there is a trivial
-referential inclusion dependency $
-\incd{a}{\tuple{}_a}{b}{\tuple{}_a}$
+Note that it follows from this definition that for any entity type $a$ there is a trivial referential inclusion dependency $
+\incd{a}{\tuple{}_a}{a}{\tuple{}_a}$
 
 \begin{definition}
 Define a \term{primary referential inclusion dependency} to be a
@@ -1043,7 +1042,7 @@ The further point regarding triviality follows from lemma \lref{mappingrespectse
 
 \begin{definition}
 A functional dependency \sfd{x_1,...x_n}{y} is said to be a \term{leaf functional dependency} iff
- the codomain of each $x_i$, $1 \leq i \leq n$, is $\veee$ and the codomain of $y$ is $\veee$.
+ the codomain of each $x_i$, $1 \leq i \leq n$, is $\veee$ \oldt{and the codomain of $y$ is $\veee$}.\commentary{I inserted this oh so wrongly!}
 \end{definition}
 
 \begin{definition}
@@ -1249,7 +1248,7 @@ is an intransitive  functional dependency in $\gmodel'$then
 TBD
 \end{proof}
 
-\subsection{Relationship-Like and Identifying-Like Paths}
+\subsection{\oldt{Relationship-Like and} Identifying-Like Paths}
 
 \begin{definition}
 In an ER model $\gmodel$, a non-empty path $t: a \morph b$, where $a$ and $b$ are entity types, is said to be \term{identifying-like} iff  for all primary key paths $q:b \morph \veee$ in $\gmodel$ there exists a primary key path $q':a \morph \veee$ in $\gmodel'$ such that $t \circ q \simeq q'$.
@@ -1314,7 +1313,7 @@ Therefore if $t':\varphi(a) \morph \varphi(b)$ is a path in $\gmodel'$ then it i
 $t: a \morph b$ in $\gmodel$. For any $t':\varphi(a) \morph \varphi(b)$ that is identifying there is a $t$ such that 
 $\varphi(t)=t'$ and this $t$ is identifying-like by lemma \lref{isospreserveandreflectidentifyinglike}.  
 \end{proof}
-
+\subsection{Relationship-Like Paths}
 \begin{definition}
 In an ER model $\gmodel$, a non-empty path $p: a \morph b$, where $a$ and $b$ are entity types, which consists
 of a relationship $R$ followed by a  path $t :a' \morph b$ is said to be \term{relationship-like} iff
@@ -1413,7 +1412,7 @@ then $y \simeq x_j$. \commentary{Qualification that $a$ and $b$ be distinct remo
 
 \begin{newtt}
 \begin{definition}
-An ER model $\gmodel$ is \term{restriction free} iff \newt{....}
+An ER model $\gmodel$ is \term{leaf-restriction free} iff \newt{....}
 \end{definition}
 \end{newtt}
 
@@ -1425,7 +1424,7 @@ If $\gmodel$ is a restriction free  ER model with an edge $y:a \morph b$, where 
 
 \begin{lemma}
 \llabel{intransitivelemma}
-In a well-formulated model $\gmodel$  if $\set{x_1,...x_n} \morph y$  is a non-trivial intransitive \oldt{leaf}
+In a well-formulated model $\gmodel$  if $\set{x_1,...x_n} \morph y$  is a non-trivial intransitive \reinstatet{leaf}
 functional dependency sourced at some entity type $a$ then either $\set{\xn}$ is a mono-source
 or else for some entity type $d$ there is a non-empty relationship-like path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$ is a functional dependency in $\gmodel$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
@@ -1542,10 +1541,10 @@ that the functional dependency  $\fd{\xnprime}{z'}$ factors through an intransit
 
 \begin{lemma}
 \llabel{mainlemma}
-In a well-formulated model $\gmodel$ that has the \fdfactoring\ property if $\set{x_1,...x_n} \morph z$ is a non-trivial \oldt{leaf} functional dependency sourced
+In a well-formulated model $\gmodel$ that has the \fdfactoring\ property if $\set{x_1,...x_n} \morph z$ is a non-trivial \reinstatet{leaf} functional dependency sourced
 at some entity type $a$ then either $\set{x_1,...x_n}$ is a mono-source in $\gmodel$
 or else there is an entity type $d$ and there is a relationship-like path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$
-and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If \newt{each $x_i$ has codomain $\veee$ and codomain of $y$,} $c$, is $\veee$ then
+and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If \newt{\oldt{each $x_i$ has codomain $\veee$ and }codomain of $y$,} $c$, is $\veee$ then
 the path $w$ is non-empty and if $y$ is an edge and $\gmodel$ is leaf-restriction free then $w$ is not equivalent to a primary key path.
 \end{lemma}
 \begin{proof}
@@ -1570,9 +1569,16 @@ In a well-formulated model $\gmodel$ that has the \fdfactoring\ property and whi
 is a functional dependency sourced at an entity type $a$ then $\set{\xn}$ is a mono-source.
 \end{lemma}
 \begin{proof}
-By lemma \lref{mainlemma} either $\set{\xn}$ is a mono-source or else there exist paths $p$ and $w$ such that $y=p \circ w$ but this is not so 
-since $y$ is an edge and $\gmodel$ is assumed to be free of design redundancy. \commentary{But what if $p$ or $w$ includes $y$?}.
-\end{proof}
+By lemma \lref{mainlemma} \commentary{\newt{need leaf fd}\newt{to use this lemma}}either $\set{\xn}$ is a mono-source or else there exist paths $p$ and $w$ such that $y \simeq p \circ w$. 
+\oldt{but this is not so since} . Since $y$ is an edge and $\gmodel$ is assumed to be free of design redundancy then we must conclude
+that $y$ apears in the path $p \circ w$. Since the codomain of $y$ is $\veee$ the only possibility is that the path $w$ 
+is a path $w' \circ y$. Consider the path $p' = p \circ w'$. From $y \simeq p \circ w$ it folows that $y \simeq p' \circ y$.
+Therefore there is a functional dependency $\fd{p'}{y}$ in $\gmodel$. 
+
+\begin{newtt}
+Could we stipulate in defn of well-formulated that representation of fd should not include thing represented?
+\end{oldtt} 
+\${proof}
 \end{newtt}
 
 
