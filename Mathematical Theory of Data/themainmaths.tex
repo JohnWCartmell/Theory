@@ -15,15 +15,18 @@ If a model $gmodel$ is well-formulated and \fd{\xn}{z} is an intransitive functi
 such that \fd{\xn}{y} and \fd{y}{\xn} are functional dependencies and \fd{y}{z} is an intransitive functional dependency.
 \end{lemma}
 
-
+\begin{oldtt}
 \begin{lemma}
 \llabel{wellformulatedimpliessingletonmonosourceshaveinverses}
 In a well-formulated model singleton mono-sources have inverses.
+\commentary{not so}
 \end{lemma}
 
 \begin{lemma}
 In a well-formulated model singleton intransitive fds are witnessed by paths.
+\commentary{not so}
 \end{lemma}
+\end{oldtt}
 
 
 \subsection{Directed Graphs}
@@ -1564,7 +1567,7 @@ A model $\gmodel$ is said to be \term{free of design redundancy} iff there are n
 \end{definition}
 
 \begin{lemma}
-\llabel{freeofdesignredundancyimpliesfdrhsismonosource}
+\llabel{freeofdesignredundancyimpliesfdrhsismonosource} \commentary{\newt{NOT PROVEN}}
 In a well-formulated model $\gmodel$ that has the \fdfactoring\ property and which is free of design redundancy if $y$ is an attribute and if $\fd{\xn}{y}$
 is a functional dependency sourced at an entity type $a$ then $\set{\xn}$ is a mono-source.
 \end{lemma}
@@ -1575,10 +1578,9 @@ that $y$ apears in the path $p \circ w$. Since the codomain of $y$ is $\veee$ th
 is a path $w' \circ y$. Consider the path $p' = p \circ w'$. From $y \simeq p \circ w$ it folows that $y \simeq p' \circ y$.
 Therefore there is a functional dependency $\fd{p'}{y}$ in $\gmodel$. 
 
-\begin{newtt}
-Could we stipulate in defn of well-formulated that representation of fd should not include thing represented?
-\end{oldtt} 
-\${proof}
+But also $y \simeq p' \circ p' \circ y$ and a functional dependencies $\fd{p'}{p' \circ p'}$ and $\fd{p' \circ p'}{y}$.
+\commentary{Could we stipulate in defn of well-formulated that representation of fd should not include thing represented?}
+\end{proof}
 \end{newtt}
 
 
@@ -1771,8 +1773,9 @@ and a path $w$ of $\gmodel$ that is not  equivalent to a primary key path such t
  r \circ w \simeq y
 \end{equation}
 and such that $\sfd{x_1,...x_n}{r}$.
-If the model $\gmodel$ is assumed to be reduced without caveat then either $r$ is a mono-source since $w$ is not equivalent to some primary key of $d$.
-Since $r$ is a mono-source then $x_1,...x_n$ is a mono source, as required, since $\sfd{x_1,...x_n}{r}$ \commentary{lemma?} and we have established BCNF.
+If the model $\gmodel$ is assumed to be reduced without caveat then $r$ is a mono-source since $w$ is not equivalent to some primary key of $d$.
+Since $r$ is a mono-source then $x_1,...x_n$ is a mono source, 
+since $\sfd{x_1,...x_n}{r}$ \newt{by lemma \ref{fdrightmonosourceimpliesleftmonosource}}, as required and we have established BCNF.
 With the weaker assumption that the model $\gmodel$ is reduced, there is the additional possibility that $y$ is identifying i.e. is a primary key attribute and we have proved S3NF.
 \end{proof}
 
@@ -1831,7 +1834,7 @@ and in addition one further property is required as we now descibe.
 
 
 \begin{definition}
-In an  ER model $\gmodel$, if $a$ and $b$ are entity types and if $\set{\qntuple}$ is the set of primary key paths sourced at $b$, if $r: a \morph b$ is a relationship then $r$ is said to be a \term{pseudo-restriction}\commentary{Find a better term here.}
+In an  ER model $\gmodel$, if $a$ and $b$ are entity types and if $\set{\qntuple}$ is the set of primary key paths sourced at $b$, if $r: a \morph b$ is a relationship then $r$ is said to be \term{\oldt{a pseudo-restriction}}\term{\newt{boolean-worth}}
 iff for each $i$, $1 \leq i \leq n$, there exists a path $s_i: a \morph \veee$ such that $r \circ q_i < s_i$,
 and there doesn't exist $s'_i$ such that $r \circ q_i < s'_i <s_i$ and  either
 $\incd{a}{\sntuple}{b}{\qntuple}$ and this inclusion dependency is not \commentary{ `represented' changed to `not represented' 4 May 2020. Double check day book 11th April 2020.} represented by
@@ -1839,13 +1842,21 @@ $r$ or else $\nincd{a}{\sntuple}{b}{\qntuple}$.
 \end{definition}
 
 \begin{lemma}
-If an edge is a restriction then it is a pseudo-restriction.
+In the context of the above definition if relationship $r$ is boolean-worth
+then $incd{a}{r \circ q_1,s_2,...s_n}{b}{\qn}$ is an inclusion dependency that represents $r$.
 \end{lemma}
 \begin{proof}
 TBD
 \end{proof}
 
-If these conditions are met: that attribute-like paths have at most one equivalent non attribute-like path, that implied dependencies are non-circular and there are no pseudo-restriction relationships, then we say that $\gmodel$ is \term{$\chit$-suitable} and in these instances we can show that 
+\begin{lemma}
+If an edge is a restriction then it is \newt{boolean-worth} \oldt{a pseudo-restriction}.
+\end{lemma}
+\begin{proof}
+TBD
+\end{proof}
+
+If these conditions are met: that attribute-like paths have at most one equivalent non attribute-like path, that implied dependencies are non-circular and there are no \oldt{pseudo-restriction} \newt{boolean-worth} relationships, then we say that $\gmodel$ is \term{$\chit$-suitable} and in these instances we can show that 
 the model $\chigmodel$ is a simple relational model. 
 
 We will define conditions for a well-formulated $\gmodel$  that if met ensure 
@@ -1871,7 +1882,7 @@ p_i =
 \end{cases} 
 $$
 which we prove by using lemma \lref{incdrepresentationshortcut} (which is applicable because we have assumed 
-that there are no pseudo-restriction relationships in $\gmodel$), and lemma \lref{incdrepresentationequivalence}.
+that there are no \oldt{pseudo-restriction} \newt{boolean-worth} relationships in $\gmodel$), and lemma \lref{incdrepresentationequivalence}.
 It follows from lemmas yyyyyyyyyyy  and zxzzzzzz that in $\chigmodel$ the relationship $r$ is represented by inclusion dependency $\incd{a}{p'_1,...p'_n}{b}{q_1,...q_n}$ where
 $$
 p'_i =
@@ -2018,13 +2029,13 @@ then it is leaf-restriction free.
 \begin{proof}
 Assume such a model $\gmodel$. To show that it is leaf-restriction free we show that if we assume that there is an
 entity type $a$ and an attribute $y$ with domain $a$ and there 
-exists paths $x_1,...x_n$   with domain
+are paths $x_1,...x_n$   with domain
 $a$ in $\gmodel$ and codomain $\veee$,  and for some $j$, $1 \leq j \leq n$, in every defining instance $E$, 
 \begin{equation}
 \label {restriction} 
 E_y = \bigwedge_{1 \leq i \leq n}{\overline{E_{x_i}}} \circ E_{x_j}
 \end{equation}
-then we deduce that $y \simeq x_j$. Assume then such an attribute $y$ and paths $x_1,...x_n$.  
+then we can deduce that $y \simeq x_j$. Assume then such an attribute $y$ and paths $x_1,...x_n$.  
 
 It follows from lemma \lref{freeofdesignredundancyimpliesfdrhsismonosource} that $\set{\xn}$ is a mono-source
 and so in every defining instance $E$ each $E_{x_i}$ is total
@@ -2077,8 +2088,8 @@ We need show  $y' \simeq x'_j$.
 
 There are two cases to consider. First suppose that the edge $y'$ is in the image of $I_\gmodel$, suppose that $y'=I_\gmodel(y)$ for some edge
 $y:a \morph \veee$ in $\gmodel$. From the fact that $I_\gmodel$ is an isomorphism of models it follows that for each instance $E$ of  $\gmodel$
-$$E_{y} = \bigwedge_{1 \leq i \leq n}{\overline{E_{x_i}}} \circ E_{x_j}$$,
-where $x_i=I{-1}_\gmodel(x'_i)$, for each $i$, $1 \leq i \leq n$ and therefore, because $\gmodel$ is leaf-restriction free then we can conclude that
+$$E_{y} = \bigwedge_{1 \leq i \leq n}{\overline{E_{x_i}}} \circ E_{x_j},$$
+where $x_i=I^{-1}_\gmodel(x'_i)$, for each $i$, $1 \leq i \leq n$ and therefore, because $\gmodel$ is leaf-restriction free then we can conclude that
 $y \simeq x_j$ in $\gmodel$ and therefore, in this first case, we have that $y' \simeq x'_j$ in $\gmodel'$.
 
 
