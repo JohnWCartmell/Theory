@@ -1834,20 +1834,23 @@ and in addition one further property is required as we now descibe.
 
 
 \begin{definition}
-In an  ER model $\gmodel$, if $a$ and $b$ are entity types and if $\set{\qntuple}$ is the set of primary key paths sourced at $b$, if $r: a \morph b$ is a relationship then $r$ is said to be \term{\oldt{a pseudo-restriction}}\term{\newt{boolean-worth}}
+In an  ER model $\gmodel$, if $a$ and $b$ are entity types and if $\set{\qntuple}$ is the set of primary key paths sourced at $b$, if $r: a \morph b$ is a relationship then $r$ is said to be \term{\oldt{a pseudo-restriction}}\term{\newt{boolean-worth}} \commentary{the boolean in question is the fact of whether the relationship is or is not defined at a particular entity.}
 iff for each $i$, $1 \leq i \leq n$, there exists a path $s_i: a \morph \veee$ such that $r \circ q_i < s_i$,
 and there doesn't exist $s'_i$ such that $r \circ q_i < s'_i <s_i$ and  either
-$\incd{a}{\sntuple}{b}{\qntuple}$ and this inclusion dependency is not \commentary{ `represented' changed to `not represented' 4 May 2020. Double check day book 11th April 2020.} represented by
+$\incd{a}{\sntuple}{b}{\qntuple}$ and this inclusion dependency is not represented by
 $r$ or else $\nincd{a}{\sntuple}{b}{\qntuple}$.
 \end{definition}
 
+We exclude models $\gmodel$ 0that have boolean-worth relationships from the $\gmodel$ for which $\chi$ is defined but not because a relational impelmentation cannot be given but because there is a choice of representations: 
 \begin{lemma}
 In the context of the above definition if relationship $r$ is boolean-worth
-then $incd{a}{r \circ q_1,s_2,...s_n}{b}{\qn}$ is an inclusion dependency that represents $r$.
+then $incd{a}{r \circ q_1,s_2,...s_n}{b}{\qn}$ is an inclusion dependency that represents $r$. \commentary{ Or choose any $q_i$ for that matter.}
 \end{lemma}
 \begin{proof}
 TBD
 \end{proof}
+We could easily include boolean-worth representations to entity types havinga single primary key attribute because then no choice is required.
+This leads to examples where the boolean-worth $r: a \morph b$ is replaced by the boolean-worth $\bar{r}: a \morph a$ in the case where $b$ has multiple primary keys but $a$ has just one.  
 
 \begin{lemma}
 If an edge is a restriction then it is \newt{boolean-worth} \oldt{a pseudo-restriction}.
