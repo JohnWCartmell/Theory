@@ -1,3 +1,7 @@
+\commentary {An example of a model that does not have the fd factoring property.}
+We imagine a situation in which a number of people are separated into teams by asking each person to select a person they wish to be teamed up with. Teams of various sizes are picked based on this information and coloured vests are worn by people to be indicative of the teams that they are in.
+We choose to represent this team information by the schema shown in figure \ref{teamselectionexample}. 
+
 \begin{figure} [h]
 \begin{center}
 \begin{tabular}{c c}
@@ -16,19 +20,23 @@
 KEY && \\
 \hline
 p & person & Identified by id attribute ($pId$). \\
-s & selects & each person selects one other person \\
+s & selects & each person selects exactly one other person \\
 c & colour & each person is given a coloured vest 
 \end{tabular} 
 \end{tabular}
 \end{center}
-\caption{Team Selection Example. This is an example of an ER model 
-which is well formulated but which exhibits a transitive functional dependency which does not factor through an intransitive dependency.
+\caption{Team Selection Example. The  vest colour  of a person is 
+identical to the vest colour of their selected buddy which is to say that the path equivalence $S \circ c \simeq c$ holds. From this
+we can show that this model exhibits a transitive functional dependency which does not factor through an intransitive dependency.
 }
 \label{teamselectionexample}
 \end{figure}
 
-In this example the colour of a person's vest is the same as the 
-colour of vest of the person they select to be in the same team, which is to say that  the diagram
+That the  vest colour  of a person is 
+identical to the vest colour of their selected buddy can be expressed by the path equivalence $S \circ c \simeq c$. 
+\begin{categoricalaside}
+Another way of expressing this 
+path equivalence is by stating that in the category of paths through the schema  the diagram
 $
 \begin{array}{c p{0.75cm} c}
    \Rnode{p1}{p}  & &                  \\[0.5cm]
@@ -44,9 +52,9 @@ $
 \ncarr{p1}{p2}
 \blabel{S}[0.4]
 commutes. 
+\end{categoricalaside}
 
-
-Consider the functional dependency
+Now consider the functional dependency
 \begin{equation*}
 \sfd{S/pId}{c}
 \end{equation*}
@@ -68,15 +76,17 @@ and
 \sfd{S/S/S}{c} 
 \end{equation*} 
 
-We have :
+If, as we do, we assume that selection is unconstrained then $S$ is not a mono-source in this model and there can be arbitrary long chains of selection.
+In  all therefore there is an infinity of functional dependencies non of which are reversible
 
 \begin{equation}
 S/pId \morph S \morph S/S \morph S/S/S \morph S/S/S/S .. \morph c
 \end{equation}
 We can see that the model has a transitive functional dependency $S/pId \morph c$ which is between
-attribute-like paths but which cannot be factored right-intransitively. The left hand side, $S/pId$, is not a mono-source, therefore the model doesn't meet he conditions that are required to ensure that the relational design it determines  be in 3NF.
+attribute-like paths but which cannot be factored right-intransitively. The left hand side, $S/pId$, is not a mono-source\commentary{this is under review 29 May 2020}, therefore the model doesn't meet the conditions of lemma \ref{????} and therefore we cannot be sure that the relational design determined by the $\chi$ mapping will  be in 3NF.
 
-In the relational design the person entity type, abbreviated $p$ in the diagram, maps to the following relation:
+
+In fact, in the relational design produced by the $\chi$ mapping the person entity type, abbreviated $p$ in the diagram, maps to the following relation:
 \begin{equation}
 \label{personrelation}
 person(\underline{pId}, spId, c)
@@ -98,7 +108,7 @@ and the following  inclusion dependency:
 person[spId,c] \subseteq person[pId,c]
 \end{equation}
 
-The $person$ relation (\ref{personrelation}) is not in 3NF because the dependency (\ref{colourfd}) is transitive but its rhs, $c$, is not a key attribute wrt the relation. However this
+The $person$ relation (\ref{personrelation}) is not in 3NF because the dependency (\ref{colourfd}) is transitive but its rhs, $c$, is not a key attribute wrt the relation \commentary{This uses Codd's way of describing 3NF not Zaniolo's.}. However this
 relation (\ref{personrelation}) can be normalised into relations (\ref{person1relation}) and (\ref{person2relation}):
 \begin{equation}
 \label{person1relation}
@@ -150,4 +160,16 @@ I/pId \morph I/S \morph I/S/S \morph I/S/S/S ... \morph c
 and $I/pId \morph c$ is a transitive fd between attribute-like paths which cannot
 be factored right-intransitively. However  the left  hand side, $I/pId$, is a mono-source and
 so the condition for the determined relational design to be in normal form is met.
+
+But $I/S$ isn't a mono-source \commentary{Big shortcoming}
+and $I/S/I/pId \morph c$ is an fd between  paths that cannot be right factored??? 
+Of course $I/S/I/pId$ is not attribute like.
+
+Maybe what I need is that every functional dependency is finitely represented.
+
+What I have written in notebook regarding constrained version of this example is that
+whenever $p \circ x \simeq x$ then $p$ factors through a mono-source i.e. is identical to or equivalent to 
+$I \circ p'$ for some path $p'$ where $I$ is a mono source. This coming about remember because we are trying to prove lemma 
+%freeofdesignredundancyimpliesfdlhsismonosource 
+\lref{freeofdesignredundancyimpliesfdlhsismonosource}.
 
