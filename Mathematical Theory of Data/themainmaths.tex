@@ -1362,11 +1362,13 @@ it satisfies the minimality condition (see section \lref{minimalitycondition}),
 each\commentary{This is the first place we zero-in on primaries.} primary\commentary{What about secondary referential inclusion dependencies?} referential inclusion dependency of $\gmodel$ is represented in $\gmodel$ by some path $p$ \footnote{Equivalently, by lemma
 \lref{simplerepresentationlemma}, sufficient that all simple primary referential inclusion dependencies of $\gmodel$ be represented.},
 }
+\begin{oldtt}
 \item{ 
 \commentary{clause (iii) added 11 Dec 2019. Now thinking that I need restrict to simple leaf primary referential inclusion dependencies
 i.e. where $\xn$ are attributes.} 
 each leaf primary referential inclusion dependency of $\gmodel$ is represented in $\gmodel$ by some \highlight{relationship-like} path $p$, 
 }
+\end{oldtt}
 \item{
 for each leaf intransitive functional dependency $\set{x_1,...x_n} \morph y$ in model $\gmodel$
 either $\set{x_1,...x_n}$ is a mono-source i.e. in every defining instance $E$, $E_{\xntuple}$ is injective and total
@@ -1432,7 +1434,7 @@ If $\gmodel$ is a restriction free  ER model with an edge $y:a \morph b$, where 
 \llabel{intransitivelemma}
 In a well-formulated model $\gmodel$  if $\set{x_1,...x_n} \morph y$  is a non-trivial intransitive \reinstatet{leaf}
 functional dependency sourced at some entity type $a$ then either $\set{\xn}$ is a mono-source
-or else for some entity type $d$ there is a non-empty \highlight{relationship-like} path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$ is a functional dependency in $\gmodel$
+or else for some entity type $d$ there is a non-empty \oldt{relationship-like} path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$ is a functional dependency in $\gmodel$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
 the path $w$ is non-empty and if $y$ is an edge and $\gmodel$ is leaf\commentary{notice that only need leaf-restriction free} restriction free then $w$ is not equivalent to a primary key path.
 \end{lemma}
@@ -1473,7 +1475,7 @@ E_y = E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_w
 
 Because $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$,  and from
 clause (iii) of the definition of well-formulated since $\gmodel$ is well-formulated, it follows that
-there  is a \highlight{relationship-like} path $p:a \rightarrow d$ such
+there  is a \oldt{relationship-like} path $p:a \rightarrow d$ such
 that 
 %\foreachi, $p \circ q_i \simeq x_i$ and therefore
 in all defining instances $E$,
@@ -1549,7 +1551,7 @@ that the functional dependency  $\fd{\xnprime}{z'}$ factors through an intransit
 \llabel{mainlemma}
 In a well-formulated model $\gmodel$ that has the \fdfactoring\ property if $\set{x_1,...x_n} \morph z$ is a non-trivial \reinstatet{leaf} functional dependency sourced
 at some entity type $a$ then either $\set{x_1,...x_n}$ is a mono-source in $\gmodel$
-or else there is an entity type $d$ and there is a \highlight{relationship-like} path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$
+or else there is an entity type $d$ and there is a \oldt{relationship-like} path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If \newt{\oldt{each $x_i$ has codomain $\veee$ and }codomain of $y$,} $c$, is $\veee$ then
 the path $w$ is non-empty and if $y$ is an edge and $\gmodel$ is leaf-restriction free then $w$ is not equivalent to a primary key path.
 \end{lemma}
@@ -1557,9 +1559,9 @@ the path $w$ is non-empty and if $y$ is an edge and $\gmodel$ is leaf-restrictio
 Since the model $\gmodel$  has the \fdfactoring\ property, the functional dependency $\set{x_1,...x_n} \morph z$ can be factored through an intransitive functional 
 dependency $\set{y_1,...y_m} \morph z$. Therefore by lemma \lref{intransitivelemma} either there exists $d$, $p$ and $w$ as required
 or else  $\set{\ym}$ is a mono-source in which case, by lemma \lref{transitiveinjectivelemma}, $\set{\xn}$ is a mono-source as required.
-\begin{newtt}
+\begin{oldtt}
 Surely $yn$ would have to be attributes for intransitive lemma to be used to establish that $p$ is relationship-like. This is surely hopeless.
-\end{newtt}
+\end{oldtt}
 \end{proof}
 
 \begin{newtt}
@@ -1712,7 +1714,7 @@ $\set{\xn}$ is a mono-source or $y$ is a primary key.
 \subsection{Other Conditions for Relational ER models}
 \begin{definition} 
 An ER model is \term{reduced} iff for all attributes $x:a \morph \veee$ \commentary{move earlier?}
-such that there is a \highlight{relationship-like} path $r:a \morph b$ and a path $p:b \morph \veee$ such that
+such that there is a \oldt{relationship-like} \newt{non-empty} path $r:a \morph b$ and a \newt{non-empty} path $p:b \morph \veee$ such that
 $x \simeq r \circ p$, as here,
 \setlength{\arraycolsep}{.2cm}
 \begin{center}
@@ -1735,7 +1737,7 @@ $
 then it follows that 
 either 
 \begin{enumerate} [(i)]
-\item there exists a primary key path $q:b \morph \veee$ such that $p \simeq q$, or
+\item \newt{the path $r$ is relationship-like} and there exists a primary key path $q:b \morph \veee$ such that $p \simeq q$, or
 \item the path $r$ is a mono-source, or
 \item the attribute $x$ is identifying.
 \end{enumerate}
@@ -1746,11 +1748,10 @@ In a relational ER model $\gmodel$ if there are no identifying attributes $x$ su
 Thus we get:
 \begin{definition} 
 An ER model $\gmodel$ is \term{reduced without caveat} iff for all attributes $x:a \morph \veee$
-such that there is a \highlight{relationship-like} path $r:a \morph b$ and a path $p:b \morph \veee$ such that
-$x \simeq r \circ p$ it follows that 
+such that there is a \oldt{relationship-like} \newt{non-empty} path $r:a \morph b$ and a \newt{non-empty} path $p:b \morph \veee$ such that $x \simeq r \circ p$ it follows that 
 either 
 \begin{enumerate} [(i)]
-\item there exists a primary key path \commentary{an identifying attribute} $q:b \morph \veee$ such that $p \simeq q$, or
+\item \newt{the path $r$ is relationship-like} and there exists a primary key path \commentary{an identifying attribute} $q:b \morph \veee$ such that $p \simeq q$, or
 \item the path $r$ is a mono-source.
 \end{enumerate}
 \end{definition}
@@ -1772,7 +1773,7 @@ Assume then such a functional dependency.
 From the assumption that the model $\gmodel$ is well-formulated and leaf-restriction free
 then by lemma \lref{mainlemma} 
 either $\set{\xn}$ is a mono-source and we are done
-or else there is a non-empty \highlight{relationship-like} path $r$ in $\gmodel$
+or else there is a non-empty \oldt{relationship-like} path $r$ in $\gmodel$
 and a path $w$ of $\gmodel$ that is not  equivalent to a primary key path such that
 \begin{equation}
 \label{simpleRepresentation}
