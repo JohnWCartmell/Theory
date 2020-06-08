@@ -1,0 +1,47 @@
+\section{The analysis of examples}
+The lemmas in this section are for use in the analyisis of examples.
+
+\begin{lemma}
+\llabel{fdfrompathextension}
+In an ER model $\gmodel$ if $p_1: a \morph b$ and $p_2:b \morph c$  are paths 
+then $\ssfd{p_1}{ p_1 \circ p_2}$ is a functional dependency in $\gmodel$ and, further, $\ssfd{p_1}{p_1 \circ p_2}$ is reversible i.e.
+$\ssfd{p_1 \circ  p_2}{p_1}$ is also a functional dependency in $\gmodel$ iff in every defining instance $E$, $E_{p_2}$ is defined on the range of $E_{p_1}$ or, equivalently,
+$E_{p_1} \circ \overline{E_{p_2}} = E_{p_1}$,  and the partial function $E_{p_2}$ restricted to the range of $E_{p_1}$ is injective. 
+\end{lemma}
+
+\begin{lemma}
+\llabel{fdfrompathequivalence}
+In an ER model $\gmodel$ if $p,p':a \morph b$ and  $q, q': a \morph c$ are paths and if $p \simeq p'$ and $q \simeq q'$ in $\gmodel$
+then 
+\begin{equation}
+\label{pqfd}
+\ssfd{p}{q}
+\end{equation}
+ is a functional dependency in $\gmodel$ iff 
+\begin{equation}
+\label{ppqpfd}
+\ssfd{p'}{q'}
+\end{equation}
+ is a functional dependency in $\gmodel$.
+ Further, (\ref{pqfd}) is reversible i.e.
+$\ssfd{q}{p}$ is also a functional dependency in $\gmodel$ iff (\ref{ppqpfd}) is reversible,
+(\ref{pqfd}) is transitive iff (\ref{ppqpfd}) is transitive,
+(\ref{pqfd}) is intransitive iff (\ref{ppqpfd}) is intransitive.
+\end{lemma}
+
+\begin{lemma}
+\llabel{fdfromfdplusmonosource}
+\llabel{fdfromfdminusmonosource}
+In an ER model $\gmodel$ if $p: a \morph b$ and $r: a \morph c$ are paths and if $\qn$ is a mono-source with domain $b$
+then 
+\begin{equation}
+\label{monosourcedfd}
+\msfd{p \circ q_1,...p \circ q_n}{r}
+\end{equation}
+ is a functional dependency iff 
+\begin{equation}
+\label{strippedfd}
+\ssfd{p}{r}
+\end{equation}
+ is a functional dependency. Further (\ref{monosourcedfd}) is reversible iff (\ref{strippedfd}) is.
+\end{lemma}
