@@ -245,3 +245,323 @@
 \ncmarrr[#1][#2]{#4}{#5}{#6}{#7}{#8}
 \nbput[npos=.05]{$#3$}
 }
+
+
+% 6 June 2020
+% Edges representing attributes and relationship graphs
+%  Ep   - partial
+%  Epm  - partial mono
+%  Epe  - partial epi
+%  Epme - partial mono epi
+%  Et   - total
+%  Etm  - total mono
+%  Ete  - total epi
+%  Etme - total mono epi
+%  recursive edges (use nccircle)
+%  rEp   - partial
+%  rEpm  - partial mono
+%  rEpe  - partial epi
+%  rEpme - partial mono epi
+%  rEt   - total
+%  rEtm  - total mono
+%  rEte  - total epi
+%  rEtme - total mono epi
+
+
+% Ep - Edge partial
+\newcommand{\Ep}[3][0]{
+\setlength{\sarnodesepAsav}{\sarnodesepA}
+\setlength{\sarnodesepBsav}{\sarnodesepB}
+\addtolength{\sarnodesepA}{3pt}
+\addtolength{\sarnodesepB}{3pt}
+\setcounter{EangleB}{180 - #1}
+\nccurve[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,angleA=#1, angleB=\theEangleB,linecolor=white,linewidth=0]{->}{#2}{#3}
+\ncput[nrot=:R,npos=0]{\psline(0,.1)(.075,0)}
+\ncput[nrot=:R,npos=0]{\psline(0,.1)(-0.075,0)}
+\ncput{\pnode(0,0){xxx}}
+\nccurve[nodesepA=0,nodesepB=\sarnodesepB,offsetA=0,offsetB=\saroffsetB,angleA=0, angleB=\theEangleB, linestyle=dashed]{->}{xxx}{#3}
+%the following provides context for any following label
+\nccurve[nodesepA=\sarnodesepA,nodesepB=0,offsetA=\saroffsetA,offsetB=0,angleA=#1, angleB=180,linestyle=dashed]{-}{#2}{xxx}
+\setlength{\sarnodesepA}{\sarnodesepAsav}
+\setlength{\sarnodesepB}{\sarnodesepBsav}
+}
+
+\newcounter{EangleB}
+
+% Epm - Edge partial mono
+\newcommand{\Epm}[3][0]{
+\setlength{\sarnodesepAsav}{\sarnodesepA}
+\setlength{\sarnodesepBsav}{\sarnodesepB}
+\addtolength{\sarnodesepA}{3pt}
+\addtolength{\sarnodesepB}{3pt}
+\setcounter{EangleB}{180 - #1}
+\nccurve[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,angleA=#1, angleB=\theEangleB,linecolor=white,linewidth=0]{->}{#2}{#3}
+\ncput{\pnode(0,0){xxx}}
+\nccurve[nodesepA=0,nodesepB=\sarnodesepB,offsetA=0,offsetB=\saroffsetB,angleA=0, angleB=\theEangleB,linestyle=dashed]{->}{xxx}{#3}
+%the following provides context for any following label
+\nccurve[nodesepA=\sarnodesepA,nodesepB=0,offsetA=\saroffsetA,offsetB=0,angleA=#1, angleB=180,linestyle=dashed]{-}{#2}{xxx}
+\setlength{\sarnodesepA}{\sarnodesepAsav}
+\setlength{\sarnodesepB}{\sarnodesepBsav}
+}
+
+
+% Epe - Edge partial epi
+\newcommand{\Epe}[3][0]{
+\setlength{\sarnodesepAsav}{\sarnodesepA}
+\setlength{\sarnodesepBsav}{\sarnodesepB}
+\addtolength{\sarnodesepA}{3pt}
+\addtolength{\sarnodesepB}{3pt}
+\setcounter{EangleB}{180 - #1}
+\nccurve[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,angleA=#1, angleB=\theEangleB,linecolor=white,linewidth=0]{->}{#2}{#3}
+\ncput[nrot=:R,npos=0]{\psline(0,.1)(.075,0)}
+\ncput[nrot=:R,npos=0]{\psline(0,.1)(-0.075,0)}
+\ncput{\pnode(0,0){xxx}}
+\nccurve[nodesepA=0,nodesepB=\sarnodesepB,offsetA=0,offsetB=\saroffsetB,angleA=0, angleB=\theEangleB]{->}{xxx}{#3}
+%the following provides context for any following label
+\nccurve[nodesepA=\sarnodesepA,nodesepB=0,offsetA=\saroffsetA,offsetB=0,angleA=#1, angleB=180,linestyle=dashed]{-}{#2}{xxx}
+\setlength{\sarnodesepA}{\sarnodesepAsav}
+\setlength{\sarnodesepB}{\sarnodesepBsav}
+}
+
+% Epme - Edge partial epi
+\newcommand{\Epme}[3][0]{
+\setlength{\sarnodesepAsav}{\sarnodesepA}
+\setlength{\sarnodesepBsav}{\sarnodesepB}
+\addtolength{\sarnodesepA}{3pt}
+\addtolength{\sarnodesepB}{3pt}
+\setcounter{EangleB}{180 - #1}
+\nccurve[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,angleA=#1, angleB=\theEangleB,linecolor=white,linewidth=0]{->}{#2}{#3}
+\ncput{\pnode(0,0){xxx}}
+\nccurve[nodesepA=0,nodesepB=\sarnodesepB,offsetA=0,offsetB=\saroffsetB,angleA=0, angleB=\theEangleB]{->}{xxx}{#3}
+%the following provides context for any following label
+\nccurve[nodesepA=\sarnodesepA,nodesepB=0,offsetA=\saroffsetA,offsetB=0,angleA=#1, angleB=180,linestyle=dashed]{-}{#2}{xxx}
+\setlength{\sarnodesepA}{\sarnodesepAsav}
+\setlength{\sarnodesepB}{\sarnodesepBsav}
+}
+
+% Et - Edge total
+\newcommand{\Et}[3][0]{
+\setlength{\sarnodesepAsav}{\sarnodesepA}
+\setlength{\sarnodesepBsav}{\sarnodesepB}
+\addtolength{\sarnodesepA}{3pt}
+\addtolength{\sarnodesepB}{3pt}
+\setcounter{EangleB}{180 - #1}
+\nccurve[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,angleA=#1, angleB=\theEangleB,linecolor=white,linewidth=0]{->}{#2}{#3}
+\ncput[nrot=:R,npos=0]{\psline(0,.1)(.075,0)}
+\ncput[nrot=:R,npos=0]{\psline(0,.1)(-0.075,0)}
+\ncput{\pnode(0,0){xxx}}
+\nccurve[nodesepA=0,nodesepB=\sarnodesepB,offsetA=0,offsetB=\saroffsetB,angleA=0, angleB=\theEangleB, linestyle=dashed]{->}{xxx}{#3}
+%the following provides context for any following label
+\nccurve[nodesepA=\sarnodesepA,nodesepB=0,offsetA=\saroffsetA,offsetB=0,angleA=#1, angleB=180]{-}{#2}{xxx}
+\setlength{\sarnodesepA}{\sarnodesepAsav}
+\setlength{\sarnodesepB}{\sarnodesepBsav}
+}
+
+% Etm - Edge totalmono
+\newcommand{\Etm}[3][0]{
+\setlength{\sarnodesepAsav}{\sarnodesepA}
+\setlength{\sarnodesepBsav}{\sarnodesepB}
+\addtolength{\sarnodesepA}{3pt}
+\addtolength{\sarnodesepB}{3pt}
+\setcounter{EangleB}{180 - #1}
+\nccurve[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,angleA=#1, angleB=\theEangleB,linecolor=white,linewidth=0]{->}{#2}{#3}
+\ncput{\pnode(0,0){xxx}}
+\nccurve[nodesepA=0,nodesepB=\sarnodesepB,offsetA=0,offsetB=\saroffsetB,angleA=0, angleB=\theEangleB, linestyle=dashed]{->}{xxx}{#3}
+%the following provides context for any following label
+\nccurve[nodesepA=\sarnodesepA,nodesepB=0,offsetA=\saroffsetA,offsetB=0,angleA=#1, angleB=180]{-}{#2}{xxx}
+\setlength{\sarnodesepA}{\sarnodesepAsav}
+\setlength{\sarnodesepB}{\sarnodesepBsav}
+}
+
+% Ete - Edge total epi
+\newcommand{\Ete}[3][0]{
+\setlength{\sarnodesepAsav}{\sarnodesepA}
+\setlength{\sarnodesepBsav}{\sarnodesepB}
+\addtolength{\sarnodesepA}{3pt}
+\addtolength{\sarnodesepB}{3pt}
+\nccurve[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,angleA=#1, angleB=\theEangleB,linecolor=white,linewidth=0]{->}{#2}{#3}
+\ncput[nrot=:R,npos=0]{\psline(0,.1)(.075,0)}
+\ncput[nrot=:R,npos=0]{\psline(0,.1)(-0.075,0)}
+\ncput{\pnode(0,0){xxx}}
+\nccurve[nodesepA=0,nodesepB=\sarnodesepB,offsetA=0,offsetB=\saroffsetB,angleA=0, angleB=\theEangleB]{->}{xxx}{#3}
+%the following provides context for any following label
+\nccurve[nodesepA=\sarnodesepA,nodesepB=0,offsetA=\saroffsetA,offsetB=0,angleA=#1, angleB=180]{-}{#2}{xxx}
+\setlength{\sarnodesepA}{\sarnodesepAsav}
+\setlength{\sarnodesepB}{\sarnodesepBsav}
+}
+
+% Etme - Edge total mono epi
+\newcommand{\Etme}[3][0]{
+\setlength{\sarnodesepAsav}{\sarnodesepA}
+\setlength{\sarnodesepBsav}{\sarnodesepB}
+\addtolength{\sarnodesepA}{3pt}
+\addtolength{\sarnodesepB}{3pt}
+\nccurve[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,angleA=#1, angleB=\theEangleB,linecolor=white,linewidth=0]{->}{#2}{#3}
+\ncput{\pnode(0,0){xxx}}
+\nccurve[nodesepA=0,nodesepB=\sarnodesepB,offsetA=0,offsetB=\saroffsetB,angleA=0, angleB=\theEangleB]{->}{xxx}{#3}
+%the following provides context for any following label
+\nccurve[nodesepA=\sarnodesepA,nodesepB=0,offsetA=\saroffsetA,offsetB=0,angleA=#1, angleB=180]{-}{#2}{xxx}
+\setlength{\sarnodesepA}{\sarnodesepAsav}
+\setlength{\sarnodesepB}{\sarnodesepBsav}
+}
+
+
+
+
+\newcounter{EangleGiven}
+\newcounter{EangleComplementary}
+\newcounter{EangleStartCorrected}
+\newcounter{EangleEndCorrected}
+
+
+%  rEp   - recursive Edge partial
+\newcommand{\rEp}[2][0]{
+\setcounter{EangleGiven}{#1}
+\setcounter{EangleStartCorrected}{#1-10} %correction required because for nccurve unlike nccircle angle measured at boundary not at centre of node
+\setcounter{EangleEndCorrected}{#1+180+10} %correction required because angle measured at boundary not at centre of node
+\setcounter{EangleComplementary}{#1 + 180}
+\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linecolor=white]{->}{#2}{.4cm} % an invisible circle to hang the midpoint from
+\ncput{\pnode(0,0){midpoint}}                                         
+\nccurve[nodesepA=1pt,nodesepB=0pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleStartCorrected, angleB=\theEangleGiven, ncurv=1.359, linecolor=black, linestyle=dashed]{-}{#2}{midpoint}
+\ncput[nrot=:R,npos=0]{\psline(0,.1)(.075,0)}
+\ncput[nrot=:R,npos=0]{\psline(0,.1)(-0.075,0)}
+\nccurve[nodesepA=0pt,nodesepB=2pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleComplementary, angleB=\theEangleEndCorrected, ncurv=1.359, linestyle=dashed]{-}{midpoint}{#2}
+% 1.359 is e/2 happenchance or algorithmically necessary???
+% now draw arrowhead -- dont include in the nccurve because this alters the line position - a strange feature of pstruicks
+\ncput[npos=0.9]{\pnode(0,0){yyy}}
+\ncline{->}{yyy}{#2}
+% repeat from earlier to provide context for label that might follow
+\nccurve[nodesepA=1pt,nodesepB=0pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleStartCorrected, angleB=\theEangleGiven, ncurv=1.359, linecolor=black, linestyle=dashed]{-}{#2}{midpoint} 
+} 
+
+%  rEpm  - recursive Edge partial mono
+\newcommand{\rEpm}[2][0]{
+\setcounter{EangleGiven}{#1}
+\setcounter{EangleStartCorrected}{#1-10} %correction required because for nccurve unlike nccircle angle measured at boundary not at centre of node
+\setcounter{EangleEndCorrected}{#1+180+10} %correction required because angle measured at boundary not at centre of node
+\setcounter{EangleComplementary}{#1 + 180}
+\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linecolor=white]{->}{#2}{.4cm} % an invisible circle to hang the midpoint from
+\ncput{\pnode(0,0){midpoint}}   
+\nccurve[nodesepA=0pt,nodesepB=2pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleComplementary, angleB=\theEangleEndCorrected, ncurv=1.359, linestyle=dashed]{-}{midpoint}{#2}
+% 1.359 is e/2 happenchance or algorithmically necessary???
+% now draw arrowhead -- dont include in the nccurve because this alters the line position - a strange feature of pstruicks
+\ncput[npos=0.9]{\pnode(0,0){yyy}}
+\ncline{->}{yyy}{#2}
+% last to provide context for label that might follow
+\nccurve[nodesepA=1pt,nodesepB=0pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleStartCorrected, angleB=\theEangleGiven, ncurv=1.359, linecolor=black, linestyle=dashed]{-}{#2}{midpoint} 
+}
+
+%  rEpe  - recursive Edge partial epi
+\newcommand{\rEpe}[2][0]{
+\setcounter{EangleGiven}{#1}
+\setcounter{EangleStartCorrected}{#1-10} %correction required because for nccurve unlike nccircle angle measured at boundary not at centre of node
+\setcounter{EangleEndCorrected}{#1+180+10} %correction required because angle measured at boundary not at centre of node
+\setcounter{EangleComplementary}{#1 + 180}
+\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linecolor=white]{->}{#2}{.4cm} % an invisible circle to hang the midpoint from
+\ncput{\pnode(0,0){midpoint}}                                         
+\nccurve[nodesepA=1pt,nodesepB=0pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleStartCorrected, angleB=\theEangleGiven, ncurv=1.359, linecolor=black, linestyle=dashed]{-}{#2}{midpoint}
+\ncput[nrot=:R,npos=0]{\psline(0,.1)(.075,0)}
+\ncput[nrot=:R,npos=0]{\psline(0,.1)(-0.075,0)}
+\nccurve[nodesepA=0pt,nodesepB=2pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleComplementary, angleB=\theEangleEndCorrected, ncurv=1.359]{-}{midpoint}{#2}
+% 1.359 is e/2 happenchance or algorithmically necessary???
+% now draw arrowhead -- dont include in the nccurve because this alters the line position - a strange feature of pstruicks
+\ncput[npos=0.9]{\pnode(0,0){yyy}}
+\ncline{->}{yyy}{#2}
+% repeat from earlier to provide context for label that might follow
+\nccurve[nodesepA=1pt,nodesepB=0pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleStartCorrected, angleB=\theEangleGiven, ncurv=1.359, linecolor=black, linestyle=dashed]{-}{#2}{midpoint} 
+}
+
+%  rEpme - recursive Edge partial mono epi
+\newcommand{\rEpme}[2][0]{
+\setcounter{EangleGiven}{#1}
+\setcounter{EangleStartCorrected}{#1-10} %correction required because for nccurve unlike nccircle angle measured at boundary not at centre of node
+\setcounter{EangleEndCorrected}{#1+180+10} %correction required because angle measured at boundary not at centre of node
+\setcounter{EangleComplementary}{#1 + 180}
+\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linecolor=white]{->}{#2}{.4cm} % an invisible circle to hang the midpoint from
+\ncput{\pnode(0,0){midpoint}}                                         
+%\nccurve[nodesepA=0pt,nodesepB=0pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleComplementary, angleB=\theEangleEndCorrected, ncurv=1.359, linestyle=dashed]{->}{xxx}{#2}
+\nccurve[nodesepA=0pt,nodesepB=2pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleComplementary, angleB=\theEangleEndCorrected, ncurv=1.359]{-}{midpoint}{#2}
+% 1.359 is e/2 happenchance or algorithmically necessary???
+% now draw arrowhead -- dont include in the nccurve because this alters the line position - a strange feature of pstruicks
+\ncput[npos=0.9]{\pnode(0,0){yyy}}
+\ncline{->}{yyy}{#2}
+% last so that to provide context for label that might follow
+\nccurve[nodesepA=1pt,nodesepB=0pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleStartCorrected, angleB=\theEangleGiven, ncurv=1.359, linecolor=black, linestyle=dashed]{-}{#2}{midpoint} 
+}
+
+% rEt - recursive Edge total
+\newcommand{\rEt}[2][0]{
+\setcounter{EangleGiven}{#1}
+\setcounter{EangleStartCorrected}{#1-10} %correction required because for nccurve unlike nccircle angle measured at boundary not at centre of node
+\setcounter{EangleEndCorrected}{#1+180+10} %correction required because angle measured at boundary not at centre of node
+\setcounter{EangleComplementary}{#1 + 180}
+\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linecolor=white]{->}{#2}{.4cm} % an invisible circle to hang the midpoint from
+\ncput{\pnode(0,0){midpoint}}                                         
+\nccurve[nodesepA=1pt,nodesepB=0pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleStartCorrected, angleB=\theEangleGiven, ncurv=1.359, linecolor=black]{-}{#2}{midpoint}
+\ncput[nrot=:R,npos=0]{\psline(0,.1)(.075,0)}
+\ncput[nrot=:R,npos=0]{\psline(0,.1)(-0.075,0)}
+%\nccurve[nodesepA=0pt,nodesepB=0pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleComplementary, angleB=\theEangleEndCorrected, ncurv=1.359, linestyle=dashed]{->}{xxx}{#2}
+\nccurve[nodesepA=0pt,nodesepB=2pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleComplementary, angleB=\theEangleEndCorrected, ncurv=1.359, linestyle=dashed]{-}{midpoint}{#2}
+% 1.359 is e/2 happenchance or algorithmically necessary???
+% now draw arrowhead -- dont include in the nccurve because this alters the line position - a strange feature of pstruicks
+\ncput[npos=0.9]{\pnode(0,0){yyy}}
+\ncline{->}{yyy}{#2}
+% repeat from earlier to provide context for label that might follow
+\nccurve[nodesepA=1pt,nodesepB=0pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleStartCorrected, angleB=\theEangleGiven, ncurv=1.359, linecolor=black]{-}{#2}{midpoint} 
+}
+
+%  rEtm  - recursive Edge total mono
+\newcommand{\rEtm}[2][0]{
+\setcounter{EangleGiven}{#1}
+\setcounter{EangleStartCorrected}{#1-10} %correction required because for nccurve unlike nccircle angle measured at boundary not at centre of node
+\setcounter{EangleEndCorrected}{#1+180+10} %correction required because angle measured at boundary not at centre of node
+\setcounter{EangleComplementary}{#1 + 180}
+\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linecolor=white]{->}{#2}{.4cm} % an invisible circle to hang the midpoint from
+\ncput{\pnode(0,0){midpoint}}     
+\nccurve[nodesepA=0pt,nodesepB=2pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleComplementary, angleB=\theEangleEndCorrected, ncurv=1.359, linestyle=dashed]{-}{midpoint}{#2}
+% 1.359 is e/2 happenchance or algorithmically necessary???
+% now draw arrowhead -- dont include in the nccurve because this alters the line position - a strange feature of pstruicks
+\ncput[npos=0.9]{\pnode(0,0){yyy}}
+\ncline{->}{yyy}{#2}
+% last to provide context for label that might follow
+\nccurve[nodesepA=1pt,nodesepB=0pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleStartCorrected, angleB=\theEangleGiven, ncurv=1.359, linecolor=black]{-}{#2}{midpoint} 
+}
+
+%  rEte  - total epi
+\newcommand{\rEte}[2][0]{
+\setcounter{EangleGiven}{#1}
+\setcounter{EangleStartCorrected}{#1-10} %correction required because for nccurve unlike nccircle angle measured at boundary not at centre of node
+\setcounter{EangleEndCorrected}{#1+180+10} %correction required because angle measured at boundary not at centre of node
+\setcounter{EangleComplementary}{#1 + 180}
+\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linecolor=white]{->}{#2}{.4cm} % an invisible circle to hang the midpoint from
+\ncput{\pnode(0,0){midpoint}}                                         
+\nccurve[nodesepA=1pt,nodesepB=0pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleStartCorrected, angleB=\theEangleGiven, ncurv=1.359, linecolor=black]{-}{#2}{midpoint}
+\ncput[nrot=:R,npos=0]{\psline(0,.1)(.075,0)}
+\ncput[nrot=:R,npos=0]{\psline(0,.1)(-0.075,0)}
+%\nccurve[nodesepA=0pt,nodesepB=0pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleComplementary, angleB=\theEangleEndCorrected, ncurv=1.359, linestyle=dashed]{->}{xxx}{#2}
+\nccurve[nodesepA=0pt,nodesepB=2pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleComplementary, angleB=\theEangleEndCorrected, ncurv=1.359]{-}{midpoint}{#2}
+% 1.359 is e/2 happenchance or algorithmically necessary???
+% now draw arrowhead -- dont include in the nccurve because this alters the line position - a strange feature of pstruicks
+\ncput[npos=0.9]{\pnode(0,0){yyy}}
+\ncline{->}{yyy}{#2}
+% repeat from earlier to provide context for label that might follow
+\nccurve[nodesepA=1pt,nodesepB=0pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleStartCorrected, angleB=\theEangleGiven, ncurv=1.359, linecolor=black]{-}{#2}{midpoint} 
+}
+
+%  rEtme - recursive Edge total mono epi
+
+\newcommand{\rEtme}[2][0]{
+\setcounter{EangleGiven}{#1}
+\setcounter{EangleStartCorrected}{#1-10} %correction required because for nccurve unlike nccircle angle measured at boundary not at centre of node
+\setcounter{EangleEndCorrected}{#1+180+10} %correction required because angle measured at boundary not at centre of node
+\setcounter{EangleComplementary}{#1 + 180}
+\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linecolor=white]{->}{#2}{.4cm} % an invisible circle to hang the midpoint from
+\ncput{\pnode(0,0){midpoint}}     
+\nccurve[nodesepA=0pt,nodesepB=2pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleComplementary, angleB=\theEangleEndCorrected, ncurv=1.359]{-}{midpoint}{#2}
+% 1.359 is e/2 happenchance or algorithmically necessary???
+% now draw arrowhead -- dont include in the nccurve because this alters the line position - a strange feature of pstruicks
+\ncput[npos=0.9]{\pnode(0,0){yyy}}
+\ncline{->}{yyy}{#2}
+% last to provide context for label that might follow
+\nccurve[nodesepA=1pt,nodesepB=0pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleStartCorrected, angleB=\theEangleGiven, ncurv=1.359, linecolor=black]{-}{#2}{midpoint} 
+}

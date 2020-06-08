@@ -1,0 +1,108 @@
+\subsection{Team Selection - Revised Model}
+\llabel{teamselectionrevised}
+
+The situation modelled in this example is exactly that described in the previous example (see example \lref{teamselectionpreliminary}). The ER model though is different in that the ER schema used to represent the data  is a revised ER schema modified specifically so that in this model the fd factoring property holds with the consequence that the $\chi$-generated relational schema is in TNF and BCNF;  in fact the $\chi$-generated relational schema in this example is a normalised version of the $\chi$-generated relational schema from that 
+previous example (as described in section \lref{teamselectionpreliminaryrelationalschema}).
+
+\subsubsection{The ER Schema}
+The ER schema in this example is shown in figure \ref{teamselectionrevisedERschema}. It is the ER schema of example \lref{teamselectionpreliminary} (see figure 
+\lref{teamselectionpreliminaryERschema}) with an additional entity type $sp$ to represent persons who have been selected by some other person.
+
+
+\begin{figure} [h]
+\begin{center}
+\begin{tabular}{c c}
+\begin{tabular}{c p{1.5cm} c}
+   \Rnode{sp}{sp} & &           \\[1.4cm]
+   \Rnode{p}{p}   & & \Rnode{v}{v}
+\end{tabular}
+\ncarr[40]{p}{sp}
+\alabel{S}
+\ncarr{sp}{p}
+\alabel{I}
+\idcomp
+\ncarr[20]{sp}{v}
+\alabel{c}[0.4]
+\ncarr{p}{v} 
+\alabel{pId}
+\idcomp 
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+p & person & Identified by id attribute ($pId$). \\
+sp & selected & a $selected$ person is identified by their inclusion relationship $I$ to the type $person$ \\
+S & selects & each $person$ selects exactly one other $selected$ person \\
+I & inclusion & each $selected$ person is a $person$ \\
+c & colour & each $person$ wears a vest of this colour 
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{Team Selection Example Revised. 
+In the situation modelled all persons have a coloured vest and since this colour is the same as the colour 
+worn by the person they select it is this latter colour that is included in the schema and which will therefore to be held as data. 
+This schema uses the constraints known of the situation to reduce the amount of data held.
+Nonetheless the  vest colour  of a selected person is 
+identical to the vest colour of the person they themselves select which is to say that there is a  path equivalence $I \circ S \circ c \simeq c$ in this model.
+}
+\label{teamselectionrevisedERschema}
+\end{figure}
+
+\begin{categoricalaside}
+
+The relationship $S$ of the preliminary model has been epi-mono split into $S$ which is now an epimorphism in the sense that it is onto in all defining instances,
+and $I$ which is a monomorphism. The attribute $c$ has been factored through $S$.
+\end{categoricalaside}
+
+\subsubsection{Analysis of Functional Dependencies}
+ 
+We show that in this model, compared to the previous model,  there is still
+ an intransitive functional dependency between attribute-like paths that cannot be factored right intransitively but that this functional dependency is one in which the left hand side 
+is a mono-source; the fd factoring property still holds and,
+accordingly, the $\chi$-generated relational schema from this model is in TNF and BCNF.
+
+\commentary{This model meets the conditions of theorem \lref{maintheorem}; is simple without caveats and so the relational model 
+determined by the $\chi$ mapping is in BCNF.}
+
+Similar reasoning to that given in section \lref{teamselectionpreliminaryanalysis} can be used to establish that 
+in this model we have the following sequence of functional dependencies:
+\begin{equation}
+I/pId \morph I/S \morph I/S/I/S \morph I/S/I/S/I/S ... \morph c
+\end{equation}
+and that $I/pId \morph c$ is a transitive functional dependency.  $I/pId \morph c$ is therfore a transitive functional dependency between attribute-like paths which cannot
+be factored right-intransitively. However  the left hand side, $I/pId$, is a mono-source and so the condition for the model to have the fd factoring property is not violated.
+
+Note that $\msfd{I/S/I/pId}{c}$ is a functional dependency between  paths that cannot be factorised on the right though an intransitive functional dependency. 
+ It is transitive because it factors as $\msfd{I/S/I/pId}{I/S/I/S}$ and $\msfd{I/S/I/S}{c}$ and neither of these are reversible. The path lhs ($I/S/I/pId$) isn't a mono-source 
+however neither is it  because $S$ is not identifying and so the condition for the model to have the fd factoring proeprty is not violated.
+
+\subsubsection{The $\chi$-generated Relational Schema}
+The $\chi$ mapping applied to this model produces relations (\ref{person1relation}) and (\ref{person2relation}):
+\begin{equation}
+\label{person1relation}
+selected(\underline{spId},  c)
+\end{equation}
+\begin{equation}
+\label{person2relation}
+person(\underline{pId}, spId)
+\end{equation}
+satisfying the inclusion dependencies
+\begin{equation}
+selected[spId] \subseteq person[pId]
+\end{equation}
+and
+\begin{equation}
+\label{spIdselectedcolour}
+selected[spId,c] \subseteq (selected \bowtie_{spId=pId} 
+                                       (person \bowtie selected [pId,c]) )
+																			[spId,c];
+\end{equation}
+This relational schema is in TNF and BCNF however, to be fair,
+it is difficult not to question the efficacy of this normalised schema compared to the unnormalised schema (section \ref{teamselectionpreliminaryrelationalschema}).
+In addition,
+the inclusion dependency (\ref{spIdselectedcolour}) is a database constraint that
+is more difficult to police in an implementation
+than the prior equivalent (\ref{spIdcolour1}) in the unnormalised schema and
+this too gives advantages to the unnormalised schema. 
+
+
