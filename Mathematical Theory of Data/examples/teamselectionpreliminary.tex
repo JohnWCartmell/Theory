@@ -1,0 +1,151 @@
+\needspace{20\baselineskip}
+\subsection{Team Selection - Preliminary Model}
+\llabel{teamselectionpreliminary}
+
+\commentary {An example of a model that does not have the fd factoring property.}
+\commentary{From this model the $\chi$ transform produces a relational model that is not in third normal form.}
+We imagine a situation in which a number of people are separated into teams by asking each person to select a person they wish to be teamed up with. Teams of various sizes are picked based on this information and coloured vests are worn by people to be indicative of the teams that they are in.
+We choose to represent this team information by the schema shown in figure \ref{teamselectionpreliminaryERschema}. 
+
+\begin{figure} [h]
+\begin{center}
+\begin{tabular}{c c}
+\begin{tabular}{c p{1.5cm} c}
+   \Rnode{p}{p} & & \Rnode{v}{v}
+\end{tabular}
+\nccircle[nodesep=3pt]{<-}{p}{.4cm}
+\blabel{S}
+\ncarr[-40]{p}{v}
+\alabel{c}[0.4]
+\ncarr{p}{v} 
+\alabel{pId}
+\idcomp
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+p & person & Identified by id attribute ($pId$). \\
+s & selects & each person selects exactly one other person \\
+c & colour & each person is given a coloured vest 
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{Team Selection Example. The  vest colour  of a person is 
+identical to the vest colour of their selected buddy which is to say that the path equivalence $S \circ c \simeq c$ holds. From this
+we can show that this model exhibits a transitive functional dependency which does not factor through an intransitive dependency.
+}
+\label{teamselectionpreliminaryERschema}
+\end{figure}
+
+That the  vest colour  of a person is 
+identical to the vest colour of their selected buddy can be expressed by the path equivalence $S \circ c \simeq c$. 
+\begin{categoricalaside}
+Another way of expressing this 
+path equivalence, $S \circ c \simeq c$, is by stating that in the category of paths through the schema  the diagram
+$
+\begin{array}{c p{0.75cm} c}
+   \Rnode{p1}{p}  & &                  \\[0.5cm]
+	                 & &    \Rnode{v}{v} \\[0.5cm]
+   \Rnode{p2}{p}  & &
+			
+\end{array}
+$
+\ncarr{p1}{v}
+\alabel{c}[0.4]
+\ncarr{p2}{v}
+\blabel{c}[0.4]
+\ncarr{p1}{p2}
+\blabel{S}[0.4]
+commutes. 
+\end{categoricalaside}
+
+\subsubsection{Analysis -- Failure of the fd factoring property}
+\llabel{teamselectionpreliminaryanalysis}
+We now show that this model does not have the fd factoring property by showing that
+the model has a transitive functional dependency $\ssfd{S/pId}{c}$ which is between
+attribute-like paths, whose left hand side, $S/pId$, is not a mono-source and  which cannot be factored right-intransitively.
+
+First note that because both the domain and  codomain of $S$ is $p$ then there are paths $S \circ S$, $S \circ S \circ S$ 
+and so on in this model and these we shall denote by $S^2$, $S^3$ and so on. 
+From the path equivalence $S \circ c \simeq c$ it follows that for any $n$, there is
+a path equivalence 
+\begin{equation}
+\label{tspSncSIMEQc}
+S^n \circ c \simeq c
+\end{equation}
+
+By lemma \lref{fdfrompathextension} there is a functional dependency
+\begin{equation}
+\label{tspSc}
+\ssfd{S^n}{S^n \circ c}
+\end{equation}
+
+(The situation does not constrain $c$ to be injective on the range of $S^n$ and so this functional dependency is not reversible.)
+
+From (\ref{tspSncSIMEQc}) and (\ref{tspSc}) it follows by lemma \ref{fdfrompathequivalence} that for any $n$ there is a functional dependency
+\begin{equation}
+\label{tspSnc}
+\ssfd{S^n}{c}
+\end{equation}
+
+
+It also follows from lemma \lref{fdfrompathextension} that for each $n$ there is a functional dependency
+\begin{equation}
+\label{tspSnn1}
+\ssfd{S^n}{S^{n+1}}
+\end{equation}
+The situation does not constrain $S$ to be injective on the range of $S^n$ and so this functional dependency is not reversible.
+
+Assuming as we do that selection is unconstrained then $S$ is not a mono-source in this model and there can be arbitrary long chains of selection.
+In  all therefore there is an infinity of functional dependencies non of which are reversible
+
+\begin{equation}
+S \morph S/S \morph S/S/S \morph S/S/S/S .. \morph c
+\end{equation}
+
+Finally by lemma \lref{fdfromfdplusmonosource} from the fact that $\ssfd{S}{S/S}$  is an irreversible functional depedency
+we may conclude that $\ssfd{S \circ pId}{S/S}$ is an irreversible functional dependency.
+
+Therefore we have an infinite sequence of functional dependencies
+\begin{equation}
+S/pId \morph S/S \morph S/S/S \morph S/S/S/S .. \morph c
+\end{equation}
+and because the first of these is irreversible
+the functional dependency
+$\ssfd{S/pId}{c} $ 
+is an intransitive functional dependency.
+
+We have shown that this model has a transitive functional dependency $\ssfd{S/pId}{c}$ which is between
+attribute-like paths but which cannot be factored right-intransitively. The left hand side of this functional dependency, $S/pId$, is not a mono-source, therefore this model doesn't have the fd factoring property 
+
+\subsubsection{The $\chi$-generated Relational Model}
+\llabel{teamselectionpreliminaryrelationalschema}
+Since this model does not have the fd factoring property then it does not meet the the conditions of theorem \ref{goaltheorem} and  we cannot be sure that the relational model generated by the $\chi$ mapping will  be in 3NF.
+In fact, in the relational design produced by the $\chi$ mapping the person entity type, (abbreviated $p$ in the schema diagram above), maps to the following relation:
+\begin{equation}
+\label{personrelation}
+person(\underline{pId}, spId, c)
+\end{equation}
+The  attributes of this relation are related by the following  functional dependencies:
+\begin{equation}
+\ssfd{pId}{spId}
+\end{equation}
+\begin{equation}
+\label{colourfd}
+\ssfd{pId}{c}
+\end{equation}
+\begin{equation}
+\ssfd{spId}{c}
+\end{equation}
+and the following  inclusion dependency:
+\begin{equation}
+\label{spIdcolour1}
+person[spId,c] \subseteq person[pId,c]
+\end{equation}
+
+The $person$ relation (\ref{personrelation}) is not in BCNF nor in 3NF because the dependency (\ref{colourfd}) is transitive but its rhs, $c$, is not a key attribute wrt the relation\commentary{This uses Codd's way of describing 3NF not Zaniolo's.}. 
+In example \lref{teamselectionrevised} we show, significantly,  that a normalised version of this relational schema, one that is in both TNF and BCNF, is 
+$\chi$-generated from an ER model that is this preliminary model specifically revised to achieve the fd factoring property. 
+
+
+
