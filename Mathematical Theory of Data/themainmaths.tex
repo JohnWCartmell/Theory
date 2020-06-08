@@ -11,22 +11,10 @@ Entity relationship modelling, and, for that matter, relational modelling too, a
 \subsection{New material}
 \begin{lemma}
 \llabel{intransitivefdsfactorthroughsingletonintransitivefds}
-If a model $gmodel$ is well-formulated and \fd{\xn}{z} is an intransitive functional dependency then there exists a path $y$
-such that \fd{\xn}{y} and \fd{y}{\xn} are functional dependencies and \fd{y}{z} is an intransitive functional dependency.
+If a model $\gmodel$ is well-formulated and \mmfd{\xn}{z} is an intransitive functional dependency then there exists a path $y$
+such that \mmfd{\xn}{y} and \mmfd{y}{\xn} are functional dependencies and \mmfd{y}{z} is an intransitive functional dependency.
 \end{lemma}
 
-\begin{oldtt}
-\begin{lemma}
-\llabel{wellformulatedimpliessingletonmonosourceshaveinverses}
-In a well-formulated model singleton mono-sources have inverses.
-\commentary{not so}
-\end{lemma}
-
-\begin{lemma}
-In a well-formulated model singleton intransitive fds are witnessed by paths.
-\commentary{not so}
-\end{lemma}
-\end{oldtt}
 
 
 \subsection{Directed Graphs}
@@ -957,7 +945,7 @@ $
 
 \noindent 
 then path $y$ is said to be \term{functionally dependent} on the set of paths $\{x_1,...x_n\}$ in model $\gmodel$, 
-for which  we write  \sfd{x_1,...x_n}{y},
+for which  we write  \msfd{x_1,...x_n}{y},
 iff
  in each defining instance $E$ of $\gmodel$ there exists a  partial 
 function $f_E: E_{b_1} \times E_{b_n} \rightarrow E_c$ 
@@ -991,7 +979,7 @@ we have that $f_E(\tuple{E_{x_1}(e),...E_{x_n}(e)})=E_y(e)=f'_E(\tuple{E_{x_1}(e
 \end{remark}
 
 \begin{definition}
-A functional dependency \sfd{x_1,...x_n}{y} is said to be \term{trivial} iff $y\simeq x_i$, for some $i$, $1 \leq i \leq n$.
+A functional dependency \msfd{x_1,...x_n}{y} is said to be \term{trivial} iff $y\simeq x_i$, for some $i$, $1 \leq i \leq n$.
 \end{definition}
 
 \begin{lemma}
@@ -1000,12 +988,12 @@ If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an ER model mapp
 and there is a  functional dependency
 \begin{equation}
 \label{carrythrusourcefd}
-\fd{\xn}{y}
+\mmfd{\xn}{y}
 \end{equation} 
 in $\gmodel$ then there is a functional dependency
 \begin{equation}
 \label{carrythrutargetfd}
-\fd{\phixn}{\phiy}
+\mmfd{\phixn}{\phiy}
 \end{equation}
 in $\gmodel'$.
 Further if (\ref{carrythrusourcefd}) is trivial then (\ref{carrythrutargetfd}) is trivial.
@@ -1044,15 +1032,15 @@ The further point regarding triviality follows from lemma \lref{mappingrespectse
 
 
 \begin{definition}
-A functional dependency \sfd{x_1,...x_n}{y} is said to be a \term{leaf functional dependency} iff
- the codomain of each $x_i$, $1 \leq i \leq n$, is $\veee$ \oldt{and the codomain of $y$ is $\veee$}.\commentary{I inserted this oh so wrongly!}
+A functional dependency \msfd{x_1,...x_n}{y} is said to be a \term{leaf functional dependency} iff
+ the codomain of each $x_i$, $1 \leq i \leq n$, is $\veee$.
 \end{definition}
 
 \begin{definition}
 In an entity model $\gmodel$, if
 $a$ is an entity type and $\set{x_1,...x_n}$ and $\set{y_1,...y_m}$ are sets of paths with source $a$
 then we say the set $\set{y_1,...y_m}$ \textit{is functionally dependent on the set} $\set{x_1,...x_n}$ and write
-\fd{x_1,...x_n}{y_1,...y_m} 
+\mmfd{x_1,...x_n}{y_1,...y_m} 
 iff  each $y_j$, $1 \leq j \leq m$, is functionally dependent on $\set{x_1,...x_n}$.
 \end{definition}
 \begin{definition} %transitive
@@ -1072,8 +1060,8 @@ is said to be \term{intransitive} if it is not transitive.
 If for some $n \geq 1$, $\xn$ and $\wanton{x'}$,  are paths in an ER model $\gmodel$
 such that for each $i$, $1 \leq i \leq n$, $x_i \simeq x'_i$,
 if $y$ and $y'$ are also paths in $\gmodel$ and are 
-such that $y \simeq y'$ in $\gmodel$ then $\fd{\xn}{y}$ is a functional dependency in $\gmodel$ iff 
-$\fd{\wanton{x'}}{y'}$ is a functional dependency in $\gmodel$.
+such that $y \simeq y'$ in $\gmodel$ then $\mmfd{\xn}{y}$ is a functional dependency in $\gmodel$ iff 
+$\mmfd{\wanton{x'}}{y'}$ is a functional dependency in $\gmodel$.
 \end{lemma}
 \begin{proof}
 Follows immediately from the definitions of path equivalence and of functional dependency.
@@ -1085,12 +1073,12 @@ If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an ER model isom
 then there is a  functional dependency
 \begin{equation}
 \label{sourcefd}
-\fd{\xn}{y}
+\mmfd{\xn}{y}
 \end{equation} 
 in $\gmodel$ iff there is a functional dependency
 \begin{equation}
 \label{targetfd}
-\fd{\phixn}{\phiy}
+\mmfd{\phixn}{\phiy}
 \end{equation}
 in $\gmodel'$.
 Further(\ref{sourcefd}) is  leaf  iff (\ref{targetfd}) is a leaf.
@@ -1116,12 +1104,12 @@ in $\gmodel$
 then there is a  functional dependency
 \begin{equation}
 \label{multiplesourcefd}
-\fd{\xn}{\ym}
+\mmfd{\xn}{\ym}
 \end{equation} 
 in $\gmodel$ iff there is a functional dependency
 \begin{equation}
 \label{multipletargetfd}
-\fd{\phixn}{\phiym}
+\mmfd{\phixn}{\phiym}
 \end{equation}
 in $\gmodel'$.
 Further (\ref{multiplesourcefd}) is reversible iff (\ref{multipletargetfd}) is reversible.
@@ -1133,13 +1121,13 @@ If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an ER model isom
 and there is a  functional dependency
 \begin{equation}
 \label{transitivesourcefd}
-\fd{\xn}{z}
+\mmfd{\xn}{z}
 \end{equation} 
 in $\gmodel$
 so that
 \begin{equation}
 \label{transitivetargetfd}
-\fd{\phixn}{\phiz}
+\mmfd{\phixn}{\phiz}
 \end{equation}
 is a functional dependency in $\gmodel'$then:
 \begin{enumerate}
@@ -1153,11 +1141,11 @@ is a functional dependency in $\gmodel'$then:
 (\ref{transitivesourcefd}) is transitive implies (\ref{transitivetargetfd}) 
 is transitive because if (\ref{transitivesourcefd}) is transitive is transitive then
 there exists $\ym$ such that
-\fd{\xn}{\ym} is an irreversible functional dependency
-and such that \fd{\ym}{z} is a non-trivial functional dependency.
+\mmfd{\xn}{\ym} is an irreversible functional dependency
+and such that \mmfd{\ym}{z} is a non-trivial functional dependency.
 From lemma \lref{isospreserveandreflectmultiplefds} this implies that in $\gmodel'$ there is an 
-\fd{\phixn}{\phiym} irreversible functional dependency \fd{\phixn}{\phiym}
-and by lemma \lref{isospreserveandreflectfds} there is a non-trivial functional dependency \fd{\phiym}{\phiz}. Hence it follows
+\mmfd{\phixn}{\phiym} irreversible functional dependency \mmfd{\phixn}{\phiym}
+and by lemma \lref{isospreserveandreflectfds} there is a non-trivial functional dependency \mmfd{\phiym}{\phiz}. Hence it follows
 the function dependency (\ref{transitivetargetfd}) is transitive.
 
 That (\ref{transitivesourcefd}) is  intransitive iff (\ref{transitivetargetfd}) follows on directly because an instransitive functional depdency is a functional depdency that is not transitive.
@@ -1169,16 +1157,15 @@ because
 
 \begin{lemma}
 \llabel{transitiveinjectivelemma}
-In an entity model $\gmodel$ if $\set{x_1,...x_n} \morph \set{y_1,...y_{m}}$ is a functional dependency then if in an instance $E$ the function $E_{\tuple{y_1,...y_{m}}}$ is injective \newt{and total} then the function $E_{\tuple{x_1,...x_n}}$  is injective \newt{and total}.
+In an entity model $\gmodel$ if $\set{x_1,...x_n} \morph \set{y_1,...y_{m}}$ is a functional dependency then if in an instance $E$ the function $E_{\tuple{y_1,...y_{m}}}$ is injective and total then the function $E_{\tuple{x_1,...x_n}}$  is injective and total.
 \end{lemma}
 \begin{proof}
 Follows from the definition of functional dependency that for each $j$, $1 \leq j \leq m$  there is a function ${f_j}$,  such that
 $E_{y_j}=E_{\tuple{x_1,...x_n}}\circ f_j$. Therefore there is a function $f=\tuple{f_1,...f_m}$ such that
 $E_{\tuple{y_1,...y_m}}= E_{\tuple{x_1,...x_n}}\circ f $. Therefore since  the function $E_{\tuple{y_1,...y_{m}}}$ is 
-injective \newt{and total} then the function $E_{\tuple{x_1,...x_n}}$  is injective \newt{and total}.
+injective and total then the function $E_{\tuple{x_1,...x_n}}$  is injective and total.
 \end{proof}
 
-\begin{newtt}
 \begin{lemma}
 \llabel{fdrightmonosourceimpliesfdleftmonosource}
 In an entity model $\gmodel$ if $\set{x_1,...x_n} \morph \set{y_1,...y_{m}}$ is a functional dependency then if 
@@ -1187,14 +1174,13 @@ $\set{y_1,...y_{m}}$  is a mono-source in $\gmodel$ then $\set{x_1,...x_n}$ is a
 \begin{proof}
 Follows directly from lemma \lref{transitiveinjectivelemma}.
 \end{proof}
-\end{newtt}
 
 \begin{definition}
 \noindent In an entity model $\gmodel$  
 if for some $n \geq 1$, $a$, $b_{i, 1 \leq i \leq n}$,  and $c$ are nodes and 
 if  $x_{i}, 1 \leq i \leq n$, and $y$ are paths such
 that there is a intransitive functional dependency $\{x_1,...x_n\} \morph y$
- then the functional dependency $\{x_1,...x_n\} \morph y$ is said to be \term{represented} in the ER model $\gmodel$ iff  there exists an entity type $d$ and a primary mono-source \commentary{in case of a unary fd \fd{x}{y}, where $x:a \morph b$, need admit $\set{\tuple{}_b}$ as a possible primary mono-source.}
+ then the functional dependency $\{x_1,...x_n\} \morph y$ is said to be \term{represented} in the ER model $\gmodel$ iff  there exists an entity type $d$ and a primary mono-source \commentary{in case of a unary fd \mmfd{x}{y}, where $x:a \morph b$, need admit $\set{\tuple{}_b}$ as a possible primary mono-source.}
 $\qntuple$  such that $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$, and a (possibly empty)
 path $w:d\rightarrow c$ as here:
 
@@ -1225,7 +1211,7 @@ $\tuple{ E_{x_1},...E_{x_n}} \circ E^{-1}_{\tuple{q_1,...q_n}}\circ E_w = E_y$
 \end{definition}
 
 Note that  if $x$ is a path, $x:a \morph b$, and $y$ is a path, $y: a \morph c$, and if $w$ is a
-relationship $w: b \morph c$ so that there is a functional dependency $\sfd{x}{y}$ in $\gmodel$
+relationship $w: b \morph c$ so that there is a functional dependency $\msfd{x}{y}$ in $\gmodel$
 given in any instance $E$ by the function $E_w$. This functional dependency is represented in the model, according to the above definition, because the mono-source in the definition, i.e the $\set{q_1,...q_n}$,
 can be taken to be the singleton consisting of the empty path $\tuple{}_b$. \\
 
@@ -1235,13 +1221,13 @@ If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an ER model isom
 and there is an  intransitive functional dependency
 \begin{equation}
 \label{representationsourcefd}
-\fd{\xn}{z}
+\mmfd{\xn}{z}
 \end{equation} 
 in $\gmodel$
 so that
 \begin{equation}
 \label{representationtargetfd}
-\fd{\phixn}{\phiz}
+\mmfd{\phixn}{\phiz}
 \end{equation}
 is an intransitive  functional dependency in $\gmodel'$then
 (\ref{representationsourcefd}) is represented in $\gmodel$ iff
@@ -1251,7 +1237,7 @@ is an intransitive  functional dependency in $\gmodel'$then
 TBD
 \end{proof}
 
-\subsection{\oldt{relationship-like and} Identifying-Like Paths}
+\subsection{Identifying-Like Paths}
 
 \begin{definition}
 In an ER model $\gmodel$, a non-empty path $t: a \morph b$, where $a$ and $b$ are entity types, is said to be \term{identifying-like} iff  for all primary key paths $q:b \morph \veee$ in $\gmodel$ there exists a primary key path $q':a \morph \veee$ in $\gmodel'$ such that $t \circ q \simeq q'$.
@@ -1316,7 +1302,7 @@ Therefore if $t':\varphi(a) \morph \varphi(b)$ is a path in $\gmodel'$ then it i
 $t: a \morph b$ in $\gmodel$. For any $t':\varphi(a) \morph \varphi(b)$ that is identifying there is a $t$ such that 
 $\varphi(t)=t'$ and this $t$ is identifying-like by lemma \lref{isospreserveandreflectidentifyinglike}.  
 \end{proof}
-\subsection{\highlight{relationship-like} Paths}
+\subsection{\highlight{Relationship-like} Paths}
 \begin{definition}
 In an ER model $\gmodel$, a non-empty path $p: a \morph b$, where $a$ and $b$ are entity types, which consists
 of a relationship $R$ followed by a  path $t :a' \morph b$ is said to be \term{\highlight{relationship-like}} iff
@@ -1393,6 +1379,7 @@ by the isomorphism $\varphi$ because $\varphi$ is assumed to reflect primary mon
 and then use lemma \lref{incdrepresentationequivalence}.
 \commentary{SPELL THIS OUT.}
 }
+\oldtt{
 \item{ 
 That each leaf primary referential inclusion dependency of $\gmodel'$ is represented in $\gmodel'$ by some \highlight{relationship-like} path $p$
 follows because such leaf primary referential inclusion dependencies are reflected by isomorphisms
@@ -1400,8 +1387,8 @@ follows because such leaf primary referential inclusion dependencies are reflect
  and because  representation by a path is preserved (lemma \lref{isospreserveandreflectrepresentationsofincds}) and \highlight{relationship-like} paths are preserved
 (lemma \lref{relationshippreservingmappingspreserverelationshiplike}) 
 by $\varphi$  because $\varphi$ is assumed to reflect primary mono-sources and preserve relationships.
-
 }
+\oldtt}
 \item{
 That for each leaf intransitive functional dependency $\set{x_1,...x_n} \morph y$ in model $\gmodel'$
 either $\set{x_1,...x_n}$ is a mono-source 
@@ -1513,12 +1500,19 @@ Hence because $\gmodel$ is leaf-restriction free we deduce that $y \simeq x_i$
 is non-trivial. Thus $w$ is not equivalent to a primary key path.
 \end{proof}
 
-
  
 \begin{definition}
-\noindent An ER model $\gmodel$ has the \term{\fdfactoring} property iff to every functional dependency $\set{x_1,...x_n} \morph z$ where $x1, x_2, ... x_n$ and $z$ are \oldt{\attributelike} \commentary{\newt{strikeout or not??}}paths either $\set{x_1,...x_n}$ is
-a mono-source or else there is an intransitive functional dependency $\set{y_1,...y_m} \morph z$ which it factors through i.e. such that $\set{x_1,...x_n} \morph \set{y_1,...y_m}$. \commentary{for the thinking behind the exception that $\set{\xn}$ being a mono-source see team selection example.}
+\noindent An ER model $\gmodel$ has the \term{\fdfactoring} property iff to every functional dependency $\set{x_1,...x_n} \morph z$ where $x1, x_2, ... x_n$ \oldt{and $z$} are \reinstatet{\attributelike} \commentary{\reinstatet{reinstated}}paths either $\set{x_1,...x_n}$ is
+a mono-source or else there is an intransitive functional dependency $\set{y_1,...y_m} \morph z$ which it factors through i.e. such that $\set{x_1,...x_n} \morph \set{y_1,...y_m}$. 
 \end{definition}
+
+\begin{examples}
+For an example of a model in which the fd factoring property does not hold see example \lref{teamselectionpreliminary}.
+
+For an example of a model in which the fd factoring property holds in the presence of a transitive functional dependency that cannot be factored right-intransitively  but which has a left hand side which is a mono-source, see  \lref{teamselectionrevised}. 
+See the same example for a model in which the fd factoring property holds but there is an intransitive functional dependency which cannot be factored intransitively on the right and in which the lhs is not a mono-source but which is not attribute-like.\commentary{Double check this}
+\end{examples}
+
 
 \begin{lemma}
 \llabel{fdfactoringcarrythroughlemma}
@@ -1527,41 +1521,39 @@ then if $\gmodel$ has the fd factoring property then so to does $\gmodel'$.
 \end{lemma}
 \begin{proof}
 %Use lemma \lref{isospreserveandreflectfds} and also lemma \lref{isospreserveandreflecttransitivefds}.
-To show that $\gmodel'$ has the fd factoring property if $\gmodel$ does assume $\gmodel$ has the fd factoring property and assume $\fd{\xnprime}{z'}$ in $\gmodel'$. 
-By lemma \lref{isospreserveandreflectfds} it follows since $\varphi^{-1}$ is an isomorphism that $\fd{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}{\varphi^{-1}(z')}$ is a functional depdendency
-in $\gmodel$. Since $\gmodel$ is assumed to have the fd factoring property either $\set{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}$ is a mono-source in $\gmodel$ in which case $\set{\xnprime}$ is a mono-source in 
+To show that $\gmodel'$ has the fd factoring property if $\gmodel$ does assume $\gmodel$ has the fd factoring property and assume $\mmfd{\xnprime}{z'}$ in $\gmodel'$. 
+By lemma \lref{isospreserveandreflectfds} it follows since $\varphi^{-1}$ is an isomorphism that $\mmfd{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}{\varphi^{-1}(z')}$ is a functional depdendency
+in $\gmodel$. \commentary{\newt{need attribute-like reflected?}}Since $\gmodel$ is assumed to have the fd factoring property either $\set{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}$ is a mono-source in $\gmodel$ in which case $\set{\xnprime}$ is a mono-source in 
 $\gmodel'$ since $\varphi^{-1}$ is an isomorphism  and isomorphisms reflect mono-sources (lemma \lref{isospreserveandreflectmonosources}) or else there exists paths $\yn$ in $\gmodel$ such that
-$\fd{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}{\yn}$ is a functional depdency in $\gmodel$ and 
- $\fd{\yn}{\varphi^{-1}(z')}$ is an intransitive functional dependency in $\gmodel$.  
+$\mmfd{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}{\yn}$ is a functional depdency in $\gmodel$ and 
+ $\mmfd{\yn}{\varphi^{-1}(z')}$ is an intransitive functional dependency in $\gmodel$.  
 
 In the latter case it then follows by lemma
 \lref{isospreserveandreflectfds} that
- $\fd{\varphi(\varphi^{-1}(x'_1)),...\varphi(\varphi^{-1}(x'_n))} {\varphi(y_1),...\varphi(y_n)}$
+ $\mmfd{\varphi(\varphi^{-1}(x'_1)),...\varphi(\varphi^{-1}(x'_n))} {\varphi(y_1),...\varphi(y_n)}$
 is a functional dependency in $\gmodel'$
-and then by lemma \lref{fdequivalence}  that $\fd{\xnprime}{\varphi(y_1),...\varphi(y_n)}$ in $\gmodel'$
+and then by lemma \lref{fdequivalence}  that $\mmfd{\xnprime}{\varphi(y_1),...\varphi(y_n)}$ in $\gmodel'$
 because for each $i$, $1 \leq i \leq n$, $\varphi(\varphi^{-1}(x_i)) \simeq x_i$.
-Similarly, we can use lemmas \lref{isospreserveandreflecttransitivefds} and \lref{fdequivalence} to show that $\fd{\varphi(y_1),...\varphi(y_n)}{z'}$ is an intransitive functional dependency in $\gmodel'$. 
+Similarly, we can use lemmas \lref{isospreserveandreflecttransitivefds} and \lref{fdequivalence} to show that $\mmfd{\varphi(y_1),...\varphi(y_n)}{z'}$ is an intransitive functional dependency in $\gmodel'$. 
 
-From the assumption that $\gmodel$ has the fd factoring property we have shown that for each functional dependency $\fd{\xnprime}{z'}$ in $\gmodel'$ either $\set{\xnprime}$ is a mono-source  or
-that the functional dependency  $\fd{\xnprime}{z'}$ factors through an intransitive functional dependency and  therefore that $\gmodel'$ has the fd factoring property.
+From the assumption that $\gmodel$ has the fd factoring property we have shown that for each functional dependency $\mmfd{\xnprime}{z'}$ in $\gmodel'$ either $\set{\xnprime}$ is a mono-source  or
+that the functional dependency  $\mmfd{\xnprime}{z'}$ factors through an intransitive functional dependency and  therefore that $\gmodel'$ has the fd factoring property.
 \end{proof}
 
 
 \begin{lemma}
 \llabel{mainlemma}
-In a well-formulated model $\gmodel$ that has the \fdfactoring\ property if $\set{x_1,...x_n} \morph z$ is a non-trivial \reinstatet{leaf} functional dependency sourced
-at some entity type $a$ then either $\set{x_1,...x_n}$ is a mono-source in $\gmodel$
+In a well-formulated model $\gmodel$ that has the \fdfactoring\ property if $\set\xn$ are attribute-like and
+$sfd{\xn}{z}$ is a non-trivial (\reinstatet{leaf}) functional dependency sourced
+at some entity type $a$ then either $\set{\xn}$ is a mono-source in $\gmodel$
 or else there is an entity type $d$ and there is a \oldt{relationship-like} path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$
-and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If \newt{\oldt{each $x_i$ has codomain $\veee$ and }codomain of $y$,} $c$, is $\veee$ then
+and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If codomain of $y$, $c$, is $\veee$ then
 the path $w$ is non-empty and if $y$ is an edge and $\gmodel$ is leaf-restriction free then $w$ is not equivalent to a primary key path.
 \end{lemma}
 \begin{proof}
 Since the model $\gmodel$  has the \fdfactoring\ property, the functional dependency $\set{x_1,...x_n} \morph z$ can be factored through an intransitive functional 
 dependency $\set{y_1,...y_m} \morph z$. Therefore by lemma \lref{intransitivelemma} either there exists $d$, $p$ and $w$ as required
 or else  $\set{\ym}$ is a mono-source in which case, by lemma \lref{transitiveinjectivelemma}, $\set{\xn}$ is a mono-source as required.
-\begin{oldtt}
-Surely $yn$ would have to be attributes for intransitive lemma to be used to establish that $p$ is relationship-like. This is surely hopeless.
-\end{oldtt}
 \end{proof}
 
 \begin{newtt}
@@ -1576,7 +1568,7 @@ A model $\gmodel$ is said to be \term{free of design redundancy} iff there are n
 
 \begin{lemma}
 \llabel{freeofdesignredundancyimpliesfdlhsismonosource} \commentary{\newt{NOT PROVEN}}
-In a well-formulated model $\gmodel$ that has the \fdfactoring\ property and which is free of design redundancy if $y$ is an attribute and if $\fd{\xn}{y}$
+In a well-formulated model $\gmodel$ that has the \fdfactoring\ property and which is free of design redundancy if $y$ is an attribute and if $\mmfd{\xn}{y}$
 is a functional dependency sourced at an entity type $a$ then $\set{\xn}$ is a mono-source.
 \end{lemma}
 \begin{proof}
@@ -1584,9 +1576,9 @@ By lemma \lref{mainlemma} \commentary{\newt{need leaf fd}\newt{to use this lemma
 \oldt{but this is not so since} . Since $y$ is an edge and $\gmodel$ is assumed to be free of design redundancy then we must conclude
 that $y$ apears in the path $p \circ w$. Since the codomain of $y$ is $\veee$ the only possibility is that the path $w$ 
 is a path $w' \circ y$. Consider the path $p' = p \circ w'$. From $y \simeq p \circ w$ it folows that $y \simeq p' \circ y$.
-Therefore there is a functional dependency $\fd{p'}{y}$ in $\gmodel$. 
+Therefore there is a functional dependency $\mmfd{p'}{y}$ in $\gmodel$. 
 
-But also $y \simeq p' \circ p' \circ y$ and a functional dependencies $\fd{p'}{p' \circ p'}$ and $\fd{p' \circ p'}{y}$.
+But also $y \simeq p' \circ p' \circ y$ and a functional dependencies $\mmfd{p'}{p' \circ p'}$ and $\mmfd{p' \circ p'}{y}$.
 \commentary{Could we stipulate in defn of well-formulated that representation of fd should not include thing represented?}
 \end{proof}
 \end{newtt}
@@ -1665,7 +1657,7 @@ met and in these situations a lesser goodness criteria that can be achieved is t
 \begin{definition} % 3NF
 A (relational) ER model $\gmodel$ is in  Third Normal Form (3NF)  iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
-for which  \sfd{x_1,...x_n}{y} is a non-trivial functional dependency, 
+for which  \msfd{x_1,...x_n}{y} is a non-trivial functional dependency, 
 either $\set{\xn}$ is a mono-source or else $y$ is a key attribute.
 \end{definition}
 
@@ -1677,7 +1669,7 @@ We can define as follows:
 \begin{definition} % S3NF
 A (relational) ER model $\gmodel$ is in Strong Third Normal Form (S3NF)  iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
-for which  \sfd{x_1,...x_n}{y} is a non-trivial functional dependency, 
+for which  \msfd{x_1,...x_n}{y} is a non-trivial functional dependency, 
 either $\set{\xn}$ is a mono-source or else $y$ is identifying.
 \end{definition}
 
@@ -1687,7 +1679,7 @@ Written in the terminology we are using here BCNF can be defined as follows:
 \begin{definition} % BCNF
 A relational ER model is in Boyce Codd Normal Form (BCNF) \commentary{See Zaniolo definition 2.} iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
-for which  \sfd{x_1,...x_n}{y} is a non-trivial functional dependency, 
+for which  \msfd{x_1,...x_n}{y} is a non-trivial functional dependency, 
 $\set{\xn}$ is a mono-source.  
 \end{definition}
 
@@ -1698,7 +1690,7 @@ intransitive functional dependencies:
 \llabel{BCNFsublemma}
 If a model $\gmodel$ has the \fdfactoring\ property then it is in BCNF iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
-for which \sfd{x_1,...x_n}{y} is a non trivial  intransitive functional dependency,
+for which \msfd{x_1,...x_n}{y} is a non trivial  intransitive functional dependency,
 $\set{\xn}$ is a mono-source. 
 \end{lemma}
 \begin{proof}Use lemma \lref{transitiveinjectivelemma}.
@@ -1708,7 +1700,7 @@ $\set{\xn}$ is a mono-source.
 \llabel{S3NFsublemma}
 If a model $\gmodel$ has the \fdfactoring\ property then it is in S3NF iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
-for which \sfd{x_1,...x_n}{y} is a non trivial intransitive functional dependency,
+for which \msfd{x_1,...x_n}{y} is a non trivial intransitive functional dependency,
 $\set{\xn}$ is a mono-source or $y$ is a primary key. 
 \end{lemma}
 \subsection{Other Conditions for Relational ER models}
@@ -1766,7 +1758,7 @@ If  $\gmodel$ is reduced without caveats then is in Boyce-Codd Normal form.
 \end{theorem}
 \begin{proof}
 To prove S3NF it suffices, by lemma \lref{S3NFsublemma},  to show that if 
-$\sfd{x_1,...x_n}{y}$ is a non-trivial intransitive functional dependency of model $\gmodel$
+$\msfd{x_1,...x_n}{y}$ is a non-trivial intransitive functional dependency of model $\gmodel$
 where $x_1,...x_n$, $y$ are \highlight{attributes} 
 then  $\set{\xn}$ is a mono-source or that $y$ is identifying. \\
 Assume then such a functional dependency.
@@ -1779,10 +1771,10 @@ and a path $w$ of $\gmodel$ that is not  equivalent to a primary key path such t
 \label{simpleRepresentation}
  r \circ w \simeq y
 \end{equation}
-and such that $\sfd{x_1,...x_n}{r}$.
+and such that $\msfd{x_1,...x_n}{r}$.
 If the model $\gmodel$ is assumed to be reduced without caveat then $r$ is a mono-source since $w$ is not equivalent to some primary key of $d$.
 Since $r$ is a mono-source then $x_1,...x_n$ is a mono source, 
-since $\sfd{x_1,...x_n}{r}$ \newt{by lemma \ref{fdrightmonosourceimpliesfdleftmonosource}}, as required and we have established BCNF.
+since $\msfd{x_1,...x_n}{r}$ \newt{by lemma \ref{fdrightmonosourceimpliesfdleftmonosource}}, as required and we have established BCNF.
 With the weaker assumption that the model $\gmodel$ is \highlight{reduced}, there is the additional possibility that $y$ is identifying i.e. is a primary key attribute and we have proved S3NF.
 \end{proof}
 
@@ -2059,7 +2051,7 @@ either $\set{\xn}$ is a mono-source
 and we are done or else these exists  paths $x'_1,...x'_{n'}$ such that 
 \begin{equation}
 \label{noninvertiblefd}
-\fd{x_1,...x_n}{x'_1,...x'_{n'}} 
+\mmfd{x_1,...x_n}{x'_1,...x'_{n'}} 
 \end{equation}
 is a functional dependency and
 \begin{equation}
@@ -2129,7 +2121,7 @@ Use lemmas \lref{chiisacertaintypeofisomorphism} and \lref{certainisomorphismspr
 \end{proof}
 
 \begin{lemma}
-\llabel{chitlemma}
+\llabel{chilemma}
 If  $\gmodel$ is an an ER model that is well-formulated,  $\chit$-suitable, has the fd factoring property 
 and is free of non-identifying referential attributes
 then the transformed model $\chigmodel$ is a  relational ER model that is well-formulated, simple, leaf-restriction free
@@ -2166,7 +2158,7 @@ if $\gmodel$ is free of any referential attributes at all then  $\chigmodel$ is 
 \end{enumerate}
 \end{theorem}
 \begin{proof}
-Follows from theorem \lref{maintheorem} and lemma \lref{chitlemma} because every simple model is reduced.
+Follows from theorem \lref{maintheorem} and lemma \lref{chilemma} because every simple model is reduced.
 \end{proof}
 
 \section{Future Work}
