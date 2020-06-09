@@ -267,145 +267,93 @@
 %  rEte  - total epi
 %  rEtme - total mono epi
 
+\newcounter{EangleA}
+\newcounter{EangleB}
+\newcounter{EmidangleA}
+\newcounter{EmidangleB}
 
 % Ep - Edge partial
-\newcommand{\Ep}[3][0]{
-\setlength{\sarnodesepAsav}{\sarnodesepA}
-\setlength{\sarnodesepBsav}{\sarnodesepB}
-\addtolength{\sarnodesepA}{3pt}
-\addtolength{\sarnodesepB}{3pt}
-\setcounter{EangleB}{180 - #1}
-\nccurve[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,angleA=#1, angleB=\theEangleB,linecolor=white,linewidth=0]{->}{#2}{#3}
-\ncput[nrot=:R,npos=0]{\psline(0,.1)(.075,0)}
-\ncput[nrot=:R,npos=0]{\psline(0,.1)(-0.075,0)}
-\ncput{\pnode(0,0){xxx}}
-\nccurve[nodesepA=0,nodesepB=\sarnodesepB,offsetA=0,offsetB=\saroffsetB,angleA=0, angleB=\theEangleB, linestyle=dashed]{->}{xxx}{#3}
-%the following provides context for any following label
-\nccurve[nodesepA=\sarnodesepA,nodesepB=0,offsetA=\saroffsetA,offsetB=0,angleA=#1, angleB=180,linestyle=dashed]{-}{#2}{xxx}
-\setlength{\sarnodesepA}{\sarnodesepAsav}
-\setlength{\sarnodesepB}{\sarnodesepBsav}
+\newcommandtwoopt{\Ep}[4][0][0]{
+\crowsfootedEdge{#1}{#2}{#3}{#4}{dashed}{dashed}
 }
 
-\newcounter{EangleB}
+
 
 % Epm - Edge partial mono
-\newcommand{\Epm}[3][0]{
-\setlength{\sarnodesepAsav}{\sarnodesepA}
-\setlength{\sarnodesepBsav}{\sarnodesepB}
-\addtolength{\sarnodesepA}{3pt}
-\addtolength{\sarnodesepB}{3pt}
-\setcounter{EangleB}{180 - #1}
-\nccurve[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,angleA=#1, angleB=\theEangleB,linecolor=white,linewidth=0]{->}{#2}{#3}
-\ncput{\pnode(0,0){xxx}}
-\nccurve[nodesepA=0,nodesepB=\sarnodesepB,offsetA=0,offsetB=\saroffsetB,angleA=0, angleB=\theEangleB,linestyle=dashed]{->}{xxx}{#3}
-%the following provides context for any following label
-\nccurve[nodesepA=\sarnodesepA,nodesepB=0,offsetA=\saroffsetA,offsetB=0,angleA=#1, angleB=180,linestyle=dashed]{-}{#2}{xxx}
-\setlength{\sarnodesepA}{\sarnodesepAsav}
-\setlength{\sarnodesepB}{\sarnodesepBsav}
+\newcommandtwoopt{\Epm}[4][0][0]{
+\monoEdge{#1}{#2}{#3}{#4}{dashed}{dashed}
 }
 
 
 % Epe - Edge partial epi
-\newcommand{\Epe}[3][0]{
-\setlength{\sarnodesepAsav}{\sarnodesepA}
-\setlength{\sarnodesepBsav}{\sarnodesepB}
-\addtolength{\sarnodesepA}{3pt}
-\addtolength{\sarnodesepB}{3pt}
-\setcounter{EangleB}{180 - #1}
-\nccurve[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,angleA=#1, angleB=\theEangleB,linecolor=white,linewidth=0]{->}{#2}{#3}
-\ncput[nrot=:R,npos=0]{\psline(0,.1)(.075,0)}
-\ncput[nrot=:R,npos=0]{\psline(0,.1)(-0.075,0)}
-\ncput{\pnode(0,0){xxx}}
-\nccurve[nodesepA=0,nodesepB=\sarnodesepB,offsetA=0,offsetB=\saroffsetB,angleA=0, angleB=\theEangleB]{->}{xxx}{#3}
-%the following provides context for any following label
-\nccurve[nodesepA=\sarnodesepA,nodesepB=0,offsetA=\saroffsetA,offsetB=0,angleA=#1, angleB=180,linestyle=dashed]{-}{#2}{xxx}
-\setlength{\sarnodesepA}{\sarnodesepAsav}
-\setlength{\sarnodesepB}{\sarnodesepBsav}
+\newcommandtwoopt{\Epe}[4][0][0]{
+\crowsfootedEdge{#1}{#2}{#3}{#4}{dashed}{solid}
 }
 
-% Epme - Edge partial epi
-\newcommand{\Epme}[3][0]{
-\setlength{\sarnodesepAsav}{\sarnodesepA}
-\setlength{\sarnodesepBsav}{\sarnodesepB}
-\addtolength{\sarnodesepA}{3pt}
-\addtolength{\sarnodesepB}{3pt}
-\setcounter{EangleB}{180 - #1}
-\nccurve[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,angleA=#1, angleB=\theEangleB,linecolor=white,linewidth=0]{->}{#2}{#3}
-\ncput{\pnode(0,0){xxx}}
-\nccurve[nodesepA=0,nodesepB=\sarnodesepB,offsetA=0,offsetB=\saroffsetB,angleA=0, angleB=\theEangleB]{->}{xxx}{#3}
-%the following provides context for any following label
-\nccurve[nodesepA=\sarnodesepA,nodesepB=0,offsetA=\saroffsetA,offsetB=0,angleA=#1, angleB=180,linestyle=dashed]{-}{#2}{xxx}
-\setlength{\sarnodesepA}{\sarnodesepAsav}
-\setlength{\sarnodesepB}{\sarnodesepBsav}
+% Epme - Edge partial mono epi
+\newcommandtwoopt{\Epme}[4][0][0]{
+\monoEdge{#1}{#2}{#3}{#4}{dashed}{solid}
 }
 
 % Et - Edge total
-\newcommand{\Et}[3][0]{
-\setlength{\sarnodesepAsav}{\sarnodesepA}
-\setlength{\sarnodesepBsav}{\sarnodesepB}
-\addtolength{\sarnodesepA}{3pt}
-\addtolength{\sarnodesepB}{3pt}
-\setcounter{EangleB}{180 - #1}
-\nccurve[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,angleA=#1, angleB=\theEangleB,linecolor=white,linewidth=0]{->}{#2}{#3}
-\ncput[nrot=:R,npos=0]{\psline(0,.1)(.075,0)}
-\ncput[nrot=:R,npos=0]{\psline(0,.1)(-0.075,0)}
-\ncput{\pnode(0,0){xxx}}
-\nccurve[nodesepA=0,nodesepB=\sarnodesepB,offsetA=0,offsetB=\saroffsetB,angleA=0, angleB=\theEangleB, linestyle=dashed]{->}{xxx}{#3}
-%the following provides context for any following label
-\nccurve[nodesepA=\sarnodesepA,nodesepB=0,offsetA=\saroffsetA,offsetB=0,angleA=#1, angleB=180]{-}{#2}{xxx}
-\setlength{\sarnodesepA}{\sarnodesepAsav}
-\setlength{\sarnodesepB}{\sarnodesepBsav}
+\newcommandtwoopt{\Et}[4][0][0]{
+\crowsfootedEdge{#1}{#2}{#3}{#4}{solid}{dashed}
 }
 
-% Etm - Edge totalmono
-\newcommand{\Etm}[3][0]{
-\setlength{\sarnodesepAsav}{\sarnodesepA}
-\setlength{\sarnodesepBsav}{\sarnodesepB}
-\addtolength{\sarnodesepA}{3pt}
-\addtolength{\sarnodesepB}{3pt}
-\setcounter{EangleB}{180 - #1}
-\nccurve[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,angleA=#1, angleB=\theEangleB,linecolor=white,linewidth=0]{->}{#2}{#3}
-\ncput{\pnode(0,0){xxx}}
-\nccurve[nodesepA=0,nodesepB=\sarnodesepB,offsetA=0,offsetB=\saroffsetB,angleA=0, angleB=\theEangleB, linestyle=dashed]{->}{xxx}{#3}
-%the following provides context for any following label
-\nccurve[nodesepA=\sarnodesepA,nodesepB=0,offsetA=\saroffsetA,offsetB=0,angleA=#1, angleB=180]{-}{#2}{xxx}
-\setlength{\sarnodesepA}{\sarnodesepAsav}
-\setlength{\sarnodesepB}{\sarnodesepBsav}
+% Etm - Edge total mono
+\newcommandtwoopt{\Etm}[4][0][0]{
+\monoEdge{#1}{#2}{#3}{#4}{solid}{dashed}
 }
 
 % Ete - Edge total epi
-\newcommand{\Ete}[3][0]{
-\setlength{\sarnodesepAsav}{\sarnodesepA}
-\setlength{\sarnodesepBsav}{\sarnodesepB}
-\addtolength{\sarnodesepA}{3pt}
-\addtolength{\sarnodesepB}{3pt}
-\nccurve[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,angleA=#1, angleB=\theEangleB,linecolor=white,linewidth=0]{->}{#2}{#3}
-\ncput[nrot=:R,npos=0]{\psline(0,.1)(.075,0)}
-\ncput[nrot=:R,npos=0]{\psline(0,.1)(-0.075,0)}
-\ncput{\pnode(0,0){xxx}}
-\nccurve[nodesepA=0,nodesepB=\sarnodesepB,offsetA=0,offsetB=\saroffsetB,angleA=0, angleB=\theEangleB]{->}{xxx}{#3}
-%the following provides context for any following label
-\nccurve[nodesepA=\sarnodesepA,nodesepB=0,offsetA=\saroffsetA,offsetB=0,angleA=#1, angleB=180]{-}{#2}{xxx}
-\setlength{\sarnodesepA}{\sarnodesepAsav}
-\setlength{\sarnodesepB}{\sarnodesepBsav}
+\newcommandtwoopt{\Ete}[4][0][0]{
+\crowsfootedEdge{#1}{#2}{#3}{#4}{solid}{solid}
 }
 
 % Etme - Edge total mono epi
-\newcommand{\Etme}[3][0]{
+\newcommandtwoopt{\Etme}[4][0][0]{
+\monoEdge{#1}{#2}{#3}{#4}{solid}{solid}
+}
+
+% crowsfootedEdge - \crowsfootedEdge[angleA][midpointangle]{startnode}{endnode}[startstyle][endstyle]
+\newcommand{\crowsfootedEdge}[6]{
 \setlength{\sarnodesepAsav}{\sarnodesepA}
 \setlength{\sarnodesepBsav}{\sarnodesepB}
 \addtolength{\sarnodesepA}{3pt}
 \addtolength{\sarnodesepB}{3pt}
-\nccurve[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,angleA=#1, angleB=\theEangleB,linecolor=white,linewidth=0]{->}{#2}{#3}
+\setcounter{EangleA}{ #1 + #2}
+\setcounter{EangleB}{180  - #1 + #2}
+\setcounter{EmidangleA}{#2}
+\setcounter{EmidangleB}{#2 + 180}
+\nccurve[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,angleA=\theEangleA, angleB=\theEangleB,linestyle=none,linewidth=0]{->}{#3}{#4}
+\ncput[nrot=:R,npos=0]{\psline(0,.1)(.075,0)}
+\ncput[nrot=:R,npos=0]{\psline(0,.1)(-0.075,0)}
 \ncput{\pnode(0,0){xxx}}
-\nccurve[nodesepA=0,nodesepB=\sarnodesepB,offsetA=0,offsetB=\saroffsetB,angleA=0, angleB=\theEangleB]{->}{xxx}{#3}
+\nccurve[nodesepA=0,nodesepB=\sarnodesepB,offsetA=0,offsetB=\saroffsetB,angleA=\theEmidangleA, angleB=\theEangleB, linestyle=#6]{->}{xxx}{#4}
 %the following provides context for any following label
-\nccurve[nodesepA=\sarnodesepA,nodesepB=0,offsetA=\saroffsetA,offsetB=0,angleA=#1, angleB=180]{-}{#2}{xxx}
+\nccurve[nodesepA=\sarnodesepA,nodesepB=0,offsetA=\saroffsetA,offsetB=0,angleA=\theEangleA, angleB=\theEmidangleB,linestyle=#5]{-}{#3}{xxx}
 \setlength{\sarnodesepA}{\sarnodesepAsav}
 \setlength{\sarnodesepB}{\sarnodesepBsav}
 }
 
-
+% monoEdge - \monoEdge[angleA][midpointangle]{startnode}{endnode}[startstyle][endstyle]
+\newcommand{\monoEdge}[6]{ 
+\setlength{\sarnodesepAsav}{\sarnodesepA}
+\setlength{\sarnodesepBsav}{\sarnodesepB}
+\addtolength{\sarnodesepA}{3pt}
+\addtolength{\sarnodesepB}{3pt}
+\setcounter{EangleA}{ #1 + #2}
+\setcounter{EangleB}{180  - #1 + #2}
+\setcounter{EmidangleA}{#2}
+\setcounter{EmidangleB}{#2 + 180}
+\nccurve[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,angleA=\theEangleA, angleB=\theEangleB,linestyle=none,linewidth=0]{->}{#3}{#4}
+\ncput{\pnode(0,0){xxx}}
+\nccurve[nodesepA=0,nodesepB=\sarnodesepB,offsetA=0,offsetB=\saroffsetB,angleA=\theEmidangleA, angleB=\theEangleB, linestyle=#6]{->}{xxx}{#4}
+%the following provides context for any following label
+\nccurve[nodesepA=\sarnodesepA,nodesepB=0,offsetA=\saroffsetA,offsetB=0,angleA=\theEangleA, angleB=\theEmidangleB,linestyle=#5]{-}{#3}{xxx}
+\setlength{\sarnodesepA}{\sarnodesepAsav}
+\setlength{\sarnodesepB}{\sarnodesepBsav}
+}
 
 
 \newcounter{EangleGiven}
@@ -420,7 +368,7 @@
 \setcounter{EangleStartCorrected}{#1-10} %correction required because for nccurve unlike nccircle angle measured at boundary not at centre of node
 \setcounter{EangleEndCorrected}{#1+180+10} %correction required because angle measured at boundary not at centre of node
 \setcounter{EangleComplementary}{#1 + 180}
-\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linecolor=white]{->}{#2}{.4cm} % an invisible circle to hang the midpoint from
+\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linestyle=none]{-}{#2}{.4cm} % an invisible circle to hang the midpoint from
 \ncput{\pnode(0,0){midpoint}}                                         
 \nccurve[nodesepA=1pt,nodesepB=0pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleStartCorrected, angleB=\theEangleGiven, ncurv=1.359, linecolor=black, linestyle=dashed]{-}{#2}{midpoint}
 \ncput[nrot=:R,npos=0]{\psline(0,.1)(.075,0)}
@@ -440,7 +388,7 @@
 \setcounter{EangleStartCorrected}{#1-10} %correction required because for nccurve unlike nccircle angle measured at boundary not at centre of node
 \setcounter{EangleEndCorrected}{#1+180+10} %correction required because angle measured at boundary not at centre of node
 \setcounter{EangleComplementary}{#1 + 180}
-\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linecolor=white]{->}{#2}{.4cm} % an invisible circle to hang the midpoint from
+\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linestyle=none]{-}{#2}{.4cm} % an invisible circle to hang the midpoint from
 \ncput{\pnode(0,0){midpoint}}   
 \nccurve[nodesepA=0pt,nodesepB=2pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleComplementary, angleB=\theEangleEndCorrected, ncurv=1.359, linestyle=dashed]{-}{midpoint}{#2}
 % 1.359 is e/2 happenchance or algorithmically necessary???
@@ -457,7 +405,7 @@
 \setcounter{EangleStartCorrected}{#1-10} %correction required because for nccurve unlike nccircle angle measured at boundary not at centre of node
 \setcounter{EangleEndCorrected}{#1+180+10} %correction required because angle measured at boundary not at centre of node
 \setcounter{EangleComplementary}{#1 + 180}
-\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linecolor=white]{->}{#2}{.4cm} % an invisible circle to hang the midpoint from
+\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linestyle=none]{-}{#2}{.4cm} % an invisible circle to hang the midpoint from
 \ncput{\pnode(0,0){midpoint}}                                         
 \nccurve[nodesepA=1pt,nodesepB=0pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleStartCorrected, angleB=\theEangleGiven, ncurv=1.359, linecolor=black, linestyle=dashed]{-}{#2}{midpoint}
 \ncput[nrot=:R,npos=0]{\psline(0,.1)(.075,0)}
@@ -477,7 +425,7 @@
 \setcounter{EangleStartCorrected}{#1-10} %correction required because for nccurve unlike nccircle angle measured at boundary not at centre of node
 \setcounter{EangleEndCorrected}{#1+180+10} %correction required because angle measured at boundary not at centre of node
 \setcounter{EangleComplementary}{#1 + 180}
-\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linecolor=white]{->}{#2}{.4cm} % an invisible circle to hang the midpoint from
+\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linestyle=none]{-}{#2}{.4cm} % an invisible circle to hang the midpoint from
 \ncput{\pnode(0,0){midpoint}}                                         
 %\nccurve[nodesepA=0pt,nodesepB=0pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleComplementary, angleB=\theEangleEndCorrected, ncurv=1.359, linestyle=dashed]{->}{xxx}{#2}
 \nccurve[nodesepA=0pt,nodesepB=2pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleComplementary, angleB=\theEangleEndCorrected, ncurv=1.359]{-}{midpoint}{#2}
@@ -495,7 +443,7 @@
 \setcounter{EangleStartCorrected}{#1-10} %correction required because for nccurve unlike nccircle angle measured at boundary not at centre of node
 \setcounter{EangleEndCorrected}{#1+180+10} %correction required because angle measured at boundary not at centre of node
 \setcounter{EangleComplementary}{#1 + 180}
-\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linecolor=white]{->}{#2}{.4cm} % an invisible circle to hang the midpoint from
+\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linestyle=none]{-}{#2}{.4cm} % an invisible circle to hang the midpoint from
 \ncput{\pnode(0,0){midpoint}}                                         
 \nccurve[nodesepA=1pt,nodesepB=0pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleStartCorrected, angleB=\theEangleGiven, ncurv=1.359, linecolor=black]{-}{#2}{midpoint}
 \ncput[nrot=:R,npos=0]{\psline(0,.1)(.075,0)}
@@ -516,7 +464,7 @@
 \setcounter{EangleStartCorrected}{#1-10} %correction required because for nccurve unlike nccircle angle measured at boundary not at centre of node
 \setcounter{EangleEndCorrected}{#1+180+10} %correction required because angle measured at boundary not at centre of node
 \setcounter{EangleComplementary}{#1 + 180}
-\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linecolor=white]{->}{#2}{.4cm} % an invisible circle to hang the midpoint from
+\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linestyle=none]{-}{#2}{.4cm} % an invisible circle to hang the midpoint from
 \ncput{\pnode(0,0){midpoint}}     
 \nccurve[nodesepA=0pt,nodesepB=2pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleComplementary, angleB=\theEangleEndCorrected, ncurv=1.359, linestyle=dashed]{-}{midpoint}{#2}
 % 1.359 is e/2 happenchance or algorithmically necessary???
@@ -533,7 +481,7 @@
 \setcounter{EangleStartCorrected}{#1-10} %correction required because for nccurve unlike nccircle angle measured at boundary not at centre of node
 \setcounter{EangleEndCorrected}{#1+180+10} %correction required because angle measured at boundary not at centre of node
 \setcounter{EangleComplementary}{#1 + 180}
-\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linecolor=white]{->}{#2}{.4cm} % an invisible circle to hang the midpoint from
+\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linestyle=none]{-}{#2}{.4cm} % an invisible circle to hang the midpoint from
 \ncput{\pnode(0,0){midpoint}}                                         
 \nccurve[nodesepA=1pt,nodesepB=0pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleStartCorrected, angleB=\theEangleGiven, ncurv=1.359, linecolor=black]{-}{#2}{midpoint}
 \ncput[nrot=:R,npos=0]{\psline(0,.1)(.075,0)}
@@ -555,7 +503,7 @@
 \setcounter{EangleStartCorrected}{#1-10} %correction required because for nccurve unlike nccircle angle measured at boundary not at centre of node
 \setcounter{EangleEndCorrected}{#1+180+10} %correction required because angle measured at boundary not at centre of node
 \setcounter{EangleComplementary}{#1 + 180}
-\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linecolor=white]{->}{#2}{.4cm} % an invisible circle to hang the midpoint from
+\nccircle[angleA=\theEangleComplementary, nodesep=0pt, linestyle=none]{-}{#2}{.4cm} % an invisible circle to hang the midpoint from
 \ncput{\pnode(0,0){midpoint}}     
 \nccurve[nodesepA=0pt,nodesepB=2pt,offsetA=0pt,offsetB=0pt,angleA=\theEangleComplementary, angleB=\theEangleEndCorrected, ncurv=1.359]{-}{midpoint}{#2}
 % 1.359 is e/2 happenchance or algorithmically necessary???
