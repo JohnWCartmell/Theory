@@ -6,6 +6,37 @@ In this example the schema is as shown in the earlier figure \lref{teamselection
 In this model the fd factoring property holds because functional dependency $\msfd{S}{c}$ is now intransitive because though
 $S \morph S\S \morph c$ we also have $S/S \morph S$.
 
+\begin{figure} [h]
+\begin{center}
+\begin{tabular}{p{3.5cm} c}
+\begin{tabular}{c p{1.5cm} c}
+   \Rnode{p}{p} & & \Rnode{v}{v}
+\end{tabular}
+%\nccircle[nodesep=3pt]{<-}{p}{.4cm}
+\rEtm[270]{p}
+\alabel{S}[0.6]
+\Et[-40]{p}{v}
+\blabel{c}[0.6]
+\Etm{p}{v} 
+\alabel{pId}[0.6]
+\idcomp
+& \footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+p & person & Identified by id attribute ($pId$). \\
+s & selects & each person selects exactly one other person \\
+c & colour & each person is given a coloured vest 
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{Team Selection Example  - Variant one. The  vest colour  of a person is 
+identical to the vest colour of their selected buddy which is to say that the path equivalence $S \circ c \simeq c$ holds. From this
+we can show that this model exhibits a transitive functional dependency which does not factor through an intransitive dependency.
+}
+\label{teamselectionvariantoneERschema}
+\end{figure}
+
 The relations in relational schema  determined by $\chi$ is as shown above (where exactly) 
 but now there is a functional dependency $S \morph pId$ and $S/pId$ is a candidate key. As predicted by 
 theorem \lref{goaltheorem} this schema in BCNF. 
