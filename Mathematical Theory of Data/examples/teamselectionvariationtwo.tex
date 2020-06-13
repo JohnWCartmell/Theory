@@ -1,3 +1,5 @@
+\subsection{Team Selection - Variation Two}
+\llabel{teamselectionvariationtwo}
 
 This is a second variation of the preliminary model - the situation is as for variation one in that  each person may only be selected by a single other individual and a person may select themselves in which case the person will be in a team of their own but persons may elect not to participate in which case
 in defining instances $E$, the relationship $s$ and the attribute $c$ are both undefined.
@@ -26,20 +28,39 @@ c & colour & each person is given a coloured vest
 \end{tabular} 
 \end{tabular}
 \end{center}
-\caption{Team Selection Example  - Variant Two. The  vest colour  of a person is 
-identical to the vest colour of their selected buddy which is to say that the path equivalence $S \circ c \simeq c$ holds. From this
-we can show that this model exhibits a transitive functional dependency which does not factor through an intransitive dependency.
+\caption{Team Selection Example  - Variant Two. The example is similar to the previous one (example \ref{teamselectionvariantone})
+but is different in that the relationship $S$ is not total.
 }
 \label{teamselectionvarianttwoERschema}
 \end{figure}
 
-\begin{enumerate}
-\item
-A person may not select a person who has eleccted out 
-Now the fd factoring property does hold because though we have $S \morph S/S \morph S/S/S ... \morph c$ 
-we do have $... S/S/S \morph S/S \morph S$.
-\item
-a person may select a person who has elected out
-now we do not have $S/S \morph S$ but then neither do we have $S \morph S/S$ or $S/S \morph S/S/S$ or so on and so we do have the fd factoring property.
-\end{enumerate}
+Assume that\footnote{If we assume otherwise that a person may select a person who has elected out then we have $S \circ c \leq c$ rather than $S \circ c \simeq c$.
+and we do not have a situation where $S \morph S/S$ or $S/S \morph S/S/S$ or so on.  The fd factoring property holds and in the relational design we do not
+have a functional dependency $\ssfd{spId}{c}$. The relational design is in BCNF.}
+the situation is that a person may not select a person who has elected out. In this case there is a  path equivalence $c \simeq S \circ c$.
+The fd factoring property holds because as in the previous example though we have $S \morph S/S \morph S/S/S ... \morph c$ 
+but unlike the previous example (????) we also have $... S/S/S \morph S/S \morph S$. \commentary{Proof?}
+
+\subsubsection{$\chi$-generated Relational Design}
+As in example \ref{teamselectionpreliminaryexample} the $\chi$-generated relational design consists of a single relation:
+\begin{equation}
+\label{personrelation}
+person(\underline{pId}, spId, c)
+\end{equation}
+and in addition to those implied by the fact that $pId$ is key, the  attributes of this relation are related by the following  functional dependencies:
+\begin{equation}
+\ssfd{spId}{c}
+\end{equation}
+and the following  inclusion dependency:
+\begin{equation}
+\label{spIdcolour1}
+person[spId,c] \subseteq person[pId,c]
+\end{equation}
+
+
+The $person$ relation (\ref{personrelation}) is not in BCNF nor in 3NF because the dependency (\ref{colourfd}) is transitive but its rhs, $c$, is not a key attribute wrt the relation\commentary{This uses Codd's way of describing 3NF not Zaniolo's.}. 
+In example \lref{teamselectionvarianttworevised} we can show, significantly,  that a normalised version of this relational schema, one that is in both TNF and BCNF, is 
+$\chi$-generated from an ER model that is this  model specifically revised to achieve property Z.
+
+
 

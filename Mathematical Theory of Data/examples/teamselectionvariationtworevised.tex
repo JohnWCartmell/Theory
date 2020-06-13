@@ -1,0 +1,106 @@
+\subsection{Team Selection Variation Two - Revised Model}
+\llabel{teamselectionrevised}
+
+The situation modelled in this example is exactly that described in the previous example (see example \lref{teamselectionvariationtwo}). The ER model though is different in that the ER schema used to represent the data  is a revised ER schema modified specifically so that in this model property Z holds with the consequence that the $\chi$-generated relational schema is in TNF and BCNF;  in fact the $\chi$-generated relational schema in this example is a normalised version of the $\chi$-generated relational schema from that 
+previous example (as described in section \lref{teamselectionvariationtworelationalschema}).
+
+\subsubsection{The ER Schema}
+The ER schema in this example is shown in figure \ref{teamselectionvariationtworevisedERschema}. It is the ER schema of example \lref{teamselectionpreliminary} (see figure 
+\lref{teamselectionpreliminaryERschema}) with an additional entity type $sp$ to represent persons who have been selected by some other person.
+
+
+\begin{figure} [h]
+\begin{center}
+\begin{tabular}{p{4cm}  l }
+\begin{tabular}{c p{1.5cm} c}
+   \Rnode{sp}{\rnode{sps}{s}\rnode{spp}{p}} & &    \\[1.4cm]
+   \Rnode{p}{p}   & & \Rnode{v}{v}
+\end{tabular}
+%\setlength{\sarnodesepA}{-1pt}
+%\setlength{\sarnodesepB}{-3pt}
+\Epe[40][90]{p}{sps}
+\alabel{S}
+\Etm[0][-90]{sp}{p}
+\alabel{I}
+\idcomp
+\Et[20][-35]{spp}{v}
+\alabel{c}[0.4]
+\Etm{p}{v} 
+\blabel{pId}
+\idcomp &\footnotesize
+\begin{tabular}{c p{1.5cm} p{4cm}}
+KEY && \\
+\hline
+p & person & Identified by id attribute ($pId$). \\
+sp & selected & a $selected$ person is identified by their inclusion relationship $I$ to the type $person$ \\
+S & selects & each $person$ selects exactly one other $selected$ person \\
+I & inclusion & each $selected$ person is a $person$ \\
+c & colour & each $person$ wears a vest of this colour 
+\end{tabular} 
+\end{tabular}
+\end{center}
+\caption{Team Selection Variation Two Example Revised. 
+Persons have a coloured vest only if they elect to take part.
+In this case this colour is the same as the colour 
+worn by the person they select and it is this latter colour that is included in the schema and which will therefore to be held as data. The  vest colour  of a selected person is 
+identical to the vest colour of the person they themselves select which is to say that there is a  path equivalence $I \circ S \circ c \simeq c$ in this model.
+}
+\label{teamselectionvariationtworevisedERschema}
+\end{figure}
+
+\begin{categoricalaside}
+
+The relationship $S$ of the preliminary model has been epi-mono split into $S$ which is now partial and an epimorphism, in the sense that it is onto in all defining instances,
+and $I$ which is a monomorphism. The attribute $c$ has been factored through $S$.
+\end{categoricalaside}
+
+property Z somewhere
+
+\subsubsection{Analysis of Functional Dependencies}
+ 
+
+
+Similar reasoning to that given in section \lref{teamselectionpreliminaryanalysis} can be used to establish that 
+in this model we have the following sequence of functional dependencies:
+\begin{equation}
+I/pId \morph I/S \morph I/S/I/S \morph I/S/I/S/I/S ... \morph c
+\end{equation}
+but 
+\begin{itemize}
+\item $\ssfd{I/pId}{c}$ is a transitive functional dependency because $\ssfd{I/pId}{I/S}$ is not reversible.
+\item $\ssfd{I/S}{I/S/I/S}$ is reversible \commentary{check}
+\item $\ssfd{I/S}{c}$ is intransitive
+\item $\ssfd{I/pId}{c}$ can be factored right intransitively
+\item the fd factoring property holds of the model
+\end{itemize}
+
+\subsubsection{Is this model well-formulated}
+Yes. This model is well-formulated is design reduced and meets property Z. 
+\commentary{This model meets the conditions of theorem \lref{maintheorem}; and is simple without caveats and so the relational model 
+determined by the $\chi$ mapping is in BCNF.}
+
+
+\subsubsection{The $\chi$-generated Relational Schema}
+The $\chi$ mapping applied to this model produces relations (\ref{person1relation}) and (\ref{person2relation}):
+\begin{equation}
+\label{person1relation}
+selected(\underline{spId},  c)
+\end{equation}
+\begin{equation}
+\label{person2relation}
+person(\underline{pId}, spId)
+\end{equation}
+satisfying the inclusion dependencies
+\begin{equation}
+selected[spId] \subseteq person[pId]
+\end{equation}
+and
+\begin{equation}
+\label{spIdselectedcolour}
+selected[spId,c] \subseteq (selected \bowtie_{spId=pId} 
+                                       (person \bowtie selected [pId,c]) )
+																			[spId,c];
+\end{equation}
+This relational schema is in TNF and BCNF.
+
+
