@@ -1566,6 +1566,20 @@ which does not include $e$, $e \simeq p$.
 A model $\gmodel$ is said to be \term{free of design redundancy} iff there are no design redundant edges in $\gmodel$.
 \end{definition}
 
+\begin{newtt}
+It is possible for an entity model to have an entity type $a$ and a relationship or path $p$ with both domain and codomain $a$  thus comprising a loop in the graph.
+If in addition the type $a$ is defined to have an attribute $c$ then it is further possible that the path equivalence $p \circ c \simeq c$ holds in the model.
+An instance of such a model is given in example  $\lref{teamselectionpreliminary}$. In this situation we can think of the attribute $c$ as being a fixed property of the loop $p$.
+Loops $p$ having fixed properties in this way are impediments to achieving normal forms in relational designs. We will show that they are not a problem if the relationship that heads the path is a mono-source. This leads to the following definition: 
+\begin{definition}
+An ER model $\gmodel$ is said to be \term{fixed property factored} iff whenever $p: a \morph a$ is a non-empty path in $\gmodel$ 
+and $c:a \morph \veee$ is an attribute such that $p \circ c \simeq c$ in $\gmodel$ then  $p=M \circ p'$ for some relationship $M$ which is a mono-source.
+\commentary{ This definition coming about remember because we are trying to prove lemma 
+%freeofdesignredundancyimpliesfdlhsismonosource 
+\lref{freeofdesignredundancyimpliesfdlhsismonosource}.}
+\end{definition}
+\end{newtt}
+
 \begin{lemma}
 \llabel{freeofdesignredundancyimpliesfdlhsismonosource} \commentary{\newt{NOT PROVEN}}
 In a well-formulated model $\gmodel$ that has the \fdfactoring\ property and which is free of design redundancy if $y$ is an attribute and if $\mmfd{\xn}{y}$
@@ -2102,6 +2116,7 @@ it follows that $r \circ q < x_j$ in $\gmodel$  where $x_j= I^{-1}_\gmodel(x'_j)
 This completes the proof.
 \end{proof}
 
+\begin{oldtt}
 \begin{lemma}
 \llabel{wellformulatedandfreeofdesignredundancyimplieschileafrestrictionfree}
 If $\gmodel$ is a $\chit$-suitable ER model which is well-formulated, \newt{has the fd factoring property} and \newt{is free of design redundancy} \oldt{has no referential attributes} then $\chigmodel$ is leaf-restriction free.
@@ -2109,8 +2124,8 @@ If $\gmodel$ is a $\chit$-suitable ER model which is well-formulated, \newt{has 
 \begin{proof}
 Uses lemma  \lref{wellformulatedandfreeofdesignredundancyimpliesleafrestrictionfree} and lemma \lref{restrictioncarrythroughlemma}. 
 \vspace{0.5cm}
-tbd
 \end{proof}
+\end{oldtt}
 
 \begin{lemma}
 \llabel{wfcarrythroughlemma}
