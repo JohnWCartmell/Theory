@@ -1,14 +1,25 @@
 
 \newcommand{\mylemma}[1]{\Rnode{#1START}{$\diamond$}\Rnode{#1}{\footnotesize{\ref{#1} #1}} \Rnode{#1END}{}}
+\newenvironment{synopsis}[1]
+{\begin{minipage}{#1}
+\scriptsize
+}
+{
+\end{minipage}
+}
 \newcommand{\usedby}[3][0]{\ncarc[arcangle=#1,nodesepA=\arrnodesepA,nodesepB=\arrnodesepB,offsetA=\arroffsetA,offsetB=\arroffsetB,arrowsize=3pt,arrowinset=0.3]{->}{#2END}{#3START}}
 {
 \renewcommand{\arraystretch}{3.0}
 \setlength{\tabcolsep}{0pt}
-	\begin{tabular} { c   c }
+	\begin{tabular} { c  c}
 	\hline
 	    \begin{tabular} { c }
 			   \begin{tabular} { c  p{2cm} c  p{6cm} c }
 				    \mylemma{intransitivelemma} & & \mylemma{mainlemma} & & \mylemma{maintheorem} \\
+						                            & &                     & &  \begin{synopsis}{2.5cm}
+                                                                      $\gmodel$ well-formulated, leaf restriction-free, fd factoring
+																																			and reduced (wo caveat) implies $\gmodel$ 3NF(BCNF) 
+                                                                      \end{synopsis} \\
 				 \end{tabular} \\
 				 \begin{tabular} { c  c }
 				    \begin{tabular} { r}
@@ -16,14 +27,27 @@
 						   \mylemma{wfcarrythroughlemma} \\
 						   \mylemma{fdfactoringcarrythroughlemma} \\
 						   \begin{tabular} {c p{0.5cm} c}
-						      \highlight{\mylemma{freeofdesignredundancyimpliesfdlhsismonosource}} & & \mylemma{wellformulatedandfreeofdesignredundancyimpliesleafrestrictionfree}
+						      & & \mylemma{restrictioncarrythroughlemma}
 						   \end{tabular} \\
 						   \mylemma{simplecarrythroughlemma} \\
 						   \mylemma{wocaveatcarrythroughlemma}
-						\end{tabular} & \ \ \ \ \mylemma{chilemma} \\
+						\end{tabular} & \ \ \ \ \begin{minipage}{4.5cm} \mylemma{chilemma} \\
+						                                               \begin{synopsis}{5cm}
+																													   \begin{quote}
+																												          $\gmodel$ well-formulated, $\chi$-suitable, fd factoring,
+																								                             \newt{leaf-restriction free}
+																																	            and free of (non-idenitfying) referential attributes
+																													        implies $\chi(\gmodel)$ relational, well-formulatyed, simple (wo caveats),
+																																	leaf restriction free, fd factoring.
+																													   \end{quote}
+																												   \end{synopsis}
+																     \end{minipage}
 				\end{tabular}
 			\end{tabular}
-			   & \raisebox{0.5cm}{ \ \ \mylemma{goaltheorem} } \\
+			   &  \ \ \begin{minipage}{3cm}\mylemma{goaltheorem}  \begin{synopsis}{2.5cm} 
+				     \textbullet $\gmodel$ well-formulated, $\chi$-suitable, fd factoring, \newt{leaf-restriction free} implies $\chi(\gmodel)$ relational \\
+						 \textbullet $\gmodel$  free of (non-identifying) referential attributes implies $\chi(\gmodel)$ BCNF(3NF) 
+					 \end{synopsis} \end{minipage}\\
 			\hline 
 	\end{tabular}
 	}
