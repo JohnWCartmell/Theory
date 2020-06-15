@@ -2,8 +2,8 @@
 \subsection{Team Selection - Preliminary Model}
 \llabel{teamselectionpreliminary}
 
-\commentary {An example of a model that does not have the fd factoring property.}
-\commentary{From this model the $\chi$ transform produces a relational model that is not in third normal form.}
+\commentary {An example of a model that \newt{is not reduced} and does not have the fd factoring property.}
+\commentary{From this model the $\chi$ transform produces a relational model that is not in BCNF nor in 3NF.}
 We imagine a situation in which a number of people are separated into teams by asking each person to select a person they wish to be teamed up with. Teams of various sizes are picked based on this information and coloured vests are worn by people to be indicative of the teams that they are in.
 We choose to represent this team information by the schema shown in figure \ref{teamselectionpreliminaryERschema}. 
 
@@ -39,7 +39,9 @@ we can show that this model exhibits a transitive functional dependency which do
 \end{figure}
 
 That the  vest colour  of a person is 
-identical to the vest colour of their selected buddy can be expressed by the path equivalence $S \circ c \simeq c$. 
+identical to the vest colour of their selected buddy can be expressed by the path equivalence $S \circ c \simeq c$. Because of this the model does not satisfy the condition for being reduced (as $c$ is 
+is not equivalent to a primary key attribute, it not 
+identifying and $S$ is not a mono-source) 
 \begin{categoricalaside}
 Another way of expressing this 
 path equivalence, $S \circ c \simeq c$, is by stating that in the category of paths through the schema  the diagram
