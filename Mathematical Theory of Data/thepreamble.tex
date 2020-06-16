@@ -16,11 +16,17 @@
 \usepackage[font=small]{caption}
 \setlength{\captionmargin}{2cm}
 
+\usepackage{imakeidx}
+\makeindex[name=definitions, title=Definitions]
+\makeindex[name=lemmas, title=Lammes]
+
+
+
 \newcommand{\commentary}[1]{\marginpar{\footnotesize #1}}
 \newcommand{\highlight}[1]{\colorbox{orange}{#1}}
-\newcommand{\term}[1]{\textit{#1}\commentary{\colorbox{lightgray}{\textit{#1}}}}
-\newcommand{\llabel}[1]{\label{#1}\commentary{\colorbox{pink}{\scriptsize{#1}}}}
-\newcommand{\lref}[1]{\ref{#1}\colorbox{pink}{\scriptsize{#1}}}
+\newcommand{\term}[1]{\textit{#1}\commentary{\colorbox{lightgray}{\textit{#1}}}\index[definitions]{#1}}
+\newcommand{\llabel}[1]{\label{#1}\commentary{\colorbox{pink}{\scriptsize{#1}}}\index[lemmas]{#1}}
+\newcommand{\lref}[1]{\ref{#1}\colorbox{pink}{\scriptsize{#1}}\index[lemmas]{#1!use of}}
 
 \newcommand{\newt}[1]{\colorbox{yellow}{#1}}
 \newenvironment{newtt}
