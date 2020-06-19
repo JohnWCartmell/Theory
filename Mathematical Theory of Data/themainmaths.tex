@@ -221,6 +221,23 @@ in $\gmodel'$,
 \end{itemize}
 \end{definition}
 
+From this definition, we can spell out the following:
+
+keypreservationuptoequivalence
+\begin{observation}
+\llabel{keypreservationuptoequivalence}
+If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi$ is an ER model mapping $\varphi: \gmodel \morph \gmodel'$ then whenever 
+$p:a \morph \veee$ is a primary key path in $\gmodel$ then there exists a primary key path 
+$p':\varphi(a) \morph \veee$ in $\gmodel$ such that $\varphi(p) \simeq p'$ in $\gmodel'$.
+\end{observation}
+
+keysurjectionuptoequivalence
+\begin{observation}
+\llabel{keysurjectionuptoequivalence}
+If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi$ is an ER model mapping $\varphi: \gmodel \morph \gmodel'$ then whenever $p':\varphi(a) \morph \veee$ is a primary key path in $\gmodel'$ then there exists a primary key path $p:a \morph \veee$ in $\gmodel$ such that $\varphi(p) \simeq p'$ in $\gmodel'$.
+\end{observation}
+
+We shall also have need of the folllowing lemma:
 \begin{lemma}
 \llabel{mappingrespectsequivalence}
 If $\varphi: \gmodel \morph \gmodel'$ is a mapping of ER models and
@@ -1249,19 +1266,7 @@ In an ER model $\gmodel$ , if $t$ and $t'$ are paths, $t:a \morph b$ and $t':a \
 then if $t \simeq t'$ in $\gmodel$ then $t$ is identifying-like iff $t'$ is identifying-like.
 \end{lemma}
 
-keypreservationuptoequivalence
-\begin{observation}
-\llabel{keypreservationuptoequivalence}
-If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi$ is an ER model mapping $\varphi: \gmodel \morph \gmodel'$ then whenever 
-$p:a \morph \veee$ is a primary key path in $\gmodel$ then there exists a primary key path 
-$p':\varphi(a) \morph \veee$ in $\gmodel$ such that $\varphi(p) \simeq p'$ in $\gmodel'$.
-\end{observation}
 
-keysurjectionuptoequivalence
-\begin{observation}
-\llabel{keysurjectionuptoequivalence}
-If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi$ is an ER model mapping $\varphi: \gmodel \morph \gmodel'$ then whenever $p':\varphi(a) \morph \veee$ is a primary key path in $\gmodel'$ then there exists a primary key path $p:a \morph \veee$ in $\gmodel$ such that $\varphi(p) \simeq p'$ in $\gmodel'$.
-\end{observation}
  
 \begin{lemma}
 \llabel{mappingspreserveidentifyinglike} 
@@ -1305,7 +1310,7 @@ $\varphi(t)=t'$ and this $t$ is identifying-like by lemma \lref{isospreserveandr
 \subsection{\highlight{Relationship-like} Paths}
 \begin{definition}
 In an ER model $\gmodel$, a non-empty path $p: a \morph b$, where $a$ and $b$ are entity types, which consists
-of a relationship $R$ followed by a  path $t :a' \morph b$ is said to be \term{\highlight{relationship-like}} iff
+of a relationship $R$ followed by a  path $t :a' \morph b$ is said to be \term{relationship-like} iff
 \commentary{defined 11th December 2019}
 either  $t$ is the empty path (so that the path $p$ is exactly a relationship $R$) or $t$
 is identifying-like.\commentary{A \highlight{relationship-like} path, as a relationship i.e. a path of length 1,  can be navigated in SQL without use of intermediate tables (only true in a first-cut model!!) . Paths which have length greater than one and are not \highlight{relationship-like} need be navigated in SQL using intermediate tables.}
@@ -1556,7 +1561,8 @@ dependency $\set{y_1,...y_m} \morph z$. Therefore by lemma \lref{intransitivelem
 or else  $\set{\ym}$ is a mono-source in which case, by lemma \lref{transitiveinjectivelemma}, $\set{\xn}$ is a mono-source as required.
 \end{proof}
 
-\begin{newtt}
+\begin{oldtt}
+
 \begin{definition}
 In a model $\gmodel$ an edge $e$ is \term{design redundant} if $e$ is not an identifing edge and if for some path $p$
 which does not include $e$, $e \simeq p$.
@@ -1566,7 +1572,6 @@ which does not include $e$, $e \simeq p$.
 A model $\gmodel$ is said to be \term{free of design redundancy} iff there are no design redundant edges in $\gmodel$.
 \end{definition}
 
-\begin{newtt}
 It is possible for an entity model to have an entity type $a$ and a relationship or path $p$ with both domain and codomain $a$  thus comprising a loop in the graph.
 If in addition the type $a$ is defined to have an attribute $c$ then it is further possible that the path equivalence $p \circ c \simeq c$ holds in the model.
 An instance of such a model is given in example  $\lref{teamselectionpreliminary}$. In this situation we can think of the attribute $c$ as being a fixed property of the loop $p$.
@@ -1578,7 +1583,6 @@ and $c:a \morph \veee$ is an attribute such that $p \circ c \simeq c$ in $\gmode
 %freeofdesignredundancyimpliesfdlhsismonosource 
 \lref{freeofdesignredundancyimpliesfdlhsismonosource}.}
 \end{definition}
-\end{newtt}
 
 \begin{lemma}
 \llabel{freeofdesignredundancyimpliesfdlhsismonosource} \commentary{\newt{NOT PROVEN}}
@@ -1595,7 +1599,7 @@ Therefore there is a functional dependency $\mmfd{p'}{y}$ in $\gmodel$.
 But also $y \simeq p' \circ p' \circ y$ and a functional dependencies $\mmfd{p'}{p' \circ p'}$ and $\mmfd{p' \circ p'}{y}$.
 \commentary{Could we stipulate in defn of well-formulated that representation of fd should not include thing represented?}
 \end{proof}
-\end{newtt}
+\end{oldtt}
 
 
 \subsection{Ranking Relationships in an ER Model}
@@ -1681,7 +1685,7 @@ ER model $\gmodel$ satisfies a strong form of 3NF in which $y$ will be a primary
 We can define as follows:
 
 \begin{definition} % S3NF
-A (relational) ER model $\gmodel$ is in Strong Third Normal Form (S3NF)  iff
+A (relational) ER model $\gmodel$ is in \term{Strong Third Normal Form} (\term{S3NF})  iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
 for which  \msfd{x_1,...x_n}{y} is a non-trivial functional dependency, 
 either $\set{\xn}$ is a mono-source or else $y$ is identifying.
@@ -1691,7 +1695,7 @@ We shall also show that with a single additional condition on $\gmodel$, which i
 the generated model $\chigmodel$ satisfies the BCNF condition.
 Written in the terminology we are using here BCNF can be defined as follows:
 \begin{definition} % BCNF
-A relational ER model is in Boyce Codd Normal Form (BCNF) \commentary{See Zaniolo definition 2.} iff
+A relational ER model is in \term{Boyce Codd Normal Form} (\term{BCNF}) \commentary{See Zaniolo definition 2.} iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
 for which  \msfd{x_1,...x_n}{y} is a non-trivial functional dependency, 
 $\set{\xn}$ is a mono-source.  
@@ -1780,18 +1784,19 @@ From the assumption that the model $\gmodel$ is well-formulated and leaf-restric
 then by lemma \lref{mainlemma} 
 either $\set{\xn}$ is a mono-source and we are done
 or else there is a non-empty \oldt{relationship-like} path $r$ in $\gmodel$
-and a path $w$ of $\gmodel$ that is not  equivalent to a primary key path such that
+and a path $w$ of $\gmodel$ that is not  equivalent to a primary key path such that \commentary{\newtt{18th June 2020}One other possibility where $r$ factors into a monos-ource. From here I cannot make the proof go through. \newt{NOT PROVEN.}}
 \begin{equation}
 \label{simpleRepresentation}
  r \circ w \simeq y
 \end{equation}
-and such that $\msfd{x_1,...x_n}{r}$.
+and such that $\msfd{x_1,...x_n}{r}$. 
 If the model $\gmodel$ is assumed to be reduced without caveat then $r$ is a mono-source since $w$ is not equivalent to some primary key of $d$.
 Since $r$ is a mono-source then $x_1,...x_n$ is a mono source, 
 since $\msfd{x_1,...x_n}{r}$ \newt{by lemma \ref{fdrightmonosourceimpliesfdleftmonosource}}, as required and we have established BCNF.
 With the weaker assumption that the model $\gmodel$ is \highlight{reduced}, there is the additional possibility that $y$ is identifying i.e. is a primary key attribute and we have proved S3NF.
 \end{proof}
 
+\begin{oldtt}
 \subsection{Simple Relational Models}
 It is unusual in practice for reduced relational models not to meet the stronger condition that we get if we drop condition (ii) from the definition of a model being reduced. We shall say such models are \term{simple} and so these are defined as follows:
 \begin{definition} 
@@ -1805,7 +1810,7 @@ either
 \end{definition}
 
 In the next sections we define a transformation that from an \commentary{what adjectives ought I to insert here?}ER model generates a simple relational ER model.
-
+\end{oldtt}
 \section{Chi Transform - a Revised Chen Transformation}
 In this section we define a relational  entity model $\chigmodel$ that corresponds
 to suitable ER models $\gmodel$. The $\chit$ transformation that we so describe is a refinement
@@ -1834,7 +1839,7 @@ If $\gmodel$ is an ER model then the model $\firstcutimproved(\gmodel)$ is defin
 by extending the set of attributes of each entity type $a$ by the set 
 $\set{\qq{r_0/r_1/...r_n}  | \ r_0/r_1/...r_n: a \morph \veee \mbox{ is an attribute-like path}}$ and for which the defining instances are the defining  instances $E$ of $\gmodel$ extended to the schema of $\firstcutimproved(\gmodel)$ by defining for each attribute $\qq{r_0/r_1/...r_n}$, $E_{\qq{r_0/r_1/...r_n}} = E_{r_0} \circ E_{r_1}... \circ E_{r_n}$.
 
-We define the model $\chigmodel$ to be a further improvement to the first-cut transformation obtained by excluding  from  the transformed model $\firstcutimproved(\gmodel)$ those attributes $\qq{r \circ q}$ for which there exists a \sout{unique}  path $s$ such that  either  $r \circ q < s$ or for which $s$ is non attribute-like and $r \circ q \simeq s$. 
+We define the model $\chigmodel$  \index[definitions]{$\chi$}  be a further improvement to the first-cut transformation obtained by excluding  from  the transformed model $\firstcutimproved(\gmodel)$ those attributes $\qq{r \circ q}$ for which there exists a \sout{unique}  path $s$ such that  either  $r \circ q < s$ or for which $s$ is non attribute-like and $r \circ q \simeq s$. 
 
 \begin{definition}
 If for some relationship $r$ and primary key path $q$ of $\gmodel$ there exists a  path $s_1/...s_n$ such that either   $r \circ q < s_1/...s_n$ or $s_1/...s_n$ is non attribute-like and $r \circ q \simeq s_1/...s_n$ or $r \circ q < s_1/...s_n$ then say that relationship $r$ \term{directly depends} on relationship $s_i$,
@@ -1856,7 +1861,7 @@ $r$ or else $\nincd{a}{\sntuple}{b}{\qntuple}$.
 We exclude models $\gmodel$ 0that have boolean-worth relationships from the $\gmodel$ for which $\chi$ is defined but not because a relational impelmentation cannot be given but because there is a choice of representations: 
 \begin{lemma}
 In the context of the above definition if relationship $r$ is boolean-worth
-then $incd{a}{r \circ q_1,s_2,...s_n}{b}{\qn}$ is an inclusion dependency that represents $r$. \commentary{ Or choose any $q_i$ for that matter.}
+then $\incd{a}{r \circ q_1,s_2,...s_n}{b}{\qn}$ is an inclusion dependency that represents $r$. \commentary{ Or choose any $q_i$ for that matter.}
 \end{lemma}
 \begin{proof}
 TBD
@@ -2022,6 +2027,7 @@ E_p \circ E_{q_j} &=  E_{\xntuple} \circ E ^{-1}_{\qntuple} \circ E_{q_j}  && \m
 \end{align*}
 \end{proof}
 
+\begin{oldtt}
 \begin{definition} 
 An  ER model is \term{free of referential attributes} iff 
 there does not exist an attribute $x:a \morph \veee$
@@ -2087,6 +2093,7 @@ $y \simeq x_j$.
 \end{oldtt}
 \fi
 \end{proof}
+\end{oldtt}
 
 \begin{lemma}
 \llabel{restrictioncarrythroughlemma}
@@ -2137,11 +2144,12 @@ Use lemmas \lref{chiisacertaintypeofisomorphism} and \lref{certainisomorphismspr
 
 \begin{lemma}
 \llabel{chilemma}
-If  $\gmodel$ is an an ER model that is well-formulated,  $\chit$-suitable, has the fd factoring property 
-and is free of non-identifying referential attributes
-then the transformed model $\chigmodel$ is a  relational ER model that is well-formulated, simple, leaf-restriction free
+If  $\gmodel$ is an an ER model that is well-formulated,  $\chit$-suitable, has the fd factoring property,
+\newt{is leaf restriction free and is reduced} 
+\oldt{and is free of non-identifying referential attributes}
+then the transformed model $\chigmodel$ is a  relational ER model that is well-formulated, \oldt{simple}\newt{reduced}, leaf-restriction free
 and has the fd factoring property.   
-Further if $\gmodel$ is free of any referential attributes at all then  $\chigmodel$ is simple without caveats.
+Further if $\gmodel$ is \oldt{free of any referential attributes at all} \newt{reduced without caveats} then  $\chigmodel$ is simple without caveats.
 \end{lemma}
 \begin{proof}
 Assume that $\gmodel$ is an an ER model that is well-formulated,  $\chit$-suitable, has the fd factoring property and
@@ -2153,10 +2161,13 @@ $\chigmodel$ is well-formulated by lemma \lref{wfcarrythroughlemma} since $\gmod
 
 $\chigmodel$ has the fd factoring property by lemma \lref{fdfactoringcarrythroughlemma}  since $\gmodel$ is assumed to have the fd factoring property.
 
-$\chigmodel$ is leaf-restriction free by lemma \lref{wellformulatedandfreeofdesignredundancyimpliesleafrestrictionfree}  since $\gmodel$ is assumed
+$\chigmodel$ is leaf-restriction free by \newt{by lemma \lref{restrictioncarrythroughlemma}.}
+\begin{oldtt}
+lemma \lref{wellformulatedandfreeofdesignredundancyimpliesleafrestrictionfree}  since $\gmodel$ is assumed
 to be  well-formulated, to have the fd factpring property and to be free of design redundancy.
+\end{oldtt}
 
-$\chigmodel$ is simple by lemma \lref{simplecarrythroughlemma} because $\gmodel$ is simple because this follows directly from the definitions because, it is assumed, it is free of non-identifying referential attributes.
+$\chigmodel$ is \newt{reduced bu=y lemma??? }\oldt{simple by lemma \lref{simplecarrythroughlemma}}  because $\gmodel$ is \newt{reduced}\oldt{because this follows directly from the definitions because, it is assumed, it is free of non-identifying referential attributes}.
 
 Further, if $\gmodel$ is free of any referential attributes at all then it follows directly from definitions that $\gmodel$ is simple without caveats
 and hence  that $\chigmodel$ is simple without caveats by lemma \lref{wocaveatcarrythroughlemma}.
@@ -2165,11 +2176,12 @@ and hence  that $\chigmodel$ is simple without caveats by lemma \lref{wocaveatca
 \begin{theorem}
 \llabel{goaltheorem}
 If  $\gmodel$ is an an ER model that is well-formulated,  $\chit$-suitable and has the fd factoring property
+and is \newt{leaf restriction-free}
 then the transformed model $\chigmodel$ is a  relational ER model. Further
 \begin{enumerate}[(i)]
-\item  if $\gmodel$ is free of non-identifying referential attributes then  $\chigmodel$ is in third normal form, 
+\item  if $\gmodel$ is \newt{reduced} \oldt{free of non-identifying referential attributes} then  $\chigmodel$ is in third normal form, 
 \item 
-if $\gmodel$ is free of any referential attributes at all then  $\chigmodel$ is in BCNF.
+if $\gmodel$ is \newt{reduced without caveats}\oldt{free of any referential attributes at all} then  $\chigmodel$ is in BCNF.
 \end{enumerate}
 \end{theorem}
 \begin{proof}
