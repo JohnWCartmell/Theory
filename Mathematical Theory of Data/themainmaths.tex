@@ -2,7 +2,7 @@
 
 We  define a notion of entity-relationship (ER) model which in the tradition of Chen\cite{Chen1976} is sufficiently generic to encompass relational, hierarchical and purely logical  notions of data.
 The system that we describe involves definition of types of particulars in terms of their relationships with other types, of which there are two kinds, those, such as represent numbers, character strings, booleans and so on, all of whose instances, we say, are universals and the remaining types, the definienda, those types all of whose instances are particulars. Binary many-one relationships which are functional in character are presented as the edges of a directed graph whose nodes comprise both the types of particulars and the types of universals. \footnote{There are pure conceptual structures and there are data structures. In the latter, relationships between entities are represented by universal
-referential values.}
+referential values.}+
 
 If $u$ is a type all of whose instances are universals then we will refer to each binary many-one functional relationship $f: x \morph u$ as an \term{attribute} of $x$. In relational data modelling such functional relationships are presented as columns of tables. Similarly types all of whose instances are universals  are said to be \textit{attribute types} in entity relational modelling  (though called \textit{attributes} in Johnstone et al. \cite{Johnson2002ERA}); in the initial work by Chen such types were called \textit{value sets}; they are said to be \textit{domains} in relational data modelling theory. Types of particulars are said to be types of entities or \textit{entity types} in modern entity relationship modelling\footnote{In  his paper  introducing the entity-relationship model Chen explains that his model adopts the view that the real world consists of entities and relationships. He also introduces the  terms \textit{entity set} and \textit{relationship set} for the types of respective entity and relationship particulars. Later authors kept the terms entity and relationship, and the Chen philosophy, but changed the way that the terms were used. In this paper we use the later, post-Chen, terminology.} or sometimes, confusingly, just \textit{entities}  and are modelled as \textit{relational tables} in relational data modelling. For the purposes of the theory presented in this paper there is no loss if we assume a single set $\Veee$ of universals.  We will represent data specifications as directed graphs with some additional information; the nodes of the graph being types, and having a distinguished node $\veee$ representing the type of universals; from a mathematical point of view it is impossible to progress the theory too far without forming an opinion that a data specification is a presentation (i.e a sketch) of a category with some additional structure (as in Johnson and Roseburgh \cite{johnson2002REL}) or, meta-mathematically, that it is an axiomatisation of a theory of some kind. This is so but it must be emphasised that the presentation (i.e. the sketch) is vitally important to the goodness of the data specification for it is the primitives in the presentation that determine the units of storage or communication; removing redundancy from the presentation (or sketch) reduces redundancy in the data and this is one half of relational data theory's  normal form notion of goodness of a data schema (the other half being that the theory be optimally tightened to best fit the facts). 
 
@@ -1353,13 +1353,13 @@ it satisfies the minimality condition (see section \lref{minimalitycondition}),
 each\commentary{This is the first place we zero-in on primaries.} primary\commentary{What about secondary referential inclusion dependencies?} referential inclusion dependency of $\gmodel$ is represented in $\gmodel$ by some path $p$ \footnote{Equivalently, by lemma
 \lref{simplerepresentationlemma}, sufficient that all simple primary referential inclusion dependencies of $\gmodel$ be represented.},
 }
-\begin{oldtt}
+\begin{reinstatett}
 \item{ 
 \commentary{clause (iii) added 11 Dec 2019. Now thinking that I need restrict to simple leaf primary referential inclusion dependencies
 i.e. where $\xn$ are attributes.} 
 each leaf primary referential inclusion dependency of $\gmodel$ is represented in $\gmodel$ by some \highlight{relationship-like} path $p$, 
 }
-\end{oldtt}
+\end{reinstatett}
 \item{
 for each leaf intransitive functional dependency $\set{x_1,...x_n} \morph y$ in model $\gmodel$
 either $\set{x_1,...x_n}$ is a mono-source i.e. in every defining instance $E$, $E_{\xntuple}$ is injective and total
@@ -1384,7 +1384,7 @@ by the isomorphism $\varphi$ because $\varphi$ is assumed to reflect primary mon
 and then use lemma \lref{incdrepresentationequivalence}.
 \commentary{SPELL THIS OUT.}
 }
-\oldtt{
+\begin{reinstatett}
 \item{ 
 That each leaf primary referential inclusion dependency of $\gmodel'$ is represented in $\gmodel'$ by some \highlight{relationship-like} path $p$
 follows because such leaf primary referential inclusion dependencies are reflected by isomorphisms
@@ -1393,7 +1393,7 @@ follows because such leaf primary referential inclusion dependencies are reflect
 (lemma \lref{relationshippreservingmappingspreserverelationshiplike}) 
 by $\varphi$  because $\varphi$ is assumed to reflect primary mono-sources and preserve relationships.
 }
-\oldtt}
+\end{reinstatett}
 \item{
 That for each leaf intransitive functional dependency $\set{x_1,...x_n} \morph y$ in model $\gmodel'$
 either $\set{x_1,...x_n}$ is a mono-source 
@@ -1426,7 +1426,7 @@ If $\gmodel$ is a restriction free  ER model with an edge $y:a \morph b$, where 
 \llabel{intransitivelemma}
 In a well-formulated model $\gmodel$  if $\set{x_1,...x_n} \morph y$  is a non-trivial intransitive \reinstatet{leaf}
 functional dependency sourced at some entity type $a$ then either $\set{\xn}$ is a mono-source
-or else for some entity type $d$ there is a non-empty \oldt{relationship-like} path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$ is a functional dependency in $\gmodel$
+or else for some entity type $d$ there is a non-empty \reinstatet{relationship-like} path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$ is a functional dependency in $\gmodel$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ then
 the path $w$ is non-empty and if $y$ is an edge and $\gmodel$ is leaf\commentary{notice that only need leaf-restriction free} restriction free then $w$ is not equivalent to a primary key path.
 \end{lemma}
@@ -1467,7 +1467,7 @@ E_y = E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_w
 
 Because $\incd{a}{x_1,...x_n}{d}{q_1,...q_n}$,  and from
 clause (iii) of the definition of well-formulated since $\gmodel$ is well-formulated, it follows that
-there  is a \oldt{relationship-like} path $p:a \rightarrow d$ such
+there  is a \reinstatet{relationship-like} path $p:a \rightarrow d$ such
 that 
 %\foreachi, $p \circ q_i \simeq x_i$ and therefore
 in all defining instances $E$,
@@ -1551,7 +1551,7 @@ that the functional dependency  $\mmfd{\xnprime}{z'}$ factors through an intrans
 In a well-formulated model $\gmodel$ that has the \fdfactoring\ property if $\set\xn$ are attribute-like and
 $sfd{\xn}{z}$ is a non-trivial (\reinstatet{leaf}) functional dependency sourced
 at some entity type $a$ then either $\set{\xn}$ is a mono-source in $\gmodel$
-or else there is an entity type $d$ and there is a \oldt{relationship-like} path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$
+or else there is an entity type $d$ and there is a \reinstatet{relationship-like} path $p:a \rightarrow d$ such that $\{x_1,...x_n\} \morph p$
 and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If codomain of $y$, $c$, is $\veee$ then
 the path $w$ is non-empty and if $y$ is an edge and $\gmodel$ is leaf-restriction free then $w$ is not equivalent to a primary key path.
 \end{lemma}
@@ -1723,8 +1723,11 @@ $\set{\xn}$ is a mono-source or $y$ is a primary key.
 \end{lemma}
 \subsection{Other Conditions for Relational ER models}
 \begin{definition} 
-An ER model is \term{reduced} iff for all attributes $x:a \morph \veee$ \commentary{move earlier?}
-such that there is a \oldt{relationship-like} \newt{non-empty} path $r:a \morph b$ and a \newt{non-empty} path $p:b \morph \veee$ such that
+An ER model is \term{reduced} 
+\begin{oldtt}
+iff for all attributes $x:a \morph \veee$ 
+such that there is a 
+\oldt{relationship-like} \newt{non-empty} path $r:a \morph b$ and a \newt{non-empty} path $p:b \morph \veee$ such that
 $x \simeq r \circ p$, as here,
 \setlength{\arraycolsep}{.2cm}
 \begin{center}
@@ -1743,7 +1746,6 @@ $
 %\ncarr{b}{v} 
 %\blabel{p}
 \end{center}
-
 then it follows that 
 either 
 \begin{enumerate} [(i)]
@@ -1751,6 +1753,17 @@ either
 \item the path $r$ is a mono-source, or
 \item the attribute $x$ is identifying.
 \end{enumerate}
+\end{oldtt}
+\begin{newtt}
+iff for all attributes $y:a \morph \veee$ and paths $r_1 \circ r_2 \circ ... r_n \circ x$
+such that $y \simeq r_1 \circ r_2 \circ ... r_n \circ x$ ,  where each $r_i$ is a relationship for some $n \geq 1$, and where $x$ is an attribute, then
+it follows that either
+\begin{enumerate} [(i)]
+\item there exists a primary key path $q:b \morph \veee$ such that $r_2 \circ ... r_n \circ x \simeq q$, or
+\item the relationship $r_1$ is a mono-source and the relationship $r_2$ is not identifying-like, or
+\item the attribute $y$ is identifying.
+\end{enumerate}
+\end{newtt}
 \end{definition}
 
 In a relational ER model $\gmodel$ if there are no identifying attributes $x$ such that $x \simeq r \circ p$ where $r$ is \highlight{relationship-like}, $r:a \morph a'$, and $p$ is a not a primary key path, $p:a' \morph \veee$ then the model is said to be \term{without caveats}.
@@ -1758,8 +1771,8 @@ In a relational ER model $\gmodel$ if there are no identifying attributes $x$ su
 Thus we get:
 \begin{definition} 
 An ER model $\gmodel$ is \term{reduced without caveat} iff for all attributes $x:a \morph \veee$
-such that there is a \oldt{relationship-like} \newt{non-empty} path $r:a \morph b$ and a \newt{non-empty} path $p:b \morph \veee$ such that $x \simeq r \circ p$ it follows that 
-either 
+such that there is a non-empty path $r:a \morph b$ and a \newt{non-empty} path $p:b \morph \veee$ such that $x \simeq r \circ p$ it follows that 
+either \commentary{\newt{Rewrite this in line with above}}
 \begin{enumerate} [(i)]
 \item \newt{the path $r$ is relationship-like} and there exists a primary key path \commentary{an identifying attribute} $q:b \morph \veee$ such that $p \simeq q$, or
 \item the path $r$ is a mono-source.
@@ -1783,14 +1796,15 @@ Assume then such a functional dependency.
 From the assumption that the model $\gmodel$ is well-formulated and leaf-restriction free
 then by lemma \lref{mainlemma} 
 either $\set{\xn}$ is a mono-source and we are done
-or else there is a non-empty \oldt{relationship-like} path $r$ in $\gmodel$
-and a path $w$ of $\gmodel$ that is not  equivalent to a primary key path such that \commentary{\newtt{18th June 2020}One other possibility where $r$ factors into a monos-ource. From here I cannot make the proof go through. \newt{NOT PROVEN.}}
+or else there is a non-empty \reinstatet{relationship-like} path $r$ in $\gmodel$
+and a path $w$ of $\gmodel$ that is not  equivalent to a primary key path such that 
 \begin{equation}
 \label{simpleRepresentation}
  r \circ w \simeq y
 \end{equation}
 and such that $\msfd{x_1,...x_n}{r}$. 
-If the model $\gmodel$ is assumed to be reduced without caveat then $r$ is a mono-source since $w$ is not equivalent to some primary key of $d$.
+
+If the model $\gmodel$ is assumed to be reduced without caveat then $r$ must be a path of length 1 since and to be a mono-source\commentary{Feel that I need to spell this out a bit more} since $w$ is not equivalent to some primary key of $d$.
 Since $r$ is a mono-source then $x_1,...x_n$ is a mono source, 
 since $\msfd{x_1,...x_n}{r}$ \newt{by lemma \ref{fdrightmonosourceimpliesfdleftmonosource}}, as required and we have established BCNF.
 With the weaker assumption that the model $\gmodel$ is \highlight{reduced}, there is the additional possibility that $y$ is identifying i.e. is a primary key attribute and we have proved S3NF.
