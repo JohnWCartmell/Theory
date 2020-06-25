@@ -1769,17 +1769,26 @@ Assume then such a functional dependency.
 From the assumption that the model $\gmodel$ is well-formulated and leaf-restriction free
 then by lemma \lref{mainlemma} 
 either $\set{\xn}$ is a mono-source and we are done
-or else there is a non-empty \reinstatet{relationship-like} path $r$ in $\gmodel$
-and a path $w$ of $\gmodel$ that is not  equivalent to a primary key path such that 
+or else there is a non-empty \oldt{relationship-like} path $r_1 \circ r_2 ... \circ r_n$ 
+of length $n$ in $\gmodel$, for some $n \geq 1$  where each $r_i$ is a relationship,
+and where $r_2 \circ ... r_n$ is identifying-like, \commentary {need $r_2$ to be identifying-like}
+and a path $w$ of $\gmodel$ 
+such that the path $r_2 \circ ... \circ r_n \circ w$
+ is not  equivalent to a primary key path and such that 
 \begin{equation}
 \label{simpleRepresentation}
- r \circ w \simeq y
+ p \circ w \simeq y
 \end{equation}
-and such that $\msfd{x_1,...x_n}{r}$. 
+and such that $\msfd{x_1,...x_n}{r_1 \circ r_2 ... \circ r_n}$. 
 
-If the model $\gmodel$ is assumed to be reduced without caveat then $r$ must be a path of length 1 since and to be a mono-source\commentary{Feel that I need to spell this out a bit more} since $w$ is not equivalent to some primary key of $d$.
-Since $r$ is a mono-source then $x_1,...x_n$ is a mono source, 
-since $\msfd{x_1,...x_n}{r}$ \newt{by lemma \ref{fdrightmonosourceimpliesfdleftmonosource}}, as required and we have established BCNF.
+If the model $\gmodel$ is assumed to be reduced without caveat then from (\ref{simpleRepresentation})
+and since $r_2 \circ ... \circ r_n \circ w$
+ is not  equivalent to a primary key path then it follows that he relationship $r_1$ must be a mono-source
+and the relationship $r_2$ must be non-identifying which is a contradiction so we must assume that $n$ 
+equals $1$.
+
+Now it follows that since $r_1$ is a mono-source then $x_1,...x_n$ is a mono source, 
+since $\msfd{x_1,...x_n}{r_1}$ \newt{by lemma \ref{fdrightmonosourceimpliesfdleftmonosource}}, as required and we have established BCNF.
 With the weaker assumption that the model $\gmodel$ is \highlight{reduced}, there is the additional possibility that $y$ is identifying i.e. is a primary key attribute and we have proved S3NF.
 \end{proof}
 
