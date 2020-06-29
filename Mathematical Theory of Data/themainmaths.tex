@@ -1705,15 +1705,13 @@ Loops $p$ having fixed properties in this way are impediments to achieving norma
 ER model can meet the following goodness criteria: 
 \begin{definition} 
 An ER model is \term{reduced} 
-
-\begin{newtt}
-iff for all attributes $y:a \morph \veee$ and paths $r_1 \circ r_2 \circ ... r_n \circ x$
+\begin{newtt}iff for all attributes $y:a \morph \veee$ and paths $r_1 \circ r_2 \circ ... r_n \circ x$
 such that $y \simeq r_1 \circ r_2 \circ ... r_n \circ x$ ,  where each $r_i$ is a relationship for some $n \geq 1$, and where $x$ is an attribute, then
 it follows that either
 \begin{enumerate} [(i)]
 \item there exists a primary key path $q:b \morph \veee$ such that $r_2 \circ ... r_n \circ x \simeq q$, or
-\item for each i, $1 \leq i \leq n$, the path $r_1 \circ r_2 ... \circ r_n$ is either a mono-source or else is not relationship-like, 
-(in particular note that this implies $r_2$ is a mono-source and that, if $n \geq 2$, $r_2$ is not identifying-like)
+\item for each i, $1 \leq i \leq n$, the path $r_1 \circ r_2 ... \circ r_i$ is either a mono-source or else is not relationship-like, 
+(in particular note that this implies $r_1$ is a mono-source and that, if $n \geq 2$, $r_2$ is either a mono-source or is not identifying-like)
 \item the attribute $y$ is identifying.
 \end{enumerate}
 \end{newtt}
@@ -1730,8 +1728,7 @@ such that $y \simeq r_1 \circ r_2 \circ ... r_n \circ x$ ,  where each $r_i$ is 
 it follows that either
 \begin{enumerate} [(i)]
 \item there exists a primary key path $q:b \morph \veee$ such that $r_2 \circ ... r_n \circ x \simeq q$, or
-\item for each i, $1 \leq i \leq n$, the path $r_1 \circ r_2 ... \circ r_n$ is either a mono-source or else is not relationship-like, 
-(in particular note that this implies $r_2$ is a mono-source and that, if $n \geq 2$, $r_2$ is not identifying-like).
+\item for each i, $1 \leq i \leq n$, the path $r_1 \circ r_2 ... \circ r_i$ is either a mono-source or else is not relationship-like.
 \end{enumerate}
 \end{newtt}
 \end{definition}
@@ -1773,6 +1770,7 @@ Now it follows that since $r_1 \circ r_2 ... \circ r_m$ is a mono-source then $x
 since $\msfd{x_1,...x_n}{r_1\circ r_2 ... \circ r_m}$, and we have established BCNF
 With the weaker assumption that the model $\gmodel$ is \highlight{reduced}, there is the additional possibility that $y$ is identifying i.e. is a primary key attribute and we have proved S3NF.
 \end{proof}
+
 
 \section{Chi Transform - a Revised Chen Transformation}
 In this section we define a relational  entity model $\chigmodel$ that corresponds
@@ -1901,35 +1899,28 @@ relationship preserving  and reflecting isomorphism $I_\gmodel: \gmodel \morph \
 \begin{proof}
 TBD \commentary{work on this}
 \end{proof}
-
-
+\newpage
 \begin{lemma}
-\llabel{simplecarrythroughlemma}
-If $\gmodel$ is $\chit$-suitable and simple then $\chigmodel$ is simple.
+\llabel{reducedcarrythroughlemma}
+If $\gmodel$ is $\chit$-suitable and simple then $\chigmodel$ is reduced.
 \end{lemma}
 \begin{proof}
-Suppose that in the model $\chigmodel$ there is an attribute $x:a \morph \veee$, a relationship-like path $r:a \morph b$ and a path $p:b \morph \veee$ such that$x \simeq r \circ p$ we need show that either 
+Suppose that in the model $\chigmodel$ there is an attribute $y:a \morph \veee$, a  path $r_1 \circ r_2 ...\circ r_m \circ x :a \morph \veee$ where each $r_i$ is a relationship
+and $x$ is an attribute and
+ such that 
+\begin{equation}
+\label {reductionequation}
+y \simeq r_1 \circ r_2 ...\circ r_m \circ x
+\end{equation} 
+we need show that either 
 \begin{enumerate} [(i)]
-\item there exists an identifying attribute $q:b \morph \veee$ in $\chigmodel$ such that $p \simeq q$, or
-\item the attribute $x$ is identifying in $\chigmodel$.
+\item there exists a primary key path (i.e. an identifying attribute) $q:b \morph \veee$ in $\chigmodel$ such that $r_2 \circ ... r_n \circ x \simeq q$ in $\chigmodel$, or
+\item for each i, $1 \leq i \leq n$, in $\chigmodel$ the path $r_1 \circ r_2 ... \circ r_i$ is either a mono-source or else is not relationship-like, or
+\item the attribute $y$ is identifying in $\chigmodel$.
 \end{enumerate}
-Assume such $x$, $r$ and $p$ in $\chigmodel$. Then we have 
-
+Assume such $x$, $y$, $r_1$,... $r_n$ in $\chigmodel$ so that for some entity type $b$ we have:
 
 \begin{center}
-\begin{tabular}{c c c c c}
-$
-\begin{array}{cp{0.5cm}c p{0.5cm} c}
-\Rnode{a}{a} &  &              & & \Rnode{v}{\veee}  \\ [1cm]
-             &  & \Rnode{b}{b} & &               
-\end{array}
-$
-\simplepatha{$\retract(x)$}{a}{v}
-\simplepatha{$r$}{a}{b}
-\simplepatha{$\retract(p)$}{b}{v} in $\gmodel$
-&&
-$ \overset{I}{\mapsto}$
-&&
 $
 \begin{array}{cp{0.5cm}c p{0.5cm} c}
 \Rnode{a}{a} &  &              & & \Rnode{v}{\veee}  \\ [1cm]
@@ -1937,30 +1928,41 @@ $
 \end{array}
 $
 \ncarr{a}{v} 
-\alabel{x}
-\simplepatha{$r$}{a}{b}
-\simplepatha{$p$}{b}{v} in $\chigmodel$
-\end{tabular}
+\alabel{y}
+\simplepathvarianttwo{a}{b}
+\blabel{r_1}[0.1]
+\blabel{r_n}[0.9]
+\ncarr{b}{v} in $\chigmodel$
+\blabel{x}
 \end{center}
 
 
-Either $x$ is an existing attribute of $\gmodel$ or it is an attribute $\qq{r' \circ q}$ for some relationship $r'$ and primary key path $q$ of $\gmodel$. \\
+Since entity types and relationships of $\chigmodel$ equate to entity types and relationships of $\gmodel$ then $r_1 \circ ... \circ r_n : a \morph b$ in $\gmodel$.
 
-In the first case it follows that there is a relationship-like path $r$ in $\gmodel$ 
-(lemma \lref{isossurjectiveonrelationshipsaresurjectiveonrelationshiplike}) and a path $\retract(p)$ in $\gmodel$ \commentary{check this} such
-that $x \simeq r \circ \retract(p)$ in $\gmodel$ \commentary{Because I is an injection   ... or is it?}. \\
+Either $x$ is an existing attribute of $\gmodel$ or it is an attribute $\qq{r_x \circ q_x}$ for some relationship $r_x$ and primary key path $q_y$ of $\gmodel$.
+Either way  $\retract(x):b \morph \veee$ is an attribute-like path in $\gmodel$. 
 
-From this because $\gmodel$ is simple it follows that either  $\retract(p)$ is a primary key path in $\gmodel$ and by observation \lref{pathinjectionobservation} that $p$ is a primary key path in $\chigmodel$ \\
-
-\noindent or that $x$ is identifying in $\gmodel$ and therefore that $x$ is identifying\commentary{problem here maybe} in $\chigmodel$, as required.\\
-
-Otherwise, if $x$ is an attribute $\qq{\retract(s) \circ q}$ for some relationship $s$ and primary key path $q$ of $\gmodel$. If $\retract(p)$ is equivalent to a primary key path in $\gmodel$
-then we are done for then by observation \lref{pathinjectionobservation} it is equivalent to a primary key path in $\chigmodel$. \\
+Similarly either (a) $y$ is an existing attribute of $\gmodel$ or (b) it is an attribute $\qq{r_y \circ q_y}$ for some relationship $r_y$ and primary key path $q_y$ of $\gmodel$. \\
 
 
-\noindent If $\retract(p)$ is not equivalent to a primary key path in $\gmodel$ then $\retract(r) \circ \retract(p)$ 
-is not attribute-like \commentary{check this} and therefore, contradicting our earlier assumption,  $\qq{\retract(r) \circ q}$ is not an attribute of $\chigmodel$
-as $\retract(r) \circ q$ is equivalent to a non attribute-like path.
+In the case (a) it follows that there is an  attribute $y$ of $\gmodel$ such that
+that $y \simeq r_1 \circ r_2 \circ ... \circ r_n \circ \retract(x)$ in $\gmodel$. \\
+
+From this because $\gmodel$ is reduced it follows that either  
+\begin{enumerate}[(i)]
+\item $r_2 \circ ... \circ r_n \circ \retract(p)$ is a primary key path in $\gmodel$ and by observation \lref{pathinjectionobservation}, because $\retract(r_2 \circ ... \circ r_n \circ x) = r_2 \circ ... \circ r_n \circ \retract(p)$ that $r_2 \circ ... \circ r_n \circ x$ is a primary key path in $\chigmodel$, or 
+\item for each i, $1 \leq i \leq n$, in $\chigmodel$ the path $r_1 \circ r_2 ... \circ r_i$ is either a mono-source or else is not relationship-like in $\gmodel$
+and in which case $r_1 \circ r_2 ... \circ r_i$ is either a mono-source or else is not relationship-like $\chigmodel$ because the inclusion of $\gmodel$ in $\chigmodel$ 
+preserves mono-sources (lemma \lref{isospreserveandreflectmonosources}) and preserves the property of a path not being relationship-like because it reflects the relationship-like property of paths(lemma \ref{isospreserveandreflectidentifyinglike}), \commentary{Seems convincing but a bit of work to do done bridging the gap to the two lemmas.}, or
+\item that $y$ is identifying in $\gmodel$ and therefore that $y$ is identifying in $\chigmodel$, as required.
+\end{enumerate}
+
+Otherwise, in case (b) if $y$ is an attribute $\qq{r_y \circ q_y}$ for some relationship $r_y$ and primary key path $q_y$ of $\gmodel$. \\
+
+In $gmodel$ we have therefore that $r_y \circ q_y \simeq r_1 \circ r_2 \circ ... r_n \circ \retract(x)$. From the defintion of $\chi$ it follows that path
+$r_1 \circ r_2 \circ ... \circ r_n \circ \retract(x)$ must be attribute-like in $\gmodel$. Therefore $r_2 \circ ... \circ r_n \circ \retract(x)$ must be a primary
+key path in $\gmodel$. Therefore $r_2 \circ ... \circ r_n \circ x$ must be a primary key path in $\chigmodel$    by observation \lref{pathinjectionobservation}.
+Thus equation (\ref{reductionequation}) meets condition (i) of the defintion of reduced. This completes the proof that $\chigmodel$ is reduced if $\gmodel$ is.
 \end{proof}
 
 \begin{lemma}
@@ -2110,7 +2112,7 @@ Use lemmas \lref{chiisacertaintypeofisomorphism} and \lref{certainisomorphismspr
 If  $\gmodel$ is an an ER model that is well-formulated,  $\chit$-suitable, has the fd factoring property,
 \newt{is leaf restriction free and is reduced} 
 \oldt{and is free of non-identifying referential attributes}
-then the transformed model $\chigmodel$ is a  relational ER model that is well-formulated, \oldt{simple}\newt{reduced}, leaf-restriction free
+then the transformed model $\chigmodel$ is a  relational ER model that is well-formulated, \newt{reduced}, leaf-restriction free
 and has the fd factoring property.   
 Further if $\gmodel$ is \oldt{free of any referential attributes at all} \newt{reduced without caveats} then  $\chigmodel$ is simple without caveats.
 \end{lemma}
@@ -2125,12 +2127,8 @@ $\chigmodel$ is well-formulated by lemma \lref{wfcarrythroughlemma} since $\gmod
 $\chigmodel$ has the fd factoring property by lemma \lref{fdfactoringcarrythroughlemma}  since $\gmodel$ is assumed to have the fd factoring property.
 
 $\chigmodel$ is leaf-restriction free by \newt{by lemma \lref{restrictioncarrythroughlemma}.}
-\begin{oldtt}
-lemma \lref{wellformulatedandfreeofdesignredundancyimpliesleafrestrictionfree}  since $\gmodel$ is assumed
-to be  well-formulated, to have the fd factpring property and to be free of design redundancy.
-\end{oldtt}
 
-$\chigmodel$ is \newt{reduced bu=y lemma??? }\oldt{simple by lemma \lref{simplecarrythroughlemma}}  because $\gmodel$ is \newt{reduced}\oldt{because this follows directly from the definitions because, it is assumed, it is free of non-identifying referential attributes}.
+$\chigmodel$ is \newt{reduced by lemma \lref{reducedcarrythroughlemma} }  because $\gmodel$ is \newt{reduced}.
 
 Further, if $\gmodel$ is free of any referential attributes at all then it follows directly from definitions that $\gmodel$ is simple without caveats
 and hence  that $\chigmodel$ is simple without caveats by lemma \lref{wocaveatcarrythroughlemma}.
