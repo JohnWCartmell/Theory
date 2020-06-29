@@ -1489,18 +1489,15 @@ E_y &= E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_w  && \text{ (\ref{fundepend
 \vspace{-0.3cm}
 From which, by definition of $\simeq$, $y\simeq p \circ w$, as required. \\
 
-Now suppose that $c$ is the type representing universals, $\veee$. The path $w$ must be non-empty because its source $d$ being an entity type must be distinct from its destination $\veee$ which is not an entity type. 
-We wish to show that $r_2 ... \circ r_m \circ w$ is not equivalent in $\gmodel$ to
-a primary key path. Assume the contrary that $r_2 ... \circ r_m \circ w$ is equivalent to a primary key path. 
-
-
-From lemma \lref{primarykeypathequivalentsthatfactorthroughidentifyinglike} it follows that $w \simeq q_i$, for some
-$i$, $1 \leq i \leq n$.  
+Now suppose that $c$ is the type representing universals, $\veee$. The path $w$ must be non-empty because its source $d$ being an entity type is distinct from its destination $\veee$ which is not an entity type. 
+We wish to show that $r_2 ... \circ r_m \circ w$ is not equivalent in $\gmodel$ to a primary key path. 
+Assume the contrary that $r_2 ... \circ r_m \circ w$ is equivalent to a primary key path. 
+Since $p$ is relationship-like then $r_2 \circ ... \circ r_m$ is identifying-like and therefore by lemma \lref{primarykeypathequivalentsthatfactorthroughidentifyinglike} since $r_2 ... \circ r_m \circ w$ is assumed equivalent to a primary key path, $w$ is equivalent to some primary key path $q: d \morph \veee$ and so, since $\set{\qn}$ is a primary mono-source, it follows by lemma \lref{primarykeypathfactorsthroughprimarymonosource} that $w \simeq q_i$, for some $i$, $1 \leq i \leq n$.  
 Therefore
 \begin{align*}
-E_y &= E_p \circ E_w                                        && \text{}\\
-		&= E_p \circ E_{q_i}                                    && \text{}\\
-		&= E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_{q_i}   && \text{}\\
+E_y &= E_p \circ E_w                                        && \text{since $y \simeq p \circ w$}\\
+		&= E_p \circ E_{q_i}                                    && \text{since $w \simeq q_i$}\\
+		&= E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_{q_i}   && \text{by (\ref{incdependency})}\\
 		&= E_{\xntuple} \circ \proji{i}                         && \text{} \\
 		&= \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq j \leq n}{ j \neq i}}{\overline{E_{x_j}}}\circ E_{x_i}  
 		                                                        && \text{By lemma \lref{tupleprojection}}
