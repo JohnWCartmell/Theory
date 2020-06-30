@@ -1317,13 +1317,28 @@ is identifying-like.\commentary{A relationship-like path, as a relationship i.e.
 \end{definition}
 
 \begin{lemma}
-\llabel{relationshippreservingmappingspreserverelationshiplike}\commentary{not sure that this is required}
+\llabel{relationshippreservingmappingspreserverelationshiplike}
 If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is ER model mapping, $\varphi: \gmodel \morph \gmodel'$  which preserves relationships  i.e. if relationships of $\gmodel$ are mapped to relationships of $\gmodel'$ by  $\varphi$, then relationship-like paths are preserved by $\varphi$.
 \end{lemma}
 \begin{proof}
 Assume such a mapping $\varphi$, and assume that a path $p$ of $\gmodel$ is relationship-like.
 From the definition of relationship-like, either $p$ is exactly a relationship in which case it is preserved by $\varphi$ by initial assumption or $p$ consists of path $R \circ t$ where $t$ is an identifying-like path.
 In the latter case, from the definition of mapping, $\varphi(p)$ consists of $\varphi(R)$, which is a relationship in $\gmodel'$, from the initial assumption, followed by a path $\varphi(t)$ which is identifying-like since $t$ is, by lemma \lref{mappingspreserveidentifyinglike}. Therefore $\varphi(p)$ is relationship-like in $\gmodel'$.
+\end{proof}
+
+
+\begin{lemma}
+\llabel{isospreservingrelationshipsreflectrelationshiplike}
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an isomormorphism, $\varphi: \gmodel \morph \gmodel'$, that preserves relationships    
+then $\varphi$ reflects relationship-like paths. 
+\end{lemma}
+\begin{proof}
+Assume such an isomorphism $\varphi: \gmodel \morph \gmodel'$, and assume there is a path $p: a \morph b$ in $\gmodel$ such that the path $\varphi(p): \varphi(a) \morph \varphi(b)$
+is  relationship-like in $\gmodel$. We need to show that $p$ is relationship-like. If the path $p$ is of length 1 then, by definition $p$ is relationship-like and we are done.
+Otherwise the path $p$ is a path $r_1 \circ r_2 ... \circ r_n$, for some $n \geq 2$ where each $r_i$, $1 \leq i \leq n$, is a relationship in $\gmodel$.
+Since $\varphi$ is a mapping that preserves relationships, the path $\varphi(p)$ is a path $\varphi(r_1) \circ \varphi(r_2) \circ ... \circ \varphi(r_n)$ in $\gmodel'$, where for each $i$, $1 \leq i \leq n$, $\varphi(r_i)$ is a relationship. Since $\varphi(p)$ is assumed to be relationship-like then, by definition, $\varphi(r_2) \circ ... \varphi(r_n)$ is an identifying-like path in $\gmodel'$.
+Since $\varphi$ is assumed to be an isomorphism then by lemma \lref{isospreserveandreflectidentifyinglike} it follows that $r_2 \circ ... r_n$ is identifying-like in $\gmodel$ and 
+thus that $r_1 \circ r_2 ... \circ r_n$ is relationship-like. Hence we have shown $p$ to be relationship-like as required.
 \end{proof}
 
 \begin{lemma}
@@ -1891,7 +1906,7 @@ TBD \commentary{work on this}
 
 \begin{lemma}
 \llabel{reducedcarrythroughlemma}
-If $\gmodel$ is $\chit$-suitable and simple then $\chigmodel$ is reduced.
+If $\gmodel$ is $\chit$-suitable and reduced then $\chigmodel$ is reduced.
 \end{lemma}
 \begin{proof}
 Suppose that in the model $\chigmodel$ there is an attribute $y:a \morph \veee$, a  path $r_1 \circ r_2 ...\circ r_m \circ x :a \morph \veee$ where each $r_i$ is a relationship
@@ -1925,7 +1940,6 @@ $
 \blabel{x}
 \end{center}
 
-
 Since entity types and relationships of $\chigmodel$ equate to entity types and relationships of $\gmodel$ then $r_1 \circ ... \circ r_n : a \morph b$ in $\gmodel$.
 
 Either $x$ is an existing attribute of $\gmodel$ or it is an attribute $\qq{r_x \circ q_x}$ for some relationship $r_x$ and primary key path $q_y$ of $\gmodel$.
@@ -1933,16 +1947,15 @@ Either way  $\retract(x):b \morph \veee$ is an attribute-like path in $\gmodel$.
 
 Similarly either (a) $y$ is an existing attribute of $\gmodel$ or (b) it is an attribute $\qq{r_y \circ q_y}$ for some relationship $r_y$ and primary key path $q_y$ of $\gmodel$. \\
 
-
 In the case (a) it follows that there is an  attribute $y$ of $\gmodel$ such that
 that $y \simeq r_1 \circ r_2 \circ ... \circ r_n \circ \retract(x)$ in $\gmodel$. \\
 
 From this because $\gmodel$ is reduced it follows that either  
 \begin{enumerate}[(i)]
-\item $r_2 \circ ... \circ r_n \circ \retract(p)$ is a primary key path in $\gmodel$ and by observation \lref{pathinjectionobservation}, because $\retract(r_2 \circ ... \circ r_n \circ x) = r_2 \circ ... \circ r_n \circ \retract(p)$ that $r_2 \circ ... \circ r_n \circ x$ is a primary key path in $\chigmodel$, or 
+\item $r_2 \circ ... \circ r_n \circ \retract(x)$ is a primary key path in $\gmodel$ and by observation \lref{pathinjectionobservation}, because $\retract(r_2 \circ ... \circ r_n \circ x) = r_2 \circ ... \circ r_n \circ \retract(p)$ it follows that $r_2 \circ ... \circ r_n \circ x$ is equivalent to a primary key path in $\chigmodel$, or 
 \item for each i, $1 \leq i \leq n$, in $\chigmodel$ the path $r_1 \circ r_2 ... \circ r_i$ is either a mono-source or else is not relationship-like in $\gmodel$
 and in which case $r_1 \circ r_2 ... \circ r_i$ is either a mono-source or else is not relationship-like $\chigmodel$ because the inclusion of $\gmodel$ in $\chigmodel$ 
-preserves mono-sources (lemma \lref{isospreserveandreflectmonosources}) and preserves the property of a path not being relationship-like because it reflects the relationship-like property of paths(lemma \ref{isospreserveandreflectidentifyinglike}), \commentary{Seems convincing but a bit of work to do done bridging the gap to the two lemmas.}, or
+preserves mono-sources (lemma \lref{isospreserveandreflectmonosources}) and preserves the property of a path not being relationship-like because it reflects the relationship-like property of paths(lemma \lref{isospreservingrelationshipsreflectrelationshiplike}), or
 \item that $y$ is identifying in $\gmodel$ and therefore that $y$ is identifying in $\chigmodel$, as required.
 \end{enumerate}
 
@@ -1956,7 +1969,7 @@ Thus equation (\ref{reductionequation}) meets condition (i) of the defintion of 
 
 \begin{lemma}
 \llabel{wocaveatcarrythroughlemma}
-If $\gmodel$ is $\chit$-suitable and simple without caveats then $\chigmodel$ is simple without caveats.
+If $\gmodel$ is $\chit$-suitable and reduced without caveats then $\chigmodel$ is reduced without caveats.
 \end{lemma}
 \begin{proof}
 TBD
