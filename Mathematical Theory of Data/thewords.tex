@@ -3,28 +3,28 @@
 
 \section{Introduction}
 
-
+\subsection{Background}
 E.F.Codd's meta theory, presented as the relational model of data \cite{Codd1970},
  is a theory of \textit{what data is} and implementations of this theory have come to underpin 
-the majority of corporate databases.   Codd and others described tests of goodness of a data schema applicable, it must be noted, only with cognisance to the possibilities among the data that it is designed to hold i.e. the intended usage.
+the majority of corporate databases.   Codd and others described tests of goodness of a data schema applicable with cognisance to the possibilities among the data that it is designed for i.e. the intended usage.
 In the first instance three tests were described and successively a schema is said to be is 1st normal form (1NF), 2nd normal form (2NF) or 3rd normal form (3NF) depending on its success in passing the tests. A process for fixing deficient schemas is described as normalisation of the schema. 
 Normalisation is therefore a method for converting or transforming one relational schema into another deemed more suitable for the purpose at hand. 
 
-In formal logical terms a relational schema presents a `theory of what is' and normalisation is the process of improving the theory by (i) tightening the theory to better fit the facts and (ii) removing redundancy from the presentation so that there be no redundancy in the data that is stored.
+In formal logical terms a relational schema presents a `theory of what is' and normalisation is the process of improving the theory by (i) tightening the theory to better fit the facts and (ii) removing redundancy from the presentation so that there be no redundancy in the data stored.
 
 Subsequently, the relations of Codd's model are more abstractly presented, as either entities or as n-ary relationships, in Chen's entity-relationship model of data introduced as a unified model of data in \cite{Chen1976}. 
 Chen describes a method for constructing 
 a relational schema (in the sense of Codd) from an entity-relationship schema (ER-schema).
 He states that normalisation of the relational schema might be required after construction from an ER-schema -- though why this might be is not explained. 
 This yields a design process which is a combination of automatic transformation followed by manual
-normalisation and is said by Chen to be a top-down way to develop a relational schema and which he contrasts with Codd's approach which he describes as bottom up.
+normalisation and is said by Chen to be a top-down way to develop a relational schema and  he contrasts with Codd's approach which he describes as bottom up.
 Note that some authors\footnote{For example in Barker, Appendix A,  we find \textit{Entity relationship modeling tends to produce entities that are naturally normalized} and, in reference to entity relationship modelling, \textit{Following the above process  rigorously will automatically give a normalized model...}. } have mistakenly indicated that the second step within this workflow 
 (the normalisation step) will likely be unnecessary if the ER-schema is itself free from redundancy
 but there are many instances where within the limits of their meta-models this is not so and some are illustrated below. 
 
 After Chen's 1976 paper, coming into and through the 1980's, came the development, concurrently, of Computer Aided Software Engineering (CASE) tools, including Meta-CASE tools, and semi-formalised and, in some instances, standardised official methodologies and notations, supporting structured systems analysis and development. Universally in the methodologies from this time the terms entity and relationship introduced in Chen's paper  were retained within a logical modelling phase alongside Chen's transformational step into relational database design. Though the terms and the overall shape of the process are retained the concepts behind these terms are adjusted. Most noticeably `relationships' are now `binary relationships' and at an early stage in these methodologies many-many relationships are eliminated in favour of many-one relationships that are functional, inclusive of partial functional,  in character.
 In this style, what is modelled  for  types of entity $x$ and $y$, are  relationships $R: x \morph y$ such that for all instances $e_x$ of $x$
-there exists at most one $e_y$ of type $y$ such that $x R y$. It is reasonable to describe this  binary relationship style as the functional style of entity relationship modelling to distinguish it from the Chen style
+there exists at most one $e_y$ of type $y$ such that $x R y$. It is reasonable to describe this  binary relationship style as the functional style of entity relationship modelling in order to distinguish it from the Chen style
 and some authors have presented  systems of such types and relationships as the functional model of data and emphasised navigation through data as 
 functional composition (\cite{Buneman1979},\cite{Shipman1981}). 
 This functional style of ER modelling is exemplified by the
@@ -37,9 +37,9 @@ Among the many, as summarised in  \cite{Rock-Evans1989},  there are three varian
 In many cases, software methodologies and supporting CASE tools have introduced an intermediate step between the ER model and the relational model naming the intermediary model the physical design model and the starting model the logical
 model. This shifts the problem of normalisation slightly but doesn't make it go away. I shall call the automatic transformation of logical ER models to relational models the Chen transform.  
 
-We shall present a  definition of ER-schema which is general enough to include both purely logical schemas  and relational  schemas. We shall define the term ER model to mean an ER schema and all its intended usages and we shall show that by revising the definition of the Chen transform we can show that for each well-formulated purely logical schema there is a corresponding relational schema in normal form. 
+We shall present a  definition of ER-schema which is general enough to include both purely logical schemas  and relational  schemas. We shall define the term ER model to mean an ER schema and all its intended usages and we shall show that by revising the definition of the Chen transform we can show\commentary{need tone this down} that for each well-formulated purely logical schema there is a corresponding relational schema in normal form. 
 
-
+\iffalse
 The generic style of data specification system
 that we describe here involves definition of types of particulars in terms of their relationships with other types,
 of which there are two kinds, those, such as represent numbers, character strings, booleans and so on, all of
@@ -72,7 +72,8 @@ There is an implicit assumption that the logical principle of identity of
 indiscernibles holds of the real world entities and it is assumed furthermore 
 that each type of real world entity has identifying relationships and attributes that distinguish it from  others of the type. 
 In relational data modelling this set of identifying features is represented as a set of columns of the table representing entities of the type and is called the primary key.
-In entity relationship modelling in the style of Barker each identifying features maybe relationships or attributes.    
+In entity relationship modelling in the style of Barker, \newt{inherited from the SSADM}, identifying features maybe relationships or attributes.    
+\fi
 
 Chen's paper introduced the idea of entities being dependent on binary relationships 
 with others for both their identification and their existence and that from such an entity relationship model a relational model with primary keys can be inferred:
@@ -92,24 +93,23 @@ company may consist of the department number and the primary key of the
 division, which in turn consists of the division number and the name of the company.
 \end{quote}
 
-
 Here we conceptualise ER-schemas as comprising a directed graph with distinguished 
 node \veee and with an identification scheme that posits for each node $x$ other than \veee
 a set of outgoing edges, i.e. any combination of relationships and attributes, that are
 the identifying features of entities of type $x$.
-
+\iffalse
 An identifying set of features  $i_1,...i_n$ for an entity type $x$ specifies a jointly injective set of functions(the set of functions $f_1,...f_n$ are said to be jointly injective iff the function:
 $$
 \tuple{f_1,f2,,,,f_n}: x \morph \veee \times \veee ... \times \veee
 $$
 is injective).
+\fi
 
-
-\subsection{Equivalent paths -- commutative diagrams}
+\subsection{Equivalent paths -- commutative diagrams -- Category Theory}
 In the terminology of Ellis\cite{ellis1982}, wherever in an entity model there is a path of single-valued relationships 
 $\overset{r_1}{a \rightpitchfork \hspace{-0.35em} -  \cdot} \overset{r_2}{\rightpitchfork \hspace{-0.35em} -} \cdot ... \overset{r_n}{\rightpitchfork \hspace{-0.35em} -} b$
 then the destination entity type $b$ is said to be in the \textit{logical horizon}  of the source entity type $a$. In programming, equivalently, 
-we might say that it was possible to navigate from one to the other. Now if there are two such navigation paths between entity type $a$ (the source) and entity type $b$ (the destination) then a question naturally arises as to whether following one path is equivalent to
+we might say that it was possible to navigate from one to the other (Bachman, an early champion for diagrams in data modelling, published (\cite{Bachman1973}) on the programmer as navigator). Now if there are two such navigation paths between entity type $a$ (the source) and entity type $b$ (the destination) then a question naturally arises as to whether following one path is equivalent to
 following the other i.e whether starting at any entity of type $a$ we arrive at the same destination entity of type $b$ regardless of which of the two paths we follow. In an abstract mathematical setting, diagrams showing such equivalent
 paths are said to be \textit{commutative diagrams} and methods of reasoning using such diagrams is the starting point of category theory. 
 
@@ -125,7 +125,7 @@ by addition of constraints including commutative diagrams, cartesian products an
 pullbacks by defining an ER schema as a presentation of category with 
 finite limits and colimits.  
 A similar definition of a data model specification is given by Piessens and Steegman \cite{piessens1995}.
-In a further paper, Johnson and Roseburgh \cite{Johnson2002REL} show the 
+In a further paper, Johnson and Roseburgh  \cite{johnson2002REL} show the 
 relationship between their formulation of ER models and relational models. 
 These writers call for extensions to the notation employed by entity modellers so that ER schemas can be more expressive. Here we argue for this approach.  
 Shlaer and Lang in \cite{Shlaer96} describe alternative paths between two entity types as relationship loops and when they are equivalent say that there are dependencies between the relationships.  
@@ -134,7 +134,7 @@ superfluous attributes in the transformation from ER model to relational model. 
 superfluous attributes not detected by classical normalization. Hence, the interest of enhanced ER-based design methodologies that remove anomalies due to cycles and inclusion constraints.}
 
 
-\section{Chen's Transformation}
+\subsection{Chen's Transformation}
 \label{ChensTransformation}
 
 Chen presents the transformation process from ER to relational by way of an example. 

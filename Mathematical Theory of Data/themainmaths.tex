@@ -1,20 +1,10 @@
- \section{Introduction}
+ \subsection{Appoach}
 
 We  define a notion of entity-relationship (ER) model which in the tradition of Chen\cite{Chen1976} is sufficiently generic to encompass relational, hierarchical and purely logical  notions of data.
-The system that we describe involves definition of types of particulars in terms of their relationships with other types, of which there are two kinds, those, such as represent numbers, character strings, booleans and so on, all of whose instances, we say, are universals and the remaining types, the definienda, those types all of whose instances are particulars. Binary many-one relationships which are functional in character are presented as the edges of a directed graph whose nodes comprise both the types of particulars and the types of universals. \footnote{There are pure conceptual structures and there are data structures. In the latter, relationships between entities are represented by universal
-referential values.}
-
+The system that we describe involves definition of types of particulars in terms of their relationships with other types, of which there are two kinds, those, such as represent numbers, character strings, booleans and so on, all of whose instances, we say, are universals and the remaining types, the definienda, those types all of whose instances are particulars. Binary many-one relationships which are functional in character are presented as the edges of a directed graph whose nodes comprise both the types of particulars and the types of universals. 
 If $u$ is a type all of whose instances are universals then we will refer to each binary many-one functional relationship $f: x \morph u$ as an \term{attribute} of $x$. In relational data modelling such functional relationships are presented as columns of tables. Similarly types all of whose instances are universals  are said to be \textit{attribute types} in entity relational modelling  (though called \textit{attributes} in Johnstone et al. \cite{Johnson2002ERA}); in the initial work by Chen such types were called \textit{value sets}; they are said to be \textit{domains} in relational data modelling theory. Types of particulars are said to be types of entities or \textit{entity types} in modern entity relationship modelling\footnote{In  his paper  introducing the entity-relationship model Chen explains that his model adopts the view that the real world consists of entities and relationships. He also introduces the  terms \textit{entity set} and \textit{relationship set} for the types of respective entity and relationship particulars. Later authors kept the terms entity and relationship, and the Chen philosophy, but changed the way that the terms were used. In this paper we use the later, post-Chen, terminology.} or sometimes, confusingly, just \textit{entities}  and are modelled as \textit{relational tables} in relational data modelling. For the purposes of the theory presented in this paper there is no loss if we assume a single set $\Veee$ of universals.  We will represent data specifications as directed graphs with some additional information; the nodes of the graph being types, and having a distinguished node $\veee$ representing the type of universals; from a mathematical point of view it is impossible to progress the theory too far without forming an opinion that a data specification is a presentation (i.e a sketch) of a category with some additional structure (as in Johnson and Roseburgh \cite{johnson2002REL}) or, meta-mathematically, that it is an axiomatisation of a theory of some kind. This is so but it must be emphasised that the presentation (i.e. the sketch) is vitally important to the goodness of the data specification for it is the primitives in the presentation that determine the units of storage or communication; removing redundancy from the presentation (or sketch) reduces redundancy in the data and this is one half of relational data theory's  normal form notion of goodness of a data schema (the other half being that the theory be optimally tightened to best fit the facts). 
 
 Entity relationship modelling, and, for that matter, relational modelling too, are predicated on the assumption that the particulars described by data correspond uniquely to real world entities and that the data alone is sufficient to establish a 1-1 correspondence. There is thus an implicit assumption that the logical principle of identity of indiscernibles holds of the real world entities and, more specifically, that each type of real world entity has identifying relationships and attributes that distinguish it from  others of the type. In relational data modelling this set of identifying features is represented as a set of columns of the table and is called the primary key. In entity relationship modelling in the style of Barker an identifying feature may be either a relationship or an attribute.   
-
-\subsection{New material}
-\begin{lemma}
-\llabel{intransitivefdsfactorthroughsingletonintransitivefds}
-If a model $\gmodel$ is well-formulated and \mmfd{\xn}{z} is an intransitive functional dependency then there exists a path $y$
-such that \mmfd{\xn}{y} and \mmfd{y}{\xn} are functional dependencies and \mmfd{y}{z} is an intransitive functional dependency.
-\end{lemma}
-
 
 
 \subsection{Directed Graphs}
@@ -110,7 +100,6 @@ If $\gmodel$ is an ER-model then the set $\attr{a}$ of attributes of an entity t
 domain $a$  and  codomain $\veee$.
 
 \begin{definition}
-\llabel{ERschemamapping}
 If $\gmodel$ and  $\gmodel'$ are ER schemas then an \term{ER schema mapping} 
 $\varphi : \gmodel \morph \gmodel'$ consists of a mapping $\varphi_N$ (abbreviated $\varphi$)from nodes of
 $\gmodel$ to nodes of $\gmodel'$ 
@@ -207,7 +196,6 @@ $\setsuchthat{\varphi(p)}{p \in P}$.
 \subsection{ER Model Mappping}
 
 \begin{definition}
-\llabel{ERmodelmapping}
 If $\gmodel$ and  $\gmodel'$ are ER models then an \term{ER model mapping}
 $\varphi : \gmodel \morph \gmodel'$ consists of an ER schema mapping $\varphi$ from $\gmodel$ and  $\gmodel'$ that satisfies
 \begin{itemize}
@@ -252,29 +240,33 @@ It follows on from the definition of equivalence for sets of paths $P$ and $Q$ t
 
 \begin{definition}
 A ER model mapping $\varphi: \gmodel \morph \gmodel'$ is said to be an isomorphism
-and the models $\gmodel$ and $\gmodel'$ are said to be isomorphic iff there is a ER model mapping $\psi: \gmodel' \morph \gmodel$ such that
+and the models $\gmodel$ and $\gmodel'$ are said to be isomorphic iff there is a ER model mapping $\varphi^{-1}: \gmodel' \morph \gmodel$ such that
 \begin{enumerate}[(i)]
-\item for each entity type $a$ of $\gmodel$, $\psi(\varphi(a))=a$,
-\item for each entity type $a'$ of $\gmodel'$, $\varphi(\psi(a'))=a'$,
-\item for each path $p: a \morph b$ of $\gmodel$, $\psi(\varphi(p)) \simeq p$,
-\item for each path $p':a' \morph b'$ of $\gmodel'$, $\varphi(\psi(p')) \simeq p'$.
+\item for each entity type $a$ of $\gmodel$, $\varphi^{-1}(\varphi(a))=a$,
+\item for each entity type $a'$ of $\gmodel'$, $\varphi(\varphi^{-1}(a'))=a'$,
+\item for each path $p: a \morph b$ of $\gmodel$, $\varphi^{-1}(\varphi(p)) \simeq p$,
+\item for each path $p':a' \morph b'$ of $\gmodel'$, $\varphi(\varphi^{-1}(p')) \simeq p'$.
 \end{enumerate}
 \end{definition}
 
 \begin{lemma}
 \llabel{isoinverseiso}
 If $\varphi: \gmodel \morph \gmodel'$ is an isomorphism of ER models then
-$\varphi^{-1}: \gmodel' \morph \gmodel$ is an isomorphism of ER models also and
+$\varphi^{-1}: \gmodel' \morph \gmodel$ is an isomorphism of ER models and
 for each entity type $a$ of $\gmodel$, $\varphi^{-1}(\pk[\gmodel']{\varphi(a)}\simeq\pk{a}$.
 \end{lemma}
 \begin{proof}
-tbd
+$\varphi^{-1}$ is an isomorphism iff $\varphi$ is an isomorphism because (i) - (iv) are symetric in $\varphi$ and $varphi^{-1}$.
+
+$\varphi^{-1}(\pk[\gmodel']{\varphi(a)}\simeq\pk{a}$ because
+\begin{align*}
+\varphi^{-1}(\pk[\gmodel']{\varphi(a)}&=G(F(x_1)) & & \\
+                                      &=\pk{\varphi^{-1}(\varphi(a))} & & \mbox{since $\varphi{-1}$ is an ER model mapping }\\
+			                                &=\pk{a}& & \mbox{since $\varphi$ is an isomorphism with inverse $\varphi^{-1}$.}
+\end{align*}
 \end{proof}
 
-\begin{lemma}
-\llabel{notusedkeyreflectionuptoeqivalence} 
-If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi$ is an ER model isomorphism $\varphi: \gmodel \morph \gmodel'$ then if $p:a \morph \veee$ in $\gmodel$ and $\varphi(p) :\varphi(a) \morph \veee$ is a primary key path in $\gmodel'$ then $p$ is equivalent to a primary key path in $\gmodel$.
-\end{lemma}
+
 
 In section \lref{definitionofrelational} we characterise those ER models which correspond to relational schemas and elsewhere\footnote{in the future} those that correspond to hierarchical schemas. 
 We can paraphrase and say that an ER model is relational or hierarchical, in a certain way,  providing it has a sufficiency of referential attributes (foreign keys) for the implementation  of non-compositional relationships. It follows from the definitions that we give that an ER model which doesn't have sufficient 
@@ -302,7 +294,7 @@ and if $J$ is a jointly injective set of functions with domain $B$ then the set 
 $(I \backslash \set{F}) \cup \setsuchthat{F \circ G}{G \in J}$ is jointly injective.
 \end{lemma}
 \begin{proof}
-
+\tbd
 \end{proof}
 
 \begin{lemma}
@@ -626,33 +618,6 @@ iff for all sources $P$ of  $\gmodel$ if
 $\varphi(P)$ is a primary mono-source in $\gmodel'$ then $P$ is a primary mono-source in $\gmodel$.
 \end{definition}
 
-\begin{lemma}
-\commentary{Unused} %\llabel{anisoreflectsprimariesthenitsinversepreservesthem} 
-If $\varphi: \gmodel \morph \gmodel'$ is an isomorphism of ER models  then
-$\varphi$ reflects primary mono-sources iff $\varphi^{-1}$ preserves primary mono-sources.
-\end{lemma}
-\begin{proof}
-Suppose $\varphi$ reflects primary mono-sources. To show that $\varphi^{-1}$ preserves primary mono-sources suppose
- $P'$ is a primary mono-source in $\gmodel'$. By definition, then,  $P'$ is representable  and therefore $\varphi^{-1}(\varphi(P))$ is representatable 
-by lemma \lref{isospreserverepresentativesets}.  Now it follows that  $\varphi(\varphi^{-1}(P'))$ will be a primary mono-source by lemma \lref{monosourceequivalence} since $\varphi(\varphi^{-1}(P')) \simeq P'$ in $\gmodel'$ as $\varphi$ is an isomorphism. 
-\end{proof}
-
-\begin{lemma}
-\commentary{Unused} %\llabel{anisoreflectsprimariesthenitsinversepreservesthem} 
-If $\varphi: \gmodel \morph \gmodel'$ is an injective isomorphism of ER models  then
-if $\varphi^{-1}$ preserves primary mono-sources
-then $\varphi$ reflects primary mono-sources.
-\end{lemma}
-\begin{proof}
-Suppose $\varphi^{-1}$ preserves primary mono-sources then $\varphi$ reflects primary mono-sources because
-if $P$ is a source in $\gmodel$ and if $\varphi(P)$ is a primary mono-source in $\gmodel'$ then
-by definition $\varphi(P)$ is representative in $\gmodel'$ and therefore by lemma \lref{injectiveisosreflectrepresentativesets} 
-$P$ is representative in $\gmodel$ and by lemma \lref{isospreserverepresentativesets} $\varphi^{-1}(\varphi(P))$ is representative in $\gmodel$.
-Now by lemma \lref{monosourceequivalence} it follows that $P$ will be primary mono-source in $\gmodel$ because, from the definition of
-isomorphism,  $P \simeq \varphi^{-1}(\varphi(P))$ and $\varphi^{-1}(\varphi(P))$ is a primary mono-source since we have assumed
-that  $\varphi^{-1}$ preserves primary mono-sources. 
-\end{proof}
-
 
 \subsubsection{Primarily Keyed Models}
 
@@ -844,7 +809,7 @@ are paths in $\gmodel$ and $p \simeq p'$ then $p$ represents (\ref{incdequivalen
 iff $p'$ represents (\ref{incdequivalence2}). 
 \end{lemma}
 \begin{proof}
-tbd
+\tbd
 \end{proof}
 \iffalse
 \begin{categoricalaside}
@@ -886,7 +851,7 @@ If  $\gmodel$ is an ER model in which all simple primary referential inclusion d
 have representations then all primary referential inclusion dependencies have representations. 
 \end{lemma}
 \begin{proof}
-Proof by induction TBD. Start by drawing a diagram of the inductive step.
+Proof by induction \tbd. Start by drawing a diagram of the inductive step.
 \end{proof}
 
 
@@ -911,11 +876,11 @@ then (\ref{isosourceincd}) is represented in $\gmodel$ by a path $p$
 iff (\ref{isotargetincd}) is represented in $\gmodel'$ by the path $\varphi(p)$.
 \end{lemma}
 \begin{proof}
-TBD
+\tbd
 \end{proof}
 
 \begin{lemma}
-\label{incdrepresentationshortcut}
+\llabel{incdrepresentationshortcut}
 If $\gmodel$ is an ER model, if $a$ and $b$ are entity types, if $\set{\qntuple}$ is the set
 of primary key paths of $\gmodel$ sourced at $b$, if $r:a \morph b$ is a relationship, 
 if $J \subset \set{1,...n}$ and for each $j \in J$ there is an $s_j:a \morph \veee$ in $\gmodel$ such that $r \circ q_j < s_j$ \commentary{and no $s'_j$ etc????} and if $\incd{a}{\pntuple}{b}{\qntuple}$
@@ -930,7 +895,23 @@ $$
 then relationship $r$ represents the inclusion dependency  $\incd{a}{\pntuple}{b}{\qntuple}$.
 \end{lemma}
 \begin{proof}
-TBD
+\tbd
+\end{proof}
+
+\begin{lemma}
+\llabel{inclusiondependencyrestrictionlemma}
+If $\incd{a}{x_1,...x_n}{b}{q_1,...q_n}$ is a referential inclusion dependency in an ER model $\gmodel$ 
+represented by a path $p:a \morph b$ then for each $j$, $1 \leq j \leq n$, $p \circ q_j \leq x_j$
+and in each defining instance $E$,
+$$E_p \circ E_{q_j} = \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq i \leq n}{ i \neq j}}{\overline{E_{x_i}}}\circ E_{x_j}$$
+\end{lemma}
+\begin{proof}
+For each defining instance $E$
+\begin{align*}
+E_p \circ E_{q_j} &=  E_{\xntuple} \circ E ^{-1}_{\qntuple} \circ E_{q_j}  && \mbox{since $p$ represents $\incd{a}{x_1,...x_n}{b}{q_1,...q_n}$} \\
+                  &= E_{\xntuple} \circ \pi_i                              && \mbox{not obvious -- need justify this} \\                                                                 \\
+									&= \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq i \leq n}{ i \neq j}}{\overline{E_{x_i}}}\circ E_{x_j} && \mbox{by lemma \lref{tupleprojection}.}
+\end{align*}
 \end{proof}
 
 
@@ -1044,8 +1025,6 @@ we require of $f_{E'}$ and so we can choose the required partial function
 $f_{E'}$ to be the partial function $f_E$. 
 The further point regarding triviality follows from lemma \lref{mappingrespectsequivalence}.
 \end{proof}
-
-
 
 
 \begin{definition}
@@ -1251,8 +1230,76 @@ is an intransitive  functional dependency in $\gmodel'$then
 (\ref{representationtargetfd}) is represented in $\gmodel'$.
 \end{lemma}
 \begin{proof}
-TBD
+\tbd
 \end{proof}
+
+\begin{lemma}
+\llabel{monosourcefdmembershipimplication}
+In a model $\gmodel$, if a set if paths $Q'$ is a mono-source and if no proper subset of $Q'$ is a mono-source, if $Q \subseteq Q'$ and $q' \in Q'$ then
+if \ssfd{Q}{q'} is a functional dependency then $q' \in Q$.
+\end{lemma}
+\begin{proof}
+If $q' \notin Q$ then $Q \subseteq Q' \setminus \set{q'}$ and therefore $\ssfd{Q' \setminus \set{q'}}{q'}$ is a functional dependency from which it follows that
+$\ssfd{Q' \setminus \set{q'}}{Q'}$
+which by lemma \lref{fdrightmonosourceimpliesfdleftmonosource} implies $Q' \setminus \set{q'}$ is a mono-source contradicting our assumption that no proper subset of $Q'$ is a mono-source.
+Therefore $q' \in Q$ as required.
+\end{proof}
+
+
+\begin{lemma}
+\llabel{fdfrompathextension}
+In an ER model $\gmodel$ if $p_1: a \morph b$ and $p_2:b \morph c$  are paths 
+then $\ssfd{p_1}{ p_1 \circ p_2}$ is a functional dependency in $\gmodel$ and, further, $\ssfd{p_1}{p_1 \circ p_2}$ is reversible i.e.
+$\ssfd{p_1 \circ  p_2}{p_1}$ is also a functional dependency in $\gmodel$ iff in every defining instance $E$, $E_{p_2}$ is defined on the range of $E_{p_1}$ or, equivalently,
+$E_{p_1} \circ \overline{E_{p_2}} = E_{p_1}$,  and the partial function $E_{p_2}$ restricted to the range of $E_{p_1}$ is injective. 
+\end{lemma}
+\begin{proof}
+\tbd
+\end{proof}
+
+\begin{lemma}
+\llabel{fdfrompathequivalence}
+In an ER model $\gmodel$ if $p,p':a \morph b$ and  $q, q': a \morph c$ are paths and if $p \simeq p'$ and $q \simeq q'$ in $\gmodel$
+then 
+\begin{equation}
+\label{pqfd}
+\ssfd{p}{q}
+\end{equation}
+ is a functional dependency in $\gmodel$ iff 
+\begin{equation}
+\label{ppqpfd}
+\ssfd{p'}{q'}
+\end{equation}
+ is a functional dependency in $\gmodel$.
+ Further, (\ref{pqfd}) is reversible i.e.
+$\ssfd{q}{p}$ is also a functional dependency in $\gmodel$ iff (\ref{ppqpfd}) is reversible,
+(\ref{pqfd}) is transitive iff (\ref{ppqpfd}) is transitive,
+(\ref{pqfd}) is intransitive iff (\ref{ppqpfd}) is intransitive.
+\end{lemma}
+\begin{proof}
+\tbd
+\end{proof}
+
+\begin{lemma}
+\llabel{fdfromfdplusmonosource}
+\llabel{fdfromfdminusmonosource}
+In an ER model $\gmodel$ if $p: a \morph b$ and $r: a \morph c$ are paths and if $\qn$ is a mono-source with domain $b$
+then 
+\begin{equation}
+\label{monosourcedfd}
+\msfd{p \circ q_1,...p \circ q_n}{r}
+\end{equation}
+ is a functional dependency iff 
+\begin{equation}
+\label{strippedfd}
+\ssfd{p}{r}
+\end{equation}
+ is a functional dependency. Further (\ref{monosourcedfd}) is reversible iff (\ref{strippedfd}) is.
+\end{lemma}
+\begin{proof}
+\tbd
+\end{proof}
+
 
 \subsection{Identifying-Like Paths}
 
@@ -1265,6 +1312,9 @@ In an ER model $\gmodel$, a non-empty path $t: a \morph b$, where $a$ and $b$ ar
 In an ER model $\gmodel$ , if $t$ and $t'$ are paths, $t:a \morph b$ and $t':a \morph b$, where $a$ and $b$ are entity types
 then if $t \simeq t'$ in $\gmodel$ then $t$ is identifying-like iff $t'$ is identifying-like.
 \end{lemma}
+\begin{proof}
+\tbd
+\end{proof}
 
 
  
@@ -1311,9 +1361,8 @@ $\varphi(t)=t'$ and this $t$ is identifying-like by lemma \lref{isospreserveandr
 \begin{definition}
 In an ER model $\gmodel$, a non-empty path $p: a \morph b$, where $a$ and $b$ are entity types, which consists
 of a relationship $R$ followed by a  path $t :a' \morph b$ is said to be \term{relationship-like} iff
-\commentary{defined 11th December 2019}
 either  $t$ is the empty path (so that the path $p$ is exactly a relationship $R$) or $t$
-is identifying-like.\commentary{A relationship-like path, as a relationship i.e. a path of length 1,  can be navigated in SQL without use of intermediate tables (only true in a first-cut model!!) . Paths which have length greater than one and are not relationship-like need be navigated in SQL using intermediate tables.}
+is identifying-like.
 \end{definition}
 
 \begin{lemma}
@@ -1341,19 +1390,18 @@ Since $\varphi$ is assumed to be an isomorphism then by lemma \lref{isospreserve
 thus that $r_1 \circ r_2 ... \circ r_n$ is relationship-like. Hence we have shown $p$ to be relationship-like as required.
 \end{proof}
 
+
 \begin{lemma}
-\llabel{isossurjectiveonrelationshipsaresurjectiveonrelationshiplike}
-If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an isomormorphism, $\varphi: \gmodel \morph \gmodel'$, that is surjective on relationships    
-then $\varphi$ is surjective on relationship-like paths of $\gmodel'$. 
+\llabel{primarykeypathequivalentsthatfactorthroughidentifyinglike}
+In a model $\gmodel$, if $p:a \morph b$ is an identifying-like path and $w:b \morph \veee$ is a path such that $p \circ w$ is equivalent to a primary key path then
+there is a primary key path $q:b \morph \veee$ such that $p \circ w \simeq q$.
 \end{lemma}
 \begin{proof}
-If $r':\varphi(a) \morph \varphi(b)$ in $\gmodel'$ is relationship-like then it consists of a relationship $R': \varphi(a) \morph \varphi(a')$, for some $a'$,
-and a path $t':\varphi(a') \morph \varphi(b)$. Since $\varphi$ is assumed surjective on relationships there exists a relationship 
-$R:a \morph b$ in $\gmodel$ such that $\varphi(R)=R'$. 
-By lemma \lref{isossurjectiveonrelationshipsaresurjectiveonidentifyinglike} there also exists an identifying-like path $t:a' \morph b$ such that $\varphi(t)=t'$.
-The path $r=R \circ t$ is a relationship-like path such that $\varphi(r)=r'$ as required.
+Let $Q_b$ be representative of the primary key paths of $b$. It follows by lemmas \lref{fdfrompathextension} and \lref{fdfromfdminusmonosource} that $\ssfd{p \circ Q_b}{p}$ is a functional dependency in $\gmodel$. 
+Let $PQ_b$ be representative of $P \circ Q_b$. Letr $Q'$ be representative of $\pk{a}$ such that $PQ_b \subseteq Q'$. Let $q' \in Q'$ be such that $p \circ w \simeq q'$.
+Since $\ssfd{P \circ Q_b}{p\circ w}$ then by lemma \lref{fdfrompathequivalence} it follows that $\ssfd{PQ_b}{q'}$ and therefore   
+by lemma \lref{monosourcefdmembershipimplication}  it follows that $q' \in PQ_b$ as required.
 \end{proof}
-
  
 
 \subsection{ER model Goodness Conditions}\
@@ -1391,7 +1439,7 @@ If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an isomorphism b
 Assume such a $\varphi$ and that $\gmodel$ is well-formulated. Then
 \begin{enumerate} [(i)]
 \item{
-That $\gmodel'$ satisfies the minimality condition follows corollary \lref{isospreserveandreflectmonosources}.
+That $\gmodel'$ satisfies the minimality condition follows lemma \lref{isospreserveandreflectminimality}.
 }
 \item{ 
 To show that each primary referential inclusion dependency of $\gmodel'$ is represented in $\gmodel'$ by some path $p$ we use the fact that each primary referential inclusion dependencies is reflected
@@ -1511,11 +1559,10 @@ Therefore
 \begin{align*}
 E_y &= E_p \circ E_w                                        && \text{since $y \simeq p \circ w$}\\
 		&= E_p \circ E_{q_i}                                    && \text{since $w \simeq q_i$}\\
-		&= E_{\xntuple} \circ E_{\qntuple}^{-1} \circ E_{q_i}   && \text{by (\ref{incdependency})}\\
-		&= E_{\xntuple} \circ \proji{i}                         && \text{} \\
 		&= \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq j \leq n}{ j \neq i}}{\overline{E_{x_j}}}\circ E_{x_i}  
-		                                                        && \text{By lemma \lref{tupleprojection}}
+		                                                        && \text{by lemma \lref{inclusiondependencyrestrictionlemma}}
 \end{align*} 
+
 
 Hence because $\gmodel$ is leaf-restriction free we deduce that $y \simeq x_i$ 
  and this contradicts the assumption that the functional dependency
@@ -1561,7 +1608,7 @@ From the assumption that $\gmodel$ has the fd factoring property we have shown t
 that the functional dependency  $\mmfd{\xnprime}{z'}$ factors through an intransitive functional dependency and  therefore that $\gmodel'$ has the fd factoring property.
 \end{proof}
 
-
+\begin{oldtt}
 \begin{lemma}
 \llabel{mainlemma}
 In a well-formulated model $\gmodel$ that has the \fdfactoring\ property if $\set\xn$ are attribute-like and
@@ -1571,9 +1618,8 @@ or else there is an entity type $d$ and there is a
 relationship-like path $p:a \rightarrow d$ such that $\msfd{x_1,...x_n}{p}$ and a  path $w:d \morph c$  such that $y \simeq p \circ w$. 
 If codomain of $y$, $c$, is $\veee$ then
 the path $w$ is non-empty and if $y$ is an edge and $\gmodel$ is leaf-restriction free then 
-\begin{newtt} supposing $p$ is a path of length $m$, for some $m \geq 1$, supposing say $ p = r_1 \circ r_2 ... \circ r_m$ 
+supposing $p$ is a path of length $m$, for some $m \geq 1$, supposing say $ p = r_1 \circ r_2 ... \circ r_m$ 
  in $\gmodel$,   where each $r_i$ is a relationship, then $r_2 ... \circ r_m \circ w$
-\end{newtt}
 is not equivalent to a primary key path.
 \end{lemma}
 \begin{proof}
@@ -1581,6 +1627,7 @@ Since the model $\gmodel$  has the \fdfactoring\ property, the functional depend
 dependency $\set{y_1,...y_m} \morph z$. Therefore by lemma \lref{intransitivelemma} either there exists $d$, $p$ and $w$ as required
 or else  $\set{\ym}$ is a mono-source in which case, by lemma \lref{transitiveinjectivelemma}, $\set{\xn}$ is a mono-source as required.
 \end{proof}
+\end{oldtt}
 
 \subsection{Ranking Relationships in an ER Model}
 For every ER model $\gmodel$ and for each natural number $n$, $n \geq 0$, we define which relationships of
@@ -1708,8 +1755,7 @@ An instance of such a model is given in example  $\lref{teamselectionpreliminary
 Loops $p$ having fixed properties in this way are impediments to achieving normal forms in relational designs; there is a work-around and provided care is taken the
 ER model can meet the following goodness criteria: 
 \begin{definition} 
-An ER model is \term{reduced} 
-\begin{newtt}iff for all attributes $y:a \morph \veee$ and paths $r_1 \circ r_2 \circ ... r_n \circ x$
+An ER model is \term{reduced} iff for all attributes $y:a \morph \veee$ and paths $r_1 \circ r_2 \circ ... r_n \circ x$
 such that $y \simeq r_1 \circ r_2 \circ ... r_n \circ x$ ,  where each $r_i$ is a relationship for some $n \geq 1$, and where $x$ is an attribute, then
 it follows that either
 \begin{enumerate} [(i)]
@@ -1718,7 +1764,6 @@ it follows that either
 (in particular note that this implies $r_1$ is a mono-source and that, if $n \geq 2$, $r_2$ is either a mono-source or is not identifying-like)
 \item the attribute $y$ is identifying.
 \end{enumerate}
-\end{newtt}
 \end{definition}
 
 In a relational ER model $\gmodel$ if there are no identifying attributes $x$ such that $x \simeq r \circ p$ where $r$ is relationship-like, $r:a \morph a'$, and $p$ is a not a primary key path, $p:a' \morph \veee$ then the model is said to be \term{without caveats}.
@@ -1726,7 +1771,7 @@ In a relational ER model $\gmodel$ if there are no identifying attributes $x$ su
 Thus we get:
 
 \begin{definition} 
-An ER model $\gmodel$ is \term{reduced without caveat} \begin{newtt}
+An ER model $\gmodel$ is \term{reduced without caveat}
 iff for all attributes $y:a \morph \veee$ and paths $r_1 \circ r_2 \circ ... r_n \circ x$
 such that $y \simeq r_1 \circ r_2 \circ ... r_n \circ x$ ,  where each $r_i$ is a relationship for some $n \geq 1$, and where $x$ is an attribute, then
 it follows that either
@@ -1734,7 +1779,6 @@ it follows that either
 \item there exists a primary key path $q:b \morph \veee$ such that $r_2 \circ ... r_n \circ x \simeq q$, or
 \item for each i, $1 \leq i \leq n$, the path $r_1 \circ r_2 ... \circ r_i$ is either a mono-source or else is not relationship-like.
 \end{enumerate}
-\end{newtt}
 \end{definition}
 
 \subsection{Main Theorem}
@@ -1746,15 +1790,19 @@ maintheorem
 If  $\gmodel$ is reduced without caveats then is in Boyce-Codd Normal form.
 \end{theorem}
 \begin{proof}
-To prove S3NF it suffices, by lemma \lref{S3NFsublemma},  to show that if 
+To prove BCNF it suffices, by lemma \lref{BCNFsublemma},  to show that if 
 $\msfd{x_1,...x_n}{y}$ is a non-trivial intransitive functional dependency of model $\gmodel$
-where $x_1,...x_n$, $y$ are \highlight{attributes} 
+where $x_1,...x_n$, $y$ are attributes 
+then  $\set{\xn}$ is a mono-source.
+Likewise to prove S3NF it suffices, by lemma \lref{S3NFsublemma},  to show that if 
+$\msfd{x_1,...x_n}{y}$ is a non-trivial intransitive functional dependency of model $\gmodel$
+where $x_1,...x_n$, $y$ are attributes 
 then  $\set{\xn}$ is a mono-source or that $y$ is identifying. \\
 Assume then such a functional dependency.
 From the assumption that the model $\gmodel$ is well-formulated and leaf-restriction free
-then by lemma \lref{mainlemma} 
+then by lemma \newt{\lref{intransitivelemma}} \oldt{mainlemma} 
 either $\set{\xn}$ is a mono-source and we are done
-or else there is a non-empty \reinstatet{relationship-like} path $r_1 \circ r_2 ... \circ r_m$ 
+or else there is a non-empty relationship-like path $r_1 \circ r_2 ... \circ r_m$ 
 of length $m$ in $\gmodel$, for some $m \geq 1$  where each $r_i$ is a relationship,
 and a path $w$ of $\gmodel$ 
 such that the path $r_2 \circ ... \circ r_m \circ w$
@@ -1765,13 +1813,13 @@ such that the path $r_2 \circ ... \circ r_m \circ w$
 \end{equation}
 and such that $\msfd{x_1,...x_n}{r_1 \circ r_2 ... \circ r_m}$. 
 
-If the model $\gmodel$ is assumed to be reduced without caveat then from (\ref{simpleRepresentation})
+If the model $\gmodel$ is assumed to be reduced without caveat,  then from (\ref{simpleRepresentation})
 and since $r_2 \circ ... \circ r_m \circ w$
- is not  equivalent to a primary key path then it follows that the path $r_1 \circ r_2 ... \circ r_m$ is a be a mono-source
-since it is relationship-like.
+ is not  equivalent to a primary key path then it follows that the path $r_1 \circ r_2 ... \circ r_m$ is either not relationship-like or it is a mono-source.
+But it is relationship-like and so it must be a mono-source. 
 
 Now it follows that since $r_1 \circ r_2 ... \circ r_m$ is a mono-source then $x_1,...x_n$ is a mono source by lemma \ref{fdrightmonosourceimpliesfdleftmonosource} as required, 
-since $\msfd{x_1,...x_n}{r_1\circ r_2 ... \circ r_m}$, and we have established BCNF
+since $\msfd{x_1,...x_n}{r_1\circ r_2 ... \circ r_m}$, and we have established BCNF.
 With the weaker assumption that the model $\gmodel$ is \highlight{reduced}, there is the additional possibility that $y$ is identifying i.e. is a primary key attribute and we have proved S3NF.
 \end{proof}
 
@@ -1789,7 +1837,7 @@ form $\tuple{r_0,r_1,...r_n}$ where each of $r_1,...r_n$ are identifying.
 
 The transformation $\firstcut$ can be improved to by taking note of equivalent attribute-like paths and
 either dropping duplicates or, equally, thinking of the added attributes as corresponding to equivalence classes of 
-equivalent attribute-like paths wrt the equivalence relation $\simeq$ defined earlier (section \lref{xxx}). This improved transformation we can denote as $\firstcutimproved$.
+equivalent attribute-like paths wrt the equivalence relation $\simeq$ of path equivalence. This improved transformation we can denote as $\firstcutimproved$.
 
 This consideration leads  to this definition:
 \begin{definition}
@@ -1823,13 +1871,13 @@ $\incd{a}{\sntuple}{b}{\qntuple}$ and this inclusion dependency is not represent
 $r$ or else $\nincd{a}{\sntuple}{b}{\qntuple}$.
 \end{definition}
 
-We exclude models $\gmodel$ 0that have boolean-worth relationships from the $\gmodel$ for which $\chi$ is defined but not because a relational impelmentation cannot be given but because there is a choice of representations: 
+We exclude models $\gmodel$ that have boolean-worth relationships from the $\gmodel$ for which $\chi$ is defined but not because a relational impelmentation cannot be given but because there is a choice of representations: 
 \begin{lemma}
 In the context of the above definition if relationship $r$ is boolean-worth
 then $\incd{a}{r \circ q_1,s_2,...s_n}{b}{\qn}$ is an inclusion dependency that represents $r$. \commentary{ Or choose any $q_i$ for that matter.}
 \end{lemma}
 \begin{proof}
-TBD
+\tbd
 \end{proof}
 We could easily include boolean-worth representations to entity types havinga single primary key attribute because then no choice is required.
 This leads to examples where the boolean-worth $r: a \morph b$ is replaced by the boolean-worth $\bar{r}: a \morph a$ in the case where $b$ has multiple primary keys but $a$ has just one.  
@@ -1838,7 +1886,7 @@ This leads to examples where the boolean-worth $r: a \morph b$ is replaced by th
 If an edge is a restriction then it is \newt{boolean-worth}.
 \end{lemma}
 \begin{proof}
-TBD
+\tbd
 \end{proof}
 
 If these conditions are met: that attribute-like paths have at most one equivalent non attribute-like path, that implied dependencies are non-circular and there are no  \newt{boolean-worth} relationships, then we say that $\gmodel$ is \term{$\chit$-suitable} and in these instances we can show that 
@@ -1901,7 +1949,7 @@ If $\gmodel$ is $\chit$-suitable  then  there is a
 relationship preserving  and reflecting isomorphism $I_\gmodel: \gmodel \morph \chigmodel$ that reflects primary mono-sources.
 \end{lemma}
 \begin{proof}
-TBD \commentary{work on this}
+\tbd 
 \end{proof}
 
 \begin{lemma}
@@ -1972,27 +2020,9 @@ Thus equation (\ref{reductionequation}) meets condition (i) of the defintion of 
 If $\gmodel$ is $\chit$-suitable and reduced without caveats then $\chigmodel$ is reduced without caveats.
 \end{lemma}
 \begin{proof}
-TBD
-\vspace{0.5cm}
-tbd
+\tbd
 \end{proof}
 
-
-\begin{lemma}
-\llabel{inclusiondependencyrestrictionlemma}
-If $\incd{a}{x_1,...x_n}{b}{q_1,...q_n}$ is a referential inclusion dependency in an ER model $\gmodel$ 
-represented by a path $p:a \morph b$ then for each $j$, $1 \leq j \leq n$, $p \circ q_j \leq x_j$
-and in each defining instance $E$,
-$$E_p \circ E_{q_j} = \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq i \leq n}{ i \neq j}}{\overline{E_{x_i}}}\circ E_{x_j}$$
-\end{lemma}
-\begin{proof}
-For each defining instance $E$
-\begin{align*}
-E_p \circ E_{q_j} &=  E_{\xntuple} \circ E ^{-1}_{\qntuple} \circ E_{q_j}  && \mbox{since $p$ represents $\incd{a}{x_1,...x_n}{b}{q_1,...q_n}$} \\
-                  &= E_{\xntuple} \circ p_i                              && \mbox{not obvious -- need justify this} \\                                                                 \\
-									&= \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq i \leq n}{ i \neq j}}{\overline{E_{x_i}}}\circ E_{x_j} && \mbox{by lemma \lref{tupleprojection}.}
-\end{align*}
-\end{proof}
 
 
 \begin{lemma}
@@ -2001,7 +2031,7 @@ If $\gmodel$ is $\chit$-suitable ER model which is leaf-restriction free then
 then $\chigmodel$ is leaf-restriction free.
 \end{lemma}
 \begin{proof}
-Assume such an ER model $\gmodel$ and suppose there is an entyity type $I_\gmodel(a)$ in $\chigmodel$ and an edge $y': I_\gmodel(a) \morph \veee$ and non-empty paths $x'_1,...x'_n$   with domain $I_\gmodel(a)$ in $\chigmodel$,  such that for some $j$, $1 \leq j \leq n$, $x'_j \not\simeq \tuple{}$ and in every defining instance $E'$ of $\chigmodel$  
+Assume such an ER model $\gmodel$ and suppose there is an entity type $I_\gmodel(a)$ in $\chigmodel$ and an edge $y': I_\gmodel(a) \morph \veee$ and non-empty paths $x'_1,...x'_n$   with domain $I_\gmodel(a)$ in $\chigmodel$,  such that for some $j$, $1 \leq j \leq n$, $x'_j \not\simeq \tuple{}$ and in every defining instance $E'$ of $\chigmodel$  
 \begin{equation}
 \label{restrictioninchimodel}
 E'_{y'} = \bigwedge_{1 \leq i \leq n}{\overline{E'_{x'_i}}} \circ E'_{x'_j}
@@ -2034,10 +2064,10 @@ Use lemmas \lref{chiisacertaintypeofisomorphism} and \lref{certainisomorphismspr
 \begin{lemma}
 \llabel{chilemma}
 If  $\gmodel$ is an an ER model that is well-formulated,  $\chit$-suitable, has the fd factoring property,
-\newt{is leaf restriction free and is reduced} 
-then the transformed model $\chigmodel$ is a  relational ER model that is well-formulated, \newt{reduced}, leaf-restriction free
+is leaf restriction free and is reduced
+then the transformed model $\chigmodel$ is a  relational ER model that is well-formulated, reduced, leaf-restriction free
 and has the fd factoring property.   
-Further if $\gmodel$ is  \newt{reduced without caveats} then  $\chigmodel$ is simple without caveats.
+Further if $\gmodel$ is  reduced without caveats then  $\chigmodel$ is reduced without caveats.
 \end{lemma}
 \begin{proof}
 Assume that $\gmodel$ is an an ER model that is well-formulated,  $\chit$-suitable, has the fd factoring property and
@@ -2049,9 +2079,9 @@ $\chigmodel$ is well-formulated by lemma \lref{wfcarrythroughlemma} since $\gmod
 
 $\chigmodel$ has the fd factoring property by lemma \lref{fdfactoringcarrythroughlemma}  since $\gmodel$ is assumed to have the fd factoring property.
 
-$\chigmodel$ is leaf-restriction free by \newt{by lemma \lref{restrictioncarrythroughlemma}.}
+$\chigmodel$ is leaf-restriction free by lemma \lref{restrictioncarrythroughlemma}.
 
-$\chigmodel$ is \newt{reduced by lemma \lref{reducedcarrythroughlemma} }  because $\gmodel$ is \newt{reduced}.
+$\chigmodel$ is reduced by lemma \lref{reducedcarrythroughlemma}  because $\gmodel$ is reduced.
 
 Further, if $\gmodel$ is free of any referential attributes at all then it follows directly from definitions that $\gmodel$ is simple without caveats
 and hence  that $\chigmodel$ is simple without caveats by lemma \lref{wocaveatcarrythroughlemma}.
@@ -2060,44 +2090,21 @@ and hence  that $\chigmodel$ is simple without caveats by lemma \lref{wocaveatca
 \begin{theorem}
 \llabel{goaltheorem}
 If  $\gmodel$ is an an ER model that is well-formulated,  $\chit$-suitable and has the fd factoring property
-and is \newt{leaf restriction-free}
+and is leaf restriction-free
 then the transformed model $\chigmodel$ is a  relational ER model. Further
 \begin{enumerate}[(i)]
-\item  if $\gmodel$ is \newt{reduced}  then  $\chigmodel$ is in third normal form, 
+\item  if $\gmodel$ is reduced  then  $\chigmodel$ is in third normal form, 
 \item 
-if $\gmodel$ is \newt{reduced without caveats} then  $\chigmodel$ is in BCNF.
+if $\gmodel$ is reduced without caveats then  $\chigmodel$ is in BCNF.
 \end{enumerate}
 \end{theorem}
 \begin{proof}
 Follows from theorem \lref{maintheorem} and lemma \lref{chilemma} because every simple model is reduced.
 \end{proof}
 
-\section{Late arriving lemmas from 26th 27th June 2020}
 
 
-\begin{lemma}
-\llabel{monosourcefdmembershipimplication}
-In a model $\gmodel$, if a set if paths $Q'$ is a mono-source and if no proper subset of $Q'$ is a mono-source, if $Q \subseteq Q'$ and $q' \in Q'$ then
-if \ssfd{Q}{q'} is a functional dependency then $q' \in Q$.
-\end{lemma}
-\begin{proof}
-If $q' \notin Q$ then $Q \subseteq Q' \setminus \set{q'}$ and therefore $\ssfd{Q' \setminus \set{q'}}{q'}$ is a functional dependency from which it follows that
-$\ssfd{Q' \setminus \set{q'}}{Q'}$
-which by lemma \lref{fdrightmonosourceimpliesfdleftmonosource} implies $Q' \setminus \set{q'}$ is a mono-source contradicting our assumption that no proper subset of $Q'$ is a mono-source.
-Therefore $q' \in Q$ as required.
-\end{proof}
 
-\begin{lemma}
-\llabel{primarykeypathequivalentsthatfactorthroughidentifyinglike}
-In a model $\gmodel$, if $p:a \morph b$ is an identifying-like path and $w:b \morph \veee$ is a path such that $p \circ w$ is equivalent to a primary key path then
-there is a primary key path $q:b \morph \veee$ such that $p \circ w \simeq q$.
-\end{lemma}
-\begin{proof}
-Let $Q_b$ be representative of the primary key paths of $b$. It follows by lemmas \lref{fdfrompathextension} and \lref{fdfromfdminusmonosource} that $\ssfd{p \circ Q_b}{p}$ is a functional dependency in $\gmodel$. 
-Let $PQ_b$ be representative of $P \circ Q_b$. Letr $Q'$ be representative of $\pk{a}$ such that $PQ_b \subseteq Q'$. Let $q' \in Q'$ be such that $p \circ w \simeq q'$.
-Since $\ssfd{P \circ Q_b}{p\circ w}$ then by lemma \lref{fdfrompathequivalence} it follows that $\ssfd{PQ_b}{q'}$ and therefore   
-by lemma \lref{monosourcefdmembershipimplication}  it follows that $q' \in PQ_b$ as required.
-\end{proof}
 
 \newpage
 \section{Future Work}

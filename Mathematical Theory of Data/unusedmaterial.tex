@@ -1,0 +1,72 @@
+
+
+%\documentclass[prodmode,acmtods]{acmsmall}
+\documentclass[10pt,a4paper]{scrartcl}
+\input{thepreamble}
+\begin{document}
+
+
+\title{UNused Mateerial Mathematical Theory of Data}
+\subtitle{ER models and Relational Schema}
+% abstract here for ams
+\author{John Cartmell}
+\maketitle
+\begin{center}
+DRAFT
+\end{center}
+There are pure conceptual structures and there are data structures. In the latter, relationships between entities are represented by universal
+referential values.
+
+\begin{lemma}
+\llabel{notusedkeyreflectionuptoeqivalence} 
+If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi$ is an ER model isomorphism $\varphi: \gmodel \morph \gmodel'$ then if $p:a \morph \veee$ in $\gmodel$ and $\varphi(p) :\varphi(a) \morph \veee$ is a primary key path in $\gmodel'$ then $p$ is equivalent to a primary key path in $\gmodel$.
+\end{lemma}
+
+\begin{lemma}
+\llabel{anisoreflectsprimariesthenitsinversepreservesthem} 
+If $\varphi: \gmodel \morph \gmodel'$ is an isomorphism of ER models  then
+$\varphi$ reflects primary mono-sources iff $\varphi^{-1}$ preserves primary mono-sources.
+\end{lemma}
+\begin{proof}
+Suppose $\varphi$ reflects primary mono-sources. To show that $\varphi^{-1}$ preserves primary mono-sources suppose
+ $P'$ is a primary mono-source in $\gmodel'$. By definition, then,  $P'$ is representable  and therefore $\varphi^{-1}(\varphi(P))$ is representatable 
+by lemma \lref{isospreserverepresentativesets}.  Now it follows that  $\varphi(\varphi^{-1}(P'))$ will be a primary mono-source by lemma \lref{monosourceequivalence} since $\varphi(\varphi^{-1}(P')) \simeq P'$ in $\gmodel'$ as $\varphi$ is an isomorphism. 
+\end{proof}
+
+\begin{lemma}
+\llabel{anisoreflectsprimariesthenitsinversepreservesthem} 
+If $\varphi: \gmodel \morph \gmodel'$ is an injective isomorphism of ER models  then
+if $\varphi^{-1}$ preserves primary mono-sources
+then $\varphi$ reflects primary mono-sources.
+\end{lemma}
+\begin{proof}
+Suppose $\varphi^{-1}$ preserves primary mono-sources then $\varphi$ reflects primary mono-sources because
+if $P$ is a source in $\gmodel$ and if $\varphi(P)$ is a primary mono-source in $\gmodel'$ then
+by definition $\varphi(P)$ is representative in $\gmodel'$ and therefore by lemma \lref{injectiveisosreflectrepresentativesets} 
+$P$ is representative in $\gmodel$ and by lemma \lref{isospreserverepresentativesets} $\varphi^{-1}(\varphi(P))$ is representative in $\gmodel$.
+Now by lemma \lref{monosourceequivalence} it follows that $P$ will be primary mono-source in $\gmodel$ because, from the definition of
+isomorphism,  $P \simeq \varphi^{-1}(\varphi(P))$ and $\varphi^{-1}(\varphi(P))$ is a primary mono-source since we have assumed
+that  $\varphi^{-1}$ preserves primary mono-sources. 
+\end{proof}
+
+\begin{lemma}
+\llabel{intransitivefdsfactorthroughsingletonintransitivefds}
+If a model $\gmodel$ is well-formulated and \mmfd{\xn}{z} is an intransitive functional dependency then there exists a path $y$
+such that \mmfd{\xn}{y} and \mmfd{y}{\xn} are functional dependencies and \mmfd{y}{z} is an intransitive functional dependency.
+\end{lemma}
+
+
+\begin{lemma}
+\llabel{isossurjectiveonrelationshipsaresurjectiveonrelationshiplike}
+If $\gmodel$ and $\gmodel'$ are ER models and  if  $\varphi$ is an isomormorphism, $\varphi: \gmodel \morph \gmodel'$, that is surjective on relationships    
+then $\varphi$ is surjective on relationship-like paths of $\gmodel'$. 
+\end{lemma}
+\begin{proof}
+If $r':\varphi(a) \morph \varphi(b)$ in $\gmodel'$ is relationship-like then it consists of a relationship $R': \varphi(a) \morph \varphi(a')$, for some $a'$,
+and a path $t':\varphi(a') \morph \varphi(b)$. Since $\varphi$ is assumed surjective on relationships there exists a relationship 
+$R:a \morph b$ in $\gmodel$ such that $\varphi(R)=R'$. 
+By lemma \lref{isossurjectiveonrelationshipsaresurjectiveonidentifyinglike} there also exists an identifying-like path $t:a' \morph b$ such that $\varphi(t)=t'$.
+The path $r=R \circ t$ is a relationship-like path such that $\varphi(r)=r'$ as required.
+\end{proof}
+	 
+\end{document}
