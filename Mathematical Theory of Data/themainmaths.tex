@@ -322,6 +322,12 @@ We shall denote the extended model by $\gmodel + \qq{P}$.
 From the definition of isomorphism it is clear that isomorphisms compose. It follows that there is an isomorphism from $\gmodel$ to $\gmodel + \qq{P}$. We denote the isomorphism
 by $\inject:  \gmodel \morph \gmodel + \qq{P}$ and choose an inverse which we denote $\retract: \gmodel + \qq{P} \morph \gmodel$.
 
+We therefore have:
+\begin{lemma}
+\llabel{pathsetedgeextension}
+If $\gmodel$ is an ER model and if $P$ is a set of paths each of length greater than $1$ in $\gmodel$ then there is an isomorphism  $\inject:  \gmodel \morph \gmodel + \qq{P}$ having an inverse  $\retract: \gmodel + \qq{P} \morph \gmodel$.
+\end{lemma}
+
 \begin{newtt}
 Can we show that the above isomorphisms reflects primary mono-sources???
 \end{newtt}
@@ -657,7 +663,7 @@ $\varphi(P)$ is a primary mono-source in $\gmodel'$ then $P$ is a primary mono-s
 \end{definition}
 
 \newpage
-\subsubsection{Primarily Keyed Models}
+\subsubsection{Construction of Primary Keys}
 
 One of the characteristics of a relational model is that each of the identifying features of a table is a column
 and this translates into our unified framework as each identifying edge of each entity type being an attribute i.e. 
@@ -669,33 +675,69 @@ have codomain $\veee$.
 To reach the goal of showing that to certain ER models there correspond isomorphic relational model we require the following:
 \begin{lemma}
 \llabel{primarilykeyedextension}
-If $\gmodel$ is an ER model then it can be extended to a model, denoted  $\gmodel + \qq{\underline{PK}}$
+If $\gmodel$ is an ER model then it can be extended to a model, denoted  $\pkext$,
 which is primarily keyed. If $\gmodel$ satisfies the minimality condition then the
-extended model $\gmodel + \qq{\underline{PK}}$ satisfies the  condition that each set $I_a$ has no proper subsets which are mono-sources. 
-There is an isomorphism from $\gmodel$ to $\gmodel + \qq{\underline{PK}}$.
+extended model $\pkext$ satisfies the  condition that each set $I_a$ has no proper subsets which are mono-sources. 
+There is an isomorphism from $\gmodel$ to $\pkext$.
 \end{lemma}
 \begin{proof}
-Let $P$ be the set of primary key paths of $\gmodel$. We define the ER model $\gmodel + \qq{\underline{PK}}$ to be the
-ER model   $\gmodel + \qq{PK}$ as described in section \ref{extensionbysetofpaths} but with identifying edges for any entity type $a$ being defined
+Let $\pkp$ be the set of primary key paths of $\gmodel$. We define the ER model $\pkext$ to be the
+ER model   $\gmodel + \qq{\pkp}$ as described in section \ref{extensionbysetofpaths} but with identifying edges for any entity type $a$ being defined
 by $I_a = \setsuchthat{\qq{p}}{p \in \pk{a}}$. 
 
-To show that the ER model isomorphism $\inject: \gmodel \morph \gmodel + PK$ determines an ER model mapping  $\inject: \gmodel \morph \gmodel + \qq{\underline{PK}}$
-we need show that it satisfies the condition that $\inject(\pk{a}) \simeq \pk[\gmodel + \qq{\underline{PK}}]{a}$. This is the case because for each primary key path $p \in \pk{a}$,
-$\inject(p) \simeq \qq{p}$ in $\gmodel + \qq{PK}$ and each identifying edge of $\gmodel + \qq{\underline{PK}}$ arises in this way.
+To show that the ER model isomorphism $\inject: \gmodel \morph \gmodel + \qq{\pkp}$ 
+described in section \ref{extensionbysetofpaths}   determines an ER model mapping  $\inject: \gmodel \morph \pkext$
+we need show that it satisfies the condition that $\inject(\pk{a}) \simeq \pk[\pkext]{a}$. This is the case because for each primary key path $p \in \pk{a}$,
+$\inject(p) \simeq \qq{p}$ in $\gmodel + \qq{\pkp}$ and each identifying edge of $\pkext$ arises in this way.
 
-To show that the the inverse mapping $\retract: \gmodel + PK \morph \gmodel$ determines an ER model mapping  $\retract: \gmodel + \qq{\underline{PK}} \morph \gmodel$ 
-we need show that for each entity type $a$, $\retract(\pk[\gmodel + \qq{\underline{PK}}]{a}) \simeq \pk{a}$. 
-This is the case because each  $e \in \pk[\gmodel + \qq{\underline{PK}}]{a}$ there is a primary key path $p \in \pk{a}$ 
-such that $e = \qq{p}$ and so $\retract(e) \simeq p$ in $\gmodel$ and to each primary key path $p \in \pk{a}$ there is an identifying edge $\qq{p} \in \pk[\gmodel + \qq{\underline{PK}}]{a}$
+To show that the inverse mapping $\retract: \gmodel + \pkp \morph \gmodel$ determines an ER model mapping  $\retract: \pkext \morph \gmodel$ 
+we need show that for each entity type $a$, $\retract(\pk[\pkext]{a}) \simeq \pk{a}$. 
+This is the case because each  $e \in \pk[\pkext]{a}$ there is a primary key path $p \in \pk{a}$ 
+such that $e = \qq{p}$ and so $\retract(e) \simeq p$ in $\gmodel$ and to each primary key path $p \in \pk{a}$ there is an identifying edge $\qq{p} \in \pk[\pkext]{a}$
 for which then  $\retract(\qq{p}) \simeq p$. 
 
-The isomorphism from $\gmodel$ to $\gmodel + \qq{PK}$ thus determines an isomorphism from $\gmodel$ to $\gmodel + \qq{\underline{PK}}$. 
+The isomorphism from $\gmodel$ to $\gmodel + \qq{\pkp}$ thus determines an isomorphism from $\gmodel$ to $\pkext$. 
 
 \end{proof}
 
 \begin{newtt}
 Can we show that the above isomorphisms reflects primary mono-sources???
 \end{newtt}
+
+\subsubsection{Construction of Relationship Key Attributes}
+
+
+
+\begin{definition}
+In an ER model $\gmodel$ a path $p: a \morph \veee$ is said to be a \term{relationship key path} iff it is of the form $r \circ q$ where  $r : a \morph b$ is a relationship in $\gmodel$ and $q: b \morph \veee$ is a primary key path in $\gmodel$.
+\end{definition}
+
+Denote the set of all referential key paths of an entity model $\gmodel$ by $\rkp$.
+
+\begin{definition}
+In an ER model $\gmodel$ a \term{relationship key attribute}\footnote{These are more usually knows as foreign keys but I just can't bring myself to use this term, and also, in ISO standard SQL, they are known as referential attributes.} of an entity type $a$ is an attribute
+$x:a \morph \veee$ such that there exists a relationship key path $r \circ q: a \morph \veee$
+such that $x \simeq r \circ q$. 
+\end{definition}
+
+Referential attributes are the significant feature of relational and hierarchical ER models.
+The first cut relational ER model traditionally associated with an ER model representing 
+a logical design can be described using the constructions described so far as
+$\gmodel + \sq{\underline{pk}_\gmodel} + \sq{\rkp}$. Generally this first cut relational model will not be alias-free and so it can be improved upon by trimming aliases. The trimmed model we shall denote by $\gmodel + \qq{\underline{pk}_\gmodel} + \qq{\rkp}$. 
+
+Later we will improve further and for this we need the following lemma:
+\begin{lemma}
+If $\gmodel$ is an ER model and if $R \subseteq \rkp$ then 
+there is an isomorphism which we denote $\inject$, 
+$\inject: \gmodel \morph \gmodel + \qq{\underline{pk}_\gmodel} + \qq{R}$
+with inverse $\retract:  \gmodel + \qq{\underline{pk}_\gmodel} + \qq{R} \morph \gmodel$.
+\end{lemma}
+\begin{proof}
+Follows from the isomorphism of $\gmodel$ to $\gmodel + \qq{\pkp}$, from 
+lemma \lref{pathsetedgeextension} and from the fact that isomorphisms can be composed.
+\end{proof}
+
+
 \newpage
 \subsection{Referential Inclusion Dependencies}
 \llabel{referentialinclusiondependency}
