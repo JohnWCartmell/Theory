@@ -52,7 +52,7 @@ $y \notin img(\tuple{f_1,...f_n})$ then $\tuple{f_1,...f_n}^{-1}(y)$ is undefine
 
 If $f: a \morph b$ is a partial function then we shall define the partial function $\bar{f}: a \morph a$ to be the identity function on the set $a$
 restricted to the subset of all $x \in a$ such that $f(x)$ is defined\footnote{
-This notation is introduced an a more general category theory setting by Cockett and Lack \cite{COCKETT2002}}. It follows that if $f: a \morph b$ and $g: a \morph c$ are partial functions
+This notation is introduced an a more general category theory setting by Cockett and Lack \cite{COCKETT2002}.}. It follows that if $f: a \morph b$ and $g: a \morph c$ are partial functions
 then $\bar{f} \circ \bar{g} = \bar{g} \circ \bar{f}$ and we also write this partial function as $\bar{f} \wedge \bar{g}$ since it represents the intersection
 of the domains of definition of $f$ and $g$. Likewise if $f_i:a \morph b_i$ are partial functions for $1 \leq i \leq n$, for some $n$, then we write $\bigwedge\limits_{1 \leq i \leq n}{\bar{f_i}}$ for the intersection of the domains of definition of the $f_i$ i.e. for the composition
 $\bar{f_1}\circ \bar{f_2} .../ \circ \bar{f_n}$.
@@ -239,7 +239,8 @@ It follows on from the definition of equivalence for sets of paths $P$ and $Q$ t
 \subsection{ER Model Isomorphism}
 
 \begin{definition}
-A ER model mapping $\varphi: \gmodel \morph \gmodel'$ is said to be an isomorphism
+A ER model mapping $\varphi: \gmodel \morph \gmodel'$ is said to be an isomorphism\footnote{I have some reservations about the use of the term isomorphism here but have used it because such a mapping
+between ER models determines an isomorphism between the  categories of equivalent paths of the models.}
 and the models $\gmodel$ and $\gmodel'$ are said to be isomorphic iff there is a ER model mapping $\varphi^{-1}: \gmodel' \morph \gmodel$ such that
 \begin{enumerate}[(i)]
 \item for each entity type $a$ of $\gmodel$, $\varphi^{-1}(\varphi(a))=a$,
@@ -250,42 +251,82 @@ and the models $\gmodel$ and $\gmodel'$ are said to be isomorphic iff there is a
 \end{definition}
 
 \begin{lemma}
-\llabel{isoinverseiso}
+\llabel{isoinverseiso} \commentary{unused?}
 If $\varphi: \gmodel \morph \gmodel'$ is an isomorphism of ER models then
-$\varphi^{-1}: \gmodel' \morph \gmodel$ is an isomorphism of ER models and
+$\varphi^{-1}: \gmodel' \morph \gmodel$ is an isomorphism of ER models.
+\end{lemma}
+\begin{proof}
+$\varphi^{-1}$ is an isomorphism iff $\varphi$ is an isomorphism because the defintion of isomorphism is symetric in $\varphi$ and $\varphi^{-1}$.
+\end{proof}
+
+\begin{lemma}
+\llabel{isoinversepk} \commentary{unused?}
+If $\varphi: \gmodel \morph \gmodel'$ is an isomorphism of ER models then
 for each entity type $a$ of $\gmodel$, $\varphi^{-1}(\pk[\gmodel']{\varphi(a)}\simeq\pk{a}$.
 \end{lemma}
 \begin{proof}
-$\varphi^{-1}$ is an isomorphism iff $\varphi$ is an isomorphism because (i) - (iv) are symetric in $\varphi$ and $varphi^{-1}$.
-
-$\varphi^{-1}(\pk[\gmodel']{\varphi(a)}\simeq\pk{a}$ because
+Because:
 \begin{align*}
-\varphi^{-1}(\pk[\gmodel']{\varphi(a)}&=G(F(x_1)) & & \\
-                                      &=\pk{\varphi^{-1}(\varphi(a))} & & \mbox{since $\varphi{-1}$ is an ER model mapping }\\
+\varphi^{-1}(\pk[\gmodel']{\varphi(a)}&=\pk{\varphi^{-1}(\varphi(a))} & & \mbox{since $\varphi^{-1}$ is an ER model mapping }\\
 			                                &=\pk{a}& & \mbox{since $\varphi$ is an isomorphism with inverse $\varphi^{-1}$.}
 \end{align*}
 \end{proof}
 
-
-
-In section \lref{definitionofrelational} we characterise those ER models which correspond to relational schemas and elsewhere\footnote{in the future} those that correspond to hierarchical schemas. 
-We can paraphrase and say that an ER model is relational or hierarchical, in a certain way,  providing it has a sufficiency of referential attributes (foreign keys) for the implementation  of non-compositional relationships. It follows from the definitions that we give that an ER model which doesn't have sufficient 
-referential attributes can be extended to one that does by repeated use of the construction indicated in the following definition.
+\newpage
+\subsection{Constructions - New models from old}
+In section \lref{definitionofrelational} we will characterise those ER models which correspond to relational schemas and elsewhere\footnote{Future work.} we will characterise those that correspond to hierarchical schemas. 
+We can paraphrase and say that an ER model is relational or hierarchical, in a certain way,  providing it has a sufficiency of referential attributes (foreign keys) for the implementation  of non-compositional relationships. 
+It will follow from the definitions  that an ER model which has insufficient referential attributes can be extended to one that does by using the constructions that we give in this section.
+In other words these constructions are to be used to transform an ER model representing a logical design to one\footnote{Sometimes referred to as a physical model} representing an implementation. 
+\subsubsection{Trimming Aliases}
+If distinct attributes or distinct relationships
+are equivalent in an ER model then we will say that they are aliases. Attributes which are equivalent are significant because in a relational schema they result in duplicated and hence redundant data. 
+With this in mind we give the following definition:
 \begin{definition}
-If $\gmodel$ is an ER model and if $p:a \morph b$ is a path in $\gmodel$ then define the ER model $\gmodel + \qq{p}$ to be the model whose schema is the schema of $\gmodel$ extended by a single edge with domain $a$ and codomain $b$, denoted $\qq{p}$, and with defining instances corresponding to the defining instances of $\gmodel$ extended to the schema of $\gmodel + \qq{p}$ by defining for each such defining instance $E$, $E_{\qq{p}}=E_p$.
-\end{definition} 
+An ER model $\gmodel$ is \term{alias-free} iff for all distinct edges $e$ and $e'$, $e \not\simeq e'$.
+\end{definition}
 
+It is easy to see that any ER model $\gmodel$ that is not alias-free can be trimmed to an ER model, denote it $\trimmed(\gmodel)$, that is alias-free. 
+One way of mathematically describing the trimmed model is as having a schema in which the edges that are equivalence classes of edges of the original model. 
+Define such an equivalence class to be an identifying edge in $\trimmed(\gmodel)$ iff one of its representatives is identifying in $\gmodel$.
+From this defintion it follows that defining instances of $\gmodel$ give rise to instances of $\trimmed(\gmodel)$. Define the set of defining instances of $\trimmed(\gmodel)$ to
+be the set of all such instances.
+A mapping $\varphi: \gmodel \morph \trimmed(\gmodel)$ maps an edge with alias to an equivalence class of equivalent edges. 
+An inverse mapping $\varphi^{-1}: \trimmed(\gmodel) \morph \gmodel$ is not unique and selects a representative edge from each equivalence class.
+It follows from the definitions that $\varphi$ and such a $\varphi^{-1}$ are ER model mappings and that $\varphi$ is an isomorphism with inverse $\varphi^{-1}$.
+
+\subsubsection{Aliasing a Path by an Edge}
+\begin{definition}
+If $\gmodel$ is an ER model and if $p:a \morph b$ is a path of length greater than $1$ in $\gmodel$ then define the ER model $\gmodel + \sq{p}$ to be the model whose schema is the schema of $\gmodel$ extended by a single edge with domain $a$ and codomain $b$, which we denote by $\sq{p}$, and with defining instances corresponding to the defining instances of $\gmodel$ extended to the schema of $\gmodel + \sq{p}$ by defining for each such defining instance $E$, $E_{\sq{p}}=E_p$.
+\end{definition} 
 
 The following lemma is straightforward:
 \begin{lemma}
+\llabel{pathedgeextension}
 If $\gmodel$ is an ER model and if $p:a \morph b$ is a path in $\gmodel$ then
-there is an inclusion  $\mathcal{I}$ of the schema of $\gmodel$ in $\gmodel + \qq{p}$. This inclusion is an ER model mapping and is an isomorphism. 
+there is an inclusion  $\mathcal{I}$ of the schema of $\gmodel$ in $\gmodel + \sq{p}$. This inclusion is an ER model mapping and is an isomorphism. 
 \end{lemma}
 \begin{proof}
-The inverse mapping $\mathcal{R}$ simply replaces any instances of the edge $\qq{p}$ by the path $p$. The result follows easily and uses the observation that in $\gmodel + \qq{p}$, $p \simeq e$.
+The inverse mapping $\mathcal{R}$ simply replaces any instances of the edge $\sq{p}$ by the path $p$. The result follows easily and uses the observation that in $\gmodel + \sq{p}$, $p \simeq \sq{p}$.
 \end{proof}
 
+\subsubsection{Aliasing Sets of Paths}
+\label{extensionbysetofpaths}
+If $P$ is a set of paths each of length greater than $1$ in an ER model $\gmodel$ then the model can be extended by edges one for each path $p \in P$. 
+Since distinct paths in $P$ may be equivalent in $\gmodel$ then in the general case, even if none of the paths 
+$p \in P$ have equivalent edges in $\gmodel$ and even if $\gmodel$ is alias-free,  the resulting model need not be alias-free. 
+To achieve an alias free model we will need to combine the successive addition of edges aliasing paths $p$ in $P$ with trimming of the model.  
+In the resulting model we will denote by $\qq{p}$ the edge that is an equivalence class determined by a path $p$ in $P$.
+We shall denote the extended model by $\gmodel + \qq{P}$.
 
+From the definition of isomorphism it is clear that isomorphisms compose. It follows that there is an isomorphism from $\gmodel$ to $\gmodel + \qq{P}$. We denote the isomorphism
+by $\inject:  \gmodel \morph \gmodel + \qq{P}$ and choose an inverse which we denote $\retract: \gmodel + \qq{P} \morph \gmodel$.
+
+\begin{newtt}
+Can we show that the above isomorphisms reflects primary mono-sources???
+\end{newtt}
+
+\newpage
 \subsection{Jointly Injective Sets of Functions}
 \begin{lemma}
 \llabel{jointlyinjectivecomposition}
@@ -332,15 +373,12 @@ $\setsuchthat{E_p}{p\in P}$ is jointly injective.
 \end{definition}
 
 
-
 From the definition of ER model it follows that the set of outgoing edges of an entity type 
 $a$ in a model $\gmodel$ is a mono-source. Note also that it follows from this definition that for each entity type $a$ the set containing just
 the empty path $\tuple{}$ considered as a path $\tuple{}_a$, leaving $a$, is a mono-source.  
 \begin{definition}
 A mono source $P$ is said to be a \term{leaf mono-source} iff for path $p \in P$, $p$ has destination $\veee$.
 \end{definition}
-
-
 
 
 \subsubsection{Composing mono-sources}
@@ -618,7 +656,7 @@ iff for all sources $P$ of  $\gmodel$ if
 $\varphi(P)$ is a primary mono-source in $\gmodel'$ then $P$ is a primary mono-source in $\gmodel$.
 \end{definition}
 
-
+\newpage
 \subsubsection{Primarily Keyed Models}
 
 One of the characteristics of a relational model is that each of the identifying features of a table is a column
@@ -630,17 +668,35 @@ have codomain $\veee$.
 \end{definition}
 To reach the goal of showing that to certain ER models there correspond isomorphic relational model we require the following:
 \begin{lemma}
-If $\gmodel$ is an ER model then it can be extended to a model $P(\gmodel)$
+\llabel{primarilykeyedextension}
+If $\gmodel$ is an ER model then it can be extended to a model, denoted  $\gmodel + \qq{\underline{PK}}$
 which is primarily keyed. If $\gmodel$ satisfies the minimality condition then the
-extended model $P(\gmodel)$ satisfies the  condition that each set $I_a$ has no proper subsets which are mono-sources. 
+extended model $\gmodel + \qq{\underline{PK}}$ satisfies the  condition that each set $I_a$ has no proper subsets which are mono-sources. 
+There is an isomorphism from $\gmodel$ to $\gmodel + \qq{\underline{PK}}$.
 \end{lemma}
 \begin{proof}
-For each entity type $a$ we extend $\gmodel$ by edges $\qq{p}$, where each edge \commentary{Can we improve this description?}
-$\qq{p}$ corresponds to a distinct primary key path $p$ from $a$ to $\veee$
-and in the extended model $\gmodel'$ by corollary \lref{primarykeycorallary} 
-we can define the identifying set $I'_a$ at $a$ by choosing a set $P_a$ which is representative of the set of all primary key paths from $a$ to $\veee$.
+Let $P$ be the set of primary key paths of $\gmodel$. We define the ER model $\gmodel + \qq{\underline{PK}}$ to be the
+ER model   $\gmodel + \qq{PK}$ as described in section \ref{extensionbysetofpaths} but with identifying edges for any entity type $a$ being defined
+by $I_a = \setsuchthat{\qq{p}}{p \in \pk{a}}$. 
+
+To show that the ER model isomorphism $\inject: \gmodel \morph \gmodel + PK$ determines an ER model mapping  $\inject: \gmodel \morph \gmodel + \qq{\underline{PK}}$
+we need show that it satisfies the condition that $\inject(\pk{a}) \simeq \pk[\gmodel + \qq{\underline{PK}}]{a}$. This is the case because for each primary key path $p \in \pk{a}$,
+$\inject(p) \simeq \qq{p}$ in $\gmodel + \qq{PK}$ and each identifying edge of $\gmodel + \qq{\underline{PK}}$ arises in this way.
+
+To show that the the inverse mapping $\retract: \gmodel + PK \morph \gmodel$ determines an ER model mapping  $\retract: \gmodel + \qq{\underline{PK}} \morph \gmodel$ 
+we need show that for each entity type $a$, $\retract(\pk[\gmodel + \qq{\underline{PK}}]{a}) \simeq \pk{a}$. 
+This is the case because each  $e \in \pk[\gmodel + \qq{\underline{PK}}]{a}$ there is a primary key path $p \in \pk{a}$ 
+such that $e = \qq{p}$ and so $\retract(e) \simeq p$ in $\gmodel$ and to each primary key path $p \in \pk{a}$ there is an identifying edge $\qq{p} \in \pk[\gmodel + \qq{\underline{PK}}]{a}$
+for which then  $\retract(\qq{p}) \simeq p$. 
+
+The isomorphism from $\gmodel$ to $\gmodel + \qq{PK}$ thus determines an isomorphism from $\gmodel$ to $\gmodel + \qq{\underline{PK}}$. 
+
 \end{proof}
 
+\begin{newtt}
+Can we show that the above isomorphisms reflects primary mono-sources???
+\end{newtt}
+\newpage
 \subsection{Referential Inclusion Dependencies}
 \llabel{referentialinclusiondependency}
 
@@ -1427,7 +1483,7 @@ each leaf primary referential inclusion dependency of $\gmodel$ is represented i
 for each leaf intransitive functional dependency $\set{x_1,...x_n} \morph y$ in model $\gmodel$
 either $\set{x_1,...x_n}$ is a mono-source i.e. in every defining instance $E$, $E_{\xntuple}$ is injective and total
 or else the functional dependency is represented in the model.
-}
+}\footnote{For tidiness we could add a fifth condition to the effect that for all entity types $a$, and for all nodes $x$, if $e:a \morph x$ and $e': a \morph x$ are edges (either relationships or attributes) then if in all defining instances $E$, $E_e=E_{e'}$ then $e = e'$. This would be a very reasonable condition to add but we don't insist on it since we don't absolutely need to for the main theorem to go through.}
 \end{enumerate}
 \end{definition}
 
@@ -1635,11 +1691,13 @@ $\gmodel$ are of rank $n$. We do this  in such a way that each relationship of $
 $n$ for any $n$, is said to be unranked or of null rank. Denote by $\gmodel_n$ the ER model which is the ER model 
 $\gmodel$ less the relationships which are not of rank less than or equal to n. The definition proceeds by induction as follows:
 \begin{definition}
-The relationship $R: a \morph b$ in an entity model $\gmodel$ is said to be of rank $1$\commentary{was rank 0  -- check} iff whenever 
-$\qntuple$ is a \commentary{leaf?} ??? primary mono-source at $b$ in $\gmodel$, where $q_i:b \morph \veee$, for each $i$, $1 \leq i \leq n$  then there exists attributes $x_i:a \morph \veee$ in $\gmodel$ such that $\incd{a}{\xntuple}{b}{\qntuple}$ is an inclusion dependency and this inclusion dependency is represented by the relationship $R$. 
-The relationship $R: a \morph b$ in an entity model $\gmodel$ is said to be of rank $n+1$ iff whenever 
+The relationship $R: a \morph b$ in an ER model $\gmodel$ is said to be of rank $1$\commentary{was rank 0  -- having it as rank 1 leaves the option of composition relationships being rank 0.} iff whenever 
+$\qntuple$ is a leaf?  primary mono-source at $b$ in $\gmodel$, where $q_i:b \morph \veee$, for each $i$, $1 \leq i \leq n$  then there exists attributes $x_i:a \morph \veee$ in $\gmodel$ such that $\incd{a}{\xntuple}{b}{\qntuple}$ is an inclusion dependency and this inclusion dependency is represented by the relationship $R$. 
+The relationship $R: a \morph b$ in an ER model $\gmodel$ is said to be of rank $n+1$ iff whenever 
 $\qntuple$ is a primary mono-source at $b$ in $\gmodel$, there exists paths $p_i:a \morph \veee$ in $\gmodel_n$ such that $\incd{a}{\pntuple}{b}{\qntuple}$ is an inclusion dependency and this inclusion dependency  is represented by the relationship $R$. 
 \end{definition}
+
+\begin{newtt}Reference an example here of a model having a rank 2 relationship.\end{newtt}
 
 \section{Relational Models}
 \llabel{definitionofrelational}
@@ -1651,11 +1709,10 @@ If $K$ is the primary key we shall say that such an inclusion dependency is a \t
 of $X_1,X_2,...X_n$ and attributes $Y_1,...Y_m$ in addition to the primary key 
  then we shall write the relation as $R(\underline{X_1},...,\underline{X_n},Y_1,...Y_m)$.
 
-It is usually the case that attributes are annotated with specific domains of values but for our purpose we can assume that each attribute is $v$-valued where $v$ is our type of universals for domains play no role in the theory with which we concern ourselves here.
+It is usually the case that attributes are annotated with specific domains of values but for our purpose we can assume that each attribute is $v$-valued where $v$ is our type of universals for domains play no role, for the time being at least, in the theory with which we concern ourselves here.
 \subsection{Definition of Primary Relational ER Model}
-The terms \term{primary referential inclusion dependency} and 
-\term{simple referential inclusion dependency} were given in 
-section \lref{referentialinclusiondependency}. These are used in the following definition:
+The terms \term{primary referential inclusion dependency} and \term{simple referential inclusion dependency} were defined in section \lref{referentialinclusiondependency}. 
+These are used in the following definition:
 \begin{definition}
 \noindent 
 A \term{primary relational ER model} is an  ER model that also satisfies:
@@ -1665,7 +1722,8 @@ it is primarily keyed i.e. all identifying edges are attributes,
 \item
 all relationships are ranked i.e. there are no relationships of null rank,
 \item 
-for each primary referential inclusion dependency there is a unique relationship which represents it.
+for each primary referential inclusion dependency\footnote{Note that in a relational ER model every primary referential inclusion dependency is simple because the each primary key path is an attribute because the only identifying edges are attributes.} there is a relationship which represents it
+\footnote{If we assume a tidiness condition then such a relationship will necessarily be unique}.\commentary{Note that in an ER model that is primarily keyed the only paths that are relationship-like paths of length 1 between entity types i.e. are relationships.}
 \end{enumerate} 
 \end{definition}
 
@@ -1677,11 +1735,11 @@ Such a primary relational ER model $\gmodel$ gives rise to relational schema:
 \item a keyed referential constraint is defined to correspond to every simple primary referential inclusion dependency of $\gmodel$ i.e. to correspond to every relationship of $\gmodel$. 
 \end{itemize}
 
-The characteristic instances of such an ER model gives rise to a set of database instances of the corresponding relational schema.
+The defining instances of such an ER model equate to a set of database instances of the corresponding relational schema.
 
 Likewise every relational schema that consists of relations with primary keys and primary referential constraints and has a set of characteristic database instances gives rise to an isomorphic\commentary{check} primary relational ER model. 
 
-For the time being we restrict attention to primary relational ER models which stand-in for us for a large class of relational schemas. 
+For the time being we restrict attention to primary relational ER models. 
 
 \subsection{Attribute Redundancy}
 \begin{definition}
@@ -1703,11 +1761,11 @@ met and in these situations a lesser goodness criteria that can be achieved is t
 A (relational) ER model $\gmodel$ is in  Third Normal Form (3NF)  iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
 for which  \msfd{x_1,...x_n}{y} is a non-trivial functional dependency, 
-either $\set{\xn}$ is a mono-source or else $y$ is a key attribute.
+either $\set{\xn}$ is a mono-source or else $y$ is a \highlight{key attribute}\commentary{\highlight{not defined}}.
 \end{definition}
 
 
-We shall show that the relational model $\chigmodel$ generated from a well-formulated 
+We shall show that with suitable conditions, the relational model $\chigmodel$ generated from a well-formulated 
 ER model $\gmodel$ satisfies a strong form of 3NF in which $y$ will be a primary key attribue i.e. will be identifying.
 We can define as follows:
 
@@ -1715,10 +1773,10 @@ We can define as follows:
 A (relational) ER model $\gmodel$ is in \term{Strong Third Normal Form} (\term{S3NF})  iff
 for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n \geq 1$, 
 for which  \msfd{x_1,...x_n}{y} is a non-trivial functional dependency, 
-either $\set{\xn}$ is a mono-source or else $y$ is identifying.
+either $\set{\xn}$ is a mono-source or else $y$ is \highlight{identifying}.
 \end{definition}
 
-We shall also show that with a single additional condition on $\gmodel$, which it may or not be possible to achieve in a given modelling situation,
+We shall also show that with a single additional condition on $\gmodel$, 
 the generated model $\chigmodel$ satisfies the BCNF condition.
 Written in the terminology we are using here BCNF can be defined as follows:
 \begin{definition} % BCNF
@@ -1748,6 +1806,9 @@ for all entity types $a$, for all attributes $x_1,...x_n$ and $y$ of $a$, for $n
 for which \msfd{x_1,...x_n}{y} is a non trivial intransitive functional dependency,
 $\set{\xn}$ is a mono-source or $y$ is a primary key. 
 \end{lemma}
+\begin{proof}
+\tbd
+\end{proof}
 \subsection{Other Conditions for Relational ER models}
 It is possible for an entity model to have an entity type $a$ and a relationship or path $p$ with both domain and codomain $a$  thus comprising a loop in the graph.
 If in addition the type $a$ is defined to have an attribute $c$ then it is further possible that the path equivalence $p \circ c \simeq c$ holds in the model.
@@ -1823,6 +1884,7 @@ since $\msfd{x_1,...x_n}{r_1\circ r_2 ... \circ r_m}$, and we have established B
 With the weaker assumption that the model $\gmodel$ is \highlight{reduced}, there is the additional possibility that $y$ is identifying i.e. is a primary key attribute and we have proved S3NF.
 \end{proof}
 
+\newpage
 
 \section{Chi Transform - a Revised Chen Transformation}
 In this section we define a relational  entity model $\chigmodel$ that corresponds
@@ -1832,8 +1894,8 @@ to achieve an appropriate database normal form such as 3NF or BCNF.
 In contrast we shall show that the transformation $\chit$ defined here produces relational models $\chigmodel$ that are in 3NF and, if appropriate, BCNF and are free of attribute redundancy.
 
 From an ER model $\gmodel$ a first-cut relational design $\firstcut(\gmodel)$ is achieved by extending each
-entity type $a$, by attributes,  one for each path in $\gmodel$ of the 
-form $\tuple{r_0,r_1,...r_n}$ where each of $r_1,...r_n$ are identifying. 
+entity type $a$, by attributes,  one for each path in $\gmodel$ of the \commentary{Need define identifying edges}
+form $r  \circ pk$ where $r$ is a relationship and $pk$ is a primary key path. 
 
 The transformation $\firstcut$ can be improved to by taking note of equivalent attribute-like paths and
 either dropping duplicates or, equally, thinking of the added attributes as corresponding to equivalence classes of 
@@ -1841,7 +1903,7 @@ equivalent attribute-like paths wrt the equivalence relation $\simeq$ of path eq
 
 This consideration leads  to this definition:
 \begin{definition}
-A path $r=r_0/r_1/r)2.../r_n$, for some $n$, $n \geq 0$, in an ER model $\gmodel$ is 
+A path $r=r_0 \circ r_1 \circ r_2... \circ r_n$, for some $n$, $n \geq 0$, in an ER model $\gmodel$ is 
 said to be \term{attribute-like} iff $r: a \morph \veee$, for some entity type $a$,
 and either $n=0$ or $\tuple{r_1,...r_n}$ is a primary key path i.e. each $r_i$ is identifying.
 \end{definition}
@@ -1852,11 +1914,13 @@ If $\gmodel$ is an ER model then the model $\firstcutimproved(\gmodel)$ is defin
 by extending the set of attributes of each entity type $a$ by the set 
 $\set{\qq{r_0/r_1/...r_n}  | \ r_0/r_1/...r_n: a \morph \veee \mbox{ is an attribute-like path}}$ and for which the defining instances are the defining  instances $E$ of $\gmodel$ extended to the schema of $\firstcutimproved(\gmodel)$ by defining for each attribute $\qq{r_0/r_1/...r_n}$, $E_{\qq{r_0/r_1/...r_n}} = E_{r_0} \circ E_{r_1}... \circ E_{r_n}$.
 
-We define the model $\chigmodel$  \index[definitions]{$\chi$}  be a further improvement to the first-cut transformation obtained by excluding  from  the transformed model $\firstcutimproved(\gmodel)$ those attributes $\qq{r \circ q}$ for which there exists a \sout{unique}  path $s$ such that  either  $r \circ q < s$ or for which $s$ is non attribute-like and $r \circ q \simeq s$. 
+We define the model $\chigmodel$  \index[definitions]{$\chi$}  be a further improvement to the first-cut transformation obtained by excluding  from  the transformed model $\firstcutimproved(\gmodel)$ those attributes $\qq{r \circ q}$ for which there exists a \sout{unique}  path $s$ such that  either  $r \circ q < s$ or for which $s$ is not attribute-like and $r \circ q \simeq s$. 
 
 \begin{definition}
-If for some relationship $r$ and primary key path $q$ of $\gmodel$ there exists a  path $s_1/...s_n$ such that either   $r \circ q < s_1/...s_n$ or $s_1/...s_n$ is non attribute-like and $r \circ q \simeq s_1/...s_n$ or $r \circ q < s_1/...s_n$ then say that relationship $r$ \term{directly depends} on relationship $s_i$,
-for each $i$. Define one relationship to depend on another if it depends on it it directly or indirectly i.e. define dependency between relationships to be the transitive closure of direct dependency.
+If for some relationship $r$ and primary key path $q$ of $\gmodel$ there exists a  path $s_1/...s_n$ such that 
+either   $r \circ q < s_1\ circ ... \circ s_n$ 
+or else $s_1\ circ ... \circ s_n$ is non attribute-like and $r \circ q \simeq s_1\ circ ... \circ s_n$ then say that relationship $r$ \term{directly depends} on relationship $s_i$,
+for each $i$. Define one relationship to depend on another if it depends on it directly or indirectly i.e. define dependency between relationships to be the transitive closure of direct dependency.
 \end{definition}
 
 For $\chigmodel$ to be a relational model, the implied dependency between relationships of $\gmodel$ will need be non-circular
@@ -1879,7 +1943,7 @@ then $\incd{a}{r \circ q_1,s_2,...s_n}{b}{\qn}$ is an inclusion dependency that 
 \begin{proof}
 \tbd
 \end{proof}
-We could easily include boolean-worth representations to entity types havinga single primary key attribute because then no choice is required.
+We could easily include boolean-worth representations to entity types having a single \highlight{primary key attribute}\commentary{check} because then no choice is required.
 This leads to examples where the boolean-worth $r: a \morph b$ is replaced by the boolean-worth $\bar{r}: a \morph a$ in the case where $b$ has multiple primary keys but $a$ has just one.  
 
 \begin{lemma}
@@ -1893,8 +1957,36 @@ If these conditions are met: that attribute-like paths have at most one equivale
 the model $\chigmodel$ is a simple relational model. 
 
 We will define conditions for a well-formulated $\gmodel$  that if met ensure 
- that the isomorphic relational model $\chigmodel$ is a well-formulated, simple, restriction free relational ER model with the fd factoring property 
+ that the isomorphic relational model $\chigmodel$ is a well-formulated, reduced, restriction free relational ER model with the fd factoring property 
 ensuring that it is therefore in S3NF.  Further we will show that if $\gmodel$ is without caveats then $\chigmodel$ is also without caveats and is therefore in BCNF. 
+
+From the definition of $\chit$, it follows that for any $\chit$-suitable ER model $\gmodel$ there is a ER model mapping from the schema of $\gmodel$ to the schema of $\chigmodel$; for each path $p$ in $\gmodel$, therefore, there corresponds a path 
+in $\chigmodel$; denote this path by  $I_\gmodel(p)$. Also from the definition, it follows that
+if $p:b \morph \veee$ is a path in $\chigmodel$ then there exists a path $\retract(p):b \morph \veee$ in $\gmodel$ such that $I_\gmodel(\retract(p)) \simeq p$ in $\chigmodel$. Finally note that if $\retract(p)$ is a primary key path in $\gmodel$ then there is an attribute $k$ which is a primary key path
+in $\chigmodel$ such that $I_\gmodel(p) \simeq k$. 
+
+
+From this follows the following observation:
+
+\begin{observation}
+\llabel{pathinjectionobservation}
+For any $\chit$-suitable ER model $\gmodel$ if $p:b \morph \veee$ is a path in $\chigmodel$ and  path $\retract(p):b \morph \veee$ is a primary key path in $\gmodel$  then there is 
+\oldt{a primary key attribute} \newt{an identifying attrbute} $k$ in $\chigmodel$ such that $I_\gmodel(p) \simeq k$. 
+\end{observation}
+
+\begin{lemma}
+\llabel{chiisacertaintypeofisomorphism}
+If $\gmodel$ is $\chit$-suitable  then  there is a 
+relationship preserving  and reflecting isomorphism $I_\gmodel: \gmodel \morph \chigmodel$ that reflects primary mono-sources.
+\end{lemma}
+\begin{proof}
+
+For the fact that there is an ER model mapping and an isomorphism refer back to lemma \lref{pathedgeextension} maybe also a lemma regarding primarily keyed along the lines maybe of
+\lref{primarilykeyedextension} probably use one other lemma regarding equivalence classes (quotient model?).
+It follows from the description of $\chigmodel$ that there is a relationship preserving and reflecting  ER mapping.
+\tbd 
+\end{proof}
+
 
 \begin{lemma}
 \llabel{chimodelisrelational}
@@ -1916,12 +2008,12 @@ p_i =
 $$
 which we prove by using lemma \lref{incdrepresentationshortcut} (which is applicable because we have assumed 
 that there are no  \newt{boolean-worth} relationships in $\gmodel$), and lemma \lref{incdrepresentationequivalence}.
-It follows from lemmas yyyyyyyyyyy  and zxzzzzzz that in $\chigmodel$ the relationship $r$ is represented by inclusion dependency $\incd{a}{p'_1,...p'_n}{b}{q_1,...q_n}$ where
+It follows from lemmas \begin{newtt} \lref{isospreserveandreflectrepresentationsofincds}  and \lref{incdrepresentationequivalence} ???? \end{newtt} that in $\chigmodel$ the relationship $r$ is represented by inclusion dependency $\incd{a}{p'_1,...p'_n}{b}{q_1,...q_n}$ where
 $$
 p'_i =
 \begin{cases}
-   \varphi(s_i)     & \mbox{if $s_i$ is a path  either dominates path $r \circ q_i$ in $\gmodel$} \\
-   \varphi(s_i)     & \mbox{if $s_i$ is a non-attribute-like path and is equivalent to  $r \circ q_i$ in $\gmodel$ }  \\
+   I_\gmodel(s_i)     & \mbox{if $s_i$ is a path  either dominates path $r \circ q_i$ in $\gmodel$} \\
+   I_\gmodel(s_i)     & \mbox{if $s_i$ is a non-attribute-like path and is equivalent to  $r \circ q_i$ in $\gmodel$ }  \\
    \qq{r \circ q_i}  & \mbox{if there is no such $s_i$.}
 \end{cases} 
 $$
@@ -1929,28 +2021,7 @@ Therefore each relationship $r: a \morph b$ $\chigmodel$ is represented by an re
 where the paths $p'_i$ are of lower rank than $r$. This completes the proof that $\chigmodel$ is relational.
 \end{proof}
 
-
-From the definition of $\chit$, it follows that for any $\chit$-suitable ER model $\gmodel$ there is an injection from the schema of $\gmodel$ to the schema of $\chigmodel$; for each path $p$ in $\gmodel$, therefore, there corresponds a path 
-in $\chigmodel$; denote this path by  $I_\gmodel(p)$. Also from the definition, it follows that
-if $p:b \morph \veee$ is a path in $\chigmodel$ then there exists a path $\retract(p):b \morph \veee$ in $\gmodel$ such that $I_\gmodel(\retract(p)) \simeq p$ in $\chigmodel$. Finally note that if $\retract(p)$ is a primary key path in $\gmodel$ then there is an attribute $k$ which is a primary key path
-in $\chigmodel$ such that $I_\gmodel(p) \simeq k$. 
-
-
-From this follows the following observation:
-
-\begin{observation}
-\llabel{pathinjectionobservation}
-For any $\chit$-suitable ER model $\gmodel$ if $p:b \morph \veee$ is a path in $\chigmodel$ and  path $\retract(p):b \morph \veee$ is a primary key path in $\gmodel$  then there is an primary key attribute $k$ in $\chigmodel$ such that $I_\gmodel(p) \simeq k$. 
-\end{observation}
-
-\begin{lemma}
-\llabel{chiisacertaintypeofisomorphism}
-If $\gmodel$ is $\chit$-suitable  then  there is a 
-relationship preserving  and reflecting isomorphism $I_\gmodel: \gmodel \morph \chigmodel$ that reflects primary mono-sources.
-\end{lemma}
-\begin{proof}
-\tbd 
-\end{proof}
+\newpage 
 
 \begin{lemma}
 \llabel{reducedcarrythroughlemma}
@@ -2007,12 +2078,11 @@ preserves mono-sources (lemma \lref{isospreserveandreflectmonosources}) and pres
 \item that $y$ is identifying in $\gmodel$ and therefore that $y$ is identifying in $\chigmodel$, as required.
 \end{enumerate}
 
-Otherwise, in case (b) if $y$ is an attribute $\qq{r_y \circ q_y}$ for some relationship $r_y$ and primary key path $q_y$ of $\gmodel$. \\
-
-In $gmodel$ we have therefore that $r_y \circ q_y \simeq r_1 \circ r_2 \circ ... r_n \circ \retract(x)$. From the defintion of $\chi$ it follows that path
+Otherwise, in case (b) if $y$ is an attribute $\qq{r_y \circ q_y}$ for some relationship $r_y$ and primary key path $q_y$ of $\gmodel$. 
+In $gmodel$ we have therefore that $r_y \circ q_y \simeq r_1 \circ r_2 \circ ... r_n \circ \retract(x)$. From the definition of $\chi$ it follows that path
 $r_1 \circ r_2 \circ ... \circ r_n \circ \retract(x)$ must be attribute-like in $\gmodel$. Therefore $r_2 \circ ... \circ r_n \circ \retract(x)$ must be a primary
 key path in $\gmodel$. Therefore $r_2 \circ ... \circ r_n \circ x$ must be a primary key path in $\chigmodel$    by observation \lref{pathinjectionobservation}.
-Thus equation (\ref{reductionequation}) meets condition (i) of the defintion of reduced. This completes the proof that $\chigmodel$ is reduced if $\gmodel$ is.
+Thus equation (\ref{reductionequation}) meets condition (i) of the definition of reduced. This completes the proof that $\chigmodel$ is reduced if $\gmodel$ is.
 \end{proof}
 
 \begin{lemma}
@@ -2020,7 +2090,7 @@ Thus equation (\ref{reductionequation}) meets condition (i) of the defintion of 
 If $\gmodel$ is $\chit$-suitable and reduced without caveats then $\chigmodel$ is reduced without caveats.
 \end{lemma}
 \begin{proof}
-\tbd
+\begin{newtt}Follows by inspection of the proof of lemma \lref{reducedcarrythroughlemma}.\end{newtt}
 \end{proof}
 
 
