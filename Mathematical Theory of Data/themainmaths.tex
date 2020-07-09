@@ -705,9 +705,7 @@ Can we show that the above isomorphisms reflects primary mono-sources???
 \end{newtt}
 
 \subsubsection{Construction of Relationship Key Attributes}
-
-
-
+\label{rkaconstruction}
 \begin{definition}
 In an ER model $\gmodel$ a path $p: a \morph \veee$ is said to be a \term{relationship key path} iff it is of the form $r \circ q$ where  $r : a \morph b$ is a relationship in $\gmodel$ and $q: b \morph \veee$ is a primary key path in $\gmodel$.
 \end{definition}
@@ -715,7 +713,8 @@ In an ER model $\gmodel$ a path $p: a \morph \veee$ is said to be a \term{relati
 Denote the set of all referential key paths of an entity model $\gmodel$ by $\rkp$.
 
 \begin{definition}
-In an ER model $\gmodel$ a \term{relationship key attribute}\footnote{These are more usually knows as foreign keys but I just can't bring myself to use this term, and also, in ISO standard SQL, they are known as referential attributes.} of an entity type $a$ is an attribute
+In an ER model $\gmodel$ a \term{relationship key attribute}\footnote{The term referential attribute is used 
+for such attributes in the ISO SQL standard and  more widely these are referred to as foreign keys which is a terminology that I can't bring myself to use.} of an entity type $a$ is an attribute
 $x:a \morph \veee$ such that there exists a relationship key path $r \circ q: a \morph \veee$
 such that $x \simeq r \circ q$. 
 \end{definition}
@@ -727,7 +726,8 @@ $\gmodel + \sq{\underline{pk}_\gmodel} + \sq{\rkp}$. Generally this first cut re
 
 Later we will improve further and for this we need the following lemma:
 \begin{lemma}
-If $\gmodel$ is an ER model and if $R \subseteq \rkp$ then 
+\llabel{subsetextension}
+If $\gmodel$ is an ER model and if $R$ is a set of paths of $\gmodel$ then 
 there is an isomorphism which we denote $\inject$, 
 $\inject: \gmodel \morph \gmodel + \qq{\underline{pk}_\gmodel} + \qq{R}$
 with inverse $\retract:  \gmodel + \qq{\underline{pk}_\gmodel} + \qq{R} \morph \gmodel$.
@@ -1931,30 +1931,52 @@ With the weaker assumption that the model $\gmodel$ is \highlight{reduced}, ther
 \section{Chi Transform - a Revised Chen Transformation}
 In this section we define a relational  entity model $\chigmodel$ that corresponds
 to suitable ER models $\gmodel$. The $\chit$ transformation that we so describe is a refinement
-of a transformation which we denote $\firstcut$ that was first described by Chen and subsequently prescribed in a range of software design methodologies and accordingly implemented in associated CASE tools. The transformation $\firstcut$ is sometimes said to produce a first-cut relational design because generally the model produced requires normalisation
-to achieve an appropriate database normal form such as 3NF or BCNF. 
+of a transformation
+
+\begin{equation}
+\label{firstcuttransform}
+\gmodel \mapsto \gmodel + \sq{\underline{pk}_\gmodel} + \sq{\rkp}
+\end{equation}
+ that was first described by Chen and subsequently prescribed in a range of software design methodologies and accordingly implemented in associated CASE tools. This transformation is sometimes said to produce a first-cut relational design because generally the model produced requires normalisation to achieve an appropriate database normal form such as 3NF or BCNF. 
 In contrast we shall show that the transformation $\chit$ defined here produces relational models $\chigmodel$ that are in 3NF and, if appropriate, BCNF and are free of attribute redundancy.
 
-From an ER model $\gmodel$ a first-cut relational design $\firstcut(\gmodel)$ is achieved by extending each
-entity type $a$, by attributes,  one for each path in $\gmodel$ of the \commentary{Need define identifying edges}
-form $r  \circ pk$ where $r$ is a relationship and $pk$ is a primary key path. 
-
-The transformation $\firstcut$ can be improved to by taking note of equivalent attribute-like paths and
+ 
+As described in section \lref{rkaconstruction}, the transformation (\label{firstcuttransformation} can be improved to by taking note of equivalent relationship key paths and
 either dropping duplicates or, equally, thinking of the added attributes as corresponding to equivalence classes of 
-equivalent attribute-like paths wrt the equivalence relation $\simeq$ of path equivalence. This improved transformation we can denote as $\firstcutimproved$.
+equivalent relationship key paths wrt the equivalence relation $\simeq$ of path equivalence. 
+The transformation $\chit$ is arrived at by omiting other redundant relationship key paths. 
 
-This consideration leads  to this definition:
+\subsection{Boolean-Equivalent Relationships}
+In some cases there are a number of ways of choosing the subset $R$ and  in these cases there are several ways of choosing
+a model $\chit(\gmodel)$. This situation arises in the presence of relationships in $\gmodel$ which, in context, are the equiavlent of boolean attributes. To simplify and because in practice these situations can be avoided we will omit these cases from from consideration. 
 \begin{definition}
-A path $r=r_0 \circ r_1 \circ r_2... \circ r_n$, for some $n$, $n \geq 0$, in an ER model $\gmodel$ is 
-said to be \term{attribute-like} iff $r: a \morph \veee$, for some entity type $a$,
-and either $n=0$ or $\tuple{r_1,...r_n}$ is a primary key path i.e. each $r_i$ is identifying.
+In an  ER model $\gmodel$, if $a$ and $b$ are entity types and if $\set{\qntuple}$ is the set of primary key paths sourced at $b$, if $r: a \morph b$ is a relationship then $r$ is said to be \term{\oldt{a pseudo-restriction}}\term{\newt{boolean-equivalent}} \commentary{the boolean in question is the fact of whether the relationship is or is not defined at a particular entity.}
+iff for each $i$, $1 \leq i \leq n$, there exists a path $s_i: a \morph \veee$ such that $r \circ q_i < s_i$,
+and there doesn't exist $s'_i$ such that $r \circ q_i < s'_i <s_i$ and  either
+$\incd{a}{\sntuple}{b}{\qntuple}$ and this inclusion dependency is not represented by
+$r$ or else $\nincd{a}{\sntuple}{b}{\qntuple}$.
 \end{definition}
-\begin{noteforfuture}
-In most general case this will become not $s_1$ uses $s_2$ ... uses $s_m$.
-\end{noteforfuture}
-If $\gmodel$ is an ER model then the model $\firstcutimproved(\gmodel)$ is defined to be the ER model whose schema extends the schema of $\gmodel$
-by extending the set of attributes of each entity type $a$ by the set 
-$\set{\qq{r_0/r_1/...r_n}  | \ r_0/r_1/...r_n: a \morph \veee \mbox{ is an attribute-like path}}$ and for which the defining instances are the defining  instances $E$ of $\gmodel$ extended to the schema of $\firstcutimproved(\gmodel)$ by defining for each attribute $\qq{r_0/r_1/...r_n}$, $E_{\qq{r_0/r_1/...r_n}} = E_{r_0} \circ E_{r_1}... \circ E_{r_n}$.
+
+We exclude models $\gmodel$ that have boolean-equivalent relationships from the $\gmodel$ for which $\chi$ is defined but not because a relational impelmentation cannot be given but because there is a choice of representations: 
+\begin{lemma}
+In the context of the above definition if relationship $r$ is boolean-equivalent
+then $\incd{a}{r \circ q_1,s_2,...s_n}{b}{\qn}$ is an inclusion dependency that represents $r$. \commentary{ Or choose any $q_i$ for that matter.}
+\end{lemma}
+\begin{proof}
+\tbd
+\end{proof}
+We could easily include boolean-equivalents representations to entity types having a single \highlight{primary key attribute}\commentary{check} because then no choice is required.
+This leads to examples where the boolean-worth $r: a \morph b$ is replaced by the boolean-equivalent $\bar{r}: a \morph a$ in the case where $b$ has multiple primary keys but $a$ has just one.  
+
+\begin{lemma}
+If an edge is a restriction then it is \newt{boolean-equivalent}.
+\end{lemma}
+\begin{proof}
+\tbd
+\end{proof}
+
+\subsection{Definition of $\chi$}
+
 
 We define the model $\chigmodel$  \index[definitions]{$\chi$}  be a further improvement to the first-cut transformation obtained by excluding  from  the transformed model $\firstcutimproved(\gmodel)$ those attributes $\qq{r \circ q}$ for which there exists a \sout{unique}  path $s$ such that  either  $r \circ q < s$ or for which $s$ is not attribute-like and $r \circ q \simeq s$. 
 
@@ -1969,33 +1991,7 @@ For $\chigmodel$ to be a relational model, the implied dependency between relati
 and in addition one further property is required as we now descibe.
 
 
-\begin{definition}
-In an  ER model $\gmodel$, if $a$ and $b$ are entity types and if $\set{\qntuple}$ is the set of primary key paths sourced at $b$, if $r: a \morph b$ is a relationship then $r$ is said to be \term{\oldt{a pseudo-restriction}}\term{\newt{boolean-worth}} \commentary{the boolean in question is the fact of whether the relationship is or is not defined at a particular entity.}
-iff for each $i$, $1 \leq i \leq n$, there exists a path $s_i: a \morph \veee$ such that $r \circ q_i < s_i$,
-and there doesn't exist $s'_i$ such that $r \circ q_i < s'_i <s_i$ and  either
-$\incd{a}{\sntuple}{b}{\qntuple}$ and this inclusion dependency is not represented by
-$r$ or else $\nincd{a}{\sntuple}{b}{\qntuple}$.
-\end{definition}
-
-We exclude models $\gmodel$ that have boolean-worth relationships from the $\gmodel$ for which $\chi$ is defined but not because a relational impelmentation cannot be given but because there is a choice of representations: 
-\begin{lemma}
-In the context of the above definition if relationship $r$ is boolean-worth
-then $\incd{a}{r \circ q_1,s_2,...s_n}{b}{\qn}$ is an inclusion dependency that represents $r$. \commentary{ Or choose any $q_i$ for that matter.}
-\end{lemma}
-\begin{proof}
-\tbd
-\end{proof}
-We could easily include boolean-worth representations to entity types having a single \highlight{primary key attribute}\commentary{check} because then no choice is required.
-This leads to examples where the boolean-worth $r: a \morph b$ is replaced by the boolean-worth $\bar{r}: a \morph a$ in the case where $b$ has multiple primary keys but $a$ has just one.  
-
-\begin{lemma}
-If an edge is a restriction then it is \newt{boolean-worth}.
-\end{lemma}
-\begin{proof}
-\tbd
-\end{proof}
-
-If these conditions are met: that attribute-like paths have at most one equivalent non attribute-like path, that implied dependencies are non-circular and there are no  \newt{boolean-worth} relationships, then we say that $\gmodel$ is \term{$\chit$-suitable} and in these instances we can show that 
+If these conditions are met: that attribute-like paths have at most one equivalent non attribute-like path, that implied dependencies are non-circular and there are no  \newt{boolean-equivalent} relationships, then we say that $\gmodel$ is \term{$\chit$-suitable} and in these instances we can show that 
 the model $\chigmodel$ is a simple relational model. 
 
 We will define conditions for a well-formulated $\gmodel$  that if met ensure 
@@ -2029,7 +2025,7 @@ It follows from the description of $\chigmodel$ that there is a relationship pre
 \tbd 
 \end{proof}
 
-
+\subsection{Properties of $\chi$}
 \begin{lemma}
 \llabel{chimodelisrelational}
 If $\gmodel$ is $\chit$-suitable then $\chigmodel$ is a relational model.
@@ -2049,7 +2045,7 @@ p_i =
 \end{cases} 
 $$
 which we prove by using lemma \lref{incdrepresentationshortcut} (which is applicable because we have assumed 
-that there are no  \newt{boolean-worth} relationships in $\gmodel$), and lemma \lref{incdrepresentationequivalence}.
+that there are no  \newt{boolean-equivalent} relationships in $\gmodel$), and lemma \lref{incdrepresentationequivalence}.
 It follows from lemmas \begin{newtt} \lref{isospreserveandreflectrepresentationsofincds}  and \lref{incdrepresentationequivalence} ???? \end{newtt} that in $\chigmodel$ the relationship $r$ is represented by inclusion dependency $\incd{a}{p'_1,...p'_n}{b}{q_1,...q_n}$ where
 $$
 p'_i =
@@ -2235,6 +2231,10 @@ Explain how transitive functional depdendencies are represented in a well formul
 
 \subsection{Removing the current restriction to Primary Keys}
 Future work will also cover secondary keys, relationships implemented using secondary keys.
+\begin{noteforfuture}
+The definition of $rk_\gmodel$ will change.
+In most general case  will have not $r_1$ uses $r_2$ ... uses $r_m$.
+\end{noteforfuture}
 
 \subsection{Higher Normal Forms}
 Give definitions of 4th and 5th normal forms and relate to pullbacks and certain other limits.  
