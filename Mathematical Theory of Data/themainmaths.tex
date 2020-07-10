@@ -1676,7 +1676,7 @@ a mono-source or else there is an intransitive functional dependency $\set{y_1,.
 For an example of a model in which the fd factoring property does not hold see example \lref{teamselectionpreliminary}.
 
 For an example of a model in which the fd factoring property holds in the presence of a transitive functional dependency that cannot be factored right-intransitively  but which has a left hand side which is a mono-source, see  \lref{teamselectionrevised}. 
-See the same example for a model in which the fd factoring property holds but there is an intransitive functional dependency which cannot be factored intransitively on the right and in which the lhs is not a mono-source but which is not attribute-like.\commentary{Double check this}
+See the same example for a model in which the fd factoring property holds but there is an intransitive functional dependency which cannot be factored intransitively on the right and in which the lhs is not a mono-source but which is not relationship key.\commentary{Double check this}
 \end{examples}
 
 
@@ -1689,7 +1689,7 @@ then if $\gmodel$ has the fd factoring property then so to does $\gmodel'$.
 %Use lemma \lref{isospreserveandreflectfds} and also lemma \lref{isospreserveandreflecttransitivefds}.
 To show that $\gmodel'$ has the fd factoring property if $\gmodel$ does assume $\gmodel$ has the fd factoring property and assume $\mmfd{\xnprime}{z'}$ in $\gmodel'$. 
 By lemma \lref{isospreserveandreflectfds} it follows since $\varphi^{-1}$ is an isomorphism that $\mmfd{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}{\varphi^{-1}(z')}$ is a functional depdendency
-in $\gmodel$. \commentary{\newt{need attribute-like reflected?}}Since $\gmodel$ is assumed to have the fd factoring property either $\set{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}$ is a mono-source in $\gmodel$ in which case $\set{\xnprime}$ is a mono-source in 
+in $\gmodel$. \commentary{\newt{need relationship key reflected?}}Since $\gmodel$ is assumed to have the fd factoring property either $\set{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}$ is a mono-source in $\gmodel$ in which case $\set{\xnprime}$ is a mono-source in 
 $\gmodel'$ since $\varphi^{-1}$ is an isomorphism  and isomorphisms reflect mono-sources (lemma \lref{isospreserveandreflectmonosources}) or else there exists paths $\yn$ in $\gmodel$ such that
 $\mmfd{\varphi^{-1}(x'_1),...\varphi^{-1}(x'_n)}{\yn}$ is a functional depdency in $\gmodel$ and 
  $\mmfd{\yn}{\varphi^{-1}(z')}$ is an intransitive functional dependency in $\gmodel$.  
@@ -1709,7 +1709,7 @@ that the functional dependency  $\mmfd{\xnprime}{z'}$ factors through an intrans
 \begin{oldtt}
 \begin{lemma}
 \llabel{mainlemma}
-In a well-formulated model $\gmodel$ that has the \fdfactoring\ property if $\set\xn$ are attribute-like and
+In a well-formulated model $\gmodel$ that has the \fdfactoring\ property if $\set\xn$ are relationship key and
 $\msfd{\xn}{z}$ is a non-trivial (\reinstatet{leaf}) functional dependency sourced
 at some entity type $a$ then either $\set{\xn}$ is a mono-source in $\gmodel$
 or else there is an entity type $d$ and there is a
@@ -1931,22 +1931,22 @@ With the weaker assumption that the model $\gmodel$ is \highlight{reduced}, ther
 \section{Chi Transform - a Revised Chen Transformation}
 In this section we define a relational  entity model $\chigmodel$ that corresponds
 to suitable ER models $\gmodel$. The $\chit$ transformation that we so describe is a refinement
-of a transformation
-
+of a transformation that we described in  section \lref{rkaconstruction} as
 \begin{equation}
 \label{firstcuttransform}
 \gmodel \mapsto \gmodel + \sq{\underline{pk}_\gmodel} + \sq{\rkp}
 \end{equation}
- that was first described by Chen and subsequently prescribed in a range of software design methodologies and accordingly implemented in associated CASE tools. This transformation is sometimes said to produce a first-cut relational design because generally the model produced requires normalisation to achieve an appropriate database normal form such as 3NF or BCNF. 
+and that was first described by Chen and subsequently prescribed in a range of software design methodologies and accordingly implemented in associated CASE tools. This transformation is sometimes said to produce a first-cut relational design because generally the model produced requires normalisation to achieve an appropriate database normal form such as 3NF or BCNF. 
 In contrast we shall show that the transformation $\chit$ defined here produces relational models $\chigmodel$ that are in 3NF and, if appropriate, BCNF and are free of attribute redundancy.
-
  
-As described in section \lref{rkaconstruction}, the transformation (\label{firstcuttransformation} can be improved to by taking note of equivalent relationship key paths and
+As described in section \lref{rkaconstruction}, the transformation (\ref{firstcuttransform}) can be improved to by taking note of equivalent relationship key paths and
 either dropping duplicates or, equally, thinking of the added attributes as corresponding to equivalence classes of 
 equivalent relationship key paths wrt the equivalence relation $\simeq$ of path equivalence. 
 The transformation $\chit$ is arrived at by omiting other redundant relationship key paths. 
 
 \subsection{Boolean-Equivalent Relationships}
+...............
+\iffalse
 In some cases there are a number of ways of choosing the subset $R$ and  in these cases there are several ways of choosing
 a model $\chit(\gmodel)$. This situation arises in the presence of relationships in $\gmodel$ which, in context, are the equiavlent of boolean attributes. To simplify and because in practice these situations can be avoided we will omit these cases from from consideration. 
 \begin{definition}
@@ -1974,24 +1974,24 @@ If an edge is a restriction then it is \newt{boolean-equivalent}.
 \begin{proof}
 \tbd
 \end{proof}
+\fi
 
 \subsection{Definition of $\chi$}
 
-
-We define the model $\chigmodel$  \index[definitions]{$\chi$}  be a further improvement to the first-cut transformation obtained by excluding  from  the transformed model $\firstcutimproved(\gmodel)$ those attributes $\qq{r \circ q}$ for which there exists a \sout{unique}  path $s$ such that  either  $r \circ q < s$ or for which $s$ is not attribute-like and $r \circ q \simeq s$. 
+We define the model $\chigmodel$  \index[definitions]{$\chi$}  be a further improvement to the first-cut transformation obtained by excluding  from  the transformed model $\firstcutimproved(\gmodel)$ those attributes $\qq{r \circ q}$ for which there exists a \sout{unique}  path $s$ such that  either  $r \circ q < s$ or for which $s$ is not relationship key and $r \circ q \simeq s$. 
 
 \begin{definition}
 If for some relationship $r$ and primary key path $q$ of $\gmodel$ there exists a  path $s_1/...s_n$ such that 
-either   $r \circ q < s_1\ circ ... \circ s_n$ 
-or else $s_1\ circ ... \circ s_n$ is non attribute-like and $r \circ q \simeq s_1\ circ ... \circ s_n$ then say that relationship $r$ \term{directly depends} on relationship $s_i$,
+either   $r \circ q < s_1\ \circ ... \circ s_n$ 
+or else $s_1 \circ ... \circ s_n$ is non relationship key and $r \circ q \simeq s_1 \circ ... \circ s_n$ then say that relationship $r$ \term{directly depends} on relationship $s_i$,
 for each $i$. Define one relationship to depend on another if it depends on it directly or indirectly i.e. define dependency between relationships to be the transitive closure of direct dependency.
 \end{definition}
 
 For $\chigmodel$ to be a relational model, the implied dependency between relationships of $\gmodel$ will need be non-circular
-and in addition one further property is required as we now descibe.
 
 
-If these conditions are met: that attribute-like paths have at most one equivalent non attribute-like path, that implied dependencies are non-circular and there are no  \newt{boolean-equivalent} relationships, then we say that $\gmodel$ is \term{$\chit$-suitable} and in these instances we can show that 
+
+If these conditions are met: that relationship key paths have at most one equivalent non relationship key path, that implied dependencies are non-circular and there are no  \newt{boolean-equivalent} relationships, then we say that $\gmodel$ is \term{$\chit$-suitable} and in these instances we can show that 
 the model $\chigmodel$ is a simple relational model. 
 
 We will define conditions for a well-formulated $\gmodel$  that if met ensure 
@@ -2040,7 +2040,7 @@ $$
 p_i =
 \begin{cases} 
     s_i         & \mbox{if $s_i$ is a path which dominates path $r \circ q_i$ in $\gmodel$} \\
-    s_i         & \mbox{if $s_i$ is a non-attribute-like path and is equivalent to  $r \circ q_i$ in $\gmodel$ }  \\
+    s_i         & \mbox{if $s_i$ is a non-relationship key path and is equivalent to  $r \circ q_i$ in $\gmodel$ }  \\
     r \circ q_i & \mbox{if there is no such $s_i$.}
 \end{cases} 
 $$
@@ -2051,7 +2051,7 @@ $$
 p'_i =
 \begin{cases}
    I_\gmodel(s_i)     & \mbox{if $s_i$ is a path  either dominates path $r \circ q_i$ in $\gmodel$} \\
-   I_\gmodel(s_i)     & \mbox{if $s_i$ is a non-attribute-like path and is equivalent to  $r \circ q_i$ in $\gmodel$ }  \\
+   I_\gmodel(s_i)     & \mbox{if $s_i$ is a non-relationship key path and is equivalent to  $r \circ q_i$ in $\gmodel$ }  \\
    \qq{r \circ q_i}  & \mbox{if there is no such $s_i$.}
 \end{cases} 
 $$
@@ -2100,7 +2100,7 @@ $
 Since entity types and relationships of $\chigmodel$ equate to entity types and relationships of $\gmodel$ then $r_1 \circ ... \circ r_n : a \morph b$ in $\gmodel$.
 
 Either $x$ is an existing attribute of $\gmodel$ or it is an attribute $\qq{r_x \circ q_x}$ for some relationship $r_x$ and primary key path $q_y$ of $\gmodel$.
-Either way  $\retract(x):b \morph \veee$ is an attribute-like path in $\gmodel$. 
+Either way  $\retract(x):b \morph \veee$ is an relationship key path in $\gmodel$. 
 
 Similarly either (a) $y$ is an existing attribute of $\gmodel$ or (b) it is an attribute $\qq{r_y \circ q_y}$ for some relationship $r_y$ and primary key path $q_y$ of $\gmodel$. \\
 
@@ -2118,7 +2118,7 @@ preserves mono-sources (lemma \lref{isospreserveandreflectmonosources}) and pres
 
 Otherwise, in case (b) if $y$ is an attribute $\qq{r_y \circ q_y}$ for some relationship $r_y$ and primary key path $q_y$ of $\gmodel$. 
 In $gmodel$ we have therefore that $r_y \circ q_y \simeq r_1 \circ r_2 \circ ... r_n \circ \retract(x)$. From the definition of $\chi$ it follows that path
-$r_1 \circ r_2 \circ ... \circ r_n \circ \retract(x)$ must be attribute-like in $\gmodel$. Therefore $r_2 \circ ... \circ r_n \circ \retract(x)$ must be a primary
+$r_1 \circ r_2 \circ ... \circ r_n \circ \retract(x)$ must be relationship key in $\gmodel$. Therefore $r_2 \circ ... \circ r_n \circ \retract(x)$ must be a primary
 key path in $\gmodel$. Therefore $r_2 \circ ... \circ r_n \circ x$ must be a primary key path in $\chigmodel$    by observation \lref{pathinjectionobservation}.
 Thus equation (\ref{reductionequation}) meets condition (i) of the definition of reduced. This completes the proof that $\chigmodel$ is reduced if $\gmodel$ is.
 \end{proof}
