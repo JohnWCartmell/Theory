@@ -722,7 +722,8 @@ such that $x \simeq r \circ q$.
 Referential attributes are the significant feature of relational and hierarchical ER models.
 The first cut relational ER model traditionally associated with an ER model representing 
 a logical design can be described using the constructions described so far as
-$\gmodel + \sq{\underline{pk}_\gmodel} + \sq{\rkp}$. Generally this first cut relational model will not be alias-free and so it can be improved upon by trimming aliases. The trimmed model we shall denote by $\gmodel + \qq{\underline{pk}_\gmodel} + \qq{\rkp}$. 
+\highlight{$\firstcutmodel$}. Generally this first cut relational model will not be alias-free and so it can be improved upon by trimming aliases. The trimmed model we shall denote by 
+\highlight{$\trimmedfirstcutmodel$} 
 
 Later we will improve further and for this we need the following lemma:
 \begin{lemma}
@@ -737,8 +738,6 @@ Follows from the isomorphism of $\gmodel$ to $\gmodel + \qq{\pkp}$, from
 lemma \lref{pathsetedgeextension} and from the fact that isomorphisms can be composed.
 \end{proof}
 
-
-\newpage
 \subsection{Referential Inclusion Dependencies}
 \llabel{referentialinclusiondependency}
 
@@ -1728,30 +1727,31 @@ or else  $\set{\ym}$ is a mono-source in which case, by lemma \lref{transitivein
 \end{oldtt}
 
 \subsection{Ranking Relationships in an ER Model}
-For every ER model $\gmodel$ and for each natural number $n$, $n \geq 0$, we define which relationships of
-$\gmodel$ are of rank $n$. We do this  in such a way that each relationship of $\gmodel$ either has a rank $n$, for some $n \geq 0$, or if it is not of rank 
+For every ER model $\gmodel$ and for each natural number $n$, $n \geq 1$, we define which relationships of
+$\gmodel$ are of rank $n$. We do this  in such a way that each relationship of $\gmodel$ either has a rank $n$, for some $n \geq 1$, or if it is not of rank 
 $n$ for any $n$, is said to be unranked or of null rank. Denote by $\gmodel_n$ the ER model which is the ER model 
-$\gmodel$ less the relationships which are not of rank less than or equal to n. The definition proceeds by induction as follows:
+$\gmodel$ less the relationships which are not of rank less than or equal to n.\commentary{surely need improve this wording} The definition proceeds by induction as follows:
 \begin{definition}
 The relationship $R: a \morph b$ in an ER model $\gmodel$ is said to be of rank $1$\commentary{was rank 0  -- having it as rank 1 leaves the option of composition relationships being rank 0.} iff whenever 
-$\qntuple$ is a leaf?  primary mono-source at $b$ in $\gmodel$, where $q_i:b \morph \veee$, for each $i$, $1 \leq i \leq n$  then there exists attributes $x_i:a \morph \veee$ in $\gmodel$ such that $\incd{a}{\xntuple}{b}{\qntuple}$ is an inclusion dependency and this inclusion dependency is represented by the relationship $R$. 
+$\qntuple$ is a leaf primary mono-source at $b$ in $\gmodel$, where $q_i:b \morph \veee$, for each $i$, $1 \leq i \leq n$  then there exists attributes $x_i:a \morph \veee$ in $\gmodel$ such that $\incd{a}{\xntuple}{b}{\qntuple}$ is an inclusion dependency and this inclusion dependency is represented by the relationship $R$. 
 The relationship $R: a \morph b$ in an ER model $\gmodel$ is said to be of rank $n+1$ iff whenever 
 $\qntuple$ is a primary mono-source at $b$ in $\gmodel$, there exists paths $p_i:a \morph \veee$ in $\gmodel_n$ such that $\incd{a}{\pntuple}{b}{\qntuple}$ is an inclusion dependency and this inclusion dependency  is represented by the relationship $R$. 
 \end{definition}
 
-\begin{newtt}Reference an example here of a model having a rank 2 relationship.\end{newtt}
+\begin{newtt}Reference an example here of a model having a rank 2 relationship?\end{newtt}
 
 \section{Relational Models}
 \llabel{definitionofrelational}
-Generally a relational schema is defined to consist of a finite set of relations each consisting of a
-finite set of attributes along with a set of semantic constraints. The latter may include functional dependencies or keys and key attributes and inclusion dependencies.  We restrict our attention, for the time being, to those schemas in which for each relation there is a subset of its attributes that comprise a primary key and between these relations there are defined  a set of inclusion dependencies of the 
+As described be Codd (\cite{Codd??}) and followers, as implemented in relational database software and as 
+described in the ISO SQL standard, a relational schema consists of a finite set of relations each consisting of a
+finite set of attributes along with a set of constraints.   We restrict our attention, for the time being, to those schemas in which for each relation there is a subset of its attributes that comprise a primary key and for which there are defined a set of inclusion dependencies of the 
 form $\incd{R}{X}{S}{K}$ where $S$ is a relation and $K$ is the primary key of $S$.
 Any inclusion dependency of the form $\incd{R}{X}{S}{K}$ where $S$ is a relation and $K$ is a key for that relation is called a \term{keyed inclusion dependency} (see Levene and Vincent) or a \term{referential constraint} (SQL ISO standard).
 If $K$ is the primary key we shall say that such an inclusion dependency is a \term{primary referential constraint}. If $R$ is a relation having primary key consisting
 of $X_1,X_2,...X_n$ and attributes $Y_1,...Y_m$ in addition to the primary key 
  then we shall write the relation as $R(\underline{X_1},...,\underline{X_n},Y_1,...Y_m)$.
 
-It is usually the case that attributes are annotated with specific domains of values but for our purpose we can assume that each attribute is $v$-valued where $v$ is our type of universals for domains play no role, for the time being at least, in the theory with which we concern ourselves here.
+In a relational schema, attributes typed nby specific domains of values but for our purpose we can assume that each attribute is $v$-valued where $v$ is our type of universals for domains play no role, for the time being at least, in the theory with which we concern ourselves here.
 \subsection{Definition of Primary Relational ER Model}
 The terms \term{primary referential inclusion dependency} and \term{simple referential inclusion dependency} were defined in section \lref{referentialinclusiondependency}. 
 These are used in the following definition:
@@ -1774,7 +1774,7 @@ Such a primary relational ER model $\gmodel$ gives rise to relational schema:
 \item relations (tables) of the relational schema correspond to entity types of $\gmodel$,
 \item attributes (columns) of a relation $a$ correspond to attributes of $a$ in $\gmodel$, 
 \item an attribute is part of the primary key iff the corresponding edge of $\gmodel$ is identifying,
-\item a keyed referential constraint is defined to correspond to every simple primary referential inclusion dependency of $\gmodel$ i.e. to correspond to every relationship of $\gmodel$. 
+\item a keyed referential constraint is defined to correspond to\commentary{Not so I think.} every simple primary referential inclusion dependency of $\gmodel$ i.e. to correspond to every relationship of $\gmodel$. 
 \end{itemize}
 
 The defining instances of such an ER model equate to a set of database instances of the corresponding relational schema.
@@ -1782,6 +1782,18 @@ The defining instances of such an ER model equate to a set of database instances
 Likewise every relational schema that consists of relations with primary keys and primary referential constraints and has a set of characteristic database instances gives rise to an isomorphic\commentary{check} primary relational ER model. 
 
 For the time being we restrict attention to primary relational ER models. 
+
+\subsection{The First-cut Transformation}
+This is the transformation from an ER model to a relational schema described informally by Chen[\cite{???}], prescribed, in essence, in software methodologies such as SSADM and described 
+in the book of Barker.
+We described the first-cut transformation of a model $\gmodel$ in section \lref{rkaconstruction}.
+  
+\begin{lemma}
+If $\gmodel$ is an ER model then $\firstcutmodel$ is a relational ER model.
+\end{lemma}
+\begin{proof}
+\tbd
+\end{proof}
 
 \subsection{Attribute Redundancy}
 \begin{definition}
@@ -1792,6 +1804,14 @@ a relational ER model.
 \begin{definition}
 Say that a relational ER model $\gmodel$ is \term{free of relational redundancy} iff none of its attributes are relationally redundant.
 \end{definition}
+
+Equivalent attributes are an extreme case of attribute redundancy and this kind of redundancy can be avoided by trimming the model as described in section \lref{rkaconstruction}. That the trimmed first-cut model is a relational model follows from the fact that the first-cut model is relational and the following:
+\begin{lemma}
+If $\gmodel$ is a relational ER model then $\gmodel/\simeq$ is a relational ER model.
+\end{lemma}
+\begin{proof}
+\tbd
+\end{proof}
 
 
 \subsection{Normal Forms}
@@ -1978,14 +1998,22 @@ If an edge is a restriction then it is \newt{boolean-equivalent}.
 
 \subsection{Definition of $\chi$}
 
+
+
 Chi is defined by 
 
 \begin{equation}
-\label{firstcuttransform}
+\label{chidefinition}
 \gmodel \mapsto \gmodel + \qq{\underline{pk}_\gmodel} + \qq{\nrkp}
 \end{equation}
 
+where $\nrkp$, the set of non-redundant relationship key paths of $\gmodel$, is defined by
 
+\begin{equation*}
+\nrkp = \setsuchthat{r \circ q \in \rkp}{\not \exists \text{ path } s \text{ in } \gmodel
+               \text{  such that either } r \circ q < s \text{ or else } s \not \in \rkp \text{ and }
+							     r \circ q \simeq s \text{ in } \gmodel}
+\end{equation*}
 We define the model $\chigmodel$  \index[definitions]{$\chi$}  be a further improvement to the first-cut transformation obtained by excluding  from  the transformed model $\firstcutimproved(\gmodel)$ those attributes $\qq{r \circ q}$ for which either there exists a \sout{unique}  path $s$ such that  $r \circ q < s$ or for which there exists a path $s$ which is not a relationship key path and 
 for which y$r \circ q \simeq s$.
 
