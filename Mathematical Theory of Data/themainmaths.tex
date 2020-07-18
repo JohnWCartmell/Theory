@@ -35,7 +35,7 @@ $
 \simplepatha{$p_2$}{a}{b2}
 \simplepathb{$p_n$}{a}{bn}
 \end{center}
-\caption{A source in a directed graph consists of any set of paths with a common domain. This figure illustrates a source $\set{\pn}$ at a node $a$.}
+\caption{A source in a directed graph consists of any multiset of paths with a common domain. This figure illustrates a source $\set{\pn}$ at a node $a$.}
 \label{sourceillustration}
 \end{figure}
 
@@ -88,16 +88,17 @@ in particular, $\tuple{f_1,...f_n} \circ \proji{i}\leq f_i$ .
 An \term{ER-schema} $S$ is a directed graph having the following additional structure:
 \begin{enumerate} [(i)]
 \item{a distinguished node $\veee$ for which there are no outgoing edges and which represents the type of universals, 
- the nodes of $\gmodel_S$ other than $\veee$ we say are entity types.} 
+ the nodes other than $\veee$ we say are entity types.} 
 
 \item{a distinguished acyclic subset $I$ of edges, called the identifying edges, such that
 for every node $a$ other than $\veee$ there is a non-empty set  of identifying edges with domain $a$.
- We denote by $I_a$ the non-empty set of identifying edges leaving an entity type $a$.}
+ We denote by $I_a$ the non-empty set of identifying edges with domain entity type $a$.}
 \end{enumerate}
-\end{definition}
+\begin{newtt}
+Edges between entity types are said to be relationships and edges with codomain $\veee$ are said to be attributes.
+\end{newtt}
+\end{definition} 
 
-If $\gmodel$ is an ER-model then the set $\attr{a}$ of attributes of an entity type $a$ is defined as the set of edges of $\gmodel_S$ that have 
-domain $a$  and  codomain $\veee$.
 
 \begin{definition}
 If $\gmodel$ and  $\gmodel'$ are ER schemas then an \term{ER schema mapping} 
@@ -144,7 +145,7 @@ edges the definition proceeds recursively as follows:
 \item{
 For each node $a$, $E_{\tuple{}}: E_a \rightarrow E_a$ is defined to be the identity function.
 }
-\item for and path $p_1 \circ p_2... \circ p_n: a \morph b$ in $\gmodel$ where $p_i: x_i \morph x_{i+1}$ are edges,
+\item for any path $p_1 \circ p_2... \circ p_n: a \morph b$ in $\gmodel$ where $p_i: x_i \morph x_{i+1}$ are edges,
 define $E_{p_1 \circ p_2... \circ p_n}$ to be the functional composition $E_{p_1} \circ E_{p_2}... \circ E_{p_n}$.
 \end{enumerate}
 
@@ -227,7 +228,7 @@ If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi$ is an ER model mappin
 
 We shall also have need of the folllowing lemma:
 \begin{lemma}
-\llabel{mappingrespectsequivalence}
+\llabel{mappingspreserveequivalence}
 If $\varphi: \gmodel \morph \gmodel'$ is a mapping of ER models and
 if $p$ and $q$ are paths of $\gmodel$ such that $p \simeq q$ in $\gmodel$ then $\varphi(p) \simeq \varphi(q)$ in $\gmodel'$. If $P$ and $Q$ are \newt{sources} and $P \simeq Q$ then $\varphi(P) \simeq \varphi(Q)$.
 \end{lemma}
@@ -276,7 +277,7 @@ Because:
 In section \lref{definitionofrelational} we will characterise those ER models which correspond to relational schemas and elsewhere\footnote{Future work.} we will characterise those that correspond to hierarchical schemas. 
 We can paraphrase and say that an ER model is relational or hierarchical, in a certain way,  providing it has a sufficiency of referential attributes (foreign keys) for the implementation  of non-compositional relationships. 
 It will follow from the definitions  that an ER model which has insufficient referential attributes can be extended to one that does by using the constructions that we give in this section.
-In other words these constructions are to be used to transform an ER model representing a logical design to one\footnote{Sometimes referred to as a physical model} representing an implementation. 
+In other words, these constructions are to be used to transform an ER model representing a logical design to one\footnote{Sometimes referred to as a physical model} representing an implementation. 
 \subsubsection{Trimming Aliases}
 If distinct attributes or distinct relationships
 are equivalent in an ER model then we will say that they are aliases. Attributes which are equivalent are significant because in a relational schema they result in duplicated and hence redundant data. 
@@ -286,13 +287,13 @@ An ER model $\gmodel$ is \term{alias-free} iff for all distinct edges $e$ and $e
 \end{definition}
 
 It is easy to see that any ER model $\gmodel$ that is not alias-free can be trimmed to an ER model, denote it $\trimmed(\gmodel)$, that is alias-free. 
-One way of mathematically describing the trimmed model is as having a schema in which the edges that are equivalence classes of edges of the original model. 
+One way of mathematically describing the trimmed model is as having a schema in which the edges are precisely equivalence classes of edges of the original model. 
 Define such an equivalence class to be an identifying edge in $\trimmed(\gmodel)$ iff one of its representatives is identifying in $\gmodel$.
-From this defintion it follows that defining instances of $\gmodel$ give rise to instances of $\trimmed(\gmodel)$. Define the set of defining instances of $\trimmed(\gmodel)$ to
-be the set of all such instances.
+From this definition it follows that each defining instance of $\gmodel$ gives rise to an instance of $\trimmed(\gmodel)$. Define the set of defining instances of $\trimmed(\gmodel)$ to be the set of all such instances.
 A mapping $\varphi: \gmodel \morph \trimmed(\gmodel)$ maps an edge with alias to an equivalence class of equivalent edges. 
-An inverse mapping $\varphi^{-1}: \trimmed(\gmodel) \morph \gmodel$ is not unique and selects a representative edge from each equivalence class.
-It follows from the definitions that $\varphi$ and such a $\varphi^{-1}$ are ER model mappings and that $\varphi$ is an isomorphism with inverse $\varphi^{-1}$.
+An inverse mapping $\varphi^{-1}: \trimmed(\gmodel) \morph \gmodel$ (not unique) selects a representative edge from each equivalence class selecting an identifying edge is there is one.
+It follows from the definitions that $\varphi$ and such a $\varphi^{-1}$ are ER model mappings and that $\varphi$ is an isomorphism with inverse $\varphi^{-1}$. Such a $\varphi$ preserves and reflects edges, in particular such a $\varphi$
+preserves and reflects relationships.
 
 \subsubsection{Aliasing a Path by an Edge}
 \begin{definition}
@@ -314,9 +315,10 @@ The inverse mapping $\mathcal{R}$ simply replaces any instances of the edge $\sq
 If $P$ is a set of paths each of length greater than $1$ in an ER model $\gmodel$ then the model can be extended by edges one for each path $p \in P$. 
 Since distinct paths in $P$ may be equivalent in $\gmodel$ then in the general case, even if none of the paths 
 $p \in P$ have equivalent edges in $\gmodel$ and even if $\gmodel$ is alias-free,  the resulting model need not be alias-free. 
-To achieve an alias free model we will need to combine the successive addition of edges aliasing paths $p$ in $P$ with trimming of the model.  
+To achieve an alias free model we will need to combine the successive addition of edges aliasing paths $p$ in $P$ with trimming.  
 In the resulting model we will denote by $\qq{p}$ the edge that is an equivalence class determined by a path $p$ in $P$.
-We shall denote the extended model by $\gmodel + \qq{P}$.
+We shall denote the extended model by $\gmodel + \qq{P}$. \commentary{Maybe not since there may be paths in $\gmodel -P$ 
+included in the equivalence class $\qq{P}$.}
 
 From the definition of isomorphism it is clear that isomorphisms compose. It follows that there is an isomorphism from $\gmodel$ to $\gmodel + \qq{P}$. We denote the isomorphism
 by $\inject:  \gmodel \morph \gmodel + \qq{P}$ and choose an inverse which we denote $\retract: \gmodel + \qq{P} \morph \gmodel$.
@@ -531,7 +533,7 @@ of  $Q$, then no proper subset of $Q'$ is a mono-source. \commentary{I may have 
 
 \begin{lemma}
 \llabel{monosourceequivalence}
-If  $P$ and $Q$ are sources at some object $a$ in an ER model $\gmodel$ and if $P \simeq Q$  then   $P$ is a mono-source in $\gmodel$ iff $Q$ is a mono-source in $\gmodel$.  Further $P$ is a leaf mono-source iff $Q$ is a leaf mono-source. Further, if $P$ and $Q$ are both representative then $P$ is a primary mono-source iff $Q$ is a primary mono-source.
+If  $P$ and $Q$ are sources at some object $a$ in an ER model $\gmodel$ and if $P \simeq Q$  then   $P$ is a mono-source in $\gmodel$ iff $Q$ is a mono-source in $\gmodel$.  Further $P$ is a leaf mono-source iff $Q$ is a leaf mono-source. Further, if $P$ and $Q$ are both skeletal then $P$ is a primary mono-source iff $Q$ is a primary mono-source.
 \end{lemma}
 \begin{proof}
 It follows from the definition of \oldt{set} equivalence \newt{of sources} that if $P$ and $Q$ are \newt{sources} in a model $\gmodel$ and if $P \simeq Q$ in $\gmodel$ then in each defining instance $E$ of $\gmodel$, the set of functions $\setsuchthat{E_p}{p \in P}$ is equal to the set of functions $\setsuchthat{E_q}{q \in Q}$ since for
@@ -540,14 +542,15 @@ paths $p$ and $q$ such that $p \simeq q$, $E_p=E_q$. Therefore if $P$ and $Q$ ar
 That $P$ is leaf  iff $Q$ is a leaf 
 follows because $p \simeq q$ implies that the codomain of $p$ is equal to the codomain of $q$.
 
-It follows that if $P$ and $Q$ are representative then $P$ is a primary mono-source iff $Q$ is  primary mono-source  because  $\simeq$ is an equivalence relation and therefore $P \simeq \pk{a}$ iff $Q \simeq \pk{a}$.
+It follows that if $P$ and $Q$ are skeletal then $P$ is a primary mono-source iff $Q$ is  primary mono-source  
+follows by lemma \lref{leafprimarymonosourcerepresentativeofpka} because  $\simeq$ is an equivalence relation and therefore $P \simeq \pk{a}$ iff $Q \simeq \pk{a}$ .
 \end{proof}
 
 \begin{lemma}
 \llabel{mappingspreservemonosources}
 If $\varphi: \gmodel \morph \gmodel'$ is a mapping of ER models and
 if $P$ is a mono-source in $\gmodel$ then  
-$\varphi(P)$ i.e. the set $\setsuchthat{\phip}{p\in P}$, is a mono-source in $\gmodel'$. 
+$\varphi(P)$ i.e. the multiset $\setsuchthat{\phip}{p\in P}$, is a mono-source in $\gmodel'$. 
 Further if $P$ a leaf mono-source in $\gmodel$ then $\varphi(P)$,  is a leaf mono source in $\gmodel'$ .
 \end{lemma}
 \begin{proof}
@@ -562,12 +565,12 @@ $\veee$ in $\gmodel$ then it follows from the definition of $\varphi$ being a ma
 \begin{lemma}
 \llabel{isospreserverepresentativesets}
 If $\varphi: \gmodel \morph \gmodel'$ is a isomorphism of ER models and
-if $P$ is a  set of paths in $\gmodel$ that is representative then the set of paths $\varphi(P)$ in $\gmodel'$ is representative. 
+if $P$ is a  set of paths in $\gmodel$ that is skeletal then the set of paths $\varphi(P)$ in $\gmodel'$ is skeletal. 
 \end{lemma}
 \begin{proof}
-Assume such an isomorphism. To show that if $P$ is representative then $\varphi(P)$ is suppose $P$ is representative and that for some $p,p' \in P$,  $\varphi(p) \simeq \varphi(p')$ is $\gmodel'$.  Since $\varphi$ is an isomorphism
+Assume such an isomorphism. To show that if $P$ is skeletal then $\varphi(P)$ is suppose $P$ is skeletal and that for some $p,p' \in P$,  $\varphi(p) \simeq \varphi(p')$ is $\gmodel'$.  Since $\varphi$ is an isomorphism
 it follows that $\varphi^{-1}(\varphi(p)) \simeq \varphi^{-1}(\varphi(p'))$ in $\gmodel$ (lemma \lref{mappingspreserveequivalence}) and therefore $p \simeq p'$ in
-$\gmodel$. Now since $P$ is representative we can conclude that $p=p'$ and therefore that $\varphi(p)=\varphi(p')$.
+$\gmodel$. Now since $P$ is skeletal we can conclude that $p=p'$ and therefore that $\varphi(p)=\varphi(p')$.
 \end{proof}
 
 \begin{definition}
@@ -580,10 +583,10 @@ it is injective as a mapping of paths i.e. iff  for all paths $p,p'$ of $\gmodel
 \llabel{isosreflectskeletalsources}
 If $\varphi: \gmodel \morph \gmodel'$ is an \oldt{injective} isomorphism of ER models and
 if $P$ is a  \newt{source} in $\gmodel$ then if the \newt{source} $\varphi(P)$ of $\gmodel'$ is \newt{skeletal} 
- then the set of paths $P$ of $\gmodel$ is \newt{skeletal}. 
+ then the source $P$ of $\gmodel$ is \newt{skeletal}. 
 \end{lemma}
 \begin{proof}
-Assume such an isomorphism $\varphi$. Suppose such a set $P$ in $\gmodel$ and suppose that $\varphi(P)$ is representative in $\gmodel'$.  Suppose that  for some $p,p' \in P$, $p \simeq p'$. Since $\varphi$ is an isomorphism it follows that $\varphi(p) \simeq \varphi(p')$ in $\gmodel'$ (lemma \lref{mappingspreserveequivalence}) and then since $\varphi(P)$ is assumed to be representative 
+Assume such an isomorphism $\varphi$. Suppose such a source $P$ in $\gmodel$ and suppose that $\varphi(P)$ is skeletal in $\gmodel'$.  Suppose that  for some $p,p' \in P$, $p \simeq p'$. Since $\varphi$ is an isomorphism it follows that $\varphi(p) \simeq \varphi(p')$ in $\gmodel'$ (lemma \lref{mappingspreserveequivalence}) and then since $\varphi(P)$ is assumed to be skeletal 
 that $\varphi(p) = \varphi(p')$ in $\gmodel'$
  from which we can deduce that $p=p'$ in $\gmodel$ since $\varphi$ is assumed to be injective. 
 \end{proof}
@@ -600,7 +603,7 @@ Further  $P$ is a leaf mono-source in $\gmodel$ iff $\varphi(P)$ is a leaf mono 
 \item
 $P$ is a leaf primary mono-source in $\gmodel$ implies  $\varphi(P)$ is a leaf primary mono source in $\gmodel'$,
 \item
-If $\varphi$ is injective then
+\oldt{If $\varphi$ is injective then}
 if $\varphi(P)$ is a leaf primary mono source in $\gmodel'$ then $P$ is a leaf primary mono-source in $\gmodel$
 \end{enumerate}
 \end{lemma}
@@ -627,7 +630,7 @@ follows from lemma \lref{isosreflectskeletalsources}
 In any ER model $\gmodel$ if $Q$ is a \newt{skeletal source} and if $P \subseteq Q$ and $P \simeq Q$ then $P=Q$.
 \end{lemma}
 \begin{proof}
-Follows immediately from the definition of representative.
+Follows immediately from the definition of skeletal.
 \end{proof}
 
 
@@ -641,7 +644,7 @@ Suppose such an injective isomorphism $\varphi$. \\
 First suppose that $\gmodel$ satisifes the minimality condition that no leaf primary mono-sources have proper subsets which are mono-sources. 
 To show that $\gmodel'$ has the minimality condition let $Q$ be a leaf-primary mono-source in $\gmodel'$. We need show that if $Q' \subseteq Q$ and $Q'$ is a mono-source then $Q'=Q$. Assume such a $Q$ and $Q'$. It follows that $\varphi^{-1}(Q') \subseteq \varphi^{-1} (Q)$ and, by lemma \lref{isospreserveandreflectmonosources}, that $\varphi^{-1}(Q)$
 is a leaf primary mono-source and that $\varphi^{-1}(Q')$ is a mono-source. Since $\gmodel'$ is assumed to have the minimality condition then we have that
-$\varphi^{-1}(Q') = \varphi^{-1} (Q)$. From this it follows that  $Q' \simeq \varphi(\varphi^{-1}(Q')) = \varphi(\varphi^{-1}(Q)) \simeq Q$ and so we have that both $Q' \subset Q$ and $Q' \simeq Q$ and, since $Q$ is representative, this implies, by lemma \lref{representativecontainmentlemma}, that $Q'=Q$ as required. \\
+$\varphi^{-1}(Q') = \varphi^{-1} (Q)$. From this it follows that  $Q' \simeq \varphi(\varphi^{-1}(Q')) = \varphi(\varphi^{-1}(Q)) \simeq Q$ and so we have that both $Q' \subset Q$ and $Q' \simeq Q$ and, since $Q$ is skeletal, this implies, by lemma \lref{representativecontainmentlemma}, that $Q'=Q$ as required. \\
 
 For the reverse implication consider that $\gmodel'$ satisfies the minimality condition. We are required to show that $\gmodel$ has the minimality condition for which we are required to show that if  $P$ is a leaf primary mono-source in $\gmodel$ and if $P' \subseteq P$ and 
  $P'$ is a mono-source in $\gmodel$ then $P'=P$.  Suppose then such a $P$ and $P'$. Since $P' \subseteq P$ then $\varphi(P') \subseteq \varphi(P)$. 
@@ -657,27 +660,20 @@ iff for all sources $P$ of  $\gmodel$ if
 $\varphi(P)$ is a primary mono-source in $\gmodel'$ then $P$ is a primary mono-source in $\gmodel$.
 \end{definition}
 
-\subsubsection{Construction of Primary Keys}
+\subsubsection{Construction of Primary Keys as Attributes}
 
-One of the characteristics of a relational model is that each of the identifying features of a table is a column
-and this translates into our unified framework as each identifying edge of each entity type being an attribute i.e. 
-an edge with codomain $\veee$. This leads to this definition: 
-\begin{definition}
-Say that a model is \term{primarily keyed} iff all identifying edges 
-have codomain $\veee$.
-\end{definition}
 To reach the goal of showing that to certain ER models there correspond isomorphic relational model we require the following:
 \begin{lemma}
 \llabel{primarilykeyedextension}
 If $\gmodel$ is an ER model then it can be extended to a model, denoted  $\pkext$,
-which is primarily keyed. If $\gmodel$ satisfies the minimality condition then the
+in which each identifying edge is an attribute. If $\gmodel$ satisfies the minimality condition then the
 extended model $\pkext$ satisfies the  condition that each set $I_a$ has no proper subsets which are mono-sources. 
 There is an isomorphism from $\gmodel$ to $\pkext$.
 \end{lemma}
 \begin{proof}
 Let $\pkp$ be the set of primary key paths of $\gmodel$. We define the ER model $\pkext$ to be the
 ER model   $\gmodel + \qq{\pkp}$ as described in section \ref{extensionbysetofpaths} but with identifying edges for any entity type $a$ being defined
-by $I_a = \setsuchthat{\qq{p}}{p \in \pk{a}}$. 
+by $I_a = \setsuchthat{\qq{p}}{p \in \pk{a}}$ i.e. as a set of attributes. 
 
 To show that the ER model isomorphism $\inject: \gmodel \morph \gmodel + \qq{\pkp}$ 
 described in section \ref{extensionbysetofpaths}   determines an ER model mapping  $\inject: \gmodel \morph \pkext$
@@ -698,34 +694,15 @@ The isomorphism from $\gmodel$ to $\gmodel + \qq{\pkp}$ thus determines an isomo
 Can we show that the above isomorphisms reflects primary mono-sources???
 \end{newtt}
 
-\subsubsection{Construction of Relationship Key Attributes}
-\label{rkaconstruction}
-\begin{definition}
-In an ER model $\gmodel$ a path $p: a \morph \veee$ is said to be a \term{relationship key path} iff it is of the form $r \circ q$ where  $r : a \morph b$ is a relationship in $\gmodel$ and $q: b \morph \veee$ is a primary key path in $\gmodel$.
-\end{definition}
 
-Denote the set of all referential key paths of an entity model $\gmodel$ by $\rkp$.
-
-\begin{definition}
-In an ER model $\gmodel$ a \term{relationship key attribute}\footnote{The term referential attribute is used 
-for such attributes in the ISO SQL standard and  more widely these are referred to as foreign keys which is a terminology that I can't bring myself to use.} of an entity type $a$ is an attribute
-$x:a \morph \veee$ such that there exists a relationship key path $r \circ q: a \morph \veee$
-such that $x \simeq r \circ q$. 
-\end{definition}
-
-Referential attributes are the significant feature of relational and hierarchical ER models.
-The first cut relational ER model traditionally associated with an ER model representing 
-a logical design can be described using the constructions described so far as
-\highlight{$\firstcutmodel$}. Generally this first cut relational model will not be alias-free and so it can be improved upon by trimming aliases. The trimmed model we shall denote by 
-\highlight{$\trimmedfirstcutmodel$} 
-
-Later we will improve further and for this we need the following lemma:
+ We will need the following:
 \begin{lemma}
 \llabel{subsetextension}
 If $\gmodel$ is an ER model and if $R$ is a set of paths of $\gmodel$ then 
 there is an isomorphism which we denote $\inject$, 
 $\inject: \gmodel \morph \gmodel + \qq{\underline{pk}_\gmodel} + \qq{R}$
 with inverse $\retract:  \gmodel + \qq{\underline{pk}_\gmodel} + \qq{R} \morph \gmodel$.
+\commentary{unfortuneate double use of R}
 \end{lemma}
 \begin{proof}
 Follows from the isomorphism of $\gmodel$ to $\gmodel + \qq{\pkp}$, from 
@@ -1114,7 +1091,7 @@ $E_{\tuple{\phixn}} \circ f_{E} = E_{\phiy}$.  The partial function $f_E$ theref
 meets the conditions (\ref{fdcarrythrucond1}) and (\ref{fdcarrythrucond2}) that
 we require of $f_{E'}$ and so we can choose the required partial function
 $f_{E'}$ to be the partial function $f_E$. 
-The further point regarding triviality follows from lemma \lref{mappingrespectsequivalence}.
+The further point regarding triviality follows from lemma \lref{mappingspreserveequivalence}.
 \end{proof}
 
 
@@ -1745,7 +1722,7 @@ If $K$ is the primary key we shall say that such an inclusion dependency is a \t
 of $X_1,X_2,...X_n$ and attributes $Y_1,...Y_m$ in addition to the primary key 
  then we shall write the relation as $R(\underline{X_1},...,\underline{X_n},Y_1,...Y_m)$.
 
-In a relational schema, attributes typed nby specific domains of values but for our purpose we can assume that each attribute is $v$-valued where $v$ is our type of universals for domains play no role, for the time being at least, in the theory with which we concern ourselves here.
+In a relational schema, attributes typed by specific domains of values but for our purpose we can assume that each attribute is $v$-valued where $v$ is our type of universals for domains play no role, for the time being at least, in the theory with which we concern ourselves here.
 \subsection{Definition of Primary Relational ER Model}
 The terms \term{primary referential inclusion dependency} and \term{simple referential inclusion dependency} were defined in section \lref{referentialinclusiondependency}. 
 These are used in the following definition:
@@ -1758,7 +1735,7 @@ it is primarily keyed i.e. all identifying edges are attributes,
 \item
 all relationships are ranked i.e. there are no relationships of null rank,
 \item 
-for each primary referential inclusion dependency\footnote{Note that in a relational ER model every primary referential inclusion dependency is simple because the each primary key path is an attribute because the only identifying edges are attributes.} there is a relationship which represents it
+for each primary referential inclusion dependency\footnote{Note that in a relational ER model every primary referential inclusion dependency is simple because each primary key path is an attribute because the only identifying edges are attributes.} there is a relationship which represents it
 \footnote{If we assume a tidiness condition then such a relationship will necessarily be unique}.\commentary{Note that in an ER model that is primarily keyed the only paths that are relationship-like paths of length 1 between entity types i.e. are relationships.}
 \end{enumerate} 
 \end{definition}
@@ -1780,8 +1757,25 @@ For the time being we restrict attention to primary relational ER models.
 \subsection{The First-cut Transformation}
 This is the transformation from an ER model to a relational schema described informally by Chen[\cite{???}], prescribed, in essence, in software methodologies such as SSADM and described 
 in the book of Barker.
-We described the first-cut transformation of a model $\gmodel$ in section \lref{rkaconstruction}.
-  
+
+\begin{definition}
+In an ER model $\gmodel$ a path $p: a \morph \veee$ is said to be a \term{relationship key path} iff it is of the form $r \circ q$ where  $r : a \morph b$ is a relationship in $\gmodel$ and $q: b \morph \veee$ is a primary key path in $\gmodel$.
+\end{definition}
+
+Denote the set of all referential key paths of an entity model $\gmodel$ by $\rkp$.
+Note that $\pk \subseteq \rkp$ in spirit but not in fact?. \commentary{Check this in regard to identifying attributes.}
+\begin{definition}
+In an ER model $\gmodel$ a \term{relationship key attribute}\footnote{The term referential attribute is used 
+for such attributes in the ISO SQL standard and  more widely these are referred to as foreign keys which is a terminology that I can't bring myself to use.} of an entity type $a$ is an attribute
+$x:a \morph \veee$ such that there exists a relationship key path $r \circ q: a \morph \veee$
+such that $x \simeq r \circ q$. 
+\end{definition}
+
+Referential attributes are a significant feature of relational and hierarchical ER models.
+The first cut relational ER model traditionally associated with an ER model representing 
+a logical design can be described using the constructions described so far as
+\highlight{$\firstcutmodel$}. Generally this first cut relational model will not be alias-free and so it can be improved upon by trimming aliases. The trimmed model we shall denote by 
+\highlight{$\trimmedfirstcutmodel$} 
 \begin{lemma}
 If $\gmodel$ is an ER model then $\firstcutmodel$ is a relational ER model.
 \end{lemma}
@@ -2028,7 +2022,9 @@ We will define conditions for a well-formulated $\gmodel$  that if met ensure
 ensuring that it is therefore in S3NF.  Further we will show that if $\gmodel$ is without caveats then $\chigmodel$ is also without caveats and is therefore in BCNF. 
 
 From the definition of $\chit$, it follows that for any $\chit$-suitable ER model $\gmodel$ there is a ER model mapping from the schema of $\gmodel$ to the schema of $\chigmodel$; for each path $p$ in $\gmodel$, therefore, there corresponds a path 
-in $\chigmodel$; denote this path by  $I_\gmodel(p)$. Also from the definition, it follows that
+in $\chigmodel$; denote this path by  $I_\gmodel(p)$. 
+\commentary{Refer to lemma \lref{subsetextension}}
+Also from the definition, it follows that
 if $p:b \morph \veee$ is a path in $\chigmodel$ then there exists a path $\retract(p):b \morph \veee$ in $\gmodel$ such that $I_\gmodel(\retract(p)) \simeq p$ in $\chigmodel$. Finally note that if $\retract(p)$ is a primary key path in $\gmodel$ then there is an attribute $k$ which is a primary key path
 in $\chigmodel$ such that $I_\gmodel(p) \simeq k$. 
 
@@ -2237,7 +2233,6 @@ if $\gmodel$ is reduced without caveats then  $\chigmodel$ is in BCNF.
 \begin{proof}
 Follows from theorem \lref{maintheorem} and lemma \lref{chilemma} because every simple model is reduced.
 \end{proof}
-
 
 
 \newpage
