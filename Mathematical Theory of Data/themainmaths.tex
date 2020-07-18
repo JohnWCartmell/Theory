@@ -17,7 +17,7 @@ If $a$ and $b$ are nodes of a directed graph $G$ then a \term{path} through $G$ 
 codomain $b$ of length $n$, where $n \geq 0$, we define to be  an n-tuple of  $n$ edges: $p_i: x_i \morph x_{i+1} $ in $G$ where $x_0=a$ and $x_n=b$. We shall write this n-tuple as $p_1 \circ p_2... \circ p_n$. 
 We will use the same notation if any of the $p_i$ are edges rather than paths as we will not need distinguish  an edge from a singleton path along that edge. 
 \item
-If $a$ is a node of a directed graph $G$ then by a \term{source} at $a$ in $G$ we mean a non-empty set of paths in $G$ each with domain $a$.
+If $a$ is a node of a directed graph $G$ then by a \term{source} at $a$ in $G$ we mean a non-empty \newt{multiset} of paths in $G$ each with domain $a$.
 \end{itemize}
 \begin{figure}
 \setlength{\arraycolsep}{.2cm}
@@ -180,9 +180,9 @@ $\pk{a}$.
 
 \noindent For paths $r$ and $s$ we define $r < s$ to be equivalent to $r \leq s$ and not $r \simeq s$. \\
 
-\subsection{Equivalence of sets of paths}
+\subsection{Equivalence of \newt{sources} \oldt{sets of paths}}
 \begin{definition}
-If $\gmodel$ is a model and if $P$ and $P'$ are sets of paths in $\gmodel$ then say that
+If $\gmodel$ is a model and if $P$ and $P'$ are \newt{sources} in $\gmodel$ then say that
 $P \simeq P'$ in $\gmodel$ iff
 \begin{enumerate}
 \item for all $p \in P$ there exists $p' \in P'$ such that $p \simeq p'$ in $\gmodel$,
@@ -190,7 +190,7 @@ $P \simeq P'$ in $\gmodel$ iff
 \end{enumerate} 
 \end{definition}
 
-If $P$ is a set of paths of an ER model $\gmodel$ and $\varphi : \gmodel \morph \gmodel'$ is an ER model mapping then we denote by $\varphi(P)$ the set of paths
+If $P$ is a \newt{source} of an ER model $\gmodel$ and $\varphi : \gmodel \morph \gmodel'$ is an ER model mapping then we denote by $\varphi(P)$ the \newt{source} that is the multiset
 $\setsuchthat{\varphi(p)}{p \in P}$.
 
 \subsection{ER Model Mappping}
@@ -211,7 +211,7 @@ in $\gmodel'$,
 
 From this definition, we can spell out the following:
 
-keypreservationuptoequivalence
+
 \begin{observation}
 \llabel{keypreservationuptoequivalence}
 If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi$ is an ER model mapping $\varphi: \gmodel \morph \gmodel'$ then whenever 
@@ -219,7 +219,7 @@ $p:a \morph \veee$ is a primary key path in $\gmodel$ then there exists a primar
 $p':\varphi(a) \morph \veee$ in $\gmodel$ such that $\varphi(p) \simeq p'$ in $\gmodel'$.
 \end{observation}
 
-keysurjectionuptoequivalence
+
 \begin{observation}
 \llabel{keysurjectionuptoequivalence}
 If $\gmodel$ and $\gmodel'$ are ER models and if $\varphi$ is an ER model mapping $\varphi: \gmodel \morph \gmodel'$ then whenever $p':\varphi(a) \morph \veee$ is a primary key path in $\gmodel'$ then there exists a primary key path $p:a \morph \veee$ in $\gmodel$ such that $\varphi(p) \simeq p'$ in $\gmodel'$.
@@ -229,11 +229,11 @@ We shall also have need of the folllowing lemma:
 \begin{lemma}
 \llabel{mappingrespectsequivalence}
 If $\varphi: \gmodel \morph \gmodel'$ is a mapping of ER models and
-if $p$ and $q$ are paths of $\gmodel$ such that $p \simeq q$ in $\gmodel$ then $\varphi(p) \simeq \varphi(q)$ in $\gmodel'$. If $P$ and $Q$ are sets of paths and $P \simeq Q$ then $\varphi(P) \simeq \varphi(Q)$.
+if $p$ and $q$ are paths of $\gmodel$ such that $p \simeq q$ in $\gmodel$ then $\varphi(p) \simeq \varphi(q)$ in $\gmodel'$. If $P$ and $Q$ are \newt{sources} and $P \simeq Q$ then $\varphi(P) \simeq \varphi(Q)$.
 \end{lemma}
 \begin{proof}
 To show that $\varphi(p) \simeq \varphi(q)$ in $\gmodel'$ we need show that for every model $E'$ of $\gmodel'$, $E'_p=E'_q$. But for each such $E'$ there exists a model $E$ of $\gmodel$ such that $E'_p=E_p$ and $E'_q=E_q$ and so the result follows since because since $p\simeq q$ in $\gmodel$, $E_p=E_q$.
-It follows on from the definition of equivalence for sets of paths $P$ and $Q$ that $\varphi(P) \simeq \varphi(Q)$ if $P \simeq Q$.
+It follows on from the definition of equivalence for \newt{sources} \oldt{sets of paths} $P$ and $Q$ that $\varphi(P) \simeq \varphi(Q)$ if $P \simeq Q$.
 \end{proof}
 
 \subsection{ER Model Isomorphism}
@@ -272,7 +272,6 @@ Because:
 \end{align*}
 \end{proof}
 
-\newpage
 \subsection{Constructions - New models from old}
 In section \lref{definitionofrelational} we will characterise those ER models which correspond to relational schemas and elsewhere\footnote{Future work.} we will characterise those that correspond to hierarchical schemas. 
 We can paraphrase and say that an ER model is relational or hierarchical, in a certain way,  providing it has a sufficiency of referential attributes (foreign keys) for the implementation  of non-compositional relationships. 
@@ -332,7 +331,6 @@ If $\gmodel$ is an ER model and if $P$ is a set of paths each of length greater 
 Can we show that the above isomorphisms reflects primary mono-sources???
 \end{newtt}
 
-\newpage
 \subsection{Jointly Injective Sets of Functions}
 \begin{lemma}
 \llabel{jointlyinjectivecomposition}
@@ -455,14 +453,12 @@ Denote by $\bar{I}$ the set  of all such mono-sources and denote by $\bar{I}_a$ 
 
 From this definition it follows that $\pk{a} \in \bar{I_a}$ and from this we get the following corollary.
 
-primarykeycorallary
 \begin{corollary}
 \llabel{primarykeycorallary}
 If $\gmodel$ is an entity model then the set $\pk{a}$of all primary key paths 
 with domain entity type $a$ is a mono-source.
 \end{corollary}
 
-factoringprimarykeypath
 \begin{observation}
 \llabel{factoringprimarykeypath}
 If $Q \in \bar{I_a}$ and if $p$ is a primary key path at $a$ then for some node $b$ there exists $q \in Q$, $q: a \morph b$, and there exists 
@@ -474,18 +470,18 @@ Note that it may be that $p \in Q$ in which case $q$ will simply be the empty pa
 \llabel{minimalitycondition}
 
 \begin{definition}
-If $P$ and $Q$ are sets of paths of model $\gmodel$ then say that the set of paths $P$ 
+If $P$ and $Q$ are \newt{sources} of model $\gmodel$ then say that the \newt{source} $P$ 
 \term{is representative of} $Q$ 
 iff $P \simeq Q$ and no proper subset of $P$ is equivalent to $Q$. 
 \end{definition}
 
 We can give another equivalent definition. First define
-a set of paths $P$ to be \term{representative} iff for all $p,p' \in P$,
+a set of paths $P$ to be \term{\newt{skeletal}\oldt{representative}} iff for all $p,p' \in P$,
 $p \simeq p'$ implies $p=p'$. It is easy to see that the following is an equivalent definition of one set of paths representing another:
 
 \begin{definition}
-If $P$ and $Q$ are sets of paths of a model $\gmodel$ then 
-say that the set of paths $P$ \term{is representative of} $Q$ iff $P \simeq Q$ and $P$ is representative. 
+If $P$ and $Q$ are \newt{sources} \oldt{sets of paths} of a model $\gmodel$ then 
+say that the set of paths $P$ \term{is representative of} $Q$ iff $P \simeq Q$ and $P$ is \newt{skeletal}. 
 \end{definition}
 
 \begin{definition}
@@ -521,7 +517,7 @@ Follows from observation \lref{factoringprimarykeypath}.
 A model $\gmodel$ satisfies \term{the minimality condition} iff for every entity type $a$,
 \begin{enumerate}
 \item the set $I_a$ is a minimum mono-source i.e. there is no proper subset which is a mono-source,
-\item whenever a set of paths $P$ is a leaf primary mono-source of $\gmodel$ then no proper subset of $P$ is a mono-source.
+\item whenever a \newt{source} $P$ is a leaf primary mono-source of $\gmodel$ then no proper subset of $P$ is a mono-source.
 \end{enumerate}
 \end{definition}
 
@@ -538,9 +534,8 @@ of  $Q$, then no proper subset of $Q'$ is a mono-source. \commentary{I may have 
 If  $P$ and $Q$ are sources at some object $a$ in an ER model $\gmodel$ and if $P \simeq Q$  then   $P$ is a mono-source in $\gmodel$ iff $Q$ is a mono-source in $\gmodel$.  Further $P$ is a leaf mono-source iff $Q$ is a leaf mono-source. Further, if $P$ and $Q$ are both representative then $P$ is a primary mono-source iff $Q$ is a primary mono-source.
 \end{lemma}
 \begin{proof}
-It follows from the definition of set equivalence that if $P$ and $Q$ are sets of paths in a model $\gmodel$ and if $P \simeq Q$ in $\gmodel$ then in each defining instance $E$ of $\gmodel$, the set of functions $\setsuchthat{E_p}{p \in P}$ is equal to the set of functions $\setsuchthat{E_q}{q \in Q}$ since for
+It follows from the definition of \oldt{set} equivalence \newt{of sources} that if $P$ and $Q$ are \newt{sources} in a model $\gmodel$ and if $P \simeq Q$ in $\gmodel$ then in each defining instance $E$ of $\gmodel$, the set of functions $\setsuchthat{E_p}{p \in P}$ is equal to the set of functions $\setsuchthat{E_q}{q \in Q}$ since for
 paths $p$ and $q$ such that $p \simeq q$, $E_p=E_q$. Therefore if $P$ and $Q$ are sources and $P \simeq Q$ then $P$ is a mono-source iff $Q$ is a mono-source.
-
 
 That $P$ is leaf  iff $Q$ is a leaf 
 follows because $p \simeq q$ implies that the codomain of $p$ is equal to the codomain of $q$.
@@ -571,7 +566,7 @@ if $P$ is a  set of paths in $\gmodel$ that is representative then the set of pa
 \end{lemma}
 \begin{proof}
 Assume such an isomorphism. To show that if $P$ is representative then $\varphi(P)$ is suppose $P$ is representative and that for some $p,p' \in P$,  $\varphi(p) \simeq \varphi(p')$ is $\gmodel'$.  Since $\varphi$ is an isomorphism
-it follows that $\varphi^{-1}(\varphi(p)) \simeq \varphi^{-1}(\varphi(p'))$ in $\gmodel$ and therefore $p \simeq p'$ in
+it follows that $\varphi^{-1}(\varphi(p)) \simeq \varphi^{-1}(\varphi(p'))$ in $\gmodel$ (lemma \lref{mappingspreserveequivalence}) and therefore $p \simeq p'$ in
 $\gmodel$. Now since $P$ is representative we can conclude that $p=p'$ and therefore that $\varphi(p)=\varphi(p')$.
 \end{proof}
 
@@ -582,13 +577,13 @@ it is injective as a mapping of paths i.e. iff  for all paths $p,p'$ of $\gmodel
 
 
 \begin{lemma}
-\llabel{injectiveisosreflectrepresentativesets}
-If $\varphi: \gmodel \morph \gmodel'$ is an injective isomorphism of ER models and
-if $P$ is a  set of paths in $\gmodel$ then if the set of paths $\varphi(P)$ of $\gmodel'$ is representative 
- then the set of paths $P$ of $\gmodel$ is representative. 
+\llabel{isosreflectskeletalsources}
+If $\varphi: \gmodel \morph \gmodel'$ is an \oldt{injective} isomorphism of ER models and
+if $P$ is a  \newt{source} in $\gmodel$ then if the \newt{source} $\varphi(P)$ of $\gmodel'$ is \newt{skeletal} 
+ then the set of paths $P$ of $\gmodel$ is \newt{skeletal}. 
 \end{lemma}
 \begin{proof}
-Assume such an injective isomorphism $\varphi$. Suppose such a set $P$ in $\gmodel$ and suppose that $\varphi(P)$ is representative in $\gmodel'$.  Suppose that  for some $p,p' \in P$, $p \simeq p'$. Since $\varphi$ is an isomorphism it follows that $\varphi(p) \simeq \varphi(p')$ in $\gmodel'$ and then since $\varphi(P)$ is assumed to be representative 
+Assume such an isomorphism $\varphi$. Suppose such a set $P$ in $\gmodel$ and suppose that $\varphi(P)$ is representative in $\gmodel'$.  Suppose that  for some $p,p' \in P$, $p \simeq p'$. Since $\varphi$ is an isomorphism it follows that $\varphi(p) \simeq \varphi(p')$ in $\gmodel'$ (lemma \lref{mappingspreserveequivalence}) and then since $\varphi(P)$ is assumed to be representative 
 that $\varphi(p) = \varphi(p')$ in $\gmodel'$
  from which we can deduce that $p=p'$ in $\gmodel$ since $\varphi$ is assumed to be injective. 
 \end{proof}
@@ -622,14 +617,14 @@ trivial
 \item
 get this from lemma \lref{isospreserverepresentativesets} 
 \item
-follows from lemma \lref{injectiveisosreflectrepresentativesets}
+follows from lemma \lref{isosreflectskeletalsources}
 \end{enumerate}
 
 \end{proof}
 
 \begin{lemma}
 \llabel{representativecontainmentlemma}
-In any ER model $\gmodel$ if $Q$ is a representative sets of paths and if $P \subseteq Q$ and $P \simeq Q$ then $P=Q$.
+In any ER model $\gmodel$ if $Q$ is a \newt{skeletal source} and if $P \subseteq Q$ and $P \simeq Q$ then $P=Q$.
 \end{lemma}
 \begin{proof}
 Follows immediately from the definition of representative.
@@ -662,7 +657,6 @@ iff for all sources $P$ of  $\gmodel$ if
 $\varphi(P)$ is a primary mono-source in $\gmodel'$ then $P$ is a primary mono-source in $\gmodel$.
 \end{definition}
 
-\newpage
 \subsubsection{Construction of Primary Keys}
 
 One of the characteristics of a relational model is that each of the identifying features of a table is a column
@@ -1670,7 +1664,7 @@ is non-trivial. Thus $r_2 ... \circ r_m \circ w$ is not equivalent to a primary 
 \noindent An ER model $\gmodel$ has the \term{\fdfactoring} property iff to every functional dependency $\set{x_1,...x_n} \morph z$ where $x1, x_2, ... x_n$  are \reinstatet{\attributelike} \commentary{\reinstatet{reinstated}}paths either $\set{x_1,...x_n}$ is
 a mono-source or else there is an intransitive functional dependency $\set{y_1,...y_m} \morph z$ which it factors through i.e. such that $\set{x_1,...x_n} \morph \set{y_1,...y_m}$. 
 \end{definition}
-\newpage
+
 \begin{examples}
 For an example of a model in which the fd factoring property does not hold see example \lref{teamselectionpreliminary}.
 
@@ -1871,7 +1865,7 @@ $\set{\xn}$ is a mono-source or $y$ is a primary key.
 \begin{proof}
 \tbd
 \end{proof}
-\subsection{Other Conditions for Relational ER models}
+\subsection{Further Conditions for ER models}
 It is possible for an entity model to have an entity type $a$ and a relationship or path $p$ with both domain and codomain $a$  thus comprising a loop in the graph.
 If in addition the type $a$ is defined to have an attribute $c$ then it is further possible that the path equivalence $p \circ c \simeq c$ holds in the model.
 An instance of such a model is given in example  $\lref{teamselectionpreliminary}$. In this situation we can think of the attribute $c$ as being a fixed property of the loop $p$.
@@ -1945,8 +1939,6 @@ Now it follows that since $r_1 \circ r_2 ... \circ r_m$ is a mono-source then $x
 since $\msfd{x_1,...x_n}{r_1\circ r_2 ... \circ r_m}$, and we have established BCNF.
 With the weaker assumption that the model $\gmodel$ is \highlight{reduced}, there is the additional possibility that $y$ is identifying i.e. is a primary key attribute and we have proved S3NF.
 \end{proof}
-
-\newpage
 
 \section{Chi Transform - a Revised Chen Transformation}
 In this section we define a relational  entity model $\chigmodel$ that corresponds
@@ -2096,7 +2088,6 @@ Therefore each relationship $r: a \morph b$ $\chigmodel$ is represented by an re
 where the paths $p'_i$ are of lower rank than $r$. This completes the proof that $\chigmodel$ is relational.
 \end{proof}
 
-\newpage 
 
 \begin{lemma}
 \llabel{reducedcarrythroughlemma}
@@ -2246,8 +2237,6 @@ if $\gmodel$ is reduced without caveats then  $\chigmodel$ is in BCNF.
 \begin{proof}
 Follows from theorem \lref{maintheorem} and lemma \lref{chilemma} because every simple model is reduced.
 \end{proof}
-
-
 
 
 
