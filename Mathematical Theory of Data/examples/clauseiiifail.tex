@@ -1,0 +1,232 @@
+\begin{figure} [h]
+\begin{center}
+\begin{tabular}{c c}
+$
+\begin{array}{cp{0.9cm}c p{0.05cm} c p{0.05cm}    cp{0.9cm}c}
+             && \Rnode{b1}{b_1} &&                && \Rnode{v1}{v} &&               \\[0.45cm]
+             && \Rnode{b2}{b_2} &&                && \Rnode{v2}{v} &&               \\[-0.1cm]
+\Rnode{a}{a} &&                 &&                &&               &&  \Rnode{c}{c} \\[0.2cm]
+	           &&                 && \Rnode{ap}{a'} &&               &&
+\end{array}
+$
+
+\ncarr[15]{a}{b1} 
+\alabel{s_1}[0.4][0.1]
+\ncarr[10]{a}{b2} 
+\alabel{s_2}[0.4][0.1]
+\ncarr{b1}{v1}
+\alabel{k_1}[0.4]
+\idcomp
+\ncarr{b2}{v2}
+\alabel{k_2}[0.4]
+\idcomp
+\ncarr[-15]{c}{v1}
+\blabel{q_1}[0.4][0.1]
+\idcomp
+\ncarr[-10]{c}{v2}
+\blabel{q_2}[0.4][0.1]
+\idcomp
+\ncarr[-10]{a}{ap} 
+\blabel{r}[0.4]
+\ncarr[-10]{ap}{c} 
+\blabel{r'}[0.4]
+\end{tabular}
+\end{center}
+\caption{Scenario for failure of clause (iii)
+}
+\label{clauseiiifail}
+\end{figure}
+
+Suppose that in an ER model there are entity types and relationships as shown and suppose that 
+\begin{equation}
+\label{clauseiiifailurescenario}
+\incd{a}{s_1 \circ k_1,s_2 \circ k_2}{c}{q_1,q_2}
+\end{equation}
+ is a leaf primary referential inclusion dependency that is represented by path $r \circ r'$. Suppose that
+the relationship $r'$ is not identifying-like so that  the path $r \circ r'$ is not relationship-like. Assume also that 
+there is no relationship-like path that is equivalent to $r \circ r'$. In such a situation
+clause (iii) of the definition of well-formulated does not hold.
+
+The first question I need to answer is does this example suggest clause (iii) is really needed and if it does how can 
+it be achieved with violating the requirement for the model to be reduced?
+\subsection {Does failure of clause (iii) cause bad?}
+Suppose $a$ is identified by a single attribute $k_a : a \morph \veee$ and likewise $a'$ by  $k_a' : a' \morph \veee$.
+Suppose $b_1$ is identified by $k_1$ and $b_2$ by $k_2$. There are quite a number of possibilities here.
+\subsubsection{Two inequalities}
+One possible problematic case for the relational model is if attributes $\qq{s_1 \circ k_1}$ and $\qq{s_2 \circ k_2}$ both make it into the relational model. For this to happen must \underline{not}  be the case that for each
+$i$, $i = 1,2$, $s_i \circ k_i \simeq r \circ r' \circ q_i$. 
+
+Note that by lemma \lref{inclusiondependencyrestrictionlemma} we have
+\begin{equation}
+\label{clauseiiifailureinequality}
+r \circ r' \circ q_i \leq s_i \circ k_i
+\end{equation}
+
+and therefore 
+\begin{equation}
+\label{clauseiiifailureinequality}
+r \circ r' \circ q_i < s_i \circ k_i
+\end{equation}
+
+In the relational model we have
+\begin{equation}
+\label{errantfd}
+\msfd{\qq{s_1 \circ k_1},\qq{s_2 \circ k_2}}{r \circ r'}
+\end{equation}
+Now two cases: 
+\paragraph{ $\msfd{\qq{s_1 \circ k_1},\qq{s_2 \circ k_2}}{r \circ r'}$ is Intransitive}
+
+One way that this can happen is in the following schema
+\begin{figure} [h]
+\begin{center}
+\begin{tabular}{c c}
+$
+\begin{array}{cp{0.9cm}c p{0.05cm} c p{0.05cm}    cp{0.9cm}c}
+             &&                 &&                && \Rnode{v0}{v} &&               \\[0.45cm]
+             && \Rnode{b1}{b_1} &&                && \Rnode{v1}{v} &&               \\[0.45cm]
+             && \Rnode{b2}{b_2} &&                && \Rnode{v2}{v} &&               \\[-0.1cm]
+\Rnode{a}{a} &&                 &&                &&               &&  \Rnode{c}{c} \\[0.3cm]
+	           &&                 && \Rnode{ap}{a'} &&               &&               \\[0.2cm]
+						 &&                 &&                && \Rnode{v3}{v} &&               
+\end{array}
+$
+\ncarr[50]{a}{v0} 
+\alabel{K_a}[0.4][0.1]
+\idcomp
+\ncarr[15]{a}{b1} 
+\alabel{s_1}[0.4][0.1]
+\ncarr[10]{a}{b2} 
+\alabel{s_2}[0.4][0.1]
+\ncarr{b1}{v1}
+\alabel{k_1}[0.4]
+\idcomp
+\ncarr{b2}{v2}
+\alabel{k_2}[0.4]
+\idcomp
+\ncarr[-15]{c}{v1}
+\blabel{q_1}[0.4][0.1]
+\idcomp
+\ncarr[-10]{c}{v2}
+\blabel{q_2}[0.4][0.1]
+\idcomp
+\ncarr[-10]{a}{ap} 
+\blabel{r}[0.4]
+\ncarr[-10]{ap}{c} 
+\blabel{r'}[0.4]
+\ncarr[-10]{c}{ap} 
+\blabel{r''}[0.5]
+\ncarr[-10]{ap}{v3} 
+\blabel{K_{a'}}[0.4]
+\idcomp
+\end{tabular}
+\end{center}
+\caption{Schema for failure of clause (iii) with intransitive functional dependency
+}
+\label{clauseiiifailschema}
+\end{figure}
+
+in which $r \circ r' \circ r'' \simeq r$.
+
+The relational model $\chi(\gamma)$ has table $a$ as follows:
+\begin{equation}
+a(\underline{K_a},\qq{s_1 \circ k_1},\qq{s_2 \circ k_2},\qq{r \circ K_{a'}})
+\end{equation}
+and an intransitive functional dependency
+\begin{equation}
+\label{clauseiiifailtransitivecounterTNFfd}
+\msfd{\qq{s_1 \circ k_1},\qq{s_2 \circ k_2}}{\qq{r \circ K_{a'}}}
+\end{equation}
+
+on account of which this table is not in BCNF nor in TNF.
+
+If we normalise this schema then table $a$ is split into $a$ and $a_0$ as follows:
+\begin{equation}
+a(\underline{K_a},\qq{s_1 \circ k_1},\qq{s_2 \circ k_2})
+\end{equation}
+\begin{equation}
+a_0(\underline{\qq{s_1 \circ k_1}},\underline{\qq{s_2 \circ k_2}},\qq{r \circ K_{a'}})
+\end{equation}
+which can be abstracted to the following logical ER model:
+
+\begin{figure} [h]
+\begin{center}
+\begin{tabular}{c c}
+$
+\begin{array}{cp{0.9cm} cp{0.9cm} c p{0.05cm} c p{0.05cm}    cp{0.9cm}c}
+             &&                &&                 &&                && \Rnode{v0}{v} &&               \\[0.45cm]
+             &&                && \Rnode{b1}{b_1} &&                && \Rnode{v1}{v} &&               \\[0.45cm]
+             &&                && \Rnode{b2}{b_2} &&                && \Rnode{v2}{v} &&               \\[-0.1cm]
+\Rnode{a}{a} &&\Rnode{a0}{a_0} &&                 &&                &&               &&  \Rnode{c}{c} \\[0.3cm]
+             &&	               &&                 && \Rnode{ap}{a'} &&               &&               \\[0.2cm]
+             &&						     &&                 &&                && \Rnode{v3}{v} &&               
+\end{array}
+$
+\ncarr[40]{a}{v0} 
+\alabel{K_a}[0.4][0.1]
+\idcomp
+\ncarr[15]{a}{b1} 
+\alabel{s_1}[0.4][0.1]
+\ncarr[10]{a}{b2} 
+\alabel{s_2}[0.4][0.1]
+\ncarr{a}{a0} 
+%\alabel{e}[0.4][0.1]
+\blabel{e (epi)}[0.3][0.1]
+\ncarr[15]{a0}{b1} 
+\alabel{s_1}[0.4][0.1]
+\idcomp
+\ncarr[10]{a0}{b2} 
+\alabel{s_2}[0.4][0.1]
+\idcomp
+\ncarr{b1}{v1}
+\alabel{k_1}[0.4]
+\idcomp
+\ncarr{b2}{v2}
+\alabel{k_2}[0.4]
+\idcomp
+\ncarr[-15]{c}{v1}
+\blabel{q_1}[0.4][0.1]
+\idcomp
+\ncarr[-10]{c}{v2}
+\blabel{q_2}[0.4][0.1]
+\idcomp
+\ncarr[-10]{a0}{ap} 
+\blabel{r}[0.4]
+\blabel{(total)}[0.4][0.25cm]
+\ncarr[-10]{ap}{c} 
+\blabel{r'}[0.4]
+\ncarr[-10]{c}{ap} 
+\blabel{r''}[0.5]
+\ncarr[-10]{ap}{v3} 
+\blabel{K_{a'}}[0.4]
+\idcomp
+\end{tabular}
+\end{center}
+\caption{Normalised schema for failure of clause (iii) with intransitive functional dependency
+}
+\label{clauseiiifailnormalisedschema}
+\end{figure}
+
+{\large THE BIG QUESTION -- what property does this ER model exhibit which distinguishes it goodnesswise from the starting model?}
+
+For one thing $r \circ r' \circ q_1 \simeq s_1 \circ k_1$ and $r \circ r' \circ q_2 \simeq s_2 \circ k_2$
+and so you could say that the inclusion dependency $\incd{a_0}{s_1 \circ k_1,s_2 \circ k_2}{c}{q_1,q_2}$ 
+is \underline{explicitly} represented by $r \circ r'$. 
+
+What this would mean for clause iii would be a further possibility so that a leaf inclusion dependency is 
+represented by a relationship-like path \underline{or else has an explicit representation}. 
+\footnote{If this is required then I feel it is worthwhile since I regard ER modelling as Hilbert did that which Cantor created. }.
+
+\paragraph{Transitive}
+
+\vspace {0.5cm}
+\subsubsection{Another possibility}
+Another is if $r' \circ q_1$ is equivalent to an identifying path $q'_1$, say, so that the relational schema
+has an attribute $\qq{r \circ q'}$ and a functional dependency $\ssfd{\qq{s_1 \circ k_1}}{\qq{r \circ q'_1}}$. \\
+
+\vspace {0.5cm}
+
+\begin{enumerate}[(A)]
+\item Suppose $r \circ r' \circ q_1 < s_1 \circ k_1$ and $r \circ r' \circ q_2 < s_2 \circ k_2$. 
+
+\end{enumerate}
+
