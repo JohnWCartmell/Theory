@@ -970,8 +970,7 @@ then relationship $r$ represents the inclusion dependency  $\incd{a}{\pntuple}{b
 \begin{lemma}
 \llabel{inclusiondependencyrestrictionlemma}
 If $\incd{a}{x_1,...x_n}{b}{q_1,...q_n}$ is a referential inclusion dependency in an ER model $\gmodel$ 
-represented by a path $p:a \morph b$ then for each $j$, $1 \leq j \leq n$, $p \circ q_j \leq x_j$
-and in each defining instance $E$,
+represented by a path $p:a \morph b$ then in each defining instance $E$,
 $$E_p \circ E_{q_j} = \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq i \leq n}{ i \neq j}}{\overline{E_{x_i}}}\circ E_{x_j}$$
 \end{lemma}
 \begin{proof}
@@ -982,6 +981,13 @@ E_p \circ E_{q_j} &=  E_{\xntuple} \circ E ^{-1}_{\qntuple} \circ E_{q_j}  && \m
 									&= \bigwedge\limits_{\genfrac{}{}{0pt}{}{1 \leq i \leq n}{ i \neq j}}{\overline{E_{x_i}}}\circ E_{x_j} && \mbox{by lemma \lref{tupleprojection}.}
 \end{align*}
 \end{proof}
+
+\begin{corollary}
+\llabel{inclusiondependencyrestrictioncorollary}
+If $\incd{a}{x_1,...x_n}{b}{q_1,...q_n}$ is a referential inclusion dependency in an ER model $\gmodel$ 
+represented by a path $p:a \morph b$ then for each $j$, $1 \leq j \leq n$, $p \circ q_j \leq x_j$.
+\end{corollary}
+
 
 
 \subsection{Functional Dependencies}
@@ -1563,7 +1569,12 @@ and a  path $w:d \morph c$  such that $y \simeq p \circ w$. If $c$ is $\veee$ th
 the path $w$ is non-empty and if $y$ is an edge and $\gmodel$ is leaf\commentary{notice that only need leaf-restriction free} restriction free then
 supposing $p$ is a path of length $m$, for some $m \geq 1$, supposing say $ p = r_1 \circ r_2 ... \circ r_m$ 
  in $\gmodel$,   where each $r_i$ is a relationship, then $r_2 ... \circ r_m \circ w$
-is not equivalent to a primary key path.
+is not equivalent to a primary key path
+
+\begin{newtt}
+and $x_i \simeq p \circ q_i$ and if $x_i$ is an attribute and $\gmodel$ is reduced then either $p$ is relationship-like or else $p$ is a mono-source (?) an therefore $\set{\xn}$ is a monos-source?? \commentary{mark up early Aug 2020}
+\end{newtt}
+.
 \end{lemma}
 \begin{proof}
 Since $\gmodel$ is well-formulated  and there is an intransitive functional dependency $\set{x_1,...x_n} \morph y$ then either $\set{\xn}$ is a mono-source and we are done or else the functional dependency
@@ -1679,8 +1690,9 @@ that the functional dependency  $\mmfd{\xnprime}{z'}$ factors through an intrans
 
 \begin{oldtt}
 \begin{lemma}
-\llabel{mainlemma}
-In a well-formulated model $\gmodel$ that has the \fdfactoring\ property if $\set\xn$ are relationship key and
+\llabel{mainlemma} \commentary{reinstate?}
+In a well-formulated model $\gmodel$ that has the \fdfactoring\ property if $\set\xn$ are relationship key 
+\newt{paths in $\gmodel$} and
 $\msfd{\xn}{z}$ is a non-trivial (\reinstatet{leaf}) functional dependency sourced
 at some entity type $a$ then either $\set{\xn}$ is a mono-source in $\gmodel$
 or else there is an entity type $d$ and there is a
@@ -1732,11 +1744,12 @@ These are used in the following definition:
 A \term{primary relational ER model} is an  ER model that also satisfies:
 \begin{enumerate}[(i)]
 \item
-it is primarily keyed i.e. all identifying edges are attributes, 
+\oldt{it is primarily keyed i.e. }all identifying edges are attributes, 
+\item \newt{there are no relationships of rank $0$}
 \item
 all relationships are ranked i.e. there are no relationships of null rank,
 \item 
-for each primary referential inclusion dependency\footnote{Note that in a relational ER model every primary referential inclusion dependency is simple because each primary key path is an attribute because the only identifying edges are attributes.} there is a relationship which represents it
+for each \newt{leaf?} primary referential inclusion dependency\footnote{Note that in a relational ER model every primary referential inclusion dependency is simple because each primary key path is an attribute because the only identifying edges are attributes.} there is a relationship\newt{-like path?\footnote{dont want to imply $R \circ I$ needs a relationship alias}} which represents it
 \footnote{If we assume a tidiness condition then such a relationship will necessarily be unique}.\commentary{Note that in an ER model that is primarily keyed the only paths that are relationship-like paths of length 1 between entity types i.e. are relationships.}
 \end{enumerate} 
 \end{definition}
@@ -1756,6 +1769,21 @@ Likewise every relational schema that consists of relations with primary keys an
 For the time being we restrict attention to primary relational ER models. 
 
 \subsection{The First-cut Transformation}
+
+In this section we define a relational  entity model $\chigmodel$ that corresponds
+to suitable ER models $\gmodel$. The $\chit$ transformation that we so describe is a refinement
+of a transformation that we described in  section \lref{rkaconstruction} as
+\begin{equation}
+\label{firstcuttransform}
+\gmodel \mapsto \gmodel + \sq{\underline{pk}_\gmodel} + \sq{\rkp}
+\end{equation}
+and that was first described by Chen and subsequently prescribed in a range of software design methodologies and accordingly implemented in associated CASE tools. This transformation is sometimes said to produce a first-cut relational design because generally the model produced requires normalisation to achieve an appropriate database normal form such as 3NF or BCNF. 
+In contrast we shall show that the transformation $\chit$ defined here produces relational models $\chigmodel$ that are in 3NF and, if appropriate, BCNF and are free of attribute redundancy.
+ 
+As described in section \lref{rkaconstruction}, the transformation (\ref{firstcuttransform}) can be improved to by taking note of equivalent relationship key paths and
+either dropping duplicates or, equally, thinking of the added attributes as corresponding to equivalence classes of 
+equivalent relationship key paths wrt the equivalence relation $\simeq$ of path equivalence. 
+
 This is the transformation from an ER model to a relational schema described informally by Chen[\cite{???}], prescribed, in essence, in software methodologies such as SSADM and described 
 in the book of Barker.
 
@@ -1764,7 +1792,7 @@ In an ER model $\gmodel$ a path $p: a \morph \veee$ is said to be a \term{relati
 \end{definition}
 
 Denote the set of all referential key paths of an entity model $\gmodel$ by $\rkp$.
-Note that $\pk \subseteq \rkp$ in spirit but not in fact?. \commentary{Check this in regard to identifying attributes.}
+
 \begin{definition}
 In an ER model $\gmodel$ a \term{relationship key attribute}\footnote{The term referential attribute is used 
 for such attributes in the ISO SQL standard and  more widely these are referred to as foreign keys which is a terminology that I can't bring myself to use.} of an entity type $a$ is an attribute
@@ -1775,7 +1803,9 @@ such that $x \simeq r \circ q$.
 Referential attributes are a significant feature of relational and hierarchical ER models.
 The first cut relational ER model traditionally associated with an ER model representing 
 a logical design can be described using the constructions described so far as
-\highlight{$\firstcutmodel$}. Generally this first cut relational model will not be alias-free and so it can be improved upon by trimming aliases. The trimmed model we shall denote by 
+\highlight{$\firstcutmodel$}. 
+
+Generally\commentary{move down into attribute redundancy}  this first cut relational model will not be alias-free and so it can be improved upon by trimming aliases. The trimmed model we shall denote by 
 \highlight{$\trimmedfirstcutmodel$} 
 \begin{lemma}
 If $\gmodel$ is an ER model then $\firstcutmodel$ is a relational ER model.
@@ -1936,24 +1966,13 @@ With the weaker assumption that the model $\gmodel$ is \highlight{reduced}, ther
 \end{proof}
 
 \section{Chi Transform - a Revised Chen Transformation}
-In this section we define a relational  entity model $\chigmodel$ that corresponds
-to suitable ER models $\gmodel$. The $\chit$ transformation that we so describe is a refinement
-of a transformation that we described in  section \lref{rkaconstruction} as
-\begin{equation}
-\label{firstcuttransform}
-\gmodel \mapsto \gmodel + \sq{\underline{pk}_\gmodel} + \sq{\rkp}
-\end{equation}
-and that was first described by Chen and subsequently prescribed in a range of software design methodologies and accordingly implemented in associated CASE tools. This transformation is sometimes said to produce a first-cut relational design because generally the model produced requires normalisation to achieve an appropriate database normal form such as 3NF or BCNF. 
-In contrast we shall show that the transformation $\chit$ defined here produces relational models $\chigmodel$ that are in 3NF and, if appropriate, BCNF and are free of attribute redundancy.
- 
-As described in section \lref{rkaconstruction}, the transformation (\ref{firstcuttransform}) can be improved to by taking note of equivalent relationship key paths and
-either dropping duplicates or, equally, thinking of the added attributes as corresponding to equivalence classes of 
-equivalent relationship key paths wrt the equivalence relation $\simeq$ of path equivalence. 
+
+\begin{oldtt}
 The transformation $\chit$ is arrived at by omiting other redundant relationship key paths. 
+\end{oldtt}
 
 \subsection{Boolean-Equivalent Relationships}
-...............
-\iffalse
+
 In some cases there are a number of ways of choosing the subset $R$ and  in these cases there are several ways of choosing
 a model $\chit(\gmodel)$. This situation arises in the presence of relationships in $\gmodel$ which, in context, are the equiavlent of boolean attributes. To simplify and because in practice these situations can be avoided we will omit these cases from from consideration. 
 \begin{definition}
@@ -1981,11 +2000,8 @@ If an edge is a restriction then it is \newt{boolean-equivalent}.
 \begin{proof}
 \tbd
 \end{proof}
-\fi
 
 \subsection{Definition of $\chi$}
-
-
 
 Chi is defined by 
 
@@ -2001,7 +2017,7 @@ where $\nrkp$, the set of non-redundant relationship key paths of $\gmodel$, is 
                \text{  such that either } r \circ q < s \text{ or else } s \not \in \rkp \text{ and }
 							     r \circ q \simeq s \text{ in } \gmodel}
 \end{equation*}
-We define the model $\chigmodel$  \index[definitions]{$\chi$}  be a further improvement to the first-cut transformation obtained by excluding  from  the transformed model $\firstcutimproved(\gmodel)$ those attributes $\qq{r \circ q}$ for which either there exists a \sout{unique}  path $s$ such that  $r \circ q < s$ or for which there exists a path $s$ which is not a relationship key path and 
+We define the model $\chigmodel$  \index[definitions]{$\chi$}  be a further improvement to the first-cut transformation obtained by excluding  from  the transformed model those attributes $\qq{r \circ q}$ for which either there exists a \sout{unique}  path $s$ such that  $r \circ q < s$ or for which there exists a path $s$ which is not a relationship key path and 
 for which y$r \circ q \simeq s$.
 
 \begin{definition}
