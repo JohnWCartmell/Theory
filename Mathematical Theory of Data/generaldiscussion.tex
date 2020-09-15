@@ -8,6 +8,9 @@
 \newcounter{para}
 \newcommand\note{\par\refstepcounter{para}\thepara.\space}
 
+\newcommand{\reqt}{\textbf{R}}
+\newcommand{\finset}{\underline{Fin}}
+
 \begin{document}
 \title{General Theory}
 
@@ -20,12 +23,16 @@
 DRAFT
 \end{center}
 
+\section*{Generalities}
 \note
 Data specifications are theories of what is
 and different methodologies for data specification, i.e. different notions of data specification, correspond to different notions of theory. 
 
 \note
-Data specifications have instances.  Notionally let there be a set S of instances that are intended or forseen and characterise the intended use of the data structure. Of all possible instances of a data specification some fall within S and some may not.
+Data specifications have instances.  Of all structurally possible instances some are required as instances for the intended useage 
+and some are not. 
+
+Notionally let there be a requirement $R$ determining a set of data instances that are intended or forseen and characterise the intended use of the data specification. Of all possible instances of a data specification some fall within $R$ and some may not.
 
 \note
 When viewed abstractly many apparently different notions of data specification can be characterised as having
@@ -46,9 +53,46 @@ of data instances while being general enough for the intended useage; equivalent
 
 \note
 We can define goodness criteria for data specifications if we have a notion of all instances which the data specification is a theory of
-i.e. an intended usegae. 
+i.e. an intended useage. 
 
 \note
-Goodness equates to absence of redundancy and tightness to intended useage.
+Goodness equates to absence of redundancy plus tightness to intended useage. Absence of redundancy is a property of a sketch. Tightness
+is a property of a category $\cat{C}$ relative to a requirement $R$ which is viewed as a set of instances $R_C$ of $\cat{C}$.
+
+\section*{Tightness}
+The specifics of the tightness definition for the simplest notion \term{sketch of category as data specification} are not very interesting in and by themselves but they set the pattern for what is to come and this is definitely interesting because as the notion of data specification is refined this tightness definition develops into the 3rd, 4th and 5th normal form definitions of relational database theory.
+\subsection*{Sketch of category as data specification - Tightness}
+If $\cat{C}$ is a category and $\reqt_\cat{C}$ is a set of instances i.e a set of functors $D$, $D: \cat{C} \morph \finset$ then $\cat{C}$ is 
+\term{tight} to the requirement $\reqt$ iff
+\begin{enumerate}[(a)]
+\item for all diagrams
+\begin{displaymath}
+\begin{array}{c p{1cm} c  }
+             &&   \Rnode{b}{b} \\[0.5cm]
+\Rnode{a}{a} &&                \\[0.5cm] 
+             &&   \Rnode{c}{c}         
+\end{array} 
+\end{displaymath}
+\ncarr{a}{b}
+\alabel{f}
+\ncarr{a}{c}
+\blabel{g}
+in $\cat{C}$ if in all instances $D \in \reqt$, there exist a unique function $D_h : D(b) \morph D(c)$ such that
+$D(f) \circ D_h = D(g)$ then there exists a morphism $h:b \morph c$ in $\cat{C}$ such that $f \circ h = g$ in $\cat{C}$, and
+\item for all diagrams
+\begin{displaymath}
+\begin{array}{c p{1cm} c  }
+\Rnode{a}{a} &&                \\[0.5cm] 
+             &&   \Rnode{b}{b} \\[0.5cm]
+\Rnode{c}{c}         
+\end{array} 
+\end{displaymath}
+\ncarr{a}{b}
+\alabel{f}
+\ncarr{c}{b}
+\blabel{g}
+in $\cat{C}$ if in all instances $D \in \reqt$, there exist a unique function $D_h : D(c) \morph D(a)$ such that
+$D_h \circ D(f) = D(g)$ then there exists a morphism $h:c \morph a$ in $\cat{C}$ such that $h \circ f = g$ in $\cat{C}$.
+\end{enumerate}
 
 \end{document}
