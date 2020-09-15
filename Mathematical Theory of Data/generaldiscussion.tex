@@ -8,8 +8,11 @@
 \newcounter{para}
 \newcommand\note{\par\refstepcounter{para}\thepara.\space}
 
+
+\newcommand{\catc}[1][C]{\textbf{#1}}
 \newcommand{\reqt}{\textbf{R}}
-\newcommand{\finset}{\underline{Fin}}
+\newcommand{\reqtc}[1][\catc]{\reqt_{#1}}
+\newcommand{\Fin}{\ensuremath{\mathbb{F\mathrm{in}} }}
 
 \begin{document}
 \title{General Theory}
@@ -57,42 +60,58 @@ i.e. an intended useage.
 
 \note
 Goodness equates to absence of redundancy plus tightness to intended useage. Absence of redundancy is a property of a sketch. Tightness
-is a property of a category $\cat{C}$ relative to a requirement $R$ which is viewed as a set of instances $R_C$ of $\cat{C}$.
+is a property of a category $\catc$ relative to a requirement $\reqt$ which is viewed as a set of instances $\reqtc$ of $\catc$.
 
 \section*{Tightness}
 The specifics of the tightness definition for the simplest notion \term{sketch of category as data specification} are not very interesting in and by themselves but they set the pattern for what is to come and this is definitely interesting because as the notion of data specification is refined this tightness definition develops into the 3rd, 4th and 5th normal form definitions of relational database theory.
 \subsection*{Sketch of category as data specification - Tightness}
-If $\cat{C}$ is a category and $\reqt_\cat{C}$ is a set of instances i.e a set of functors $D$, $D: \cat{C} \morph \finset$ then $\cat{C}$ is 
-\term{tight} to the requirement $\reqt$ iff
+\begin{definition}
+If $\catc$ is a category and $\reqtc$ is a set of instances i.e a set of functors $D$, $D: \catc \morph \Fin$ then $\catc$ is 
+\term{tight} to the requirement $\reqtc$ iff
 \begin{enumerate}[(a)]
+
+\item
+for all diagrams
+$
+\begin{array}{c p{0.5cm} c  }
+ \Rnode{a}{a}            &&   \Rnode{b}{b}
+\end{array} 
+$
+\ncarc[nodesep=2pt,arcangle=10,offset=2pt]{->}{a}{b}
+\alabel{f}
+\ncarc[nodesep=2pt,arcangle=-10,offset=-2pt]{->}{a}{b}
+\blabel{g}
+in $\catc$,  if in all instances $D \in \reqtc$, $D(f)=D(g)$, 
+then $f=g$ in $\catc$, and 
 \item for all diagrams
-\begin{displaymath}
-\begin{array}{c p{1cm} c  }
-             &&   \Rnode{b}{b} \\[0.5cm]
-\Rnode{a}{a} &&                \\[0.5cm] 
+$
+\begin{array}{c p{0.5cm} c  }
+             &&   \Rnode{b}{b} \\[0.01cm]
+\Rnode{a}{a} &&                \\[0.01cm] 
              &&   \Rnode{c}{c}         
 \end{array} 
-\end{displaymath}
+$
 \ncarr{a}{b}
 \alabel{f}
 \ncarr{a}{c}
 \blabel{g}
-in $\cat{C}$ if in all instances $D \in \reqt$, there exist a unique function $D_h : D(b) \morph D(c)$ such that
-$D(f) \circ D_h = D(g)$ then there exists a morphism $h:b \morph c$ in $\cat{C}$ such that $f \circ h = g$ in $\cat{C}$, and
+in $\catc$, if in all instances $D \in \reqtc$ there exist a unique function $D_h : D(b) \morph D(c)$ such that
+$D(f) \circ D_h = D(g)$ then there exists a morphism $h:b \morph c$ in $\catc$ such that $f \circ h = g$ in $\catc$, and
 \item for all diagrams
-\begin{displaymath}
-\begin{array}{c p{1cm} c  }
-\Rnode{a}{a} &&                \\[0.5cm] 
-             &&   \Rnode{b}{b} \\[0.5cm]
+$
+\begin{array}{c p{0.5cm} c  }
+\Rnode{a}{a} &&                \\[0.01cm] 
+             &&   \Rnode{b}{b} \\[0.01cm]
 \Rnode{c}{c}         
 \end{array} 
-\end{displaymath}
+$
 \ncarr{a}{b}
 \alabel{f}
 \ncarr{c}{b}
-\blabel{g}
-in $\cat{C}$ if in all instances $D \in \reqt$, there exist a unique function $D_h : D(c) \morph D(a)$ such that
-$D_h \circ D(f) = D(g)$ then there exists a morphism $h:c \morph a$ in $\cat{C}$ such that $h \circ f = g$ in $\cat{C}$.
+\blabel{g} 
+in $\catc$, if in all instances $D \in \reqtc$ there exist a unique function $D_h : D(c) \morph D(a)$ such that
+$D_h \circ D(f) = D(g)$ then there exists a morphism $h:c \morph a$ in $\catc$ such that $h \circ f = g$ in $\catc$.
 \end{enumerate}
+\end{definition}
 
 \end{document}
