@@ -5,14 +5,16 @@
 
 \input{thepreamble.tex}
 
+\theoremstyle{remark}
+\newtheorem*{lemma*}{Lemma}
 \newcounter{para}
 \newcommand\note{\par\refstepcounter{para}\thepara.\space}
-
-
 \newcommand{\catc}[1][C]{\textbf{#1}}
 \newcommand{\reqt}{\textbf{R}}
 \newcommand{\reqtc}[1][\catc]{\reqt_{#1}}
 \newcommand{\Fin}{\ensuremath{\mathbb{F\mathrm{in}} }}
+
+\newcommand{\fundep}[3]{#2 \xrightarrow{#1} #3}
 
 \begin{document}
 \title{General Theory}
@@ -26,7 +28,7 @@
 DRAFT
 \end{center}
 
-\section*{Generalities}
+\section{Generalities}
 \note
 Data specifications are theories of what is
 and different methodologies for data specification, i.e. different notions of data specification, correspond to different notions of theory. 
@@ -35,7 +37,7 @@ and different methodologies for data specification, i.e. different notions of da
 Data specifications have instances.  Of all structurally possible instances some are required as instances for the intended useage 
 and some are not. 
 
-Notionally let there be a requirement $R$ determining a set of data instances that are intended or forseen and characterise the intended use of the data specification. Of all possible instances of a data specification some fall within $R$ and some may not.
+Notionally let there be a requirement $R$ determining a set of data instances that are intended or forseen and that characterise the intended use of the data specification. Of all possible instances of a data specification some fall within $R$ and some may not.
 
 \note
 When viewed abstractly many apparently different notions of data specification can be characterised as having
@@ -64,12 +66,12 @@ is a property of a category $\catc$ relative to a requirement $\reqt$ which is v
 
 \section*{Tightness}
 The specifics of the tightness definition for the simplest notion \term{sketch of category as data specification} are not very interesting in and by themselves but they set the pattern for what is to come and this is definitely interesting because as the notion of data specification is refined this tightness definition develops into the 3rd, 4th and 5th normal form definitions of relational database theory.
-\subsection*{Sketch of category as data specification - Tightness}
+
+\section{Data Specification as Category}
 \begin{definition}
 If $\catc$ is a category and $\reqtc$ is a set of instances i.e a set of functors $D$, $D: \catc \morph \Fin$ then $\catc$ is 
 \term{tight} to the requirement $\reqtc$ iff
 \begin{enumerate}[(a)]
-
 \item
 for all diagrams
 $
@@ -95,8 +97,8 @@ $
 \alabel{f}
 \ncarr{a}{c}
 \blabel{g}
-in $\catc$, if in all instances $D \in \reqtc$ there exist a unique function $D_h : D(b) \morph D(c)$ such that
-$D(f) \circ D_h = D(g)$ then there exists a morphism $h:b \morph c$ in $\catc$ such that $f \circ h = g$ in $\catc$, and
+in $\catc$, if in all instances $D \in \reqtc$ there exist a unique function $h_D : D(b) \morph D(c)$ such that
+$D(f) \circ h_D = D(g)$ then there exists a morphism $h:b \morph c$ in $\catc$ such that $f \circ h = g$ in $\catc$, and
 \item for all diagrams
 $
 \begin{array}{c p{0.5cm} c  }
@@ -109,9 +111,134 @@ $
 \alabel{f}
 \ncarr{c}{b}
 \blabel{g} 
-in $\catc$, if in all instances $D \in \reqtc$ there exist a unique function $D_h : D(c) \morph D(a)$ such that
-$D_h \circ D(f) = D(g)$ then there exists a morphism $h:c \morph a$ in $\catc$ such that $h \circ f = g$ in $\catc$.
+in $\catc$, if in all instances $D \in \reqtc$ there exist a unique function $h_D : D(c) \morph D(a)$ such that
+$h_D \circ D(f) = D(g)$ then there exists a morphism $h:c \morph a$ in $\catc$ such that $h \circ f = g$ in $\catc$.
 \end{enumerate}
 \end{definition}
+
+\subsection{Condition (b) - Functional Depedencies}
+If $\catc$ is a category and $\reqtc$ is a set of instances and if
+$
+\begin{array}{c p{0.5cm} c  }
+             &&   \Rnode{b}{b} \\[0.01cm]
+\Rnode{a}{a} &&                \\[0.01cm] 
+             &&   \Rnode{c}{c}         
+\end{array} 
+$
+\ncarr{a}{b}
+\alabel{f}
+\ncarr{a}{c}
+\blabel{g}
+in $\catc$ 
+then if the property that we see in condition (b) holds, namely 
+that  in all instances $D \in \reqtc$ there exist a unique function $h_D : D(b) \morph D(c)$ such that
+$D(f) \circ h_D = D(g)$, then we shall say that $g$ is functionally dependent on $f$ in  context $\tuple{\catc,\reqtc}$.
+The concept of functional dependency was defined by Codd in \cite{Codd} in the context of relational data model. 
+Our use of the term here is a sort of prototype that will develop as we evolve through a number of steps from 'data model as sketch of category' to a definition equivalent to Codd's definition.  In relational database theory it is usual
+to represent such a functional dependensy as we have here by asserting that 
+$$
+f \morph g
+$$
+Note that this use of an $\morph$ notation is independent of our use of $\morph$ as a morphism of a category 
+or, for that matter, as an edge in a sketch. We have two uses for $\morph$ then (three if you distingish arrows in sketches from arrows in categories). Any particular use will be unambiguous in context. We can develop this thought a bit further and proceed with the following definition of functional dependency which, because we are 
+working at this first stage of evolution (`data specification as sketch of category'), we shall say is sense (1)
+of the term.
+\begin{definition}
+If $\catc$ is a category and $\reqtc$ is a set of instances and if
+$
+\begin{array}{c p{0.5cm} c  }
+             &&   \Rnode{b}{b} \\[0.01cm]
+\Rnode{a}{a} &&                \\[0.01cm] 
+             &&   \Rnode{c}{c}         
+\end{array} 
+$
+\ncarr{a}{b}
+\alabel{f}
+\ncarr{a}{c}
+\blabel{g}
+in $\catc$ 
+then, in sense (1), a \term{functional dependency} $\fundep{H}{f}{g}$ is a family of functions $H_D)_{D \in \reqtc}$ such that in each instance $D$, $H_D$ is a unique function $H_D: D(a) \morph D(b)$, such that $D(f) \circ H_D = D(g)$.
+\end{definition}
+
+\begin{lemma*}
+If $\catc$ is a category and $\reqtc$ is a set of instances and $\catc$ is tight to $\reqtc$
+then if
+$
+\begin{array}{c p{0.5cm} c  }
+             &&   \Rnode{b}{b} \\[0.01cm]
+\Rnode{a}{a} &&                \\[0.01cm] 
+             &&   \Rnode{c}{c}         
+\end{array} 
+$
+\ncarr{a}{b}
+\alabel{f}
+\ncarr{a}{c}
+\blabel{g}
+in $\catc$ and if there is a functional dependency $\fundep{H}{f}{g}$ with respect to $\tuple{\catc,\reqtc}$ then 
+$f$ is an epimorphism in $\catc$.\commentary{Check}
+\end{lemma*}
+\begin{proof}
+Suppose 
+\rule[-0.5cm]{0pt}{0.5cm} %to add vertical space below diagrm
+$
+\begin{array}{c p{0.5cm} c p{0.5cm} c}
+\Rnode{a}{a} &&   \Rnode{b}{b} &&   \Rnode{c}{c} 
+\end{array} 
+$
+\ncarr{a}{b}
+\alabel{f}
+\ncarc[nodesep=2pt,arcangle=10,offset=2pt]{->}{b}{c}
+\alabel{h_1}
+\ncarc[nodesep=2pt,arcangle=-10,offset=-2pt]{->}{b}{c}
+\blabel{h_2}
+in $\catc$ and suppose that $f \circ h_1=f \circ h_2$, then in each instance 
+ $D \in \reqtc$, $D(f) \circ D(h_1) = D(f) \circ D(h_2)$ but $D(h_1)$ is a unique function such that
+$D(f) \circ D(h_1) = D(f \circ h_1)$ and therefore $D(h_1)=D(h_2)$. We have shown that in each instance $D \in \reqtc$, 
+$D(h_1)=D(h_2)$ and so since we have assumed $\catc$ is tight to $\reqtc$  by condition (a) of tightness it
+follows that $h_1=h_2$. We have shown therefore that $f$ is a epimorphism.
+\end{proof}
+
+\subsection{Condition (c) - Inclusion Dependencies}
+
+From condition (c) we define an inclusion dependency in sense (1) as follows:
+\begin{definition}
+If $\catc$ is a category and $\reqtc$ is a set of instances and if
+$
+\begin{array}{c p{0.5cm} c  }
+\Rnode{a}{a} &&                \\[0.01cm] 
+             &&   \Rnode{b}{b} \\[0.01cm]
+\Rnode{c}{c}         
+\end{array} 
+$
+\ncarr{a}{b}
+\alabel{f}
+\ncarr{c}{b}
+\blabel{g} 
+in $\catc$, then an inclusion dependency in sense (1) $I$, written $c[g] \overset{I}{\subseteq} a[f]$, is a family of functions $I_D)_{D \in \reqtc}$
+such that each instance $D \in \reqtc$ $I_D$ is a unique function $I_D : D(c) \morph D(a)$ such that
+$I_D \circ D(f) = D(g)$.
+\end{definition}
+
+Similar to the above (where)  we can show:
+
+\begin{lemma*}
+If $\catc$ is a category and $\reqtc$ is a set of instances and $\catc$ is tight to $\reqtc$
+then if $
+\begin{array}{c p{0.5cm} c  }
+\Rnode{a}{a} &&                \\[0.01cm] 
+             &&   \Rnode{b}{b} \\[0.01cm]
+\Rnode{c}{c}         
+\end{array} 
+$
+\ncarr{a}{b}
+\alabel{f}
+\ncarr{c}{b}
+\blabel{g} 
+in $\catc$ and if there is an inclusion dependency $c[g] \overset{I}{\subseteq} a[f]$ with respect to $\tuple{\catc,\reqtc}$ then $f$ is a monomorphism.
+\end{lemma*}
+
+\section*{Data Specification as Sketch of Category with  Monomorphisms}
+\section*{Data Specification as Sketch of Category with Products and Monomorphisms}
+\section*{Data Specification as Sketch of Category with Limits (and Monomorphisms)}
 
 \end{document}
