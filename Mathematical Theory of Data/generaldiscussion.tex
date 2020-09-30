@@ -1,20 +1,26 @@
 
 
-
 \documentclass[10pt,a4paper]{article}
 
 \input{thepreamble.tex}
 
 \theoremstyle{remark}
 \newtheorem*{lemma*}{Lemma}
-\newcounter{para}
-\newcommand\note{\par\refstepcounter{para}\thepara.\space}
 \newcommand{\catc}[1][C]{\textbf{#1}}
+\newcommand{\catcp}[1][C]{\textbf{#1}'}
 \newcommand{\reqt}{\textbf{R}}
 \newcommand{\reqtc}[1][\catc]{\reqt_{#1}}
-\newcommand{\Fin}{\ensuremath{\mathbb{F\mathrm{in}} }}
-
+\newcommand{\Fin}{\ensuremath{\textbf{Fin}} }
+\newcommand{\Finp}{\ensuremath{\textbf{Finp}} }
+\newcommand{\Po}{\ensuremath{\textbf{Po}} }
 \newcommand{\fundep}[3]{#2 \xrightarrow{#1} #3}
+\newlength{\oldparindent}
+\setlength{\oldparindent}{\parindent} % Save \parindent before of change
+\setlength{\parskip}{0.5\baselineskip} % Definition of `parskip`
+\setlength{\parindent}{0pt}
+\newcommand{\ind}{\hspace*{\oldparindent}}
+\newcounter{para}
+\newcommand\note{\par\ind\refstepcounter{para}\thepara.\space}
 
 \begin{document}
 \title{General Theory}
@@ -30,47 +36,53 @@ DRAFT
 
 \section{Generalities}
 \note
-Data specifications are theories of what is
-and different methodologies for data specification, i.e. different notions of data specification, correspond to different notions of theory. 
-
+There are many methodologies for describing the structure of data. 
+A study of these brings us to many essentially distinct notions of data specification. 
+Each data specification is a theory of what is.  
+Corresponding to each different notion of data specification is a different notion of theory. 
 \note
-Data specifications have instances.  Of all structurally possible instances some are required as instances for the intended useage 
-and some are not. 
-
-Notionally let there be a requirement $R$ determining a set of data instances that are intended or forseen and that characterise the intended use of the data specification. Of all possible instances of a data specification some fall within $R$ and some may not.
-
-\note
-When viewed abstractly many apparently different notions of data specification can be characterised as having
-data specifications corresponding to sketches of categories or restriction categories with some additional structure such as certain limits and/or colimits.
-
-\note
-Instances of such data specifications correspond to structure preserving functors from the corresponding category to the category of finite sets. 
-
-\note
-Redundancy of arrows in a sketch corresponds to redundacy of data in instances of the data specification. 
-
-\note
-Generally it is a goal of data specification to avoid redundancy of data in instances. 
+Data is required for a purpose, generally to describe real world things in some or other context. This constitues an intended useage for a data specification. Of all structurally compliant instances of a data specification some are required for the intended usage and, generally speaking, some not.
+Notionally let there be a requirement $R$ that equates to a subset of the set of all compliant data instances 
+of a data specification and serving to characterise its intended use. 
 
 \note 
-Within each particular methodology, a general engineering principle is that a data specification should be as constraining as possible
-of data instances while being general enough for the intended useage; equivalently the corresponding theory should be as tight as possible. 
+There are two self-complementing principles of good engineering. Firstly, within each particular methodology a data specification should be as constraining as possible of data instances while being general enough for the intended useage; equivalently the corresponding theory should fit as tightly as possible to the facts. Secondly, redundancy of data is to be avoided. This second principle is modulated by computational cost for it would be unreasonable not to hold all prime factors of a number in a data structure on account of them being computable and therefore redundant.
 
 \note
-We can define goodness criteria for data specifications if we have a notion of all instances which the data specification is a theory of
-i.e. an intended useage. 
+From the two principles we can phrase goodness criteria  for data specifications with respect to requirements $\reqt$
+i.e. to intended usages. In the context of relational data design, 3rd, 4th and 5th normal forms (and the representation principle?) are examples of such goodness criteria. 
 
 \note
-Goodness equates to absence of redundancy plus tightness to intended useage. Absence of redundancy is a property of a sketch. Tightness
-is a property of a category $\catc$ relative to a requirement $\reqt$ which is viewed as a set of instances $\reqtc$ of $\catc$.
+When viewed abstractly many distinct notions of data specification can be characterised as having
+data specifications corresponding to sketches of either categories or $\Po$-enriched categories with some additional structure such as certain limits and/or colimits.
 
-\section*{Tightness}
-The specifics of the tightness definition for the simplest notion \term{sketch of category as data specification} are not very interesting in and by themselves but they set the pattern for what is to come and this is definitely interesting because as the notion of data specification is refined this tightness definition develops into the 3rd, 4th and 5th normal form definitions of relational database theory.
+\note
+Compliant instances of such data specifications correspond to structure preserving functors from the corresponding category to the category of finite sets $\Fin$ or the category of finite sets and partial functions $\Finp$.
 
-\section{Data Specification as Category}
+\note
+Redundancy of objects or arrows in a sketch corresponds to redundacy of data in instances of a data specification. 
+By the second principle it is the goal of data specification to avoid such redundancy. 
+
+\note
+Goodness equates to absence of redundancy plus maximal constrainedness to intended useage. Absence of redundancy is a property of a sketch. Maximal constrainedness
+is a property of the category $\catc$ generated by the sketch and is relative to a requirement $\reqtc$ where $\reqtc$ is a set of structure preserving functors $D$, $D: \catc \morph \Fin$ (or to $\Finp$, as appropriate).
+\newpage
+\section{A Case Study -- Data Specification as Sketch of Category}
+In this section we consider the implications of maximal constrainedness for the very simplest notion 
+of data specification namely \term{sketch of category as data specification}.  Not that this is interesting in and by 
+itself but it does establishes a pattern for what is to come inclusive of 3rd, 4th and 5th normal form definitions of relational database theory.
 \begin{definition}
 If $\catc$ is a category and $\reqtc$ is a set of instances i.e a set of functors $D$, $D: \catc \morph \Fin$ then $\catc$ is 
-\term{tight} to the requirement $\reqtc$ iff
+\term{maximally constrained} to the requirement $\reqtc$ iff for all categories $\catcp$ and for all functors 
+$I:\catc \morph \catcp$ such that for all instances $D \in \reqtc$ there exists a functor $D':\catcp \morph \Fin$
+such that $I \circ D'=D$, for all functors $F: \catc \morph \Fin$ there exists $F' : \catc \morph \Fin$ such that
+$I \circ F'=F$.
+\end{definition}
+
+
+\begin{lemma}
+If $\catc$ is a category and $\reqtc$ is a set of instances  and $\catc$ is 
+\term{maximally constrained} to the requirement $\reqtc$ then
 \begin{enumerate}[(a)]
 \item
 for all diagrams
@@ -114,7 +126,7 @@ $
 in $\catc$, if in all instances $D \in \reqtc$ there exist a unique function $h_D : D(c) \morph D(a)$ such that
 $h_D \circ D(f) = D(g)$ then there exists a morphism $h:c \morph a$ in $\catc$ such that $h \circ f = g$ in $\catc$.
 \end{enumerate}
-\end{definition}
+\end{lemma}
 
 \subsection{Condition (b) - Functional Depedencies}
 If $\catc$ is a category and $\reqtc$ is a set of instances and if
@@ -240,5 +252,6 @@ in $\catc$ and if there is an inclusion dependency $c[g] \overset{I}{\subseteq} 
 \section*{Data Specification as Sketch of Category with  Monomorphisms}
 \section*{Data Specification as Sketch of Category with Products and Monomorphisms}
 \section*{Data Specification as Sketch of Category with Limits (and Monomorphisms)}
+\section*{Data Specification as Sketch of $\Po$-enriched Category}
 
 \end{document}
