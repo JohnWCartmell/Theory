@@ -40,9 +40,25 @@ DRAFT
 
 \section{Background}
 \note
-There are many methodologies for describing the structure of data. 
-A study of these brings us to many essentially distinct notions of data specification. 
-Each data specification is a theory of what is and  to each different notion of data specification corresponds a different notion of theory. 
+There are many methods for describing the structure of data. 
+They occur in programming languages, where they vary depending on
+the model of computation (object-oriented, functional,symbolic and so on);
+they occur as dedicated specification methods such as the entity relationship method
+and  in database technologies, where they vary by the data model (relational, hierarchical, nested relational,
+graph based). Finally they underlie interfacing technologies which are either binary such as 
+the many that implement some variant of IDL (Interface Definition Language) or text based such as XML. 
+
+\note 
+There are similarities between the methods when they are viewed abstractly but there are significant differences too and so a study of these different methods brings us to many \emph{essentially} distinct notions of data specification.
+
+\note
+When viewed abstractly each data specification is a theory of what is and  to each different notion of data specification corresponds a different notion of theory. An organisation of this thinking will constitute a mathematical theory of data.
+
+\note 
+The relational model of data ubiquitously underpinning databases for fifty years or so, is exceptional in that it has a body of theory; this theory includes quality criteria  distinguishing good and bad data specifications. 
+One of the goals of a mathematical theory of data is to enable these relational prescriptions of goodness
+to be generalised to become generally applicable. The \textit{dry run} below suggests this is possible.
+
 \note
 Data is required for a purpose, generally to describe real world things in some or other context. This constitutes an intended usage for a data specification. Of all structurally compliant instances of a data specification some are required for the intended usage and, generally speaking, some not.
 Notionally let there be a requirement $R$ that equates to a subset of the set of all compliant data instances 
@@ -100,11 +116,11 @@ There isn't a single clear concept that arises from this work but the deficiency
 Inclusion dependencies, like functional dependencies and multi-valued dependencies, are forms of semantic constraint in the sense that this term is used by Zaniola. 
 
 \note Here we focus on inclusion dependencies that are referential. These in dry run are the equivalents of what elsewhere in the context of relational data specification are referred to as a key-based or a superkey-based inclusion dependencies [\cite{Mannila1986}, \cite{Levene2000}]
-or, more pragmatically, as a referential constraints\footnote{	Also known colloquially, and rather horribly in my opinion, as foreign key constraints}in the ISO SQL standard\cite{ISOSQL2016} and then subsequently in the context
-of XML, as in \cite{fan2003} for instance; whether implicitly or explicitly as in the relational paradigm, these are lynchpins of  data specifications.
+or, more pragmatically, as referential constraints\footnote{	Also known colloquially, and rather horribly in my opinion, as foreign key constraints}in the ISO SQL standard\cite{ISOSQL2016} and have been described in relation to XML
+(\cite{fan2003}, for instance); whether implicitly or explicitly as in the relational paradigm, these are lynchpins of  data specifications.
 
-\note Commutative diagrams are another kind of semantic constraint -- we can call them commutivity constraints but equally they might be called path equivalence constraints. Various authors (\cite{Alderson97},\cite{Johnson93}) have emphasised the importance of commutative diagrams in data specifications. The fact is that relational designs fairly frequently have some commutivity constraints represented within them. This is achieved almost
-unconsciously by designers following prescriptions to normalise data and to eliminate duplicates. 
+\note Various authors (\cite{Alderson97},\cite{Johnson93}) have noted the importance of commutative diagrams in data specifications.
+Commutative diagrams are another kind of semantic constraint -- we can call them commutivity constraints but equally they might be called path equivalence constraints.  The fact is that relational designs fairly frequently have some commutivity constraints implicitly represented within  achieved simply  by designers following prescriptions to normalise data and to eliminate duplicates. 
 Shlaer and Lang illustrate this in \cite{Shlaer96} where they describe alternative paths between two nodes as
 relationship loops and when the paths are equivalent say that there are dependencies
 between the relationships. Kolp and Zimnyi ((\cite{Kolp1995})) instead use the term
@@ -113,8 +129,8 @@ transformation from ER model to relational model.
 
 \section{Examples of Path Equivalences aka Commutative Diagrams}
 
-A data specification for the relational model of data when viewed abstractly as a directed graph
-is aways going to include nodes corresponding to the concepts table ($t$) , column ($c$), foreign key constraint ($fk$) and foreign key element ($fke$) and others
+A data specification for the relational model of data (in other words, the data specification that is the relational meta-model) when viewed abstractly as a directed graph
+is always going to include nodes corresponding to the concepts table ($t$) , column ($c$), foreign key constraint ($fk$) and foreign key element ($fke$) as well as others
 \iffalse
 \raisebox{-0.7cm}
 {\footnotesize
@@ -127,7 +143,7 @@ is aways going to include nodes corresponding to the concepts table ($t$) , colu
 }
 \vspace{0.25cm}
 \fi
-and is also going to include  following edges:	\\
+and is also going to include the following edges:	\\
 \begin{tabular}{p{1cm} c}
 &
 {\footnotesize
@@ -139,7 +155,7 @@ $
 \Rnode{fke}{fke}  && \Rnode{fk2}{fk}& the foreign key a foreign key element is part of\\[0.2cm]  
 \Rnode{fk3}{fk}   && \Rnode{t3}{t}  & the table that the foreign key defines a reference to\\[0.2cm]     
 \Rnode{fke2}{fke} && \Rnode{c2}{c}  & the referencing column identified by the foreign key element\\[0.2cm]     
-\Rnode{fke3}{fke} && \Rnode{c3}{c}  & the referred to column idenitified by the foreign key element         
+\Rnode{fke3}{fke} && \Rnode{c3}{c}  & the referred to column identified by the foreign key element         
 \end{array}
 $
 \ncarr{c}{t}
@@ -197,26 +213,27 @@ $
 \blabel{p_c}
 }  \ \ will commute.
 \end{tabular}
-Path equivalence constraints (aka commutivity constraints) can therefore be found right at the heart of the relational model of data. Despite this, to my knowledge, relational data theory remains oblivous to this type of constraint and this is despite the fact, as mentioned above, that they have a direct bearing on the construction of schemas in third normnal form.
+Path equivalence constraints (aka commutivity constraints) can therefore be found right at the heart of the relational model of data. Despite this, to my knowledge, this type of constraint  is absent from relational data theory and this  despite the fact, as mentioned above, that they have a direct bearing on the construction of schemas in third normal form.
+The discussion in Shlaer and Lang \cite{Shlaer96} is an execption.
 
-\section{The Dry Run  -- Data Specification as presentation of Category}
+\section{The Dry Run  -- Data Specification as Presentation of Category}
 \note
 In this dry run -- data specification as presentation of category -- we will formulate 
 definitions of maximal constrainedness, commutivity constraint, functional dependency and referential inclusion dependency
-and we will define what it means for a commutivity constraint, a functional dependency or a referential inclusion dependency to be represented in such a data specification.
+and we will define what it means for such a commutivity constraint, functional dependency or  referential inclusion dependency to be represented in such a data specification.
 
 \note
 This dry run with an overtly simplified notion of data specification is worthwhile in that   it establishes some starter definitions which we can   subsequently develop to be applicable to more fully elaborated notions of data specification.
 
-\note
-We will show that from these definitions it follows that if a data specification is maximally constrained to a
-requirement then  all commutivity constraints,  functional dependencies and referential inclusion dependencies arising from the requirement are represented in the data specification.
-
 \note 
 This dry run establishes a pattern that we will follow later in consideration of more fully elaborated 
 definitions of 
-data specifications that we folow up with -- $\Po$-enriched categories, categories with products and others. 
+data specifications that we follow up with -- $\Po$-enriched categories, categories with products and others. 
 You may also consider that the definitions given in this dry run are embryonic precursors to equivalent relational definitions.
+
+\note
+We will show that from these definitions it follows that if a data specification is maximally constrained to a
+requirement then  all commutivity constraints,  functional dependencies and referential inclusion dependencies arising from the requirement are represented in the data specification.
 
 \subsection {Definitions}
 \subsubsection{Maximal Constrainedness}
@@ -255,7 +272,7 @@ $$
 f \morph g
 $$
 Note that this use of an $\morph$ notation is independent of our use of $\morph$ as a morphism of a category 
-or, for that matter, as an edge in a presentation. Neither are we alluding to a bicategory structure. We have two distinct uses for $\morph$ (three if you distinguish arrows in presentationes from arrows in categories). Any particular use will be unambiguous in context.
+or, for that matter, as an edge in a presentation. Neither are we alluding to a bicategory structure. We have two distinct uses for $\morph$ (three if you distinguish arrows in presentations from arrows in categories). Any particular use will be unambiguous in context.
 
 \begin{definition}
 If $\catc$ is a category and $\reqtc$ is a set of instances and if
@@ -430,6 +447,11 @@ in $\catc$ such that there is a referential inclusion dependency $a[f_1,...f_n] 
 
 Leads to idea of representing jointly monomorphics. i.e category with monomorphisms.
 
+\section{Direction of Travel}
+Pointers direct. Graph data model? When serialised though. Transformations.
+
+
+Type theory - dependent type theory. Catgheory with distinguished morphisms. PCTE\\CAIS Contextual category. Dependency category.
 \iffalse
 \section*{Data Specification as Presentation of Category with  Monomorphisms}
 \section*{Data Specification as Presentation of Category with Products and Monomorphisms}
