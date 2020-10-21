@@ -1,7 +1,4 @@
- 
-
-\documentclass[10pt,a4paper]{article}
-
+ \documentclass[10pt,a4paper]{article}
 %\input{thepreamble.tex}
 \input{../SharedMacros/ccategories.macros}
 \input{../SharedMacros/ermacros}
@@ -23,6 +20,7 @@
 \newtheorem*{lemma*}{Lemma}
 \newcommand{\catc}[1][C]{\textbf{#1}}
 \newcommand{\catcp}[1][C]{\textbf{#1}'}
+\newcommand{\catcpp}[1][C]{\textbf{#1}''}
 \newcommand{\reqt}{\textbf{R}}
 \newcommand{\reqtc}[1][\catc]{\reqt_{#1}}
 \newcommand{\reqtcp}[1][\catcp]{\reqt_{#1}}
@@ -78,10 +76,10 @@ the many that implement some variant of IDL (Interface Definition Language) or t
 There are similarities between the methods when they are viewed abstractly but there are significant differences too and so a study of these different methods brings us to many \textit{essentially distinct} notions of data specification.
 
 \note
-When viewed abstractly each data specification is a theory of what is and  to each different notion of data specification corresponds a different notion of theory. An organisation of this thinking will constitute a mathematical theory of data. Such a mathematical theory of data has a role to play in improving  the way we think, talk about, design, develop, and transform, data specifications and in fostering significant improvements in available techniques and tools for their management. 
+When viewed abstractly each data specification is a theory of what is and  to each different notion of data specification corresponds a different notion of theory. An organisation of this thinking will constitute a mathematical theory of data. Such a theory has a role to play in improving  the way we think, talk about, design, develop, and transform, data specifications and in fostering significant improvements in available techniques and tools for their management. 
 
 \note 
-The relational model of data ubiquitously underpinning databases for fifty years or so, is exceptional in that it has a body of theory; this theory includes quality criteria  distinguishing good data specifications from bad. 
+The relational model of data underpinning the majority of databases for fifty years or so, is exceptional in that it has a body of theory; this theory includes quality criteria  distinguishing good data specifications from bad. 
 One of the goals of a mathematical theory of data is to enable these relational prescriptions of goodness
 to be generalised to become generally applicable. The \textit{dry run} below suggests this is possible.
 
@@ -91,7 +89,7 @@ Notionally let there be a requirement $R$ that equates to a subset of the set of
 of a data specification and serving to characterise its intended use. 
 
 \note 
-There are two self-complementing principles of good engineering of data specifications. Firstly, within each particular methodology a data specification should be as constraining as possible of data instances whilst being general enough for the intended usage; equivalently the corresponding theory should fit as tightly as possible to the facts. Secondly, redundancy of data is to be avoided. This second principle is modulated by computational cost for it would be unreasonable not to hold in data all prime factors of a number on account of them being computable and therefore redundant.
+There are two self-complementing principles of good data engineering. Firstly, within each particular methodology a data specification should be as constraining as possible of data instances whilst being general enough for the intended usage; equivalently the corresponding theory should fit as tightly as possible to the facts. Secondly, redundancy of data is to be avoided. This second principle is modulated by computational cost for it would be unreasonable not to hold in data all prime factors of a number on account of them being computable and therefore redundant.
 
 \note 
 Meeting the first principle we will describe as achieving \term{maximum constrainedness} for the data specification.
@@ -103,10 +101,11 @@ i.e. to intended usages. In the context of relational data design, 3rd, 4th and 
 
 \note
 When viewed abstractly many distinct notions of data specification can be characterised as having
-data specifications corresponding to finite presentations of either categories or, if missing data is to be allowed, $\Po$-enriched categories with some additional structure such as certain limits and/or colimits.
+data specifications corresponding to finite presentations of either categories or, if missing data is to be allowed, partial order enriched categories with some additional structure such as certain limits and/or colimits. We use the term \textit{sketch}
+in this note to be synonymous with \textit{presentation of category} and as such take it to consist of the combination of a directed graph and a set of path equivalences. In Barr and Wells \cite{BarrandWells} these are more properly called linear sketches.  
 
 \note
-Compliant instances of such data specifications correspond to structure preserving functors from the corresponding category to the category of finite sets $\Fin$ or to the category of finite sets and partial functions $\Finp$.
+Compliant instances of such data specifications correspond to structure preserving functors from the corresponding category to the category of finite sets $\Fin$ or to the category of finite sets and partial functions.
 
 \note
 Redundancy of objects or arrows in a presentation corresponds to redundancy of data in instances of a data specification. 
@@ -145,7 +144,7 @@ or, more pragmatically, as referential constraints\footnote{	Also known colloqui
 (\cite{fan2003}, for instance); whether implicitly, or explicitly as in the relational paradigm, these are lynchpins of  data specifications.
 
 \note Various authors (\cite{Alderson97},\cite{Johnson93}) have noted the importance of commutative diagrams in data specifications.
-Commutative diagrams are another kind of semantic constraint -- we can call them commutivity constraints but equally they might be called path equivalence constraints.  The fact is that relational designs fairly frequently have some commutivity constraints implicitly represented within  and this having been achieved  by designers following prescriptions to normalise data and to eliminate duplicates rather than with awareness of the underlying commutivity. 
+Commutative diagrams are another kind of semantic constraint -- we can call them commutivity constraints but equally they might be called path equivalence constraints.  The fact is that relational designs fairly frequently have commutivity constraints implicitly represented within  and this having been achieved  by designers following prescriptions to normalise data and to eliminate duplicates rather than with awareness of the underlying commutivity. 
 Shlaer and Lang illustrate this in \cite{Shlaer96} where they describe alternative paths between two nodes as
 relationship loops, when distinct paths are equivalent they say that there are dependencies
 between the relationships. Kolp and Zimnyi ((\cite{Kolp1995})) instead use the term
@@ -153,10 +152,9 @@ relationship cycle and identify such as a source of superfluous attributes in th
 transformation from ER model to relational model.
 
 
-
 \section{Examples of Path Equivalences aka Commutative Diagrams}
 
-A data specification for the relational model of data (in other words, the data specification that is the relational meta-model) when viewed abstractly as a directed graph
+A data specification that describes the relational model of data (in other words, the data specification that is the relational meta-model) when viewed abstractly as a directed graph
 is always going to include nodes corresponding to the concepts of table ($t$) , column ($c$), foreign key constraint ($fk$) and foreign key element ($fke$) as well as others
 \iffalse
 \raisebox{-0.7cm}
@@ -250,16 +248,16 @@ definitions of maximal constrainedness, commutivity constraint, functional depen
 and we will define what it means for such a commutivity constraint, functional dependency or  referential inclusion dependency to be represented in such data specifications.
 
 \note
-This dry run with its overtly simplified notion of data specification is worthwhile in that   it establishes some starter definitions which in further work we can   subsequently develop to be applicable to more fully elaborated notions.
+This dry run with its overtly simplified notion of data specification is worthwhile in that   it establishes some starter definitions which in further work we can subsequently develop to be applicable to more fully elaborated notions.
 
 \note 
 This dry run establishes a pattern that we will follow later in consideration of more fully elaborated 
 definitions of 
-data specifications that we follow up with -- $\Po$-enriched categories, categories with products and others. 
+data specifications that we follow up with -- partial order enriched categories, categories with products and others. 
 You may also consider that the definitions given in this dry run are embryonic precursors to equivalent relational definitions.
 
 \note
-We will show that from these definitions it follows that if a data specification is maximally constrained to a
+With an assumption of local finiteness (not ideal) we will show that from these definitions it follows that if a data specification is maximally constrained to a
 requirement then  all commutivity constraints,  functional dependencies and referential inclusion dependencies arising from the requirement are represented in the data specification.
 
 \subsection {Definitions}
@@ -267,7 +265,7 @@ requirement then  all commutivity constraints,  functional dependencies and refe
 Maximum constrainedness, as mentioned above, is a property of the category $\catc$ generated by the presentation  rather than of the presentation itself and is defined  relative to a requirement $\reqtc$ by which we mean a set of 
 instances where each instance is a functor $D$, $D: \catc \morph \Fin$. In what follows, therefore,  by a requirement $\reqtc$ for category $\catc$ we mean a set  $\reqtc \subseteq | \Fin^{\catc} |$. 
 
-Consider, a theory usually has some slack by which we mean that it has structurally compliant instances that are not part of the given requirement.  The definition of maximal constrainedness is to say that a theory is maximally constrained to its requirement if there is no way of extending the theory so as to rule out possible structurally compliant instances that are not part of the requirement (i.e. to rule out slack) whilst remaining consistent with the requirement.
+Consider, a theory usually has some slack by which we mean that it has structurally compliant instances that are not part of its requirement.  The definition of maximal constrainedness expresses that a theory is maximally constrained to its requirement if there is no way of extending the theory so as to rule out possible structurally compliant instances that are not part of the requirement (i.e. to rule out slack) whilst remaining consistent with the requirement.
 
 The definition now follows, preceded by an auxiliary definition.
 \begin{definition}
@@ -291,10 +289,10 @@ $
 \alabel{f}
 \ncarr{a}{c}
 \blabel{g}
-in $\catc$ then there is a  \term{functional dependency} of $g$ on $f$ with respect to $\tuple{\catc,\reqtc}$ iff
+in $\catc$ then there is a  \term{functional dependency} of $g$ on $f$ with respect to $\reqtc$ iff
 there is a family of functions $H_D)_{D \in \reqtc}$ such that 
-in each instance $D$, $H_D$ is a unique function $H_D: D(a) \morph D(b)$, such that $D(f) \circ H_D = D(g)$. 
-If there is such a functional dependency then we say that $\fundep{H}{f}{g}$ with respect to $\tuple{\catc,\reqtc}$.
+in each instance $D$, $H_D$ is a unique function $H_D: D(b) \morph D(c)$, such that $D(f) \circ H_D = D(g)$. 
+If there is such a functional dependency then we say that $\fundep{H}{f}{g}$ in $\catc$ with respect to $\reqtc$.
 \end{definition}
 
 Our use of the $\morph$ notation for functional dependencies here is coming from relational database theory where it is usual to represent such a functional dependency as we have here by asserting that 
@@ -305,7 +303,7 @@ Note that this use of an $\morph$ notation is independent of our use of $\morph$
 or, for that matter, as an edge in a presentation. Neither are we alluding to a bicategory structure. We have two distinct uses for $\morph$ (three if you distinguish arrows in presentations from arrows in categories). Any particular use will be unambiguous in context.
 
 \begin{definition}
-If $\catc$ is a category and $\reqtc$ is a set of instances and if
+If $\catc$ is a category and $\reqtc$ is a set of instances, if
 $
 \begin{array}{c p{0.5cm} c  }
              &&   \Rnode{b}{b} \\[0.01cm]
@@ -341,9 +339,9 @@ $
 \blabel{f_n}
 \ncarr{c}{bn}
 \alabel{q_n}
-in $\catc$, then a \term{referential inclusion dependency (in sense (1))} $I$, written $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$, is a family of functions $I_D)_{D \in \reqtc}$
-such that each instance $D \in \reqtc$ $I_D$ is a unique function $I_D : D(c) \morph D(a)$ such that
-$I_D \circ D(q_i) = D(f_i)$.
+in $\catc$, then a \term{referential inclusion dependency} $I$, written $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$, is a family of functions $I_D)_{D \in \reqtc}$
+such that each instance $D \in \reqtc$, $I_D$ is a unique function $I_D : D(a) \morph D(c)$ such that
+for each $i$, $1 \leq i \le n$, $I_D \circ D(q_i) = D(f_i)$.
 \end{definition}
 
 \begin{definition}
@@ -364,15 +362,15 @@ $
 \ncarr{c}{bn}
 \alabel{q_n}
 in $\catc$ and if $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$ is a referential inclusion dependency
-with respect  to $\tuple{\catc,\reqtc}$ then say that the inclusion dependency $I$ is \term{represented} in $\catc$
+with respect  to $\reqtc$ then say that the inclusion dependency $I$ is \term{represented} in $\catc$
 iff there exists a morphism $i:a \morph c$ in $\catc$ such that in each instance $D \in \reqtc$, $D(i) = I_D$. 
 \end{definition}
 
 \subsection{Representation Lemmas}
 
-The most immediate consequence of this definition is given by the next lemma.
+The most immediate consequence of the definition of maximal constrainedness is given by the next lemma.
 \begin{lemma}
-If $\catc$ is a locally finite category and $\reqtc$ is a set of instances  and $\catc$ is 
+If $\catc$ is a locally finite category and $\reqtc$ is a set of instances, if $\catc$ is 
 \term{maximally constrained} to the requirement $\reqtc$ then
 for all diagrams
 $
@@ -394,7 +392,7 @@ Suppose such a category  $\catc$  that  is
 \term{maximally constrained} to a requirement $\reqtc$
 and suppose 
 $
-\rule[-0.3cm]{0pt}{0.9cm} %to add vertical space of diagram -- based on lowering diagram 0.3cm and heght 0.9cm
+\rule[-0.3cm]{0pt}{0.8cm} %to add vertical space of diagram -- based on lowering diagram 0.3cm and heght 0.9cm
                             % change thickness from 0pt to 1 pt to debug
 \begin{array}{c p{0.5cm} c  }
  \Rnode{a}{a}            &&   \Rnode{b}{b}
@@ -405,17 +403,18 @@ $
 \ncarc[nodesep=2pt,arcangle=-10,offset=-2pt]{->}{a}{b}
 \blabel{g}
 in $\catc$. From sketch $S$ of $C$ we can construct a sketch $S'$ by formally adding a path equivalence $f=g$.
-$S'$ generates a category $C'$ and an inclusion $I: \catc \morph \catcp$. Because $D(f) = D(g)$ in every instance $D \in \reqtc$
+$S'$ generates a category $C'$ for which we have a functor $I: \catc \morph \catcp$. 
+Because $D(f) = D(g)$ in every instance $D \in \reqtc$
 it follows that $I$ is consistent with $\reqtc$. Because $\catc$ is maximally constrained to $\reqtc$
-and because $I: \catc \morph \catcp$ is consistent with $\reqtc$ it follows that he functor $Hom_{\catc}(a,-): \catc \morph \Fin$ 
+and because $I: \catc \morph \catcp$ is consistent with $\reqtc$ it follows that the functor $Hom_{\catc}(a,-): \catc \morph \Fin$ 
 can be extended to a functor $F: \catcp \morph \Fin$. Since $I(f)=I(g)$ in $\catcp$ then $F(I(f))=F(I(g))$. But $I \circ F
 = hom(a,-)$ therefore we have that $Hom(a,f)=Hom(a,g)$ and, applying both sides to $id_a$, that $f=g$ in $C$ as required.
 \end{proof}
 
 \begin{lemma}
-If $\catc$ is a locally finite category and $\reqtc$ is a set of instances  and $\catc$ is 
+If $\catc$ is a locally finite category and $\reqtc$ is a set of instances, if $\catc$ is 
 \term{maximally constrained} to the requirement $\reqtc$ then
-all functional dependencies $\fundep{H}{f}{g}$  with respect to $\tuple{\catc,\reqtc}$ are represented in $\catc$.
+all functional dependencies $\fundep{H}{f}{g}$  with respect to $\reqtc$ are represented in $\catc$.
 \end{lemma}
 \begin{proof}
 Suppose such a category  $\catc$  that  is 
@@ -432,12 +431,12 @@ $
 \ncarr{a}{c}
 \blabel{g}
 in $\catc$ 
-and that there is a functional dependency $\fundep{H}{f}{g}$ with respect to $\tuple{\catc,\reqtc}$.
+and that there is a functional dependency $\fundep{H}{f}{g}$ with respect to $\reqtc$.
 
 From sketch $S$ of $C$ we can construct a sketch $S'$ by formally adding a morphism $\qq{h}: b \morph c$
 and path equivalence $f \circ \qq{h} = g$. Let $\catcp$ be the category generated by $S'$ and
 let $I: C \morph C'$ be the inclusion functor generated by the inclusion of $S$ in $S'$. 
-$I$ is consistent with $\reqtc$ since for and $D \in \reqtc$ we can extend $D$ to $D' :\catcp \morph \Fin$ by defining $D'(\qq{h})=D_H$.
+$I$ is consistent with $\reqtc$ since for any $D \in \reqtc$ we can extend $D$ to $D' :\catcp \morph \Fin$ by defining $D'(\qq{h})=D_H$.
 
 Let the functor $F: \catc \morph \Fin$ be the coproduct $Hom_{\catc}(a,-) + Hom_{\catc}(a,-)$
 in the functor category $Fin^{\catc}$ and label the injections $L$ and $R$, respectively so that
@@ -469,23 +468,23 @@ Therefore we can define a functor
 the set $G(x)$ is the quotient $F(x)/{\sim_x}$ and such that 
 if $j: x_1 \morph x_2$ in $\catc$ and if $y \in F(x_1)$ then $G(j)([y])=[F(j)(y)]$.
 With $G$ so defined then if $k: a \morph x_1$ and $j:x_1 \morph x_2$ in $\catc$
-then  $G(j)([L(k)])=[L(k \circ j)]$ and $G(j)([R(k)])=[R(k \circ j)]$. 
+then  $G(j)([L_{x_1}(k)])=[L_{x_2}(k \circ j)]$ and $G(j)([R_{x_1}(k)])=[R_{x_2}(k \circ j)]$. 
 
 Now that we have described the functors  $G: \catc \morph \Fin$ and $I:\catc \morph \catcp$ that is consistent with $\reqtc$
-we can use the fact that $\catc$ is maximally constrained then $G$ extends to a functor 
+we can use the fact that $\catc$ is maximally constrained to tell us that $G$ extends to a functor 
 $G' : \catcp \morph \Fin$. Since $f \circ \qq{h} = g$ in $\catcp$ then we have
- $G'(f) \circ G'(\qq{h}) = G'(g): G(a) \morph G(b)$ in $\Fin$.
-But $[L_a(id_a)] \in G(a)$ and $[R_a(id_a)] \in G(a)$ and therefore
+ $G'(f) \circ G'(\qq{h}) = G'(g): G(a) \morph G(c)$ in $\Fin$.
+Now we have
 \begin{align*}
 [L_c(g)]&= G'(g)([L_a(id_a)])              & & \mbox{by definition of $G'(g)=G(g)$}           \\
         &= G'(\qq{h}) (G'(f)([L_a(id_a)])) & & \mbox{since $G'(f) \circ G'(\qq{h}) = G'(g)$}  \\
 				&= G'(\qq{h}) (G'([L_b(f)]))       & & \mbox{by definition of $G'(f)=G(f)$}           \\
-				&= G'(\qq{h}) (G'([R_b(f)]))       & & \mbox{since $L_b(f) \sim R_b(f)$, by definition of $\sim$} \\
+				&= G'(\qq{h}) (G'([R_b(f)]))       & & \mbox{since $L_b(f) \sim_b R_b(f)$, by definition of $\sim_b$} \\
 				&= G'(\qq{h}) (G'(f)([R_a(id_a)])) & & \mbox{by definition of $G'(f)=G(f)$}           \\
 		    &= G'(g)([R_a(id_a)])              & & \mbox{since $G'(f) \circ G'(\qq{h}) = G'(g)$}  \\
 				&= [R_c(g)]                        & & \mbox{by definition of $G'(g)=G(g)$}           \\
 \end{align*}
-Since $[L_c(g)]=[R_c(g)]$ then it follows that there exists $k:b \morph c$ in 
+Since $[L_c(g)]=[R_c(g)]$ then it followsfrom the definition of $\sim_c$ that there exists $k:b \morph c$ in 
 $\catc$ such that $f \circ k = g$ and we have shown as required that the function dependency
 $\fundep{H}{f}{g}$ is represented in $\catc$.
 
@@ -493,14 +492,14 @@ $\fundep{H}{f}{g}$ is represented in $\catc$.
 
 \begin{lemma}
 \label{catincdsrepresented}
-If $\catc$ is a locally finite category and $\reqtc$ is a set of instances  and $\catc$ is 
+If $\catc$ is a locally finite category and $\reqtc$ is a set of instances, if $\catc$ is 
 \term{maximally constrained} to the requirement $\reqtc$ then
-every referential inclusion dependency with respect to $\tuple{\catc,\reqtc}$ is represented in $\catc$.
+every referential inclusion dependency with respect to $\reqtc$ is represented in $\catc$.
 \end{lemma}
 \begin{proof}
 Suppose such  a category $\catc$ and  requirement $\reqtc$ 
  and suppose there is a referential inclusion dependency
-$a[f_1,...f_n] \overset{I}{\subseteq} b[q_1,..q_n]$ with respect to $\tuple{\catc,\reqtc}$,
+$a[f_1,...f_n] \overset{I}{\subseteq} b[q_1,..q_n]$ with respect to $\reqtc$,
 where
 $
 \begin{array}{c p{0.25cm} c  p{0.25cm} c }
@@ -519,8 +518,8 @@ $
 \alabel{q_n}
 in $\catc$, 
 
-From sketch $S$ of $C$ we can construct a sketch $S'$ by formally adding a morphism $\qq{f}: a \morph c$
-and path equivalences $\qq{f} \circ q_i = f_i$. Let $\catcp$ be the category generated by $S'$ and
+From sketch $S$ of $C$ we can construct a sketch $S'$ by formally adding a morphism $\qq{f}: a \morph b$
+and path equivalences, for each $i$, $1 \leq i \leq n$, $\qq{f} \circ q_i = f_i$. Let $\catcp$ be the category generated by $S'$ and
 let $I: C \morph C'$ be the inclusion functor generated by the inclusion of $S$ in $S'$. $I$ is consistent with $\reqtc$ since
 each instance $D \in  \reqtc$ can be extended to a functor $D': \catcp \morph \Fin$ by defining $D'(\qq{f})=I_D$.
 
@@ -536,8 +535,7 @@ each $i$, $1 \leq i \leq n$, $F'(\qq{f})(id_a) \circ q_i = f_i$. This follows be
 the sketch $S'$ so that in category $C'$ we have $\qq{f} \circ q_i = f_i$. From this it follows
 that $F'(\qq{f}) \circ F'(q_i) = F'(f_i)$ i.e. $F'(\qq{f}) \circ Hom(a,q_i) = Hom(a,f_i)$. Applying left and right hand sides to $id_a$ we get $F'(\qq{f})(id_a) \circ q_i = f_i$, as required.
 \end{proof}
-\newpage
-\section{Postscript}
+\section{Discussion}
 Suppose a sketch $S$ has  this graph:
 $$
 \Rnode{e}{e}
@@ -547,37 +545,53 @@ $$
 
 and no path equivalences and let $\catc$ be the category presented by $S$. This is the theory of a
 set along with a single unary operation (a \term{u-structure} in the terminology of \cite{BarrandWells}). 
-Suppose in every instance $D$ of a requirement $\reqtc$ for $\catc$, the function $D(u)$ is a bijection. In this case  
+Suppose in every instance $D$ of a requirement $\reqtc$ for $\catc$, the function $D(u)$ is a permutation i.e. bijection. 
+In this case  
 $\catc$ is not maximally constrained to $\reqtc$ (i.e. it fails the goodness criteria) because, since every function $D(u)$ had a unique inverse, there is a functional dependency 
 $u \morph id_e$ in  $\catc$ with respect to $\reqtc$ and this functional dependency is not represented in $\catc$. 
-To meet the goodness criteria, $S$ can be extended to a sketch $S'$ having an additional arrow $v:e \morph e$ to represent this functional
-dependency and defining $D(v)=D(u)^{-1}$ in each instance $D \in \reqtc$. 
-With these definitions then commutivity constraints $D(u) \circ D(v)=id_{D(e}$ and $D(v) \circ D(u)=id_{D(e}$ hold
-in all the instances $D'$ of the extended $\reqtcp$ and there for path equivalences $u \circ v=id_e$ and $v \circ u =id_e$
-must also be added to the sketch $S'$ if the presented category $\reqtcp$ to be maximally constrained to the
+In order to meet the goodness criteria, $S$ can be extended to a sketch $S'$ having an additional arrow $v:e \morph e$ to represent this functional
+dependency and by extending each $D \in \reqtc$ to a $D': \catc' \morph \Fin$ by defining $D'(v)=D(u)^{-1}$.
+With these definitions then commutivity constraints $D'(u) \circ D'(v)=id_{D'(e}$ and $D'(v) \circ D'(u)=id_{D'(e)}$ hold
+in all the instances $D' \in \reqtcp$. For this reason path equivalences $u \circ v=id_e$ and $v \circ u =id_e$
+must also be added to the sketch $S'$ for its corresponding category $\catcp$  to be maximally constrained to the
 requirement $\reqtcp$.
 
-With $S'$ and $\catcp$ so defined then all commutivity constraints, all functional dependencies and all referential inclusion dependencies present in the requirement  $\reqtcp$ will be represented in $\catcp$ however this does not mean that
+With $S'$ and $\catcp$ so defined then even if all commutivity constraints, all functional dependencies and all referential inclusion dependencies present in the requirement  $\reqtcp$ are represented in $\catcp$  this does not mean that
 $\catcp$ necessarily meets the goodness criteria that it be maximally constrained to $\reqtcp$. For example, consider if every permutation 
-$D(u)$ is the square of some other bijection $w_D$ on set $e$. In this case in each instance $D \in \reqtcp$ there is a unique
-function $w_D: D(e) \morph D(e)$ such that $w_D \circ w_D = D(u)$. If this is the case then $\catcp$ is not maximally constrained
-to $\reqtcp$ for a morphism $w$ can be added to the sketch such that $w \circ w = u$ and the extended theory is a
-better fit to the requirement than $\catcp$. In fact $u$ and $v$ will then be dropped from the sketch as they will have become redundant.
+$D(u)$ is the square of some other permutation $w_D$ on set $e$. In this case in each instance $D \in \reqtcp$ there is a unique
+function $w_D: D(e) \morph D(e)$ such that $w_D \circ w_D = D(u)$. 
+$\catcp$ is not maximally constrained
+to $\reqtcp$ for a morphism $w$ can be added and a constraint $w \circ w = u$ to obtain a sketch $S''$ generating 
+a category $C''$ so that the extended theory $\catcpp$ is a
+better fit to the requirement than $\catcp$. An arrow must be added to represent the inverse of $w$ and to meet the principle of no redundancy $u$ and $v$ will need be dropped from sketch $S''$ as they will have become redundant.
 The net effect of following the goodness criteria will be to represent $w$  and its inverse in data rather than $w^2$ and its inverse.
-It is interesting to note that in relational design the requirement to meet the usual goodness criteria and in particular, say, to meet  BCNF 
+It is interesting to note that in relational design the requirement to meet the usual goodness criteria and in particular, say, to meet  BCNF, 
 does not rule out a column of a table   holding a number which is, in all instances, a square of a natural number. Though
-such a data representation would not necessarily fail any of the classic goodness criteria, it is counter to the intuition we have of good data design. It seems that
-a definition of the ilk of the maximal constrainedness definition might better formalise this intuition.
+such a data representation would not necessarily fail any of the classic goodness criteria, it is counter to the intuition we have of good data design. It seems that principles of no redundancy and maximum constrainedness are a basis for formalising this intuition.
 
 
 Is a presentation of a category really a notion of data specification? 
 Well, as we might specify data in an XML schema, or in IDL or in a relational schema, then it isn't. But as we might outline
-data in a preliminary design of such say like this
+data in a preliminary design of such, say like shown in this fragment 
+$
+\begin{array}{c p{0.05cm}c p{0.5cm}c}
+                        & & \rule[-0.3cm]{0pt}{0.8cm}\Rnode{p}{p}roject& &             \\ [0.3cm]
+	 project-wo\Rnode{w}{rker}	& &                   & &  \\ [0.3cm]     
+	                      & & \Rnode{e}{e}mployee      & &             \\ [0.6cm]     
+	                      & & \Rnode{dep}{d}ependent  & &             
+\end{array}
+$
+\ncarr{w}{p} 
+\alabel{R_1}[0.5][-1]
+\ncarr{w}{e} 
+\blabel{R_2}[0.5][-1]
+\ncarr{dep}{e} 
+\alabel{S_0}
+, then it might be.
 
-then it might be.
-
-It also might be as \textit{after we take away detail} from a complete speification to achieve an abstraction. Thus we might find
-directed graphs within a completed data specifications wherever we can find this diagram:
+It also might be \textit{after we take away detail} from a complete specification to achieve an abstraction. Thus we can recognise
+occurrences of directed graphs within larger and fully detailed data specifications wherever we can find occurrences
+of this diagram:
 $$
 \begin{array}{c p{0.25cm} c  p{0.25cm} c }
 \Rnode{e}{e} &&                   && \Rnode{n}{n} \\[0.4cm]
@@ -588,10 +602,7 @@ $$
 \Etme[-20]{e}{n}
 \blabel{tgt}[0.75]
 
-I mention this because it is a point enthusiastically made by Bachman\footnote{though using different language to ours} in his 1969 paper \textit{Data Structure Diagrams} \cite{Bachman1969}. 
-
-\newpage
-
+I mention this  because multiple occurrences of this shape appearing in  a larger data specification are pointed out enthusiastically by Bachman\footnote{Though his diagrams have arrows that are the reverse of those here.} in his 1969 paper \textit{Data Structure Diagrams} \cite{Bachman1969}. 
 
 \bibliographystyle{alpha} 
 \bibliography{../SharedBibliography/temp/bibliography}
