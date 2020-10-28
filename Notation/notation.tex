@@ -6,20 +6,86 @@
 \usepackage{amssymb}
 \usepackage{verbatim}
 \usepackage{enumerate}
+\usepackage {textcomp}
+\usepackage{ulem}
 \input{../SharedMacros/ccategories.macros}
 \input{../SharedMacros/gats.macros}
 \input{../SharedMacros/metagat.macros}
+\input{../SharedMacros/general.macros}
 
 \title{Notation - supporting macros}
 \author{John Cartmell}
 
 \begin{document}
 \maketitle
+\section {general.macros}
+
+\subsection{Idioms}
+
+\begin{tabular}{|l|p{4cm}|}
+\hline
+\verb!\setsuchthat{x}{condition}! & $\setsuchthat{x}{condition}$\\
+\verb!\set{suchandsuch}!&$\set{suchandsuch}$\\
+\verb!\qq{x} ! & $\qq{x}$ (quine quote)\\
+\verb!\sq{x} ! & $\sq{x}$ (single quote)\\
+\verb!\lqq{x }! & $\lqq{x}$ (lower quine quote)\\
+\verb!\fn !&$   \fn$\\
+\verb!\pn !&$   \pn$\\
+\verb!\qn !&$   \qn$\\
+\verb!\qnp !&$   \qnprime$\\
+\verb!\xn !&$   \xn$\\
+\verb!\xnp !&$   \xnp$\\
+\verb!\yn !&$   \yn$\\
+\verb!\qm !&$   \wantom{q}$\\
+\verb!\ym !&$   \wantom{y}$\\
+\verb!\wanton{x} !&$ \wanton{x}$\\
+\verb!\wantom{x} !&$ \wantom{x}$\\
+\verb!\ntuple{x} !&$ \ntuple{x}$\\
+\verb!\mtuple{x} !&$ \mtuple{x}$\\
+\verb!\bntuple !&$   \bntuple$\\
+\verb!\fntuple !&$   \fntuple$\\
+\verb!\fnptuple !&$   \fnptuple$\\
+\verb!\pntuple !&$   \pntuple$\\
+\verb!\qntuple !&$   \qntuple$\\
+\verb!\qnptuple !&$   \qnptuple$\\
+\verb!\qmtuple !&$   \qmtuple$\\
+\verb!\sntuple !&$   \sntuple$\\
+\verb!\xntuple !&$   \xntuple$\\
+\verb!\xnptuple !&$   \xnptuple$\\
+\verb!\ymtuple !&$   \ymtuple$\\
+\verb!\foreachi  !&\foreachi\\
+\verb!\foreachi[nn]  !&\foreachi[nn]\\
+\verb!\foreachj  !&  \foreachj\\
+\verb!\foreachj[mm]  !&\foreachj[mm]\\
+\verb!\foreachk  !&  \foreachk\\
+\verb!\foreachk[ll]  !&\foreachk[ll] \\
+\hline
+\end{tabular}
+
+
+
+
+\subsection{Markup Commands}
+
+\begin{tabular}{|l|p{2cm}|p{6cm}|}
+\hline
+\verb!\commentary{blah blah} !&       &\textit{places comment in right hand margin -- has to be in outer par mode     }     \\
+\verb!\highlight {blah blah} !& \highlight{blah blah} &                                                                     \\
+\verb!\term{term}            !&                       &\textit{ italicises and adds to index of definitions}                \\
+\verb!\llabel{label}         !&                       & \textit{defines label and makes visible has to be in outer par mode}\\
+\verb!\lref{label}           !&  \lref{label}         &                                              \\
+\verb!\newt{text}            !& \newt{text}       &\textit{also available as environment newtt}       \\
+\verb!\oldt{text}            !& \oldt{text}       &\textit{also available as environment oldtt}       \\
+\verb!\reinstatet{text}      !& \reinstatet{text} &\textit{also available as environment reinstatett} \\
+\verb!\tbd                   !& \tbd              &                                                   \\             
+\hline
+\end{tabular}
+
+
 \section {cccategories.macros }
 \vspace{5mm}
 \subsection{General}
-\begin{table}[h]
-\centering
+
 \begin{tabular}{|l|p{4cm}|p{6cm}|}
 \hline
 \verb!\cat{C}!       & \cat{C}            & a category                                     \\
@@ -53,7 +119,6 @@
 \verb!\primeds{A}!& $\primeds{A}$                    &\\
 \hline
 \end{tabular}
-\end{table}
 
 \subsection {pstricks macros for arrows, s-arrows and d-arrows}
 The following macros supplement the node connection macros (prefix 'nc') from pstricks and are implemented by combining pstricks 'nc' macros and put macros naput (put above) and nbput (put below). Arrowheads are either open or open triangles (representing S-morphisms). \\
@@ -234,8 +299,7 @@ $
 
 \noindent Supplemental pstricks style macros for multi-arrows:
 
-\begin{table}[h]
-	\centering
+
 		\begin{tabular}{|l |  p{5cm} | }
 		   \hline
 		   \verb!\ncmarr{A1}{A2}{J}{B}! & multi-arrow with two domains \\
@@ -251,7 +315,7 @@ $
 		 	 \verb!\ncbmarrr{f}{A1}{A2}{A3}{J}{B}! & multi-arrow with three domains and label below \\
 		 	 \hline
 		\end{tabular}
-\end{table}
+
 Arcs of angle 8 are used for the branches leading from the domains to the junction point J and for the arrow from the junction J to the codomain.
 Two optional parameters allow these to be overridden.
 In the following example there is are call \verb!\ncamarr{f}{A1}{A2}{J1}{B1}{f}! and call
@@ -380,8 +444,7 @@ The recursive commands are used as shown in the following examples:
 \newpage
 \section{gats.macros.tex}
 
-\begin{table}[h]
-	\centering
+
 \begin{tabular}{| l | l |}
  \hline 
  \verb'\gat[U]' & \gat[U] \\
@@ -401,7 +464,7 @@ The recursive commands are used as shown in the following examples:
  \verb!\schmcon!&$\schmcon{x}{\Delta}{n}$ \\
 	\hline
 \end{tabular}
-\end{table}
+
 
 \noindent For example : \\
 
@@ -413,8 +476,7 @@ gives \\
  
 \subsection{Macros for Rules in MetaGAT}
 
-\begin{table}[h]
-	\centering
+
 \begin{tabular}{| l | l |}
  \hline
  \verb!\typ!         &   $\typ$    \\
@@ -426,9 +488,6 @@ gives \\
  \verb!\typeseqcont{y}{x}{m}! & $\typeseqcont{y}{x}{m}$ \\
  \hline
 \end{tabular}
-\end{table}
-
-
 
 
 \end{document}

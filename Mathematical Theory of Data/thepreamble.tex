@@ -3,6 +3,7 @@
 \input{../SharedMacros/ermacros}
 \input{../SharedMacros/erdiagram}
 \input{../SharedMacros/theorems.macros}
+\input {../SharedMacros/general.macros}
 \usepackage{mathptmx}  % This changes font to roman
 \usepackage{anyfontsize}
 \usepackage{mathtools}  % why have we got this?
@@ -13,104 +14,10 @@
 \renewcommand{\ttdefault}{txtt}
 \usepackage[left=1.5cm, right=4cm, marginparwidth=3cm, top=2cm, bottom=2.0cm]{geometry}
 \usepackage{framed}
+% support for margin note
 \usepackage[font=small]{caption}
 \setlength{\captionmargin}{2cm}
-
-\usepackage{imakeidx}
-\makeindex[name=definitions, title=Index of Definitions]
-\makeindex[name=lemmas, title=Index of Lemmas]
-
-
-
-\newcommand{\commentary}[1]{\marginpar{\footnotesize #1}}
-\newcommand{\highlight}[1]{\colorbox{orange}{#1}}
-\newcommand{\term}[1]{\textit{#1}\commentary{\colorbox{lightgray}{\textit{#1}}}\index[definitions]{#1}}
-\newcommand{\llabel}[1]{\label{#1}\commentary{\colorbox{pink}{\scriptsize{#1}}}\index[lemmas]{#1}}
-\newcommand{\lref}[1]{\ref{#1}\colorbox{pink}{\scriptsize{#1}}\index[lemmas]{#1!use of}}
-
-\newcommand{\newt}[1]{\colorbox{yellow}{#1}}
-\newenvironment{newtt}
-{  \colorbox{yellow}{$[$ ...} 
-}
-{  \colorbox{yellow}{... $]$}
-}
-\newcommand{\oldt}[1]{\colorbox{yellow}{\sout{#1}}}
-\newenvironment{oldtt}
-{  \colorbox{red}{$[$ ...} 
-}
-{  \colorbox{red}{... $]$}
-}
-
-\newcommand{\reinstatet}[1]{\colorbox{lime}{#1}}
-\newenvironment{reinstatett}
-{  \colorbox{lime}{$[$ ...}
-}
-{  \colorbox{lime}{... $]$}
-}
-
-\newcommand{\tbd}{\highlight{TBD}}
-
-%ithprojection function
-\newcommand{\proji}[1]{\pi_#1}
-
-\renewcommand{\erpictureFolder}[0]{../SharedPictures}
-
-\newenvironment{categoricalaside}
-{\begin{framed}
-\textbf{Categorical Aside}
-}
-{
-\end{framed}
-}
-
-\newenvironment{noteforfuture}
-{\begin{framed}
-\textbf{Note For Future}
-}
-{
-\end{framed}
-}
-
-\newenvironment{problem}
-{\begin{framed}
-\textbf{Problem}
-}
-{
-\end{framed}
-}
-
-%quine quote
-\newcommand{\qq}[1]{
-\left\ulcorner#1\right\urcorner
-}
-
-%single quote
-\newcommand{\sq}[1]{
-\textnormal{\textquotesingle}#1\textnormal{\textquotesingle}
-}
-
-%lower quine quote
-\newcommand{\lqq}[1]{
-\left\llcorner #1\right\lrcorner
-}
-
-
-%from berkley
-\newcommand{\langl}{\begin{picture}(4.5,7)
-\put(1.1,2.5){\rotatebox{60}{\line(1,0){5.5}}}
-\put(1.1,2.5){\rotatebox{300}{\line(1,0){5.5}}}
-\end{picture}}
-\newcommand{\rangl}{\begin{picture}(4.5,7)
-\put(.9,2.5){\rotatebox{120}{\line(1,0){5.5}}}
-\put(.9,2.5){\rotatebox{240}{\line(1,0){5.5}}}
-\end{picture}}
-\newcommand{\lang}{\begin{picture}(5,7)\put(1.1,2.5){\rotatebox{45}{\line(1,0){6.0}}}\put(1.1,2.5){\rotatebox{315}{\line(1,0){6.0}}}\end{picture}}
-\newcommand{\rang}{\begin{picture}(5,7)\put(.1,2.5){\rotatebox{135}{\line(1,0){6.0}}}\put(.1,2.5){\rotatebox{225}{\line(1,0){6.0}}}\end{picture}}
-%Try sharper tuple brackets -- except gives errors nested in captions so comment out
-%\renewcommand{\tuple}[1]{\lang #1 \rang}
-
-\newcommand{\setsuchthat}[2]{\left\{#1 \ \middle|\ #2\right\}}
-\newcommand{\set}[1]{\left\{#1\right\}} 
+%Macros moved from here into general.macros
 
 %PREVIOUSLY \gmodel was \genericmodel
 \newcommand{\gmodel}{\mathcal{M}}  %PREVIOUSLY
@@ -203,15 +110,7 @@
 \newcommand{\ninc}{\nsubseteq}
 \newcommand{\nincd}[4]{#1\left[#2\right]\ninc#3\left[#4\right]}
 
-% one to n - wanton
-\newcommand{\wanton}[1]{#1_1,...#1_n}
-\newcommand{\fn}{\wanton{f}}
-\newcommand{\pn}{\wanton{p}}
-\newcommand{\qn}{\wanton{q}}
-\newcommand{\qnprime}{\wanton{q'}}
-\newcommand{\xn}{\wanton{x}}
-\newcommand{\xnprime}{\wanton{x'}}
-\newcommand{\yn}{\wanton{y}}
+
 \newcommand{\phifn}{\varphi(f_1),...\varphi(f_n)}
 \newcommand{\phixn}{\varphi(x_1),...\varphi(x_n)}
 \newcommand{\phipn}{\varphi(p_1),...\varphi(p_n)}
@@ -224,27 +123,10 @@
 \newcommand{\phip}{\varphi(p)}
 \newcommand{\phiy}{\varphi(y)}
 \newcommand{\phiz}{\varphi(z)}
-\newcommand{\ntuple}[1]{\tuple{\wanton{#1}}}
-\newcommand{\wantom}[1]{#1_1,...#1_m}
-\newcommand{\mtuple}[1]{\tuple{#1_1,...#1_m}}
-\newcommand{\qm}{\wantom{q}}
-\newcommand{\ym}{\wantom{y}}
 \newcommand{\phiym}{\varphi(y_1),...\varphi(y_m)}
 
-\newcommand {\bntuple}{\ensuremath{\ntuple{b}}}
-\newcommand {\fntuple}{\ensuremath{\ntuple{f}}}
-\newcommand {\fnprimetuple}{\ensuremath{\ntuple{f}}}
-\newcommand {\pntuple}{\ensuremath{\ntuple{p}}}
-\newcommand {\qntuple}{\ensuremath{\ntuple{q}}}
-\newcommand {\qnprimetuple}{\ensuremath{\ntuple{q'}}}
-\newcommand {\qmtuple}{\ensuremath{\mtuple{q}}}
-\newcommand {\sntuple}{\ensuremath{\ntuple{s}}}
-\newcommand {\xntuple}{\ensuremath{\ntuple{x}}}
-\newcommand {\xnprimetuple}{\ensuremath{\ntuple{x'}}}
-\newcommand {\ymtuple}{\ensuremath{\mtuple{y}}}
-\newcommand{\foreachi}[1][n]{for each $i$, $1 \leq i \leq #1$}
-\newcommand{\foreachj}[1][m]{for each $j$, $1 \leq j \leq #1$}
-\newcommand{\foreachk}[1][l]{for each $k$, $1 \leq k \leq #1$}
+%macros moved from here into general.macros
+
 \newcommand{\fdfactoring}{fd factoring}
 \newcommand{\attributelike}{attribute-like}
 
