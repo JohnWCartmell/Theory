@@ -1,5 +1,5 @@
 \documentclass[10pt,a4paper]{scrartcl}
-\usepackage[margin=3cm]{geometry}
+%\usepackage[margin=3cm]{geometry}
 \usepackage{url}
 \usepackage{hyperref}
 \usepackage{marginnote}
@@ -11,12 +11,20 @@
 \input{../SharedMacros/ermacros}
 \input{../SharedMacros/erdiagram}
 \input{../SharedMacros/indexedsets.macros}
+\usepackage{ulem} % for \sout for use by \oldt macro
+\input{../SharedMacros/general.macros}
 
 \usepackage[shortlabels]{enumitem}    %This was removed from ermacros 
                                       %because it interfered with beamer presentation
 
 \renewcommand{\erpictureFolder}[0]{../SharedPictures}
 
+\newcommand{\ndidlycospan}{n-way cospan}
+
+% support margin notes
+\usepackage[left=1.5cm, right=4cm, marginparwidth=3cm, top=2cm, bottom=2.0cm]{geometry}
+%\usepackage[font=small]{caption}
+%\setlength{\captionmargin}{2cm}  
 \setcounter{equation}{0}
 \bibliographystyle{plain} % was hplain
 
@@ -50,6 +58,8 @@ with other entities for both their identification and their existence.
 \end{abstract}
 
 \section{Introduction}
+
+\iffalse
 \noindent In this figure
 %\begin{center}
 \raisebox{-0.5cm}{
@@ -417,22 +427,20 @@ Define a \textit{category with distinguished morphisms} to be a category \cat{C}
 
 \noindent
 Notation:
-If \cat{C} is a category with distingusihed morphisms then :
+If \cat{C} is a category with distinguished morphisms then :
 \begin{enumerate}[(i)]
 \item Morphisms of the subcategory we will refer to as d-morphisms and we will write  
 $f: A \dmorph B$ in \cat{C}
 to mean that 
 $f: B \morph A$ in \cat{C} and that $f$ is a d-morphism i.e. is in the subcategory \cat{D} of distinguished morphisms. 
-\item If a morphism $f: B \morph A$ in \cat{C} is a d-morphisms and in addition
+\item If a morphism $f: B \morph A$ in \cat{C} is a d-morphism and in addition
 there does not exist an object $X$ distinct from $A$ and $B$ and d-morphisms $d_1$ and $d_2$
 such that $f=d_1 \comp d_2$ then we will say f is a simple distinguished morphism (or s-morphism). We will write  $f:B \smorph A$ in \cat{C}
 to mean that 
 $f: B \morph A$ in \cat{C} and that $f$ is a s-morphism.
 \end{enumerate}
 
-\noindent
-Previous authors had referred to such categories as being \textit{loop-free}. \\
-
+The following is an example of an acyclic category given by Kolozov which I have rearranged and relabelled:
 
 \begin{center}
 \begin{equation}
@@ -450,6 +458,8 @@ Previous authors had referred to such categories as being \textit{loop-free}. \\
 \ncbsar[-50]{y_1 \comp x = y_2 \comp x}{C}{A}
 \sarreset
 \end{center}
+
+\fi
 
 \noindent This category can be taken as representing the following type system:
 \addtocounter{equation}{-1}
@@ -495,7 +505,8 @@ which represents :
 The category $\Lambda$ is defined to be this category:
 \begin{center}
 \begin{displaymath}
-\begin{array}{cp{0.1cm}cp{0.1cm} c}
+\setlength{\arraycolsep}{3pt}
+\begin{array}{cp{0cm}cp{0cm} c}
             & &\Rnode{d}{\bullet}                  \\ [0.4cm]
 \Rnode{c1}{\bullet}& &                & & \Rnode{c2}{\bullet} 
 \end{array}
@@ -508,7 +519,8 @@ The category $\Lambda$ is defined to be this category:
 If we need names for the individual objects and morphisms we will use the names show here:
 \begin{center}
 \begin{displaymath}
-\begin{array}{cp{0.1cm}cp{0.1cm} c}
+\setlength{\arraycolsep}{3pt}
+\begin{array}{cp{0cm}cp{0cm} c}
             & &\Rnode{d}{\Delta}                  \\ [0.4cm]
 \Rnode{c1}{\Gamma_1}& &                & & \Rnode{c2}{\Gamma_2} 
 \end{array}
@@ -524,7 +536,8 @@ $S: \Lambda \morph \cat{C}$; it is a pair of morphisms of \cat{C} that have a co
 \begin{center}
 \begin{equation}
 \label{genericspan}
-\begin{array}{cp{0.1cm}cp{0.1cm} c}
+\setlength{\arraycolsep}{3pt}
+\begin{array}{cp{0cm}cp{0cm} c}
             & &\Rnode{d}{D}                  \\ [0.4cm]
 \Rnode{c1}{C_1}& &                & & \Rnode{c2}{C_2} 
 \end{array}
@@ -537,7 +550,8 @@ $S: \Lambda \morph \cat{C}$; it is a pair of morphisms of \cat{C} that have a co
 \begin{center}
 \begin{equation}
 \label{genericcospan}
-\begin{array}{cp{0.1cm}cp{0.1cm} c}
+\setlength{\arraycolsep}{3pt}
+\begin{array}{cp{0cm}cp{0cm} c}
 \Rnode{c1}{C_1}& &                & & \Rnode{c2}{C_2} \\ [0.4cm]
             & &\Rnode{b}{B}
 \end{array}
@@ -552,7 +566,8 @@ The cospan (\ref{genericcospan}) of $C_1$ and $C_2$ is said to be a
 diagram:
 \begin{center}
 \begin{equation}
-\begin{array}{cp{0.1cm}cp{0.1cm} c}
+\setlength{\arraycolsep}{3pt}
+\begin{array}{cp{0cm}cp{0cm} c}
             & &\Rnode{d}{D}                           \\ [0.4cm]
 \Rnode{c1}{C_1}& &                & & \Rnode{c2}{C_2} \\ [0.4cm]
             & &\Rnode{b}{B}
@@ -569,11 +584,13 @@ diagram:
 \noindent We will say that the cospan (\ref{genericcospan}) is a 
 \textit{minimal coincident cospan} for the span (\ref{genericspan}) iff it is 
 coincident  and there does not exist a cospan 
+   
 \begin{center}
 \begin{equation}
-\begin{array}{cp{0.1cm}cp{0.1cm} c}
+\setlength{\arraycolsep}{3pt}
+\begin{array}{c p{0cm}cp{0cm} c}
 \Rnode{c1}{C_1}& &                & & \Rnode{c2}{C_2} \\ [0.4cm]
-            & &\Rnode{b}{B'}
+            & &\Rnode{b}{B'}      & &
 \end{array}
 \end{equation}
 \jcbarr{x'_1}{c1}{b}
@@ -585,8 +602,11 @@ that is coincident to (\ref{genericspan}) and such that there is a morphism
 $h: B' \morph B$ which is not an isomorphism and such that both \\
 \vspace {0.25cm}
 
+
 $
-\begin{array}{cc}
+\setlength{\arraycolsep}{9pt}
+\begin{array}{c  c}
+\setlength{\arraycolsep}{3pt}
 \Rnode{C1}{C_1}                             \\ [0.7cm]
                & \Rnode{Bp}{B'}             \\ [0.8cm]
 							 &  \Rnode{B}{B} 
@@ -597,6 +617,7 @@ $
 \ncaarr{x'_1}{C1}{Bp}
 and
 $
+\setlength{\arraycolsep}{9pt}
 \begin{array}{p{1.5cm}cc}
 &                &\Rnode{C2}{C_2}     \\ [0.7cm]
 &\Rnode{Bp}{B'}                       \\ [0.8cm]
@@ -607,18 +628,22 @@ $
 \jcbarr{h}{Bp}{B}
 \jcbarr{x'_2}{C2}{Bp}
 commute. \\
+
+\vspace*{0.3cm}
 \noindent
 A cospan $F:\Lambda^{op} \morph \cat{C}$ is said to \textit{factor through}  a diagram 
 $J:S \morph \cat{C}$ iff there exists a cospan $F': \Lambda^{op} \morph S$ 
 such that $F' \comp J = F$. Intuitively, then, a cospan factors through a diagram iff it is a 
 part of the diagram.
   
-\section{Higher Cospans and Quotiented Higher Cospans}
+\section{n-way Cospans}
+\iffalse
 The notion of a \textit{higher cospan} was
  introduced in \cite{Grandis2007} for diagrams
 in a category of shape $\Lambda^{op^n}$but for us there are significant diagrams whose 
 shape category is a quotient of  ${\Lambda^{op}}^n$ and since we are not aware
 of further terminology in this area we introduce some here. It is appropriate to make use the join symbol ($\Join$) from relational algebra. \\
+\fi
 
 \noindent For any $n \geq 2$ define the category \ndidly to be this category:
 
@@ -649,7 +674,7 @@ A \textit{\ndidlycospan}
 shape $\ndidly$  i.e. it is any functor $F: \ndidly \morph \cat{C}$
 \end{definition}
 
-\section{ Some Other Preliminary Definitions\protect\footnote{Please regard the terminology introduced here as provisional -- the author would be glad to receive suggested improvements especially where he has failed to use prior established terminology.}}
+\section{ Some Other Preliminary Definitions}
 
 \begin{definition}
 \noindent If \cat{C} is a category  then a \textit{characterising family} for a span $s$ of \cat{C} is defined to be the set of its minimal coincident cospans.
@@ -667,7 +692,7 @@ $$n =
 and where $\chi_{i,j}$ is the characterising family within the subcategory 
 of d-morphisms of \cat{C} for the pair $f_i,f_j$ and 
 $|\chi_{i,j}|$ is its cardinality,
-and with functor $D: S \morph \cat{C}$ defined for $1 \leq i \leq n$, $1 \leq j \leq n$, $i \neq j$, $1 \leq k \leq | \chi_{i,j}$ by
+and with functor $D: S \morph \cat{C}$ defined for $1 \leq i \leq n$, $1 \leq j \leq n$, $i \neq j$, $1 \leq k \leq | \chi_{i,j} |$ by
 $$ \xi_{i,j,k}   \mapsto F_{i,j,k}(\xi)$$
 and
 $$ \gamma_{i,j,k}   \mapsto F_{i,j,k}(\gamma) $$
@@ -714,6 +739,8 @@ is a category \cat{C} with distinguished morphisms and a terminal object $1$ and
 \naput[npos=0.4, labelsep=1pt]{\footnotesize $x'_n$}
 \end{center}
 
+\begin{oldtt}
+\commentary{Dont need this because can prove this in lemma \lref{nwaylimitconstruction}}
 \begin{enumerate}[label*=\arabic*]
 \item
 \vlabel [Existence of a join]{joinexists}
@@ -740,8 +767,8 @@ the characteristic diagram of the cone $\tuple{N,\psi}$ factors through $D$.
 
 
 \end{enumerate}
-	
-	\item For all diagrams D of s-morphisms 
+\end{oldtt}
+	\item \vlabel{sspullback} For all diagrams D of s-morphisms 
 	\begin{center}
 $
 \begin{array}{cp{0cm}cp{0cm}c}
@@ -773,15 +800,20 @@ $p_1: \fibrex{B_1}{B_2}{D} \smorph B_1$ and  $p_1: \fibrex{B_1}{B_2}{D} \smorph 
 \end{center}
 
 is a pullback in category \cat{C}
+\begin{oldtt}
+\commentary{will always be a pushout because $x_1$ and $x_2$ are S-morphisms}
 \begin{enumerate}[label*=.\arabic*]
 \item \vlabel{sspullback} is a pullback diagram in category \cat{C},
 \item \vlabel{sspushout}  is a pushout diagram in the subcategory of distinguished morphisms of \cat{C}.
 \end{enumerate}
+\end{oldtt}
 
 \item \vlabel{ssmediating} such that for any 
 object $C$ and for cones $f_1:C \morph B_1$ and $f_2:C \morph B_2$ to diagram $D$,
 the mediating morphism $h: N \morph B_1 \underset{D}{\Join} B_2$ is a d-morphism iff 
-each of $f_1$ and $f_2$  is a d-morphism and and the characteristic diagram of
+each of $f_1$ and $f_2$  is a d-morphism 
+\begin{oldtt}
+and  \oldt{and the characteristic diagram of}
 
 \begin{center}
 $
@@ -810,6 +842,7 @@ $
 \ncbsar{x_1}{B1}{A}
 \ncasar{x_2}{B2}{A}
 \end{center}
+\end{oldtt}
 \end{enumerate} %END of C items
 
 \item \label 
@@ -1093,6 +1126,8 @@ $$
 \ncbcdar{x_2}{B}{A}
 \sarreset
 
+SOMTHING MISSING HERE?
+
 \item
 \vlabel[Dependency existence]{eqdependency}
  the morphism $e \comp x_1$ which equals, by definition, $e \comp a_2$,  is a d-morphism as shown
@@ -1129,6 +1164,7 @@ $
 \section{Construction of Limits of Other Dependency Diagrams}
 
 \begin{lemma}
+\llabel{nwaylimitconstruction}
 For all diagrams D of d-morphisms with shape \ndidly:
 	
 \begin{center}
@@ -1201,7 +1237,8 @@ The inductive step is described by this diagram:
 \end{center}
 
 \end{proof}
-\iffalse
+%\iffalse
+Following was commented out
 \begin{lemma}
 In any category \cat{C} if $F: S \morph \cat{C}$ is a diagram with limit $\tuple{L,\phi}$,
 if $S'$ is a category extending $S$ by an object $\beta_0$ and a pair of morphisms $\xi_1: \beta_1 \morph \beta_0$ and $\xi_2: \beta_2 \morph \beta_0$, where $\beta_1$ and $\beta_2$ are objects of $S$, if $G: S \morph \cat{C}$ is a diagram that extends $F$, then if :
@@ -1307,7 +1344,7 @@ Now we have:
 $$g' \comp e = h = g \comp e$$
 from which it follows $g=g'$ because $e$ is an equaliser and therefore is a monomorphism. 
 \end{proof}
-\fi
+%\fi
 
 \bibliography{../SharedBibliography/temp/bibliography}
 
