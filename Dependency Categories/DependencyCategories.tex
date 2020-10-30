@@ -935,10 +935,10 @@ such that $X=\fibrex{B_1}{B_2}{D}$ .
 \item
 \vlabel[Definition of prime dependency]{primed}
 a dependency $p:X \dmorph A$ is said to be a prime dependency iff its domain object $X$ is a $\cross$-object and 
-codomain $A$ is not a $\cross$-object and there does not exist and object $B$ which is not a $\cross$-object and dependencies $p_1:X \dmorph B$ and $p_2: B \dmorph A$ such that $p_1 \comp p_2 = p$. 
+codomain $A$ is not a $\cross$-object and there does not exist an object $B$ which is not a $\cross$-object and dependencies $p_1:X \dmorph B$ and $p_2: B \dmorph A$ such that $p_1 \comp p_2 = p$. 
 \item
 \vlabel[Dependency constraint on cross objects]{crossdconstraint}
-if $X$ of is  a $\cross$-object of \cat{C}
+if $X$ of is  a $\cross$-object (of \cat{C})
 and $p:X \dmorph  P$ is a prime dependency of $X$ then there exists
 a diagram D of s-morphisms :
 	\begin{center}
@@ -1014,11 +1014,11 @@ then there is a pullback
 \item 
 \vlabel[Dependency constraint]{fsprimes}
 every prime dependency $p$ of $C[f|y]$ either factors through $f \sub y$ or else factors 
-through $q(f,C)$ but not through $q(f,C) \comp p_C$. 
+through $q(f,C)$ but not through $q(f,C) \comp y$. 
 \item 
 \vlabel[Dependency constraint alternative form of expression]{fsprimesalt}
 
-$$\primeds{C[f|y]}= f \sub y \compset \primeds{A} \cup \{ q(f,C) \compset \primeds {C} - q(f,C) \comp p_C \compset \primeds{B}\}$$
+$$\primeds{C[f|y]}= f \sub y \compset \primeds{A} \cup \{ q(f,C) \compset \primeds {C} - q(f,C) \comp y \compset \primeds{B}\}$$
 \item 
 \vlabel[Pullbacks cohere]{fscoherence}
 
@@ -1104,7 +1104,7 @@ $
 \end{center}
 
 \item \vlabel[Equalisers and properties of equalisers]{equaliserall} If
-$x_1:A \dmorph B$ and $x_2:A \dmorph B$ are d-morphisms then 
+$x_1:B \dmorph A$ and $x_2:B \dmorph A$ are d-morphisms then 
 
 \begin{enumerate}[label*=\arabic*]
 \item
@@ -1125,8 +1125,6 @@ $$
 \setlength{\saroffsetB}{-4pt}
 \ncbcdar{x_2}{B}{A}
 \sarreset
-
-SOMTHING MISSING HERE?
 
 \item
 \vlabel[Dependency existence]{eqdependency}
@@ -1152,8 +1150,37 @@ $
 \ncbcdar{x_2}{B}{A}
 \sarreset
 \end{center}
-  
+ 
+\begin{oldtt}
+\commentary{deleted 3rd Dec 2018} 
+\item
+\vlabel[Dependency constraint]{eqdconstraint}
+ For any other d-morphism $a':B\dmorph A'$ leaving B, the morphism $e \comp a'$ is a d-morphism.
 
+\item
+\vlabel[Mediating morphism condition]{eqmediating}
+ For any object $C$ and morphism $y: C \morph B$ such that
+$y \comp x_1 = y \comp x_2$
+the mediating morphism $h: C \morph \underset{x_1=x_2}{\sigma}B$ is a d-morphism iff 
+\footnote{do we need add here that y is a d-morphism??}the morphisms $y \comp x_1$ and $y \comp x_2$ are d-morphisms (??was this deliberate??) and the  diagram
+
+\begin{center}
+$
+\setlength{\arraycolsep}{.25cm}
+\begin{array}{ccc}
+             & \Rnode{X}{C}&               \\ [0.6cm]
+\Rnode{B1}{B}&             & \Rnode{B2}{B} \\ [0.6cm]
+             &\Rnode{A}{A}& 
+\end{array}
+$
+\ncbcdar{y}{X}{B1}
+\ncacdar{y}{X}{B2}
+\ncbcdar{x_1}{B1}{A}
+\ncacdar{x_2}{B2}{A}
+\end{center}
+
+is a pushout diagram in the subcategory of distinguished morphisms.
+\end{oldtt}
 \end{enumerate}
 \end{enumerate}
 
@@ -1253,11 +1280,11 @@ if $S'$ is a category extending $S$ by an object $\beta_0$ and a pair of morphis
 \setlength{\arroffsetA}{3pt}
 \setlength{\arroffsetB}{3pt}
 \ncarr{L}{A}
-\naput{$\phi_B \comp G(\xi_1)$}
+\naput{$\phi_{\beta_1} \comp G(\xi_1)$}
 \setlength{\arroffsetA}{-3pt}
 \setlength{\arroffsetB}{-3pt}
 \ncarr{L}{A}
-\nbput{$\phi_{B'} \comp G(\xi_2)$}
+\nbput{$\phi_{\beta_2} \comp G(\xi_2)$}
 \arreset
 \end{center}
 is an equaliser in \cat{C} then $\tuple{E,\phi'}$ is a limit of the diagram $G$, where
@@ -1267,7 +1294,7 @@ $\phi'$ is the cone defined by
 \left\{
 	\begin{array}{ll}
 		e \comp \phi_\beta           & \mbox{if } \beta \mbox{ is an object of } S  \\
-		\phi_{\beta_1} \comp G(\xi_1) & \mbox{if } \beta \mbox{ is } \beta_0 
+		e \comp \phi_{\beta_1} \comp G(\xi_1) & \mbox{if } \beta \mbox{ is } \beta_0 
 	\end{array}
 \right.
 \end{equation*}
