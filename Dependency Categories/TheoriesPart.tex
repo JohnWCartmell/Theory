@@ -18,13 +18,16 @@
 \input{../SharedMacros/ermacros}
 \input{../SharedMacros/erdiagram}
 \input{../SharedMacros/indexedsets.macros}
+\usepackage{ulem} % for \sout for use by \oldt macro
+\input{../SharedMacros/general.macros}
 
 \renewcommand{\erpictureFolder}[0]{../SharedPictures}
-
+% support margin notes
+\usepackage[left=1.5cm, right=4cm, marginparwidth=3cm, top=2cm, bottom=2.0cm]{geometry}
 \setcounter{equation}{0}
 \bibliographystyle{plain} % was hplain
 
-\title{Dependency Categories - Part Three Theories and Unused}
+\title{ Theories Part}
 \author{John Cartmell\footnote{john.w.cartmell gmail.com}\\ \normalsize{\textit{Ad Otium}}}
 \subtitle{Status: \normalsize{DRAFT --TREAT WITH CAUTION}}
 \begin{document}
@@ -32,7 +35,7 @@
 
 \section{Restricting the class of Generalised Algebraic Theores}
 For this paper restrict the class of generalised algrebraic theories under 
-discussion to be those with the property 
+discussion to be those with the property \commentary{test marging note}
 \begin{enumerate}[(i)]
 \item 
 If
@@ -492,69 +495,7 @@ $\ofT{x_2}{A2}$ as a subcontext. This illustrates that each non-initial subconte
 which does not depend on one of the earlier variables.
  
 
-\section{Unused Lemma}
 
-\begin{lemma}
-In any category \cat{C} if $F: S \morph \cat{C}$ is a diagram with limit $\tuple{L,\phi}$,
-if $S'$ is a category extending $S$  then if :
-\begin{center}
-\begin{equation}
-\label{equaliser}
-\begin{array}{cp{1cm}cp{1cm} c}
-\Rnode{E}{E}& &    \Rnode{L}{L}  & & \Rnode{A}{\beta_0} 
-\end{array}
-\end{equation}
-\ncaarr{e}{E}{L}
-\setlength{\arroffsetA}{3pt}
-\setlength{\arroffsetB}{3pt}
-\ncarr{L}{A}
-\naput{$\phi_B \circ G(\xi_1)$}
-\setlength{\arroffsetA}{-3pt}
-\setlength{\arroffsetB}{-3pt}
-\ncarr{L}{A}
-\nbput{$\phi_{B'} \circ G(\xi_2)$}
-\arreset
-\end{center}
-is an equaliser in \cat{C} then $\tuple{E,\phi'}$ is a limit of the diagram $G$, where
-$\phi'$ is the cone defined by
-\begin{equation*}
-\phi'_\beta =
-\left\{
-	\begin{array}{ll}
-		e \circ \phi_\beta           & \mbox{if } \beta \mbox{ is an object of } S  \\
-		\phi_{\beta_1} \circ G(\xi_1) & \mbox{if } \beta \mbox{ is } \beta_0 
-	\end{array}
-\right.
-\end{equation*}
-
-\end{lemma}
-\begin{proof}
-If $\tuple{N,\psi'}$is a cone to the diagram $G$ then, the restriction $\psi$ to objects in $F$ is a cone to  $S$. Therefore there exists a unique $h : N \morph L$ such that 
-\begin{equation}
-\label{hmediates}
-h \circ \phi = \psi
-\end{equation}
-
-\noindent
-Now, we have 
-\begin{align*}
-h \circ \phi_{\beta_1} \circ G(x)
-             & = \psi_{\beta_1} \circ G(\xi_1)         && \mbox{by (\ref{hmediates})}\\
-             & = \psi_{\beta_2} \circ G(\xi_2)         && \mbox{because } \psi \mbox{ is a cone to } G \\
-             & = h \circ \phi_{\beta_2} \circ G(\xi_2) && \mbox{by (\ref{hmediates}) }\\
-\end{align*}
-
-\noindent
-and so it follows, since (\ref{equaliser}) is an equaliser diagram,
-that there is a unique $g: N \morph E$ such that 
-\begin{equation}
-\label{gmediates}
-g \circ e = h
-\end{equation}
-
-
-
-\end{proof}
 
 \bibliography{../SharedBibliography/temp/bibliography}
 
