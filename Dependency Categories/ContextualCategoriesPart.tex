@@ -115,12 +115,9 @@ If $A$ is a non-prime object of a contextual category \ccat then let the prime b
 prime object of \ccat greatest height such that $\pbase{A} \leq A$.
 \end{definition}
 \subsection{The representation lemma}
-\begin{newtt}
-Does it make sense to state the simple version we need and then state a strong version
-including the hypothesis needed for the inductive step and the proof?.
-\end{newtt}
+
 \begin{lemma}
-\vlabel{taketwo}
+\vlabel{simplerepresentation}
 if $Z$ is an object of a contextual category \ccat then either $Z$ is prime or else 
 there exists prime objects $B_1,...B_m$, for some $m > 1$, and morphisms $b_j : Z \morph B_j$ such that
 
@@ -136,41 +133,12 @@ there exists prime objects $B_1,...B_m$, for some $m > 1$, and morphisms $b_j : 
 \ncaarr{b_m}{Z}{Bm}
 \end{center}
 \noindent
-is a limit cone to its characteristic diagram within the subcategory of dependencies of \ccat and such that if for some $X$,
- $\pbase{Z} \leq X < Z$, and for some prime objects $A_1,...A_n$ and morphisms $a_1,...a_n$, such that the diagram
-\begin{center}
-\begin{displaymath}
-\begin{array}{cp{0.3cm}c         p{0.3cm}  c p{0.2cm} c}
-               & & \Rnode{X}{X} & &     & &  \\ [1.4cm]
-\Rnode{tildeZ}{\pbase{Z}}& &\Rnode{A1}{A_1}& & ... & &\Rnode{An}{A_n}
-\end{array}
-\end{displaymath}
-\ncbcdar{\pc{X}{\pbase{Z}}}{X}{tildeZ}
-\ncaarr{a_1}{X}{A1}
-\ncaarr{a_n}{X}{An}
-\end{center}
-is a limit cone to its characteristic diagram then for each $i$, $1 \leq i \leq n$, there exists $j_i$, $1 \leq j_i \leq m$, such that
-$A_i \leq B_{j_i}$ and
-\begin{center}
-\begin{displaymath}
-\begin{array}{cp{0.3cm}c         p{0.3cm}  c p{0.2cm} c}
-\Rnode{Z}{Z} & &     & & & &  \\ [1.4cm]
-\Rnode{X}{X}& &\Rnode{Bji}{B_{j_i}}& &    & & \\[1.4cm]
-            & &\Rnode{Ai}{A_i}     & &    & &
-\end{array}
-\end{displaymath}
-\ncbcdar{\pc{Z}{X}}{Z}{X}
-\ncaarr{b_{j_i}}{Z}{Bji}
-\ncacdar{\pc{B_{j_i}}{A_i}}{Bji}{Ai}
-\jcbarr{a_i}{X}{Ai}
-\end{center}
-
-commutes.
+is a limit cone to its characteristic diagram within the subcategory of dependencies of \ccat.
 \end{lemma}
-
-First some auxilary lemmas and then the proof of the representation lemma.
+We prove a stronger version of this lemma by induction following some 
+auxilary lemmas.
 \subsection{Auxiliary Lemmas}
-These are used in the proof of the represenation lemma}
+These lemmas are used in the proof of the representation lemma.
 \begin{lemma}
 \vlabel{conepass}
 If 
@@ -1070,9 +1038,55 @@ such that (\ref{ddtwohfEQg}) and (\ref{ddtwohfpEQgp}) then
 it follows that $h=h'$, as required.
 \end{proof} % end of drilldown 2 lemma labelled ddtwo
 
+\subsection{Strong Represenation Lemma}
+\begin{lemma}
+\vlabel{taketwo}
+if $Z$ is an object of a contextual category \ccat then either $Z$ is prime or else 
+there exists prime objects $B_1,...B_m$, for some $m > 1$, and morphisms $b_j : Z \morph B_j$ such that
 
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.3cm}c         p{0.3cm}  c p{0.2cm} c}
+               & & \Rnode{Z}{Z} & &     & &  \\ [1.4cm]
+\Rnode{tildeZ}{\pbase{Z}}& &\Rnode{B1}{B_1}& & ... & &\Rnode{Bm}{B_m}
+\end{array}
+\end{displaymath}
+\ncbcdar{\pc{Z}{\pbase{Z}}}{Z}{tildeZ}
+\ncaarr{b_1}{Z}{B1}
+\ncaarr{b_m}{Z}{Bm}
+\end{center}
+\noindent
+is a limit cone to its characteristic diagram within the subcategory of dependencies of \ccat and such that if for some $X$,
+ $\pbase{Z} \leq X < Z$, and for some prime objects $A_1,...A_n$ and morphisms $a_1,...a_n$, such that the diagram
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.3cm}c         p{0.3cm}  c p{0.2cm} c}
+               & & \Rnode{X}{X} & &     & &  \\ [1.4cm]
+\Rnode{tildeZ}{\pbase{Z}}& &\Rnode{A1}{A_1}& & ... & &\Rnode{An}{A_n}
+\end{array}
+\end{displaymath}
+\ncbcdar{\pc{X}{\pbase{Z}}}{X}{tildeZ}
+\ncaarr{a_1}{X}{A1}
+\ncaarr{a_n}{X}{An}
+\end{center}
+is a limit cone to its characteristic diagram then for each $i$, $1 \leq i \leq n$, there exists $j_i$, $1 \leq j_i \leq m$, such that
+$A_i \leq B_{j_i}$ and
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{0.3cm}c         p{0.3cm}  c p{0.2cm} c}
+\Rnode{Z}{Z} & &     & & & &  \\ [1.4cm]
+\Rnode{X}{X}& &\Rnode{Bji}{B_{j_i}}& &    & & \\[1.4cm]
+            & &\Rnode{Ai}{A_i}     & &    & &
+\end{array}
+\end{displaymath}
+\ncbcdar{\pc{Z}{X}}{Z}{X}
+\ncaarr{b_{j_i}}{Z}{Bji}
+\ncacdar{\pc{B_{j_i}}{A_i}}{Bji}{Ai}
+\jcbarr{a_i}{X}{Ai}
+\end{center}
 
-\subsection{Proof of Represenation Lemma}
+commutes.
+\end{lemma}
 \begin{proof}
 \commentary{Not yet proven}
 \daynote{20th November 2020 for latest thinking on how to restructure this proof.}
