@@ -1,6 +1,6 @@
 
 \documentclass[10pt,a4paper]{scrartcl}
-\usepackage[margin=3cm]{geometry}
+%\usepackage[margin=3cm]{geometry} %see below where I make room for margin notes
 
 \usepackage{url}
 \usepackage{hyperref}
@@ -34,23 +34,20 @@
 \maketitle
 
 \section{Restricting the class of Generalised Algebraic Theores}
-For this paper restrict the class of generalised algrebraic theories under 
-discussion to be those with the property \commentary{test marging note}
-\begin{enumerate}[(i)]
-\item 
-If
+
+Rationale for restricting to the class of theories in day notes 12 August 2012. \commentary{CHECK this rationale and document here.}
+\begin{definition}
+A generalised algebraic theory $\gat$ is said to be \term{cancellative}\commentary{Introduced as a restricted theory in day notes of Mon 13 Aug 2018}
+iff for all derived rules 
 $$
-\frac{\con{x}{\Delta}{n}}{\Delta=\Delta'}
+\frac{\con{x}{\Delta}{n}}{\Delta=\Delta'} \mbox{ of $\gat$,}
 $$
-\intheory and if variable $x_n$ is a variable which does not appear in either
-$\Delta$ or $\Delta'$ then
+such that variable $x_n$  does not appear in either
+$\Delta$ or $\Delta'$,
 $$
-\frac{\con{x}{\Delta}{n-1}}{\Delta=\Delta'}
+\frac{\con{x}{\Delta}{n-1}}{\Delta=\Delta'} \mbox{ is a derived rule of $\gat$.}
 $$
-\intheory.
-\item
-what else needed? 
-\end{enumerate}
+\end{definition}
 \section{Definitions}
 \subsection{Strongly Equivalent Contexts}
 \begin{definition}
@@ -64,9 +61,9 @@ $$
 
 This definition is that of equivalence from (\cite{Cartmell78})  and, as described there, the  equivalence classes of contexts for a generalised algebraic theory \gat\  are the objects of the contextual category $\conu$ corresponding to \gat.
 
+\begin{oldtt}
 \subsection{Aside: Middling Equivalent Contexts}
-I failed to make progress on \textbf{all} generatlised algebriac theories
-(not just the proper ones) with this definition:
+
 A context $\tuple{\con{x}{\Delta}{n}}$ 
 is  \textit{middling equivalent}  to a $\tuple{\con{y}{\Omega}{m}}$ iff $n=m$ and for each $i$, $1 \leq i \leq n$ the rule 
 $$
@@ -74,8 +71,9 @@ $$
 $$
 is a derived rule of \gat. \\
 
-This definition doesn't work -- it doesn't result in an equivalence relation because it is not symmetric for improper theories.
-
+This definition doesn't achieve anything -- it doesn't result in an equivalence relation because it is not symmetric for 
+\newt{non-cancellative}\oldt{improper} theories.\commentary{same as strong equivalence for cancellative theories}
+\end{oldtt}
 \subsection{Weakly Equivalent Contexts}
 \begin{definition}
 A context $\tuple{\con{x}{\Delta}{n}}$ 
@@ -86,13 +84,18 @@ is a context and
 is strongly equivalent to $\tuple{\con{x}{\Delta}{n}}$.
 \end{definition}
 \begin{lemma}
-In a restricted generalised algebraic theory, weak equivalence is an
+In a cancellative generalised algebraic theory, weak equivalence is an
 equivalence relation.
 \end{lemma}
 \begin{proof}
-
+\tbd\daynote{Mon 12 Aug 2018 for attempted proof.}
 \end{proof}
-
+\begin{framed}
+This proof breaks down and all heck breaks loose trying to modify the definition of weak equivalence to patch it up.
+\end{framed}
+\begin{framed}
+Counter example Monday 13th Aug 2018.\highlight{Study this.}
+\end{framed}
 \noindent 
 If $\tuple{\con{x}{\Delta}{n}}$ 
 and $\tuple{\con{y}{\Omega}{m}}$ are weakly equivalent 
@@ -101,16 +104,24 @@ such that the sequence
 $\tuple{\permcon{y}{\Omega}{m}{\sigma}}$
 is a context and 
 is strongly equivalent to $\tuple{\con{x}{\Delta}{n}}$
-then define $\sigma$ to be \textit{cannonical} iff
+then define $\sigma$ to be \textit{cannonical}\commentary{Is this one of the definitions of monotonic in the day notes?} iff
 for $i_1$,$i_2$,$1 \leq i_1  < i_2 \leq n$, if 
 $$
 \frac{\con{x}{\Delta}{n}}{\Delta_{i_1}=\Delta_{i_2}}
 $$
 then $\sigma(i_1) < \sigma(i_2)$.\\
 
-With this weaker definition of equivalence we will show that the 
+With this weaker definition of equivalence \newt{we would like to}  show that the 
 equivalence classes of contexts are the objects of a dependency category
-$\depu$ corresponding to a theory \gat. \\
+$\depu$ corresponding to a theory \gat. \daynote{ August 2018-- 9th October 2018 struggles to modify this definition to achieve 
+this}\\
+\begin{framed}
+\begin{enumerate}
+\item 11th Aug 2018 -- say a permutation is significant if it doesn't permute types that are equivalent
+\item this becomes a definition of monotonicity I think -- but is this to do with showing weak equivalence 
+is an equivalence relation or is it to do with defining equivalence of realisations -- need to get to bottom of this.
+\end{enumerate}
+\end{framed}
 \noindent
 Note that if there is an admittable  permutation between two contexts then it is the unique such permutation. 
 
@@ -128,12 +139,7 @@ $\tuple{r'_{\pi(1)},...r'_{\pi{m}}}[x_1|x'_{\sigma(1)},...,x_n|x'_{\sigma(n)}]$
 are strongly equivalent
 where
 $\sigma$ is unique permutation such that 
-and $\pi$ is unique permutation such that .
-
-
-
-
-
+and $\pi$ is unique permutation such that \highlight{missing text}.
 
 
 \section{Equivalent Contexts -- Example}
@@ -482,8 +488,6 @@ $1 \leq i_1 \leq i_2 \leq ... i_k \leq n$. \\
 \noindent
 For example:
 \begin {itemize}
-
-
 \item the empty context  is a subcontext of every 
 context,
 \item any initial subsequence of a context is a subcontext of that context.
