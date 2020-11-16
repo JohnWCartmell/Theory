@@ -29,9 +29,70 @@
 
 \title{ Theories Part}
 \author{John Cartmell\footnote{john.w.cartmell gmail.com}\\ \normalsize{\textit{Ad Otium}}}
-\subtitle{Status: \normalsize{DRAFT --TREAT WITH CAUTION}}
+\subtitle{Status: \normalsize{WORK IN PROGRESS}}
 \begin{document}
 \maketitle
+
+\section{New November 2020 Material}
+
+\newcommand{\sEquiv}[2]{#1 \equiv #2}
+\newcommand{\wEquivOne}[2]{#1\ we_1\ #2}
+\newcommand{\wEquivTwo}[2]{#1\ we_2\ #2}
+
+
+Write $\sEquiv{\encxDelta{n}}{\encyOmega{n}}$ to say that $\encxDelta{n}$ is a context and $\encyOmega{n}$ is a context and $\encxDelta{n}$ is strongly equivalent to $\encyOmega{n}$.
+
+Write $\wEquivOne{\encxDelta{n}}{\encyOmega{n}}$ to say that $\encxDelta{n}$ is weakly equivalent in sense (1) to $\encyOmega{n}$ i.e. as defined in August 2018.
+
+Write $\wEquivTwo{\encxDelta{n}}{\encyOmega{n}}$ to say that $\encxDelta{n}$ is weakly equivalent in sense (2) to $\encyOmega{n}$.
+
+\begin{definition}
+If $\Delta=\encxDelta{n}$ and $\Omega = \encyOmega{n}$ are contexts then $\wEquivTwo{\Delta}{\Omega}$ iff there exists contexts $\Delta' = \encxDeltap{n}$ and $\Omega' = \encyOmegap{n}$ such that
+$\sEquiv{\Delta}{\Delta'}$ and $\sEquiv{\Omega}{\Omega}$ and $\wEquivOne{\Delta'}{\Omega'}$.
+\end{definition}
+
+\begin{lemma}
+\llabel{seRestriction}
+if $\encxDelta{n}$ 
+and $\encyOmega{n}$ are contexts 
+and $\sEquiv{\encxDelta{n}}{\encyOmega{n}}$ 
+then \foreachi,  $\sEquiv{\encxDelta{i}}{\encyOmega{i}}$
+\end{lemma}
+\begin{proof}
+\end{proof}
+
+
+\begin{lemma}
+The relation $\wEquivTwo{}{}$ is 
+symmetric i.e. if $\Delta=\encxDelta{n}$ 
+and $\Omega = \encyOmega{n}$ are contexts 
+and $\wEquivTwo{\Delta}{\Omega}$ 
+then $\wEquivTwo{\Omega}{\Delta}$.
+\end{lemma}
+\begin{proof}
+Assume $\wEquivTwo{\Delta}{\Omega}$. Therefore there are contexts $\Delta'=\encxDeltap{n}$ and $\Omega' = \encyOmegap{n}$  such that $\sEquiv{\Delta}{\Delta'}$ and $\sEquiv{\Omega}{\Omega'}$ and there is a permutation $\sigma$ such that  $\encyOmegapsigma{n}$ is a context and 
+\begin{equation}
+\sEquiv{\encxDelta{n}}{\encyOmegapsigma{n}}
+\end{equation}
+
+First note that $\wEquivOne{\encyOmegap{n}}{\encyOmegapsigma{n}}$ for $\sigma$ being a  permutation has an inverse permutation $\sigma^{-1}$ and  $\encyOmegapsigma{n}[\sigma^{-1}]=\encyOmegap{n}$.
+
+Now we have $\sEquiv{\encyOmega{n}}{\encyOmegap{n}}$ and $\wEquivOne{\encyOmegap{n}}{\encyOmegapsigma{n}}$ and $\sEquiv{\encyOmegapsigma{n}}{\encxDelta{n}}$.
+
+Therefore $\wEquivTwo{\encyOmega{n}}{\encxDelta{n}}$ as required.
+\end{proof}
+
+\begin{lemma}
+The relation $\wEquivTwo{}{}$ is 
+transitive i.e. if $\Delta=\encxDelta{n}$ 
+and $\Omega = \encyOmega{n}$ and $\Gamma$ are contexts 
+and $\wEquivTwo{\Delta}{\Omega}$ 
+and $\wEquivTwo{\Omega}{\Gamma}$ then 
+$\wEquivTwo{\Delta}{\Gamma}$.
+\end{lemma}
+\begin{proof}
+show that the relationship $\wEquivOne$ is transitive. 
+\end{proof}
 
 \section{Restricting the class of Generalised Algebraic Theores}
 
@@ -89,12 +150,23 @@ equivalence relation.
 \end{lemma}
 \begin{proof}
 \tbd\daynote{Mon 12 Aug 2018 for attempted proof.}
+
+\begin{framed}
+A good counter example to this lemma was given in day notes Monday 13th Aug 2018 after a supposed proof from the same day.
+In fact proof of symmetry is incorrect because the permuted context is not shown to be a context and the counter example shows that
+it may fail to be a context.
+\end{framed}
 \end{proof}
+
 \begin{framed}
 This proof breaks down and all heck breaks loose trying to modify the definition of weak equivalence to patch it up.
 \end{framed}
+
 \begin{framed}
-Counter example Monday 13th Aug 2018.\highlight{Study this.}
+It occurs to me today (11th November 2020) that one way of patching up the definition is be saying (we(2))
+that $\Delta$ w.e(2) $\Omega$ iff there exists $\Delta'$ and $\Omega'$ such that $\Delta$ strongly equivalent to $\Delta'$
+and $\Omega$ strongly equivalent to $\Omega'$ and $\Delta'$ we(1) $\Omega'$. Then can reduce each context to a reduced form in which 
+no extraneous variables in type expressions.
 \end{framed}
 \noindent 
 If $\tuple{\con{x}{\Delta}{n}}$ 
