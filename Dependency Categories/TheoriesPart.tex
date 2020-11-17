@@ -35,34 +35,56 @@
 
 \section{New November 2020 Material}
 
-\newcommand{\sEquiv}[2]{#1 \equiv #2}
+\newcommand{\sEquiv}{\equiv}
 \newcommand{\wEquivOne}[2]{#1\ we_1\ #2}
 \newcommand{\wEquivTwo}[2]{#1\ we_2\ #2}
+\newcommand{\GAT}{generalised algebraic theory\ }
 
-
-Write $\sEquiv{\encxDelta{n}}{\encyOmega{n}}$ to say that $\encxDelta{n}$ is a context and $\encyOmega{n}$ is a context and $\encxDelta{n}$ is strongly equivalent to $\encyOmega{n}$.
-
-Write $\wEquivOne{\encxDelta{n}}{\encyOmega{n}}$ to say that $\encxDelta{n}$ is weakly equivalent in sense (1) to $\encyOmega{n}$ i.e. as defined in August 2018.
-
-Write $\wEquivTwo{\encxDelta{n}}{\encyOmega{n}}$ to say that $\encxDelta{n}$ is weakly equivalent in sense (2) to $\encyOmega{n}$.
-
+\subsection{Strongly Equivalent Contexts}
 \begin{definition}
-If $\Delta=\encxDelta{n}$ and $\Omega = \encyOmega{n}$ are contexts then $\wEquivTwo{\Delta}{\Omega}$ iff there exists contexts $\Delta' = \encxDeltap{n}$ and $\Omega' = \encyOmegap{n}$ such that
-$\sEquiv{\Delta}{\Delta'}$ and $\sEquiv{\Omega}{\Omega}$ and $\wEquivOne{\Delta'}{\Omega'}$.
+If  $\Delta= \tuple{\con{x}{\Delta}{n}}$ 
+and $\Omega = \tuple{\con{y}{\Omega}{m}}$ are contexts of a \GAT $\gat$ then they are said to be \textit{strongly equivalent}, written $\Delta \sEquiv \Omega$,  iff $n=m$ and for each $i$, $1 \leq i \leq n$ the rule 
+$$
+\frac{\con{x}{\Delta}{i-1}}{\Delta_i=\Omega_i[x_1|y_1,...,x_{i-1}|y_{i-1}]}
+$$
+\intheory.
+\end{definition}
+
+This definition is that of equivalence from (\cite{Cartmell78})  and, as described there, the  equivalence classes of contexts for a generalised algebraic theory \gat\  are the objects of the contextual category $\conu$ corresponding to \gat.
+
+\subsection{Permutations of Contexts}
+If $\Delta = \encxDelta{n}$ is a context and if $\sigma: \set{1,...n} \morph \set{1,...n}$ is a permutation then write $\Delta[\sigma]$ for the
+sequence $\encxDeltasigma{n}$. Our  interest is in those cases where $\Delta[\sigma]$ is a valid context.  
+
+\subsection{Weak Equivalence (1)}
+\commentary{Defined
+  August 2018}
+\begin{definition}
+If $\Delta = \xDelta{n}$ and $\Omega=\yOmega{m}$ are contexts then say that context $\Delta$
+is \textit{weakly equivalent in sense (1) } to context $\Omega$, written $\wEquivOne{\Delta}{\Omega}$,  iff $n=m$ and there exists a permutation $\sigma$ of the set $\{1,2,..n\}$
+such that the sequence $\Omega[\sigma]$ 
+is a context and $\Delta \sEquiv \Omega[\sigma]$.
+\end{definition}
+
+\subsection{Weak Equivalence (2)}
+\begin{definition}
+If $\Delta=\encxDelta{n}$ and $\Omega = \encyOmega{n}$ are contexts then $\encxDelta{n}$ is weakly equivalent in sense (2) to $\encyOmega{n}$, written $\wEquivTwo{\Delta}{\Omega}$, iff there exists contexts $\Delta' = \encxDeltap{n}$ and $\Omega' = \encyOmegap{n}$ such that
+$\Delta \sEquiv \Delta'$ and $\Omega \sEquiv \Omega$ and $\wEquivOne{\Delta'}{\Omega'}$.
 \end{definition}
 
 \begin{lemma}
 \llabel{seRestriction}
 if $\encxDelta{n}$ 
 and $\encyOmega{n}$ are contexts 
-and $\sEquiv{\encxDelta{n}}{\encyOmega{n}}$ 
-then \foreachi,  $\sEquiv{\encxDelta{i}}{\encyOmega{i}}$
+and $\encxDelta{n} \sEquiv \encyOmega{n}$ 
+then \foreachi,  $\encxDelta{i} \sEquiv \encyOmega{i}$
 \end{lemma}
 \begin{proof}
 \end{proof}
 
 
 \begin{lemma}
+\llabel{weTwoSymmetric}
 The relation $\wEquivTwo{}{}$ is 
 symmetric i.e. if $\Delta=\encxDelta{n}$ 
 and $\Omega = \encyOmega{n}$ are contexts 
@@ -70,16 +92,16 @@ and $\wEquivTwo{\Delta}{\Omega}$
 then $\wEquivTwo{\Omega}{\Delta}$.
 \end{lemma}
 \begin{proof}
-Assume $\wEquivTwo{\Delta}{\Omega}$. Therefore there are contexts $\Delta'=\encxDeltap{n}$ and $\Omega' = \encyOmegap{n}$  such that $\sEquiv{\Delta}{\Delta'}$ and $\sEquiv{\Omega}{\Omega'}$ and there is a permutation $\sigma$ such that  $\encyOmegapsigma{n}$ is a context and 
+Assume $\wEquivTwo{\Delta}{\Omega}$. Therefore there are contexts $\Delta'=\encxDeltap{n}$ and $\Omega' = \encyOmegap{n}$  such that $\Delta \sEquiv \Delta'$ and $\Omega \sEquiv \Omega'$ and there is a permutation $\sigma$ such that $\Omega'[\sigma]$  is a context and 
 \begin{equation}
-\sEquiv{\encxDelta{n}}{\encyOmegapsigma{n}}
+\Delta \sEquiv \Omega'[\sigma]
 \end{equation}
 
-First note that $\wEquivOne{\encyOmegap{n}}{\encyOmegapsigma{n}}$ for $\sigma$ being a  permutation has an inverse permutation $\sigma^{-1}$ and  $\encyOmegapsigma{n}[\sigma^{-1}]=\encyOmegap{n}$.
+First note that $\wEquivOne{\Omega'}{\Omega'[\sigma]}$ for $\sigma$ being a  permutation has an inverse permutation $\sigma^{-1}$ and  $\Omega'[\sigma][\sigma^{-1}]=\Omega'$.
 
-Now we have $\sEquiv{\encyOmega{n}}{\encyOmegap{n}}$ and $\wEquivOne{\encyOmegap{n}}{\encyOmegapsigma{n}}$ and $\sEquiv{\encyOmegapsigma{n}}{\encxDelta{n}}$.
+Now we have $\Omega \sEquiv \Omega'$ and $\wEquivOne{\Omega'}{\Omega'[\sigma]}$ and $ \Omega'[\sigma] \sEquiv  \Delta$.
 
-Therefore $\wEquivTwo{\encyOmega{n}}{\encxDelta{n}}$ as required.
+Therefore $\wEquivTwo{\Omega}{\Delta}$ as required.
 \end{proof}
 
 \begin{lemma}
@@ -91,7 +113,72 @@ and $\wEquivTwo{\Omega}{\Gamma}$ then
 $\wEquivTwo{\Delta}{\Gamma}$.
 \end{lemma}
 \begin{proof}
-show that the relationship $\wEquivOne$ is transitive. 
+I have a proof of 13 August 2018  that the relationship $\wEquivOne{}{}$ is transitive. Do I believe this proof. See next lemma.
+
+\end{proof}
+\begin{lemma}
+\llabel{we1Transitive}
+The relation $\wEquivOne{}{}$ is 
+transitive i.e. if $\Delta=\encxDelta{n}$ 
+and $\Omega = \encyOmega{n}$ and $\Gamma$ are contexts 
+and $\wEquivOne{\Delta}{\Omega}$ 
+and $\wEquivOne{\Omega}{\Gamma}$ then 
+$\wEquivOne{\Delta}{\Gamma}$.
+\end{lemma}
+\begin{proof}
+ 13 August 2018  proof proceeds as follows:
+
+\begin{equation}
+\label{we1Transitive1}
+\Delta \sEquiv \Omega[\sigma]
+\end{equation}
+
+\begin{equation}
+\label{we1Transitive2}
+\Omega \sEquiv \Gamma[\gamma]
+\end{equation}
+
+From \lref{we1Transitive1} it follows that \foreachi,
+\begin{equation}
+\label{we1Transitive3}
+\frac{\encxDelta{i-1}}{\ofT{x_i}{\Omega_{\sigma(i)}[[\bar{x}[\sigma]|\bar{y}]}}
+\end{equation}
+
+In particular, $\tuple{\xn}$ is a realisation of $\Omega[\sigma]$ wrt $\Delta$.
+
+\end{proof}
+
+Go for the following:
+\begin{lemma}
+If $\Omega = \encyOmega{n}$ is a context and if $\sigma$ is a permutation of the set $\{1,2,..n\}$ such that $\Omega[\sigma]$ is a context then
+$\permterm{y}{n}{\sigma^{-1}}$, which we write as   $\bar{y}[\sigma^{-1}]$, is a realisation of $\Omega$ wrt $\Omega[\sigma]$.
+\end{lemma}
+\begin{proof}
+We have that \foreachi,
+\begin{equation*}
+\frac{\yOmegasigma{n}}{\ofT{y_{\sigma(i)}}{\Omega_{\sigma(i)}}}
+\end{equation*}
+
+therefore \foreachj, 
+\begin{equation*}
+\frac
+{\yOmegasigma{n}}     
+        {\ofT
+				    {y_{\sigma(\sigma^{-1}(j))}}
+						{\Omega_{\sigma(\sigma^{-1}(j))}}
+				}
+\end{equation*}
+
+which is to say that \foreachj, 
+
+\begin{equation*}
+\frac{\yOmegasigma{n}}{\ofT{y_j}{\Omega_{j}}}
+\end{equation*}
+
+We have to show ??????? that \foreachi, 
+\begin{equation*}
+\frac{\yOmegasigma{n}}{\ofT{y_{\sigma^{-1}(i)}}{\Omega{i}[ \bar{y}[\sigma^{-1}] | \bar{y}]}}
+\end{equation*}
 \end{proof}
 
 \section{Restricting the class of Generalised Algebraic Theores}
@@ -110,17 +197,7 @@ $$
 $$
 \end{definition}
 \section{Definitions}
-\subsection{Strongly Equivalent Contexts}
-\begin{definition}
-Contexts $\tuple{\con{x}{\Delta}{n}}$ 
-and $\tuple{\con{y}{\Omega}{m}}$ will be said to be \textit{strongly equivalent} iff $n=m$ and for each $i$, $1 \leq i \leq n$ the rule 
-$$
-\frac{\con{x}{\Delta}{i-1}}{\Delta_i=\Omega_i[x_1|y_1,...,x_{i-1}|y_{i-1}]}
-$$
-\intheory.
-\end{definition}
 
-This definition is that of equivalence from (\cite{Cartmell78})  and, as described there, the  equivalence classes of contexts for a generalised algebraic theory \gat\  are the objects of the contextual category $\conu$ corresponding to \gat.
 
 \begin{oldtt}
 \subsection{Aside: Middling Equivalent Contexts}
