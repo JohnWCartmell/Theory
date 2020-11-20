@@ -45,6 +45,9 @@ This could be used in preparation for a mathematical theory of data.
 Construction is non-algebraic but probably relevant to definition of dependency category
 and reminiscent of attempted definition of monotonic permutative realisation.
 Might the definition of category with symetric products be generalised algebraic even though appears not to be? No but worth trying to find express as algebraically as possible. Need number of instances of each of a set of (distinct) types. 
+
+
+
 \section{Decompositions and Projections of Objects}
 For any given object $Y$ of a contextual category there may or may not be objects $A$, $B$ and $X$ so that
 $Y = \crossx{A}{B}{X}$. If there are we say the object is decomposable. If an object $Y$ is decomposable into objects that
@@ -109,6 +112,58 @@ and the diagram
 $q(\pc{A}{X},B): \crossx{A}{B}{X} \morph B$. Given that  $A$ and $B$ are maybe themselves decomposable then we  can define a tree of morphisms which we shall call the projection tree. Whereas the projection tree is not unique the leaves of the tree are and the composed morphisms to the leaves of the tree are too. The composed morphisms to the leaves of the tree we
 will call the \textit{key} of the object $Y$. This is made formal in the represenation lemma.
 
+\begin{newtt}
+\commentary{moved from theory part}
+\noindent If $X < Y$ in a contextual category \ccat then we define the projection tree of $Y$ beyond $X$, which we denote
+$\proj{Y}{X}$, recursively as follows:
+\begin{enumerate}
+\item if $Y$ is primitive then 
+$$\proj{Y}{X} = id_Y$$
+
+\vspace{2cm}
+
+\item
+if $Y$ is $\crossx{B}{C_m}{A}$ for some $B$, $C_1,...C_m$ and $A$ where  $A \base C_1 \base ... \base C_m$ and $A < B$ then
+\vspace{1.0cm}
+\begin{displaymath}
+\begin{array}{cp{0.5cm}cp{0.2cm}c   p{0.2cm}c c  p{0.2cm}l   p{0.2cm}c   c  p{0.1cm}c }
+&& \Rnode{A}{A} &&    &&&     \Rnode{B}{B} && \Rnode{AC1}{\crossx{B}{C_1}{A}} 
+&& \Rnode{AC2}{\crossx{B}{C_2}{A}}     &\Rnode{BCe}{\hdots}    && \Rnode{BCm}{\crossx{B}{C_m}{A}}           \\ [0.6cm]
+               &&                && \Rnode{C1}{C_1}   && \Rnode{C2}{C_2} &\Rnode{Ce}{\hdots}   && \Rnode{Cm}{Cm}     &&  &&     
+\end{array}
+\end{displaymath}
+\ncsar{C1}{A}
+\ncsar{C2}{C1}
+\ncsar{Cm}{Ce}
+\ncsar{AC1}{B}
+\ncsar{AC2}{AC1}
+\ncsar{BCm}{BCe}
+\ncaarr[15]{q(\pc{B}{A},C_m)}{BCm}{Cm}
+\nccdar{B}{A}
+\ncbcdar[-30]{\pc{\crossx{B}{C_m}{A}}{B}}{BCm}{B}
+\vspace{0.5cm}
+
+\begin{enumerate}
+\item 
+if $X < B$
+$$
+\proj{\crossx{B}{C_m}{A}}{X} = \{ \tuple{\pc{\crossx{B}{C_m}{A}}{B},\proj{B}{X}} ;\tuple{q(\pc{B}{A},C_m),\proj{C_m}{A}} \}
+$$
+\item 
+if $X = B$
+$$
+\proj{\crossx{B}{C_m}{A}}{B} = \{  ;\tuple{q(\pc{B}{A},C_m),\proj{C_m}{A}} \}
+$$
+
+
+\item if $X$ is $\crossx{B}{C_i}{X}$ 
+$$
+\proj{\crossx{B}{C_m}{A}}{\crossx{B}{C_i}{A}} = \{\tuple{q(\pc{B}{A},C_m),\proj{C_m}{C_i}}\}
+$$
+
+\end{enumerate}
+\end{enumerate}
+\end{newtt}
 \section{Representation Lemma}
 \begin{definition}
 If $A$ is a non-prime object of a contextual category \ccat then let the prime base of $A$, denoted $\pbase{A}$,  be the 
