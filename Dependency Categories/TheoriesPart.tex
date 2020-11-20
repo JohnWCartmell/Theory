@@ -33,12 +33,51 @@
 \begin{document}
 \maketitle
 
-\section{New November 2020 Material}
+\section{Definitions}
 
 \newcommand{\sEquiv}{\equiv}
 \newcommand{\wEquivOne}[2]{#1\ we_1\ #2}
 \newcommand{\wEquivTwo}[2]{#1\ we_2\ #2}
 \newcommand{\GAT}{generalised algebraic theory\ }
+
+
+\subsection{Substituting terms for variables in expressions}
+
+If $X$ is an expression, if  $\xn$ are variables and $\tn$ are terms then 
+the expression that results from replacing each instance of each $x_i$ by $t_i$, \foreachi,
+ is  written as
+\begin{equation*}
+X[t_1|x_1,...t_n|x_n]
+\end{equation*}
+which sometimes we write as
+\begin{equation*}
+X[t_i|x_i]_{\idef}.
+\end{equation*}
+
+
+\begin{observation}
+\llabel{permutingsubstitution}
+If $X$ is an expression, if  $\xn$ are variables and $\tn$ are terms,
+if $\sigma: \set{1,...n} \morph \set{1,...n}$ is a permutation 
+then 
+\begin{equation}
+X[t_{\sigma^{-1}(1)}|x_1,...t_{\sigma^{-1}(n)} | x_n] = X[t_1|x_{\sigma(1)},...t_n| x_{\sigma(n)}]
+\end{equation}
+which can also be written as
+\begin{equation}
+X[t_{\sigma^{-1}(i)}|x_i]_{\idef} = X[t_i|x_{\sigma(i)}]_{\idef}.
+\end{equation}
+Likewise we have
+\begin{equation}
+X[t_{\sigma(1)}|x_1,...t_{\sigma(n)} | x_n] = X[t_1|x_{\sigma^{-1}(1)},...t_n| x_{\sigma^{-1}(n)}]
+\end{equation}
+which can also write as
+\begin{equation}
+X[t_{\sigma(i)}|x_i]_{\idef} = X[t_i|x_{\sigma^{-1}(i)}]_{\idef}.
+\end{equation}
+
+\end{observation}
+
 
 \subsection{Strongly Equivalent Contexts}
 \begin{definition}
@@ -52,106 +91,15 @@ $$
 
 This definition is that of equivalence from (\cite{Cartmell78})  and, as described there, the  equivalence classes of contexts for a generalised algebraic theory \gat\  are the objects of the contextual category $\conu$ corresponding to \gat.
 
+
+
 \subsection{Permutations of Contexts}
 If $\Delta = \encxDelta{n}$ is a context and if $\sigma: \set{1,...n} \morph \set{1,...n}$ is a permutation then write $\Delta[\sigma]$ for the
 sequence $\encxDeltasigma{n}$. Our  interest is in those cases where $\Delta[\sigma]$ is a valid context.  
-
-\subsection{Weak Equivalence (1)}
-\commentary{Defined
-  August 2018}
-\begin{definition}
-If $\Delta = \xDelta{n}$ and $\Omega=\yOmega{m}$ are contexts then say that context $\Delta$
-is \textit{weakly equivalent in sense (1) } to context $\Omega$, written $\wEquivOne{\Delta}{\Omega}$,  iff $n=m$ and there exists a permutation $\sigma$ of the set $\{1,2,..n\}$
-such that the sequence $\Omega[\sigma]$ 
-is a context and $\Delta \sEquiv \Omega[\sigma]$.
-\end{definition}
-
-\subsection{Weak Equivalence (2)}
-\begin{definition}
-If $\Delta=\encxDelta{n}$ and $\Omega = \encyOmega{n}$ are contexts then $\encxDelta{n}$ is weakly equivalent in sense (2) to $\encyOmega{n}$, written $\wEquivTwo{\Delta}{\Omega}$, iff there exists contexts $\Delta' = \encxDeltap{n}$ and $\Omega' = \encyOmegap{n}$ such that
-$\Delta \sEquiv \Delta'$ and $\Omega \sEquiv \Omega$ and $\wEquivOne{\Delta'}{\Omega'}$.
-\end{definition}
-
 \begin{lemma}
-\llabel{seRestriction}
-if $\encxDelta{n}$ 
-and $\encyOmega{n}$ are contexts 
-and $\encxDelta{n} \sEquiv \encyOmega{n}$ 
-then \foreachi,  $\encxDelta{i} \sEquiv \encyOmega{i}$
-\end{lemma}
-\begin{proof}
-\end{proof}
-
-
-\begin{lemma}
-\llabel{weTwoSymmetric}
-The relation $\wEquivTwo{}{}$ is 
-symmetric i.e. if $\Delta=\encxDelta{n}$ 
-and $\Omega = \encyOmega{n}$ are contexts 
-and $\wEquivTwo{\Delta}{\Omega}$ 
-then $\wEquivTwo{\Omega}{\Delta}$.
-\end{lemma}
-\begin{proof}
-Assume $\wEquivTwo{\Delta}{\Omega}$. Therefore there are contexts $\Delta'=\encxDeltap{n}$ and $\Omega' = \encyOmegap{n}$  such that $\Delta \sEquiv \Delta'$ and $\Omega \sEquiv \Omega'$ and there is a permutation $\sigma$ such that $\Omega'[\sigma]$  is a context and 
-\begin{equation}
-\Delta \sEquiv \Omega'[\sigma]
-\end{equation}
-
-First note that $\wEquivOne{\Omega'}{\Omega'[\sigma]}$ for $\sigma$ being a  permutation has an inverse permutation $\sigma^{-1}$ and  $\Omega'[\sigma][\sigma^{-1}]=\Omega'$.
-
-Now we have $\Omega \sEquiv \Omega'$ and $\wEquivOne{\Omega'}{\Omega'[\sigma]}$ and $ \Omega'[\sigma] \sEquiv  \Delta$.
-
-Therefore $\wEquivTwo{\Omega}{\Delta}$ as required.
-\end{proof}
-
-\begin{lemma}
-The relation $\wEquivTwo{}{}$ is 
-transitive i.e. if $\Delta=\encxDelta{n}$ 
-and $\Omega = \encyOmega{n}$ and $\Gamma$ are contexts 
-and $\wEquivTwo{\Delta}{\Omega}$ 
-and $\wEquivTwo{\Omega}{\Gamma}$ then 
-$\wEquivTwo{\Delta}{\Gamma}$.
-\end{lemma}
-\begin{proof}
-I have a proof of 13 August 2018  that the relationship $\wEquivOne{}{}$ is transitive. Do I believe this proof. See next lemma.
-
-\end{proof}
-\begin{lemma}
-\llabel{we1Transitive}
-The relation $\wEquivOne{}{}$ is 
-transitive i.e. if $\Delta=\encxDelta{n}$ 
-and $\Omega = \encyOmega{n}$ and $\Gamma$ are contexts 
-and $\wEquivOne{\Delta}{\Omega}$ 
-and $\wEquivOne{\Omega}{\Gamma}$ then 
-$\wEquivOne{\Delta}{\Gamma}$.
-\end{lemma}
-\begin{proof}
- 13 August 2018  proof proceeds as follows:
-
-\begin{equation}
-\label{we1Transitive1}
-\Delta \sEquiv \Omega[\sigma]
-\end{equation}
-
-\begin{equation}
-\label{we1Transitive2}
-\Omega \sEquiv \Gamma[\gamma]
-\end{equation}
-
-From \lref{we1Transitive1} it follows that \foreachi,
-\begin{equation}
-\label{we1Transitive3}
-\frac{\encxDelta{i-1}}{\ofT{x_i}{\Omega_{\sigma(i)}[[\bar{x}[\sigma]|\bar{y}]}}
-\end{equation}
-
-In particular, $\tuple{\xn}$ is a realisation of $\Omega[\sigma]$ wrt $\Delta$.
-
-\end{proof}
-
-Go for the following:
-\begin{lemma}
+\llabel{mappingOmegasigmatoOmega}
 If $\Omega = \encyOmega{n}$ is a context and if $\sigma$ is a permutation of the set $\{1,2,..n\}$ such that $\Omega[\sigma]$ is a context then
-$\permterm{y}{n}{\sigma^{-1}}$, which we write as   $\bar{y}[\sigma^{-1}]$, is a realisation of $\Omega$ wrt $\Omega[\sigma]$.
+$\tuple{\yn}$, is a realisation of $\Omega$ wrt $\Omega[\sigma]$.
 \end{lemma}
 \begin{proof}
 We have that \foreachi,
@@ -175,17 +123,39 @@ which is to say that \foreachj,
 \frac{\yOmegasigma{n}}{\ofT{y_j}{\Omega_{j}}}
 \end{equation*}
 
-We have to show ??????? that \foreachi, 
-\begin{equation*}
-\frac{\yOmegasigma{n}}{\ofT{y_{\sigma^{-1}(i)}}{\Omega{i}[ \bar{y}[\sigma^{-1}] | \bar{y}]}}
-\end{equation*}
+as required.
 \end{proof}
+
+\subsection{Subcontexts}
+By a \textit{subcontext} of a context $\context{x}{\Delta}{n}$ we mean any context
+of the form
+$\subcontext{x}{{\Delta}}{i}{k}$ for some sequence 
+$1 \leq i_1 \leq i_2 \leq ... i_k \leq n$. \\
+
+\noindent
+For example:
+\begin {itemize}
+\item the empty context  is a subcontext of every 
+context,
+\item any initial subsequence of a context is a subcontext of that context.
+\end{itemize}
+
+\noindent
+In addition to the above, a context such as $\ofT{x_1}{A_1},\ofT{x_2}{A2},\ofT{y}{B(x_1)}$ has 
+$\ofT{x_2}{A2}$ as a subcontext. This illustrates that each non-initial subcontext is indicative of a type in the context ($A_2$ in this case)
+which does not depend on one of the earlier variables.
+
+\begin{note}
+20 November 2020.
+Can we say that all subcontexts are initial segments of permuted contexts?
+\end{note}
+
 
 \section{Restricting the class of Generalised Algebraic Theores}
 
 Rationale for restricting to the class of theories in day notes 12 August 2012. \commentary{CHECK this rationale and document here.}
 \begin{definition}
-A generalised algebraic theory $\gat$ is said to be \term{cancellative}\commentary{Introduced as a restricted theory in day notes of Mon 13 Aug 2018}
+A generalised algebraic theory $\gat$ is said to be \term{cancellative}\commentary{Introduced as a \textit{restricted theory} in day notes of Mon 13 Aug 2018}
 iff for all derived rules 
 $$
 \frac{\con{x}{\Delta}{n}}{\Delta=\Delta'} \mbox{ of $\gat$,}
@@ -196,74 +166,7 @@ $$
 \frac{\con{x}{\Delta}{n-1}}{\Delta=\Delta'} \mbox{ is a derived rule of $\gat$.}
 $$
 \end{definition}
-\section{Definitions}
 
-
-\begin{oldtt}
-\subsection{Aside: Middling Equivalent Contexts}
-
-A context $\tuple{\con{x}{\Delta}{n}}$ 
-is  \textit{middling equivalent}  to a $\tuple{\con{y}{\Omega}{m}}$ iff $n=m$ and for each $i$, $1 \leq i \leq n$ the rule 
-$$
-\frac{\con{x}{\Delta}{n}}{\Delta_i=\Omega_i[x_1|y_1,...,x_{i-1}|y_{i-1}]}
-$$
-is a derived rule of \gat. \\
-
-This definition doesn't achieve anything -- it doesn't result in an equivalence relation because it is not symmetric for 
-\newt{non-cancellative}\oldt{improper} theories.\commentary{same as strong equivalence for cancellative theories}
-\end{oldtt}
-\subsection{Weakly Equivalent Contexts}
-\begin{definition}
-A context $\tuple{\con{x}{\Delta}{n}}$ 
-is \textit{weakly equivalent} to a context $\tuple{\con{y}{\Omega}{m}}$  iff $n=m$ and there exists a permutation $\sigma$ of the set $\{1,2,..n\}$
-such that the sequence 
-$\tuple{\permcon{y}{\Omega}{m}{\sigma}}$
-is a context and 
-is strongly equivalent to $\tuple{\con{x}{\Delta}{n}}$.
-\end{definition}
-\begin{lemma}
-In a cancellative generalised algebraic theory, weak equivalence is an
-equivalence relation.
-\end{lemma}
-\begin{proof}
-\tbd\daynote{Mon 12 Aug 2018 for attempted proof.}
-
-\begin{framed}
-A good counter example to this lemma was given in day notes Monday 13th Aug 2018 after a supposed proof from the same day.
-In fact proof of symmetry is incorrect because the permuted context is not shown to be a context and the counter example shows that
-it may fail to be a context.
-\end{framed}
-\end{proof}
-
-\begin{framed}
-This proof breaks down and all heck breaks loose trying to modify the definition of weak equivalence to patch it up.
-\end{framed}
-
-\begin{framed}
-It occurs to me today (11th November 2020) that one way of patching up the definition is be saying (we(2))
-that $\Delta$ w.e(2) $\Omega$ iff there exists $\Delta'$ and $\Omega'$ such that $\Delta$ strongly equivalent to $\Delta'$
-and $\Omega$ strongly equivalent to $\Omega'$ and $\Delta'$ we(1) $\Omega'$. Then can reduce each context to a reduced form in which 
-no extraneous variables in type expressions.
-\end{framed}
-\noindent 
-If $\tuple{\con{x}{\Delta}{n}}$ 
-and $\tuple{\con{y}{\Omega}{m}}$ are weakly equivalent 
-and if $\sigma$ is a permutation of the set $\{1,2,..n\}$
-such that the sequence 
-$\tuple{\permcon{y}{\Omega}{m}{\sigma}}$
-is a context and 
-is strongly equivalent to $\tuple{\con{x}{\Delta}{n}}$
-then define $\sigma$ to be \textit{cannonical}\commentary{Is this one of the definitions of monotonic in the day notes?} iff
-for $i_1$,$i_2$,$1 \leq i_1  < i_2 \leq n$, if 
-$$
-\frac{\con{x}{\Delta}{n}}{\Delta_{i_1}=\Delta_{i_2}}
-$$
-then $\sigma(i_1) < \sigma(i_2)$.\\
-
-With this weaker definition of equivalence \newt{we would like to}  show that the 
-equivalence classes of contexts are the objects of a dependency category
-$\depu$ corresponding to a theory \gat. \daynote{ August 2018-- 9th October 2018 struggles to modify this definition to achieve 
-this}\\
 \begin{framed}
 \begin{enumerate}
 \item 11th Aug 2018 -- say a permutation is significant if it doesn't permute types that are equivalent
@@ -291,328 +194,6 @@ $\sigma$ is unique permutation such that
 and $\pi$ is unique permutation such that \highlight{missing text}.
 
 
-\section{Equivalent Contexts -- Example}
-
-In a g.a.t. \gat which includes the following type definitions:
-\begin{displaymath}
-\begin{array}{l}
-\tstyle \isT{A_1} \\
-\tstyle \isT{A_2} \\
-\ofT{x}{A_1}\tstyle \isT{B_1(x)} \\
-\ofT{x}{A_2}\tstyle \isT{B_2(x)} \\
-\end{array}
-\end{displaymath}
-
-The context 
-\begin{equation}
-\ofT{x_1}{A_1},\ofT{x_2}{A_2},\ofT{y_1}{B_1(x_1)},\ofT{y_2}{B_2(x_2)}
-\end{equation}
-can be rearranged in five different ways to give, all in all, six different ways of expressing
-what is much the same context:
-\begin{equation}
-\ofT{x_1}{A_1}, \ofT{x_2}{A_2}, \ofT{y_1}{B_1(x_1)}, \ofT{y_2}{B_2(x_2)}
-\end{equation}
-\begin{equation}
-\ofT{x_1}{A_1}, \ofT{x_2}{A_2}, \ofT{y_2}{B_2(x_2)}, \ofT{y_1}{B_1(x_1)}
-\end{equation}
-\begin{equation}
-\ofT{x_1}{A_1}, \ofT{y_1}{B_1(x_1)}, \ofT{x_2}{A_2}, \ofT{y_2}{B_2(x_2)}
-\end{equation}
-\begin{equation}
-\ofT{x_2}{A_2}, \ofT{x_1}{A_1}, \ofT{y_1}{B_1(x_1)}, \ofT{y_2}{B_2(x_2)}
-\end{equation}
-\begin{equation}
-\ofT{x_2}{A_2}, \ofT{x_1}{A_1}, \ofT{y_2}{B_2(x_2)}, \ofT{y_1}{B_1(x_1)}
-\end{equation}
-\begin{equation}
-\ofT{x_2}{A_2}, \ofT{y_2}{B_2(x_2)}, \ofT{x_1}{A_1}, \ofT{y_1}{B_1(x_1)}
-\end{equation}
-
-
-Each one of these contexts and each subcontext is represented by an object
-in the contextual category  \cat{C(\gat)} that corresponds to the theory. This is
-shown in this diagram:
-
-%\scalebox{0.9}{
-\begin{shrunkdisplay}
-%\scalebox{0.9}{
-\begin{array}{cccccc}
-\Rnode{c1}{\crossx
-              {(\crossx
-							     {(\crossx{A_1}{A_2}{1})}
-									 {B_1}
-									 {A_1}
-								) 
-								\hspace{-0.2cm}
-							}
-							{\hspace{-0.2cm}(\crossx{A_1}{B_2}{1})}
-							{\crossx{A_1}{A_2}{1}} 
-				  } 
-&
-\Rnode {c2}{\crossx
-              {(\crossx{A_1}{B_2}{1})}
-							{B_1}
-							{A_1}
-           }
-&
-\Rnode{c3}{
-           \crossx{B_1}{B_2}{1}
-					}
-&
-\Rnode{c4}{
-           \crossx{B_2}{B_1}{1}
-					}
-&
-\Rnode{c5}{\crossx
-           {(\crossx{A_2}{B_1}{1})}
-					 {B_2}
-					 {A_2}
-					}
-&
-\Rnode{c6}{\crossx
-              {(\crossx
-							     {(\crossx{A_2}{A_1}{1})}
-									 {B_2}
-									 {A_2}
-								) 
-								\hspace{-0.2cm}
-							}
-							{\hspace{-0.2cm}(\crossx{A_2}{B_1}{1})}
-							{\crossx{A_2}{A_1}{1}} 
-				  } \\ [1.2cm]
-\Rnode{sc1}{\crossx
-							     {(\crossx{A_1}{A_2}{1})}
-									 {B_1}
-									 {A_1}				
-				   } 
-&
-\Rnode {sc2}{
-             \crossx{A_1}{B_2}{1}
-           }
-&
-\Rnode{sc3}{
-           \crossx{B_1}{A_2}{1}
-					}   
-&
-\Rnode{sc4}{
-           \crossx{B_2}{A_1}{1}
-					}   
-&
-\Rnode{sc5}{
-           \crossx{A_2}{B_1}{1}
-					}   
-&
-\Rnode{sc6}{
-           \crossx
-					         {(\crossx{A_2}{A_1}{1})}
-					         {B_2}
-									 {A_2}
-					}  \\ [1.2cm]
-\multicolumn{2}{c}{
-         \ \ \ \ \ \ \ \Rnode{A1xA2}{\crossx{A_1}{A_2}{1}}   
-} 
-& \Rnode{B1}{B_1} 
-& \Rnode{B2}{B_2}
-& \multicolumn{2}{c}{\Rnode{A2xA1}{\crossx{A_2}{A_1}{1}}}
-\\ [1.2cm] 
-  \multicolumn{3}{c}{ \hspace{3cm}\Rnode{A1}{A_1}}
-& \multicolumn{3}{c}{             \Rnode{A2}{A_2}} \hspace{3cm} \\ [1.2cm]
-\multicolumn{6}{c}{
-         \Rnode{abs}{1}
-					        }
-\end{array}
-\end{shrunkdisplay}
-%}
- 
-\ncsar{c1}{sc1}
-\ncsar{c2}{sc2}
-\ncsar{c3}{sc3}
-\ncsar{c4}{sc4}
-\ncsar{c5}{sc5}
-\ncsar{c6}{sc6}
-\ncsar{sc1}{A1xA2}
-\ncsar{sc2}{A1xA2}
-\ncsar{sc3}{B1}
-\ncsar{sc4}{B2}
-\ncsar{sc5}{A2xA1}
-\ncsar{sc6}{A2xA1}
-\ncsar{A1xA2}{A1}
-\ncsar{B1}{A1}
-\ncsar{A1}{abs}
-\ncsar{B2}{A2}
-\ncsar{A2xA1}{A2}
-\ncsar{A2}{abs}
-
-Each of the six contexts are equivalents. This is reflected by the facts that there are cannonical 
-isomorphisms in the contextual catgory between the six objects: \\
-\begin{displaymath}
-\def\arraystretch{2.2}
-\begin{array} {l}
-      \crossx
-          {(\crossx
-			       {(\crossx{A_1}{A_2}{1})}
-						 {B_1}
-						 {A_1}
-			     ) 
-			     \hspace{-0.2cm}
-					}
-					{\hspace{-0.2cm}(\crossx{A_1}{B_2}{1})}
-					{\crossx{A_1}{A_2}{1}}
-\\
-    \crossx
-       {(\crossx{A_1}{B_2}{1})}
-							{B_1}
-							{A_1}
-\\
-
-     \crossx{B_1}{B_2}{1}
-\\
-     \crossx{B_2}{B_1}{1}
-\\
-     \crossx
-           {(\crossx{A_2}{B_1}{1})}
-					 {B_2}
-					 {A_2}
-\\
-     \crossx
-              {(\crossx
-							     {(\crossx{A_2}{A_1}{1})}
-									 {B_2}
-									 {A_2}
-								) 
-								\hspace{-0.2cm}
-							}
-							{\hspace{-0.2cm}(\crossx{A_2}{B_1}{1})}
-							{\crossx{A_2}{A_1}{1}} 
-
-\end{array}
-\end{displaymath}
-\section{Cancellative Property}
-\noindent 
-\begin{definition}
-A contextual category \ccat is said to be cancellative iff for all objects $X$, $A$, $B$ and $B'$ such that
-$X < A$, $X < B$ and $X < B'$ in \ccat, 
-if $\crossx{A}{B}{X} = \crossx{A}{B'}{X}$ then $B=B'$. \footnote{What about requiring q's to b equal?}.
-\end{definition} 
-\textbf{Assume from now on that we always mean contextual categories to be cancellative.}
-
-\section{Decompositions and Projections of Objects}
-For any given object $Y$ of a contextual category there may or may not be objects $A$, $B$ and $X$ so that
-$Y = \crossx{A}{B}{X}$. If there are we say the object is decomposable. If an object $Y$ is decomposable into objects that
-are themselves decomposable then there may be a number of decompositions implied by coherence conditions of contextual
-categories but since we we assume the cancellative property upto these equivalent decompositions given by coherence
-the decomposition is unique. 
-\noindent
-For example if $X < A$, $X < B$, $X < C$ in a \ccat then from coherence of pullbacks in \ccat we have:
-$\crossx{A}{(\crossx{B}{C}{X})}{X} = \crossx{(\crossx{A}{B}{X})}{C}{X}$ as shown here:
- 
-\begin{displaymath}
-\begin{array}{cp{1.0cm}cp{1.0cm}c}
-\Rnode{J1}{}\Rnode{D1} {\crossx{(\crossx{A}{B}{X})}{C}{X}}\Rnode{J2}{} \ \ \ \ \   &&  &&  \\ 
-= && && \\
-\Rnode{D2} {\crossx{A}{(\crossx{B}{C}{X})}{X}}    &&  &&                        \\ [1.3cm]
-\Rnode{AB}{\crossx{A}{B}{X}}&& \Rnode{BC}{\crossx{B}{C}{X}} &&                      \\[1.3cm]
-\Rnode{A}{A}&& \Rnode{B}{B} && \ \ \ \ \ \ \ \ \ \ \ \ \ \Rnode{C}{C}                                        \\[1.3cm]
-             && \Rnode{X}{X} &&                                                     
-\end{array}
-\end{displaymath}
-
-\ncaarr[50]{q(\pc{\crossx{A}{B}{X}}{X},C)}{J2}{C}
-%\ncsar[-30]{J1}{AB}
-\ncsar{D2}{AB}
-\ncsar{AB}{A}
-\ncsar{BC}{B}
-\ncsar{A}{X}
-\ncsar{B}{X} 
-\ncsar{C}{X}
-\ncaarr{q(\pc{A}{X},B)}{AB}{B}
-\ncaarr{q(\pc{B}{X},C)}{BC}{C}
-\ncaarr{q(\pc{A}{X},\crossx{B}{C}{X})}{D2}{BC}
-
-\noindent Say that an object is primitive if it cannot be decomposed.
-\noindent Anyway we look at it we can decompose an object into an n-tuple of simple objects. 
-\noindent Any object $Y$ of a contextual category \ccat is either primitive or else there is an $n > 1$ and a tuple of morphisms $f_i: Y \morph A_i$, $1 \leq i \leq n$, such that for each $i$, $1 \leq i \leq n$,  $A_i$ is primitive, 
-and the diagram
-\begin{center}
-\psset{arrowsize=5pt,arrowinset=0.7}
-\psset{nodesep=7pt}
-\setlength{\arraycolsep}{0.3cm}
-\begin{displaymath}
-\begin{array}{ccp{0.2cm}p{0.075cm}c}
-&&\Rnode{top}{$Y$}& & \\[1.5cm]
-\Rnode{A}{A_1}&\Rnode{B2}{A_2}&& ... & \Rnode{Bm}{A_n}\\
-\end{array}
-\end{displaymath}
-\psset{nodesepA=4pt,nodesepB=7pt}
-\ncline{-}{top}{A}
-\tlput{\footnotesize $f_1$}
-\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
-\ncline{-}{top}{B2}
-\trput{\footnotesize $f_2$}
-\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
-\ncline{-}{top}{Bm}
-\trput{\footnotesize $f_n$}
-\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
-\end{center}
- is a limit cone to its own characteristic diagram.
-
-\noindent The object $\crossx{A}{B}{X}$ has projections $\pc{\crossx{A}{B}{X}}{A}: \crossx{A}{B}{X} \smorph A$ and
-$q(\pc{A}{X},B): \crossx{A}{B}{X} \morph B$. Given that  $A$ and $B$ are maybe themselves decomposable then we  can define a tree of morphisms which we shall call the projection tree. Whereas the projection tree is not unique the leaves of the tree are and the composed morphisms to the leaves of the tree are too. The composed morphisms to the leaves of the tree we
-will call the \textit{basis} of the object $Y$. 
-
-\newpage
-\noindent If $X < Y$ in a contextual category \ccat then we define the projection tree of $Y$ beyond $X$, which we denote
-$\proj{Y}{X}$, recursively as follows:
-\begin{enumerate}
-\item if $Y$ is primitive then 
-$$\proj{Y}{X} = id_Y$$
-
-\vspace{2cm}
-
-\item
-if $Y$ is $\crossx{B}{C_m}{A}$ for some $B$, $C_1,...C_m$ and $A$ where  $A \base C_1 \base ... \base C_m$ and $A < B$ then
-\vspace{1.0cm}
-\begin{displaymath}
-\begin{array}{cp{0.5cm}cp{0.2cm}c   p{0.2cm}c c  p{0.2cm}l   p{0.2cm}c   c  p{0.1cm}c }
-&& \Rnode{A}{A} &&    &&&     \Rnode{B}{B} && \Rnode{AC1}{\crossx{B}{C_1}{A}} 
-&& \Rnode{AC2}{\crossx{B}{C_2}{A}}     &\Rnode{BCe}{\hdots}    && \Rnode{BCm}{\crossx{B}{C_m}{A}}           \\ [0.6cm]
-               &&                && \Rnode{C1}{C_1}   && \Rnode{C2}{C_2} &\Rnode{Ce}{\hdots}   && \Rnode{Cm}{Cm}     &&  &&     
-\end{array}
-\end{displaymath}
-\ncsar{C1}{A}
-\ncsar{C2}{C1}
-\ncsar{Cm}{Ce}
-\ncsar{AC1}{B}
-\ncsar{AC2}{AC1}
-\ncsar{BCm}{BCe}
-\ncaarr[15]{q(\pc{B}{A},C_m)}{BCm}{Cm}
-\nccdar{B}{A}
-\ncbcdar[-30]{\pc{\crossx{B}{C_m}{A}}{B}}{BCm}{B}
-\vspace{0.5cm}
-
-\begin{enumerate}
-\item 
-if $X < B$
-$$
-\proj{\crossx{B}{C_m}{A}}{X} = \{ \tuple{\pc{\crossx{B}{C_m}{A}}{B},\proj{B}{X}} ;\tuple{q(\pc{B}{A},C_m),\proj{C_m}{A}} \}
-$$
-\item 
-if $X = B$
-$$
-\proj{\crossx{B}{C_m}{A}}{B} = \{  ;\tuple{q(\pc{B}{A},C_m),\proj{C_m}{A}} \}
-$$
-
-
-\item if $X$ is $\crossx{B}{C_i}{X}$ 
-$$
-\proj{\crossx{B}{C_m}{A}}{\crossx{B}{C_i}{A}} = \{\tuple{q(\pc{B}{A},C_m),\proj{C_m}{C_i}}\}
-$$
-
-\end{enumerate}
-\end{enumerate}
-
-\newpage
-
 \section{Sketch}
 \begin{enumerate}
 \item{
@@ -624,29 +205,141 @@ Therefore it preserves limits.
 }
 \end{enumerate}
 
-
-
-
-\section{Equivalence Classes of Contexts}
-\subsection{Subcontexts}
-By a \textit{subcontext} of a context $\context{x}{\Delta}{n}$ we mean any context
-of the form
-$\subcontext{x}{{\Delta}}{i}{k}$ for some sequence 
-$1 \leq i_1 \leq i_2 \leq ... i_k \leq n$. \\
-
-\noindent
-For example:
-\begin {itemize}
-\item the empty context  is a subcontext of every 
-context,
-\item any initial subsequence of a context is a subcontext of that context.
-\end{itemize}
-
-\noindent
-In addition to the above, a context such as $\ofT{x_1}{A_1},\ofT{x_2}{A2},\ofT{y}{B(x_1)}$ has 
-$\ofT{x_2}{A2}$ as a subcontext. This illustrates that each non-initial subcontext is indicative of a type in the context ($A_2$ in this case)
-which does not depend on one of the earlier variables.
  
+\newpage
+\appendix
+\section{Failed Approaches}
+
+\subsection{Weak Equivalence(1) 13 August 2018 and Weak Equivalence (2) November 2020}
+
+\begin{oldtt}
+\subsubsection{Aside: Middling Equivalent Contexts}
+
+A context $\tuple{\con{x}{\Delta}{n}}$ 
+is  \textit{middling equivalent}  to a $\tuple{\con{y}{\Omega}{m}}$ iff $n=m$ and for each $i$, $1 \leq i \leq n$ the rule 
+$$
+\frac{\con{x}{\Delta}{n}}{\Delta_i=\Omega_i[x_1|y_1,...,x_{i-1}|y_{i-1}]}
+$$
+is a derived rule of \gat. \\
+
+This definition doesn't achieve anything -- it doesn't result in an equivalence relation because it is not symmetric for 
+\newt{non-cancellative}\oldt{improper} theories.\commentary{same as strong equivalence for cancellative theories}
+\end{oldtt}
+
+\subsubsection{Attempts to define Weakly Equivalent Contexts}
+
+\subsubsection{Weak Equivalence (1)}
+\commentary{Defined
+  August 2018}
+\begin{definition}
+If $\Delta = \xDelta{n}$ and $\Omega=\yOmega{m}$ are contexts then say that context $\Delta$
+is \textit{weakly equivalent in sense (1) } to context $\Omega$, written $\wEquivOne{\Delta}{\Omega}$,  iff $n=m$ and there exists a permutation $\sigma$ of the set $\{1,2,..n\}$
+such that the sequence $\Omega[\sigma]$ 
+is a context and $\Delta \sEquiv \Omega[\sigma]$.
+\end{definition}
+\begin{framed}
+An example to show that weak equivalence (1) is not an equivalence relation was given in day notes Monday 13th Aug 2018 after a supposed proof from the same day.
+In fact proof of symmetry is incorrect because the permuted context is not shown to be a context and the counter example shows that
+it may fail to be a context. Transitivity fails also. 
+\end{framed}
+
+
+\subsubsection{Weak Equivalence (2)}
+\begin{definition}
+If $\Delta=\encxDelta{n}$ and $\Omega = \encyOmega{n}$ are contexts then $\encxDelta{n}$ is weakly equivalent in sense (2) to $\encyOmega{n}$, written $\wEquivTwo{\Delta}{\Omega}$, iff there exists contexts $\Delta' = \encxDeltap{n}$ and $\Omega' = \encyOmegap{n}$ such that
+$\Delta \sEquiv \Delta'$ and $\Omega \sEquiv \Omega$ and $\wEquivOne{\Delta'}{\Omega'}$.
+\end{definition}
+
+
+\begin{framed}
+11th November 2020 I tried to patch up the definition with weak equivalence (2).
+Sadly weak equivalence(2) thought symmetric is not transitive. Here is a counter example:
+let a theory have the following type definitions:
+\begin{displaymath}
+\begin{array}{l}
+\tstyle \isT{A} \\
+\tstyle \isT{A'} \\
+\ofT{x}{A}\tstyle \isT{B(x)} \\
+\ofT{x'}{A'}\tstyle \isT{B'(x')}
+\end{array}
+\end{displaymath}
+and the type identity
+\begin{displaymath}
+\begin{array}{l}
+\ofT{x}{A}, \ofT{x'}{A'}\tstyle B(x)=B'(x')
+\end{array}
+\end{displaymath}
+and no other rules.
+
+Let $\Delta$ be the context $\tuple{\ofT{x}{A}, \ofT{y}{B(x)}, \ofT{x'}{A'}}$. \\
+
+Let $\Omega$ be the context $\tuple{\ofT{x}{A}, \ofT{x'}{A'}, \ofT{y}{B(x)}}$. \\
+
+Let $\Gamma$ be the context $\tuple{\ofT{x'}{A'}, \ofT{y}{B'(x)},  \ofT{x}{A}}$. \\
+
+Then, $\wEquivTwo{\Delta}{\Omega}$ because they are both contexts and each is a permuation of the other,
+
+and $\wEquivTwo{\Omega}{\Gamma}$ because $\Omega \sEquiv \Omega'$ and $\Omega'$ and $\Gamma$ are both contexts and are permutations of each other,
+where $\Omega'$ is the context $\tuple{\ofT{x}{A}, \ofT{x'}{A'}, \ofT{y}{B'(x)}}$. \\
+
+We do not have $\wEquivTwo{\Omega}{\Gamma}$ for $\Gamma$ has no non-identical equivalents and $\Gamma$ permuted to 
+$\tuple{\ofT{x}{A}, \ofT{y}{B'(x)}, \ofT{x'}{A'}}$ to align with $\Delta$ is not a context.
+ 
+Therefore $\wEquivTwo{}{}$ is not transitive.
+\end{framed}
+\subsection{Other}
+\noindent 
+If $\tuple{\con{x}{\Delta}{n}}$ 
+and $\tuple{\con{y}{\Omega}{m}}$ are weakly equivalent 
+and if $\sigma$ is a permutation of the set $\{1,2,..n\}$
+such that the sequence 
+$\tuple{\permcon{y}{\Omega}{m}{\sigma}}$
+is a context and 
+is strongly equivalent to $\tuple{\con{x}{\Delta}{n}}$
+then define $\sigma$ to be \textit{cannonical}\commentary{Is this one of the definitions of monotonic in the day notes?} iff
+for $i_1$,$i_2$,$1 \leq i_1  < i_2 \leq n$, if 
+$$
+\frac{\con{x}{\Delta}{n}}{\Delta_{i_1}=\Delta_{i_2}}
+$$
+then $\sigma(i_1) < \sigma(i_2)$.\\
+
+With this weaker definition of equivalence \newt{we would like to}  show that the 
+equivalence classes of contexts are the objects of a dependency category
+$\depu$ corresponding to a theory \gat. \daynote{ August 2018-- 9th October 2018 struggles to modify this definition to achieve 
+this}\\
+
+\subsection{Do we need these?}
+\begin{lemma}
+\llabel{seRestriction}
+if $\encxDelta{n}$ 
+and $\encyOmega{n}$ are contexts 
+and $\encxDelta{n} \sEquiv \encyOmega{n}$ 
+then \foreachi,  $\encxDelta{i} \sEquiv \encyOmega{i}$
+\end{lemma}
+\begin{proof}
+\end{proof}
+
+\begin{lemma}
+\llabel{weTwoSymmetric}
+The relation $\wEquivTwo{}{}$ is 
+symmetric i.e. if $\Delta=\encxDelta{n}$ 
+and $\Omega = \encyOmega{n}$ are contexts 
+and $\wEquivTwo{\Delta}{\Omega}$ 
+then $\wEquivTwo{\Omega}{\Delta}$.
+\end{lemma}
+\begin{proof}
+Assume $\wEquivTwo{\Delta}{\Omega}$. Therefore there are contexts $\Delta'=\encxDeltap{n}$ and $\Omega' = \encyOmegap{n}$  such that $\Delta \sEquiv \Delta'$ and $\Omega \sEquiv \Omega'$ and there is a permutation $\sigma$ such that $\Omega'[\sigma]$  is a context and 
+\begin{equation}
+\Delta \sEquiv \Omega'[\sigma]
+\end{equation}
+
+First note that $\wEquivOne{\Omega'}{\Omega'[\sigma]}$ for $\sigma$ being a  permutation has an inverse permutation $\sigma^{-1}$ and  $\Omega'[\sigma][\sigma^{-1}]=\Omega'$.
+
+Now we have $\Omega \sEquiv \Omega'$ and $\wEquivOne{\Omega'}{\Omega'[\sigma]}$ and $ \Omega'[\sigma] \sEquiv  \Delta$.
+
+Therefore $\wEquivTwo{\Omega}{\Delta}$ as required.
+\end{proof}
+
 
 
 
