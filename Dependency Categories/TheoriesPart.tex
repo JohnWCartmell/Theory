@@ -91,39 +91,111 @@ $$
 
 This definition is that of equivalence from (\cite{Cartmell78})  and, as described there, the  equivalence classes of contexts for a generalised algebraic theory \gat\  are the objects of the contextual category $\conu$ corresponding to \gat.
 
+\subsection{Permutative Realisations}
+\begin{definition}
+If $\Delta=\encxDelta{n}$ and $\Omega = \encyOmega{n}$ are contexts of a \GAT $\gat$ then by a permutative realisation of $\Omega$ wrt $\Delta$ we mean any
+realisation of $\Omega$ wrt $\Delta$ which is of the form $\tuple{\permterm{x}{n}{\sigma}}$ for some permutation $\sigma$ of the set $\{1,2,..n\}$.
+\end{definition}
 
+\begin{observation}
+From this definition it follows that if $\Delta=\encxDelta{n}$ and $\Omega = \encyOmega{n}$ are contexts and if $\sigma$ is some permutation of the set $\{1,2,..n\}$
+then $\tuple{\permterm{x}{n}{\sigma}}$ is a permutative realisation, $\tuple{\permterm{x}{n}{\sigma}}: \Delta \morph \Omega$ iff \foreachi, 
+\begin{equation*}
+\frac{\xDelta{n}}{\Delta_{\sigma(i)}=\Omega_i[x_{\sigma(1)}|y_1,...x_{\sigma(i-1)}|y_{i-1}]}
+\end{equation*}
+\intheory.
+\end{observation}
 
-\subsection{Permutations of Contexts}
-If $\Delta = \encxDelta{n}$ is a context and if $\sigma: \set{1,...n} \morph \set{1,...n}$ is a permutation then write $\Delta[\sigma]$ for the
-sequence $\encxDeltasigma{n}$. Our  interest is in those cases where $\Delta[\sigma]$ is a valid context.  
+We need a definition of \term{monotonicity} I think. There is a definition in notes from 2018.
+
+\subsection{29 November 2020}
+An approach that has been at the back of my mind percolating needs to be written down and, hopefully, fleshed out.
+
+\subsubsection{Weakly Equivalent(3)}
+Define two contexts $\Delta$ and $\Delta'$ to be weakly equivalent iff there is a permutation $\sigma$ that determines a permutative realisation   $\Delta \morph \Delta'$ and so that $\sigma{^-1}$ 
+determines a permutative realisation $\Delta' \morph \Delta$. 
+
+\begin{note}[Example]
+Have an example of a permutative realisation that is lacking an inverse.
+\end{note}
+
+\subsubsection{Equivalent Types within a context}
+If $\Delta=\tuple{\xDelta{n}}$ is a context and if $i$ and $j$ are indices i.e. if $1 \leq i,j \leq n$ then we will say that $i \sim_T j$ with respect to $\Delta$ 
+iff
+there is a permutation $\sigma$ with inverse $\sigma'$ such that $\sigma$ and $\sigma'$ both determine realisations $\Delta \morph \Delta$ and such that $\sigma(i)=j$.  
 \begin{lemma}
-\llabel{mappingOmegasigmatoOmega}
-If $\Omega = \encyOmega{n}$ is a context and if $\sigma$ is a permutation of the set $\{1,2,..n\}$ such that $\Omega[\sigma]$ is a context then
-$\tuple{\yn}$, is a realisation of $\Omega$ wrt $\Omega[\sigma]$.
+$\sim_T$ is an equivalence relation on the set of indicies of $\Delta$.
 \end{lemma}
 \begin{proof}
-We have that \foreachi,
-\begin{equation*}
-\frac{\yOmegasigma{n}}{\ofT{y_{\sigma(i)}}{\Omega_{\sigma(i)}}}
-\end{equation*}
+Elementary.
+\end{proof}
 
-therefore \foreachj, 
-\begin{equation*}
-\frac
-{\yOmegasigma{n}}     
-        {\ofT
-				    {y_{\sigma(\sigma^{-1}(j))}}
-						{\Omega_{\sigma(\sigma^{-1}(j))}}
-				}
-\end{equation*}
+\subsubsection{Labelling type indices within a context}
+If $\Delta=\tuple{\xDelta{n}}$ is a context then a labelling is a family of functions $lb$ indexed by the set of equivalence classes of indices of $\Delta$ under $\sim_\Delta$
+such that for each index $i$, $lb:[i] \morph \set{1,...cardinality([i])}$ is injective (and therefore surjective).
+\commentary{Need some additional constraints for such a labelling.}
 
-which is to say that \foreachj, 
+\begin{definition}
+If  $\gat$ is a theory and $\Delta$ is a context then the cannonical labelling of $\Delta$ is defined as...  
+\end{definition}
+\subsubsection{Define Monotonicity}
+If $\Delta$ and $\Delta'$ are contexts and $\sigma$ and inverse $\sigma^{-1}$ determine permutative realisations $p_\sigma: \Delta \morph  \Delta'$ and
+$p_{\sigma^{-1}}: \Delta' \morph \Delta$ then say that $p_\sigma$ is monotonic iff \foreachi, \foreachj[card([i])], $lb_{[i]}(j)=lb_{[\sigma(i)]}(\sigma(j))$
+where $lb_[i]$ is the cannonical labelling function of $[i]$.
 
-\begin{equation*}
-\frac{\yOmegasigma{n}}{\ofT{y_j}{\Omega_{j}}}
-\end{equation*}
+\subsubsection{Weakly Equivalent (3) Realisations}
+\begin{definition}
+If $\Delta=\tuple{\xDelta{n}}$ and $\Delta'=\tuple{\xDeltap{n}}$ are weakly equivalent 
+contexts \inagat \gat and $\Omega=\tuple{\yOmega{m}}$ and $\Omega'=\tuple{\yOmegap{m}}$ are weakly equivalent contexts \ingat,
+if $r=\tuple{r_1,...r_m}$ is a realisation of $\Omega$ wrt $\Delta$ 
+and $r'=\tuple{r'_1,...r'_m}$ is a realisation of $\Omega$ wrt $\Delta$ 
+then
+define $r$ to be \term{weakly equivalent (3) to} $r'$ 
+iff $r \circ p_\pi$ is strongly equivalent to $p_\sigma \circ r'$\commentary{saying  $\circ$ here is shorthand}
 
-as required.
+i.e. iff
+\vspace{3mm}
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{.9cm}c}
+\Rnode{TL}{\Delta} & & \Rnode{TR}{\Omega}\\ [1.2cm]
+\Rnode{BL}{\Delta'}         & & \Rnode{BR}{\Omega'}
+\end{array}
+\end{displaymath}
+\ncarr{TL}{TR}
+\alabel{[r]}
+\ncarr{TL}{BL}
+\blabel{[p_\sigma]}
+\ncarr{BL}{BR}
+\blabel{[r']}
+\ncarr{TR}{BR}
+\alabel{[p_\pi]}
+\end{center} commutes
+in the category of contexts and realisations $C(U)$,
+where $\sigma$ is the cannonical permutation  that determines a monotonic realisation $p_\sigma: \Delta \morph \Delta'$ \commentary{Sadly the use of $p$ in this way will clash with use of $p$ in contextual category structure.}
+and  $\pi$ is the cannonical permutation  that determines a monotonic realisation $p_\pi: \Omega \morph \Omega'$.
+\end{definition}
+
+\begin{lemma}
+Weakly equivalent realisations compose to weak equivalents.
+\end{lemma}
+\begin{proof} \\
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{.9cm}c}
+\Rnode{TL}{\Delta} & & \Rnode{TC}{\Omega}\\ [1.2cm]
+\Rnode{BL}{\Delta'}         & & \Rnode{BC}{\Omega'}
+\end{array}
+\end{displaymath}
+\ncarr{TL}{TC}
+\alabel{[r]}
+\ncarr{TL}{BL}
+\blabel{[p_\sigma]}
+\ncarr{BL}{BC}
+\blabel{[r']}
+\ncarr{TC}{BC}
+\alabel{[p_\pi]}
+\end{center}
 \end{proof}
 
 \subsection{Subcontexts}
@@ -135,7 +207,7 @@ $1 \leq i_1 \leq i_2 \leq ... i_k \leq n$. \\
 \noindent
 For example:
 \begin {itemize}
-\item the empty context  is a subcontext of every 
+\item the empty context is a subcontext of every 
 context,
 \item any initial subsequence of a context is a subcontext of that context.
 \end{itemize}
@@ -145,10 +217,10 @@ In addition to the above, a context such as $\ofT{x_1}{A_1},\ofT{x_2}{A2},\ofT{y
 $\ofT{x_2}{A2}$ as a subcontext. This illustrates that each non-initial subcontext is indicative of a type in the context ($A_2$ in this case)
 which does not depend on one of the earlier variables.
 
-\begin{note}
+\begin{aside}
 20 November 2020.
 Can we say that all subcontexts are initial segments of permuted contexts?
-\end{note}
+\end{aside}
 
 
 \section{Restricting the class of Generalised Algebraic Theores}
@@ -226,6 +298,38 @@ This definition doesn't achieve anything -- it doesn't result in an equivalence 
 \newt{non-cancellative}\oldt{improper} theories.\commentary{same as strong equivalence for cancellative theories}
 \end{oldtt}
 
+\subsubsection{Permutations of Contexts}
+If $\Delta = \encxDelta{n}$ is a context and if $\sigma: \set{1,...n} \morph \set{1,...n}$ is a permutation then write $\Delta[\sigma]$ for the
+sequence $\encxDeltasigma{n}$. Our  interest is in those cases where $\Delta[\sigma]$ is a valid context.  
+\begin{lemma}
+\llabel{mappingOmegasigmatoOmega}
+If $\Omega = \encyOmega{n}$ is a context and if $\sigma$ is a permutation of the set $\{1,2,..n\}$ such that $\Omega[\sigma]$ is a context then
+$\tuple{\yn}$, is a realisation of $\Omega$ wrt $\Omega[\sigma]$.
+\end{lemma}
+\begin{proof}
+We have that \foreachi,
+\begin{equation*}
+\frac{\yOmegasigma{n}}{\ofT{y_{\sigma(i)}}{\Omega_{\sigma(i)}}}
+\end{equation*}
+
+therefore \foreachj, 
+\begin{equation*}
+\frac
+{\yOmegasigma{n}}     
+        {\ofT
+				    {y_{\sigma(\sigma^{-1}(j))}}
+						{\Omega_{\sigma(\sigma^{-1}(j))}}
+				}
+\end{equation*}
+
+which is to say that \foreachj, 
+
+\begin{equation*}
+\frac{\yOmegasigma{n}}{\ofT{y_j}{\Omega_{j}}}
+\end{equation*}
+
+as required.
+\end{proof}
 \subsubsection{Attempts to define Weakly Equivalent Contexts}
 
 \subsubsection{Weak Equivalence (1)}
@@ -340,7 +444,37 @@ Now we have $\Omega \sEquiv \Omega'$ and $\wEquivOne{\Omega'}{\Omega'[\sigma]}$ 
 Therefore $\wEquivTwo{\Omega}{\Delta}$ as required.
 \end{proof}
 
+\subsubsection{Failed Counter Example from November 2020}
+\begin{oldtt}
+\begin{note}[Failed Counter Example]
+Suppose a theory has the following type definitions:
+\begin{displaymath}
+\begin{array}{l}
+\tstyle \isT{A} \\
+\tstyle \isT{A'} \\
+\ofT{x}{A}\tstyle \isT{B(x)} \\
+\end{array}
+\end{displaymath}
+and the type identity
+\begin{displaymath}
+\begin{array}{l}
+\ofT{x}{A}\tstyle B(x)=A'
+\end{array}
+\end{displaymath}
 
+Let $\Delta$ be the context $\tuple{\ofT{x_1}{A}, \ofT{x_2}{A}, \ofT{x_3}{B(x_2)}  }$. \\
+
+Let $\Omega$ be the context $\tuple{\ofT{y_1}{A}, \ofT{y_2}{A}, \ofT{y_3}{B(y_1)} }$. \\
+
+Let $\Gamma$ be the context $\tuple{\ofT{z_1}{A}, \ofT{z_2}{A}, \ofT{z_3}{A'} }$. \\
+
+Then $\tuple{x_2,x_1,x_3}$ is a \highlight{oh no it isnt} monotonic permutative realisation of $\Omega$ wrt $\Delta$ and 
+$\tuple{y_1,y_2,y_3}$ is a monotonic permutative realisation of $\Gamma$ wrt $\Omega$ but
+the composition  $\tuple{x_2,x_1,x_3}\circ \tuple{y_1,y_2,y_3} = \tuple{x_2,x_1,x_3}$
+is not monotonic because also $\tuple{x_1,x_2,x_3}$ is a permutative realisation
+of $\Gamma$ wrt $\Delta$. 
+\end{note}
+\end{oldtt}
 
 
 \bibliography{../SharedBibliography/temp/bibliography}
