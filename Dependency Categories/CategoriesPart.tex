@@ -29,9 +29,116 @@
 \title{Notes on Categories - Work in Progress}
 \author{John Cartmell\footnote{john.w.cartmell gmail.com}\\ \normalsize{\textit{Ad Otium}}}
 \begin{document}
-\section {Object Congruences}
 \newcommand{\catc}{\cat{C}}
 \newcommand{\catcw}{\cat{C}\ }
+
+\section{Categories with n-ary Products} \commentary{Moved first whilst under development.}
+We concern ourselves with categories with a specified n-ary product structure and 
+ with addition properties that might in some cases hold of this specified structure.  
+Because we are concerned with categories corresponding to type theories we assume that the specified n-ary products are associative.
+\begin{definition}
+By a \term{category with n-ary products} I shall mean a category \catcw with additional structure as follows:
+\begin{itemize}
+\item for each $n \geq 1$, an n-ary operation $\times_n$ on objects of \catcw so that if $\An$ is a sequence of $n$ objects of $\catcw$ then $\times_n(\An)$ is an object of \catc,
+\item for each $n \geq 1$, \foreachi, a morphsim $p_{n,i}(\An):\times_n(\An) \morph A_i$ in \catc, which when it is unambigous we abbreviate as $p_i: \times_n(\An) \morph A_i$
+ such that
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{.9cm}cp{.9cm}c}
+\Rnode{A1}{A_1} & &   & &              \\ [0.3cm]
+\Rnode{A2}{A_2} & &   & &              \\ [-0.1cm]
+ \raisebox{-0.3cm}{\vdots} & & \Rnode{PROD}{\times_n}(\An)  & &  \\ [0.2cm]
+\Rnode{An}{A_n} & &   & & 
+\end{array}
+\end{displaymath}
+\end{center}
+\ncarr{PROD}{A1}
+\blabel{p_1}[0.55][0.5]
+{
+\setlength{\arroffsetA}{2pt}
+\ncarr{PROD}{A2}
+\setlength{\arroffsetA}{0pt}
+}
+\blabel{p_2}[0.55][0.5]
+{
+\setlength{\arroffsetA}{2pt}
+\setlength{\arroffsetA}{0pt}
+}
+\ncarr{PROD}{An}
+\alabel{p_n}[0.55][0.5]
+is a product diagram in $\catcw$ i.e for all objects $X$ of \catcw, for all morphisms $\fn$ of \catcw such that \foreachi, $f_i:X \morph A_i$ there is a unique
+morphism $f$, $f: X \morph \times_n(\An)$ such that \foreachi, $f \circ p_i = f_i$. In situations where it is not ambiguous, the unique such $f$ corresponding to $\fn$ we write as
+$\tuple{\fn}$,
+\item
+for every object $A$ of \catc, $\times_1(A)=A$ and $p_{1,1}(A) = id_A$,
+\item
+\commentary{this is an example -- need specify general case}
+if $A$, $B$, $C$  are objects of \catcw then
+$$
+	\times_2(\times_n(A,B)= \times_3(A,B,C)
+$$
+and
+$$
+p_{2,1}(\times_2(A,B),C) \circ p_{2,1}(A,B) = p_{3,1}(A,B,C) 
+$$
+\item suppose $n \geq 1$ and that \foreachi, that $A_i$ is a sequence of objects of objects of \catcw of length $m_i$, for some $m_i$,
+so that \foreachi, for each $j$, $1 \leq j \leq m_i$, $A_{i,j}$ is an object of \catc,  denote by $A$ the concatenation of the sequences
+$\An$ and suppose that the sequence $A$ is of length $m$ i.e. suppose  
+$$m=\sum_{1 \leq i \leq n}m_i,$$ 
+then
+$$
+\times_n (\times_{m_1}(A_1),...\times_{m_n}(A_n))= \times_m(A)
+$$
+and the projection morphisms cohere in the sense that for \foreachi, for each $j$, $1 \leq j \leq m_i$, 
+the projection $p_i \circ p_j:\times_n (\times_{m_1}(A_1),...\times_{m_n}(A_n)) \morph A_i$
+is equal to the corresponding \footnote{
+By which I mean the projection function $p_k$ where  $$k = j + \sum_{1 \leq i' < i}m_i$$.}
+projection function $p_{k} : \times_m(A) \morph A_i$.  
+\end{itemize}
+\end{definition}
+
+\subsection{Unique Factorisation}
+\begin{definition}
+In a category with n-ary products \catc define an object $A$ of \catc to be \term{prime} iff there does not exist $n > 1$ and a sequence of objects $\An$ 
+such that $A=\times_n(\An)$
+\end{definition}
+I am going to make a simplifying assumption and restrict attention to categories with n-ary products having the following property.
+\begin{definition}
+A catgeory with n-ary products has the \term{unique factorisation property} iff for all objects $X$ of $\catc$
+there is an $n \geq 1$ and a sequence of prime objects $\An$ such that $X=\times_n(\An)$ and the multiset $\set{\An}$
+is unique i.e. if for some other sequence $\Bm$, $X=\times_m(\Bm)$ then $n=m$ and there is a permutation $\sigma:\set{\n} \morph \set{\n}$ such that \foreachi,
+$A_i=B_{\sigma(i)}$.
+\end{definition}
+
+\subsection{The symmetry object congruence}
+For any sequence $A=\tuple{\An}$ define the sequence labelling function $o_A$ to be the function $o_A : \set{\n} -> \set{\n}$ which assigns to an index $i$ into the sequence $A$ the
+ordinality of the element $A_i$ among the possible multiple cop[ies of $A_i$ that occur in $A$. That is:
+$$
+o_A(i) = card(\setsuchthat{j}{1 \leq j \leq i and A_j=A_i})
+$$
+If $\catcw$ is a category with finite products having the unique factorisation property then define an object congruence an \catcw as follows.
+If $A$ and $B$ are objects of $\catcw$ that are ubniquely factorised as $\times_n{\An}$ and $\times_m{Bm}$, respectively, then define
+$A \sim B$ iff the multisets $\set{\An}$ and $\set{\Bm}$ are equal i.e. iff $n=m$ and there exists a permutation $\sigma: \set{\n} \morph \set{\n}$ such that \foreachi, $A_i=B_{\sigma(i)}$. 
+If there does exist suh a permutation then there exists a unique such permutation which preserves relative position i.e. such that \foreachi, $o_A(i)=o_B(\sigma(i))$. 
+
+To complete the definition of the object congruence, 
+for $A$ and $B$ objects of \catcw such that $A\sim B$ define $i_{A,B}=\tuple{p_{\sigma^{-1}(1)},...p_{\sigma^{-1}(n)}}$ where $\sigma$ is the unique permutation of the set $\set{\n}$
+such that \foreachi, $A_i=B_{\sigma(i)} \mbox{ and }  o_A(i) = o_B(\sigma(i))$.  
+
+\newpage
+\section{Example of Data Model which is non-cancellative}
+This could be used in preparation for a mathematical theory of data.
+\daynote{Tues 28th Oct 2018.}
+\subsection{Construction of a category with symmetric products}
+\daynote{Thurs 11th Oct 2018.}
+Construction is non-algebraic but probably relevant to definition of dependency category
+and reminiscent of attempted definition of monotonic permutative realisation.
+Might the definition of category with symetric products be generalised algebraic even though appears not to be? No but worth trying to find express as algebraically as possible. Need number of instances of each of a set of (distinct) types. 
+  
+
+\section {Object Congruences}
+
 \begin{definition}
 If \catcw is a category  then by an \term{object congruence} $\tuple{\sim,i}$ on \catcw we mean  an equivalence relation $\sim$ on objects of the category and for each pair
 of $a, a'$ of equivalent objects of \catcw a morphism $i_{a,a'}:a \morph a'$ such that
@@ -158,22 +265,13 @@ Note that there is a functor $F: \catc \morph Q_C$ defined by
 \end{align*}
 The functor $F$ is faithful because if $f,g : a \morph b$ in \catcw then $[f]=[g]$ because $f \circ i_{b,b}=i_{a,a} \circ g$ by condition (i) of the definition of object congruence.
 \newpage
-\section{Categories}
+
 
 
 \subsection{Characterising Diagrams}
 Definition in general setting\daynote{Thurs 19 July 2018}
 
-\section{Categories with Products}
 
-\subsection{Example of Data Model which is non-cancellative}
-This could be used in preparation for a mathematical theory of data.
-\daynote{Tues 28th Oct 2018.}
-\subsection{Construction of a category with symetric products}
-\daynote{Thurs 11th Oct 2018.}
-Construction is non-algebraic but probably relevant to definition of dependency category
-and reminiscent of attempted definition of monotonic permutative realisation.
-Might the definition of category with symetric products be generalised algebraic even though appears not to be? No but worth trying to find express as algebraically as possible. Need number of instances of each of a set of (distinct) types. 
 
 
 
