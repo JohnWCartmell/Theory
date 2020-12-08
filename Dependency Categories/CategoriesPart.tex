@@ -20,7 +20,7 @@
 \input{../SharedMacros/general.macros}
 
 \renewcommand{\erpictureFolder}[0]{../SharedPictures}
-
+\usepackage{mathtools}
 % support margin notes
 \usepackage[left=1.5cm, right=4cm, marginparwidth=3cm, top=2cm, bottom=2.0cm]{geometry}
 \setcounter{equation}{0}
@@ -31,111 +31,6 @@
 \begin{document}
 \newcommand{\catc}{\cat{C}}
 \newcommand{\catcw}{\cat{C}\ }
-
-\section{Categories with n-ary Products} \commentary{Moved first whilst under development.}
-We concern ourselves with categories with a specified n-ary product structure and 
- with addition properties that might in some cases hold of this specified structure.  
-Because we are concerned with categories corresponding to type theories we assume that the specified n-ary products are associative.
-\begin{definition}
-By a \term{category with n-ary products} I shall mean a category \catcw with additional structure as follows:
-\begin{itemize}
-\item for each $n \geq 1$, an n-ary operation $\times_n$ on objects of \catcw so that if $\An$ is a sequence of $n$ objects of $\catcw$ then $\times_n(\An)$ is an object of \catc,
-\item for each $n \geq 1$, \foreachi, a morphsim $p_{n,i}(\An):\times_n(\An) \morph A_i$ in \catc, which when it is unambigous we abbreviate as $p_i: \times_n(\An) \morph A_i$
- such that
-
-\begin{center}
-\begin{displaymath}
-\begin{array}{cp{.9cm}cp{.9cm}c}
-\Rnode{A1}{A_1} & &   & &              \\ [0.3cm]
-\Rnode{A2}{A_2} & &   & &              \\ [-0.1cm]
- \raisebox{-0.3cm}{\vdots} & & \Rnode{PROD}{\times_n}(\An)  & &  \\ [0.2cm]
-\Rnode{An}{A_n} & &   & & 
-\end{array}
-\end{displaymath}
-\end{center}
-\ncarr{PROD}{A1}
-\blabel{p_1}[0.55][0.5]
-{
-\setlength{\arroffsetA}{2pt}
-\ncarr{PROD}{A2}
-\setlength{\arroffsetA}{0pt}
-}
-\blabel{p_2}[0.55][0.5]
-{
-\setlength{\arroffsetA}{2pt}
-\setlength{\arroffsetA}{0pt}
-}
-\ncarr{PROD}{An}
-\alabel{p_n}[0.55][0.5]
-is a product diagram in $\catcw$ i.e for all objects $X$ of \catcw, for all morphisms $\fn$ of \catcw such that \foreachi, $f_i:X \morph A_i$ there is a unique
-morphism $f$, $f: X \morph \times_n(\An)$ such that \foreachi, $f \circ p_i = f_i$. In situations where it is not ambiguous, the unique such $f$ corresponding to $\fn$ we write as
-$\tuple{\fn}$,
-\item
-for every object $A$ of \catc, $\times_1(A)=A$ and $p_{1,1}(A) = id_A$,
-\item
-\commentary{this is an example -- need specify general case}
-if $A$, $B$, $C$  are objects of \catcw then
-$$
-	\times_2(\times_n(A,B)= \times_3(A,B,C)
-$$
-and
-$$
-p_{2,1}(\times_2(A,B),C) \circ p_{2,1}(A,B) = p_{3,1}(A,B,C) 
-$$
-\item suppose $n \geq 1$ and that \foreachi, that $A_i$ is a sequence of objects of objects of \catcw of length $m_i$, for some $m_i$,
-so that \foreachi, for each $j$, $1 \leq j \leq m_i$, $A_{i,j}$ is an object of \catc,  denote by $A$ the concatenation of the sequences
-$\An$ and suppose that the sequence $A$ is of length $m$ i.e. suppose  
-$$m=\sum_{1 \leq i \leq n}m_i,$$ 
-then
-$$
-\times_n (\times_{m_1}(A_1),...\times_{m_n}(A_n))= \times_m(A)
-$$
-and the projection morphisms cohere in the sense that for \foreachi, for each $j$, $1 \leq j \leq m_i$, 
-the projection $p_i \circ p_j:\times_n (\times_{m_1}(A_1),...\times_{m_n}(A_n)) \morph A_i$
-is equal to the corresponding \footnote{
-By which I mean the projection function $p_k$ where  $$k = j + \sum_{1 \leq i' < i}m_i$$.}
-projection function $p_{k} : \times_m(A) \morph A_i$.  
-\end{itemize}
-\end{definition}
-
-\subsection{Unique Factorisation}
-\begin{definition}
-In a category with n-ary products \catc define an object $A$ of \catc to be \term{prime} iff there does not exist $n > 1$ and a sequence of objects $\An$ 
-such that $A=\times_n(\An)$
-\end{definition}
-I am going to make a simplifying assumption and restrict attention to categories with n-ary products having the following property.
-\begin{definition}
-A catgeory with n-ary products has the \term{unique factorisation property} iff for all objects $X$ of $\catc$
-there is an $n \geq 1$ and a sequence of prime objects $\An$ such that $X=\times_n(\An)$ and the multiset $\set{\An}$
-is unique i.e. if for some other sequence $\Bm$, $X=\times_m(\Bm)$ then $n=m$ and there is a permutation $\sigma:\set{\n} \morph \set{\n}$ such that \foreachi,
-$A_i=B_{\sigma(i)}$.
-\end{definition}
-
-\subsection{The symmetry object congruence}
-For any sequence $A=\tuple{\An}$ define the sequence labelling function $o_A$ to be the function $o_A : \set{\n} -> \set{\n}$ which assigns to an index $i$ into the sequence $A$ the
-ordinality of the element $A_i$ among the possible multiple cop[ies of $A_i$ that occur in $A$. That is:
-$$
-o_A(i) = card(\setsuchthat{j}{1 \leq j \leq i and A_j=A_i})
-$$
-If $\catcw$ is a category with finite products having the unique factorisation property then define an object congruence an \catcw as follows.
-If $A$ and $B$ are objects of $\catcw$ that are ubniquely factorised as $\times_n{\An}$ and $\times_m{Bm}$, respectively, then define
-$A \sim B$ iff the multisets $\set{\An}$ and $\set{\Bm}$ are equal i.e. iff $n=m$ and there exists a permutation $\sigma: \set{\n} \morph \set{\n}$ such that \foreachi, $A_i=B_{\sigma(i)}$. 
-If there does exist suh a permutation then there exists a unique such permutation which preserves relative position i.e. such that \foreachi, $o_A(i)=o_B(\sigma(i))$. 
-
-To complete the definition of the object congruence, 
-for $A$ and $B$ objects of \catcw such that $A\sim B$ define $i_{A,B}=\tuple{p_{\sigma^{-1}(1)},...p_{\sigma^{-1}(n)}}$ where $\sigma$ is the unique permutation of the set $\set{\n}$
-such that \foreachi, $A_i=B_{\sigma(i)} \mbox{ and }  o_A(i) = o_B(\sigma(i))$.  
-
-\newpage
-\section{Example of Data Model which is non-cancellative}
-This could be used in preparation for a mathematical theory of data.
-\daynote{Tues 28th Oct 2018.}
-\subsection{Construction of a category with symmetric products}
-\daynote{Thurs 11th Oct 2018.}
-Construction is non-algebraic but probably relevant to definition of dependency category
-and reminiscent of attempted definition of monotonic permutative realisation.
-Might the definition of category with symetric products be generalised algebraic even though appears not to be? No but worth trying to find express as algebraically as possible. Need number of instances of each of a set of (distinct) types. 
-  
 
 \section {Object Congruences}
 
@@ -264,20 +159,235 @@ Note that there is a functor $F: \catc \morph Q_C$ defined by
 			 f & \mapsto [f]
 \end{align*}
 The functor $F$ is faithful because if $f,g : a \morph b$ in \catcw then $[f]=[g]$ because $f \circ i_{b,b}=i_{a,a} \circ g$ by condition (i) of the definition of object congruence.
-\newpage
+
+\section{Categories with n-ary Products} 
+We concern ourselves with categories with a specified n-ary product structure and 
+ with addition properties that might in some cases hold of this specified structure.  
+Because we are concerned with categories corresponding to type theories we assume that the specified n-ary products are associative.
+\begin{definition}
+By a \term{category with n-ary products} I shall mean a category \catcw with additional structure as follows:
+\begin{itemize}
+\item for each $n \geq 1$, an n-ary operation $\productn$ on objects of \catcw so that if $\An$ is a sequence of $n$ objects of $\catcw$ then $\productn(\An)$ is an object of \catc,
+\item for each $n \geq 1$, \foreachi, a morphism $p_{n,i}(\An):\productn(\An) \morph A_i$ in \catc, which when it is unambiguous we abbreviate as $p_i: \productn(\An) \morph A_i$
+ such that
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{.9cm}cp{.9cm}c}
+\Rnode{A1}{A_1} & &   & &              \\ [0.3cm]
+\Rnode{A2}{A_2} & &   & &              \\ [-0.1cm]
+ \raisebox{-0.3cm}{\vdots} & & \Rnode{PROD}{\productn}(\An)  & &  \\ [0.2cm]
+\Rnode{An}{A_n} & &   & & 
+\end{array}
+\end{displaymath}
+\end{center}
+\ncarr{PROD}{A1}
+\blabel{p_1}[0.55][0.5]
+{
+\setlength{\arroffsetA}{2pt}
+\ncarr{PROD}{A2}
+\setlength{\arroffsetA}{0pt}
+}
+\blabel{p_2}[0.55][0.5]
+{
+\setlength{\arroffsetA}{2pt}
+\setlength{\arroffsetA}{0pt}
+}
+\ncarr{PROD}{An}
+\alabel{p_n}[0.55][0.5]
+is a product diagram in $\catcw$ i.e for all objects $X$ of \catcw, for all morphisms $\fn$ of \catcw such that \foreachi, $f_i:X \morph A_i$ there is a unique
+morphism $f$, $f: X \morph \productn(\An)$ such that \foreachi, $f \circ p_i = f_i$. In situations where it is not ambiguous, the unique such $f$ corresponding to $\fn$ we write as
+$\tuple{\fn}$,
+\item
+for every object $A$ of \catc, $\product{1}(A)=A$ and $p_{1,1}(A) = id_A$,
+
+\item suppose $n \geq 1$ and that \foreachi, that $\alpha_i$ is a sequence of objects of objects of \catcw of length $m_i$, for some $m_i$,
+so that \foreachi, for each $j$, $1 \leq j \leq m_i$, $\alpha_{i,j}$ is an object of \catc,  denote by $\alpha$ the concatenation of the sequences
+$\alpha_1,...\alpha_n$ and suppose that the sequence $\alpha$ is of length $m$ i.e. suppose  
+$$m=\sum_{1 \leq i \leq n}m_i,$$ 
+then
+$$
+\productn (\product{m_1}(\alpha_1),...\product{m_n}(\alpha_n))= \product{m}(\alpha)
+$$
+and the projection morphisms cohere in the sense that for \foreachi, for each $j$, $1 \leq j \leq m_i$, 
+the projection $p_i \circ p_j:\productn (\product{m_1}(\alpha_1),...\product{m_n}(\alpha_n)) \morph \alpha_i$
+is equal to the corresponding \footnote{
+By which I mean the projection function $p_k$ where  $$k = j + \sum_{1 \leq i' < i}m_i$$.}
+projection function $p_{k} : \product{m}(\alpha) \morph \alpha_i$.  
+\end{itemize}
+\end{definition}
+
+From the definition of $\tuple{\fn}$ we can easily show
+\begin{lemma}
+\llabel{xxxx}
+If $f: X \morph Y$ in a category with n-ary products \catcw and if \foreachi, $g_i:Y \morph A_i$
+in \catcw then $f \circ \tuple{\gn}=\tuple{f \circ g_1,...f \circ g_n}$.
+\end{lemma}
+
+\subsection{Unique Factorisation}
+\begin{definition}
+In a category with n-ary products \catcw define an object $A$ of \catcw to be \term{prime} iff there does not exist $n > 1$ and a sequence of objects $\An$ 
+such that $A=\productn(\An)$
+\end{definition}
+I am going to make a simplifying assumption and restrict attention to categories with n-ary products having the following property.
+\begin{definition}
+A category with n-ary products has the \term{unique factorisation property} iff for all objects $X$ of $\catc$
+there is an $n \geq 1$ and a sequence of prime objects $\An$ such that $X=\productn(\An)$ and the multiset $\set{\An}$
+is unique i.e. if for some other sequence $\Bm$, $X=\product{m}(\Bm)$ then $n=m$ and there is a permutation $\sigma:\set{\n} \morph \set{\n}$ such that \foreachi,
+$A_i=B_{\sigma(i)}$.
+\end{definition}
+
+\subsection{Sequences, Multisets and Permutations}
+
+We are going to be working with finite sequences of objects of categories. In this subsection we 
+consider notation for finite sequences in general by assuming a set $U$ and considering a sequence to be exactly a function $\alpha: \set{\n} \morph U$.
+
+For any finite sequence $\alpha$, any element $\alpha_i$ occuring in $\alpha$ may occur a number of times at 
+different positions in the sequence. The number of copies is called the \textit{copy number}. If we number each of these copies from $1$ upwards then we call this numbering the \textit{copy instance number} and we shall denote
+the numbering function  $c_\alpha$ so that $c_\alpha: \set{\n} \morph N$. If we write
+$|S|$ for the cardinality of set $S$ then, 
+formally,
+the function is defined by
+$$
+c_\alpha(i) = |\setsuchthat{j}{1 \leq j \leq i \mbox{ and }\alpha_j=\alpha_i}|
+$$
+
+If we have two sequences $\alpha$ and $\beta$ then as multisets they may be equal 
+which is to say that there may be a permutation $\sigma: \set{\n} \morph \set{\n}$ such that 
+\foreachi, $\alpha_i = \beta_{\sigma(i)}$
+i.e. such that the diagram
+
+\begin{center}
+\begin{equation}
+\label{permutingcontexts}
+\begin{array}{cp{.5cm}c}
+\Rnode{alphan}{\set{\n}}&&                  \\ [0.5cm]
+                        &&   \Rnode{U}{U}   \\ [0.5cm]
+\Rnode{betan}{\set{\n}} &&                           
+\end{array}
+\end{equation}
+\ncarr{alphan}{U}
+\alabel{\alpha}
+\ncarr{betan}{U}
+\blabel{\beta}
+\ncarr{alphan}{betan}
+\blabel{\sigma}
+\end{center}
+commutes. It is easy to see that if there is such a permutation then there is a cannonical such
+permutation, we denote it $\sigma_{\alpha,\beta}$, which preserves copy instance number i.e. such that the diagram
+\begin{center}
+\begin{equation}
+\label{preservingcopynumber}
+\begin{array}{cp{.5cm}c}
+\Rnode{alphan}{\set{\n}}  &&              \\ [0.5cm]
+												  && \Rnode{N}{N} \\ [0.5cm]
+\Rnode{betan}{\set{\n}}   &&            
+\end{array}
+\end{equation}
+\ncarr{alphan}{N}
+\alabel{c_\alpha}
+\ncarr{betan}{N}
+\blabel{c_\beta}
+\ncarr{alphan}{betan}
+\blabel{\sigma_{\alpha,\beta}}
+\end{center}				
+commutes.
 
 
+\begin{observation}
+\llabel{cannonicalpermutation}
+If two sequences $\alpha$ and $\beta$ are equal as multisets then there exists a unique permutation $\sigma_{\alpha,\beta}$ of $\alpha$ to $\beta$ 
+that preserves copy instance number which is to say that there exists a unique
+ $\sigma_{\alpha,\beta}: \set{\n} \morph \set{\n}$ 
+such that \foreachi, $\alpha_i = \beta_{\sigma_{\alpha,\beta}(i)}$ 
+and $c_\alpha(i) = c_\beta(\sigma_{\alpha,\beta}(i))$ i.e. such that
+diagrams (\ref{permutingcontexts}) and (\ref{preservingcopynumber}), above, commute.
+\end{observation}
+
+\begin{observation}
+\llabel{idcannonical}
+If $\alpha$ is any sequence then $\alpha$ as a multiset $\alpha$ is equal  to itself and
+the cannonical permutation 
+$\sigma_{\alpha,\alpha}$ is the identity permutation.
+\end{observation}
+
+Cannonical permutations compose to give cannonical permutations:
+\begin{lemma}
+\llabel{compositionofcannonicals}
+If  $\alpha$, $\beta$ and $\gamma$ are sequences then if $\alpha$ and $\beta$ are equal as multisets and if $\beta$ and $\gamma$ are equal as multisets then
+$\alpha$ and $\gamma$ are equal as multisets, and
+$\sigma_{\alpha,\gamma}=\sigma_{\alpha,\beta} \circ \sigma_{\beta,\gamma}$.
+\end{lemma}
+\begin{proof}
+It suffices to show that the permutation $\sigma_{\alpha,\beta} \circ \sigma_{\beta,\gamma}$
+preserves copy instance number. This can be seen as the commutivity of the outer diagram
+follows from the commutivity of the inner diagrams here:
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{.5cm}cp{.7cm}c}
+                         && \Rnode{alphan}{\set{\n}}   &&              \\ [1.2cm]
+\Rnode{betan}{\set{\n}} &&                           && \Rnode{N}{N} \\ [1.2cm]
+                         && \Rnode{gamman}{\set{\n}}   &&             
+\end{array}
+\end{displaymath}
+\ncarr{alphan}{N}
+\alabel{c_\alpha}
+\ncarr{betan}{N}
+\alabel{c_\beta}
+\ncarr{gamman}{N}
+\alabel{c_\gamma}
+\ncarr{alphan}{betan}
+\blabel{\sigma_{\alpha,\beta}}
+\ncarr{betan}{gamman}
+\blabel{\sigma_{\beta,\gamma}}
+\end{center}				
+\end{proof}
+
+\subsection{The symmetry object congruence}
+
+If $\catcw$ is a category with finite products having the unique factorisation property then define an object congruence on \catcw as follows.
+If $A$ and $B$ are objects of $\catcw$ that are uniquely factorised as $\productn(\An)$ and $\product{m}(\Bm)$, respectively, then define
+$A \sim B$ iff the multisets $\set{\An}$ and $\set{\Bm}$ are equal. 
+For $A$ and $B$ objects of \catcw such that $A\sim B$ define $i_{A,B}=\tuple{p_{\sigma^{-1}(1)},...p_{\sigma^{-1}(n)}}$ where $\sigma$ is the unique permutation of the set $\set{\n}$ described in observation \lref{cannonicalpermutation}
+such that \foreachi, $A_i=B_{\sigma(i)} \mbox{ and }  c_A(i) = c_B(\sigma(i))$.  
+
+\begin{lemma}
+$\sim$ and $i$, so defined, constitute an object congruence on the category $\catc$.
+\end{lemma}
+\begin{proof}
+It follows directly from its definition that $\sim$ is an equivalence relation.
+That $i$ satsifies condition (i) follows because if object $A$ is factored as $\productn(\An)$
+then the cannonical permutation $\sigma_A$ is the identity permutation and therefore 
+$i_{A,A}=\tuple{\pn}=id_A$.
+
+To show that $i$ meets condition (ii) assume $A$ factorises as $\productn(\An)$,
+$B$ as  
+$\productn(\Bn)$, 
+and $C$ as $\productn(\Cn)$. 
+We have
+\begin{align*}
+i_{A,B} \circ i_{B,C} 
+   & = i_{A,B}
+				     \circ 
+            \tuple {p_{\sigma_{B,C}^{-1}(1)},...p_{\sigma_{B,C}^{-1}(n)}}
+						        && \mbox{expanding the definition of $i_{B,C}$ }\\
+	 & = \tuple{i_{A,B} \circ p_{\sigma_{B,C}^{-1}(1)},...i_{A,B} \circ p_{\sigma_{B,C}^{-1}(n)}}                    && \mbox{by lemma \ref{xxxx}},\\
+	 & = \tuple {p_{\sigma_{A,B}^{-1}(\sigma_{B,C}^{-1}(1))},...
+					                                       p_{\sigma_{A,B}^{-1}(\sigma_{B,C}^{-1}(n))}}
+										&& \mbox{\raisebox{-10pt}{\parbox{6cm}{since, from defintion of $i_{A,A}$, \foreachi, $i_{A,B} \circ p_i = p_{\sigma_{A,B}^{-1}(i)}$}}}, \\
+   & = \tuple {p_{\sigma_{A,C}^{-1}(1)},...p_{\sigma_{A,C}^{-1}(1)}}
+                  && \mbox{since $\sigma_{A,B} \circ \sigma_{B,C}  = \sigma_{A,C}$, by lemma \ref{compositionofcannonicals}, } \\
+	 & = i_{A,C}      && \mbox{by definition of $i_{A,C}$}.	
+\end{align*}                     
+\end{proof}
+
+\section{Example of Data Model which is non-cancellative}
+This could be used in preparation for a mathematical theory of data.
+\daynote{Tues 28th Oct 2018.}
+\subsection{Construction of a category with symmetric products}
 
 \subsection{Characterising Diagrams}
 Definition in general setting\daynote{Thurs 19 July 2018}
-
-
-
-
-
-
-
-
 
 \bibliography{../SharedBibliography/temp/bibliography}
 
