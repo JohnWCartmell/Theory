@@ -68,10 +68,12 @@ f \approx f' \mbox{ iff } f \circ i_{b,b'} = i_{a,a'} \circ f'.
 That $\approx$ is an equivalence relationship is established by showing it to be symmetric and transitive.
 It is symmetric because 
 if $f: a \morph b$ and $f': a' \morph b'$ in  \catcw and if $f \approx f'$ then 
+we can show that $f' \approx f$ as follows
 \begin{align*}
-                  && f \circ i_{b,b'} & = i_{a,a'} \circ f'  && \mbox{by definition of $f \approx f'$} \\
-\mbox{therefore}		&& i_{a',a} \circ f \circ i_{b,b'}  \circ i_{b',b}  & = i_{a',a} \circ i_{a,a'} \circ f' \circ i_{b',b} && \\
-\mbox{therefore}		&& i_{a',a} \circ f  = f' \circ i_{b',b} && \mbox{by lemma \lref{iiso}, as required.} 
+f' \circ i_{b',b} 
+    &= i_{a',a} \circ i_{a,a'} \circ f' \circ i_{b',b} &&\mbox{by lemma \lref{iiso}}  \\
+		&= i_{a',a} \circ f \circ i_{b,b'}  \circ i_{b',b} &&\mbox{by definition of $f \approx f'$}\\
+	  &= i_{a',a} \circ f                                &&\mbox{by lemma \lref{iiso}} \\
 \end{align*}
 
 $\approx$ is transitive because 
@@ -82,16 +84,19 @@ f \circ i_{b,b''} &=  f \circ i_{b,b'} \circ i_{b',b''}  && \mbox{by condition(i
 									&= i_{a,a'} \circ i_{a',a''} \circ f'' && \mbox{since $f' \approx f''$}, \\
 									&= i_{a,a''} \circ f''                 && \mbox{by condition(ii) of definition of object congruence}
 \end{align*}
+
+
 and so we have shown that $f \approx f''$, as required.
 
 Define composition of morphisms in $Q_C$ as follows.  If
  $f:a \morph b$ and $g: b' \morph c$ in \catcw, then define $[f] \circ [g]$ in $Q_C$ to be $[f \circ i_{b,b'} \circ g]$.
 
 We need show that composition is well defined.  Assume $f:a \morph b$, $g: b' \morph c$, $f':a' \morph b''$ and $g': b''' \morph c'$ in \catcw and that
-$f \approx f'$ and $g \approx g'$ then 
-$[f] \circ [g]$ we have defined to be $[f \circ i_{b,b'} \circ g]$  and $[f']  \circ [g']$ we have defined to be $[f' \circ i_{b'',b'''} \circ g']$
-and to show that composition in $Q_C$ is well defined we need to show that these are the same i.e. that $f \circ i_{b,b'} \circ g \approx f' \circ i_{b'',b'''} \circ g'$. This identity
-is expressed by the commutivity of the outer square in the diagram below and follows from the commutivity of the inner squares which follow respectively from the assumption that $f \approx f'$,
+$f \approx f'$ and $g \approx g'$.
+Now,  
+$[f] \circ [g]$ we have defined to be $[f \circ i_{b,b'} \circ g]$  and $[f']  \circ [g']$ we have defined to be $[f' \circ i_{b'',b'''} \circ g']$,
+to show that composition in $Q_C$ is well defined we need to show that these are identical i.e. that $f \circ i_{b,b'} \circ g \approx f' \circ i_{b'',b'''} \circ g'$. This identity
+is represented by the commutivity of the outer square in the diagram below and follows from the commutivity of the inner squares which follow respectively from the assumption that $f \approx f'$,
 from the condition (ii) of definition of an object congruence and from the assumption that $g \approx g'$.
 
 \vspace{3mm}
@@ -125,23 +130,35 @@ from the condition (ii) of definition of an object congruence and from the assum
 \end{center}
 
 
-The identity morphism on object $[a]$ is defined to be $[id_a]$
-and composition  is defined,  for
- $f:a \morph b$ and $g: b' \morph c$ in \catcw, by $[f] \circ [g]=[f \circ i_{b,b'} \circ g]$.
+The identity morphism on object $[a]$ is defined to be $[id_a]$.
 
 If $a$ is an object of $\catcw$ then $id_{[a]}$ is a left identity since if  $a \sim a'$ and $f:a' \morph b$ then 
+first note that because $\tuple{\sim,i}$ is an object congruence then
+\begin{equation}
+\label{iaapfeq}
+i_{a,a'} \circ f  \approx f
+\end{equation}
+now we have 
 \begin{align*}
-id_{[a]} \circ [f] & = [id_a] \circ f                                             \\
-                 &= [i_{a,a'} \circ f]                                            \\
-                 &= [f]                & &\mbox {by definition of $\approx$. }
+id_{[a]} \circ [f] 
+         & = [id_a] \circ f               && \mbox{by definition of $id_{[a]}$}    \\
+				 & = id_a \circ i_{a,a'} \circ f  && \mbox{be definition of $\circ$}       \\
+         &= [i_{a,a'} \circ f]                                                     \\
+         &= [f]                           && \mbox {by (\ref{iaapfeq}). }
 \end{align*}
-$id_{[a]}$ is a right identity since if $f:a \morph b$ and $b \sim b'$  then
-
+Similarly, $id_{[a]}$ is a right identity since if $f:a \morph b$ and $b \sim b'$  then
+noting first  that because $\tuple{\sim,i}$ is an object congruence then
+\begin{equation}
+\label{fibbpeq}
+ f \circ i_{b,b'} \approx f
+\end{equation}
+now we have 
 \begin{align*}
-[f] \circ id_{[b']} \circ  & = [f]  \circ [id_{b'}]                                     \\
+[f] \circ id_{[b']} \circ  
+                 & = [f]  \circ [id_{b'}]                                     \\
                  &=  [f \circ i_{b,b'} \circ id_{b'} ]                                  \\
                  &=  [f \circ i_{b,b'} ]                                                \\
-                 &=  [f]                & &\mbox {by definition of $\approx$. }
+                 &=  [f]                               &&\mbox {by (\ref{fibbpeq}). }
 \end{align*}
 
 
@@ -152,14 +169,16 @@ Composition is associative because if $f:a \morph b$, $g: b' \morph c$  and $h: 
 													&= [f \circ i_{b,b'} \circ g] \circ [h]              \\
 													&= ([f] \circ [g]) \circ [h].
 \end{align*}
-This completes the defintion of the category $Q_C$.
+This completes the definition of a category $Q_C$.
 Note that there is a functor $F: \catc \morph Q_C$ defined by
 \begin{align*}
        a & \mapsto [a] \\
 			 f & \mapsto [f]
 \end{align*}
 The functor $F$ is faithful because if $f,g : a \morph b$ in \catcw then $[f]=[g]$ because $f \circ i_{b,b}=i_{a,a} \circ g$ by condition (i) of the definition of object congruence.
-
+The functor $F$ is faithful because if $f:a \morph b$ in \catcw and $a \sim a'$ and
+$b \sim b'$ then $i_{a',a} \circ f \circ i_{b,b'}: a' \morph b$ in \catcw and 
+$F(i_{a',a} \circ f \circ i_{b,b'})=F(f)$.  
 \section{Categories with n-ary Products} 
 We concern ourselves with categories with a specified n-ary product structure and 
  with addition properties that might in some cases hold of this specified structure.  
