@@ -19,39 +19,14 @@
 \setlength{\captionmargin}{2cm}
 \theoremstyle{remark}
 \newtheorem*{lemma*}{Lemma}
-\newcommand{\catc}{\cat{C}}
-\newcommand{\catcw}{\cat{C}\ }
-\newcommand{\catcp}[1][C]{\textbf{#1}'}
-\newcommand{\catcpp}[1][C]{\textbf{#1}''}
-\newcommand{\reqt}{\textbf{R}}
-\newcommand{\reqtc}[1][\catc]{\reqt_{#1}}
-\newcommand{\reqtcp}[1][\catcp]{\reqt_{#1}}
-\newcommand{\Fin}{\ensuremath{\textbf{Fin}} }
-\newcommand{\Finp}{\ensuremath{\textbf{Finp}} }
-\newcommand{\Po}{\ensuremath{\textbf{Po}} }
-\newcommand{\fundep}[3]{#2 \xrightarrow{#1} #3}
-% Following used for notes -- indented numbered paras
-\newlength{\oldparindent}
-\setlength{\oldparindent}{\parindent} % Save \parindent before of change
-\setlength{\parskip}{0.5\baselineskip} % Definition of `parskip`
-\setlength{\parindent}{0pt}
-\newcommand{\ind}{\hspace*{\oldparindent}}
-\newcounter{para}
-\newcommand\note{\par\ind\refstepcounter{para}\thepara.\space}
 
 
-%COPY
-%quine quote
-\newcommand{\qq}[1]{
-\left\ulcorner#1\right\urcorner
-}
-
-\newcommand{\term}[1]{\textit{#1}}  %SIMPLE UNINDEXED VERSION
+\renewcommand{\term}[1]{\textit{#1}}  %SIMPLE UNINDEXED VERSION
 
 %ENDCOPY
 
 \begin{document}
-\title{On Characterising Generalised Congruences that are Full and Faithful}
+\title{Congruence Structures --  Generalised Congruences that are Full and Faithful}
 
 % abstract here for ams
 
@@ -63,67 +38,69 @@
 DRAFT
 \end{center}
 \fi
-
-\section{Summary}
-
-\cite{Bednarczyk1999} introduce the notion of a generalised congruence $\sim$ on a category
+\cite{Bednarczyk1999} introduce the notion of a generalised congruence $\simeq$ on a category
 \catcw. Such a congruence comprises 
 an equivalence relation  on the objects of the category \catcw in combination
 with an equivalence relation
 on the set of finite sequences of morphisms of \catcw and meeting a number of conditions. 
-They show that each functor $F: C \morph D$ 
-gives rise to such a generalised congruence on \catc and that from each such congruence 
-$\sim$ on a category \catc, a quotient category $\catc/\sim$ can be constructed along with a quotient functor $Q_\sim:\catc \morph \catc/\sim$.  
-In this note we characterise those
-generalised congruences that correspond to functors $F$ which are full and faithful. 
-We say such a generalised congruence is \term{full and faithful}. We give an alternative way of presenting any full and faithful generalised congruence as a pair $\tuple{\sim,i}$ of  an equivalence
-relation on objects of \catcw and a family of morphisms $i_{a,a'}$, for $a$ and $a'$ objects
-of \catcw such that $a \sim a'$ and such that 
+They show that each functor $F: \cat{C} \morph \cat{D}$ 
+gives rise to such a generalised congruence on \catc and that from each such generalised congruence 
+$\simeq$ on a category \catc, a quotient category $\catc/\simeq$ can be constructed along with a quotient functor $Q_\simeq:\catc \morph \catc/\simeq$.  
+
+We define the notion of a \term{congruence structure} on a category \catcw to correspond to a special and simplified case of a generalised concurrence occuring when the functor $F$ is full and faithful. We
+show that all congruence structures arise in this way. Because the
+quotient functor $Q_\simeq:\catc \morph \catc/\simeq$ determined by a congruence structure is full, faithful and surjective on objects then, assuming the axiom of choice, it is an equivalence.
 
 
-\begin{center}
-\begin{displaymath}
-\begin{array}{cp{.9cm}cp{.9cm}cp{.9cm}c}
-\Rnode{Top1}{a} & & \Rnode{Top2}{b}  & & \Rnode{Top3}{b'} && \Rnode{Top4}{c}\\ [1.2cm]
-\Rnode{Bottom1}{a'} & & \Rnode{Bottom2}{b''}  & & \Rnode{Bottom3}{b'''} && \Rnode{Bottom4}{c'}
-\end{array}
-\end{displaymath}
-\ncarr{Top1}{Top2}
-\alabel{f}
-
-\end{center}
-
-and 
-
-
-
-commute.
-
-
-  \section {Object Congruences}
+ \section {Congruence structure}
 
 \begin{definition}
-If \catcw is a category  then by an \term{object congruence} $\tuple{\sim,i}$ on \catcw we mean  an equivalence relation $\sim$ on objects of the category and for each pair
-of $a, a'$ of equivalent objects of \catcw a morphism $i_{a,a'}:a \morph a'$ such that
+If \catcw is a category  then by a \term{congruence structure} $\tuple{\sim,i}$ on \catcw we mean  a binary relation $\sim$ on objects of the category \catcw and for each pair $a, a'$ of objects of \catcw such that $a \sim a'$, a morphism $i_{a,a'}:a \morph a'$ such that
 \begin{enumerate} [(i)]
-\item  for all objects $a$ of \catc, $i_{a,a}=id_a$,
-\item for all objects $a, a', a''$ of \catc, $i_{a,a'}\circ i_{a',a''}=i_{a,a''}$.
+\item  for all objects $a$ of \catc, $a \sim a$ and  $i_{a,a}=id_a$,
+\item for all objects $a, a', a''$ of \catc, if $a \sim a'$ and $a' \sim a''$ then 
+$a \sim a''$ and the diagram
+\begin{equation}
+\begin{array}{cp{.3cm}cp{.3cm}c}
+              & & \Rnode{ap}{a'}  & &               \\ [0.6cm]
+\Rnode{a}{a} & &                  & & \Rnode{app}{a''} 
+\end{array}
+\end{equation}
+\ncarr{a}{ap}
+\alabel{i_{a,a'}}
+\ncarr{ap}{app}
+\alabel{i_{a',a''}}
+\ncarr{a}{app}
+\blabel{i_{a,a''}}
+commutes.
 \end{enumerate} 
 \end{definition}
 
 \begin{lemma}
 \llabel{iiso}
-If $\tuple{\sim,i}$ is an object congruence on a category \catcw then
+If $\tuple{\sim,i}$ is an congruence structure on a category \catcw then
 for all objects $a,a'$ such that $a \sim a'$, the morphism $i_{a,a'}$ is an isomorphism with inverse $i_{a',a}$.
 \end{lemma}
 \begin{proof}
 \begin{align*}
-i_{a,a'} \circ i_{a',a} &= i_{a,a} &&\mbox{from condition (ii) of definition of object congruence}, \\
-                        &= id_a    &&\mbox{from condition (i) of definition of object congruence}.
+i_{a,a'} \circ i_{a',a} &= i_{a,a} &&\mbox{from condition (ii) of definition of congruence structure}, \\
+                        &= id_a    &&\mbox{from condition (i) of definition of congruence structure}.
 \end{align*}
 \end{proof}
 
-Define the quotient category $Q_C$ defined by an object congruence $\tuple{\sim,i}$ within a category \catcw to be the category
+\section{Congruence structure induced by a full and faithful functor}
+We show that every full and faithful functor with domain \catcw gives rise to a congruence structure on \catcw
+and, in the next section, that all congruence structures arise in this way.
+Suppose then that $F:\catc \morph \cat{D}$ is  a full and faithful functor. 
+Define a binary relation $\sim$ on objects of $\catc$ by $a \sim a'$ iff $F(a) = F(a')$. It is easy to see that $\sim$ so defined in an equivalence relation. Since $F$ is full and faithful 
+whenever $a$ and $a'$ are objects of \catcw such that $a \sim a'$ then there is a unique morphism 
+$f:a \morph a'$ in \catcw such that $F(f)=id_{F(a)}$. Define $i_{a,a'}$ to be this 
+unique morphism. With $\sim$ and $i$ so defined it is easy to see that
+$i_{a,a}=id(a)$ and that if $a \sim a' \sim a''$ then $i_{a,a'} \circ i_{a',a''}=i_{a,a''}$, as required.  
+
+\section{The quotient category defined by a congruence structure}
+
+Define the quotient category $Q_C$ defined by an congruence structure $\tuple{\sim,i}$ within a category \catcw to be the category
 having as objects equivalence classes of objects of $\catcw$ under the relations $\sim$ 
 and having as morphisms  $Hom_{Q_C}([a],[b])$ equivalence classes of the set
 \begin{displaymath}
@@ -133,6 +110,7 @@ under the equivalence relation $\approx$ which is defined, for $f: a \morph b$ a
 \begin{displaymath}
 f \approx f' \mbox{ iff } f \circ i_{b,b'} = i_{a,a'} \circ f'.
 \end{displaymath}
+Assuming the axiom of choice then $Q_C$ is equivalent to \catc.
 That $\approx$ is an equivalence relationship is established by showing it to be symmetric and transitive.
 It is symmetric because 
 if $f: a \morph b$ and $f': a' \morph b'$ in  \catcw and if $f \approx f'$ then 
@@ -147,12 +125,11 @@ f' \circ i_{b',b}
 $\approx$ is transitive because 
 if $f: a \morph b$, $f': a' \morph b'$ and $f'': a'' \morph b''$ in  \catcw and if $f \approx f'$ and $f' \approx f''$ then
 \begin{align*}
-f \circ i_{b,b''} &=  f \circ i_{b,b'} \circ i_{b',b''}  && \mbox{by condition(ii) of definition of object congruence,} \\
+f \circ i_{b,b''} &=  f \circ i_{b,b'} \circ i_{b',b''}  && \mbox{by condition(ii) of definition of congruence structure,} \\
                   &= i_{a,a'} \circ f' \circ i_{b',b''}  && \mbox{since $f \approx f'$}, \\
 									&= i_{a,a'} \circ i_{a',a''} \circ f'' && \mbox{since $f' \approx f''$}, \\
-									&= i_{a,a''} \circ f''                 && \mbox{by condition(ii) of definition of object congruence}
+									&= i_{a,a''} \circ f''                 && \mbox{by condition(ii) of definition of congruence structure}
 \end{align*}
-
 
 and so we have shown that $f \approx f''$, as required.
 
@@ -164,17 +141,15 @@ $f \approx f'$ and $g \approx g'$.
 Now,  
 $[f] \circ [g]$ we have defined to be $[f \circ i_{b,b'} \circ g]$  and $[f']  \circ [g']$ we have defined to be $[f' \circ i_{b'',b'''} \circ g']$,
 to show that composition in $Q_C$ is well defined we need to show that these are identical i.e. that $f \circ i_{b,b'} \circ g \approx f' \circ i_{b'',b'''} \circ g'$. This identity
-is represented by the commutivity of the outer square in the diagram below and follows from the commutivity of the inner squares which follow respectively from the assumption that $f \approx f'$,
-from the condition (ii) of definition of an object congruence and from the assumption that $g \approx g'$.
-
-\vspace{3mm}
-\begin{center}
-\begin{displaymath}
+is represented by the commutivity of the outer square in the diagram (\ref{compwelldefined}) and follows from the commutivity of the inner squares which follow respectively from the assumption that $f \approx f'$,
+from the condition (ii) of definition of an congruence structure and from the assumption that $g \approx g'$.
+\begin{equation}
+\label{compwelldefined}
 \begin{array}{cp{.9cm}cp{.9cm}cp{.9cm}c}
 \Rnode{Top1}{a} & & \Rnode{Top2}{b}  & & \Rnode{Top3}{b'} && \Rnode{Top4}{c}\\ [1.2cm]
 \Rnode{Bottom1}{a'} & & \Rnode{Bottom2}{b''}  & & \Rnode{Bottom3}{b'''} && \Rnode{Bottom4}{c'}
 \end{array}
-\end{displaymath}
+\end{equation}
 \ncarr{Top1}{Top2}
 \alabel{f}
 \ncarr{Top2}{Top3}
@@ -195,13 +170,11 @@ from the condition (ii) of definition of an object congruence and from the assum
 \blabel{i_{b'',b'''} }
 \ncarr{Bottom3}{Bottom4}
 \blabel{g'}
-\end{center}
-
 
 The identity morphism on object $[a]$ is defined to be $[id_a]$.
 
 If $a$ is an object of $\catcw$ then $id_{[a]}$ is a left identity since if  $a \sim a'$ and $f:a' \morph b$ then 
-first note that because $\tuple{\sim,i}$ is an object congruence then
+first note that because $\tuple{\sim,i}$ is an congruence structure then
 \begin{equation}
 \label{iaapfeq}
 i_{a,a'} \circ f  \approx f
@@ -215,7 +188,7 @@ id_{[a]} \circ [f]
          &= [f]                           && \mbox {by (\ref{iaapfeq}). }
 \end{align*}
 Similarly, $id_{[a]}$ is a right identity since if $f:a \morph b$ and $b \sim b'$  then
-noting first  that because $\tuple{\sim,i}$ is an object congruence then
+noting first  that because $\tuple{\sim,i}$ is an congruence structure then
 \begin{equation}
 \label{fibbpeq}
  f \circ i_{b,b'} \approx f
@@ -238,17 +211,66 @@ Composition is associative because if $f:a \morph b$, $g: b' \morph c$  and $h: 
 													&= ([f] \circ [g]) \circ [h].
 \end{align*}
 This completes the definition of a category $Q_C$.
-Note that there is a functor $F: \catc \morph Q_C$ defined by
+Note that there is a functor $Q_\approx: \catc \morph Q_C$ defined by
 \begin{align*}
        a & \mapsto [a] \\
 			 f & \mapsto [f]
 \end{align*}
-The functor $F$ is faithful because if $f,g : a \morph b$ in \catcw then $[f]=[g]$ because $f \circ i_{b,b}=i_{a,a} \circ g$ by condition (i) of the definition of object congruence.
-The functor $F$ is faithful because if $f:a \morph b$ in \catcw and $a \sim a'$ and
+The functor $Q_\approx$ is faithful because if $f,g : a \morph b$ in \catcw and $[f]=[g]$ in $Q_C$
+then $f=g$ in \catcw because $f \circ i_{b,b}=i_{a,a} \circ g$ by condition (i) of the definition of congruence structure.
+The functor $Q_\approx$ is full because if $f:a \morph b$ in \catcw and $a \sim a'$ and
 $b \sim b'$ then $i_{a',a} \circ f \circ i_{b,b'}: a' \morph b$ in \catcw and 
 $F(i_{a',a} \circ f \circ i_{b,b'})=F(f)$.  
 
+The functor $Q_\approx$ is surjective on objects and full and faithful therefore, assuming the axiom of choice, is an equivalence of categories. 
 
+\section{Defining  the generalised congruence corresponding to a congeruence structure.}
+
+
+
+We can define a generalised congruence determined by a congruence structure as follows,.
+Suppose 
+$\tuple{\fn}$ and $\tuple{\gm}$ are tuples of morphisms of category \catc. Suppose 
+\foreachi, $f_i:a_i \morph a'_i$ and suppose \foreachj[m], $g_j: b_j \morph b'_j$.
+Define 
+$\tuple{\fn}\simeq\tuple{\gm}$ iff $dom(f_1) \sim dom(g_1)$ i.e. $a_1 \sim b_1$ and
+$cod(f_n) \sim cod(g_m)$ i.e. $a_n \sim b_m$
+for each $i$, $1 \leq i <n$, $cod(f_i) \sim dom(f_{i+1})$ i.e.  $a'_i \sim a_{i+1}$
+and $j$, $1 \leq j < m$, $cod(g_j) \sim dom(g_{j+1})$ i.e. $b'_j= b_{j+1}$ and such that
+the diagram
+\begin{equation*}
+\begin{array}{cp{.3cm}cp{.3cm}cp{.3cm}cp{.3cm}cp{.3cm}cp{.3cm}cp{.3cm}c}
+\Rnode{a1}{a_1} && \Rnode{a1p}{a'_1} && \Rnode{a2}{a_2} && \Rnode{a2p}{a'_2} && ... 
+&&\Rnode{an1p}{a'_{n-1}}&&\Rnode{an}{a_n}&&\Rnode{anp}{a'_n}         \\ [0.6cm]
+\Rnode{b1}{b_1} &&  \Rnode{b1p}{b'_1} && \Rnode{b2}{b_2} && \Rnode{b2p}{b'_2} && ... 
+&&\Rnode{bm1p}{b'_{m-1}}&&\Rnode{bm}{b_m}&&\Rnode{bmp}{b'_m}                 
+\end{array}
+\end{equation*}
+\ncarr{a1}{a1p}
+\alabel{f_1}
+\ncarr{a1p}{a2}
+\alabel{i_{a'_1,a_2}}
+\ncarr{a2}{a2p}
+\alabel{f_2}
+\ncarr{an1p}{an}
+\alabel{i_{a'_{n-1},a_n}}
+\ncarr{an}{anp}
+\alabel{f_n}
+\ncarr{a1}{b1}
+\blabel{i_{a_1,b_1}}
+\ncarr{b1}{b1p}
+\alabel{g_1}
+\ncarr{b1p}{b2}
+\alabel{i_{b'_1,b_2}}
+\ncarr{b2}{b2p}
+\alabel{g_2}
+\ncarr{bm1p}{bm}
+\alabel{i_{b'_{m-1},b_m}}
+\ncarr{bm}{bmp}
+\alabel{g_m}
+\ncarr{bmp}{anp}
+\blabel{i_{b'_m,a'_n}}
+commutes.
 
 \bibliographystyle{alpha} 
 \bibliography{../SharedBibliography/temp/bibliography}
