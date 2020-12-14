@@ -26,7 +26,7 @@
 %ENDCOPY
 
 \begin{document}
-\title{Congruence Structures --  Generalised Congruences that are Full and Faithful}
+\title{Congruence Structures induced by Full and Faithful Functors}
 
 % abstract here for ams
 
@@ -38,18 +38,17 @@
 DRAFT
 \end{center}
 \fi
-\cite{Bednarczyk1999} introduce the notion of a generalised congruence $\simeq$ on a category
-\catcw. Such a congruence comprises 
-an equivalence relation  on the objects of the category \catcw in combination
-with an equivalence relation
-on the set of finite sequences of morphisms of \catcw and meeting a number of conditions. 
+Bednarczyk, Borzyskowski and Pawlowski \cite{Bednarczyk1999} define a generalised congruence $\simeq$ on a category
+\catcw as an equivalence relation  on the objects of the category \catcw in combination
+with a partial equivalence relation
+on the set of finite sequences of morphisms of \catcw such that a number of conditions are met. 
 They show that each functor $F: \cat{C} \morph \cat{D}$ 
-gives rise to such a generalised congruence on \catc and that from each such generalised congruence 
+gives rise to such a generalised congruence on \catcw and that from each such generalised congruence 
 $\simeq$ on a category \catc, a quotient category $\catc/\simeq$ can be constructed along with a quotient functor $Q_\simeq:\catc \morph \catc/\simeq$.  
 
-We define the notion of a \term{congruence structure} on a category \catcw to correspond to a special and simplified case of a generalised concurrence occuring when the functor $F$ is full and faithful. We
-show that all congruence structures arise in this way. Because the
-quotient functor $Q_\simeq:\catc \morph \catc/\simeq$ determined by a congruence structure is full, faithful and surjective on objects then, assuming the axiom of choice, it is an equivalence.
+Here, we define the notion of a \term{congruence structure} on a category \catcw corresponding to a generalised congruence induced by a functor $F$ that is full and faithful. The
+quotient functor $Q_\simeq:\catc \morph \catc/\simeq$ determined by a congruence structure is full, faithful and surjective on objects from which it follows, assuming the axiom of choice, 
+that it is an equivalence of categories.
 
 
  \section {Congruence structure}
@@ -89,8 +88,7 @@ i_{a,a'} \circ i_{a',a} &= i_{a,a} &&\mbox{from condition (ii) of definition of 
 \end{proof}
 
 \section{Congruence structure induced by a full and faithful functor}
-We show that every full and faithful functor with domain \catcw gives rise to a congruence structure on \catcw
-and, in the next section, that all congruence structures arise in this way.
+We show that every full and faithful functor with domain \catcw gives rise to a congruence structure on \catc.
 Suppose then that $F:\catc \morph \cat{D}$ is  a full and faithful functor. 
 Define a binary relation $\sim$ on objects of $\catc$ by $a \sim a'$ iff $F(a) = F(a')$. It is easy to see that $\sim$ so defined in an equivalence relation. Since $F$ is full and faithful 
 whenever $a$ and $a'$ are objects of \catcw such that $a \sim a'$ then there is a unique morphism 
@@ -110,19 +108,18 @@ under the equivalence relation $\approx$ which is defined, for $f: a \morph b$ a
 \begin{displaymath}
 f \approx f' \mbox{ iff } f \circ i_{b,b'} = i_{a,a'} \circ f'.
 \end{displaymath}
-Assuming the axiom of choice then $Q_C$ is equivalent to \catc.
 That $\approx$ is an equivalence relationship is established by showing it to be symmetric and transitive.
-It is symmetric because 
+We can show that it is symmetric because 
 if $f: a \morph b$ and $f': a' \morph b'$ in  \catcw and if $f \approx f'$ then 
 we can show that $f' \approx f$ as follows
 \begin{align*}
 f' \circ i_{b',b} 
-    &= i_{a',a} \circ i_{a,a'} \circ f' \circ i_{b',b} &&\mbox{by lemma \lref{iiso}}  \\
-		&= i_{a',a} \circ f \circ i_{b,b'}  \circ i_{b',b} &&\mbox{by definition of $f \approx f'$}\\
-	  &= i_{a',a} \circ f                                &&\mbox{by lemma \lref{iiso}} \\
+    &= i_{a',a} \circ i_{a,a'} \circ f' \circ i_{b',b} &&\mbox{by lemma \lref{iiso}},  \\
+		&= i_{a',a} \circ f \circ i_{b,b'}  \circ i_{b',b} &&\mbox{by definition of $f \approx f'$},\\
+	  &= i_{a',a} \circ f                                &&\mbox{by lemma \lref{iiso}}. \\
 \end{align*}
 
-$\approx$ is transitive because 
+We can show that $\approx$ is transitive  because 
 if $f: a \morph b$, $f': a' \morph b'$ and $f'': a'' \morph b''$ in  \catcw and if $f \approx f'$ and $f' \approx f''$ then
 \begin{align*}
 f \circ i_{b,b''} &=  f \circ i_{b,b'} \circ i_{b',b''}  && \mbox{by condition(ii) of definition of congruence structure,} \\
@@ -130,12 +127,10 @@ f \circ i_{b,b''} &=  f \circ i_{b,b'} \circ i_{b',b''}  && \mbox{by condition(i
 									&= i_{a,a'} \circ i_{a',a''} \circ f'' && \mbox{since $f' \approx f''$}, \\
 									&= i_{a,a''} \circ f''                 && \mbox{by condition(ii) of definition of congruence structure}
 \end{align*}
-
-and so we have shown that $f \approx f''$, as required.
+and  we have shown that $f \approx f''$, as required.
 
 Define composition of morphisms in $Q_C$ as follows.  If
  $f:a \morph b$ and $g: b' \morph c$ in \catcw, then define $[f] \circ [g]$ in $Q_C$ to be $[f \circ i_{b,b'} \circ g]$.
-
 We need show that composition is well defined.  Assume $f:a \morph b$, $g: b' \morph c$, $f':a' \morph b''$ and $g': b''' \morph c'$ in \catcw and that
 $f \approx f'$ and $g \approx g'$.
 Now,  
@@ -171,9 +166,7 @@ from the condition (ii) of definition of an congruence structure and from the as
 \ncarr{Bottom3}{Bottom4}
 \blabel{g'}
 
-The identity morphism on object $[a]$ is defined to be $[id_a]$.
-
-If $a$ is an object of $\catcw$ then $id_{[a]}$ is a left identity since if  $a \sim a'$ and $f:a' \morph b$ then 
+The identity morphism on object $[a]$ is defined to be $[id_a]$. If $a$ is an object of $\catcw$ then $id_{[a]}$ is a left identity since if  $a \sim a'$ and $f:a' \morph b$ then 
 first note that because $\tuple{\sim,i}$ is an congruence structure then
 \begin{equation}
 \label{iaapfeq}
@@ -211,7 +204,7 @@ Composition is associative because if $f:a \morph b$, $g: b' \morph c$  and $h: 
 													&= ([f] \circ [g]) \circ [h].
 \end{align*}
 This completes the definition of a category $Q_C$.
-Note that there is a functor $Q_\approx: \catc \morph Q_C$ defined by
+The functor $Q_\approx: \catc \morph Q_C$ defined by
 \begin{align*}
        a & \mapsto [a] \\
 			 f & \mapsto [f]
@@ -222,11 +215,9 @@ The functor $Q_\approx$ is full because if $f:a \morph b$ in \catcw and $a \sim 
 $b \sim b'$ then $i_{a',a} \circ f \circ i_{b,b'}: a' \morph b$ in \catcw and 
 $F(i_{a',a} \circ f \circ i_{b,b'})=F(f)$.  
 
-The functor $Q_\approx$ is surjective on objects and full and faithful therefore, assuming the axiom of choice, is an equivalence of categories. 
+The functor $Q_\approx$ is surjective on objects and full and faithful therefore, assuming the axiom of choice, it is an equivalence of categories. 
 
-\section{Defining  the generalised congruence corresponding to a congeruence structure.}
-
-
+\section{Defining the generalised congruence corresponding to a congruence structure.}
 
 We can define a generalised congruence determined by a congruence structure as follows,.
 Suppose 
