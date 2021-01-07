@@ -1,0 +1,103 @@
+ \documentclass[10pt,a4paper]{article}
+%\input{thepreamble.tex}
+\input{../SharedMacros/ccategories.macros}
+\input{../SharedMacros/ermacros}
+\input{../SharedMacros/erdiagram}
+\input{../SharedMacros/theorems.macros}
+\input{../SharedMacros/general.macros}
+\usepackage{mathptmx}  % This changes font to roman
+\usepackage{anyfontsize}
+\usepackage{mathtools}  % why have we got this?
+\usepackage{alltt}    
+\usepackage{mnsymbol} %used for rightpitchfork
+\usepackage{cmll}
+\usepackage{ulem}
+\renewcommand{\ttdefault}{txtt}
+\usepackage[left=1.5cm, right=4cm, marginparwidth=3cm, top=2cm, bottom=2.0cm]{geometry}
+\usepackage{framed}
+\usepackage[font=small]{caption}
+\setlength{\captionmargin}{2cm}
+\theoremstyle{remark}
+\newtheorem*{lemma*}{Lemma}
+
+% from presentation
+\newcommand{\attr}[1]{#1}
+\renewcommand{\attr}[1]{\psframebox[linecolor=red,framearc=.1]{#1}}
+\newcommand{\attrtype}[1]{#1}
+\renewcommand{\attrtype}[1]{\psframebox[linecolor=blue,framearc=.1]{#1}}
+\newcommand{\etype}[1]{#1}
+\renewcommand{\etype}[1]{\psframebox[linecolor=red,framearc=.1]{#1}}
+
+
+\begin{document}
+\title{Regarding Categories with families (cwf)}
+
+
+\author{John Cartmell}
+
+
+\note It seems to me that in the syntax of gats, \textit{types and terms} on the one hand and \textit{contexts and realisations} on the other are each mutually dependent. In the world 
+of syntax neither can exist without the other.
+\begin{center}
+$
+\begin{array}{ c }
+\etype{\Rnode{TandT}{types\ and\ terms}} \\[1.3cm]
+\etype{\Rnode{CandR}{contexts\ and\ realisations}}   
+\end{array}                     
+$
+\setlength{\sarnodesepA}{7pt}
+\setlength{\sarnodesepB}{7pt}
+\setlength{\saroffsetA}{7pt}
+\setlength{\saroffsetB}{7pt}
+\ncsar[10]{TandT}{CandR}
+\ncsar[10]{CandR}{TandT}
+\end{center}
+
+
+\note The theory \textit{meta-gat} (\cite{Cartmell14B}) algebraically describes the substitution structure of equivalence classes of types and terms of a gat. Meta-gat algebras have been described by Vladimir as B-systems and have also been described by Richard Garner (\cite{Garner15}) as algebras of a monad over a functor category.  We can summarise (at a stetch) by saying that ontologising types and terms yields meta-gat algebras also known as B-systems:
+
+\begin{center}
+$
+\begin{array}{ c p{0.5cm} c}
+\etype{\Rnode{TandT}{types\ and\ terms}} & & \attrtype{\Rnode{metagat}{\mbox{\textit{meta-gat = B-system}}}}
+\end{array}                     
+$
+\setlength{\arrnodesepA}{7pt}
+\setlength{\arrnodesepB}{7pt}
+%\setlength{\arroffsetA}{7pt}
+%\setlength{\arroffsetB}{7pt}
+\ncarr{TandT}{metagat}
+\end{center}
+
+We can formalise this connection by showing that the category of generalised algebrauic theories 
+is equivalent to the category of meta-gat algebras.  I wrote out the details of this proof in aproximately 1977 in the draft thesis I mentioned previously. The proof just involves a lot of leg work. The theory meta-gat is generalised algebraic.
+ 
+\note The theory of \textit{contextual catagories} algebraically describes the substitution structure of equivalence classes of contexts and realisations of a gat. Vladimir has called  these C-systems. In this case we can summarise by saying that ontologising contexts and realisations yields contextual categories also known as C-systems:
+
+\begin{center}
+$
+\begin{array}{ c p{0.5cm} c}
+\etype{\Rnode{CandR}{contexts\ and\ realisations}}   & & \attrtype{\Rnode{concat}{\mbox{\textit{contextual category = C-system}}}}
+\end{array}                     
+$
+\setlength{\arrnodesepA}{7pt}
+\setlength{\arrnodesepB}{7pt}
+\ncarr{CandR}{concat} 
+\end{center}
+
+This statement is formalised by showing that the category of generalised algebraic theories 
+is equivalent to the category of contextual categories. This proof is written up in detail
+in my thesis. The theory of contextual categories is generalised algebraic as shown by Vladimir
+(\cite{Cartmell2018A}). 
+I missed this in my work. 
+
+\note
+From the above it follows that the category of meta-gat algebras and the category of contextual categories are equivalent. I have worked from time to time on equational rewrite systems and, since retirement, I spent a good deal of time trying to write some software to do most of the leg work of such a proof by coming up with a rewrite system for the theory of contextual categories. In the end I gave up on it (which, by the way, doesn't mean to say that such a rewrite system cannot be be developed  -- it is just that the way that I was trying to do it just got too complicated). 
+
+\note 
+There is another equivalent structure that I think exists and that I have worked on from time to time without ever bottoming out. In my most recent work toward this I have called these
+structures \textit{dependency categories} though realising now that Vladimir wouldn't like me calling them categories and might prefer a name like D-systems. I first described something along these lines in a conference paper in 1986 (\cite{Cartmell86B}). That paper was badly flawed in fact but the sentiment remains. 
+
+\bibliographystyle{alpha} 
+\bibliography{../SharedBibliography/temp/bibliography}
+\end{document}

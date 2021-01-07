@@ -29,9 +29,143 @@
 \title{Notes on Categories - Work in Progress}
 \author{John Cartmell\footnote{john.w.cartmell gmail.com}\\ \normalsize{\textit{Ad Otium}}}
 \begin{document}
-%\newcommand{\catc}{\cat{C}}
-%\newcommand{\catcw}{\cat{C}\ }
 
+\section{Categories with n-ary products that are syntactic in nature}
+\subsection{Characterisation}
+Categories with n-ary products are the algebraic equivalents of multi-sorted algebraic theories.
+Every category with n-ary products is equivalent to the category of equivalence classes 
+of contexts and of realisations of a many-sorted algebraic theory. Categories with n-ary products that are isomorphic to categories of equivalence classes 
+of contexts and of realisations can be characterised to some extent (or maybe exactly?)
+will have some additional properies as follows:
+\begin{enumerate}
+\item associativity of products -- we described this condition as the final condition in definition of category with n-ary products
+\item unique factorisation number -- if $A_1 \times ... \times A_n=B_1 \times ... \times B_m$
+and $A_1,...A_n$ and $B_1,...B_m$ are prime then $n=m$.
+\item right cancellative -- if $A_1 \times B_1 = A_2 \times B_2$ then $A_1 = A_2$. 
+\item order indifferent -- if $A_1 \times A_2 \times B = A_1 \times A_2 \times B'$ then
+$A_2 \times A_1 \times B = A_2 \times A_1 \times B'$.
+\item coherence
+\item afterthought needed for copy instance number:\commentary{Can reduce this to a widening condition.}
+if $A_1 \times ... \times A_n=B_1 \times ... \times B_n$ then \foreachi, 
+$A_1 \times ... \times A_n \times A_i = B_1 \times ... \times B_n \times B_i$.
+\end{enumerate}
+
+To define the latter condition we need introduce some terminology:
+
+\begin{definition}
+A morphism $f:A \morph B$ is said to be \term{cannonical} iff for some $n$,
+$A=A_1 \times ... A_n$ and for some $m$, $B=B_1 \times ... \times B_m$
+ there is a function 
+$\sigma: \set{\m} \morph \set{\n}$               
+such that \foreachj, $f \circ p_j = p_{\sigma(j)}$. 
+\end{definition}
+
+\begin{observation}
+If \catcw is the theory category of a multi-sorted algebraic theory and if
+$f: A_1 \times ... A_n \morph B_1 \times ... \times B_m$ is cannonical 
+with index mapping $\sigma$ then $f=[\tuple{\permterm{x}{n}{\sigma}}]$.
+\end{observation}
+
+The index mapping function may not be unique.
+For example a theory might have a type $S$ axiomatised to
+be the singleton type by the axiom $x \in S, y \in S \tstyle x=y$. Suppose
+the theory has another type $X$. In the theory category let $A$ be the object $[x_1 \in S, x_2 \in S, x_3 \in X]$
+and let B be the object $[y_1 \in S,\ y_2 \in A]$. 
+Then in the theory category the morphisms
+$[\tuple{x_1,x_3}]:A \morph B$
+and $[\tuple{x_2,x_3}]:A \morph B$
+are equal and so $f=[\tuple{x_1,x_3}]$ is a morphism which has two distinct index mapping
+functions by which it can be represented cannonically.
+
+
+\begin{definition}
+A morphism $f:A \morph B$ is said to have cannonical representation iff for some $n$,
+there are cannonical morphisms $\fn$ such that $f=f_1 \circ ... \circ f_n$.
+\end{definition}
+
+From the cannonical representation $\fn$ of $f$ we obtain an index mapping function 
+for $f$ which is $\sigma_1 \circ ... \circ \sigma_n$. 
+
+\begin{observation}
+If \catcw is the theory category of a multi-sorted algebraic theory and if
+$f: A_1 \times ... A_n \morph B_1 \times ... \times B_m$ has a  cannonical 
+representation 
+with index mapping $\sigma$ then $f=[\tuple{\permterm{x}{n}{\sigma}}]$.
+\end{observation}
+
+
+\begin{enumerate}
+\setcounter{enumi}{4}
+\item coherence:
+If $X$ and $Y$ are objects of \catcw and if $f:X \morph Y$ and $g:X \morph Y$ are
+each compositions of cannonical morphisms then if $f$ and $g$ have identical 
+index mappings then they are equal.
+\end{enumerate}
+
+\subsection{Defining a congruence structure}
+
+Recall that if $\catcw$ is a category with n-ary products having the unique factorisation property then an
+equivalence relation  $\sim$ on the set of objects of \catcw can be defined as follows:
+if $A$ and $B$ are objects of $\catcw$ that are uniquely factorised as $\productn(\An)$ and $\product{m}(\Bm)$, respectively, then 
+$A \sim B$ iff  there is a permutation of the set $\set{\n}$ such that 
+\foreachi, $A_{\sigma(i)}=B_i$. \commentary{I actually described $\sigma$ the other way around but this way round is consistent with how I want to work here.}
+
+In the current situation, in the absence of unique factorisation, this definition 
+can be modified to define a binary relation $\sim_0$ as follows:
+if $A$ and $B$ are objects of $\catcw$ then $A \sim_0 B$ 
+iff there exists prime factorisations 
+$A = \productn(\An)$ 
+and $B= \productn(\Bn)$ 
+and  a permutation of the set $\set{\n}$ such that 
+\foreachi, $A_{\sigma(i)}=B_i$.
+
+$\sim_0$, so defined is not
+an equivalence relation  it is not transitive as demonstrated in the following example
+\begin{notebox}[Example]
+Let a theory consist of types $A$, $B$ and $B'$ and the single axiom 
+\begin{equation}
+x \in A \tstyle B=B'
+\end{equation}
+In the corresponding theory category, therefore, there are three prime objects which
+we identify as $A$, $B$ and $B'$ and satisfying $A \times B = A \times B'$ and 
+for which the objects $B \times A$ and $B' \times A$ are distinct objects (for there is no way of deriving, in the theory, the rule $\tstyle B = B'$). 
+
+Now we have $B \times A \sim_0 A \times B = A \times B' \sim_0 B' \times A$
+but we do not have $B \times A \sim_0 B' \times A$. Therefore $\sim_0$ is not transitive.
+\end{notebox}
+
+
+ and so instead we take the transitive closure of the above relation (call it $\sim_0$) to
+achieve an equivalence relation $\sim$.
+
+Now recall also that in the unique factorisation case the i-maps are defined as follows:
+for $A$ and $B$ objects of \catcw such that $A\sim B$ define $i_{A,B}=\tuple{p_{\sigma^{-1}(1)},...p_{\sigma^{-1}(n)}}$ where $\sigma$ is the permutation of the set $\set{\n}$ 
+such that \foreachi, $A_{\sigma(i)}=B_i \mbox{ and }  c_A(\sigma(i)) = c_B(i)$. \commentary{This corrected.}
+
+In the current situation ths definition now defines a cannonical map $i_{A,B}: A \morph B$ 
+for all $A$,$B$ such that $A \sim_0 B$. 
+For any $A,B$ such that $A \sim B$ we define the map $i_{A,B}$ to be the morphism
+$i_{X_0,X_1} \circ i_{X_1,X_2} \circ ... i{X_{n-1},X_n}$ where $X0,X_1,...X_n$ is a sequence
+of morphisms such that \foreachi, $X_{i-1} \sim_0 X_i$ and $X_0=A$ and $X_n=B$. 
+We need show that $i_{A,B}$ is well defined. This will follow because of the coherence
+condition. 
+ 
+In the current situation we have to revise the definition of copy instance number function.
+\begin{definition}
+Every object $A$ has a prime rank which is the unique $n \geq 1$ such that
+there exists $n$ prime objects $A_1,...A_n$ such that $A=A_1 \times ... \times A_n$.
+We define the \term{copy instance number} function $C_A: \set{1...rank(A)} \morph  \set{1...rank(A)}$.
+to be the function so that if $A=\productn(\An)$
+$$
+c_A(i) = |\setsuchthat{j}{1 \leq j \leq i 
+\mbox{ and } 
+A \times A_j = A \times A_k}|
+$$
+\end{definition}
+We then need to show that copy instance number function is well-defined by showing it to be independent of which object decomposition is chosen. This is the `afterthought' condition.
+
+Check that there is still only one index mapping that preserves copy instance number. Therefore
+there is at most one canonnically representable map from $A$ to $B$ for any $A$ and $B$. If we phrase this statement first then the definition of the object congruence structure can follow.
 
 \section{Categories with n-ary Products} 
 We concern ourselves with categories with a specified n-ary product structure and 
