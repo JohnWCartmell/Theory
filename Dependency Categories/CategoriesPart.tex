@@ -30,6 +30,84 @@
 \author{John Cartmell\footnote{john.w.cartmell gmail.com}\\ \normalsize{\textit{Ad Otium}}}
 \begin{document}
 
+\section{Prelude}
+We will write the cardinality of the set $x$ as $|x|$.
+Suppose $\sim$ is an equivalence relation on the set $\set{\n}$.
+Define a function $o_\sim : \set{\n} \morph \set{\n}$ by, \foreachi,
+$$
+s_\sim(i) \mapsto |\setsuchthat{j}{1 \leq j \leq i \mbox{ and }j \sim i}|
+$$
+\noindent We say that $s_\sim$ is the similarity index
+function for $\sim$ because, for any $i$, it sequentially numbers (i.e indexes) those instances
+of the set $\set{\n}$ that are similar to $i$. 
+
+\begin{lemma}
+\llabel{permutationnormalisationlemma}
+If $\sim_A$ and $\sim_B$ are each equivalence relations on the set $\set{\n}$ 
+with similarity index functions $s_{\sim_A}: \set{\n} \morph \set{\n}$
+and $s_{\sim_B}: \set{\n} \morph \set{\n}$, respectively,  if
+$\sigma: \set{\n} \morph \set{\n}$ is a permutation
+such that
+\newcommand{\sigmabar}{\bar{\sigma}}
+
+\begin{align}
+&i \sim_A j \mbox{ implies } \sigma(i) \sim_B \sigma(j) 
+\end{align}
+
+then there exists a permutation $\sigmabar: \set{\n} \morph \set{\n}$ such that
+
+
+\begin{align}
+&i \sim_A j \mbox{ implies } \sigmabar(i) \sim_B \sigmabar(j) \\
+&s_{\sim_B}(\sigmabar(i))=s_{\sim_A}(i) \\
+\end{align}.
+\end{lemma}
+
+\begin{lemma}
+\llabel{permutationidentitylemma}
+If $\sim$ is an equivalence relation on the set $\set{\n}$ 
+with similarity index function $s_\sim: \set{\n} \morph \set{\n}$, if
+$\sigma: \set{\n} \morph \set{\n}$ is a permutation that respects similarity, i.e. such that
+if $i \sim j$ then $\sigma(i) \sim \sigma(j)$, and preserves similarity index, i.e. such that
+the diagram
+\begin{center}
+\begin{equation}
+\label{preservingcopynumber}
+\begin{array}{cp{.5cm}c}
+\Rnode{alphan}{\set{\n}}  &&              \\ [0.5cm]
+												  && \Rnode{N}{\set{\n}} \\ [0.5cm]
+\Rnode{betan}{\set{\n}}   &&            
+\end{array}
+\end{equation}
+\ncarr{alphan}{N}
+\alabel{s_\sim}
+\ncarr{betan}{N}
+\blabel{s_\sim}
+\ncarr{alphan}{betan}
+\blabel{\sigma}
+\end{center}
+commutes,
+then $\sigma$ is the identity permutation.
+\end{lemma}
+\begin{proof}
+Notes of 6th January 2021.
+\end{proof}
+
+\begin{lemma}
+\llabel{permutationuniquenesslemma}
+If $\sim_A$ and $\sim_B$ are each equivalence relations on the set $\set{\n}$ 
+with similarity index functions $s_{\sim_A}: \set{\n} \morph \set{\n}$
+and $s_{\sim_B}: \set{\n} \morph \set{\n}$, respectively,  if
+$\sigma: \set{\n} \morph \set{\n}$ and $\sigma': \set{\n} \morph \set{\n}$ are permutations 
+such that
+\begin{align}
+&i \sim_A j \mbox{ implies } \sigma(i) \sim_B \sigma(j) \\
+&i \sim_B j \mbox{ implies } \sigma'^-1(i) \sim_A \sigma'^{-1}(j) \\
+&s_{\sim_B}(\sigma(i))=s_{\sim_A}(i) \\
+&s_{\sim_A}(\sigma'^{-1}(i))=s_{\sim_B}(i) 
+\end{align}
+then $\sigma=\sigma'$.
+\end{lemma}
 \section{Categories with n-ary products that are syntactic in nature}
 \subsection{Characterisation}
 Categories with n-ary products are the algebraic equivalents of multi-sorted algebraic theories.
@@ -48,9 +126,14 @@ $A_2 \times A_1 \times B = A_2 \times A_1 \times B'$.
 \item afterthought needed for copy instance number:\commentary{Can reduce this to a widening condition.}
 if $A_1 \times ... \times A_n=B_1 \times ... \times B_n$ then \foreachi, 
 $A_1 \times ... \times A_n \times A_i = B_1 \times ... \times B_n \times B_i$.
+
+\item further afterthought - equality substituition \commentary{rationale in notes of 7th January 2021}
+If $f: A \morph B$ is a morphism and if $C_1$ and $C_2$ are objects such that
+$B \times C_1=B \times C_2$ and $p_{\underline{B},C_1}=p_{\underline{B},C_2}$ then
+$A \times C_1=A \times C_2$ and $p_{\underline{A},C_1}=p_{\underline{A},C_2}$
 \end{enumerate}
 
-To define the latter condition we need introduce some terminology:
+To define the coherence condition we need introduce some terminology:
 
 \begin{definition}
 A morphism $f:A \morph B$ is said to be \term{cannonical} iff for some $n$,
@@ -77,7 +160,6 @@ and $[\tuple{x_2,x_3}]:A \morph B$
 are equal and so $f=[\tuple{x_1,x_3}]$ is a morphism which has two distinct index mapping
 functions by which it can be represented cannonically.
 
-
 \begin{definition}
 A morphism $f:A \morph B$ is said to have cannonical representation iff for some $n$,
 there are cannonical morphisms $\fn$ such that $f=f_1 \circ ... \circ f_n$.
@@ -92,7 +174,6 @@ $f: A_1 \times ... A_n \morph B_1 \times ... \times B_m$ has a  cannonical
 representation 
 with index mapping $\sigma$ then $f=[\tuple{\permterm{x}{n}{\sigma}}]$.
 \end{observation}
-
 
 \begin{enumerate}
 \setcounter{enumi}{4}
@@ -133,39 +214,112 @@ for which the objects $B \times A$ and $B' \times A$ are distinct objects (for t
 Now we have $B \times A \sim_0 A \times B = A \times B' \sim_0 B' \times A$
 but we do not have $B \times A \sim_0 B' \times A$. Therefore $\sim_0$ is not transitive.
 \end{notebox}
-
-
- and so instead we take the transitive closure of the above relation (call it $\sim_0$) to
+and so instead we take the transitive closure of the above relation (call it $\sim_0$) to
 achieve an equivalence relation $\sim$.
 
 Now recall also that in the unique factorisation case the i-maps are defined as follows:
 for $A$ and $B$ objects of \catcw such that $A\sim B$ define $i_{A,B}=\tuple{p_{\sigma^{-1}(1)},...p_{\sigma^{-1}(n)}}$ where $\sigma$ is the permutation of the set $\set{\n}$ 
 such that \foreachi, $A_{\sigma(i)}=B_i \mbox{ and }  c_A(\sigma(i)) = c_B(i)$. \commentary{This corrected.}
 
-In the current situation ths definition now defines a cannonical map $i_{A,B}: A \morph B$ 
-for all $A$,$B$ such that $A \sim_0 B$. 
-For any $A,B$ such that $A \sim B$ we define the map $i_{A,B}$ to be the morphism
+
+\begin{notebox}[Earlier we had writen]
+In the current situation this definition now defines a cannonical map $i_{A,B}: A \morph B$ 
+for all $A$,$B$ such that $A \sim_0 B$ \highlight{Yes it does but it didn't}
+\highlight{ convince me at first reading and in fact this definition  doesn't take account of internal }
+\highlight{similarity and so needs to be revised.!}
+\end{notebox}
+
+\begin{notebox}[What we had in mind]
+\highlight{But does  not accomodate internal similarity:}
+For all objects $A$ and $B$ such
+that $A \sim_0 B$ we can define a map $i_{A,B}: A \morph B$ by defining it as the cannonical
+morphism defined by the unique permutation $\sigma_{A,B} : \set{\n} \morph \set{\n}$ 
+such that \foreachi, $A_{\sigma_{A,B}(i)}=B_i$ and such that
+\begin{center}
+\begin{equation}
+\label{preservingcopynumber}
+\begin{array}{cp{.5cm}c}
+\Rnode{alphan}{\set{\n}}  &&              \\ [0.5cm]
+												  && \Rnode{N}{\set{\n}} \\ [0.5cm]
+\Rnode{betan}{\set{\n}}   &&            
+\end{array}
+\end{equation}
+\ncarr{alphan}{N}
+\alabel{s_{\sim_A}}
+\ncarr{betan}{N}
+\blabel{s_{\sim_B}}
+\ncarr{betan}{alphan}
+\alabel{\sigma_{A,B}}
+\end{center}
+commutes. 
+\end{notebox}
+\begin{notebox}[Earlier we had writen]
+Then, for any $A,B$ such that $A \sim B$ we define the map $i_{A,B}$ to be the morphism
 $i_{X_0,X_1} \circ i_{X_1,X_2} \circ ... i{X_{n-1},X_n}$ where $X0,X_1,...X_n$ is a sequence
-of morphisms such that \foreachi, $X_{i-1} \sim_0 X_i$ and $X_0=A$ and $X_n=B$. 
+of objects such that \foreachi, $X_{i-1} \sim_0 X_i$ and $X_0=A$ and $X_n=B$. 
+
 We need show that $i_{A,B}$ is well defined. This will follow because of the coherence
 condition. 
- 
-In the current situation we have to revise the definition of copy instance number function.
+\end{notebox}
+
 \begin{definition}
 Every object $A$ has a prime rank which is the unique $n \geq 1$ such that
 there exists $n$ prime objects $A_1,...A_n$ such that $A=A_1 \times ... \times A_n$.
-We define the \term{copy instance number} function $C_A: \set{1...rank(A)} \morph  \set{1...rank(A)}$.
-to be the function so that if $A=\productn(\An)$
-$$
-c_A(i) = |\setsuchthat{j}{1 \leq j \leq i 
-\mbox{ and } 
-A \times A_j = A \times A_k}|
-$$
+We define the equivalence relation $\sim_A$ on the set $\set{\n}$ by
+\llabel{middle}
+\begin{equation*}
+i \sim_A j \mbox{ iff } A \times A_i = A \times A_j.
+\end{equation*}
+$\sim_A$ is well defined because if A has a different prime decomposition, say as 
+$A'_1 \times A'_m$ then $n=m$ and by the unique factoriation number condition $n=m$
+and by the first afterthough condition \foreachi, 
+$A \times A_i = A \times A'_i$
+and \foreachj, 
+$A \times A_j = A \times A'_j$
+from which it follows that \foreachi, \foreachj,
+$A \times A_i = A \times A_j $ iff $A \times A'_i = A \times A'_j $.
 \end{definition}
-We then need to show that copy instance number function is well-defined by showing it to be independent of which object decomposition is chosen. This is the `afterthought' condition.
 
-Check that there is still only one index mapping that preserves copy instance number. Therefore
-there is at most one canonnically representable map from $A$ to $B$ for any $A$ and $B$. If we phrase this statement first then the definition of the object congruence structure can follow.
+From the definition in the prelude we can define the similarity index function for the object $A$
+to be the simuilarity index function $s_{\sim_A}$ corresponding to the equivalence relation 
+$\sim_A$ so that $s_{sim_A}: \set{\n} \morph \set {\n}$ where $n$ is the rank of $A$.
+\begin{notebox}[Earlier note]
+Check that there is still only one index mapping that preserves similarity index
+(this will become lemma 3 from notes of 6th January 2021).
+
+Therefore
+there is at most one canonnically representable map from $A$ to $B$ for any $A$ and $B$
+(this is lemma 4 from day notes of 6th January 2021).
+
+If we phrase these statement first then the definition of the object congruence structure can follow.
+\end{notebox}
+
+\begin{lemma}
+\llabel{representationpreservesinstanenumber}
+If $f: A \morph B$ has a cannonical representation $f_1 \circ ...\circ f_m$ and an index mapping function determined by this representation is $\sigma$ then $\sigma$ preserves 
+respective similarity indices i.e. the diagram
+
+\begin{center}
+\begin{equation}
+\label{preservingcopynumber}
+\begin{array}{cp{.5cm}c}
+\Rnode{alphan}{\set{\n}}  &&              \\ [0.5cm]
+												  && \Rnode{N}{\set{\n}} \\ [0.5cm]
+\Rnode{betan}{\set{\n}}   &&            
+\end{array}
+\end{equation}
+\ncarr{alphan}{N}
+\alabel{s_{\sim_A}}
+\ncarr{betan}{N}
+\blabel{s_{\sim_B}}
+\ncarr{betan}{alphan}
+\blabel{\sigma}
+\end{center}
+commutes.
+\end{lemma}
+\begin{proof}
+Notes of 6th January 2021.
+\end{proof}
 
 \section{Categories with n-ary Products} 
 We concern ourselves with categories with a specified n-ary product structure and 
