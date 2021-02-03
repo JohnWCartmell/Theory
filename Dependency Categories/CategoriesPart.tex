@@ -9,6 +9,8 @@
 \end{equation*}
 }
 
+\usepackage[table]{xcolor} % to gray colour rows of tables
+
 \input{../SharedMacros/theorems.macros}
 \input{../SharedMacros/ccategories.macros}
 \input{../SharedMacros/gats.macros}
@@ -26,6 +28,7 @@
 \setcounter{equation}{0}
 \bibliographystyle{plain} % was hplain
 
+
 \title{Notes on Categories - Work in Progress}
 \author{John Cartmell\footnote{john.w.cartmell gmail.com}\\ \normalsize{\textit{Ad Otium}}}
 \begin{document}
@@ -41,27 +44,125 @@ $$
 function for $\sim$ because, for any $i$, it sequentially numbers (i.e indexes) those instances
 of the set $\set{\n}$ that are similar to $i$. 
 
+
+\newcommand{\sigmabar}{\bar{\sigma}}
+
 \begin{lemma}
-\llabel{permutationnormalisationlemma}
+\llabel{permutationnormalisation}
 If $\sim_A$ and $\sim_B$ are each equivalence relations on the set $\set{\n}$ 
 with similarity index functions $s_{\sim_A}: \set{\n} \morph \set{\n}$
 and $s_{\sim_B}: \set{\n} \morph \set{\n}$, respectively,  if
 $\sigma: \set{\n} \morph \set{\n}$ is a permutation
 such that
-\newcommand{\sigmabar}{\bar{\sigma}}
-
-\begin{align}
-&i \sim_A j \mbox{ implies } \sigma(i) \sim_B \sigma(j) 
-\end{align}
-
-then there exists a permutation $\sigmabar: \set{\n} \morph \set{\n}$ such that
 
 
-\begin{align}
-&i \sim_A j \mbox{ implies } \sigmabar(i) \sim_B \sigmabar(j) \\
-&s_{\sim_B}(\sigmabar(i))=s_{\sim_A}(i) \\
-\end{align}.
+\begin{equation}
+i \sim_B j \mbox{ iff } \sigma(i) \sim_A \sigma(j) 
+\end{equation}
+then there exists a permutation $\sigmabar: \set{\n} \morph \set{\n}$ such that \foreachi,
+\begin{equation}
+\sigma(i) \sim_A \sigmabar(i)
+\end{equation}
+
+\begin{equation}
+i \sim_B j \mbox{ iff } \sigmabar(i) \sim_A \sigmabar(j) 
+\end{equation}
+and such that the diagram
+\begin{center}
+\begin{equation}
+\label{preservingsimilarityindex}
+\begin{array}{cp{.5cm}c}
+\Rnode{alphan}{\set{\n}}  &&              \\ [0.5cm]
+												  && \Rnode{N}{\set{\n}} \\ [0.5cm]
+\Rnode{betan}{\set{\n}}   &&            
+\end{array}
+\end{equation}
+\ncarr{alphan}{N}
+\alabel{s_{\sim_A}}
+\ncarr{betan}{N}
+\blabel{s_{\sim_B}}
+\ncarr{betan}{alphan}
+\alabel{\sigmabar}
+\end{center}
+commutes.
 \end{lemma}
+\begin{proof}
+
+\end{proof}
+\begin{example}
+Here is an example with $n=5$. 
+Suppose $\sim_A$ is the equivalence relation that partitions the set $\set{1,...5}$ into
+two equivalence classes $\set{1,2}$ and $\set{3,4,5}$ and that $\sim_B$  is the equivalence relation that partitions $\set{1,...5}$ into $\set{1,2,3}$ and $\set{4,5}$.
+If $\sigma = \bigl(\begin{smallmatrix}
+    1 & 2 & 3 & 4 & 5 \\
+    5 & 4 & 2 & 3 & 1
+  \end{smallmatrix}\bigr) $
+	as illustrated here:
+\begin{tabular}{ c p{2cm} c }
+\begin{tabular}{ c }
+  $\sim_B$ \\ \hline
+	         \\[-0.3cm]
+  \Rnode{R1}{1} \\
+  \Rnode{R2}{2}  \\
+	\rowcolor{lightgray}
+  \Rnode{R3}{3}  \\
+  \Rnode{R4}{4}  \\
+	\Rnode{R5}{5}   
+\end{tabular}
+&&
+\begin{tabular}{ c }
+  $\sim_A$ \\ \hline
+	         \\[-0.3cm]
+  \rowcolor{lightgray}
+  \Rnode{L1}{1} \\
+  \Rnode{L2}{2}  \\
+  \Rnode{L3}{3}  \\
+	\rowcolor{white}
+  \Rnode{L4}{4}  \\
+	\Rnode{L5}{5}   
+\end{tabular}
+\end{tabular}
+\ncline[nodesep=3pt]{|->}{R1}{L5}
+\ncline[nodesep=3pt]{|->}{R2}{L4}
+\ncline[nodesep=3pt]{|->}{R3}{L2}
+\ncline[nodesep=3pt]{|->}{R4}{L3}
+\ncline[nodesep=3pt]{|->}{R5}{L1}
+then it meets the specified condition. 
+In this case 
+ $\sigmabar = \bigl(\begin{smallmatrix}
+    1 & 2 & 3 & 4 & 5 \\
+    4 & 5 & 1 & 2 & 3
+  \end{smallmatrix}\bigr) $ as illustrated here
+\begin{tabular}{ c p{2cm} c }
+\begin{tabular}{ c }
+  $\sim_B$ \\ \hline
+	         \\[-0.3cm]
+  \Rnode{R1}{1} \\
+  \Rnode{R2}{2}  \\
+	\rowcolor{lightgray}
+  \Rnode{R3}{3}  \\
+  \Rnode{R4}{4}  \\
+	\Rnode{R5}{5}   
+\end{tabular}
+&&
+\begin{tabular}{ c }
+  $\sim_A$ \\ \hline
+	         \\[-0.3cm]
+  \rowcolor{lightgray}
+  \Rnode{L1}{1} \\
+  \Rnode{L2}{2}  \\
+  \Rnode{L3}{3}  \\
+	\rowcolor{white}
+  \Rnode{L4}{4}  \\
+	\Rnode{L5}{5}   
+\end{tabular}.
+\end{tabular}
+\ncline[nodesep=3pt]{|->}{R1}{L4}
+\ncline[nodesep=3pt]{|->}{R2}{L5}
+\ncline[nodesep=3pt]{|->}{R3}{L1}
+\ncline[nodesep=3pt]{|->}{R4}{L2}
+\ncline[nodesep=3pt]{|->}{R5}{L3}
+\end{example}
 
 \begin{lemma}
 \llabel{permutationidentitylemma}
@@ -72,7 +173,6 @@ if $i \sim j$ then $\sigma(i) \sim \sigma(j)$, and preserves similarity index, i
 the diagram
 \begin{center}
 \begin{equation}
-\label{preservingcopynumber}
 \begin{array}{cp{.5cm}c}
 \Rnode{alphan}{\set{\n}}  &&              \\ [0.5cm]
 												  && \Rnode{N}{\set{\n}} \\ [0.5cm]
@@ -89,10 +189,11 @@ the diagram
 commutes,
 then $\sigma$ is the identity permutation.
 \end{lemma}
+
 \begin{proof}
 Notes of 6th January 2021.
 \end{proof}
-
+\iffalse
 \begin{lemma}
 \llabel{permutationuniquenesslemma}
 If $\sim_A$ and $\sim_B$ are each equivalence relations on the set $\set{\n}$ 
@@ -108,6 +209,8 @@ such that
 \end{align}
 then $\sigma=\sigma'$.
 \end{lemma}
+\fi
+
 \section{Categories with n-ary products that are syntactic in nature}
 \subsection{Characterisation}
 Categories with n-ary products are the algebraic equivalents of multi-sorted algebraic theories.
@@ -219,16 +322,26 @@ achieve an equivalence relation $\sim$.
 
 Now recall also that in the unique factorisation case the i-maps are defined as follows:
 for $A$ and $B$ objects of \catcw such that $A\sim B$ define $i_{A,B}=\tuple{p_{\sigma^{-1}(1)},...p_{\sigma^{-1}(n)}}$ where $\sigma$ is the permutation of the set $\set{\n}$ 
-such that \foreachi, $A_{\sigma(i)}=B_i \mbox{ and }  c_A(\sigma(i)) = c_B(i)$. \commentary{This corrected.}
+such that \foreachi, $A_{\sigma(i)}=B_i \mbox{ and }  c_A(\sigma(i)) = c_B(i)$. \commentary{This corrected.} In the absence of unique factorisation this definition needs to be revised. For this 
+we first define an equivalence relation $\sim_A$ on the set $\set{\n}$, for ever object $A$
+and where $n$ is the prime rank of $A$. The definition is as follows:
+\begin{definition}
+If $A$ is an object with prime decomposition $A=A_1 \times ... \times A_n$ then define
+a binary relation $\sim_A$ on the set $\set{\n}$ by defining, \foreachi, \foreachj,
+$i \sim_A j$  iff  there exists a permutation $\sigma: \set{\n} \morph \set{\n}$ such that
+$$A_{\sigma(1)}\times...A_{\sigma(i-1)}\times A_{\sigma(i)} = A_{\sigma(1)}\times...A_{\sigma(i-1)}\times A_{\sigma(j)} $$
+\end{definition}
 
+We need show at this point that $\sim_A$ is both well-defined and an equivalence relation.
+\commentary{\highlight{Big doubt here}: Is it well-defined???}
 
+\begin{oldtt}
 \begin{notebox}[Earlier we had writen]
 In the current situation this definition now defines a cannonical map $i_{A,B}: A \morph B$ 
 for all $A$,$B$ such that $A \sim_0 B$ \highlight{Yes it does but it didn't}
 \highlight{ convince me at first reading and in fact this definition  doesn't take account of internal }
 \highlight{similarity and so needs to be revised.!}
 \end{notebox}
-
 \begin{notebox}[What we had in mind]
 \highlight{But does  not accomodate internal similarity:}
 For all objects $A$ and $B$ such
@@ -253,6 +366,8 @@ such that \foreachi, $A_{\sigma_{A,B}(i)}=B_i$ and such that
 \end{center}
 commutes. 
 \end{notebox}
+\end{oldtt}
+
 \begin{notebox}[Earlier we had writen]
 Then, for any $A,B$ such that $A \sim B$ we define the map $i_{A,B}$ to be the morphism
 $i_{X_0,X_1} \circ i_{X_1,X_2} \circ ... i{X_{n-1},X_n}$ where $X0,X_1,...X_n$ is a sequence

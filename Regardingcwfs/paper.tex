@@ -1,6 +1,8 @@
  \documentclass[10pt,a4paper]{article}
 %\input{thepreamble.tex}
 \input{../SharedMacros/ccategories.macros}
+\input{../SharedMacros/gats.macros}
+\input{../SharedMacros/metagat.macros}
 \input{../SharedMacros/ermacros}
 \input{../SharedMacros/erdiagram}
 \input{../SharedMacros/theorems.macros}
@@ -16,6 +18,8 @@
 \usepackage[left=1.5cm, right=4cm, marginparwidth=3cm, top=2cm, bottom=2.0cm]{geometry}
 \usepackage{framed}
 \usepackage[font=small]{caption}
+
+\usepackage{hyperref}
 \setlength{\captionmargin}{2cm}
 \theoremstyle{remark}
 \newtheorem*{lemma*}{Lemma}
@@ -35,7 +39,223 @@
 
 \author{John Cartmell}
 
+% Expressing gats
+\newenvironment{gatrules}
+{
+$$
+\begin{array}{l l}
+}
+{
+\end{array}
+$$
+}
+\newcommand{\gatintros}
+{
+\textbf{Symbol} & \textbf{Introductory\ Rule}                      \\}
+\newcommand{\gataxioms}
+{\textbf{Axioms}\\}
+\newcommand{\gatintro}[3]{\ #1 & #2 \tstyle #3 \\}
+\newcommand{\gataxiom}[2]{\multicolumn{2}{l}{\ \ #1\mbox{,  whenever\ } #2} \\}
+\newcommand{\noleft}{\left.\kern-\nulldelimiterspace} % so that no space taken by absent left brace
+\newcommand{\gatmultiaxiom}[2]
+{\multicolumn{2}{l}{
+  \noleft
+    \begin{array}{l}
+		#1
+    \end{array} 
+  \right\} \mbox{whenever\ } 	#2 
+	}\\}
+	
+%Balloon diagrams
+\newcommand{\mytypefill}{\rule[0.5cm]{0.7cm}{0pt}}
+\newcommand{\mytermfill}{\rule[0.5cm]{0.7cm}{0pt}}
+% \pointballoon{name}{pointlabel}
+\newcommand{\termballoon}[2]
+{\ovalnode[linecolor=gray]{#1}{\rput(0.4,0.3){\text {\footnotesize \(#2\)}}\rput(0.3,0.1){\dotnode[dotsize=2pt]{#1.point}}\mytermfill}}
+\newcommand{\typeballoon}[2]
+{\ovalnode[linecolor=gray]{#1}{\rput(0.63,0.3){\text {\footnotesize \(#2\)}}\rput(0.3,0.2){\dotnode[dotsize=2pt]{#1.point}}\mytypefill}}
+\newcommand{\emptyballoon}[1]
+{\ovalnode[linecolor=gray]{#1}{\mytypefill}}
 
+\newcommand{\typetether}[1]
+          {\ncline[offsetA=2pt,nodesepB=6pt, linecolor=gray]{Ty.#1}{#1}
+					 \ncline[offsetA=-2pt,nodesepB=6pt, linecolor=gray]{Ty.#1}{#1}}
+\newcommand{\termtether}[2]
+          {\ncline[offsetA=-2pt,nodesepB=3pt, linecolor=gray]{#1}{#2}
+           \ncline[offsetA=2pt,nodesepB=3pt,  linecolor=gray]{#1}{#2}}
+					
+\note
+Categories with Families are defined as Fam-based presheaves on a category C with some additional operations. Modelled as a generalised algebraic theory, the theory of cwfs extends the theory of categories with terminal object as follows:
+
+
+\newcommand{\axid}[1]{\text{#1}.\ }		
+\begin{gatrules}
+\gatintros
+\gatintro{Ty}{\ofT{x}{Ob}}{\isT{Ty(x)}} 
+\gatintro{Tm}{\ofT{x}{Ob},\ \ofT{y}{Ty(x)}}{\isT{Tm(y)}} 
+\gatintro{.}{\ofT{x}{Ob},\ \ofT{y}{Ty(x)}}{\ofT{x.y}{Ob}}
+\gatintro{\tuple{,}}{\ofT{x,x'}{Ob},\ \ofT{f}{Hom(x,x')},\ \ofT{y}{Ty(x')},\ \ofT{t}{Tm(f^*y)}}{\ofT{\tuple{f,t}}{Hom(x,x'.y)}}
+
+\gatintro{^*}{\ofT{x_1,x_2}{Ob},\ \ofT{f}{Hom(x_1,x_2)},\ \ofT{y}{Ty(x_2)}}{\ofT{f^*y}{Ty(x_1)}}
+\gatintro{^*}{\ofT{x_1,x_2}{Ob},\ \ofT{f}{Hom(x_1,x_2)},\ \ofT{y}{Ty(x_2)},\ \ofT{t}{Tm(y)}}{\ofT{f^*t}{Tm(f^*y)}}   
+\gatintro{p}{\ofT{x}{Ob},\ \ofT{y}{Ty(x)}}{\ofT{p_y}{Hom(x.y,x)}}
+\gatintro{q}{\ofT{x}{Ob},\ \ofT{y}{Ty(x)}}{\ofT{q_y}{Tm(p_y^*y)}}
+\gataxioms 
+\gatmultiaxiom{\axid{1} \tuple{f,t}\circ p(x',y)=f\\
+               \axid{2} \tuple{f,t}^* q(x',y)=t
+							}
+              {\ofT{x,x'}{Ob},\ \ofT{f}{Hom(x,x')},\ \ofT{y}{Ty(x')},\ \ofT{t}{Tm(f^*y)}} 
+\gataxiom{\axid{3} f \circ \tuple{g,t} =\tuple{f \circ g,f*t}}{\ofT{x,\ x',\ x''}{Ob},\ \ofT{f}{Hom(x,x')},\ \ofT{g}{Hom(x',x'')},\ \ofT{y}{Ty(x'')},\ \ofT{t}{Tm(g^*y)}}
+\end{gatrules}
+
+\begin{notebox}[Illustration of axioms  $\tuple{f,t}\circ p_y = f$ and   $\tuple{f,t}^*q_y=t$.]
+\\
+
+\begin{tabular} {c p{1cm} c}
+\(\displaystyle
+\begin{array}{ c p{1.0cm} c p{1.0cm} c}
+       && \termballoon{Tm.psy}{q_y} && \\
+\termballoon{Tm.fsy}{t} &&  && \emptyballoon{Tm.y}\\ [0cm]
+       && \typeballoon{Ty.xpy}{p_y^*y} && \\
+\rput(0.1,-0.4){Ty(x)} \typeballoon{Ty.x}{f^*y} &&  && \typeballoon{Ty.xp}{y}\\ [0.5cm]
+  && \Rnode{xpy}{x'.y} &&   \\ [0.5cm]
+\Rnode{x}{x} && && \Rnode{xp}{x'}  
+\end{array}
+\)
+\ncarr{x}{xpy}
+\alabel{\tuple{f,t}}
+\ncarr{xpy}{xp}
+\alabel{p_y}
+\ncarr{x}{xp}
+\blabel{f}
+\termtether{Tm.psy}{Ty.xpy.point}
+\termtether{Tm.fsy}{Ty.x.point}
+\termtether{Tm.y}{Ty.xp.point}
+\typetether{x}
+\typetether{xpy}
+\typetether{xp}
+\ncline[nodesep=6pt]{|->}{Tm.psy}{Tm.fsy}
+\blabel{\tuple{f,t}^*}
+\ncline[nodesep=6pt]{|->}{Ty.xpy}{Ty.x}
+\blabel{\tuple{f,t}^*}
+\ncline[nodesep=6pt]{|->}{Tm.y}{Tm.psy}
+\blabel{p_y^*}
+\ncline[nodesep=6pt]{|->}{Ty.xp}{Ty.xpy}
+\blabel{p_y^*}
+%&& 
+\begin{minipage}{6cm}
+The first axiom, $\tuple{f,t}\circ p_y = f$, corresponds to the commutivity of the lower triangle of contexts and realisations shown in this diagram.\\
+
+From this it follows that $\tuple{f,t}^*(p^*y)=f^*y$
+and therefore that $\tuple{f,t}^*q_y \in Tm(f^*y)$. 
+We initially assumed that $t \in Tm(f^*y)$ and the\\
+second axiom tells us that in fact $\tuple{f,t}^*q_y=t$.
+\end{minipage} 
+\end{tabular}
+\end{notebox} 
+
+\note In a contextual category \catcw, for any objects $x$ and $y$ such that $x \base y$ define
+the set of sections\footnote{I called these arrows of $y$ and denoted $Arr(y)$ in mny thesis} of $y$ denoted $Sect(y)$ to be the subset of $Hom(x,y)$ of morphisms
+$s:x \morph y$ in \catcw such that $s \circ p_y = id_x$. 
+
+Likewise in a cwf \catcw define the set of sections of a 
+type $y \in Ty(x)$, denoted $Sect(y)$,
+to be the subset of morphisms $s: x \morph x.y$ in \catcw such that $s \circ p_y = id_x$. 
+
+\note To construct a cwf from a contextual category we take the base category of the cwf to be the underlying category of the contextual category. We define the set of types $Ty(x)$ of an object 
+$x$ of \catcw to be the set of objects $y$ of \catcw such that $x \base y$ in \catc. 
+If $x$ is an object of \catcw and if $y$ is in $Ty(x)$, i.e. if $x \base y$ in \catc, then
+we define Tm(y), the set of terms of type $y$, to be the set $Sect(y)$.
+
+The morphism $p_y: x.y \morph x$ required by the definition of cwf is the morphisms $p: y \morph x$ provided, whenever $x \base y$, by the definition of contextual category.
+Similarly, the term $q_y \in Tm(p_y ^* y)$ required by the definition of cwf is provided by the 
+section $\delta_y$ of the contextual category. 
+
+\note 
+Background: From the pullback structure of  a contextual category it follows that for any
+object $x$ there is a diagonal morphism\footnote{So called because it is a local version of the diagonal 
+morphism $\delta_x:x \morph x \times x$  defined in any category with products of pairs.}
+$\delta_x : x \morph p(x)^*x$ which is a section (i.e. such that $\delta_x \circ p_{p_x^*x} = id_x$) and such that $\delta_x \circ q(p_x,x)=p_x$ as illustrated in this diagram.
+
+\vspace{3mm}
+\begin{center}
+\begin{equation*}
+\label{pullback}
+\begin{array}{cp{0.5cm}cp{1.2cm}c}
+\Rnode{x0}{x} &&                     &&           \\ [0.7cm]
+             &&\Rnode{p_xstarx}{p_x^*x} && \Rnode{x1}{x}\\ [1.2cm]
+             &&\Rnode{x2}{x}         && \Rnode{xp}{x_p}
+\end{array}
+\end{equation*}
+\ncbsar{p_{p_x \sub x}}{p_xstarx}{x2}
+\ncsar{x1}{xp}
+\alabel{p_x}
+\ncaarr{q(p_x,x)}{p_xstarx}{x1}
+\ncsar{x2}{xp}
+\blabel{p_x}
+\setlength{\arrnodesepA}{3pt}
+\jcbarr[-35]{id_x}{x0}{x2}
+\ncaarr[35]{id_x}{x0}{x1}
+\psset{linestyle=dashed}
+\ncaarr{\delta_x}{x0}{p_xstarx}
+\end{center}  
+
+\note To any term $t \in Tm(y)$  of a cwf \catcw there corresponds a morphism of the base category which is a section
+and which we denote $sect_y(t)$  defined as follows. 
+If $x$ is an object of the base category and if 
+$y$ is a type over $x$ i.e. if $x \in Ty(x)$, if $t$ is a term, $t \in Tm(y)$ 
+then we define $sect_y(t): x \morph x.y$
+to be the morphism $<id_x,t>$ which is defined because $id_x : x \morph x$, $y \in Ty(x)$ and $t \in Tm(y)$.
+$<id_x,t>$ is a section because $\tuple{id_x,t} \circ p_y=id_x$ by cwf axiom 1.
+
+\note If a cwf is contexual  every object $w$ of the base category other than the terminal object, is of the form $x.y$
+for some object $x$ and for some type $y \in Ty(x)$. For such an object $x.y$, to every section $s \in Sect(x.y)$ i.e. to
+every morphism $s: x \morph x.y$ such that $s \circ p_y=id_x$ there exists a term $t \in Tm(y)$ such that $sect_y(t)=s$.
+We shall denote this term $term_y(s)$. Functions $term_y$ and $sect_y$ are inverses and establish an isomorphism between
+the set of sections of $x.y$ and the set of terms $Tm(y)$. $term_y(s)$ is defined to be $s*q_y$. 
+
+\begin{center}
+\begin{tabular} {c p{0.1cm} l}
+\(\displaystyle
+\begin{array}{  c p{1.0cm} c}
+\termballoon{Tm.psy}{q_y}    && \\
+                             && \termballoon{Tm.y}{s_y^*q_y}\\ [0cm]
+\typeballoon{Ty.xy}{p_y^*y} && \\
+                             && \typeballoon{Ty.x}{y}\\ [0.5cm]
+\Rnode{xy}{x.y}              &&   \\ [0.5cm]
+                             && \Rnode{x}{x}  
+\end{array}
+\)
+\ncarr{xy}{x}
+\blabel{p_y}
+\ncarr[-20]{x}{xy}
+\blabel{s_y}
+\termtether{Tm.psy}{Ty.xy.point}
+\termtether{Tm.y}{Ty.x.point}
+\typetether{xy}
+\typetether{x}
+\ncarc[nodesep=6pt, arcangle=20]{|->}{Tm.psy}{Tm.y}
+\alabel{s_y^*}
+\ncarc[nodesep=6pt, arcangle=20]{|->}{Ty.xy}{Ty.x}
+\alabel{s_y^*}
+&& 
+\begin{minipage}{8cm}
+$s^*q_y \in Tm(y)$ because $s_y^*p_y^*y=(s_y \circ p_y)^*y=y$ because $s_y \circ p_y=id_x$ and
+     $id_y^*y=y$.\\
+		
+If $t \in Tm(y)$ then 
+
+$term_y(sect_y(t))= \tuple{id_x,t}^*q_y = t$ by ccf axiom 2. \\
+and if $s : x \morph x.y$ is a section then \\
+$sect_y(term_y(s))=\tuple{id_x,s}^*q_y=s$ by ccf axiom 2. \\
+
+Therefore functions $sect_y$ and $term_y$ are inverses and establish an isomorphism between the
+set of terms $Tm(y)$ and the set of sections $Sect(x.y)$ in any cwf \catcw for any object $x$ of the base category and for any type $y \in Ty(x)$.
+\end{minipage} 
+\end{tabular}
+\end{center}
+
+\newpage
 \note It seems to me that in the syntax of gats, \textit{types and terms} on the one hand and \textit{contexts and realisations} on the other are each mutually dependent. In the world 
 of syntax neither can exist without the other.
 \begin{center}
@@ -52,7 +272,6 @@ $
 \ncsar[10]{TandT}{CandR}
 \ncsar[10]{CandR}{TandT}
 \end{center}
-
 
 \note The theory \textit{meta-gat} (\cite{Cartmell14B}) algebraically describes the substitution structure of equivalence classes of types and terms of a gat. Meta-gat algebras have been described by Vladimir as B-systems and have also been described by Richard Garner (\cite{Garner15}) as algebras of a monad over a functor category.  We can summarise (at a stetch) by saying that ontologising types and terms yields meta-gat algebras also known as B-systems:
 
@@ -97,6 +316,59 @@ From the above it follows that the category of meta-gat algebras and the categor
 \note 
 There is another equivalent structure that I think exists and that I have worked on from time to time without ever bottoming out. In my most recent work toward this I have called these
 structures \textit{dependency categories} though realising now that Vladimir wouldn't like me calling them categories and might prefer a name like D-systems. I first described something along these lines in a conference paper in 1986 (\cite{Cartmell86B}). That paper was badly flawed in fact but the sentiment remains. 
+\note You defined cwfs to play something like the role of contextual categories and meta-gat algebras (a.k.a C-systems and B-systems). cwfs have ontological representations of both contexts and context realisations and types and terms. 
+
+
+Unlike contextual categories and meta-gat algebras, there are cwfs that do not correspond to
+any generalised algebraic theory. If a cwf corresponds to a gat then each object of the category \catcw with the exception of the terminal object is of the form $\gamma.A$ for some object $\Gamma$ of \catcw and for some $a \in Typ(\Gamma)$. Such conditions are described in your paper called ???. There is such a thing therefore as a contextual cwf. 
+
+\note 
+There now follows an aside relevant to the statement of a  condition for a cwf to be contextual. Consider  Lisp-style lists. These  are often described as algebraic data structures but of course such structures are not algebraic in the precise sense that we mean when we speak of many-sorted algebraic theories or generalised algebraic theories rather they require coproducts of types for their definition. In a type theory that is many-sorted algebraic (or generalised algebraic) augmented by coproducts Lisp-style the type of lists over some other type $A$ can be defined as the coproduct of the types of empty lists $Empty$ and non-empty lists $Cons$
+ as follows:\\
+
+
+
+\begin{minipage}{\textwidth}
+\begin{notebox}[Theory of lists of elements of type A]
+
+If the empty list is written as $nil$ and if the LISP list constructor $cons$ is represented
+as an infix operator $::$ then the theory of a list of elements of type $A$ can expressed as follows: 
+\begin{gatrules}
+\gatintros
+\gatintro{Empty}{}{\isT{Empty}}   
+\gatintro{Cons}{}{\isT{Cons}}     
+\gatintro{List}{}{List = Empty + Cons} 
+\gatintro{nil}{}{\ofT{nil}{Empty}}    
+\gatintro{::}{\ofT{x}{A},\ \ofT{l}{List}}{\ofT{x::l}{List}}
+\gatintro{hd}{\ofT{l}{Cons}}{\ofT{hd(l)}{A}} 
+\gatintro{tl}{\ofT{l}{Cons}}{\ofT{tl(l)}{List}}   
+\gataxioms
+\gataxiom{e=nil}{\ofT{e}{Empty}}                            
+\gataxiom{hd(x::l)=x}{\ofT{l}{List},\  \ofT{x}{A}}         
+\gataxiom{tl(x::l)=l}{\ofT{l}{List},\  \ofT{x}{A}}        
+\gataxiom{hd(l)::tl(l)=l}{\ofT{l}{Cons}} 
+\end{gatrules}
+Expressed as sketch of a category we have a coproduct diagram
+expressing $List = Empty + Cons$,
+a product diagram expressing the product $A \times List$,
+additional morphisms:
+$nil: 1 \morph Empty$,
+$cons : A \times List \morph Cons$,
+$hd: Cons \morph A$ and
+$tl: Cons \morph List$.
+
+and identities (commuting diagrams) expressing that
+morphisms $nil: 1 \morph Empty$ and $cons : A \times List \morph Cons$ are isomorphims 
+with inverses, respectively, of the unique morphism $t_{Empty}: Empty \morph 1$
+and the morphism $\tuple{hd,tl}:Cons \morph A \times List$. 
+
+As an entity model:
+\begin{center}
+\input{\erpictureFolder/LISPlist} 
+\end{center}
+\end{notebox}
+\end{minipage}
+\newpage
 
 \bibliographystyle{alpha} 
 \bibliography{../SharedBibliography/temp/bibliography}
