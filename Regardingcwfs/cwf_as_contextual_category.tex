@@ -1,0 +1,216 @@
+
+
+\newcommand{\qstarstructure}{q$^*$-structure}
+\newcommand{\sqstarstructure}{sq$^*$-structure}
+
+If \catcw is a contextual cwf then to every object $x$ of \catcw other than the specified terminal object there is  uniquely an object $x_p$ of \catcw and a type $x_t \in Ty(x_p)$ such that $x=x_p.x_t$.
+There is thus a tree-structure (strictly speaking, an $\omega$-tree-structure)  on the objects of the base category of any contextual cwf. This tree is rooted at the terminal object
+and along with the morphisms $p_{y_t}: y \morph x$, for $y_t \in Ty(x)$ and for
+ $x$ any object of the base category comprise the structure of a tree category.
+Further than this we show in the next lemma that the base category comprises a contextual category
+
+\begin{notebox}[Illustrating the definition of $f^*z$ and $q(f,z)$.]
+\\
+
+\begin{tabular} {c p{0.5cm} c}
+\(\displaystyle
+\begin{array}{ c l p{1.0cm} c p{0.25cm} l |}
+             & \hspace{-0.8cm}\termballoon{Tm.psfszt}{q_{f^*z_t}} &&      &&  \\ [0.5cm]
+             & \hspace{-0.65cm}\typeballoon[1.4cm][0.05]{Ty.xfstarzt}{(p_{f^*z_t} \circ f)^*z_t} &&   &&  \\ [1.25cm]
+\typeballoon{Ty.x}{f^*z_t} 
+             &  && && \hspace{-0.525cm}\typeballoon{Ty.y}{z_t}\\ [-0.5cm]
+             & \Rnode{xfstarzt}{x.f^*z_t} && \Rnode{yzt}{y.z_t}  &&\\ [1.0cm]
+\Rnode{x}{x} & && && \Rnode{y}{y}  
+\end{array}
+\)
+\ncsar{xfstarzt}{x}
+\alabel{p_{f^*z_t}}
+\ncsar{yzt}{y}
+\alabel{p_{z_t}}
+\ncarr{x}{y}
+\blabel{f}
+\ncline[linestyle=dashed,nodesep=5pt]{->}{xfstarzt}{yzt}
+\alabel{\tuple{p_{f^*z_t} \circ f,q_{f^*z_t}}}
+\termtether{Tm.psfszt}{Ty.xfstarzt.point}
+\typetether{x}
+\typetether{xfstarzt}
+\typetether{y}
+\ncline[nodesep=6pt]{|->}{Ty.x}{Ty.xfstarzt}
+\alabel{(p_{f^*z_t})^*}
+\ncline[nodesep=6pt]{|->}{Ty.y}{Ty.xfstarzt}
+\blabel{(p_{f^*z_t}\circ f)^*}
+&
+\begin{minipage}{6cm}
+\Large mini page is here
+\end{minipage} 
+\end{tabular}
+\end{notebox} 
+
+
+\begin{lemma}
+If \catcw is a contextual cwf then if the base category considered as a tree-structured category is augmented  by operations $^*$, $q$ and $s$ defined by
+\begin{enumerate} [(i)]
+\item for all $f: x \morph y$ in the base category \catcw, for objects $z$ such that $y \base z$ in \catcw, i.e such that
+$z=z_t.y$ for some type $z_t \in Ty(y)$, define the object $f^*z$ 
+and define the  morphism $q(f,z):f^*z \morph z$  using the $.$, $^*$ $p$, $q$ and $\tuple{}$ operations of the cwf \catcw   by
+\begin{align}
+f^*z    & = x.(f^*z_t) \\
+q(f,z) & =\tuple{p_{f^*z_t} \circ f,q_{f^*z_t}}
+\end{align}
+Note that $\tuple{p_{f^*z_t} \circ f,q_{f^*z_t}}$ is defined because 
+$p_{f^*z_t} \circ f: x.(f^*z_t) \morph y$ and $q_{f^*z_t} \in Tm(f^*z_t)$ WRONG WRONG WRONG
+\item 
+for all $f : x \morph y$ in the base category \catcw where $y=y_p.y_t$ for some type $y_t \in Ty(y_p)$ 
+define\footnote{Note that $s(f) = sect(f*q_y)$ which corresponds to the way that 
+$s$ can be recovered from a $\delta^*$-structure as $s(f)=f^*\delta_y$.} $s(f):x \morph (f\circ p_y)^*y$ by
+\begin{equation}
+s(f) = \tuple{id_y,f^*q_y}
+\end{equation}
+$\tuple{id_y,f^*q_y}$ is well-defined and $\tuple{id_y,f^*q_y}:x \morph (f \circ p_{y_t})^*y_t$
+because XXXXXXXXXXXXXXXXXXXXXXX
+\end{enumerate}
+then  the operations $^*$, $q$ and $s$ 
+meet the conditions of axioms (q1) -- (q5) and (s1) -- s(3) of the Voevodsky presentation of the axioms of a contextual category.
+\end{lemma}
+\begin{proof}
+
+\begin{enumerate}[(i)]
+\item 
+Axiom (q1) requires,  
+for all $f: x \morph y$ in the base category \catcw, for objects $z$ such that $y \base z$ in \catcw, i.e. for all objects $y.z_t$ where $z_t \in Ty(y)$ in \catcw
+, the commutivity of this diagram:
+\vspace{3mm}
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{.9cm}c}
+\Rnode{fstarz}{f^*z} & & \Rnode{z}{z}\\ [1.2cm]
+\Rnode{x}{x}         & & \Rnode{y}{y}
+\end{array}
+\end{displaymath}
+\ncbsar{p_{f \sub z}}{fstarz}{x}
+\jcbarr{f}{x}{y}
+\ncaarr{q(f,z)}{fstarz}{z}
+\ncasar{p_z}{z}{y}
+\end{center}
+i.e. the commutivity of this diagram
+\vspace{3mm}
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{.9cm}c}
+\Rnode{fstarz}{x.(f^*z_t)} & & \Rnode{z}{y.z_t}\\ [1.2cm]
+\Rnode{x}{x}         & & \Rnode{y}{y}
+\end{array}
+.
+\end{displaymath}
+\ncbsar{p_{f^*z_t}}{fstarz}{x}
+\jcbarr{f}{x}{y}
+\ncaarr{\tuple{p_{f^*z} \circ f,q_{f^*z}}}{fstarz}{z}
+\ncasar{p_{z_t}}{z}{y}
+\end{center}
+
+This corresponds exactly to cwf axiom xxx.
+
+\item
+Axioms (q2) and (q3) require that 
+for all objects $x$ of \catcw, for all objects $y$ of \catcw such that $x \base y$ in \cat{C}, i.e. for all $y=x.y_t$ for some object
+$y_t \in Ty(x)$, 
+\begin{align}
+id_x^*y   & =y \\
+q(id_x,y) & = id_y
+\end{align}
+which is to say that we need show
+\begin{align}
+x.(id_x^*y_t)   & = x.y_t \label{q2rewritten}\\
+\tuple{p_{id_x^*y_t} \circ id_x,q_{id_x^*y_t}} & = id_y \label{q3rewritten}
+\end{align}
+(\ref{q2rewritten}) follows from cwf axiom xxx.
+
+(\ref{q3rewritten})  simplies to
+\begin{equation}
+\tuple{p_{y_t},q_{y_t}}=id_{x.y_t}
+\end{equation}
+and this corresponds to cwf axiom xxx.  
+\item
+Axioms (q4) and (q5) require that 
+for all morphisms $f:w \morph x$ and $g:x \morph y$ in \catcw, for all objects $z$ of \catcw such that $y \base z$ in \cat{C}, i.e. for all $z=y.z_t$ for some object
+$z_t \in Ty(y)$,
+
+\begin{equation}
+(f \circ g)^*z =  f^* (g ^* z)
+\end{equation} 
+and
+\begin{equation}
+q(f \circ g,z) = q(f,g^*z) \circ q(g,z)
+\end{equation}
+
+which is to say that
+
+\begin{equation}
+w.(f \circ g)^*z_t =  w.f^* (g ^* z_t)  \label{q4rewritten}
+\end{equation}
+
+and 
+
+\begin{equation}
+\tuple{p_{(f \circ g)^*z_t} \circ (f \circ g),q_{(f \circ g)^*z_t}} =  \tuple{p_{f^*g^*z_t} \circ f,q_{f^*g^*z_t}} \circ \tuple{p_{g^*z_t} \circ g,q_{g^*z_t}} \label{q5rewritten}
+\end{equation}
+
+(\ref{q4rewritten}) follows from cwf axiom xxx.
+
+The right hand side of equation (\ref{q5rewritten}) can be rewritten by use of the cwf axiom that says $f \circ \tuple{g,z}=\tuple{f\circ g,f^*z}$ as
+\begin{equation*}
+\tuple{
+    \tuple{p_{f^*g^*z_t} \circ f,q_{f^*g^*z_t}} \circ p_{g^*z_t} \circ g,
+		\tuple{p_{f^*g^*z_t} \circ f,q_{f^*g^*z_t}} ^* q_{g^*z_t}
+}
+\end{equation*} 
+which simplies using axioms $\tuple{\alpha,\beta}\circ p = \alpha$ and $\tuple{\alpha,\beta}\circ q = \beta$
+to 
+\begin{equation*}
+\tuple{
+    p_{f^*g^*z_t} \circ f  \circ g,
+		q_{f^*g^*z_t}
+}
+\end{equation*}
+which by axiom $f^*g^*\alpha=(f \circ g)^* \alpha$ simplies to the left hand side of (\ref{q5rewritten}).
+\item
+Axioms (s1) and (s2) require that for BLAH BLAH BLAH
+\begin{equation}
+s(f) \circ p_{f\sub p_y \sub y}=id_x
+\end{equation}
+and
+\begin{equation}
+s(f) \circ q( f \circ p_y     ,y)=f
+\end{equation}	
+
+
+\item 
+axiom (s3) requires that for
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{c p{.9cm} c p{.9cm} c}
+\Rnode{w}{w}&& \Rnode{g*z}{g \sub z} && \Rnode{z}{z} \\ [1.2cm]
+            && \Rnode{x}{x}  && \Rnode{y}{y} \\ [0.2cm]
+\end{array}
+\end{displaymath}
+\jcbarr{f}{w}{g*z}
+\jcbarr{g}{x}{y}
+\ncaarr{q(g,z)}{g*z}{z}
+\ncasar{}{g*z}{x}
+\ncasar{}{z}{y}
+\end{center}
+
+\noindent in \cat{C} then
+
+\begin{axiom}{s3}
+s(f \circ q(g,z))=s(f)
+\end{axiom}
+
+\end{enumerate}
+\end{proof}
+
+
+
+
+

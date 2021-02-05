@@ -1,0 +1,173 @@
+	
+\note
+Categories with Families are defined as Fam-based presheaves on a category C with some additional operations. Modelled as a generalised algebraic theory, the theory of cwfs extends the theory of categories with terminal object as follows:
+
+
+\newcommand{\axid}[1]{\text{#1}.\ }		
+\begin{gatrules}
+\gatintros
+\gatintro{Ty}{\ofT{x}{Ob}}{\isT{Ty(x)}} 
+\gatintro{Tm}{\ofT{x}{Ob},\ \ofT{y}{Ty(x)}}{\isT{Tm(y)}} 
+\gatintro{.}{\ofT{x}{Ob},\ \ofT{y}{Ty(x)}}{\ofT{x.y}{Ob}}
+\gatintro{\tuple{,}}{\ofT{x,x'}{Ob},\ \ofT{f}{Hom(x,x')},\ \ofT{y}{Ty(x')},\ \ofT{t}{Tm(f^*y)}}{\ofT{\tuple{f,t}}{Hom(x,x'.y)}}
+
+\gatintro{^*}{\ofT{x_1,x_2}{Ob},\ \ofT{f}{Hom(x_1,x_2)},\ \ofT{y}{Ty(x_2)}}{\ofT{f^*y}{Ty(x_1)}}
+\gatintro{^*}{\ofT{x_1,x_2}{Ob},\ \ofT{f}{Hom(x_1,x_2)},\ \ofT{y}{Ty(x_2)},\ \ofT{t}{Tm(y)}}{\ofT{f^*t}{Tm(f^*y)}}   
+\gatintro{p}{\ofT{x}{Ob},\ \ofT{y}{Ty(x)}}{\ofT{p_y}{Hom(x.y,x)}}
+\gatintro{q}{\ofT{x}{Ob},\ \ofT{y}{Ty(x)}}{\ofT{q_y}{Tm(p_y^*y)}}
+\gataxioms 
+\gatmultiaxiom{\axid{1} \tuple{f,t}\circ p(x',y)=f\\
+               \axid{2} \tuple{f,t}^* q(x',y)=t
+							}
+              {\ofT{x,x'}{Ob},\ \ofT{f}{Hom(x,x')},\ \ofT{y}{Ty(x')},\ \ofT{t}{Tm(f^*y)}} 
+\gataxiom{\axid{3} f \circ \tuple{g,t} =\tuple{f \circ g,f*t}}{\ofT{x,\ x',\ x''}{Ob},\ \ofT{f}{Hom(x,x')},\ \ofT{g}{Hom(x',x'')},\ \ofT{y}{Ty(x'')},\ \ofT{t}{Tm(g^*y)}}
+\end{gatrules}
+
+\begin{notebox}[Illustration of axioms  $\tuple{f,t}\circ p_y = f$ and   $\tuple{f,t}^*q_y=t$.]
+\\
+
+\begin{tabular} {c p{1cm} c}
+\(\displaystyle
+\begin{array}{ c p{1.0cm} c p{1.0cm} c}
+       && \termballoon{Tm.psy}{q_y} && \\
+\termballoon{Tm.fsy}{t} &&  && \emptyballoon{Tm.y}\\ [0cm]
+       && \typeballoon{Ty.xpy}{p_y^*y} && \\
+\rput(0.1,-0.4){Ty(x)} \typeballoon{Ty.x}{f^*y} &&  && \typeballoon{Ty.xp}{y}\\ [0.5cm]
+  && \Rnode{xpy}{x'.y} &&   \\ [0.5cm]
+\Rnode{x}{x} && && \Rnode{xp}{x'}  
+\end{array}
+\)
+\ncarr{x}{xpy}
+\alabel{\tuple{f,t}}
+\ncarr{xpy}{xp}
+\alabel{p_y}
+\ncarr{x}{xp}
+\blabel{f}
+\termtether{Tm.psy}{Ty.xpy.point}
+\termtether{Tm.fsy}{Ty.x.point}
+\termtether{Tm.y}{Ty.xp.point}
+\typetether{x}
+\typetether{xpy}
+\typetether{xp}
+\ncline[nodesep=6pt]{|->}{Tm.psy}{Tm.fsy}
+\blabel{\tuple{f,t}^*}
+\ncline[nodesep=6pt]{|->}{Ty.xpy}{Ty.x}
+\blabel{\tuple{f,t}^*}
+\ncline[nodesep=6pt]{|->}{Tm.y}{Tm.psy}
+\blabel{p_y^*}
+\ncline[nodesep=6pt]{|->}{Ty.xp}{Ty.xpy}
+\blabel{p_y^*}
+%&& 
+\begin{minipage}{6cm}
+The first axiom, $\tuple{f,t}\circ p_y = f$, corresponds to the commutivity of the lower triangle of contexts and realisations shown in this diagram.\\
+
+From this it follows that $\tuple{f,t}^*(p^*y)=f^*y$
+and therefore that $\tuple{f,t}^*q_y \in Tm(f^*y)$. 
+We initially assumed that $t \in Tm(f^*y)$ and the\\
+second axiom tells us that in fact $\tuple{f,t}^*q_y=t$.
+\end{minipage} 
+\end{tabular}
+\end{notebox} 
+
+\note In a contextual category \catcw, for any objects $x$ and $y$ such that $x \base y$ define
+the set of sections\footnote{I called these arrows of $y$ and denoted $Arr(y)$ in mny thesis} of $y$ denoted $Sect(y)$ to be the subset of $Hom(x,y)$ of morphisms
+$s:x \morph y$ in \catcw such that $s \circ p_y = id_x$. 
+
+Likewise in a cwf \catcw define the set of sections of a 
+type $y \in Ty(x)$, denoted $Sect(y)$,
+to be the subset of morphisms $s: x \morph x.y$ in \catcw such that $s \circ p_y = id_x$. 
+
+\note To construct a cwf from a contextual category we take the base category of the cwf to be the underlying category of the contextual category. We define the set of types $Ty(x)$ of an object 
+$x$ of \catcw to be the set of objects $y$ of \catcw such that $x \base y$ in \catc. 
+If $x$ is an object of \catcw and if $y$ is in $Ty(x)$, i.e. if $x \base y$ in \catc, then
+we define Tm(y), the set of terms of type $y$, to be the set $Sect(y)$.
+
+The morphism $p_y: x.y \morph x$ required by the definition of cwf is the morphisms $p: y \morph x$ provided, whenever $x \base y$, by the definition of contextual category.
+Similarly, the term $q_y \in Tm(p_y ^* y)$ required by the definition of cwf is provided by the 
+section $\delta_y$ of the contextual category. 
+
+\note 
+Background: From the pullback structure of  a contextual category it follows that for any
+object $x$ there is a diagonal morphism\footnote{So called because it is a local version of the diagonal 
+morphism $\delta_x:x \morph x \times x$  defined in any category with products of pairs.}
+$\delta_x : x \morph p(x)^*x$ which is a section (i.e. such that $\delta_x \circ p_{p_x^*x} = id_x$) and such that $\delta_x \circ q(p_x,x)=p_x$ as illustrated in this diagram.
+
+\vspace{3mm}
+\begin{center}
+\begin{equation*}
+\label{pullback}
+\begin{array}{cp{0.5cm}cp{1.2cm}c}
+\Rnode{x0}{x} &&                     &&           \\ [0.7cm]
+             &&\Rnode{p_xstarx}{p_x^*x} && \Rnode{x1}{x}\\ [1.2cm]
+             &&\Rnode{x2}{x}         && \Rnode{xp}{x_p}
+\end{array}
+\end{equation*}
+\ncbsar{p_{p_x \sub x}}{p_xstarx}{x2}
+\ncsar{x1}{xp}
+\alabel{p_x}
+\ncaarr{q(p_x,x)}{p_xstarx}{x1}
+\ncsar{x2}{xp}
+\blabel{p_x}
+\setlength{\arrnodesepA}{3pt}
+\jcbarr[-35]{id_x}{x0}{x2}
+\ncaarr[35]{id_x}{x0}{x1}
+\psset{linestyle=dashed}
+\ncaarr{\delta_x}{x0}{p_xstarx}
+\end{center}  
+
+\note To any term $t \in Tm(y)$  of a cwf \catcw there corresponds a morphism of the base category which is a section
+and which we denote $sect_y(t)$  defined as follows. 
+If $x$ is an object of the base category and if 
+$y$ is a type over $x$ i.e. if $x \in Ty(x)$, if $t$ is a term, $t \in Tm(y)$ 
+then we define $sect_y(t): x \morph x.y$
+to be the morphism $<id_x,t>$ which is defined because $id_x : x \morph x$, $y \in Ty(x)$ and $t \in Tm(y)$.
+$<id_x,t>$ is a section because $\tuple{id_x,t} \circ p_y=id_x$ by cwf axiom 1.
+
+\note If a cwf is contexual  every object $w$ of the base category other than the terminal object, is of the form $x.y$
+for some object $x$ and for some type $y \in Ty(x)$. For such an object $x.y$, to every section $s \in Sect(x.y)$ i.e. to
+every morphism $s: x \morph x.y$ such that $s \circ p_y=id_x$ there exists a term $t \in Tm(y)$ such that $sect_y(t)=s$.
+We shall denote this term $term_y(s)$. Functions $term_y$ and $sect_y$ are inverses and establish an isomorphism between
+the set of sections of $x.y$ and the set of terms $Tm(y)$. $term_y(s)$ is defined to be $s*q_y$. 
+
+\begin{center}
+\begin{tabular} {c p{0.1cm} l}
+\(\displaystyle
+\begin{array}{  c p{1.0cm} c}
+\termballoon{Tm.psy}{q_y}    && \\
+                             && \termballoon{Tm.y}{s_y^*q_y}\\ [0cm]
+\typeballoon{Ty.xy}{p_y^*y} && \\
+                             && \typeballoon{Ty.x}{y}\\ [0.5cm]
+\Rnode{xy}{x.y}              &&   \\ [0.5cm]
+                             && \Rnode{x}{x}  
+\end{array}
+\)
+\ncarr{xy}{x}
+\blabel{p_y}
+\ncarr[-20]{x}{xy}
+\blabel{s_y}
+\termtether{Tm.psy}{Ty.xy.point}
+\termtether{Tm.y}{Ty.x.point}
+\typetether{xy}
+\typetether{x}
+\ncarc[nodesep=6pt, arcangle=20]{|->}{Tm.psy}{Tm.y}
+\alabel{s_y^*}
+\ncarc[nodesep=6pt, arcangle=20]{|->}{Ty.xy}{Ty.x}
+\alabel{s_y^*}
+&& 
+\begin{minipage}{8cm}
+$s^*q_y \in Tm(y)$ because $s_y^*p_y^*y=(s_y \circ p_y)^*y=y$ because $s_y \circ p_y=id_x$ and
+     $id_y^*y=y$.\\
+		
+If $t \in Tm(y)$ then 
+
+$term_y(sect_y(t))= \tuple{id_x,t}^*q_y = t$ by ccf axiom 2. \\
+and if $s : x \morph x.y$ is a section then \\
+$sect_y(term_y(s))=\tuple{id_x,s}^*q_y=s$ by ccf axiom 2. \\
+
+Therefore functions $sect_y$ and $term_y$ are inverses and establish an isomorphism between the
+set of terms $Tm(y)$ and the set of sections $Sect(x.y)$ in any cwf \catcw for any object $x$ of the base category and for any type $y \in Ty(x)$.
+\end{minipage} 
+\end{tabular}
+\end{center}
+
+
