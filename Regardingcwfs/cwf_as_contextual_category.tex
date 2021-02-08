@@ -2,19 +2,21 @@
 
 \newcommand{\qstarstructure}{q$^*$-structure}
 \newcommand{\sqstarstructure}{sq$^*$-structure}
-
+\note
 If \catcw is a contextual cwf then to every object $x$ of \catcw other than the specified terminal object there is  uniquely an object $x_p$ of \catcw and a type $x_t \in Ty(x_p)$ such that $x=x_p.x_t$.
 There is thus a tree-structure (strictly speaking, an $\omega$-tree-structure)  on the objects of the base category of any contextual cwf. This tree is rooted at the terminal object
 and along with the morphisms $p_{y_t}: y \morph x$, for $y_t \in Ty(x)$ and for
  $x$ any object of the base category comprise the structure of a tree category.
 Further than this we show in the next lemma that the base category comprises a contextual category
 
-\begin{notebox}[Illustrating the definition of $f^*z$ and $q(f,z)$.]
-\\
 
-\begin{tabular} {c p{0.5cm} c}
+\begin{figure}
+\caption{The definition of $f^*z$ and $q(f,z)$.}
+\label{qdefinition}
+\vspace{0.5cm}
+\begin{tabular} {c c}
 \(\displaystyle
-\begin{array}{ c l p{1.0cm} c p{0.25cm} l |}
+\begin{array}{ c l p{1.0cm} c p{0.25cm} l }
              & \hspace{-0.8cm}\termballoon{Tm.psfszt}{q_{f^*z_t}} &&      &&  \\ [0.5cm]
              & \hspace{-0.65cm}\typeballoon[1.4cm][0.05]{Ty.xfstarzt}{(p_{f^*z_t} \circ f)^*z_t} &&   &&  \\ [1.25cm]
 \typeballoon{Ty.x}{f^*z_t} 
@@ -39,12 +41,78 @@ Further than this we show in the next lemma that the base category comprises a c
 \alabel{(p_{f^*z_t})^*}
 \ncline[nodesep=6pt]{|->}{Ty.y}{Ty.xfstarzt}
 \blabel{(p_{f^*z_t}\circ f)^*}
+\vspace{0.5cm}
 &
-\begin{minipage}{6cm}
-\Large mini page is here
+\hspace{-1.8cm}
+\begin{minipage}{6.5cm}
+\small
+For $f: x \morph y$ and for any object $z$ of the form $y.z_t$ for some type $z_t \in Ty(y)$
+define the object $f^*z$ using the cwf operators $.$ and $^*$ as the object $x.f^*z_t$. \\
+
+The morphism $p_z:f^*z \morph x$ is defined in terms of the cwf operator $p$ as $p_{f^*z_t}$. \\
+
+By definition, $q_{f^*z_t} \in Tm({p_{f^*z_t}}^*f^*z_t)$ and therefore 
+$q_{f^*z_t} \in Tm((p_{f^*z_t}\circ f)^*z_t)$ because ${p_{f^*z_t}}^*f^*z_t=(p_{f^*z_t}\circ f)^*z_t$.
+Therefore we can define $q(f,y.z_t): x.f^*z_t \morph y.z_t$ to be the cwf tuple $\tuple{p_{f^*z_t} \circ f,q_{f^*z_t}}$.
 \end{minipage} 
 \end{tabular}
-\end{notebox} 
+\end{figure}
+%\end{notebox} 
+
+\begin{figure}
+\caption{The definition of $s$.}
+\label{sdefinition}
+\begin{tabular} {c c}
+\(\displaystyle
+\hspace{-2cm}
+\begin{array}{c  p{1.0cm}  c  c }
+\hspace{3.0cm}\termballoon{Tm.fsqy}{f^*q_{y_t}}                      
+                              && \termballoon{Tm.psy}{q_{y_t}}               \\ [0.6cm]
+\hspace{4.0cm}\typeballoon[1.2cm][0.05]{Ty.x}{(f\circ p_{y_t})^*y_t} 
+                              && \typeballoon{Ty.y}{p_{y_t}^*y_t}            \\ [0.15cm]
+\Rnode{xfpsy}{x.(f \circ p_{y_t})^*y_t}        &&                           \\ [1.5cm]
+\hspace{4.0cm} \Rnode{x}{x} &&\Rnode{y}{y_p.y_t}                            \\ [1.0cm]
+                    && \Rnode{yp}{y_p}  
+\end{array}
+\)
+\ncsar{y}{yp}
+\alabel{p_{y_t}}
+\ncarr{x}{y}
+\blabel{f}
+\ncsar{xfpsy}{x}
+\alabel{p_{f\circ p_{y_t})^*y_t}}[0.25][0]
+\ncarc[linestyle=dashed,nodesep=5pt,arcangle=30]{->}{x}{xfpsy}
+\alabel{\tuple{id_x,f^*q_{y_t}}}
+\termtether{Tm.psy}{Ty.y.point}
+\termtether{Tm.fsqy}{Ty.x.point}
+\termtether{Tm.y}{Ty.xp.point}
+\typetether{x}
+\typetether{y}
+%\typetether{yp}
+\ncline[nodesep=6pt]{|->}{Tm.psy}{Tm.fsqy}
+\blabel{f^*}
+\ncline[nodesep=6pt]{|->}{Ty.y}{Ty.x}
+\blabel{f^*}
+&
+\hspace{-1.5cm}
+\begin{minipage}{6.5cm}
+\small
+For $f: x \morph y$ in the base category of a contextual cwf 
+we define a morphism $s(f)$ which in contextual category terms is a  morphism
+$s(f): x \morph (x \circ p_y)*y$ such that $s(f) \circ p_{(x \circ p_y)*y}=id_x$. \\
+
+Suppose $y$ is an object $y_p.y_t$, for some object $y_p$ and for some type $y_t \in Ty(y_p)$,
+then in terms of the cwf operators we need define $s(f):x \morph  (f\circ p_{y_t})^*y_t$.
+
+From the cwf definition we have that $f^*q_{y_t} \in Tm(f^*{p_{y_t}}^*y_t)$.
+Therefore $f^*q_{y_t} \in Tm(f\circ p_{y_t})^*y_t)$ since $f^*{p_{y_t}}^*y_t=(f\circ p_{y_t})^*y_t$. \\
+
+From the cwf definition of the $\tuple{}$ operator  it follows that
+$\tuple{id_x,f^*q_{y_t}}:x \morph (f\circ p_{y_t})^*y_t$ in the base category. 
+We define $s(f)$ to be $\tuple{id_x,f^*q_{y_t}}$.
+\end{minipage} 
+\end{tabular}
+\end{figure}
 
 
 \begin{lemma}
@@ -57,23 +125,23 @@ and define the  morphism $q(f,z):f^*z \morph z$  using the $.$, $^*$ $p$, $q$ an
 f^*z    & = x.(f^*z_t) \\
 q(f,z) & =\tuple{p_{f^*z_t} \circ f,q_{f^*z_t}}
 \end{align}
-Note that $\tuple{p_{f^*z_t} \circ f,q_{f^*z_t}}$ is defined because 
-$p_{f^*z_t} \circ f: x.(f^*z_t) \morph y$ and $q_{f^*z_t} \in Tm(f^*z_t)$ WRONG WRONG WRONG
+That $\tuple{p_{f^*z_t} \circ f,q_{f^*z_t}}$ is defined 
+and $\tuple{p_{f^*z_t} \circ f,q_{f^*z_t}}: f^*z \morph z$ is outlined in figure \ref{qdefinition}.
 \item 
 for all $f : x \morph y$ in the base category \catcw where $y=y_p.y_t$ for some type $y_t \in Ty(y_p)$ 
 define\footnote{Note that $s(f) = sect(f*q_y)$ which corresponds to the way that 
-$s$ can be recovered from a $\delta^*$-structure as $s(f)=f^*\delta_y$.} $s(f):x \morph (f\circ p_y)^*y$ by
+$s$ can be recovered from a $\delta^*$-structure as $s(f)=f^*\delta_y$.} $s(f):x \morph (f\circ p_y)^*y$,
+which is to say in terms of cwf operators that $s(f):x \morph x.(f \circ p_{y_t})^*y_t$, by
 \begin{equation}
-s(f) = \tuple{id_y,f^*q_y}
+s(f) = \tuple{id_x,f^*q_{y_t}}
 \end{equation}
-$\tuple{id_y,f^*q_y}$ is well-defined and $\tuple{id_y,f^*q_y}:x \morph (f \circ p_{y_t})^*y_t$
-because XXXXXXXXXXXXXXXXXXXXXXX
+That  $\tuple{id_x,f^*q_{y_t}}$ is well-defined and that $\tuple{id_x,f^*q_{y_t}}:x \morph x.(f \circ p_{y_t})^*y_t$
+is outlined in figure \ref{sdefinition}.
 \end{enumerate}
 then  the operations $^*$, $q$ and $s$ 
 meet the conditions of axioms (q1) -- (q5) and (s1) -- s(3) of the Voevodsky presentation of the axioms of a contextual category.
 \end{lemma}
 \begin{proof}
-
 \begin{enumerate}[(i)]
 \item 
 Axiom (q1) requires,  
@@ -92,7 +160,7 @@ for all $f: x \morph y$ in the base category \catcw, for objects $z$ such that $
 \ncaarr{q(f,z)}{fstarz}{z}
 \ncasar{p_z}{z}{y}
 \end{center}
-i.e. the commutivity of this diagram
+i.e. the commutivity of this diagram written in terms of the cwf operators:
 \vspace{3mm}
 \begin{center}
 \begin{displaymath}
@@ -108,7 +176,7 @@ i.e. the commutivity of this diagram
 \ncasar{p_{z_t}}{z}{y}
 \end{center}
 
-This corresponds exactly to cwf axiom xxx.
+This commutes  by cwf axiom 5.
 
 \item
 Axioms (q2) and (q3) require that 
@@ -118,18 +186,18 @@ $y_t \in Ty(x)$,
 id_x^*y   & =y \\
 q(id_x,y) & = id_y
 \end{align}
-which is to say that we need show
+which when written in terms of the cwf operators is to say that we need show
 \begin{align}
 x.(id_x^*y_t)   & = x.y_t \label{q2rewritten}\\
 \tuple{p_{id_x^*y_t} \circ id_x,q_{id_x^*y_t}} & = id_y \label{q3rewritten}
 \end{align}
-(\ref{q2rewritten}) follows from cwf axiom xxx.
+(\ref{q2rewritten}) follows from cwf axiom 1.
 
 (\ref{q3rewritten})  simplies to
 \begin{equation}
 \tuple{p_{y_t},q_{y_t}}=id_{x.y_t}
 \end{equation}
-and this corresponds to cwf axiom xxx.  
+and this follows by cwf axiom 7.  
 \item
 Axioms (q4) and (q5) require that 
 for all morphisms $f:w \morph x$ and $g:x \morph y$ in \catcw, for all objects $z$ of \catcw such that $y \base z$ in \cat{C}, i.e. for all $z=y.z_t$ for some object
@@ -143,10 +211,10 @@ and
 q(f \circ g,z) = q(f,g^*z) \circ q(g,z)
 \end{equation}
 
-which is to say that
+which when written in terms of the cwf operators is to say that we need show
 
 \begin{equation}
-w.(f \circ g)^*z_t =  w.f^* (g ^* z_t)  \label{q4rewritten}
+w.(f \circ g)^*z_t =  w.(f^* (g ^* z_t))  \label{q4rewritten}
 \end{equation}
 
 and 
@@ -155,7 +223,7 @@ and
 \tuple{p_{(f \circ g)^*z_t} \circ (f \circ g),q_{(f \circ g)^*z_t}} =  \tuple{p_{f^*g^*z_t} \circ f,q_{f^*g^*z_t}} \circ \tuple{p_{g^*z_t} \circ g,q_{g^*z_t}} \label{q5rewritten}
 \end{equation}
 
-(\ref{q4rewritten}) follows from cwf axiom xxx.
+(\ref{q4rewritten}) follows from cwf axiom 3.
 
 The right hand side of equation (\ref{q5rewritten}) can be rewritten by use of the cwf axiom that says $f \circ \tuple{g,z}=\tuple{f\circ g,f^*z}$ as
 \begin{equation*}
@@ -174,16 +242,36 @@ to
 \end{equation*}
 which by axiom $f^*g^*\alpha=(f \circ g)^* \alpha$ simplies to the left hand side of (\ref{q5rewritten}).
 \item
-Axioms (s1) and (s2) require that for BLAH BLAH BLAH
+Axiom (s1) 
 \begin{equation}
 s(f) \circ p_{f\sub p_y \sub y}=id_x
 \end{equation}
-and
+That is we are rewquired to show $s(f)$ is a section but s(f) is defined as $sect(q_{etc})$ 
+and we have shown SOMEWHERE such morphisms are sections.
+
+\item Axiom (s2) Assume $f:x \morph y$  require to show that 
+
 \begin{equation}
 s(f) \circ q( f \circ p_y     ,y)=f
-\end{equation}	
-
-
+\end{equation}
+Assume 
+ $y=y_p.y_t$.
+then rewriting above in terms of cwf operations we are required to show that 
+\begin{equation}
+\tuple{id_x,f^*q_{y_t}}\circ \tuple{p_{(f \circ p_{y_t})*y_t}\circ f \circ p_{y_t},
+                                    q_{(f \circ p_{y_t})^*y_t}
+																		} = f
+\end{equation}
+which we can show as follows:
+\begin{align*}
+\tuple{id_x,f^*q_{y_t}}\circ \tuple{p_{(f \circ p_{y_t})*y_t}&\circ f \circ p_{y_t}, q_{(f \circ p_{y_t})^*y_t}} \\
+=& \tuple{\tuple{id_x,f^*q_{y_t}} \circ p_{(f \circ p_{y_t})*y_t}\circ f \circ p_{y_t}, 
+				  \tuple{id_x,f^*q_{y_t}} ^* q_{(f \circ p_{y_t})^*y_t}
+         } && \mbox{ by cwf axiom 8} \\
+=& \tuple{f \circ p_{y_t},f^*q_{y_t}} && \mbox{by cwf axioms 5 and 6.} \\
+=& f \circ \tuple{p_{y_t},q_{y_t}}    && \mbox{by cwf axiom 8.} \\
+=& f                                  && \mbox{by cwf axiom 7.}
+\end{align*}
 \item 
 axiom (s3) requires that for
 
@@ -203,9 +291,21 @@ axiom (s3) requires that for
 
 \noindent in \cat{C} then
 
-\begin{axiom}{s3}
+\begin{equation}
 s(f \circ q(g,z))=s(f)
-\end{axiom}
+\end{equation}
+
+Suppose that $z=y.z_t$ for some $z_t \in Ty(y)$ then in terms of the cwf operators we need show that:
+\begin{equation}
+\tuple{id_w,(f \circ \tuple{p_{g^*z_t} \circ g, q_{g^*z_t}} )^* q_{z_t}} = \tuple{id_w,f^*q_{g^*z_t}}
+\end{equation}
+
+which we can show as follows
+\begin{align*}
+\tuple{id_w,(f \circ \tuple{p_{g^*z_t} \circ g, q_{g^*z_t}} )^* q_{z_t}}
+    &= \tuple{id_w,f ^* \tuple{p_{g^*z_t} \circ g, q_{g^*z_t}} ^* q_{z_t}} &&\mbox{ by ccf functoriality}\\
+		&= \tuple{id_w,f ^*  q_{g^*z_t}}  &&\mbox{ by ccf axiom 6.}\\
+\end{align*}
 
 \end{enumerate}
 \end{proof}
