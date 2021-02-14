@@ -19,6 +19,7 @@
 \usepackage[left=1.5cm, right=4cm, marginparwidth=3cm, top=2cm, bottom=2.0cm]{geometry}
 \usepackage{framed}
 \usepackage[font=small]{caption}
+\usepackage{changepage}
 
 \usepackage{hyperref}
 \setlength{\captionmargin}{2cm}
@@ -30,6 +31,8 @@
 \floatstyle{ruled} 
 \restylefloat{figure}
 
+\newtheorem*{lemmastar}{Lemma}
+
 % from presentation
 \newcommand{\attr}[1]{#1}
 \renewcommand{\attr}[1]{\psframebox[linecolor=red,framearc=.1]{#1}}
@@ -38,11 +41,20 @@
 \newcommand{\etype}[1]{#1}
 \renewcommand{\etype}[1]{\psframebox[linecolor=red,framearc=.1]{#1}}
 
+\NewEnviron{tightquote}
+{\begin{adjustwidth}{1.5cm}{1.5cm}
+\textit{
+\BODY
+}
+\end{adjustwidth}
+}
 
 \begin{document}
-\title{Regarding Categories with families (cwf)}
+\title{Notes regarding Categories with families (cwf)}
 
 \author{John Cartmell}
+
+\maketitle
 
 % Expressing gats
 \newenvironment{gatrules}
@@ -60,8 +72,11 @@ $$
 \newcommand{\gataxioms}
 {\textbf{Axioms}\\}
 \newcommand{\gatintro}[3]{\ #1 & #2 \tstyle #3 \\}
+\newcommand{\gatlocalintro}[3]{\ #1 & #2 \dashv }
 \newcommand{\gataxiom}[2]{\multicolumn{2}{l}{\ \ #1\mbox{,  whenever\ } #2} \\}
 \newcommand{\noleft}{\left.\kern-\nulldelimiterspace} % so that no space taken by absent left brace
+
+
 \newcommand{\gatmultiaxiom}[2]
 {\multicolumn{2}{l}{
   \noleft
@@ -70,6 +85,67 @@ $$
     \end{array} 
   \right\} \mbox{whenever\ } 	#2 
 	}\\}
+	
+	\newcommand{\axid}[1]{\text{#1}.\ }	
+
+%New context sharing macros
+\newcommand{\gatintroducing}[1]{
+{\arraycolsep=0pt
+  \begin{array}{l}
+          #1
+  \end{array}} &
+}
+
+%*********************************
+% \begin{\gatgroup}{context}
+%    rules
+%  \end{\gatgroup}
+%*********************************
+\NewEnviron{gatgroup}[1]{%
+  \noleft
+  {\arraycolsep=0pt
+   \begin{array}{l}
+\BODY
+    \end{array} 
+   }
+   \ \right\} 
+	%\mbox{\ whenever\ } 
+	#1
+	\vspace{0.1cm} 
+}
+%*********************************
+
+%*********************************
+% \begin{\gatgroup}{context}
+%    rules
+%  \end{\gatgroup}
+%*********************************
+\NewEnviron{gatgroupnoshared}{%
+  {\arraycolsep=0pt
+   \begin{array}{l}
+\BODY
+    \end{array} 
+   }
+   \ 
+	\vspace{0.1cm} 
+}
+%*********************************
+
+%*********************************
+% \gatsingle}{context}{assertion}
+%*********************************
+\newcommand{\gatsingle}[2]{%
+\makebox[4cm]{$#2$ \dotfill} \dotfill \  #1
+}
+%*********************************
+%*********************************
+% \gatstandalonesingle}{context}{assertion}
+%*********************************
+\newcommand{\gatstandalonesingle}[2]{%
+#2 \makebox[2.5cm]{\dotfill} \  #1
+}
+%*********************************
+	
 	
 %Balloon diagrams
 \newcommand{\mytypefill}[1]{\rule[0.5cm]{#1}{0pt}}
@@ -94,9 +170,9 @@ $$
           {\ncline[offsetA=-2pt,nodesepB=3pt, linecolor=gray]{#1}{#2}
            \ncline[offsetA=2pt,nodesepB=3pt,  linecolor=gray]{#1}{#2}}
 
-\input{cwf_definition}
+\input {cwf_definition}
 \input {cwf_as_contextual_category}
-
+\input {the_algebraic_argument}
 
 %\input{cwf_chat}	
 \bibliographystyle{alpha} 

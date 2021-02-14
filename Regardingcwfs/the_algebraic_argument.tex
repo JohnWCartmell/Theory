@@ -1,0 +1,76 @@
+
+
+
+
+\note
+The theory of rooted $\omega$-trees that was presented in figure \ref{theoryoftrees} can be extended variously to a generalised algebraic theories of 
+contextual categories with families and a generalised algebraic theory of contextual categories.
+A common intermediate we have presented in \cite{Cartmell2018A} as the theory of tree structures categories.
+This is shown in figure \ref{theoryoftreestructuredcategories}.   The theory of tree structured categories has
+a sort of objects $Ob_n$ for each $n \geq 0$ and a sort of morphisms $Hom_{n,m}$ for each $n \geq 0$, for each $m \geq 0$. It has operator symbols $id_n$, $p_n$ and $t_n$ for each  $n \geq 0$ and it has
+a family of operator symbols for composition $\circ_{n,m,p}$ for each $n,m,p \geq 0$. These 
+symbols are introduced by rules presented in figure \ref{theoryoftreestructuredcategories} after ellipsis
+of unnecessary variables. It has families of axioms in place of individual axioms. 
+
+\note
+To present the generalised algebraic theory of tree structured categories it becomes necessary to introduce a shorthand. We use 
+$\ofTn{x}{n}{T}$ for the context $\ofS{x_0},\ofSi{x_1}{1}{x_0}, \hdots \ofSi{x_n}{n}{x_0,x_1,\hdots x_{n-1}} $. \\
+
+\noindent Using this shorthand,  the family of sorts $T_{n+1}$, for $n \geq 0$,  in the theory of trees is introduced by: \\
+
+\vspace{0.03cm} 
+\begin{tabular}{>{\itshape}l l}
+Symbol & \itshape{Introductory Rule} \\
+$\Si{n+1}, n \geq 0 $ & $\ofTn{x}{n}{T}    \tstyle \isT{\Si{n+1}(x)} $\\
+\end{tabular} \\
+\vspace{.1cm}  \\
+
+\begin{figure}[H]
+\caption{Theory of tree structured categories}
+\label{theoryoftreestructuredcategories}
+
+\newcommand{\Obi}[1]{\Ob_{#1}}
+\newcommand{\Homij}[2]{\Hom_{#1,#2}}
+%\newcommand{\ofObi}[2]{\bbar{#1}\bbin{#2}{\Bbar{\Ob}}}
+\newcommand{\ofObi}[2]{#1 \bbin{#2}{\Ob}}
+%\newcommand{\HomijBar}[4]{\Homij{#1}{#2}(\bbar{#3},\bbar{#4})}
+\newcommand{\HomijBar}[4]{\Homij{#1}{#2}(#3,#4)}
+\newcommand{\ofHomij}[5]{\ofT{#1}{\HomijBar{#2}{#3}{#4}{#5}}}
+%\newcommand{\HomijBarFt}[4]{\Homij{#1}{#2}(\bbar{#3},\ft{\overline{#4}})}
+\newcommand{\HomijBarFt}[4]{\Homij{#1}{#2}(#3,\ft{#4})}
+\newcommand{\ofHomiBarFt}[4]{\ofT{#1}{\HomijBarFt{#2}{#2-1}{#3}{#4}}}
+
+\begin{tabular}{>{\itshape}l l}
+Symbol & \itshape{Introductory Rule} \\[0.1cm]
+$\Obi{0}  $&$\isT{\Obi{0}}$\\[0.2cm]
+$\Obi{n+1} $&$\ofTn{x}{n}{\Ob} \    \tstyle \isT{\Obi{n+1}(x)} $\\ [0.25cm]
+$\Homij{n}{m} $ &$\ofObi{x}{n} ,\  \ofObi{y}{m} \ \tstyle \isT{\HomijBar{n}{m}{x}{y}} $\\ [0.25cm]
+$\circ$ & $\ofObi{x}{n}, \  \ofObi{y}{m}, \ \ofObi{z}{p}, \ \ofHomij{f}{n}{m}{x}{y},\ofHomij{g}{m}{p}{y}{z} \tstyle \ofHomij{\circ(f,g)}{n}{p}{x}{z}$ \\ [0.25cm]
+$id_n   $   & $ \ofObi{x}{n} \tstyle \ofHomij{id_n(x)}{n}{n}{x}{x} $\\ [0.25cm]
+$p_n   $   & $ \ofObi{x}{n} \tstyle \ofHomij{p_n(x)}{n}{n-1}{x}{x_{n-1}} $\\ [0.25cm]
+$1     $   & $\ofT{1}\Obi{0} $\\         [0.25cm]
+$t_n   $   & $ \ofObi{x}{n} \tstyle t_n(x) \in \Homij{n}{0}(x,1)$\\ [0.25cm]
+\end{tabular} \\
+\vspace{.1cm}  \\
+\vspace{.03cm} \\
+\begin{tabular}{l}
+\itshape{Axioms} \\
+
+$\circ(id(x),f)=f \mbox{,  whenever\ } \ofObi{x}{n} ,\  \ofObi{y}{m} , \ \ofHomij{f}{n}{m}{x}{y}  $\\ [0.25cm]
+$\circ(f,id(y))=f \mbox{,  whenever\ } \ofObi{x}{n} ,\  \ofObi{y}{m} , \ \ofHomij{f}{n}{m}{x}{y}  $\\ [0.25cm]
+$ \circ(\circ(f,g),h) = \circ(f,\circ(g,h)),$ \ whenever \\ [0.2cm]
+$ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
+\ofObi{w}{l} , \ \ofObi{x}{n} , \ \ofObi{y}{m} , \ \ofObi{z}{p}, \ 
+ \ofHomij{f}{l}{n}{w}{x}, \ofHomij{g}{n}{m}{x}{y}, \ofHomij{h}{m}{p}{y}{z}$ \\ [0.25cm]
+$x = y, $ whenever $x,y \in \Obi{0} $ \\ [0.25cm]
+$f = t_n(x),  $ whenever $ \ofObi{x}{n}, \ f \in \Homij{n}{0}(x,1)$\\ [0.25cm]
+\end{tabular}  \\
+\end{figure}
+\note
+Following this style the operators and axioms given earlier in figure \ref{theorycwf} can be recast as
+families of sort symbols, operators and axioms as a extension to the theory of tree structured categories.
+What results is a  generalised algebraic theory of contextual categories with families.
+
+
+
+
