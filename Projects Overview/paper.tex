@@ -1,0 +1,138 @@
+
+ \documentclass[10pt,a4paper]{article}
+%\input{thepreamble.tex}
+\input{../SharedMacros/ccategories.macros}
+\input{../SharedMacros/gats.macros}
+\input{../SharedMacros/metagat.macros}
+\input{../SharedMacros/ermacros}
+\input{../SharedMacros/erdiagram}
+\input{../SharedMacros/theorems.macros}
+\input{../SharedMacros/general.macros}
+\usepackage{mathptmx}  % This changes font to roman
+\usepackage{anyfontsize}
+\usepackage{mathtools}  % why have we got this?
+\usepackage{alltt}    
+\usepackage{mnsymbol} %used for rightpitchfork
+\usepackage{cmll}
+\usepackage{ulem}
+\renewcommand{\ttdefault}{txtt}
+\usepackage[left=1.5cm, right=4cm, marginparwidth=3cm, top=2cm, bottom=2.0cm]{geometry}
+\usepackage{framed}
+\usepackage[font=small]{caption}
+\usepackage{changepage}
+
+\usepackage{hyperref}
+\setlength{\captionmargin}{2cm}
+\theoremstyle{remark}
+\newtheorem*{lemma*}{Lemma}
+
+% have boxed figures
+\usepackage{float}
+\floatstyle{ruled} 
+\restylefloat{figure}
+
+\newtheorem*{lemmastar}{Lemma}
+
+% from presentation
+\newcommand{\attr}[1]{#1}
+\renewcommand{\attr}[1]{\psframebox[linecolor=red,framearc=.1]{#1}}
+\newcommand{\attrtype}[1]{#1}
+\renewcommand{\attrtype}[1]{\psframebox[linecolor=blue,framearc=.1]{#1}}
+\newcommand{\etype}[1]{#1}
+\renewcommand{\etype}[1]{\psframebox[linecolor=red,framearc=.1]{#1}}
+
+\NewEnviron{tightquote}
+{\begin{adjustwidth}{1.5cm}{1.5cm}
+\textit{
+\BODY
+}
+\end{adjustwidth}
+}
+
+\begin{document}
+\title{Projects}
+
+\author{John Cartmell}
+
+\maketitle
+
+\note 
+A \textit{mathematical theory of data} is a paper that that I am working on. Here is the abstract as I currently have it.
+\begin{abstract}
+We present a formal and abstract definition  of a certain kind of data specification that is sufficiently general to encompass  
+(i) relational schemas of Codd's relational data model \cite{Codd1970}
+(ii) hierarchical schemas such as (a) those of the nested relational data model (b) those such as are commonly implemented in XML and represented in XML schemas and (c) those represented in variants of Interface Definition Language (IDL) and represented in various open and propriatary formats most recently 
+in Google's protocol buffer format,
+(iii) entity relationship (ER) models in the binary-relationship style as described by Barker \cite{RichardBarkerBook} and others \cite{Rock-Evans1989}  and as implemented, for instance, in Oracle's SQL developer tool. 
+We call such data specifications ER schemas and define an ER model to be such a schema along with its intended usage expressed as a notional set of defining instances associated with the schema. Those versed in category theory will see such schemas as presentations (sketches) of categories with some additional structure and the defining instances as a set of structure preserving functors into a suitably structured category of sets. 
+
+We define  goodness criteria for such ER models that generalise 
+the normal form criteria of relational data modelling and we define sufficient conditions under which an ER model can be transformed into a relational schema in an appropriate normal form.  In doing so we provide a theoretical basis for the elimination of the normalisation step from the relational design workflow 
+in favour of an emphasis on goodness criteria for entity relationship models in the binary-relationship style that came about historically as a practical alternative to the entity-relationship model  presented by Chen as a unified model of data \cite{Chen1976}; this paper provides substance  to
+Chen's idea of a unified model of data but exceeeds his ambition by not requiring a separate normalisation step in relational design. In this way this paper points the way to a significant improvement in software life-cycle methodology.
+\end{abstract}
+
+\note
+Some of my recent thinking I have put on ResearchGate as a ``Preparation for a Mathematical Theory of Data''
+\cite{CartmellPreparation}. In this paper there is a definition of \term{maximal constrainedness} of a category with respect to a set of functors into the category of finite sets. Does anybody recognise this definition i.e. has this definition been given before using some other terminology? 
+
+\note Several authors have written about the importance of commutative diagrams to data modelling but 
+I would say further that such diagrams constitute a fundamental component of a fully fledged mathematical theory of data.
+I have written various software tools that made  use of such commutative diagrams in my career as a software engineer. Some of my earliest work in this area was described in a conference paper  \cite{CartmellScopePaper}. 
+The concept of the scope of a relationship as presented in that paper is a thinly veiled
+specification of a commuting diagram in a contextual category.
+
+\note
+I wrote about contextual categories and hierarchical data models in \cite{CartmellNetworkDataModel}.
+One thing I am working on is to come up with is a replacement for the definition 
+ of \term{network category} that I gave in that paper. Both the paper and the definition given there of network category are flawed.
+I am currently using the name \term{dependency category} for the structure that I am trying to define.
+
+\note
+I am struck by the possibility that there might be three ways to represent generalised algebraic theories.
+With my current naming these are, in order of increasing ontological redundancy, \textit{MetaGAT algebras}, \textit{contextual categories} and
+\textit{dependency categories}. 
+
+\note
+Vladimir has named contextual categories as \term{C-systems} and his \term{B-systems} are the moral equivalent of my metaGAT algebras. This suggests that my dependency categories (if I ever get there) sh
+could perhaps perhaps be called \textit{D-systems}.
+
+\note I seek to define dependency categories so as to fit them into the larger mathematical theory of data -- they are one piece of the jigsaw.
+
+\note What happens if we modify the notion of generalised algebraic theory to obtain a variant in which contexts instead of being finite \textit{sequences} of assumptions are finite \textit{sets} of assumptions. Can we sensibly do this\footnote{This is a question for Andrej maybe given his current project.}? If we can then the corresponding algebras of contexts and realisations will be dependency categories rather than contextual categories.
+
+\note Another way of looking at this can we get a full and faithful quotient of a contextual category
+in which the asymmetric local cartesian product of the contextual category structure is collapsed down to a symmetric local cartesian product? I am thinking we may need to rule out contextual categories whose 
+cartesian product isn't right-cancellative (I forget the detail right now). 
+
+\note
+To help clarify the above question I wrote a short note on \textit{congruence structures}.  This is my term and I would ask if there is a better term that I should use --- whether someone has already got a  name for this concept? The note is on ResearchGate \cite{CartmellCongruenceStructure}. 
+As a practice run, as it were, I have used this to produce categories with symetric cartesian products from categories with very well behaved associative cartesian products. I need apply the same method to categories with slightly less well-behaved products but I am struggling a bit with this. After this I intend to follow the same line and apply to contextual categories that are sufficiently well behaved.
+
+\note
+The use of ellipsis of variables from expressions in the notation of generalised algebriac theories. 
+This is a question I raised in my thesis 
+and then again in the published ``Generalised Algebraic Theories and Contextual categories'':. 
+What , for example, justifies writing $f \circ g$ in the generalised algebraic theory of categories rather than the incredibly awkward $f \circ_{x,y,z} g$. 
+I have a partial solution to the general problem by way of sufficient conditions but the proofs are not written up. 
+
+\note 
+I just checked out some details of something I have had in the back of my mind for some time. I am wondering if anyone has written this up anywhere. From any category with a coherent system of pullbacks and a terminal object a contextual category can be constructed. I don't know what to call this but 
+I refer to \textit{morphisms with codomain} it in my thesis and in the ``GATSandCCs'' paper.
+Suppose I denote by $MWD(\catc)$ the contextual category corresponding to a nicely behaved category \catcw with finite limits. Am I not right in saying that a contextual category $\cat{D}$ is contextually equivalent\footnote{meaning equivalent as categories via functors that are contextual functors} to 
+a contextual category of the form $MWD(\catc)$ iff $\cat{D}$ has identity types and sigma types
+(strongest posssible axiomatisations for these). The interest in this might be because if Pi types are added then we get  a path to locally cartesian closed categories as models of Martin-Loff type theory via gats and contextual categories. I guess this is all well-known.
+
+
+\note Here is something else that interests me and I wonder does it rings any bells?
+There is a certain style of definition that uses coproducts of types. It is often used in data modelling 
+under the terminology of \term{inheritance} and where it would be technically precise to say that the
+coproduct type is a \textit{generalisation}.
+  
+I can express a theory of natural numbers using coproduct $N = Zero + NonZero$,
+$0 \in Zero$, $x \in N \tstyle S(x) \in NonZero$.   
+
+
+\bibliographystyle{alpha} 
+\bibliography{../SharedBibliography/temp/bibliography}
+\end{document}
