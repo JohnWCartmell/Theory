@@ -76,6 +76,8 @@ $\ofT{x,y}{\Sz} \tstyle x = y$
 \note
 Modelled as a generalised algebraic theory, the theory of categories with families (cwfs) extends the theory of categories with terminal object by the following:
 
+
+
 \begin{figure} [H]
 \caption{The theory of categories with families (cwfs).}
 \label{theorycwf}
@@ -83,57 +85,52 @@ Modelled as a generalised algebraic theory, the theory of categories with famili
 \gatintros
 \gatintroducing{ Ty \\Tm  }
 \begin{gatgroup}{\ofT{x}{Ob}}
-    \isT{Ty(x)} \dotfill\\
-	\gatsingle{\ofT{y}{Ty(x)}}
+  \gatleaf{}{\isT{Ty(x)}} \\
+	\gatleaf{\ofT{y}{Ty(x)}}
              {\isT{Tm(y)}}
 \end{gatgroup} \\
 
 \gatintroducing{ ^* \\^*}
 \begin{gatgroup}{\ofT{z}{Ty(y)},\ \ofT{f}{Hom(x,y)},\ \ofT{x,y}{Ob}}
-    \gatsingle{}{\ofT{f^*z}{Ty(x)}} \\
-    \gatsingle  {\ofT{t}{Tm(z)}} {\ofT{f^*t}{Tm(f^*z)} }
+    \gatleaf  {}{\ofT{f^*z}{Ty(x)}} \\
+    \gatleaf  {\ofT{t}{Tm(z)}} {\ofT{f^*t}{Tm(f^*z)} }
 \end{gatgroup} \\
 
 \gatintroducing{.\\p\\q}
 \begin{gatgroup}{\ofT{y}{Ty(x)},\ \ofT{x}{Ob}}
-\gatsingle{}{\ofT{x.y}{Ob}} \\
-\gatsingle{}{\ofT{p_y}{Hom(x.y,x)}} \\
-\gatsingle{}{\ofT{q_y}{Tm(p_y^*y)}}
+\gatleaf{}{\ofT{x.y}{Ob}} \\
+\gatleaf{}{\ofT{p_y}{Hom(x.y,x)}} \\
+\gatleaf{}{\ofT{q_y}{Tm(p_y^*y)}}
 \end{gatgroup} \\
 
 \gatintroducing{\tuple{,}}
-\begin{gatgroupnoshared}
-\gatsingle{\ofT{t}{Tm(f^*z)},\ \ofT{z}{Ty(y)},\ \ofT{f}{Hom(x,y)},\ \ofT{x,y}{Ob}}{\ofT{\tuple{f,t}}{Hom(x,y.z)}}
-\end{gatgroupnoshared} \\
+\gatsingular{\ofT{t}{Tm(f^*z)},\ \ofT{z}{Ty(y)},\ \ofT{f}{Hom(x,y)},\ \ofT{x,y}{Ob}}{\ofT{\tuple{f,t}}{Hom(x,y.z)}}  \\
 
 \gataxioms 
-\gatintroducing{ \makebox[0.5cm]{} \axid{1} \\  \makebox[0.5cm]{} \axid{2} }
+\gatintroducing{  \gataxiomno{1} \\   \gataxiomno{2} }
 \begin{gatgroup}{\ofT{y}{Ty(x)},\ \ofT{x}{Ob}}   
-						\gatsingle{}{ id_x^*y=y }  \\
-						\gatsingle{\ofT{t}{Tm(y)}}{id_x^*t=t } 
+						\gatleaf{}{ id_x^*y=y }  \\
+						\gatleaf{\ofT{t}{Tm(y)}}{id_x^*t=t } 
 \end{gatgroup} \\
 
-\gatintroducing{ \makebox[0.5cm]{} \axid{3} \\  \makebox[0.5cm]{} \axid{4}}
+\gatintroducing{  \gataxiomno{3} \\   \gataxiomno{4}}
 \begin{gatgroup}{\ofT{z}{Ty(y)},\ \ofT{f}{Hom(w,x)},\ \ofT{g}{Hom(x,y)},\ \ofT{w,x,y}{Ob}}
-    \gatsingle{}{f^*g^*z=(f \circ g)^*z} \\
-    \gatsingle{\ofT{t}{Tm(y)}} { f^*g^*t=(f \circ g)^*t}
+    \gatleaf{}{f^*g^*z=(f \circ g)^*z} \\
+    \gatleaf{\ofT{t}{Tm(y)}} { f^*g^*t=(f \circ g)^*t}
 \end{gatgroup} \\
 
-\gatintroducing{ \makebox[0.5cm]{} \axid{5} \\  \makebox[0.5cm]{} \axid{6} }
+\gatintroducing{ \gataxiomno{5} \\  \gataxiomno{6} }
 \begin{gatgroup}{\ofT{t}{Tm(f^*z)},\ \ofT{z}{Ty(y)},\ \ofT{f}{Hom(x,y)},\ \ofT{x,y}{Ob}}   
-						\gatsingle{}{ \tuple{f,t}\circ p_z=f }  \\
-						\gatsingle{}{\tuple{f,t}^* q_z=t } 
+						\gatleaf{}{ \tuple{f,t}\circ p_z=f }  \\
+						\gatleaf{}{\tuple{f,t}^* q_z=t } 
 \end{gatgroup} \\
 
-\gatintroducing{ \makebox[0.5cm]{} \axid{7}}
-\begin{gatgroupnoshared}
-\gatsingle{\ofT{y}{Ty(x)},\ \ofT{x}{Ob}}{\tuple{p_x,q_y}=id_{x.y}}
-\end{gatgroupnoshared} \\
+\gatintroducing{  \gataxiomno{7}}
+\gatsingular{\ofT{y}{Ty(x)},\ \ofT{x}{Ob}}
+            {\tuple{p_x,q_y}=id_{x.y}} \\
 
-\gatintroducing{ \makebox[0.5cm]{} \axid{8}}
-\begin{gatgroupnoshared}
-\gatsingle{\ofT{t}{Tm(g^*z)},\ \ofT{z}{Ty(y)},\ \ofT{f}{Hom(w,x)},\ \ofT{g}{Hom(x,y)},\ \ofT{w,x,y}{Ob}}{f \circ \tuple{g,t} =\tuple{f \circ g,f*t}}
-\end{gatgroupnoshared} \\
+\gatintroducing{  \gataxiomno{8}}
+\gatsingular{\ofT{t}{Tm(g^*z)},\ \ofT{z}{Ty(y)},\ \ofT{f}{Hom(w,x)},\ \ofT{g}{Hom(x,y)},\ \ofT{w,x,y}{Ob}}{f \circ \tuple{g,t} =\tuple{f \circ g,f*t}} \\
 
 \end{gatrules}
 \end{figure}

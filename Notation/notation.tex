@@ -24,7 +24,6 @@
 \section{gats.macros.tex}
 
 
-
 \subsection{Basics}
 \begin{tabular}{| l | l |p{3cm}|}
  \hline 
@@ -61,6 +60,109 @@ gives \\
 \begin{equation}
 \context{x}{X}{n} \tstyle \isT{X}
 \end{equation}
+
+\subsection{Macros For Presenting Theories}
+
+The \verb'gatrules' environment frames the entire theory and \verb'\gatintros' and
+\verb'\gataxioms' commands enter headers for introductory rules and axioms, respectively.
+
+\begin{verbatim}
+\begin{gatrules}
+\gatintros                          % generates the 'Symbol Introductory Rule' header
+blah blah blah   \\                   
+\gataxioms                          % generates the 'Axioms' header
+blah blah blah   \\
+\end{gatrules}
+\end{verbatim}
+gives
+\begin{gatrules}
+\gatintros                          % generates the 'Symbol Introductory Rule' header
+blah blah blah   \\                   
+\gataxioms                          % generates the 'Axioms' header
+blah blah blah   \\
+\end{gatrules}
+
+\subsection{Group dotfill style}
+
+An environment \verb'\gatgroup' and a command \verb'\gatleaf'  can be used to hierarchically group together rules which share part or all of their context. The command \verb'\gatintroducing' declares what is being defined in the group. Its argument is a newline separated list of symbols or a newline separated list of axiom numbers.
+
+For example:
+\begin{verbatim}
+\begin{gatrules}
+\gatintros
+\gatintroducing{B\\C\\D}
+\begin{gatgroup}{\ofT{x}{A}}
+\gatleaf{}{\isT{B(x)}} \\
+\begin{gatgroup}{\ofT{y}{B(x)}}
+\gatleaf{}{\isT{C(x,y}} \\
+\gatleaf{\ofT{z}{C(x,y)}}{\isT{D(x,y,z)}} \\
+\end{gatgroup}
+\end{gatgroup}
+\end{gatrules}
+\end{verbatim}
+
+gives 
+
+\begin{gatrules}
+\gatintros
+\gatintroducing{B\\C\\D}
+\begin{gatgroup}{\ofT{x}{A}}
+\gatleaf{}{\isT{B(x)}} \\
+\begin{gatgroup}{\ofT{y}{B(x)}}
+\gatleaf{}{\isT{C(x,y}} \\
+\gatleaf{\ofT{z}{C(x,y)}}{\isT{D(x,y,z)}} \\
+\end{gatgroup}
+\end{gatgroup}
+\end{gatrules}
+
+For ungrouped rules the \verb'\gatsingular' command is used when there is a context which is to
+be places right and dotfilled and no command at all is required when no context is required.
+
+\begin{verbatim}
+\begin{gatrules}
+\gatintros                           
+\gatintroducing{Ob}                  
+  \isT{Ob} \\    
+\gatintroducing{Hom}
+  \gatsingular{\ofT{x,y}{Ob}}{\isT{Hom(x,y)}} \\										
+\end{gatrules}
+\end{verbatim}
+
+gives
+
+\begin{gatrules}
+\gatintros                           
+\gatintroducing{Ob}                  
+  \isT{Ob} \\    
+\gatintroducing{Hom}
+  \gatsingular{\ofT{x,y}{Ob}}{\isT{Hom(x,y)}} \\										
+\end{gatrules}
+
+Axioms work use the same set of commands. In addition there is an \verb'\axiomno' command that introduces
+whitespace before the axiom number.
+
+For example
+\begin{verbatim}
+\begin{gatrules}
+\gataxioms
+\gatintroducing{  \gataxiomno{3} \\   \gataxiomno{4}}
+\begin{gatgroup}{\ofT{f}{Hom(x,y)},\ \ofT{x,y}{Ob}}
+    \gatleaf{}{id_x \circ f = f} \\
+    \gatleaf{}{f \circ id_y = f}
+\end{gatgroup} \\
+\end{gatrules}
+\end{verbatim}
+
+gives
+
+\begin{gatrules}
+\gataxioms
+\gatintroducing{  \gataxiomno{3} \\   \gataxiomno{4}}
+\begin{gatgroup}{\ofT{f}{Hom(x,y)},\ \ofT{x,y}{Ob}}
+    \gatleaf{}{id_x \circ f = f} \\
+    \gatleaf{}{f \circ id_y = f}
+\end{gatgroup} \\
+\end{gatrules}
  
 \subsection{Macros for Rules in MetaGAT}
 

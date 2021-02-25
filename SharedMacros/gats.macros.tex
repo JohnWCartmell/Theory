@@ -1,5 +1,9 @@
 %gats.macros.tex
 
+
+\usepackage{environ}    % also used in ermacros % here used for \NewEnvrion
+
+
 \newcommand{\gat}[1][U]{
 \ensuremath{\mathcal{#1}} }
 \newcommand{\ingat}[1][U]{in \gat[#1]}
@@ -113,9 +117,107 @@
 \newcommand{\encyOmegainvsigma}[1]{\tuple{\permcon{y}{\Omega}{#1}{\sigma^{-1}}}}
 \newcommand{\encyOmegapinvsigma}[1]{\tuple{\permcon{y}{\Omega'}{#1}{\sigma^{-1}}}}
 
-
-
-
-
-
 \newcommand{\tstyle}{\vdash}
+
+% gat macros developed for cwf paper
+
+% Expressing gats
+\newenvironment{gatrules}
+{
+$$
+\begin{array}{l l}
+}
+{
+\end{array}
+$$
+}
+\newcommand{\gatintros}
+{
+\textbf{Symbol} & \textbf{Introductory\ Rule}                      \\}
+\newcommand{\gataxioms}
+{\textbf{Axioms}\\}
+\newcommand{\gatintro}[3]{\ #1 & #2 \tstyle #3 \\}
+\newcommand{\gatlocalintro}[3]{\ #1 & #2 \dashv }
+\newcommand{\gataxiom}[2]{\multicolumn{2}{l}{\ \ #1\mbox{,  whenever\ } #2} \\}
+\newcommand{\noleft}{\left.\kern-\nulldelimiterspace} % so that no space taken by absent left brace
+
+
+\newcommand{\gatmultiaxiom}[2]
+{\multicolumn{2}{l}{
+  \noleft
+    \begin{array}{l}
+		#1
+    \end{array} 
+  \right\} \mbox{whenever\ } 	#2 
+	}\\}
+	
+	\newcommand{\axid}[1]{\text{#1}.\ }	
+
+%New context sharing macros
+\newcommand{\gatintroducing}[1]{
+{\arraycolsep=0pt
+  \begin{array}{l}
+          #1
+  \end{array}} &
+}
+
+%*********************************
+% \begin{\gatgroup}{context}
+%    rules
+%  \end{\gatgroup}
+%*********************************
+\NewEnviron{gatgroup}[1]{%
+  \noleft
+  {\arraycolsep=0pt
+   \begin{array}{l}
+\BODY
+    \end{array} 
+   }
+   \ \right\} 
+	%\mbox{\ whenever\ } 
+	#1
+	\vspace{0.1cm} 
+}
+%*********************************
+
+%*********************************
+% \begin{\gatgroupnoshared}
+%    rule
+%  \end{\gatgroupnoshared}
+%*********************************
+\NewEnviron{gatgroupnoshared}{%
+  {\arraycolsep=0pt
+   \begin{array}{l}
+\BODY
+    \end{array} 
+   }
+   \ 
+	\vspace{0.1cm} 
+}
+%*********************************
+
+% \gatsingular{context}{conclusion}
+\newcommand{\gatsingular}[2]{
+\begin{gatgroupnoshared}
+\gatleaf{#1}{#2} 
+\end{gatgroupnoshared}
+}
+
+%*********************************
+% \gatleaf}{context}{assertion}
+%*********************************
+\newcommand{\gatleaf}[2]{%
+\makebox[4cm]{$#2$ \dotfill} \dotfill \  #1
+}
+%*********************************
+%*********************************
+% \gatstandalonesingle}{context}{assertion}
+%*********************************
+\newcommand{\gatstandalonesingle}[2]{%
+#2 \makebox[2.5cm]{\dotfill} \  #1
+}
+%*********************************
+
+% \gataxiomno{axiomno}
+\newcommand{\gataxiomno}[1]{\makebox[0.5cm]{} \axid{#1}}
+
