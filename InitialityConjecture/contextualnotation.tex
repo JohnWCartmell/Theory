@@ -1,0 +1,205 @@
+%contextualnotation
+\note 
+By  the generic term \term{tree} is meant a partially ordered set (poset) $(T, <)$ such that for each $t \in T$, the set $\set{s \in T : s < t}$ is well-ordered by the relation $<$.
+In this discussion we restrict ourselves to rooted $\omega$-trees i.e. trees for which the set $\set{s \in T : s < t}$
+is finite for all $t \in T$ and for which there is a least element in the partial ordering. 
+In the original definition
+of contextual categories (\cite{Cartmell78,Cartmell86},) there is defined to be such a tree-structure on the objects of the category. In a contextual category the root of the tree of objects is also  terminal object $1$
+in the category and if object $y$ covers object $x$ in the partial ordering\footnote{A element $y$ is said \textit{to cover} 
+an element $x$ in a partial ordering $<$ iff $x<y$ and there does not exist $w$ such that $x < w$ and $w < y$.
+A more usual notation would be to write $x \lessdot y$ to assert that $y$ covers $x$ in partial ordering $<$. }
+then we write $x \base y$ (we use this in preference to the more usual $x \lessdot y$. 
+
+We define the rank (sometimes called the grade) of an element $t \in T$ to be the cardinality
+of the set $\setsuchthat{s \in T}{s < t}$. If we define the set $T_i$ to be the set of elements of a tree
+of rank $i$ then we have that $T= \bigcup_{i \in N}T_i$. 
+\note
+By a tree-structured category we mean (i) a category with a tree-structure defined on its objects such that the tree of objects has a unique root object and (ii) for every $A \base B$ in the tree of objects  a cannonical morphism $p_B:B \rightarrow A$. This morphism will be distinguished in diagrams by an arrow with  
+a triangular head so:
+
+\begin{center}
+$
+\begin{array}{p{2cm}p{0.5cm}p{0.5cm}p{0.5cm}}
+\Rnode{B}{B}& \\ [1.4cm]
+\Rnode{A}{A} \\
+\end{array}
+$
+\ncbsar{p_B}{B}{A}
+\end{center}
+\note
+The original definition of contextual category given  in [1] and [2], a contextual category is defined to be a tree-structured category 
+\cat{C} with the following additional structure:
+
+\noindent 
+(i) whenever
+$
+\begin{array}{cp{.9cm}c}
+            & & \Rnode{z}{z} \\ [1.2cm]
+\Rnode{x}{x}& & \Rnode{y}{y} \\ [0.5cm]
+\end{array}
+$
+\jcbarr{f}{x}{y}
+\ncasar{p_z}{z}{y}
+
+in \cat{C}, an object $f \sub z$ such that $x \base f \sub z$, a morphism $q(f,z): f \sub z \rightarrow z$ such that
+
+\begin{axiom}{q1}
+q(f,z) \circ p_z = p_{f \sub z} \circ f
+\end{axiom}
+
+i.e. such that the diagram:
+
+\vspace{3mm}
+\begin{center}
+\begin{displaymath}
+\begin{array}{cp{.9cm}c}
+\Rnode{fstarz}{f^*z} & & \Rnode{z}{z}\\ [1.2cm]
+\Rnode{x}{x}         & & \Rnode{y}{y}
+\end{array}
+\end{displaymath}
+\ncbsar{p_{f \sub z}}{fstarz}{x}
+\jcbarr{f}{x}{y}
+\ncaarr{q(f,z)}{fstarz}{z}
+\ncasar{p_z}{z}{y}
+\end{center}
+commutes, 
+
+\noindent
+and, (ii), so that each such diagram is a pullback diagram, that is: for all objects $w$ of \cat{C}, and for all
+morphisms $h_1: w \rightarrow x$ and $h_2: w \rightarrow z$ (see diagram \ref{pullback} below) such that
+$h_1 \circ f = h_2 \circ p_z$ 
+there exists a unique $h:w \rightarrow f \sub z$ in \cat{C} such that
+$h \circ p_{f \sub z} = h_1$ and $h \circ q(f,z) = h_2$, as shown here:
+
+\vspace{3mm}
+\begin{center}
+\begin{equation*}
+\label{pullback}
+\begin{array}{cp{0.5cm}cp{1.2cm}c}
+\Rnode{w}{w} &&                     &&           \\ [0.7cm]
+             &&\Rnode{fstarz}{f^*z} && \Rnode{z}{z}\\ [1.2cm]
+             &&\Rnode{x}{x}         && \Rnode{y}{y}
+\end{array}
+\end{equation*}
+\ncbsar{p_{f \sub z}}{fstarz}{x}
+\jcbarr{f}{x}{y}
+\ncaarr{q(f,z)}{fstarz}{z}
+\ncasar{p_z}{z}{y}
+\setlength{\arrnodesepA}{3pt}
+\jcbarr[-35]{h_1}{w}{x}
+\ncaarr[35]{h_2}{w}{z}
+\psset{linestyle=dashed}
+\ncaarr{h}{w}{fstarz}
+\end{center}
+
+\vspace {0.25cm}
+\noindent and so that (iii) whenever $x \base y$ in \cat{C}, 
+\begin{axiom}{q2}
+id_x^*y=y
+\end{axiom}
+
+and
+
+\begin{axiom}{q3}
+q(id_x,y) = id_y
+\end{axiom}
+
+
+
+\noindent and (iv) whenever 
+$
+\begin{array}{c p{.9cm} c p{.9cm} c}
+             &   &             &   & \Rnode{z}{z} \\ [1.2cm]
+\Rnode{w}{w} &   &\Rnode{x}{x} &   & \Rnode{y}{y} \\ [0.5cm]
+\end{array}
+$
+\jcbarr{f}{w}{x}
+\jcbarr{g}{x}{y}
+\ncasar{c}{z}{y}
+in \cat{C}, 
+
+then
+
+\begin{axiom}{q4}
+(f \circ g)^*z =  f^* (g ^* z)
+\end{axiom}
+
+and 
+\begin{axiom}{q5}
+q(f \circ g,z) = q(f,g^*z) \circ q(g,z)
+\end{axiom}
+
+
+\note
+Following Voevodsky, however, we may replace the pullback condition of the original definition by an 
+`s' operator along with axioms as follows:
+
+\noindent (ii') for all morphisms $f: x \rightarrow y$, a morphism $s(f) : x \rightarrow f \sub p_y \sub y$ such that:
+
+\begin{axiom}{s1}
+s(f) \circ p_{f\sub p_y \sub y}=id_x
+\end{axiom}
+
+\noindent and
+
+\begin{axiom}{s2}
+s(f) \circ q( f \circ p_y     ,y)=f
+\end{axiom}	
+
+\noindent i.e. such that the following diagrams commute:
+\begin{center}
+\begin{displaymath}
+\begin{array}{cccp{1.cm} cp{.9cm}c}
+&\Rnode{fXyyM}{f\sub p_y \sub y}&  & &  \Rnode{fXyy}{f\sub p_y \sub y} & & \Rnode{yXy}{p_y \sub y}\\ [1.2cm]
+\Rnode{xL}{x} & &\Rnode{xR}{x} & &\Rnode{x}{x}         & & \Rnode{y}{y}
+\end{array}
+\end{displaymath}
+\ncasar{p_{f\sub p_y \sub y}}{fXyy}{x}
+\jcbarr{f}{x}{y}
+\ncaarr{q(f,p_y \sub y)}{fXyy}{yXy}
+\ncasar{p_{p_y \sub y}}{yXy}{y}
+\ncaarr{s(f)}{xL}{fXyyM}
+\ncasar{p_{f\sub p_y \sub y}}{fXyyM}{xR}
+\jcbarr{id_x}{xL}{xR}
+\end{center}
+
+\noindent
+and such that whenever
+
+\begin{center}
+\begin{displaymath}
+\begin{array}{c p{.9cm} c p{.9cm} c}
+\Rnode{w}{w}&& \Rnode{g*z}{g \sub z} && \Rnode{z}{z} \\ [1.2cm]
+            && \Rnode{x}{x}  && \Rnode{y}{y} \\ [0.2cm]
+\end{array}
+\end{displaymath}
+\jcbarr{f}{w}{g*z}
+\jcbarr{g}{x}{y}
+\ncaarr{q(g,z)}{g*z}{z}
+\ncasar{}{g*z}{x}
+\ncasar{}{z}{y}
+\end{center}
+
+\noindent in \cat{C} then
+
+\begin{axiom}{s3}
+s(f \circ q(g,z))=s(f)
+\end{axiom}
+
+\noindent
+This equation is well-typed because
+\begin{align*}
+      lhs = &\ofT{s(f \circ q(g,z))} {Hom(w,(f \circ q(g,z) ) \sub p_z \sub z} ) \\
+      rhs = &\ofT{s(f)} {Hom(w,(f \circ   p_{g \sub z} ) \sub  g \sub z } )\\
+\end{align*}
+and
+\begin{equation*}
+     Hom(w,(f \circ q(g,z) ) \sub p_z \sub z ) = Hom(w,(f \circ   p_{g \sub z} ) \sub  g \sub z )
+\end{equation*}
+because
+\begin{align*}
+(f \circ q(g,z) ) \sub p_z \sub z 
+                 & = f \sub ((q(g,z) \circ p_z) \sub z &\mbox{by (\ref{q4})}\\
+                 & = f \sub ( p_{g \sub z} \circ g ) \sub z&\mbox{by (\ref{q1})}\\
+                 & = (f \circ   p_{g \sub z} ) \sub  g \sub z&\mbox{by (\ref{q4})}
+\end{align*}
