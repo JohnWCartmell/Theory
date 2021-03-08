@@ -1,11 +1,10 @@
 %gats.macros.tex
 
-
 \usepackage{environ}    % also used in ermacros % here used for \NewEnvrion
 
-
 \newcommand{\gat}[1][U]{
-\ensuremath{\mathcal{#1}} }
+\ensuremath{\mathcal{#1}}}  % used to hav a space in here
+\newcommand{\gatw}[1][U]{\gat[#1]\ }  % use this if need trailing space
 \newcommand{\ingat}[1][U]{in \gat[#1]}
 \newcommand{\isagat}[1][U]{\gat[#1] is a g.a.t.}
 \newcommand{\inagat}{in a g.a.t. }
@@ -14,10 +13,8 @@
 %\newcommand{\theory}
 %{\textit{U}}
 
-
 \newcommand{\intheory}
 {is a derived rule of \gat[U]}
-
 
 % Macros for GAT rules
 
@@ -134,6 +131,7 @@ $$
 \newcommand{\gatintros}
 {
 \textbf{Symbol} & \textbf{Introductory\ Rule}                      \\}
+
 \newcommand{\gataxioms}
 {\textbf{Axioms}\\}
 \newcommand{\gatintro}[3]{\ #1 & #2 \tstyle #3 \\}
@@ -196,18 +194,18 @@ $$
 }
 %*********************************
 
-% \gatsingular{context}{conclusion}
-\newcommand{\gatsingular}[2]{
+% \gatsingular[width]{context}{conclusion}
+\newcommand{\gatsingular}[3][4cm]{
 \begin{gatgroupnoshared}
-\gatleaf{#1}{#2} 
+\gatleaf[#1]{#2}{#3} 
 \end{gatgroupnoshared}
 }
 
 %*********************************
-% \gatleaf}{context}{assertion}
+% \gatleaf}[width]{context}{assertion}
 %*********************************
-\newcommand{\gatleaf}[2]{%
-\makebox[4cm]{$#2$ \dotfill} \dotfill \  #1
+\newcommand{\gatleaf}[3][4cm]{%
+\makebox[#1]{$#3$ \dotfill} \dotfill \  #2
 }
 %*********************************
 %*********************************
