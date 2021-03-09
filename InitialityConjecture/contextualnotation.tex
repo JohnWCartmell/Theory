@@ -1,4 +1,5 @@
 %contextualnotation
+
 \note 
 By  the generic term \term{tree} is meant a partially ordered set (poset) $(T, <)$ such that for each $t \in T$, the set $\set{s \in T : s < t}$ is well-ordered by the relation $<$.
 In this discussion we restrict ourselves to rooted $\omega$-trees i.e. trees for which the set $\set{s \in T : s < t}$
@@ -8,23 +9,22 @@ of contextual categories (\cite{Cartmell78,Cartmell86},) there is defined to be 
 in the category and if object $y$ covers object $x$ in the partial ordering\footnote{A element $y$ is said \textit{to cover} 
 an element $x$ in a partial ordering $<$ iff $x<y$ and there does not exist $w$ such that $x < w$ and $w < y$.
 A more usual notation would be to write $x \lessdot y$ to assert that $y$ covers $x$ in partial ordering $<$. }
-then we write $x \base y$ (we use this in preference to the more usual $x \lessdot y$. 
+then we write $x \base y$ (we use this in preference to the more usual $x \lessdot y$). 
 
 We define the rank (sometimes called the grade) of an element $t \in T$ to be the cardinality
 of the set $\setsuchthat{s \in T}{s < t}$. If we define the set $T_i$ to be the set of elements of a tree
 of rank $i$ then we have that $T= \bigcup_{i \in N}T_i$. 
 \note
-By a tree-structured category we mean (i) a category with a tree-structure defined on its objects such that the tree of objects has a unique root object and (ii) for every $A \base B$ in the tree of objects  a cannonical morphism $p_B:B \rightarrow A$. This morphism will be distinguished in diagrams by an arrow with  
-a triangular head so:
+By a tree-structured category we mean (i) a category with a tree-structure defined on its objects such that the tree of objects has a unique root object and (ii) for every $x \base y$ in the tree of objects  a cannonical morphism $p_y:y \rightarrow x$. This morphism will be distinguished in diagrams by an arrow with  a triangular head so:
 
 \begin{center}
 $
 \begin{array}{p{2cm}p{0.5cm}p{0.5cm}p{0.5cm}}
-\Rnode{B}{B}& \\ [1.4cm]
-\Rnode{A}{A} \\
+\Rnode{y}{y}& \\ [1.4cm]
+\Rnode{x}{x} \\
 \end{array}
 $
-\ncbsar{p_B}{B}{A}
+\ncbsar{p_y}{y}{x}
 \end{center}
 \note
 The original definition of contextual category given  in [1] and [2], a contextual category is defined to be a tree-structured category 
@@ -129,12 +129,27 @@ and
 q(f \circ g,z) = q(f,g^*z) \circ q(g,z)
 \end{axiom}
 
+\note 
+After reading Peter Dyjber's axioms for catgories with families I have been wondering whether in regard
+to clause (ii) in the defintion above I might not use the notation $\tuple{h_1,h_2}_{x,y,f,z}$  for the unique morphism   
+$h:w \rightarrow f \sub z$ in \cat{C} such that
+$h \circ p_{f \sub z} = h_1$ and $h \circ q(f,z) = h_2$.\\
+
+$\tuple{h_1,h_2}_{x,y,f,z}$ may be be safely ellided to $\tuple{h_1,h_2}_{f,z}$ and, rather less safely, to $\tuple{h_1,h_2}$.
+In fully ellided form we then  have\footnote{Strikingly similar in appearance to Dyjber's axioms but, I think, not like for like i.e. not intertranslatable.} 
+\begin{equation}
+\tuple{h_1,h_2} \circ p_x = h_1 
+\end{equation}
+and
+\begin{equation}
+\tuple{h_1,h_2} \circ q(f,z) = h_2
+\end{equation}
 
 \note
-Following Voevodsky, however, we may replace the pullback condition of the original definition by an 
+Following Voevodsky we may replace the pullback condition of the original definition by an 
 `s' operator along with axioms as follows:
 
-\noindent (ii') for all morphisms $f: x \rightarrow y$, a morphism $s(f) : x \rightarrow f \sub p_y \sub y$ such that:
+\noindent (ii') for all morphisms $f: x \rightarrow y$, a morphism $s(f) : x \rightarrow f \sub p_y \sub y$ such that both:
 
 \begin{axiom}{s1}
 s(f) \circ p_{f\sub p_y \sub y}=id_x
@@ -186,20 +201,142 @@ and such that whenever
 s(f \circ q(g,z))=s(f)
 \end{axiom}
 
-\noindent
-This equation is well-typed because
-\begin{align*}
-      lhs = &\ofT{s(f \circ q(g,z))} {Hom(w,(f \circ q(g,z) ) \sub p_z \sub z} ) \\
-      rhs = &\ofT{s(f)} {Hom(w,(f \circ   p_{g \sub z} ) \sub  g \sub z } )\\
-\end{align*}
-and
-\begin{equation*}
-     Hom(w,(f \circ q(g,z) ) \sub p_z \sub z ) = Hom(w,(f \circ   p_{g \sub z} ) \sub  g \sub z )
-\end{equation*}
-because
-\begin{align*}
-(f \circ q(g,z) ) \sub p_z \sub z 
-                 & = f \sub ((q(g,z) \circ p_z) \sub z &\mbox{by (\ref{q4})}\\
-                 & = f \sub ( p_{g \sub z} \circ g ) \sub z&\mbox{by (\ref{q1})}\\
-                 & = (f \circ   p_{g \sub z} ) \sub  g \sub z&\mbox{by (\ref{q4})}
-\end{align*}
+
+\note  If $x < y$ in the contextual category C, then define the morphism 
+$p_{y,x}:y \morph  x$ in $C$, also written just as $y \dmorph x$, 
+by $p_{y,x}=p_y\circ p_{w_n} \circ ... \circ p_{w_1}$, 
+where
+$w_1, ... w_n$ is the unique sequence of objects of $C$ such that 
+$x \base w_1 \base ... \base w_n \base y$. If $x = y$, then define $p(y, x) = id_x$.\\
+
+On diagrams we depict $\smorph$  and $\dmorph$ morphisms running from north to south down the page.
+Depicted in this way, the morphism
+$
+\begin{array} {c}
+\Rnode{lhsy}{y} \\[2.0cm]
+\Rnode{lhsx}{x}  \\ 
+\end{array}
+$
+ \mbox{\ \ \ \ is defined as the composition\ \ \ \ } 
+$
+\begin{array}{c}
+%\Rnode{b}{B}&&\Rnode{xn}{w_n}&&\Rnode{xn1}{w_{n-1}}&&\Rnode{dots}{\ ...\ }&&\Rnode{x1}{w_1}&&\Rnode{a}{A} 
+\Rnode{b}{y}\\[0.7cm]
+\Rnode{xn}{w_n}\\[0.7cm]
+\Rnode{xn1}{w_{n-1}}\\[0.1cm]
+\Rnode{dots}{\vdots}\\[0.1cm]
+\Rnode{x1}{w_1}\\[0.7cm]
+\Rnode{a}{x} 
+\end{array}
+$.
+\nccdar{lhsy}{lhsx}
+\ncsar{b}{xn}
+\alabel{p_y}
+\ncsar{xn}{xn1}
+\alabel{p_{w_n}}
+\ncsar{xn1}{e1}
+\ncline[linestyle=dotted,dotsep=4pt]{e1}{e2}
+\ncsar{e2}{x1}
+\ncsar{x1}{a}
+\alabel{p_{w_1}}
+.
+
+The contextual category structure supplies us with pullbacks for any $\smorph$ morphism, 
+these given pullbacks can be pieced together to obtain a pullback for
+any $\dmorph$ morphism  along any morphism with the same codomain. \\
+
+\note
+In general, whenever $y \leq z$ in $C$ and whenever $f:x \morph y$ in $C$, then we have
+the following canonical pullback for the morphism $p_{z, y}$ along $f$, where
+where
+$w_1, ... w_n$ is the unique sequence of objects of $C$ such that 
+$y \base w_1 \base ... \base w_n \base z$:
+
+\vspace{3mm}
+\begin{center}
+\begin{equation}
+\label{compositepullbackdefinition}
+\begin{array}{cp{2.9cm}c}
+\Rnode{TOPL}{q(...q(f, w_1)...w_n)^* z} & & \Rnode{TOPR}{z}\\ [1.2cm]
+\Rnode{zOTTOML}{x}         & & \Rnode{zOTTOMR}{y}
+\end{array}
+\end{equation}
+\jcbarr{f}{zOTTOML}{zOTTOMR}
+\ncaarr{q(q(...q(f,w_1)...w_n),z)}{TOPL}{TOPR}
+\nccdar{TOPL}{zOTTOML}
+\blabel{p_{q(...q(f, w_1)...w_n)^* z,x}}
+\nccdar{TOPR}{zOTTOMR}
+\alabel{p_{z,y}}
+\end{center}
+
+Since these constructed pullbacks form an important part of contextual
+category structure we would like a simpler notation for them. As no confusion is
+likely, we extend the $^*$ and $q$ notation to cover these new pullback diagrams.
+From now on if $f:x \morph y$ in $C$ and $y \leq z$ in $C$, then the diagram
+
+\vspace{3mm}
+\begin{center}
+\begin{equation}
+\label{compositepullbackout}
+\begin{array}{cp{.9cm}c}
+\Rnode{fstarz}{f^*z} & & \Rnode{z}{z}\\ [1.2cm]
+\Rnode{x}{x}         & & \Rnode{y}{y}
+\end{array}
+\end{equation}
+\nccdar{fstarz}{x}
+\blabel{p_{f \sub z}}
+\jcbarr{f}{x}{y}
+\ncaarr{q(f,z)}{fstarz}{z}
+\nccdar{z}{y}
+\alabel{p_z}
+\end{center}
+is the canonical pullback diagram as defined in (\ref{compositepullbackdefinition}) above. The following observation which
+follows from the way the new pullback diagrams are constructed contains all the
+information we need to remember about that construction:
+
+\note
+In the extended notation, if $f: x \morph y$ 
+and $y \leq z \leq zz$ in the contextual category C, then
+\begin{equation}
+f^*zz = q(f, z)^*zz
+\end{equation}
+ and 
+\begin{equation}
+q(f, zz) = q(q(f, z), zz)
+\end{equation}
+and so the outer diagram in
+$
+\begin{array}{ccp{.9cm}c}
+\\[0.25cm]
+&\Rnode{TL}{q(f,z)^*zz} & & \Rnode{TR}{zz}\\ [1.2cm]
+&\Rnode{ML}{f^*z} & & \Rnode{MR}{z}\\ [1.2cm]
+&\Rnode{BL}{x}         & & \Rnode{BR}{y} \\[1.0cm]
+\end{array}
+$
+%composition
+\nccdar{TL}{ML}
+\blabel{P_{q(f,z)^*zz,f^*z}}
+\nccdar{ML}{BL}
+\blabel{p_{f \sub z,x}}
+\nccdar{TR}{MR}
+\alabel{p_z}
+\nccdar{MR}{BR}
+\alabel{p_z}
+%reference
+\ncarr{TL}{TR}
+\alabel{q(q(f,z),zz)}
+\ncarr{ML}{MR}
+\alabel{q(f,z)}
+\ncarr{BL}{BR}
+\blabel{f}
+is diagram (\ref{compositepullbackout}).
+On such diagrams as shown here the $p$ labels on $\dmorph$ morphisms (inclusive of their indices) are entirely predictable  and so in diagrams that follows we may omit them.
+
+
+
+%\end{center}
+
+
+
+
+

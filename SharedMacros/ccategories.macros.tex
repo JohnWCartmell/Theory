@@ -70,9 +70,9 @@
 \newcommand{\smorph}{\rightarrowtriangle}
 
  
-
 \newcommand\dhead{\scaleobj{0.6}{\triangleright}}
-\newcommand{\dmorph}{\, \mbox{---} \! \cdot \! \raisebox{1.1pt}{\dhead}}
+%\newcommand{\dmorph}{\, \mbox{---} \! \cdot \! \raisebox{1.1pt}{\dhead}}    % dot style
+\newcommand{\dmorph}{\, \mbox{---}\kern-1pt\raisebox{1.1pt}{\dhead\kern-1.75pt\dhead}}\,     % double triangle style
 
 % projection tree
 %\newcommand{\proj}[2]{proj_{#2}(#1)}
@@ -161,7 +161,8 @@
 \naput[labelsep=2pt]{\footnotesize $#2$}
 }
 
-% cdar - composite dependency arrow
+% cdar - composite dependency arrow - dot tyle
+\iffalse
 \newcommand{\nccdar}[3][0]{
 \setlength{\sarnodesepAsav}{\sarnodesepA}
 \setlength{\sarnodesepBsav}{\sarnodesepB}
@@ -170,6 +171,21 @@
 \ncarc[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,arcangle=#1]{-}{#2}{#3}
 \ncput[nrot=:R,npos=1]{\pstriangle(0,0.1)(.2,.2)}
 \ncput[nrot=:R,npos=1]{\psdot[dotsize=1pt](-0.0075,0.05)}   %!!
+\setlength{\sarnodesepA}{\sarnodesepAsav}
+\setlength{\sarnodesepB}{\sarnodesepBsav}
+}
+\fi
+
+% cdar - composite dependency arrow Mark II - double trangle style
+\newcommand{\nccdar}[3][0]{
+\setlength{\sarnodesepAsav}{\sarnodesepA}
+\setlength{\sarnodesepBsav}{\sarnodesepB}
+\addtolength{\sarnodesepA}{3pt}
+\addtolength{\sarnodesepB}{13pt}
+\ncarc[nodesepA=\sarnodesepA,nodesepB=\sarnodesepB,offsetA=\saroffsetA,offsetB=\saroffsetB,arcangle=#1]{-}{#2}{#3}
+\ncput[nrot=:R,npos=1]{\pstriangle(0,0)(.2,.2)}
+\ncput[nrot=:R,npos=1]{\pstriangle(0,0.2)(.2,.2)}
+%\ncput[nrot=:R,npos=1]{\psdot[dotsize=1pt](-0.0075,0.05)}   %!!
 \setlength{\sarnodesepA}{\sarnodesepAsav}
 \setlength{\sarnodesepB}{\sarnodesepBsav}
 }
