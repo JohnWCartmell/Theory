@@ -305,6 +305,7 @@ f^*zz = q(f, z)^*zz
 q(f, zz) = q(q(f, z), zz)
 \end{equation}
 and so the outer diagram in
+\renewcommand{\pc}[2]{p_{#1,#2}}  % as \pc defined in ccategories macros differently to this
 $
 \begin{array}{ccp{.9cm}c}
 \\[0.25cm]
@@ -331,6 +332,104 @@ $
 \blabel{f}
 is diagram (\ref{compositepullbackout}).
 On such diagrams as shown here the $p$ labels on $\dmorph$ morphisms (inclusive of their indices) are entirely predictable  and so in diagrams that follows we may omit them.
+
+\note
+If we write $\crossx{x}{y}{w}$ in place of $p_{x,w}^*y$, for $w < x$, $w \base y$  in a \ccat then
+\iffalse
+\begin{equation}
+\crossx{x}{y}{w} = p_{x,w}^*y
+\end{equation}
+\fi
+$\crossx{x}{y}{w}$  represents  in the syntax the `weakening' of the rule
+ 
+\begin{displaymath}
+w \tstyle \isT{y}
+\end{displaymath}
+
+from a rule with context $w$ to a rule with broader context $x$: 
+
+\begin{displaymath} 
+x \tstyle \isT{y}
+\end{displaymath}
+
+Within the contextual category I think of $\crossx{x}{y}{w}$  as a local cartesian product but of course categorically it is a filtered product i.e. a pullback.
+
+If $w \base x$ and $w \base y$ and we abbreviate $q(p_x,y)$ aas $q_{x,y}$ then we have:
+\begin{displaymath}
+\begin{array}{ccccc}
+\Rnode{xy}{\crossx{x}{y}{w}} &&               &&               \\[1.3cm]
+\Rnode{x}{x}                 &&               && \Rnode{y}{y}  \\[1.3cm]
+                             && \Rnode{w}{w}  &&                                                   
+\end{array}
+\end{displaymath}
+\ncsar{xy}{x}
+\blabel{p_{\crossx{x}{y}{w}}}
+\ncsar{x}{w}
+\blabel{p_x}
+\ncsar{y}{w}
+\alabel{p_y} 
+\ncaarr{q_{x,y}}{xy}{y}
+
+\note
+In the case special case that $w$ is the terminal object $1$ then this specialises to a product diagram:
+
+\begin{displaymath}
+\begin{array}{ccccc}
+\Rnode{xy}{\crossx{x}{y}{1}} &&               &&               \\[1.3cm]
+\Rnode{x}{x}                 &&               && \Rnode{y}{y}  \\                                    
+\end{array}
+\mbox{\ncsar{xy}{x}
+\blabel{p_{\crossx{x}{y}{1}}}
+\ncaarr{q_{x,y}}{xy}{y}}
+\end{displaymath}
+
+In this special case the $\tuple{}$ operation defined earlier is the pairing operation for if
+$f: w \morph x$ and $g: \morph y$ then $\tuple{f,g}: w \morph \crossx{x}{y}{1}$ 
+and 
+\begin{equation}
+\tuple{f,g} \circ p_{\crossx{x}{y}{1}} = f
+\end{equation}
+and
+\begin{equation}
+\tuple{f,g} \circ q_{x,y} = g
+\end{equation}
+
+
+\note 
+Note that the product operation $\crossx{}{}{1}$ is far from symmetric 
+because $x \base \crossx{x}{y}{1}$ and $y \base \crossx{y}{x}{1}$ but we can define 
+a swap operation $sw_{x,y} : \crossx{x}{y}{1} \morph \crossx{y}{x}{1}$ by
+\begin{equation}
+sw_{x,y} = \tuple{q_{x,y}, p_{\crossx{x}{y}{1}}}
+\end{equation}
+
+\note
+Associativity of $\crossx{}{}w$  follows from the coherence property of the pullbacks in the contextual category. 
+For example if $w < x$, $w < y$, $w < z$ in a \ccat then from coherence of pullbacks in \ccat we have:
+$\crossx{x}{(\crossx{y}{z}{w})}{w} = \crossx{(\crossx{x}{y}{w})}{z}{w}$ as shown here in this diagram:
+ 
+\begin{displaymath}
+\begin{array}{cp{1.0cm}cp{1.0cm}c}
+\Rnode{J1}{}\Rnode{D1} {\crossx{(\crossx{x}{y}{w})}{z}{w}}\Rnode{J2}{} \ \ \ \ \   &&  &&  \\ 
+= && && \\
+\Rnode{D2} {\crossx{x}{(\crossx{y}{z}{w})}{w}}    &&  &&                        \\ [1.3cm]
+\Rnode{xy}{\crossx{x}{y}{w}}&& \Rnode{yz}{\crossx{y}{z}{w}} &&                      \\[1.3cm]
+\Rnode{x}{x}&& \Rnode{y}{y} && \ \ \ \ \ \ \ \ \ \ \ \ \ \Rnode{z}{z}                                        \\[1.3cm]
+             && \Rnode{w}{w} &&                                                     
+\end{array}
+\end{displaymath}
+
+\ncaarr[50]{q(\pc{\crossx{x}{y}{w}}{w},z)}{J2}{z}
+%\ncsar[-30]{J1}{xy}
+\ncsar{D2}{xy}
+\ncsar{xy}{x}
+\ncsar{yz}{y}
+\ncsar{x}{w}
+\ncsar{y}{w} 
+\ncsar{z}{w}
+\ncaarr{q(\pc{x}{w},y)}{xy}{y}
+\ncaarr{q(\pc{y}{w},z)}{yz}{z}
+\ncaarr{q(\pc{x}{w},\crossx{y}{z}{w})}{D2}{yz}
 
 
 

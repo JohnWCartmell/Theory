@@ -18,10 +18,11 @@ the functor $\ccat[C]$ is an equivalence with inverse $\gat[U]$.
 \end{point}
 
 \note
-The proof in this way that categories $\catGAT$ and $\catCon$ are equivalent  is entirely trivial but runs to more than 50 pages. For my money what it means is that generalised algebraic theories and contextual categories are more or less the same thing. If a generalised algebraic theory is finite then we have a finitely presented contextual category. 
+The proof that categories $\catGAT$ and $\catCon$ are equivalent  is entirely trivial but runs to more than 50 pages. For my money what it means is that generalised algebraic theories and contextual categories are more or less the same thing. If a generalised algebraic theory is finite then we have a finitely presented contextual category. 
 
 \note
-Presumably we could give a definition for a sketch of contextual category similar to  definitions such as those of linear sketch, finite product(FP)sketch, finite discrete(FD) sketch and finite limit(FL) sketch. Such a CC sketch would be syntax-free way a way of defining a generalised algebraic theory and it would parallel and benefit from treatments given to other notions of theory versus category with additional structure.
+Presumably we could give a definition for a sketch of contextual category 
+similar to  definitions such as those of linear sketch, finite product (FP) sketch, finite discrete (FD) sketch and finite limit (FL) sketch. Such a CC sketch would be syntax-free way a way of defining a generalised algebraic theory and it would parallel and benefit from treatments given to other notions of theory versus category with additional structure.
 
 \note
 Since contextual categories with families are the same as contextual categories then 
@@ -34,7 +35,8 @@ I do not define the notion `interpretation of a generalised algebraic theory \ga
 \begin{point}
 instead I can use the equivalence and allow
 `contextual functor from $\CofU$ to $\ccat[C]$' to stand in for
- `interpretation of a generalised algebraic theory \gat[U] in a contextual category $\ccat[C]$'.
+ `interpretation of a generalised algebraic theory \gat[U] in a contextual category $\ccat[C]$'. 
+They are equivalent concepts\footnote{Though I haven't proved this lemma in my thesis it is entirely straightforward and I did write out the proof of a  corresponding lemma in regard to single-sorted algebraic theories in my Msc dissertation.} 
 \end{point}
 
 \note 
@@ -62,22 +64,23 @@ Reminder: The theory of monoids is
 \gatsingular[6cm]{\ofT{x,y,z}{M}}{mult(m(x,y),z)=mult(x,mult(y,z))} 
 \end{gatrules}
 
+\begin{oldtt}
 \note Elsewhere (\cite{CartmellAxiomatisations}) we have documented the generalised algebraic theory of contextual categories
 using the $s$ operator and its axioms as presented by Voevodsky (\cite{Voevodsky14C}). 
 We can define a pairing operator by use of Voevodsky's s operator as follows. If $A \base B_1$ and $A \base B_2$ in a contextual category
-$\ccat[C]$ then we can define a local product object $B_1 \cross B_2$ such that $B_1 \base B_1 \cross B_2$ in $\ccat[C]$
+$\ccat[C]$ then we can define a local product object $\crossx{B_1}{B_2}{A}$ such that $B_1 \base \crossx{B_1}{B_2}{A}2$ in $\ccat[C]$
 by
 \begin{equation*}
-B_1 \cross B_2=p_{B_1}^*B_2
+\crossx{B_1}{B_2}{A} =p_{B_1}^*B_2
 \end{equation*}
-if $X$ is an object of $\catc[C]$ and if $h_1:X \morph B_1$ and $h2:X \morph B_2$such that
-$h_1 \circ p_{B_1}= h_2 \circ p_{B_2}$ then define $pr(h_1,h_2)=s(h_2)\circ q(h1,p_{B_1}^*B_2$.
-EXPLANATORY TEXT AND DIAGRAM HERE.  
+if $X$ is an object of \catc and if $h_1:X \morph B_1$ and $h2:X \morph B_2$ are morphisms in \catc such that
+$h_1 \circ p_{B_1}= h_2 \circ p_{B_2}$ then define $\tuple{h_1,h_2}=s(h_2)\circ q(h1,p_{B_1}^*B_2$.
+ 
 
-WE need triples and more to get associativity axiom
-
-\note The theory of internal monoids is the theory of contextual categories plus:
-
+We need triples and more to get associativity axiom
+\end{oldtt}
+\note The generalised algebraic theory of internal monoids (where internal means internal to contextual categories) 
+is the theory of contexual categories plus:
 \begin{gatrules}
 \gatintros
 \gatintroducing{M}
@@ -97,31 +100,20 @@ pair(id_M,t_M \circ unit) \circ m =id_M \\
 \end{gatrules}
 
 \note
-Signatures do not usually include equations.
+As an example of a finite product (FP) sketch Barr and Wells \cite{BarrandWells}, page 232, discuss monoids internal to  category
+\footnote{Generally we would be thinking of a category with finite products including terminal object, here, though as they say the categories  not all products need be available in the category for there to be an internal monoid.}.
 
-\note
-As an example of a finite product (FP) sketch Barr and Wells \cite{BarrandWells}, page 232 discuss monoids internal to  category which, as they say, can be quite  arbitrary.
-
-
-\note The generalised algebraic theory of internal monoids (where internal means internal to contextual categories) 
-is the theory of contexual categories plus:
-
-\note
-Your terminology which I believe is mistaken gives me a useful terminology for something I was thuinking of.
 \begin{notebox}[In your section EXAMPLES OF GENERALIZED ALGEBRAIC THEORIES]
 You  shouldn't refer to theory of internal categories, theory of internal monoids etc. you should refer to the
-theory of categories, theory of monoids and so on.
+theory of categories, theory of monoids and so on. What you have defined as the theory of monoids for example has
+as algebras (i.e. has models in Fam) exactly sets with monoid structure i.e. monoids. When the same theory is interpreted in other cwfs then
+the models are monoids internal to these other cwfs. In other words the generalised algebraic theory of xyz's is something that has xyz's as models in Fam and has internal xyz's as models in other categories. Nonetheless there is a theory of internal xyz's -- its models in Fam are internal xyz's i.e. they are contextual categories (or cwfs) along with internal xyz's. When the theory of internal xyz's is interpreted in an arbitrary contextual category (or cwf) then what results is an internal internal xyz! This sounds a bit crazy but it isn't -- there are after all categories internal to other categories and it isn't much of a stretch to suppose these internal categories have internal xyz's inside of them, so to speak. 
 \end{notebox}
 
-
-
-
-\note This means that the category of internal $\gat[U]$-structures in contextual categories is the coslice category
+\note The category of internal $\gat[U]$-structures in contextual categories is the coslice category
 $\CofU \downarrow \catCon$. Needless to say this has an initial object which is the identity functor on  $\CofU$.
-If $\gat[U]$ is a considered a type theory (whatever that is) then this initial object is what I believe Vladimir refers
+If\ $\gat[U]$ is a considered a type theory (whatever that is) then this initial object is what I believe Vladimir refers
 to as the term model when speaking of the initiality conjecture.
-
-\note The categories 
 
 \note From my thesis:
 \begin{tightquote}
@@ -219,7 +211,6 @@ This is known as the Inititiality Conjecture.
 The Initiality Project is a communal effort to prove an initiality theorem for a dependent type theory: that the categorical structure constructed out of the syntax is the initial object in some category of structured categorical objects.
 \end{tightquote}
 
-
 \note Do not use the term `model'.
 
 \note From my 1986 paper (\cite{Cartmell86})based on my thesis (\cite{Cartmell78}):
@@ -264,8 +255,16 @@ model $\tuple{C,I}$ and model $\tuple{C',I'}$ to be pairs $\tuple{F, \eta}$ wher
 $F: c \morph C'$ is a contextual functor and $\eta: I \circ F \morph  I'$ is a natural transformation.
 \end{oldtt}
 
-
-
+\note
+The signature of a theory consists of s set of sorts and a set of operations. It does not usually include the equations of the theory. 
+\begin{notebox}
+In your paper your construction of a `gat' from a signature seems to include sorts, operators AND equations. Because 
+what is included in your signatures differs from what other authors include in signatures it make it harder to understand.
+\end{notebox}
+\begin{notebox} 
+I cannot see a reason for excluding type equations from your presentation.
+\end{notebox}
+\begin{oldtt}
 \note Suppose we add a sum type to generalised algebraic theories so that from
 types $\Delta$ and $\Delta'$ in context $Delta_n$ we can construct a type $\Delta + \Delta'$
 along with inclusion operations and that we can construct $t | t'$. 
@@ -273,3 +272,4 @@ along with inclusion operations and that we can construct $t | t'$.
 \note Suppose we have a gat+ $U$. Then can we construct a term model which is a contextual category?
 In the term model is $[\Delta + \Delta']$ actually the coproduct of $[\Delta]$ and $[\
 Delta'] $
+\end{oldtt}
