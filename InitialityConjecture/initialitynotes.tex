@@ -28,23 +28,16 @@ similar to  definitions such as those of linear sketch, finite product (FP) sket
 Since contextual categories with families are the same as contextual categories then also
 contextual categories with families are much the same thing as generalised algebraic theories. 
 
-\note For me what it is to be an internal $\gat[U]$-structure in a contextual category $\ccat[C]$ is given by defining a notion of `interpretation of a generalised algebraic theory \gat[U] in a contextual category $\ccat[C]$'. But:
-\begin{point}
-I do not define the notion `interpretation of a generalised algebraic theory \gat[U] in a contextual category $\ccat[C]$',
-\end{point}
-\begin{point}
-instead I can use the equivalence and allow
-`contextual functor from $\CofU$ to $\ccat[C]$' to stand in for
- `interpretation of a generalised algebraic theory \gat[U] in a contextual category $\ccat[C]$'. 
-They are equivalent concepts\footnote{This proof is entirely straightforward though I didn't write it up my thesis. I did write out the proof of a  corresponding lemma in regard to single-sorted algebraic theories; this is in my Msc dissertation.}.
-\end{point}
+\note For me what it is to be an internal $\gat[U]$-structure in a contextual category $\ccat[C]$ is given by defining a notion of `interpretation of  generalised algebraic theory $\gat[U]$ in  contextual category $\ccat[C]$'. 
+An alternative definition is that an internal $\gat[U]$-structure in a contextual category $\ccat[C]$ is precisely a 
+contextual functor from the contextual category $\CofU$ to $\ccat[C]$. These two possible definitions are equivalent
+\footnote{The proof that they are equivalent definitions is entirely straightforward though I didn't write it up my thesis. I did write out the proof of a  corresponding lemma in regard to single-sorted algebraic theories; this is in my Msc dissertation.}.
 
-\note 
-For example, an internal category in a contextual category $\ccat[C]$
-can be defined to be a contextual functor $F: \ccat[C](tc) \morph  \ccat[C]$, where $tc$ is the theory of categories.
 
 \note
-Reminder: The theory of monoids is
+For example, an internal monoid in a contextual category $\ccat[C]$
+can be defined to be a contextual functor $F: \ccat[C](tm) \morph  \ccat[C]$, where $tm$ is the generalised algebraic theory of categories.
+Reminder: The theory of monoids ($tm$)is
 \begin{gatrules}
 \gatintros
 \gatintroducing{M}
@@ -64,21 +57,49 @@ Reminder: The theory of monoids is
 \gatsingular[6cm]{\ofT{x,y,z}{M}}{mult(m(x,y),z)=mult(x,mult(y,z))} 
 \end{gatrules}
 
-\begin{oldtt}
-\note Elsewhere (\cite{CartmellAxiomatisations}) we have documented the generalised algebraic theory of contextual categories
-using the $s$ operator and its axioms as presented by Voevodsky (\cite{Voevodsky14C}). 
-We can define a pairing operator by use of Voevodsky's s operator as follows. If $A \base B_1$ and $A \base B_2$ in a contextual category
-$\ccat[C]$ then we can define a local product object $\crossx{B_1}{B_2}{A}$ such that $B_1 \base \crossx{B_1}{B_2}{A}2$ in $\ccat[C]$
-by
-\begin{equation*}
-\crossx{B_1}{B_2}{A} =p_{B_1}^*B_2
-\end{equation*}
-if $X$ is an object of \catc and if $h_1:X \morph B_1$ and $h2:X \morph B_2$ are morphisms in \catc such that
-$h_1 \circ p_{B_1}= h_2 \circ p_{B_2}$ then define $\tuple{h_1,h_2}=s(h_2)\circ q(h1,p_{B_1}^*B_2$.
- 
+\note 
+Likewise an internal category in a contextual category $\ccat[C]$
+can be defined to be a contextual functor $F: \ccat[C](tc) \morph  \ccat[C]$, where $tc$ is the generalised algebraic theory of categories.
 
-We need triples and more to get associativity axiom
-\end{oldtt}
+
+
+\note
+As an example of a finite product (FP) sketch Barr and Wells \cite{BarrandWells}, page 232, discuss monoids internal to  category
+\footnote{Generally we would be thinking of a category with finite products including terminal object here, though as they say not all products need be available in the category for there to be an internal monoid.}.
+
+\begin{notebox}[In your section EXAMPLES OF GENERALIZED ALGEBRAIC THEORIES]
+You  shouldn't refer to theory of internal categories, theory of internal monoids etc. you should refer to the
+theory of categories, theory of monoids and so on. What you have defined as the theory of monoids for example has
+as algebras (i.e. has models in Fam) exactly sets with monoid structure i.e. monoids. When the same theory is interpreted in other cwfs then
+the models are monoids internal to these other cwfs. In other words the generalised algebraic theory of xyz's is something that has xyz's as models in Fam and has internal xyz's as models in other categories. 
+\end{notebox}
+
+\note The category of internal $\gat[U]$-structures in contextual categories is the coslice category
+$\CofU \downarrow \catCon$. Needless to say this has an initial object which is the identity functor on  $\CofU$.
+If\ $\gat[U]$ is a considered a type theory (whatever that is) then this initial object is what I believe Vladimir refers
+to as the term model when speaking of the initiality conjecture.
+
+
+
+\note From my thesis:
+\begin{tightquote}
+Consider for a moment. Every theory $\gat[U]$ has a minimal model denoted $\KU$ built out of the closed terms of \gat[U]. Alternatively this minimal model is described just in terms of the structure $\CofU$. For example
+if $1 \base A$ in $\CofU$ then 
+$\KU(A)=Hom(1,A)$, otherwise if $1 \base A_1 \base ... \base A_n \base A$ in $\CofU$
+then if $a_1 \in \KU(A_1)$, ... if $a_n \in \KU(A_n)(a_1,...a_{n-1})$ then 
+$\KU(A)(a_1,...a_n)=\setsuchthat{a\in Hom_{\CofU}(1,A)}{a \circ p_A = a_n}$. \\
+\end{tightquote} 
+
+Followed by:
+\begin{tightquote}
+Now, the free U-algebras are the algebras $I-alg(\KUp)$ for $I: \gat[U] \morph \gat[U']$ an extension of $\gat[U]$ by constants alone. The finitely generated free U-algebras are those algebras where $\gat[U']$ is an extension by finitely many constants. \\
+\end{tightquote}
+
+\begin{notebox}
+Though your example theories are not theories of internal xyz-objects there are such theories.
+The models of a theory of internal xyz-objects  in Fam should be  internal xyz's i.e. they should be contextual categories (or cwfs) along with internal xyz's. When the theory of internal xyz's is interpreted in an arbitrary contextual category (or cwf) then what results is an internal internal xyz! This sounds a bit crazy but it isn't -- there are after all categories internal to other categories and it isn't much of a stretch to suppose these internal categories have internal xyz's inside of them. 
+\end{notebox}
+
 \note The generalised algebraic theory of internal monoids (where internal means internal to contextual categories) 
 is the theory of contexual categories plus:
 \begin{gatrules}
@@ -99,35 +120,14 @@ pair(id_M,t_M \circ unit) \circ m =id_M \\
 (m \cross id_M) \circ m = (id_M \cross m) \circ m
 \end{gatrules}
 
-\note
-As an example of a finite product (FP) sketch Barr and Wells \cite{BarrandWells}, page 232, discuss monoids internal to  category
-\footnote{Generally we would be thinking of a category with finite products including terminal object here, though as they say not all products need be available in the category for there to be an internal monoid.}.
+\note For any generalised algebraic theory $\gat[U]$ let $\qq{U}$ be the theory of internal $\gat[U]$-objects then
+\footnote{This observation seems interesting to me and I have  wondered whether it is a contribution to the initiality contecture.
+Sadly I am not sure that it is. }
+\begin{equation}
+K_{\qq{U}}=\CofU
+\end{equation}
 
-\begin{notebox}[In your section EXAMPLES OF GENERALIZED ALGEBRAIC THEORIES]
-You  shouldn't refer to theory of internal categories, theory of internal monoids etc. you should refer to the
-theory of categories, theory of monoids and so on. What you have defined as the theory of monoids for example has
-as algebras (i.e. has models in Fam) exactly sets with monoid structure i.e. monoids. When the same theory is interpreted in other cwfs then
-the models are monoids internal to these other cwfs. In other words the generalised algebraic theory of xyz's is something that has xyz's as models in Fam and has internal xyz's as models in other categories. Nonetheless there is a theory of internal xyz's -- its models in Fam are internal xyz's i.e. they are contextual categories (or cwfs) along with internal xyz's. When the theory of internal xyz's is interpreted in an arbitrary contextual category (or cwf) then what results is an internal internal xyz! This sounds a bit crazy but it isn't -- there are after all categories internal to other categories and it isn't much of a stretch to suppose these internal categories have internal xyz's inside of them, so to speak. 
-\end{notebox}
 
-\note The category of internal $\gat[U]$-structures in contextual categories is the coslice category
-$\CofU \downarrow \catCon$. Needless to say this has an initial object which is the identity functor on  $\CofU$.
-If\ $\gat[U]$ is a considered a type theory (whatever that is) then this initial object is what I believe Vladimir refers
-to as the term model when speaking of the initiality conjecture.
-
-\note From my thesis:
-\begin{tightquote}
-Consider for a moment. Every theory $\gat[U]$ has a minimal model denoted $\KU$ built out of the closed terms of \gat[U]. Alternatively this minimal model is described just in terms of the structure $\CofU$. For example
-if $1 \base A$ in $\CofU$ then 
-$\KU(A)=Hom(1,A)$, otherwise if $1 \base A_1 \base ... \base A_n \base A$ in $\CofU$
-then if $a_1 \in \KU(A_1)$, ... if $a_n \in \KU(A_n)(a_1,...a_{n-1})$ then 
-$\KU(A)(a_1,...a_n)=\setsuchthat{a\in Hom_{\CofU}(1,A)}{a \circ p_A = a_n}$. \\
-\end{tightquote} 
-
-Followed by:
-\begin{tightquote}
-Now, the free U-algebras are the algebras $I-alg(\KUp)$ for $I: \gat[U] \morph \gat[U']$ an extension of $\gat[U]$ by constants alone. The finitely generated free U-algebras are those algebras where $\gat[U']$ is an extension by finitely many constants. \\
-\end{tightquote}
 
 \note There is a large 2-category $\catofccs$ of contextual categories, contextual functors and natural transformations. \\
 

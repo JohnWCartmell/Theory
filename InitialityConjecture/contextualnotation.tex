@@ -331,28 +331,24 @@ $
 \blabel{f}
 is diagram (\ref{compositepullbackout}). 
 On such diagrams as shown here the $p$ labels on $\dmorph$ morphisms (inclusive of their indices) are entirely predictable  and so in diagrams that follows we may omit them.
+
+
 \note
-If we write $\crossx{x}{y}{w}$ in place of ${p_{x,w}}^*y$, for $w < x$, $w < y$  in a \ccat then
-\iffalse
-\begin{equation}
-\crossx{x}{y}{w} = p_{x,w}^*y
-\end{equation}
-\fi
-$\crossx{x}{y}{w}$  represents  in the syntax the `weakening' of the rule
+If we write $\crossx{y}{z}{x}$ in place of ${p_{y,x}}^*z$, for $x < y$, $x < z$  in \ccat then
+
+$\crossx{y}{z}{x}$  represents  in the syntax the `weakening' of a rule of the form
  
 \begin{displaymath}
-w \tstyle \isT{y}
+x, w1,...w_n \tstyle \isT{z}
 \end{displaymath}
 
-from a rule with context $w$ to a rule with broader context $x$: 
+from a rule with context $x, w_1,...w_n$ to a rule with broader context $y, w_1, ... w_n$: 
 
 \begin{displaymath} 
-x \tstyle \isT{y}
+y, w_1,...w_n \tstyle \isT{z}
 \end{displaymath}
 
-Within the contextual category I think of $\crossx{x}{y}{w}$  as a local cartesian product but of course categorically it is a filtered product i.e. a pullback.
-
-If $w \base x$ and $w \base y$ and\commentary{work on this} we abbreviate $q(p_x,y)$ as $q_{x,y}$ then 
+Within the contextual category I think of $\crossx{y}{z}{x}$  as a local cartesian product but of course categorically it is a filtered product i.e. a pullback. If $w < x$ and $w < y$  then 
 $
 \begin{array}{ccccc}
 \Rnode{xy}{\crossx{x}{y}{w}} &&               &&               \\[1.3cm]
@@ -360,14 +356,17 @@ $
                              && \Rnode{w}{w}  &&                                                   
 \end{array}
 $
-\ncsar{xy}{x}
-\blabel{p_{\crossx{x}{y}{w}}}
-\ncsar{x}{w}
-\blabel{p_x}
-\ncsar{y}{w}
-\alabel{p_y} 
-\ncaarr{q_{x,y}}{xy}{y}
+\makebox[0.2cm]{% technique to avoid throwinh=g white space
+\nccdar{xy}{x}
+\blabel{p_{\crossx{x}{y}{w},x}}
+\nccdar{x}{w}
+\blabel{p_{x,w}}
+\nccdar{y}{w}
+\alabel{p_{y,w}} 
+\ncaarr{q(p_{x,w},y)}{xy}{y}
+}
 is a pullback diagram in \ccat.
+
 \note
 In the case special case that $w$ is the terminal object $1$ then this specialises to a product diagram:
 
@@ -377,28 +376,28 @@ In the case special case that $w$ is the terminal object $1$ then this specialis
 \Rnode{x}{x}                 &&               && \Rnode{y}{y}  \\                                    
 \end{array}
 \mbox{\ncsar{xy}{x}
-\blabel{p_{\crossx{x}{y}{1}}}
-\ncaarr{q_{x,y}}{xy}{y}}
+\blabel{p_{\crossx{x}{y}{1},x}}
+\ncaarr{q(p_{x,1},y)}{xy}{y}}
 \end{displaymath}
 
 In this special case the $\tuple{}$ operation defined earlier is the pairing operation for if
 $f: w \morph x$ and $g: \morph y$ then $\tuple{f,g}: w \morph \crossx{x}{y}{1}$ 
 and 
 \begin{equation}
-\tuple{f,g} \circ p_{\crossx{x}{y}{1}} = f
+\tuple{f,g} \circ p_{\crossx{x}{y}{1},x} = f
 \end{equation}
 and
 \begin{equation}
-\tuple{f,g} \circ q_{x,y} = g
+\tuple{f,g} \circ q(p_{x,1},y) = g
 \end{equation}
 
 
 \note 
 Note that the product operation $\crossx{}{}{1}$ is far from symmetric 
-because $x \base \crossx{x}{y}{1}$ and $y \base \crossx{y}{x}{1}$ but we can define 
+because if, for example $1 \base x$ and $1 \base y$ then $x \base \crossx{x}{y}{1}$ and $y \base \crossx{y}{x}{1}$ but we can define 
 a swap operation $sw_{x,y} : \crossx{x}{y}{1} \morph \crossx{y}{x}{1}$ by
 \begin{equation}
-sw_{x,y} = \tuple{q_{x,y}, p_{\crossx{x}{y}{1}}}
+sw_{x,y} = \tuple{q_{p_x,y}, p_{\crossx{x}{y}{1}}}
 \end{equation}
 
 \note
