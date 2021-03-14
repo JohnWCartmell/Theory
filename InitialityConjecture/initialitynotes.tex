@@ -101,7 +101,7 @@ The models of a theory of internal xyz-objects  in Fam should be  internal xyz's
 \end{notebox}
 
 \note The generalised algebraic theory of internal monoids (where internal means internal to contextual categories) 
-is the theory of contexual categories plus:
+is the theory of contexual categories plus:\commentary{Need to define $\crossx{morph}{morph}{1}$}
 \begin{gatrules}
 \gatintros
 \gatintroducing{M}
@@ -109,15 +109,15 @@ is the theory of contexual categories plus:
 \gatintroducing{e}
 \ofT{unit}{Hom(1,M)} \\
 \gatintroducing{m}
-\ofT{mult}{Hom(M \cross M,M)} \\
+\ofT{mult}{Hom(\crossx{M}{M}{1},1)} \\
 \gataxioms
 
 \gatintroducing{ \gataxiomno{1} }
-pair(t_M \circ unit,id_M) \circ m =id_M \\
+\tuple{t_M \circ unit,id_M} \circ m =id_M \\
 \gatintroducing{ \gataxiomno{2} }
-pair(id_M,t_M \circ unit) \circ m =id_M \\
+\tuple{id_M,t_M \circ unit} \circ m =id_M \\
 \gatintroducing{ \gataxiomno{3} }
-(m \cross id_M) \circ m = (id_M \cross m) \circ m
+(\crossx{m}{ id_M}{1}) \circ m = (\crossx{id_M}{m}{1}) \circ m
 \end{gatrules}
 
 \note For any generalised algebraic theory $\gat[U]$ let $\qq{U}$ be the theory of internal $\gat[U]$-objects then
@@ -128,6 +128,73 @@ K_{\qq{U}}=\CofU
 \end{equation}
 
 
+
+
+\note The Inititiality Conjecture is described in \cite{VoevodskyInitialityConjecture}.
+\begin{tightquote}
+A C-system equipped with additional
+operations corresponding to the inference rules of a type theory is called a
+model or a C-system model of these rules or of this type theory.
+\end{tightquote}
+and
+\begin{tightquote}
+The model whose underlying
+C-system is the term C-system is called the term model... for a particular
+class of inference rules the term model is an initial object in the category of models.
+This is known as the Inititiality Conjecture.
+\end{tightquote} 
+\ \\
+\note Whereas from nLab (\url{https://ncatlab.org/nlab/show/Initiality+Project}) I read
+\begin{tightquote}
+The Initiality Project is a communal effort to prove an initiality theorem for a dependent type theory: that the categorical structure constructed out of the syntax is the initial object in some category of structured categorical objects.
+\end{tightquote}
+
+\note From my 1986 paper (\cite{Cartmell86})based on my thesis (\cite{Cartmell78}):
+\begin{tightquote}
+An algebraic semantics is witnessed by an equivalence between a category of
+theories and a category of structures. In most instances of algebraic semantics
+there is a further equivalence in that the usual definition of model of a theory can
+be replaced by a definition which uses only the notion of structure. Lawvere has
+used the term Functorial Semantics in describing this kind of semantics.
+Functorial semantics depends on an equivalence between the category of models
+of a theory U and the category of structure preserving morphisms from the
+structure $C(U)$ corresponding to $U$ to a special canonical structure (the world
+structure?). In the case of algebraic theories (Lawvere \cite{LawvereAlgebraicTheories}) the canonical structure
+is taken to be the category of sets Set while in the case of classical proposition
+theories the canonical structure is taken to be the Boolean Algebra $\set{0, 1}$.
+The present situation is as well-behaved as any if the canonical structure is
+taken to be the contextual category $Fam$.
+If U is a generalised algebraic theory, then the category of models of U is
+equivalent to the category which has contextual functors $C(U)$ to $Fam$ as objects
+and natural transformations as morphisms. Thus we can assert
+\begin{equation*}
+\Ualg \cong ConFunc(C(U), Fam).
+\end{equation*}
+The inductive construction of $C(U)$ from $U$ has enabled us to replace the usual 
+inductive definition of model of $U$ by the definition "a model of $U$ is a contextual
+functor $M: C(U): \morph Fam$".
+
+Every interpretation $I:U \morph U'$ induces a contextual functor 
+$C(I):C(U) \morph C(U')$. Composition with $C(I)$ is a functor from 
+$ConFunc(C(U'),Fam)$ to
+$ConFunc(C(U),Fam)$. It is the functor $\Ialg:\Upalg \morph \Ualg$. Those functors
+between categories of models which are induced in this way are called generalised
+algebraic functors. We can show that all such functors have left adjoints. This is
+equivalent to a known generalisation of Lawvere \cite{LawvereAlgebraicTheories}'s theorem that all algebraic
+functors have a left adjoint. 
+\end{tightquote}
+
+\note
+The signature of a theory consists of s set of sorts and a set of operations. It does not usually include the equations of the theory. 
+\begin{notebox}
+In your paper your construction of a `gat' from a signature seems to include sorts, operators AND equations. Because 
+what is included in your signatures differs from what other authors include in signatures it make it harder to understand.
+\end{notebox}
+\begin{notebox} 
+I cannot see a reason for excluding type equations from your presentation.
+\end{notebox}
+
+\begin{oldtt}
 
 \note There is a large 2-category $\catofccs$ of contextual categories, contextual functors and natural transformations. \\
 
@@ -187,84 +254,16 @@ Particularising (\ref{cualg}) to the category $\Fam$ we have
   \label{inducedalgebra}
   $\alg{\Fam}$ is a contextual functor   $\alg{Fam} :\ccat[C](tcc) \morph \FAM$. 
 \end{pointeq}
-
+ 
 \note
 Aside: Assume now that $\catofccs$ is the category of large contextual categories so that $\Fam$ is an object of $\catofccs$. 
 Let $\catoflargerccs$ be the category of larger contextual categories. \\
 
-\note The Inititiality Conjecture is described in \cite{VoevodskyInitialityConjecture}.
-\begin{tightquote}
-A C-system equipped with additional
-operations corresponding to the inference rules of a type theory is called a
-model or a C-system model of these rules or of this type theory.
-\end{tightquote}
-and
-\begin{tightquote}
-The model whose underlying
-C-system is the term C-system is called the term model... for a particular
-class of inference rules the term model is an initial object in the category of models.
-This is known as the Inititiality Conjecture.
-\end{tightquote} 
-\ \\
-\note Whereas from nLab (\url{https://ncatlab.org/nlab/show/Initiality+Project}) I read
-\begin{tightquote}
-The Initiality Project is a communal effort to prove an initiality theorem for a dependent type theory: that the categorical structure constructed out of the syntax is the initial object in some category of structured categorical objects.
-\end{tightquote}
-
-\note Do not use the term `model'.
-
-\note From my 1986 paper (\cite{Cartmell86})based on my thesis (\cite{Cartmell78}):
-\begin{tightquote}
-An algebraic semantics is witnessed by an equivalence between a category of
-theories and a category of structures. In most instances of algebraic semantics
-there is a further equivalence in that the usual definition of model of a theory can
-be replaced by a definition which uses only the notion of structure. Lawvere has
-used the term Functorial Semantics in describing this kind of semantics.
-Functorial semantics depends on an equivalence between the category of models
-of a theory U and the category of structure preserving morphisms from the
-structure $C(U)$ corresponding to $U$ to a special canonical structure (the world
-structure?). In the case of algebraic theories (Lawvere \cite{LawvereAlgebraicTheories}) the canonical structure
-is taken to be the category of sets Set while in the case of classical proposition
-theories the canonical structure is taken to be the Boolean Algebra $\set{0, 1}$.
-The present situation is as well-behaved as any if the canonical structure is
-taken to be the contextual category $Fam$.
-If U is a generalised algebraic theory, then the category of models of U is
-equivalent to the category which has contextual functors $C(U)$ to $Fam$ as objects
-and natural transformations as morphisms. Thus we can assert
-\begin{equation*}
-\Ualg \cong ConFunc(C(U), Fam).
-\end{equation*}
-The inductive construction of $C(U)$ from $U$ has enabled us to replace the usual 
-inductive definition of model of $U$ by the definition "a model of $U$ is a contextual
-functor $M: C(U): \morph Fam$".
-
-Every interpretation $I:U \morph U'$ induces a contextual functor 
-$C(I):C(U) \morph C(U')$. Composition with $C(I)$ is a functor from 
-$ConFunc(C(U'),Fam)$ to
-$ConFunc(C(U),Fam)$. It is the functor $\Ialg:\Upalg \morph \Ualg$. Those functors
-between categories of models which are induced in this way are called generalised
-algebraic functors. We can show that all such functors have left adjoints. This is
-equivalent to a known generalisation of Lawvere \cite{LawvereAlgebraicTheories}'s theorem that all algebraic
-functors have a left adjoint. 
-\end{tightquote}
-
-\begin{oldtt}
 \note
 One possibility for Vladimir's category of models is as follows. Define a model of a generalised algebraic theory to be any pair $\tuple{C,I}$ where $C$ is a contextual category and $I$ is an interpretation of the theory $U$ in the contextual category $C$. Define the morphisms between
 model $\tuple{C,I}$ and model $\tuple{C',I'}$ to be pairs $\tuple{F, \eta}$ where
 $F: c \morph C'$ is a contextual functor and $\eta: I \circ F \morph  I'$ is a natural transformation.
-\end{oldtt}
 
-\note
-The signature of a theory consists of s set of sorts and a set of operations. It does not usually include the equations of the theory. 
-\begin{notebox}
-In your paper your construction of a `gat' from a signature seems to include sorts, operators AND equations. Because 
-what is included in your signatures differs from what other authors include in signatures it make it harder to understand.
-\end{notebox}
-\begin{notebox} 
-I cannot see a reason for excluding type equations from your presentation.
-\end{notebox}
-\begin{oldtt}
 \note Suppose we add a sum type to generalised algebraic theories so that from
 types $\Delta$ and $\Delta'$ in context $Delta_n$ we can construct a type $\Delta + \Delta'$
 along with inclusion operations and that we can construct $t | t'$. 
