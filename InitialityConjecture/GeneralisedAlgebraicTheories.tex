@@ -1,39 +1,165 @@
 \note
 We give the broadest possible notion of a model
-of a generalised algebraic theory \gat[U] by defining the notion of an interpretation of  \gat[U] in  any given contextual category \catc.
+of a generalised algebraic theory \gatUw by defining the notion of an interpretation of  \gatUw in  any given contextual category \catc.
 
 \note
-First, as a stepping stone, we need  give an auxillary definition, the definition of  a `preinterpretation of \gat[U] in \catc'.
+Suppose $\xDelta{n}$ is a context of a generalised algebraic theory \gatU for some $n \ge 1$
+%$r$ is a derived rule of \gatUw  of the form $$\frac{\xDelta{n}}{\isT{\Delta}}$$ 
+then recall that for each $i$, 
+$1 \leq i \leq n$, the rule $$\frac{\xDelta{i-1}}{\isT{\Delta_i}}$$ will be a derived rule of \gatU. Let $r_i$ denote this rule.
+If $I$ is an interpretation of \gatUw in a contextual category \catcw then $I$ we will map the sequence of rules
+$r_1, ... r_n$ to a sequence of objects $a_1,...a_n$ of \catcw such that
+$1 \base a_1 \base ... \base a_n$ in \catc. \\
+% workaround when used with Rnode for size of font used under the cross
+\renewcommand{\crossx}[3]{#1 \underset{\tiny #3}{\cross} #2}
+\begin{minipage}[t]{8.5cm}
+\note Suppose $a_1,..a_n$ are objects in a contexual category \catcw such that $1 \base a_1 \base ... \base a_n$ in \catcw then \foreachi,
+$s(p_{a_n,a_i}): a_n \morph \crossx{a_n}{a_i}{a_{i-1}}$ in \catcw because by definition  $s(p_{a_n,a_i}): a_n  \morph (p_{a_n,a_i} \circ p_{a_i})^*a_i$,
+and we have 
+\begin{align*}
+(p_{a_n,a_i} \circ p_{a_i})^*a_i &= {p_{a_n,a_{i-1}}} ^* a_i  && \mbox{ because $p_{a_n,a_i} \circ p_{a_i}=p_{a_n,a_{i-1}}$,} \\
+                                 &= \crossx{a_n}{a_i}{a_{i-1}} && \mbox{ by definition of $\crossx{}{}{w}$}.
+\end{align*} \\
+Suppose now that derived rules $r_1,...r_n$ of \gatUw are mapped to objects $a_1, ...a_n$ of \catcw by an interpretation $I$ of \gatU in \catcw then
+$I$ will map the rule 
+$\displaystyle \frac{\xDelta{n}}{\isT{\Delta_i}}$
+to $\crossx{a_n}{a_i}{a_{i-1}}$
+and will map the rule
+$\displaystyle \frac{\xDelta{n}}{\ofT{x_i}{\Delta_i}}$
+to $s(p_{a_n,a_i})$.
+\end{minipage}
+\raisebox{0.5cm}{
+\begin{minipage}[t]{6cm}
+\begin{displaymath}
+\begin{array}{c}
+\crossx{a_n}{a_i}{\Rnode{cross}{a_{i-1}}} \\[0.9cm]
+\Rnode{an}{a_n}\\[0.7cm]
+%\Rnode{highervdots}{\vdots}\\
+\Rnode{ai}{\begin{array}{c}
+\vdots\\
+a_i\\
+\vdots
+\end{array}} \\[1.1cm]
+%\Rnode{lowervdots}{\vdots}\\[0.4cm]
+\Rnode{a1}{a_1}\\[0.7cm]
+\Rnode{abs}{1}
+\end{array}
+\end{displaymath}
+\ncsar{cross}{an}
+%\ncsar{an}{highervdots}
+%\ncsar{lowervdots}{a1}
+\ncsar{an}{ai}
+\ncsar{ai}{a1}
+\ncsar{a1}{abs}
+\ncarc[arcangle=30,nodesepA=5pt,offsetA=2pt,nodesepB=2pt,offsetB=2pt]{->}{an}{cross}
+\alabel{s(p_{a_n,a_i})}
+\end{minipage}
+}
+\newpage
+\note
+First, as a stepping stone, we need  give an auxillary definition, the definition of  a `preinterpretation of \gatUw in \catc'.
 
 \newcommand{\Isort}{I_{sort}}
 \newcommand{\Iop}{I_{op}}
+\newcommand {\Ihat}{\hat{I}}
 \note 
-If \gat[U] is a generalised algebraic theory  and if \catcw is a contextual category then
-a preinterpretation $I$ of  \gat[U] in \catcw consists of a pair :
+If \gatU is a generalised algebraic theory  and if \catcw is a contextual category then
+a preinterpretation $I$ of  \gatU in \catcw consists of a pair :
 \begin{itemize}
-\item a mapping $\Isort$ that maps each sort symbol of \gat[U] to  an object of \catc,
-\item a mapping $\Iop$ that maps each operator symbol of \gat[U] to a section of \catcw (i.e. to a morphism $f: A \morph B$ for some 
+\item a mapping $\Isort$ that maps each sort symbol of \gatUw to  an object of \catc,
+\item a mapping $\Iop$ that maps each operator symbol of \gatUw to a section of \catcw (i.e. to a morphism $f: A \morph B$ for some 
 $A \base B$ in \catcw such that $f \circ p_B=id_A$).
 \end{itemize}
 
 \note 
-An interpretation $I$ of \gat[U] in \catcw is a preinterpretation satisfying additional conditions and these 
+An interpretation $I$ of \gatUw in \catcw is a preinterpretation satisfying additional conditions and these 
 additional conditions imply that the preinterpretation induces a mapping $\hat{I}$
-of derived T- and $\epsilon$- rules of \gat[U] to objects, respectively sections, of \gat[U] such that 
-all equational identities of \gat[U] are respected in the sense that :
-\begin{itemize}
-\item whenever 
-$\frac{\context{x}{\Delta}{n}}{t = t' \in \Delta}$
-is an axiom/derived rule of \gat[U] then $\hat{I}(R) = \hat{I}(R')$
-where $R$ is the rule
-$\frac{\context{x}{\Delta}{n}}{\ofT{t}{\Delta}}$
-and $R'$ is the rule
-$\frac{\context{x}{\Delta}{n}}{\ofT{t'}{\Delta}}$,
+of derived T- and $\epsilon$- rules of \gatUw to objects, respectively sections, of \gatUw such that:
+
+
+\begin{enumerate}[(i)]
+\setlength\itemindent{2cm}
+\item whenever $R$ is a derived rule of the form $\frac{\xDelta{n}}{\isT{\Delta}}$
+then $\Ihat(Rn) \base \Ihat(R)$ in \catc, where $Rn$ is the rule
+$\frac{\xDelta{n-1}}{\isT{\Delta_n}}$,
+
+\item whenever $R$ and $Rn$ as above and additionally $Rt$ is a derived rule of the form $\frac{\xDelta{n}}{\ofT{t}{\Delta}}$
+then $\Ihat(Rt) : \Ihat(Rn) \morph \Ihat(R)$  in \catcw and $\Ihat(Rt)$ is a section, 
+
 \item whenever
-$\frac{\context{x}{\Delta}{n}}{\Delta = \Delta'}$
-is an axiom/derived rule of \gat[U] then $\hat{I}(R) = \hat{I}(R')$
+$\frac{\xDelta{n}}{\Delta = \Delta'}$
+is an derived rule of \gatU then $\Ihat(R) = \Ihat(R')$
 where $R$ is the rule
-$\frac{\context{x}{\Delta}{n}}{\isT{\Delta}}$
+$\frac{\xDelta{n}}{\isT{\Delta}}$
 and $R'$ is the rule
-$\frac{\context{x}{\Delta}{n}}{\isT{\Delta}}$.
-\end{itemize}
+$\frac{\xDelta{n}}{\isT{\Delta}}$,
+
+\item whenever
+$\frac{\xDelta{n}}{t = t' \in \Delta}$
+is an derived rule of \gatUw then $\Ihat(Rt) = \Ihat(Rt')$
+where $Rt$ is the rule
+$\frac{\xDelta{n}}{\ofT{t}{\Delta}}$
+and $Rt'$ is the rule
+$\frac{\xDelta{n}}{\ofT{t'}{\Delta}}$.
+\end{enumerate}
+
+\note The additional conditions are:
+\begin{enumerate}[(i)]
+\setlength\itemindent{2cm}
+\item
+whenever $A$ is a sort symbol of \gatUw that is introduced by the rule
+$\frac{\xDelta{n}}{\isT{A(\xn)}}$
+then $\Ihat(Rn) \base \Isort(A)$ in \catc, where $Rn$ is the rule
+$\frac{\context{x}{\Delta}{n-1}}{\isT{\Delta_n}}$,
+\item
+whenever $F$ is an operator symbol of \gatUw that is introduced by the rule
+$\frac{\xDelta{n}}{\ofT{F(\xn)}{\Delta}}$
+then $\Iop(F) : \Ihat(Rn) \morph \Ihat(R)$  in \catcw and $\Iop(F)$ is a section,
+\item whenever
+$\frac{\xDelta{n}}{\Delta = \Delta'}$
+is an axiom of \gatUw then $\Ihat(R) = \Ihat(R')$
+where $R$ is the rule
+$\frac{\xDelta{n}}{\isT{\Delta}}$
+and $R'$ is the rule
+$\frac{\xDelta{n}}{\isT{\Delta}}$,
+\item whenever
+$\frac{\xDelta{n}}{t = t' \in \Delta}$
+is an axiom of \gatUw then $\Ihat(Rt) = \Ihat(Rt')$
+where $Rt$ is the rule
+$\frac{\xDelta{n}}{\ofT{t}{\Delta}}$
+and $Rt'$ is the rule
+$\frac{\xDelta{n}}{\ofT{t'}{\Delta}}$.
+\end{enumerate}
+
+\note The definition of $\Ihat$ from $\Isort$ and $\Iop$ proceeds by induction 
+on the derivation of rules in  \gatUw 
+as described in the principles of derivation in Definition 2(b) of \cite{Cartmell86}. 
+The only non-trivial parts of this definition relate to the rules
+identified as CF1, CF2(a) and CF2(b)\footnote{So identified, by the way, as a mnemonic for cut-free.}. We consider each of these rules in turn.
+
+\begin{point}
+Rule CF1 states that for $n \geq 0$, for $1 \leq i \leq n+1$, from the derived rule 
+$\frac{\xDelta{n}}{\isT{\Delta_{n+1}}}$ which we shall denote $R$ 
+we may derive the rule
+$\frac{\xDelta{n+1}}{\ofT{x_i}{\Delta_i}}$ which, in turn, we shall denote $R_{x_i}$.
+Define $\Ihat(R_{x_i}) :  \Ihat(R) \morph \crossx{\Ihat(R)}{\Ihat(R_i)}{\Ihat(R_{i-1})}$
+to be $\tuple{p_{\Ihat(R),\Ihat(R_{i-1})},p_{\Ihat(R),\Ihat(R_{i})}}$. 
+
+This presumably is $s(p_{\Ihat(R),\Ihat(R_{i-1})})$ where $s$ is Vladimir's s-operator.
+\end{point}
+\begin{point}
+CF2(a) states that if $A$ is a sort symbol introduced by
+$\frac{\xDelta{n}}{\isT{A(\xn)}}$ 
+and if $P$ is a context and $\tn$ are expressions then from the following rules, which we shall denote $R_{t_1}$,..$R_{t_n}$,
+$\frac{P}{\ofT{t_1}{\Delta_1}}$,
+$\frac{P}{\ofT{t_2}{\Delta_2[t_1|x_1]}}$,
+... and 
+$\frac{P}{\ofT{t_n}{\Delta_n[t_1|x_1,...t_{n-1}|x_{n-1}]}}$
+we may derive the rule
+$\frac{P}{\isT{A(t_1,...t_n)}}$ which we denote as $R$. 
+Define $I(R)$ to be $\Ihat(R_n)^*...\Ihat(R_1)^*I(A)$.
+\end{point}
+\begin{point}
+CF2(b)
+\end{point}
+
