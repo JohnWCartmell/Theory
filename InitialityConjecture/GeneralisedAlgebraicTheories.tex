@@ -17,101 +17,63 @@
 \newcommand{\smstar}{{s_m}\kern-.25em^*}
 \newcommand{\sonestar}{{s_1}\kern-.15em^*}
 
+
 \note
 We give the broadest possible notion of a model
 of a generalised algebraic theory \gatUw by defining the notion of an interpretation of  \gatUw in  any given contextual category \catc.
 
 \note 
-An interpretation $I$ of \gatUw in \catcw is a  a mapping $\hat{I}$
-of derived T- and $\epsilon$- rules of \gatUw to objects, respectively sections, of \gatUw such that:
+An interpretation $I$ of \gatUw in \catcw is a  mapping 
+of derived T- and $\in$- rules of \gatUw to objects, respectively sections, of \gatUw that satisfies the requirements detailed below.
 
 
 \begin{enumerate}[(i)]
 \setlength\itemindent{2cm}
-\item whenever $R$ is a derived rule of the form $\frac{\xDelta{n}}{\isT{\Delta}}$
-then $\Ihat(Rn) \base \Ihat(R)$ in \catc, where $R_i$ is the rule
-$\frac{\xDelta{i-1}}{\isT{\Delta_i}}$, from this it follows that $1 \base I(R_1) \base ... \base I(R_n) \base I(R)$ in $catc$,
+\item \underline{\textbf{T-rules}} 
+Suppose that  the rule
+\gatdisplayrule{\xDelta{n}}{\isT{\Delta}} is a derived rule of \gatUw which is mapped by $I$ to an object $a$ of \catc. Denote this rule $r$. Recall that becaue $r$ is a derived rule then it follows  that for each $i$, 
+$1 \leq i \leq n$, the rule \gatdisplayrule{\xDelta{i-1}}{\isT{\Delta_i}} is a derived rule of \gatU. Let $r_i$ denote this rule.
+Suppose that $I$ maps each rule $r_i$ to an object $a_i$ of \catcw.
+It is required that $1 \base a_1 \base ... \base a_n \base a$ in \catc.
 
-\item whenever $R$ and $Rn$ as above and additionally $Rt$ is a derived rule of the form $\frac{\xDelta{n}}{\ofT{t}{\Delta}}$
-then $\Ihat(Rt) : \Ihat(Rn) \morph \Ihat(R)$  in \catcw and $\Ihat(Rt)$ is a section, 
+Suppose that the  expression $\Delta$ is exactly the expression $\Delta_i$, for some $i$, $1 \leq i \leq n$. In this special case we require that the rule $r$  is mapped by $I$ to the object 
+$\crossx{a_n}{a_i}{a_{i-1}}$. 
 
-\item whenever
-$\frac{\xDelta{n}}{\Delta = \Delta'}$
-is an derived rule of \gatU then $\Ihat(R) = \Ihat(R')$
-where $R$ is the rule
-$\frac{\xDelta{n}}{\isT{\Delta}}$
-and $R'$ is the rule
-$\frac{\xDelta{n}}{\isT{\Delta}}$,
+\item \underline{\textbf{$\boldsymbol {\in}$-rules}} 
+Suppose, in addition to the general situiation in (i),  that the rule
+\gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta}} is a  derived rule of \gatU. 
+Denote this rule $r_t$. It is required that $I$ maps the rule $r_t$ to a section
+ $s:a_n \morph a$ in \catcw i.e. to a morphism $s:a_n \morph a$ such that $s \circ p_a = id_{a_n}$. 
 
-\item whenever
-$\frac{\xDelta{n}}{t = t' \in \Delta}$
-is an derived rule of \gatUw then $\Ihat(Rt) = \Ihat(Rt')$
-where $Rt$ is the rule
-$\frac{\xDelta{n}}{\ofT{t}{\Delta}}$
-and $Rt'$ is the rule
-$\frac{\xDelta{n}}{\ofT{t'}{\Delta}}$.
-\end{enumerate}
-
-\note
-\label{ruledescription1}
-Suppose $\encxDelta{n}$ is a context of a generalised algebraic theory \gatUw for some $n \ge 1$
-%$r$ is a derived rule of \gatUw  of the form $$\frac{\xDelta{n}}{\isT{\Delta}}$$ 
-then recall that for each $i$, 
-$1 \leq i \leq n$, the rule $$\frac{\xDelta{i-1}}{\isT{\Delta_i}}$$ will be a derived rule of \gatU. Let $r_i$ denote this rule.
-If $I$ is an interpretation of \gatUw in a contextual category \catcw then \highlight{we require that} $I$ we will map the sequence of rules
-$r_1, ... r_n$ to a sequence of objects $a_1,...a_n$ of \catcw such that
-$1 \base a_1 \base ... \base a_n$ in \catc. \\
-\note Suppose that in addition to the situation in para. \ref{ruledescription1}. the rules
-\gatdisplayrule{\xDelta{n}}{\isT{\Delta}} and 
-\gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta}} are derived rules of \gatUw. Denote these by $r$ and $r_t$, respectively.
-The rule $r$ will be mapped by $I$ to an object $a$ of \catcw such that $a_n \base a$ in \catcw whereas the rule
-$r_t$ will be mapped by $I$ to a morphism $s:a_n \morph a$ in \gatUw such that $s \circ p_a = id_{a_n}$ or, in other words, to a section of $a$. \\
-\begin{minipage}[t]{13cm}
-\note Suppose $a_1,..a_n$ are objects in a contexual category \catcw such that $1 \base a_1 \base ... \base a_n$ in \catcw then \foreachi,
-$s(p_{a_n,a_i}): a_n \morph \crossx{a_n}{a_i}{a_{i-1}}$ in \catcw because by definition  $s(p_{a_n,a_i}): a_n  \morph (p_{a_n,a_i} \circ p_{a_i})^*a_i$,
+Suppose that the  expression $\Delta$ is exactly the expression $\Delta_i$, for some $i$, $1 \leq i \leq n$ and that the expression $t_i$ is simply the variable $x_i$. 
+In this special case we require that the rule $r_t$  is mapped by $I$ to the section\footnote{
+With these assumptions, $s(p_{a_n,a_i}): a_n \morph \crossx{a_n}{a_i}{a_{i-1}}$ in \catcw because by definition  $s(p_{a_n,a_i}): a_n  \morph (p_{a_n,a_i} \circ p_{a_i})^*a_i$,
 and we have 
 \begin{align*}
 (p_{a_n,a_i} \circ p_{a_i})^*a_i &= {p_{a_n,a_{i-1}}} ^* a_i  && \mbox{ because $p_{a_n,a_i} \circ p_{a_i}=p_{a_n,a_{i-1}}$,} \\
                                  &= \crossx{a_n}{a_i}{a_{i-1}} && \mbox{ by definition of $\crossx{}{}{w}$}.
-\end{align*} \\
-Suppose now that there are derived rules $r_1,...r_n$ of \gatUw as in para. \ref{ruledescription1}. above and that they are mapped to such objects $a_1, ...a_n$ of \catcw by an interpretation $I$ of \gatUw in \catc. In such a situation the
- the rule 
-\gatdisplayrule{\xDelta{n}}{\isT{\Delta_i}} will be a dervied rule of \gatUw and  \highlight{we require that} it will be mapped by $I$ to the object 
-$\crossx{a_n}{a_i}{a_{i-1}}$.
-The rule
-\gatdisplayrule{\xDelta{n}}{\ofT{x_i}{\Delta_i}} also will be a derived rule of \gatUw (that this is the case is one of the principles of derivation)
-and \highlight{we require that} this rule will be mapped by $I$ to the morphism
-$s(p_{a_n,a_i})$ which, as we have seen earlier, is a section.
-\end{minipage}
-\raisebox{0.05cm}{
-\begin{minipage}[t]{3cm}
-\begin{displaymath}
-\begin{array}{c}
-\crossx{a_n}{a_i}{\Rnode{cross}{a_{i-1}}} \\[0.9cm]
-\Rnode{an}{a_n}\\[0.7cm]
-%\Rnode{highervdots}{\vdots}\\
-\Rnode{ai}{\begin{array}{c}
-\vdots\\
-a_i\\
-\vdots
-\end{array}} \\[1.1cm]
-%\Rnode{lowervdots}{\vdots}\\[0.4cm]
-\Rnode{a1}{a_1}\\[0.7cm]
-\Rnode{abs}{1}
-\end{array}
-\end{displaymath}
-\ncsar{cross}{an}
-%\ncsar{an}{highervdots}
-%\ncsar{lowervdots}{a1}
-\ncsar{an}{ai}
-\ncsar{ai}{a1}
-\ncsar{a1}{abs}
-\ncarc[arcangle=30,nodesepA=5pt,offsetA=2pt,nodesepB=2pt,offsetB=2pt]{->}{an}{cross}
-\alabel{s(p_{a_n,a_i})}
-\end{minipage}
-}
+\end{align*}
+} % end footnote
+$s(p_{a_n,a_i})$ of the object $\crossx{a_n}{a_i}{a_{i-1}}$. 
 
-\note
+\item \underline{\textbf{T=-rules}} 
+Suppose, in addition, that  the rule \gatdisplayrule{\xDelta{n}}{\Delta = \Delta'} is a derived rule of \gatUw and
+from which we may deduce that the
+\gatdisplayrule{\xDelta{n}}{\isT{\Delta'}} is a derived rule of \gatU. Denote this latter rule $r'$.
+It is required that the rule $r'$ is mapped by $I$ to the same object $a$ of \catcw that $r$ is mapped to.
+
+\item \underline{\textbf{$\boldsymbol{\in=}$-rules}} 
+Suppose, in addition,  that the rule
+\gatdisplayrule{\xDelta{n}}{t = t' \in \Delta}
+is a derived rule of \gatUw and from which we may deduce that the rule
+\gatdisplayrule{\xDelta{n}}{\ofT{t'}{\Delta}} is a  derived rule of \gatU. 
+Denote this latter rule $r'_t$.
+It is required that the rule $r'_t$ is mapped by $I$ to the same section $s$ of $a$ that $r_t$ is mapped to.
+\end{enumerate}
+
+\newpage
+
+\note 3
 \label{omegarealisationwrtQ}
  Suppose also that $\encyOmega{m}$ is a context of generalised algebraic theory \gatUw and suppose that $Q$ is some other context and that for some $m \geq 1$,
  \foreachj, \gatdisplayrule{Q}{\ofT{s_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}} is a derived rule of \gatU\footnote{Recall that such an m-tuple $\tuple{\sm}$ is said to be a realisation of 
@@ -154,7 +116,8 @@ In the case that $m=3$  then in \catcw we will have objects and morphisms as fol
 \ncsar{b2}{b1}
 \ncsar{b1}{abs}
 \nccdar{a}{abs}
-\note
+
+\note 4
 How suppose that additional to the situation of para. \ref{omegarealisationwrtQ} the rules 
 \gatdisplayrule{\yOmega{m}}{\isT{\Delta}} and  \gatdisplayrule{\yOmega{m}}{\ofT{t}{\Delta}} are derived rules of \gatUw. 
 Let us denote these rules $r$ and $r_t$, respectively. Suppose that $I$ is an interpretation of $\gatUw$ in \catcw as mapping rules and contexts as described in para. \ref{omegarealisationwrtQ}.
@@ -165,8 +128,7 @@ that the substituted $r$ and $r_t$ rules:
 \gatdisplayrule{Q}{\isT{\Delta[s_1|y_1...s_m|y_m]}} 
 and  \gatdisplayrule{Q}{\ofT{t[s_1|y_1...s_m|y_m]}{\Delta[s_1|y_1...s_m|y_m]}} are derived rules of \gatU. 
 
-The definition that we will give 
-\commentary{We require that} 
+\highlight{We require that}
 the substituted $r$ rule will be mapped by $I$ to the object $\smstar...\sonestar\crossx{a}{b}{1}$ and the substituted $r_t$ rule will
 be mapped by $I$ to the morphism  $\smstar...\sonestar\crossx{a}{g}{1}$ (which is defined since $g$ is a section).
 
@@ -242,3 +204,28 @@ Define $I(R)$ to be $\Ihat(R_n)^*...\Ihat(R_1)^*\crossx{\Ihat(R_n)}{I(A)}{1}$.\c
 CF2(b) \highlight{fill this in}
 \end{point}
 
+\begin{oldtt}
+\begin{displaymath}
+\begin{array}{c}
+\crossx{a_n}{a_i}{\Rnode{cross}{a_{i-1}}} \\[0.9cm]
+\Rnode{an}{a_n}\\[0.7cm]
+%\Rnode{highervdots}{\vdots}\\
+\Rnode{ai}{\begin{array}{c}
+\vdots\\
+a_i\\
+\vdots
+\end{array}} \\[1.1cm]
+%\Rnode{lowervdots}{\vdots}\\[0.4cm]
+\Rnode{a1}{a_1}\\[0.7cm]
+\Rnode{abs}{1}
+\end{array}
+\end{displaymath}
+\ncsar{cross}{an}
+%\ncsar{an}{highervdots}
+%\ncsar{lowervdots}{a1}
+\ncsar{an}{ai}
+\ncsar{ai}{a1}
+\ncsar{a1}{abs}
+\ncarc[arcangle=30,nodesepA=5pt,offsetA=2pt,nodesepB=2pt,offsetB=2pt]{->}{an}{cross}
+\alabel{s(p_{a_n,a_i})}
+\end{oldtt}
