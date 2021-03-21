@@ -22,16 +22,18 @@
 We give the broadest possible notion of a model
 of a generalised algebraic theory \gatUw by defining the notion of an interpretation of  \gatUw in  any given contextual category \catc.
 
+\note Aside: Simple weakening. We can prove that in any generalised algebraic theory $\gatU$ that
+if $Q$ is any context,
+and if the rule \gatdisplayrule{\yOmega{m}}{Conclusion} is a derived rule of \gatUw then
+the (weakened) rule \gatdisplayrule{Q,\yOmega{m}}{Conclusion} is a derived rule of \gatU.
 \note 
 An interpretation $I$ of \gatUw in \catcw is a  mapping 
-of derived T- and $\in$- rules of \gatUw to objects, respectively sections, of \gatUw that satisfies the requirements detailed below.
-
-
+of derived T- and $\in$- rules of \gatUw to objects, respectively sections, of \gatUw that satisfies the following:
 \begin{enumerate}[(i)]
 \setlength\itemindent{2cm}
 \item \underline{\textbf{T-rules}} 
 Suppose that  the rule
-\gatdisplayrule{\xDelta{n}}{\isT{\Delta}} is a derived rule of \gatUw which is mapped by $I$ to an object $a$ of \catc. Denote this rule $r$. Recall that becaue $r$ is a derived rule then it follows  that for each $i$, 
+\gatdisplayrule{\xDelta{n}}{\isT{\Delta}} is a derived rule of \gatUw which is mapped by $I$ to an object $a$ of \catc. Denote this rule $r$. Recall that because $r$ is a derived rule then it follows  that for each $i$, 
 $1 \leq i \leq n$, the rule \gatdisplayrule{\xDelta{i-1}}{\isT{\Delta_i}} is a derived rule of \gatU. Let $r_i$ denote this rule.
 Suppose that $I$ maps each rule $r_i$ to an object $a_i$ of \catcw.
 It is required that $1 \base a_1 \base ... \base a_n \base a$ in \catc.
@@ -40,7 +42,7 @@ Suppose that the  expression $\Delta$ is exactly the expression $\Delta_i$, for 
 $\crossx{a_n}{a_i}{a_{i-1}}$. 
 
 \item \underline{\textbf{$\boldsymbol {\in}$-rules}} 
-Suppose, in addition to the general situiation in (i),  that the rule
+In addition to the assumptions made in (i),  suppose that the rule
 \gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta}} is a  derived rule of \gatU. 
 Denote this rule $r_t$. It is required that $I$ maps the rule $r_t$ to a section
  $s:a_n \morph a$ in \catcw i.e. to a morphism $s:a_n \morph a$ such that $s \circ p_a = id_{a_n}$. 
@@ -57,120 +59,80 @@ and we have
 $s(p_{a_n,a_i})$ of the object $\crossx{a_n}{a_i}{a_{i-1}}$. 
 
 \item \underline{\textbf{T=-rules}} 
-Suppose, in addition, that  the rule \gatdisplayrule{\xDelta{n}}{\Delta = \Delta'} is a derived rule of \gatUw and
-from which we may deduce that the
+In addition to the assumptions made in (i), suppose that  
+the rule \gatdisplayrule{\xDelta{n}}{\Delta = \Delta'} is a derived rule of \gatU. 
+We may deduce that the
 \gatdisplayrule{\xDelta{n}}{\isT{\Delta'}} is a derived rule of \gatU. Denote this latter rule $r'$.
 It is required that the rule $r'$ is mapped by $I$ to the same object $a$ of \catcw that $r$ is mapped to.
 
 \item \underline{\textbf{$\boldsymbol{\in=}$-rules}} 
-Suppose, in addition,  that the rule
+In addition to the assumptions made in (ii),  suppose that the rule
 \gatdisplayrule{\xDelta{n}}{t = t' \in \Delta}
-is a derived rule of \gatUw and from which we may deduce that the rule
+is a derived rule of \gatU. We may deduce that the rule
 \gatdisplayrule{\xDelta{n}}{\ofT{t'}{\Delta}} is a  derived rule of \gatU. 
 Denote this latter rule $r'_t$.
 It is required that the rule $r'_t$ is mapped by $I$ to the same section $s$ of $a$ that $r_t$ is mapped to.
+
+\item \underline{\textbf{weakening T-rules}} 
+Suppose now that $Q$ is any context of \gatUw and that the rule 
+\gatdisplayrule{\yOmega{m}}{\isT{\Omega}} is a derived rule of \gatU. Denote this rule $r_\Omega$. 
+It follows that \foreachj, the rule   \gatdisplayrule{\yOmega{j-1}}{\isT{\Omega_j}} is a derived rule of \gatU. Denote this rule $r_{\Omega_j}$.
+Suppose that each rule $r_{\Omega_j}$ is mapped by $I$ to an object $b_j$ of \catcw and that rule $r_\Omega$ is mapped by $I$ to an object $b$ of \catcw so that
+we have that $b_1 \base ... \base b_m \base b$ in \catc.
+
+By the simple weakening lemma it follows that the rules
+\gatdisplayrule{Q, \yOmega{j-1}}{\isT{\Omega_j}}, \foreachj, and 
+\gatdisplayrule{Q, \yOmega{m}}{\isT{\Omega}} are  derived rule of \gatU. It is required that these rules are mapped by $I$ to the objects
+$\crossx{a}{b_1}{1},...\crossx{a}{b_m}{1}$ and to $\crossx{a}{b}{1}$, respectively. 
+
+\item \underline{\textbf{weakening $\boldsymbol {\in}$-rules}} 
+Suppose in addition that the rule \gatdisplayrule{\yOmega{m}}{\ofT{s}{\Omega}} is a derived rule of \gatUw 
+and that this rule is mapped by $I$ to a section $g$ of object $b$ in \catc.
+By the simple weakening lemma it follows that the rule \gatdisplayrule{Q, \yOmega{m}}{\ofT{s}{\Omega}}
+is a derived rule of \gatU. It is required that this rule is mapped by $I$ to the section $\crossx{a}{s}{1}$
+of object $\crossx{a}{b}{1}$ of \catc.
+
+
+\item \underline{\textbf{substituting in T-rules}} 
+Suppose that, as in (v), above, the rule 
+\gatdisplayrule{\yOmega{m}}{\isT{\Omega}} is a derived rule of \gatU.
+We may deduce that \foreachj, the rule   \gatdisplayrule{\yOmega{j-1}}{\isT{\Omega_j}} is a derived rule of \gatU. 
+Suppose that, as in (v), these rules are mapped by $I$ to objects $b_1,...b_n$ and $b$ so that
+we have  $b_1 \base ... \base b_m \base b$ in \catc. Now suppose that for some $j$, $1 \leq j \leq m$, the rule
+\gatdisplayrule{\yOmega{j-1}}{\ofT{t}{\Omega_j}} is a derived rule of \gatU. 
+Now it follows by the substitution lemma that for each $j'$, $j < j' \leq m$ the rule
+
+\gatdisplayrule{\yOmega{j-1}, y_{j+1}\in \Omega_{j+1}[t|y_j],... y_{j'-1} \in \Omega_{j'-1}[t|y_j] }{\isT{\Omega_j[t|y_j]}} is a derived rule of \gatUw and that likewise the rule
+
+\gatdisplayrule{\yOmega{j-1}, y_{j+1}\in \Omega_{j+1}[t|y_j],... y_m \in \Omega_m[t|y_j] }{\isT{\Omega}[t|y_j]} is a derived rule of \gatU.
+It is required that these rules are mapped by $I$ to objects $f^*b_{j+1},...f^*b_m$ and $f^*b$, respectively.
+Note that as required we have that $f^*b_{j+1}\base ... \base f^*b_m \base f^*b$ in \catc.
+
+\item \underline{\textbf{substituting in $\boldsymbol {\in}$-rules}} 
+Suppose that in addition to the situation in (vii), above, the rule
+\gatdisplayrule{\yOmega{m}}{\ofT{s}{\Omega}}
+is a derived rule of \gatUw and suppose that this rule is mapped to a section $g$ of object $b$ of \catc.
+Now it follows by the substitution lemma that the rule
+\gatdisplayrule{\yOmega{j-1}, y_{j+1}\in \Omega_{j+1}[t|y_j],... y_m \in \Omega_m[t|y_j]}{\ofT{s[t|y_j]}{\Omega[t|y_j]}} 
+is a derived rule of \gatU.
+It is a requirement that this rule is mapped by $I$ to the section $f^*g$ of object $f^*b$ of \catc.
 \end{enumerate}
 
-\newpage
 
-\note 3
-\label{omegarealisationwrtQ}
- Suppose also that $\encyOmega{m}$ is a context of generalised algebraic theory \gatUw and suppose that $Q$ is some other context and that for some $m \geq 1$,
- \foreachj, \gatdisplayrule{Q}{\ofT{s_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}} is a derived rule of \gatU\footnote{Recall that such an m-tuple $\tuple{\sm}$ is said to be a realisation of 
-$\encyOmega{m}$ wrt $Q$.}.  Suppose that an interpretation $I$ of \gatUw in a contextual category \catcw maps the context $Q$ to an object $a$  of $\catc$ and maps
-the context $\encyOmega{j}$ to an object $b_j$ of \catc, \foreachj, so that $1 \base b_1 ... \base b_m$ in \catc. In this situation the rule 
-\gatdisplayrule{Q}{\ofT{s_1}{\Omega_1}} will be mapped by $I$ to some section $f_1:a \morph \crossx{a}{b_1}{1}$. The j'th rule,
-\gatdisplayrule{Q}{\ofT{s_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}}, will be mapped to a section $f_j:a \morph \fjpstar ... \fonestar\crossx{a}{b_j}{1}$.
-In the case that $m=3$  then in \catcw we will have objects and morphisms as follows:
-\begin{displaymath}
-\begin{array}{c p{1cm} c p {1cm} c  p{1cm} c}
-                                                &&                                           && \Rnode{ab3}{\crossx{a}{b_3}{1}}                       \\[1.2cm]
-                                                &&\Rnode{f1axb3}{\fonestar\crossx{a}{b_3}{1}}  && \Rnode{ab2}{\crossx{a}{b_2}{1}}                       \\[1.2cm]
- \Rnode{f3target}{\ftwostar\fonestar\crossx{a}{b_3}{1}} &&\Rnode{f2target}{\fonestar\crossx{a}{b_2}{1}}  && \Rnode{ab1}{\crossx{a}{b_1}{\Rnode{f1target}{1}}}     \\[1.2cm]
-                                                &&\Rnode{a}{a}                               &&                                                       \\[-3.0cm]
-																								&&                                           &&                         && \Rnode{b3}{b_3}             \\[1.2cm]
-																								&&                                           &&                         && \Rnode{b2}{b_2}             \\[1.2cm]
-																								&&                                           &&                         && \Rnode{b1}{b_1}             \\[1.1cm]
-																								&&                                           && \Rnode{abs}{1} \ \ \ \ \ \ \ \ &&    
-\end{array}
-\end{displaymath}
-\ncarr{ab3}{b3}
-\ncarr{ab2}{b2}
-\ncarr{ab1}{b1}
-\ncarr{f1axb3}{ab3}
-\ncarr{f2target}{ab2}
-\ncarr{f3target}{f1axb3}
-\ncarc[arcangle=10,nodesepA=5pt,offsetA=2pt,nodesepB=2pt,offsetB=2pt]{->}{a}{f1target}
-\alabel{f_1}[0.25]
-\ncarc[arcangle=15,nodesepA=5pt,offsetA=2pt,nodesepB=2pt,offsetB=2pt]{->}{a}{f2target}
-\alabel{f_2}
-\ncarc[arcangle=10,nodesepA=5pt,offsetA=2pt,nodesepB=2pt,offsetB=2pt]{->}{a}{f3target}
-\alabel{f_3}
-\ncsar{f3target}{a}
-\ncsar{f2target}{a}
-\ncsar{f1target}{a}
-\ncsar{ab2}{ab1}
-\ncsar{ab3}{ab2}
-\ncsar{f1axb3}{f2target}
-\ncsar{b3}{b2}
-\ncsar{b2}{b1}
-\ncsar{b1}{abs}
-\nccdar{a}{abs}
-
-\note 4
-How suppose that additional to the situation of para. \ref{omegarealisationwrtQ} the rules 
-\gatdisplayrule{\yOmega{m}}{\isT{\Delta}} and  \gatdisplayrule{\yOmega{m}}{\ofT{t}{\Delta}} are derived rules of \gatUw. 
-Let us denote these rules $r$ and $r_t$, respectively. Suppose that $I$ is an interpretation of $\gatUw$ in \catcw as mapping rules and contexts as described in para. \ref{omegarealisationwrtQ}.
-From what we have said in para \ref{omegarealisationwrtQ}, the interpretation  $I$ will map rule $r$ to an object $b$ such that ${b_m \base b}$ in \catcw and it will map the rule $r_t$ to a section $g:b_m \morph b$.  
-
-Now it follows by the substitution lemma (see \cite{Cartmell86})
-that the substituted $r$ and $r_t$ rules: 
-\gatdisplayrule{Q}{\isT{\Delta[s_1|y_1...s_m|y_m]}} 
-and  \gatdisplayrule{Q}{\ofT{t[s_1|y_1...s_m|y_m]}{\Delta[s_1|y_1...s_m|y_m]}} are derived rules of \gatU. 
-
-\highlight{We require that}
-the substituted $r$ rule will be mapped by $I$ to the object $\smstar...\sonestar\crossx{a}{b}{1}$ and the substituted $r_t$ rule will
-be mapped by $I$ to the morphism  $\smstar...\sonestar\crossx{a}{g}{1}$ (which is defined since $g$ is a section).
-
-\newpage
 \note
-\oldt{As a stepping stone, we need  give an auxillary definition, the definition of  a `preinterpretation of \gatUw in \catc'.}
+We can show that an interpretation $I$ of a contextual category \gatUw in a contextual category \catCw is
+completely determined by its mapping of the introductory rules of sort symbols and operator symbols to
+objects, respectively, sections of \catc. In order to show this first define a preinterpretation as follows:
+\begin{definition}
 If \gatU is a generalised algebraic theory  and if \catcw is a contextual category then
-a preinterpretation $I$ of  \gatU in \catcw consists of a pair :
+a \term{preinterpretation} $I$ of  \gatU in \catcw consists of a pair :
 \begin{itemize}
 \item a mapping $\Isort$ that maps each sort symbol of \gatUw to  an object of \catc,
 \item a mapping $\Iop$ that maps each operator symbol of \gatUw to a section of \catcw (i.e. to a morphism $f: A \morph B$ for some 
 $A \base B$ in \catcw such that $f \circ p_B=id_A$).
 \end{itemize}
-
-\note We can state the conditions that a preinterpreation must specify in order that it can be extended to an interpretation.
-If a preinterpretation meets these conditions then there is a unique interpretation that it extends to.
-\begin{enumerate}[(i)]
-\setlength\itemindent{2cm}
-\item
-whenever $A$ is a sort symbol of \gatUw that is introduced by the rule
-$\frac{\xDelta{n}}{\isT{A(\xn)}}$
-then $\Ihat(Rn) \base \Isort(A)$ in \catc, where $Rn$ is the rule
-$\frac{\context{x}{\Delta}{n-1}}{\isT{\Delta_n}}$,
-\item
-whenever $F$ is an operator symbol of \gatUw that is introduced by the rule
-$\frac{\xDelta{n}}{\ofT{F(\xn)}{\Delta}}$
-then $\Iop(F) : \Ihat(Rn) \morph \Ihat(R)$  in \catcw and $\Iop(F)$ is a section,
-\item whenever
-$\frac{\xDelta{n}}{\Delta = \Delta'}$
-is an axiom of \gatUw then $\Ihat(R) = \Ihat(R')$
-where $R$ is the rule
-$\frac{\xDelta{n}}{\isT{\Delta}}$
-and $R'$ is the rule
-$\frac{\xDelta{n}}{\isT{\Delta}}$,
-\item whenever
-$\frac{\xDelta{n}}{t = t' \in \Delta}$
-is an axiom of \gatUw then $\Ihat(Rt) = \Ihat(Rt')$
-where $Rt$ is the rule
-$\frac{\xDelta{n}}{\ofT{t}{\Delta}}$
-and $Rt'$ is the rule
-$\frac{\xDelta{n}}{\ofT{t'}{\Delta}}$.
-\end{enumerate}
+\end{definition}
+A preinterpretation will unqiuely extend to an interpretation (we will say it is an interpretation) iff it is type correct but being precise about what we mean by type correct requires a minor detour. 
 
 \note The definition of $\Ihat$ from $\Isort$ and $\Iop$ whnever $I$ is an interpretation proceeds by induction 
 on the derivation of rules in  \gatUw 
@@ -228,4 +190,65 @@ a_i\\
 \ncsar{a1}{abs}
 \ncarc[arcangle=30,nodesepA=5pt,offsetA=2pt,nodesepB=2pt,offsetB=2pt]{->}{an}{cross}
 \alabel{s(p_{a_n,a_i})}
+\end{oldtt}
+
+\begin{oldtt}
+\note 3
+\label{omegarealisationwrtQ}
+ Suppose also that $\encyOmega{m}$ is a context of generalised algebraic theory \gatUw and suppose that $Q$ is some other context and that for some $m \geq 1$,
+ \foreachj, \gatdisplayrule{Q}{\ofT{s_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}} is a derived rule of \gatU\footnote{Recall that such an m-tuple $\tuple{\sm}$ is said to be a realisation of 
+$\encyOmega{m}$ wrt $Q$.}.  Suppose that an interpretation $I$ of \gatUw in a contextual category \catcw maps the context $Q$ to an object $a$  of $\catc$ and maps
+the context $\encyOmega{j}$ to an object $b_j$ of \catc, \foreachj, so that $1 \base b_1 ... \base b_m$ in \catc. In this situation the rule 
+\gatdisplayrule{Q}{\ofT{s_1}{\Omega_1}} will be mapped by $I$ to some section $f_1:a \morph \crossx{a}{b_1}{1}$. The j'th rule,
+\gatdisplayrule{Q}{\ofT{s_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}}, will be mapped to a section $f_j:a \morph \fjpstar ... \fonestar\crossx{a}{b_j}{1}$.
+In the case that $m=3$  then in \catcw we will have objects and morphisms as follows:
+\begin{displaymath}
+\begin{array}{c p{1cm} c p {1cm} c  p{1cm} c}
+                                                &&                                           && \Rnode{ab3}{\crossx{a}{b_3}{1}}                       \\[1.2cm]
+                                                &&\Rnode{f1axb3}{\fonestar\crossx{a}{b_3}{1}}  && \Rnode{ab2}{\crossx{a}{b_2}{1}}                       \\[1.2cm]
+ \Rnode{f3target}{\ftwostar\fonestar\crossx{a}{b_3}{1}} &&\Rnode{f2target}{\fonestar\crossx{a}{b_2}{1}}  && \Rnode{ab1}{\crossx{a}{b_1}{\Rnode{f1target}{1}}}     \\[1.2cm]
+                                                &&\Rnode{a}{a}                               &&                                                       \\[-3.0cm]
+																								&&                                           &&                         && \Rnode{b3}{b_3}             \\[1.2cm]
+																								&&                                           &&                         && \Rnode{b2}{b_2}             \\[1.2cm]
+																								&&                                           &&                         && \Rnode{b1}{b_1}             \\[1.1cm]
+																								&&                                           && \Rnode{abs}{1} \ \ \ \ \ \ \ \ &&    
+\end{array}
+\end{displaymath}
+\ncarr{ab3}{b3}
+\ncarr{ab2}{b2}
+\ncarr{ab1}{b1}
+\ncarr{f1axb3}{ab3}
+\ncarr{f2target}{ab2}
+\ncarr{f3target}{f1axb3}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=2pt,nodesepB=2pt,offsetB=2pt]{->}{a}{f1target}
+\alabel{f_1}[0.25]
+\ncarc[arcangle=15,nodesepA=5pt,offsetA=2pt,nodesepB=2pt,offsetB=2pt]{->}{a}{f2target}
+\alabel{f_2}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=2pt,nodesepB=2pt,offsetB=2pt]{->}{a}{f3target}
+\alabel{f_3}
+\ncsar{f3target}{a}
+\ncsar{f2target}{a}
+\ncsar{f1target}{a}
+\ncsar{ab2}{ab1}
+\ncsar{ab3}{ab2}
+\ncsar{f1axb3}{f2target}
+\ncsar{b3}{b2}
+\ncsar{b2}{b1}
+\ncsar{b1}{abs}
+\nccdar{a}{abs}
+
+\note 
+How suppose that additional to the situation of para. \ref{omegarealisationwrtQ} the rules 
+\gatdisplayrule{\yOmega{m}}{\isT{\Delta}} and  \gatdisplayrule{\yOmega{m}}{\ofT{t}{\Delta}} are derived rules of \gatUw. 
+Let us denote these rules $r$ and $r_t$, respectively. Suppose that $I$ is an interpretation of $\gatUw$ in \catcw as mapping rules and contexts as described in para. \ref{omegarealisationwrtQ}.
+From what we have said in para \ref{omegarealisationwrtQ}, the interpretation  $I$ will map rule $r$ to an object $b$ such that ${b_m \base b}$ in \catcw and it will map the rule $r_t$ to a section $g:b_m \morph b$.  
+
+Now it follows by the substitution lemma (see \cite{Cartmell86})
+that the substituted $r$ and $r_t$ rules: 
+\gatdisplayrule{Q}{\isT{\Delta[s_1|y_1...s_m|y_m]}} 
+and  \gatdisplayrule{Q}{\ofT{t[s_1|y_1...s_m|y_m]}{\Delta[s_1|y_1...s_m|y_m]}} are derived rules of \gatU. 
+
+\highlight{We require that}
+the substituted $r$ rule will be mapped by $I$ to the object $\smstar...\sonestar\crossx{a}{b}{1}$ and the substituted $r_t$ rule will
+be mapped by $I$ to the morphism  $\smstar...\sonestar\crossx{a}{g}{1}$ (which is defined since $g$ is a section).
 \end{oldtt}
