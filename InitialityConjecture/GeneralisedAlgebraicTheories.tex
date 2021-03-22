@@ -1,3 +1,10 @@
+\newcommand{\inlinedisplay}[1]
+{
+\setlength{\fboxsep}{1.5pt}
+\setlength{\fboxrule}{0pt}
+\fbox{$\displaystyle #1$}
+}
+
 \newcommand{\gatdisplayrule}[2]
 {
 \setlength{\fboxsep}{1pt}
@@ -17,15 +24,81 @@
 \newcommand{\smstar}{{s_m}\kern-.25em^*}
 \newcommand{\sonestar}{{s_1}\kern-.15em^*}
 
+\newcommand{\Trule} {T-rule\ }
+\newcommand{\trule} {$\in$-rule\ }
+\newcommand{\Teqrule} {T=-rule\ }
+\newcommand{\teqrule} {$\in=$-rule\ }
 
 \note
-We give the broadest possible notion of a model
-of a generalised algebraic theory \gatUw by defining the notion of an interpretation of  \gatUw in  any given contextual category \catc.
+We give the broadest possible notion of `model
+of a generalised algebraic theory \gatUw' by defining the notion of an `interpretation of  a generalised algebraic theory \gatUw in a contextual category \catc'.
+\note To make the definition precise I use material from my thesis  \cite{Cartmell78} which isn't contained in
+the summary that I  published as \cite{Cartmell86} and so I summarise it here.
+\note 
+In my thesis (\cite{Cartmell78}) and as written up in \cite{Cartmell86}, I define what it is for a rule written in the alphabet of a generalised algebraic theory to be \term{well-formed}. Here I will use the adjective \term{well-typed} instead.
+With this revised terminology, definition 2(a) from \cite{Cartmell86}, states that in  a generalised algebraic theory \gatUw:
+\begin{enumerate} [(i)]
+\item 
+a \Trule \gatdisplayrule{\xDelta{n}}{\isT{\Delta}} is well-typed  iff 
+$\xDelta{n}$ is a context in \gatUw i.e. iff 
+\gatdisplayrule{\xDelta{n-1}}{\isT{\Delta_n}} is a derived rule of \gatUw and $x_n$ is distinct from all of $x_1,...x_{n-1}$, 
+\item 
+an \trule \gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta}} is well-typed iff
+the rule \gatdisplayrule{\xDelta{n}}{\isT{\Delta}} is a derived rule of \gatU,
+\item 
+a \Teqrule \gatdisplayrule{\xDelta{n}}{\Delta=\Delta'} is well-typed iff
+both \gatdisplayrule{\xDelta{n}}{\isT{\Delta}} and \gatdisplayrule{\xDelta{n}}{\isT{\Delta'}} are derived rules
+of \gatU,
+\item 
+an \teqrule \gatdisplayrule{\xDelta{n}}{t=t' \in \Delta} is well-typed iff
+both \gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta}} and \gatdisplayrule{\xDelta{n}}{\ofT{t'}{\Delta}} are derived rules
+of \gatU.
+\end{enumerate}
+In \cite{Cartmell78} and \cite{Cartmell86}, a \term{pretheory} (which is defined as a collection of symbols each with an introductory rule and a set of axioms) is defined to be \term{well-typed} iff all its introductory rules and axioms are. A \term{generalised algebraic theory} is defined to be a well-typed pretheory.
 
-\note Aside: Simple weakening. We can prove that in any generalised algebraic theory $\gatU$ that
-if $Q$ is any context,
-and if the rule \gatdisplayrule{\yOmega{m}}{Conclusion} is a derived rule of \gatUw then
-the (weakened) rule \gatdisplayrule{Q,\yOmega{m}}{Conclusion} is a derived rule of \gatU.
+\note In my thesis there are a number of housekeeping lemmas which are aimed at showing that the formal definitions inclusive of the `principles of derivation' (\cite{Cartmell78}, \cite{Cartmell86}) work out as they ought to. Some of these lemmas are summarised in \cite{Cartmell86} but not all of them. Here I will summarise each one of them and name those that were previously unnamed. In the following, assume that \gatUw is a generalised algeabraic theory.
+
+\note The Substitution Lemma: In brief, every type-correct substitutional instance of a derived rule is a derived rule. More precisely, for $m \geq 1$, if \gatdisplayrule{\yOmega{m}}{Conclusion} is a derived rule of \gatUw 
+and if  \foreachj, \gatdisplayrule{Q}{\ofT{s_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}} is a derived rule of \gatUw
+then \gatdisplayrule{\yOmega{m}}{Conclusion[s_1|y_1,...s_m|y_m]} is a derived rule of \gatU, where
+for any expression $expr$ we write
+$expr[s_1|y_1,...s_m|y_m]$ to mean
+the result of substituting each instance of variable $y_j$ in $expr$ by $s_j$, \foreachj.
+
+\note The Well-Typedness Lemma\footnote{Lemma on page 1-33 of \cite{Cartmell78}}. Every derived rule of \gatUw is well-typed. 
+
+\note The Derivation Lemma\footnote{page 1.34 of \cite{Cartmell78}}. 
+\begin{enumerate}[(a)]
+
+\item Every derived \Trule of \gatUw is of the form
+\gatdisplayrule{\yOmega{m}}{\isT{A(\tn)}} for some sort symbol $A$ of \gatUw with introductory rule of the form
+\gatdisplayrule{\xDelta{n}}{\isT{A(\xn)}} and for some expressions $\tn$ such that \foreachi, the rule
+\gatdisplayrule{\yOmega{m}}{\ofT{t_i}{\Delta_i[t_1|x_1,...t_{i-1}|x_{i-1}]}} is a derived rule of \gatU.
+
+\item Every derived \trule of \gatUw is of the form
+\gatdisplayrule{\yOmega{m}}{\ofT{f(\tn)}{\Omega}} for some operator symbol $f$ of \gatUw 
+with introductory rule of the form
+\gatdisplayrule{\xDelta{n}}{\ofT{f(\xn)}{\Delta}} 
+and for some expressions $\tn$ such that \foreachi, the rule
+\gatdisplayrule{\yOmega{m}}{\ofT{t_i}{\Delta_i[t_1|x_1,...t_{i-1}|x_{i-1}]}} is a derived rule of \gatUw
+and such that
+\gatdisplayrule{\yOmega{m}}{\Delta[t_1|x_1,...t_{i-1}|x_{i-1}]=\Omega} is a derived rule of \gatU.
+\end{enumerate}
+
+\note The Weakening Lemma\footnote{Lemma 4 of section 1.7 of \cite{Cartmell78} (page 1.37)}. In brief, if the premise of a derived rule is weakened then the resulting rule is a derived rule. More precisely, if 
+\gatdisplayrule{\xDelta{n}}{\isT{\Delta}}  and
+\gatdisplayrule{\xDelta{n},\yOmega{m}}{Conclusion} are both derived rules of \gatUw then if $z$ is a variable
+distinct from $\xn,\ym$ then
+the (weakened) rule \gatdisplayrule{\xDelta{n},z \in \Delta,\yOmega{m}}{Conclusion} is a derived rule
+of \gatU.
+
+\note The Stratification Lemma\footnote{Lemma 3 of section 1.7 of \cite{Cartmell78} (page 1.36)}. For each generalised algebraic theory \gatUw  there is a sequence of finite theories 
+$\gatU_0 \subseteq \gatU_1 \subseteq \gatU_2 \subseteq ...$ such that  \inlinedisplay{\gatU = \bigcup_i \gatU_i}
+and such that each $\gatU_{i+1}$ is a simple extension of $\gatU_i$ in the sense that each introductory rule and axiom of $\gatU_{i+1}$ is a well-typed  with respect to $\gatU_i$.
+
+\note We will also use the Finite Subtheory Lemma: if r is a derived rule of U then 
+it is a derived rule of some finite subtheory $F \subseteq U$. 
+
 \note 
 An interpretation $I$ of \gatUw in \catcw is a  mapping 
 of derived T- and $\in$- rules of \gatUw to objects, respectively sections, of \gatUw that satisfies the following:
@@ -120,11 +193,11 @@ It is a requirement that this rule is mapped by $I$ to the section $f^*g$ of obj
 
 
 \note
-We can show that an interpretation $I$ of a contextual category \gatUw in a contextual category \catCw is
+We can show that an interpretation $I$ of a contextual category \gatUw in a contextual category \catcw is
 completely determined by its mapping of the introductory rules of sort symbols and operator symbols to
 objects, respectively, sections of \catc. In order to show this first define a preinterpretation as follows:
 \begin{definition}
-If \gatU is a generalised algebraic theory  and if \catcw is a contextual category then
+If \gatUw is a generalised algebraic theory  and if \catcw is a contextual category then
 a \term{preinterpretation} $I$ of  \gatU in \catcw consists of a pair :
 \begin{itemize}
 \item a mapping $\Isort$ that maps each sort symbol of \gatUw to  an object of \catc,
@@ -132,9 +205,31 @@ a \term{preinterpretation} $I$ of  \gatU in \catcw consists of a pair :
 $A \base B$ in \catcw such that $f \circ p_B=id_A$).
 \end{itemize}
 \end{definition}
-A preinterpretation will unqiuely extend to an interpretation (we will say it is an interpretation) iff it is type correct but being precise about what we mean by type correct requires a minor detour. 
+For a preinterpretation to extend to an interpretation (we will say it is an interpretation) 
+it will need be type correct and to satisy the axioms. Being precise about what we mean by type correct might require a minor detour. 
 
-\note The definition of $\Ihat$ from $\Isort$ and $\Iop$ whnever $I$ is an interpretation proceeds by induction 
+\note 
+\begin{lemma}
+\label{finiteinterpretationlemma}
+If $F$ is a finite generalised algebraic theory and if $P$ is a preinterpretation of $F$ in a contextual category \catcw then there is at most one interpretation $I$ of $F$ in \catcw that is consistent with $P$.
+\end{lemma}
+\begin{proof}
+By induction on the theory $F$. True for the empty theory. Then provably true as sort symbols and operator symbols are added.
+\end{proof} 
+\begin{lemma}
+If \gatUw is any finite generalised algebraic theory and if $P$ is a preinterpretation of \gatUw in a contextual category \catcw then there is at most one interpretation $I$ of \gatUw in \catcw that is consistent with $P$.
+\end{lemma}
+\begin{proof}
+Use lemma \ref{finiteinterpretationlemma} as follows.
+Suppose $I$ and $I'$ are interpretations of \gatUw in \catc.
+We aim to show that for all derived T-rules or $\in$-rules $r$ of \gatU, $I(r)=I'(r)$.
+Suppose then that $r$ is a derived T-rule or $\in$-rule of \gatU. Since $r$ is a derived rule of \gatUw then by lemma \lref{stratification lemma} it is a derived rule of some finite subtheory $F \subseteq \gatU$. 
+Now $I \restriction F$ and $I' \restriction F$ are interpretations
+of $F$ that both extend the preinterpretation $P \restriction F$. Therefore $I \restriction F$ = $I' \restriction F$
+from which we may derive $I(r) = (I \restriction F) (r) = (I' \restriction F)(r) = I'(r)$, as required. 
+\end{proof}
+
+\note The definition of $\Ihat$ from $\Isort$ and $\Iop$ whenever $I$ is an interpretation proceeds by induction 
 on the derivation of rules in  \gatUw 
 as described in the principles of derivation in Definition 2(b) of \cite{Cartmell86}. 
 The only non-trivial parts of this definition relate to the rules
