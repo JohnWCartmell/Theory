@@ -29,6 +29,12 @@
 \newcommand{\Teqrule} {T=-rule\ }
 \newcommand{\teqrule} {$\in=$-rule\ }
 
+\newcommand{\genericAintroductoryrule} {\gatdisplayrule{\xDelta{n}}{\isT{A(\xn}}}
+\newcommand{\genericfintroductoryrule}  {\gatdisplayrule{\xDelta{n}}{\ofT{f(\xn}{\Delta}}}
+
+
+
+
 \note
 We give the broadest possible notion of `model
 of a generalised algebraic theory \gatUw' by defining the notion of an `interpretation of  a generalised algebraic theory \gatUw in a contextual category \catc'.
@@ -205,8 +211,17 @@ a \term{preinterpretation} $I$ of  \gatU in \catcw consists of a pair :
 $A \base B$ in \catcw such that $f \circ p_B=id_A$).
 \end{itemize}
 \end{definition}
-For a preinterpretation to extend to an interpretation (we will say it is an interpretation) 
-it will need be type correct and to satisy the axioms. Being precise about what we mean by type correct might require a minor detour. 
+
+
+
+
+
+
+
+
+
+
+
 
 \note 
 \begin{lemma}
@@ -229,6 +244,62 @@ of $F$ that both extend the preinterpretation $P \restriction F$. Therefore $I \
 from which we may derive $I(r) = (I \restriction F) (r) = (I' \restriction F)(r) = I'(r)$, as required. 
 \end{proof}
 
+\note
+ For a preinterpretation to extend to an interpretation (we will say that it *is* an interpretation) 
+it will need be type correct and to satisy the axioms of the theory. The definition of exactly what we mean by this has to proceed by induction there because, for example, we need an interpretation of the rule
+\gatdisplayrule{\xDelta{n}}{\isT{\Delta}} (as an object $a$ of \catc, say) before we can say whether a preinterpretation of an operator with introductory rule \genericfintroductoryrule
+is well-typed (i.e. a section of object $a$).
+Similarly we need to be able to interpret both sides of an axiom before we can say whether it is respected. 
+
+\note Suppose $P$ be a preinterpretation of \gatUw in contextual category \catc.
+Let $\gatU_0 \subseteq \gatU_1 \subseteq \gatU_2 \subseteq ...$ be the stratification of \gatU. 
+Let $P_i$ be the restriction of $P$ to $U_i$. 
+We define $P$ to be well-typed and to respect all axioms 
+providing that  each  $P_i$ is well-typed and respects all axioms of $\gatU_i$ and 
+what we mean by this we define by induction. 
+At the same time we prove that if $P_i$ is well-typed and respects all axioms of $\gatU_i$ then $P_i$
+extends uniquely to an interpretation of $\gatU_i$.  
+
+For the inductive step we require
+\begin{lemma}
+\item $P_{i+1}$ extends uniquely to an interpretation of $U_{i+1}$ iff  $P_i$ extends uniquely to an interpretation of $U_{i}$ and additionally:
+\begin{enumerate}[(i)]
+\item
+$P_{i+1}$ is well-typed on sort symbol $A$ of $U_{i+1}$. This we define to mean that
+for all sort symbols $A$ in $U_{i+1}$, if $A$ has introductory rule 
+\genericAintroductoryrule and if this rule is mapped by $P_{i+1}$
+to object $a$ of \catcw then $I_i(r_n) \base a$ in \catc, where $r_n$ is the rule 
+\gatdisplayrule{\xDelta{n-1}}{\isT{\Delta_n}} (which, as required and due to the stratification, is a derived rule of $\gatU_i$).
+\item  $P_{i+1}$ is well-typed on operator symbols  of $U_{i+1}$. This we define to mean that
+for all sort symbols $f$ in $U_{i+1}$, if $f$ has introductory rule 
+\genericfintroductoryrule then $P_{i+1}$ maps this rule to a section 
+of $I_i(r)$ where $r$ is the rule
+\gatdisplayrule{\xDelta{n}}{\isT{\Delta}} (which, as required and due to the stratification, is a derived rule of $\gatU_i$). 
+\item
+ $I_i$ respects the axioms of $U_{i+1}$. By this we mean that 
+\begin{enumerate}[(i)]
+\item \underline{\textbf{T=-axioms}} 
+for all axioms of $U_{i+1}$ of the form
+ \gatdisplayrule{\xDelta{n}}{\Delta = \Delta'},
+$I_i(r) = I_i(r')$ where $r$ is the rule
+\gatdisplayrule{\xDelta{n}}{\isT{\Delta}} and  
+and $r'$ is the rule \gatdisplayrule{\xDelta{n}}{\isT{\Delta'}}
+\item \underline{\textbf{$\boldsymbol{\in=}$-axioms}} 
+for all axioms of $U_{i+1}$ of the form
+\gatdisplayrule{\xDelta{n}}{t = t' \in \Delta}
+$I_i(r_t) = I_i(r'_t)$ where $r_t$ is the rule
+\gatdisplayrule{\xDelta{n}}{\ofT{r_t}{\Delta}} and  
+and $r'_t$ is the rule \gatdisplayrule{\xDelta{n}}{\ofT{t'}{\Delta'}}.
+\end{enumerate}
+ 
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+
+\end{proof}
+
+\newpage
+\begin{oldtt}
 \note The definition of $\Ihat$ from $\Isort$ and $\Iop$ whenever $I$ is an interpretation proceeds by induction 
 on the derivation of rules in  \gatUw 
 as described in the principles of derivation in Definition 2(b) of \cite{Cartmell86}. 
@@ -260,6 +331,7 @@ Define $I(R)$ to be $\Ihat(R_n)^*...\Ihat(R_1)^*\crossx{\Ihat(R_n)}{I(A)}{1}$.\c
 \begin{point}
 CF2(b) \highlight{fill this in}
 \end{point}
+\end{oldtt}
 
 \begin{oldtt}
 \begin{displaymath}
