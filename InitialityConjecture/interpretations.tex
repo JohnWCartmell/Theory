@@ -1,0 +1,214 @@
+\note
+We give the broadest possible notion of `model
+of a generalised algebraic theory \gatUw' by defining the notion of an `interpretation of  a generalised algebraic theory \gatUw in a contextual category \catc'.
+\begin{definition}
+An interpretation $I$ of \gatUw in \catcw is a  mapping 
+of derived T- and $\in$- rules of \gatUw to objects, respectively sections, of \gatUw that satisfies the following:
+\begin{enumerate}[(i)]
+\setlength\itemindent{2cm}
+\item \underline{\textbf{T-rules}} 
+Suppose that  the rule
+\gatdisplayrule{\xDelta{n}}{\isT{\Delta}} is a derived rule of \gatUw which is mapped by $I$ to an object $a$ of \catc. Denote this rule $r$. Recall that because $r$ is a derived rule then it follows  that for each $i$, 
+$1 \leq i \leq n$, the rule \gatdisplayrule{\xDelta{i-1}}{\isT{\Delta_i}} is a derived rule of \gatU. Let $r_i$ denote this rule.
+Suppose that $I$ maps each rule $r_i$ to an object $a_i$ of \catcw.
+It is required that $1 \base a_1 \base ... \base a_n \base a$ in \catc.
+
+Suppose that the  expression $\Delta$ is exactly the expression $\Delta_i$, for some $i$, $1 \leq i \leq n$. In this special case we require that the rule $r$  is mapped by $I$ to the object 
+$\crossx{a_n}{a_i}{a_{i-1}}$. 
+
+\item \underline{\textbf{$\boldsymbol {\in}$-rules}} 
+In addition to the assumptions made in (i),  suppose that the rule
+\gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta}} is a  derived rule of \gatU. 
+Denote this rule $r_t$. It is required that $I$ maps the rule $r_t$ to a section
+ $s:a_n \morph a$ in \catcw i.e. to a morphism $s:a_n \morph a$ such that $s \circ p_a = id_{a_n}$. 
+
+Suppose that the  expression $\Delta$ is exactly the expression $\Delta_i$, for some $i$, $1 \leq i \leq n$ and that the expression $t_i$ is simply the variable $x_i$. 
+In this special case we require that the rule $r_t$  is mapped by $I$ to the section\footnote{
+With these assumptions, $s(p_{a_n,a_i}): a_n \morph \crossx{a_n}{a_i}{a_{i-1}}$ in \catcw because by definition  $s(p_{a_n,a_i}): a_n  \morph (p_{a_n,a_i} \circ p_{a_i})^*a_i$,
+and we have 
+\begin{align*}
+(p_{a_n,a_i} \circ p_{a_i})^*a_i &= {p_{a_n,a_{i-1}}} ^* a_i  && \mbox{ because $p_{a_n,a_i} \circ p_{a_i}=p_{a_n,a_{i-1}}$,} \\
+                                 &= \crossx{a_n}{a_i}{a_{i-1}} && \mbox{ by definition of $\crossx{}{}{w}$}.
+\end{align*}
+} % end footnote
+$s(p_{a_n,a_i})$ of the object $\crossx{a_n}{a_i}{a_{i-1}}$. 
+
+\item \underline{\textbf{T=-rules}} 
+In addition to the assumptions made in (i), suppose that  
+the rule \gatdisplayrule{\xDelta{n}}{\Delta = \Delta'} is a derived rule of \gatU. 
+We may deduce that the
+\gatdisplayrule{\xDelta{n}}{\isT{\Delta'}} is a derived rule of \gatU. Denote this latter rule $r'$.
+It is required that the rule $r'$ is mapped by $I$ to the same object $a$ of \catcw that $r$ is mapped to.
+
+\item \underline{\textbf{$\boldsymbol{\in=}$-rules}} 
+In addition to the assumptions made in (ii),  suppose that the rule
+\gatdisplayrule{\xDelta{n}}{t = t' \in \Delta}
+is a derived rule of \gatU. We may deduce that the rule
+\gatdisplayrule{\xDelta{n}}{\ofT{t'}{\Delta}} is a  derived rule of \gatU. 
+Denote this latter rule $r'_t$.
+It is required that the rule $r'_t$ is mapped by $I$ to the same section $s$ of $a$ that $r_t$ is mapped to.
+
+\item \underline{\textbf{weakening T-rules}} 
+Suppose now that $Q$ is any context of \gatUw and that the rule 
+\gatdisplayrule{\yOmega{m}}{\isT{\Omega}} is a derived rule of \gatU. Denote this rule $r_\Omega$. 
+It follows that \foreachj, the rule   \gatdisplayrule{\yOmega{j-1}}{\isT{\Omega_j}} is a derived rule of \gatU. Denote this rule $r_{\Omega_j}$.
+Suppose that each rule $r_{\Omega_j}$ is mapped by $I$ to an object $b_j$ of \catcw and that rule $r_\Omega$ is mapped by $I$ to an object $b$ of \catcw so that
+we have that $b_1 \base ... \base b_m \base b$ in \catc.
+
+By the simple weakening lemma it follows that the rules
+\gatdisplayrule{Q, \yOmega{j-1}}{\isT{\Omega_j}}, \foreachj, and 
+\gatdisplayrule{Q, \yOmega{m}}{\isT{\Omega}} are  derived rule of \gatU. It is required that these rules are mapped by $I$ to the objects
+$\crossx{a}{b_1}{1},...\crossx{a}{b_m}{1}$ and to $\crossx{a}{b}{1}$, respectively. 
+
+\item \underline{\textbf{weakening $\boldsymbol {\in}$-rules}} 
+Suppose in addition that the rule \gatdisplayrule{\yOmega{m}}{\ofT{s}{\Omega}} is a derived rule of \gatUw 
+and that this rule is mapped by $I$ to a section $g$ of object $b$ in \catc.
+By the simple weakening lemma it follows that the rule \gatdisplayrule{Q, \yOmega{m}}{\ofT{s}{\Omega}}
+is a derived rule of \gatU. It is required that this rule is mapped by $I$ to the section $\crossx{a}{s}{1}$
+of object $\crossx{a}{b}{1}$ of \catc.
+
+
+\item \underline{\textbf{substituting in T-rules}} 
+Suppose that, as in (v), above, the rule 
+\gatdisplayrule{\yOmega{m}}{\isT{\Omega}} is a derived rule of \gatU.
+We may deduce that \foreachj, the rule   \gatdisplayrule{\yOmega{j-1}}{\isT{\Omega_j}} is a derived rule of \gatU. 
+Suppose that, as in (v), these rules are mapped by $I$ to objects $b_1,...b_n$ and $b$ so that
+we have  $b_1 \base ... \base b_m \base b$ in \catc. Now suppose that for some $j$, $1 \leq j \leq m$, the rule
+\gatdisplayrule{\yOmega{j-1}}{\ofT{t}{\Omega_j}} is a derived rule of \gatU. 
+Now it follows by the substitution lemma that for each $j'$, $j < j' \leq m$ the rule
+
+\gatdisplayrule{\yOmega{j-1}, y_{j+1}\in \Omega_{j+1}[t|y_j],... y_{j'-1} \in \Omega_{j'-1}[t|y_j] }{\isT{\Omega_j[t|y_j]}} is a derived rule of \gatUw and that likewise the rule
+
+\gatdisplayrule{\yOmega{j-1}, y_{j+1}\in \Omega_{j+1}[t|y_j],... y_m \in \Omega_m[t|y_j] }{\isT{\Omega}[t|y_j]} is a derived rule of \gatU.
+It is required that these rules are mapped by $I$ to objects $f^*b_{j+1},...f^*b_m$ and $f^*b$, respectively.
+Note that as required we have that $f^*b_{j+1}\base ... \base f^*b_m \base f^*b$ in \catc.
+
+\item \underline{\textbf{substituting in $\boldsymbol {\in}$-rules}} 
+Suppose that in addition to the situation in (vii), above, the rule
+\gatdisplayrule{\yOmega{m}}{\ofT{s}{\Omega}}
+is a derived rule of \gatUw and suppose that this rule is mapped to a section $g$ of object $b$ of \catc.
+Now it follows by the substitution lemma that the rule
+\gatdisplayrule{\yOmega{j-1}, y_{j+1}\in \Omega_{j+1}[t|y_j],... y_m \in \Omega_m[t|y_j]}{\ofT{s[t|y_j]}{\Omega[t|y_j]}} 
+is a derived rule of \gatU.
+It is a requirement that this rule is mapped by $I$ to the section $f^*g$ of object $f^*b$ of \catc.
+\end{enumerate}
+\end{definition}
+
+\note
+We can show that an interpretation $I$ of a contextual category \gatUw in a contextual category \catcw is
+completely determined by its mapping of the introductory rules of sort symbols and operator symbols to
+objects, respectively, sections of \catc. In order to show this first define a preinterpretation as follows:
+\begin{definition}
+If \gatUw is a generalised algebraic theory  and if \catcw is a contextual category then
+a \term{preinterpretation} $I$ of  \gatUw in \catcw consists of a pair :
+\begin{itemize}
+\item a mapping $\Isort$ that maps each sort symbol of \gatUw to  an object of \catc,
+\item a mapping $\Iop$ that maps each operator symbol of \gatUw to a section of \catcw (i.e. to a morphism $f: A \morph B$ for some 
+$A \base B$ in \catcw such that $f \circ p_B=id_A$).
+\end{itemize}
+\end{definition}
+
+Note that I will say that an interpretation $I$ of \gatUw in \catcw extends a preinterpretation $P$ of \gatUw in \catcw to mean that for each sort symbol $A$ of \gatU,
+$\Isort(r_A) = P(A)$, where $r_A$ is the introductory rule for $A$ and that for each operator symbol
+$f$ of \gatU,   $\Iop(r_f) = P(f)$, where $r_f$ is the introductory rule for $f$.
+
+
+
+\note
+ For a preinterpretation to extend to an interpretation (we will say that it *is* an interpretation) 
+it will need be type correct and to satisy the axioms of the theory. The definition of exactly what we mean by this has to proceed by induction because, for example, we need an interpretation of the rule
+\gatdisplayrule{\xDelta{n}}{\isT{\Delta}} (as an object $a$ of \catc, say) before we can say whether a preinterpretation of an operator with introductory rule \genericfintroductoryrule
+is well-typed (i.e. to know that it is object $a$ that it is required to be a section of).
+Similarly we need to be able to interpret both sides of an axiom before we can say whether it is respected
+by the preinterpretation. 
+
+\note Suppose $P$ be a preinterpretation of \gatUw in contextual category \catc.
+Let $\gatU_0 \subseteq \gatU_1 \subseteq \gatU_2 \subseteq ...$ be the stratification of \gatU. 
+Let $P_i$ be the restriction of $P$ to $U_i$. 
+We define $P$ to be well-typed and to respect all axioms 
+providing that  each  $P_i$ is well-typed and respects all axioms of $\gatU_i$ and 
+what we mean by this we define by induction. 
+At the same time we prove that if $P_i$ is well-typed and respects all axioms of $\gatU_i$ then $P_i$
+extends uniquely to an interpretation of $\gatU_i$.  
+
+For the inductive step we require
+\begin{lemmastar}
+\item $P_{i+1}$ extends uniquely to an interpretation of $U_{i+1}$ iff  $P_i$ extends uniquely to an interpretation of $U_{i}$ and additionally:
+\begin{enumerate}[(i)]
+\item
+$P_{i+1}$ is well-typed on sort symbol $A$ of $U_{i+1}$. This we define to mean that
+for all sort symbols $A$ in $U_{i+1}$, if $A$ has introductory rule 
+\genericAintroductoryrule and if this rule is mapped by $P_{i+1}$
+to object $a$ of \catcw then $I_i(r_n) \base a$ in \catc, where $r_n$ is the rule 
+\gatdisplayrule{\xDelta{n-1}}{\isT{\Delta_n}} (which, as required and due to the stratification, is a derived rule of $\gatU_i$).
+\item  $P_{i+1}$ is well-typed on operator symbols  of $U_{i+1}$. This we define to mean that
+for all sort symbols $f$ in $U_{i+1}$, if $f$ has introductory rule 
+\genericfintroductoryrule then $P_{i+1}$ maps this rule to a section 
+of $I_i(r)$ where $r$ is the rule
+\gatdisplayrule{\xDelta{n}}{\isT{\Delta}} (which, as required and due to the stratification, is a derived rule of $\gatU_i$). 
+\item
+ $I_i$ respects the axioms of $U_{i+1}$. By this we mean that 
+\begin{enumerate}[(i)]
+\item \underline{\textbf{T=-axioms}} 
+for all axioms of $U_{i+1}$ of the form
+ \gatdisplayrule{\xDelta{n}}{\Delta = \Delta'},
+$I_i(r) = I_i(r')$ where $r$ is the rule
+\gatdisplayrule{\xDelta{n}}{\isT{\Delta}} and  
+and $r'$ is the rule \gatdisplayrule{\xDelta{n}}{\isT{\Delta'}}
+\item \underline{\textbf{$\boldsymbol{\in=}$-axioms}} 
+for all axioms of $U_{i+1}$ of the form
+\gatdisplayrule{\xDelta{n}}{t = t' \in \Delta}
+$I_i(r_t) = I_i(r'_t)$ where $r_t$ is the rule
+\gatdisplayrule{\xDelta{n}}{\ofT{r_t}{\Delta}} and  
+and $r'_t$ is the rule \gatdisplayrule{\xDelta{n}}{\ofT{t'}{\Delta'}}.
+\end{enumerate}
+\end{enumerate}
+\end{lemmastar}
+\begin{proof} 
+\tbd
+\end{proof}
+
+\note
+In practice things aren't as complicated as all that. Consider as an example
+what constitutes an interpretation $c$ of the theory of categories in a contextual category \catc.
+Refer back to the stratification of this theory mentioned ealier. That determines the 
+components here:
+\begin{enumerate}
+\item an object $Ob_c$ such that $1 \base Ob_c$ in \catc,
+\item an object $Hom_c$ such that $\crossx{Ob_c}{Ob_c}{1} \base Hom_c$ in \catc,
+\item \begin{itemize}
+      \item a section $id_c$ of $\delta_{Ob_c}^*Hom_c$ in \catc,
+			\item a section $\circ_C$ of ${p_{Hom}}^*q(p_Ob,Ob)^*$ in \catc,
+			\end{itemize}
+\item such that
+      \begin{itemize}
+			\item
+			\item
+			\item
+			\end{itemize}
+\end{enumerate}
+
+\newcommand {\ObOb}{\crossx{Ob}{Ob}{1}}
+\newcommand {\ObObOb}{\crossx{(\ObOb)}{Ob}{1}}
+\newcommand {\Homxy}{\crossx{(\ObObOb)}{Hom}{\ObOb}}
+\newcommand {\Homyz}{\crossx{(\Homxy)}{(\tuple{p_{\ObObOb} \circ q(p_{Ob},Ob),q(p_{\ObOb},Ob}^*Hom)}{\ObObOb}} 
+\newcommand {\Homxz}{\crossx{(\Homyz)}{(\tuple{p_{\ObObOb} \circ p_{\ObOb},q(p_{\ObOb},Ob}^*Hom)}{\ObObOb}}
+\begin{equation*}
+\begin{array}{c c}
+\Rnode{g}{\Homxz}  \\ [1cm]
+\Rnode{f}{\Homyz}  \\ [1cm]
+\Rnode{e}{\Homxy}       \\ [1cm]
+\Rnode{d}{\ObObOb} & \Rnode{h}{Hom} \\ [1cm]
+\Rnode{c}{\ObOb}                    \\ [1cm]
+\Rnode{b}{Ob}                       \\ [1cm]
+\Rnode{a}{1}           
+\end{array}
+\ncsar{g}{f}
+\ncsar{f}{e}
+\ncsar{e}{d}
+\ncsar{d}{c}
+\ncsar{c}{b}
+\ncsar{b}{a}
+\ncsar{h}{c}
+\end{equation*}
+  

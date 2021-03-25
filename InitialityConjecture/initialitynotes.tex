@@ -28,14 +28,14 @@ similar to  definitions such as those of linear sketch, finite product (FP) sket
 Since contextual categories with families are the same as contextual categories then also
 contextual categories with families are much the same thing as generalised algebraic theories. 
 
-\note For me what it is to be an internal $\gat[U]$-structure in a contextual category $\ccat[C]$ is given by defining a notion of `interpretation of  generalised algebraic theory $\gat[U]$ in  contextual category $\ccat[C]$'. 
-An alternative definition is that an internal $\gat[U]$-structure in a contextual category $\ccat[C]$ is precisely a 
-contextual functor from the contextual category $\CofU$ to $\ccat[C]$. These two possible definitions are equivalent
+\note For me what it is to be an internal $\gat[U]$-structure in a contextual category $\ccat[C]$ is given by the notion of `interpretation of  generalised algebraic theory $\gat[U]$ in  contextual category $\ccat[C]$'
+as defined in the earlier section. 
+An alternative definition is that an internal $\gat[U]$-structure in a contextual category $\ccat[C]$ is precisely a contextual functor from the contextual category $\CofU$ to $\ccat[C]$. These two possible definitions are equivalent
 \footnote{The proof that they are equivalent definitions is entirely straightforward though I didn't write it up my thesis. I did write out the proof of a  corresponding lemma in regard to single-sorted algebraic theories; this is in my Msc dissertation.}.
 
 \note
 For example, an internal monoid in a contextual category $\ccat[C]$
-can be defined to be a contextual functor $F: \ccat[C](tm) \morph  \ccat[C]$, where $tm$ is the generalised algebraic theory of categories.
+can be defined to be a contextual functor $F: \ccat[C](tm) \morph  \ccat[C]$, where $tm$ is the generalised algebraic theory of monoids.
 Reminder: The theory of monoids ($tm$)is
 \begin{gatrules}
 \gatintros
@@ -53,7 +53,7 @@ Reminder: The theory of monoids ($tm$)is
 \gatleaf[6cm]{}{mult(x,unit)=x}
 \end{gatgroup} \\
 \gatintroducing{ \gataxiomno{3} }
-\gatsingular[6cm]{\ofT{x,y,z}{M}}{mult(m(x,y),z)=mult(x,mult(y,z))} 
+\gatsingular[6cm]{\ofT{x,y,z}{M}}{mult(mult(x,y),z)=mult(x,mult(y,z))} 
 \end{gatrules}
 
 \note 
@@ -125,8 +125,12 @@ Sadly I am not sure that it is. }
 K_{\qq{U}} \cong \CofU
 \end{equation}
 
-
-
+\begin{oldtt}
+\note
+One possibility for Vladimir's category of models is as follows. Define a model of a generalised algebraic theory to be any pair $\tuple{C,I}$ where $C$ is a contextual category and $I$ is an interpretation of the theory $U$ in the contextual category $C$. Define the morphisms between
+model $\tuple{C,I}$ and model $\tuple{C',I'}$ to be pairs $\tuple{F, \eta}$ where
+$F: c \morph C'$ is a contextual functor and $\eta: I \circ F \morph  I'$ is a natural transformation.
+\end{oldtt}
 
 \note The Inititiality Conjecture is described in \cite{VoevodskyInitialityConjecture}.
 \begin{tightquote}
@@ -177,7 +181,8 @@ $C(I):C(U) \morph C(U')$. Composition with $C(I)$ is a functor from
 $ConFunc(C(U'),Fam)$ to
 $ConFunc(C(U),Fam)$. It is the functor $\Ialg:\Upalg \morph \Ualg$. Those functors
 between categories of models which are induced in this way are called generalised
-algebraic functors. We can show that all such functors have left adjoints. This is
+algebraic functors. We can show that all such functors have left adjoints\footnote{A year or too back, Jonathan Sterling asked me about the proof of this. The question threw me and I couldn't give a good answer and therefore I think there is work to be done in this area unless someone has cleaned up in the meantime.}.
+This is
 equivalent to a known generalisation of Lawvere \cite{LawvereAlgebraicTheories}'s theorem that all algebraic
 functors have a left adjoint. 
 \end{tightquote}
@@ -192,81 +197,3 @@ what is included in your signatures differs from what other authors include in s
 I cannot see a reason for excluding type equations from your presentation.
 \end{notebox}
 
-\begin{oldtt}
-
-\note There is a large 2-category $\catofccs$ of contextual categories, contextual functors and natural transformations. \\
-
-\note
-If \isagat[U] then $\CofU$ is a contextual category. 
-$\CofU$ is the structured assembly of contexts and realisations of $\gat[U]$.
-There is an interpretation $I_0$ of theory $\gat[U]$ in contextual category
-$\CofU$\footnote{
-In the context of a type theory I think that this is what Vladimir refers to as the term model though it is safer to think of this as the abstract-syntax model to distinguish it from another model to be described later. It is confusing because both this model and the later model are initial in some category.}.\\
-
-\note If $F : \ccat[C] \morph \ccat[C']$ is a contextual functor then for any $\gat[U]$, 
-$F$ induces a mapping of interpretations of $\gat[U]$ in $\ccat[C]$ to interpretations of $\gat[U]$ in $\ccat[C']$. Denote this mapping $\phi_F$. \\
-
-\note
-If \isagat[U] then a $\gat[U]$-algebra $A$ is a contextual functor $A: \CofU \morph \Fam$. \\
-
-\note 
-Let $tcc$ denote the gat of contextual categories. Then
-\begin{point}
-to every contextual category $\ccat[C]$ there corresponds a \tccalgebra 
-which we shall denote $\alg{C}$  i.e. there is a contextual functor $\alg{C} :\ccat[C](tcc) \morph \Fam$,
-\end{point}
-\begin{point}
-to every a \tccalgebra i.e. to every contextual functor $A :\ccat[C](tcc) \morph \Fam$ there is a contextual category $\cc{A}$
-\end{point}
-\begin{point}
-for all contextual categories $\ccat[C]$,
-\begin{equation}
-\cc{\alg{\ccat[C]}}= \ccat[C],
-\end{equation}
-\end{point}
-\begin{point}
-for all \tccalgebras $A$,
-\begin{equation}
-\alg{\cc{A}} = A.
-\end{equation}
-\end{point}
-
-\note
-From the previous it follows 
-\begin{pointeq}
-\label{cualg}
-for every gat \gat[U], to the contextual category $\CofU$ corresponds a contextual functor
-   $\alg{\CofU} :\ccat[C](tcc) \morph \Fam$. \\
-\end{pointeq} 
-
-\note Particularising (\ref{cualg}) to the theory $tcc$ it follows that
-\begin{pointeq}
-  $\alg{\ccat[C](tcc)}$ is a contextual functor   $\alg{\ccat[C](tcc)} :\ccat[C](tcc) \morph \Fam$.
-\end{pointeq}
-
-\note
-Let $\Fam$ be the (large) contextual category of sets, indexed families of sets, indexed families of families of sets and so on and
-let $\FAM$ be the (larger still) contextual category of large sets, indexed families of large sets, indexed families of families of large sets and so on.
-Particularising (\ref{cualg}) to the category $\Fam$ we have
-\begin{pointeq}
-  \label{inducedalgebra}
-  $\alg{\Fam}$ is a contextual functor   $\alg{Fam} :\ccat[C](tcc) \morph \FAM$. 
-\end{pointeq}
- 
-\note
-Aside: Assume now that $\catofccs$ is the category of large contextual categories so that $\Fam$ is an object of $\catofccs$. 
-Let $\catoflargerccs$ be the category of larger contextual categories. \\
-
-\note
-One possibility for Vladimir's category of models is as follows. Define a model of a generalised algebraic theory to be any pair $\tuple{C,I}$ where $C$ is a contextual category and $I$ is an interpretation of the theory $U$ in the contextual category $C$. Define the morphisms between
-model $\tuple{C,I}$ and model $\tuple{C',I'}$ to be pairs $\tuple{F, \eta}$ where
-$F: c \morph C'$ is a contextual functor and $\eta: I \circ F \morph  I'$ is a natural transformation.
-
-\note Suppose we add a sum type to generalised algebraic theories so that from
-types $\Delta$ and $\Delta'$ in context $Delta_n$ we can construct a type $\Delta + \Delta'$
-along with inclusion operations and that we can construct $t | t'$. 
-
-\note Suppose we have a gat+ $U$. Then can we construct a term model which is a contextual category?
-In the term model is $[\Delta + \Delta']$ actually the coproduct of $[\Delta]$ and $[\
-Delta'] $
-\end{oldtt}
