@@ -1,0 +1,181 @@
+
+\newcommand{\Imapsto}{\scaleto{\mapsto}{10pt}}
+
+\newcommand {\OO}{Ob^2}
+\newcommand {\OOO}{Ob^3}
+
+\newcommand{\leftidentitylhsterm}{({x_1}^*\qq{id})^*\tuple{x_1,x_1,x_2}^*\qq{\circ}}
+\newcommand{\rightidentitylhsterm}{({x_2}^*\qq{id})^*\tuple{x_1,x_2,x_2}^*\qq{\circ}}
+\newcommand{\HomHom}{\crossx{Hom}{Hom}{\OO}}
+
+\newcommand {\yOOO}{\ofT{y_1,y_2,y_3}{Ob}}
+\newcommand {\yOOOfH}{\yOOO,\,\ofT{f}{Hom(y_1,y_2)}}
+\newcommand{\yOOOfHgH}{\yOOOfH,\,\ofT{g}{Hom(y_2,y_3)}}
+
+\newcommand {\yOOOfHmapped}{\tuple{y_1,y_2}^*Hom}
+\newcommand {\yOOOfHgHmapped}{\crossx{\yOOOfHmapped}{\tuple{y_2,y_3}^*Hom}{\OOO}}
+\newcommand {\yOOOfHgHHmapped}{\crossx{\big(\yOOOfHgHmapped\big)}{{\tuple{y_1,y_3}^*Hom}}{\OOO}}
+
+\newcommand{\associativitypremise}
+       {\ofT{z_1,z_2,z_3,z_4}{Ob},\,
+                                \ofT{f}{Hom(z_1,z_2)},\,\ofT{g}{Hom(z_2,z_3)},\,\ofT{h}{Hom(z_3,z_4)}}
+																
+																
+\newcommand{\associativitypremisemapped}{\crossx 
+                                            {\big(\crossx
+																						      {\tuple{z_1,z_2}^*Hom}
+																									{\tuple{z_2,z_3}^*Hom} 
+                                                  {Ob^4}
+																							\big)}
+																						{\tuple{z_3,z_4}^*Hom} 
+																						{Ob^4}  
+																				 }
+
+\newcommand{\associativitylhstype}{\isT{{Hom(z_1,z_4)}}}
+\newcommand{\associativitylhstypemapped}{\crossx{\Big(\associativitypremisemapped\Big)}{\tuple{z_1,z_4}^*Hom}{Ob^4}}
+\newcommand{\associativitylhstermtyping}{\ofT{(f \circ g) \circ h}{Hom(z_1,z_4)}}
+\newcommand{\associativityrhstermtyping}{\ofT{f \circ (g \circ h)}{Hom(z_1,z_4)}}		
+
+\note
+Consider as an example
+what constitutes an interpretation $I$ of the (generalised algebraic) theory of categories ($tc$) in some 
+ contextual category \catc.
+The sorts of $tc$ are $Ob$ and $Hom$ 
+and an interpretation $I$ must map these to objects $I(Ob)$ and  $I(Hom)$ of \catc.
+The operators symbols of
+$tc$ are  $id$ and $\circ$ and these must be mapped by $I$ to sections $I(id)$ and $I(\circ)$ of \catc.
+
+A useful simplication for the description that follows is to write $Ob$ for $I(Ob)$, $Hom$ for $I(Hom)$, $\qq{id}$ for $I(id)$ and   $\qq{\circ}$ for $I(\circ)$.   I will ask the reader  to distinguish for themselves 
+those uses of `$Ob$' and `$Hom$' in reference to sorts of the theory $tc$ from those uses in reference to the interpretation of these sorts in the contextual category \catc. 
+
+Because we want to explain and to some extent validate the definition of interpretation we will go through the
+requirements on the interpretations of $Ob$, $Hom$, $id$ and $\circ$ in some detail.  For this purpose we
+need make use of the stratification 
+$tc_0 \subseteq tc_1 \subseteq tc_2 \subseteq tc_3 \subseteq tc_4$
+of the theory of categories mentioned earlier\footnote{$tc_0$ is the empty theory, $tc_1$ has introductory rule 
+$r_{Ob}$ of sort $Ob$, $tc_2$ has introductory rule $r_{Hom}$ of sort symbol $Hom$, $tc_3$ has introductory rules
+$r_{id}$ for operator $id$ and  $r_\circ$ for operator $\circ$, $tc_4$ has the three axioms -- left and right identity and associativity.}.
+
+
+\begin{enumerate}[$tc_1$]
+\item By clause (i) of the definition of interpretation (case $n=1$), the sort $Ob$ must be mapped to an object $Ob$ of \catcw such that $1 \base Ob$ in \catc. Given this much, i.e. given the interpretation of the sort $Ob$ in the theory by such an object $Ob$ of the contextual category, then are able to interpret in \catcw any rule of the theory $tc_1$ i.e. any rule that can be derived solely from the introductory rule for $Ob$. 
+In particular we can derive the rule \gatdisplayrule{\ofT{x}{Ob}}{\isT{Ob}} 
+ and this is interpreted by $I$ (see earlier\commentary{\tbd})
+ as the object $\OO$ in \catc . This rule is the one we need  have an interpretation of in \catcw in order to determine whether the interpretation of $Hom$ by $I$ is well-typed.
+
+\item The sort $Hom$ of the theory $tc$ is introduced by the rule 
+\gatdisplayrule{\ofT{x}{Ob},\, \ofT{y}{Ob}}{\isT{Hom(x,y)}} 
+and therefore, given what we have said of the interpretation of rule 
+\gatdisplayrule{\ofT{x}{Ob}}{\isT{Ob}}, 
+by clause (i) of the definition of interpretation (case $n=1$), the sort $Hom$ must be mapped to some object of \catc,  which, as we have said, we denote $Hom$, such that $\crossx{Ob}{Ob}{1} \base Hom$ in \catc.
+
+Once we have this interpretation of $Hom$ then we can interpret any derived rule of the theory $tc_2$ i.e.
+any rule which can be derived from just the introductory rules
+for $Ob$ and $Hom$. In particular we can derive the rules which 
+the introductory rules of $\qq{id}$ and $\qq{\circ}$ rely on for their
+well-typedness which are \gatdisplayrule{\ofT{x}{Ob}}{\isT{Hom(x,x)}} and
+\gatdisplayrule{\ofT{y_1}{Ob},\, \ofT{y_2}{Ob},\,\ofT{y_3}{Ob},\, \ofT{f}{Hom(y_1,y_2)},\, \ofT{g}{Hom(y_2,y_3)} }{\isT{Hom(y_1,y_3)}}.
+In fact it follows from something earlier (\tbd) that the first of these rules will be interpreted 
+as the object ${\delta_{Ob}}^*Hom$ of \catcw and that the second of these rules will be interpreted by
+the object $\yOOOfHgHHmapped$. 
+
+\begin{equation*}
+\begin{array}{c c}
+\tuple{y''_1,y''_3}^*Hom         \\ [1cm]
+\tuple{y'_2,y'_3}^*Hom           \\ [1cm]
+\Rnode{e}{\yOOOfHmapped}         \\ [1cm]
+\Rnode{d}{\OOO} & \Rnode{h}{Hom} \\ [1cm]
+\Rnode{c}{\OO}                   \\ [1cm]
+\Rnode{b}{Ob}                    \\ [1cm]
+\Rnode{a}{1}           
+\end{array}
+\ncsar{g}{f}
+\ncsar{f}{e}
+\ncsar{e}{d}
+\ncsar{d}{c}
+\ncsar{c}{b}
+\ncsar{b}{a}
+\ncsar{h}{c}
+\end{equation*}
+
+
+\item 
+From clause (ii) of the definition of interpretation and from the observations just  made, it
+follows, since the interpretation $I$ must be well typed for operator symbols $id$,
+that the operator symbol $id$ must be interpreted by $I$ as a section of the object $\delta_{Ob}^*Hom$ of \catcw
+and we shall refer to as $\qq{id}$, so that $\qq{id} : Ob \morph {\delta_{Ob}}^*Hom$ of \catc. 
+
+Now consider the operator symbol $\circ$ whose introcutory rule is
+\gatdisplayrule{\yOOOfHgH}{\ofT{f \circ g}{Hom(z_1,z_3)}}.
+Let $H_2$ be the premise $\yOOOfHgH$ then $H_2$ is mapped by $I$ to the object $yOOOfHgHmapped$ of \catc.
+Let $\qq{H_2}$ be this object. 
+ 
+
+Likewise for $I$ to be well-typed on the introductory rule for $\circ$, the operator symbol $\circ$ must be interpreted by $I$ as a section of the object 
+$\yOOOfHgHHmapped$ of \catcw 
+where $y_1,y_2,y_3$ are the projection morphisms $y_1,y_2,vy_3: \OOO \morph Ob$ defined earlier (\tbd\footnote{
+$y_1: \OOO \morph Ob$ is defined to be $p_{\OOO} \circ p_{\OO}$ \\
+$y_2: \OOO \morph Ob$ is defined to be $p_{\OOO} \circ q(p_{Ob},Ob)$\\
+$vy_3: \OOO \morph Ob$ is defined to be $q(p_{\OO},Ob)$
+}) and we shall refer to it as $\qq{\circ}$ so that we have $\qq{\circ}: \yOOOfHgHmapped \morph \yOOOfHgHHmapped$ in \catc.
+At this stage we are now able to interpret any derived rule of the theory $tc3$ i.e. any rule 
+which can be derived just from the introductory rules for $Ob, Hom, id and \circ$. In particular we can
+interpret the left and right sides of the three axioms. In fact we will have: 
+
+\newcommand{\sect}{Sect}
+\newcommand{\insect}[2]{#1 \in Sect(#2)}
+
+\begin{equation*}
+\begin{array}{p{5cm} c l}
+\gatdisplayrule{\ofT{y_1}{Ob},\, \ofT{y_2}{Ob},\,\ofT{y_3}{Ob},\, \ofT{f}{Hom(y_1,y_2)},\, \ofT{g}{Hom(y_2,y_3)} }{\isT{Hom(y_1,y_3)}}                                                                     \\[0.15cm]
+            & \Imapsto & {\delta_{Ob}}^*Hom                               \\[0.2cm]
+\gatdisplayrule{\ofT{y_1}{Ob},\, \ofT{y_2}{Ob},\,\ofT{y_3}{Ob},\, \ofT{f}{Hom(y_1,y_2)},\, \ofT{g}{Hom(y_2,y_3)} }{\ofT{f \circ g}{Hom(y_1,y_3)}}                                                                     \\[0.15cm]
+            & \Imapsto & \insect{\qq{\circ}}{{\delta_{Ob}}^*Hom}                               \\[0.2cm]
+\multicolumn{3}{l}{\gatdisplayrule{\associativitypremise}{\ofT{f \circ g}{Hom(z_1,z_3)}}}       \\[0.15cm]
+        		& \Imapsto & 	\insect{\tuple{z_1,z_2,z_3,f,g}^*\qq{\circ}}{\tuple{z_1,z_2,z_3,f,g}^*{\delta_{Ob}}^*Hom} \\[0.5cm]	
+												\\
+\gatdisplayrule{\ofT{x_1}{Ob},\,\ofT{x_2}{Ob},\,\ofT{f}{Hom(x_1,x_2)}}
+               {\ofT{f}{Hom(x_1,x_2)}} 
+            & \Imapsto & \delta_{Ob}: Hom \morph \HomHom                  \\[0.2cm]
+\gatdisplayrule{\ofT{x_1}{Ob},\,\ofT{x_2}{Ob},\,\ofT{f}{Hom(x_1,x_2)}}
+               {\ofT{id(x_1) \circ f}{Hom(x_1,x_2)}} 
+            & \Imapsto &  \leftidentitylhsterm : Hom \morph \HomHom       \\[0.2cm]
+\gatdisplayrule{\ofT{x_1}{Ob},\,\ofT{x_2}{Ob},\,\ofT{f}{Hom(x_1,x_2)}}
+               {\ofT{f \circ id(x_2)}{Hom(x_1,x_2)}} 
+            & \Imapsto & \rightidentitylhsterm : Hom \morph \HomHom       \\[0.2cm]
+\multicolumn{3}{l}{\associativitypremise}                                               \\[0.15cm]
+        		& \Imapsto & \associativitypremisemapped				              \\[0.5cm]
+\multicolumn{3}{l}{\gatdisplayrule{\associativitypremise}{\associativitylhstype}}       \\[0.15cm]
+        		& \Imapsto & \associativitylhstypemapped				              \\[0.5cm]					
+\multicolumn{3}{l}{\gatdisplayrule{\associativitypremise}{\associativitylhstermtyping}} \\[0.15cm]
+            & \Imapsto &                                                  \\[0.5cm] 
+\multicolumn{3}{l}{\gatdisplayrule{\associativitypremise}{\associativityrhstermtyping}} \\[0.15cm]
+            & \Imapsto &   
+\end{array}
+\end{equation*}
+
+ 
+\item % tc_4
+\end{enumerate}
+
+\begin{oldtt}
+\begin{equation*}
+\begin{array}{c c}
+\Rnode{g}{\yOOOfHgHHmapped}  \\ [1cm]
+\Rnode{f}{\yOOOfHgHmapped}    \\ [1cm]
+\Rnode{e}{\yOOOfHmapped}       \\ [1cm]
+\Rnode{d}{\OOO} & \Rnode{h}{Hom} \\ [1cm]
+\Rnode{c}{\OO}                    \\ [1cm]
+\Rnode{b}{Ob}                       \\ [1cm]
+\Rnode{a}{1}           
+\end{array}
+\ncsar{g}{f}
+\ncsar{f}{e}
+\ncsar{e}{d}
+\ncsar{d}{c}
+\ncsar{c}{b}
+\ncsar{b}{a}
+\ncsar{h}{c}
+\end{equation*}
+\end{oldtt}
+
