@@ -1,5 +1,75 @@
 
-\newcommand{\Imapsto}{\scaleto{\mapsto}{10pt}}
+
+\note Let us consider what constitutes an interpretation $I$ of the theory of monoids ($tm$) in a contextual catgeory \catc.
+For the sakes of readability we write the interpretation $I(M)$ of the sort $M$ simply as $M$. Similarly we write $I(unit)$ as $unit$ and $I(multt)$ as $mult$. I will ask the reader  to distinguish for themselves 
+those uses of `$M$' `$mult$' and `$unit$' in reference to sorts and operators of the theory $tm$ from those uses in reference to the interpretation of these sorts by the interpretation$I$ in the contextual category \catc. 
+
+\newcommand{\wM}{\ofT{w}{M}}
+\newcommand{\xM}{\ofT{x_1, x_2}{M}}
+\newcommand{\yM}{\ofT{y_1, y_2, y_3}{M}}
+\newcommand{\doubleM}{M^2}                       %{\crossx{M}{M}{1}}
+\newcommand{\trebleM}{M^3}                       %{\crossx{\big(\doubleM\big)}{M}{1}}
+\newcommand{\quadM}{M^4}                         % {\crossx{\big(\trebleM\big)}{M}{1}}
+\newcommand{\spi}{s(p_{M^3,M^i})}
+\newcommand{\sptrebleone}{s(p_{M^3,M^1})}
+\newcommand{\sptrebletwo}{s(p_{M^3,M^2})}
+\newcommand{\sptreblethree}{s(p_{M^3,M^3})}
+
+\definecolor{lightergrey}{rgb}{0.9,0.9,0.9}
+
+\begin{tabular}{l l p{0cm}  c  p{0cm} l  p{0.05cm} l}
+\rowcolor{lightergrey}
+\gatinterpretationdetail{}{\isT{M}}{M \in Cover(1)}{clause (i)} \\
+\\[-0.1cm]
+\gatinterpretationdetail{\wM}{\isT{M}}{\doubleM \in Cover(M)}{clause (v)} \\[0.3cm]
+\gatinterpretationdetail{\xM}{\isT{M}}{\trebleM \in Cover(\doubleM)}{clause (v)} \\[0.3cm]
+\gatinterpretationdetail{\yM}{\isT{M}}{\quadM \in Cover(\trebleM)}{clause (v)} \\[0.3cm]
+\gatinterpretationdetail{\yM}{\ofT{y_1}{M}}{\sptrebleone \in Sect(\quadM)}{clause (v)} \\[0.3cm]
+\gatinterpretationdetail{\yM}{\ofT{y_2}{M}}{\sptrebletwo \in Sect(\quadM)}{clause (v)} \\[0.3cm]
+\gatinterpretationdetail{\yM}{\ofT{y_3}{M}}{\sptreblethree \in Sect(\quadM)}{clause (v)} \\[0.3cm]
+\rowcolor{lightergrey}
+\gatinterpretationdetail{}{\ofT{unit}{M}}{unit \in Sect(M)}{clause (ii)} \\
+\\[-0.1cm]
+\gatinterpretationdetail{\wM}{\ofT{unit}{M}}{\crossx{M}{unit}{1} \in Sect(\doubleM)}{clause (vi)} \\[0.3cm]
+\rowcolor{lightergrey}
+\gatinterpretationdetail{\wM}{\ofT{mult(x_1,x_2)}{M}}{mult \in Sect(\trebleM)}{clause (ii)} \\
+\\[-0.1cm]
+\gatinterpretationdetail{\xM}
+                         {\ofT{mult(w,unit)}{M}}
+                        {\tuple{id_M,p_M \circ unit}^*mult \in Sect(\doubleM)}
+												{clause (?) and lemma xxx} \\[0.3cm]
+\gatinterpretationdetail{\xM}
+                         {\ofT{mult(unit,w)}{M}}
+                        {\tuple{p_M \circ unit,id_M}^*mult \in Sect(\doubleM)}
+												{clause (?) and lemma xxx} \\[0.3cm]
+\gatinterpretationdetail{\yM}
+                        {\ofT{mult(y_1,y_2)}{M}}
+												{\duple{\sptrebleone,\sptrebletwo}^*mult}
+												{clause (?)}                  \\[0.2cm]
+												&&&&&\hspace{1cm}= $\tuple{y_1,y_2}^*mult$ \\[0.2cm]
+												&&&&&\multicolumn{3}{l}{where  $y_i:M^3 \morph M^i$ is defined by $y_i=p_{M^3,M^i}\circ q(p_{M^i,1},M)$} \\[0.2cm]
+\gatinterpretationdetail{\yM}
+                        {\ofT{mult(y_2,y_3)}{M}}
+												{\duple{\sptrebletwo,\sptreblethree}^*mult}
+												{clause (?)} \\[0.2cm]
+												&&&&&\hspace{1cm}= $\tuple{y_2,y_3}^*mult$ \\[0.2cm]
+\gatinterpretationdetail{\yM}
+                        {mult(mult(y_1,y_2),y_3)}
+												{\duple{\tuple{y_1,y_2}^*mult,\sptreblethree}^*mult}
+												{clause (?)} \\[0.2cm]
+												&&&&&\hspace{1cm}= $\bigtuple{(\tuple{y_1,y_2}^*mult)\circ q(p_{m^3,1},M),y_3}^*mult$ \\[0.2cm]
+\gatinterpretationdetail{\yM}
+                        {mult(y_1,mult(y_2,y_3))}
+												{\duple{\sptrebleone,\tuple{y_2,y_3}^*mult}^*mult}
+												{clause (?)}\\[0.2cm]
+												&&&&&\hspace{1cm}= $\bigtuple{y_1,(\tuple{y_2,y_3}^*mult)\circ q(p_{m^3,1},M)}^*mult$ \\[0.2cm]
+\end{tabular}
+
+\iffalse
+\newpage
+
+
+
 
 \newcommand {\OO}{Ob^2}
 \newcommand {\OOO}{Ob^3}
@@ -178,4 +248,4 @@ interpret the left and right sides of the three axioms. In fact we will have:
 \ncsar{h}{c}
 \end{equation*}
 \end{oldtt}
-
+\fi
