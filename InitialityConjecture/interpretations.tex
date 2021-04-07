@@ -1,9 +1,10 @@
-\newcommand{\duplesone}{\duple{s_1}_{B_1}}
+\newcommand{\duplesone}{{\duple{s_1}_{B_1}}}
+\newcommand{\duplestwo}{{\duple{s_1,s_2}_{B_2}}}
 \newcommand{\duplesn}{\duple{s_1,...s_n}_{B_n}}
 \newcommand{\duplesi}{{\duple{s_1,...s_i}_{B_i}}}
 \newcommand{\duplesilessone}{\duple{s_1,...s_{i-1}}_{B_{i-1}}}
 \newcommand{\duplesisucc}{{\duple{s_1,...s_{i+1}}_{B_{i+1}}}}
-\newcommand{\duplesnlessone}{\duple{s_1,...s_{n-1}}_{B_{n-1}}}
+\newcommand{\duplesnlessone}{{\duple{s_1,...s_{n-1}}_{B_{n-1}}}}
 
 \newcommand {\sonesub}{{s_1}^*}
 \newcommand {\stwosub}{{s_2}^*}
@@ -17,14 +18,67 @@
 \newcommand {\snsub}{{s_n}^*}
 \newcommand {\sncascade}{\snsub...\sonesub}
 
+\begin{lemma}
+\label{footandstactic}
+If $f: A \morph B$ and $f':A \morph B$ in a contextual category \catcw then if 
+$f \circ p_B$ = $f' \circ p_B$ and $s(f) = s(f')$ then $f=f'$.
+\end{lemma}
+\begin{proof}
+Follows by axiom (s2) since we have:
+$f = s(f) \circ q(f \circ p_B,B)  = s(f') \circ q(f' \circ p_B,B) = f'$.
+\end{proof} 
+
+\begin{lemma}
+\label{thedupletuplelemma}
+If $A$ is an object of contextual category \catc, if $1 \base B_1 ... \base B_n$ in \catcw and if
+\begin{equation*}
+\begin{array}{l}
+s_1 \in Sect(\crossx{A}{B_1}{1}),                  \\
+s_2 \in Sect(\sonesub (\crossx{A}{B_2}{1}))=Sect(\duplesone^*B_2),         \\
+s_3 \in Sect(\stwocascade (\crossx{A}{B_3}{1}))=Sect(\duplestwo^*B_3),     \\
+\multicolumn{1}{c}{\vdots}                           \\
+s_n \in Sect(\snlessonecascade (\crossx{A}{B_n}{1})) =Sect(\duplesnlessone^*B_n)\\
+\end{array}
+\end{equation*}
+\mbox{ in \catc}, and if $B_n$ is $\crossx{B_{n-1}}{C}{B_i}$, for some $i$, $0 \leq i < n$, 
+(where in the case of $n$ equal to $0$ then 
+by $B_0$ we mean the terminal object $1$ of \catc), if $g: A \morph C$ in \catcw and 
+$g \circ p_C = \duplesi$, so that
+$s(g) \in Sect(\duplesnlessone ^* B_n)$
+\footnote {Because by definition of $s(g)$, $s(g) \in Sect(g \circ p_C) ^* C)$ and if 
+$g \circ p_C =  \duplesi$ then 
+\begin{align*}
+g \circ p_C) ^* C &= \duplesi ^* C  \\
+                  &= (\duplesnlessone \circ {p_{B_{n-1},B_i}})^* C\\
+									&=\duplesnlessone ^* B_n
+\end{align*}
+},  then if $s(g)=s_n$ then $\duplesn = \bigtuple{\duplesnlessone,g}_{\crossx{B_{n-1}}{C}{B_i}}$\,.
+\end{lemma}
+\begin{proof}
+From the definition of $\llangle\rrangle_{p_{B_{n-1},B_i},C}$, it suffices  to show that 
+\begin{equation}
+\duplesn \circ p_{B_{n-1},B_i} = \duplesnlessone
+\end{equation}
+and
+\begin{equation}
+\duplesn \circ q(p_{B_{n-1},B_i},C) = g
+\end{equation}
+
+Use lemma \ref{footandstactic}. 
+
+
+
+\end{proof}
+
+
 \note If $A$ is an object of contextual category \catc, if $1 \base B_1 ... \base B_n$ in \catcw and if
 \begin{equation*}
 \begin{array}{l}
 s_1 \in Sect(\crossx{A}{B_1}{1}),                  \\
-s_2 \in Sect(\sonesub \crossx{A}{B_1}{1}),         \\
-s_3 \in Sect(\stwocascade \crossx{A}{B_2}{1}),     \\
+s_2 \in Sect(\sonesub (\crossx{A}{B_2}{1})),         \\
+s_3 \in Sect(\stwocascade (\crossx{A}{B_3}{1})),     \\
 \multicolumn{1}{c}{\vdots}                           \\
-s_n \in Sect(\snlessonecascade \crossx{A}{B_n}{1}) \\
+s_n \in Sect(\snlessonecascade (\crossx{A}{B_n}{1})) \\
 \end{array}
 \end{equation*}
 \mbox{ in \catc},
@@ -66,7 +120,7 @@ We have that $\duplesisucc \circ p_{B_{i+1}}= \duplesi$ because
                                &=s_{i+1} \circ p_{\duplesi ^* B_{i+1}} \circ \duplesi && \mbox{because pullback commutes,} \\
 															 &= \duplesi                       && \mbox{because $s_{i+1}$ is a section.}
 \end{align*}
-When $B$ is some object such that $B_{i+1} < B$ in \catcw then wecan show that$\sisucccascade (\crossx{A}{B}{1})=\duplesisucc ^* B$ as follows:
+When $B$ is some object such that $B_{i+1} < B$ in \catcw then we can show that$\sisucccascade (\crossx{A}{B}{1})=\duplesisucc ^* B$ as follows:
 \begin{align*}
 \sisucccascade (\crossx{A}{B}{1}) 
               &= \sisuccsub \duplesi ^* B && \mbox{by inductive hypothesis,} \\
@@ -78,7 +132,6 @@ A similar argument shows that if $g$ is a section of $B$ then $\sisucccascade (\
 
 \newpage
 Now for the duple-tuple lemma.
-
 
 \newpage
 \note
