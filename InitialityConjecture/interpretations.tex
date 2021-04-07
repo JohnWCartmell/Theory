@@ -1,3 +1,86 @@
+\newcommand{\duplesone}{\duple{s_1}_{B_1}}
+\newcommand{\duplesn}{\duple{s_1,...s_n}_{B_n}}
+\newcommand{\duplesi}{{\duple{s_1,...s_i}_{B_i}}}
+\newcommand{\duplesilessone}{\duple{s_1,...s_{i-1}}_{B_{i-1}}}
+\newcommand{\duplesisucc}{{\duple{s_1,...s_{i+1}}_{B_{i+1}}}}
+\newcommand{\duplesnlessone}{\duple{s_1,...s_{n-1}}_{B_{n-1}}}
+
+\newcommand {\sonesub}{{s_1}^*}
+\newcommand {\stwosub}{{s_2}^*}
+\newcommand {\stwocascade}{\stwosub\sonesub}
+\newcommand {\sisub}{{s_i}^*}
+\newcommand {\sicascade}{\sisub...\sonesub}
+\newcommand {\sisuccsub}{{s_{i+1}}^*}
+\newcommand {\sisucccascade}{\sisuccsub...\sonesub}
+\newcommand {\snlessonesub}{{s_{n-1}}^*}
+\newcommand {\snlessonecascade}{\snlessonesub...\sonesub}
+\newcommand {\snsub}{{s_n}^*}
+\newcommand {\sncascade}{\snsub...\sonesub}
+
+\note If $A$ is an object of contextual category \catc, if $1 \base B_1 ... \base B_n$ in \catcw and if
+\begin{equation*}
+\begin{array}{l}
+s_1 \in Sect(\crossx{A}{B_1}{1}),                  \\
+s_2 \in Sect(\sonesub \crossx{A}{B_1}{1}),         \\
+s_3 \in Sect(\stwocascade \crossx{A}{B_2}{1}),     \\
+\multicolumn{1}{c}{\vdots}                           \\
+s_n \in Sect(\snlessonecascade \crossx{A}{B_n}{1}) \\
+\end{array}
+\end{equation*}
+\mbox{ in \catc},
+then  we can define a morphism
+$\duplesn:A \morph B_n$ in \catcw such that 
+\begin{enumerate}[(i)]
+\item $s(\duplesn) = s_n$,
+\item for $n> 1$, $\duplesn \circ p_{B_n} = \duplesnlessone$, and 
+\item for all objects $B$ of \catcw such that $B_n < B$, 
+$\sncascade \crossx{A}{B}{1} = \duplesn ^* B$, \\
+and for all sections $s$ of $B$,
+$\sncascade \crossx{A}{s}{1} = \duplesn ^* s$.
+\end{enumerate}
+
+The definition of $\duplesn$ proceeds by induction. 
+Define $\duplesone= s_1 \circ q(p_{A,1},B_1)$.
+By axiom (s1), it follows immediately that $s(\duplesone)=s_1$.
+
+If $B_1 <B$ in \catcw then we have $\sonesub \crossx{A}{B}{1}=\duplesone ^* B$ because
+\begin{align*}
+\sonesub (\crossx{A}{B}{1})&= \sonesub q(p_{A,1},B_1)^*B     && \mbox{by definition of $\crossx{}{}{}$,}\\
+                         &= (s_1 \circ q(p_{A,1},B_1))^*B   && \mbox{by pullback coherence axiom,}\\
+                         &= \duplesone ^* B                   && \mbox{by definition of $\duplesone ^* B$.}
+\end{align*}
+Also, if $g$ is a section of $B$ then we can show, by a similar argument, 
+that $\sonesub (\crossx{A}{g}{1})=\duplesone ^* g$.
+
+Now assume that $\duplesi$ is defined and satisfies (i) to (iii) above. 
+In particular we have then that $\sicascade B_{i+1} = \duplesi ^* B_{i+1}$, and therefore that
+$s_{i+1} \in Sect(\duplesi ^* B_{i+1})$, and this then allows us to define $\duplesisucc$ by 
+\begin{equation*}
+\duplesisucc = s_{i+1} \circ q(\duplesi, B_{i+1}).
+\end{equation*} 
+Immediately by axiom s3
+we have that $s(\duplesisucc)=s_{i+1}$.
+We have that $\duplesisucc \circ p_{B_{i+1}}= \duplesi$ because
+\begin{align*}
+\duplesisucc \circ p_{B_{i+1}} &=s_{i+1} \circ q(\duplesi, B_{i+1}) \circ p_{B_{i+1}} && \mbox{by definition of $\duplesisucc$,} \\
+                               &=s_{i+1} \circ p_{\duplesi ^* B_{i+1}} \circ \duplesi && \mbox{because pullback commutes,} \\
+															 &= \duplesi                       && \mbox{because $s_{i+1}$ is a section.}
+\end{align*}
+When $B$ is some object such that $B_{i+1} < B$ in \catcw then wecan show that$\sisucccascade (\crossx{A}{B}{1})=\duplesisucc ^* B$ as follows:
+\begin{align*}
+\sisucccascade (\crossx{A}{B}{1}) 
+              &= \sisuccsub \duplesi ^* B && \mbox{by inductive hypothesis,} \\
+                         &= \sisuccsub q(\duplesi,B_{i+1})^*B  && \mbox{by definition of extended $^*$,}\\
+                         &= (s_{i+1} \circ q(\duplesi,B_{i+1}))^*B   && \mbox{by pullback coherence axiom,}\\
+                         &= \duplesisucc ^* B                   && \mbox{by definition of $\duplesisucc$.}
+\end{align*}
+A similar argument shows that if $g$ is a section of $B$ then $\sisucccascade (\crossx{A}{g}{1})=\duplesisucc ^* g$.
+
+\newpage
+Now for the duple-tuple lemma.
+
+
+\newpage
 \note
 We give the broadest possible notion of `model
 of a generalised algebraic theory \gatUw' by defining the notion of an `interpretation of  a generalised algebraic theory \gatUw in a contextual category \catc'.
@@ -114,7 +197,7 @@ $f$ of \gatU,   $\Iop(r_f) = P(f)$, where $r_f$ is the introductory rule for $f$
 
 \note
  For a preinterpretation to extend to an interpretation (we will say that it *is* an interpretation) 
-it will need be type correct and to satisy the axioms of the theory. The definition of exactly what we mean by this has to proceed by induction because, for example, we need an interpretation of the rule
+it will need be type correct and to satisfy the axioms of the theory. The definition of exactly what we mean by this has to proceed by induction because, for example, we need an interpretation of the rule
 \gatdisplayrule{\xDelta{n}}{\isT{\Delta}} (as an object $a$ of \catc, say) before we can say whether a preinterpretation of an operator with introductory rule \genericfintroductoryrule
 is well-typed (i.e. to know that it is object $a$ that it is required to be a section of).
 Similarly we need to be able to interpret both sides of an axiom before we can say whether it is respected
@@ -166,6 +249,8 @@ and $r'_t$ is the rule \gatdisplayrule{\xDelta{n}}{\ofT{t'}{\Delta'}}.
 \tbd
 \end{proof}
 
+
+\note DEFINITION OF $\duplesn$ HERE xxxxxx 
 
 
 
