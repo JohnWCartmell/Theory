@@ -1,5 +1,6 @@
 %contextualnotation
 
+\iffalse    %XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 \note 
 By  the generic term \term{tree} is meant a partially ordered set (poset) $(T, <)$ such that for each $t \in T$, the set $\set{s \in T : s < t}$ is well-ordered by the relation $<$.
 In this discussion we restrict ourselves to rooted $\omega$-trees i.e. trees for which the set $\set{s \in T : s < t}$
@@ -418,7 +419,6 @@ $\crossx{x}{(\crossx{y}{z}{w})}{w} = \crossx{(\crossx{x}{y}{w})}{z}{w}$ as shown
 \end{displaymath}
 
 \ncaarr[50]{q(\pc{\crossx{x}{y}{w}}{w},z)}{J2}{z}
-%\ncsar[-30]{J1}{xy}
 \ncsar{D2}{xy}
 \ncsar{xy}{x}
 \ncsar{yz}{y}
@@ -431,9 +431,127 @@ $\crossx{x}{(\crossx{y}{z}{w})}{w} = \crossx{(\crossx{x}{y}{w})}{z}{w}$ as shown
 
 
 
-%\end{center}
+\note A couple of lemmas:
 
+\begin{lemma}
+\label{footandstactic}
+If $f: A \morph B$ and $f':A \morph B$ in a contextual category \catcw then if 
+$f \circ p_B$ = $f' \circ p_B$ and $s(f) = s(f')$ then $f=f'$.
+\end{lemma}
+\begin{proof}
+Follows by axiom (s2) since we have:
+$f = s(f) \circ q(f \circ p_B,B)  = s(f') \circ q(f' \circ p_B,B) = f'$.
+\end{proof}
+\fi    %XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\newcommand{\ncrightcrosssection}[3][-30] 
+{\ncarc[arcangle=#1,nodesepA=5pt,nodesepB=-2pt,offsetA=0pt,offsetB=1pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
+\newcommand{\ncrightsimplesection}[3][-30] 
+{\ncarc[arcangle=#1,nodesepA=6pt,nodesepB=5pt,offsetA=-1pt,offsetB=0pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
+\newcommand{\ncleftcrosssection}[3][30] 
+{\ncarc[arcangle=#1,nodesepA=5pt,nodesepB=-2pt,offsetA=0pt,offsetB=-1pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
+\newcommand{\ncleftsimplesection}[3][30] 
+{\ncarc[arcangle=#1,nodesepA=6pt,nodesepB=5pt,offsetA=1pt,offsetB=0pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
+\begin{lemma}
+\label{crosssectionlemma}
+If 
+%\begin{equation*}
+$
+\begin{array}{ c c c}
+\Rnode{B}{B} &              & \Rnode{Bp}{B'} \\[1cm]
+             & \Rnode{A}{A} &     
+\mbox{\ncsar{B}{A}
+\ncsar{Bp}{A}
+%\ncarr[-30]{A}{Bp}
+\ncrightsimplesection{A}{Bp}
+\blabel{g}}
+\end{array}
+$
+%\end{equation*}
+in a contextual category \catcw and if $g$ is a section of $B'$ (i.e. if $g \circ p_{B'}= id_A$) so that we have 
+\begin{equation*}
+\begin{array}{ c c c}
+\Rnode{BBp}{\crossx{B}{B'}{A}} \\[1.3cm]
+\Rnode{B}{B} &              & \Rnode{Bp}{B'} \\[1.1cm]
+             & \Rnode{A}{A} &
+\mbox{
+\ncsar{BBp}{B}
+\ncrightcrosssection{B}{BBp}
+\blabel{\crossx{B}{g}{A}}
+\ncsar{B}{A}
+\blabel{p_B}
+\ncsar{Bp}{A}
+\ncrightsimplesection{A}{Bp}
+\blabel{g}
+}														
+\end{array}
+\end{equation*}
+in \catcw,  then
+\begin{equation}
+\label{crosssectionlemmatarget}
+\crossx{B}{g}{A} = s(p_B \circ g).
+\end{equation} 
+\end{lemma}
+\begin{proof}
+$\crossx{B}{g}{A}$ is defined to be the unique section of $\crossx{B}{B'}{A}$ such that $(\crossx{B}{g}{A}) \circ q( p_B,B') = p_B \circ g$.
 
+(\ref{crosssectionlemmatarget}) follows because $s(p_B \circ g)$ is also such a section, since it is defined to be the unique section of $(p_B \circ g \circ p_{B'}) ^* B'$
+such that $s(p_B \circ g) \circ q( p_B \circ g \circ p_{B'}, B') = p_B \circ g$ and this simplifies,
+because $g \circ p_{B'} =id_A$, to
+ $s(p_B \circ g)$ being a section of ${p_B} ^* B'$ (i.e of $\crossx{B}{B'}{A}$) satisfying $s(p_B \circ g) \circ q( p_B,B') = p_B \circ g$. 
+\end{proof}
 
+% *************************************************************************************
+% sfglemma ****************************************************************************
+\begin{lemma}
+\label{sfglemma}
+If $f:A \morph B$ and $g:B\morph C$ in a contextual category \catcw and if $C \in Cover(B)$ then
+\begin{equation}
+\label{sgflemmagoalone}
+ft(f\circ g)^*C = f^*(ft(g)^*C)
+\end{equation}
+and 
+\begin{equation}
+\label{sgflemmagoaltwo}
+S(f\circ g)=f^*S(g)
+\end{equation}
+where $ft(g) = g \circ p_B$ so that we have
+\begin{displaymath}
+\begin{array}{ccp{1.7cm}cp{1.7cm}c}
+ft(f\circ g)^*C=\kern-10pt&\Rnode{TL}{f^*(ft(g)^*C)} & & \Rnode{TC}{ft(g)^*C}          \\ [1.7cm]
+&\Rnode{BL}{A}         & & \Rnode{BC}{B} && \Rnode{BR}{C}
+\end{array}
+\mbox{
+\ncsar{TL}{BL}
+\ncsar{TC}{BC}
+\ncarr{BL}{BC}
+\blabel{f}
+\ncarr{BC}{BR}
+\blabel{g}
+\ncarr{TL}{TC}
+\alabel{q(f,ft(g)^*C)}
+\ncarr{TC}{BR}
+\alabel{q(ft(g),C)}
+\ncleftsimplesection{BL}{TL}
+\alabel{s(f\circ g)=f^*s(g)}
+\ncleftsimplesection{BC}{TC}
+\alabel{s(g)}
+}
+\end{displaymath}
+in \catc.
+\end{lemma}
+\begin{proof}
+That (\ref{sgflemmagoalone}) holds follows by axiom (q4).
+
+To show that (\ref{sgflemmagoaltwo}) holds remember that $s(f \circ g)$is the unique section of $ft(f \circ g)*C$
+such that $s(f \circ g) \circ q(f \circ g \circ p_C,C) = f\circ g$. Therefore it suffices to show that
+$f^*s(g) \circ q(f \circ g \circ p_C,C) = f\circ g$ and this we can show as follows:
+\begin{align*}
+(f^*s(g)) \circ q(f \circ g \circ p_C,C) &= (f^*s(g)) \circ q(f ,(g \circ p_C)^*C) \circ q(g \circ p_C ,C) &&\mbox{by axiom (qf)} \\
+                             &= f \circ s(g) \circ q(g \circ p_C ,C)                   &&\mbox {from defn. of $f^*s(g)$}\\
+														 &= f \circ g                                              &&\mbox {by axiom (s2)}
+\end{align*}
+\end{proof}
+
+\input{thedupleconstruction}
 
 
