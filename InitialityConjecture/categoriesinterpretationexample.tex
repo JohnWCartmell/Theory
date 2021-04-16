@@ -1,9 +1,16 @@
 
+
+\newcommand{\sect}{Sect}
+\newcommand{\insect}[2]{#1 \in Sect(#2)}
+
 \newcommand {\OO}{Ob^2}
 \newcommand {\OOO}{Ob^3}
+\newcommand{\HomOb}{\crossx{Hom}{Ob}{1}}
+\newcommand{\fid}{\qq{id}}
+\newcommand{\fcomp}{\qq{\circ}}
 
-\newcommand{\leftidentitylhsterm}{({x_1}^*\qq{id})^*\tuple{x_1,x_1,x_2}^*\qq{\circ}}
-\newcommand{\rightidentitylhsterm}{({x_2}^*\qq{id})^*\tuple{x_1,x_2,x_2}^*\qq{\circ}}
+\newcommand{\leftidentitylhsterm}{({x_1}^*\qq{id})^*\tuple{x_1,x_1,x_2}^*\fcomp}
+\newcommand{\rightidentitylhsterm}{({x_2}^*\qq{id})^*\tuple{x_1,x_2,x_2}^*\fcomp}
 \newcommand{\HomHom}{\crossx{Hom}{Hom}{\OO}}
 
 \newcommand {\yOOO}{\ofT{y_1,y_2,y_3}{Ob}}
@@ -120,21 +127,55 @@ At this stage we are now able to interpret any derived rule of the theory $tc3$ 
 which can be derived just from the introductory rules for $Ob, Hom, id and \circ$. In particular we can
 interpret the left and right sides of the three axioms. In fact we will have: 
 
-\newcommand{\sect}{Sect}
-\newcommand{\insect}[2]{#1 \in Sect(#2)}
+
+
+\newcommand{\gatinterpretationcontext}[1]{&\multicolumn{5}{l}{$#1$}}
+\begin{table}[H]
+\caption{Deriving what constitutes an intepretation of the theory of categories $tc$ in a contextual category \catc.
+The result is shown (highlighted) in rows (\ref{tc}), (\ref{tc}), (\ref{tcax1}), (\ref{tcax2}) and (\ref{tcax3}). Other rows 
+show how we derive this result from clauses (i) through (viii) of the definition of interpretation.}
+\label{internalcategorytable}
+%\setlength{\arrayrulewidth}{1mm}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{l l  c  p{0cm} l  l}
+\multicolumn{2}{l}{Premise} \\
+\multicolumn{2}{l}{Conclusion} &&& Interpretation by $I$ in \catcw & Reason why\\
+\hline
+\gatinterpretationcontext{-- empty context --} \\
+\gatinterpretationintro {tc1}{}{\isT{Ob}}{Ob \in Cover(1)}{(i)} \\
+\vdots \\
+\gatinterpretationcontext{\ofT{x_1}{Ob},\,\ofT{x_2}{Ob},\,\ofT{f}{Hom(x_1,x_2)}} \\
+\hline
+\gatinterpretationdetail{tc5}{}{\isT{Ob}}{ \HomOb \in Cover(Hom) }{xxxx}                                           \\
+\gatinterpretationdetail{tc6}{}{\ofT{x_1}{Ob}}{ s(p_{Hom,Ob}) \in Section(\HomOb) }{xxxx}                          \\
+\gatinterpretationdetail{tc7}{}{\isT{Hom(x_1,x_1)}}{ \duple{s(p_{Hom,Ob}),s(p_{Hom,Ob}}^*Hom \in Cover(Hom) }{xxxx}\\
+\gatinterpretationmapeqv                           {\tuple{p_{Hom,Ob},p_{Hom,Ob}}^*Hom}                            \\
+\gatinterpretationdetail{tc8}{}{\ofT{id(x_1)}{Hom(x_1,x_1)}}
+                               {\duple{s({p_{Hom,Ob}})}^*\fid \in Sect(\tuple{p_{Hom,Ob},p_{Hom,Ob}}^*Hom) }{xxxx}   \\
+\gatinterpretationmapeqv       {{p_{Hom,Ob}}^*\fid}                                                     {check me}   \\
+\gatinterpretationmapeqv       {s(p_{Hom,Ob}\circ \fid)}                      {undoubtably -- by extended sfg lemma} \\
+\gatinterpretationdetail{tc9}{}{\ofT{f}{Hom(x_1,x_2)}}{s(id_{Hom}) \in Sect(\HomHom) }{xxxx}                       \\
+%\gatinterpretationmapeqv                              {\delta_{Hom}}          {definition of $\delta$}             \\
+\gatinterpretationdetail{tc10}{}{\ofT{id(x_1) \circ f}{Hom(x_1,x_2)}}
+                                {\duple{s(p_{Hom,Ob}),s(p_{Hom,Ob}),s(p_{Hom,\OO}),s(p_{Hom,Ob}\circ \fid),s(id_{Hom})}^*\fcomp: Hom \morph \HomHom }{xxxx}  \\
+\gatinterpretationmapeqv        {\tuple{p_{Hom,Ob},p_{Hom,Ob},p_{Hom,\OO},p_{Hom,Ob}\circ \fid,id_{Hom}}^*\fcomp}{} \\
+\end{tabular}
+\end{table}
+
+
 
 \begin{equation*}
 \begin{array}{p{5cm} c l}
 \gatdisplayrule{\ofT{y_1}{Ob},\, \ofT{y_2}{Ob},\,\ofT{y_3}{Ob},\, \ofT{f}{Hom(y_1,y_2)},\, \ofT{g}{Hom(y_2,y_3)} }{\isT{Hom(y_1,y_3)}}                                                                     \\[0.15cm]
             & \Imapsto & {\delta_{Ob}}^*Hom                               \\[0.2cm]
 \gatdisplayrule{\ofT{y_1}{Ob},\, \ofT{y_2}{Ob},\,\ofT{y_3}{Ob},\, \ofT{f}{Hom(y_1,y_2)},\, \ofT{g}{Hom(y_2,y_3)} }{\ofT{f \circ g}{Hom(y_1,y_3)}}                                                                     \\[0.15cm]
-            & \Imapsto & \insect{\qq{\circ}}{{\delta_{Ob}}^*Hom}                               \\[0.2cm]
+            & \Imapsto & \insect{\fcomp}{{\delta_{Ob}}^*Hom}                               \\[0.2cm]
 \multicolumn{3}{l}{\gatdisplayrule{\associativitypremise}{\ofT{f \circ g}{Hom(z_1,z_3)}}}       \\[0.15cm]
         		& \Imapsto & 	\insect{\tuple{z_1,z_2,z_3,f,g}^*\qq{\circ}}{\tuple{z_1,z_2,z_3,f,g}^*{\delta_{Ob}}^*Hom} \\[0.5cm]	
 												\\
 \gatdisplayrule{\ofT{x_1}{Ob},\,\ofT{x_2}{Ob},\,\ofT{f}{Hom(x_1,x_2)}}
                {\ofT{f}{Hom(x_1,x_2)}} 
-            & \Imapsto & \delta_{Ob}: Hom \morph \HomHom                  \\[0.2cm]
+            & \Imapsto & \delta_{Hom}: Hom \morph \HomHom                  \\[0.2cm]
 \gatdisplayrule{\ofT{x_1}{Ob},\,\ofT{x_2}{Ob},\,\ofT{f}{Hom(x_1,x_2)}}
                {\ofT{id(x_1) \circ f}{Hom(x_1,x_2)}} 
             & \Imapsto &  \leftidentitylhsterm : Hom \morph \HomHom       \\[0.2cm]
