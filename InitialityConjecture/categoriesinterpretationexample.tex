@@ -5,6 +5,7 @@
 
 \newcommand {\OO}{Ob^2}
 \newcommand {\OOO}{Ob^3}
+\newcommand {\OOOO}{Ob^4}
 \newcommand{\HomOb}{\crossx{Hom}{Ob}{1}}
 \newcommand{\fid}{\qq{id}}
 \newcommand{\fcomp}{\qq{\circ}}
@@ -21,25 +22,7 @@
 \newcommand {\yOOOfHgHmapped}{\crossx{\yOOOfHmapped}{\tuple{y_2,y_3}^*Hom}{\OOO}}
 \newcommand {\yOOOfHgHHmapped}{\crossx{\big(\yOOOfHgHmapped\big)}{{\tuple{y_1,y_3}^*Hom}}{\OOO}}
 
-\newcommand{\associativitypremise}
-       {\ofT{z_1,z_2,z_3,z_4}{Ob},\,
-                                \ofT{f}{Hom(z_1,z_2)},\,\ofT{g}{Hom(z_2,z_3)},\,\ofT{h}{Hom(z_3,z_4)}}
-																
-																
-\newcommand{\associativitypremisemapped}{\crossx 
-                                            {\big(\crossx
-																						      {\tuple{z_1,z_2}^*Hom}
-																									{\tuple{z_2,z_3}^*Hom} 
-                                                  {Ob^4}
-																							\big)}
-																						{\tuple{z_3,z_4}^*Hom} 
-																						{Ob^4}  
-																				 }
-
-\newcommand{\associativitylhstype}{\isT{{Hom(z_1,z_4)}}}
-\newcommand{\associativitylhstypemapped}{\crossx{\Big(\associativitypremisemapped\Big)}{\tuple{z_1,z_4}^*Hom}{Ob^4}}
-\newcommand{\associativitylhstermtyping}{\ofT{(f \circ g) \circ h}{Hom(z_1,z_4)}}
-\newcommand{\associativityrhstermtyping}{\ofT{f \circ (g \circ h)}{Hom(z_1,z_4)}}		
+\iffalse
 
 \note
 Consider as an example
@@ -127,94 +110,311 @@ At this stage we are now able to interpret any derived rule of the theory $tc3$ 
 which can be derived just from the introductory rules for $Ob, Hom, id and \circ$. In particular we can
 interpret the left and right sides of the three axioms. In fact we will have: 
 
+ 
+\item % tc_4
+\end{enumerate}
+\fi
 
 
-\newcommand{\gatinterpretationcontext}[1]{&\multicolumn{5}{l}{$#1$}}
+\newcommand{\gatinterpretationcontext}[1]{&\multicolumn{5}{p{15cm}}{#1}}
+
+%\newcommand{\gatinterpretationwhere}[1]{&\multicolumn{5}{r}{\parbox{12cm}{#1}}}
+\newcommand{\compfour}{\tuple{y_1,y_2}^*Hom}
+\newcommand{\compfive}{\tuple{\dot y_2,\dot y_3}^*Hom}
+\newcommand{\compsix}{\tuple{\ddot y_1,\ddot y_3}^*Hom}
+
+\newcommand{\associativitypremise}
+       {\ofT{z_1,z_2,z_3,z_4}{Ob},\,
+                                \ofT{f}{Hom(z_1,z_2)},\,\ofT{g}{Hom(z_2,z_3)},\,\ofT{h}{Hom(z_3,z_4)}}
+																
+\newcommand{\associativitypremisepoppopmapped}{\tuple{z_1,z_2}^*Hom}
+
+\newcommand{\associativitypremisepopmapped}{	\crossx{\associativitypremisepoppopmapped}
+																									   {\tuple{z_2,z_3}^*Hom} 
+                                                     {Ob^4}
+																					 }														
+\newcommand{\associativitypremisemapped}{\crossx 
+                                            {\big(\associativitypremisepopmapped \big)}
+																						{\tuple{z_3,z_4}^*Hom} 
+																						{Ob^4}  
+																				 }
+
+\newcommand{\associativitylhstype}{\isT{{Hom(z_1,z_4)}}}
+\newcommand{\associativitylhstypemapped}{\crossx{\Big(\associativitypremisemapped\Big)}
+                                        {\tuple{\dddot z_1,\dddot z_4}^*Hom}{Ob^4}}
+\newcommand{\associativitylhstermtyping}{\ofT{(f \circ g) \circ h}{Hom(z_1,z_4)}}
+\newcommand{\associativityrhstermtyping}{\ofT{f \circ (g \circ h)}{Hom(z_1,z_4)}}	
+
+\newcommand {\assocfogmapped}{\tuple{\dddot z_1,\dddot z_2,\dddot z_3,f,g}^*\fcomp }
+\newcommand {\assochmapped}{s(id_{\associativitypremisemapped})}
+\newcommand {\assoclhsmapped}{\tuple{z_1,z_3,z_4,\assocfogmapped,\assochmapped}^*\fcomp}
+
+\iffalse AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
 \begin{table}[H]
 \caption{Deriving what constitutes an intepretation of the theory of categories $tc$ in a contextual category \catc.
-The result is shown (highlighted) in rows (\ref{tc}), (\ref{tc}), (\ref{tcax1}), (\ref{tcax2}) and (\ref{tcax3}). Other rows 
-show how we derive this result from clauses (i) through (viii) of the definition of interpretation.}
-\label{internalcategorytable}
+Part One - Introductory rules for $Ob$, $Hom$ and $id$.
+}
+\label{internalcategorytableone}
 %\setlength{\arrayrulewidth}{1mm}
 \setlength{\tabcolsep}{2pt}
 \begin{tabular}{l l  c  p{0cm} l  l}
-\multicolumn{2}{l}{Premise} \\
-\multicolumn{2}{l}{Conclusion} &&& Interpretation by $I$ in \catcw & Reason why\\
+\multicolumn{2}{l}{Derived Rule} &&& Interpretation by $I$ in \catcw & Reason why\\
 \hline
-\gatinterpretationcontext{-- empty context --} \\
-\gatinterpretationintro {tc1}{}{\isT{Ob}}{Ob \in Cover(1)}{(i)} \\
-\vdots \\
-\gatinterpretationcontext{\ofT{x_1}{Ob},\,\ofT{x_2}{Ob},\,\ofT{f}{Hom(x_1,x_2)}} \\
-\hline
-\gatinterpretationdetail{tc5}{}{\isT{Ob}}{ \HomOb \in Cover(Hom) }{xxxx}                                           \\
-\gatinterpretationdetail{tc6}{}{\ofT{x_1}{Ob}}{ s(p_{Hom,Ob}) \in Section(\HomOb) }{xxxx}                          \\
-\gatinterpretationdetail{tc7}{}{\isT{Hom(x_1,x_1)}}{ \duple{s(p_{Hom,Ob}),s(p_{Hom,Ob}}^*Hom \in Cover(Hom) }{xxxx}\\
-\gatinterpretationmapeqv                           {\tuple{p_{Hom,Ob},p_{Hom,Ob}}^*Hom}                            \\
-\gatinterpretationdetail{tc8}{}{\ofT{id(x_1)}{Hom(x_1,x_1)}}
-                               {\duple{s({p_{Hom,Ob}})}^*\fid \in Sect(\tuple{p_{Hom,Ob},p_{Hom,Ob}}^*Hom) }{xxxx}   \\
-\gatinterpretationmapeqv       {{p_{Hom,Ob}}^*\fid}                                                     {check me}   \\
-\gatinterpretationmapeqv       {s(p_{Hom,Ob}\circ \fid)}                      {undoubtably -- by extended sfg lemma} \\
-\gatinterpretationdetail{tc9}{}{\ofT{f}{Hom(x_1,x_2)}}{s(id_{Hom}) \in Sect(\HomHom) }{xxxx}                       \\
-%\gatinterpretationmapeqv                              {\delta_{Hom}}          {definition of $\delta$}             \\
-\gatinterpretationdetail{tc10}{}{\ofT{id(x_1) \circ f}{Hom(x_1,x_2)}}
-                                {\duple{s(p_{Hom,Ob}),s(p_{Hom,Ob}),s(p_{Hom,\OO}),s(p_{Hom,Ob}\circ \fid),s(id_{Hom})}^*\fcomp: Hom \morph \HomHom }{xxxx}  \\
-\gatinterpretationmapeqv        {\tuple{p_{Hom,Ob},p_{Hom,Ob},p_{Hom,\OO},p_{Hom,Ob}\circ \fid,id_{Hom}}^*\fcomp}{} \\
+\gatinterpretationintro {obintro}{}{\isT{Ob}}{Ob \in Cover(1)}{(i)}                                   \\
+\gatinterpretationdetail{homintrohelper}{\ofT{x_1}{Ob}}{\isT{Ob}}{Ob^2 \in Cover(Ob)}
+                                                               {(v) and (\lref{obintro})}             \\
+\gatinterpretationintro {homintro}{\ofT{x_1}{Ob},\ofT{x_2}{Ob}}{\isT{Hom}}{Hom \in Cover(Ob^2)}
+                                                               {(i) and (\lref{homintrohelper})}      \\
+\gatinterpretationdetail{idintrohelperhelper}{\ofT{x}{Ob}}{\ofT{x}{Ob}}{s(id_{Ob})}
+                                                               {(ii)(b) and (\lref{homintrohelper})}  \\
+\gatinterpretationdetail{idintrohelper}{\ofT{x}{Ob}}
+                                 {\isT{Hom(x,x)}}{s(id_{Ob})^*Hom }
+                                 {(vii) (\lref{homintro}) and (\lref{idintrohelperhelper})}           \\
+\gatinterpretationintro {idintro}{\ofT{x}{Ob}}{\ofT{id(x,x)}{Hom(x,x)}} 
+                                 {\fid \in Sect(s(id_{Ob})^*Hom) }
+                                 {(ii)and (\ref{idintrohelper})}                                      \\
 \end{tabular}
 \end{table}
 
 
 
-\begin{equation*}
-\begin{array}{p{5cm} c l}
-\gatdisplayrule{\ofT{y_1}{Ob},\, \ofT{y_2}{Ob},\,\ofT{y_3}{Ob},\, \ofT{f}{Hom(y_1,y_2)},\, \ofT{g}{Hom(y_2,y_3)} }{\isT{Hom(y_1,y_3)}}                                                                     \\[0.15cm]
-            & \Imapsto & {\delta_{Ob}}^*Hom                               \\[0.2cm]
-\gatdisplayrule{\ofT{y_1}{Ob},\, \ofT{y_2}{Ob},\,\ofT{y_3}{Ob},\, \ofT{f}{Hom(y_1,y_2)},\, \ofT{g}{Hom(y_2,y_3)} }{\ofT{f \circ g}{Hom(y_1,y_3)}}                                                                     \\[0.15cm]
-            & \Imapsto & \insect{\fcomp}{{\delta_{Ob}}^*Hom}                               \\[0.2cm]
-\multicolumn{3}{l}{\gatdisplayrule{\associativitypremise}{\ofT{f \circ g}{Hom(z_1,z_3)}}}       \\[0.15cm]
-        		& \Imapsto & 	\insect{\tuple{z_1,z_2,z_3,f,g}^*\qq{\circ}}{\tuple{z_1,z_2,z_3,f,g}^*{\delta_{Ob}}^*Hom} \\[0.5cm]	
-												\\
-\gatdisplayrule{\ofT{x_1}{Ob},\,\ofT{x_2}{Ob},\,\ofT{f}{Hom(x_1,x_2)}}
-               {\ofT{f}{Hom(x_1,x_2)}} 
-            & \Imapsto & \delta_{Hom}: Hom \morph \HomHom                  \\[0.2cm]
-\gatdisplayrule{\ofT{x_1}{Ob},\,\ofT{x_2}{Ob},\,\ofT{f}{Hom(x_1,x_2)}}
-               {\ofT{id(x_1) \circ f}{Hom(x_1,x_2)}} 
-            & \Imapsto &  \leftidentitylhsterm : Hom \morph \HomHom       \\[0.2cm]
-\gatdisplayrule{\ofT{x_1}{Ob},\,\ofT{x_2}{Ob},\,\ofT{f}{Hom(x_1,x_2)}}
-               {\ofT{f \circ id(x_2)}{Hom(x_1,x_2)}} 
-            & \Imapsto & \rightidentitylhsterm : Hom \morph \HomHom       \\[0.2cm]
-\multicolumn{3}{l}{\associativitypremise}                                               \\[0.15cm]
-        		& \Imapsto & \associativitypremisemapped				              \\[0.5cm]
-\multicolumn{3}{l}{\gatdisplayrule{\associativitypremise}{\associativitylhstype}}       \\[0.15cm]
-        		& \Imapsto & \associativitylhstypemapped				              \\[0.5cm]					
-\multicolumn{3}{l}{\gatdisplayrule{\associativitypremise}{\associativitylhstermtyping}} \\[0.15cm]
-            & \Imapsto &                                                  \\[0.5cm] 
-\multicolumn{3}{l}{\gatdisplayrule{\associativitypremise}{\associativityrhstermtyping}} \\[0.15cm]
-            & \Imapsto &   
+\begin{table}[H]
+\caption{Deriving what constitutes an intepretation of the theory of categories $tc$ in a contextual category \catc.
+Part Two Introductory rule for $\circ$. Indication of the reasoning is not included due to lack of space. 
+The reasoning follows the patterns indicated in accompanying tables \ref{internalcategorytableone} and \ref{internalcategorytablethree}.
+}
+\label{internalcategorytabletwo}
+Define $y_1 : \OOO \morph Ob$ in \catcw  by $y_1 = p_{\OOO,Ob}$ 
+and define $y_i : \OOO \morph Ob$, for $i = 2,3$,  by $y_i = p_{Ob^3,Ob^i}\circ q(p_{Ob^i},Ob)$.
+
+Define  $\dot y_i : \compfour \morph Ob$ in \catc, for $i = 1, 2,3$, 
+                                           by $\dot y_i = p_{\compfour}\circ y_i$.	
+%\setlength{\arrayrulewidth}{1mm}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{l l  c  p{0cm} l  l}
+\hline
+\multicolumn{2}{l}{Derived Rule} &&& Interpretation by $I$ in \catcw \\
+\hline
+\gatinterpretationdetail{comp1}{\ofT{x_1,x_2}{Ob}}{\isT{Ob}}{ \OOO \in Cover(\OO) }{}              \\
+\gatinterpretationdetail{comp2}{\ofT{y_1,y_2,y_3}{Ob}}{\isT{Hom(y_1,y_2)}}{ \compfour \in Cover(\OOO) }{} \\
+\gatinterpretationdetail{comp3}{\ofT{y_1,y_2,y_3}{Ob}, \ofT{f_1}{Hom(y_1,y_2)}}{\isT{Hom(y_2,y_3)}}
+                        {  \compfive \in Cover(\compfour) }{} \\
+\gatinterpretationdetail{comp4}{\ofT{y_1,y_2,y_3}{Ob}, \ofT{f}{Hom(y_1,y_2)},\ofT{g}{Hom(y_2,y_3)}} {\isT{Hom(y_1,y_3)}}
+                        { \compsix \in Cover(\compfive) }{} \\
+\gatinterpretationintro {compintro}	{\ofT{y_1,y_2,y_3}{Ob}, \ofT{f}{Hom(y_1,y_2)},\ofT{g}{Hom(y_2,y_3)}} 
+                                    {\ofT{f \circ g}{Hom(y_1,y_3)}}
+																    {\fcomp \in Sect(\compsix)}
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\caption{Deriving what constitutes an intepretation of the theory of categories $tc$ in a contextual category \catc.
+Part Three. The right identity axiom.
+}
+\label{internalcategorytablethree}
+%\setlength{\arrayrulewidth}{1mm}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{l l  c  p{0cm} l  l}
+\gatinterpretationcontext{Let $P$ be the context $\ofT{x_1}{Ob},\,\ofT{x_2}{Ob},\,\ofT{f}{Hom(x_1,x_2)} $
+                                 then $ P \mapsto Hom \in Cover(Ob^2)$.} \\
+\gatinterpretationcontext{	 Define morphisms $\rule[-10pt]{0pt}{30pt}\Rnode{Hom}{Hom} \hspace{1cm} \Rnode{Ob}{Ob}$ 
+               \ncline[nodesepA=5pt,nodesepB=5pt,offsetA=3pt,offsetB=3pt,arrowsize=5pt,arrowinset=0.7]{->}{Hom}{Ob}
+							 \alabel{x_1}
+							 \ncline[nodesepA=5pt,nodesepB=5pt,offsetA=-3pt,offsetB=-3pt,arrowsize=5pt,arrowinset=0.7]{->}{Hom}{Ob}
+							 \blabel{x_2}
+							  in \catcw by $x_1 = p_{Hom,Ob}$ and $x_2=p_{Hom,Ob^2}\circ q(p_{Ob},Ob)$.
+							           } \\
+\hline
+\multicolumn{2}{l}{Derived Rule} &&& Interpretation by $I$ in \catcw & Reason why\\
+\hline
+\gatinterpretationdetail{hom1}{P}{\isT{Ob}}{ \HomOb \in Cover(Hom) }{(v), (\lref{Pcontext}) and (\ref{obintro})}              \\
+\gatinterpretationdetail{hom2}{P}{\ofT{x_1}{Ob}}{ s(p_{Hom,Ob}) \in Section(\HomOb) }{(ii)(b)}                    \\
+\gatinterpretationmapeqv        {s(x_1)}                                            {defn. of $x_1$}             \\
+\gatinterpretationdetail{hom3}{P}{\ofT{x_2}{Ob}}{ s(p_{Hom,Ob^2}) \in Section(\HomOb) }{(ii)(b)}                  \\
+\gatinterpretationmapeqv        {s(x_2)}                                            {defn. of $x_2$}             \\
+\gatinterpretationdetail{hom4}{P}{\isT{Hom(x_1,x_1)}}{ \duple{s(x_1),s(x_1}^*Hom \in Cover(Hom) }
+                                                                                      {(vii), (\lref{homintro}) and (\ref{hom2})}   \\
+\gatinterpretationmapeqv                           {\tuple{x_1,x_1}^*Hom}             {lemma \lref{thedupletuplelemma}} \\
+\gatinterpretationdetail{hom5}{P}{\ofT{id(x_1)}{Hom(x_1,x_1)}}
+                               {\duple{s({x_1})}^*\fid \in Sect(\tuple{x_1,x_1}^*Hom) }{(viii), (\lref{idintro}) and (\ref{hom2})}  \\
+\gatinterpretationmapeqv       {{x_1}^*\fid}                                           {lemma \lref{thedupletuplelemma}} \\
+\gatinterpretationmapeqv       {s(x_1\circ \fid)}                                      {lemma \lref{sfglemma} check}     \\
+\gatinterpretationdetail{hom6}{P}{\ofT{f}{Hom(x_1,x_2)}}{s(id_{Hom}) \in Sect(\HomHom) }{(ii)(b)}                         \\
+\gatinterpretationdetail{hom7}{P}{\ofT{id(x_1) \circ f}{Hom(x_1,x_2)}}
+                                {\duple{s(x_1),s(x_1),s(p_{Hom,\OO}),s(x_1\circ \fid),s(id_{Hom})}^*\fcomp  }
+																                                       {(viii), (\ref{hom2}),(\ref{hom3}) and (\ref{hom8})}  \\
+																&&&&\hspace{4.5cm}$\in Sect(\HomHom)$&(viii)                                             \\
+\gatinterpretationmapeqv        {\tuple{x_1,x_1,x_2,x_1\circ \fid,id_{Hom}}^*\fcomp}
+                                                                    {lemma \lref{thedupletuplelemma} and defn. of $x_2$} \\
+\gatinterpretationaxcond{tcaxiomone}{P}{\ofT{id(x_1) \circ f}{Hom(x_1,x_2)=f}}
+                                       {\tuple{x_1,x_1,x_2,x_1\circ \fid,id_{Hom}}^*\fcomp=s(id_{Hom})}{}                 \\
+\gatinterpretationaxeqv{\tuple{x_1,x_1,x_2,x_1\circ \fid,id_{Hom}} \circ \fcomp \circ q(p_{\tuple{\ddot y_1,\ddot y_3}},Hom)=id_{Hom}}
+                       {lemma \lref{sfglemma} CHECK and put this in separate lemma}
+\end{tabular}
+\end{table}
+
+\newpage
+
+
+\begin{table}[H]
+\caption{Deriving what constitutes an intepretation of the theory of categories $tc$ in a contextual category \catc.
+Part Four. Associativity axiom.
+}
+\label{internalcategorytablefour}
+%\setlength{\arrayrulewidth}{1mm}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{l l  c  p{0cm} l  l}
+\gatinterpretationcontext{Let $Q$ be the context $\associativitypremise$} \\
+\gatinterpretationcontext{then $Q \mapsto \associativitypremisemapped \in Cover(\associativitypremisepopmapped)$ in \catc.} \\
+\gatinterpretationcontext{	 Define morphisms $\rule[-10pt]{0pt}{30pt}\Rnode{Hom}{Hom} \hspace{1cm} \Rnode{Ob}{Ob}$ 
+               \ncline[nodesepA=5pt,nodesepB=5pt,offsetA=3pt,offsetB=3pt,arrowsize=5pt,arrowinset=0.7]{->}{Hom}{Ob}
+							 \alabel{x_1}
+							 \ncline[nodesepA=5pt,nodesepB=5pt,offsetA=-3pt,offsetB=-3pt,arrowsize=5pt,arrowinset=0.7]{->}{Hom}{Ob}
+							 \blabel{x_2}
+							  in \catcw by $x_1 = p_{Hom,Ob}$ and $x_2=p_{Hom,Ob^2}\circ q(p_{Ob},Ob)$.
+							           } \\
+\hline
+\multicolumn{2}{l}{Derived Rule} &&& Interpretation by $I$ in \catcw & Reason why\\
+\hline
+\gatinterpretationdetail{assoc1}{Q}{\ofT{f \circ g}{Hom(z_1,z_3)}}
+                                   { \assocfogmapped \in Sect(\tuple{\dddot z_1,\dddot z_3}^*Hom) }
+																	 {}              \\
+\gatinterpretationdetail{assoc2}{Q}{\ofT{h}{Hom(z_3,z_4)}}{\assochmapped}{}         \\
+\gatinterpretationdetail{assoc3}{Q}{\associativitylhstermtyping}{\assoclhsmapped}{} \\
+\gatinterpretationdetail{assoc4}{Q}{\associativityrhstermtyping}{TBD}{}            \\
+\gatinterpretationdetail{assocxx}{Q}{\associativitylhstype}{\associativitylhstypemapped}{} \\
+\end{tabular}
+\end{table}
+
+\fi %AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+%\ncarc[arcangle=#1,nodesepA=5pt,nodesepB=5pt,offsetA=#2pt,offsetB=#2pt,arrowsize=5pt,arrowinset=0.7]{->}{#3}{#4}
+
+\newcommand{\ncarrNEGZZ}[3][0]{\ncarc[arcangle=#1,nodesepA=2pt,nodesepB=2pt,offsetA=-2pt,offsetB=-2pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
+\newcommand{\ncarrZ}[3][0]{\ncarc[arcangle=#1,nodesepA=2pt,nodesepB=2pt,offsetA=0pt,offsetB=0pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
+\newcommand{\ncarrZZ}[3][0]{\ncarc[arcangle=#1,nodesepA=2pt,nodesepB=2pt,offsetA=2pt,offsetB=2pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
+\newcommand{\ncarrZZZ}[3][0]{\ncarc[arcangle=#1,nodesepA=2pt,nodesepB=2pt,offsetA=4pt,offsetB=4pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
+\newcommand{\ncarrZZZZ}[3][0]{\ncarc[arcangle=#1,nodesepA=2pt,nodesepB=2pt,offsetA=6pt,offsetB=6pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
+
+
+
+\newcommand{\ccsquare}
+{\begin{displaymath}
+\begin{array}{cp{.9cm}c}
+\Rnode{fstarz}{f^*z} & & \Rnode{z}{z}\\ [1.2cm]
+\Rnode{x}{x}         & & \Rnode{y}{y}
 \end{array}
+\end{displaymath}
+\ncbsar{p_{f \sub z}}{fstarz}{x}
+\jcbarr{f}{x}{y}
+\ncaarr{q(f,z)}{fstarz}{z}
+\ncasar{p_z}{z}{y}
+}
+
+\newcommand{\ccsquareoutline}[6]
+{\begin{array}{cp{#1}c}
+\Rnode{TL}{#3}  & &  \Rnode{TR}{#4}\\ [#2]
+\Rnode{BL}{#5}  & &  \Rnode{BR}{#6}
+\end{array}
+}
+\newcommand{\ccsquareacross}[2]
+{\ncarr{TL}{TR}
+\alabel{#1}
+\ncarr{BL}{BR}
+\blabel{#2}
+}
+\newcommand{\ccsquaredown}[2]
+{\ncsar{TL}{BL}
+\blabel{#1}
+\ncsar{TR}{BR}
+\alabel{#2}
+}
+
+
+
+\begin{equation*}
+\ccsquareoutline{2.5cm}{1.2cm}{\associativitypremisemapped}{Hom}{\OOOO}{\OO}
+\mbox{
+\nccdar{TL}{BL}
+\ncsar{TR}{BR}
+\ccsquareacross{f}{\tuple{\dddot z_1, \dddot z_2}}
+}
 \end{equation*}
 
- 
-\item % tc_4
-\end{enumerate}
+\newcommand{\ccplaceholder}{\rule[-0.2cm]{0cm}{0.6cm}\kern0.2cm}
+
+\newcommand{\rightend}[1] { \kern-0.2cm\Rnode{#1} {\ccplaceholder} }
+
+\begin{equation*}
+\begin{array}{r  p{4cm} c}
+\associativitypremisemapped  =  \tuple{\ddot z_1,\ddot z_2}^*Hom  \rightend{Q}                    \\ [1cm]
+\associativitypremisepopmapped  =  \tuple{\dot z_1,\dot z_2}^*Hom \rightend{Qp}                   \\ [1cm]
+\associativitypremisepoppopmapped                                 \rightend{Qpp}                  \\ [1cm]
+\OOOO                                                             \rightend{O4} && \Rnode{Ob}{Ob}              
+\end{array}
+\mbox{
+\ncsar{Q}{Qp}
+\ncsar{Qp}{Qpp}
+\ncsar{Qpp}{O4}
+\ncarr{Q}{Ob}
+\alabel{\dddot z_i}
+\ncarr{Qp}{Ob}
+\alabel{\ddot z_i}
+\ncarr{Qpp}{Ob}
+\alabel{\dot z_i}
+\ncarr{O4}{Ob}
+\alabel{z_i}
+}
+\end{equation*}
+
+
+\begin{newtt}
+\begin{equation*}
+\begin{array}{r c p{4cm} c}
+\associativitypremisemapped        \kern-1cm & \Rnode{Q}{\cdot}             \\ [1cm]
+\associativitypremisepopmapped     \kern-1cm &\Rnode{Qp}{\cdot}          \\ [1cm]
+\associativitypremisepoppopmapped  \kern-1cm & \Rnode{Qpp}{\cdot}      \\ [1cm]
+&\Rnode{O4}{\OOOO}                                         \\ [1cm]
+&\Rnode{O3}{\OOO}            & & \Rnode{H}{Hom}            \\ [1cm]
+&\Rnode{O2}{\OO}             & & \Rnode{Hp}{\OO}           \\ [1cm]
+&\Rnode{O}{Ob}               & & \Rnode{Hpp}{Ob}           \\ [1cm]
+&\Rnode{abs}{1}           
+\end{array}
+\mbox{
+\ncsar{Q}{Qp}
+\ncsar{Qp}{Qpp}
+\ncsar{Qpp}{O4}
+\ncsar{O4}{O3}
+\ncsar{O3}{O2}
+\ncsar{O2}{O}   
+\ncsar{O}{abs}
+\ncsar{H}{Hp}
+\ncsar{Hp}{Hpp}
+\ncsar{Hpp}{abs}
+\ncarrNEGZZ[-10]{Q}{H}    \alabel{f}
+\ncarrZ{Q}{H}             \alabel{g}
+\ncarrZZ[10]{Q}{H}        \alabel{h}
+\ncarrNEGZZ[-10]{O4}{Hpp} \alabel{z_1}
+\ncarrZ{O4}{Hpp}          \alabel{z_2}
+\ncarrZZ[10]{O4}{Hpp}     \alabel{z_3}
+\ncarrZZZ[20]{O4}{Hpp}    \alabel{z_4}
+%\ncarrZZZZ{O4}{Hpp}
+}
+\end{equation*}
+
+\end{newtt}
 
 \begin{oldtt}
-\begin{equation*}
-\begin{array}{c c}
-\Rnode{g}{\yOOOfHgHHmapped}  \\ [1cm]
-\Rnode{f}{\yOOOfHgHmapped}    \\ [1cm]
-\Rnode{e}{\yOOOfHmapped}       \\ [1cm]
-\Rnode{d}{\OOO} & \Rnode{h}{Hom} \\ [1cm]
-\Rnode{c}{\OO}                    \\ [1cm]
-\Rnode{b}{Ob}                       \\ [1cm]
-\Rnode{a}{1}           
-\end{array}
-\ncsar{g}{f}
-\ncsar{f}{e}
-\ncsar{e}{d}
-\ncsar{d}{c}
-\ncsar{c}{b}
-\ncsar{b}{a}
-\ncsar{h}{c}
-\end{equation*}
+$$
+\ccsquareoutline{3cm}{1.2cm}{A}{B}{C}{D}
+\mbox{
+\ccsquareacross{f}{g}
+\ccsquaredown{p_A}{p_B}
+}
+$$
 \end{oldtt}
+
+
+
 
