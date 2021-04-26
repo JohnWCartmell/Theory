@@ -118,38 +118,160 @@ interpret the left and right sides of the three axioms. In fact we will have:
 
 \newcommand{\gatinterpretationcontext}[1]{&\multicolumn{5}{p{15cm}}{#1}}
 
-%\newcommand{\gatinterpretationwhere}[1]{&\multicolumn{5}{r}{\parbox{12cm}{#1}}}
+
+%Composition introductory rule
 \newcommand{\compfour}{\tuple{y_1,y_2}^*Hom}
 \newcommand{\compfive}{\tuple{\dot y_2,\dot y_3}^*Hom}
 \newcommand{\compsix}{\tuple{\ddot y_1,\ddot y_3}^*Hom}
 
+
+% Left identity axiom mapping
+\newcommand{\leftidentitymapped}{\tuple{x_1,x_1,x_2,x_1\circ \fid,id_{Hom}}^*\fcomp=s(id_{Hom})}
+
+% Right identity axiom mapping
+\newcommand{\rightidentitymapped}{\tuple{x_1,x_1,x_2,id_{Hom},x_2\circ \fid}^*\fcomp=s(id_{Hom})}
+
+
+%*****************************
+% Associativity axiom mapping
+%******************************
 \newcommand{\associativitypremise}
        {\ofT{z_1,z_2,z_3,z_4}{Ob},\,
-                                \ofT{f}{Hom(z_1,z_2)},\,\ofT{g}{Hom(z_2,z_3)},\,\ofT{h}{Hom(z_3,z_4)}}
-																
+                                \ofT{f}{Hom(z_1,z_2)},\,\ofT{g}{Hom(z_2,z_3)},\,\ofT{h}{Hom(z_3,z_4)}}															
 \newcommand{\associativitypremisepoppopmapped}{\tuple{z_1,z_2}^*Hom}
-
-\newcommand{\associativitypremisepopmapped}{	\crossx{\associativitypremisepoppopmapped}
-																									   {\tuple{z_2,z_3}^*Hom} 
-                                                     {Ob^4}
-																					 }														
-\newcommand{\associativitypremisemapped}{\crossx 
-                                            {\big(\associativitypremisepopmapped \big)}
-																						{\tuple{z_3,z_4}^*Hom} 
-																						{Ob^4}  
-																				 }
-
+\newcommand{\associativitypremisepopmapped}{\tuple{\dot z_2,\dot z_3}^*Hom}											
+\newcommand{\associativitypremisemapped}{\tuple{\ddot z_3,\ddot z_4}^*Hom}
+\newcommand{\Q}{\associativitypremisemapped}
+\newcommand{\Qp}{\associativitypremisepopmapped}
+\newcommand{\Qpp}{\associativitypremisepoppopmapped}
+\newcommand{\assoczimapped}{s(p_{\Q,Ob^i})}
+\newcommand{\assoczimappedintermediary}{s(p_{\Q,Ob^i}\circ q(p_{Ob^{i-1},1},Ob)}
+\newcommand{\assocziremapped}{{s(\dddot z_i)}}
+\newcommand{\assoctripledotzidefiniens}{p_{\Q,\OOOO}\circ z_i}
+\newcommand {\assocfmapped}{s(p_{\Q,\Qpp})}
+\newcommand {\assocgmapped}{s(p_{\Q,\Qp})}
+\newcommand {\assochmapped}{s(id_{\Q})}
+\newcommand {\assocfdefiniens}{p_{\Q,\Qpp}\circ q(\tuple{z_1,z_2},Hom)}
+\newcommand {\assocgdefiniens}{p_{\Q,\Qp}\circ q(\tuple{\dot z_2, \dot z_3},Hom)}
+\newcommand {\assochdefiniens}{q(\tuple{\ddot z_3, \ddot z_4},Hom)}
+\newcommand {\assocfmappedintermediary}{s(\assocfdefiniens)}
+\newcommand {\assocgmappedintermediary}{s(\assocgdefiniens)}
+\newcommand {\assochmappedintermediary}{s(\assochdefiniens)}
+\newcommand {\assocfremapped}{s(f)}
+\newcommand {\assocgremapped}{s(g)}
+\newcommand {\assochremapped}{s(h)}
 \newcommand{\associativitylhstype}{\isT{{Hom(z_1,z_4)}}}
-\newcommand{\associativitylhstypemapped}{\crossx{\Big(\associativitypremisemapped\Big)}
-                                        {\tuple{\dddot z_1,\dddot z_4}^*Hom}{Ob^4}}
+\newcommand{\associativitylhstypemapped}{\tuple{\dddot z_1,\dddot z_4}^*Hom}
 \newcommand{\associativitylhstermtyping}{\ofT{(f \circ g) \circ h}{Hom(z_1,z_4)}}
 \newcommand{\associativityrhstermtyping}{\ofT{f \circ (g \circ h)}{Hom(z_1,z_4)}}	
-
 \newcommand {\assocfogmapped}{\tuple{\dddot z_1,\dddot z_2,\dddot z_3,f,g}^*\fcomp }
-\newcommand {\assochmapped}{s(id_{\associativitypremisemapped})}
-\newcommand {\assoclhsmapped}{\tuple{z_1,z_3,z_4,\assocfogmapped,\assochmapped}^*\fcomp}
+\newcommand {\assoclhsmapped}{\duple{s(\dddot z_1),s(\dddot z_3),s(\dddot z_4),\assocfogmapped,s(h)}^*\fcomp}
+\newcommand {\assoclhsremapped}{\tuple{\dddot z_1,\dddot z_3,\dddot z_4,\assocfogmapped \circ q(\tuple{\dddot z_1,\dddot z_3},Hom),h}^*\fcomp}
+\newcommand {\assocgohmapped}{\tuple{\dddot z_1,\dddot z_2,\dddot z_3,g,h}^*\fcomp }
+\newcommand {\assocrhsmapped}{\tuple{s(\dddot z_1),s(\dddot z_2),s(\dddot z_4),s(f),\assocgohmapped}^*\fcomp}
+\newcommand {\assocrhsremapped}{\tuple{\dddot z_1,\dddot z_2,\dddot z_4,f,\assocgohmapped \circ q(\tuple{\dddot z_2,\dddot z_4},Hom)}^*\fcomp}
 
-\iffalse AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+\newcommand{\assocequivalentlhs}{\tuple{\dddot z_1,\dddot z_3,\dddot z_4,\tuple{\dddot z_1,\dddot z_2,\dddot z_3,f,g}\circ \compmorph,h} \circ \compmorph}
+\newcommand{\assocequivalentrhs}{\tuple{\dddot z_1,\dddot z_2,\dddot z_4,f,\tuple{\dddot z_1,\dddot z_2,\dddot z_3,g,h}\circ \compmorph} \circ \compmorph}
+
+% remapping
+\newcommand{\compmorph}{\text{`$\circ$\kern-2pt'}}%{\odot} %{\llcorner \circ \lrcorner}
+
+% These two should maybe be moved into ccategories shared macros
+\newcommand{\ccplaceholder}{\rule[-0.2cm]{0cm}{0.6cm}\kern0.2cm}
+\newcommand{\rightend}[1] { \kern-0.2cm\Rnode{#1} {\ccplaceholder} }
+
+\begin{lemma}
+An internal category in a contextual category \catcw consists of
+\begin{itemize}
+\item An object $Ob$ of \catc,
+\item an object $Hom \in Cover(O^2)$ in \catc,
+\item A section $\fid \in Sect(s(id_{Ob})^*Hom)$ in \catc, 
+\item A section $\fcomp \in Sect(\compsix) $ of \catc \\ 
+where $y_i: \OOO \morph Ob$, for $i=1,2,3$,  in \catcw is the i'th projection morphism  i.e. $y_1 = p_{\OOO,Ob}$ 
+and  for $i = 2,3$,   $y_i = p_{Ob^3,Ob^i}\circ q(p_{Ob^i},Ob)$ \\
+and where   $\dot y_i : \compfour \morph Ob$, for $i = 1,2,3$, 
+                                     is defined by $\dot y_i = p_{\compfour}\circ y_i$, so that
+\begin{equation*}
+DIAGRAM\ HERE
+\end{equation*}																		
+in \catc,
+																		
+\end{itemize}
+such that
+\begin{equation}
+\label{leftidentityaxiom}
+\leftidentitymapped
+\end{equation}
+\begin{equation}
+\label{rightidentityaxiom}
+\rightidentitymapped
+\end{equation}
+and
+\begin{equation}
+\label{associativityaxiom}
+\assoclhsremapped = \assocrhsremapped
+\end{equation}
+where for $i = 1, 2,3,4$, $z_i: \OOOO \morph Ob$, for $i=1,2,3,4$,  in \catcw is the i'th projection morphism\footnote{so $z_1 = p_{\OOOO,Ob}$ 
+and  for $i = 2,3, 4$,   $z_i = p_{Ob^4,Ob^i}\circ q(p_{Ob^i},Ob)$} \\
+and where   $\dot z_i : \associativitypremisepoppopmapped \morph Ob$
+                                     is defined by $\dot z_i = p_{\associativitypremisepoppopmapped}\circ z_i$,\\ 
+and  $\ddot z_i : \associativitypremisepopmapped \morph Ob$ 
+                                     is defined by $\ddot z_i = p_{\associativitypremisepopmapped, \OOOO}\circ z_i$, \\ 
+and $\dddot z_i : \associativitypremisemapped \morph Ob$ 
+                                     is defined by $\ddot z_i = p_{\associativitypremisemapped, \OOOO}\circ z_i$, \\												
+so that
+
+\begin{equation*}
+\begin{array}{r  p{4cm} c}
+\associativitypremisemapped       \rightend{Q}                    \\ [1cm]
+\associativitypremisepopmapped    \rightend{Qp}                   \\ [1cm]
+\associativitypremisepoppopmapped \rightend{Qpp}                  \\ [1cm]
+\OOOO                             \rightend{O4} && \Rnode{Ob}{Ob}              
+\end{array}
+\mbox{
+\ncsar{Q}{Qp}
+\ncsar{Qp}{Qpp}
+\ncsar{Qpp}{O4}
+\ncarr{Q}{Ob}
+\alabel{\dddot z_i}
+\ncarr{Qp}{Ob}
+\alabel{\ddot z_i}
+\ncarr{Qpp}{Ob}
+\alabel{\dot z_i}
+\ncarr{O4}{Ob}
+\alabel{z_i}
+}
+\end{equation*} in \catc.
+
+Equivalently an internal category in a contextual category \catc consists of
+\item objects $Ob$ and  $Hom$  and a section $\fid$ in \catc,  as above, along with
+\begin{itemize}
+\item A morphism $\compmorph$ of \catc, $\compmorph: \compfive \morph Hom$ in \catc
+\end{itemize}
+such that
+\begin{equation}
+\label{leftidentityrepresentation2}
+\tuple{x_1,x_1,x_2,x_1\circ \fid,id_{Hom}} \circ \compmorph =id_{Hom}
+\end{equation}
+\begin{equation}
+\label{rightidentityrepresentation2}
+\tuple{x_1,x_1,x_2,id_{Hom},x_2 \circ \fid} \circ \compmorph =id_{Hom}
+\end{equation}
+and
+\begin{equation}
+\label{associativityrepresentation2}
+\assocequivalentlhs = \assocequivalentrhs
+\end{equation}.
+\end{lemma}
+\begin{proof}
+Of these two equivalent representations the first results from a literal reading of the definition of interpretation given earlier
+along with the judicious choice of intermediate definitions that have been made with readability in mind.
+This is demonstrated in tables \ref{internalcategorytableone}  - \ref{internalcategorytablefour} below. 
+
+From $\compmorph$ define $\fcomp$ by defining $\fcomp=s(\compmorph)$.
+From $\fcomp$ define $\compmorph$ by defining $\compmorph=\fcomp \circ q(p_{\tuple{\ddot y_1,\ddot y_3}},Hom)$
+
 
 \begin{table}[H]
 \caption{Deriving what constitutes an intepretation of the theory of categories $tc$ in a contextual category \catc.
@@ -176,7 +298,6 @@ Part One - Introductory rules for $Ob$, $Hom$ and $id$.
                                  {(ii)and (\ref{idintrohelper})}                                      \\
 \end{tabular}
 \end{table}
-
 
 
 \begin{table}[H]
@@ -208,10 +329,14 @@ Define  $\dot y_i : \compfour \morph Ob$ in \catc, for $i = 1, 2,3$,
 \end{tabular}
 \end{table}
 
+\newcommand{\leftidentityidremapped}{s(x_1\circ \fid)}
+\newcommand{\leftidentityrhsmapped}{s(id_{Hom})}      
+\newcommand{\leftidentitylhsmapped}{\duple{s(x_1),s(x_1),s(p_{Hom,\OO}),\leftidentityidremapped,s(id_{Hom})}^*\fcomp}
+\newcommand{\leftidentitylhsremapped}{\tuple{x_1,x_1,x_2,x_1\circ \fid,id_{Hom}}^*\fcomp}
 
 \begin{table}[H]
 \caption{Deriving what constitutes an intepretation of the theory of categories $tc$ in a contextual category \catc.
-Part Three. The right identity axiom.
+Part Three. The left identity axiom.
 }
 \label{internalcategorytablethree}
 %\setlength{\arrayrulewidth}{1mm}
@@ -229,33 +354,32 @@ Part Three. The right identity axiom.
 \hline
 \multicolumn{2}{l}{Derived Rule} &&& Interpretation by $I$ in \catcw & Reason why\\
 \hline
-\gatinterpretationdetail{hom1}{P}{\isT{Ob}}{ \HomOb \in Cover(Hom) }{(v), (\lref{Pcontext}) and (\ref{obintro})}              \\
-\gatinterpretationdetail{hom2}{P}{\ofT{x_1}{Ob}}{ s(p_{Hom,Ob}) \in Section(\HomOb) }{(ii)(b)}                    \\
+\gatinterpretationdetail{rightidentity1}{P}{\isT{Ob}}{ \HomOb \in Cover(Hom) }{(v), (\lref{Pcontext}) and (\ref{obintro})}              \\
+\gatinterpretationdetail{rightidentity2}{P}{\ofT{x_1}{Ob}}{ s(p_{Hom,Ob}) \in Section(\HomOb) }{(ii)(b)}                    \\
 \gatinterpretationmapeqv        {s(x_1)}                                            {defn. of $x_1$}             \\
-\gatinterpretationdetail{hom3}{P}{\ofT{x_2}{Ob}}{ s(p_{Hom,Ob^2}) \in Section(\HomOb) }{(ii)(b)}                  \\
+\gatinterpretationdetail{rightidentity3}{P}{\ofT{x_2}{Ob}}{ s(p_{Hom,Ob^2}) \in Section(\HomOb) }{(ii)(b)}                  \\
 \gatinterpretationmapeqv        {s(x_2)}                                            {defn. of $x_2$}             \\
-\gatinterpretationdetail{hom4}{P}{\isT{Hom(x_1,x_1)}}{ \duple{s(x_1),s(x_1}^*Hom \in Cover(Hom) }
-                                                                                      {(vii), (\lref{homintro}) and (\ref{hom2})}   \\
+\gatinterpretationdetail{rightidentity4}{P}{\isT{Hom(x_1,x_1)}}{ \duple{s(x_1),s(x_1}^*Hom \in Cover(Hom) }
+                                                                                      {(vii), (\lref{homintro}) and (\ref{rightidentity2})}   \\
 \gatinterpretationmapeqv                           {\tuple{x_1,x_1}^*Hom}             {lemma \lref{thedupletuplelemma}} \\
-\gatinterpretationdetail{hom5}{P}{\ofT{id(x_1)}{Hom(x_1,x_1)}}
-                               {\duple{s({x_1})}^*\fid \in Sect(\tuple{x_1,x_1}^*Hom) }{(viii), (\lref{idintro}) and (\ref{hom2})}  \\
+\gatinterpretationdetail{rightidentityidmapping}{P}{\ofT{id(x_1)}{Hom(x_1,x_1)}}
+                               {\duple{s({x_1})}^*\fid \in Sect(\tuple{x_1,x_1}^*Hom) }{(viii), (\lref{idintro}) and (\ref{rightidentity2})}  \\
 \gatinterpretationmapeqv       {{x_1}^*\fid}                                           {lemma \lref{thedupletuplelemma}} \\
-\gatinterpretationmapeqv       {s(x_1\circ \fid)}                                      {lemma \lref{sfglemma} check}     \\
-\gatinterpretationdetail{hom6}{P}{\ofT{f}{Hom(x_1,x_2)}}{s(id_{Hom}) \in Sect(\HomHom) }{(ii)(b)}                         \\
-\gatinterpretationdetail{hom7}{P}{\ofT{id(x_1) \circ f}{Hom(x_1,x_2)}}
-                                {\duple{s(x_1),s(x_1),s(p_{Hom,\OO}),s(x_1\circ \fid),s(id_{Hom})}^*\fcomp  }
-																                                       {(viii), (\ref{hom2}),(\ref{hom3}) and (\ref{hom8})}  \\
+\gatinterpretationmapeqv       {\leftidentityidremapped}                                      {lemma \lref{sfglemma} check}     \\
+\gatinterpretationdetail{rightidentityrhsmappping}{P}{\ofT{f}{Hom(x_1,x_2)}}{\leftidentityrhsmapped \in Sect(\HomHom) }{(ii)(b)}                         \\
+\gatinterpretationdetail{rightidentitylhsmapping}{P}{\ofT{id(x_1) \circ f}{Hom(x_1,x_2)}}
+                                {\leftidentitylhsmapped  }
+																                                       {(viii), (\ref{rightidentity2}),(\ref{rightidentity3}) and (\ref{rightidentityidmapping})}  \\
 																&&&&\hspace{4.5cm}$\in Sect(\HomHom)$&(viii)                                             \\
-\gatinterpretationmapeqv        {\tuple{x_1,x_1,x_2,x_1\circ \fid,id_{Hom}}^*\fcomp}
+\gatinterpretationmapeqv        {  \leftidentitylhsremapped     }
                                                                     {lemma \lref{thedupletuplelemma} and defn. of $x_2$} \\
 \gatinterpretationaxcond{tcaxiomone}{P}{\ofT{id(x_1) \circ f}{Hom(x_1,x_2)=f}}
-                                       {\tuple{x_1,x_1,x_2,x_1\circ \fid,id_{Hom}}^*\fcomp=s(id_{Hom})}{}                 \\
+                                       {\leftidentitylhsremapped=\leftidentityrhsmapped}{}                 \\
 \gatinterpretationaxeqv{\tuple{x_1,x_1,x_2,x_1\circ \fid,id_{Hom}} \circ \fcomp \circ q(p_{\tuple{\ddot y_1,\ddot y_3}},Hom)=id_{Hom}}
                        {lemma \lref{sfglemma} CHECK and put this in separate lemma}
 \end{tabular}
 \end{table}
 
-\newpage
 
 
 \begin{table}[H]
@@ -276,19 +400,44 @@ Part Four. Associativity axiom.
 							  in \catcw by $x_1 = p_{Hom,Ob}$ and $x_2=p_{Hom,Ob^2}\circ q(p_{Ob},Ob)$.
 							           } \\
 \hline
-\multicolumn{2}{l}{Derived Rule} &&& Interpretation by $I$ in \catcw & Reason why\\
-\hline
-\gatinterpretationdetail{assoc1}{Q}{\ofT{f \circ g}{Hom(z_1,z_3)}}
+
+\multicolumn{2}{l}{Derived Rule} &&& Interpretation by $I$ in \catcw & Reason why                   \\
+\hline \\[-0.4cm]
+\gatinterpretationdetail{assoczimapping}{Q}{\ofT{z_i}{Ob},\mbox{ for } i=1,2,3,4}{\assoczimapped}{(ii)(b)}                        \\[0.2cm]
+\gatinterpretationmapeqv          {\assoczimappedintermediary}                   {axiom (s3)}        \\[0.2cm]
+\gatinterpretationmapeqvsingle    {\assocziremapped 
+                     \mbox{ where $\dddot z_i$ defined by $\dddot z_i = \assoctripledotzidefiniens$}} \\[0.2cm]
+\gatinterpretationdetail{assocfmapping}{Q}{\ofT{f}{Hom(z_1,z_2)}}{\assocfmapped}{(ii)(b)}             \\[0.2cm]
+\gatinterpretationmapeqv          {\assocfmappedintermediary}                   {axiom (s3)}     \\[0.2cm]
+\gatinterpretationmapeqvsingle    {\assocfremapped \mbox{ where $f$ defined by $f = \assocfdefiniens$}} \\[0.2cm]
+\gatinterpretationdetail{assocgmapping}{Q}{\ofT{g}{Hom(z_2,z_s)}}{\assocgmapped}{(ii)(b)}              \\[0.2cm]
+\gatinterpretationmapeqv                                  {\assocgmappedintermediary} {axiom (s3)}      \\[0.2cm]
+\gatinterpretationmapeqvsingle    {\assocgremapped \mbox{ where $g$ defined by $g = \assocgdefiniens$}} \\[0.2cm]
+\gatinterpretationdetail{assochmapping}{Q}{\ofT{h}{Hom(z_3,z_4)}}{\assochmapped}{(ii)(b)}               \\[0.2cm]
+\gatinterpretationmapeqv                                  {\assochmappedintermediary}  {axiom (s3)}     \\[0.2cm]
+\gatinterpretationmapeqvsingle    {\assochremapped \mbox{ where $h$ defined by $h = \assochdefiniens$}} \\[0.2cm]
+\gatinterpretationdetail{assocfgmapping}{Q}{\ofT{f \circ g}{Hom(z_1,z_3)}}
                                    { \assocfogmapped \in Sect(\tuple{\dddot z_1,\dddot z_3}^*Hom) }
-																	 {}              \\
-\gatinterpretationdetail{assoc2}{Q}{\ofT{h}{Hom(z_3,z_4)}}{\assochmapped}{}         \\
-\gatinterpretationdetail{assoc3}{Q}{\associativitylhstermtyping}{\assoclhsmapped}{} \\
-\gatinterpretationdetail{assoc4}{Q}{\associativityrhstermtyping}{TBD}{}            \\
-\gatinterpretationdetail{assocxx}{Q}{\associativitylhstype}{\associativitylhstypemapped}{} \\
+																	 {(viii), (\ref{assocfmapping}) and (\ref{assocgmapping})}                  \\[0.2cm]
+
+\gatinterpretationdetail{assoctypemapping}{Q}{\associativitylhstype}{\associativitylhstypemapped}{\tbd}    \\[0.2cm]
+\gatinterpretationdetail{assocLHSmapping}{Q}{\associativitylhstermtyping}{\assoclhsmapped}
+                                            {(viii), (\ref{assocfgmapping}) and (\ref{assochmapping})}\\[0.2cm]
+\gatinterpretationmapeqv                    {\assoclhsremapped}{lemma \ref{thedupletuplelemma} and  (s3)}\\[0.2cm]
+\gatinterpretationdetail{assocghmapping}{Q}{\ofT{g \circ h}{Hom(z_2,z_4)}}
+                                   { \assocgohmapped \in Sect(\tuple{\dddot z_2,\dddot z_4}^*Hom) }
+																	 {(viii), (\ref{assocgmapping}) and (\ref{assochmapping})}              \\[0.2cm]
+
+\gatinterpretationdetail{assocRHSmapping}{Q}{\associativityrhstermtyping}
+                                            {\assocrhsmapped \iffalse{\in Sect(\associativitylhstypemapped)}\fi}
+																						    {(viii), (\ref{assocfmapping}) and (\ref{assocghmapping})} \\ [0.2cm]
+\gatinterpretationmapeqv                    {\assocrhsremapped}{lemma \ref{thedupletuplelemma} and (s3)}\\[0.2cm]
+\gatinterpretationaxcond{associativity}{}{(f \circ g) \circ h = f \circ (g \circ h)}
+                                     { \assoclhsremapped  } \\
+\gatinterpretationaxcondrhscontinuation{ = \assocrhsremapped } {(\ref{assocLHSmapping}) and  (\ref{assocRHSmapping})}\\
 \end{tabular}
 \end{table}
 
-\fi %AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 %\ncarc[arcangle=#1,nodesepA=5pt,nodesepB=5pt,offsetA=#2pt,offsetB=#2pt,arrowsize=5pt,arrowinset=0.7]{->}{#3}{#4}
 
 \newcommand{\ncarrNEGZZ}[3][0]{\ncarc[arcangle=#1,nodesepA=2pt,nodesepB=2pt,offsetA=-2pt,offsetB=-2pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
@@ -298,20 +447,6 @@ Part Four. Associativity axiom.
 \newcommand{\ncarrZZZZ}[3][0]{\ncarc[arcangle=#1,nodesepA=2pt,nodesepB=2pt,offsetA=6pt,offsetB=6pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
 
 
-
-\newcommand{\ccsquare}
-{\begin{displaymath}
-\begin{array}{cp{.9cm}c}
-\Rnode{fstarz}{f^*z} & & \Rnode{z}{z}\\ [1.2cm]
-\Rnode{x}{x}         & & \Rnode{y}{y}
-\end{array}
-\end{displaymath}
-\ncbsar{p_{f \sub z}}{fstarz}{x}
-\jcbarr{f}{x}{y}
-\ncaarr{q(f,z)}{fstarz}{z}
-\ncasar{p_z}{z}{y}
-}
-
 \newcommand{\ccsquareoutline}[6]
 {\begin{array}{cp{#1}c}
 \Rnode{TL}{#3}  & &  \Rnode{TR}{#4}\\ [#2]
@@ -319,69 +454,61 @@ Part Four. Associativity axiom.
 \end{array}
 }
 \newcommand{\ccsquareacross}[2]
-{\ncarr{TL}{TR}
+{\mbox{\ncarr{TL}{TR}
 \alabel{#1}
 \ncarr{BL}{BR}
-\blabel{#2}
+\blabel{#2}}
 }
 \newcommand{\ccsquaredown}[2]
-{\ncsar{TL}{BL}
+{
+\ncsar{TL}{BL}
 \blabel{#1}
 \ncsar{TR}{BR}
 \alabel{#2}
 }
 
 
-
 \begin{equation*}
-\ccsquareoutline{2.5cm}{1.2cm}{\associativitypremisemapped}{Hom}{\OOOO}{\OO}
+\ccsquareoutline{1.4cm}{1.2cm}{\associativitypremisemapped}{Hom}{\OOOO}{\OO}
 \mbox{
 \nccdar{TL}{BL}
 \ncsar{TR}{BR}
-\ccsquareacross{f}{\tuple{\dddot z_1, \dddot z_2}}
+\ccsquareacross{f}{\tuple{z_1, z_2}}
+\kern -1cm %work around bug with lost arrow space bug
 }
-\end{equation*}
-
-\newcommand{\ccplaceholder}{\rule[-0.2cm]{0cm}{0.6cm}\kern0.2cm}
-
-\newcommand{\rightend}[1] { \kern-0.2cm\Rnode{#1} {\ccplaceholder} }
-
-\begin{equation*}
-\begin{array}{r  p{4cm} c}
-\associativitypremisemapped  =  \tuple{\ddot z_1,\ddot z_2}^*Hom  \rightend{Q}                    \\ [1cm]
-\associativitypremisepopmapped  =  \tuple{\dot z_1,\dot z_2}^*Hom \rightend{Qp}                   \\ [1cm]
-\associativitypremisepoppopmapped                                 \rightend{Qpp}                  \\ [1cm]
-\OOOO                                                             \rightend{O4} && \Rnode{Ob}{Ob}              
-\end{array}
+\ccsquareoutline{1.4cm}{1.2cm}{\associativitypremisemapped}{Hom}{\OOOO}{\OO}
 \mbox{
-\ncsar{Q}{Qp}
-\ncsar{Qp}{Qpp}
-\ncsar{Qpp}{O4}
-\ncarr{Q}{Ob}
-\alabel{\dddot z_i}
-\ncarr{Qp}{Ob}
-\alabel{\ddot z_i}
-\ncarr{Qpp}{Ob}
-\alabel{\dot z_i}
-\ncarr{O4}{Ob}
-\alabel{z_i}
+\nccdar{TL}{BL}
+\ncsar{TR}{BR}
+\ccsquareacross{g}{\tuple{z_2, z_3}}
+\kern -1cm %work around bug with lost arrow space bug
+}
+\ccsquareoutline{1.4cm}{1.2cm}{\associativitypremisemapped}{Hom}{\OOOO}{\OO}
+\mbox{
+\nccdar{TL}{BL}
+\ncsar{TR}{BR}
+\ccsquareacross{h}{\tuple{z_3, z_4}}
 }
 \end{equation*}
 
 
-\begin{newtt}
 \begin{equation*}
+\begin{array}{c}
 \begin{array}{r c p{4cm} c}
-\associativitypremisemapped        \kern-1cm & \Rnode{Q}{\cdot}             \\ [1cm]
-\associativitypremisepopmapped     \kern-1cm &\Rnode{Qp}{\cdot}          \\ [1cm]
-\associativitypremisepoppopmapped  \kern-1cm & \Rnode{Qpp}{\cdot}      \\ [1cm]
-&\Rnode{O4}{\OOOO}                                         \\ [1cm]
-&\Rnode{O3}{\OOO}            & & \Rnode{H}{Hom}            \\ [1cm]
-&\Rnode{O2}{\OO}             & & \Rnode{Hp}{\OO}           \\ [1cm]
-&\Rnode{O}{Ob}               & & \Rnode{Hpp}{Ob}           \\ [1cm]
-&\Rnode{abs}{1}           
-\end{array}
-\mbox{
+\associativitypremisemapped        \rightend{Q}            \\ [1cm]
+\associativitypremisepopmapped     \rightend{Qp}           \\ [1cm]
+\associativitypremisepoppopmapped  \rightend{Qpp}          \\ [1cm]
+\OOOO   \rightend{O4}                                   \\ [1cm]
+\OOO    \rightend{O3}      &  & & \Rnode{H}{Hom}            \\ [1cm]
+\OO     \rightend{O2}      & & & \Rnode{Hp}{\OO}           \\ [1cm]
+Ob      \rightend{O}       & & & \Rnode{Hpp}{Ob}           \\ [1cm]
+\Rnode{abs}{1}        \\ 
+\end{array} \\
+\mbox{ % sadly this is taking up horizontal space and pushing visible diagram to the left 
+       % I tried \sbox0 but sadly this stopped the arrows being typeset also
+			 % need to try and debug this sometime instead I have put as a row in an outer array 
+			 % this will just cause one blank line
+			 % change mbox to fbox to see what is happening
 \ncsar{Q}{Qp}
 \ncsar{Qp}{Qpp}
 \ncsar{Qpp}{O4}
@@ -399,11 +526,9 @@ Part Four. Associativity axiom.
 \ncarrZ{O4}{Hpp}          \alabel{z_2}
 \ncarrZZ[10]{O4}{Hpp}     \alabel{z_3}
 \ncarrZZZ[20]{O4}{Hpp}    \alabel{z_4}
-%\ncarrZZZZ{O4}{Hpp}
 }
+\end{array}
 \end{equation*}
-
-\end{newtt}
 
 \begin{oldtt}
 $$
@@ -414,6 +539,8 @@ $$
 }
 $$
 \end{oldtt}
+
+\end{proof}
 
 
 
