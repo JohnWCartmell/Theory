@@ -8,11 +8,11 @@
 \input{../SharedMacros/erdiagram}
 \input{../SharedMacros/theorems.macros}
 \input{../SharedMacros/general.macros}
+\input{../SharedMacros/diagram.macros}
 \usepackage{mathptmx}  % This changes font to roman
 \usepackage{anyfontsize}
 \usepackage{mathtools}  % why have we got this?
-\usepackage{alltt}    
-\usepackage{mnsymbol} %used for rightpitchfork
+\usepackage{alltt} 
 \usepackage{cmll}
 \usepackage{ulem}
 \renewcommand{\ttdefault}{txtt}
@@ -41,25 +41,11 @@
 
 \newtheorem*{lemmastar}{Lemma}
 
-% from presentation
-\newcommand{\attr}[1]{#1}
-\renewcommand{\attr}[1]{\psframebox[linecolor=red,framearc=.1]{#1}}
-\newcommand{\attrtype}[1]{#1}
-\renewcommand{\attrtype}[1]{\psframebox[linecolor=blue,framearc=.1]{#1}}
-\newcommand{\etype}[1]{#1}
-\renewcommand{\etype}[1]{\psframebox[linecolor=red,framearc=.1]{#1}}
-
-\NewEnviron{tightquote}
+\NewEnviron{tightquote} %italic text indented left and right hand side
 {\begin{adjustwidth}{1.5cm}{1.5cm}
 \textit{
 \BODY
 }
-\end{adjustwidth}
-}
-
-\NewEnviron{thus}
-{\begin{adjustwidth}{1.5cm}{1.5cm}
-\BODY
 \end{adjustwidth}
 }
 
@@ -86,13 +72,6 @@
 \thinspace\text{ }}}
 
 
-\NewEnviron{thusly}
-{\begin{adjustwidth}{1.5cm}{1.5cm}
-$\therefore\ $
-\BODY
-\end{adjustwidth}
-}
-
 \NewEnviron{point}
 {\begin{adjustwidth}{1.5cm}{1.5cm}
 \textbullet\ 
@@ -100,29 +79,15 @@ $\therefore\ $
 \end{adjustwidth}
 }
 
-\NewEnviron{pointeq}
-{\begin{equation}
-\mbox{\textbullet\ 
-\BODY}
-\end{equation}
-}
-
 \begin{document}
 
-\title{Interpretations of Generalised Algebraic Theories in Contextual Categories}
+\title{Instantiations of Generalised Algebraic Theories in Contextual Categories}
 
 \author{John Cartmell}
 
 \maketitle
 
-\noindent\colorbox{yellow}{%
-    \parbox{\dimexpr\linewidth-2\fboxsep}% a box with line-breaks that's just wide enough
-        {% your paragraph here:
-			and kep on typing 
-type and type and type
-       lots and lots of stuff going over many lines for which i need type and type and type
-        }
-    }
+
 
 \newcommand{\gatU}{\gat[U]}
 \newcommand{\gatUw}{\gatU\ }
@@ -141,15 +106,12 @@ type and type and type
 \fbox{$\displaystyle #1$}
 }
 
-\newcommand{\gatdisplayrule}[2]
-{
-\setlength{\fboxsep}{1pt}
-\setlength{\fboxrule}{0pt}
-\fbox{$\displaystyle \frac{#1}{#2}$}
-}
+
+%\iffalse
 \newcommand{\Isort}{I_{sort}}
 \newcommand{\Iop}{I_{op}}
 \newcommand {\Ihat}{\hat{I}}
+%\fi
 
 % workaround when used with Rnode for size of font used under the cross
 \renewcommand{\crossx}[3]{#1 \underset{\tiny #3}{\cross} #2}
@@ -165,14 +127,7 @@ type and type and type
 \newcommand{\Teqrule} {T=-rule\ }
 \newcommand{\teqrule} {$\in=$-rule\ }
 
-\newcommand{\genericAintroductoryrule} {\gatdisplayrule{\xDelta{n}}{\isT{A(\xn}}}
-\newcommand{\genericfintroductoryrule}  {\gatdisplayrule{\xDelta{n}}{\ofT{f(\xn)}{\Delta}}}
-
 \newcommand{\Imapsto}{\scaleto{\mapsto}{10pt}}
-
-\newcommand{\MAPTO}{&
-\refstepcounter{equation}(\theequation) &&
-$\mapsto$ &&}
 
 \definecolor{lightergrey}{rgb}{0.9,0.9,0.9}
 %\gatinterpretationdetail{label}{rulepremise}{ruleconclusion}{mapping}{justification}
@@ -194,46 +149,45 @@ $\mapsto$ &&}
 %\gatinterpretationaxeqv{equivalentcondition}{justificaton}
 \newcommand{\gatinterpretationaxeqv}[2]{&&$\scriptstyle iff$&&$#1$&#2}
 
-\newcommand{\duple}[1]{\llangle #1 \rrangle}
 
 \newcommand{\bigtuple}[1]{\big \langle #1 \big \rangle}
 
-\newcommand{\ncrightcrosssection}[3][-30] 
-{\ncarc[arcangle=#1,nodesepA=5pt,nodesepB=-2pt,offsetA=0pt,offsetB=1pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
-\newcommand{\ncrightsimplesection}[3][-30] 
-{\ncarc[arcangle=#1,nodesepA=6pt,nodesepB=5pt,offsetA=-1pt,offsetB=0pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
-\newcommand{\ncleftcrosssection}[3][30] 
-{\ncarc[arcangle=#1,nodesepA=5pt,nodesepB=-2pt,offsetA=0pt,offsetB=-1pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
-\newcommand{\ncleftsimplesection}[3][30] 
-{\ncarc[arcangle=#1,nodesepA=6pt,nodesepB=5pt,offsetA=1pt,offsetB=0pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
 
+\newcommand{\highlightpara}[1]{\colorbox{highlight}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep}% a box with line-breaks that's just wide enough
+        {#1}}
+}
+		
+\commentary{I am going to some lengths not to speak of `models of theories' because I prefer to use the term `model' not as logicians use it but as other theoreticians (economists, biologists, physicists etc) use it and also as used by data analysts in the description of data specifications.
+}In these notes we describe a broad notion of `model of a generalised algebraic theory \gatUw' by defining the notion of 
+an \highlight{`instantiation of  a generalised algebraic theory \gatUw in a contextual category \catc'}. \\
 
-Notes on  generalised algebraic theories, contextual categories, and, the interpretation of the former in the latter. Following these I have some comments on the draft paper of Peter Dybjer et al. 
+I wrote these notes after receiving a note on generalised algebraic theories and categories with families
+ (\cite{BCDEpaper}) from Peter Dybjer. 
+\section{Overview}
+\input{overview}
 
-
-%\iffalse  %XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-\section{Initiality Conjecture}
-\input{initialitynotes}
-
-\section{Note concerning Generalised Algebraic Theories}
+\section{Background regarding Generalised Algebraic Theories}
 \input{GeneralisedAlgebraicTheories}
 
-\section{Notes concerning Contextual Categories}
+\section{Background regarding Contextual Categories}
 \input{contextualnotation}
-\section{Defining the notion of Interpretation of Generalised Algebraic Theories within Contextual Categories}
-\input{interpretations}
 
-\subsection{Internal Monoids -- The Interpretation of the theory of Monoids within Contextual Categories}
-\input{monoidsinterpretationexample} 
+\section{The Instantiation of Generalised Algebraic Theories within Contextual Categories}
+\label{sectioninwhichinstantiationisdefined}
+\input{instantiations}
 
-%\fi %XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-\subsection{Internal Catgeories -- Interpretation of the Theory of Categories within Contextual Categories}
-\input{categoriesinterpretationexample}
-%\iffalse  %XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\section{Examples}
+\subsection{Internal Monoids -- Instantiations of the Theory of Monoids within Contextual Categories}
+\label{monoidsinstantiationexample} 
+\input{monoidsinstantiationexample} 
 
 
-%\fi %XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+\subsection{Internal Catgeories -- Instantiations of the Theory of Categories within Contextual Categories}
+
+\label{categoriesinstantiationexample}
+\input{categoriesinstantiationexample}
+
 %unused
 %\section{Unused}
 %\input{unused}

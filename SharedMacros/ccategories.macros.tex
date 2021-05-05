@@ -60,10 +60,22 @@
 \newcommand{\productn}{\product{n}}
 \newcommand{\crossx}[3]{#1 \underset{#3}{\cross} #2}
 \newcommand{\fibrex}[3]{#1 \underset{#3}{\Join} #2}
-\newcommand{\powerset}{\mathcal{P}}
+\newcommand{\powerset}{\mathcal{P}} 
 \newcommand{\primeds}[1]{
 \ensuremath{\mathcal{P}(#1)} }
 \newcommand{\compset}{\ \dot{\circ}\, }
+
+% \duple 
+\makeatletter
+\newsavebox{\@brx}
+\newcommand{\myllangle}[1][]{\savebox{\@brx}{\(\m@th{#1\langle}\)}%
+  \mathopen{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
+\newcommand{\myrrangle}[1][]{\savebox{\@brx}{\(\m@th{#1\rangle}\)}%
+  \mathclose{\copy\@brx\kern-0.5\wd\@brx\usebox{\@brx}}}
+\makeatother
+\newcommand{\duple}[1]{\myllangle #1 \myrrangle}  % I got problems moving this to ccategories 
+                                              % when I used \llangle and \rrangle from mnsymbol
+																							% so I rolled my own
 
 % darrow
 %\newcommand{\darrow}{\rightarrowtriangle} %use \smorph instead
@@ -114,6 +126,16 @@
 \newcommandx*\alabel[3][2=0.5,3=2,usedefault]{\naput[labelsep=#3pt,npos=#2]{\footnotesize $#1$}}
 % \blabel{label}[npos][labelsep_pts]
 \newcommandx*\blabel[3][2=0.5,3=2,usedefault]{\nbput[labelsep=#3pt,npos=#2]{\footnotesize $#1$}}
+
+% Added April 2021
+\newcommand{\ncrightcrosssection}[3][-30] 
+{\ncarc[arcangle=#1,nodesepA=5pt,nodesepB=-2pt,offsetA=0pt,offsetB=1pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
+\newcommand{\ncrightsimplesection}[3][-30] 
+{\ncarc[arcangle=#1,nodesepA=6pt,nodesepB=5pt,offsetA=-1pt,offsetB=0pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
+\newcommand{\ncleftcrosssection}[3][30] 
+{\ncarc[arcangle=#1,nodesepA=5pt,nodesepB=-2pt,offsetA=0pt,offsetB=-1pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
+\newcommand{\ncleftsimplesection}[3][30] 
+{\ncarc[arcangle=#1,nodesepA=6pt,nodesepB=5pt,offsetA=1pt,offsetB=0pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
 
 
 \newif \ifbars
