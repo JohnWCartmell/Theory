@@ -1,0 +1,381 @@
+
+\note \label{ccgatequivalence}From my thesis, 
+\begin{point}
+there is a category $\catGAT$ of generalised algebraic theories and interpretations,
+\end{point}
+\begin{point}
+there is a category $\catCon$ of contextual categories,
+\end{point}
+\begin{point}
+there is a functor $\ccat[C]: \catGAT \morph \catCon$,
+\end{point}
+\begin{point}
+there is a functor $\gat[U]:\catCon \morph \catGAT$,
+\end{point}
+\begin{point}
+the functor $\ccat[C]$ is an equivalence with inverse $\gat[U]$.
+\end{point}
+\note 
+Terminology: By  the generic term \term{tree} is meant a partially ordered set (poset) $(T, <)$ such that for each $t \in T$, the set $\set{s \in T : s < t}$ is well-ordered by the relation $<$.
+In this discussion we restrict ourselves to \highlight{rooted $\omega$-trees} i.e. trees for which the set $\set{s \in T : s < t}$
+is finite for all $t \in T$ and for which there is a least element in the partial ordering. 
+
+With respect to a partial ordering $<$, we say that \highlight{an element $y$ \textit{covers}  an element $x$} in  iff $x<y$ and there does not exist $w$ such that $x < w$ and $w < y$.
+If object $y$ covers object $x$ in the partial ordering 
+then we write \highlight{$x \base y$} (we use this in preference to the more usual $x \lessdot y$).
+
+
+\note We define the rank (sometimes called the grade) of an element $t \in T$ to be the cardinality
+of the set $\setsuchthat{s \in T}{s < t}$. If we define the set $T_i$ to be the set of elements of a tree
+of rank $i$ then we have that $T= \bigcup_{i \in N}T_i$. 
+
+\note In the  definition of contextual categories (\cite{Cartmell78,Cartmell86},) there is defined to be such a tree-structure on the objects of the category. In a contextual category the root of the tree of objects is also  terminal object $1$
+of the category. For $x$ an object of the category we define the set of objects  \highlight{$Cover(x)$} to be the set of objects covering $x$.
+
+\note
+By a tree-structured category we mean (i) a category with a tree-structure defined on its objects such that the tree of objects has a unique root object and (ii) for every $x \base y$ in the tree of objects  a canonical morphism $p_y:y \rightarrow x$.  I shall shall say morphisms of this form  are \highlight{direct dependency morphisms} and they will
+be distinguished in diagrams by an arrow with  a triangular head so:
+\begin{center}
+$
+\begin{array}{p{2cm}}
+\Rnode{y}{y}\\ [1.4cm]
+\Rnode{x}{x} \\
+\mbox{\ncbsar{p_y}{y}{x}}
+\end{array}
+$
+\end{center}
+
+If $x$ is an object of a contextual category \catcw and if $y \in Cover(x)$ in \catcw then we define 
+the set  of sections of $y$, denoted \highlight{$Sect(y)$}, to be the set of morphisms $s: x \morph y$ in \catc  such that $s \circ p_y = id_x$. So that if $x$ is a section of $y$ and $y$ covers $x$ then
+we have\ \ \ 
+\begin{tabular}{cccc}
+$
+\begin{array}{p{2cm}}
+\Rnode{y}{y} \\ [1.4cm]
+\Rnode{x}{x} \\
+\mbox{
+\ncsar{y}{x}
+\alabel{p_y}
+\ncarrZZ[30]{x}{y} 
+\alabel{s}}
+\end{array}
+$  & so that &
+$
+\begin{array}{c p{0.5cm}c p{0.5cm}c}
+              && \Rnode{y}{y}&&                \\ [1.4cm]
+\Rnode{x1}{x} &&             &&   \Rnode{x2}{x}\\
+\mbox{
+\ncsar{y}{x2}
+\alabel{p_y}
+\ncarr{x1}{y} 
+\alabel{s}
+\ncarr{x1}{x2} 
+\blabel{id_x}
+}
+\end{array}
+$& commutes
+\end{tabular}
+
+
+\note
+Now consider the pullbacks in the definition of contextual categories.
+According to the definition whenever
+$
+\begin{array}{cp{.9cm}c}
+            & & \Rnode{z}{z} \\ [1.2cm]
+\Rnode{x}{x}& & \Rnode{y}{y} \\ [0.5cm]
+\mbox{\jcbarr{f}{x}{y}
+\ncasar{p_z}{z}{y}}
+\end{array}
+$
+in \catcw then there is a pullback diagram: \ \ 
+$
+\ccsquareoutline{0.9cm}{1.2cm}{f^*z}{z}{x}{y}
+\ccsquareacross{q(f,z)}{f}
+\ccsquaredown{p_{f \sub z}}{p_z}
+$
+in \catcw i.e. such objects and morphisms so that for all objects $w$ of \catc, and for all
+morphisms $h_1: w \rightarrow x$ and $h_2: w \rightarrow z$  such that
+$h_1 \circ f = h_2 \circ p_z$ 
+there exists a unique $h:w \rightarrow f \sub z$ in \catcw such that
+$h \circ p_{f \sub z} = h_1$ and $h \circ q(f,z) = h_2$, as shown here:
+
+\vspace{3mm}
+\begin{center}
+\begin{equation*}
+\begin{array}{cp{0.5cm}cp{1.2cm}c}
+\Rnode{w}{w} &&                     &&           \\ [0.7cm]
+             &&\Rnode{fstarz}{f^*z} && \Rnode{z}{z}\\ [1.2cm]
+             &&\Rnode{x}{x}         && \Rnode{y}{y}
+\end{array}
+\end{equation*}
+\ncbsar{p_{f \sub z}}{fstarz}{x}
+\jcbarr{f}{x}{y}
+\ncaarr{q(f,z)}{fstarz}{z}
+\ncasar{p_z}{z}{y}
+\setlength{\arrnodesepA}{3pt}
+\jcbarr[-35]{h_1}{w}{x}
+\ncaarr[35]{h_2}{w}{z}
+\psset{linestyle=dashed}
+\ncaarr{h}{w}{fstarz}
+\end{center}
+
+
+
+\note 
+After reading Peter Dybjer's axioms for categories with families (\cite{}) I have been wondering whether / I might not use the notation $\tuple{h_1,h_2}_{x,y,f,z}$  for the unique morphism   
+$h:w \rightarrow f \sub z$ in \cat{C} such that
+$h \circ p_{f \sub z} = h_1$ and $h \circ q(f,z) = h_2$.\\
+
+$\tuple{h_1,h_2}_{x,y,f,z}$ may be be safely elided to $\tuple{h_1,h_2}_{f,z}$ and, rather less safely, to $\tuple{h_1,h_2}$.
+In fully elided form we then  have\footnote{Strikingly similar in appearance to Dybjer's axioms but, I think, not like for like i.e. not inter-translatable.} 
+\begin{equation}
+\tuple{h_1,h_2} \circ p_{f^*z} = h_1 
+\end{equation}
+and
+\begin{equation}
+\tuple{h_1,h_2} \circ q(f,z) = h_2
+\end{equation}
+
+I will use this notation in the detailed examples that follow.
+
+\note I use several other notational conveniences when working in contextual categories. I define these in section \ref{contextualnotation} but 
+let me mention two of them that are used in the example below.
+\begin{itemize}
+\item  If $x < y$ in the contextual category \catc, then define the morphism 
+$p_{y,x}:y \morph  x$ in \catc, \\
+
+\begin{tabular}{c c c  c  c  c c}
+by defining
+& %2 c
+$
+\begin{array} {c}
+\Rnode{midy}{y} \\[2.0cm]
+\Rnode{midx}{x}  \\ 
+\end{array}
+\mbox{\ncarr{midy}{midx}
+      \blabel{p_{y,x}}[0.2]
+		 }
+$
+& %3 c
+(drawn also  as
+& %4 c
+$
+\begin{array} {c}
+\Rnode{lhsy}{y} \\[2.0cm]
+\Rnode{lhsx}{x} 
+\end{array})
+\makebox[0.1cm]{\nccdar{lhsy}{lhsx}
+      \blabel{p_{y,x}}[0.275]
+		}
+$
+& %5
+ as the composition 
+& %6 c
+$
+\begin{array}{c}
+%\Rnode{b}{B}&&\Rnode{xn}{w_n}&&\Rnode{xn1}{w_{n-1}}&&\Rnode{dots}{\ ...\ }&&\Rnode{x1}{w_1}&&\Rnode{a}{A} 
+\Rnode{b}{y}\\[0.7cm]
+\Rnode{xn}{w_n}\\[0.7cm]
+\Rnode{xn1}{w_{n-1}}\\[0.1cm]
+\Rnode{dots}{\vdots}\\[0.1cm]
+\Rnode{x1}{w_1}\\[0.7cm]
+\Rnode{a}{x} 
+\end{array}
+,
+\makebox[0.1cm]{
+\ncsar{b}{xn}
+\alabel{p_y}
+\ncsar{xn}{xn1}
+\alabel{p_{w_n}}
+\ncsar{xn1}{e1}
+\ncline[linestyle=dotted,dotsep=4pt]{e1}{e2}
+\ncsar{e2}{x1}
+\ncsar{x1}{a}
+\alabel{p_{w_1}}}
+$ 
+& %7 c
+,
+\end{tabular}
+
+where
+$w_1, ... w_n$ is the unique sequence of objects of $C$ such that 
+$x \base w_1 \base ... \base w_n \base y$. If $x = y$, then define $p(y, x) = id_x$.
+We say that the morphism  $p_{y,x}$ is a dependency morphism. 
+\item If $w < x$ and $w < y$ in a contextual category \catcw then let $\crossx{x}{y}{w}$ be the pullback
+obtained by piecing together the primitive pullbacks of the contextual category to get a pullback of 
+$p_{y,w}$ along $p_{x,w}$ so that we have the following pullback diagram\footnote{This diagram uses $q$ that is a piecing together of primitive $q$ in the contextual category as described in section 
+\ref{contextualnotation}} in \catc:
+\genericcrossxproductdiagram.  % defined in 'paper.tex' 
+
+Of course, $\crossx{x}{y}{1}$ is the cartesian product of $x$ and $y$, for any objects $x$ and $y$.
+\item 
+\highlight{The $\crossx{}{}{w}$ notation extends to morphisms} as we describe in section \ref{contextualnotation}.
+\end{itemize}
+
+\note
+The proof that categories $\catGAT$ and $\catCon$ are equivalent  is entirely trivial but runs to more than 50 pages. I have always interpreted this equivalence as meaning that generalised algebraic theories and contextual categories are more or less the same thing but if this is considered from the point of view of foundations then we have to tread carefully.
+
+\note 
+In section \ref{sectioninwhichinstanceisdefined}, below, we define the notion of 
+an `instance of  generalised algebraic theory $\gat[U]$ in  a contextual category \catc'. Such an instance we also say is an \highlight{internal $\gat[U]$-structure in the contextual category $\catc$}. 
+
+\note
+The category of internal $\gat[U]$-structures is the category whose objects
+are pairs $\tuple{C,I}$ where $C$ is a contextual category and $I$ is an instance of the theory $U$ in the contextual category $C$ and whose morphisms between
+ $\tuple{C,I}$ and $\tuple{C',I'}$ are pairs $\tuple{F, \eta}$ where
+$F: C \morph C'$ is a contextual functor and $\eta: I \circ F \morph  I'$ is a natural transformation. 
+
+\note 
+As  noted earlier, to every generalised algebraic theory $\gat[U]$ there  is a contextual category $\CofU$ corresponding to $\gat[U]$. This category has as objects equivalence classes of contexts and realisations (as defined 
+in \cite{Cartmell78} and  \cite{Cartmell86}). 
+From these definitions it also follows that there is a trivial instance
+of $\gat[U]$ in  $\CofU$. This is an initial object in
+the category of internal $\gat[U]$-structures.
+
+\note 
+An alternative definition and one that is offered  in my thesis 
+(though the terminology is different\footnote{In my thesis I use the term `model' rather than `instance'  but here I am trying to avoid such use of the term `model'}) is that an internal $\gat[U]$-structure in a contextual category \catcw is precisely 
+\highlight{a contextual functor from the contextual} \highlight{category $\CofU$ to \catc}. 
+Meta-mathematically the two definitions are equivalent\footnote{The proof that they are equivalent 
+definitions is entirely straightforward though I didn't write it up my thesis. I did once write out the proof of a  corresponding lemma in regard to single-sorted algebraic theories; this was in my Msc dissertation.}.
+\note
+In this way, the category of internal $\gat[U]$-structures  is isomorphic to the coslice category
+$\CofU \downarrow \catCon$. Needless to say this has an initial object which is the identity functor on  $\CofU$.
+If\ $\gat[U]$ is a considered a type theory (whatever that is) then this initial object is what I believe Vladimir refers
+to as the term model when speaking of the initiality conjecture. It is the contextual category
+$\CofU$ along with the trivial instance of $\gat[U]$ in $\CofU$.
+
+\note 
+Instances of a theory $U$ in the contextual category $\Fam$ are said to be $U$-algebras. 
+\newcommand{\hatU}{\rule{0pt}{12pt}\hat {\gat[U]}}
+\note 
+From the details given in
+section \ref{sectioninwhichinstanceisdefined} 
+in which instances are both defined and characterised 
+it follows that 
+\highlight{to every gat $\gat[U]$ there is a theory of internal $\gat[U]$-structures}. We shall denote this theory as \highlight{$\hatU$}.
+
+Every such theory \highlight{$\hatU$} is an extension of the generalised algebraic theory of contextual categories
+by a set of \highlight{rules (introductory rules and axioms) that have  the empty context as premise} -- as such it is an extension
+by constants and equational identitites between closed terms -- and, vice-versa, \highlight{every such extension} of
+the theory of contextual categories can be interpreted as a \highlight{specification of a generalised algebraic theory}.  
+
+\begin{notebox}[Question]
+The above observation would allow someone automating reasoning within  a generalised algebraic theory 
+$\gatU$ to reason about $\hatU$ instead which might be advantageous -- 
+for example because there are no T=-rules in  $\hatU$?
+\end{notebox}
+
+\note
+Examples of $\hatU$ in practice are given for the theory of monoids 
+(section \ref{monoidsinstanceexample})  and 
+for the theory of categories (section \ref{categoriesinstanceexample}). 
+\note 
+The instances of $\hatU$  in $\Fam$ consist of  internal $\gat[U]$-structures  i.e. they consist of contextual categories \catcw along with particular instances $I$ of
+the theory $\gat[U]$ in the contextual category \catc. \\
+\highlight{The category of $\hatU$-algebras is (isomorphic to) the category of internal $\gatU$-structures.}
+\note
+An instance of $\hatU$ in an arbitrary contextual category
+consists of  an internal internal $\gat[U]$-structure. This sounds a bit crazy but it isn't -- there are after all categories internal to other categories and it isn't much of a stretch to suppose these internal categories have internal $\gat[U]$'s inside of them. 
+
+\note 
+Definition of initial $U$-algebras. From my thesis:
+\begin{tightquote}
+Consider for a moment. Every theory $\gat[U]$ has a minimal model denoted $\KU$ built out of the closed terms of \gat[U]. Alternatively this minimal model is described just in terms of the structure $\CofU$. For example
+if $1 \base A$ in $\CofU$ then 
+$\KU(A)=Hom(1,A)$, otherwise if $1 \base A_1 \base ... \base A_n \base A$ in $\CofU$
+then if $a_1 \in \KU(A_1)$, ... if $a_n \in \KU(A_n)(a_1,...a_{n-1})$ then 
+$\KU(A)(a_1,...a_n)=\setsuchthat{a\in Hom_{\CofU}(1,A)}{a \circ p_A = a_n}$. \\
+\end{tightquote} 
+
+Followed by :
+\begin{tightquote}
+Now, the free U-algebras are the algebras $I$-$alg(\KUp)$ for $I: \gat[U] \morph \gat[U']$ an extension of $\gat[U]$ by constants alone. The finitely generated free U-algebras are those algebras where $\gat[U']$ is an extension by finitely many constants. \\
+\end{tightquote}
+
+\note
+\label{termmodelEQfreealgebra}For any generalised algebraic theory $\gat[U]$ we have two different 
+and therefore isomorphic descriptions of the initial object of the category of internal $\gatU$-structures:\\
+\highlightpara{
+\begin{equation}
+K_{\hat{U}} \cong \bigtuple{\CofU, I_{triv}}
+\end{equation}
+}
+where $I_{triv}$ is the trivial instance of $\gatU$ in $\CofU$.
+
+\begin{notebox}[Question]
+Is this observation relevant
+to the initiality conjecture or to formal (machine checked) theory?  It can be summarised 
+by saying that the term model of a theory $\gatU$ is the initial algebra of a theory $\hatU$.
+Is that useful? Another way of looking at it (is it helpful?) is that the open terms and types
+of $\gatU$ correspond to the closed terms of $\hatU$. 
+Is use of the word combinator appropriate here?
+\end{notebox}
+
+\note 
+Note that if $\gat[U]$ is a single-sorted or many-sorted algebraic theory then 
+$\hatU$ is generalised algebraic 
+and so within these regimes there is no equivalent of para \ref{termmodelEQfreealgebra}.
+
+\note As a worked example, we show in lemma \ref{internalmonoidlemma}, below, that 
+\highlight{the generalised algebraic theory of internal monoids} can be expressed (using notation to be introduced in section 
+\ref{contextualnotation}) as 
+the theory of contextual categories plus:
+
+\begin{gatrules}
+\gatintros
+\gatintroducing{M}
+\ofT{M}{Ob} \\
+\gatintroducing{unit}
+\ofT{unit}{Hom(1,M)} \\
+\gatintroducing{mult}
+\ofT{mult}{Hom(\crossx{M}{M}{1},1)} \\
+\gataxioms
+\gatintroducing{ \gataxiomno{1} }
+\tuple{p_M \circ unit,id_M} \circ mult =id_M \\
+\gatintroducing{ \gataxiomno{2} }
+\tuple{id_M,p_M \circ unit} \circ mult =id_M \\
+\gatintroducing{ \gataxiomno{3} }
+(\crossx{mult}{ id_M}{1}) \circ mult = (\crossx{id_M}{mult}{1}) \circ mult
+\end{gatrules}
+
+This is in \highlight{agreement with Barr and Wells} \cite{BarrandWells}, page 232, where they describe
+monoids internal to  a category\footnote{Generally we would be thinking of a category with finite products including terminal object here, though, as they say, not all products need be available in the category for there to be an internal monoid.}
+as an example of a finite product (FP) sketch.
+
+\note As a second worked example  we derive \highlight{the generalised algebraic theory of internal categories}
+ in lemma \ref{internalcategorylemma}.
+
+\section{Shortcomings}
+
+\note From my 1986 paper (\cite{Cartmell86})based on my thesis (\cite{Cartmell78}):
+\begin{tightquote}
+Every interpretation $I:U \morph U'$ induces a contextual functor 
+$C(I):C(U) \morph C(U')$. Composition with $C(I)$ is a functor from 
+$ConFunc(C(U'),Fam)$ to
+$ConFunc(C(U),Fam)$. It is the functor $\Ialg:\Upalg \morph \Ualg$. Those functors
+between categories of models which are induced in this way are called generalised
+algebraic functors. We can show that all such functors have left adjoints.
+This is
+equivalent to a known generalisation of Lawvere \cite{LawvereAlgebraicTheories}'s theorem that all algebraic
+functors have a left adjoint. 
+\end{tightquote}
+A year or too back, Jonathan Sterling asked me about the proof of this. The question threw me and I couldn't give a good answer and therefore I think there is work to be done in this area unless someone has cleaned up in the meantime.
+\note
+Sketches: You would think that we could give a definition for a sketch of contextual category 
+similar to  definitions such as those of linear sketch, finite product (FP) sketch, finite discrete (FD) sketch and finite limit (FL) sketch. Such a CC sketch would be syntax-free way a way of defining a generalised algebraic theory and it would parallel and benefit from treatments given to other notions of theory versus category with additional structure. 
+\note
+Generators and relations: On the other hand we should be able to construct contextual categories by generators and  
+relations as Maclane describes the construction of categories by generators and relations
+[page 51,52 Categories for the Working Mathematician]. Maybe it isn't  straightforward  though because of the inductive nature of the types/objects. 
+\note
+Lawvere defines a functor which he calls algebraic-structure as a  left adjoint  to the algebraic-semantics functor which in turn is defined as the functor which takes a theory to its concrete category of algebras. 
+The algebraic-structure functor is an answer to questions of the form ... what is the best way of modelling such and such algebraically? 
+Conceptually this is most interesting and Lawvere gives lots of examples. 
+
+Lawvere's algebraic structure functor generalises to the case of many-sorted algebraic theories but I don't see how we could generalise to the case of generalised algebraic theories. 
+
+
+
+

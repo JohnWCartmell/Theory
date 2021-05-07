@@ -1,0 +1,114 @@
+
+\note It seems to me that in the syntax of gats, \textit{types and terms} on the one hand and \textit{contexts and realisations} on the other are each mutually dependent. In the world 
+of syntax neither can exist without the other.
+\begin{center}
+$
+\begin{array}{ c }
+\etype{\Rnode{TandT}{types\ and\ terms}} \\[1.3cm]
+\etype{\Rnode{CandR}{contexts\ and\ realisations}}   
+\end{array}                     
+$
+\setlength{\sarnodesepA}{7pt}
+\setlength{\sarnodesepB}{7pt}
+\setlength{\saroffsetA}{7pt}
+\setlength{\saroffsetB}{7pt}
+\ncsar[10]{TandT}{CandR}
+\ncsar[10]{CandR}{TandT}
+\end{center}
+
+\note The theory \textit{meta-gat} (\cite{Cartmell14B}) algebraically describes the substitution structure of equivalence classes of types and terms of a gat. Meta-gat algebras have been described by Vladimir as B-systems and have also been described by Richard Garner (\cite{Garner15}) as algebras of a monad over a functor category.  We can summarise (at a stetch) by saying that ontologising types and terms yields meta-gat algebras also known as B-systems:
+
+\begin{center}
+$
+\begin{array}{ c p{0.5cm} c}
+\etype{\Rnode{TandT}{types\ and\ terms}} & & \attrtype{\Rnode{metagat}{\mbox{\textit{meta-gat = B-system}}}}
+\end{array}                     
+$
+\setlength{\arrnodesepA}{7pt}
+\setlength{\arrnodesepB}{7pt}
+%\setlength{\arroffsetA}{7pt}
+%\setlength{\arroffsetB}{7pt}
+\ncarr{TandT}{metagat}
+\end{center}
+
+We can formalise this connection by showing that the category of generalised algebrauic theories 
+is equivalent to the category of meta-gat algebras.  I wrote out the details of this proof in aproximately 1977 in the draft thesis I mentioned previously. The proof just involves a lot of leg work. The theory meta-gat is generalised algebraic.
+ 
+\note The theory of \textit{contextual catagories} algebraically describes the substitution structure of equivalence classes of contexts and realisations of a gat. Vladimir has called  these C-systems. In this case we can summarise by saying that ontologising contexts and realisations yields contextual categories also known as C-systems:
+
+\begin{center}
+$
+\begin{array}{ c p{0.5cm} c}
+\etype{\Rnode{CandR}{contexts\ and\ realisations}}   & & \attrtype{\Rnode{concat}{\mbox{\textit{contextual category = C-system}}}}
+\end{array}                     
+$
+\setlength{\arrnodesepA}{7pt}
+\setlength{\arrnodesepB}{7pt}
+\ncarr{CandR}{concat} 
+\end{center}
+
+This statement is formalised by showing that the category of generalised algebraic theories 
+is equivalent to the category of contextual categories. This proof is written up in detail
+in my thesis. The theory of contextual categories is generalised algebraic as shown by Vladimir
+(\cite{Cartmell2018A}). 
+I missed this in my work. 
+
+\note
+From the above it follows that the category of meta-gat algebras and the category of contextual categories are equivalent. I have worked from time to time on equational rewrite systems and, since retirement, I spent a good deal of time trying to write some software to do most of the leg work of such a proof by coming up with a rewrite system for the theory of contextual categories. In the end I gave up on it (which, by the way, doesn't mean to say that such a rewrite system cannot be be developed  -- it is just that the way that I was trying to do it just got too complicated). 
+
+\note 
+There is another equivalent structure that I think exists and that I have worked on from time to time without ever bottoming out. In my most recent work toward this I have called these
+structures \textit{dependency categories} though realising now that Vladimir wouldn't like me calling them categories and might prefer a name like D-systems. I first described something along these lines in a conference paper in 1986 (\cite{Cartmell86B}). That paper was badly flawed in fact but the sentiment remains. 
+\note You defined cwfs to play something like the role of contextual categories and meta-gat algebras (a.k.a C-systems and B-systems). cwfs have ontological representations of both contexts and context realisations and types and terms. 
+
+
+Unlike contextual categories and meta-gat algebras, there are cwfs that do not correspond to
+any generalised algebraic theory. If a cwf corresponds to a gat then each object of the category \catcw with the exception of the terminal object is of the form $\gamma.A$ for some object $\Gamma$ of \catcw and for some $a \in Typ(\Gamma)$. Such conditions are described in your paper called ???. There is such a thing therefore as a contextual cwf. 
+
+\note 
+There now follows an aside relevant to the statement of a  condition for a cwf to be contextual. Consider  Lisp-style lists. These  are often described as algebraic data structures but of course such structures are not algebraic in the precise sense that we mean when we speak of many-sorted algebraic theories or generalised algebraic theories rather they require coproducts of types for their definition. In a type theory that is many-sorted algebraic (or generalised algebraic) augmented by coproducts Lisp-style the type of lists over some other type $A$ can be defined as the coproduct of the types of empty lists $Empty$ and non-empty lists $Cons$
+ as follows:\\
+
+
+
+\begin{minipage}{\textwidth}
+\begin{notebox}[Theory of lists of elements of type A]
+
+If the empty list is written as $nil$ and if the LISP list constructor $cons$ is represented
+as an infix operator $::$ then the theory of a list of elements of type $A$ can expressed as follows: 
+\begin{gatrules}
+\gatintros
+\gatintro{Empty}{}{\isT{Empty}}   
+\gatintro{Cons}{}{\isT{Cons}}     
+\gatintro{List}{}{List = Empty + Cons} 
+\gatintro{nil}{}{\ofT{nil}{Empty}}    
+\gatintro{::}{\ofT{x}{A},\ \ofT{l}{List}}{\ofT{x::l}{List}}
+\gatintro{hd}{\ofT{l}{Cons}}{\ofT{hd(l)}{A}} 
+\gatintro{tl}{\ofT{l}{Cons}}{\ofT{tl(l)}{List}}   
+\gataxioms
+\gataxiom{e=nil}{\ofT{e}{Empty}}                            
+\gataxiom{hd(x::l)=x}{\ofT{l}{List},\  \ofT{x}{A}}         
+\gataxiom{tl(x::l)=l}{\ofT{l}{List},\  \ofT{x}{A}}        
+\gataxiom{hd(l)::tl(l)=l}{\ofT{l}{Cons}} 
+\end{gatrules}
+Expressed as sketch of a category we have a coproduct diagram
+expressing $List = Empty + Cons$,
+a product diagram expressing the product $A \times List$,
+additional morphisms:
+$nil: 1 \morph Empty$,
+$cons : A \times List \morph Cons$,
+$hd: Cons \morph A$ and
+$tl: Cons \morph List$.
+
+and identities (commuting diagrams) expressing that
+morphisms $nil: 1 \morph Empty$ and $cons : A \times List \morph Cons$ are isomorphims 
+with inverses, respectively, of the unique morphism $t_{Empty}: Empty \morph 1$
+and the morphism $\tuple{hd,tl}:Cons \morph A \times List$. 
+
+As an entity model:
+\begin{center}
+\input{\erpictureFolder/LISPlist} 
+\end{center}
+\end{notebox}
+\end{minipage}
+

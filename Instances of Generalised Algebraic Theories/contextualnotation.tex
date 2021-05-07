@@ -1,32 +1,6 @@
 %contextualnotation
 \label{contextualnotation}
-%\iffalse    %XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-\note 
-By  the generic term \term{tree} is meant a partially ordered set (poset) $(T, <)$ such that for each $t \in T$, the set $\set{s \in T : s < t}$ is well-ordered by the relation $<$.
-In this discussion we restrict ourselves to rooted $\omega$-trees i.e. trees for which the set $\set{s \in T : s < t}$
-is finite for all $t \in T$ and for which there is a least element in the partial ordering. 
-In the original definition
-of contextual categories (\cite{Cartmell78,Cartmell86},) there is defined to be such a tree-structure on the objects of the category. In a contextual category the root of the tree of objects is also  terminal object $1$
-in the category and if object $y$ covers object $x$ in the partial ordering\footnote{A element $y$ is said \textit{to cover} 
-an element $x$ in a partial ordering $<$ iff $x<y$ and there does not exist $w$ such that $x < w$ and $w < y$.
-A more usual notation would be to write $x \lessdot y$ to assert that $y$ covers $x$ in partial ordering $<$. }
-then we write $x \base y$ (we use this in preference to the more usual $x \lessdot y$). 
 
-We define the rank (sometimes called the grade) of an element $t \in T$ to be the cardinality
-of the set $\setsuchthat{s \in T}{s < t}$. If we define the set $T_i$ to be the set of elements of a tree
-of rank $i$ then we have that $T= \bigcup_{i \in N}T_i$. 
-\note
-By a tree-structured category we mean (i) a category with a tree-structure defined on its objects such that the tree of objects has a unique root object and (ii) for every $x \base y$ in the tree of objects  a cannonical morphism $p_y:y \rightarrow x$. This morphism will be distinguished in diagrams by an arrow with  a triangular head so:
-
-\begin{center}
-$
-\begin{array}{p{2cm}p{0.5cm}p{0.5cm}p{0.5cm}}
-\Rnode{y}{y}& \\ [1.4cm]
-\Rnode{x}{x} \\
-\end{array}
-$
-\ncbsar{p_y}{y}{x}
-\end{center}
 \note
 The original definition of contextual category given  in [1] and [2], a contextual category is defined to be a tree-structured category 
 \cat{C} with the following additional structure:
@@ -48,21 +22,12 @@ in \cat{C}, an object $f \sub z$ such that $x \base f \sub z$, a morphism $q(f,z
 q(f,z) \circ p_z = p_{f \sub z} \circ f
 \end{axiom}
 
-i.e. such that the diagram:
-
-\vspace{3mm}
-\begin{center}
-\begin{displaymath}
-\begin{array}{cp{.9cm}c}
-\Rnode{fstarz}{f^*z} & & \Rnode{z}{z}\\ [1.2cm]
-\Rnode{x}{x}         & & \Rnode{y}{y}
-\end{array}
-\end{displaymath}
-\ncbsar{p_{f \sub z}}{fstarz}{x}
-\jcbarr{f}{x}{y}
-\ncaarr{q(f,z)}{fstarz}{z}
-\ncasar{p_z}{z}{y}
-\end{center}
+i.e. such that the diagram: 
+$$
+\ccsquareoutline{0.9cm}{1.2cm}{f^*z}{z}{x}{y}
+\ccsquareacross{q(f,z)}{f}
+\ccsquaredown{p_{f \sub z}}{p_z}
+$$
 commutes, 
 
 \noindent
@@ -74,14 +39,14 @@ $h \circ p_{f \sub z} = h_1$ and $h \circ q(f,z) = h_2$, as shown here:
 
 \vspace{3mm}
 \begin{center}
-\begin{equation*}
+\begin{equation}
 \label{pullback}
 \begin{array}{cp{0.5cm}cp{1.2cm}c}
 \Rnode{w}{w} &&                     &&           \\ [0.7cm]
              &&\Rnode{fstarz}{f^*z} && \Rnode{z}{z}\\ [1.2cm]
              &&\Rnode{x}{x}         && \Rnode{y}{y}
 \end{array}
-\end{equation*}
+\end{equation}
 \ncbsar{p_{f \sub z}}{fstarz}{x}
 \jcbarr{f}{x}{y}
 \ncaarr{q(f,z)}{fstarz}{z}
@@ -130,21 +95,7 @@ and
 q(f \circ g,z) = q(f,g^*z) \circ q(g,z)
 \end{axiom}
 
-\note 
-After reading Peter Dybjer's axioms for categories with families I have been wondering whether in regard
-to clause (ii) in the definition above I might not use the notation $\tuple{h_1,h_2}_{x,y,f,z}$  for the unique morphism   
-$h:w \rightarrow f \sub z$ in \cat{C} such that
-$h \circ p_{f \sub z} = h_1$ and $h \circ q(f,z) = h_2$.\\
 
-$\tuple{h_1,h_2}_{x,y,f,z}$ may be be safely ellided to $\tuple{h_1,h_2}_{f,z}$ and, rather less safely, to $\tuple{h_1,h_2}$.
-In fully ellided form we then  have\footnote{Strikingly similar in appearance to Dyjber's axioms but, I think, not like for like i.e. not intertranslatable.} 
-\begin{equation}
-\tuple{h_1,h_2} \circ p_x = h_1 
-\end{equation}
-and
-\begin{equation}
-\tuple{h_1,h_2} \circ q(f,z) = h_2
-\end{equation}
 
 \note
 Following Voevodsky we may replace the pullback condition of the original definition by an 
@@ -203,44 +154,6 @@ s(f \circ q(g,z))=s(f)
 \end{axiom}
 
 
-\note  If $x < y$ in the contextual category C, then define the morphism 
-$p_{y,x}:y \morph  x$ in $C$, also written just as $y \dmorph x$, 
-by $p_{y,x}=p_y\circ p_{w_n} \circ ... \circ p_{w_1}$, 
-where
-$w_1, ... w_n$ is the unique sequence of objects of $C$ such that 
-$x \base w_1 \base ... \base w_n \base y$. If $x = y$, then define $p(y, x) = id_x$.\\
-
-On diagrams we depict $\smorph$  and $\dmorph$ morphisms running from north to south down the page.
-Shown in this way, the morphism
-$
-\begin{array} {c}
-\Rnode{lhsy}{y} \\[2.0cm]
-\Rnode{lhsx}{x}  \\ 
-\end{array}
-$
- \mbox{\ \ \ \ is defined as the composition\ \ \ \ } 
-$
-\begin{array}{c}
-%\Rnode{b}{B}&&\Rnode{xn}{w_n}&&\Rnode{xn1}{w_{n-1}}&&\Rnode{dots}{\ ...\ }&&\Rnode{x1}{w_1}&&\Rnode{a}{A} 
-\Rnode{b}{y}\\[0.7cm]
-\Rnode{xn}{w_n}\\[0.7cm]
-\Rnode{xn1}{w_{n-1}}\\[0.1cm]
-\Rnode{dots}{\vdots}\\[0.1cm]
-\Rnode{x1}{w_1}\\[0.7cm]
-\Rnode{a}{x} 
-\end{array}
-$.
-\nccdar{lhsy}{lhsx}
-\ncsar{b}{xn}
-\alabel{p_y}
-\ncsar{xn}{xn1}
-\alabel{p_{w_n}}
-\ncsar{xn1}{e1}
-\ncline[linestyle=dotted,dotsep=4pt]{e1}{e2}
-\ncsar{e2}{x1}
-\ncsar{x1}{a}
-\alabel{p_{w_1}}
-.
 
 \note
 The contextual category structure supplies us with pullbacks for any $\smorph$ morphism, 
@@ -344,22 +257,7 @@ y, w_1,...w_n \tstyle \isT{z}.
 \end{displaymath}
 
 Within the contextual category I think of $\crossx{y}{z}{x}$  as a local cartesian product but of course categorically it is a filtered product i.e. a pullback. If $w < x$ and $w < y$  then 
-$
-\begin{array}{ccccc}
-\Rnode{xy}{\crossx{x}{y}{w}} &&               &&               \\[1.3cm]
-\Rnode{x}{x}                 &&               && \Rnode{y}{y}  \\[1.3cm]
-                             && \Rnode{w}{w}  &&                                                   
-\end{array}
-$
-\makebox[0.2cm]{% technique to avoid throwinh=g white space
-\nccdar{xy}{x}
-\blabel{p_{\crossx{x}{y}{w},x}}
-\nccdar{x}{w}
-\blabel{p_{x,w}}
-\nccdar{y}{w}
-\alabel{p_{y,w}} 
-\ncaarr{q(p_{x,w},y)}{xy}{y}
-}
+\genericcrossxproductdiagram % defined in 'paper.tex'
 is a pullback diagram in \ccat.
 
 \note
@@ -449,8 +347,6 @@ From which follows:
 If $A$ is any object of a contextual category \catcw and if $B$ is an object such that $1 \base B$ in \catcw then
 if $f: A \morph B$ and $f':A \morph B$ in a contextual category \catcw then $f=f'$ iff $s(f) = s(f')$.
 \end{lemma}
-
-%\fi    %XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 \begin{lemma}
 \llabel{crosssectionlemma}
