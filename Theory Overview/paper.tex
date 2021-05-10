@@ -50,12 +50,18 @@
 }
 
 \begin{document}
-\title{Projects}
+\title{Theory Overview}
 
 \author{John Cartmell}
 
 \maketitle
 
+\section{Introduction}
+\note This document is an overview my current research interests. It describes the contents of  a Github repository \url{www.github.com/JohnWCartmell/Theory} containing source of ongoings notes and working papers. 
+\note The source of ongoing notes and papers is in latex from which I  build pdf documents using \verb!latex => ps => pdf!. The requirement to build via postscript comes about because I use the pstricks packages for drawing diagrams.
+\note I occasionally post pdfs at Reasearch Gate \url{www.researchgate.net/profile/John-Cartmell}.
+
+\section{The Mathematical Theory of Data}
 \note 
 A \textit{mathematical theory of data} is a paper that that I am working on. Here is the abstract as I currently have it.
 \begin{abstract}
@@ -78,7 +84,8 @@ Some of my recent thinking I have put on ResearchGate as a ``Preparation for a M
 
 \note Several authors have written about the importance of commutative diagrams to data modelling but 
 I would say further that such diagrams constitute a fundamental component of a fully fledged mathematical theory of data.
-I have written various software tools that made  use of such commutative diagrams in my career as a software engineer. Some of my earliest work in this area was described in a conference paper  \cite{CartmellScopePaper}. 
+I have used commutative diagrams of data relationships to good effect in my career as a software engineer. 
+Some of my earliest work in this area was described in a conference paper  \cite{CartmellScopePaper}. 
 The concept of the scope of a relationship as presented in that paper is a thinly veiled
 specification of a commuting diagram in a contextual category.
 
@@ -88,27 +95,7 @@ One thing I am working on is to come up with is a replacement for the definition
  of \term{network category} that I gave in that paper. Both the paper and the definition given there of network category are flawed.
 I am currently using the name \term{dependency category} for the structure that I am trying to define.
 
-\note
-I am struck by the possibility that there might be three ways to represent generalised algebraic theories.
-With my current naming these are, in order of increasing ontological redundancy, \textit{MetaGAT algebras}, \textit{contextual categories} and
-\textit{dependency categories}. 
-
-\note
-Vladimir has named contextual categories as \term{C-systems} and his \term{B-systems} are the moral equivalent of my metaGAT algebras. This suggests that my dependency categories (if I ever get there) sh
-could perhaps perhaps be called \textit{D-systems}.
-
-\note I seek to define dependency categories so as to fit them into the larger mathematical theory of data -- they are one piece of the jigsaw.
-
-\note What happens if we modify the notion of generalised algebraic theory to obtain a variant in which contexts instead of being finite \textit{sequences} of assumptions are finite \textit{sets} of assumptions. Can we sensibly do this\footnote{This is a question for Andrej maybe given his current project.}? If we can then the corresponding algebras of contexts and realisations will be dependency categories rather than contextual categories.
-
-\note Another way of looking at this can we get a full and faithful quotient of a contextual category
-in which the asymmetric local cartesian product of the contextual category structure is collapsed down to a symmetric local cartesian product? I am thinking we may need to rule out contextual categories whose 
-cartesian product isn't right-cancellative (I forget the detail right now). 
-
-\note
-To help clarify the above question I wrote a short note on \textit{congruence structures}.  This is my term and I would ask if there is a better term that I should use --- whether someone has already got a  name for this concept? The note is on ResearchGate \cite{CartmellCongruenceStructure}. 
-As a practice run, as it were, I have used this to produce categories with symetric cartesian products from categories with very well behaved associative cartesian products. I need apply the same method to categories with slightly less well-behaved products but I am struggling a bit with this. After this I intend to follow the same line and apply to contextual categories that are sufficiently well behaved.
-
+\section{Generalised Algebraic Theories}
 \note
 The use of ellipsis of variables from expressions in the notation of generalised algebriac theories. 
 This is a question I raised in my thesis 
@@ -116,22 +103,127 @@ and then again in the published ``Generalised Algebraic Theories and Contextual 
 What , for example, justifies writing $f \circ g$ in the generalised algebraic theory of categories rather than the incredibly awkward $f \circ_{x,y,z} g$. 
 I have a partial solution to the general problem by way of sufficient conditions but the proofs are not written up. 
 
+\section{Meta-Gat Algebras (B-systems)}
+
+\note The theory \textit{meta-gat} (\cite{Cartmell14B}) algebraically describes the substitution structure of equivalence classes of types and terms of a gat. Meta-gat algebras have been described by Vladimir as B-systems and have also been described by Richard Garner (\cite{Garner15}) as algebras of a monad over a functor category.  We can summarise (at a stetch) by saying that ontologising types and terms yields meta-gat algebras also known as B-systems:
+
+\begin{center}
+$
+\begin{array}{ c p{0.5cm} c}
+\etype{\Rnode{TandT}{types\ and\ terms}} & & \attrtype{\Rnode{metagat}{\mbox{\textit{meta-gat = B-system}}}}
+\end{array}                     
+$
+\setlength{\arrnodesepA}{7pt}
+\setlength{\arrnodesepB}{7pt}
+%\setlength{\arroffsetA}{7pt}
+%\setlength{\arroffsetB}{7pt}
+\ncarr{TandT}{metagat}
+\end{center}
+
+We can formalise this connection by showing that the category of generalised algebrauic theories 
+is equivalent to the category of meta-gat algebras.  I wrote out the details of this proof in aproximately 1977 in the draft thesis I mentioned previously. The proof just involves a lot of leg work. The theory meta-gat is generalised algebraic.
+
+
+\section{Contextual Categories(C-systems)}
+
+\note The theory of \textit{contextual catagories} algebraically describes the substitution structure of equivalence classes of contexts and realisations of a gat. Vladimir has called  these C-systems. In this case we can summarise by saying that ontologising contexts and realisations yields contextual categories also known as C-systems:
+
+\begin{center}
+$
+\begin{array}{ c p{0.5cm} c}
+\etype{\Rnode{CandR}{contexts\ and\ realisations}}   & & \attrtype{\Rnode{concat}{\mbox{\textit{contextual category = C-system}}}}
+\end{array}                     
+$
+\setlength{\arrnodesepA}{7pt}
+\setlength{\arrnodesepB}{7pt}
+\ncarr{CandR}{concat} 
+\end{center}
+
+This statement is formalised by showing that the category of generalised algebraic theories 
+is equivalent to the category of contextual categories. This proof is written up in detail
+in my thesis. The theory of contextual categories is generalised algebraic as made possible by  Vladimir's description of the `s'-operator.
+(\cite{Cartmell2018A}). 
+I missed this in my work. 
+
+\note
+From the above it follows that the category of meta-gat algebras and the category of contextual categories are equivalent. I have worked from time to time on equational rewrite systems and I spent a good deal of time trying to write some software to do most of the leg work of such a proof by coming up with a rewrite system for the theory of contextual categories. In the end I gave up on it (which, by the way, doesn't mean to say that such a rewrite system cannot be be developed). 
+
+
+\section{Categories with Families}
+\note Peter Dyjber defined cwfs to play something like the role of contextual categories  (a.k.a C-systems ). cwfs have ontological representations of both contexts and context realisations and types and terms. 
+
+Unlike contextual categories and meta-gat algebras, there are cwfs that do not correspond to
+any generalised algebraic theory. If a cwf corresponds to a gat then each object of the category \catcw with the exception of the terminal object is of the form $\gamma.A$ for some object $\Gamma$ of \catcw and for some $a \in Typ(\Gamma)$. Such conditions are described in your paper called ???. There is such a thing therefore as a contextual cwf. 
+
+
+\section{Dependency Categories (D-systems?)}
+
+\note 
+There is another equivalent structure that I think exists and that I have worked on from time to time without ever bottoming out. In my most recent work toward this I have called these
+structures \textit{dependency categories} though realising now that Vladimir wouldn't like me calling them categories and might prefer a name like D-systems. I first described something along these lines in a conference paper in 1986 (\cite{Cartmell86B}). That paper was badly flawed in fact but the sentiment remains. 
+\note
+I am struck by the possibility that there might be three ways to represent generalised algebraic theories.
+With my current naming these are, in order of increasing ontological redundancy, \textit{MetaGAT algebras}, \textit{contextual categories} and
+\textit{dependency categories}. With Vladimir in mind these might be \textit{B-systems}, \textit{C-systems} and \textit{D-systems} albeit D-systems are not quite as general as the other two.
+
+
+\note I seek to define dependency categories so as to fit them into the larger mathematical theory of data -- they are one piece of the jigsaw.
+
+\note What happens if we modify the notion of generalised algebraic theory to obtain a variant in which contexts instead of being finite \textit{sequences} of assumptions are finite \textit{sets} of assumptions. Can we sensibly do this\footnote{This is a question for Andrej maybe given his current project.}? If we can then the corresponding algebras of contexts and realisations will be dependency categories rather than contextual categories.
+
+\note The abstract currently runs like this:
+\begin{abstract}
+As in \cite{Cartmell86B} the motivation has been to formalise
+and foreground the network structure of type dependencies so as to provide a theoretical foundation for the use of networks of composition relationships in entity modelling as applied both conceptually and, for the most practical of purposes, in systems development. 
+
+The objects of  categories of either persuasion, either contextual categories or dependency categories, can be thought 
+of as contexts or as types that vary (also known as dependent types) but equally they can be thought of as entity 
+types in the sense used in entity modelling. The
+morphisms of either correspond with the many-one binary relationships that are the staple fare of entity modelling and in either case there is a  distinguished subset of morphisms depicted on diagrams using a triangular headed arrow ($\smorph$). In a contextual category  the distinguished 
+subset forms a hierarchy, in a dependency category the distinguished morphisms form not a hierarchy but a wide acyclic subcategory.
+In either case the distinguished morphisms correspond to certain relationships known as composition relationships which feature
+in certain styles of entity modelling (\cite{ECMA-149}, \cite{Munck1988}, \cite{entitymodelling}) and which were implied in the influential paper by Chen \cite{Chen1976} who introduced the idea of certain entities being dependent on binary relationships 
+with other entities for both their identification and their existence.
+\end{abstract}
+
+\note Another way of looking at this can we get a full and faithful quotient of a contextual category
+in which the asymmetric local cartesian product of the contextual category structure is collapsed down to a symmetric local cartesian product? I am thinking we may need to rule out contextual categories whose 
+cartesian product isn't right-cancellative (I forget the detail right now). 
+\note
+To help clarify the above question I wrote a short note on \textit{congruence structures}.  This is my term and I would ask if there is a better term that I should use --- whether someone has already got a  name for this concept? The note is on ResearchGate \cite{CartmellCongruenceStructure}. 
+As a practice run, as it were, I have used this to produce categories with symetric cartesian products from categories with very well behaved associative cartesian products. I need apply the same method to categories with slightly less well-behaved products but I am struggling a bit with this. After this I intend to follow the same line and apply to contextual categories that are sufficiently well behaved.
+
+
 \note 
 I just checked out some details of something I have had in the back of my mind for some time. I am wondering if anyone has written this up anywhere. From any category with a coherent system of pullbacks and a terminal object a contextual category can be constructed. I don't know what to call this but 
 I refer to \textit{morphisms with codomain} it in my thesis and in the ``GATSandCCs'' paper.
 Suppose I denote by $MWD(\catc)$ the contextual category corresponding to a nicely behaved category \catcw with finite limits. Am I not right in saying that a contextual category $\cat{D}$ is contextually equivalent\footnote{meaning equivalent as categories via functors that are contextual functors} to 
 a contextual category of the form $MWD(\catc)$ iff $\cat{D}$ has identity types and sigma types
-(strongest posssible axiomatisations for these). The interest in this might be because if Pi types are added then we get  a path to locally cartesian closed categories as models of Martin-Loff type theory via gats and contextual categories. I guess this is all well-known.
+(strongest posssible axiomatisations for these). The interest in this might be because if Pi types are added then we get  a path to locally cartesian closed categories as models of Martin-Loff type theory via gats and contextual categories. I saw a reference to this in Peter's paper.
 
+
+\section{Direct Sums and Recursion}
 
 \note Here is something else that interests me and I wonder does it rings any bells?
 There is a certain style of definition that uses coproducts of types. It is often used in data modelling 
 under the terminology of \term{inheritance} and where it would be technically precise to say that the
 coproduct type is a \textit{generalisation}.
+
+Represent object covers first and unwind to g. algebraic.
+
+An infinite gat can be expressed by a finite theory that makes use of coproducts and recursion.
   
 I can express a theory of natural numbers using coproduct $N = Zero + NonZero$,
 $0 \in Zero$, $x \in N \tstyle S(x) \in NonZero$.   
 
+Unwinding this begins to look ridiculous - but is it?
+
+
+\section{Fungability}
+\input{fungability}
+
+%\section{unused}
+%\input{unused}
 
 \bibliographystyle{alpha} 
 \bibliography{../SharedBibliography/temp/bibliography}

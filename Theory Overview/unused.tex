@@ -1,0 +1,61 @@
+\note It seems to me that in the syntax of gats, \textit{types and terms} on the one hand and \textit{contexts and realisations} on the other are each mutually dependent. In the world 
+of syntax neither can exist without the other.
+\begin{center}
+$
+\begin{array}{ c }
+\etype{\Rnode{TandT}{types\ and\ terms}} \\[1.3cm]
+\etype{\Rnode{CandR}{contexts\ and\ realisations}}   
+\end{array}                     
+$
+\setlength{\sarnodesepA}{7pt}
+\setlength{\sarnodesepB}{7pt}
+\setlength{\saroffsetA}{7pt}
+\setlength{\saroffsetB}{7pt}
+\ncsar[10]{TandT}{CandR}
+\ncsar[10]{CandR}{TandT}
+\end{center}
+
+\note 
+There now follows an aside relevant to the statement of a  condition for a cwf to be contextual. Consider  Lisp-style lists. These  are often described as algebraic data structures but of course such structures are not algebraic in the precise sense that we mean when we speak of many-sorted algebraic theories or generalised algebraic theories rather they require coproducts of types for their definition. In a type theory that is many-sorted algebraic (or generalised algebraic) augmented by coproducts Lisp-style the type of lists over some other type $A$ can be defined as the coproduct of the types of empty lists $Empty$ and non-empty lists $Cons$
+ as follows:\\
+
+\begin{minipage}{\textwidth}
+\begin{notebox}[Theory of lists of elements of type A]
+
+If the empty list is written as $nil$ and if the LISP list constructor $cons$ is represented
+as an infix operator $::$ then the theory of a list of elements of type $A$ can expressed as follows: 
+\begin{gatrules}
+\gatintros
+\gatintro{Empty}{}{\isT{Empty}}   
+\gatintro{Cons}{}{\isT{Cons}}     
+\gatintro{List}{}{List = Empty + Cons} 
+\gatintro{nil}{}{\ofT{nil}{Empty}}    
+\gatintro{::}{\ofT{x}{A},\ \ofT{l}{List}}{\ofT{x::l}{List}}
+\gatintro{hd}{\ofT{l}{Cons}}{\ofT{hd(l)}{A}} 
+\gatintro{tl}{\ofT{l}{Cons}}{\ofT{tl(l)}{List}}   
+\gataxioms
+\gataxiom{e=nil}{\ofT{e}{Empty}}                            
+\gataxiom{hd(x::l)=x}{\ofT{l}{List},\  \ofT{x}{A}}         
+\gataxiom{tl(x::l)=l}{\ofT{l}{List},\  \ofT{x}{A}}        
+\gataxiom{hd(l)::tl(l)=l}{\ofT{l}{Cons}} 
+\end{gatrules}
+Expressed as sketch of a category we have a coproduct diagram
+expressing $List = Empty + Cons$,
+a product diagram expressing the product $A \times List$,
+additional morphisms:
+$nil: 1 \morph Empty$,
+$cons : A \times List \morph Cons$,
+$hd: Cons \morph A$ and
+$tl: Cons \morph List$.
+
+and identities (commuting diagrams) expressing that
+morphisms $nil: 1 \morph Empty$ and $cons : A \times List \morph Cons$ are isomorphims 
+with inverses, respectively, of the unique morphism $t_{Empty}: Empty \morph 1$
+and the morphism $\tuple{hd,tl}:Cons \morph A \times List$. 
+
+As an entity model:
+\begin{center}
+\input{\erpictureFolder/LISPlist} 
+\end{center}
+\end{notebox}
+\end{minipage}
