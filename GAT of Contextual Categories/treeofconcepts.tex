@@ -1,0 +1,118 @@
+\subsection {Trees of Concepts and the GAT of Trees}
+
+
+
+\note 
+Terminology: By  the generic term \term{tree} is meant a partially ordered set (poset) $(T, <)$ such that for each $t \in T$, the set $\set{s \in T : s < t}$ is well-ordered by the relation $<$.
+In this discussion we restrict ourselves to \highlight{$\omega$-trees} i.e. trees for which the set $\set{s \in T : s < t}$
+is finite for all $t \in T$. If the set $\set{s \in T : s < t}$ is empty then we say $t$ is in the base of the tree.
+
+With respect to a partial ordering $<$, we say that \highlight{an element $y$ \textit{covers}  an element $x$} in  iff $x<y$ and there does not exist $w$ such that $x < w$ and $w < y$.
+If object $y$ covers object $x$ in the partial ordering 
+then we write \highlight{$x \base y$} (we use this in preference to the more usual $x \lessdot y$).
+For $x$ an element of the tree we define the set of elements  \highlight{$Cover(x)$} to be the set of objects covering $x$.
+
+
+Such trees as these we can equivalently describe as models of the generalised algebraic theory given below table \ref{GATOFTREES} in which the nodes of height $n+1$ are represented as of a sort $S_{n+1}$that is dependent on the sort of nodes of height $n$.
+
+%\newcommand{\Ft}[1]{#1 \kern -0.4em \downarrow}
+\newcommand{\Ft}[1]{\downarrow \kern -0.325em #1}
+If A and B are nodes of  a tree $(S,<)$ then we shall write $A \base B$ to mean that $A < B$ in S and that
+there does not exist x such that $A < x < B$. For every node B of tree S other than the root node there exists a unique node A such that $A \base B$.
+
+\newcommand{\Sz}{Base}
+\newcommand{\ofS}[1]{\ofT{#1}{\Sz}}
+\newcommand{\Si}[1]{C\kern-1pt over_{#1}}
+\newcommand{\ofSi}[3]{\ofT{#1}{\Si{#2}(#3)}}
+\vspace{0.03cm} 
+\begin{table}[H]
+\caption{The Generalised Algebraic Theory of $\omega$-Trees}
+\label{GATOFTREES}
+\begin{tabular}{>{\itshape}l l}
+Symbol & \itshape{Introductory Rule} \\
+$\Sz  $&$\isT{\Sz}$\\
+$\Si{1} $&$\ofS{x_0} \tstyle \isT{\Si{1}(x_0)} $\\
+$\Si{2} $&$\ofS{x_0},\ofSi{x_1}{1}{x_0} \tstyle \isT{\Si{2}(x_0,x_1)} $\\
+\vdots  \\
+$\Si{n} $&$\ofS{x_0},\ofSi{x_1}{1}{x_0}, \hdots \ofSi{x_{n-1}}{n-1}{x_0,x_1,\hdots x_{n-2}} \tstyle \isT{\Si{n}(x_0,x_1,\hdots x_{n-1})} $\\
+\vdots   \\
+\end{tabular} \\
+\end{table} 
+
+
+\subsection {Schematic Notation}
+%\newcommand{\Ft}[1]{
+%#1 \kern-6pt \raisebox{1.45ex}{$\leftrightline$} \kern-3pt \raisebox{.09ex}{$\downarrow$}\kern-3.4pt \raisebox{.25ex} {$|$}}
+\newcommand{\ft}[1]{
+#1 \kern-6pt \raisebox{1.1ex}{$\leftrightline$} \kern-3pt \raisebox{.1ex}{$\downarrow$}}
+%\newcommand{\Bbar}[1]{
+%#1 \kern-6pt \raisebox{1.45ex}{$\leftrightline$}
+%\overline{#1}}
+%\vv{#1}}
+%\newcommand{\bbar}[1]{
+%#1 \kern-6pt \raisebox{1.0ex}{$\leftrightline$}
+%\overline{#1}}
+%\vv{#1}}
+\newcommand{\bbin}[1]{
+\raisebox{-0.5em}{$\stackrel{\displaystyle{\in}} {\scriptstyle{#1}}$}
+}
+\newcommand{\ofTn}[3]{
+#1 \bbin{#2} #3}
+
+
+\newcommand{\genericOb}{Ob} % where we have genericOb=Base + Cover
+
+
+
+There is a  shorthand that is convenient in the presentation  of the GAT of trees  and then subsequently in the GAT of contextual categories. We use the shorthand
+$\ofTn{x}{n}{\genericOb}$ for the context $\ofS{x_0},\ofSi{x_1}{1}{x_0}, \hdots \ofSi{x_n}{n}{x_0,x_1,\hdots x_{n-1}} $. \\
+
+\noindent Using this shorthand, for any $n \geq 0$ the sort $Cover_{n}$  in the theory of trees is introduced as follows: \\
+
+\vspace{0.03cm} 
+\begin{tabular}{>{\itshape}l l}
+Symbol & \itshape{Introductory Rule} \\
+$\Sz  $     & $\isT{\Sz}$\\
+$\Si{n+1}, n \geq 0 $ & $\ofTn{x}{n}{\genericOb}    \tstyle \isT{\Si{n+1}(x)} $\\
+\end{tabular} \\
+\vspace{.1cm}  \\
+
+
+\subsection {An Aside on Recursive Type Definitions}
+
+Using the shorthand, we are quite close to having a recursive definition of a single sort $Cover$.
+Such definitions are not possible in generalised algebraic theories but we can imagine a framework in which it is possible to write: \\
+\vspace{0.03cm} 
+\begin{tabular}{>{\itshape}l l}
+Symbol & \itshape{Introductory Rule} \\
+$Base $     & $\isT{Base}$\\
+$Cover  $     & $\ofT{x_0}{Base}    \tstyle \isT{Cover(x_0)} $\\
+$Cover $      & $\ofT{x}{Cover}    \tstyle \isT{Cover(x)} $\\
+\end{tabular} \\
+\vspace{.1cm}  \\
+
+Such a definition could be represented algebraically in a suitably generalised notion of contextual category (a comulti-contextual category?) these dependencies could be represented
+as follows:  
+
+\begin{center}
+$
+\begin{array}{c c}
+\Rnode{abs}{1}  \\ [1.4cm]
+\Rnode{S0}{Base} \\ [1.4cm]
+\Rnode{SR}{Cover} \\ [1.4cm]
+\end{array}
+$
+\ncsar{S0}{abs}
+\ncsar{SR}{S0}
+\ncrsar{SR}{SR}
+\end{center}
+
+\noindent This is not just an idle thought -- in  data modelling such a tree 
+structure is represented in an entity model diagram in which the injections into the coproduct $Ob$ of $Base$ and $Cover$ are represented by containment: \\
+
+\begin{center}
+\input{../SharedPictures/treeStructurePatched}
+\end {center}
+See \textit{www.entitymodelling.org/tutorialone} for a description of this notation.
+For an example of the modelling of recursive relationships in the definition of a phrase structure grammar of English see 
+\textit{www.entitymodelling.org/examplesone/englishsentence}.
