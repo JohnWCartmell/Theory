@@ -7,6 +7,7 @@
 \input{../SharedMacros/metagat.macros}
 \input{../SharedMacros/erdiagram}
 \input{../SharedMacros/theorems.macros}
+\input{../SharedMacros/general.macros}
 \usepackage{tipa}
 \usepackage{textcomp}
 \usepackage{mnsymbol}
@@ -14,6 +15,7 @@
 \usepackage{esvect}
 \usepackage{float}
 \usepackage[section]{placeins}
+
 \setcounter{equation}{0}
 \title{Generalised Algebraic Axiomatisations of Contextual Categories}
 \subtitle{Corrected 6 April 2018 \\
@@ -59,116 +61,21 @@ $ \circ(\circ(f,g),h) = \circ(f,\circ(g,h))  \mbox{,  whenever\ } \ofOb{w,x,y,z}
 \end{tabular} \\
 \vspace{.3cm}  \\
 
+\input{treeofconcepts}
 
-\subsection {Trees of Concepts and the GAT of Trees}
+\subsection{Rooted $\omega$-trees}
+A contextual catgeory has a rooted $\omega$-tree of objects and we think of this tree as a tree of dependencies among concepts. \\
 
-A contextual category has a tree of objects and we think of this tree as a tree of dependencies among concepts. 
+\noindent
+The theory of rooted $\omega$-trees is the theory of $\omega$-trees plus: \\
 
-Formally, a tree is any partially ordered set $(S, <)$ such that for each t $\in$ S, the set $\left\{ s \in T : s < t \right\} $ is well-ordered by the relation $<$. We wish to consider just trees $(S,<)$ 
-such that for each t $\in$ s, the set $\left\{s \in S : s < t\right\}$ is finite  and such that there is a unique root to the tree i.e. a unique least element. We call the elements of set S the nodes of the tree and for each node the cardinality of the set $\left\{s \in S : s < t\right\}$ is said to be the height of the 
-node $t$. We denote by $S_i, i \geq 0,$ the set of elements of $S$ of height $i$. The set $S_0$ is a singleton set containing the root of the tree.
-
-Such trees as these we can equivalently describe as models of the generalised algebraic theory given below table \ref{GATOFTREES} in which the nodes of height $n+1$ are represented as of a sort $S_{n+1}$that is dependent on the sort of nodes of height $n$.
-
-%\newcommand{\Ft}[1]{#1 \kern -0.4em \downarrow}
-\newcommand{\Ft}[1]{\downarrow \kern -0.325em #1}
-If A and B are nodes of  a tree $(S,<)$ then we shall write $A \base B$ to mean that $A < B$ in S and that
-there does not exist x such that $A < x < B$. For every node B of tree S other than the root node there exists a unique node A such that $A \base B$.
-
-\newcommand{\Sz}{S_0}
-\newcommand{\ofS}[1]{\ofT{#1}{\Sz}}
-\newcommand{\Si}[1]{S_{#1}}
-\newcommand{\ofSi}[3]{\ofT{#1}{\Si{#2}(#3)}}
 \vspace{0.03cm} 
-\begin{table}[H]
-\caption{The Generalised Algebraic Theory of Trees}
-\label{GATOFTREES}
 \begin{tabular}{>{\itshape}l l}
 Symbol & \itshape{Introductory Rule} \\
-$\Sz  $&$\isT{\Sz}$\\
-$\Si{1} $&$\ofS{x_0} \tstyle \isT{\Si{1}(x_0)} $\\
-$\Si{2} $&$\ofS{x_0},\ofSi{x_1}{1}{x_0} \tstyle \isT{\Si{2}(x_0,x_1)} $\\
-\vdots  \\
-$\Si{n} $&$\ofS{x_0},\ofSi{x_1}{1}{x_0}, \hdots \ofSi{x_{n-1}}{n}{x_0,x_1,\hdots x_{n-2}} \tstyle \isT{\Si{n}(x_0,x_1,\hdots x_{n-1})} $\\
-\vdots   \\
 $root$ & $\ofT{root}{\Sz}$ \\
 \itshape{Axioms}:  \\
 $\ofT{x,y}{\Sz} \tstyle x = y$
-\end{tabular} \\
-\end{table} 
-
-
-\subsection {Schematic Notation}
-%\newcommand{\Ft}[1]{
-%#1 \kern-6pt \raisebox{1.45ex}{$\leftrightline$} \kern-3pt \raisebox{.09ex}{$\downarrow$}\kern-3.4pt \raisebox{.25ex} {$|$}}
-\newcommand{\ft}[1]{
-#1 \kern-6pt \raisebox{1.1ex}{$\leftrightline$} \kern-3pt \raisebox{.1ex}{$\downarrow$}}
-%\newcommand{\Bbar}[1]{
-%#1 \kern-6pt \raisebox{1.45ex}{$\leftrightline$}
-%\overline{#1}}
-%\vv{#1}}
-%\newcommand{\bbar}[1]{
-%#1 \kern-6pt \raisebox{1.0ex}{$\leftrightline$}
-%\overline{#1}}
-%\vv{#1}}
-\newcommand{\bbin}[1]{
-\raisebox{-0.5em}{$\stackrel{\displaystyle{\in}} {\scriptstyle{#1}}$}
-}
-\newcommand{\ofTn}[3]{
-#1 \bbin{#2} #3}
-
-There is a  shorthand that is convenient in the presentation  of the GAT of trees  and then subsequently in the GAT of contextual categories. We use the shorthand
-$\ofTn{x}{n}{S}$ for the context $\ofS{x_0},\ofSi{x_1}{1}{x_0}, \hdots \ofSi{x_n}{n}{x_0,x_1,\hdots x_{n-1}} $. \\
-
-\noindent Using this shorthand, for any $n \geq 0$ the sort $S_n$  in the theory of trees is introduced as follows: \\
-
-\vspace{0.03cm} 
-\begin{tabular}{>{\itshape}l l}
-Symbol & \itshape{Introductory Rule} \\
-$\Sz  $     & $\isT{\Sz}$\\
-$\Si{n+1}, n \geq 0 $ & $\ofTn{x}{n}{S}    \tstyle \isT{\Si{n+1}(x)} $\\
-\end{tabular} \\
-\vspace{.1cm}  \\
-
-
-\subsection {An Aside on Recursive Type Definitions}
-
-Using the shorthand, we are quite close to having a recursive definition of a single sort $S_R$.
-Such definitions are not possible in generalised algebraic theories but we can imagine a framework in which it is possible to write: \\
-\vspace{0.03cm} 
-\begin{tabular}{>{\itshape}l l}
-Symbol & \itshape{Introductory Rule} \\
-$S_0  $     & $\isT{S_0}$\\
-$S_R  $     & $\ofT{x_0}{S_0}    \tstyle \isT{S_R(x_0)} $\\
-$S_R $      & $\ofT{x}{S_R}    \tstyle \isT{S_R(x)} $\\
-\end{tabular} \\
-\vspace{.1cm}  \\
-
-Such a definition could be represented algebraically in a suitably generalised notion of contextual category (a comulti-contextual category?) these dependencies could be represented
-as follows:  
-
-\begin{center}
-$
-\begin{array}{c c}
-\Rnode{abs}{1}  \\ [1.4cm]
-\Rnode{S0}{S_0} \\ [1.4cm]
-\Rnode{SR}{S_R} \\ [1.4cm]
-\end{array}
-$
-\ncsar{S0}{abs}
-\ncsar{SR}{S0}
-\ncrsar{SR}{SR}
-\end{center}
-
-\noindent This is not just an idle thought -- in  data modelling such a tree 
-structure is represented in an entity model diagram in which the injections into the coproduct $S$ of $S_0$ and $S_R$ are represented by containment: \\
-
-\begin{center}
-\input{treeStructure}
-\end {center}
-See \textit{www.entitymodelling.org/tutorialone} for a description of this notation.
-For an example of the modelling of recursive relationships in the definition of a phrase structure grammar of English see 
-\textit{www.entitymodelling.org/examplesone/englishsentence}.
+\end{tabular} 
 
 \section{Definition of Contextual Categories}
 \subsection {The GAT of Tree-Structured Categories}
@@ -198,17 +105,18 @@ $
 \newcommand{\HomijBarFt}[4]{\Homij{#1}{#2}(#3,\ft{#4})}
 \newcommand{\ofHomiBarFt}[4]{\ofT{#1}{\HomijBarFt{#2}{#2-1}{#3}{#4}}}
 
-\noindent The theory of tree-structured categories can be presented as a generalised algebraic theory as follows: \\
+\noindent The theory of tree-structured categories can be presented as a generalised algebraic theory as 
+the theory of  $\omega$-trees plus: \\
 \vspace{0.03cm} 
 \begin{tabular}{>{\itshape}l l}
 Symbol & \itshape{Introductory Rule} \\[0.1cm]
-$\Obi{0}  $&$\isT{\Obi{0}}$\\[0.2cm]
-$\Obi{n+1} $&$\ofTn{x}{n}{\Ob} \    \tstyle \isT{\Obi{n+1}(x)} $\\ [0.25cm]
+%$\Obi{0}  $&$\isT{\Obi{0}}$\\[0.2cm]
+%$\Obi{n+1} $&$\ofTn{x}{n}{\Ob} \    \tstyle \isT{\Obi{n+1}(x)} $\\ [0.25cm]
 $\Homij{n}{m} $ &$\ofObi{x}{n} ,\  \ofObi{y}{m} \ \tstyle \isT{\HomijBar{n}{m}{x}{y}} $\\ [0.25cm]
 $\circ$ & $\ofObi{x}{n}, \  \ofObi{y}{m}, \ \ofObi{z}{p}, \ \ofHomij{f}{n}{m}{x}{y},\ofHomij{g}{m}{p}{y}{z} \tstyle \ofHomij{\circ(f,g)}{n}{p}{x}{z}$ \\ [0.25cm]
 $id_n   $   & $ \ofObi{x}{n} \tstyle \ofHomij{id_n(x)}{n}{n}{x}{x} $\\ [0.25cm]
 $p_n   $   & $ \ofObi{x}{n} \tstyle \ofHomij{p_n(x)}{n}{n-1}{x}{x_{n-1}} $\\ [0.25cm]
-$1     $   & $\ofT{1}\Obi{0} $\\         [0.25cm]
+$1     $   & $\ofT{1}{Base} $\\         [0.25cm]
 $t_n   $   & $ \ofObi{x}{n} \tstyle t_n(x) \in \Homij{n}{0}(x,1)$\\ [0.25cm]
 \end{tabular} \\
 \vspace{.1cm}  \\
@@ -222,7 +130,7 @@ $ \circ(\circ(f,g),h) = \circ(f,\circ(g,h)),$ \ whenever \\ [0.2cm]
 $ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
 \ofObi{w}{l} , \ \ofObi{x}{n} , \ \ofObi{y}{m} , \ \ofObi{z}{p}, \ 
  \ofHomij{f}{l}{n}{w}{x}, \ofHomij{g}{n}{m}{x}{y}, \ofHomij{h}{m}{p}{y}{z}$ \\ [0.25cm]
-$x = y, $ whenever $x,y \in \Obi{0} $ \\ [0.25cm]
+$x = y, $ whenever $x,y \in Base $ \\ [0.25cm]
 $f = t_n(x),  $ whenever $ \ofObi{x}{n}, \ f \in \Homij{n}{0}(x,1)$\\ [0.25cm]
 \end{tabular}  \\
 \vspace{.05cm}  \\
