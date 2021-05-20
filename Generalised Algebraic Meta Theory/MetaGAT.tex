@@ -10,112 +10,18 @@
 \usepackage{verbatim}
 \usepackage{enumerate}
 \usepackage{calc}
+\usepackage{float} % for H option for tables and figures
+%\usepackage{enumitem} % to be able to [resume] an enumeration but clashes with [(i)] !!
+\input{../SharedMacros/ermacros}
 \input{../SharedMacros/ccategories.macros}
 \input{../SharedMacros/gats.macros}
 \input{../SharedMacros/metagat.macros}
+\input{../SharedMacros/erdiagram}
+\input{../SharedMacros/theorems.macros}
 \input{../SharedMacros/general.macros}
 \setcounter{equation}{0}
 \bibliographystyle{plain} % was hplain
 
-\title{Meta-Theory of Generalised Algebraic Theories}
-\author{John Cartmell}
-\begin{document}
-\maketitle
-
-\section{The Meta-Theory of Generalised Algebraic Theories}
-There are several ways of expressing the generalised algebraic 
-theory of generalised algebraic theories.  This document introduces one such  
-which we call $MetaGAT$ in view of the fact that it can said to be a meta theory of generalised algebraic theories. We describe and discuss the relationship of the theory $MetaGAT$ to the theory of contextual categories.  
-
-\section{Background}
-As described in \cite{Cartmell86}, Contextual Categories provide algebraic representations of Generalised Algebraic Theories  in the sense that to every Generalised Algebraic Theory $U$ there is a contextual category $\mathbb{C}(U)$ such that algebras of the theory $U$ are exactly structure preserving functors (contextual functors)  from $\mathbb{C}(U)$ into the contextual category $Fam$ of sets, families of sets and so on. We summarise this by saying that Contextual Categories provide the algebraic semantics of Generalised Algebraic Theories. 
-
-However, contextual categories contain structure that is in some sense redundant; this is in the same way that a Lawvere algebraic theory contains redundant structure compared to the otherwise equivalent notion, from universal algebra, of an abstract clone (see, for example, \cite{KerkoffonClones}). In both cases the redundancy is introduced in order to achieve a definition in which the algebraic structures 
- are enrichments (informally speaking) of categories. Remove the redundant structure and there is no longer a category having surface visibility in the definitions. 
-
-The redundancy in the structure of a contextual category is exploited by Vladimir Voevodsky in \cite{Voevodsky14C} to give a Generalised Algebraic Theory of Contextual Categories. The significant point is that Voevodsky does this without introducing additional types whereas I had noted in my thesis \cite{Cartmell78} that contextual categories could be described by a generalised algebraic theory with the introduction of additional equationally defined types to represent identity of morphisms. Voevodsky instead introduces an  `s' operator on morphisms which in fact maps a morphism to a normal form representing that morphism as a section. By a section of type $B$, $Sec_{\mathbb{C}}(B)$, in a contextual category $\mathbb{C}$, I mean a morphism $f:A\rightarrow B$ in $\mathbb{C}$, where 
-$A \base B$ and such that $f \comp p(A) = id_A$\footnote{In my thesis the notation $Arr_{\mathbb{C}}(B)$ was used for what here we refer to as the sections and denote $Sec_{\mathbb{C}}(B)$}.
-
-Compared to the theory of contextual categories, the theory $MetaGAT$ does not introduce redundant structure; it axiomatises the types and the terms of the theory directly and these correspond to the objects and the sections of a corresponding contextual category. The theory of contextual categories, on the other hand, axiomatises n-tuples of terms for any n; it is  these that are represented by the morphisms of a contextual category.  
-
-The theory MetaGAT is closely related to the notion of B-system described by Voevodsky in
-\cite{Voevodsky14B}.
-and to the algebras described by Richard Garner in \cite{Garner15}.  
-
-\section{Conclusion}
-
-\begin{enumerate}[(i)]
-\item There is an isomorphism between the theory of contextual categories and the theory $MetaGAT$ in the category of existentially and identity enriched generalised algebraic theories. 
-\item There is no such isomorphism in the category of generalised algebraic theories.
-\item The category of $MetaGAT$ algebras and the category of contextual categories are isomorphic. 
-\end{enumerate}
-
-\noindent (iii) follows from (i) only because the contextual category $Fam$ of sets, families of sets has existential quantification and identity types. \\
-
-\noindent $MetaGAT$ algebras may have interpretations (and, therefore, applications) where Contextual Categories do not.
-
-\section{Words - Motivating context algebra}
-
-A citizen in the context of a triangle is written as:
-$$
-triangle \cross citizen
-$$
-and since a citizen needs a country for context:
-$$
-country \base citizen
-$$
- therefore $triangle \cross citizen$ requires $triangle \cross country$:
-$$ triangle \cross country \base triangle \cross citizen$$.
-
-
-
-One citizen in the context of another, when written as:
-$$citizen \cross citizen$$
-is ambiguous and is therefore written instead as:
-$$citizen \cross_{country} citizen$$
-if we imagine a citizen of the same country or is written as as
-$$citizen \cross_1 citizen$$
-if we imagine absolutely any other citizen of any country whatsoever, 
-where $1$ represents \textit{the absolute}. 
-
-Particularisation of  citizen to instance france of country is written as
-$france^*citizen$.
-
-\section{The $MetaGAT$ Theory}
-
-\subsection*{Sorts}
-The theory $MetaGat$ has two families of sort symbols representing, respectively,  types and terms of a GAT. \\
-
-\noindent Types of a GAT are represented by a family of sort symbols $\typ_{i)_{i\geq 1}}$ introduced by rules as follows: 
-\begin{align*}
-&\isT{\typ_1} \\
-&\ofT{x_1}{\typ_1} \tstyle \isT{\typ_2(x_1)} \\
-& \vdots \\
-&\context{x}{\typ}{i} \tstyle \isT{\typ_{i+1}(x_1, ..x_{i})} \\
-\end{align*}
-\noindent We can drop the subscripts from $\typ$ and omit the inessential variables so that we express as:
-
-\begin{equation}
-\ofT{x_1}{\typ},.. \ofT{x_{n}}{\typ(x_{n-1})} \tstyle \isT{\typ(x_{n})} \\
-\end{equation}
-\vspace{0cm}
-
-\noindent Terms of a GAT are represented in $MetaGat$ by a family of 
-sort symbols $\trm_{i)_{i\geq 1}}$. 
-When x is a type at level i, $\trm_i(x)$ represents the terms of type $x$. 
-As before, the subscripts and the inessential variables can be omitted and so, formally, each operator $\trm$ is introduced by:
-
-\begin{equation}
-\label{sortintroterm}
-\typeseq{x}{n}, \ofT{x}{\typ(x_{n})} 
-\tstyle \isT{\trm(x)}
- \\
-\end{equation}
-\vspace{0cm}
-
-\noindent We see, therefore, that a $MetaGAT$ algebra has a tree of types and for each type a set of terms.
-If, in some context, $f$ is a term of type $\trm(x)$ then we picture it in the tree of types as an arrow leading to $x$ from its predecessor node which, in some cases, may be the root of the tree.
-For example, in the context given in equation (\ref{sortintroterm}), if f is a term of type $\trm(x)$ then this is pictured so:
 \newcommand{\dottree}
 { \pstree
   {\Tr[edge=\dottededge]{}}
@@ -142,18 +48,447 @@ For example, in the context given in equation (\ref{sortintroterm}), if f is a t
 		}
 }
 
-\begin{displaymath}
-\pstree[treemode=R,levelsep=*1.2cm,treesep=0.5cm, nodesep=0.1cm]
-{\Tr{\circ}}
-{
-\dottree
-\dottree
-  \flabbytree{x}{n}
-    {
-		  \Tr{x} \member{f}
-		}
+\newcommand{\highlightpara}[1]{\colorbox{highlight}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep}% a box with line-breaks that's just wide enough
+        {#1}}
 }
+
+\title{Meta-Theory of Generalised Algebraic Theories}
+\author{John Cartmell}
+\begin{document}
+\maketitle
+
+\section{The Meta-Theory of Generalised Algebraic Theories}
+This document introduces  \highlight{a generalised algebraic theory of generalised algebraic theories}   
+which we call \highlight{$MetaGAT$} in view of the fact that it can said to be a meta theory of generalised algebraic theories. We describe and discuss the relationship of the theory $MetaGAT$ to the theory of contextual categories.  
+
+\section{Background}
+As described in \cite{Cartmell86}, Contextual Categories provide algebraic representations of Generalised Algebraic Theories  in the sense that to every Generalised Algebraic Theory $U$ there is a contextual category $\mathbb{C}(U)$ such that algebras of the theory $U$ are exactly structure preserving functors (contextual functors)  from $\mathbb{C}(U)$ into the contextual category $Fam$ of sets, families of sets and so on. We summarise this by saying that Contextual Categories provide the algebraic semantics of Generalised Algebraic Theories. 
+
+\noindent
+\highlightpara{Contextual categories contain structure that is in some sense redundant; this is in the same way that a Lawvere algebraic theory contains redundant structure compared to the otherwise equivalent notion, from universal algebra, of an abstract clone (see, for example, \cite{KerkoffonClones}). In both cases the redundancy is introduced in order to achieve a definition in which the algebras are categories with some sort of additional structure. Remove the redundancy and there is no longer a category directly visible in the definitions.}
+
+Terminology: By \highlight{a section of an object $B$}
+ in a contextual category \catc, I mean a morphism $f:A\rightarrow B$ in \catc, where 
+$A \base B$ and satisfying  $f \comp p_B = id_A$\footnote{In my thesis the notation $Arr_{\catc}(B)$ was used for what here we refer to as the sections and denote $Sect_{\catc}(B)$.}.
+
+
+  
+A \highlight{$MetaGAT$-algebra} consists of \highlight{an $\omega$-tree of objects} and, 
+\highlight{for each object $x$, a set}
+said to be the set of sections of $x$.
+It comes equipped with three \highlight{operations $^*$, $\crossx{}{}{}$ and $\delta$} and   
+satisfies certain axioms.
+
+\noindent
+\highlightpara{One way of explaining what constitutes a  MetaGAT algebra is to say that it consists of the $\omega$-tree of objects of a contextual category along with, for each object 
+its set of sections  and with operations and axioms that completely encapsulate the structure of the contextual category.} 
+
+The tree of objects corresponds to the tree of objects of a contextual category and so each each object corresponds to  a rule of the form
+\gatdisplayrule{\xDelta{n}}{\isT{\Delta}}. \\
+Each  section corresponds to a rule of the form:
+ \gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta}}.
+
+
+\vspace{1cm}
+The  operations $^*$ and $\crossx{}{}{}$  
+ correspond in the syntax to  substitution and  weakening. 
+
+In brief, these operations are as follows:
+
+\begin{enumerate}
+\item In a metaGAT algebra $A$, if $y$ is an object and if $f$ is a section of $y$ and if $z$ is an object so that $y < z$ then $f^*z$ is defined and is an object of $A$ 
+      such that \commentary{we could speak of concept $z$ being particularised to instance $f$.}
+			\begin{enumerate}[(a)]
+			\item if $y \base z$ then $z \base f^*z$,
+			\item if $z \base z'$ and $y <z$ then $f^*z \base f^*z'$,
+			\end{enumerate}
+\item if in addition $g$ is a section of $z$ then $f^*g$ is defined and is a section at $f^*z$. 
+
+At this point it follows that if $y \base z_1 ... \base z_m \base z$ and $g$ is a section of $z$ then we have:
+
+\commentary{intrductory rules for $^*$}
+\input{starintroshortened} 
+
+\item If $w,x$ and $y$ are objects of $A$  and if $w \base x$ and $w < y$ then $x \cross_w y$ is an object of $A$ 
+such that
+    \begin{enumerate}[(a)]
+		\item if $w \base y$ then $x \base x \cross_w y$,
+		\item if $y \base y'$ and $y <z$ then $x \cross_w y \base x \cross_w y'$,
+		\end{enumerate}
+\item if in addition $g$ is a section of $y$ then $x \cross_w g$ is an section of $x \cross_w y$.
+
+At this point it follows that if $w \base y_1 ... \base y_m \base y$ and $g$ is a section of $y$ then we have
+\commentary{introductory rules for $\cross$}
+\input{crossinstanceintroshortened}
+\vspace{0.5cm}
+\item If $x$ and $y$ are objects of $A$ such that $x \base y$ then $\delta_y$ is a section of $\crossx{y}{y}{x}$
+\vspace{0.5cm}
+\commentary{introductory rule for $\delta$}
+\input{deltaintroshortened} 
+\end{enumerate}
+
+Such a structure as this is a metaGAT algebra providing the following axioms hold  
+\begin{equation}
+(f^*g)^*(f^*v) = f^*(g^*v)
+\end{equation}
+\begin{equation}
+(x \cross y) \cross (x \cross v) = x \cross (y \cross v), 
+\end{equation}
+\begin{equation}
+f^*(x \cross v) = y, \mbox{ when $f$ is a section of $x$,} 
+\end{equation}
+\begin{equation}
+f^*y \cross f^*v = f^*(y \cross v)
+\end{equation}
+\begin{equation}
+(x \cross g)^*(x \cross v)=x \cross(g^*v)
+\end{equation}
+\begin{equation}
+\delta_x ^*(x \cross y)=y
+\end{equation}
+where $x, y, z$ are objects, $f$ and $g$ are sections and $v$ is either an object or a section. In instances of $\cross$ subscripts must be chosen appropriately
+and in all cases the axiom holds whenever either side is defined. Full detail iof these axioms including choices of subscripts is given below.
+
+\iffalse
+We can visualise the first of these axioms like this: 
+\input{stardistributivityaxiom}
+\fi
+
+\noindent
+\highlightpara{
+Compared to the theory of contextual categories, the theory $MetaGAT$ does not introduce redundant structure; it axiomatises the types and the terms of the theory directly and these correspond to the objects and the sections of a corresponding contextual category. The theory of contextual categories, on the other hand, axiomatises n-tuples of terms for any n; it is  these that are represented by the morphisms of a contextual category.}  
+
+\noindent
+\highlightpara{
+The theory MetaGAT is closely related to the notion of B-system described by Voevodsky in
+\cite{Voevodsky14B}.
+and to the algebras over a monad described by Richard Garner in \cite{Garner15}.  
+}
+\section{Summarising}
+
+\begin{enumerate}[(i)]
+\item The category of $MetaGAT$ algebras and the category of contextual categories are isomorphic. 
+\item There is an isomorphism between the theory of contextual categories and the theory $MetaGAT$ in the category of existentially and identity enriched generalised algebraic theories. 
+\item There is no such isomorphism in the category of generalised algebraic theories.
+\end{enumerate}
+
+\noindent $MetaGAT$ algebras may have interpretations (and, therefore, applications) where Contextual Categories do not.
+
+\section{Re-Articulation ---  Concept-Instance algebra}
+
+\note
+There are \term{concepts} and each concept has a set of \term{instances}. There is a concept of \term{the absolute}($Abs$)
+ This concept has exactly one instance ($abs$). 
+
+\note
+Every concept except the absolute has a \term{context} which it \term{depends on} and which itself is a concept. 
+We write $ctxt(B)$
+for the  concept that concept $B$ depends on.
+
+We write $A \base B$  when  $A$ and $B$ are contexts and $B$ depends on $A$.
+
+\note
+If there exists $B_1,...B_n$ such that
+$A \base B_1 \base B2 ... \base B_n \base B$ then we say that $B$ \term{indirectly depends on} $A$.
+
+\note Every concept is directly or indirectly dependent on the absolute.
+
+\note
+Two operations act on concepts and instances: \term{particularisation} denoted
+$^*$ and \term{consideration}  denoted $\cross$.
+
+\note
+$f^*x$ is the particularisation of $x$ to $f$
+\note
+$\crossx{x}{y}{w}$ is concept or instance $y$ considered in the context $x$ constrained within the bounding context $w$
+\note
+If $y$ depends directly or indirectly on $x$ then we say that $y$ is \term{within} $x$.
+We also say that an instance $g$ of a concept $y$ is within $x$ provided that concept $y$ is within $x$.
+
+\note 
+Therefore every concept and instance is either the absolute or is within the absolute.
+Therefore the absolute is also \term{the whole}. It is the concept of the whole of everything.
+
+\highlight{THE END}
+
+ \newpage
+
+\note
+Both concepts and instances can be particularised.
+$^*$ is a binary infix operation. Its first argument is an instance its second is either concept or instance.
+If $f$ is an instance of concept $A$ then $f^*x$ is defined iff $x$ is either a concept or an instance that is within $A$. 
+.
+
+\begin{itemize}
+\item if $ctxt(B)=A$ then $ctxt(f^*B)=ctxt(A)$,
+\item if $ctxt(B)$ indirectly depends on $A$ then $ctxt(f^*B)=f^*ctxt(B)$,
+\item if $g$ is an instance of $B$ then $f^*g$ is an instance of $f^*B$.
+\end{itemize}
+
+\note 
+The consideration operator $\cross$ is a ternary operation:
+$\crossx{A}{y}{X}$ is concept or instance $y$ considered in the context $A$ constrained within some bounding context $X$.
+
+$\crossx{A}{y}{X}$ is defined iff $X$ is a concept, $A$ is a concept  within $X$ and $y$ is either
+a concept or an instance within $X$. 
+
+\begin{itemize}
+\item if $ctxt(B)=X$ then $ctxt(\crossx{A}{B}{X})=A$,
+\item if $ctxt(B)$ indirectly depends on $A$ then $ctxt(\crossx{A}{B}{X})=\cross{A}{cntxt(B)}{X}$,
+\item if $g$ is an instance of $B$ then $\crossx{A}{g}{X}$ is an instance of $\crossx{A}{B}{X}$.
+\end{itemize}
+
+\note
+For every concept $A$ there is an instance $self_A$. $self_A$ is an instance of $\crossx{A}{A}{X}$ where $X$ is the context of $A$.
+
+\note Axioms - as before.
+\newpage
+\note 
+Analyse these two concepts: 
+\begin{equation}
+\label{twofromplays}
+\mbox{\textit{`two characters from the plays of shakespeare'}}
+\end{equation}
+\begin{equation}
+\label{twofromsingleplay}
+\mbox{\textit{`two characters from a play by shakespeare'}}
+\end{equation}
+
+Assume this concept model:
+
+ \vspace{0.3cm}
+\begin{displaymath}
+\pstree[treemode=R,levelsep=*0.65cm,treesep=1cm,nodesep=0.05]
+ {
+    \Tr{\circ}
+ }
+ {
+   \pstree [levelsep=*0.85cm]
+	    {
+			  \Tr{w} \uppermember {s}
+			}
+			{		  
+				\pstree [levelsep=*0.85cm]
+				{
+				   \Tr{p} 
+				}
+				{
+				   \Tr{c} 
+			  }			
+			}
+		\iffalse	
+	 \Tr{f \sub y} \member {f \sub g}
+	\fi
+ }
 \end{displaymath}
+\vspace{0.2cm}
+
+Concept (\ref{twofromplays}) is represented by $s^*(\crossx{c}{c}{w})$ because
+\begin{itemize}
+\item The concept of two characters in plays by the same playwright is $\crossx{c}{c}{w}$.
+\item Particularised to plays by shakespeare this is $s^*\crossx{c}{c}{w}$.
+\end{itemize}
+
+Diagramming the tree we have
+
+\vspace{0.3cm}
+\begin{displaymath}
+\pstree[treemode=R,levelsep=*0.65cm,treesep=1cm,nodesep=0.05]
+ {
+    \Tr{\circ}
+ }
+ {
+   \pstree [levelsep=*0.85cm]
+	    {
+			  \Tr{w} \uppermember {s}
+			}
+			{		  
+				\pstree [levelsep=*0.85cm]
+				{
+				   \Tr{p} 
+				}
+				{
+				   \pstree [levelsep=*0.85cm]
+				   {
+						   \Tr{c}
+					 }
+					 {
+					     \pstree [levelsep=*0.85cm]
+							 {
+					         \Tr{c \cross_w p}
+							 }
+							 {
+							     \Tr{c \cross_w c}
+							 }
+					 }
+			  }			
+			}
+	 \pstree [levelsep=*0.85cm]
+	    {
+			  \Tr{s^*p} 
+			}
+			{		  
+				\pstree [levelsep=*0.85cm]
+				{
+				   \Tr{s^*c} 
+				}
+				{   
+				    \pstree [levelsep=*0.85cm]
+						{
+				       \Tr{s^*(c \cross_w p)} 
+						}
+						{
+						   \Tr{s^*(c \cross_w c)}
+						}
+			  }			
+			}			
+		\iffalse	
+	 \Tr{f \sub y} \member {f \sub g}
+	\fi
+ }
+\end{displaymath}
+
+Equally concept (\ref{twofromplays}) maybe represented by $\crossx{s^*c}{s^*c}{Abs}$.
+This is an example of the distributive law at work in concept-instance algabra.
+
+
+
+
+Concept (\ref{twofromsingleplay}) is represented by $s^*(\crossx{c}{c}{p})$ because
+\begin{itemize}
+\item The concept of two characters in the same play is $\crossx{c}{c}{p}$.
+\item Particularised to plays by shakespeare this is $s^*(\crossx{c}{c}{p})$.
+\end{itemize}
+
+Diagramming the tree we have
+
+\vspace{0.3cm}
+\begin{displaymath}
+\pstree[treemode=R,levelsep=*0.65cm,treesep=1cm,nodesep=0.05]
+ {
+    \Tr{\circ}
+ }
+ {
+   \pstree [levelsep=*0.85cm]
+	    {
+			  \Tr{w} \uppermember {s}
+			}
+			{		  
+				\pstree [levelsep=*0.85cm]
+				{
+				   \Tr{p} 
+				}
+				{
+				   \pstree [levelsep=*0.85cm]
+				   {
+						   \Tr{c}
+					 }
+					 {
+					     \Tr{c \cross_p c}
+					 }
+			  }			
+			}
+	 \pstree [levelsep=*0.85cm]
+	    {
+			  \Tr{s^*p} 
+			}
+			{		  
+				\pstree [levelsep=*0.85cm]
+				{
+				   \Tr{s^*c} 
+				}
+				{
+				   \Tr{s^*(c \cross_p c)} 
+			  }			
+			}			
+		\iffalse	
+	 \Tr{f \sub y} \member {f \sub g}
+	\fi
+ }
+\end{displaymath}
+\vspace{0.2cm}
+Equally, concept (\ref{twofromsingleplay}) may be represented by $\crossx{s^*c}{s^*c}{s^*p}$. This is the distributive law at work again.
+
+\iffalse
+A citizen in the context of a triangle is written as:
+$$
+triangle \cross citizen
+$$
+and since a citizen needs a country for context:
+$$
+country \base citizen
+$$
+ therefore $triangle \cross citizen$ requires $triangle \cross country$:
+$$ triangle \cross country \base triangle \cross citizen$$.
+
+
+
+One citizen in the context of another, when written as:
+$$citizen \cross citizen$$
+is ambiguous and is therefore written instead as:
+$$citizen \cross_{country} citizen$$
+if we imagine a citizen of the same country or is written as as
+$$citizen \cross_1 citizen$$
+if we imagine absolutely any other citizen of any country whatsoever, 
+where $1$ represents \textit{the absolute}. 
+
+Particularisation of  citizen to instance france of country is written as
+$france^*citizen$.
+\fi
+
+\section{Trees of Concepts and the GAT of $\omega$-trees}
+\input {../SharedText/treeofconcepts}
+
+\input{../SharedText/asideonrecursivetypedefinitions}
+\section{The $MetaGAT$ Theory}
+
+\subsection*{Sorts}
+The theory $MetaGat$ has two families of sort symbols representing, respectively,  types and terms of a GAT. \\
+\subsection{Representations of Types}
+
+
+There is a $\omega$-tree of types and so the theory $MetaGAT$ is axpressed as an extension of the theory
+of $\omega$-trees incorporating types $Base$ and $Cover$. As before we use the abbreviation 
+$\ofTn{x}{n}{\genericOb}$ for the context $\ofS{x_0},\ofSi{x_1}{1}{x_0}, \hdots \ofSi{x_n}{n}{x_0,x_1,\hdots x_{n-1}} $. \\
+
+
+\noindent Terms of a GAT are represented in $MetaGat$ by a family of 
+sort symbols $\trm_{i)_{i\geq 1}}$. 
+When x is a type at level i, $\trm_i(x)$ represents the terms of type $x$. 
+
+$\trm_0$ is introduced by
+
+\vspace{0cm}
+\begin{equation}
+\ofS{x_0} \tstyle \isT{\trm_0(x_0)}
+\end{equation}
+
+and $\trm_n$, for $n >\geq 1$, is introduced by
+
+\vspace{0cm}
+\begin{equation}
+\ofS{x_0},\ofSi{x_1}{1}{x_0}, \hdots \ofSi{x_n}{n}{x_0,x_1,\hdots x_{n-1}} \tstyle \isT{\trm(\xn)}
+\end{equation}
+
+As before, the subscripts and the inessential variables can be omitted and 
+we can use $\ofTn{x}{n}{\genericOb}$ as an abbreviation so that the family of sorts $\trm$ is introduced by, for $n \geq 0$,
+
+\vspace{0cm}
+\begin{equation}
+\label{sortintroterm}
+\ofTn{x}{n}{\genericOb} \tstyle \isT{\trm(\bar{x})}
+\end{equation}
+
+
+\noindent We see, therefore, that a $MetaGAT$ algebra has a tree of types and for each type a set of terms.
+If, in some context, $f$ is a term of type $\trm(x)$ then we picture it in the tree of types as an arrow leading to $x$ from its predecessor node which, in some cases, may be the root of the tree.
+For example,  if f is a term of type $\trm(x)$ then this is pictured so:
+
+
+\input{genericsectiondiagram}
+
+
 
 \subsection*{Operators}
 There are three families of operators in $MetaGAT$. In short they represent substitution  denoted by $\sub$, weakening denoted by $\cross$ and tautology (x in the context of x) which we call the diagonal and denote $\delta$. We now describe the
@@ -184,24 +519,7 @@ $\duple{self_A}=id_A$ which would seem about right. Weakening is consideration?}
 \vspace{0cm}
 
 \noindent Rules (\ref{simpleintrosubintotype}) and (\ref{simpleintrosubintoterm}) can be pictured like this:
-\vspace{0.3cm}
-\begin{displaymath}
-\pstree[treemode=R,levelsep=*0.65cm,treesep=1cm,nodesep=0.05]
- {
-    \Tr{\circ}
- }
- {
-   \pstree [levelsep=*0.85cm]
-	    {
-			  \Tr{x} \uppermember {f}
-			}
-			{
-			  \Tr{y} \uppermember {g}
-			}
-	 \Tr{f \sub y} \member {f \sub g}
- }
-\end{displaymath}
-\vspace{0.2cm}
+\input{starzerointro}
 
 \noindent More generally the rules for substitution are for $n \ge 0$ and $m \ge 0$:
 \begin{multline}
@@ -241,6 +559,7 @@ is given and then some (variable $g$ is introduced). This is going to be a famil
 \vspace{0.5cm}
 \noindent Rules (\ref{introsubintotype}) and (\ref{introsubintoterm}) can be pictured like this:
 
+\input{starintro}
 \begin{displaymath}
 \vspace{0.5cm}
 \pstree[treemode=R,levelsep=*0.5cm,treesep=1cm,nodesep=0.05]
@@ -257,7 +576,6 @@ is given and then some (variable $g$ is introduced). This is going to be a famil
 		}
 }
 \end{displaymath}
-
 \vspace{0.5cm}
 \noindent Substitution is subject to the rule that when both sides are defined 
 $(f \sub g)\sub(f \sub z) = f \sub (g \sub z)$. 
@@ -282,41 +600,8 @@ $(f \sub g)\sub(f \sub z) = f \sub (g \sub z)$.
 
 \noindent The combination of axioms (\ref{doublesubtype}) and (\ref{doublesubterm})  can be pictured like this:
 
-\begin{displaymath}
-\vspace{0.5cm}
-\pstree[treemode=R,levelsep=*0.75cm,treesep=1.5cm,nodesep=0.05]
- {
-    \Tr{\circ}
- }
- { \flexbranch{Lxn}{1cm}{0.9cm}{x}{n}{}
-    {\pstree[treesep=1.2cm, thislevelsep=1.0cm]
-		   {\Tr{x}\uppermember{f}}
-       {
-         \flexbranch{Lym}{1cm}{1cm}{y}{m}{}
-         {\pstree[thislevelsep=0.7cm]
-		       {\Tr{y}\uppermember{g}}
-			     {
-			     \flexbranchplusarc{Lz}{1cm}{1cm}{z}{l} {} {h}
-			     }
-	  	     \flexbranchplusarc{Lgz}{1cm}{1cm}{g \sub z}{l}{} {g \sub h}
-		     }
-	    }
-			\flexbranch{Lfy}{0.5cm}{1.5cm}{f \sub y} {m}{}
-			{
-			      \flexbranchplusarc{Lfgfz}{1cm}{2.3cm}{(f \sub g) \sub (f \sub z}{l}{)} 
-						  {(f \sub g)\sub(f \sub h)}\nbput[labelsep=0.4cm]{\Rnode{LAB2}{}} 
-		        \flexbranchplusarc{Lfgz}{1cm}{2.3cm}{f \sub (g \sub z}{l}{)} 
-						  {(f \sub (g \sub h)}\ncput{\Rnode{LAB1}{}}
-			}
-			\equality{Lfgfz1}{Lfgz1}
-			\equality{Lfgfz2}{Lfgz2}
-			\equality{Lfgfz3}{Lfgz3}
-			\equality{LAB1}{LAB2}
-    }
-}
-\end{displaymath}
+\input{stardistributivityaxiom}
 
-\vspace{0.5cm}
 
 \subsection*{Weakening - The $\cross$ operators}
 \noindent Introduction of context into a type or a term is represented by a family of operator symbols. In a completely formal presentation a second subscript is required but without ambiguity we can work with a notation with a family $\cross_{i_{)i \geq 0}}$. In the simplest case:
@@ -405,6 +690,7 @@ $(f \sub g)\sub(f \sub z) = f \sub (g \sub z)$.
 \vspace{0.3cm}
 \noindent The weakening of a term, in general, is introduced by:
 
+
 \begin{equation}
 \contextof{introcrosstype},\ofT{g}{\trm(y)}
 \tstyle 
@@ -413,23 +699,8 @@ $(f \sub g)\sub(f \sub z) = f \sub (g \sub z)$.
 \end{equation}
 
 \noindent which we picture like this:
+\input{crossinstanceintro}
 
-\begin{displaymath}
-\pstree[treemode=R,levelsep=*0.5cm,treesep=1cm,nodesep=0.05]
- {
-   \Tr{\circ}
- }
- {\flexbranch{Lx}{0.9cm}{0.5cm}{x}{n}{}
-   {
-	  \flexbranchplusarc{Lym}{1cm}{1cm}{y}{m}{}{g}
-	  \pstree[levelsep=*0.5cm,nodesep=0.05]
-		{\Tr{x}}
-		{
-		  \flexbranchplusarc{Lxym}{1cm}{1.6cm}{x \cross_n y}{m}{}{x \cross_n g}
-		}
-	 }
- }
-\end{displaymath}
 
 \vspace{1cm}
 
@@ -754,18 +1025,8 @@ can be  pictured like this:
 
 \noindent which is pictured like this:
 
-\begin{displaymath}
-\pstree[treemode=R,levelsep=*0.5cm,treesep=1cm,nodesep=0.05]
- {
-    \Tr{\circ}
- }
- {\flexbranch{Lxn}{1.3cm}{1.5cm}{x}{n}{}
-   {
-	   \Tr{x_n \cross x_n} \member{\diag{x_n}}
-	}
- }
-\end{displaymath}
-\vspace{0.3cm}
+\input{deltaintro}
+
 
 \noindent The diagonal $\diag$ is subject to four axiom schemes. \\
 
@@ -930,7 +1191,7 @@ When x is an object at level i, and y is an object at level j then $\Hom_{i,j}(x
 formally, each sort symbol $\Hom_{i,j}$ is introduced by:
 
 \begin{equation}
-\label{sortintroterm}
+\label{Homintroduction}
 \objseq{x}{n}, \objseq{y}{m},
 \tstyle \isT{\Hom_{n,m}(x_n,y_m)}
  \\

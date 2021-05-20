@@ -1,7 +1,5 @@
 \subsection {Trees of Concepts and the GAT of Trees}
 
-
-
 \note 
 Terminology: By  the generic term \term{tree} is meant a partially ordered set (poset) $(T, <)$ such that for each $t \in T$, the set $\set{s \in T : s < t}$ is well-ordered by the relation $<$.
 In this discussion we restrict ourselves to \highlight{$\omega$-trees} i.e. trees for which the set $\set{s \in T : s < t}$
@@ -57,7 +55,7 @@ $\Si{n} $&$\ofS{x_0},\ofSi{x_1}{1}{x_0}, \hdots \ofSi{x_{n-1}}{n-1}{x_0,x_1,\hdo
 \raisebox{-0.5em}{$\stackrel{\displaystyle{\in}} {\scriptstyle{#1}}$}
 }
 \newcommand{\ofTn}[3]{
-#1 \bbin{#2} #3}
+\raisebox{0.25pt}{$\bar{#1}$} \bbin{#2} #3}
 
 
 \newcommand{\genericOb}{Ob} % where we have genericOb=Base + Cover
@@ -73,46 +71,7 @@ $\ofTn{x}{n}{\genericOb}$ for the context $\ofS{x_0},\ofSi{x_1}{1}{x_0}, \hdots 
 \begin{tabular}{>{\itshape}l l}
 Symbol & \itshape{Introductory Rule} \\
 $\Sz  $     & $\isT{\Sz}$\\
-$\Si{n+1}, n \geq 0 $ & $\ofTn{x}{n}{\genericOb}    \tstyle \isT{\Si{n+1}(x)} $\\
+$\Si{n+1}, n \geq 0 $ & $\ofTn{x}{n}{\genericOb}    \tstyle \isT{\Si{n+1}(\bar{x})} $\\
 \end{tabular} \\
 \vspace{.1cm}  \\
 
-
-\subsection {An Aside on Recursive Type Definitions}
-
-Using the shorthand, we are quite close to having a recursive definition of a single sort $Cover$.
-Such definitions are not possible in generalised algebraic theories but we can imagine a framework in which it is possible to write: \\
-\vspace{0.03cm} 
-\begin{tabular}{>{\itshape}l l}
-Symbol & \itshape{Introductory Rule} \\
-$Base $     & $\isT{Base}$\\
-$Cover  $     & $\ofT{x_0}{Base}    \tstyle \isT{Cover(x_0)} $\\
-$Cover $      & $\ofT{x}{Cover}    \tstyle \isT{Cover(x)} $\\
-\end{tabular} \\
-\vspace{.1cm}  \\
-
-Such a definition could be represented algebraically in a suitably generalised notion of contextual category (a comulti-contextual category?) these dependencies could be represented
-as follows:  
-
-\begin{center}
-$
-\begin{array}{c c}
-\Rnode{abs}{1}  \\ [1.4cm]
-\Rnode{S0}{Base} \\ [1.4cm]
-\Rnode{SR}{Cover} \\ [1.4cm]
-\end{array}
-$
-\ncsar{S0}{abs}
-\ncsar{SR}{S0}
-\ncrsar{SR}{SR}
-\end{center}
-
-\noindent This is not just an idle thought -- in  data modelling such a tree 
-structure is represented in an entity model diagram in which the injections into the coproduct $Ob$ of $Base$ and $Cover$ are represented by containment: \\
-
-\begin{center}
-\input{../SharedPictures/treeStructurePatched}
-\end {center}
-See \textit{www.entitymodelling.org/tutorialone} for a description of this notation.
-For an example of the modelling of recursive relationships in the definition of a phrase structure grammar of English see 
-\textit{www.entitymodelling.org/examplesone/englishsentence}.

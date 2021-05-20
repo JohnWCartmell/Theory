@@ -69,13 +69,45 @@
 
 \section{Introduction}
 
-
 \note This document is an overview my current research interests. It describes the contents of  a Github repository \url{www.github.com/JohnWCartmell/Theory} containing latex source of ongoing notes and working papers. I  build pdf documents using the \verb!latex => ps => pdf! route. The requirement to build via postscript comes about because I use the pstricks packages for drawing diagrams.
+
 \note I occasionally post pdfs at Research Gate \url{www.researchgate.net/profile/John-Cartmell}.
 
 \section{The Mathematical Theory of Data}
 \note 
-\textit{The mathematical theory of data} is a working title for an ongoing  project. 
+There isn't as yet \textit{a mathematical theory of data} but there ought to be and there can be but it hasn't been developed yet and when it is developed it will become a foundation 
+with significant practical benefits. 
+In the theory, when developed, morphisms, commutative diagrams, pullbacks and coproducts will all play a part.
+
+Some of my recent thinking I have put on ResearchGate as a ``Preparation for a Mathematical Theory of Data''
+\cite{CartmellPreparation}. In this paper there is a definition of \term{maximal constrainedness} of a category with respect to a set of functors into the category of finite sets. Does anybody recognise this definition? 
+
+Roughly speaking:
+\begin{itemize}
+\item the category represents a data specification,
+\item each functor represents an instance of this data specification,
+\item the set of functors represents the requirement for the specification,
+\item the maximal constrainedness of the category with respect to the requirement represents that the data specification cannot be replaced by any better data specification i.e. one that fits the data more tightly.
+\end{itemize}
+
+In this abstract setting I am able to give definitions of some key concepts from relational data theory, namely
+those of
+\begin{itemize}
+\item functional dependency,
+\item referential inclusion dependency
+\end{itemize}
+and what it means for dependencies of either type to be represented in the data specification (i.e. the category).
+
+Finally I am able to show that if a data specification is maximally constrained to a requirement then
+all functional dependencies and referential inclusion dependencies present in the requirement are represented in the data
+specification.
+
+In this way I have shown,  in this abstract setting, that prescriptions like Codd's third normal form criteria 
+for relational data design rather than being first principles are corollaries to a fundamental goodness principle to the effect that a data specification considered as a theory must be maximally constrained i.e. the tightest avavailable theory for fitting the facts.
+\highlight{This makes perfect sense} and when fully fledged will remove, for me at least, some of the mystery that surrounds  relational data theory. \\
+
+\note
+The more fully fledged theory of data, as yet  unfinished, I have describe as follows:
 \begin{abstract}
 We present a formal abstract definition  of \textit{data specification} that is sufficiently general to encompass  
 (i) relational schemas of Codd's relational data model \cite{Codd1970}
@@ -90,9 +122,7 @@ in favour of an emphasis on goodness criteria for entity relationship models in 
 Chen's idea of a unified model of data but exceeds his ambition by not requiring a separate normalisation step in relational design. In this way this paper points the way to a significant improvement in software life-cycle methodology.
 \end{abstract}
 
-\note
-Some of my recent thinking I have put on ResearchGate as a ``Preparation for a Mathematical Theory of Data''
-\cite{CartmellPreparation}. In this paper there is a definition of \term{maximal constrainedness} of a category with respect to a set of functors into the category of finite sets. Does anybody recognise this definition? -- I would welcome feedback.
+
 
 \note 
 I have used commutative diagrams of data relationships to good effect in my career as a software engineer. 
@@ -113,6 +143,7 @@ I am currently using the name \term{dependency category} for the structure that 
 The ellipsis of variables from expressions in the notation of generalised algebraic theories. 
 This is a question I raised in my \myfirstpaper :
 What , for example, justifies writing $f \circ g$ in the generalised algebraic theory of categories rather than the incredibly awkward $f \circ_{x,y,z} g$. 
+
 I have a partial solution to the general problem by way of sufficient conditions but the proofs are not yet included. 
 Source of this 
 document is in folder {\small \texttt{Soundness of Ellipsis within Generalised Algebraic Theories}}.
@@ -133,20 +164,23 @@ $
 \end{center}
 
 \note
-This statement is formalised by showing that the category of generalised algebraic theories 
-is equivalent to the category of contextual categories. This proof is written up in detail
-in my thesis. The theory of contextual categories is generalised algebraic as made possible by  Vladimir's description of the `s'-operator.
-I missed this in my work. 
+This statement is formalised by showing that \highlight{the category of generalised algebraic theories} 
+\highlight{is equivalent} \highlight{to the category of contextual categories}. 
+\highlight{This proof is written up in detail in my thesis.}  
 
-I have written up a generalised algebraic axiomatisation of contextual categories using Vladimir's s-operator.
+I have written up \highlight{a generalised algebraic axiomatisation of contextual categories} using Vladimir's s-operator.
 You can find it here: \\
 \myurl{https://www.researchgate.net/publication/325763538_Generalised_Algebraic_Axiomatisations_of_Contextual_Categories}. 
 
-In that document I also give another axiomatisation that doesn't use the s-operator (though I arrived at this second axiomatisation via Vladimnir's s-operator).
+In that document I also give another axiomatisation that doesn't use the s-operator (though I arrived at this second axiomatisation via Vladimir's s-operator).
 
 \section{Meta-Gat Algebras (B-systems)}
 
-\note The theory  Meta-GAT  (\cite{CartmellMetaTheory}) describes the substitution structure of equivalence classes of types and terms of a gat. Meta-GAT algebras have been described by Vladimir as B-systems and have also been described by Richard Garner (\cite{Garner15}) as algebras of a monad over a functor category.  We can summarise (at a stretch) by saying that ontologising types and terms of a generalised algebraic theory yields meta-gat algebras also known as B-systems:
+\note MetaGat algebras\footnote{I came up with the definition of these structures under a different name before I came up with the definition of contextual categories. I wrote a draft thesis and presented to Dana Scott who said `couldn't you make those into categories' or words to that effect and he might have added `like Lawvere did with clones' ... but I might be misremembering that bit.
+I went away, did what Lawvere did and came up with contextual categories and rewrote my thesis.} 
+ are alternatives to contextual categories. 
+    
+\note The theory  Meta-GAT  (\cite{CartmellMetaTheory}) describes the substitution structure of equivalence classes of types and terms of a generalised algebraic theory. Meta-GAT algebras have been described by Vladimir as B-systems and have also been described by Richard Garner (\cite{Garner15}) as algebras of a monad over a functor category.  We can summarise (at a stretch) by saying that ontologising types and terms of a generalised algebraic theory yields meta-gat algebras also known as B-systems:
 
 \begin{center}
 $
@@ -162,14 +196,18 @@ $
 \end{center}
 
 \note
-We can formalise this connection by showing that the category of generalised algebraic theories 
-is equivalent to the category of meta-GAT algebras.  I wrote out the details of this proof in approximately 1977 in a draft of my thesis. The proof just involves a lot of leg work. 
+We can formalise this connection by showing that \highlight{the category of generalised algebraic theories 
+is} \highlight{equivalent to the category of meta-GAT algebras}.  I wrote out the details of this proof in 1997 a draft thesis. 
 
 \note
-From the above it follows that the category of meta-GAT algebras and the category of contextual categories are equivalent. I have worked from time to time on equational rewrite systems and I spent a good deal of time trying to write some software to do most of the leg work of such a proof by coming up with a rewrite system for the theory of contextual categories. In the end I gave up on it though this isn't to say that such a rewrite system cannot be be developed.
+From the above it follows that \highlight{the category of meta-GAT algebras and the category of contextual}
+\highlight{categories are equivalent}. 
+I have considered proving this directly from time to time but have not dne so.
+\note
+One attempt at a proof required me to develop a  term rewrite system for the theory of contextual categories. In the end I gave up on it though this isn't to say that such a rewrite system cannot be be developed.
 
 \note 
-As described in \cite{CartmellMetaTheory}, the theory meta-GAT is generalised algebraic.
+In \cite{CartmellMetaTheory} I present a generalised algebraic theory of metaGAT-algebras.
 Find this work here:\\
 \myurl{https://www.researchgate.net/publication/325763545_Meta-Theory_of_Generalised_Algebraic_Theories}.
 
@@ -179,10 +217,10 @@ A category with families (cwf) has  ontological representations of both types an
 
 \note
 Unlike contextual categories and meta-GAT algebras, there are cwfs that do not correspond to
-any generalised algebraic theory. If a cwf corresponds to a generalised algebraic theory then each object of the base category \catcw with the exception of the terminal object is of the form $\gamma.A$ for some object $\Gamma$ of \catcw and for some $a \in Typ(\Gamma)$. Such conditions are described in the paper \cite{??}
+any generalised algebraic theory. If a cwf corresponds to a generalised algebraic theory then each object of the base category \catcw with the exception of the terminal object is of the form $\Gamma.A$ for some object $\Gamma$ of \catcw and for some $a \in Typ(\Gamma)$. Such conditions are described in the paper \cite{??}
 where cwfs meeting this condition are said to be \textit{contextual}.
 
-\note The base category of a  contextual category with families is a contextual category. I have written some notes in folder \verb!Regardingcwfs!. 
+\note The base category of a  contextual cwf is a contextual category. I have written some notes on this in folder \verb!Regardingcwfs!. 
 To put it another way, $contextual ... categories\  with\  families$ are precisely $contextual\ categories...with\ families$. Because of this
 I am not quite sure why the families are good to have. 
 
@@ -265,20 +303,28 @@ similar to  definitions such as those of linear sketch, finite product (FP) sket
 Generators and relations: On the other hand we should be able to construct contextual categories by generators and  
 relations as Maclane describes the construction of categories by generators and relations
 [page 51,52 Categories for the Working Mathematician]. Maybe it isn't  straightforward  though because of the inductive nature of the types/objects. 
-\note Richard Garner has suggested that there is a class of generalised algebraic theories for which the algebras are isomorphic to algebras  over a monad on a presheaf category.
+\note Richard Garner has suggested (private communication) that there is a class of generalised algebraic theories for which the algebras are isomorphic to algebras  over a monad on a certain category of Set-valued functors. Developing this idea: 
 
-\highlightpara{We may be able to generalise and define a class of interpretations between 
-generalised algeabraic theories such that the corresponding generalised algebraic functors are monadic.
-Can we give an account from it which  follows the known results that the category of categories is monadic over the category of reflexive graphs, the category of reflexive graphs is monadic over Set but
-not category of categories monadic over \catc[Set]. }	
+\noindent
+\highlightpara{It seems that we can almost certainly characterise that class of interpretations between 
+generalised algeabraic theories such that the corresponding generalised algebraic functors are monadic.}
+
+From this characterisation will follow 
+\begin{itemize}
+\item Ricard Garner's account of (the equivalent of) MetaGat algebras,
+\item  the known result that the category of categories is monadic over the category of reflexive graphs, 
+\item the known result that the category of reflexive graphs is monadic over \cat{Set},
+\item the known result that the category of categories is not monadic over \cat{Set}.
+\end{itemize}
 
 \note
 Lawvere defines a functor which he calls algebraic-structure as a  left adjoint  to the algebraic-semantics functor which in turn is defined as the functor which takes a theory to its concrete category of algebras. 
 The algebraic-structure functor is an answer to questions of the form ... what is the best way of modelling such and such algebraically? 
 Conceptually this is most interesting and Lawvere gives lots of examples. 
 
-Lawvere's algebraic structure functor generalises to the case of many-sorted algebraic theories but I don't see how we could generalise to the case of generalised algebraic theories.
-Might it be possible to generalise to the Garner class of gats? 
+Lawvere's algebraic structure functor generalises to the case of many-sorted algebraic theories.
+Can it in some way shape or form be generalised to generalised algeabraic theories?
+
 
 \section{Direct Sums and Recursion}
 

@@ -1,0 +1,38 @@
+\subsection {An Aside on Recursive Type Definitions}
+
+Using the shorthand, we are quite close to having a recursive definition of a single sort $Cover$.
+Such definitions are not possible in generalised algebraic theories but we can imagine a framework in which it is possible to write: \\
+\vspace{0.03cm} 
+\begin{tabular}{>{\itshape}l l}
+Symbol & \itshape{Introductory Rule} \\
+$Base $     & $\isT{Base}$\\
+$Cover  $     & $\ofT{x_0}{Base}    \tstyle \isT{Cover(x_0)} $\\
+$Cover $      & $\ofT{x}{Cover}    \tstyle \isT{Cover(x)} $\\
+\end{tabular} \\
+\vspace{.1cm}  \\
+
+Such a definition could be represented algebraically in a suitably generalised notion of contextual category (a comulti-contextual category?) these dependencies could be represented
+as follows:  
+
+\begin{center}
+$
+\begin{array}{c c}
+\Rnode{abs}{1}  \\ [1.4cm]
+\Rnode{S0}{Base} \\ [1.4cm]
+\Rnode{SR}{Cover} \\ [1.4cm]
+\end{array}
+$
+\ncsar{S0}{abs}
+\ncsar{SR}{S0}
+\ncrsar{SR}{SR}
+\end{center}
+
+\noindent This is not just an idle thought -- in  data modelling such a tree 
+structure is represented in an entity model diagram in which the injections into the coproduct $Ob$ of $Base$ and $Cover$ are represented by containment: \\
+
+\begin{center}
+\input{../SharedPictures/treeStructurePatched}
+\end {center}
+See \textit{www.entitymodelling.org/tutorialone} for a description of this notation.
+For an example of the modelling of recursive relationships in the definition of a phrase structure grammar of English see 
+\textit{www.entitymodelling.org/examplesone/englishsentence}.
