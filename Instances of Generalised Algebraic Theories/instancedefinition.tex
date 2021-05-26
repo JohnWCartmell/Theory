@@ -93,6 +93,67 @@ It is a requirement that this rule is mapped by $I$ to the section $f^*g$ of obj
 \end{enumerate}
 \end{definition}
 
+\begin{lemma}
+\label{omegarealisationwrtQ}
+Suppose that $I$ is an instance of the generalised algebrauc theory \gatUw in the contextual category \catc,
+suppose  that $\encyOmega{m}$ is a context of generalised algebraic theory \gatUw and  that $Q$ is some other context and that for some $m \geq 1$,
+ \foreachj, \gatdisplayrule{Q}{\ofT{s_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}} is a derived rule of \gatU\footnote{Recall that such an m-tuple $\tuple{\sm}$ is said to be a realisation of 
+$\encyOmega{m}$ wrt $Q$.}.  Suppose that the interpretation $I$  maps the context $Q$ to an object $a$  of $\catc$ and maps
+the context $\encyOmega{j}$ to an object $b_j$ of \catc, \foreachj, so that $1 \base b_1 ... \base b_m$ in \catc. 
+
+Suppose that  the rules 
+\gatdisplayrule{\yOmega{m}}{\isT{\Delta}} and  \gatdisplayrule{\yOmega{m}}{\ofT{t}{\Delta}} are derived rules of \gatUw. 
+Let us denote these rules $r$ and $r_t$, respectively.  
+
+It follows by the substitution lemma (see \cite{Cartmell86})
+that the substituted $r$ and $r_t$ rules: 
+\gatdisplayrule{Q}{\isT{\Delta[s_1|y_1...s_m|y_m]}} 
+and  \gatdisplayrule{Q}{\ofT{t[s_1|y_1...s_m|y_m]}{\Delta[s_1|y_1...s_m|y_m]}} are derived rules of \gatU. 
+The first  will be mapped by $I$ to the object $\smstar...\sonestar\crossx{a}{b}{1}$ and the second will
+be mapped by $I$ to the morphism  $\smstar...\sonestar\crossx{a}{g}{1}$ (which is defined since $g$ is a section).
+\end{lemma}
+\begin{proof}
+By induction.
+\gatdisplayrule{Q}{\ofT{s_1}{\Omega_1}} will be mapped by $I$ to some section $f_1:a \morph \crossx{a}{b_1}{1}$. The j'th rule,
+\gatdisplayrule{Q}{\ofT{s_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}}, will be mapped to a section $f_j:a \morph \fjpstar ... \fonestar\crossx{a}{b_j}{1}$.
+
+In the case that $m=3$  then in \catcw we will have objects and morphisms as follows:
+\begin{displaymath}
+\begin{array}{c p{1cm} c p {1cm} c  p{1cm} c}
+                                                &&                                           && \Rnode{ab3}{\crossx{a}{b_3}{1}}                       \\[1.2cm]
+                                                &&\Rnode{f1axb3}{\fonestar\crossx{a}{b_3}{1}}  && \Rnode{ab2}{\crossx{a}{b_2}{1}}                       \\[1.2cm]
+ \Rnode{f3target}{\ftwostar\fonestar\crossx{a}{b_3}{1}} &&\Rnode{f2target}{\fonestar\crossx{a}{b_2}{1}}  && \Rnode{ab1}{\crossx{a}{b_1}{\Rnode{f1target}{1}}}     \\[1.2cm]
+                                                &&\Rnode{a}{a}                               &&                                                       \\[-3.0cm]
+																								&&                                           &&                         && \Rnode{b3}{b_3}             \\[1.2cm]
+																								&&                                           &&                         && \Rnode{b2}{b_2}             \\[1.2cm]
+																								&&                                           &&                         && \Rnode{b1}{b_1}             \\[1.1cm]
+																								&&                                           && \Rnode{abs}{1} \ \ \ \ \ \ \ \ &&    
+\end{array}
+\end{displaymath}
+\ncarr{ab3}{b3}
+\ncarr{ab2}{b2}
+\ncarr{ab1}{b1}
+\ncarr{f1axb3}{ab3}
+\ncarr{f2target}{ab2}
+\ncarr{f3target}{f1axb3}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=2pt,nodesepB=2pt,offsetB=2pt]{->}{a}{f1target}
+\alabel{f_1}[0.25]
+\ncarc[arcangle=15,nodesepA=5pt,offsetA=2pt,nodesepB=2pt,offsetB=2pt]{->}{a}{f2target}
+\alabel{f_2}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=2pt,nodesepB=2pt,offsetB=2pt]{->}{a}{f3target}
+\alabel{f_3}
+\ncsar{f3target}{a}
+\ncsar{f2target}{a}
+\ncsar{f1target}{a}
+\ncsar{ab2}{ab1}
+\ncsar{ab3}{ab2}
+\ncsar{f1axb3}{f2target}
+\ncsar{b3}{b2}
+\ncsar{b2}{b1}
+\ncsar{b1}{abs}
+\nccdar{a}{abs}
+\end{proof}
+
 \note
 We can show that an instance $I$ of a contextual category \gatUw in a contextual category \catcw is
 completely determined by its mapping of the introductory rules of sort symbols and operator symbols to

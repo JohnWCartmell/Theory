@@ -1,5 +1,69 @@
-%contextualnotation
-\label{contextualnotation}
+
+\label{contextualnotationpartone}
+
+
+
+\note 
+Terminology: By  the generic term \term{tree} is meant a partially ordered set (poset) $(T, <)$ such that for each $t \in T$, the set $\set{s \in T : s < t}$ is well-ordered by the relation $<$.
+In this discussion we restrict ourselves to rooted $\omega$-trees i.e. trees for which the set $\set{s \in T : s < t}$
+is finite for all $t \in T$ and for which there is a least element in the partial ordering. 
+
+With respect to a partial ordering $<$, we say that an element $y$ \textit{covers}  an element $x$ in  iff $x<y$ and there does not exist $w$ such that $x < w$ and $w < y$.
+If object $y$ covers object $x$ in the partial ordering 
+then we write $x \base y$ (we use this in preference to the more usual $x \lessdot y$).
+
+
+\note We define the rank (sometimes called the grade) of an element $t \in T$ to be the cardinality
+of the set $\setsuchthat{s \in T}{s < t}$. If we define the set $T_i$ to be the set of elements of a tree
+of rank $i$ then we have that $T= \bigcup_{i \in N}T_i$. 
+
+\note In the  definition of contextual categories (\cite{Cartmell78,Cartmell86}) there is defined to be such a tree-structure on the objects of the category. In a contextual category the root of the tree of objects is also  terminal object $1$
+of the category. For $x$ an object of the category we define the set of objects  $Cover(x)$ to be the set of objects covering $x$.
+
+\note
+By a \term{tree-structured category}\footnote{Is this what Jacopo refered to as a `stratified category'? If so does this term appear in the lierature somewhere. Why is that adjective used in preference to a choice of either `ranked' or `graded'?} we mean (i) a category with a tree-structure defined on its objects such that the tree of objects has a unique root object and (ii) for every $x \base y$ in the tree of objects  a canonical morphism $p_y:y \rightarrow x$.  I shall shall say morphisms of this form  are \term{direct dependency morphisms} and they will
+be distinguished in diagrams by an arrow with  a triangular head so:
+\begin{center}
+$
+\begin{array}{p{2cm}}
+\Rnode{y}{y}\\ [1.4cm]
+\Rnode{x}{x} \\
+\mbox{\ncbsar{p_y}{y}{x}}
+\end{array}
+$
+\end{center}
+
+\note
+If $x$ is an object of a tree-structured category \catcw and if $y \in Cover(x)$ in \catcw then we define 
+the set  of sections of $y$, denoted $Sect(y)$, to be the set of morphisms $s: x \morph y$ in \catc  such that $s \circ p_y = id_x$. So that if $x$ is a section of $y$ and $y$ covers $x$ then
+we have\ \ \ 
+\begin{tabular}{cccc}
+$
+\begin{array}{p{2cm}}
+\Rnode{y}{y} \\ [1.4cm]
+\Rnode{x}{x} \\
+\mbox{
+\ncsar{y}{x}
+\alabel{p_y}
+\ncarrZZ[30]{x}{y} 
+\alabel{s}}
+\end{array}
+$  & so that &
+$
+\begin{array}{c p{0.5cm}c p{0.5cm}c}
+              && \Rnode{y}{y}&&                \\ [1.4cm]
+\Rnode{x1}{x} &&             &&   \Rnode{x2}{x}\\
+\mbox{
+\ncsar{y}{x2}
+\alabel{p_y}
+\ncarr{x1}{y} 
+\alabel{s}
+\ncarr{x1}{x2} 
+\blabel{id_x}
+}
+\end{array}
+$& commutes
+\end{tabular}
 
 \note
 The original definition of contextual category given  in [1] and [2], a contextual category is defined to be a tree-structured category 
@@ -153,6 +217,109 @@ and such that whenever
 s(f \circ q(g,z))=s(f)
 \end{axiom}
 
+\iffalse
+\begin{oldtt}
+\note
+Now consider the pullbacks in the original definition of contextual categories.
+According to the definition whenever
+$
+\begin{array}{cp{.9cm}c}
+            & & \Rnode{z}{z} \\ [1.2cm]
+\Rnode{x}{x}& & \Rnode{y}{y} \\ [0.5cm]
+\mbox{\jcbarr{f}{x}{y}
+\ncasar{p_z}{z}{y}}
+\end{array}
+$
+in \catcw then there is a pullback diagram: \ \ 
+$
+\ccsquareoutline{0.9cm}{1.2cm}{f^*z}{z}{x}{y}
+\ccsquareacross{q(f,z)}{f}
+\ccsquaredown{p_{f \sub z}}{p_z}
+$
+in \catcw i.e. such objects and morphisms so that for all objects $w$ of \catc, and for all
+morphisms $h_1: w \rightarrow x$ and $h_2: w \rightarrow z$  such that
+$h_1 \circ f = h_2 \circ p_z$ 
+there exists a unique $h:w \rightarrow f \sub z$ in \catcw such that
+$h \circ p_{f \sub z} = h_1$ and $h \circ q(f,z) = h_2$, as shown is diagram (\ref{pullback}).
+
+After reading Peter Dybjer's axioms for categories with families (\cite{dybjer96}) I have been wondering whether I might not use the notation $\tuple{h_1,h_2}_{x,y,f,z}$  for the unique morphism   
+$h:w \rightarrow f \sub z$ in \cat{C} such that
+$h \circ p_{f \sub z} = h_1$ and $h \circ q(f,z) = h_2$.\\
+
+$\tuple{h_1,h_2}_{x,y,f,z}$ may be be safely elided to $\tuple{h_1,h_2}_{f,z}$ and, rather less safely, to $\tuple{h_1,h_2}$.
+In fully elided form we then  have\footnote{Strikingly similar in appearance to Dybjer's axioms but, I think, not like for like i.e. not inter-translatable.} 
+\begin{equation}
+\mbox{$\tuple{h_1,h_2} \circ p_{f^*z} = h_1$}
+\end{equation}
+and
+\begin{equation}
+\mbox{$\tuple{h_1,h_2} \circ q(f,z) = h_2$}
+\end{equation}
+
+I will use this notation in the detailed examples that follow.
+\end{oldtt}
+\fi
+
+\note I use several other notational conveniences when working in contextual categories. 
+If $x < y$ in the contextual category \catc, then define the morphism $p_{y,x}:y \morph  x$ in \catc, \\
+
+\begin{tabular}{c c c  c  c  c c}
+by defining
+& %2 c
+$
+\begin{array} {c}
+\Rnode{midy}{y} \\[2.0cm]
+\Rnode{midx}{x}  \\ 
+\end{array}
+\mbox{\ncarr{midy}{midx}
+      \blabel{p_{y,x}}[0.2]
+		 }
+$
+& %3 c
+(drawn also  as
+& %4 c
+$
+\begin{array} {c}
+\Rnode{lhsy}{y} \\[2.0cm]
+\Rnode{lhsx}{x} 
+\end{array})
+\makebox[0.1cm]{\nccdar{lhsy}{lhsx}
+      \blabel{p_{y,x}}[0.275]
+		}
+$
+& %5
+ as the composition 
+& %6 c
+$
+\begin{array}{c}
+%\Rnode{b}{B}&&\Rnode{xn}{w_n}&&\Rnode{xn1}{w_{n-1}}&&\Rnode{dots}{\ ...\ }&&\Rnode{x1}{w_1}&&\Rnode{a}{A} 
+\Rnode{b}{y}\\[0.7cm]
+\Rnode{xn}{w_n}\\[0.7cm]
+\Rnode{xn1}{w_{n-1}}\\[0.1cm]
+\Rnode{dots}{\vdots}\\[0.1cm]
+\Rnode{x1}{w_1}\\[0.7cm]
+\Rnode{a}{x} 
+\end{array}
+,
+\makebox[0.1cm]{
+\ncsar{b}{xn}
+\alabel{p_y}
+\ncsar{xn}{xn1}
+\alabel{p_{w_n}}
+\ncsar{xn1}{e1}
+\ncline[linestyle=dotted,dotsep=4pt]{e1}{e2}
+\ncsar{e2}{x1}
+\ncsar{x1}{a}
+\alabel{p_{w_1}}}
+$ 
+& %7 c
+,
+\end{tabular}
+
+where
+$w_1, ... w_n$ is the unique sequence of objects of $C$ such that 
+$x \base w_1 \base ... \base w_n \base y$. If $x = y$, then define $p(y, x) = id_x$.
+We say that the morphism  $p_{y,x}$ is a dependency morphism. 
 
 
 \note
@@ -332,7 +499,7 @@ $\crossx{x}{(\crossx{y}{z}{w})}{w} = \crossx{(\crossx{x}{y}{w})}{z}{w}$ as shown
 \note A number of minor lemmas:
 
 \begin{lemma}
-\llabel{footandstactic}
+\label{footandstactic}
 If $f: A \morph B$ and $f':A \morph B$ in a contextual category \catcw then if 
 $f \circ p_B$ = $f' \circ p_B$ and $s(f) = s(f')$ then $f=f'$.
 \end{lemma}
@@ -343,13 +510,13 @@ $f = s(f) \circ q(f \circ p_B,B)  = s(f') \circ q(f' \circ p_B,B) = f'$.
 
 From which follows:
 \begin{lemma}
-\llabel{stactic}
+\label{stactic}
 If $A$ is any object of a contextual category \catcw and if $B$ is an object such that $1 \base B$ in \catcw then
 if $f: A \morph B$ and $f':A \morph B$ in a contextual category \catcw then $f=f'$ iff $s(f) = s(f')$.
 \end{lemma}
 
 \begin{lemma}
-\llabel{crosssectionlemma}
+\label{crosssectionlemma}
 If 
 %\begin{equation*}
 $
@@ -400,7 +567,7 @@ because $g \circ p_{B'} =id_A$, to
 % *************************************************************************************
 % sfglemma ****************************************************************************
 \begin{lemma}
-\llabel{sfglemma}
+\label{sfglemma}
 If $f:A \morph B$ and $g:B\morph C$ in a contextual category \catcw and if $C \in Cover(B)$ then
 \begin{equation}
 \label{sgflemmagoalone}
@@ -409,7 +576,7 @@ ft(f\circ g)^*C = f^*(ft(g)^*C)
 and 
 \begin{equation}
 \label{sgflemmagoaltwo}
-S(f\circ g)=f^*S(g)
+s(f\circ g)=f^*s(g)
 \end{equation}
 where $ft(g) = g \circ p_B$ so that we have
 \begin{displaymath}
@@ -449,6 +616,7 @@ $f^*s(g) \circ q(f \circ g \circ p_C,C) = f\circ g$ and this we can show as foll
 \end{align*}
 \end{proof}
 
+\iffalse
 \input{thedupleconstruction}
-
+\fi
 
