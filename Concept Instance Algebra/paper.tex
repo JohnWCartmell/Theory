@@ -11,6 +11,7 @@
 \usepackage{enumerate}
 \usepackage{calc}
 \usepackage{float} % for H option for tables and figures
+\usepackage{changepage} % used for adjustwidth
 
 %\usepackage{enumitem} % to be able to [resume] an enumeration but clashes with [(i)] !!
 \input{../SharedMacros/ermacros}
@@ -22,6 +23,10 @@
 \input{../SharedMacros/general.macros}
 \usepackage{hyperref}
 \setcounter{equation}{0}
+
+\renewcommand{\erpictureFolder}[0]{../SharedPictures}
+
+
 \bibliographystyle{plain} % was hplain
 
 \newcommand{\dottree}
@@ -55,10 +60,67 @@
         {#1}}
 }
 
+\NewEnviron{tightquote} %italic text indented left and right hand side
+{\begin{adjustwidth}{1.5cm}{1.5cm}
+\textit{
+\BODY
+}
+\end{adjustwidth}
+}
+
 \title{MetaGAT Algebra aka Concept-Instance Algebra}
 \author{John Cartmell}
 \begin{document}
 \maketitle
+
+\section{Concept delineation}
+\note 
+H G Wells:
+\begin{tightquote}
+Finally : the Logician, intent upon perfecting the certitudes of his methods rather than upon expressing the confusing subtleties of truth, has done little to help thinking men in the perpetual difficulty that arises from the fact that the universe can be seen in many different fashions and expressed by many different systems of terms, each expression within its limits true and yet incommensurable with expression upon a differing system. There is a sort of stratification in human ideas. I have it very much in mind that various terms in our reasoning lie, as it were, in different planes, and that we accomplish a large amount of error and confusion by reasoning terms together that do not lie or nearly lie in the same plane.
+\end{tightquote}
+\note
+A factor in Gilbert Ryle's analysis of the problem is this:
+\begin{tightquote}
+[a] given word will, in different sorts of context, express ideas of an indefinite range of differing logical types and, therefore, with different logical powers. And what is true of single words is also true of complex expressions and of grammatical constructions. (1945, 206)
+\end{tightquote}
+Interestingly Ryle describes such ambiguity as systematic : “[u]nnoticed systematic ambiguities are a common source of type-confusions and philosophic problems” which falls short of saying that langauge is inherently ambigous but this is suggested to me by Ryle as quoted on
+by the Stanford Encyclopedia of Philosophy:
+\begin{tightquote}
+Unlike ambiguous words such as “bank”, “report” or “stud”, the inflections of meaning to which most of our expressions are susceptible nonetheless have affinities: the ideas expressed by these expressions in their various uses are “intimately connected” with each other; they are “different inflections of the same root” (1945, 206).
+\end{tightquote}
+Ryles suggestion that such ambiguity applies to \textit{most} words and his use of words \textit{inflection} and \textit{root} suggest to me some kind of conceptual grammar. What might this be and is it inherent to the mechanism  of ordinary langauge? 
+\note 
+I can't be sure of the ambiguities that Ryle or Wells have in mind. But ambiguities abound and my examples here focus on the words \textit{book},
+\textit{word} and \textit{letter} and, please note, each of these three words being taken in a single dictionary sense.
+
+\note 
+Three words but how many concepts? Fairly quickly I can delineate nine different concepts, all incontrovertibly 
+different types of things with different cardinalities and having instances which are mutually exclusive :
+\begin{itemize}
+\item [book(1)] This is what we mean when we ask of a publisher `how many books have you published this year?' 
+or when an author tells us that they have written a new book.
+\item [book(2)] A particular copy of a book. This is the type of thing that we have in mind
+ when we ask of a bookshop `how many books have you sold this year?'.
+\item [word(1)] This is a word of a particular language. This is what we have in mind if we ask for an estimate for the number of words 
+in the English language. 
+\item [word(2)] This is what I have in mind if I ask for word frequencies in the works of Shakepeare.   
+\item [word(3)] These are words as appear in the printed copies of books. This is what I have in mind if I say 'that word is illegible'.
+\item [letter(1)] These are the letters which are enumerated by alphabets. These are what I have in mind when I say that the English language has
+twenty six letters.
+\item [letter(2)] This is a letter as used in a spelling of a word. It is this type of thing that you count 
+as the the number of letters in a word when you are doing a crossword puzzle. 
+\item [letter(3)] This is a letter as used to spell a particular word in a particular book by an author. 
+\item [letter(4)] This is a printed copy of a letter in a book. 
+\end{itemize}
+
+\note
+These nine  concepts are in close relationship to one another, \textit{intimately related}, to use the words of Ryle.
+Some of these \textit{intimate relationships} are shown in this diagram:
+  
+\erinlinePicture{modelBook2ToLetter1}{5.5}
+
+\iffalse
 
 \section{The Meta-Theory of Generalised Algebraic Theories}
 This document introduces  \highlight{a generalised algebraic theory of generalised algebraic theories}   
@@ -178,6 +240,8 @@ and to the algebras over a monad described by Richard Garner in \cite{Garner15}.
 \end{enumerate}
 
 \noindent $MetaGAT$ algebras may have interpretations (and, therefore, applications) where Contextual Categories do not.
+
+\section{Concept delineation}
 
 \section{Re-Articulation ---  Concept-Instance algebra}
 
@@ -412,6 +476,7 @@ Diagramming the tree we have
 \vspace{0.2cm}
 Equally, concept (\ref{twofromsingleplay}) may be represented by $\crossx{s^*c}{s^*c}{s^*p}$. This is the distributive law at work again.
 
+\fi
 \iffalse
 A citizen in the context of a triangle is written as:
 $$
