@@ -1,0 +1,253 @@
+\subsection{Background}
+\note  Metamathematics has well established paradigms for use of the terms
+`theory', `signature', `interpretation' and  `model';
+in this paper I follow these paradigms
+ as well as I am able whilst also substituting the term `instance' for the term `model'\commentary{\highlight{??}}. 
+
+Traditionally, the notion of a `theory', or of a certain class of theories, is  defined syntactically.
+For example a metamathematically important class of theories  is the class of `elementary theories' 
+which is the class of theories written in first-order predicate logic with equality. 
+Such a theory\footnote {As an aside I should mention that some authors use the term `theory' not as we use it here but rather to refer to any set of sentences (of a given signature) that is closed under logical deduction. One such theory in this sense is the total set of true sentences of a model and  
+this is called the `diagram of the model'. I have a  memory of a conference in the 1970's and of hearing a German set theorist
+ remark that "God doesn't need Logic -- he has the diagram of the universe". He meant, of course, `diagram' in this sense of `set of all true sentences'.
+} is defined to consist of a signature (see \cite{HodgesModelTheory}, for example) plus a set of axioms: 
+the signature is required to enumerate predicate symbols and functions symbols and assign arities to each, 
+the axioms are required  to be a set of closed \term{well formed formulas} (wffs) written
+in the language that is defined as the first-order predicate calculus (with equality)
+ augmented by predicate symbols and function symbols from the signature subject to use their being used consistently with the arities defined for them. 
+
+\note In this tradition (see \cite{Mendelson}, for example), an `interpretation of an elementary theory' is defined to be a mapping of the symbols defined in the signature 
+of the theory to actual predicates and actual functions over some domain that is subject to the requirement that n-ary predicate symbols are mapped to n-ary predicates and n-ary function symbols are mapped to n-ary functions.
+As defined by Tarski (Tarski's satisfaction definition), 
+such an interpretation induces an interpretation of all
+closed well formed formulas of the signature as truth values. 
+A `model of a theory' is defined to be an interpretation of the theory such that all axioms of the theory are mapped to true (i.e. are satisfied by the interpretation). 
+\commentary{Peter: Note that the term `signature' is only ever used in this sense (apart from in your paper, that is). 
+It is never used as a homonym for `theory'.}
+
+\note
+Note that the distinction between `signature' and `theory' is significant because it makes possible a definition of `model' 
+via a definition of `interpretation': an `interpretation' is an `interpretation of a signature', 
+a model is an interpretation in which all axioms are satisfied i.e. have truth value `true'.   
+\note
+What is meant by an `algebraic theory' prior to Lawvere is a first order theory in a signature having no predicate symbols and in which every axiom is an equational identity between open terms with all variables universally quantified. Thus the notion of `algebraic theory' is  
+ a special case of the notion of `elementary theory' and the 
+definitions of `interpretation' and `model' for `algebraic theories' are just as given in the broader context of elementary theories but now specialised to the narrower context. Likewise  `Horn theories' and `essentially algebraic theories' are special cases of `elementary theory'. 
+
+\note If pushed, then we need to own up to an  over simplification in this description of the meaning or the class of meanings of the term `theory'.
+The term in the precise sense that we have been discussing is often used more loosely. For example for practical purposes there is a single `theory of groups'  but in actual fact at different times the theory might be presented in slightly different ways. Different symbols might be used in one presentation from another. Likewise either of two axiomatisations of the theory might be given -- one in which the inverse to a given element is axiomatised as a left inverse, and one in which the inverse to a given element is axiomatised as a right inverse -- the net effect of either axiomatisation being the same.
+So in informal usage `theory' refers to the net effect of a signature plus associated axioms  and if we needed to distinguish the latter, i.e. the signature plus axioms, then we would need refer to as the `presentation of a theory' rather than as the theory itself just as, in group theory, a particular group may be described via a presentation in terms of generators and relations.  Just to be clear, in this paper, by `theory' I will mean in the general sense of signature plus axioms. \commentary{chance to defined generalised signature as a set of symbols along with rules for how they can be used.}
+
+\note
+In the traditional view, the domain of interpretation of an algebraic theory may be any set $A$ 
+and the interpretation of each n-ary function symbol may be any function $f:A^n \morph A$.
+After Lawvere it more usual to consider that an algebraic theory can be interpreted in any category with finite products
+ so that $A$ can be any object of the category and  $f$ may be any morphisms $f:A^n \morph A$. 
+For $U$ an algebraic theory, the term `model of $U$' therefore has two meanings:
+\begin{enumerate}[(i)]
+\item model in the most general sense of `model in any category  with finite products',
+ such models of $U$ are sometimes said to be internal $U$-objects,
+\item model in the traditional sense in which the interpretation is by sets and functions, such models are sometimes said to be algebras or
+$U$-algebras. The category of $U$-algebras is denoted $U$-$alg$. 
+\end{enumerate} 
+Of course, model in sense (ii) is a special case of model in sense (i) --  the case in which the category with finite products is taken to be the category of sets and functions.
+
+\noindent An internal monoid in the category of endofunctors over a category $C$ is precisely a monad. \commentary{\highlight{??}}
+
+\note In addition we might use the term `interpretation' to describe interpretations of the syntax of one theory in terms of the syntax of a second
+such as are determined by a mapping of the symbols of one theory into the terms and well formed formulae of another. 
+Such an interpretation is valid provided that the axioms of the first are mapped into provable well formed formulae of the second.  Such syntactic interpretations compose and therefore for each class of theory there is a category of theories and interpretations and accordingly such 
+interpretations between theories may be said to be theory morphisms.
+As an example the two different presentations of the theory of groups mentioned above are different but isomorphic objects in the category of algebrauc theories. 
+\subsection{Generalised Algebrauc Theories 	and Contexual Categories}
+\note
+When we turn to the case of generalised algebraic theories then much of the above carries through except that now 
+it is not possible to define an independent notion of `signature of a generalised algebraic theory' and
+the approach to defining what a generalised algebraic theory is cannot simply be via a definition of what a signature is followed by a definition 
+of a theory  as a signature plus axioms. This is because the rules for introducing symbols need be well-typed and to know that
+they are well-typed we already need knowledge of the theory -- in other words the notions of theory and signature are interdependent. 
+The  definition of generalised algebraic theory (\cite{Cartmell78},\cite{Cartmell86})  works around this difficult and is by way of 
+a definition of pretheory, 
+followed by a definition of a theory as a well-typed{\footnote{In this paper I use the term `well-typed' in place of the term `well-formed' defined in \cite{Cartmell78},\cite{Cartmell86}.} pretheory. 
+
+\note The impossibility of predefining the notion of `signature (to be used in a generalised algebraic theory)' has as a consequence
+the impossibility of defining a notion of `interpretation of a signature (for a generalised algebraic theory)' prior to 
+defining what a `model of a generalised algebraic theory' consists of.  Previously, I avoided this difficulty
+in the definition of `model' by stepping over into algebra.
+I prove\footnote{
+The proof that categories $\catGAT$ and $\catCon$ are equivalent  is entirely trivial but runs to more than 50 pages. I have always interpreted this equivalence as meaning that generalised algebraic theories and contextual categories are more or less the same thing but if this is considered from the point of view of foundations then we have to tread carefully.} the equivalence of generalised algebraic theories and contextual categories: 
+\noindent \label{ccgatequivalence}
+\begin{point}
+there is a category $\catGAT$ of generalised algebraic theories and interpretations,
+\end{point}
+\begin{point}
+there is a category $\catCon$ of contextual categories,
+\end{point}
+\begin{point}
+there is a functor $\ccat[C]: \catGAT \morph \catCon$  (for $U$ a generalised algebraic theory, the category $\ccat[C](U)$ 
+has as objects equivalence classes of contexts and realisations, as defined 
+in \cite{Cartmell78} and  \cite{Cartmell86}), 
+\end{point}
+\begin{point}
+there is a functor $\gat[U]:\catCon \morph \catGAT$,
+\end{point}
+\begin{point}
+the functor $\ccat[C]$ is an equivalence with inverse $\gat[U]$.
+\end{point}
+I also describe 
+\begin{point}
+a contextual category $\Fam$ of sets, families of sets, families of families of sets and so on 
+\end{point}
+and then am able to go with  algebraic, post-Lawvere
+style  definitions of model in either the general or the more restrictive sense : \\
+if $U$ is a generalised algebraic theory then
+\begin{point}
+ a model in the restricted sense of a U-algebra is defined to be a functor $A: \ccat[C](U) \morph Fam$, 
+\end{point}
+\begin{point}
+a model in the more general sense of an internal $U$-structure\footnote{The  term `internal $U$-structure is chosen over `internal $U$-object' because the latter
+is no longer appropriate in the broader context in which, generally, theories require complexes of objects for their domain of interpretation.} in a contextual category
+$C$ is defined to be a contextual functor $A: \ccat[C](U) \morph C$.
+\end{point}
+The category of internal $\gat[U]$-structures is defined to be the category whose objects
+are pairs $\tuple{\catc,A}$ 
+where $\catcw$ is a contextual 
+category and $A$ is an internal 
+$U$-structure in
+ \catcw and whose morphisms between $\tuple{\catc,A}$ and $\tuple{\catc',A'}$ are pairs $\tuple{F, \eta}$ where
+$F: \catc \morph \catc'$ is a contextual functor and $\eta: A \circ A \morph  A'$ is a natural transformation.
+In otherwords the category of internal $U$-structures
+is  the coslice category
+$\CofU \downarrow \catCon$. Needless to say this has an initial object which is the identity functor on  $\CofU$.
+If\ $\gat[U]$ is a considered a type theory (whatever that is) then this initial object is what I believe Vladimir refers
+to as the term model when speaking of the initiality conjecture. 
+Specialising to the case of $U$-algebras,  an homomorphism between $U$-algebras $A$ and $A'$ is defined to be a 
+natural transformation $\eta: A \morph A'$ and the category of $U$-algebras is a full subcategory of the 
+functor category $\Fam^{\CofU}$. 
+
+\note 
+Definition of initial $\gat[U]$-algebras. From my thesis:
+\begin{tightquote}
+Consider for a moment. Every theory $\gat[U]$ has a minimal model denoted $\KU$ built out of the closed terms of \gat[U]. Alternatively this minimal model is described just in terms of the structure $\CofU$. For example
+if $1 \base A$ in $\CofU$ then 
+$\KU(A)=Hom(1,A)$, otherwise if $1 \base A_1 \base ... \base A_n \base A$ in $\CofU$
+then if $a_1 \in \KU(A_1)$, ... if $a_n \in \KU(A_n)(a_1,...a_{n-1})$ then 
+$\KU(A)(a_1,...a_n)=\setsuchthat{a\in Hom_{\CofU}(1,A)}{a \circ p_A = a_n}$. \\
+\end{tightquote} 
+
+Followed by :
+\begin{tightquote}
+Now, the free $\gat[U]$-algebras are the algebras $I$-$alg(\KUp)$ for $I: \gat[U] \morph \gat[U']$ an extension of $\gat[U]$ by constants alone. The finitely generated free $\gat[U]$-algebras are those algebras where $\gat[U']$ is an extension by finitely many constants. \\
+\end{tightquote}
+
+\subsection{Interpreting Generalised Algebraic Theories}}
+\note There is an indirectness in these  algebraic-style definitions of model so that though they are  useful for a 
+number of metamathematical purposes they  don't really
+help one reason directly about what constitutes a model in the case of any particular generalised algebraic theory in which we might be interested --
+although I do think we  have  a good intuition of this.
+The definitions given in this paper rectify this indirectness whilst formalising the intuition.
+As a bonus, from an examination of these definitions it can be seen, unexpectedly, to me at least, that to every generalised algebraic theory $U$ there is a generalised algebraic theory 
+$\hat{U}$ which is the theory of internal $U$-structures\footnote{This is dependent on their being a generalised algebaruc theory of contextual categories and we need to discuss the extent or the manner to which this is true. There are \highlight{nuances} here.}.
+
+\note 
+In this paper, in section \ref{sectioninwhichinstanceisdefined}, below, we define the missing definition, so to speak,  of 
+an `interpretation of  a generalised algebraic theory $\gat[U]$ in  a contextual category \catc' and say what it is for such an interpretation to be valid. In essence such an interpretation $I$ consists of a \textit{consistent} mapping
+
+\begin{center}
+\begin{tabular}{c p{1cm} c}
+derived \Trules of $U$           & \raisebox{-0.07cm}{$\Imapsto$} & objects of \catc \\ [0.1cm]
+derived \trules of $U$    & \raisebox{-0.07cm}{$\Imapsto$} & sections of \catc \\ [0.1cm]
+\end{tabular}
+\end{center}
+so that derivable equalities in \gatUw map to identical objects, respectively, sections of \catc.
+There is a fair amount of detail of what is meant by  `consistent mapping' but what is fundamental is that this detail implies that 
+interpetations $I$ of \gatUw in \catcw are completely
+determined by their mapping of the introductory rules of \gatU. 
+This is the equivalent, in the generalised algebraic case, of 
+ the fact that, in regard to algebraic or first-order  theories, interpretations
+are determined by a consistent mapping of the symbols within their signatures.
+
+\note
+This definition is, then, a traditional style definition  of model in the sense of an internal $\gat[U]$-structure in the contextual category $\catc$:
+an internal $U$-structure in $C$ is exactly 
+a valid interpretation of $U$ in $C$. This defintion may of course be specialised to a traditional style definition of model in the sense of
+$U$-algebra by particularising to the case where $C$ is the contextual category $\Fam$.
+
+\note 
+From the details  in
+section \ref{sectioninwhichinstanceisdefined} 
+of the definition of interpretation
+it follows that 
+to every gat $\gat[U]$ there is a theory of internal $\gat[U]$-structures. We shall denote this theory as $\hatU$.
+
+Every such theory $\hatU$ is an extension of the generalised algebraic theory of contextual categories
+by a set of rules (introductory rules and axioms) that have  the empty context as premise -- as such it is an extension
+by constants and equational identities between closed terms -- and, vice-versa, every such extension of
+the theory of contextual categories can be interpreted as being a specification of a generalised algebraic theory.  \commentary{Peter: your paper uses this.}
+
+\begin{notebox}[Question]
+The above observation would allow someone automating reasoning within  a generalised algebraic theory 
+$\gatU$ to reason about $\hatU$ instead. Might this be advantageous? 
+\end{notebox}
+
+\note 
+The instances of $\hatU$  in $\Fam$ consist of  internal $\gat[U]$-structures  i.e. they consist of contextual categories \catcw along with particular instances $I$ of
+the theory $\gat[U]$ in the contextual category \catc. \\
+The category of $\hatU$-algebras is (isomorphic to) the category of internal $\gatU$-structures.
+\note
+An instance of $\hatU$ in an arbitrary contextual category
+consists of  an internal internal $\gat[U]$-structure. This sounds a bit crazy but it isn't -- there are after all categories internal to other categories and it isn't much of a stretch to suppose these internal categories have internal $\gat[U]$'s inside of them. 
+
+
+
+\note
+\label{termmodelEQfreealgebra}For any generalised algebraic theory $\gat[U]$ we have two different 
+and therefore isomorphic\commentary{\highlight{isomorphic} in what category??} descriptions of the initial object of the category of internal $\gatU$-structures:\\
+\begin{equation}
+K_{\hat{U}} \cong \bigtuple{\CofU, I_{triv}}
+\end{equation}
+
+where $I_{triv}$ is the trivial instance of $\gatU$ in $\CofU$.
+
+\begin{notebox}[Question]
+Is this observation relevant
+to the initiality conjecture or to formal (machine checked) theory?  It can be summarised 
+by saying that the term model of a theory $\gatU$ is the initial algebra of a theory $\hatU$.
+Is that useful? Another way of looking at it (is it helpful?) is that the open terms and types
+of $\gatU$ correspond to the closed terms of $\hatU$. 
+Is use of the word combinator appropriate here?
+\end{notebox}
+
+\note 
+Note that if $\gat[U]$ is a single-sorted or many-sorted algebraic theory then 
+$\hatU$ is generalised algebraic 
+and so solely within these regimes there is no equivalent of the situation described para \ref{termmodelEQfreealgebra}.
+
+\subsection{Outline}
+\note As a worked example, we show in lemma \ref{internalmonoidlemma}, below, that 
+the generalised algebraic theory of internal monoids can be expressed  as 
+the theory of contextual categories plus:
+
+\begin{gatrules}
+\gatintros
+\gatintroducing{M}
+\ofT{M}{Ob} \\
+\gatintroducing{unit}
+\ofT{unit}{Hom(1,M)} \\
+\gatintroducing{mult}
+\ofT{mult}{Hom(M \times M,M)} \\
+\gataxioms
+\gatintroducing{ \gataxiomno{1} }
+\tuple{p_M \circ unit,id_M} \circ mult =id_M \\
+\gatintroducing{ \gataxiomno{2} }
+\tuple{id_M,p_M \circ unit} \circ mult =id_M \\
+\gatintroducing{ \gataxiomno{3} }
+(mult \times id_M) \circ mult = (id_M \times mult) \circ mult
+\end{gatrules}
+
+This is in agreement with Barr and Wells \cite{BarrandWells}, page 232, where they describe
+monoids internal to  a category\footnote{Generally we would be thinking of a category with finite products including terminal object here, though, as they say, not all products need be available in the category for there to be an internal monoid.}
+as an example of a finite product (FP) sketch.
+
+\note As a second worked example  we derive the generalised algebraic theory of internal categories in lemma \ref{internalcategorylemma}.
+
