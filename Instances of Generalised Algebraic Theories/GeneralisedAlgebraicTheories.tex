@@ -1,79 +1,75 @@
-
-\note I want to use material from my thesis  \cite{Cartmell78} which isn't contained in
-the summary that I  published as \cite{Cartmell86} and so I summarise it here (though with some minor changes of
-terminology).
-\note 
+\label{generalisedalgrbraictheories}
 In my thesis (\cite{Cartmell78}) and as written up in \cite{Cartmell86}, I define what it is for a rule written in the alphabet of a generalised algebraic theory to be \term{well-formed}. Here I will use the adjective \term{well-typed} instead.
-With this revised terminology, definition 2(a) from \cite{Cartmell86}, states that in  a generalised algebraic theory \gatUw:
+With this revised terminology, definition 2(a) from \cite{Cartmell86}, states that in  a generalised algebraic theory $U$:
 \begin{enumerate} [(i)]
 \item 
 a \Trule \gatdisplayrule{\xDelta{n}}{\isT{\Delta}} is well-typed  iff 
-$\xDelta{n}$ is a context in \gatUw i.e. iff 
-\gatdisplayrule{\xDelta{n-1}}{\isT{\Delta_n}} is a derived rule of \gatUw and $x_n$ is distinct from all of $x_1,...x_{n-1}$, 
+$\xDelta{n}$ is a context in $U$ i.e. iff 
+\gatdisplayrule{\xDelta{n-1}}{\isT{\Delta_n}} is a derived rule of $U$ and $x_n$ is distinct from all of $x_1,...x_{n-1}$, 
 \item 
 an \trule \gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta}} is well-typed iff
-the rule \gatdisplayrule{\xDelta{n}}{\isT{\Delta}} is a derived rule of \gatU,
+the rule \gatdisplayrule{\xDelta{n}}{\isT{\Delta}} is a derived rule of $U$,
 \item 
 a \Teqrule \gatdisplayrule{\xDelta{n}}{\Delta=\Delta'} is well-typed iff
 both \gatdisplayrule{\xDelta{n}}{\isT{\Delta}} and \gatdisplayrule{\xDelta{n}}{\isT{\Delta'}} are derived rules
-of \gatU,
+of $U$,
 \item 
 an \teqrule \gatdisplayrule{\xDelta{n}}{t=t' \in \Delta} is well-typed iff
 both \gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta}} and \gatdisplayrule{\xDelta{n}}{\ofT{t'}{\Delta}} are derived rules
-of \gatU.
+of $U$.
 \end{enumerate}
 In \cite{Cartmell78} and \cite{Cartmell86}, a \term{pretheory} (which is defined as a collection of symbols each with an introductory rule and a set of axioms) is defined to be \term{well-typed} iff all its introductory rules and axioms are. A \term{generalised algebraic theory} is defined to be a well-typed pretheory.
 
-\note In my thesis there are a number of housekeeping lemmas which are aimed at showing that the formal definitions inclusive of the `principles of derivation' (\cite{Cartmell78}, \cite{Cartmell86}) work out as they ought to. Some of these lemmas are summarised in \cite{Cartmell86} but not all of them. Here I will summarise each one of them and name those that were previously unnamed. In the following, assume that \gatUw is a generalised algebraic theory.
+\note In my thesis there are a number of housekeeping lemmas which are aimed at showing that the formal definitions inclusive of the `principles of derivation' (\cite{Cartmell78}, \cite{Cartmell86}) work out as they ought to. Some of these lemmas are summarised in \cite{Cartmell86} but not all of them. Here I will summarise each one of them and name those that were previously unnamed. In the following, assume that $U$ is a generalised algebraic theory.
 
-\note The Substitution Lemma: In brief, every type-correct substitutional instance of a derived rule is a derived rule. More precisely, for $m \geq 1$, if \gatdisplayrule{\yOmega{m}}{Conclusion} is a derived rule of \gatUw 
-and if  \foreachj, \gatdisplayrule{Q}{\ofT{s_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}} is a derived rule of \gatUw
-then \gatdisplayrule{\yOmega{m}}{Conclusion[s_1|y_1,...s_m|y_m]} is a derived rule of \gatU, where
+\note The Substitution Lemma: In brief, every type-correct substitutional instance of a derived rule is a derived rule. More precisely, for $m \geq 1$, if \gatdisplayrule{\yOmega{m}}{Conclusion} is a derived rule of $U$ 
+and if  \foreachj, \gatdisplayrule{Q}{\ofT{s_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}} is a derived rule of $U$
+then \gatdisplayrule{\yOmega{m}}{Conclusion[s_1|y_1,...s_m|y_m]} is a derived rule of $U$, where
 for any expression $expr$ we write
 $expr[s_1|y_1,...s_m|y_m]$ to mean
 the result of substituting each instance of variable $y_j$ in $expr$ by $s_j$, \foreachj.
 
-\note The Well-Typedness Lemma\footnote{Lemma on page 1-33 of \cite{Cartmell78}}. Every derived rule of \gatUw is well-typed. 
+\note The Well-Typedness Lemma\footnote{Lemma on page 1-33 of \cite{Cartmell78}}. Every derived rule of $U$ is well-typed. 
 
 \note The Derivation Lemma\footnote{page 1.34 of \cite{Cartmell78}}. 
 \begin{enumerate}[(a)]
 
-\item Every derived \Trule of \gatUw is of the form
-\gatdisplayrule{\yOmega{m}}{\isT{A(\tn)}} for some sort symbol $A$ of \gatUw with introductory rule of the form
+\item Every derived \Trule of $U$ is of the form
+\gatdisplayrule{\yOmega{m}}{\isT{A(\tn)}} for some sort symbol $A$ of $U$ with introductory rule of the form
 \gatdisplayrule{\xDelta{n}}{\isT{A(\xn)}} and for some expressions $\tn$ such that \foreachi, the rule
-\gatdisplayrule{\yOmega{m}}{\ofT{t_i}{\Delta_i[t_1|x_1,...t_{i-1}|x_{i-1}]}} is a derived rule of \gatU.
+\gatdisplayrule{\yOmega{m}}{\ofT{t_i}{\Delta_i[t_1|x_1,...t_{i-1}|x_{i-1}]}} is a derived rule of $U$.
 
-\item Every derived \trule of \gatUw is of the form
-\gatdisplayrule{\yOmega{m}}{\ofT{f(\tn)}{\Omega}} for some operator symbol $f$ of \gatUw 
+\item Every derived \trule of $U$ is of the form
+\gatdisplayrule{\yOmega{m}}{\ofT{f(\tn)}{\Omega}} for some operator symbol $f$ of $U$ 
 with introductory rule of the form
 \gatdisplayrule{\xDelta{n}}{\ofT{f(\xn)}{\Delta}} 
 and for some expressions $\tn$ such that \foreachi, the rule
-\gatdisplayrule{\yOmega{m}}{\ofT{t_i}{\Delta_i[t_1|x_1,...t_{i-1}|x_{i-1}]}} is a derived rule of \gatUw
+\gatdisplayrule{\yOmega{m}}{\ofT{t_i}{\Delta_i[t_1|x_1,...t_{i-1}|x_{i-1}]}} is a derived rule of $U$
 and such that
-\gatdisplayrule{\yOmega{m}}{\Delta[t_1|x_1,...t_{i-1}|x_{i-1}]=\Omega} is a derived rule of \gatU.
+\gatdisplayrule{\yOmega{m}}{\Delta[t_1|x_1,...t_n|x_n]=\Omega} is a derived rule of $U$.
 \end{enumerate}
 
 \note The Weakening Lemma\footnote{Lemma 4 of section 1.7 of \cite{Cartmell78} (page 1.37)}. In brief, if the premise of a derived rule is weakened then the resulting rule is a derived rule. More precisely, if 
 \gatdisplayrule{\xDelta{n}}{\isT{\Delta}}  and
-\gatdisplayrule{\xDelta{n},\yOmega{m}}{Conclusion} are both derived rules of \gatUw then if $z$ is a variable
+\gatdisplayrule{\xDelta{n},\yOmega{m}}{Conclusion} are both derived rules of $U$ then if $z$ is a variable
 distinct from $\xn,\ym$ then
 the (weakened) rule \gatdisplayrule{\xDelta{n},z \in \Delta,\yOmega{m}}{Conclusion} is a derived rule
-of \gatU.
+of $U$.
 
-\note The Stratification Lemma\footnote{Lemma 3 of section 1.7 of \cite{Cartmell78} (page 1.36)}. For each generalised algebraic theory \gatUw  there is a sequence of theories 
-$\gatU_0 \subseteq \gatU_1 \subseteq \gatU_2 \subseteq ...$ such that  \inlinedisplay{\gatU = \bigcup_i \gatU_i}
-and such that each $\gatU_{i+1}$ is a simple extension of $\gatU_i$ in the sense that each introductory rule and axiom of $\gatU_{i+1}$ is a well-typed  with respect to $\gatU_i$.
+\note The Stratification Lemma\footnote{Lemma 3 of section 1.7 of \cite{Cartmell78} (page 1.36)}. For each generalised algebraic theory $U$  there is a sequence of theories 
+$U_0 \subseteq $U$_1 \subseteq $U$_2 \subseteq ...$ such that  \inlinedisplay{$U$ = \bigcup_i $U$_i}
+and such that each $U_{i+1}$ is a simple extension of $U_i$ in the sense that each introductory rule and axiom of $U_{i+1}$ is a well-typed  with respect to $U_i$.
 
 \note
-If \gatUw is a single or multi-sorted algebraic theory considered as an instance of a
- generalised algebraic theory then \gatUw can be stratified as $\gatU_0 \subseteq \gatU_1 \subseteq \gatU_2=\gatU$
-where $\gatU_0$ defines the sort symbol(s), $\gatU_1$ defines the operator symbols and $\gatU_2$ defines the axioms. 
+If $U$ is a single or multi-sorted algebraic theory considered as an instance of a
+ generalised algebraic theory then $U$ can be stratified as $U_0 \subseteq U_1 \subseteq U_2=U$
+where $U_0$ defines the sort symbol(s), $U_1$ defines the operator symbols and $U_2$ defines the axioms. 
 
 \note The generalised algebraic theory $cc$ of categories stratifies as: $cc_0$ - sort Ob,
 $cc_1$ - sort Hom, $cc_2$ - operator symbols $\circ$ and $id$, $cc_3$ - identity and associativity axioms.
  
 
-\note We will also use the Finite Subtheory Lemma: For each generalised algebraic theory \gatU, if r is a derived rule of \gatUw then it is a derived rule of some finite subtheory $F \subseteq U$. 
+\note We will also use the Finite Subtheory Lemma\commentary{\highlight{Compactness Lemma??}}: For each generalised algebraic theory $U$, if r is a derived rule of $U$ then it is a derived rule of some finite subtheory $F \subseteq U$. \
 
 
 
