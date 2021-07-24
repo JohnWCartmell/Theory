@@ -364,10 +364,10 @@ The reasoning follows the patterns indicated in accompanying tables \ref{interna
 \end{tabular}
 \end{table}
 
-\newcommand{\leftidentityidremapped}{s(x_1\circ \fid)}
+\newcommand{\leftidentityidremapped}{s(\dot{x_1}\circ \fid)}
 \newcommand{\leftidentityrhsmapped}{s(id_{Hom})}      
-\newcommand{\leftidentitylhsmapped}{\duple{s(x_1),s(x_1),s(p_{Hom,\OO}),\leftidentityidremapped,s(id_{Hom})}^*\fcomp}
-\newcommand{\leftidentitylhsremapped}{\tuple{x_1,x_1,x_2,x_1\circ \fid,id_{Hom}}^*\fcomp}
+\newcommand{\leftidentitylhsmapped}{\duple{s(\dot{x_1}),s(\dot{x_1}),s(p_{Hom,\OO}),\leftidentityidremapped,s(id_{Hom})}^*\fcomp}
+\newcommand{\leftidentitylhsremapped}{\tuple{\dot{x_1},\dot{x_1},\dot{x_2},\dot{x_1}\circ \fid,id_{Hom}}^*\fcomp}
 
 \begin{table}[H]
 \caption{Deriving what constitutes an intepretation of the theory of categories $tc$ in a contextual category \catc.
@@ -380,31 +380,38 @@ Part Three. The left identity axiom.
 \gatinterpretationcontext{Let $P$ be the context $\ofT{x_1}{Ob},\,\ofT{x_2}{Ob},\,\ofT{f}{Hom(x_1,x_2)} $
                                  then from (\ref{homintro}) we have $P \mapsto Hom \in Cover(Ob^2)$.} \\
 \hline
+\gatinterpretationcontext{	 Define morphisms $\rule[-10pt]{0pt}{30pt}\Rnode{Hom}{Hom} \hspace{1cm} \Rnode{Ob}{Ob}$ 
+               \ncline[nodesepA=5pt,nodesepB=5pt,offsetA=3pt,offsetB=3pt,arrowsize=5pt,arrowinset=0.7]{->}{Hom}{Ob}
+							 \alabel{\dot{x_1}}
+							 \ncline[nodesepA=5pt,nodesepB=5pt,offsetA=-3pt,offsetB=-3pt,arrowsize=5pt,arrowinset=0.7]{->}{Hom}{Ob}
+							 \blabel{\dot{x_2}}
+							  in \catcw by $\dot{x_1}=p_{Hom} \circ x_1$ and $\dot{x_2}=p_{Hom} \circ x_2$
+								where $x_1$ and $x_2$ are the two projection morphisms $x1,x2:Ob^2 \morph Ob$.
+							           } \\
+\hline
 \multicolumn{2}{l}{Derived Rule} &&& Interpretation by $I$ in \catcw & Reason why\\
 \hline
 \gatinterpretationdetail{rightidentity1}{P}{\isT{Ob}}{ \HomOb \in Cover(Hom) }{(v), (\ref{homintro}) and (\ref{obintro})}              \\
 \gatinterpretationdetail{rightidentity2}{P}{\ofT{x_1}{Ob}}{ s(p_{Hom,Ob}) \in Section(\HomOb) }{(ii)(b)}                    \\
-\gatinterpretationmapeqv        {s(x_1)}                                            {defn. of $x_1$}             \\
+\gatinterpretationmapeqv        {s(\dot{x_1})}                                            {defn. of $\dot{x_1}$}             \\
 \gatinterpretationdetail{rightidentity3}{P}{\ofT{x_2}{Ob}}{ s(p_{Hom,Ob^2}) \in Section(\HomOb) }{(ii)(b)}                  \\
-\gatinterpretationmapeqv        {s(x_2)}                                            {defn. of $x_2$}             \\
-\gatinterpretationdetail{rightidentity4}{P}{\isT{Hom(x_1,x_1)}}{ \duple{s(x_1),s(x_1}^*Hom \in Cover(Hom) }
-                                                                                      {(vii), (\ref{homintro}) and (\ref{rightidentity2})}   \\
-\gatinterpretationmapeqv                           {\tuple{x_1,x_1}^*Hom}             {lemma \ref{thedupletuplelemma}} \\
+\gatinterpretationmapeqv        {s(\dot{x_2})}                                            {defn. of $\dot{x_2}$}             \\
+\gatinterpretationdetail{rightidentity4}{P}{\isT{Hom(x_1,x_1)}}{ \duple{s(\dot{x_1}),s(\dot{x_1}}^*Hom \in Cover(Hom) }
+                                                                                     {lemma \ref{supplementarylemma}, (\ref{homintro}), (\ref{rightidentity2}) and (\ref{rightidentity3}}   \\
+\gatinterpretationmapeqv                           {\tuple{\dot{x_1},\dot{x_1}}^*Hom}             {lemma \ref{thedupletuplelemma}} \\
 \gatinterpretationdetail{rightidentityidmapping}{P}{\ofT{id(x_1)}{Hom(x_1,x_1)}}
-                               {\duple{s({x_1})}^*\fid \in Sect(\tuple{x_1,x_1}^*Hom) }{lemma \ref{supplementarylemma}, (\ref{idintro}) and (\ref{rightidentity2})}  \\
-\gatinterpretationmapeqv       {{x_1}^*\fid}                                           {lemma \ref{thedupletuplelemma}} \\
+                               {\duple{s({\dot{x_1}})}^*\fid \in Sect(\tuple{\dot{x_1},\dot{x_1}}^*Hom) }{lemma \ref{supplementarylemma}, (\ref{idintro}) and (\ref{rightidentity2})}  \\
+\gatinterpretationmapeqv       {{\dot{x_1}}^*\fid}                                           {lemma \ref{thedupletuplelemma}} \\
 \gatinterpretationmapeqv       {\leftidentityidremapped}                                      {lemma \ref{sfglemma} check}     \\
 \gatinterpretationdetail{rightidentityrhsmappping}{P}{\ofT{f}{Hom(x_1,x_2)}}{\leftidentityrhsmapped \in Sect(\HomHom) }{(ii)(b)}                         \\
 \gatinterpretationdetail{rightidentitylhsmapping}{P}{\ofT{id(x_1) \circ f}{Hom(x_1,x_2)}}
                                 {\leftidentitylhsmapped  }
-																                                       {lemma \ref{supplementarylemma}, (\ref{rightidentity2}),(\ref{rightidentity3}) and (\ref{rightidentityidmapping})}  \\
+																                                       {lemma \ref{supplementarylemma}, (\ref{rightidentity2}), (\ref{rightidentity3}) and (\ref{rightidentityidmapping})}  \\
 																&&&&\hspace{4.5cm}$\in Sect(\HomHom)$&                                                                            \\
 \gatinterpretationmapeqv        {  \leftidentitylhsremapped     }
-                                                                    {lemma \ref{thedupletuplelemma} and defn. of $x_2$} \\
+                                                                    {lemma \ref{thedupletuplelemma} and defn. of $\dot{x_2}$} \\
 \gatinterpretationaxcond{tcaxiomone}{P}{id(x_1) \circ f = f}
-                                       {\leftidentitylhsremapped=\leftidentityrhsmapped}{(\ref{rightidentitylhsmapping}) and (\ref{rightidentityrhsmappping})}                 \\
-%\gatinterpretationaxeqv{\tuple{x_1,x_1,x_2,x_1\circ \fid,id_{Hom}} \circ \fcomp \circ q(p_{\tuple{\ddot y_1,\ddot y_3}},Hom)=id_{Hom}}
-%                       {lemma \ref{sfglemma} \highlight{CHECK} and put this in separate lemma}
+                                       {\leftidentitylhsremapped=\leftidentityrhsmapped}{(\ref{rightidentitylhsmapping}) and (\ref{rightidentityrhsmappping})}    
 \end{tabular}
 \end{table}
 
@@ -421,6 +428,7 @@ Part Four. Associativity axiom.
 \gatinterpretationcontext{Let $Q$ be the context $\associativitypremise$} \\
 \gatinterpretationcontext{then $Q \mapsto \associativitypremisemapped \in Cover(\associativitypremisepopmapped)$ in \catc. \highlight{Why so?}}\\
 \hline
+
 \multicolumn{2}{l}{Derived Rule} &&& Interpretation by $I$ in \catcw & Reason why                   \\
 \hline \\[-0.4cm]
 \gatinterpretationdetail{assoczimapping}{Q}{\ofT{z_i}{Ob},\mbox{ for } i=1,2,3,4}{\assoczimapped}{(ii)(b)}   \\[0.2cm]
