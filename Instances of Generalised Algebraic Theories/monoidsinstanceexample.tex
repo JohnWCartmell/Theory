@@ -10,20 +10,28 @@ For this purpose we shall write the theory of monoids ($tm$) as a generalised al
 \gatintroducing{unit}
 \ofT{unit}{M} \\
 \gatintroducing{mult}
-\gatsingular[6cm]{\ofT{x,y}{M}}{\ofT{mult(x,y)}{M}} \\
+\gatsingular[7.5cm]{\ofT{x_1,x_2}{M}}{\ofT{mult(x_1,x_2)}{M}} \\
 \gataxioms
 
 \gatintroducing{ \gataxiomno{1} \\ \gataxiomno{2} }
-\begin{gatgroup}{\ofT{x}{M}}
-\gatleaf[6cm]{}{mult(unit,x)=x} \\
-\gatleaf[6cm]{}{mult(x,unit)=x}
+\begin{gatgroup}{\ofT{w}{M}}
+\gatleaf[7.5cm]{}{mult(unit,w)=w} \\
+\gatleaf[7.5cm]{}{mult(w,unit)=w}
 \end{gatgroup} \\
 \gatintroducing{ \gataxiomno{3} }
-\gatsingular[6cm]{\ofT{x,y,z}{M}}{mult(mult(x,y),z)=mult(x,mult(y,z))} 
+\gatsingular[7.5cm]{\ofT{y_1,y_2,y_3}{M}}{mult(mult(y_1,y_2),y_3)=mult(y_1,mult(y_2,y_3))} 
 \end{gatrules}
 \note 
 For the sakes of readability we write the interpretation $I(M)$ of the sort $M$ simply as $M$. Similarly we write $I(unit)$ as $unit$. We write $I(mult)$ as $m$. I will ask the reader  to distinguish for themselves 
 those uses of `$M$' and `$unit$' in reference to sorts and operators of the theory $tm$ from those uses in reference to the interpretation of these sorts by the instance $I$ in the contextual category \catc. 
+  In the  lemma that follows we use the naming convention outlined above in section \ref{projectionnaming} and name the three projection morphisms $M^3 \morph M$ i.e. by $y_1, y_2, y_3$.
+As discussed above these are defined by:
+
+\begin{align*}
+y_1 &= p_{M^3,M}, \\
+y_2 &= p_{M^3,M^2} \circ q(p_{M,1},M), \\
+y_3 &= q(p_{M^2,1},M). \hspace{1cm}\\
+\end{align*}
 
 \newcommand{\wM}{\ofT{w}{M}}
 \newcommand{\xM}{\ofT{x_1, x_2}{M}}
@@ -42,8 +50,8 @@ those uses of `$M$' and `$unit$' in reference to sorts and operators of the theo
 An internal monoid in a contextual category \catcw consists of
 \begin{itemize}
 \item An object $M$ of \catcw which is the interpretation of the sort $M$ of theory $tm$,
-\item A section $\fmult$ of \catc, $\fmult \in Sect(\trebleM)$, that is the interpretation of the operator $mult$ of theory $tm$,
-\item A section $unit$ of \catc, $unit \in Sect(M)$, that is the interpretation of the operator $unit$ of theory $tm$,
+\item A section $\fmult$ of \catc, $\fmult \in Sect(\trebleM)$, that is the interpretation of the operator $mult$,
+\item A section $unit$ of \catc, $unit \in Sect(M)$, that is the interpretation of the operator $unit$,
 \end{itemize}
 such that
 \begin{equation}
@@ -61,7 +69,8 @@ and
 =\bigtuple{y_1,(\tuple{y_2,y_3}^*\fmult)\circ q(p_{M^3,1},M)}^*\fmult
 \end{equation}.
 
-Equivalently an internal monoid in a contextual category \catc consists of
+
+Equivalently an internal monoid in a contextual category \catcw consists of
 \begin{itemize}
 \item An object $M$ of \catc,
 \item A morphism $mult$ of \catc, $mult: \doubleM \morph M$ in \catc,
@@ -106,26 +115,25 @@ because by lemma \ref{stactic}, (\ref{internalmonoidrepresentation2axiom1}) hold
 s(\tuple{p_M \circ unit,id_M} \circ mult) = s(id_M)
 \end{equation}
 which holds iff equation (\ref{internalmonoidrepresentation1axiom1}) holds because 
-
 \begin{align*}
 s(\tuple{p_M \circ unit,id_M}\circ mult) &= \tuple{p_M \circ unit,id_M} ^* s(mult )  && \mbox{by lemma \ref{sfglemma}} \\
              &= \tuple{p_M \circ unit,id_M} ^* s(\fmult \circ q(p_{\doubleM,1} , M)) && \mbox{definition of $mult$} \\
 			       &= \tuple{p_M \circ unit,id_M} ^* \fmult                                &&  \mbox{by axiom (s2)}
 \end{align*}
 
-By the same reasoning, it follows that (\ref{internalmonoidrepresentation1axiom2}) holds iff (\ref{internalmonoidrepresentation2axiom2}) holds.
+\noindent By the same reasoning, it follows that (\ref{internalmonoidrepresentation1axiom2}) holds iff (\ref{internalmonoidrepresentation2axiom2}) holds.
 
 We shall show that (\ref{internalmonoidrepresentation1axiom3}) holds iff (\ref{internalmonoidrepresentation2axiom3}) holds.
 First note, though, that
 \begin{equation}
 \label{thirdaxiomsubgoal}
- \tuple{y_1,y_2}\circ \fmult \circ q(p_{\doubleM,1} , M) = (\tuple{y_2,y_3}^*\fmult)\circ q(p_{M^3,1},M)
+ \tuple{y_1,y_2}\circ \fmult \circ q(p_{\doubleM,1} , M) = (\tuple{y_1,y_2}^*\fmult)\circ q(p_{M^3,1},M)
 \end{equation}
 because
 \begin{align*}
-lhs &= (\tuple{y_2,y_3}^*\fmult) \circ q(\tuple{y_2,y_3},M^3) \circ q(p_{M^2,1},M)  && \mbox{by definition of $^*$} \\
-    &= (\tuple{y_2,y_3}^*\fmult) \circ q(\tuple{y_2,y_3} \circ p_{M^2,1},M)         && \mbox{because pullbacks cohere} \\
-    &= (\tuple{y_2,y_3}^*\fmult) \circ q(p_{M^3,1},M)                               && \mbox{because $1$ is terminal }\\
+lhs &= (\tuple{y_1,y_2}^*\fmult) \circ q(\tuple{y_1,y_2},M^3) \circ q(p_{M^2,1},M)  && \mbox{by definition of $^*$ \highlight{how?}} \\
+    &= (\tuple{y_1,y_2}^*\fmult) \circ q(\tuple{y_1,y_2} \circ p_{M^2,1},M)         && \mbox{because pullbacks cohere} \\
+    &= (\tuple{y_1,y_2}^*\fmult) \circ q(p_{M^3,1},M)                               && \mbox{because $1$ is terminal }\\
     &= rhs
 \end{align*}
 
@@ -146,8 +154,8 @@ s(\bigtuple{\tuple{y_1,y_2}\circ mult,y_3}\circ mult)
 		&= \bigtuple{\tuple{y_1,y_2}\circ mult,y_3} ^* \fmult                                &&  \mbox{by axiom (s2)} \\
 		&= \bigtuple{\tuple{y_1,y_2}\circ \fmult \circ q(p_{\doubleM,1} , M),y_3} ^* \fmult  
 		                                                                    &&  \mbox{definition of $mult$} \\	
-	  &= \bigtuple{(\tuple{y_2,y_3}^*\fmult)\circ q(p_{M^3,1},M),y_3} ^* \fmult 
-		                                                                    &&  \mbox{by use of (\ref{thirdaxiomsubgoal})}
+	  &= \bigtuple{(\tuple{y_1,y_2}^*\fmult)\circ q(p_{M^3,1},M),y_3} ^* \fmult 
+		                                                                    &&  \mbox{by use of (\ref{thirdaxiomsubgoal}) \highlight{how?}}
 \end{align*}
 Similarly, the rhs of (\ref{sofinternalmonoidrepresentation2axiom3}) and the rhs of (\ref{internalmonoidrepresentation1axiom3}) 
 can be shown to be identical.
@@ -155,7 +163,7 @@ can be shown to be identical.
 \begin{table}[H]
 \caption{Deriving what constitutes an instance of the theory of monoids $tm$ in a contextual category \catc.
 The result is shown (highlighted) in rows (\ref{tm1}), (\ref{tm11}), (\ref{tm13}),(\ref{tmax1}), (\ref{tmax2}) and (\ref{tmax3}). Other rows 
-show how we derive this result from clauses (i) through (v) of the definition of instance and by use of earlier lemmas.}
+show intermediate steps. Each step is justified by reference to earlier steps and by either application of one clauses (i) through (v) of the definition of instance, as appropriate, or by reference to one of the lemmas given earlier.}
 \label{internalmonoidtable}
 
 \setlength{\arrayrulewidth}{1mm}
@@ -167,56 +175,70 @@ show how we derive this result from clauses (i) through (v) of the definition of
 \\[-0.1cm]
 \gatinterpretationdetail{tm2}{\wM}{\isT{M}}{\doubleM \in Cover(M)}{(v) and (\ref{tm1})} \\[0.3cm]
 \gatinterpretationdetail{tm3}{\wM}{\ofT{w}{M}}{s(id_M) \in Sect(\doubleM)}{(ii)(b) and (\ref{tm1})} \\[0.3cm]
-\gatinterpretationdetail{tm4}{\xM}{\isT{M}}{\trebleM \in Cover(\doubleM)}{(v),(\ref{tm1}) and (\ref{tm2})} \\[0.3cm]
-\gatinterpretationdetail{tm5}{\xM}{\ofT{x_1}{M}}{s(id_M) \in Sect(\trebleM)}{(ii)(b) and (\ref{tm2})} \\[0.3cm]
-\gatinterpretationdetail{tm6}{\xM}{\ofT{x_2}{M}}{s(p_M) \in Sect(\trebleM)}{(ii)(b) and (\ref{tm2})} \\[0.3cm]
-\gatinterpretationdetail{tm7}{\yM}{\isT{M}}{\quadM \in Cover(\trebleM)}{(v) and (\ref{tm4})} \\[0.3cm]
+\gatinterpretationdetail{tm4}{\xM}{\isT{M}}{\trebleM \in Cover(\doubleM)}{(v), (\ref{tm2}) and (\ref{tm1}) } \\[0.3cm]
+\iffalse % Not USED
+\gatinterpretationdetail{tm5}{\xM}{\ofT{x_1}{M}}{s(p_{M^2}) \in Sect(\trebleM)}{(ii)(b) and (\ref{tm2}) \highlight{USED?}} \\[0.3cm]
+\gatinterpretationdetail{tm6}{\xM}{\ofT{x_2}{M}}{s(id_{M^2}) \in Sect(\trebleM)}{(ii)(b) and (\ref{tm2})\highlight{USED?}} \\[0.3cm]
+\fi
+\gatinterpretationdetail{tm7}{\yM}{\isT{M}}{\quadM \in Cover(\trebleM)}{(v), (\ref{tm1}) and (\ref{tm4})} \\[0.3cm]
 \gatinterpretationdetail{tm8}{\yM}{\ofT{y_1}{M}}{\sptrebleone \in Sect(\quadM)}{(ii)(b) and (\ref{tm4})} \\[0.3cm]
+\gatinterpretationmapeqv{s(y_1)} 
+												{ definition of $y_1$}\\[0.2cm]
 \gatinterpretationdetail{tm9}{\yM}{\ofT{y_2}{M}}{\sptrebletwo \in Sect(\quadM)}{(ii)(b) and (\ref{tm4})} \\[0.3cm]
-\gatinterpretationdetail{tm10}{\yM}{\ofT{y_3}{M}}{\sptreblethree \in Sect(\quadM)}{(ii)(b) and (\ref{tm4})} \\[0.3cm]
-\gatinterpretationintro {tm11}{}{\ofT{unit}{M}}{unit \in Sect(M)}{(ii)(a) wrt (\ref{tm1})} \\
+\gatinterpretationmapeqv{s(p_{M^3,M^2} \circ q(p_{M,1},M)) } 
+												{by axiom (s3) }\\[0.2cm]
+\gatinterpretationmapeqv{ s(y_2)} 
+												{definition of $y_2$ }\\[0.2cm]
+\gatinterpretationdetail{tm10}{\yM}{\ofT{y_3}{M}}{s(id_{M^3}) \in Sect(\quadM)}{(ii)(b) and (\ref{tm4})} \\[0.3cm]
+\gatinterpretationmapeqv{s(q(p_{M^2,1},M)) } 
+												{ by axiom (s3)}\\[0.2cm]
+\gatinterpretationmapeqv{s(y_3)} 
+												{definition of $y_3$ }\\[0.2cm]
+\gatinterpretationintro {tm11}{}{\ofT{unit}{M}}{unit \in Sect(M)}{(ii)(a) and (\ref{tm1})} \\
 \\[-0.1cm]
-\gatinterpretationdetail{tm12}{\wM}{\ofT{unit}{M}}{\crossx{M}{unit}{1} \in Sect(\doubleM)}{(vi),(\ref{tm11}) and (\ref{tm9})} \\[0.3cm]
-\gatinterpretationintro{tm13}{\xM}{\ofT{\fmult(x_1,x_2)}{M}}{\fmult \in Sect(\trebleM)}{(ii)(a) wrt (\ref{tm4})} \\
+\gatinterpretationdetail{tm12}{\wM}{\ofT{unit}{M}}{\crossx{M}{unit}{1} \in Sect(\doubleM)}{(vi), (\ref{tm1}) and (\ref{tm11})} \\[0.3cm]\gatinterpretationmapeqv{s(p_M \circ unit)} 
+												{by lemma \ref{crosssectionlemma}}\\[0.2cm]
+\gatinterpretationintro{tm13}{\xM}{\ofT{\fmult(x_1,x_2)}{M}}{\fmult \in Sect(\trebleM)}{(ii)(a) and (\ref{tm4})} \\
 \\[-0.1cm]
 \gatinterpretationdetail{tm14}{\wM}
                         {\ofT{\fmult(w,unit)}{M}}
-                        {\duple{s(id_M),\crossx{M}{unit}{1}}^*\fmult \in Sect(\doubleM)}
-												{lemma \ref{supplementarylemma},(\ref{tm3}),(\ref{tm12}) and(\ref{tm13}) }\\[0.2cm]
-\gatinterpretationmapeqv {\tuple{id_M,p_M \circ unit}^*\fmult} 
-												{lemma \ref{thedupletuplelemma} and lemma \ref{crosssectionlemma}}\\[0.2cm]
+                        {\duple{s(id_M),s(p_M \circ unit)}^*\fmult \in Sect(\doubleM)}
+												{lemma \ref{supplementarylemma},(\ref{tm3}), (\ref{tm12}) and(\ref{tm13}) }\\[0.2cm]
+\gatinterpretationmapeqv{\tuple{id_M,p_M \circ unit}^*\fmult} 
+												{lemma \ref{thedupletuplelemma}}\\[0.2cm]
 \gatinterpretationdetail{tm15}{\wM}
                         {\ofT{\fmult(unit,w)}{M}}
-                        {\duple{\crossx{M}{unit}{1},s(id_M)}^*\fmult \in Sect(\doubleM)}
-												{lemma \ref{supplementarylemma},(\ref{tm12}),(\ref{tm3}) and (\ref{tm13}) } \\[0.2cm]
+                        {\duple{s(p_M \circ unit),s(id_M)}^*\fmult \in Sect(\doubleM)}
+												{lemma \ref{supplementarylemma}, (\ref{tm12}), (\ref{tm3}) and (\ref{tm13}) } \\[0.2cm]
 \gatinterpretationmapeqv{\tuple{p_M \circ unit,id_M}^*\fmult}
-												{lemma \ref{thedupletuplelemma} and lemma \ref{crosssectionlemma}}\\[0.2cm]
+												{lemma \ref{thedupletuplelemma} }\\[0.2cm]
 \gatinterpretationdetail{tm16}{\yM}
                         {\ofT{\fmult(y_1,y_2)}{M}}
-												{\duple{\sptrebleone,\sptrebletwo}^*\fmult}
-												{lemma \ref{supplementarylemma},(\ref{tm13}),(\ref{tm8}) and (\ref{tm9})}                  \\[0.2cm]
-\gatinterpretationmapeqv {\tuple{y_1,y_2}^*\fmult}
+												{\duple{s(y_1),s(y_2)}^*\fmult}
+												{lemma \ref{supplementarylemma}, (\ref{tm13}), (\ref{tm8}) and (\ref{tm9})}                  \\[0.2cm]
+\gatinterpretationmapeqv{\tuple{y_1,y_2}^*\fmult}
 												{lemma \ref{thedupletuplelemma} and axiom (s3)}                    \\[0.2cm]										
-												&&&&\multicolumn{2}{p{8cm}}{where  $y_i:M^3 \morph M^i$ is defined  
-												             if $i = 1$ by  $y_1=p_{M^3,M}$ else, if 
-																		 $i >1$, by $y_i=p_{M^3,M^i}\circ q(p_{M^i,1},M)$} \\[0.2cm]
+					%							&&&&\multicolumn{2}{p{8cm}}{where  $y_i:M^3 \morph M^i$ is defined  
+					%							             if $i = 1$ by  $y_1=p_{M^3,M}$ else, if 
+					%													 $i >1$, by $y_i=p_{M^3,M^i}\circ q(p_{M^i,1},M)$} \\[0.2cm]
 \gatinterpretationdetail{tm17}{\yM}
                         {\ofT{\fmult(y_2,y_3)}{M}}
-												{\duple{\sptrebletwo,\sptreblethree}^*\fmult}
-												{lemma \ref{supplementarylemma},(\ref{tm13}),(\ref{tm9}) and (\ref{tm10})}  \\[0.2cm]
-\gatinterpretationmapeqv {\tuple{y_2,y_3}^*\fmult} 
+												{\duple{s(y_2),s(y_3)}^*\fmult}
+												{lemma \ref{supplementarylemma}, (\ref{tm13}), (\ref{tm9}) and (\ref{tm10})}  \\[0.2cm]
+\gatinterpretationmapeqv{\tuple{y_2,y_3}^*\fmult} 
 												{lemma \ref{thedupletuplelemma} and axiom (s3)}\\[0.2cm]
+										
 \gatinterpretationdetail{tm18}{\yM}
                         {\fmult(\fmult(y_1,y_2),y_3)}
-												{\duple{\tuple{y_1,y_2}^*\fmult,\sptreblethree}^*\fmult}
-												{lemma \ref{supplementarylemma},(\ref{tm13}),(\ref{tm16}) and (\ref{tm10})}  \\[0.2cm]
-\gatinterpretationmapeqv {\bigtuple{(\tuple{y_1,y_2}^*\fmult)\circ q(p_{M^3,1},M),y_3}^*\fmult} 
+												{\duple{\tuple{y_1,y_2}^*\fmult,s(y_3)}^*\fmult}
+												{lemma \ref{supplementarylemma}, (\ref{tm13}), (\ref{tm16}) and (\ref{tm10})}  \\[0.2cm]
+\gatinterpretationmapeqv{\bigtuple{(\tuple{y_1,y_2}^*\fmult)\circ q(p_{M^3,1},M),y_3}^*\fmult} 
 												{lemma \ref{thedupletuplelemma} and axiom (s3) (twice)} \\[0.2cm]
 \gatinterpretationdetail{tm19}{\yM}
                         {\fmult(y_1,\fmult(y_2,y_3))}
-												{\duple{\sptrebleone,\tuple{y_2,y_3}^*\fmult}^*\fmult}
-												{lemma \ref{supplementarylemma},(\ref{tm13}),(\ref{tm8}) and (\ref{tm17})} \\[0.2cm]
-\gatinterpretationmapeqv {\bigtuple{y_1,(\tuple{y_2,y_3}^*\fmult)\circ q(p_{M^3,1},M)}^*\fmult} 
+												{\duple{s(y_1),\tuple{y_2,y_3}^*\fmult}^*\fmult}
+												{lemma \ref{supplementarylemma}, (\ref{tm13}), (\ref{tm8}) and (\ref{tm17})} \\[0.2cm]
+\gatinterpretationmapeqv{\bigtuple{y_1,(\tuple{y_2,y_3}^*\fmult)\circ q(p_{M^3,1},M)}^*\fmult} 
 												{lemma \ref{thedupletuplelemma}   and axiom (s3) (twice)}\\[0.2cm]
 %												\rowcolor{lightergrey}
 \gatinterpretationaxcond{tmax1}{\wM}{\fmult(unit,w)=w}{\tuple{p_M \circ unit,id_M}^*\fmult=s(id_M)}{(iv), (\ref{tm15}) and (\ref{tm3})} \\[0.2cm]

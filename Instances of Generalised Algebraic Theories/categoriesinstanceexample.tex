@@ -21,102 +21,6 @@
 \newcommand {\yOOOfHmapped}{\tuple{y_1,y_2}^*Hom}
 \newcommand {\yOOOfHgHmapped}{\crossx{\yOOOfHmapped}{\tuple{y_2,y_3}^*Hom}{\OOO}}
 \newcommand {\yOOOfHgHHmapped}{\crossx{\big(\yOOOfHgHmapped\big)}{{\tuple{y_1,y_3}^*Hom}}{\OOO}}
-
-\iffalse
-
-\note
-Consider as an example
-what constitutes an instance $I$ of the (generalised algebraic) theory of categories ($tc$) in some 
- contextual category \catc.
-The sorts of $tc$ are $Ob$ and $Hom$ 
-and an instance $I$ must map these to objects $I(Ob)$ and  $I(Hom)$ of \catc.
-The operators symbols of
-$tc$ are  $id$ and $\circ$ and these must be mapped by $I$ to sections $I(id)$ and $I(\circ)$ of \catc.
-
-A useful simplication for the description that follows is to write $Ob$ for $I(Ob)$, $Hom$ for $I(Hom)$, $\qq{id}$ for $I(id)$ and   $\qq{\circ}$ for $I(\circ)$.   I will ask the reader  to distinguish for themselves 
-those uses of `$Ob$' and `$Hom$' in reference to sorts of the theory $tc$ from those uses in reference to the interpretation of these sorts in the contextual category \catc. 
-
-Because we want to explain and to some extent validate the definition of instance we will go through the
-requirements on the interpretations of $Ob$, $Hom$, $id$ and $\circ$ in some detail.  For this purpose we
-need make use of the stratification 
-$tc_0 \subseteq tc_1 \subseteq tc_2 \subseteq tc_3 \subseteq tc_4$
-of the theory of categories mentioned earlier\footnote{$tc_0$ is the empty theory, $tc_1$ has introductory rule 
-$r_{Ob}$ of sort $Ob$, $tc_2$ has introductory rule $r_{Hom}$ of sort symbol $Hom$, $tc_3$ has introductory rules
-$r_{id}$ for operator $id$ and  $r_\circ$ for operator $\circ$, $tc_4$ has the three axioms -- left and right identity and associativity.}.
-
-
-\begin{enumerate}[$tc_1$]
-\item By clause (i) of the definition of instance (case $n=1$), the sort $Ob$ must be mapped to an object $Ob$ of \catcw such that $1 \base Ob$ in \catc. Given this much, i.e. given the interpretation of the sort $Ob$ in the theory by such an object $Ob$ of the contextual category, then are able to interpret in \catcw any rule of the theory $tc_1$ i.e. any rule that can be derived solely from the introductory rule for $Ob$. 
-In particular we can derive the rule \gatdisplayrule{\ofT{x}{Ob}}{\isT{Ob}} 
- and this is interpreted by $I$ (see earlier\commentary{\tbd})
- as the object $\OO$ in \catc . This rule is the one we need  have interpreted in \catcw in order to determine 
-whether the interpretation of $Hom$ by $I$ is well-typed.
-
-\item The sort $Hom$ of the theory $tc$ is introduced by the rule 
-\gatdisplayrule{\ofT{x}{Ob},\, \ofT{y}{Ob}}{\isT{Hom(x,y)}} 
-and therefore, given what we have said of the interpretation of rule 
-\gatdisplayrule{\ofT{x}{Ob}}{\isT{Ob}}, 
-by clause (i) of the definition of instance (case $n=1$), the sort $Hom$ must be mapped to some object of \catc,  which, as we have said, we denote $Hom$, such that $\crossx{Ob}{Ob}{1} \base Hom$ in \catc.
-
-Once we have this interpretation of $Hom$ then we can interpret any derived rule of the theory $tc_2$ i.e.
-any rule which can be derived from just the introductory rules
-for $Ob$ and $Hom$. In particular we can derive the rules which 
-the introductory rules of $\qq{id}$ and $\qq{\circ}$ rely on for their
-well-typedness which are \gatdisplayrule{\ofT{x}{Ob}}{\isT{Hom(x,x)}} and
-\gatdisplayrule{\ofT{y_1}{Ob},\, \ofT{y_2}{Ob},\,\ofT{y_3}{Ob},\, \ofT{f}{Hom(y_1,y_2)},\, \ofT{g}{Hom(y_2,y_3)} }{\isT{Hom(y_1,y_3)}}.
-In fact it follows from something earlier (\tbd) that the first of these rules will be interpreted 
-as the object ${\delta_{Ob}}^*Hom$ of \catcw and that the second of these rules will be interpreted by
-the object $\yOOOfHgHHmapped$. 
-
-\begin{equation*}
-\begin{array}{c c}
-\tuple{y''_1,y''_3}^*Hom         \\ [1cm]
-\tuple{y'_2,y'_3}^*Hom           \\ [1cm]
-\Rnode{e}{\yOOOfHmapped}         \\ [1cm]
-\Rnode{d}{\OOO} & \Rnode{h}{Hom} \\ [1cm]
-\Rnode{c}{\OO}                   \\ [1cm]
-\Rnode{b}{Ob}                    \\ [1cm]
-\Rnode{a}{1}           
-\end{array}
-\ncsar{g}{f}
-\ncsar{f}{e}
-\ncsar{e}{d}
-\ncsar{d}{c}
-\ncsar{c}{b}
-\ncsar{b}{a}
-\ncsar{h}{c}
-\end{equation*}
-
-
-\item 
-From clause (ii) of the definition of instance and from the observations just  made, it
-follows, since the instance $I$ must be well typed for operator symbols $id$,
-that the operator symbol $id$ must be interpreted by $I$ as a section of the object $\delta_{Ob}^*Hom$ of \catcw
-and we shall refer to as $\qq{id}$, so that $\qq{id} : Ob \morph {\delta_{Ob}}^*Hom$ of \catc. 
-
-Now consider the operator symbol $\circ$ whose introcutory rule is
-\gatdisplayrule{\yOOOfHgH}{\ofT{f \circ g}{Hom(z_1,z_3)}}.
-Let $H_2$ be the premise $\yOOOfHgH$ then $H_2$ is mapped by $I$ to the object $yOOOfHgHmapped$ of \catc.
-Let $\qq{H_2}$ be this object. 
- 
-
-Likewise for $I$ to be well-typed on the introductory rule for $\circ$, the operator symbol $\circ$ must be interpreted by $I$ as a section of the object 
-$\yOOOfHgHHmapped$ of \catcw 
-where $y_1,y_2,y_3$ are the projection morphisms $y_1,y_2,vy_3: \OOO \morph Ob$ defined earlier (\tbd\footnote{
-$y_1: \OOO \morph Ob$ is defined to be $p_{\OOO} \circ p_{\OO}$ \\
-$y_2: \OOO \morph Ob$ is defined to be $p_{\OOO} \circ q(p_{Ob},Ob)$\\
-$vy_3: \OOO \morph Ob$ is defined to be $q(p_{\OO},Ob)$
-}) and we shall refer to it as $\qq{\circ}$ so that we have $\qq{\circ}: \yOOOfHgHmapped \morph \yOOOfHgHHmapped$ in \catc.
-At this stage we are now able to interpret any derived rule of the theory $tc3$ i.e. any rule 
-which can be derived just from the introductory rules for $Ob, Hom, id and \circ$. In particular we can
-interpret the left and right sides of the three axioms. In fact we will have: 
-
- 
-\item % tc_4
-\end{enumerate}
-\fi
-
-
 \newcommand{\gatinterpretationcontext}[1]{&\multicolumn{5}{p{15cm}}{#1}}
 
 
@@ -138,7 +42,11 @@ interpret the left and right sides of the three axioms. In fact we will have:
 %******************************
 \newcommand{\associativitypremise}
        {\ofT{z_1,z_2,z_3,z_4}{Ob},\,
-                                \ofT{f}{Hom(z_1,z_2)},\,\ofT{g}{Hom(z_2,z_3)},\,\ofT{h}{Hom(z_3,z_4)}}															
+                                \ofT{f}{Hom(z_1,z_2)},\,\ofT{g}{Hom(z_2,z_3)},\,\ofT{h}{Hom(z_3,z_4)}}	
+\newcommand{\associativitypremisereversed}
+       {\ofT{f}{Hom(z_1,z_2)},\,\ofT{g}{Hom(z_2,z_3)},\,\ofT{h}{Hom(z_3,z_4)},\,
+			                \ofT{z_1,z_2,z_3,z_4}{Ob}
+                                }																												
 \newcommand{\associativitypremisepoppopmapped}{\tuple{z_1,z_2}^*Hom}
 \newcommand{\associativitypremisepopmapped}{\tuple{\dot z_2,\dot z_3}^*Hom}											
 \newcommand{\associativitypremisemapped}{\tuple{\ddot z_3,\ddot z_4}^*Hom}
@@ -184,96 +92,120 @@ interpret the left and right sides of the three axioms. In fact we will have:
 \newcommand{\ccplaceholder}{\rule[-0.2cm]{0cm}{0.6cm}\kern0.2cm}
 \newcommand{\rightend}[1] { \kern-0.2cm\Rnode{#1} {\ccplaceholder} }
 
-\begin{lemma}
-\label{internalcategorylemma}
-An internal category in a contextual category \catcw consists of
-\begin{itemize}
-\item An object $Ob$ of \catc,
-\item an object $Hom \in Cover(O^2)$ in \catc,
-\item A section $\fid \in Sect(s(id_{Ob})^*Hom)$ in \catc, 
-\item A section $\fcomp \in Sect(\compsix) $ of \catc \\ 
-where $y_i: \OOO \morph Ob$, for $i=1,2,3$,  in \catcw is the i'th projection morphism  i.e. $y_1 = p_{\OOO,Ob}$ 
-and  for $i = 2,3$,   $y_i = p_{Ob^3,Ob^i}\circ q(p_{Ob^i},Ob)$ \\
-and where   $\dot y_i : \compfour \morph Ob$, for $i = 1,2,3$, 
-                                     is defined by $\dot y_i = p_{\compfour}\circ y_i$, so that
+\note
+In this second example we describe the structure of internal categories by following the main definition and examining
+what constitutes a valid interpretation of the (generalised algebraic) theory of categories ($tc$) in some 
+ contextual category \catc.
+
+\note The theory of categories ($tc$) that I work with is presented as follows:
+\begin{gatrules}
+\gatintros
+\gatintroducing{Ob}
+\isT{Ob} \\
+\gatintroducing{Hom}
+  \gatsingular{\ofT{x_1,x_2}{Ob}}{\isT{Hom(x_1,x_2)}} \\	
+\gatintroducing{id}
+  \gatsingular{\ofT{w}{Ob}}{\ofT{id(w)}{Hom(w,w)}} \\	
+\gataxioms
+\gatintroducing{  \gataxiomno{1} \\   \gataxiomno{2}}
+\begin{gatgroup}{\ofT{f}{Hom(x_1,x_2)},\ \ofT{x_1,x_2}{Ob}}
+    \gatleaf{}{id_{x_1} \circ f = f} \\
+    \gatleaf{}{f \circ id_{x_2} = f}
+\end{gatgroup} \\
+\gatintroducing{ \gataxiomno{3} }
+\gatsingular{\associativitypremisereversed}{(f \circ g) \circ h = f \circ (g \circ h)} 
+\end{gatrules}
+
+\note If $I$ is a valid interpretation of $tc$ in a contextual category \catc then the sorts $Ob$ and $Hom$ of $tc$ 
+must be mapped by $I$  to objects $I(Ob)$ and  $I(Hom)$ of \catc.
+Similarly  the operators symbols
+$id$ and $\circ$ must be mapped to sections $I(id)$ and $I(\circ)$ of \catc.
+
+Following the convention described earlier in section \ref{projectionnaming} we simplify  
+the description that follows by writing $Ob$ for $I(Ob)$, $Hom$ for $I(Hom)$.
+For a further simplification we write $\qq{id}$ for $I(id)$ and   $\qq{\circ}$ for $I(\circ)$.   I will ask the reader  to distinguish for themselves 
+those uses of `$Ob$' and `$Hom$' in reference to sorts of the theory $tc$ from those uses in reference to the interpretation of these sorts in the contextual category \catc. 
+\note With respect to the projection morphisms of powers of $Ob$, I will use the conventions described earlier in section \ref{projectionnaming}.
+\note
+In regard to the object $Ob^3$ in \catcw, for $i=1,2,3$, I define
+ $y_i: \OOO \morph Ob$ to be the i'th projection morphism  i.e. $y_1 = p_{\OOO,Ob}$, $y_2 = p_{Ob^3}\circ q(t_{Ob},Ob)$,$y_3 = q(t_{Ob^2},Ob)$
+This enables us to construct the following pullback
 \begin{equation*}
 \begin{array}{r  p{4cm} c}
-\compsix      \rightend{Q}                    \\ [1cm]
-\compfive     \rightend{Qp}                   \\ [1cm]
-\compfour     \rightend{Qpp}                  \\ [1cm]
-\OOO          \rightend{O3} && \Rnode{Ob}{Ob}              
+\compfour     \rightend{Qpp} && \Rnode{Hom}{Hom}               \\ [1cm]
+\OOO          \rightend{O3}  && \Rnode{O2}{Ob^2}              
 \end{array}
 \mbox{
-\ncsar{Q}{Qp}
-\ncsar{Qp}{Qpp}
 \ncsar{Qpp}{O3}
-\ncarr{Q}{Ob}
-\alabel{\dddot y_i}
-\ncarr{Qp}{Ob}
-\alabel{\ddot y_i}
-\ncarr{Qpp}{Ob}
-\alabel{\dot y_i}
-\ncarr{O3}{Ob}
-\alabel{y_i}
-\ncleftsimplesection{Qp}{Q}
-\alabel{\fcomp}
-}
+\ncsar{Hom}{O2}
+\ncarr{Qpp}{Hom}
+\alabel{q(\tuple{y_1,y_2},Hom)}
+\ncarr{O3}{O2}
+\alabel{\tuple{y_1,y_2}}}
 \end{equation*}														
-in \catc,
+
+In accordance with a convention mentioned earlier we now define $\dot y_i : \compfour \morph Ob$, for $i = 1,2,3$, 
+                                     by $\dot y_i = p_{\compfour}\circ y_i$. \\
+																																																												
+Next we consider the pullback:
+
+\begin{equation*}
+\begin{array}{r  p{4cm} c}
+\compfive     \rightend{Qpp} && \Rnode{Hom}{Hom}               \\ [1cm]
+\compfour     \rightend{O3}  && \Rnode{O2}{Ob^2}              
+\end{array}
+\mbox{
+\ncsar{Qpp}{O3}
+\ncsar{Hom}{O2}
+\ncarr{Qpp}{Hom}
+\alabel{q(\tuple{\dot y_2,\dot y_3},Hom)}
+\ncarr{O3}{O2}
+\alabel{\tuple{\dot y_2,\dot y_3}}}
+\end{equation*}	
+
+and define   $\ddot y_i : \compfive \morph Ob$, for $i = 1,2,3$, 
+                                     by $\ddot y_i = p_{\compfive}\circ \dot y_i$. \\
 																		
-\end{itemize}
-such that
-\begin{equation}
-\label{leftidentityaxiom}
-\leftidentitymapped
-\end{equation}
-\begin{equation}
-\label{rightidentityaxiom}
-\rightidentitymapped
-\end{equation}
-and
-\begin{equation}
-\label{associativityaxiom}
-\assoclhsremapped = \assocrhsremapped
-\end{equation}
-where for $i = 1, 2,3,4$, $z_i: \OOOO \morph Ob$, for $i=1,2,3,4$,  in \catcw is the i'th projection morphism\footnote{so $z_1 = p_{\OOOO,Ob}$ 
-and  for $i = 2,3, 4$,   $z_i = p_{Ob^4,Ob^i}\circ q(p_{Ob^i},Ob)$} \\
-and where   $\dot z_i : \associativitypremisepoppopmapped \morph Ob$
-                                     is defined by $\dot z_i = p_{\associativitypremisepoppopmapped}\circ z_i$,\\ 
-and  $\ddot z_i : \associativitypremisepopmapped \morph Ob$ 
-                                     is defined by $\ddot z_i = p_{\associativitypremisepopmapped, \OOOO}\circ z_i$, \\ 
-and $\dddot z_i : \associativitypremisemapped \morph Ob$ 
-                                     is defined by $\ddot z_i = p_{\associativitypremisemapped, \OOOO}\circ z_i$, \\												
+Finally this enables us to construct  the pullback
+\begin{equation*}
+\begin{array}{r  p{4cm} c}
+\compsix     \rightend{Qpp} && \Rnode{Hom}{Hom}               \\ [1cm]
+\compfive     \rightend{O3}  && \Rnode{O2}{Ob^2}              
+\end{array}
+\mbox{
+\ncsar{Qpp}{O3}
+\ncsar{Hom}{O2}
+\ncarr{Qpp}{Hom}
+\alabel{q(\tuple{\ddot y_1,\ddot y_3},Hom)}
+\ncarr{O3}{O2}
+\alabel{\tuple{\ddot y_1,\ddot y_3}}}
+\end{equation*}	
+																	
+\noindent and this is relevant to us because in the lemma that follows we will show that for an interpretation $I$ to be valid the section $I(\circ)$ must be a section of $\compsix$.																	
+	
+					
+\note Next we turn to $Ob^4$.
+Following the earlier convention we define the projection functions 
+to be $z_1,z_2,z_3$ and $z_4$ so that for $i = 1, 2,3,4$, $z_i: \OOOO \morph Ob$. \\
 
-and where $f$,$g$ and $h$ are defined by
-
-\begin{equation}
-f = \assocfdefiniens,
-\end{equation}
-\begin{equation}
-g = \assocgdefiniens
-\end{equation}
-and
-\begin{equation}
-h = \assochdefiniens
-\end{equation}
-so that
-
-%\newcommand{\ccplaceholdertwo}{\rule[-0.4cm]{0cm}{0.6cm}\kern0.2cm}
-%\newcommand{\rightendtwo}[1] { \kern-.4cm\Rnode{#1} {\ccplaceholdertwo} }
+Then we proceed to define   $\dot z_i : \associativitypremisepoppopmapped \morph Ob$
+                                      by $\dot z_i = p_{\associativitypremisepoppopmapped}\circ z_i$, 
+to define  $\ddot z_i : \associativitypremisepopmapped \morph Ob$ 
+                                    by $\ddot z_i = p_{\associativitypremisepopmapped, \OOOO}\circ z_i$, 
+and, finally, to define $\dddot z_i : \associativitypremisemapped \morph Ob$ 
+                                      by $\ddot z_i = p_{\associativitypremisemapped, \OOOO}\circ z_i$ 	
+so that for $i = 1, 2,3,4$ we have
 \begin{equation*}
 \begin{array}{r l p{4cm} c}
 \associativitypremisemapped       \rightend{Q}  & \kern-0.2cm\rightend{Qright}                          \\ [1cm]
-\associativitypremisepopmapped    \rightend{Qp} &  &&\Rnode{H}{Hom}   \\ [1cm]
-\associativitypremisepoppopmapped \rightend{Qpp}&  &&\Rnode{O2}{\OO}    \\ [1cm]
+\associativitypremisepopmapped    \rightend{Qp} &  &&   \\ [1cm]
+\associativitypremisepoppopmapped \rightend{Qpp}&  &&   \\ [1cm]
 \OOOO                             \rightend{O4} & && \Rnode{Ob}{Ob}              
 \end{array}
 \mbox{
 \ncsar{Q}{Qp}
 \ncsar{Qp}{Qpp}
 \ncsar{Qpp}{O4}
-\ncsar{H}{O2}
-\ncsar{O2}{Ob}
 %\ncarr{Q}{Ob}
 \ncarc[nodesepA=5pt,nodesepB=\arrnodesepB,offsetA=\arroffsetA,offsetB=\arroffsetB,arrowsize=5pt,arrowinset=0.7]{->}{Q}{Ob}
 \alabel{\dddot z_i}
@@ -283,12 +215,20 @@ so that
 \alabel{\dot z_i}
 \ncarr{O4}{Ob}
 \alabel{z_i}
-%\ncarrNEGZZ[-10]{Qright}{H}    \alabel{f}
-\ncarrZ{Qright}{H}             \alabel{f}[0.5][0.5]
-\ncarrZZ[15]{Qright}{H}        \alabel{g}[0.5][0.5]
-\ncarrZZZ[30]{Qright}{H}       \alabel{h}[0.5][0.5]
 }
-\end{equation*} in \catcw and \\
+\end{equation*} in \catcw.
+
+The object $\associativitypremisemapped$ is relevant to us because it is the interopretation under $I$ of the premise
+$\associativitypremise$ of the associativity axiom. This helps explain the next three definitions.
+We define $f$, $g$ and $h$ by
+
+\begin{align*}
+f &= \assocfdefiniens,
+g &= \assocgdefiniens,
+h &= \assochdefiniens.
+\end{align*}
+
+With $f$, $g$ ad $h$ so defined, the following diagrams
 \vspace{0.3cm}
 \begin{equation*}
 \ccsquareoutline{1.4cm}{1.2cm}{\associativitypremisemapped}{Hom}{\OOOO}{\OO}
@@ -311,12 +251,41 @@ so that
 \ncsar{TR}{BR}
 \ccsquareacross{h}{\tuple{z_3, z_4}}
 }
-\end{equation*} commute.	\\
+\end{equation*} commute in \catc.	\\
+
+We make use of all these namings in the following:
+
+\begin{lemma}
+\label{internalcategorylemma}
+An internal category in a contextual category \catcw consists of
+\begin{itemize}
+\item An object $Ob$ of \catc,
+\item an object $Hom \in Cover(O^2)$ in \catc,
+\item A section $\fid \in Sect(s(id_{Ob})^*Hom)$ in \catc, 
+\item A section $\fcomp \in Sect(\compsix) $ of \catc \\ 
+													
+\end{itemize}
+such that
+\begin{equation}
+\label{leftidentityaxiom}
+\leftidentitymapped
+\end{equation}
+\begin{equation}
+\label{rightidentityaxiom}
+\rightidentitymapped
+\end{equation}
+and
+\begin{equation}
+\label{associativityaxiom}
+\assoclhsremapped = \assocrhsremapped
+\end{equation}
+so that
+
 
 Equivalently an internal category in a contextual category \catcw consists of
 \item objects $Ob$ and  $Hom$  and a section $\fid$ in \catc,  as above, along with
 \begin{itemize}
-\item A morphism $\compmorph$ of \catc, $\compmorph: \compfive \morph Hom$ in \catc
+\item a morphism $\compmorph$ of \catc, $\compmorph: \compfive \morph Hom$ in \catc
 \end{itemize}
 such that
 \begin{equation}
@@ -360,12 +329,12 @@ Part One - Introductory rules for $Ob$, $Hom$ and $id$.
                                                                {(v) and (\ref{obintro})}             \\
 \gatinterpretationintro {homintro}{\ofT{x_1}{Ob},\ofT{x_2}{Ob}}{\isT{Hom}}{Hom \in Cover(Ob^2)}
                                                                {(i) and (\ref{homintrohelper})}      \\
-\gatinterpretationdetail{idintrohelperhelper}{\ofT{x}{Ob}}{\ofT{x}{Ob}}{s(id_{Ob})}
+\gatinterpretationdetail{idintrohelperhelper}{\ofT{w}{Ob}}{\ofT{w}{Ob}}{s(id_{Ob})}
                                                                {(ii)(b) and (\ref{homintrohelper})}  \\
-\gatinterpretationdetail{idintrohelper}{\ofT{x}{Ob}}
-                                 {\isT{Hom(x,x)}}{s(id_{Ob})^*Hom }
+\gatinterpretationdetail{idintrohelper}{\ofT{w}{Ob}}
+                                 {\isT{Hom(w,w)}}{s(id_{Ob})^*Hom }
                                  {(vii) (\ref{homintro}) and (\ref{idintrohelperhelper})}           \\
-\gatinterpretationintro {idintro}{\ofT{x}{Ob}}{\ofT{id(x,x)}{Hom(x,x)}} 
+\gatinterpretationintro {idintro}{\ofT{w}{Ob}}{\ofT{id(w)}{Hom(w,w)}} 
                                  {\fid \in Sect(s(id_{Ob})^*Hom) }
                                  {(ii)and (\ref{idintrohelper})}                                      \\
 \end{tabular}
@@ -378,15 +347,9 @@ Part Two Introductory rule for $\circ$. Indication of the reasoning is not inclu
 The reasoning follows the patterns indicated in accompanying tables \ref{internalcategorytableone} and \ref{internalcategorytablethree}.
 }
 \label{internalcategorytabletwo}
-Define $y_1 : \OOO \morph Ob$ in \catcw  by $y_1 = p_{\OOO,Ob}$ 
-and define $y_i : \OOO \morph Ob$, for $i = 2,3$,  by $y_i = p_{Ob^3,Ob^i}\circ q(p_{Ob^i},Ob)$.
-
-Define  $\dot y_i : \compfour \morph Ob$ in \catc, for $i = 1, 2,3$, 
-                                           by $\dot y_i = p_{\compfour}\circ y_i$.	
 %\setlength{\arrayrulewidth}{1mm}
 \setlength{\tabcolsep}{2pt}
 \begin{tabular}{l l  c  p{0cm} l  l}
-\hline
 \multicolumn{2}{l}{Derived Rule} &&& Interpretation by $I$ in \catcw \\
 \hline
 \gatinterpretationdetail{comp1}{\ofT{x_1,x_2}{Ob}}{\isT{Ob}}{ \OOO \in Cover(\OO) }{}              \\
@@ -416,13 +379,6 @@ Part Three. The left identity axiom.
 \begin{tabular}{l l  c  p{0cm} l  l}
 \gatinterpretationcontext{Let $P$ be the context $\ofT{x_1}{Ob},\,\ofT{x_2}{Ob},\,\ofT{f}{Hom(x_1,x_2)} $
                                  then from (\ref{homintro}) we have $P \mapsto Hom \in Cover(Ob^2)$.} \\
-\gatinterpretationcontext{	 Define morphisms $\rule[-10pt]{0pt}{30pt}\Rnode{Hom}{Hom} \hspace{1cm} \Rnode{Ob}{Ob}$ 
-               \ncline[nodesepA=5pt,nodesepB=5pt,offsetA=3pt,offsetB=3pt,arrowsize=5pt,arrowinset=0.7]{->}{Hom}{Ob}
-							 \alabel{x_1}
-							 \ncline[nodesepA=5pt,nodesepB=5pt,offsetA=-3pt,offsetB=-3pt,arrowsize=5pt,arrowinset=0.7]{->}{Hom}{Ob}
-							 \blabel{x_2}
-							  in \catcw by $x_1 = p_{Hom,Ob}$ and $x_2=p_{Hom,Ob^2}\circ q(p_{Ob},Ob)$.
-							           } \\
 \hline
 \multicolumn{2}{l}{Derived Rule} &&& Interpretation by $I$ in \catcw & Reason why\\
 \hline
@@ -445,7 +401,7 @@ Part Three. The left identity axiom.
 																&&&&\hspace{4.5cm}$\in Sect(\HomHom)$&                                                                            \\
 \gatinterpretationmapeqv        {  \leftidentitylhsremapped     }
                                                                     {lemma \ref{thedupletuplelemma} and defn. of $x_2$} \\
-\gatinterpretationaxcond{tcaxiomone}{P}{\ofT{id(x_1) \circ f}{f}}
+\gatinterpretationaxcond{tcaxiomone}{P}{id(x_1) \circ f = f}
                                        {\leftidentitylhsremapped=\leftidentityrhsmapped}{(\ref{rightidentitylhsmapping}) and (\ref{rightidentityrhsmappping})}                 \\
 %\gatinterpretationaxeqv{\tuple{x_1,x_1,x_2,x_1\circ \fid,id_{Hom}} \circ \fcomp \circ q(p_{\tuple{\ddot y_1,\ddot y_3}},Hom)=id_{Hom}}
 %                       {lemma \ref{sfglemma} \highlight{CHECK} and put this in separate lemma}
@@ -463,16 +419,8 @@ Part Four. Associativity axiom.
 \setlength{\tabcolsep}{2pt}
 \begin{tabular}{l l  c  p{0cm} l  l}
 \gatinterpretationcontext{Let $Q$ be the context $\associativitypremise$} \\
-\gatinterpretationcontext{then $Q \mapsto \associativitypremisemapped \in Cover(\associativitypremisepopmapped)$ in \catc.} \\
-\gatinterpretationcontext{	 Define morphisms $\rule[-10pt]{0pt}{30pt}\Rnode{Hom}{Hom} \hspace{1cm} \Rnode{Ob}{Ob}$ 
-               \ncline[nodesepA=5pt,nodesepB=5pt,offsetA=3pt,offsetB=3pt,arrowsize=5pt,arrowinset=0.7]{->}{Hom}{Ob}
-							 \alabel{x_1}
-							 \ncline[nodesepA=5pt,nodesepB=5pt,offsetA=-3pt,offsetB=-3pt,arrowsize=5pt,arrowinset=0.7]{->}{Hom}{Ob}
-							 \blabel{x_2}
-							  in \catcw by $x_1 = p_{Hom,Ob}$ and $x_2=p_{Hom,Ob^2}\circ q(p_{Ob},Ob)$.
-							           } \\
+\gatinterpretationcontext{then $Q \mapsto \associativitypremisemapped \in Cover(\associativitypremisepopmapped)$ in \catc. \highlight{Why so?}}\\
 \hline
-
 \multicolumn{2}{l}{Derived Rule} &&& Interpretation by $I$ in \catcw & Reason why                   \\
 \hline \\[-0.4cm]
 \gatinterpretationdetail{assoczimapping}{Q}{\ofT{z_i}{Ob},\mbox{ for } i=1,2,3,4}{\assoczimapped}{(ii)(b)}   \\[0.2cm]

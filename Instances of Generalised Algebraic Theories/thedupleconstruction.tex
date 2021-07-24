@@ -20,7 +20,7 @@
 \newcommand {\snsub}{{s_n}^*}
 \newcommand {\sncascade}{\snsub...\sonesub}
 
-\note The duple construction. If $A$ is an object of contextual category \catc, if $1 \base B_1 ... \base B_n$ in \catcw and if
+\note If $A$ is an object of contextual category \catc, if $1 \base B_1 ... \base B_n$ in \catcw and if
 \begin{equation*}
 \begin{array}{l}
 s_1 \in Sect(\crossx{A}{B_1}{1}),                  \\
@@ -37,26 +37,26 @@ $\duplesn:A \morph B_n$ in \catcw such that
 \item $s(\duplesn) = s_n$,
 \item for $n> 1$, $\duplesn \circ p_{B_n} = \duplesnlessone$, and 
 \item for all objects $B$ of \catcw such that $B_n < B$, 
-$\sncascade \crossx{A}{B}{1} = \duplesn ^* B$, \\
+$\sncascade (\crossx{A}{B}{1}) = \duplesn ^* B$, \\
 and for all sections $s$ of $B$,
-$\sncascade \crossx{A}{s}{1} = \duplesn ^* s$.
+$\sncascade (\crossx{A}{s}{1}) = \duplesn ^* s$.
 \end{enumerate}
 
 The definition of $\duplesn$ proceeds by induction. 
 Define $\duplesone= s_1 \circ q(p_{A,1},B_1)$.
 By axiom (s1), it follows immediately that $s(\duplesone)=s_1$.
 
-If $B_1 <B$ in \catcw then we have $\sonesub \crossx{A}{B}{1}=\duplesone ^* B$ because
+If $B_1 <B$ in \catcw then we have $\sonesub (\crossx{A}{B}{1})=\duplesone ^* B$ because
 \begin{align*}
-\sonesub (\crossx{A}{B}{1})&= \sonesub q(p_{A,1},B_1)^*B     && \mbox{by definition of $\crossx{}{}{}$,}\\
-                         &= (s_1 \circ q(p_{A,1},B_1))^*B   && \mbox{by pullback coherence axiom,}\\
+\sonesub (\crossx{A}{B}{1})&= \sonesub q(p_{A,1},B_1)^*B     && \mbox{by definition of $\crossx{1}{}{}$,}\\
+                         &= (s_1 \circ q(p_{A,1},B_1))^*B   && \mbox{by pullback coherence axiom (q5),}\\
                          &= \duplesone ^* B                   && \mbox{by definition of $\duplesone ^* B$.}
 \end{align*}
 Also, if $g$ is a section of $B$ then we can show, by a similar argument, 
 that $\sonesub (\crossx{A}{g}{1})=\duplesone ^* g$.
 
 Now assume that $\duplesi$ is defined and satisfies (i) to (iii) above. 
-In particular we have then that $\sicascade B_{i+1} = \duplesi ^* B_{i+1}$, and therefore that
+In particular we have  $\sicascade B_{i+1} = \duplesi ^* B_{i+1}$, and therefore that
 $s_{i+1} \in Sect(\duplesi ^* B_{i+1})$, and this then allows us to define $\duplesisucc$ by 
 \begin{equation*}
 \duplesisucc = s_{i+1} \circ q(\duplesi, B_{i+1}).
@@ -66,10 +66,10 @@ we have that $s(\duplesisucc)=s_{i+1}$.
 We have that $\duplesisucc \circ p_{B_{i+1}}= \duplesi$ because
 \begin{align*}
 \duplesisucc \circ p_{B_{i+1}} &=s_{i+1} \circ q(\duplesi, B_{i+1}) \circ p_{B_{i+1}} && \mbox{by definition of $\duplesisucc$,} \\
-                               &=s_{i+1} \circ p_{\duplesi ^* B_{i+1}} \circ \duplesi && \mbox{because pullback commutes,} \\
+                               &=s_{i+1} \circ p_{\duplesi ^* B_{i+1}} \circ \duplesi && \mbox{because the pullback diagram commutes,} \\
 															 &= \duplesi                       && \mbox{because $s_{i+1}$ is a section.}
 \end{align*}
-When $B$ is some object such that $B_{i+1} < B$ in \catcw then we can show that$\sisucccascade (\crossx{A}{B}{1})=\duplesisucc ^* B$ as follows:
+To establish (iii), suppose $B$ is some object such that $B_{i+1} < B$ in \catcw then we can show that $\sisucccascade (\crossx{A}{B}{1})=\duplesisucc ^* B$ as follows:
 \begin{align*}
 \sisucccascade (\crossx{A}{B}{1}) 
               &= \sisuccsub \duplesi ^* B && \mbox{by inductive hypothesis,} \\
@@ -182,7 +182,7 @@ and
 \duplesn \circ q(p_{B_{n-1},B_i},C) = g
 \end{equation}
 
-(\ref{dupletuplesubgoalone}) holds from the definition of $\duple{}_{B_n}$ because, remember, $B_n=\crossx{B_{n-1}}{C}{B_i}$.
+(\ref{dupletuplesubgoalone}) holds from the definition of $\duple{}_{B_n}$ because we have initially assumed that $B_n=\crossx{B_{n-1}}{C}{B_i}$.
 
 We show that (\ref{dupletuplesubgoaltwo}) holds by using lemma \ref{footandstactic} and showing that
 \begin{equation}
@@ -191,12 +191,12 @@ We show that (\ref{dupletuplesubgoaltwo}) holds by using lemma \ref{footandstact
 \end{equation}
 and
 \begin{equation}
-\label{dupletuplesubgoaltwoone}
+\label{dupletuplesubgoaltwotwo}
 s(\duplesn \circ q(p_{B_{n-1},B_i},C)) = s(g)
 \end{equation}
 
-(\ref{dupletuplesubgoaltwoone}) follows immediately because by axiom (s3) 
-$s(\duplesn \circ q(p_{B_{n-1},B_i},C))=s(\duplesn)=s_n$ and from the initial assumption that
+(\ref{dupletuplesubgoaltwotwo}) follows immediately because by axiom \highlight{(s3)} \commentary{check use of parenthesis in reference to (q1),...(s3)} etc.
+$s(\duplesn \circ q(p_{B_{n-1},B_i},C))=s(\duplesn)=s_n$ and from the initial assumption 
 $s(g)=s_n$.
 
 We are left with proving (\ref{dupletuplesubgoaltwoone}) which we can do as follows:
@@ -206,6 +206,6 @@ We are left with proving (\ref{dupletuplesubgoaltwoone}) which we can do as foll
                                                && \mbox{commutivity of pullback square},               \\
 							&=\duplesn \circ p_{\crossx{B_{n-1}}{C}{B_i},B_i} && \mbox{definition of extended $p$,}  \\
 							&=\duplesi                                        && \mbox{lemma \ref{dupledestructionlemma},} \\
-							&= g                                              && \mbox{from the initial assumption.}
+							&= g \circ p_C                                    && \mbox{from the initial assumption.}
 \end{align*}
 \end{proof}
