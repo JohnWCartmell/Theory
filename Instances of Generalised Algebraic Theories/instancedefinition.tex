@@ -100,7 +100,6 @@ It is a requirement that this rule is mapped by $I$ to the section $f^*g$ of obj
 \end{enumerate}
 \end{definition}
 
-\newpage
 { % create a scope for two width forcing commands
 \newcommand {\forceSOURCEwidth}{\rule{5cm}{0pt}}  % so as to line up three different arrays
 \newcommand {\forceTARGETwidth}{\rule{2.2cm}{0pt}}
@@ -144,6 +143,88 @@ then the rules \omegarulesubstituted and  \srulesubstituted, which are derived r
 \srulesubstituted      & \Imapsto & \fmstar...\fonestar (\crossx{a}{g}{1}).
 \end{array}
 \end{equation*}
+and  that we have the following diagram in \catc
+
+\newcommand{\ncdotdotdot}[2]
+{\ncline[linestyle=none]{#1}{#2} 
+ \ncput[nrot=:U]{\Large$ \hdots$}
+}
+\begin{displaymath}
+\begin{array}{c  c p{0.4cm} c p{0.2cm} c p {0.2cm} c  p{0.5cm} c}
+&&&                                               &&                                           && \Rnode{ab}{\crossx{a}{b}{1}}    &&                \\[1.2cm]
+&&&                                               &&  \Rnode{f1ab}{\fonestar(\crossx{a}{b}{1})}
+%\rule[-1cm]{3pt}{1pt}
+&& \Rnode{abm}{\crossx{a}{b_m}{1}} &&                \\[1.2cm]
+&&&                                               &&  \Rnode{f1abm}{\fonestar(\crossx{a}{b_m}{1})}&&                              &&                \\[0.1cm]
+&&&                                               &&                                           && \Rnode{ab3}{\crossx{a}{b_3}{1}} &&                \\[1.2cm]
+&\Rnode{fm1axb}{\fmonestar...\ftwostar\fonestar(\crossx{a}{b}{1})}&& &&\Rnode{f1axb3}{\fonestar(\crossx{a}{b_3}{1})}  && \Rnode{ab2}{\crossx{a}{b_2}{1}}  &&           \\[1.2cm]
+\Rnode{ftarget}{\fmstar...\ftwostar\fonestar(\crossx{a}{b}{1})}&\Rnode{fmtarget}{\fmonestar...\ftwostar\fonestar(\crossx{a}{b_m}{1})}&&
+\Rnode{f3target}{\ftwostar\fonestar(\crossx{a}{b_3}{1})} &&\Rnode{f2target}{\fonestar(\crossx{a}{b_2}{1})}  && \Rnode{ab1}{\crossx{a}{b_1}{\Rnode{f1target}{1}}}     \\[1.2cm]
+&&&                                               &&                                           &&                                                       \\[-6.4cm] %%% HEE HEE HE
+&&&																								&&                                           &&                         && \Rnode{b}{b}                \\[1.2cm]
+&&&																								&&                                           &&                         && \Rnode{bm}{b_m}             \\[0.3cm]
+&&&                                               &&                                           &&                         &&                             \\[0.3cm]
+&&&																								&&                                           &&                         && \Rnode{b3}{b_3}             \\[1.2cm]
+&&&																								&&                                           &&                         && \Rnode{b2}{b_2}             \\[1.2cm]
+&&&																								&&                                           &&                         && \Rnode{b1}{b_1}             \\[0.3cm]
+&&&		\ovalnode[linestyle=none]{a}{a}					    &&                                           &&                         &&                             \\[1.1cm]
+&&&                                               &&                                           && \Rnode{abs}{1} \ \ \ \ \ \ \ \ &&                      \\           
+\makebox[0cm]{
+\ncarr{ab}{b}
+\ncarr{abm}{bm}
+\ncarr{f1ab}{ab}
+\ncarr{f1abm}{abm}
+\ncarr{ab3}{b3}
+\ncarr{ab2}{b2}
+\ncarr{ab1}{b1}
+\ncarr{f1axb3}{ab3}
+\ncarr{f2target}{ab2}
+\ncarr{f3target}{f1axb3}
+\ncarr{ftarget}{fm1axb}
+\ncdotdotdot{fm1axb}{f1ab} 
+\ncdotdotdot{fmtarget}{f1abm}
+\ncdotdotdot{fmtarget}{f3target}
+%
+\ncarc[arcangle=-5,nodesepA=15pt,offsetA=-2pt,nodesepB=3pt,offsetB=-5pt]{->}{a}{f1target}
+\blabel{f_1}[0.6]
+\ncarc[arcangle=10,nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{a}{f2target}
+\alabel{f_2}
+\ncarc[arcangle=10,nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{a}{f3target}
+\alabel{f_3}
+\ncarc[arcangle=7,nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{a}{fmtarget}
+\alabel{f_m}
+\ncarc[arcangle=7, nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{a}{ftarget}
+\alabel{f}
+
+\setlength{\sarnodesepB}{10pt}
+\ncsar{fmtarget}{a}
+\ncsar{ftarget}{a}
+\ncsar{f3target}{a}
+\ncsar{f2target}{a}
+\ncsar{f1target}{a}
+\sarreset
+\ncsar{fm1axb}{fmtarget}
+
+%left but two tower
+\ncsar{f1ab}{f1abm}
+\ncdotdotdot {f1abm}{f1axb3}
+\ncsar{f1axb3}{f2target}
+%left but one tower
+\ncsar{ab}{abm}
+\ncdotdotdot{abm}{ab3}
+\ncsar{ab3}{ab2}
+\ncsar{ab2}{ab1}
+%left tower
+\ncsar{b}{bm}
+\ncdotdotdot{bm}{b3}
+\ncsar{b3}{b2}
+\ncsar{b2}{b1}
+\ncsar{b1}{abs}
+\nccdar{a}{abs}
+}
+\end{array}
+\end{displaymath}
+
 
 \end{lemma}
 \begin{proof}
@@ -188,45 +269,9 @@ this time substituting $s_2$ into the $s_1$ substituted rules, to determine that
 
 We see that the mapping that we are required to show follows from $m$ successive applications of clauses (vii) and (viii) of the main definition.
 This completes the proof.
-
-In the case that $m=3$  then in \catcw we will have objects and morphisms as follows:
-\begin{displaymath}
-\begin{array}{c p{1cm} c p {1cm} c  p{1cm} c}
-                                                &&                                           && \Rnode{ab3}{\crossx{a}{b_3}{1}}                       \\[1.2cm]
-                                                &&\Rnode{f1axb3}{\fonestar\crossx{a}{b_3}{1}}  && \Rnode{ab2}{\crossx{a}{b_2}{1}}                       \\[1.2cm]
- \Rnode{f3target}{\ftwostar\fonestar\crossx{a}{b_3}{1}} &&\Rnode{f2target}{\fonestar\crossx{a}{b_2}{1}}  && \Rnode{ab1}{\crossx{a}{b_1}{\Rnode{f1target}{1}}}     \\[1.2cm]
-                                                &&\Rnode{a}{a}                               &&                                                       \\[-3.0cm]
-																								&&                                           &&                         && \Rnode{b3}{b_3}             \\[1.2cm]
-																								&&                                           &&                         && \Rnode{b2}{b_2}             \\[1.2cm]
-																								&&                                           &&                         && \Rnode{b1}{b_1}             \\[1.1cm]
-																								&&                                           && \Rnode{abs}{1} \ \ \ \ \ \ \ \ &&    
-\end{array}
-\end{displaymath}
-\ncarr{ab3}{b3}
-\ncarr{ab2}{b2}
-\ncarr{ab1}{b1}
-\ncarr{f1axb3}{ab3}
-\ncarr{f2target}{ab2}
-\ncarr{f3target}{f1axb3}
-\ncarc[arcangle=10,nodesepA=5pt,offsetA=2pt,nodesepB=2pt,offsetB=2pt]{->}{a}{f1target}
-\alabel{f_1}[0.25]
-\ncarc[arcangle=15,nodesepA=5pt,offsetA=2pt,nodesepB=2pt,offsetB=2pt]{->}{a}{f2target}
-\alabel{f_2}
-\ncarc[arcangle=10,nodesepA=5pt,offsetA=2pt,nodesepB=2pt,offsetB=2pt]{->}{a}{f3target}
-\alabel{f_3}
-\ncsar{f3target}{a}
-\ncsar{f2target}{a}
-\ncsar{f1target}{a}
-\ncsar{ab2}{ab1}
-\ncsar{ab3}{ab2}
-\ncsar{f1axb3}{f2target}
-\ncsar{b3}{b2}
-\ncsar{b2}{b1}
-\ncsar{b1}{abs}
-\nccdar{a}{abs}
 \end{proof}
 } % end scope of force width commands
-\newpage
+%\newpage
 \note
 We can show that an instance $I$ of a contextual category $U$ in a contextual category \catcw is
 completely determined by its mapping of the introductory rules of sort symbols and operator symbols to

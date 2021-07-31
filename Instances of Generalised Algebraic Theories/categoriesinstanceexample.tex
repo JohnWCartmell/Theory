@@ -1,5 +1,4 @@
-
-
+ 
 \newcommand{\sect}{Sect}
 \newcommand{\insect}[2]{#1 \in Sect(#2)}
 
@@ -8,7 +7,7 @@
 \newcommand {\OOOO}{Ob^4}
 \newcommand{\HomOb}{\crossx{Hom}{Ob}{1}}
 \newcommand{\fid}{\qq{id}}
-\newcommand{\fcomp}{\qq{\circ}}
+\newcommand{\fcomp}{\qq{\kern-2pt\circ \kern-2pt}}
 
 \newcommand{\leftidentitylhsterm}{({x_1}^*\qq{id})^*\tuple{x_1,x_1,x_2}^*\fcomp}
 \newcommand{\rightidentitylhsterm}{({x_2}^*\qq{id})^*\tuple{x_1,x_2,x_2}^*\fcomp}
@@ -40,9 +39,13 @@
 %*****************************
 % Associativity axiom mapping
 %******************************
+\newcommand {\zOOOO}{\ofT{z_1,z_2,z_3,z_4}{Ob}}
+\newcommand{\associativitypremisepoppop}
+       {\zOOOO,\,\ofT{f}{Hom(z_1,z_2)}}	
+\newcommand{\associativitypremisepop}		
+			{\associativitypremisepoppop,\,\ofT{g}{Hom(z_2,z_3)}}
 \newcommand{\associativitypremise}
-       {\ofT{z_1,z_2,z_3,z_4}{Ob},\,
-                                \ofT{f}{Hom(z_1,z_2)},\,\ofT{g}{Hom(z_2,z_3)},\,\ofT{h}{Hom(z_3,z_4)}}	
+       {\associativitypremisepop,\,\ofT{h}{Hom(z_3,z_4)}}	
 \newcommand{\associativitypremisereversed}
        {\ofT{f}{Hom(z_1,z_2)},\,\ofT{g}{Hom(z_2,z_3)},\,\ofT{h}{Hom(z_3,z_4)},\,
 			                \ofT{z_1,z_2,z_3,z_4}{Ob}
@@ -76,11 +79,11 @@
 \newcommand{\associativityrhstermtyping}{\ofT{f \circ (g \circ h)}{Hom(z_1,z_4)}}	
 \newcommand {\assocfogmapped}{\tuple{\dddot z_1,\dddot z_2,\dddot z_3,f,g}^*\fcomp }
 \newcommand {\assoclhsmapped}{\duple{s(\dddot z_1),s(\dddot z_3),s(\dddot z_4),\assocfogmapped,s(h)}^*\fcomp}
-\newcommand {\assoclhsremapped}{\tuple{\dddot z_1,\dddot z_3,\dddot z_4,\assocfogmapped \circ q(\tuple{\dddot z_1,\dddot z_3},Hom),h}^*\fcomp}
+\newcommand {\assoclhsremapped}{\tuple{\dddot z_1,\dddot z_3,\dddot z_4,(\assocfogmapped) \circ q(\tuple{\dddot z_1,\dddot z_3},Hom),h}^*\fcomp}
 \newcommand {\assocgohmapped}{\duple{s(\dddot z_1),s(\dddot z_2),s(\dddot z_3),s(g),s(h)}^*\fcomp }
 \newcommand {\assocgohremapped}{\tuple{\dddot z_1,\dddot z_2,\dddot z_3,g,h}^*\fcomp }
 \newcommand {\assocrhsmapped}{\duple{s(\dddot z_1),s(\dddot z_2),s(\dddot z_4),s(f),\assocgohremapped}^*\fcomp}
-\newcommand {\assocrhsremapped}{\tuple{\dddot z_1,\dddot z_2,\dddot z_4,f,\assocgohremapped \circ q(\tuple{\dddot z_2,\dddot z_4},Hom)}^*\fcomp}
+\newcommand {\assocrhsremapped}{\tuple{\dddot z_1,\dddot z_2,\dddot z_4,f,(\assocgohremapped) \circ q(\tuple{\dddot z_2,\dddot z_4},Hom)}^*\fcomp}
 
 \newcommand{\assocequivalentlhs}{\tuple{\dddot z_1,\dddot z_3,\dddot z_4,\tuple{\dddot z_1,\dddot z_2,\dddot z_3,f,g}\circ \compmorph,h} \circ \compmorph}
 \newcommand{\assocequivalentrhs}{\tuple{\dddot z_1,\dddot z_2,\dddot z_4,f,\tuple{\dddot z_1,\dddot z_2,\dddot z_3,g,h}\circ \compmorph} \circ \compmorph}
@@ -253,7 +256,77 @@ With $f$, $g$ ad $h$ so defined, the following diagrams
 }
 \end{equation*} commute in \catc.	\\
 
-We make use of all these namings in the following:
+
+\begin{lemma}
+\llabel{associativitycontextmapping}
+If $I$ is an interpretation of the theory $tc$ in a contextual category \catcw then
+$I$ maps the context $\tuple{\associativitypremise}$ to the object $\associativitypremisemapped$ in \catc.
+\end{lemma}
+\begin{proof}
+% two width forcing commands
+\newcommand {\forceSOURCEwidth}{\rule{5cm}{0pt}}  % so as to line up three different arrays
+\newcommand {\forceTARGETwidth}{\rule{2.2cm}{0pt}}
+
+From lemma \ref{Xnlemma} we have the following interpretation by $I$, for each $i$, $1 \leq i \leq 4$:
+\begin{equation*}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\gatdisplayrule{\zOOOO}{\ofT{z_i}{Ob}} & \Imapsto & s(z_i) 
+\end{array}
+\end{equation*}
+
+From these mappings it follows by lemma \ref{supplementarylemma2} that 
+
+\begin{equation*}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\gatdisplayrule{\zOOOO}{\isT{Hom(z_1,z_2)}} & \Imapsto & \associativitypremisepoppopmapped 
+\end{array}
+\end{equation*}
+
+The context $\associativitypremisepoppop$ is therefore mapped to $\associativitypremisepoppopmapped$.
+
+Now it follows by lemma \ref{Xnlemma} that 
+
+\begin{equation*}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\gatdisplayrule{\associativitypremisepoppop}{\ofT{z_i}{Ob}} & \Imapsto & s(p_{\associativitypremisepoppopmapped} \circ z_i) \\
+                                                            & = & s(\dot{z_i})
+\end{array}
+\end{equation*}
+and therefore by  lemma \ref{supplementarylemma2} that 
+\begin{equation*}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\gatdisplayrule{\associativitypremisepoppop}{\isT{Hom(z_2,z_3)}} & \Imapsto & \associativitypremisepopmapped.
+\end{array}
+\end{equation*}
+
+The context $\associativitypremisepop$ is therefore mapped to $\associativitypremisepopmapped$.
+
+By application of lemma \ref{Xnlemma} again we establish that 
+
+\begin{equation*}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\gatdisplayrule{\associativitypremisepop}{\ofT{z_i}{Ob}} & \Imapsto & s(p_{\associativitypremisepopmapped} \circ z_i) \\
+                                                            & = & s(\ddot{z_i})
+\end{array}
+\end{equation*}
+and therefore by  lemma \ref{supplementarylemma2} that 
+\begin{equation*}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\gatdisplayrule{\associativitypremisepop}{\isT{Hom(z_3,z_4)}} & \Imapsto & \associativitypremisemapped.
+\end{array}
+\end{equation*}
+
+The context $\associativitypremise$ is therefore mapped to $\associativitypremisemapped$.
+
+\end{proof}
+
+
 
 \begin{lemma}
 \label{internalcategorylemma}
@@ -275,11 +348,11 @@ such that
 \rightidentitymapped
 \end{equation}
 and
-\begin{equation}
+\begin{multline}
 \label{associativityaxiom}
-\assoclhsremapped = \assocrhsremapped
-\end{equation}
-so that
+\assoclhsremapped\\
+            = \assocrhsremapped
+\end{multline}
 
 
 Equivalently an internal category in a contextual category \catcw consists of
@@ -396,20 +469,15 @@ Part Three. The left identity axiom.
 \gatinterpretationmapeqv        {s(\dot{x_1})}                                            {defn. of $\dot{x_1}$}             \\
 \gatinterpretationdetail{rightidentity3}{P}{\ofT{x_2}{Ob}}{ s(p_{Hom,Ob^2}) \in Section(\HomOb) }{(ii)(b)}                  \\
 \gatinterpretationmapeqv        {s(\dot{x_2})}                                            {defn. of $\dot{x_2}$}             \\
-\gatinterpretationdetail{rightidentity4}{P}{\isT{Hom(x_1,x_1)}}{ \duple{s(\dot{x_1}),s(\dot{x_1}}^*Hom \in Cover(Hom) }
-                                                                                     {lemma \ref{supplementarylemma}, (\ref{homintro}), (\ref{rightidentity2}) and (\ref{rightidentity3}}   \\
-\gatinterpretationmapeqv                           {\tuple{\dot{x_1},\dot{x_1}}^*Hom}             {lemma \ref{thedupletuplelemma}} \\
-\gatinterpretationdetail{rightidentityidmapping}{P}{\ofT{id(x_1)}{Hom(x_1,x_1)}}
-                               {\duple{s({\dot{x_1}})}^*\fid \in Sect(\tuple{\dot{x_1},\dot{x_1}}^*Hom) }{lemma \ref{supplementarylemma}, (\ref{idintro}) and (\ref{rightidentity2})}  \\
-\gatinterpretationmapeqv       {{\dot{x_1}}^*\fid}                                           {lemma \ref{thedupletuplelemma}} \\
+\gatinterpretationdetail{rightidentity4}{P}{\isT{Hom(x_1,x_1)}}{\tuple{\dot{x_1},\dot{x_1}}^*Hom \in Cover(Hom)} 
+                                                             {lemma \ref{supplementarylemma2}, (\ref{homintro}), (\ref{rightidentity2}) and (\ref{rightidentity3})} \\
+\gatinterpretationdetail{rightidentityidmapping}{P}{\ofT{id(x_1)}{Hom(x_1,x_1)}}{{\dot{x_1}}^*\fid \in Sect(\tuple{\dot{x_1},\dot{x_1}}^*Hom)}  
+                                                                    {lemma \ref{supplementarylemma2}, (\ref{idintro}) and (\ref{rightidentity2})} \\
 \gatinterpretationmapeqv       {\leftidentityidremapped}                                      {lemma \ref{sfglemma} check}     \\
 \gatinterpretationdetail{rightidentityrhsmappping}{P}{\ofT{f}{Hom(x_1,x_2)}}{\leftidentityrhsmapped \in Sect(\HomHom) }{(ii)(b)}                         \\
-\gatinterpretationdetail{rightidentitylhsmapping}{P}{\ofT{id(x_1) \circ f}{Hom(x_1,x_2)}}
-                                {\leftidentitylhsmapped  }
-																                                       {lemma \ref{supplementarylemma}, (\ref{rightidentity2}), (\ref{rightidentity3}) and (\ref{rightidentityidmapping})}  \\
-																&&&&\hspace{4.5cm}$\in Sect(\HomHom)$&                                                                            \\
-\gatinterpretationmapeqv        {  \leftidentitylhsremapped     }
-                                                                    {lemma \ref{thedupletuplelemma} and defn. of $\dot{x_2}$} \\
+\gatinterpretationdetail{rightidentitylhsmapping}{P}{\ofT{id(x_1) \circ f}{Hom(x_1,x_2)}}{\leftidentitylhsremapped     }
+                                     {lemma \ref{supplementarylemma2}, (\ref{rightidentity2}), (\ref{rightidentity3}) and (\ref{rightidentityidmapping})} \\
+																																			&&&&\hspace{3.5cm}$\in Sect(\HomHom)$&  and defn. of $\dot{x_2}$  \\
 \gatinterpretationaxcond{tcaxiomone}{P}{id(x_1) \circ f = f}
                                        {\leftidentitylhsremapped=\leftidentityrhsmapped}{(\ref{rightidentitylhsmapping}) and (\ref{rightidentityrhsmappping})}    
 \end{tabular}
@@ -426,7 +494,7 @@ Part Four. Associativity axiom.
 \setlength{\tabcolsep}{2pt}
 \begin{tabular}{l l  c  p{0cm} l  l}
 \gatinterpretationcontext{Let $Q$ be the context $\associativitypremise$} \\
-\gatinterpretationcontext{then $Q \mapsto \associativitypremisemapped \in Cover(\associativitypremisepopmapped)$ in \catc. \highlight{Why so?}}\\
+\gatinterpretationcontext{then $Q \mapsto \associativitypremisemapped \in Cover(\associativitypremisepopmapped)$ in \catcw by lemma \ref{associativitycontextmapping}.}\\
 \hline
 
 \multicolumn{2}{l}{Derived Rule} &&& Interpretation by $I$ in \catcw & Reason why                   \\
@@ -450,23 +518,24 @@ Part Four. Associativity axiom.
 \gatinterpretationdetail{assocfgmapping}{Q}{\ofT{f \circ g}{Hom(z_1,z_3)}}
                                    { \assocfogmapped \in Sect(\tuple{\dddot z_1,\dddot z_3}^*Hom) }
 																	 {lemma \ref{supplementarylemma}, (\ref{assocfmapping}) and (\ref{assocgmapping})}                  \\[0.2cm]
-\gatinterpretationdetail{assoctypemapping}{Q}{\associativitylhstype}{\associativitylhstypemappedinitially}{lemma \ref{supplementarylemma}, (\ref{homintro}) and (\ref{assoczimapping})}    \\[0.2cm]
-\gatinterpretationmapeqv                     {\associativitylhstypemapped}{lemma \ref{thedupletuplelemma}}             \\[0.2cm]         
+\gatinterpretationdetail{assoctypemapping}{Q}{\associativitylhstype}{\associativitylhstypemapped}{lemma \ref{supplementarylemma2}, (\ref{homintro}) and (\ref{assoczimapping})}    \\[0.2cm]
+%\gatinterpretationmapeqv                     {\associativitylhstypemapped}{lemma \ref{thedupletuplelemma}}             \\[0.2cm]         
 %\gatinterpretationdetail{assoctypemapping}{Q}{\associativitylhstype}{\associativitylhstypemapped}{\highlight{\tbd}}    \\[0.2cm]
 \gatinterpretationdetail{assocLHSmapping}{Q}{\associativitylhstermtyping}{\assoclhsmapped}
                                             {lemma \ref{supplementarylemma}, (\ref{assocfgmapping}) and (\ref{assochmapping})}\\[0.2cm]
 \gatinterpretationmapeqv                    {\assoclhsremapped}{lemma \ref{thedupletuplelemma} and  (s3)}\\[0.2cm]
 \gatinterpretationdetail{assocghmapping}{Q}{\ofT{g \circ h}{Hom(z_2,z_4)}}
-                                   { \assocgohmapped \in Sect(\tuple{\dddot z_2,\dddot z_4}^*Hom) }
-																	 {lemma \ref{supplementarylemma}, (\ref{assoczimapping}), (\ref{assocgmapping}) and (\ref{assochmapping})}              \\[0.2cm]
-\gatinterpretationmapeqv                    {\assocgohremapped}{lemma \ref{thedupletuplelemma}}\\[0.2cm]
+                                   { \assocgohremapped \in Sect(\tuple{\dddot z_2,\dddot z_4}^*Hom) }
+																	 {lemma \ref{supplementarylemma2}, (\ref{assoczimapping}), (\ref{assocgmapping})}              \\[0.2cm]
+\gatinterpretationdetailcontinuation{}{\hspace{2.2cm} and (\ref{assochmapping})}                                                   \\[0.2cm]
+%\gatinterpretationmapeqv                    {\assocgohremapped}{lemma \ref{thedupletuplelemma}}\\[0.2cm]
 \gatinterpretationdetail{assocRHSmapping}{Q}{\associativityrhstermtyping}
                                             {\assocrhsmapped \iffalse{\in Sect(\associativitylhstypemapped)}\fi}
 																						    {lemma \ref{supplementarylemma}, (\ref{assocfmapping}) and (\ref{assocghmapping})} \\ [0.2cm]
 \gatinterpretationmapeqv                    {\assocrhsremapped}{lemma \ref{thedupletuplelemma} and (s3)}\\[0.2cm]
-\gatinterpretationaxcond{associativity}{}{(f \circ g) \circ h = f \circ (g \circ h)}
+\gatinterpretationaxcond{associativity}{Q}{(f \circ g) \circ h = f \circ (g \circ h)}
                                      { \assoclhsremapped  } \\
-\gatinterpretationaxcondrhscontinuation{ = \assocrhsremapped } {(\ref{assocLHSmapping}) and  (\ref{assocRHSmapping})}\\
+\gatinterpretationaxcondrhscontinuation{= \assocrhsremapped } {(\ref{assocLHSmapping}) and  (\ref{assocRHSmapping})}\\
 \end{tabular}
 \end{table}
 

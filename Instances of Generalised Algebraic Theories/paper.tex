@@ -126,6 +126,7 @@ DRAFT }
 \newcommand{\ftwostar}   {{f_2}\kern-.15em^*}
 \newcommand{\fjstar}     {{f_j}\kern-.2em^*}
 \newcommand{\fjpstar}    {{f_{j-1}}\kern-.25em^*}
+\newcommand{\fmonestar}{{f_{m-1}}\kern-.15em^*}
 \newcommand{\fmstar}{{f_m}\kern-.25em^*}
 \newcommand{\smstar}{{s_m}\kern-.25em^*}
 \newcommand{\sonestar}{{s_1}\kern-.15em^*}
@@ -142,7 +143,9 @@ DRAFT }
 \definecolor{lightergrey}{rgb}{0.9,0.9,0.9}
 %\gatinterpretationdetail{label}{rulepremise}{ruleconclusion}{mapping}{justification}
 \newcommand{\gatinterpretationdetail}[5]{
-\refstepcounter{equation}(\theequation)\label{#1}& \gatrule{#2}{#3}&$\mapsto$&&$#4$&#5}
+\refstepcounter{equation}(\theequation)\label{#1}&\gatrule{#2}{#3}&$\mapsto$&&$#4$&#5}
+
+\newcommand{\gatinterpretationdetailcontinuation}[2]{&&&&$#1$&#2}
 
 \newcommand{\gatinterpretationintro}[5]{
 \refstepcounter{equation}(\theequation)\label{#1}& \gatrule{#2}{#3}&$\mapsto$&&\cellcolor{lightergrey}$#4$&#5}
@@ -154,7 +157,8 @@ DRAFT }
 \newcommand{\gatinterpretationaxcond}[5]{
 \refstepcounter{equation}(\theequation)\label{#1}& \gatrule{#2}{#3}&$\scriptstyle iff$&&\cellcolor{lightergrey}$#4$&#5}
 
-\newcommand{\gatinterpretationaxcondrhscontinuation}[2]{ &&&& \cellcolor{lightergrey}\hspace{0.5cm} $#1$ &{#2}}
+\newcommand{\gatinterpretationaxcondrhscontinuation}[2]{ &&&& \cellcolor{lightergrey}\hspace{-0.2
+cm} $#1$ &{#2}}
 
 %\gatinterpretationaxeqv{equivalentcondition}{justificaton}
 \newcommand{\gatinterpretationaxeqv}[2]{&&$\scriptstyle iff$&&$#1$&#2}
@@ -187,9 +191,6 @@ $
 }
 }
 
-\iffalse
-
-
 \begin{abstract}
 \commentary{Generally, I  go to lengths not to speak of `models of theories' because I prefer to use the term `model' not as logicians use it but as other theoreticians (economists, biologists, physicists etc) and data analysts and programmers use it -- I wish to speak of theories modelling the world not vice-versa.
 }In these notes I describe a broad notion of model of a generalised algebraic theory by defining the notion of 
@@ -212,33 +213,26 @@ The theory of internal monoids is, as to be expected, in agreement with other de
 \section{Introduction}
 \input{introduction}
 
-
 \section{Background regarding Generalised Algebraic Theories}
 \input{GeneralisedAlgebraicTheories}
 
 \section{Contextual Category Part One - $s$, $^*$ and $\cross$ Operators}
 \input{contextualnotationpartone}
-\fi
+
 \section{Instances of Generalised Algebraic Theories in Contextual Categories}
 \label{sectioninwhichinstanceisdefined}
 \input{instancedefinition}
 
-\iffalse
 \section{Contextual Categories Part Two - The Duple Construction}
 \label{contextualnotationparttwo}
 \input{thedupleconstruction}
 
-\fi
-
-\section{Supplementary Lemma}
+\section{Supplementary Lemmas}
 \input{supplementary.tex}
-
-
-\iffalse
 
 \section{Examples}
 I give two examples to illustrate how the the main definitions may be applied. 
-\commentary{Something about \highlight{$\hat tm$} and \hightlight{$\hat tc$}?
+\commentary{Something about \highlight{$\hat tm$} and \highlight{$\hat tc$}?}
 \subsection{Approach -- Conventions}
 \input{conventions}
 
@@ -250,10 +244,8 @@ section \ref{sectioninwhichinstanceisdefined}.
 \subsection{Internal Monoids -- instances of the Theory of Monoids within Contextual Categories}
 \label{monoidsinstanceexample} 
 \input{monoidsinstanceexample} 
-\fi 
 
 \subsection{Internal Categories -- instances of the Theory of Categories within Contextual Categories}
-
 \label{categoriesinstanceexample}
 \input{categoriesinstanceexample}
 
