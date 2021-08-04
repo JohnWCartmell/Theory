@@ -1,6 +1,48 @@
 \label{generalisedalgrbraictheories}
+
 \note
-In my thesis (\cite{Cartmell78}) and as written up in \cite{Cartmell86}, I define what it is for a rule written in the alphabet of a generalised algebraic theory to be \term{well-formed}. Here I will use the adjective \term{well-typed} instead.
+In this section we recap the notion of a \term{generalised algebraic theory} and some of their meta theory 
+as described in detail in \cite{Cartmell78}  and published in summary in \cite{Cartmell86}.
+We shall adopt a few changes to the  terminology used in the meta theory.
+
+\note
+A generalised algebraic theory consists of a set of symbols each with an introductory rule and a set of axioms. 
+Each axiom is an equality rule. We can consider the symbols plus introductory rules within a generalised algebraic theory to be analogous to the signature within an elementary theory --
+the introductory rule for a symbol defines how that symbol may properly be used, as does, within the context of elementary theories, the arity of a symbol within a signature.
+
+\note
+From the given rules of a generalised algebraic theory  principles of derivation given in \cite{Cartmell86} enable further rules
+to be derived and in this way for any generalised algebraic theory there is defined the set of all derived rules of the theory. 
+This set of rules of a generalised algebraic theory is analogous to the set of provable sentences of an elementary theory.
+  
+Each rule is expressed as the combination of a  \term{premise} and a \term{conclusion} and these may be arranged on the page in a number of ways as suits
+the occasion or as befits personal preference. In the metamathematical arguments we prefer to write the premise above the conclusion 
+\gatdisplayrule{premise}{conclusion} but often we write the rule on a single line. If we write the premise before the conclusion then we separate by a turnstyle $\tstyle$. It is also possible to foreground the conclusion by writing it before the premise and to group rules having some shared context. The 
+examples in section \ref{examples} are presented in this way.
+Of course, in any informal presentation all that is important is that the formal structure shows through.  
+
+In the syntax that we use,  that an expression $t$ represents an instance of a type represented by an expression $Delta$ is written as $\ofT{t}{\Delta}$. Other authors have prefered to use colon at this point in the syntax  and to instead write $t:\Delta$ and such a choice has the benefit of overlap with the syntax
+of programming languages, which is appropriate, and not set theory, which is inappropriate. Continuing, in our syntax,
+the premise of a rule  takes the form $\xDelta{n}$, for $n \geq 0$, where $\xn$ is a sequence of distinct variables and each $\Delta_i$ is an expression.
+
+\note Rules can be of four different forms. They either:
+
+\begin{enumerate}[(i)]
+\item Assert that an expression $\Delta$ represents a type within the context provided by the premise. For such a rule we write
+\gatdisplayrule{\xDelta{n}}{\isT{\Delta}}. Such rules we have referred to as  \Trules in the past but other authors refer to them as \term{type judgements}.
+
+\item Assert that an expression $t$ represents an instance of a type represented by an expression $\Delta$ within the context provided by the premise. Such a rule is written as
+\gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta}}. Such a rule we refer to as a \trule.
+
+\item Assert that two expressions, $\Delta$ and $\Delta'$ represents identical types within the context provided by the premise. Such a rule is written as 
+\gatdisplayrule{\xDelta{n}}{\Delta=\Delta'} and we refer to as a \Teqrule.
+
+\item Assert that two expressions, $t$ and $t'$ represents identical instances of a type represented by an expression $\Delta$  within the context provided by the premise. Such a rule is written as 
+\gatdisplayrule{\xDelta{n}}{t=\ofT{t'}{\Delta}} and we  refer to it as a \teqrule.
+\end{enumerate}
+
+\note
+A \term{pretheory} is defined as a collection of symbols each with an introductory rule and a set of axioms. A pretheory is defined to be \term{well-typed}\footnote{\cite{Cartmell86}, I define what it is for a rule written in the alphabet of a generalised algebraic theory to be \textit{well-formed}. Here I will use the adjective \textit{well-typed} instead.} iff all its introductory rules and axioms are. A \term{generalised algebraic theory} is defined to be a well-typed pretheory. The definition of \term{well-typed} is as follows:
 With this revised terminology, definition 2(a) from \cite{Cartmell86}, states that in  a generalised algebraic theory $U$:
 \begin{enumerate} [(i)]
 \item 
@@ -19,12 +61,12 @@ an \teqrule \gatdisplayrule{\xDelta{n}}{t=t' \in \Delta} is well-typed iff
 both \gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta}} and \gatdisplayrule{\xDelta{n}}{\ofT{t'}{\Delta}} are derived rules
 of $U$.
 \end{enumerate}
-In \cite{Cartmell78} and \cite{Cartmell86}, a \term{pretheory} (which is defined as a collection of symbols each with an introductory rule and a set of axioms) is defined to be \term{well-typed} iff all its introductory rules and axioms are. A \term{generalised algebraic theory} is defined to be a well-typed pretheory.
 
-\note In my thesis there are a number of housekeeping lemmas which are aimed at showing that the formal definitions inclusive of the `principles of derivation' (\cite{Cartmell78}, \cite{Cartmell86}) work out as they ought to. Some of these lemmas are summarised in \cite{Cartmell86} but not all of them. Here I will summarise each one of them and name those that were previously unnamed. In the following, assume that $U$ is a generalised algebraic theory.
+
+\note There are a number of housekeeping lemmas which are required. Some of these lemmas are summarised in \cite{Cartmell86} but not all of them. Here I will summarise each one of them and name those that were previously unnamed. In the following, assume that $U$ is a generalised algebraic theory.
 
 \note 
-Recall that  a \term{realisation} of one context from another is defined as follows: if $\xDelta{n}$ and $\yOmega{m}$ are contexts of a generalised algebraic theory $U$  then a \term{realisation} of  $\yOmega{m}$ with respect to $\xDelta{n}$ is an $m$-tuple of expressions $\tuple{s_1,...s_m}$
+A \term{realisation} of one context from another is defined as follows: if $\xDelta{n}$ and $\yOmega{m}$ are contexts of a generalised algebraic theory $U$  then a \term{realisation} of  $\yOmega{m}$ with respect to $\xDelta{n}$ is an $m$-tuple of expressions $\tuple{s_1,...s_m}$
 such that \foreachj, the rule \gatdisplayrule{Q}{\ofT{s_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}} is a derived rule of $U$
  
 \note The Substitution Lemma: In brief, every type-correct substitutional instance of a derived rule is a derived rule. 
