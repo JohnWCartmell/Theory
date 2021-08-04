@@ -1,16 +1,16 @@
 \label{generalisedalgrbraictheories}
 
-\note
+
 In this section we recap the notion of a \term{generalised algebraic theory} and some of their meta theory 
 as described in detail in \cite{Cartmell78}  and published in summary in \cite{Cartmell86}.
 We shall adopt a few changes to the  terminology used in the meta theory.
 
-\note
+
 A generalised algebraic theory consists of a set of symbols each with an introductory rule and a set of axioms. 
 Each axiom is an equality rule. We can consider the symbols plus introductory rules within a generalised algebraic theory to be analogous to the signature within an elementary theory --
 the introductory rule for a symbol defines how that symbol may properly be used, as does, within the context of elementary theories, the arity of a symbol within a signature.
 
-\note
+
 From the given rules of a generalised algebraic theory  principles of derivation given in \cite{Cartmell86} enable further rules
 to be derived and in this way for any generalised algebraic theory there is defined the set of all derived rules of the theory. 
 This set of rules of a generalised algebraic theory is analogous to the set of provable sentences of an elementary theory.
@@ -21,11 +21,12 @@ the occasion or as befits personal preference. In the metamathematical arguments
 examples in section \ref{examples} are presented in this way.
 Of course, in any informal presentation all that is important is that the formal structure shows through.  
 
-In the syntax that we use,  that an expression $t$ represents an instance of a type represented by an expression $Delta$ is written as $\ofT{t}{\Delta}$. Other authors have prefered to use colon at this point in the syntax  and to instead write $t:\Delta$ and such a choice has the benefit of overlap with the syntax
+In the syntax that we use,  that an expression $t$ represents an instance of a type represented by an expression $\Delta$ is written as $\ofT{t}{\Delta}$. Other authors have prefered to use colon at this point in the syntax  and to instead write $t:\Delta$ and such a choice has the benefit of overlap with the syntax
 of programming languages, which is appropriate, and not set theory, which is inappropriate. Continuing, in our syntax,
 the premise of a rule  takes the form $\xDelta{n}$, for $n \geq 0$, where $\xn$ is a sequence of distinct variables and each $\Delta_i$ is an expression.
 
-\note Rules can be of four different forms. They either:
+
+Rules can be of four different forms. They either:
 
 \begin{enumerate}[(i)]
 \item Assert that an expression $\Delta$ represents a type within the context provided by the premise. For such a rule we write
@@ -41,7 +42,7 @@ the premise of a rule  takes the form $\xDelta{n}$, for $n \geq 0$, where $\xn$ 
 \gatdisplayrule{\xDelta{n}}{t=\ofT{t'}{\Delta}} and we  refer to it as a \teqrule.
 \end{enumerate}
 
-\note
+
 A \term{pretheory} is defined as a collection of symbols each with an introductory rule and a set of axioms. A pretheory is defined to be \term{well-typed}\footnote{\cite{Cartmell86}, I define what it is for a rule written in the alphabet of a generalised algebraic theory to be \textit{well-formed}. Here I will use the adjective \textit{well-typed} instead.} iff all its introductory rules and axioms are. A \term{generalised algebraic theory} is defined to be a well-typed pretheory. The definition of \term{well-typed} is as follows:
 With this revised terminology, definition 2(a) from \cite{Cartmell86}, states that in  a generalised algebraic theory $U$:
 \begin{enumerate} [(i)]
@@ -63,27 +64,37 @@ of $U$.
 \end{enumerate}
 
 
-\note There are a number of housekeeping lemmas which are required. Some of these lemmas are summarised in \cite{Cartmell86} but not all of them. Here I will summarise each one of them and name those that were previously unnamed. In the following, assume that $U$ is a generalised algebraic theory.
+ There are a number of housekeeping lemmas which are required. Some of these lemmas are summarised in \cite{Cartmell86}. The proofs of these lemmas 
+	are given in \cite{Cartmell78}.
+Here we summarise each one of them and give names to some that were previously unnamed. In the following, assume that $U$ is a generalised algebraic theory.
 
-\note 
-A \term{realisation} of one context from another is defined as follows: if $\xDelta{n}$ and $\yOmega{m}$ are contexts of a generalised algebraic theory $U$  then a \term{realisation} of  $\yOmega{m}$ with respect to $\xDelta{n}$ is an $m$-tuple of expressions $\tuple{s_1,...s_m}$
-such that \foreachj, the rule \gatdisplayrule{Q}{\ofT{s_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}} is a derived rule of $U$
  
-\note The Substitution Lemma: In brief, every type-correct substitutional instance of a derived rule is a derived rule. 
+A \term{realisation} of one context from another is defined as follows: if $\xDelta{n}$ and $\yOmega{m}$ are contexts of a generalised algebraic theory $U$  then a \term{realisation} of  $\yOmega{m}$ with respect to $\xDelta{n}$ is an $m$-tuple of expressions $\tuple{s_1,...s_m}$
+such that \foreachj, the rule \gatdisplayrule{Q}{\ofT{s_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}} is a derived rule of $U$.
 
-More precisely, for $m \geq 1$, if \gatdisplayrule{\yOmega{m}}{Conclusion} is a derived rule of $U$.
+
+The Substitution Lemma states that, in brief, every type-correct substitutional instance of a derived rule is a derived rule as follows:
+\begin{lemma}
+\llabel{substitutionlemma}
+For $m \geq 1$, if \gatdisplayrule{\yOmega{m}}{Conclusion} is a derived rule of $U$.
 and  if $\tuple{\sm}$ is a realisation of the context $\yOmega{m}$ wrt the context $Q$ 
 then \gatdisplayrule{\yOmega{m}}{Conclusion[s_1|y_1,...s_m|y_m]} is a derived rule of $U$, where
 for any expression $expr$ we write
 $expr[s_1|y_1,...s_m|y_m]$ to mean
 the result of substituting each instance of variable $y_j$ in $expr$ by $s_j$, \foreachj.
+\end{lemma}
 
-\note The Well-Typedness Lemma\footnote{Lemma on page 1-33 of \cite{Cartmell78}}. Every derived rule of $U$ is well-typed. 
+The following may be found on page 1-33 of \cite{Cartmell78}.
+\begin{lemma}[The Well-Typedness Lemma]
+\llabel{welltypednesslemma}
+Every derived rule of a generalised algebraic theory $U$ is well-typed.
+\end{lemma} 
 
-\note The Derivation Lemma\footnote{page 1.34 of \cite{Cartmell78}}. 
+This is followed by:
+\begin{lemma}[The Derivation Lemma]
+\llabel{derivationlemma} 
 \begin{enumerate}[(a)]
-
-\item Every derived \Trule of $U$ is of the form
+\item Every derived \Trule of a generalised algebaric theory $U$ is of the form
 \gatdisplayrule{\yOmega{m}}{\isT{A(\tn)}} for some sort symbol $A$ of $U$ with introductory rule of the form
 \gatdisplayrule{\xDelta{n}}{\isT{A(\xn)}} and for some expressions $\tn$ such that \foreachi, the rule
 \gatdisplayrule{\yOmega{m}}{\ofT{t_i}{\Delta_i[t_1|x_1,...t_{i-1}|x_{i-1}]}} is a derived rule of $U$.
@@ -97,29 +108,44 @@ and for some expressions $\tn$ such that \foreachi, the rule
 and such that
 \gatdisplayrule{\yOmega{m}}{\Delta[t_1|x_1,...t_n|x_n]=\Omega} is a derived rule of $U$.
 \end{enumerate}
+\end{lemma}
 
-\note The Weakening Lemma\footnote{Lemma 4 of section 1.7 of \cite{Cartmell78} (page 1.37)}. In brief, if the premise of a derived rule is weakened then the resulting rule is a derived rule. More precisely, if 
+The Lemma 4 of section 1.7 of \cite{Cartmell78} (page 1.37) may be summarised as saying that if the premise of a derived rule is weakened then the resulting rule is a derived rule. It is expressed as follows:
+\begin{lemma}[The Weakening Lemma]
+\llabel{weakeninglemma}
+If
 \gatdisplayrule{\xDelta{n}}{\isT{\Delta}}  and
 \gatdisplayrule{\xDelta{n},\yOmega{m}}{Conclusion} are both derived rules of $U$ then if $z$ is a variable
 distinct from $\xn,\ym$ then
 the (weakened) rule \gatdisplayrule{\xDelta{n},z \in \Delta,\yOmega{m}}{Conclusion} is a derived rule
 of $U$.
+\end{lemma}
 
-\note The Stratification Lemma\footnote{Lemma 3 of section 1.7 of \cite{Cartmell78} (page 1.36)}. For each generalised algebraic theory $U$  there is a sequence of theories 
+
+ The following lemma\footnote{Lemma 3 of section 1.7 of \cite{Cartmell78} (page 1.36)} is of some practical importance:
+\begin{lemma}[The Stratification Lemma]
+\llabel{stratificationlemma}
+ For each generalised algebraic theory $U$  there is a sequence of theories 
 $U_0 \subseteq $U$_1 \subseteq $U$_2 \subseteq ...$ such that  \inlinedisplay{$U$ = \bigcup_i $U$_i}
 and such that each $U_{i+1}$ is a simple extension of $U_i$ in the sense that each introductory rule and axiom of $U_{i+1}$ is a well-typed  with respect to $U_i$.
+\end{lemma}
 
-\note
-If $U$ is a single or multi-sorted algebraic theory considered as an instance of a
+\begin{example}
+If $U$ is a single or multi-sorted algebraic theory considered as an example of a
  generalised algebraic theory then $U$ can be stratified as $U_0 \subseteq U_1 \subseteq U_2=U$
 where $U_0$ defines the sort symbol(s), $U_1$ defines the operator symbols and $U_2$ defines the axioms. 
+\end{example}
 
-\note The generalised algebraic theory $cc$ of categories stratifies as: $cc_0$ - sort Ob,
+\begin{example}
+ The generalised algebraic theory $cc$ of categories stratifies as: $cc_0$ - sort Ob,
 $cc_1$ - sort Hom, $cc_2$ - operator symbols $\circ$ and $id$, $cc_3$ - identity and associativity axioms.
- 
+\end{example} 
 
-\note We will also use the Finite Subtheory Lemma\commentary{\highlight{Compactness Lemma??}}: For each generalised algebraic theory $U$, if r is a derived rule of $U$ then it is a derived rule of some finite subtheory $F \subseteq U$. \
-
+ We will also use the Compactness Lemma for generalised algebraic theories:
+\begin{lemma}[The Compactness Lemma]
+\llabel{compactnesslemma}
+For each generalised algebraic theory $U$, if r is a derived rule of $U$ then it is a derived rule of some finite subtheory $F \subseteq U$. \
+\end{lemma}
 
 
 
