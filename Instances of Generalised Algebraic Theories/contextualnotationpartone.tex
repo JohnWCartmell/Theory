@@ -6,7 +6,7 @@ Terminology: By  the generic term \term{tree} is meant a partially ordered set (
 In this discussion we restrict ourselves to rooted $\omega$-trees i.e. trees for which the set $\set{s \in T : s < t}$
 is finite for all $t \in T$ and for which there is a least element in the partial ordering. 
 
-With respect to a partial ordering $<$, we say that an element $y$ \textit{covers}  an element $x$ in  iff $x<y$ and there does not exist $w$ such that $x < w$ and $w < y$.
+With respect to a partial ordering $<$, we say that an element $y$ \textit{covers}  an element $x$  iff $x<y$ and there does not exist $w$ such that $x < w$ and $w < y$.
 If object $y$ covers object $x$ in the partial ordering 
 then we write $x \base y$ (we use this in preference to the more usual $x \lessdot y$).
 
@@ -15,11 +15,11 @@ then we write $x \base y$ (we use this in preference to the more usual $x \lessd
 of the set $\setsuchthat{s \in T}{s < t}$. If we define the set $T_i$ to be the set of elements of a tree
 of rank $i$ then we have that $T= \bigcup_{i \in N}T_i$. 
 
-\note In the  definition of contextual categories (\cite{Cartmell78,Cartmell86}) there is defined to be such a tree-structure on the objects of the category. In a contextual category the root of the tree of objects is also  terminal object $1$
-of the category. For $x$ an object of the category we define the set of objects  $Cover(x)$ to be the set of objects covering $x$.
+\note In the  definition of contextual categories (\cite{Cartmell78,Cartmell86}) there is defined to be such a tree-structure on the objects of the category. In a contextual category the root of the tree of objects is also  a terminal object
+of the category and is denoted $1$. For $x$ an object of the category we define the set of objects  $Cover(x)$ to be the set of objects covering $x$.
 
 \note
-By a \term{tree-structured category} we mean (i) a category with a tree-structure defined on its objects such that the tree of objects has a unique root object and (ii) for every $x \base y$ in the tree of objects  a canonical morphism $p_y:y \rightarrow x$.  I shall shall say morphisms of this form  are \term{direct dependency morphisms} and they will
+By a \term{tree-structured category} we mean (i) a category with a tree-structure defined on its objects such that the tree of objects has a unique root object and (ii) for every $x \base y$ in the tree of objects  a canonical morphism $p_y:y \rightarrow x$.  I shall say morphisms of this form  are \term{direct dependency morphisms} and they will
 be distinguished in diagrams by an arrow with  a triangular head so:
 \begin{center}
 $
@@ -33,11 +33,11 @@ $
 
 \note
 If $x$ is an object of a tree-structured category \catcw and if $y \in Cover(x)$ in \catcw then we define 
-the set  of sections of $y$, denoted $Sect(y)$, to be the set of morphisms $s: x \morph y$ in \catc  such that $s \circ p_y = id_x$. So that if $x$ is a section of $y$ and $y$ covers $x$ then
-we have\ \ \ 
+the set  of sections of $y$, denoted $Sect(y)$, to be the set of morphisms $s: x \morph y$ in \catcw  such that $s \circ p_y = id_x$. We have therefore that if $x$ is a section of $y$ and $y$ covers $x$ then
+\ \ \ \ 
 \begin{tabular}{cccc}
 $
-\begin{array}{p{2cm}}
+\begin{array}{p{0.5cm}}
 \Rnode{y}{y} \\ [1.4cm]
 \Rnode{x}{x} \\
 \mbox{
@@ -46,7 +46,7 @@ $
 \ncarrZZ[30]{x}{y} 
 \alabel{s}}
 \end{array}
-$  & so that &
+$  & in \catcw and &
 $
 \begin{array}{c p{0.5cm}c p{0.5cm}c}
               && \Rnode{y}{y}&&                \\ [1.4cm]
@@ -60,11 +60,11 @@ $
 \blabel{id_x}
 }
 \end{array}
-$& commutes
+$& commutes.
 \end{tabular}
 
 \note
-The original definition of contextual category given  in [1] and [2], a contextual category is defined to be a tree-structured category 
+In the  definition of contextual category given  in [1] and [2], a contextual category is defined to be a tree-structured category 
 \cat{C} with the following additional structure:
 
 \noindent 
@@ -77,24 +77,23 @@ $
 $
 \jcbarr{f}{x}{y}
 \ncasar{p_z}{z}{y}
-
 in \cat{C}, an object $f \sub z$ such that $x \base f \sub z$, a morphism $q(f,z): f \sub z \rightarrow z$ such that
 
 \begin{axiom}{q1}
 q(f,z) \circ p_z = p_{f \sub z} \circ f
 \end{axiom}
 
-i.e. such that the diagram: 
-$$
+\noindent i.e. such that the diagram: \ \ \ 
+$
 \ccsquareoutline{0.9cm}{1.2cm}{f^*z}{z}{x}{y}
 \ccsquareacross{q(f,z)}{f}
 \ccsquaredown{p_{f \sub z}}{p_z}
-$$
-commutes, 
+$
+commutes and, (ii), is a pullback diagram, that is: \\
+\hspace{0.2cm}
 
-\noindent
-and, (ii), so that each such diagram is a pullback diagram, that is: for all objects $w$ of \cat{C}, and for all
-morphisms $h_1: w \rightarrow x$ and $h_2: w \rightarrow z$ (see diagram \ref{pullback} below) such that
+\noindent for all objects $w$ of \cat{C}, and for all
+morphisms $h_1: w \rightarrow x$ and $h_2: w \rightarrow z$ such that
 $h_1 \circ f = h_2 \circ p_z$ 
 there exists a unique $h:w \rightarrow f \sub z$ in \cat{C} such that
 $h \circ p_{f \sub z} = h_1$ and $h \circ q(f,z) = h_2$, as shown here:
@@ -160,8 +159,8 @@ q(f \circ g,z) = q(f,g^*z) \circ q(g,z)
 
 
 \note
-Following Voevodsky we may replace the pullback condition of the original definition by an 
-`s' operator along with axioms as follows:
+Following Voevodsky we may replace the pullback condition (condition (ii) above) by introducing and axiomatising an 
+`s' operator  as follows:
 
 \noindent (ii') for all morphisms $f: x \rightarrow y$, a morphism $s(f) : x \rightarrow f \sub p_y \sub y$ such that both:
 
@@ -216,7 +215,7 @@ s(f \circ q(g,z))=s(f)
 \end{axiom}
 
 
-\note I use several other notational conveniences when working in contextual categories. 
+\note We can introduce several additional notations for use in in contextual categories. 
 If $x < y$ in the contextual category \catc, then define the morphism $p_{y,x}:y \morph  x$ in \catc, \\
 
 \begin{tabular}{c c c  c  c  c c}
@@ -269,21 +268,18 @@ $
 \alabel{p_{w_1}}}
 $ 
 & %7 c
-,
+
 \end{tabular}
 
-where
-$w_1, ... w_n$ is the unique sequence of objects of $C$ such that 
-$x \base w_1 \base ... \base w_n \base y$. If $x = y$, then define $p(y, x) = id_x$.
-We say that the morphism  $p_{y,x}$ is a dependency morphism. 
-
+\noindent where $w_1, ... w_n$ is the unique sequence of objects of $C$ such that 
+$x \base w_1 \base ... \base w_n \base y$. It is also useful to have a defintion of $p_{x,x}$ as the identity morphism
+$id_x$, for any object $x$, so that $p_{y,x}$ is defined for any pair of objects $x$ and $y$ such that $x \leq y$.
+We say that any morphism  of the form $p_{y,x}$ is a dependency morphism. 
 
 \note
-The contextual category structure supplies us with pullbacks for any $\smorph$ morphism, \commentary{Need improve \highlight{smorph}}
-these given pullbacks can be pieced together to obtain a pullback for
-any $\dmorph$ morphism  along any morphism with the same codomain. 
-
-In general, whenever $y \leq z$ in $C$ and whenever $f:x \morph y$ in $C$, then we have
+The contextual category structure supplies us with pullbacks for direct dependency morpisms.
+These can be pieced together to obtain  a pullback for any indirect dependency morphism   along any morphism with common codomain
+as  whenever $y \leq z$ in $C$ and whenever $f:x \morph y$ in $C$, then we have
 the following canonical pullback for the morphism $p_{z, y}$ along $f$, where
 $w_1, ... w_n$ is the unique sequence of objects of $C$ such that 
 $y \base w_1 \base ... \base w_n \base z$:
@@ -310,8 +306,8 @@ category structure we would like a simpler notation for them. As no confusion is
 likely, we extend the $^*$ and $q$ notation to cover these new pullback diagrams.
 From now on if $f:x \morph y$ in $C$ and $y \leq z$ in $C$, then $f^*z$ 
 is defined to be $q(...q(f, w_1)...w_n)^* z$ as shown in diagram (\ref{compositepullbackdefinition}) 
-and $q(f,z)$ is defined as the secondary projection shown in (\ref{compositepullbackdefinition}) i.e. as 
-$q(q(...q(f,w_1)...w_n),z)$
+and $q(f,z)$ is defined as the secondary projection shown in (\ref{compositepullbackdefinition}), i.e. as 
+$q(q(...q(f,w_1)...w_n),z)$,
 so that (\ref{compositepullbackdefinition}) can be rewritten as:
 
 \vspace{3mm}
@@ -331,20 +327,8 @@ so that (\ref{compositepullbackdefinition}) can be rewritten as:
 \alabel{p_{z,y}}
 \end{center}
 \note
-With respect to any pullback diagram, if
- \ \ 
-$
-\ccsquareoutline{0.9cm}{1.2cm}{f^*z}{z}{x}{y}
-\ccsquareacross{q(f,z)}{f}
-\ccsquaredown{p_{f \sub z}}{p_z}
-$
-is an extended (\highlight{??})pullback diagram \commentary{I need to make my mind up whether I use tuple for all pullbacks or just primitive pullbacks}
-in \catcw  so that for all objects $w$ of \catc, and for all
-morphisms $h_1: w \rightarrow x$ and $h_2: w \rightarrow z$  such that
-$h_1 \circ f = h_2 \circ p_z$ 
-there exists a unique $h:w \rightarrow f \sub z$ in \catcw such that
-$h \circ p_{f \sub z} = h_1$ and $h \circ q(f,z) = h_2$, as shown is diagram (\ref{pullback})
-then we use the notation $\tuple{h_1,h_2}_{x,y,f,z}$  for the unique morphism   
+With respect to any pullback diagram (\ref{compositepullbackout})
+ we use the notation $\tuple{h_1,h_2}_{x,y,f,z}$  for the unique morphism   
 $h:w \rightarrow f \sub z$ in \cat{C} such that
 $h \circ p_{f \sub z} = h_1$ and $h \circ q(f,z) = h_2$.\\
 $\tuple{h_1,h_2}_{x,y,f,z}$ may be be safely elided to $\tuple{h_1,h_2}_{f,z}$ and, rather less safely, to $\tuple{h_1,h_2}$.
@@ -395,34 +379,63 @@ $
 \ncarr{BL}{BR}
 \blabel{f}
 is diagram (\ref{compositepullbackout}). 
-On such diagrams as shown here the $p$ labels on $\dmorph$ morphisms (inclusive of their indices) are entirely predictable  and so in diagrams that follow we may omit them.
-
 
 \note
-If we write $\crossx{y}{z}{x}$ in place of ${p_{y,x}}^*z$, for $x < y$, $x < z$  in \ccat, then
-$\crossx{y}{z}{x}$  represents  in the syntax the `weakening' of a rule of the form
+We shall write $\crossx{y}{z}{x}$ in place of ${p_{y,x}}^*z$, for $x < y$, $x < z$  in \catc. 
+Note that
+$\crossx{y}{z}{x}$  represents what in the generalised algebraic syntax  is the `weakening' of a rule of the form
 \begin{displaymath}
-x, w_1,...w_n \tstyle \isT{z}
+x,\, w_1,...w_n \tstyle \isT{z}
 \end{displaymath}
 from a rule with context $x, w_1,...w_n$ to a rule with broader context $y, w_1, ... w_n$: 
 \begin{displaymath} 
-y, w_1,...w_n \tstyle \isT{z}.
+y,\, w_1,...w_n \tstyle \isT{z}.
 \end{displaymath}
 
-Within the contextual category I think of $\crossx{y}{z}{x}$  as a local cartesian product but of course categorically it is a filtered product i.e. a pullback. If $w < x$ and $w < y$  then 
+\noindent Within the contextual category we can think of $\crossx{y}{z}{x}$  as a local cartesian product but of course categorically it is a filtered product i.e. a pullback --- if $w < x$ and $w < y$  then 
 \genericcrossxproductdiagram % defined in 'paper.tex'
 is a pullback diagram in \ccat.
 
 \note
 We can extend the $\crossx{}{}{w}$ notation to morphisms. If $f:x \morph x'$ and $g: y \morph y'$ in a contextual
 category $\ccat[C]$ and if $w$ is an object such that $w < x$, $w <x'$, $w < y$ and $w < y'$ then 
-define $\crossx{f}{g}{w}:\crossx{x}{y}{w} \morph \crossx{x}{y}{w}$ in $\ccat[C]$ by
+define $\crossx{f}{g}{w}:\crossx{x}{y}{w} \morph \crossx{x'}{y'}{w}$ in $\ccat[C]$ by
 \begin{equation}
 \crossx{f}{g}{w} = \tuple{p_{\crossx{x}{y}{w}, x} \circ f,q(p_{x,w},y) \circ g}
-\end{equation}  
+\end{equation}
+as shown here:  
+\begin{equation*}
+\begin{array}{c p{1.2cm} c  p{0.2cm} c p{0.2cm} c p{1.8cm} c}
+\Rnode{xy}{\crossx{x}{y}{w}} && \Rnode{xpyp}{\crossx{x'}{y'}{w}} \\[1.4cm]
+\Rnode{x}{x}                 && \Rnode{xp}{x'}                   &&&& \Rnode{y}{y} && \Rnode{yp}{y'} \\[1.8cm]
+                             &&                         && \Rnode{w}{w}  &&    &&      
+\makebox[0cm]{
+\nccdar{xy}{x}
+\nccdar{xpyp}{xp}
+\nccdar{x}{w}
+\nccdar{xp}{w}
+\nccdar{y}{w}
+\nccdar{yp}{w}
+\ncarr{x}{xp}
+\alabel{f}
+\ncarr{y}{yp}
+\alabel{g}[0.35]
+\ncarr{xy}{y}
+\alabel{q(p_{x,w},y)}[0.7][0.2]
+\ncarr{xpyp}{yp}
+\alabel{q(p_{x',w},y')}[0.5][0.2]
+\ncdarr[10]{xy}{xpyp}
+%\alabel{\tuple{p_{\crossx{x}{y}{w}, x} \circ f,q(p_{x,w},y) \circ g}}[0.5][2]
+\alabel{\crossx{f}{g}{w}}%[-0.1][15]
+}
+\end{array}
+\end{equation*}
+
+In the special case that $x=x'$ and $f=id_x$ then we get  $\crossx{id_x}{g}{w} : \crossx{x}{y}{w} \morph \crossx{x}{y'}{w}$. 
+This morphism we abbreviate as $\crossx{x}{g}{w}$. 
 
 \note
-In the case special case that $w$ is the terminal object $1$ then the pullback  specialises to give a product diagram:
+In the   case that $w$ is the terminal object $1$ then the pullback  specialises to give a product diagram:
 
 \begin{displaymath}
 \begin{array}{ccccc}
@@ -482,10 +495,10 @@ $\crossx{x}{(\crossx{y}{z}{w})}{w} = \crossx{(\crossx{x}{y}{w})}{z}{w}$ as shown
 
 
 
-\note A number of minor lemmas:
+\note In the examples we give later we make use of the following lemmas:
 
 \begin{lemma}
-\label{footandstactic}
+\llabel{footandstactic}
 If $f: A \morph B$ and $f':A \morph B$ in a contextual category \catcw then if 
 $f \circ p_B$ = $f' \circ p_B$ and $s(f) = s(f')$ then $f=f'$.
 \end{lemma}
@@ -496,13 +509,13 @@ $f = s(f) \circ q(f \circ p_B,B)  = s(f') \circ q(f' \circ p_B,B) = f'$.
 
 From which follows:
 \begin{lemma}
-\label{stactic}
+\llabel{stactic}
 If $A$ is any object of a contextual category \catcw and if $B$ is an object such that $1 \base B$ in \catcw then
 if $f: A \morph B$ and $f':A \morph B$ in  \catcw then $f=f'$ iff $s(f) = s(f')$.
 \end{lemma}
 
 \begin{lemma}
-\label{crosssectionlemma}
+\llabel{crosssectionlemma}
 If 
 %\begin{equation*}
 $
@@ -544,9 +557,8 @@ in \catcw,  then
 \end{equation} 
 \end{lemma}
 \begin{proof}
-$\crossx{B}{g}{A}$ is defined to be the unique section of $\crossx{B}{B'}{A}$ such that $(\crossx{B}{g}{A}) \circ q( p_B,B') = p_B \circ g$.
-
-(\ref{crosssectionlemmatarget}) follows because $s(p_B \circ g)$ is also such a section, since it is defined to be the unique section of $(p_B \circ g \circ p_{B'}) ^* B'$
+$\crossx{B}{g}{A}$ is defined to be the unique section of $\crossx{B}{B'}{A}$ such that $(\crossx{B}{g}{A}) \circ q( p_B,B') = p_B \circ g$ and
+so (\ref{crosssectionlemmatarget}) follows because $s(p_B \circ g)$ issuch a section, since it is defined to be the unique section of $(p_B \circ g \circ p_{B'}) ^* B'$
 such that $s(p_B \circ g) \circ q( p_B \circ g \circ p_{B'}, B') = p_B \circ g$ and this simplifies,
 because $g \circ p_{B'} =id_A$, to
  $s(p_B \circ g)$ being a section of ${p_B} ^* B'$ (i.e of $\crossx{B}{B'}{A}$) satisfying $s(p_B \circ g) \circ q( p_B,B') = p_B \circ g$. 
@@ -555,7 +567,7 @@ because $g \circ p_{B'} =id_A$, to
 % *************************************************************************************
 % sfglemma ****************************************************************************
 \begin{lemma}
-\label{sfglemma}
+\llabel{sfglemma}
 If $f:A \morph B$ and $g:B\morph C$ in a contextual category \catcw and if $C \in Cover(B)$ then
 \begin{equation}
 \label{sgflemmagoalone}
@@ -566,7 +578,7 @@ and
 \label{sgflemmagoaltwo}
 s(f\circ g)=f^*s(g)
 \end{equation}
-where $ft(g) = g \circ p_B$ so that we have
+where $ft(g) = g \circ p_B$ and  $ft(f \circ g) = f \circ g \circ p_B$ so that we have
 \begin{displaymath}
 \begin{array}{ccp{1.7cm}cp{1.7cm}c}
 ft(f\circ g)^*C=\kern-10pt&\Rnode{TL}{f^*(ft(g)^*C)} & & \Rnode{TC}{ft(g)^*C}          \\ [1.7cm]
