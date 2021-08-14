@@ -17,7 +17,6 @@ It is required that $1 \base a_1 \base ... \base a_n \base a$ in \catc.
 \item Suppose that the  expression $\Delta$ is exactly the expression $\Delta_i$, for some $i$, $1 \leq i \leq n$. In this special case we require that the rule $r$  is mapped by $I$ to the object 
 $\crossx{a_n}{a_i}{a_{i-1}}$.
 \end{enumerate} 
-
 \item \underline{\textbf{$\boldsymbol {\in}$-rules}} 
 In addition to the assumptions made in (i),  suppose that the rule
 \gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta}} is a  derived rule of $U$. 
@@ -35,8 +34,8 @@ and we have
                                  &= \crossx{a_n}{a_i}{a_{i-1}} && \mbox{ by definition of $\crossx{}{}{w}$}.
 \end{align*}
 } % end footnote
-$s(p_{a_n,a_i})$ of the object $\crossx{a_n}{a_i}{a_{i-1}}$. Note that $p_{a_n,a_n}$ is defined to be $id{a_n}$ and so in the case of $i=n$ $r_t$
-is mapped to   $s(id_{a_n})$. \commentary{PROOFREAD}
+$s(p_{a_n,a_i})$ of the object $\crossx{a_n}{a_i}{a_{i-1}}$. Note that $p_{a_n,a_n}$ is defined to be $id_{a_n}$ and so in the case of $i=n$, $r_t$
+is mapped to   $s(id_{a_n})$.
 \end{enumerate}
 \item \underline{\textbf{T=-rules}} 
 In addition to the assumptions made in (i), suppose that  
@@ -271,14 +270,14 @@ We see that the mapping that we are required to show follows from $m$ successive
 This completes the proof.
 \end{proof}
 } % end scope of force width commands
-%\newpage
-\note
-We can show that an instance $I$ of a contextual category $U$ in a contextual category \catcw is
+
+\newpage
+We can show that an instance $I$ of a generalised algebraic theoy $U$ in a contextual category \catcw is
 completely determined by its mapping of the introductory rules of sort symbols and operator symbols to
-objects, respectively, sections of \catc. In order to show this first define a preinstance as follows:
+objects, respectively, sections of \catc. In order to show this first define an interpretation as follows:
 \begin{definition}
 If $U$ is a generalised algebraic theory  and if \catcw is a contextual category then
-a \term{preinstance} $I$ of  $U$ in \catcw consists of a pair :
+a \term{interpretation} $I$ of  $U$ in \catcw consists of a pair :
 \begin{itemize}
 \item a mapping $\Isort$ that maps each sort symbol of $U$ to  an object of \catc,
 \item a mapping $\Iop$ that maps each operator symbol of $U$ to a section of \catcw (i.e. to a morphism $f: A \morph B$ for some 
@@ -286,63 +285,142 @@ $A \base B$ in \catcw such that $f \circ p_B=id_A$).
 \end{itemize}
 \end{definition}
 
-Note that I will say that an instance $I$ of $U$ in \catcw extends a preinstance $P$ of $U$ in \catcw to mean that for each sort symbol $A$ of $U$,
-$I(r_A) = P_{sort}(A)$, where $r_A$ is the introductory rule for $A$ and that for each operator symbol
-$f$ of $U$,   $I(r_f) = P_{op}(f)$, where $r_f$ is the introductory rule for $f$.
 
-\note
- For a preinstance to extend to an instance (we will say that it *is* an instance) 
-it will need be type correct and to satisfy the axioms of the theory. The definition of exactly what we mean by this has to proceed by induction because, for example, we need an instance of the rule
-\gatdisplayrule{\xDelta{n}}{\isT{\Delta}} (as an object $a$ of \catc, say) before we can say whether a preinstance of an operator with introductory rule \genericfintroductoryrule
+We will say that  an interpretation $I$ of $U$ in \catcw \term{determines} an  instance $J$ of $U$ in \catcw to mean that for each sort symbol $A$ of $U$,
+$J(r_A) = I_{sort}(A)$, where $r_A$ is the introductory rule for $A$ and that for each operator symbol
+$f$ of $U$,   $J(r_f) = I_{op}(f)$, where $r_f$ is the introductory rule for $f$.
+
+%\newcommand {\Ibar}{\overline{I}}
+
+\newcommand{\Ibar}{\mkern 2.5mu\overline{\mkern-2.5mu I\mkern1.5mu}\mkern -1.5mu}
+
+\begin{definition}
+If $I$ is an interpretation of generalised algebraic theory $U$ in contextual catgeory \catcw
+then define a
+partial mapping $\Ibar$  of T-rules and $\in$-rules to objects, respectively sections, of \catcw
+as follows
+\begin{enumerate}[(i)] 
+\item \underline{\textbf{T-rules}} 
+The derivation lemma (lemma \ref{derivationlemma}) tells us that if $r$ is a derived T-rule of $U$  then it is of the form \gatdisplayrule{P}{\isT{A(t_1,...t_n)}} for some premise $P$, for some $n \geq 0$ and for some sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule{\xDelta{n}}{\isT{A(x_1,...x_n)}} where \foreachi, the rule 
+\gatdisplayrule{P}{\ofT{t_i}{\Delta_i[t_1 | x_1,...t_{i-1}|x_{i-1}]}}, which we will call $r_{t_i}$, is a derived rule of $U$. 
+We define $\Ibar(r)$ to be undefined unless
+$\Ibar(r_{t_i})$ is defined and $\Ibar(r_{t_i}) \in Sect(\Ibar(r_{t_{i-1}})^*...\Ibar(r_{t_1})^*I(A))$, \foreachi,
+in which case we define $\Ibar(r)$ to be $\Ibar(r_{t_n})^*...\Ibar(r_{t_1})^*I(A)$. 
+\item \underline{\textbf{$\boldsymbol {\in}$-rules}} 
+The derivation lemma also tells us that if $r$ is an $\in$-rule then it is  
+either (i) of the form \gatdisplayrule{\xDelta{n}}{\ofT{x_i}{\Omega}} for some $n \ge 1$, for some $i$, $1 \leq i \leq n$, 
+and for some $\Omega$ such that \gatdisplayrule{\xDelta{n}}{\Delta_i=\Omega} is a derived rule of $U$
+or (ii) it is of the form \gatdisplayrule{P}{\ofT{f(t_1,...t_n)}{\Omega}} for some premise $P$, for some $n \geq 0$ and for some operator symbol $f$ with introductory rule $r_f$ of the form \gatdisplayrule{\xDelta{n}}{\ofT{f(x_1,...x_n)}{\Delta}} where \foreachi, the rule 
+\gatdisplayrule{P}{\ofT{t_i}{\Delta_i[t_1 | x_1,...t_{i-1}|x_{i-1}]}}, which we will call $r_{t_i}$, is a derived rule of $U$. 
+
+In  case (i) we define $\Ibar(r)$ to be undefined unless \foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $a_i$ of \catcw such
+that $1 \base a_1,...\base a_n$ and in which case we define $\Ibar(r)$ to be
+$s(p_{a_n,a_i})$ . 
+
+In  case (ii) 
+we define $\Ibar(r)$ to be undefined unless
+the context  $P$ is mapped by $\Ibar$ to some object $b$ of \catcw 
+and \foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $a_i$ of \catcw
+and the rule \gatdisplayrule{\xDelta{n}}{\isT{\Delta}} is mapped by $\Ibar$ to some object $a$ of \catcw and
+$1 \base a_1,...\base a_n \base a$ in catcw 
+and \foreachi, $\Ibar(r_{t_i}) \in Sect(r_{t_{i-1}}^*...r_1^* (\crossx{b}{a}{1}))$
+in which case we
+define $\Ibar(r)=\Ibar(r_{t_n})^*...\Ibar(r_{t_1})^*(\crossx{b}{\Ibar(r_f)}{1})$.
+This completes the definition of $\Ibar$.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma} 
+If $I$ is an interpretation of generalised algebraic theory $U$ in contextual catgeory \catcw then then if $I$ determines an instance of $U$ then the
+partial mapping $\Ibar$ defined in (a) and (b) of T-rules and, respectively, $\in$-rules to objects and sections of \catcw is total i.e. is defined for all T- and $in$-rules and the instance determined by $I$ is $\Ibar$.
+
+
+\end{lemma}
+\begin{proof}  
+Use the lemma regarding the interpretation of substitutions (lemma \ref{substitutioninterpretation})...\commentary{expand}
+\end{proof}
+
+The condition under which an interpretation of $U$ in \catcw determines an instance i.e that the rule mapping $\Ibar$ is total and respects the axioms can be summarised as being that the interpretation\commentary{slight reword needed} needs be type correct and to satisfy the axioms of the theory. The definition of exactly what we mean by this has to proceed by induction because, for example, we need an instance of the rule
+\gatdisplayrule{\xDelta{n}}{\isT{\Delta}} (as an object $a$ of \catc, say) before we can say whether an interpretation of an operator with introductory rule \genericfintroductoryrule
 is well-typed (i.e. to know that it is object $a$ that it is required to be a section of).
 Similarly we need to be able to interpret both sides of an axiom before we can say whether it is respected
-by the preinstance. 
+by the interpretation. For this induction to proceed we need an intermediate definition:
 
-\note Suppose $P$ be a preinstance of $U$ in contextual category \catc.
+\def\restrict{\mathbin{\restriction}}
+\newcommand{\predInstance}{\overline{I \restrict U_p}}
+\newcommand{\Uincrement}{U \setminus\kern-2pt U_p}
+
+\begin{definition}
+Suppose $U$ is a finitely presented generalised algebraic theory and 
+suppose that $U_p$ is the predecessor theory to $U$. Suppose that $I$ is an interpretation of $U$  and that  $I \restrict U_p$  
+determines an instance $\predInstance$ of $U_p$.
+Define interpretation $I$ to be \term{relatively well-typed}  iff 
+
+\begin{enumerate}[(i)]
+\item
+$I$ is well-typed on sort symbols $A$ of $U$ that are additional to those in $U_p$. This we define to mean that
+for all sort symbols $A$ in $\Uincrement$, if $A$ has introductory rule 
+\genericAintroductoryrule then $I$ maps this rule to a cover of \,$\predInstance(r_n)$ in \catc, where $r_n$ is the rule 
+\gatdisplayrule{\xDelta{n-1}}{\isT{\Delta_n}} (which, as required and due to the stratification, is a derived rule of $U_p$).
+\item  $I$ is well-typed on operator symbols  of $U$ that are additional to those of $U_P$. This we define to mean that
+for all sort symbols $f$ in $\Uincrement$, if $f$ has introductory rule 
+\genericfintroductoryrule then $I$ maps this rule to a section 
+of $\predInstance(r)$ where $r$ is the rule
+\gatdisplayrule{\xDelta{n}}{\isT{\Delta}} (which, as required and due to the stratification, is a derived rule of $U_p$). 
+\end{enumerate}
+
+Define interpretation $I$ to be \term{relatively valid}  iff  
+\begin{enumerate}[(i)]
+\item \underline{\textbf{T=-axioms}} 
+for all axioms of $\Uincrement$ of the form
+ \gatdisplayrule{\xDelta{n}}{\Delta = \Delta'},
+$\predInstance(r) = \predInstance(r')$ where $r$ is the rule
+\gatdisplayrule{\xDelta{n}}{\isT{\Delta}} and  
+and $r'$ is the rule \gatdisplayrule{\xDelta{n}}{\isT{\Delta'}}
+\item \underline{\textbf{$\boldsymbol{\in=}$-axioms}} 
+for all axioms of $\Uincrement$ of the form
+\gatdisplayrule{\xDelta{n}}{t = t' \in \Delta},
+$\predInstance(r_t) = \predInstance(r'_t)$ where $r_t$ is the rule
+\gatdisplayrule{\xDelta{n}}{\ofT{r_t}{\Delta}} and  
+and $r'_t$ is the rule \gatdisplayrule{\xDelta{n}}{\ofT{t'}{\Delta'}}.
+\end{enumerate}
+\end{definition}
+
+For the inductive step we require:
+\begin{lemma}
+\llabel{interpretationlemmainductivestep}
+Suppose $U$ is a finitely presented generalised algebraic theory and 
+suppose that $U_p$ is the predecessor theory to $U$. Suppose that $I$ is an interpretation of $U$  and that  $I \restrict U_p$  
+determines an instance $\predInstance$ of $U_p$.
+If interpretation $I$ is relatively well-typed and relatively valid then $I$ determines an instance of $U$.
+\end{lemma}
+\begin{proof} 
+\tbd
+\end{proof}
+
+\begin{lemma}
+\llabel{maininterpretationlemma}
+Suppose $U$ is a  generalised algebraic theory is stratified as  $U_0 \subseteq $U$_1 \subseteq $U$_2 \subseteq ...$. 
+ Suppose that $I$ is an interpretation of $U$  and that  for each $i$, $I \restrict U_i$  
+$I$ is relatively well-typed and relatively valid then $I$ determines an instance of $U$.
+\end{lemma}
+\begin{proof}
+For each $i$, by lemma \ref{interpretationlemmainductivestep}, $I \restrict U_i$ extends to an instance of $U_i$. Define a mapping
+$\Ibar$ of derived rules of $U$ to objects and sections of \catcw by defining $I(r)$ to be $\overline{I \restrict U_i}(r)$ where
+$i$ is such that $r$ is a derived rule of $U_i$. $I$ is an instance because in any particular case of any of the clauses (i) - (vii) of the main definition 
+there will be an $i$ so that all the rules involved are derived rules of the theory $U_i$. 
+\end{proof}
+
+\begin{oldtt}
+\note Suppose $P$ be an interpretation of $U$ in contextual category \catc.
 Let $U_0 \subseteq $U$_1 \subseteq $U$_2 \subseteq ...$ be the stratification of $U$ given by the Stratification Lemma. 
 Let $P_i$ be the restriction of $P$ to $U_i$. 
 We define $P$ to be well-typed and to respect all axioms 
 providing that  each  $P_i$ is well-typed and respects all axioms of $U_i$ and 
 what we mean by this we define by induction. 
-At the same time we prove that if preinstance $P_i$ is well-typed and respects all axioms of $U_i$ then $P_i$
+At the same time we prove that if interpretation $P_i$ is well-typed and respects all axioms of $U_i$ then $P_i$
 extends uniquely to an instance $I_i$ of $U_i$.  
-
-For the inductive step we require:
-\begin{lemmastar}
-\item $P_{i+1}$ extends uniquely to an instance $I_{i+1}$ of $U_{i+1}$ iff  $P_i$ extends uniquely to an instance of $U_{i}$ and additionally:
-\begin{enumerate}[(i)]
-\item
-$P_{i+1}$ is well-typed on sort symbol $A$ of $U_{i+1}$. This we define to mean that
-for all sort symbols $A$ in $U_{i+1}$, if $A$ has introductory rule 
-\genericAintroductoryrule and if this rule is mapped by $P_{i+1}$
-to object $a$ of \catcw then $I_i(r_n) \base a$ in \catc, where $r_n$ is the rule 
-\gatdisplayrule{\xDelta{n-1}}{\isT{\Delta_n}} (which, as required and due to the stratification, is a derived rule of $U_i$).
-\item  $P_{i+1}$ is well-typed on operator symbols  of $U_{i+1}$. This we define to mean that
-for all sort symbols $f$ in $U_{i+1}$, if $f$ has introductory rule 
-\genericfintroductoryrule then $P_{i+1}$ maps this rule to a section 
-of $I_i(r)$ where $r$ is the rule
-\gatdisplayrule{\xDelta{n}}{\isT{\Delta}} (which, as required and due to the stratification, is a derived rule of $U_i$). 
-\item
- $I_i$ respects the axioms of $U_{i+1}$. By this we mean that 
-\begin{enumerate}[(i)]
-\item \underline{\textbf{T=-axioms}} 
-for all axioms of $U_{i+1}$ of the form
- \gatdisplayrule{\xDelta{n}}{\Delta = \Delta'},
-$I_i(r) = I_i(r')$ where $r$ is the rule
-\gatdisplayrule{\xDelta{n}}{\isT{\Delta}} and  
-and $r'$ is the rule \gatdisplayrule{\xDelta{n}}{\isT{\Delta'}}
-\item \underline{\textbf{$\boldsymbol{\in=}$-axioms}} 
-for all axioms of $U_{i+1}$ of the form
-\gatdisplayrule{\xDelta{n}}{t = t' \in \Delta}
-$I_i(r_t) = I_i(r'_t)$ where $r_t$ is the rule
-\gatdisplayrule{\xDelta{n}}{\ofT{r_t}{\Delta}} and  
-and $r'_t$ is the rule \gatdisplayrule{\xDelta{n}}{\ofT{t'}{\Delta'}}.
-\end{enumerate}
-\end{enumerate}
-\end{lemmastar}
-\begin{proof} 
-\tbd
-\end{proof}
+\end{oldtt}
 
 \begin{lemma}
 \llabel{Xnlemma}
