@@ -1,5 +1,5 @@
 
-
+%\iffalse
 \begin{definition}
 If $U$ is a generalised algebraic theory and if \catcw is a contextual category then an \term{instance} $I$ of $U$ in \catcw is a  mapping 
 of derived T- and $\in$- rules of $U$ to objects, respectively sections, of $U$ that satisfies the following:
@@ -72,7 +72,6 @@ By the simple weakening lemma it follows that the rule \gatdisplayrule{Q,\, \yOm
 is a derived rule of $U$. It is required that this rule is mapped by $I$ to the section $\crossx{a}{s}{1}$
 of object $\crossx{a}{b}{1}$ of \catc.
 
-
 \item \underline{\textbf{substituting in T-rules}} 
 Suppose that, as in (v), above, the rule 
 \gatdisplayrule{\yOmega{m}}{\isT{\Omega}} is a derived rule of $U$.
@@ -81,9 +80,7 @@ Suppose that, as in (v), these rules are mapped by $I$ to objects $b_1,...b_n$ a
 we have  $1 \base b_1 \base ... \base b_m \base b$ in \catc. Now suppose that for some $j$, $1 \leq j \leq m$, the rule
 \gatdisplayrule{\yOmega{j-1}}{\ofT{t}{\Omega_j}} is a derived rule of $U$. 
 Now it follows by the substitution lemma that for each $j'$, $j < j' \leq m$ the rule
-
 \gatdisplayrule{\yOmega{j-1}, y_{j+1}\in \Omega_{j+1}[t|y_j],... y_{j'-1} \in \Omega_{j'-1}[t|y_j] }{\isT{\Omega_j[t|y_j]}} is a derived rule of $U$ and that likewise the rule
-
 \gatdisplayrule{\yOmega{j-1}, y_{j+1}\in \Omega_{j+1}[t|y_j],... y_m \in \Omega_m[t|y_j] }{\isT{\Omega}[t|y_j]} is a derived rule of $U$.
 It is required that these rules are mapped by $I$ to objects $f^*b_{j+1},...f^*b_m$ and $f^*b$, respectively.
 Note that as required we have that $f^*b_{j+1}\base ... \base f^*b_m \base f^*b$ in \catc.
@@ -99,34 +96,48 @@ It is a requirement that this rule is mapped by $I$ to the section $f^*g$ of obj
 \end{enumerate}
 \end{definition}
 
-{ % create a scope for two width forcing commands
+
+
+Though we are interested in mappings $I$ defined for all T-rules and $\in$-rules of a theory $U$, for  proofs of some of the lemmas that we are to give 
+we need to be able to argue about partial maps $I$ from T-rules and $\in$-rules of a theory $U$ to objects, respectively sections of a contextual category \catc.
+The next definition, which is auxiliary to these proofs, concerns such partal maps.
+\newcommand{\sjrule}   {\gatdisplayrule{Q}         {\ofT{s_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}}}
+\newcommand{\omegarule}[1][]{\gatdisplayrule[#1]{\yOmega{m}}{\isT{\Omega}}}
+\newcommand{\srule}    {\gatdisplayrule{\yOmega{m}}{\ofT{s}{\Omega}}}
+\newcommand{\omegarulesubstituted}[1][]{\gatdisplayrule[#1]{Q}{\isT{\Omega[s_1|y_1...s_m|y_m]}} }
+\newcommand{\srulesubstituted}[1][]{\gatdisplayrule[#1]{Q}{\ofT{s[s_1|y_1...s_m|y_m]}{\Omega[s_1|y_1...s_m|y_m]}} }
+
+
+% *****************************************************
+% Definition of consistency & the substitution property
+% *****************************************************
+\begin{newtt}
+\begin{definition}
 \newcommand {\forceSOURCEwidth}{\rule{5cm}{0pt}}  % so as to line up three different arrays
 \newcommand {\forceTARGETwidth}{\rule{2.2cm}{0pt}}
-\begin{lemma}
-\llabel{substitutioninterpretation}
-
-\newcommand{\sjrule}   {\gatdisplayrule{Q}         {\ofT{s_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}}}
-\newcommand{\omegarule}{\gatdisplayrule{\yOmega{m}}{\isT{\Omega}}}
-\newcommand{\srule}    {\gatdisplayrule{\yOmega{m}}{\ofT{s}{\Omega}}}
-\newcommand{\omegarulesubstituted}{\gatdisplayrule{Q}{\isT{\Omega[s_1|y_1...s_m|y_m]}} }
-\newcommand{\srulesubstituted}{\gatdisplayrule{Q}{\ofT{s[s_1|y_1...s_m|y_m]}{\Omega[s_1|y_1...s_m|y_m]}} }
-
-Suppose that $I$ is an instance of the generalised algebraic theory $U$ in the contextual category \catc,
-suppose that for some $m \geq 0$ the rules  \omegarule  and \srule are derived rules of $U$
-and that these rules are mapped by $I$ into the objects and sections of \catcw as follows
-
-
-\begin{equation*}
-\begin{array}{c c c}
-\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
-\omegarule & \Imapsto & b   \\ [0.4cm]
-\srule     & \Imapsto & g
-\end{array}
-\end{equation*}
-suppose that each context $\encyOmega{j}$  is mapped by $I$ to an object $b_j$ so that we have 
-$1 \base b_1 ... \base b_m$ in \catc,
-suppose  that $Q$ is some other context and $\tuple{\sm}$ is a realisation of $\tuple{\yOmega{m}}$ with respect to $Q$
-and that we have the following mappings by $I$ into the objects and sections of \catc:
+If $I$ is a partial mapping of T-rules and $\in$-rules of a theory $U$ to objects, respectively sections of a contextual category \catcw
+then define $I$ to be \term{consistent} iff
+\begin{enumerate}[(i)]
+\item if $r_\Delta$ is the rule \gatdisplayrule{P}{\isT{\Delta}} and is a derived rule of $U$
+such that $I(r_\Delta)$ is defined 
+then $I$ maps the context $P$ to some object $a$ and $a \base\, I(r_\Delta)$ in \catc,
+\item if $r_t$ is the rule \gatdisplayrule{P}{\ofT{t}{\Delta}} and is a derived rule of $U$ 
+such that $I(r_t)$ is defined 
+then $I(r_\Delta)$
+is defined, where $r_\Delta$ is the rule \gatdisplayrule[,]{P}{\isT{\Delta}}  and $I(r_t) \in Sect(I(r_\Delta))$ in \catc.
+\end{enumerate}
+If $I$ is consistent then define $I$ to have the \term{substitution property} iff 
+whenever $r_\Omega$ is the rule \omegarule[,] for some $m \geq 0$, and is a derived rule of $U$ 
+such that $I(r_\Omega)$ is defined
+so that, because $I$ is consistent,
+there are objects $b1,,,,b_m$ and $b$ so  that $1 \base b_1 ... \base b_m \base b$ in
+in \catcw and \foreachj, the context $\encyOmega{j}$  is mapped by $I$ to the object $b_j$ and 
+so the rule $r_\Omega$ is mapped by $I$ to $b$, 
+then the following hold:
+\begin{enumerate}
+\item [(iii)] 
+if $Q$ is any context and if $\tuple{\sm}$ is a realisation of $\tuple{\yOmega{m}}$ with respect to $Q$
+such that we have the following mappings by $I$ into the objects and sections of \catc:
 \begin{equation*}
 \begin{array}{c c c}
 \forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
@@ -134,15 +145,16 @@ Q          & \Imapsto & a   \\ [0.4cm]
 \sjrule    & \Imapsto & f_j \\ [0.4cm]
 \end{array}
 \end{equation*}
-then the rules \omegarulesubstituted and  \srulesubstituted, which are derived rules of $U$ by virtue of the substitution lemma, are mapped by $I$ as follows:
-\begin{equation*}
-\begin{array}{c c c}
-\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
-\omegarulesubstituted  & \Imapsto & \fmstar...\fonestar (\crossx{a}{b}{1})   \\ [0.4cm]
-\srulesubstituted      & \Imapsto & \fmstar...\fonestar (\crossx{a}{g}{1}).
-\end{array}
-\end{equation*}
-and  that we have the following diagram in \catc
+then $f_j \in Sect(f_{j-1}^*...f_i^*(\crossx{a}{b_j}{1}))$
+and the rule \omegarulesubstituted[,] which is a derived rule of $U$ by virtue of the substitution lemma, is mapped by $I$ 
+to the object $\fmstar...\fonestar (\crossx{a}{b}{1})$ of \catc.
+
+\item [(iv)] if, in addition, $r_s$ is the rule \srule and is  derived rule of $U$ that is mapped by $I$
+to a section $g$ of \catcw
+then the rule \srulesubstituted[,] which is a derived rule of $U$ by virtue of the substitution lemma, is mapped by $I$ 
+to the section $\fmstar...\fonestar (\crossx{a}{g}{1})$ of \catcw
+
+We have the following diagram in \catc
 
 \newcommand{\ncdotdotdot}[2]
 {\ncline[linestyle=none]{#1}{#2} 
@@ -223,11 +235,26 @@ and  that we have the following diagram in \catc
 }
 \end{array}
 \end{displaymath}
+\end{enumerate}
+\end{definition}
+\end{newtt}
 
-
+\begin{lemma}
+\llabel{substitutioninterpretation}
+Suppose that $I$ is an instance of the generalised algebraic theory $U$ in the contextual category \catc,
+\begin{newtt}
+then $I$ is consistent and has the substitution property.
+\end{newtt}
 \end{lemma}
 \begin{proof}
 
+That every instance $I$ is consistent follows from conditions (i)(a) and (ii)(a) of the definition of instance. 
+
+To show that $I$ has the substitution property we assume the scenario envisaged in clause (iii) of the defintion of 
+
+\newcommand {\forceSOURCEwidth}{\rule{5cm}{0pt}}  % so as to line up three different arrays
+\newcommand {\forceTARGETwidth}{\rule{2.2cm}{0pt}}
+\commentary{Proof needs rejigging after 16 Aug 2021 rejig of statement of lemma.}
 \newcommand{\sonerule} {\gatdisplayrule{Q}         {\ofT{s_1}{\Omega_1}}}
 \newcommand{\stworule}  {\gatdisplayrule{Q}       {\ofT{s_2}{\Omega_2[s_1|y_1]}}}
 \newcommand{\weakenedOmegarule}{\gatdisplayrule{Q,\, \yOmega{m}} {\isT{\Omega}} }
@@ -269,10 +296,11 @@ this time substituting $s_2$ into the $s_1$ substituted rules, to determine that
 We see that the mapping that we are required to show follows from $m$ successive applications of clauses (vii) and (viii) of the main definition.
 This completes the proof.
 \end{proof}
-} % end scope of force width commands
 
-\newpage
-We can show that an instance $I$ of a generalised algebraic theoy $U$ in a contextual category \catcw is
+%\fi  %*****************************************************************************************
+
+
+We can show that an instance $I$ of a generalised algebraic theory $U$ in a contextual category \catcw is
 completely determined by its mapping of the introductory rules of sort symbols and operator symbols to
 objects, respectively, sections of \catc. In order to show this first define an interpretation as follows:
 \begin{definition}
@@ -290,8 +318,6 @@ We will say that  an interpretation $I$ of $U$ in \catcw \term{determines} an  i
 $J(r_A) = I_{sort}(A)$, where $r_A$ is the introductory rule for $A$ and that for each operator symbol
 $f$ of $U$,   $J(r_f) = I_{op}(f)$, where $r_f$ is the introductory rule for $f$.
 
-%\newcommand {\Ibar}{\overline{I}}
-
 \newcommand{\Ibar}{\mkern 2.5mu\overline{\mkern-2.5mu I\mkern1.5mu}\mkern -1.5mu}
 
 \begin{definition}
@@ -304,8 +330,17 @@ as follows
 The derivation lemma (lemma \ref{derivationlemma}) tells us that if $r$ is a derived T-rule of $U$  then it is of the form \gatdisplayrule{P}{\isT{A(t_1,...t_n)}} for some premise $P$, for some $n \geq 0$ and for some sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule{\xDelta{n}}{\isT{A(x_1,...x_n)}} where \foreachi, the rule 
 \gatdisplayrule{P}{\ofT{t_i}{\Delta_i[t_1 | x_1,...t_{i-1}|x_{i-1}]}}, which we will call $r_{t_i}$, is a derived rule of $U$. 
 We define $\Ibar(r)$ to be undefined unless
-$\Ibar(r_{t_i})$ is defined and $\Ibar(r_{t_i}) \in Sect(\Ibar(r_{t_{i-1}})^*...\Ibar(r_{t_1})^*I(A))$, \foreachi,
-in which case we define $\Ibar(r)$ to be $\Ibar(r_{t_n})^*...\Ibar(r_{t_1})^*I(A)$. 
+\begin{enumerate}[(a)]
+\item
+the context  $P$ is mapped by $\Ibar$ to some object $a$ of \catcw and 
+
+\item
+\foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $b_i$ of \catcw
+and $1 \base b_1,...\base b_n \base I(A)$ in \catcw and
+\item
+$\Ibar(r_{t_i})$ is defined and $\Ibar(r_{t_i}) \in Sect(\Ibar(r_{t_{i-1}})^*...\Ibar(r_{t_1})^*(\crossx{a}{b_i}{1})$, \foreachi,
+\end{enumerate}
+in which case we define $\Ibar(r)$ to be $\Ibar(r_{t_n})^*...\Ibar(r_{t_1})^*(\crossx{a}{I(A)}{1})$. 
 \item \underline{\textbf{$\boldsymbol {\in}$-rules}} 
 The derivation lemma also tells us that if $r$ is an $\in$-rule then it is  
 either (i) of the form \gatdisplayrule{\xDelta{n}}{\ofT{x_i}{\Omega}} for some $n \ge 1$, for some $i$, $1 \leq i \leq n$, 
@@ -319,22 +354,36 @@ $s(p_{a_n,a_i})$ .
 
 In  case (ii) 
 we define $\Ibar(r)$ to be undefined unless
-the context  $P$ is mapped by $\Ibar$ to some object $b$ of \catcw 
-and \foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $a_i$ of \catcw
-and the rule \gatdisplayrule{\xDelta{n}}{\isT{\Delta}} is mapped by $\Ibar$ to some object $a$ of \catcw and
-$1 \base a_1,...\base a_n \base a$ in catcw 
-and \foreachi, $\Ibar(r_{t_i}) \in Sect(r_{t_{i-1}}^*...r_1^* (\crossx{b}{a}{1}))$
+\begin{enumerate}
+\item
+the context  $P$ is mapped by $\Ibar$ to some object $a$ of \catcw and 
+\item
+\foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $b_i$ of \catcw
+and 
+\item the rule \gatdisplayrule{\xDelta{n}}{\isT{\Delta}} is mapped by $\Ibar$ to some object $b$ of \catcw and
+$1 \base b_1,...\base b_n \base b$ in \catcw 
+and 
+\item
+\foreachi, $\Ibar(r_{t_i}) \in Sect(r_{t_{i-1}}^*...r_1^* (\crossx{a}{b}{1}))$
+\end{enumerate}
 in which case we
-define $\Ibar(r)=\Ibar(r_{t_n})^*...\Ibar(r_{t_1})^*(\crossx{b}{\Ibar(r_f)}{1})$.
+define $\Ibar(r)=\Ibar(r_{t_n})^*...\Ibar(r_{t_1})^*(\crossx{a}{I(f)}{1})$.
 This completes the definition of $\Ibar$.
 \end{enumerate}
 \end{definition}
 
+\begin{lemma}[Intermediate lemma]
+\llabel{intermediatelemma}
+If $I$ is an interpretation of generalised algebraic theory $U$ in contextual catgeory \catcw
+then
+\begin{newtt}
+$\Ibar$ is consistent and had the substitution property.
+\end{newtt}
+\end{lemma}
+
 \begin{lemma} 
 If $I$ is an interpretation of generalised algebraic theory $U$ in contextual catgeory \catcw then then if $I$ determines an instance of $U$ then the
-partial mapping $\Ibar$ defined in (a) and (b) of T-rules and, respectively, $\in$-rules to objects and sections of \catcw is total i.e. is defined for all T- and $in$-rules and the instance determined by $I$ is $\Ibar$.
-
-
+mapping $\Ibar$  is total i.e. is defined for all T- and $\in$-rules and the instance determined by $I$ is $\Ibar$.
 \end{lemma}
 \begin{proof}  
 Use the lemma regarding the interpretation of substitutions (lemma \ref{substitutioninterpretation})...\commentary{expand}
@@ -392,10 +441,33 @@ For the inductive step we require:
 Suppose $U$ is a finitely presented generalised algebraic theory and 
 suppose that $U_p$ is the predecessor theory to $U$. Suppose that $I$ is an interpretation of $U$  and that  $I \restrict U_p$  
 determines an instance $\predInstance$ of $U_p$.
-If interpretation $I$ is relatively well-typed and relatively valid then $I$ determines an instance of $U$.
+If interpretation $I$ is relatively well-typed and relatively valid then $\Ibar$ is total.
 \end{lemma}
 \begin{proof} 
-\tbd
+Proof by induction on the derivation of rules in $U$. We need to examine each principle of derivation in turn.
+
+\underline{CF2(a)}
+By this principle, from a sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule{\xDelta{n}}{\isT{A(\xn)}}, for some $n \geq 0$, if
+$P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derivbed rule of $U$
+and from derived rules $r_{t_i}$ of the form \gatdisplayrule{P}{\ofT{t_i}{\Delta_i[t_1|x_1,...t{i-1}|x_{i-1}]}}, \foreachi, we may deduce
+the rule \gatdisplayrule{P}{\isT{A(t_1,...t_n)}} which we shall denote by $r$. 
+
+\noindent Assume as the inductive hypothesis that $\Ibar(r_{t_i})$ is defined \foreachi.
+
+\noindent Now we can show that $\Ibar(r)$ is defined providing we can show that conditions (a), (b) and (c) of part (i) of the definition of $\Ibar$ are met. 
+
+\noindent Condition (a), that $P$ is mapped by $\Ibar$ to some object $a$ of \catc, follows from the inductive hypothesis in the case of  rule $r_P$ asserting that $P$ is a context.  
+
+\noindent Condition (b) follows from the assumption that $\Ibar$ is relatively well-typed.
+
+\noindent  Condition (c). The first part that \foreachi, $\Ibar(r_{t_i})$ is defined is given by the inductive hypothesis. 
+That $\Ibar(r_{t_i}) \in Sect(I(r_{t_1})^*...^*I(r_{t_{i-1}})^*(a \crossx{a}{I(A)}{1}$ follows \highlight{ from intermediate lemma}
+which tells us that $\Ibar$ is consistent and has the substitution property\highlight{DOES IT??}.
+
+To show that $\Ibar(r_{t_i}) \in Sect(\Ibar(r_{\Delta_i}))$ in \catcw \highlight{WHAT?}
+\hspace{1in}
+
+\underline{CF2(b)}
 \end{proof}
 
 \begin{lemma}
@@ -411,16 +483,6 @@ $i$ is such that $r$ is a derived rule of $U_i$. $I$ is an instance because in a
 there will be an $i$ so that all the rules involved are derived rules of the theory $U_i$. 
 \end{proof}
 
-\begin{oldtt}
-\note Suppose $P$ be an interpretation of $U$ in contextual category \catc.
-Let $U_0 \subseteq $U$_1 \subseteq $U$_2 \subseteq ...$ be the stratification of $U$ given by the Stratification Lemma. 
-Let $P_i$ be the restriction of $P$ to $U_i$. 
-We define $P$ to be well-typed and to respect all axioms 
-providing that  each  $P_i$ is well-typed and respects all axioms of $U_i$ and 
-what we mean by this we define by induction. 
-At the same time we prove that if interpretation $P_i$ is well-typed and respects all axioms of $U_i$ then $P_i$
-extends uniquely to an instance $I_i$ of $U_i$.  
-\end{oldtt}
 
 \begin{lemma}
 \llabel{Xnlemma}
