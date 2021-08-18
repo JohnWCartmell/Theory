@@ -250,7 +250,6 @@ then $I$ is consistent and has the substitution property.
 
 That every instance $I$ is consistent follows from conditions (i)(a) and (ii)(a) of the definition of instance. 
 
-To show that $I$ has the substitution property we assume the scenario envisaged in clause (iii) of the defintion of 
 
 \newcommand {\forceSOURCEwidth}{\rule{5cm}{0pt}}  % so as to line up three different arrays
 \newcommand {\forceTARGETwidth}{\rule{2.2cm}{0pt}}
@@ -263,6 +262,26 @@ To show that $I$ has the substitution property we assume the scenario envisaged 
 \newcommand{\weakenedsruleFirstsubstitution}{\gatdisplayrule{Q,\, \ofT{y_2}{\Omega_2[s_1|y_1]},\,...\,\ofT{y_m}{\Omega_m[s_1|y_1]}}{\ofT{s[s_1|y_1]}{\Omega[s_1|y_1]}} }
 \newcommand{\weakenedOmegaruleSecondsubstitution}{\gatdisplayrule{Q,\, \ofT{y_3}{\Omega_2[s_1|y_1, s_2|y_2]},\,...\,\ofT{y_m}{\Omega_m[s_1|y_1, s_2|y_2]}}{\isT{\Omega[s_1|y_1, s_2|y_2]}} }
 \newcommand{\weakenedsruleSecondsubstitution}{\gatdisplayrule{Q,\, \ofT{y_2}{\Omega_2[s_1|y_1, s_2|y_2]},\,...\,\ofT{y_m}{\Omega_m[s_1|y_1, s_2|y_2]}}{\ofT{s[s_1|y_1, s_2|y_2]}{\Omega[s_1|y_1, s_2|y_2]}} }
+
+
+To show that $I$ has the substitution property we assume the scenario envisaged in clause (iii) of the definition of the substitution property
+and we are required to show that
+\begin{equation}
+\label{substitutionmappingone}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\omegarulesubstituted  & \Imapsto & \fmstar...\fonestar (\crossx{a}{b}{1})  
+\end{array}
+\end{equation}
+In addition in the extended scenario of clause (iv) of the same definition  we are required to show that
+\begin{equation}
+\label{substitutionmappingtwo}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\srulesubstituted & \Imapsto & \fmstar...\fonestar (\crossx{a}{g}{1}).  
+\end{array}
+\end{equation}
+
 First note that we have $a \base\, \crossx{a}{b_1}{1}\, \base\, ...\, \base\, \crossx{a}{b_m}{1}\, \base\, \crossx{a}{b}{1}$ in \catcw
 and  that application of rule (v) of the main definition determines that the rules \weakenedOmegarule and \weakenedsrule must be mapped by $I$ as follows
 \begin{equation*}
@@ -292,8 +311,8 @@ this time substituting $s_2$ into the $s_1$ substituted rules, to determine that
 \weakenedsruleSecondsubstitution      & \Imapsto & \ftwostar \fonestar(\crossx{a}{g}{1}).
 \end{array}
 \end{equation*}
-
-We see that the mapping that we are required to show follows from $m$ successive applications of clauses (vii) and (viii) of the main definition.
+                                                                  
+We see that the mappings (\ref{substitutionmappingone}) and (\ref{substitutionmappingtwo}) that we are required to show follow from $m$ successive applications of clauses (vii) and (viii) of the main definition.
 This completes the proof.
 \end{proof}
 
@@ -302,7 +321,7 @@ This completes the proof.
 
 We can show that an instance $I$ of a generalised algebraic theory $U$ in a contextual category \catcw is
 completely determined by its mapping of the introductory rules of sort symbols and operator symbols to
-objects, respectively, sections of \catc. In order to show this first define an interpretation as follows:
+objects, respectively, sections of \catc. In order to show this we start with this definition:
 \begin{definition}
 If $U$ is a generalised algebraic theory  and if \catcw is a contextual category then
 a \term{interpretation} $I$ of  $U$ in \catcw consists of a pair :
@@ -380,6 +399,16 @@ then
 $\Ibar$ is consistent and had the substitution property.
 \end{newtt}
 \end{lemma}
+\begin{proof}
+
+We guess (16th Aug 2021) that to establish clause (iii) we need a concept instance identity something like
+
+\newcommand{\fmvectorstar}{\fmstar...\fonestar}
+\newcommand{\gnvectorstar}{\gnstar...\gonestar}
+\begin{equation*}
+(\fmvectorstar (\crossx{a}{g_n}{1}))^* ... (\fmvectorstar (\crossx{a}{g_n}{1})) ^* I_A=\fmvectorstar(\gnvectorstar(\crossx{a}{I_A}{1}))
+\end{equation*}
+\end{proof}
 
 \begin{lemma} 
 If $I$ is an interpretation of generalised algebraic theory $U$ in contextual catgeory \catcw then then if $I$ determines an instance of $U$ then the
