@@ -111,7 +111,6 @@ The next definition, which is auxiliary to these proofs, concerns such partal ma
 % *****************************************************
 % Definition of consistency & the substitution property
 % *****************************************************
-\begin{newtt}
 \begin{definition}
 \newcommand {\forceSOURCEwidth}{\rule{5cm}{0pt}}  % so as to line up three different arrays
 \newcommand {\forceTARGETwidth}{\rule{2.2cm}{0pt}}
@@ -237,14 +236,30 @@ We have the following diagram in \catc
 \end{displaymath}
 \end{enumerate}
 \end{definition}
-\end{newtt}
+
+It is useful to observe now that if we take the  $\Omega$ in clause (iii) of this definition of the substitution property 
+to be $\Omega_m$ then we get the following:
+\begin{observation}
+\label{substitutionpropertyvariant}
+\newcommand {\forceSOURCEwidth}{\rule{5cm}{0pt}}  % so as to line up three different arrays
+\newcommand {\forceTARGETwidth}{\rule{2.2cm}{0pt}}
+If $I$ is a partial mapping of T-rules and $\in$-rules of a theory $U$ to objects, respectively sections of a contextual category \catcw
+which is \term{consistent} and has the substitution lemma then if $Q$ is any context and if $\tuple{\sm}$ is a realisation of $\tuple{\yOmega{m}}$ with respect to $Q$
+such that we have the following mappings by $I$ into the objects and sections of \catc:
+\begin{equation*}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+Q          & \Imapsto & a   \\ [0.4cm]
+\sjrule    & \Imapsto & f_j \\ [0.4cm]
+\end{array}
+\end{equation*}
+then $f_j \in Sect(f_{j-1}^*...f_i^*(\crossx{a}{b_j}{1}))$.
+\end{observation}
 
 \begin{lemma}
 \llabel{substitutioninterpretation}
 Suppose that $I$ is an instance of the generalised algebraic theory $U$ in the contextual category \catc,
-\begin{newtt}
 then $I$ is consistent and has the substitution property.
-\end{newtt}
 \end{lemma}
 \begin{proof}
 
@@ -339,40 +354,45 @@ $f$ of $U$,   $J(r_f) = I_{op}(f)$, where $r_f$ is the introductory rule for $f$
 
 \newcommand{\Ibar}{\mkern 2.5mu\overline{\mkern-2.5mu I\mkern1.5mu}\mkern -1.5mu}
 
-\begin{definition}
+\newpage
+\begin{definition} [\highlight{Definition of \large $\Ibar$}]
 If $I$ is an interpretation of generalised algebraic theory $U$ in contextual catgeory \catcw
 then define a
 partial mapping $\Ibar$  of T-rules and $\in$-rules to objects, respectively sections, of \catcw
 as follows
 \begin{enumerate}[(i)] 
 \item \underline{\textbf{T-rules}} 
-The derivation lemma (lemma \ref{derivationlemma}) tells us that if $r$ is a derived T-rule of $U$  then it is of the form \gatdisplayrule{P}{\isT{A(t_1,...t_n)}} for some premise $P$, for some $n \geq 0$ and for some sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule{\xDelta{n}}{\isT{A(x_1,...x_n)}} where \foreachi, the rule 
-\gatdisplayrule{P}{\ofT{t_i}{\Delta_i[t_1 | x_1,...t_{i-1}|x_{i-1}]}}, which we will call $r_{t_i}$, is a derived rule of $U$. 
-We define $\Ibar(r)$ to be undefined unless
+The derivation lemma (lemma \ref{derivationlemma}) tells us that if $r_\Delta$ is a derived T-rule of $U$  then it is of the form \gatdisplayrule{P}{\isT{A(t_1,...t_n)}} for some premise $P$, for some $n \geq 0$ and for some sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule{\xDelta{n}}{\isT{A(x_1,...x_n)}} where \foreachi, the rule 
+\gatdisplayrule[,]{P}{\ofT{t_i}{\Delta_i[t_1 | x_1,...t_{i-1}|x_{i-1}]}} which we will call $r_{t_i}$, is a derived rule of $U$. 
+We define $\Ibar(r_\Delta)$ to be undefined unless the following preconditions are met:
 \begin{enumerate}[(a)]
 \item
 the context  $P$ is mapped by $\Ibar$ to some object $a$ of \catcw and 
-
 \item
 \foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $b_i$ of \catcw
 and $1 \base b_1,...\base b_n \base I(A)$ in \catcw and
 \item
 $\Ibar(r_{t_i})$ is defined and $\Ibar(r_{t_i}) \in Sect(\Ibar(r_{t_{i-1}})^*...\Ibar(r_{t_1})^*(\crossx{a}{b_i}{1})$, \foreachi,
 \end{enumerate}
-in which case we define $\Ibar(r)$ to be $\Ibar(r_{t_n})^*...\Ibar(r_{t_1})^*(\crossx{a}{I(A)}{1})$. 
+in which case we define $\Ibar(r_\Delta)$ to be $\Ibar(r_{t_n})^*...\Ibar(r_{t_1})^*(\crossx{a}{I(A)}{1})$. 
 \item \underline{\textbf{$\boldsymbol {\in}$-rules}} 
-The derivation lemma also tells us that if $r$ is an $\in$-rule then it is  
-either (i) of the form \gatdisplayrule{\xDelta{n}}{\ofT{x_i}{\Omega}} for some $n \ge 1$, for some $i$, $1 \leq i \leq n$, 
+The derivation lemma also tells us that if $r_t$ is an $\in$-rule then it is  
+either \highlight{(1)} of the form \gatdisplayrule{\xDelta{n}}{\ofT{x_i}{\Omega}} for some $n \ge 1$, for some $i$, $1 \leq i \leq n$, 
 and for some $\Omega$ such that \gatdisplayrule{\xDelta{n}}{\Delta_i=\Omega} is a derived rule of $U$
-or (ii) it is of the form \gatdisplayrule{P}{\ofT{f(t_1,...t_n)}{\Omega}} for some premise $P$, for some $n \geq 0$ and for some operator symbol $f$ with introductory rule $r_f$ of the form \gatdisplayrule{\xDelta{n}}{\ofT{f(x_1,...x_n)}{\Delta}} where \foreachi, the rule 
+or \highlight{(2)} it is of the form \gatdisplayrule{P}{\ofT{f(t_1,...t_n)}{\Omega}} for some premise $P$, for some $n \geq 0$ and for some operator symbol $f$ with introductory rule $r_f$ of the form \gatdisplayrule{\xDelta{n}}{\ofT{f(x_1,...x_n)}{\Delta}} where \foreachi, the rule 
 \gatdisplayrule{P}{\ofT{t_i}{\Delta_i[t_1 | x_1,...t_{i-1}|x_{i-1}]}}, which we will call $r_{t_i}$, is a derived rule of $U$. 
 
-In  case (i) we define $\Ibar(r)$ to be undefined unless \foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $a_i$ of \catcw such
-that $1 \base a_1,...\base a_n$ and in which case we define $\Ibar(r)$ to be
-$s(p_{a_n,a_i})$ . 
+In  case (1) we define $\Ibar(r_t)$ to be undefined unless  unless the following preconditions are met:
+\begin{enumerate}
+\item
+\foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $a_i$ of \catcw such
+that $1 \base a_1,...\base a_i$ and
+\item the rule \gatdisplayrule{\xDelta{n}}{\isT{\Omega}}, which we call $r_\Omega$, is mapped by $\Ibar$ to the object $\crossx{a_n}{a_i}{a_{i-1}}$
+\end{enumerate}
+in which case we define $\Ibar(r_t)$ to be $s(p_{a_n,a_i})$ . 
 
-In  case (ii) 
-we define $\Ibar(r)$ to be undefined unless
+In  case (2) 
+we define $\Ibar(r_t)$ to be undefined unless  unless the following preconditions are met:
 \begin{enumerate}
 \item
 the context  $P$ is mapped by $\Ibar$ to some object $a$ of \catcw and 
@@ -386,28 +406,128 @@ and
 \foreachi, $\Ibar(r_{t_i}) \in Sect(r_{t_{i-1}}^*...r_1^* (\crossx{a}{b}{1}))$
 \end{enumerate}
 in which case we
-define $\Ibar(r)=\Ibar(r_{t_n})^*...\Ibar(r_{t_1})^*(\crossx{a}{I(f)}{1})$.
+define $\Ibar(r_t)=\Ibar(r_{t_n})^*...\Ibar(r_{t_1})^*(\crossx{a}{I(f)}{1})$.
 This completes the definition of $\Ibar$.
 \end{enumerate}
+\highlight{END OF Definition of \large $\Ibar$}
 \end{definition}
 
-\begin{lemma}[Intermediate lemma]
+\newpage
+\begin{lemma}[\highlight{Intermediate lemma}]
 \llabel{intermediatelemma}
 If $I$ is an interpretation of generalised algebraic theory $U$ in contextual catgeory \catcw
-then
-\begin{newtt}
-$\Ibar$ is consistent and had the substitution property.
-\end{newtt}
+then $\Ibar$ is consistent and had the substitution property.
 \end{lemma}
 \begin{proof}
+\newcommand {\forceSOURCEwidth}{\rule{5cm}{0pt}}  % so as to line up three different arrays
+\newcommand {\forceTARGETwidth}{\rule{2.2cm}{0pt}}
+\newcommand{\ssubbedfory}{s_1|y_1,...s_m|y_m}
+\newcommand{\clausethreelhs}{(\fmvectorstar (\crossx{a}{g_n}{1}))^* ... (\fmvectorstar (\crossx{a}{g_1}{1})) ^* (\crossx{b_m}{I_A}{1})}
+\newcommand{\clausethreerhs}{\fmvectorstar (  \crossx{a}{(\gnvectorstar(\crossx{b_m}{I_A}{1}))}{1} )}
 
-We guess (16th Aug 2021) that to establish clause (iii) we need a concept instance identity something like
+That $\Ibar$ is consistent we have to show that clauses (i) and (ii) of the definition of consistency are satisfied.
+That clause (i) of the definition of consistency holds follows  from clause (i) of the definition given of $\Ibar$ provided that
+we can show $a \base \Ibar(r_{t_n})^*...\Ibar(r_{t_1})^*(\crossx{a}{I(A)}{1})$ in \catc. 
+This follows by lemma \ref{cacscadelemma} since from the definition of $\Ibar$ it follows that $\Ibar(r_{t_1}),...\Ibar(r_{t_n})$
+is a cascade from $a$ to $b_n$ in \catc. 
 
-\newcommand{\fmvectorstar}{\fmstar...\fonestar}
-\newcommand{\gnvectorstar}{\gnstar...\gonestar}
+To show that clause (ii) of the definition of consistency holds we have to show that, under the assumptions made in that clause 
+that $\Ibar(r_t) \in \Ibar(r_\Omega)$ \highlight{CHECK}. We have to do this in subcases (1) and (2)
+
+In subcase (1) we need show that
+$s(p_{a_n,a_i}) \in Sect(\Ibar(r_\Omega))$. This we can do because in any contextual category $s(p_{a_n,a_i}) \in Sect(\crossx{a_n}{a_i}{a_{i-1}})$
+and from the defintion of $\Ibar$ case (ii) subcase (2) we have that $\Ibar(r_\Omega)=\crossx{a_n}{a_i}{a_{i-1}}$. 
+
+
+In subcase (2) we need show that
+$\Ibar(r_{t_n})^*...\Ibar(r_{t_1})^*(\crossx{a}{I(f)}{1}) \in Sect(\Ibar(r_{t_n})^*...\Ibar(r_{t_1})^*(\crossx{a}{I(A)}{1}))$.
+The follows by by lemma \ref{cacscadelemma} since as pointed out above $\Ibar(r_{t_1}),...\Ibar(r_{t_n})$
+is a cascade from $a$ to $b_n$ in \catc. 
+
+
+\newcommand{\tirule}{\gatdisplayrule{\yOmega{m}}{\ofT{t_i}{\Delta_i[t_1 | x_1,...t_{i-1}|x_{i-1}]}}}
+
+To show that $\Ibar$ has substitution property we need show that the additional clauses, (iii) and (iv), are satisfied.
+In these clauses it is to be assumed that there is a derived rule \omegarule[,] for some $m \geq 0$, denoted $r_\Omega$
+and that this is mapped to some object $b$ of \catcw such that $1 \base b_1 ... \base b_m \base b$. Assume then such a rule and such objects
+$b1,,,,b_m$ and $b$  such that $\Ibar(r_\Omega)=b$. By the derivation lemma $\Omega$ must be an expression $A(t_1,...t_n)$ for some sort symbol $A$ 
+with introductory rule $r_A$ of the form \gatdisplayrule{\xDelta{n}}{\isT{A(x_1,...x_n)}} where \foreachi, the rule 
+\gatdisplayrule[,]{\yOmega{m}}{\ofT{t_i}{\Delta_i[t_1 | x_1,...t_{i-1}|x_{i-1}]}} which we will call $r_{t_i}$, is a derived rule of $U$.
+Since  we have assumed that $\Ibar(r_\Omega)$ is defined then 
+from the definition of $\Ibar$ we establish that $\Ibar(r_{t_i})$ is defined, \foreachi. Therefore there are sections  $g_1,..g_n$ are sections of \catcw such that, 
+\foreachi, $\Ibar$ maps
+\begin{equation}
+\label{timapping}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\tirule    & \Imapsto & g_i \\ [0.4cm]
+\end{array}
+\end{equation} 
+Now from the definition of $\Ibar$, because $\Omega$ is $A(t_1,...t_n)$  we have that $\Ibar$ maps
 \begin{equation*}
-(\fmvectorstar (\crossx{a}{g_n}{1}))^* ... (\fmvectorstar (\crossx{a}{g_n}{1})) ^* I_A=\fmvectorstar(\gnvectorstar(\crossx{a}{I_A}{1}))
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\omegarule   & \Imapsto & \gnvectorstar(\crossx{b_m}{I_A}{1})\\ [0.4cm]
+\end{array}
+\end{equation*} 
+
+To establish clause (iii) assume also  that $Q$ is a context and that $\tuple{\sm}$ is a realisation of $\tuple{\yOmega{m}}$ with respect to $Q$
+and that there is the following mapping by $\Ibar$ into the objects and sections of \catc:
+\begin{equation}
+\label{sjmapping}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+Q          & \Imapsto & a   \\ [0.4cm]
+\sjrule    & \Imapsto & f_j \\ [0.4cm]
+\end{array}
+\end{equation}
+where $f_j \in Sect(f_{j-1}^*...f_i^*(\crossx{a}{b_j}{1}))$ in \catc.
+To show clause (iii) holds we have to show that $\Ibar$ maps 
+\begin{equation}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\omegarulesubstituted    & \Imapsto & \fmstar...\fonestar (\crossx{a}{b}{1}) \\ [0.4cm]
+\end{array}
+\end{equation}
+which after substituting for $A(t_1,...t_n)$ for $\Omega$ and $\gnvectorstar(\crossx{b_m}{I_A}{1})$ means that we
+have to establish that $\Ibar$ maps
+\begin{equation}
+\label{clauseiiirequiredmapping}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\gatdisplayrule{Q}{isT{A(t_1[\ssubbedfory],...t_n[\ssubbedfory])}}   & \Imapsto & \fmvectorstar (\crossx{a}{\gnvectorstar(\crossx{b_m}{I_A}{1})}{1}) \\ [0.4cm]
+\end{array}
+\end{equation}
+It can deduce from the definition of $\Ibar$ and from (\ref{timapping}) and from (\ref{sjmapping}) that \foreachi, $\Ibar$ maps
+\begin{equation}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\gatdisplayrule{Q}{\ofT{t_i[\ssubbedfory]}{\Delta_i[t_1 | x_1,...t_{i-1}|x_{i-1}][\ssubbedfory]}}  & \Imapsto & \fmvectorstar \crossx{a}{g_i}{1} \\ [0.4cm]
+\end{array}
+\end{equation}
+and therefore from the definition of $\Ibar$ that it maps
+\begin{equation*}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\gatdisplayrule{Q}{\isT{A(t_1[\ssubbedfory],...t_n[\ssubbedfory])}}  & \Imapsto & \clausethreelhs \\ [0.4cm]
+\end{array}
 \end{equation*}
+and therefore to establish (\ref{clauseiiirequiredmapping}) we need to show that
+\begin{equation*}
+\clausethreelhs = \clausethreerhs										
+\end{equation*}
+This we can do by repeated application of identities (\ref{metagattriplestar})
+and (\ref{metagatcrossstarcross}), which are two of the meta-GAT axioms described earlier,
+and so clause (iii) follows.
+
+
+\iffalse
+[(iv)] if, in addition, $r_s$ is the rule \srule and is  derived rule of $U$ that is mapped by $I$
+to a section $g$ of \catcw
+then the rule \srulesubstituted[,] which is a derived rule of $U$ by virtue of the substitution lemma, is mapped by $I$ 
+to the section $\fmstar...\fonestar (\crossx{a}{g}{1})$ of \catcw
+\fi
+
 \end{proof}
 
 \begin{lemma} 
@@ -476,32 +596,27 @@ If interpretation $I$ is relatively well-typed and relatively valid then $\Ibar$
 Proof by induction on the derivation of rules in $U$. We need to examine each principle of derivation in turn.
 
 \underline{CF2(a)}
-By this principle, from a sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule{\xDelta{n}}{\isT{A(\xn)}}, for some $n \geq 0$, if
-$P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derivbed rule of $U$
-and from derived rules $r_{t_i}$ of the form \gatdisplayrule{P}{\ofT{t_i}{\Delta_i[t_1|x_1,...t{i-1}|x_{i-1}]}}, \foreachi, we may deduce
-the rule \gatdisplayrule{P}{\isT{A(t_1,...t_n)}} which we shall denote by $r$. 
+By this principle, from a sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule[,]{\xDelta{n}}{\isT{A(\xn)}} for some $n \geq 0$, if
+$P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
+and from derived rules $r_{t_i}$ of the form \gatdisplayrule{P}{\ofT{t_i}{\Delta_i[t_1|x_1,...t_{i-1}|x_{i-1}]}}, \foreachi, we may deduce
+the rule \gatdisplayrule{P}{\isT{A(t_1,...t_n)}}, which we shall denote by $r$, is a derived rule of $U$. \\
 
-\noindent Assume as the inductive hypothesis that $\Ibar(r_{t_i})$ is defined \foreachi.
-
-\noindent Now we can show that $\Ibar(r)$ is defined providing we can show that conditions (a), (b) and (c) of part (i) of the definition of $\Ibar$ are met. 
-
-\noindent Condition (a), that $P$ is mapped by $\Ibar$ to some object $a$ of \catc, follows from the inductive hypothesis in the case of  rule $r_P$ asserting that $P$ is a context.  
-
-\noindent Condition (b) follows from the assumption that $\Ibar$ is relatively well-typed.
-
-\noindent  Condition (c). The first part that \foreachi, $\Ibar(r_{t_i})$ is defined is given by the inductive hypothesis. 
-That $\Ibar(r_{t_i}) \in Sect(I(r_{t_1})^*...^*I(r_{t_{i-1}})^*(a \crossx{a}{I(A)}{1}$ follows \highlight{ from intermediate lemma}
-which tells us that $\Ibar$ is consistent and has the substitution property\highlight{DOES IT??}.
-
-To show that $\Ibar(r_{t_i}) \in Sect(\Ibar(r_{\Delta_i}))$ in \catcw \highlight{WHAT?}
-\hspace{1in}
-
-\underline{CF2(b)}
+\noindent Assume as the inductive hypothesis that $\Ibar(r_{t_i})$ is defined \foreachi. We can show that $\Ibar(r)$ is defined providing we can show that conditions (a), (b) and (c) of part (i) of the definition of $\Ibar$ are met. \\
+\noindent Precondition (a), that $P$ is mapped by $\Ibar$ to some object $a$ of \catc, follows from the inductive hypothesis applied to  rule $r_P$ asserting that $P$ is a context.  \\
+\noindent Precondition (b) follows from the assumption that $\Ibar$ is relatively well-typed because rule $r$ is well-typed relative to the theory
+$U_p$ because $U$ is a generalised algebraic theory. 
+\noindent Therefore $r_{\Delta_n}$ is a derived rule of $U_p$\\ and so $\predInstance(r_{\Delta_n})$ is defined  because $\predInstance$ is assumed to be total. 
+Therefore $\Ibar(r_{\Delta_n})$ is defined since
+$\Ibar$ extends $\predInstance$ since $I$ extends $I \restrict U_p$. 
+\noindent  Precondition (c) follows firstly, because that \foreachi, $\Ibar(r_{t_i})$ is defined, is given by the inductive hypothesis and 
+secondly, that $\Ibar(r_{t_i}) \in Sect(\Ibar(r_{t_{i-1}})^*...^*\Ibar(r_{t_{1}})^*(\crossx{a}{b_i}{1}))$ follows  from lemma \lref{intermediatelemma}, 
+which tells us that $\Ibar$ is consistent and has the substitution property, and from observation \ref{substitutionpropertyvariant}.\\
+\underline{CF2(b)???}
 \end{proof}
-
+\newpage
 \begin{lemma}
 \llabel{maininterpretationlemma}
-Suppose $U$ is a  generalised algebraic theory is stratified as  $U_0 \subseteq $U$_1 \subseteq $U$_2 \subseteq ...$. 
+Suppose $U$ is a  generalised algebraic theory that is stratified as  $U_0 \subseteq $U$_1 \subseteq $U$_2 \subseteq ...$. 
  Suppose that $I$ is an interpretation of $U$  and that  for each $i$, $I \restrict U_i$  
 $I$ is relatively well-typed and relatively valid then $I$ determines an instance of $U$.
 \end{lemma}

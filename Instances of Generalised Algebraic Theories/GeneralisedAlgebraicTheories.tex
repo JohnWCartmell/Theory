@@ -10,7 +10,7 @@ the introductory rule for a symbol defines how that symbol may properly be used,
 
 From the given rules of a generalised algebraic theory  principles of derivation given in \cite{Cartmell86} enable further rules
 to be derived and in this way for any generalised algebraic theory there is defined the set of all derived rules of the theory. 
-This set of rules of a generalised algebraic theory is analogous to the set of provable sentences of an elementary theory.
+This set of derived rules of a generalised algebraic theory is analogous to the set of provable sentences of an elementary theory.
   
 Each rule is expressed as the combination of a  \term{Premise} and a \term{Conclusion} 
 and these may be arranged on the page in a number of ways as suits the occasion or as befits personal preference. 
@@ -62,18 +62,32 @@ both \gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta}} and \gatdisplayrule{\xDelta{n}
 of $U$.
 \end{enumerate}
 
+
+
 In a theory $U$, we say that a compound expression of the form $\xDelta{n}$, where $xn$ are variables, is a \term{context} (within theory $U$)  iff
-the rule \gatdisplayrule{\xDelta{n-1}}{\isT{\Delta_n}} is a derived rule of $U$. It follows that  $\xDelta{n}$ is a context iff
+the rule \gatdisplayrule{\xDelta{n-1}}{\isT{\Delta_n}} is a derived rule of $U$. It follows (lemma \ref{contextlemma}, below)  that  $\xDelta{n}$ is a context iff
 it is the premise of some derived rule of $U$.
 
 A \term{realisation} of one context from another is defined as follows: if $\xDelta{n}$ and $\yOmega{m}$ are contexts of a generalised algebraic theory $U$  then a \term{realisation} of  $\yOmega{m}$ with respect to $\xDelta{n}$ is an $m$-tuple of expressions $\tuple{s_1,...s_m}$
 such that \foreachj, the rule \gatdisplayrule{Q}{\ofT{s_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}} is a derived rule of $U$.
 
- There are a number of housekeeping lemmas which are required. Some of these lemmas are summarised in \cite{Cartmell86}. The proofs of these lemmas 
-	are given in \cite{Cartmell78}.
-Here we summarise each one of them and give names to some that were previously unnamed. In the following, assume that $U$ is a generalised algebraic theory.
+There are a number of housekeeping lemmas \commentary{for what purpose?} which are required. Some of these lemmas are summarised in \cite{Cartmell86}. 
+Here it is appropriate to expand on that summary and to name some lemmas that were previously unnamed. The proofs of all of these lemmas 
+	are given in \cite{Cartmell78}; proofs of some of  lemmas that we give in section \ref{sectioninwhichinstanceisdefined} structurally enrich these proofs.
+In the following, assume that $U$ is a generalised algebraic theory.
 
 
+\begin{lemma}[Context Lemma]
+\llabel{contextlemma}
+\begin{enumerate}[(i)]
+\item the premise of a derived rule of $U$ is a context in $U$.
+\item $\xDelta{n}$ is a context, then \foreachi, the rule \gatdisplayrule{\xDelta{i-1}}{isT{\Delta_i}} is a derived rule of $U$ i.e.
+$\xDelta{i}$ is a context.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(i) is proved by induction on the derivation of the rule by examining each principle of induction in turn. (ii) follows from repeated use of (i).
+\end{proof}
 
 The Substitution Lemma states that every type-correct substitutional instance of a derived rule is a derived rule:
 \begin{lemma}[Substitution Lemma]

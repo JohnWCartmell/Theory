@@ -1,6 +1,6 @@
 
 \label{contextualnotationpartone}
-
+\subsection{The $s$ operator and other operators}
 \note 
 Terminology: By  the generic term \term{tree} is meant a partially ordered set (poset) $(T, <)$ such that for each $t \in T$, the set $\set{s \in T : s < t}$ is well-ordered by the relation $<$.
 In this discussion we restrict ourselves to rooted $\omega$-trees i.e. trees for which the set $\set{s \in T : s < t}$
@@ -616,7 +616,111 @@ $f^*s(g) \circ q(f \circ g \circ p_C,C) = f\circ g$ and this we can show as foll
 \end{align*}
 \end{proof}
 
-\iffalse
-\input{thedupleconstruction}
-\fi
+\subsection{Cascades of sections}
+
+We will find the following definition and accompanying lemma useful when reasoning about the interpretations of theories. 
+\begin{definition}
+If $a$ is any object of a contextual category \catcw and if $1 \base b_1 ... \base b_n$ in \catc, for some $n \ge 1$, 
+then define a \term{cascade} from $a$ to $b_n$ to consist of an n-tuple of sections $\fn$ of \catc, such that \foreachi, 
+$f_i \in Sect(\fipvectorstar(\crossx{a}{b_i}{1}))$.
+\end{definition}
+
+\commentary{Do I need a lemma to say that ^* maps section to sections?}
+\begin{lemma}
+\llabel{cacscadelemma}
+If $a$ is an object of a contextual category \catc, if $1 \base b_1 ... \base b_n$ in \catc and if $f_1,...f_n$ is a cascade from $a$ to $b_n$ in  \catcw then \foreachi, $a \base \fipvectorstar(\crossx{a}{b_i}{1}$ in \catc.
+Additionally if $b$ is some object of \catcw such that $b_n \base b$ in \catcw then and $a \base \fnvectorstar(\crossx{a}{b}{1})$ in \catc and
+if $g$ is a section of $b$ then $\fnvectorstar(\crossx{a}{g}{1})$ is a section of $\fnvectorstar(\crossx{a}{b}{1})$.
+\end{lemma}
+\begin{proof}
+From the definition of $\crossx{}{}{1}$ it follows that $a \base \crossx{a}{b_1}{1} \base \crossx{a}{b_2}{1} ... \base \crossx{a}{b_n}{1} \base \crossx{a}{b}{1}$ in \catc. Now since $f_1 \in Sect(\crossx{a}{b_1}{1})$ it follows from the definition of the extended $^*$ notation
+that $a \base f_1^*(\crossx{a}{b_2}{1})  ... \base f_1^*(\crossx{a}{b_n}{1}) \base f_1^*(\crossx{a}{b}{1})$ in \catc.
+
+Similarly, since $f_2 \in Sect(f_1^*(\crossx{a}{b_2}{1}))$ it follows 
+that $a \base f_2^*f_1^*(\crossx{a}{b_3}{1})  ... \base f_2^*f_1^*(\crossx{a}{b_n}{1}) \base f_2^*f_1^*(\crossx{a}{b}{1})$ in \catc.
+
+We see (by induction,  if we were to be formal about it) that \foreachi, $f_i \in Sect(\fipvectorstar(\crossx{a}{b_i}{1}))$
+and that $a \base \fnvectorstar(\crossx{a}{b}{1})$ in \catc. In fact we see that
+we have the following objects and morphisms in \catc:
+\newcommand{\ncdotdotdot}[2]
+{\ncline[linestyle=none]{#1}{#2} 
+ \ncput[nrot=:U]{\Large$ \hdots$}
+}
+\begin{displaymath}
+\begin{array}{c  c p{0.4cm} c p{0.2cm} c p {0.2cm} c  p{0.5cm} c}
+&&&                                               &&                                           && \Rnode{ab}{\crossx{a}{b}{1}}    &&                \\[1.2cm]
+&&&                                               &&  \Rnode{f1ab}{\fonestar(\crossx{a}{b}{1})}
+%\rule[-1cm]{3pt}{1pt}
+&& \Rnode{abm}{\crossx{a}{b_m}{1}} &&                \\[1.2cm]
+&&&                                               &&  \Rnode{f1abm}{\fonestar(\crossx{a}{b_m}{1})}&&                              &&                \\[0.1cm]
+&&&                                               &&                                           && \Rnode{ab3}{\crossx{a}{b_3}{1}} &&                \\[1.2cm]
+&\Rnode{fm1axb}{\fmonestar...\ftwostar\fonestar(\crossx{a}{b}{1})}&& &&\Rnode{f1axb3}{\fonestar(\crossx{a}{b_3}{1})}  && \Rnode{ab2}{\crossx{a}{b_2}{1}}  &&           \\[1.2cm]
+\Rnode{ftarget}{\fmstar...\ftwostar\fonestar(\crossx{a}{b}{1})}&\Rnode{fmtarget}{\fmonestar...\ftwostar\fonestar(\crossx{a}{b_m}{1})}&&
+\Rnode{f3target}{\ftwostar\fonestar(\crossx{a}{b_3}{1})} &&\Rnode{f2target}{\fonestar(\crossx{a}{b_2}{1})}  && \Rnode{ab1}{\crossx{a}{b_1}{\Rnode{f1target}{1}}}     \\[1.2cm]
+&&&                                               &&                                           &&                                                       \\[-6.4cm] %%% HEE HEE HE
+&&&																								&&                                           &&                         && \Rnode{b}{b}                \\[1.2cm]
+&&&																								&&                                           &&                         && \Rnode{bm}{b_m}             \\[0.3cm]
+&&&                                               &&                                           &&                         &&                             \\[0.3cm]
+&&&																								&&                                           &&                         && \Rnode{b3}{b_3}             \\[1.2cm]
+&&&																								&&                                           &&                         && \Rnode{b2}{b_2}             \\[1.2cm]
+&&&																								&&                                           &&                         && \Rnode{b1}{b_1}             \\[0.3cm]
+&&&		\ovalnode[linestyle=none]{a}{a}					    &&                                           &&                         &&                             \\[1.1cm]
+&&&                                               &&                                           && \Rnode{abs}{1} \ \ \ \ \ \ \ \ &&                      \\           
+\makebox[0cm]{
+\ncarr{ab}{b}
+\ncarr{abm}{bm}
+\ncarr{f1ab}{ab}
+\ncarr{f1abm}{abm}
+\ncarr{ab3}{b3}
+\ncarr{ab2}{b2}
+\ncarr{ab1}{b1}
+\ncarr{f1axb3}{ab3}
+\ncarr{f2target}{ab2}
+\ncarr{f3target}{f1axb3}
+\ncarr{ftarget}{fm1axb}
+\ncdotdotdot{fm1axb}{f1ab} 
+\ncdotdotdot{fmtarget}{f1abm}
+\ncdotdotdot{fmtarget}{f3target}
+%
+\ncarc[arcangle=-5,nodesepA=15pt,offsetA=-2pt,nodesepB=3pt,offsetB=-5pt]{->}{a}{f1target}
+\blabel{f_1}[0.6]
+\ncarc[arcangle=10,nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{a}{f2target}
+\alabel{f_2}
+\ncarc[arcangle=10,nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{a}{f3target}
+\alabel{f_3}
+\ncarc[arcangle=7,nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{a}{fmtarget}
+\alabel{f_m}
+\ncarc[arcangle=7, nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{a}{ftarget}
+\alabel{f}
+
+\setlength{\sarnodesepB}{10pt}
+\ncsar{fmtarget}{a}
+\ncsar{ftarget}{a}
+\ncsar{f3target}{a}
+\ncsar{f2target}{a}
+\ncsar{f1target}{a}
+\sarreset
+\ncsar{fm1axb}{fmtarget}
+
+%left but two tower
+\ncsar{f1ab}{f1abm}
+\ncdotdotdot {f1abm}{f1axb3}
+\ncsar{f1axb3}{f2target}
+%left but one tower
+\ncsar{ab}{abm}
+\ncdotdotdot{abm}{ab3}
+\ncsar{ab3}{ab2}
+\ncsar{ab2}{ab1}
+%left tower
+\ncsar{b}{bm}
+\ncdotdotdot{bm}{b3}
+\ncsar{b3}{b2}
+\ncsar{b2}{b1}
+\ncsar{b1}{abs}
+\nccdar{a}{abs}
+}
+\end{array}
+\end{displaymath}
+
+\end{proof}
 
