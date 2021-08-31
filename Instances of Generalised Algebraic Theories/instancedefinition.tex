@@ -240,7 +240,7 @@ We have the following diagram in \catc
 It is useful to observe now that if we take the  $\Omega$ in clause (iii) of this definition of the substitution property 
 to be $\Omega_m$ then we get the following:
 \begin{observation}
-\label{substitutionpropertyvariant}
+\llabel{substitutionpropertyvariant}
 \newcommand {\forceSOURCEwidth}{\rule{5cm}{0pt}}  % so as to line up three different arrays
 \newcommand {\forceTARGETwidth}{\rule{2.2cm}{0pt}}
 If $I$ is a partial mapping of T-rules and $\in$-rules of a theory $U$ to objects, respectively sections of a contextual category \catcw
@@ -567,7 +567,7 @@ of $\predInstance(r)$ where $r$ is the rule
 \gatdisplayrule{\xDelta{n}}{\isT{\Delta}} (which, as required and due to the stratification, is a derived rule of $U_p$). 
 \end{enumerate}
 
-Define interpretation $I$ to be \term{relatively valid}  iff  
+Define interpretation $I$ to be \term{relatively valid}  iff  \commentary{take this equality of the rule mappings to mean that one is defined iff the other  is dfefined and then they are both equal}
 \begin{enumerate}[(i)]
 \item \underline{\textbf{T=-axioms}} 
 for all axioms of $\Uincrement$ of the form
@@ -576,7 +576,7 @@ $\predInstance(r) = \predInstance(r')$ where $r$ is the rule
 \gatdisplayrule{\xDelta{n}}{\isT{\Delta}} and  
 and $r'$ is the rule \gatdisplayrule{\xDelta{n}}{\isT{\Delta'}}
 \item \underline{\textbf{$\boldsymbol{\in=}$-axioms}} 
-for all axioms of $\Uincrement$ of the form
+for all axioms of $\Uincrement$ of the form \commentary{ditto}
 \gatdisplayrule{\xDelta{n}}{t = t' \in \Delta},
 $\predInstance(r_t) = \predInstance(r'_t)$ where $r_t$ is the rule
 \gatdisplayrule{\xDelta{n}}{\ofT{r_t}{\Delta}} and  
@@ -593,8 +593,57 @@ determines an instance $\predInstance$ of $U_p$.
 If interpretation $I$ is relatively well-typed and relatively valid then $\Ibar$ is total.
 \end{lemma}
 \begin{proof} 
-Proof by induction on the derivation of rules in $U$. We need to examine each principle of derivation in turn.
+\newcommand {\forceSOURCEwidth}{\rule{5cm}{0pt}}  % so as to line up three different arrays
+\newcommand {\forceTARGETwidth}{\rule{2.2cm}{0pt}}
+Proof by induction on the derivation of rules in $U$. We need to examine each of the principles by which T-rules and $\in$-rules
+are derived. These are T1, CF1, CF2(a) and CF2(b). We condsider each in turn.
+\underline{T1}
+By the principle from \gatdisplayrule{P}{\Delta=\Delta'} and \gatdisplayrule{P}{\ofT{t}{\Delta}} we can derive \gatdisplayrule{P}{\ofT{t}{\Delta'}}.
+We need to show that if $\Ibar$ is defined for \gatdisplayrule{P}{\ofT{t}{\Delta}} then it is defined also for \gatdisplayrule{P}{\ofT{t}{\Delta'}}. 
+From examination of the preconditions for $\Ibar$ to be defined for $\in$-rules in either the case that $t$ is simple a variable or in the case that
+$t$ is of the form $f(t_1,...t_n)$ we see that in either case it is sufficient to show that if  \gatdisplayrule{P}{\Delta=\Delta'} is a derived rule of $U$
+then we need that $\Ibar(r_\Delta)$ is defined iff $\Ibar(r_{\Delta'})$ is defined and that, if defined,  $\Ibar(r_\Delta) = \Ibar(r_{\Delta'})$.
+\highlight{We shall have to add this as an inductive hypothesis!}
+\underline{CF1} According to the principle, whenever a rule of the form \gatdisplayrule{\xDelta{n}}{\isT{\Delta_{n+1}}} is a derived rule of $U$ 
+then so to is the rule \gatdisplayrule{\xDelta{n}}{\ofT{x_i}{\Delta_{i}}} where $x_{n+1}$ is a variable distinct from each of $\xn$, \foreachi. 
+We have to show that if $\Ibar$ is defined for any such rule $r_{\Delta_{n+1}}$ then so to is it defined for the associated rule $r_{x_i}$, \foreachi.
+%Denote the former rule $r_{\Delta_{n+1}}$ and the latter rule $r_{x_i}$. 
+Therefore we have to show that the preconditions for $\Ibar$ to be defined at such an associated rule $r_{x_i}$ hold. these are:
+\newcommand{\deltaimapped}{\crossx{a_{n+1}}{a_i}{a_{i-1}}}
+\newcommand{\deltaimappedlong}{s(p_{a_{n+1},a_i})^*...s(p_{a_{n+1},a_1})^*(\crossx{a_{n+1}}{a_i}{1})}
 
+\begin{enumerate}[(a)]
+\item that for each $j$, $1 \leq j \leq n+1$ the context $\xDelta{j}$ is mapped by $\Ibar$ to some object $a_j$ of \catc,
+\item $\Ibar$ maps the rule \gatdisplayrule{\xDelta{n+1}}{\isT{\Delta_{i}}} to the object $\deltaimapped$
+\end{enumerate} 
+The inductive hypothesis is that $\Ibar$ is defined for $r_{\Delta_{n+1}}$ therefore that (a) holds follows by the lemma \ref{intermediatelemma}. 
+Now since we have that $\Ibar$ maps 
+\begin{equation*}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\gatdisplayrule{\xDelta{i-1}}{\isT{\Delta_i}}  & \Imapsto & a_i \\ [0.4cm]
+\end{array}
+\end{equation*}
+and, assuming as an nested inductive hypothesis that for $j < i$,
+\begin{equation*}
+\begin{array}{c c c }
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\gatdisplayrule{\xDelta{n+1}}{\ofT{x_j}{\Delta_j}}  & \Imapsto & s(p_{a_{n+1},a_j}) \\ [0.4cm]
+\end{array}
+\end{equation*}
+then by observation \ref{substitutionpropertyvariant} 
+we have that $\Ibar$ maps
+\begin{equation*}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\gatdisplayrule{\xDelta{n+1}}{\isT{\Delta_i}}  & \Imapsto & \deltaimappedlong \\ [0.4cm]
+\end{array}
+\end{equation*}
+Now (b) follows since 
+\begin{equation*}
+\deltaimappedlong = \deltaimapped
+\end{equation*}  
+by lemma \highlight{yet to be stated}. \\
 \underline{CF2(a)}
 By this principle, from a sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule[,]{\xDelta{n}}{\isT{A(\xn)}} for some $n \geq 0$, if
 $P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
