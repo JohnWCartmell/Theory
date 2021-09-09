@@ -24,8 +24,9 @@ then we define any particular derived rule $r$ of $U$ to be \term{consistently i
 Suppose that  the rule $r$ is the T-rule \omegarule and let $r_m$ be the rule
 \gatdisplayrule{\yOmega{m-1}}{\isT{\Omega_m}}
 then $r$ is consistently interpreted by $I$ iff
-\begin{enumerate}[(a)]
-\item $I(r_m) \base\, I(r)$ in \catcw  and
+\begin{enumerate}[(a)]\commentary{is this inductive definition really well-defined? is it a definition at all?} \commentary{I think so because we could just unwrap this new bit into
+realisations $\tuple{s_1,...s_j}$ etc.}
+\item \newt{$I(r_m)$ is defined and $r_m$ is consistently interpreted by $I$ and} $I(r_m) \base\, I(r)$ in \catcw  and
 \item
 for all contexts $Q$ and for all realisations $\tuple{\sm}$ of $\yOmega{m}$ wrt $Q$, 
 $$ \Imappedrule{Q}{\isT{\Omega[s_1|y_1...s_m|y_m]}} = \gmstar...\gonestar(\crossx{a}{\Imappedrule{\yOmega{m}}{\isT{\Omega}}}{1})$$
@@ -73,6 +74,7 @@ $$
 $$
 \end{enumerate}
 \end{definition}
+\highlight{END of DEFINITION OF consistently interpreted}
 
 
 \begin{definition}
@@ -81,6 +83,12 @@ of derived T-rules and $\in$-rules of the theory $U$ to objects, respectively se
 consistently interprets every derived rule of $U$.
 \end{definition}
 
+\begin{observation}
+\llabel{typeweakeningobservation}
+In the situation of  partial mapping $I$ 
+if \omegarule is a derived of $U$ for which $I$ is defined and which is consistently interpreted by $I$ and if $Q$ is a context which is mapped to an object $a$ by $I$ 
+then $\Imappedrule{Q}{\isT{\Omega_1}}=\crossx{a}{b_1}{1}$ where $b_1=\Imappedrule{}{\isT{\Omega_1}}$.
+\end{observation}
 
 
 \begin{oldtt}
@@ -184,8 +192,20 @@ This completes the definition of $\Ibar$.
 \end{definition}
 
 
-  
-
+\begin{lemma}
+\llabel{Ibartowerlemma}
+Suppose that  the rule $r$ is the T-rule \omegarule and that $r$ is a derived rule of $U$. 
+Let $r_j$ be the rule
+\gatdisplayrule{\yOmega{j-1}}{\isT{\Omega_j}}. This is a derived rule of $U$ by lemma xxx.
+Suppose that $\Ibar(r)$ is defined then
+$\Ibar(r_j)$ is defined \foreachj, and 
+$\Ibar(r_1) \base  ... \base \Ibar(r_m) \base \Ibar(r)$ in \catc.
+\end{lemma}
+\begin{proof}
+It follows from the definition of $\Ibar$ that since $\Ibar(r)$ is defined that $\Ibar(r_m)$ is defined and that
+$\Ibar(r_m) \base \Ibar(r)$ in \catc. Now we can repeat and argue that $\Ibar(r_{m-1})$ is defined and that $\Ibar(r_{m-1}) \base \Ibar(r_m)$
+in \catc. By induction $\Ibar(r_1) \base  ... \base \Ibar(r_m) \base \Ibar(r)$ in \catc, as required.
+\end{proof}
 
 \begin{lemma} 
 If $I$ is an interpretation of generalised algebraic theory $U$ in contextual catgeory \catcw then then if $I$ determines an instance of $U$ then the
@@ -286,17 +306,23 @@ $\Ibar$ is defined both at $r_\Delta$  and $r_{\Delta'}$ and that $\Ibar(r_\Delt
 
 
 \underline{CF1} According to the principle, whenever a rule of the form \gatdisplayrule{\xDelta{n}}{\isT{\Delta_{n+1}}} is a derived rule of $U$ 
-then so to is the rule \gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}}, \foreachi, where $x_{n+1}$ is any variable distinct from each of the variables $\xn$.
+then so to is the rule \gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}}, \foreachi[n+1], where $x_{n+1}$ is any variable distinct from each of the variables $\xn$.
 We have to show that if $\Ibar$ is defined for any such rule $r_{\Delta_{n+1}}$ 
-and this rule is consistently interpreted by $\Ibar$ then so to is $\Ibar$ defined for each associated rule $r_{x_i}$ and this rulee too is consistently
-interpreted by $\Ibar$. We show that this is the case and then show that if it is the case for $r_{x_j}$ all $j <i$ then it follows that is the case for
-$r_{x_i}$ also. In this we establish that it holds for all $i \leq n$. 
+and this rule is consistently interpreted by $\Ibar$ then so to is $\Ibar$ defined for each associated rule $r_{x_i}$ and this rule too is consistently
+interpreted by $\Ibar$. We show that this is the case for $i=1$ and then show that if it is the case for $r_{x_j}$ all $j <i$ then it follows that it is the case for
+$r_{x_i}$ also. In this we establish that it holds for all $i \leq n +1 $. 
 
-In the case that $i=1$ we have to show first that the preconditions for $I(r_{x_1})$ hold. These are
+In the case that $i=1$ we have to show first that the preconditions for $\Ibar(r_{x_1})$ to be defined hold. These are
 that
 \begin{enumerate}[(a)]
-\item the context $\ofT{x_1}{\Delta_1}$ is mapped by $\Ibar$ to some object $a_1$ of \catc, this follows from the inductive hypothesis \highlight{?},
-\item $\Ibar$ maps the rule \gatdisplayrule{\xDelta{n+1}}{\isT{\Delta_{1}}} to the object $???????$, this also follows from the inductive hypothesis \highlight{DOES IT?} from the defintion of $\Ibar$ \highlight{which?}
+\item the context $\ofT{x_1}{\Delta_1}$ is mapped by $\Ibar$ to some object $a_1$ of \catc, this follows from lemma \lref{Ibartowerlemma},
+\item $\Ibar$ maps the rule \gatdisplayrule{\xDelta{n+1}}{\isT{\Delta_{1}}} to the object $\crossx{a_{n+1}}{a_1}{1}$, 
+\commentary{How do I get this?} \commentary{I removed a condition in consistent interpretation which would tell me this if
+I knew that this rule was consistently interpreted. But i don't do I?}
+Hopefully it is the substitution property into empty context? For this i need that the rule with empty context and conclusion $isT{\Delta_1}$ is consistently interpreted by $\Ibar$.
+I have added  this as a further condition in definition of consistently interpreted. Added a new observatuion \lref{typeweakeningobservation} for this.
+\vspace{2in}
+
 \end{enumerate} 
 Next we have to show that $\Ibar(r_{x_1})=s(p_{a,a_1})$\highlight{???}. This follows from ???????????????.
 
