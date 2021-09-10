@@ -310,35 +310,45 @@ then so to is the rule \gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}}, \fo
 We have to show that if $\Ibar$ is defined for any such rule $r_{\Delta_{n+1}}$ 
 and this rule is consistently interpreted by $\Ibar$ then so to is $\Ibar$ defined for each associated rule $r_{x_i}$ and this rule too is consistently
 interpreted by $\Ibar$. We show that this is the case for $i=1$ and then show that if it is the case for $r_{x_j}$ all $j <i$ then it follows that it is the case for
-$r_{x_i}$ also. In this we establish that it holds for all $i \leq n +1 $. 
+$r_{x_i}$ also. In so doing we establish that it holds for all $i \leq n +1 $, as required. 
 
 In the case that $i=1$ we have to show first that the preconditions for $\Ibar(r_{x_1})$ to be defined hold. These are
 that
 \begin{enumerate}[(a)]
-\item the context $\ofT{x_1}{\Delta_1}$ is mapped by $\Ibar$ to some object $a_1$ of \catc, this follows from lemma \lref{Ibartowerlemma},
+\item \foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $a_i$ of \catcw such
+that $1 \base a_1,...\base a_i$, this follows from lemma \lref{Ibartowerlemma}, \commentary{CHECK}
 \item $\Ibar$ maps the rule \gatdisplayrule{\xDelta{n+1}}{\isT{\Delta_{1}}} to the object $\crossx{a_{n+1}}{a_1}{1}$, 
-\commentary{How do I get this?} \commentary{I removed a condition in consistent interpretation which would tell me this if
-I knew that this rule was consistently interpreted. But i don't do I?}
-Hopefully it is the substitution property into empty context? For this i need that the rule with empty context and conclusion $isT{\Delta_1}$ is consistently interpreted by $\Ibar$.
-I have added  this as a further condition in definition of consistently interpreted. Added a new observatuion \lref{typeweakeningobservation} for this.
-\vspace{2in}
-
+This follows by observation \lref{typeweakeningobservation} because it follows from the assumption that $r_{\Delta_{n+1}}$ is consistently interpreted by $\Ibar$
+and from the definition of what this means  that the rule \gatdisplayrule{Empty}{\isT{\Delta_1}} is consistently interpreted by $\Ibar$.
 \end{enumerate} 
-Next we have to show that $\Ibar(r_{x_1})=s(p_{a,a_1})$\highlight{???}. This follows from ???????????????.
-
+We also have to show that $\Ibar(r_{x_1})=s(p_{a_{n+1},a_1})$ but this is exactly the definition $\Ibar(r_{x_1})$.
+\vspace{2in}
+Now suppose that for each $j$, $j < i$, the $\Ibar$ is defined at the rule $r_{x_j}$ and that this rule is consistently interpreted by $\Ibar$, in particular that
+$\Ibar(r_{x_j})=s(p_{a_{n_1},a_j})$. We shall now show that it follows that 
+$\Ibar$ is defined at the rule $r_{x_i}$ and that this rule is consistently interpreted by $\Ibar$ by showing that
+$\Ibar(r_{x_i})=s(p_{a_{n_1},a_i})$. 
 
 %Denote the former rule $r_{\Delta_{n+1}}$ and the latter rule $r_{x_i}$. 
-Therefore we have to show that the preconditions for $\Ibar$ to be defined at such an associated rule $r_{x_i}$ hold. these are:
+We have to show that the preconditions for $\Ibar$ to be defined at the rule $r_{x_i}$ hold. These are:
+
+\begin{enumerate}
+\item \foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $a_i$ of \catcw such
+that $1 \base a_1,...\base a_i$, as above, this follows from lemma \lref{Ibartowerlemma}, 
+\item the rule \gatdisplayrule{\xDelta{n+1}}{\isT{\Delta_i}} is mapped by $\Ibar$ to the object $\crossx{a_{n+1}}{a_i}{a_{i-1}}$
+\end{enumerate}
+and we also have to show 
+\begin{enumerate}[3.]
+\item the rule $r_{x_i}$ is consistently interpreted by $\Ibar$ i.e. that $\Ibar(r_{x_i})=s(p_{a_{n+1},a_i})$ but this is just the defintion of $\Ibar$
+at $r_{x_i}$ so it just suffices to show that the preconditions hold.
+\end{enumerate}
+
+For substitution into $r_{x_i}$ I am going to need
+$\gnvectorstar (\crossx{b}{s(p_{a_n,a_i})}{1})=g_i$ am I not?
+
+
 \newcommand{\deltaimapped}{\crossx{a_{n+1}}{a_i}{a_{i-1}}}
 \newcommand{\deltaimappedlong}{s(p_{a_{n+1},a_i})^*...s(p_{a_{n+1},a_1})^*(\crossx{a_{n+1}}{a_i}{1})}
 
-\begin{enumerate}[(a)]
-\item that for each $j$, $1 \leq j \leq n+1$ the context $\xDelta{j}$ is mapped by $\Ibar$ to some object $a_j$ of \catc,
-\item $\Ibar$ maps the rule \gatdisplayrule{\xDelta{n+1}}{\isT{\Delta_{i}}} to the object $\deltaimapped$
-\end{enumerate} 
-The inductive hypothesis is that $\Ibar$ is defined for $r_{\Delta_{n+1}}$ therefore that (a) holds follows by 
-\highlight{a new lemma of observation\footnote{add this new lemma immediately after definition of consistently interpreted} }
-\oldt{the lemma \ref{intermediatelemma}}. 
 Now since we have that $\Ibar$ maps 
 \begin{equation*}
 \begin{array}{c c c}
@@ -346,28 +356,41 @@ Now since we have that $\Ibar$ maps
 \gatdisplayrule{\xDelta{i-1}}{\isT{\Delta_i}}  & \Imapsto & a_i \\ [0.4cm]
 \end{array}
 \end{equation*}
-and, assuming as an nested inductive hypothesis\commentary{seems to me that happily this inductive hyptothesis needs to be that $r_{x_j}$ is
-defined \bfseries{consistently interpreted}} that for $j < i$,
+and since we have that
+$\tuple{x_1,...x_i}$ is a realisation of context $\xDelta{i}$ with respect to context $\Delta{n+1}$ 
+and since we have assumed for each $j<i$ that $r_{x_j}$ is consistently interpreted by $\Ibar$ and in particular
+that
 \begin{equation*}
 \begin{array}{c c c }
 \forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
 \gatdisplayrule{\xDelta{n+1}}{\ofT{x_j}{\Delta_j}}  & \Imapsto & s(p_{a_{n+1},a_j}) \\ [0.4cm]
 \end{array}
 \end{equation*}
-then by observation \ref{substitutionpropertyvariant} 
-we have that $\Ibar$ maps
+since we have assumed that $r_{\Delta_i}$ is consistently interpreted by $\Ibar$ and in particular that clause xxx of that defintion holds
+then 
 \begin{equation*}
 \begin{array}{c c c}
 \forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
-\gatdisplayrule{\xDelta{n+1}}{\isT{\Delta_i}}  & \Imapsto & \deltaimappedlong \\ [0.4cm]
+\gatdisplayrule{\xDelta{n+1}}{\isT{\Delta_i[x_1|x_1,...x_{i-1}|x_{i-1}]}}  & \Imapsto & \deltaimappedlong \\ [0.4cm]
 \end{array}
 \end{equation*}
-Now (b) follows since 
+i.e.
+\begin{equation*}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\gatdisplayrule{\xDelta{n+1}}{\isT{\Delta_i}}  & \Imapsto & \deltaimappedlong.\\ [0.4cm]
+\end{array}
+\end{equation*}
+
+
+So we are done if we can prove that
 \begin{equation*}
 \deltaimappedlong = \deltaimapped
 \end{equation*}  
 by lemma \highlight{yet to be stated}. \\
 
+Except I still need to prove the subtitution property For substitution into $r_{x_i}$ I am going to need
+$\gnvectorstar (\crossx{b}{s(p_{a_n,a_i})}{1})=g_i$ am I not? \commentary{Be careful not use substituion before I have proved it} 
 
 \newpage
 
