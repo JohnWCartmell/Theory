@@ -83,6 +83,22 @@ of derived T-rules and $\in$-rules of the theory $U$ to objects, respectively se
 consistently interprets every derived rule of $U$.
 \end{definition}
 
+\begin{lemma}
+\llabel{newsubstitutionlemma}
+Suppose that $r$ is the $\in$-rule \srule and that
+$r$ is consistently interpreted by then
+for all contexts $Q$ and for all realisations $\tuple{\sm}$ of $\yOmega{m}$ wrt $Q$, 
+$$ \Imappedrule{Q}{\ofT{s[s_1|y_1...s_m|y_m]}{\Omega[s_1|y_1...s_m|y_m]}} = \gmstar...\gonestar(\crossx{a}{\Imappedrule{\yOmega{m}}{\ofT{s}{\Omega}}}{1})$$
+where \foreachj, $g_j$ is the section
+$\displaystyle\Imappedrule{Q}{ \ofT{s_j}{\Omega_j [s_1|y_1...s_{j-1}|y_{j-1}]}}$
+and where $a$ is the object to which $I$ maps context $Q$.
+\end{lemma}
+\begin{proof}
+The defn gives us this for non-variables. Remains to prove in the case when $s$ is a variable. Suppose $s$ is the variable
+$y_j$. Since in this case $s[s_1|y_1...s_m|y_m]$ is $s_j$ what we have to show is that:
+$$g_j = \gmvectorstar(\crossx{a}{s(p_{b_m,b_j}}{1}))$$. This is ????????????.
+\end{proof}
+
 \begin{observation}
 \llabel{typeweakeningobservation}
 In the situation of  partial mapping $I$ 
@@ -307,11 +323,12 @@ $\Ibar$ is defined both at $r_\Delta$  and $r_{\Delta'}$ and that $\Ibar(r_\Delt
 
 \underline{CF1} According to the principle, whenever a rule of the form \gatdisplayrule{\xDelta{n}}{\isT{\Delta_{n+1}}} is a derived rule of $U$ 
 then so to is the rule \gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}}, \foreachi[n+1], where $x_{n+1}$ is any variable distinct from each of the variables $\xn$.
-We have to show that if $\Ibar$ is defined for any such rule $r_{\Delta_{n+1}}$ 
-and this rule is consistently interpreted by $\Ibar$ then so to is $\Ibar$ defined for each associated rule $r_{x_i}$ and this rule too is consistently
-interpreted by $\Ibar$. We show that this is the case for $i=1$ and then show that if it is the case for $r_{x_j}$ all $j <i$ then it follows that it is the case for
+We have to show that if $\Ibar$ is defined for and consistently interprets any such T-rule, which we will denote, $r_{\Delta_{n+1}}$, 
+then so to is $\Ibar$ defined for and consistently interprets each associated rule $r_{x_i}$. 
+We show that  if it is the case for $r_{x_j}$ all $j <i$ then it follows that it is the case for
 $r_{x_i}$ also. In so doing we establish that it holds for all $i \leq n +1 $, as required. 
 
+\begin{oldtt}
 In the case that $i=1$ we have to show first that the preconditions for $\Ibar(r_{x_1})$ to be defined hold. These are
 that
 \begin{enumerate}[(a)]
@@ -322,29 +339,21 @@ This follows by observation \lref{typeweakeningobservation} because it follows f
 and from the definition of what this means  that the rule \gatdisplayrule{Empty}{\isT{\Delta_1}} is consistently interpreted by $\Ibar$.
 \end{enumerate} 
 We also have to show that $\Ibar(r_{x_1})=s(p_{a_{n+1},a_1})$ but this is exactly the definition $\Ibar(r_{x_1})$.
+\end{oldtt}
 \vspace{2in}
-Now suppose that for each $j$, $j < i$, the $\Ibar$ is defined at the rule $r_{x_j}$ and that this rule is consistently interpreted by $\Ibar$, in particular that
-$\Ibar(r_{x_j})=s(p_{a_{n_1},a_j})$. We shall now show that it follows that 
+So, suppose that for each $j$, $j < i$, that $\Ibar$ is defined for and consistently interprets the rule $r_{x_j}$ , in particular that
+$\Ibar(r_{x_j})=s(p_{a_{n_1},a_j})$. 
+We shall now show that it follows that 
 $\Ibar$ is defined at the rule $r_{x_i}$ and that this rule is consistently interpreted by $\Ibar$ by showing that
 $\Ibar(r_{x_i})=s(p_{a_{n_1},a_i})$. 
 
 %Denote the former rule $r_{\Delta_{n+1}}$ and the latter rule $r_{x_i}$. 
-We have to show that the preconditions for $\Ibar$ to be defined at the rule $r_{x_i}$ hold. These are:
+First we have to show that the preconditions for $\Ibar$ to be defined at the rule $r_{x_i}$ hold. These are:
 
 \begin{enumerate}
-\item \foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $a_i$ of \catcw such
-that $1 \base a_1,...\base a_i$, as above, this follows from lemma \lref{Ibartowerlemma}, 
-\item the rule \gatdisplayrule{\xDelta{n+1}}{\isT{\Delta_i}} is mapped by $\Ibar$ to the object $\crossx{a_{n+1}}{a_i}{a_{i-1}}$
-\end{enumerate}
-and we also have to show 
-\begin{enumerate}[3.]
-\item the rule $r_{x_i}$ is consistently interpreted by $\Ibar$ i.e. that $\Ibar(r_{x_i})=s(p_{a_{n+1},a_i})$ but this is just the defintion of $\Ibar$
-at $r_{x_i}$ so it just suffices to show that the preconditions hold.
-\end{enumerate}
-
-For substitution into $r_{x_i}$ I am going to need
-$\gnvectorstar (\crossx{b}{s(p_{a_n,a_i})}{1})=g_i$ am I not?
-
+\item that \foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $a_i$ of \catcw such
+that $1 \base a_1,...\base a_i$. This follows from lemma \lref{Ibartowerlemma}, 
+\item that the rule \gatdisplayrule{\xDelta{n+1}}{\isT{\Delta_i}} is mapped by $\Ibar$ to the object $\crossx{a_{n+1}}{a_i}{a_{i-1}}$.
 
 \newcommand{\deltaimapped}{\crossx{a_{n+1}}{a_i}{a_{i-1}}}
 \newcommand{\deltaimappedlong}{s(p_{a_{n+1},a_i})^*...s(p_{a_{n+1},a_1})^*(\crossx{a_{n+1}}{a_i}{1})}
@@ -357,7 +366,7 @@ Now since we have that $\Ibar$ maps
 \end{array}
 \end{equation*}
 and since we have that
-$\tuple{x_1,...x_i}$ is a realisation of context $\xDelta{i}$ with respect to context $\Delta{n+1}$ 
+$\tuple{x_1,...x_{i-1}}$ is a realisation of context $\xDelta{i-1}$ with respect to context $\Delta_{n+1}$ 
 and since we have assumed for each $j<i$ that $r_{x_j}$ is consistently interpreted by $\Ibar$ and in particular
 that
 \begin{equation*}
@@ -366,7 +375,7 @@ that
 \gatdisplayrule{\xDelta{n+1}}{\ofT{x_j}{\Delta_j}}  & \Imapsto & s(p_{a_{n+1},a_j}) \\ [0.4cm]
 \end{array}
 \end{equation*}
-since we have assumed that $r_{\Delta_i}$ is consistently interpreted by $\Ibar$ and in particular that clause xxx of that defintion holds
+since we have assumed that $r_{\Delta_i}$ is consistently interpreted by $\Ibar$ and in particular that clause (ii)(b) of the definition of consistently interpreted holds
 then 
 \begin{equation*}
 \begin{array}{c c c}
@@ -381,17 +390,17 @@ i.e.
 \gatdisplayrule{\xDelta{n+1}}{\isT{\Delta_i}}  & \Imapsto & \deltaimappedlong.\\ [0.4cm]
 \end{array}
 \end{equation*}
-
-
 So we are done if we can prove that
 \begin{equation*}
 \deltaimappedlong = \deltaimapped
 \end{equation*}  
-by lemma \highlight{yet to be stated}. \\
-
-Except I still need to prove the subtitution property For substitution into $r_{x_i}$ I am going to need
-$\gnvectorstar (\crossx{b}{s(p_{a_n,a_i})}{1})=g_i$ am I not? \commentary{Be careful not use substituion before I have proved it} 
-
+This is given by lemma \highlight{yet to be stated}.
+\end{enumerate}
+Next we have to show that 
+\begin{enumerate}[3.]
+\item the rule $r_{x_i}$ is consistently interpreted by $\Ibar$ i.e. that $\Ibar(r_{x_i})=s(p_{a_{n+1},a_i})$ but this is just the defintion of $\Ibar$
+at $r_{x_i}$ so it just suffices to show that the preconditions hold.
+\end{enumerate}
 \newpage
 
 \underline{CF2(a)}
@@ -457,11 +466,12 @@ We have to establish that $\Ibar$ maps
 \gatdisplayrule{Q}{\isT{A(t_1[\ssubbedfory],...t_n[\ssubbedfory])}}   & \Imapsto & \gmvectorstar (\crossx{c}{\fnvectorstar(\crossx{b_m}{I_A}{1})}{1}) \\ [0.4cm]
 \end{array}
 \end{equation}
-Now, we deduce from the definition of $\Ibar$ and from (\ref{timapping}) and from (\ref{sjmapping}) that \foreachi, $\Ibar$ maps
+Now, we deduce from \oldt{the definition of $\Ibar$} the inductive hypothesis that $r_{t_i}$ is consistently interpreted and 
+from lemma \lref{newsubstitutionlemma} from (\ref{timapping}) and from (\ref{sjmapping}) that \foreachi, $\Ibar$ maps
 \begin{equation}
 \begin{array}{c c c}
 \forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
-\gatdisplayrule{Q}{\ofT{t_i[\ssubbedfory]}{\Delta_i[t_1 | x_1,...t_{i-1}|x_{i-1}][\ssubbedfory]}}  & \Imapsto & \gmvectorstar \crossx{c}{f_i}{1} \\ [0.4cm]
+\gatdisplayrule{Q}{\ofT{t_i[\ssubbedfory]}{\Delta_i[t_1 | x_1,...t_{i-1}|x_{i-1}][\ssubbedfory]}}  & \Imapsto & \gmvectorstar (\crossx{c}{f_i}{1}) \\ [0.4cm]
 \end{array}
 \end{equation}
 and therefore from the definition of $\Ibar$ that it maps
