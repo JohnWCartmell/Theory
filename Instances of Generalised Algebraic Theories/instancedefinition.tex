@@ -86,7 +86,8 @@ consistently interprets every derived rule of $U$.
 \begin{lemma}
 \llabel{newsubstitutionlemma}
 Suppose that $r$ is the $\in$-rule \srule and that
-$r$ is consistently interpreted by then
+$r$ is consistently interpreted by $I$ \commentary{\highlight{need introduce $I$}}
+then
 for all contexts $Q$ and for all realisations $\tuple{\sm}$ of $\yOmega{m}$ wrt $Q$, 
 $$ \Imappedrule{Q}{\ofT{s[s_1|y_1...s_m|y_m]}{\Omega[s_1|y_1...s_m|y_m]}} = \gmstar...\gonestar(\crossx{a}{\Imappedrule{\yOmega{m}}{\ofT{s}{\Omega}}}{1})$$
 where \foreachj, $g_j$ is the section
@@ -96,7 +97,7 @@ and where $a$ is the object to which $I$ maps context $Q$.
 \begin{proof}
 The defn gives us this for non-variables. Remains to prove in the case when $s$ is a variable. Suppose $s$ is the variable
 $y_j$. Since in this case $s[s_1|y_1...s_m|y_m]$ is $s_j$ what we have to show is that:
-$$g_j = \gmvectorstar(\crossx{a}{s(p_{b_m,b_j}}{1}))$$. This is ????????????.
+$$g_j = \gmvectorstar(\crossx{a}{s(p_{b_m,b_j}}{1}))$$. This is lemma \highlight{not yet formulated}.
 \end{proof}
 
 \begin{observation}
@@ -325,23 +326,11 @@ $\Ibar$ is defined both at $r_\Delta$  and $r_{\Delta'}$ and that $\Ibar(r_\Delt
 then so to is the rule \gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}}, \foreachi[n+1], where $x_{n+1}$ is any variable distinct from each of the variables $\xn$.
 We have to show that if $\Ibar$ is defined for and consistently interprets any such T-rule, which we will denote, $r_{\Delta_{n+1}}$, 
 then so to is $\Ibar$ defined for and consistently interprets each associated rule $r_{x_i}$. 
-We show that  if it is the case for $r_{x_j}$ all $j <i$ then it follows that it is the case for
-$r_{x_i}$ also. In so doing we establish that it holds for all $i \leq n +1 $, as required. 
+We show that  if it is the case for $r_{x_j}$ all $j <i$ 
+then it follows that it is the case for each rule \gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}}, which we shall denote  $r_{x_i}$. 
+In so doing we establish that it holds for all $i \leq n +1 $, as required. 
 
-\begin{oldtt}
-In the case that $i=1$ we have to show first that the preconditions for $\Ibar(r_{x_1})$ to be defined hold. These are
-that
-\begin{enumerate}[(a)]
-\item \foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $a_i$ of \catcw such
-that $1 \base a_1,...\base a_i$, this follows from lemma \lref{Ibartowerlemma}, \commentary{CHECK}
-\item $\Ibar$ maps the rule \gatdisplayrule{\xDelta{n+1}}{\isT{\Delta_{1}}} to the object $\crossx{a_{n+1}}{a_1}{1}$, 
-This follows by observation \lref{typeweakeningobservation} because it follows from the assumption that $r_{\Delta_{n+1}}$ is consistently interpreted by $\Ibar$
-and from the definition of what this means  that the rule \gatdisplayrule{Empty}{\isT{\Delta_1}} is consistently interpreted by $\Ibar$.
-\end{enumerate} 
-We also have to show that $\Ibar(r_{x_1})=s(p_{a_{n+1},a_1})$ but this is exactly the definition $\Ibar(r_{x_1})$.
-\end{oldtt}
-\vspace{2in}
-So, suppose that for each $j$, $j < i$, that $\Ibar$ is defined for and consistently interprets the rule $r_{x_j}$ , in particular that
+So, suppose that for each $j$, $j < i$, that $\Ibar$ is defined for and consistently interprets the rule $r_{x_j}$ i.e. suppose that  $\Ibar(r_{x_j})$ is defined and that
 $\Ibar(r_{x_j})=s(p_{a_{n_1},a_j})$. 
 We shall now show that it follows that 
 $\Ibar$ is defined at the rule $r_{x_i}$ and that this rule is consistently interpreted by $\Ibar$ by showing that
@@ -351,21 +340,20 @@ $\Ibar(r_{x_i})=s(p_{a_{n_1},a_i})$.
 First we have to show that the preconditions for $\Ibar$ to be defined at the rule $r_{x_i}$ hold. These are:
 
 \begin{enumerate}
-\item that \foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $a_i$ of \catcw such
-that $1 \base a_1,...\base a_i$. This follows from lemma \lref{Ibartowerlemma}, 
-\item that the rule \gatdisplayrule{\xDelta{n+1}}{\isT{\Delta_i}} is mapped by $\Ibar$ to the object $\crossx{a_{n+1}}{a_i}{a_{i-1}}$.
+\item That \foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $a_i$ of \catcw such
+that $1 \base a_1,...\base a_i$. This follows from lemma \lref{Ibartowerlemma}. \commentary{\highlight{CHECK}}
 
+\item That the rule \gatdisplayrule{\xDelta{n+1}}{\isT{\Delta_i}} is mapped by $\Ibar$ to the object $\crossx{a_{n+1}}{a_i}{a_{i-1}}$.
+
+This we can show as follows.
 \newcommand{\deltaimapped}{\crossx{a_{n+1}}{a_i}{a_{i-1}}}
-\newcommand{\deltaimappedlong}{s(p_{a_{n+1},a_i})^*...s(p_{a_{n+1},a_1})^*(\crossx{a_{n+1}}{a_i}{1})}
+\newcommand{\deltaimappedlong}{s(p_{a_{n+1},a_{i-1}})^*...s(p_{a_{n+1},a_1})^*(\crossx{a_{n+1}}{a_i}{1})}
+Let $r_{\Delta_i}$ be the rule \gatdisplayrule{\xDelta{i-1}}{\isT{\Delta_i}}.
 
-Now since we have that $\Ibar$ maps 
-\begin{equation*}
-\begin{array}{c c c}
-\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
-\gatdisplayrule{\xDelta{i-1}}{\isT{\Delta_i}}  & \Imapsto & a_i \\ [0.4cm]
-\end{array}
-\end{equation*}
-and since we have that
+
+
+Because $\Ibar(r_{\Delta_i}) = a_i$,
+because  we have that
 $\tuple{x_1,...x_{i-1}}$ is a realisation of context $\xDelta{i-1}$ with respect to context $\Delta_{n+1}$ 
 and since we have assumed for each $j<i$ that $r_{x_j}$ is consistently interpreted by $\Ibar$ and in particular
 that
@@ -375,8 +363,8 @@ that
 \gatdisplayrule{\xDelta{n+1}}{\ofT{x_j}{\Delta_j}}  & \Imapsto & s(p_{a_{n+1},a_j}) \\ [0.4cm]
 \end{array}
 \end{equation*}
-since we have assumed that $r_{\Delta_i}$ is consistently interpreted by $\Ibar$ and in particular that clause (ii)(b) of the definition of consistently interpreted holds
-then 
+and since we have assumed that $r_{\Delta_i}$ is consistently interpreted by $\Ibar$ and in particular that clause (ii)(b) of the definition of consistently interpreted holds
+then we have that
 \begin{equation*}
 \begin{array}{c c c}
 \forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
@@ -397,11 +385,9 @@ So we are done if we can prove that
 This is given by lemma \highlight{yet to be stated}.
 \end{enumerate}
 Next we have to show that 
-\begin{enumerate}[3.]
-\item the rule $r_{x_i}$ is consistently interpreted by $\Ibar$ i.e. that $\Ibar(r_{x_i})=s(p_{a_{n+1},a_i})$ but this is just the defintion of $\Ibar$
-at $r_{x_i}$ so it just suffices to show that the preconditions hold.
-\end{enumerate}
-\newpage
+By showing that the reklevant preconditions hold we have shown that $I(r_{x_i})$ is defined. 
+To show that the rule $r_{x_i}$ is consistently interpreted by $\Ibar$ we just have to show that
+ $\Ibar(r_{x_i})=s(p_{a_{n+1},a_i})$. But this is exactly the definition of $\Ibar$ at $r_{x_i}$. \\
 
 \underline{CF2(a)}
 By this principle, from a sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule[,]{\xDelta{n}}{\isT{A(\xn)}} for some $n \geq 0$, if
@@ -489,9 +475,41 @@ This we can do by repeated application of identities (\ref{metagattriplestar})
 and (\ref{metagatcrossstarcross}), which are two of the meta-GAT axioms described earlier.\\
 \end{newtt}
 
-\underline{CF2(b)???}
+\underline{CF2(b)???} \\
+
+\underline{SI1} 
+This principle states that if \gatdisplayrule{\yOmega{m}}{\Omega=\Omega'} is a derived rule, if $Q$ is a context and if  $\sm$ and $\smp$ are expressions such that
+\foreachj, \gatdisplayrule{Q}{s_j=s'_j \in \Omega[s_1|y_1...s_{j-1}|y_{j-1}]} is a derived rule then we may derive the rule
+\gatdisplayrule{Q}{\Omega[s_1|y_1...s_m|y_m]=\Omega'[s'_1|y_1...s'_m|y_m]}. \\
+\vspace{1cm}
+\underline{SI2} 
+This principle states that if \gatdisplayrule{\yOmega{m}}{s = s' \in \Omega} is a derived rule, if $Q$ is a context and if  $\sm$ and $\smp$ are expressions such that
+\foreachj, \gatdisplayrule{Q}{s_j=s'_j \in \Omega[s_1|y_1...s_{j-1}|y_{j-1}]} is a derived rule then we may derive the rule
+\gatdisplayrule{Q}{s[s_1|y_1...s_m|y_m]=s'[s'_1|y_1...s'_m|y_m] \in \Omega[s_1|y_1...s_m|y_m]}. \\
+\vspace{1cm}
+
+\underline{A1} 
+This principle ensures that an T=axiom is a derived rule providing it is well-typed.
+ 
+It states that from an axiom \gatdisplayrule{\xDelta{n}}{\Delta=\Delta'} and from derived rules
+ \gatdisplayrule{\xDelta{n}}{\isT{\Delta}} and \gatdisplayrule{\xDelta{n}}{\isT{\Delta'}} we may derive
+\gatdisplayrule{\xDelta{n}}{\Delta=\Delta'}.
+
+
+\vspace{1cm}
+Follows from the fact fact that $I$ is relatively valid.\\
+
+\underline{A2} 
+This principle ensures that an $\in$=axiom is a derived rule providing it is well-typed.
+It states that from an axiom \gatdisplayrule{\xDelta{n}}{t=t' \in \Delta} and from derived rules
+ \gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta}} and \gatdisplayrule{\xDelta{n}}{\ofT{t'}{\Delta}} we may derive
+\gatdisplayrule{\xDelta{n}}{t=t' \in \Delta}.
+
+\vspace{1cm}
+Follows from the fact that $I$ is relatively valid. \\
+
 \end{proof}
-\newpage
+
 \begin{lemma}
 \llabel{maininterpretationlemma}
 Suppose $U$ is a  generalised algebraic theory that is stratified as  $U_0 \subseteq $U$_1 \subseteq $U$_2 \subseteq ...$. 
@@ -503,6 +521,9 @@ For each $i$, by lemma \ref{interpretationlemmainductivestep}, $I \restrict U_i$
 $\Ibar$ of derived rules of $U$ to objects and sections of \catcw by defining $I(r)$ to be $\overline{I \restrict U_i}(r)$ where
 $i$ is such that $r$ is a derived rule of $U_i$. $I$ is an instance because in any particular case of any of the clauses (i) - (vii) of the main definition 
 there will be an $i$ so that all the rules involved are derived rules of the theory $U_i$. 
+
+
+
 \end{proof}
 
 
