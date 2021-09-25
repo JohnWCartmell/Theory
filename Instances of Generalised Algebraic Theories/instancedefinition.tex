@@ -6,14 +6,9 @@ If $I$ is a  mapping of derived T-rules and $\in$-rules of a theory $U$ to objec
 for any non-empty context $\xDelta{n}$ of $U$ by the mapping under $I$ of this context we shall mean the mapping under $I$ of the derived rule
 \gatdisplayrule{\xDelta{n-1}}{\isT{\Delta_n}}.  By the mapping under $I$ of the empty context we shall mean the terminal object $1$ of \catc.
 
-\newcommand{\sjconclusion}{\ofT{s_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}}
+\newcommand{\sjconclusion}{\ofT{s_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}}  % xxxxx USED in an Imapped rule
 \newcommand{\sjpconclusion}{\ofT{s'_j}{\Omega'_j[s_1|y_1,...s_{j-1}|y_{j-1}]}}
-\newcommand{\sjrule}   {\gatdisplayrule{Q}{\sjconclusion}}
-\newcommand{\SUBsmFORym}{s_1|y_1,...s_m|y_m}
-\newcommand{\GRomega}[1][]{\gatdisplayrule[#1]{\yOmega{m}}{\isT{\Omega}}}
-\newcommand{\GRsTomega}[1][]    {\gatdisplayrule[#1]{\yOmega{m}}{\ofT{s}{\Omega}}}
-\newcommand{\GRomegaSUBsmFORym}[1][]{\gatdisplayrule[#1]{Q}{\isT{\Omega[\SUBsmFORym]}} }
-\newcommand{\GRsTomegaSUBsmFORym}[1][]{\gatdisplayrule[#1]{Q}{\ofT{s[\SUBsmFORym]}{\Omega[\SUBsmFORym]}} }
+\newcommand{\SUBsmFORym}{s_1|y_1,...s_m|y_m}                                  % used in Imapped rules
 
 \begin{definition}
 If $U$ is a generalised algebraic theory and if \catcw is a contextual category 
@@ -22,7 +17,7 @@ then we define any particular derived rule $r$ of $U$ to be \term{consistently i
 \begin{enumerate}[(i)]
 %\setlength\itemindent{2cm}
 \item \underline{\textbf{T-rule}} 
-Suppose that  the rule $r$ is the T-rule \GRomega and let $r_m$ be the rule
+Suppose that  the rule $r$ is the T-rule \ZOmega and let $r_m$ be the rule
 \gatdisplayrule{\yOmega{m-1}}{\isT{\Omega_m}}
 then $r$ is consistently interpreted by $I$ iff
 \begin{enumerate}[(a)]\commentary{is this inductive definition really well-defined? is it a definition at all?} \commentary{I think so because we could just unwrap this new bit into
@@ -31,7 +26,7 @@ realisations $\tuple{s_1,...s_j}$ etc.}
 \item
 for all contexts $Q$ and for all realisations $\tuple{\sm}$ of $\yOmega{m}$ wrt $Q$, 
 \begin{newtt}
-if $I$ is defined for each rule \gatdisplayrule{Q}{\sjconclusion} then
+if $I$ is defined for each rule \IsOmega{j} then
 \end{newtt}
 $$ \Imappedrule{Q}{\isT{\Omega[\SUBsmFORym]}} = \gmstar...\gonestar(\crossx{a}{\Imappedrule{\yOmega{m}}{\isT{\Omega}}}{1})$$
 where \foreachj, $g_j$ is the section
@@ -39,7 +34,7 @@ $\displaystyle\Imappedrule{Q}{\sjconclusion}$ and where $a$ is the object to whi
 \end {enumerate}
 
 \item \underline{\textbf{$\boldsymbol {\in}$-rule}} 
-Suppose that $r$ is the $\in$-rule \GRsTomega then
+Suppose that $r$ is the $\in$-rule \ZsOmega then
 $r$ is consistently interpreted by iff
 \begin{enumerate}[(a)]
 \item if $s$ is the variable $y_j$, \forsomej, the $r$ is consistently interpreted
@@ -59,7 +54,7 @@ is mapped to   $s(id_{b_m})$,
 \item otherwise $r$ is consistently interpreted by $I$ iff $\displaystyle I(r) \in \sectionsofImappedrule{\yOmega{m}}{\isT{\Omega}}$ and
 for all contexts $Q$ and for all realisations $\tuple{\sm}$ of $\yOmega{m}$ wrt $Q$, 
 \begin{newtt}
-if $I$ is defined for each rule \gatdisplayrule{Q}{\sjconclusion} then
+if $I$ is defined for each rule \IsOmega{j} then
 \end{newtt}
 $$ \Imappedrule{Q}{\ofT{s[\SUBsmFORym]}{\Omega[\SUBsmFORym]}} = \gmstar...\gonestar(\crossx{a}{\Imappedrule{\yOmega{m}}{\ofT{s}{\Omega}}}{1})$$
 where \foreachj, $g_j$ is the section
@@ -107,7 +102,7 @@ consistently interprets every derived rule of $U$.
 
 \begin{lemma}
 \llabel{substitutionsublemma}
-Suppose that $r$ is the $\in$-rule \GRsTomega and that
+Suppose that $r$ is the $\in$-rule \ZsOmega and that
 $r$ is consistently interpreted by $I$ \commentary{\highlight{need introduce $I$}}
 then
 for all contexts $Q$ and for all realisations $\tuple{\sm}$ of $\yOmega{m}$ wrt $Q$, 
@@ -126,24 +121,30 @@ $$g_j = \gmvectorstar(\crossx{a}{s(p_{b_m,b_j}}{1}))$$. This is lemma \highlight
 \llabel{substitutionlemma}
 Suppose that $Q$ and $\yOmega{m}$ are contexts and that $\tuple{\sm}$ is a relatistion of $\yOmega{m}$ wrt $Q$,
 suppose that \foreachj, the rule
-\gatdisplayrule{Q}{\sjconclusion} is consistently interpreted by $I$ then
+\IsOmega{j} is consistently interpreted by $I$ then
 \begin{enumerate}[(i)]
-\item if \GRomega is a derived rule which is consistently interpreted by $I$
+\item if \ZOmega is a derived rule which is consistently interpreted by $I$
 then the derived rule 
-\GRomegaSUBsmFORym is consistently interpreted by $I$,
-\item if \GRsTomega is a derived rule which is consistently interpreted by $I$
+\ZOmegaSUBsmFORym is consistently interpreted by $I$,
+\item if \ZsOmega is a derived rule which is consistently interpreted by $I$
 then the derived rule 
-\GRsTomegaSUBsmFORym is consistently interpreted by $I$.
+\ZsOmegaSUBsmFORym is consistently interpreted by $I$.
 \end{enumerate}
 \end{lemma}
 \begin{proof}
 \highlight{HOPEFULLY}.
+Let $Q$ be the context $\xDelta{n}$. Let $r_{\Delta_i}$, \foreachi, be the rule deltaiisatype
+\begin{enumerate}[(i)]
+\item
+
+\item
+\end{enumerate}
 \end{proof}
 
 \begin{observation}
 \llabel{typeweakeningobservation}
 In the situation of  partial mapping $I$ 
-if \GRomega is a derived of $U$ for which $I$ is defined and which is consistently interpreted by $I$ and if $Q$ is a context which is mapped to an object $a$ by $I$ 
+if \ZOmega is a derived of $U$ for which $I$ is defined and which is consistently interpreted by $I$ and if $Q$ is a context which is mapped to an object $a$ by $I$ 
 then $\Imappedrule{Q}{\isT{\Omega_1}}=\crossx{a}{b_1}{1}$ where $b_1=\Imappedrule{}{\isT{\Omega_1}}$.
 \end{observation}
 
@@ -162,7 +163,7 @@ such that we have the following mappings by $I$ into the objects and sections of
 \begin{array}{c c c}
 \forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
 Q          & \Imapsto & a   \\ [0.4cm]
-\sjrule    & \Imapsto & f_j \\ [0.4cm]
+\IsOmega{j}    & \Imapsto & f_j \\ [0.4cm]
 \end{array}
 \end{equation*}
 then $f_j \in Sect(f_{j-1}^*...f_i^*(\crossx{a}{b_j}{1}))$.
@@ -251,7 +252,7 @@ This completes the definition of $\Ibar$.
 
 \begin{lemma}
 \llabel{Ibartowerlemma}
-Suppose that  the rule $r$ is the T-rule \GRomega and that $r$ is a derived rule of $U$. 
+Suppose that  the rule $r$ is the T-rule \ZOmega and that $r$ is a derived rule of $U$. 
 Let $r_j$ be the rule
 \gatdisplayrule{\yOmega{j-1}}{\isT{\Omega_j}}. This is a derived rule of $U$ by lemma xxx.
 Suppose that $\Ibar(r)$ is defined then
@@ -467,7 +468,7 @@ and that there is the following mapping by $\Ibar$ into the objects and sections
 \begin{array}{c c c}
 \forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
 Q          & \Imapsto & c   \\ [0.4cm]
-\sjrule    & \Imapsto & g_j \\ [0.4cm]
+\IsOmega{j}    & \Imapsto & g_j \\ [0.4cm]
 \end{array}
 \end{equation}
 where $g_j \in Sect(g_{j-1}^*...g_i^*(\crossx{c}{b_j}{1}))$ in \catc.
@@ -513,22 +514,22 @@ This principle states that if \gatdisplayrule{\yOmega{m}}{\Omega=\Omega'} is a d
 We have to show that this latter rule is consistently intepreted by $I$ from the assumption that each of the rules \gatdisplayrule{\yOmega{m}}{\Omega=\Omega'} and
 \gatdisplayrule{Q}{s_j=s'_j \in \Omega[s_1|y_1...s_{j-1}|y_{j-1}]}, \foreachj, are consistently intepreted by $I$.
 
-To do this we have to show that the rules \GRomegaSUBsmFORym and \gatdisplayrule{Q}{\isT{\Omega'[s'_1|y_1...s'_m|y_m]}}
+To do this we have to show that the rules \ZOmegaSUBsmFORym and \gatdisplayrule{Q}{\isT{\Omega'[s'_1|y_1...s'_m|y_m]}}
 are consistently interpreted by $I$ and that
 $$
 \Imappedrule{Q}{\isT{\Omega[\SUBsmFORym]}} = \Imappedrule{Q}{\isT{\Omega'[s'_1|y_1...s'_m|y_m]}}.
 $$
 From the assumptions that we have made and from the definition of what it means for a rule to be consistently interpreted it follows that
 each of the rules
-\GRomega
+\ZOmega
 and
 \gatdisplayrule{\yOmega{m}}{\isT{\Omega'}}
 and each of the rules
-\gatdisplayrule{Q}{\sjconclusion}
+\IsOmega{j}
 and
 \gatdisplayrule[,]{Q}{\sjpconclusion}
 \foreachj, are consistently intepreted by $I$. Therefore from lemma \lref{substitutionlemma} \highlight{not uet proven!}
-the first part of what we have to prove, that the rules \GRomegaSUBsmFORym and \gatdisplayrule{Q}{\isT{\Omega'[s'_1|y_1...s'_m|y_m]}}
+the first part of what we have to prove, that the rules \ZOmegaSUBsmFORym and \gatdisplayrule{Q}{\isT{\Omega'[s'_1|y_1...s'_m|y_m]}}
 are consistently interpreted by $I$, follows.
 Finally we can show that
 $$
@@ -543,7 +544,7 @@ and where $a$ is the object to which $I$ maps context $Q$.
 
 \end{newtt}
 
-because  from the the fact  that \GRomegaSUBsmFORym is consistently interpreted by $I$ we have that
+because  from the the fact  that \ZOmegaSUBsmFORym is consistently interpreted by $I$ we have that
 $$
 \Imappedrule{Q}{\isT{\Omega[\SUBsmFORym]}} = \gmstar...\gonestar(\crossx{a}{\Imappedrule{\yOmega{m}}{\isT{\Omega}}}{1})
 $$
