@@ -1,14 +1,18 @@
 
+
 \newcommand{\Imappedrule}[2]  {I\left(\gatrawdisplayrule{#1}{#2}\right)}
 \newcommand{\sectionsofImappedrule}[2] { Sect \left( \Imappedrule{#1}{#2} \right)}
 
+\newcommand{\Imap}[1]{\setlength{\fboxsep}{1pt}       
+\setlength{\fboxrule}{0.2pt}I\left(\mbox{#1}\right)}
+
 If $I$ is a  mapping of derived T-rules and $\in$-rules of a theory $U$ to objects, respectively sections of a contextual category \catcw then
 for any non-empty context $\xDelta{n}$ of $U$ by the mapping under $I$ of this context we shall mean the mapping under $I$ of the derived rule
-\gatdisplayrule{\xDelta{n-1}}{\isT{\Delta_n}}.  By the mapping under $I$ of the empty context we shall mean the terminal object $1$ of \catc.
+\IDelta{n}.  By the mapping under $I$ of the empty context we shall mean the terminal object $1$ of \catc.
 
 \newcommand{\sjconclusion}{\ofT{s_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}}  % xxxxx USED in an Imapped rule
 \newcommand{\sjpconclusion}{\ofT{s'_j}{\Omega'_j[s_1|y_1,...s_{j-1}|y_{j-1}]}}
-\newcommand{\SUBsmFORym}{s_1|y_1,...s_m|y_m}                                  % used in Imapped rules
+%\newcommand{\SUBsFORy{m}}{s_1|y_1,...s_m|y_m}                                  % used in Imapped rules
 
 \begin{definition}
 If $U$ is a generalised algebraic theory and if \catcw is a contextual category 
@@ -17,22 +21,22 @@ then we define any particular derived rule $r$ of $U$ to be \term{consistently i
 \begin{enumerate}[(i)]
 %\setlength\itemindent{2cm}
 \item \underline{\textbf{T-rule}} 
-Suppose that  the rule $r$ is the T-rule \ZOmega and let $r_m$ be the rule
-\gatdisplayrule{\yOmega{m-1}}{\isT{\Omega_m}}
+Suppose that  the rule $r$ is the T-rule \ZOmega and let $r_m$ be the rule \IOmega{m}
 then $r$ is consistently interpreted by $I$ iff
-\begin{enumerate}[(a)]\commentary{is this inductive definition really well-defined? is it a definition at all?} \commentary{I think so because we could just unwrap this new bit into
-realisations $\tuple{s_1,...s_j}$ etc.}
-\item \newt{$I(r_m)$ is defined and $r_m$ is consistently interpreted by $I$ and} $I(r_m) \base\, I(r)$ in \catcw  and
+\begin{enumerate}[(a)] 
+\item \newt{$I(r)$ and $I(r_m)$ are defined and $I(r_m) \base\, I(r)$ in \catcw} and 
+\item \newt{$r_m$ is consistently interpreted by $I$ } and
 \item
 for all contexts $Q$ and for all realisations $\tuple{\sm}$ of $\yOmega{m}$ wrt $Q$, 
-\begin{newtt}
-if $I$ is defined for each rule \IsOmega{j} then
-\end{newtt}
-$$ \Imappedrule{Q}{\isT{\Omega[\SUBsmFORym]}} = \gmstar...\gonestar(\crossx{a}{\Imappedrule{\yOmega{m}}{\isT{\Omega}}}{1})$$
-where \foreachj, $g_j$ is the section
-$\displaystyle\Imappedrule{Q}{\sjconclusion}$ and where $a$ is the object to which $I$ maps context $Q$. 
+if \foreachj, $I(r_{s_j})$ is defined 
+and $I(r_{s_j}) \in Sect(I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{a}{I(r)}{1}))$
+where $r_{s_j}$ is the rule \IsOmega{j} 
+and where $a$ is the object to which $I$ maps context $Q$ 
+then
+$$ \Imappedrule{Q}{\isT{\Omega[\SUBsFORy{m}]}} 
+= I(r_{s_m})^*...I(r_{s_1})^*(\crossx{a}{I(r)}{1})$$
+. 
 \end {enumerate}
-
 \item \underline{\textbf{$\boldsymbol {\in}$-rule}} 
 Suppose that $r$ is the $\in$-rule \ZsOmega then
 $r$ is consistently interpreted by iff
@@ -56,25 +60,25 @@ for all contexts $Q$ and for all realisations $\tuple{\sm}$ of $\yOmega{m}$ wrt 
 \begin{newtt}
 if $I$ is defined for each rule \IsOmega{j} then
 \end{newtt}
-$$ \Imappedrule{Q}{\ofT{s[\SUBsmFORym]}{\Omega[\SUBsmFORym]}} = \gmstar...\gonestar(\crossx{a}{\Imappedrule{\yOmega{m}}{\ofT{s}{\Omega}}}{1})$$
+$$ \Imappedrule{Q}{\ofT{s[\SUBsFORy{m}]}{\Omega[\SUBsFORy{m}]}} = \gmstar...\gonestar(\crossx{a}{\Imappedrule{\yOmega{m}}{\ofT{s}{\Omega}}}{1})$$
 where \foreachj, $g_j$ is the section
-$\displaystyle\Imappedrule{Q}{ \ofT{s_j}{\Omega_j [s_1|y_1...s_{j-1}|y_{j-1}]}}$
+$\displaystyle\Imappedrule{Q}{ \ofT{s_j}{\Omega_j \SUBsFORy{j-1}}}$
 and where $a$ is the object to which $I$ maps context $Q$.
 \end{enumerate}
 
 \item \underline{\textbf{T=-rules}} 
 If $r$ is the rule  \gatdisplayrule{\xDelta{n}}{\Delta = \Delta'} 
 then $r$ is interpreted consistently by $I$ iff
-both of the rules \gatdisplayrule{\xDelta{n}}{\isT{\Delta}} and \gatdisplayrule{\xDelta{n}}{\isT{\Delta'}}
+both of the rules \ZDelta and \ZDeltap
 are consistently interpreted by $I$ and
 $$
-\Imappedrule{\xDelta{n}}{\isT{\Delta}} = \Imappedrule{\xDelta{n}}{\isT{\Delta'}}
+\Imappedrule{\xDelta{n}}{\isT{\Delta}} = \Imappedrule{\xDelta{n}}{\isT{\Delta}}
 $$
  
 \item \underline{\textbf{$\boldsymbol{\in=}$-rules}} 
 If $r$ is the rule  \gatdisplayrule{\xDelta{n}}{t = t' \in \Delta} 
 then $r$ is interpreted consistently by $I$ iff
-both of the rules \gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta}} and \gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta'}}
+both of the rules \ZtDelta and \gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta'}}
 are consistently interpreted by $I$ and
 $$
 \Imappedrule{\xDelta{n}}{\ofT{t}{\Delta'}} = \Imappedrule{\xDelta{n}}{\ofT{t'}{\Delta'}}
@@ -105,21 +109,21 @@ consistently interprets every derived rule of $U$.
 Suppose that $r$ is the $\in$-rule \ZsOmega and that
 $r$ is consistently interpreted by $I$ \commentary{\highlight{need introduce $I$}}
 then
-for all contexts $Q$ and for all realisations $\tuple{\sm}$ of $\yOmega{m}$ wrt $Q$, 
-$$ \Imappedrule{Q}{\ofT{s[\SUBsmFORym]}{\Omega[\SUBsmFORym]}} = \gmstar...\gonestar(\crossx{a}{\Imappedrule{\yOmega{m}}{\ofT{s}{\Omega}}}{1})$$
+for all contexts $Q$ and for all realisations $\tuple{\sm}$ of $\yOmega{m}$ wrt $Q$  \highlight{and \foreachj, $I(s_j)$ \textit{as above}}, 
+$$ \Imappedrule{Q}{\ofT{s[\SUBsFORy{m}]}{\Omega[\SUBsFORy{m}]}} = \gmstar...\gonestar(\crossx{a}{\Imappedrule{\yOmega{m}}{\ofT{s}{\Omega}}}{1})$$
 where \foreachj, $g_j$ is the section
-$\displaystyle\Imappedrule{Q}{ \ofT{s_j}{\Omega_j [s_1|y_1...s_{j-1}|y_{j-1}]}}$
+$\displaystyle\Imappedrule{Q}{ \ofT{s_j}{\Omega_j \SUBsFORy{j-1}}}$
 and where $a$ is the object to which $I$ maps context $Q$.
 \end{lemma}
 \begin{proof}
 The defn gives us this for non-variables. Remains to prove in the case when $s$ is a variable. Suppose $s$ is the variable
-$y_j$. Since in this case $s[\SUBsmFORym]$ is $s_j$ what we have to show is that:
+$y_j$. Since in this case $s[\SUBsFORy{m}]$ is $s_j$ what we have to show is that:
 $$g_j = \gmvectorstar(\crossx{a}{s(p_{b_m,b_j}}{1}))$$. This is lemma \highlight{not yet formulated}.
 \end{proof}
 
 \begin{lemma}
 \llabel{substitutionlemma}
-Suppose that $Q$ and $\yOmega{m}$ are contexts and that $\tuple{\sm}$ is a relatistion of $\yOmega{m}$ wrt $Q$,
+Suppose that $Q$ and $\encyOmega{m}$ are contexts, for some $m >1$, and that $\tuple{\sm}$ is a realisation of $\encyOmega{m}$ wrt $Q$,
 suppose that \foreachj, the rule
 \IsOmega{j} is consistently interpreted by $I$ then
 \begin{enumerate}[(i)]
@@ -133,10 +137,21 @@ then the derived rule
 \end{lemma}
 \begin{proof}
 \highlight{HOPEFULLY}.
-Let $Q$ be the context $\xDelta{n}$. Let $r_{\Delta_i}$, \foreachi, be the rule deltaiisatype
+Let $Q$ be the context $\xDelta{n}$. Let $r_{\Delta_i}$, \foreachi, be the rule \IDelta{i}.
+\newcommand{\targetruleone}{\gatdisplayrule{\xDelta{n}}{\isT{\Omega[\SUBsFORy{m}]}}}
+\newcommand{\Qtargetruleone}{\gatdisplayrule{\xDelta{n}}{\isT{\Omega[\SUBsFORy{m}]}}}
+The rule \IDelta{n} is a derived rule because we have assumed that $Q$ is a context. Denote this rule $r_Q$ (though we could also refer to it as $r_n$).
 \begin{enumerate}[(i)]
 \item
-
+First all we show the required condition (a) that $I(r_Q)$ 
+and $\Imap{\Qtargetruleone}$ are defined and that 
+$I(r_Q) \base \Imap{\Qtargetruleone}$ in \catc. 
+First, $I(r_Q)$ is defined because rule \IsOmega{1} is consistently interpreted by $I$. 
+By the towerlemma we have $I(r_1) \base ... I(r_{n-1}) \base I(r_Q)$ in \catc.
+Also because \foreachj, the rule \IsOmega{j} is consistently interpreted by $I$, 
+we have that $I(r_{s_j}) \in Sect(I(\mbox{\gatdisplayrule{Q}{\isT{\Omega_j[\SUBsFORy{j-1}]}}}))$.
+WE seem to need as an iductive hypothesis that 
+$I(\mbox{\gatdisplayrule{Q}{\isT{\Omega_j[\SUBsFORy{j-1}]}}})=I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{I(r_Q)}{I(r)}{1}))$
 \item
 \end{enumerate}
 \end{proof}
@@ -200,7 +215,7 @@ as follows
 \begin{enumerate}[(i)] 
 \item \underline{\textbf{T-rules}} 
 The derivation lemma (lemma \ref{derivationlemma}) tells us that if $r_\Delta$ is a derived T-rule of $U$  then it is of the form \gatdisplayrule{P}{\isT{A(t_1,...t_n)}} for some premise $P$, for some $n \geq 0$ and for some sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule{\xDelta{n}}{\isT{A(x_1,...x_n)}} where \foreachi, the rule 
-\gatdisplayrule[,]{P}{\ofT{t_i}{\Delta_i[t_1 | x_1,...t_{i-1}|x_{i-1}]}} which we will call $r_{t_i}$, is a derived rule of $U$. 
+\ItDelta[,][P]{i} which we will call $r_{t_i}$, is a derived rule of $U$. 
 We define $\Ibar(r_\Delta)$ to be undefined unless the following preconditions are met:
 \begin{enumerate}[(a)]
 \item
@@ -217,7 +232,7 @@ The derivation lemma also tells us that if $r_t$ is an $\in$-rule then it is
 either \highlight{(1)} of the form \gatdisplayrule{\xDelta{n}}{\ofT{x_i}{\Omega}} for some $n \ge 1$, for some $i$, $1 \leq i \leq n$, 
 and for some $\Omega$ such that \gatdisplayrule{\xDelta{n}}{\Delta_i=\Omega} is a derived rule of $U$
 or \highlight{(2)} it is of the form \gatdisplayrule{P}{\ofT{f(t_1,...t_n)}{\Omega}} for some premise $P$, for some $n \geq 0$ and for some operator symbol $f$ with introductory rule $r_f$ of the form \gatdisplayrule{\xDelta{n}}{\ofT{f(x_1,...x_n)}{\Delta}} where \foreachi, the rule 
-\gatdisplayrule{P}{\ofT{t_i}{\Delta_i[t_1 | x_1,...t_{i-1}|x_{i-1}]}}, which we will call $r_{t_i}$, is a derived rule of $U$. 
+\ItDelta[P]{i}, which we will call $r_{t_i}$, is a derived rule of $U$. 
 
 In  case (1) we define $\Ibar(r_t)$ to be undefined unless  unless the following preconditions are met:
 \begin{enumerate}
@@ -236,7 +251,7 @@ the context  $P$ is mapped by $\Ibar$ to some object $a$ of \catcw and
 \item
 \foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $b_i$ of \catcw
 and 
-\item the rule \gatdisplayrule{\xDelta{n}}{\isT{\Delta}} is mapped by $\Ibar$ to some object $b$ of \catcw and
+\item the rule \ZDelta is mapped by $\Ibar$ to some object $b$ of \catcw and
 $1 \base b_1,...\base b_n \base b$ in \catcw 
 and 
 \item
@@ -254,7 +269,7 @@ This completes the definition of $\Ibar$.
 \llabel{Ibartowerlemma}
 Suppose that  the rule $r$ is the T-rule \ZOmega and that $r$ is a derived rule of $U$. 
 Let $r_j$ be the rule
-\gatdisplayrule{\yOmega{j-1}}{\isT{\Omega_j}}. This is a derived rule of $U$ by lemma xxx.
+\IOmega{j}. This is a derived rule of $U$ by lemma xxx.
 Suppose that $\Ibar(r)$ is defined then
 $\Ibar(r_j)$ is defined \foreachj, and 
 $\Ibar(r_1) \base  ... \base \Ibar(r_m) \base \Ibar(r)$ in \catc.
@@ -274,7 +289,7 @@ Use the lemma regarding the interpretation of substitutions (lemma \ref{substitu
 \end{proof}
 
 The condition under which an interpretation of $U$ in \catcw determines an instance i.e that the rule mapping $\Ibar$ is total and respects the axioms can be summarised as being that the interpretation\commentary{slight reword needed} needs be type correct and to satisfy the axioms of the theory. The definition of exactly what we mean by this has to proceed by induction because, for example, we need an instance of the rule
-\gatdisplayrule{\xDelta{n}}{\isT{\Delta}} (as an object $a$ of \catc, say) before we can say whether an interpretation of an operator with introductory rule \genericfintroductoryrule
+\ZDelta (as an object $a$ of \catc, say) before we can say whether an interpretation of an operator with introductory rule \genericfintroductoryrule
 is well-typed (i.e. to know that it is object $a$ that it is required to be a section of).
 Similarly we need to be able to interpret both sides of an axiom before we can say whether it is respected
 by the interpretation. For this induction to proceed we need an intermediate definition:
@@ -298,15 +313,15 @@ for all axiomsof the form
  \gatdisplayrule{\xDelta{n}}{\Delta = \Delta'},
 $\Ibar(r)$ is defined and $\Ibar(r')$ is defined and
 $\Ibar(r) = \Ibar(r')$ where $r$ is the rule
-\gatdisplayrule{\xDelta{n}}{\isT{\Delta}} and  
-and $r'$ is the rule \gatdisplayrule{\xDelta{n}}{\isT{\Delta'}}
+\ZDelta and  
+and $r'$ is the rule \ZDeltap
 
 \item \underline{\textbf{$\boldsymbol{\in=}$-axioms}} 
 for all axioms  of the form
 \gatdisplayrule{\xDelta{n}}{t = t' \in \Delta},
 $\Ibar(r_t)$ is defined and  $\Ibar(r'_t)$ is defined and
 $\Ibar(r_t) = \Ibar(r'_t)$ where $r_t$ is the rule
-\gatdisplayrule{\xDelta{n}}{\ofT{r_t}{\Delta}} and  
+\ZtDelta and  
 and $r'_t$ is the rule \gatdisplayrule{\xDelta{n}}{\ofT{t'}{\Delta'}}.
 \end{enumerate}
 \end{definition}
@@ -372,12 +387,12 @@ First we have to show that the preconditions for $\Ibar$ to be defined at the ru
 \item That \foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $a_i$ of \catcw such
 that $1 \base a_1,...\base a_i$. This follows from lemma \lref{Ibartowerlemma}. \commentary{\highlight{CHECK}}
 
-\item That the rule \gatdisplayrule{\xDelta{n+1}}{\isT{\Delta_i}} is mapped by $\Ibar$ to the object $\crossx{a_{n+1}}{a_i}{a_{i-1}}$.
+\item That the rule \DDelta{n+1}{i} is mapped by $\Ibar$ to the object $\crossx{a_{n+1}}{a_i}{a_{i-1}}$.
 
 This we can show as follows.
 \newcommand{\deltaimapped}{\crossx{a_{n+1}}{a_i}{a_{i-1}}}
 \newcommand{\deltaimappedlong}{s(p_{a_{n+1},a_{i-1}})^*...s(p_{a_{n+1},a_1})^*(\crossx{a_{n+1}}{a_i}{1})}
-Let $r_{\Delta_i}$ be the rule \gatdisplayrule{\xDelta{i-1}}{\isT{\Delta_i}}.
+Let $r_{\Delta_i}$ be the rule \IDelta{i}.
 
 
 
@@ -404,7 +419,7 @@ i.e.
 \begin{equation*}
 \begin{array}{c c c}
 \forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
-\gatdisplayrule{\xDelta{n+1}}{\isT{\Delta_i}}  & \Imapsto & \deltaimappedlong.\\ [0.4cm]
+\DDelta{n+1}{i}  & \Imapsto & \deltaimappedlong.\\ [0.4cm]
 \end{array}
 \end{equation*}
 So we are done if we can prove that
@@ -421,7 +436,7 @@ To show that the rule $r_{x_i}$ is consistently interpreted by $\Ibar$ we just h
 \underline{CF2(a)}
 By this principle, from a sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule[,]{\xDelta{n}}{\isT{A(\xn)}} for some $n \geq 0$, if
 $P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
-and from derived rules $r_{t_i}$ of the form \gatdisplayrule{P}{\ofT{t_i}{\Delta_i[t_1|x_1,...t_{i-1}|x_{i-1}]}}, \foreachi, we may deduce
+and from derived rules $r_{t_i}$ of the form \ItDelta[P]{i}, \foreachi, we may deduce
 the rule \gatdisplayrule{P}{\isT{A(t_1,...t_n)}}, which we shall denote by $r$, is a derived rule of $U$. \\
 
 \noindent Assume as the inductive hypothesis that $\Ibar(r_{t_i})$ is defined \foreachi. We can show that $\Ibar(r)$ is defined providing we can show that conditions (a), (b) and (c) of part (i) of the definition of $\Ibar$ are met. \\
@@ -478,7 +493,7 @@ We have to establish that $\Ibar$ maps
 \label{clauseiiirequiredmapping}
 \begin{array}{c c c}
 \forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
-\gatdisplayrule{Q}{\isT{A(t_1[\SUBsmFORym],...t_n[\SUBsmFORym])}}   & \Imapsto & \gmvectorstar (\crossx{c}{\fnvectorstar(\crossx{b_m}{I_A}{1})}{1}) \\ [0.4cm]
+\gatdisplayrule{Q}{\isT{A(t_1[\SUBsFORy{m}],...t_n[\SUBsFORy{m}])}}   & \Imapsto & \gmvectorstar (\crossx{c}{\fnvectorstar(\crossx{b_m}{I_A}{1})}{1}) \\ [0.4cm]
 \end{array}
 \end{equation}
 Now, we deduce from \oldt{the definition of $\Ibar$} the inductive hypothesis that $r_{t_i}$ is consistently interpreted and 
@@ -486,14 +501,14 @@ from lemma \lref{substitutionsublemma} from (\ref{timapping}) and from (\ref{sjm
 \begin{equation}
 \begin{array}{c c c}
 \forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
-\gatdisplayrule{Q}{\ofT{t_i[\SUBsmFORym]}{\Delta_i[t_1 | x_1,...t_{i-1}|x_{i-1}][\SUBsmFORym]}}  & \Imapsto & \gmvectorstar (\crossx{c}{f_i}{1}) \\ [0.4cm]
+\gatdisplayrule{Q}{\ofT{t_i[\SUBsFORy{m}]}{\Delta_i[t_1 | x_1,...t_{i-1}|x_{i-1}][\SUBsFORy{m}]}}  & \Imapsto & \gmvectorstar (\crossx{c}{f_i}{1}) \\ [0.4cm]
 \end{array}
 \end{equation}
 and therefore from the definition of $\Ibar$ that it maps
 \begin{equation*}
 \begin{array}{c c c}
 \forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
-\gatdisplayrule{Q}{\isT{A(t_1[\SUBsmFORym],...t_n[\SUBsmFORym])}}  & \Imapsto & \clausethreelhs \\ [0.4cm]
+\gatdisplayrule{Q}{\isT{A(t_1[\SUBsFORy{m}],...t_n[\SUBsFORy{m}])}}  & \Imapsto & \clausethreelhs \\ [0.4cm]
 \end{array}
 \end{equation*}
 and therefore to establish (\ref{clauseiiirequiredmapping}) we need to show that
@@ -508,16 +523,16 @@ and (\ref{metagatcrossstarcross}), which are two of the meta-GAT axioms describe
 
 \underline{SI1} 
 This principle states that if \gatdisplayrule{\yOmega{m}}{\Omega=\Omega'} is a derived rule, if $Q$ is a context and if  $\sm$ and $\smp$ are expressions such that
-\foreachj, \gatdisplayrule{Q}{s_j=s'_j \in \Omega[s_1|y_1...s_{j-1}|y_{j-1}]} is a derived rule then we may derive the rule
-\gatdisplayrule{Q}{\Omega[\SUBsmFORym]=\Omega'[s'_1|y_1...s'_m|y_m]}. \\
+\foreachj, \gatdisplayrule{Q}{s_j=s'_j \in \Omega\SUBsFORy{j-1}} is a derived rule then we may derive the rule
+\gatdisplayrule{Q}{\Omega[\SUBsFORy{m}]=\Omega'[s'_1|y_1...s'_m|y_m]}. \\
 
 We have to show that this latter rule is consistently intepreted by $I$ from the assumption that each of the rules \gatdisplayrule{\yOmega{m}}{\Omega=\Omega'} and
-\gatdisplayrule{Q}{s_j=s'_j \in \Omega[s_1|y_1...s_{j-1}|y_{j-1}]}, \foreachj, are consistently intepreted by $I$.
+\gatdisplayrule{Q}{s_j=s'_j \in \Omega\SUBsFORy{j-1}}, \foreachj, are consistently intepreted by $I$.
 
 To do this we have to show that the rules \ZOmegaSUBsmFORym and \gatdisplayrule{Q}{\isT{\Omega'[s'_1|y_1...s'_m|y_m]}}
 are consistently interpreted by $I$ and that
 $$
-\Imappedrule{Q}{\isT{\Omega[\SUBsmFORym]}} = \Imappedrule{Q}{\isT{\Omega'[s'_1|y_1...s'_m|y_m]}}.
+\Imappedrule{Q}{\isT{\Omega[\SUBsFORy{m}]}} = \Imappedrule{Q}{\isT{\Omega'[s'_1|y_1...s'_m|y_m]}}.
 $$
 From the assumptions that we have made and from the definition of what it means for a rule to be consistently interpreted it follows that
 each of the rules
@@ -533,23 +548,23 @@ the first part of what we have to prove, that the rules \ZOmegaSUBsmFORym and \g
 are consistently interpreted by $I$, follows.
 Finally we can show that
 $$
-\Imappedrule{Q}{\isT{\Omega[\SUBsmFORym]}} = \Imappedrule{Q}{\isT{\Omega'[s'_1|y_1...s'_m|y_m]}}.
+\Imappedrule{Q}{\isT{\Omega[\SUBsFORy{m}]}} = \Imappedrule{Q}{\isT{\Omega'[s'_1|y_1...s'_m|y_m]}}.
 $$.
 
 \begin{newtt}
 $$ \gmstar...\gonestar(\crossx{a}{\Imappedrule{\yOmega{m}}{\ofT{s}{\Omega}}}{1})$$
 where \foreachj, $g_j$ is the section
-$\displaystyle\Imappedrule{Q}{ \ofT{s_j}{\Omega_j [s_1|y_1...s_{j-1}|y_{j-1}]}}$
+$\displaystyle\Imappedrule{Q}{ \ofT{s_j}{\Omega_j \SUBsFORy{j-1}}}$
 and where $a$ is the object to which $I$ maps context $Q$.
 
 \end{newtt}
 
 because  from the the fact  that \ZOmegaSUBsmFORym is consistently interpreted by $I$ we have that
 $$
-\Imappedrule{Q}{\isT{\Omega[\SUBsmFORym]}} = \gmstar...\gonestar(\crossx{a}{\Imappedrule{\yOmega{m}}{\isT{\Omega}}}{1})
+\Imappedrule{Q}{\isT{\Omega[\SUBsFORy{m}]}} = \gmstar...\gonestar(\crossx{a}{\Imappedrule{\yOmega{m}}{\isT{\Omega}}}{1})
 $$
 where \foreachj, $g_j$ is the section
-$\displaystyle\Imappedrule{Q}{ \ofT{s_j}{\Omega_j [s_1|y_1...s_{j-1}|y_{j-1}]}}$
+$\displaystyle\Imappedrule{Q}{ \ofT{s_j}{\Omega_j \SUBsFORy{j-1}}}$
 and where $a$ is the object to which $I$ maps context $Q$,
 and similarly we have that
 $$
@@ -560,7 +575,7 @@ where, \foreachj,
 $g_j$ is the section 
 and $g'_j$ is the section 
 and because \foreachj, $g_j=g'_j$ from the assumption
-that rule \gatdisplayrule{Q}{s_j=s'_j \in \Omega[s_1|y_1...s_{j-1}|y_{j-1}]} is consistently interpreted by $I$
+that rule \gatdisplayrule{Q}{s_j=s'_j \in \Omega\SUBsFORy{j-1}} is consistently interpreted by $I$
 and since
 $$
 \Imappedrule{\yOmega{m}}{\isT{\Omega}} = \Imappedrule{\yOmega{m}}{\isT{\Omega'}}
@@ -571,15 +586,15 @@ from the assumption that \gatdisplayrule{\yOmega{m}}{\Omega=\Omega'} is consiste
 \vspace{1cm}
 \underline{SI2} 
 This principle states that if \gatdisplayrule{\yOmega{m}}{s = s' \in \Omega} is a derived rule, if $Q$ is a context and if  $\sm$ and $\smp$ are expressions such that
-\foreachj, \gatdisplayrule{Q}{s_j=s'_j \in \Omega[s_1|y_1...s_{j-1}|y_{j-1}]} is a derived rule then we may derive the rule
-\gatdisplayrule{Q}{s[\SUBsmFORym]=s'[s'_1|y_1...s'_m|y_m] \in \Omega[\SUBsmFORym]}. \\
+\foreachj, \gatdisplayrule{Q}{s_j=s'_j \in \Omega\SUBsFORy{j-1}} is a derived rule then we may derive the rule
+\gatdisplayrule{Q}{s[\SUBsFORy{m}]=s'[s'_1|y_1...s'_m|y_m] \in \Omega[\SUBsFORy{m}]}. \\
 \vspace{1cm}
 
 \underline{A1} 
 This principle ensures that an T=axiom is a derived rule providing it is well-typed.
  
 It states that from an axiom \gatdisplayrule{\xDelta{n}}{\Delta=\Delta'} and from derived rules
- \gatdisplayrule{\xDelta{n}}{\isT{\Delta}} and \gatdisplayrule{\xDelta{n}}{\isT{\Delta'}} we may derive
+ \ZDelta and \ZDeltap we may derive
 \gatdisplayrule{\xDelta{n}}{\Delta=\Delta'}.
 
 \vspace{1cm}
@@ -588,7 +603,7 @@ Follows immeadiately from the fact fact that $I$ is  valid.\\
 \underline{A2} 
 This principle ensures that an $\in$=axiom is a derived rule providing it is well-typed.
 It states that from an axiom \gatdisplayrule{\xDelta{n}}{t=t' \in \Delta} and from derived rules
- \gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta}} and \gatdisplayrule{\xDelta{n}}{\ofT{t'}{\Delta}} we may derive
+ \ZtDelta and \ZtpDelta we may derive
 \gatdisplayrule{\xDelta{n}}{t=t' \in \Delta}.
 
 \vspace{1cm}

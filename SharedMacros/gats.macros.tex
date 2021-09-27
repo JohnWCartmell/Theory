@@ -116,24 +116,22 @@
 
 
 % Idiomatic Substitutions
-\newcommand{\SUBtFORx}[1][m]{t_1|x_1,...t_{#1}|x_{#1}}
-\newcommand{\SUBtpFORx}[1][m]{t'_1|x_1,...t'_{#1}|x_{#1}}
-\newcommand{\tDelta}[1]{\ofT{t_{#1}}{\Delta_{#1}[\SUBtFORx[i-1]]}}
-\newcommand{\tpDeltap}[1]{\ofT{t'_{#1}}{\Delta'_{#1}[\SUBtpFORx[i-1]]}}
+\newcommand{\SUBtFORx}[1]{t_1|x_1,...t_{#1}|x_{#1}}
+\newcommand{\SUBtpFORx}[1]{t'_1|x_1,...t'_{#1}|x_{#1}}
+\newcommand{\tDelta}[1]{\ofT{t_{#1}}{\Delta_{#1}[\SUBtFORx{i-1}]}}
+\newcommand{\tpDeltap}[1]{\ofT{t'_{#1}}{\Delta'_{#1}[\SUBtpFORx{i-1}]}}
 
-\newcommand{\SUBsFORy}[1][m]{s_1|y_1,...s_{#1}|y_{#1}}
-\newcommand{\SUBspFORy}[1][m]{s'_1|y_1,...s'_{#1}|y_{#1}}
-\newcommand{\sOmega}[1]{\ofT{s_{#1}}{\Omega_{#1}[\SUBsFORy[j-1]]}}
-\newcommand{\spOmegap}[1]{\ofT{s'_{#1}}{\Omega'_{#1}[\SUBspFORy[j-1]]}}
+\newcommand{\SUBsFORy}[1]{s_1|y_1,...s_{#1}|y_{#1}}
+\newcommand{\SUBspFORy}[1]{s'_1|y_1,...s'_{#1}|y_{#1}}
+\newcommand{\sOmega}[1]{\ofT{s_{#1}}{\Omega_{#1}[\SUBsFORy{j-1}]}}
+\newcommand{\spOmega}[1]{\ofT{s'_{#1}}{\Omega_{#1}[\SUBsFORy{j-1}]}}
+\newcommand{\spOmegap}[1]{\ofT{s'_{#1}}{\Omega'_{#1}[\SUBspFORy{j-1}]}}
 
 % Representation of Rules - Formal and Informal styles
 
 \newcommand{\tstyle}{\vdash}
 \newcommand{\gatdisplayrule}[3][]
-{
-\setlength{\fboxsep}{1pt}       
-\setlength{\fboxrule}{0pt}
-\fbox{$\displaystyle \frac{#2}{#3\rule[-0.3cm]{0cm}{0cm}}$#1}    %added vertival space using \rule
+{\setlength{\fboxsep}{1pt}\setlength{\fboxrule}{0pt}\fbox{$\displaystyle \frac{#2}{#3\rule[-0.3cm]{0cm}{0cm}}$#1}%added vertival space using \rule
 }
 
 \newcommand{\gatrawdisplayrule}[2]
@@ -144,18 +142,23 @@
 % Schematic Rules
 % Z(ero) having no mandatory arguments
 \newcommand{\ZDelta}[1][]{\gatdisplayrule[#1]{\xDelta{m}}{\isT{\Delta}}}
+\newcommand{\ZDeltap}[1][]{\gatdisplayrule[#1]{\xDelta{m}}{\isT{\Delta'}}}
 \newcommand{\ZtDelta}[1][]    {\gatdisplayrule[#1]{\xDelta{m}}{\ofT{t}{\Delta}}}
-\newcommand{\ZDeltaSUBtnFORxn}[1][]{\gatdisplayrule[#1]{Q}{\isT{\Delta[\SUBtFORx]}} }
-\newcommand{\ZtDeltaSUBtnFORxn}[1][]{\gatdisplayrule[#1]{Q}{\ofT{t[\SUBtFORx]}{\Delta[\SUBtFORx]}} }
+\newcommand{\ZtpDelta}[1][]    {\gatdisplayrule[#1]{\xDelta{m}}{\ofT{t'}{\Delta}}}
+\newcommand{\ZDeltaSUBtnFORxn}[1][]{\gatdisplayrule[#1]{Q}{\isT{\Delta[\SUBtFORx{n}]}} }
+\newcommand{\ZtDeltaSUBtnFORxn}[1][]{\gatdisplayrule[#1]{Q}{\ofT{t[\SUBtFORx{n}]}{\Delta[\SUBtFORx{n}]}} }
 \newcommand{\ZOmega}[1][]{\gatdisplayrule[#1]{\yOmega{m}}{\isT{\Omega}}}
 \newcommand{\ZsOmega}[1][]    {\gatdisplayrule[#1]{\yOmega{m}}{\ofT{s}{\Omega}}}
-\newcommand{\ZOmegaSUBsmFORym}[1][]{\gatdisplayrule[#1]{Q}{\isT{\Omega[\SUBsFORy]}} }
-\newcommand{\ZsOmegaSUBsmFORym}[1][]{\gatdisplayrule[#1]{Q}{\ofT{s[\SUBsFORy]}{\Omega[\SUBsFORy]}} }
+\newcommand{\ZOmegaSUBsmFORym}[1][]{\gatdisplayrule[#1]{Q}{\isT{\Omega[\SUBsFORy{m}]}} }
+\newcommand{\ZOmegapSUBsmFORym}[1][]{\gatdisplayrule[#1]{Q}{\isT{\Omega'[\SUBsFORy{m}]}} }
+\newcommand{\ZsOmegaSUBsmFORym}[1][]{\gatdisplayrule[#1]{Q}{\ofT{s[\SUBsFORy{m}]}{\Omega[\SUBsFORy{m}]}} }
+\newcommand{\ZspOmegapSUBsmFORym}[1][]{\gatdisplayrule[#1]{Q}{\ofT{s'[\SUBsFORy{m}]}{\Omega'[\SUBsFORy{m}]}} }
 % I(ndexed} and requiring an index as an argument
 \newcommand{\IDelta}[1]  {\gatdisplayrule{\xDelta{#1-1}}{\isT{\Delta_{#1}}}}
-\newcommand{\ItDelta}[2] [Q]  {\gatdisplayrule{#1}{\tDelta{#2}}}
+\newcommand{\ItDelta}[2] [P]  {\gatdisplayrule{#1}{\tDelta{#2}}}
 \newcommand{\IOmega}[1]  {\gatdisplayrule{\yOmega{#1-1}}{\isT{\Omega_{#1}}}}
 \newcommand{\IsOmega}[2] [Q]  {\gatdisplayrule{#1}{\sOmega{#2}}}
+\newcommand{\IspOmega}[2] [Q]  {\gatdisplayrule{#1}{\spOmega{#2}}}
 % D(ouble Indexed) requiring two indices as arguments
 \newcommand{\DDelta}[2]  {\gatdisplayrule{\xDelta{#1}}{\isT{\Delta_{#2}}}}
 \newcommand{\DOmega}[2]  {\gatdisplayrule{\yOmega{#1}}{\isT{\Omega_{#2}}}}

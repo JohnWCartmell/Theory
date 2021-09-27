@@ -29,27 +29,21 @@
 \subsection{Substitutions}
 \begin{tabular}{| l | l |p{5cm}|}
 \hline
-\verb'\SUBtFORx' & $\SUBtFORx$ & \\
-\hdashline
-\verb'\SUBtFORx[j]' & $\SUBtFORx[j]$ & NEED TO MAKE THIS arg mandatory for readability reasons -- otherwise doesn't read like a vector thing \\   
+\verb'\SUBtFORx{i}' & $\SUBtFORx{i}$ & MADE arg mandatory for readability reasons -- otherwise doesn't read like a vector thing \\   
 \hline
-\verb'\SUBtpFORx' & $\SUBtpFORx$ & \\
-\hdashline
-\verb'\SUBtpFORx[j]' & $\SUBtpFORx[j]$ & \\
+\verb'\SUBtpFORx{i}' & $\SUBtpFORx{i}$ & \\
 \hline 
 \verb'\tDelta{i}' & $\tDelta{i}$ & wont work for i-1 sadlx deprecate ?\\
 \hline 
 \verb'\tpDeltap{i}' & $\tpDeltap{i}$ & wont work for i-1 sadlx deprecate ?\\
 \hline
-\verb'\SUBsFORy' & $\SUBsFORy$ & \\
-\hdashline
-\verb'\SUBsFORy[j]' & $\SUBsFORy[j]$ & \\
+\verb'\SUBsFORy{j}' & $\SUBsFORy{j}$ & \\
 \hline
-\verb'\SUBspFORy' & $\SUBspFORy$ & \\
-\hdashline
-\verb'\SUBspFORy[j]' & $\SUBspFORy[j]$ & \\
+\verb'\SUBspFORy{j}' & $\SUBspFORy{j}$ & \\
 \hline 
 \verb'\sOmega{j}' & $\sOmega{j}$ & wont work for j-1 sadly deprecate ? \\
+\hline 
+\verb'\spOmega{j}' & $\spOmega{j}$ & wont work for j-1 sadly deprecate ? \\
 \hline 
 \verb'\spOmegap{j}' & $\spOmegap{j}$ & wont work for j-1 sadly deprecate ?\\
 \hline
@@ -61,11 +55,15 @@
 \hline
 \verb'\ZDelta' & \ZDelta & \\
 \hline
+\verb'\ZDeltap' & \ZDeltap & \\
+\hline
 \verb'\ZtDelta' & \ZtDelta & \\
 \hline
-\verb'\ZDeltaSUBtnFORxn' & \ZDeltaSUBtnFORxn & \\
+\verb'\ZtpDelta' & \ZtpDelta & \\
 \hline
-\verb'\ZtDeltaSUBtnFORxn' & \ZtDeltaSUBtnFORxn & \\
+\verb'\ZDeltaSUBtnFORxn' & \ZDeltaSUBtnFORxn & maybe NOT USED should change Q to P\\
+\hline
+\verb'\ZtDeltaSUBtnFORxn' & \ZtDeltaSUBtnFORxn & ditto \\
 \hline
 \verb'' &  & \\
 \hline
@@ -75,7 +73,11 @@
 \hline
 \verb'\ZOmegaSUBsmFORym' & \ZOmegaSUBsmFORym & \\
 \hline
+\verb'\ZOmegapSUBsmFORym' & \ZOmegapSUBsmFORym & \\
+\hline
 \verb'\ZsOmegaSUBsmFORym' & \ZsOmegaSUBsmFORym & \\
+\hline
+\verb'\ZspOmegapSUBsmFORym' & \ZspOmegapSUBsmFORym & \\
 \hline
 \end{tabular}
 
@@ -86,7 +88,7 @@
 \hline
 \verb'\ItDelta{i}' & \ItDelta{i} & \\
 \hdashline
-\verb'\ItDelta[P]{i}' & \ItDelta[P]{i} & \\
+\verb'\ItDelta[Q]{i}' & \ItDelta[Q]{i} & \\
 \hline
 \verb'\IOmega{j}' & \IOmega{j} & \\
 \hline
@@ -222,9 +224,7 @@ be places right and dotfilled and no command at all is required when no context 
   \gatsingular{\ofT{x,y}{Ob}}{\isT{Hom(x,y)}} \\										
 \end{gatrules}
 \end{verbatim}
-
 gives
-
 \begin{gatrules}
 \gatintros                           
 \gatintroducing{Ob}                  
@@ -233,10 +233,8 @@ gives
   \gatsingular{\ofT{x,y}{Ob}}{\isT{Hom(x,y)}} \\										
 \end{gatrules}
 
-Axioms work use the same set of commands. In addition there is an \verb'\axiomno' command that introduces
-whitespace before the axiom number.
-
-For example
+The same set of commands can be used for axioms. In addition there is an \verb'\axiomno' command that introduces
+whitespace before the axiom number. For example
 \begin{verbatim}
 \begin{gatrules}
 \gataxioms
@@ -247,7 +245,6 @@ For example
 \end{gatgroup} \\
 \end{gatrules}
 \end{verbatim}
-
 gives
 
 \begin{gatrules}
