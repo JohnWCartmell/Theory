@@ -21,7 +21,7 @@ then we define any particular derived rule $r$ of $U$ to be \term{consistently i
 \begin{enumerate}[(i)]
 %\setlength\itemindent{2cm}
 \item \underline{\textbf{T-rule}} 
-Suppose that  the rule $r$ is the T-rule \ZOmega and let $r_m$ be the rule \IOmega{m}
+Suppose that  the rule $r$ is the T-rule \ZOmega, for some $m \geq 0$, and let $r_m$ be the rule \IOmega{m}
 then $r$ is consistently interpreted by $I$ iff
 \begin{enumerate}[(a)] 
 \item \newt{$I(r)$ and $I(r_m)$ are defined and $I(r_m) \base\, I(r)$ in \catcw} and 
@@ -38,7 +38,7 @@ $$ \Imappedrule{Q}{\isT{\Omega[\SUBsFORy{m}]}}
 . 
 \end {enumerate}
 \item \underline{\textbf{$\boldsymbol {\in}$-rule}} 
-Suppose that $r$ is the $\in$-rule \ZsOmega then
+Suppose that $r$ is the $\in$-rule \ZsOmega, for some $m \geq 0$, then
 $r$ is consistently interpreted by iff
 \begin{enumerate}[(a)]
 \item if $s$ is the variable $y_j$, \forsomej, the $r$ is consistently interpreted
@@ -49,7 +49,7 @@ and we have
 (p_{b_m,b_j} \circ p_{b_j})^*b_j &= {p_{b_m,b_{j-1}}} ^* b_j  && \mbox{ because $p_{b_m,b_j} \circ p_{b_j}=p_{b_m,b_{j-1}}$,} \\
                                  &= \crossx{b_m}{b_j}{b_{j-1}} && \mbox{ by definition of $\crossx{}{}{w}$}.
 \end{align*}
-} % end footnote  
+, forsome $n >=0$,} % end footnote  
 $s(p_{b_m,b_j})$ of the object $\crossx{b_m}{b_j}{b_{j-1}}$ where \foreachj, $b_j$ is the object
 $\displaystyle\Imappedrule{\yOmega{j-1}}{\isT{\Omega_j}}$.  \commentary{\highlight{CHECK}}
 Note that $p_{b_m,b_m}$ is defined to be $id_{b_m}$ and so in the case of $j=m$, $r_t$
@@ -62,12 +62,12 @@ if $I$ is defined for each rule \IsOmega{j} then
 \end{newtt}
 $$ \Imappedrule{Q}{\ofT{s[\SUBsFORy{m}]}{\Omega[\SUBsFORy{m}]}} = \gmstar...\gonestar(\crossx{a}{\Imappedrule{\yOmega{m}}{\ofT{s}{\Omega}}}{1})$$
 where \foreachj, $g_j$ is the section
-$\displaystyle\Imappedrule{Q}{ \ofT{s_j}{\Omega_j \SUBsFORy{j-1}}}$
+$\displaystyle\Imappedrule{Q}{ \ofT{s_j}{\Omega_j[\SUBsFORy{j-1}]}}$
 and where $a$ is the object to which $I$ maps context $Q$.
 \end{enumerate}
 
 \item \underline{\textbf{T=-rules}} 
-If $r$ is the rule  \gatdisplayrule{\xDelta{n}}{\Delta = \Delta'} 
+If $r$ is the rule  \gatdisplayrule{\xDelta{n}}{\Delta = \Delta'}, for some $n \geq 0$, 
 then $r$ is interpreted consistently by $I$ iff
 both of the rules \ZDelta and \ZDeltap
 are consistently interpreted by $I$ and
@@ -76,7 +76,7 @@ $$
 $$
  
 \item \underline{\textbf{$\boldsymbol{\in=}$-rules}} 
-If $r$ is the rule  \gatdisplayrule{\xDelta{n}}{t = t' \in \Delta} 
+If $r$ is the rule  \gatdisplayrule{\xDelta{n}}{t = t' \in \Delta}, for some $n \geq 0$, 
 then $r$ is interpreted consistently by $I$ iff
 both of the rules \ZtDelta and \gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta'}}
 are consistently interpreted by $I$ and
@@ -112,7 +112,7 @@ then
 for all contexts $Q$ and for all realisations $\tuple{\sm}$ of $\yOmega{m}$ wrt $Q$  \highlight{and \foreachj, $I(s_j)$ \textit{as above}}, 
 $$ \Imappedrule{Q}{\ofT{s[\SUBsFORy{m}]}{\Omega[\SUBsFORy{m}]}} = \gmstar...\gonestar(\crossx{a}{\Imappedrule{\yOmega{m}}{\ofT{s}{\Omega}}}{1})$$
 where \foreachj, $g_j$ is the section
-$\displaystyle\Imappedrule{Q}{ \ofT{s_j}{\Omega_j \SUBsFORy{j-1}}}$
+$\displaystyle\Imappedrule{Q}{ \ofT{s_j}{\Omega_j[\SUBsFORy{j-1}]}}$
 and where $a$ is the object to which $I$ maps context $Q$.
 \end{lemma}
 \begin{proof}
@@ -120,6 +120,64 @@ The defn gives us this for non-variables. Remains to prove in the case when $s$ 
 $y_j$. Since in this case $s[\SUBsFORy{m}]$ is $s_j$ what we have to show is that:
 $$g_j = \gmvectorstar(\crossx{a}{s(p_{b_m,b_j}}{1}))$$. This is lemma \highlight{not yet formulated}.
 \end{proof}
+
+
+\begin{lemma}
+\llabel{typeweakeninglemma}
+In the situation of  partial mapping $I$ 
+if \ZOmega is a derived of $U$  which $I$  is consistently interpreted by $I$ 
+and if $Q$ is a context which is mapped to an object $a$ by $I$ 
+then $\Imappedrule{Q}{\isT{\Omega_1}}=\crossx{a}{b_1}{1}$ where $b_1=\Imappedrule{}{\isT{\Omega_1}}$.
+\end{lemma}
+\begin{proof}
+Since \ZOmega is consistently interpreted by $I$ then it follows by the as yet unformulated tower lemma that the rule 
+\gatdisplayrule{}{\isT{\Omega}} (the rule with empty context and asserting $\Omega_1$ to be a type) is interpreted consistently
+by $I$. Since $Q$ is a context and since the empty tuple $\tuple{}$ is a realisation of the empty context with respect to $Q$ then it follows from the definition of what it means for  \gatdisplayrule{}{\isT{\Omega}} to be consistently interpreted by $I$ that
+$\Imappedrule{Q}{\isT{\Omega_1}}=\crossx{a}{\Imappedrule{}{\isT{\Omega_1}}}{1}$, as required.
+\end{proof}
+
+\newpage
+
+\begin{lemma}
+\llabel{substitutionpropertyvariant}
+\newcommand {\forceSOURCEwidth}{\rule{5cm}{0pt}}  % so as to line up three different arrays
+\newcommand {\forceTARGETwidth}{\rule{2.2cm}{0pt}}
+If $I$ is a partial mapping of T-rules and $\in$-rules of a theory $U$ to objects, respectively sections of a contextual category \catcw,
+ if $Q$  and $\encyOmega{m}$ are contexts, for some $m \geq 1$,  and if $\tuple{\sm}$ is a realisation of $\tuple{\yOmega{m}}$ with respect to $Q$,
+ if \foreachj, the rule \IsOmega{j} is consistently interpreted by $I$ and if the rule \IOmega{m} is consistently interpreted by $I$
+then \foreachj, 
+ $$I(r_{s_j}) \in Sect(I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{a}{I(r_{\Omega_j})}{1}))$$
+ where $r_{s_j}$ is the rule \IsOmega{j} and $r_{\Omega_j}$ is the rule \IOmega{j}.
+\end{lemma}
+\begin{proof}
+To prove the lemma in the case of $m=1$ we need simply show that 
+ $$I(r_{s_1}) \in Sect(\crossx{a}{I(r_{\Omega_1})}{1})).$$
+ This is the case because by lemma \lref{typeweakeninglemma} $\crossx{a}{I(r_{\Omega_1})}{1}) = I(\IOmega{j})$
+ and because $I(r_{s_1}) \in Sect(\crossx{a}{I(r_{\Omega_1})}{1}))$ follows from the initial assumption that $r_{s_1}$ is
+ consistently interpreted by $I$. 
+
+Next we complete the proof by showing that the proposition that the lemma holds at a given $m$ follows from
+the assumption that it holds at $m-1$. So assume that $Q$  and $\encyOmega{m}$ are contexts, 
+that $\tuple{\sm}$ is a realisation of $\tuple{\yOmega{m}}$ with respect to $Q$,
+that \foreachj, the rule \IsOmega{j} is consistently interpreted by $I$ 
+and that the rule \IOmega{m} is consistently interpreted by $I$. From this it follows
+that  $\tuple{\sm[-1]}$ is a realisation of $\tuple{\yOmega{m-1}}$ with respect to $Q$.
+Now since $r_{\Omega_m}$ is consistently interpreted by $I$ it follows, by definition,  that $r_{\Omega_{m-1}}$ is consistently interpreted by $I$. This means that we can use the inductive hypothesis to establish that \foreachj[m-1],  
+$$I(r_{s_j}) \in Sect(I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{a}{I(r_{\Omega_j})}{1})).$$
+
+Now it only remains to show that
+$$I(r_{s_m}) \in Sect(I(r_{s_{m-1}})^*...I(r_{s_1})^*(\crossx{a}{I(r_{\Omega_m})}{1})).$$
+
+This we can do because
+$$I(r_{s_m}) \in Sect(\Imappedrule{Q}{\isT{\Omega[\SUBsFORy{m}]}},$$ since we are given that $r_{s_m}$ is consistently interpreted by $I$
+and because, by invoking clause (c) of the definition of what it means for $r_{\Omega_m}$ to be consistently interpreted by $I$
+we establish that
+ $$\Imappedrule{Q}{\isT{\Omega[\SUBsFORy{m}]}}= I(r_{s_{m-1}})^*...I(r_{s_1})^*(\crossx{a}{I(r_{\Omega_m})}{1})$$
+ since we have that $\tuple{\sm[-1]}$ is a realisation of $\tuple{\yOmega{m-1}}$ with respect to $Q$
+ and since, as required for use of clause (c), we have already established that \foreachj[m-1],  
+$$I(r_{s_j}) \in Sect(I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{a}{I(r_{\Omega_j})}{1})).$$
+ \end{proof}
+\newpage
 
 \begin{lemma}
 \llabel{substitutionlemma}
@@ -147,7 +205,7 @@ First all we show the required condition (a) that $I(r_Q)$
 and $\Imap{\Qtargetruleone}$ are defined and that 
 $I(r_Q) \base \Imap{\Qtargetruleone}$ in \catc. 
 First, $I(r_Q)$ is defined because rule \IsOmega{1} is consistently interpreted by $I$. 
-By the towerlemma we have $I(r_1) \base ... I(r_{n-1}) \base I(r_Q)$ in \catc.
+By an \highlight{as yet unformulated} tower lemma we have $I(r_1) \base ... I(r_{n-1}) \base I(r_Q)$ in \catc.
 Also because \foreachj, the rule \IsOmega{j} is consistently interpreted by $I$, 
 we have that $I(r_{s_j}) \in Sect(I(\mbox{\gatdisplayrule{Q}{\isT{\Omega_j[\SUBsFORy{j-1}]}}}))$.
 WE seem to need as an iductive hypothesis that 
@@ -156,34 +214,7 @@ $I(\mbox{\gatdisplayrule{Q}{\isT{\Omega_j[\SUBsFORy{j-1}]}}})=I(r_{s_{j-1}})^*..
 \end{enumerate}
 \end{proof}
 
-\begin{observation}
-\llabel{typeweakeningobservation}
-In the situation of  partial mapping $I$ 
-if \ZOmega is a derived of $U$ for which $I$ is defined and which is consistently interpreted by $I$ and if $Q$ is a context which is mapped to an object $a$ by $I$ 
-then $\Imappedrule{Q}{\isT{\Omega_1}}=\crossx{a}{b_1}{1}$ where $b_1=\Imappedrule{}{\isT{\Omega_1}}$.
-\end{observation}
-
-
-\begin{oldtt}
-It is useful to observe now that if we take the  $\Delta$ in clause (iii) of this definition of the substitution property 
-to be $\Delta_n$ then we get the following:
-\begin{observation}
-\llabel{substitutionpropertyvariant}
-\newcommand {\forceSOURCEwidth}{\rule{5cm}{0pt}}  % so as to line up three different arrays
-\newcommand {\forceTARGETwidth}{\rule{2.2cm}{0pt}}
-If $I$ is a partial mapping of T-rules and $\in$-rules of a theory $U$ to objects, respectively sections of a contextual category \catcw
-which is \term{consistent} and has the substitution lemma then if $Q$ is any context and if $\tuple{\sm}$ is a realisation of $\tuple{\yOmega{m}}$ with respect to $Q$
-such that we have the following mappings by $I$ into the objects and sections of \catc:
-\begin{equation*}
-\begin{array}{c c c}
-\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
-Q          & \Imapsto & a   \\ [0.4cm]
-\IsOmega{j}    & \Imapsto & f_j \\ [0.4cm]
-\end{array}
-\end{equation*}
-then $f_j \in Sect(f_{j-1}^*...f_i^*(\crossx{a}{b_j}{1}))$.
-\end{observation}
-\end{oldtt}
+\newpage
 
 
 We can show that an instance $I$ of a generalised algebraic theory $U$ in a contextual category \catcw is
