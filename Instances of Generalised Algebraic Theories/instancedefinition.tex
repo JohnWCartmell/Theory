@@ -135,32 +135,29 @@ Since \ZOmega is consistently interpreted by $I$ then it follows by the as yet u
 by $I$. Since $Q$ is a context and since the empty tuple $\tuple{}$ is a realisation of the empty context with respect to $Q$ then it follows from the definition of what it means for  \gatdisplayrule{}{\isT{\Omega}} to be consistently interpreted by $I$ that
 $\Imappedrule{Q}{\isT{\Omega_1}}=\crossx{a}{\Imappedrule{}{\isT{\Omega_1}}}{1}$, as required.
 \end{proof}
-
-\newpage
-
 \begin{lemma}
 \llabel{substitutionpropertyvariant}
 \newcommand {\forceSOURCEwidth}{\rule{5cm}{0pt}}  % so as to line up three different arrays
 \newcommand {\forceTARGETwidth}{\rule{2.2cm}{0pt}}
 If $I$ is a partial mapping of T-rules and $\in$-rules of a theory $U$ to objects, respectively sections of a contextual category \catcw,
  if $Q$  and $\encyOmega{m}$ are contexts, for some $m \geq 1$,  and if $\tuple{\sm}$ is a realisation of $\tuple{\yOmega{m}}$ with respect to $Q$,
- if \foreachj, the rule \IsOmega{j} is consistently interpreted by $I$ and if the rule \IOmega{m} is consistently interpreted by $I$
-then \foreachj, 
- $$I(r_{s_j}) \in Sect(I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{a}{I(r_{\Omega_j})}{1}))$$
+ if \foreachj, the rule \IsOmega{j} is consistently interpreted by $I$ 
+ and if the rule \IOmega{m} is consistently interpreted by $I$
+then \foreachj,  $$I(r_{s_j}) \in Sect(I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{a}{I(r_{\Omega_j})}{1}))$$
  where $r_{s_j}$ is the rule \IsOmega{j} and $r_{\Omega_j}$ is the rule \IOmega{j}.
 \end{lemma}
 \begin{proof}
 To prove the lemma in the case of $m=1$ we need simply show that 
  $$I(r_{s_1}) \in Sect(\crossx{a}{I(r_{\Omega_1})}{1})).$$
- This is the case because by lemma \lref{typeweakeninglemma} $\crossx{a}{I(r_{\Omega_1})}{1}) = I(\IOmega{j})$
- and because $I(r_{s_1}) \in Sect(\crossx{a}{I(r_{\Omega_1})}{1}))$ follows from the initial assumption that $r_{s_1}$ is
- consistently interpreted by $I$. 
+ This is the case because by lemma \lref{typeweakeninglemma} $I(\gatdisplayrule{Q}{\isT{\Omega_1}}) = \crossx{a}{I(r_{\Omega_1})}{1})$
+ and because $I(r_{s_1}) \in Sect(\gatdisplayrule{Q}{\isT{\Omega_1}})$ follows from the initial assumption that $r_{s_1}$ is
+ consistently interpreted by $I$. \commentary{CHECK}
 
 Next we complete the proof by showing that the proposition that the lemma holds at a given $m$ follows from
 the assumption that it holds at $m-1$. So assume that $Q$  and $\encyOmega{m}$ are contexts, 
 that $\tuple{\sm}$ is a realisation of $\tuple{\yOmega{m}}$ with respect to $Q$,
 that \foreachj, the rule \IsOmega{j} is consistently interpreted by $I$ 
-and that the rule \IOmega{m} is consistently interpreted by $I$. From this it follows
+and that the rule $r_{\Omega_m}$ is consistently interpreted by $I$. From this it follows
 that  $\tuple{\sm[-1]}$ is a realisation of $\tuple{\yOmega{m-1}}$ with respect to $Q$.
 Now since $r_{\Omega_m}$ is consistently interpreted by $I$ it follows, by definition,  that $r_{\Omega_{m-1}}$ is consistently interpreted by $I$. This means that we can use the inductive hypothesis to establish that \foreachj[m-1],  
 $$I(r_{s_j}) \in Sect(I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{a}{I(r_{\Omega_j})}{1})).$$
@@ -175,9 +172,8 @@ we establish that
  $$\Imappedrule{Q}{\isT{\Omega[\SUBsFORy{m}]}}= I(r_{s_{m-1}})^*...I(r_{s_1})^*(\crossx{a}{I(r_{\Omega_m})}{1})$$
  since we have that $\tuple{\sm[-1]}$ is a realisation of $\tuple{\yOmega{m-1}}$ with respect to $Q$
  and since, as required for use of clause (c), we have already established that \foreachj[m-1],  
-$$I(r_{s_j}) \in Sect(I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{a}{I(r_{\Omega_j})}{1})).$$
+$$I(r_{s_j}) \in Sect\big(I(r_{s_{j-1}})^*...I(r_{s_1})^*\big(\crossx{a}{I(r_{\Omega_j})}{1}\big)\big).$$
  \end{proof}
-\newpage
 
 \begin{lemma}
 \llabel{substitutionlemma}
@@ -194,7 +190,6 @@ then the derived rule
 \end{enumerate}
 \end{lemma}
 \begin{proof}
-\highlight{HOPEFULLY}.
 Let $Q$ be the context $\xDelta{n}$. Let $r_{\Delta_i}$, \foreachi, be the rule \IDelta{i}.
 \newcommand{\targetruleone}{\gatdisplayrule{\xDelta{n}}{\isT{\Omega[\SUBsFORy{m}]}}}
 \newcommand{\Qtargetruleone}{\gatdisplayrule{\xDelta{n}}{\isT{\Omega[\SUBsFORy{m}]}}}
@@ -205,18 +200,65 @@ First all we show the required condition (a) that $I(r_Q)$
 and $\Imap{\Qtargetruleone}$ are defined and that 
 $I(r_Q) \base \Imap{\Qtargetruleone}$ in \catc. 
 First, $I(r_Q)$ is defined because rule \IsOmega{1} is consistently interpreted by $I$. 
-By an \highlight{as yet unformulated} tower lemma we have $I(r_1) \base ... I(r_{n-1}) \base I(r_Q)$ in \catc.
+By an \highlight{as yet unformulated} tower lemma we have 
+$I(r_{\Delta_1}) \base ... I(r_{Delta_{n-1}}) \base I(r_Q)$ in \catc.
 Also because \foreachj, the rule \IsOmega{j} is consistently interpreted by $I$, 
-we have that $I(r_{s_j}) \in Sect(I(\mbox{\gatdisplayrule{Q}{\isT{\Omega_j[\SUBsFORy{j-1}]}}}))$.
-WE seem to need as an iductive hypothesis that 
-$I(\mbox{\gatdisplayrule{Q}{\isT{\Omega_j[\SUBsFORy{j-1}]}}})=I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{I(r_Q)}{I(r)}{1}))$
-\item
+we have that $I(r_{s_j}) \in Sect(I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{I(r_Q)}{I(r)}{1})))$, by lemma \lref{substitutionpropertyvariant}. Hence $\Imap{\Qtargetruleone}$ is defined and 
+\begin{equation}
+\label{omegaSubsmapping}
+\Imappedrule{Q}{\isT{\Omega[\SUBsFORy{m}]}} 
+= I(r_{s_m})^*...I(r_{s_1})^*(\crossx{a}{I(r)}{1})
+\end{equation}
+and thus $I(r_Q) \base \Imap{\Qtargetruleone}$ in \catc as required by clause (a).
+
+Next, for clause (b), we are required to show that $Q$ is consistently interpreted by $I$. 
+This follows from the fact that 
+the rule \IsOmega{1} is consistently interpreted by $I$ 
+and from the definition of consistently interpreted by $I$.
+
+Finally, for clause (c), we must show that for all contexts $P$ 
+and for every realisation $\tuple{\tn}$ of $\xDelta{n}$ with respect to $P$, 
+if \foreachi, $I(r_{t_i})$ is defined and $I(r_{t_i}) \in Sect(I(r_{t_{i-1}})^* ... I(r_{t_1})^*a_P)$
+where $r_{t_i}$ is the rule $\tDelta{i}$ and where $a_P$ is the object to which $I$ maps context $P$ then
+$$\Imappedrule{\xDelta{n}}{\isT{\Omega[\SUBsFORy{m}][\SUBtFORx{n}]}}
+                =I(r_{t_n})^* ... I(r_{t_1})^*\big(\crossx{a_P}{\Imappedrule{\xDelta{n}}{\isT{\Omega[\SUBsFORy{m}]}}}{1}\big)$$
+which by rearrangement of the lhs and by use (\ref{omegaSubsmapping}) means that we need to show 
+$$\Imappedrule{\xDelta{n}}{\isT{\Omega[s_1[\SUBtFORx{n}]|y_1,... s_m[\SUBtFORx{n}]|y_m]}}
+                =I(r_{t_n})^* ... I(r_{t_1})^*\big(\crossx{a_P}{I(r_{s_m})^*...I(r_{s_1})^*(\crossx{a}{I(r)}{1})}{1}\big)$$
+
+\newcommand{\IOmegaDoublySubstituted}[1]{\Omega_#1[\SUBsFORy{#1-1}][\SUBtFORx{n}]}
+Each $r_{s_j}$ is consistently interpreted by $I$ \highlight{CHECK} and $\tuple{\tn}$ is a realisation
+of the context $Q$ with respect to $P$ and therefore $\Imappedrule{P}{s_j[\SUBtFORx{n}] \in \IOmegaDoublySubstituted{j}}$ is consistently interpreted by $I$ and in particular
+$$\Imappedrule{P}{\ofT{s_j[\SUBtFORx{n}]}{\IOmegaDoublySubstituted{j}}}
+            \in I(r_{t_n})^* ... I(r_{t_1})^*\big(\crossx{a_P}{\Imappedrule{\xDelta{n}}{\Omega_j[\SUBsFORy{j-1}]}} {1}\big)$$
+which by a $j$'th varinat of (\lref{omegaSubsmapping}) is to say that
+$$\Imappedrule{P}{\ofT{s_j[\SUBtFORx{n}]}{\IOmegaDoublySubstituted{j}}}
+   \in I(r_{t_n})^* ... I(r_{t_1})^*\big(\crossx{a_P}{I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{a}{I(r_{\Omega_j})}{1})}{1}\big)$$
+
+Since $r_\Omega$ is consistently interpreted by $I$ and since 
+$\tuple{s_1[\SUBtFORx{n}],...s_m[\SUBtFORx{n}]}$ is a realisation of $\yOmega{m}$ with repect to $P$
+we establish that
+\begin{multline}
+     \Imappedrule{\xDelta{n}}{\isT{\Omega\big[s_1[\SUBtFORx{n}]|y_1,... s_m[\SUBtFORx{n}]|y_m\big]}} \\
+           =  \big(I(r_{s_m})^*...I(r_{s_1})^*(\crossx{aa}{I(r_{t_n})}{1})\big)
+               ^* ... 
+              \big(I(r_{s_m})^*...I(r_{s_1})^*(\crossx{aa}{I(r_{t_1})}{1})\big)
+               ^*\big(\crossx{a_P}{I(r)}{1}\big)
+\end{multline}
+This is the equation we are looking for because of the identity
+
+\newcommand{\clausethreelhs}{\big(\fmvectorstar (\crossx{a}{g_n}{1})\big)^* ... \big(\fmvectorstar (\crossx{a}{g_1}{1})\big) ^* \big(\crossx{b_m}{I_A}{1}\big)}
+\newcommand{\clausethreerhs}{\fmvectorstar \big(  \crossx{a}{(\gnvectorstar(\crossx{b_m}{I_A}{1}))}{1} \big)}
+\begin{equation*}
+\clausethreelhs = \clausethreerhs                                       
+\end{equation*}
+which we showby  repeated application of identities (\ref{metagattriplestar})
+and (\ref{metagatcrossstarcross}), two of the meta-GAT axioms described earlier,
+and so clause (iii) follows.
+
+\item 
 \end{enumerate}
 \end{proof}
-
-\newpage
-
-
 We can show that an instance $I$ of a generalised algebraic theory $U$ in a contextual category \catcw is
 completely determined by its mapping of the introductory rules of sort symbols and operator symbols to
 objects, respectively, sections of \catc. In order to show this we start with this definition:
