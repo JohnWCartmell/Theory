@@ -1,0 +1,51 @@
+\begin{displaymath}
+\pstree[treemode=R,levelsep=*0.3cm,treesep=1cm,nodesep=0.05]
+ {
+    \Tr{\circ}
+ }
+ {
+  \flexbranch{Lx}{0.9cm}{0.4cm}{x}{n}{}
+    {
+		 \flexbranch{Ly}{1.2cm}{1.3cm}{y}{m}{}
+		   {     
+				 \pstree[levelsep=*0.5cm]
+				  {
+					 \Tr{y} \member{g}
+				  }
+					{
+					 \flexbranch{Lz}{1.0cm}{1cm}{z}{l}{}{\Tr{z}\member{h}}
+					}
+					\flexbranch{Lgz}{1.0cm}{1.4cm}{g \sub z}{l}{}{\Tr{g \sub z}\member{g \sub h}}
+			 }
+		\pstree[levelsep=*0.5cm,nodesep=0.05]
+		    {\Tr{x}}
+		    {
+	        \flexbranch{Lxy}{1.5cm}{2.0cm}{x \cross y}{m}{}
+					{
+					  \pstree[treesep=1.4cm,thislevelsep=1.5cm]
+						{
+						   \Tr{x \cross y} \uppermember{x \cross g}
+						}
+						{
+						   \flexbranch{Lxz}{0.8cm}{1.4cm}{x \cross z}{l}{}
+						           {\Tr{x \cross z}\member{x \cross h}}
+						}
+						\flexbranch{B}{1.0cm}{3.0cm}
+							        {x \cross g \sub z}{l}{}
+											{\Rnode{RHS}{\Tr{x \cross g \sub z}}
+											\member{x \cross (g \sub h)}} 
+											\nbput[labelsep=0.4cm]{\Rnode{LAB2}{}} 
+						\flexbranch{A}{1.0cm}{3.0cm}
+							        {(x \cross g) \sub (x \cross z}{l}{)}
+											{\Tr{\Rnode{LHS}{(x \cross g) \sub  (x \cross z)}}
+											\member{(x \cross g) \sub (x \cross h)}} 
+											\ncput{\Rnode{LAB1}{}}	
+							\equality{LAB1}{LAB2}
+							\equality{RHS}{LHS}
+							\equality{A1}{B1}
+							\equality{A2}{B2}
+					}
+	      }
+		}
+ }
+\end{displaymath}
