@@ -9,14 +9,88 @@ Objects, sections and operations $^*$ and  $\crossx{}{}{}$ of a contextual catre
 and these operations satisfy the Meta-GAT axioms specified in  \cite{CartmellMetaTheory}.
 Here we do not give the proofs\footnote{My goal is, in future, to create and document such proofs as an exercise in computer aided algebra.}.
 
-The identities that we will have need of are as follows. 
-
+\begin{lemma}
+\note
+For all objects $x_p \base x \leq y_p \base y \leq z_p \base z$ in \catc, for all sections $f: x_p \morph x$ and $g: y \morph y_p$, 
 \begin{equation}
 \label{metagattriplestar}
 (f^*g)^*(f^*z)=f^*(g^*z)
 \end{equation}
-and
+and for all sections $h:z_p \morph z$
+\begin{equation}
+\label{metagattriplestarsection}
+(f^*g)^*(f^*h)=f^*(g^*h)
+\end{equation}
+\end{lemma}
+
+\begin{lemma}\commentary{This is the metaGAT idenity but do we need to replace $x_p$ by any $w$, $w < x$?}
+For all objects $x_p \base x$, and for all objects $y_p \base y \leq z_P \base z$ in \catc, 
+for all sections $g:y_p \morph y$ in \catc, 
 \begin{equation}
 \label{metagatcrossstarcross}
-(\crossx{x}{g}{})^*(\crossx{x}{z}{})=\crossx{x}{(g^*z)}{}
+(\crossx{x}{g}{x_p})^*(\crossx{x}{z}{x_p})=\crossx{x}{(g^*z)}{x_p}
 \end{equation}
+and for all sections $h:z_p \morph z$ in \catc,
+\begin{equation}
+\label{metagatcrossstarcrosssection}
+(\crossx{x}{g}{x_p})^*(\crossx{x}{z}{x_p})=\crossx{x}{(g^*h)}{x_p}.
+\end{equation}
+\end{lemma}
+
+\begin{lemma}
+\llabel{cascadedpullbackscohere}
+If $a$ is any object of a contextual category \catcw, if $1 \base b_1 ... \base b_n$ and $1 \base c_1 ... \base c_m$ in \catc, for some $n,m \ge 1$, 
+if $\tuple{\fn}$ is a \term{cascade} from $a$ to $b_n$ and
+if $\tuple{\gm}$ is a \term{cascade} from $b_n$ to $c_m$ and if  $c_m \base c$ in \catcw then
+%\newcommand{\clausethreelhs}{\big(\fmvectorstar (\crossx{a}{g_n}{1})\big)^* ... \big(\fmvectorstar (\crossx{a}{g_1}{1})\big) ^* \big(\crossx{b_m}{c}{1}\big)}
+%\newcommand{\clausethreerhs}{\fmvectorstar \big(  \crossx{a}{(\gnvectorstar(\crossx{b_m}{c}{1}))}{1} \big)}
+\begin{equation}
+\big(\fmvectorstar (\crossx{a}{g_n}{1})\big)^* ... \big(\fmvectorstar (\crossx{a}{g_1}{1})\big) ^* \big(\crossx{b_m}{c}{1}\big) 
+= \fmvectorstar \big(  \crossx{a}{(\gnvectorstar(\crossx{b_m}{c}{1}))}{1} \big)                                    
+\end{equation}
+and if  $h$ is any section of $c$ then 
+\begin{equation}
+\big(\fmvectorstar (\crossx{a}{g_n}{1})\big)^* ... \big(\fmvectorstar (\crossx{a}{g_1}{1})\big) ^* \big(\crossx{b_m}{h}{1}\big) 
+= \fmvectorstar \big(  \crossx{a}{(\gnvectorstar(\crossx{b_m}{h}{1}))}{1} \big)                                    
+\end{equation}
+\end{lemma}
+\begin{proof}
+The first follows by repeated application of identities (\ref{metagattriplestar}) and (\ref{metagatcrossstarcross}), 
+the second, similarly, by repeated application of identities (\ref{metagattriplestarsection}) and (\ref{metagatcrossstarcrosssection})
+\end{proof}
+
+\begin{lemma}
+\llabel{sofplemma}
+If $1 \base b_1 ... \base b_m$ in \catc, for some $m \ge 1$ in a contextual category \catc then \foreachj,
+$s(p_{b_m,b_j}): b_m \morph \crossx{b_m}{b_j}{b_{j-1}}$ in \catcw.
+\end{lemma}
+\begin{proof}
+Because $p_{b_m,b_j}: b_m \morph b_j$ in $\catcw$ and so be definition of operator $s$ it follows that $s(p_{b_m,b_j}): b_m  \morph (p_{b_m,b_j} \circ p_{b_j})^*b_j$
+and we have 
+\begin{align*}
+(p_{b_m,b_j} \circ p_{b_j})^*b_j &= {p_{b_m,b_{j-1}}} ^* b_j  && \mbox{ because $p_{b_m,b_j} \circ p_{b_j}=p_{b_m,b_{j-1}}$,} \\
+                                 &= \crossx{b_m}{b_j}{b_{j-1}} && \mbox{ by definition of $\crossx{}{}{w}$}.
+\end{align*}
+\end{proof}
+
+\begin{lemma}
+\llabel{sofpsubstitutionlemma}\commentary{Can probably simplify this to single substitution of sofp}
+If $1 \base a_1 ... \base a_n$ in \catc, for some $n \ge 1$ in a contextual category \catc then \foreachi,
+\begin{equation*}
+s(p_{a_{n+1},a_{i-1}})^*...s(p_{a_{n+1},a_1})^*(\crossx{a_{n+1}}{a_i}{1}) 
+= \crossx{a_{n+1}}{a_i}{a_{i-1}}.
+\end{equation*} 
+\end{lemma}
+\begin{proof}
+\end{proof}
+
+
+\begin{lemma}
+\llabel{cascadeprojectionlemma}
+If $a$ is any object of a contextual category \catcw, if $1 \base b_1 ... \base b_n$ in \catc, for some $n \ge 1$, 
+if $\tuple{\fn}$ is a \term{cascade} from $a$ to $b_n$ then \foreachi,
+\begin{equation}
+\fnvectorstar(\crossx{a}{s(p_{b_n,b_i})}{1})=f_i.                                    
+\end{equation}
+\end{lemma}
+
