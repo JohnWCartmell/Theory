@@ -1,50 +1,56 @@
 
 
-\newcommand{\Imappedrule}[2]  {I\left(\gatrawdisplayrule{#1}{#2}\right)}
-\newcommand{\sectionsofImappedrule}[2] { Sect \left( \Imappedrule{#1}{#2} \right)}
+In this section, we will define an instance of a generalised algebraic theory $U$ in a contextual category \catcw to be a consistent mapping 
+of derived T-rules and $\in$-rules of  $U$ to objects, respectively sections of \catc. 
+We will show that such instances are totally defined by their mapping of the introductory rules of the theory and we will define how to extend 
+consistent and valid interpretations $\iI$ of the introductory rules   to instances $\Ibar$ that consistently map all the derived  T-rules and $\in$-rules.
+To make this work, we need define $\Ibar$ as a partial mapping which, when $\iI$ is consistent and valid, we subsequently show to be total. For this reason we need definitions that apply to partial mappings of rules.
 
-\newcommand{\Imap}[1]{\setlength{\fboxsep}{1pt}       
-\setlength{\fboxrule}{0.2pt}I\left(\mbox{#1}\right)}
+If $I$ is a  possibly partial mapping of derived T-rules and $\in$-rules of a theory $U$ to objects, respectively sections of a contextual category \catcw then
+\begin{itemize}
+\item
+For any non-empty context $\xDelta{n}$ of $U$, by the mapping under $I$ of this context we shall mean the mapping under $I$ of the derived rule
+\IDelta{n}.  
+\item
+By the mapping under $I$ of the empty context we shall mean the terminal object $1$ of \catc.
+\item
+If  $Q$ and $\yOmega{m}$ are contexts and if $\tuple{\sm}$ is a realisation of $\yOmega{m}$ wrt $Q$ in $U$
+then we will define the mapping of  $\tuple{\sm}$ under $I$ to be the tuple of sections
+$\tuple{I(r_{s_1}),...I(r_{s_m})}$, 
+where \foreachj, $r_{s_j}$ is the derived rule \IsOmega{j}.
+We will say that the realisation $\tuple{\sm}$ is mapped to a cascade iff
+ $I(r_{s_j})$ is defined, \foreachj, and 
+ $\tuple{I(r_{s_1}),...I(r_{s_m})}$ is a cascade of sections i.e. \foreachj, 
+ $I(r_{s_j}) \in Sect(I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_{\Omega_j})}{1}))$,
+where $r_{\Omega_j}$ is the derived rule \IOmega{j}.
+\end{itemize}
 
-
-\newcommand{\iI}{\scalebox{1.1}{$\boldsymbol{i}$}}
-\newcommand{\Ibar}{\mkern 2.5mu\overline{\mkern-2.5mu \iI\mkern1.5mu}\mkern -1.5mu}
-
-\newcommand{\ibarmappedrule}[2]  {\Ibar\left(\gatrawdisplayrule{#1}{#2}\right)}
-
-
-If $I$ is a  mapping of derived T-rules and $\in$-rules of a theory $U$ to objects, respectively sections of a contextual category \catcw then
-for any non-empty context $\xDelta{n}$ of $U$ by the mapping under $I$ of this context we shall mean the mapping under $I$ of the derived rule
-\IDelta{n}.  By the mapping under $I$ of the empty context we shall mean the terminal object $1$ of \catc.
-
-\newcommand{\sjconclusion}{\ofT{s_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}}  % xxxxx USED in an Imapped rule
+\newcommand{\smMappedToCacscade}{
+for all contexts $Q$ and for all realisations $\tuple{\sm}$ of $\yOmega{m}$ wrt $Q$ 
+which map to a cascade under $I$ ,}
 \newcommand{\sjpconclusion}{\ofT{s'_j}{\Omega'_j[s_1|y_1,...s_{j-1}|y_{j-1}]}}
-%\newcommand{\SUBsFORy{m}}{s_1|y_1,...s_m|y_m}                                  % used in Imapped rules
-
-\newcommand{\IfIpartialmappingUtoC}{If $U$ is a generalised algebraic theory and if \catcw is a contextual category 
+\newcommand{\IfIpartialmappingUtoC}{If $U$ is a generalised algebraic theory and \catcw is a contextual category 
 and if $I$ is a partial mapping of derived T-rules and $\in$-rules of the theory $U$ to objects, respectively sections of the contextual category \catc}
 \newcommand{\IfIpartialmappingUtoCw}{\IfIpartialmappingUtoC\ }
+
 \begin{definition}
 \IfIpartialmappingUtoCw
 then we define what it is for any particular derived rule $r$ of $U$ to be \term{consistently interpreted} by $I$: \\
 \begin{enumerate}[(i)]
 %\setlength\itemindent{2cm}
 \item \underline{\textbf{T-rule}} 
-Let $r_\Omega$ be any  derived T-rule, assume it to be of the form \ZOmega, for some $m \geq 0$, and let $r_m$ be the rule \IOmega{m}
+Let $r_\Omega$ be any  derived T-rule of $U$, assume it to be of the form \ZOmega, for some $m \geq 0$, 
+and let $r_{\Omega_m}$ be the rule \IOmega{m}
 then define $r_\Omega$ to be consistently interpreted by $I$ iff
 \begin{enumerate}[(a)] 
-\item $I(r_\Omega)$ and $I(r_m)$ are defined and $I(r_m) \base\, I(r_\Omega)$ in \catcw and 
-\item $r_m$ is consistently interpreted by $I$  and
+\item both $I(r_\Omega)$ and $I(r_{\Omega_m})$ are defined and $I(r_{\Omega_m}) \base\, I(r_\Omega)$ in \catcw and 
+\item $r_{\Omega_m}$ is consistently interpreted by $I$  and
 \item
-for all contexts $Q$ and for all realisations $\tuple{\sm}$ of $\yOmega{m}$ wrt $Q$, 
-if \foreachj, $I(r_{s_j})$ is defined 
-and $I(r_{s_j}) \in Sect(I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_{\Omega_j})}{1}))$,
-where $r_{s_j}$ is the rule \IsOmega{j} 
-and $r_{\Omega_j}$ is the rule \IOmega{j},
-then
+\smMappedToCacscade
 $$ \Imappedrule{Q}{\isT{\Omega[\SUBsFORy{m}]}} 
-= I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_\Omega)}{1})$$
-. 
+= I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_\Omega)}{1}),$$
+where $r_{s_j}$ is the rule \IsOmega{j} 
+and $r_{\Omega_j}$ is the rule \IOmega{j}.
 \end {enumerate}
 \item \underline{\textbf{$\in$-rule}} 
 Let $r_s$ be any derived $\in$-rule, assume it to be of the form \ZsOmega, for some $m \geq 0$, then
@@ -53,23 +59,17 @@ iff $I(r_{\Omega_m})$ is defined and $I(r_\Omega)$ is defined and $\displaystyle
 $r_\Omega$ is the rule \ZOmega and $r_{\Omega_m}$ is the rule \IOmega{m}, and provided that
 \begin{enumerate}[(a)]
 \item in the case that $s$ is the variable $y_j$, \forsomej, so that $r_s$ is the rule \gatdisplayrule{\yOmega{m}}{\ofT{y_j}{\Omega}},
-$$I(r_s) = s(p_{b_m,b_j})$$
-Note that $s(p_{b_m,b_j})$ is a section of the object $\crossx{b_m}{b_j}{b_{j-1}}$
-\footnote{
-Implied, by lemma \lref{sofplemma}, that $s(p_{b_m,b_j}): b_m \morph \crossx{b_m}{b_j}{b_{j-1}}$ in \catc.
-} % end footnote  
-\commentary{By implication $I(r_\Omega)=\crossx{b_m}{b_j}{b_{j-1}}$}
-where \foreachj, $b_j$ is the object
-$\displaystyle\Imappedrule{\yOmega{j-1}}{\isT{\Omega_j}}$.  \commentary{and, btw: $s(id_{b_m})=\delta_{b_m}$}
-Note that $p_{b_m,b_m}$ is defined to be $id_{b_m}$ and so in the case of $j=m$, $r_s$
-is mapped to   $s(id_{b_m})$, and
+$$I(r_s) = s(p_{r_{\Omega_m},r_{\Omega_j}})$$
+By lemma \lref{sofplemma}, $s(p_{r_{\Omega_m},r_{\Omega_j}}))$ is a section of the object $\crossx{r_{\Omega_m}}{r_{\Omega_j}}{r_{\Omega_{j-1}}}$.
+\commentary{By implication $I(r_\Omega)=\crossx{r_{\Omega_m}}{r_{\Omega_j}}{r_{\Omega_{j-1}}}$}  
+\commentary{and, btw: $s(id_{r_{\Omega_m}})=\delta_{r_{\Omega_m}}$}
+Note that $p_{x,x}$ is defined to be $id_{x}$ for any object $x$ of \catcw and so in the case of $j=m$, $r_s$
+is mapped to   $s(id_{r_{\Omega_m}})$, and
 
 \item in the case that $s$ is not simply a variable, 
-for all contexts $Q$ and for all realisations $\tuple{\sm}$ of $\yOmega{m}$ wrt $Q$, 
-such that \foreachj, $I(r_{s_j})$ is defined 
-and $I(r_{s_j}) \in Sect(I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_{\Omega_j})}{1}))$, 
-where $r_{s_j}$ and $r_{\Omega_j}$ defined as above (in clause (i),
-$$ \Imappedrule{Q}{\ofT{s[\SUBsFORy{m}]}{\Omega[\SUBsFORy{m}]}} = I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_s)}{1}).$$
+\smMappedToCacscade
+$$ \Imappedrule{Q}{\ofT{s[\SUBsFORy{m}]}{\Omega[\SUBsFORy{m}]}} = I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_s)}{1}),$$
+where $r_{s_j}$ and $r_{\Omega_j}$ defined as above (in clause (i)).
 \end{enumerate}
 
 \item \underline{\textbf{T=-rules}} 
@@ -93,6 +93,7 @@ $$
 \end{definition}
 \highlight{END of DEFINITION OF consistently interpreted}
 
+
 Since the above definition of a rule being consistently interpreted relies on whether other rules are consistently interpreted we need to check that there are no circularities:
 \begin{lemma}
 The above property of a rule being consistently interpreted by a mapping of rules is well-defined. 
@@ -112,12 +113,139 @@ of derived T-rules and $\in$-rules of the theory $U$ to objects, respectively se
 consistently interprets every derived rule of $U$.
 \end{definition}
 
+
+We will show that an instance $I$ of a generalised algebraic theory $U$ in a contextual category \catcw is
+completely determined by its mapping of the introductory rules of sort symbols and operator symbols to
+objects, respectively, sections of \catc. To state this precisely  we require a number of defintions.
+
+\begin{definition}
+If $U$ is a generalised algebraic theory  and if \catcw is a contextual category then
+a \term{interpretation} $\iI$ of  $U$ in \catcw consists of a pair :
+\begin{itemize}
+\item a mapping $\Isort$ that maps each sort symbol of $U$ to  an object of \catc,
+\item a mapping $\Iop$ that maps each operator symbol of $U$ to a section of \catcw (i.e. to a morphism $f: A \morph B$ for some 
+$A \base B$ in \catcw such that $f \circ p_B=id_A$.
+\end{itemize}
+\end{definition}
+
+We will say that  an interpretation $\iI$ of $U$ in \catcw \term{determines} an  instance $I$ of $U$ in \catcw to mean that for each sort symbol $A$ of $U$,
+$I(r_A) = \iI_{sort}(A)$, where $r_A$ is the introductory rule for $A$ and that for each operator symbol
+$f$ of $U$,   $I(r_f) = \iI_{op}(f)$, where $r_f$ is the introductory rule for $f$.
+
+We will show (lemma \lref{uniquenessofinstancedeterminedbyaninterpretation}) that 
+if $\iI$ is an interpretation of a generalised algebraic theory $U$ in a contextual catgeory \catcw then
+there is at most one such instance determined by $\iI$.
+To prove this we show that if $\iI$ determines an instance $I$ then
+the partial mapping which we define below as $\Ibar$  is total and is an instance and that
+the instance $I$ determined by $\iI$ is  $\Ibar$.
+
+\begin{definition} [\highlight{Definition of  $\Ibar$}]
+If $\iI$ is an interpretation of generalised algebraic theory $U$ in a contextual catgeory \catcw
+then define a
+partial mapping $\Ibar$  of T-rules and $\in$-rules to objects, respectively sections, of \catcw
+as follows
+\begin{enumerate}[(i)] 
+\item \underline{\textbf{T-rules}} 
+The derivation lemma (lemma \ref{derivationlemma}) tells us that if $r_\Delta$ is a derived T-rule of $U$  then it is of the form \gatdisplayrule{P}{\isT{A(t_1,...t_n)}} for some premise $P$, for some $n \geq 0$ and for some sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule{\xDelta{n}}{\isT{A(x_1,...x_n)}}, where \foreachi, the rule 
+\ItDelta[P]{i}  is a derived rule of $U$. 
+We define $\Ibar(r_\Delta)$ to be undefined unless the following preconditions are met:
+\begin{enumerate}[(a)]
+\item
+the context  $P$ is mapped by $\Ibar$ to some object $\Ibar(P)$ of \catcw and 
+\item
+\foreachi, the rule $\IDelta{i}$, which we denote $r_{\Delta_i}$, is mapped by $\Ibar$ to some object $\Ibar(r_{\Delta_i})$ of \catcw
+and $1 \base \Ibar(r_{\Delta_1}),...\Ibar(r_{\Delta_n}) \base \iI_{sort}(A)$ in \catcw 
+\item
+$\tuple{\tn}$ is mapped to a cascade by $\Ibar$
+\end{enumerate}
+in which case we define $\Ibar(r_\Delta)$ to be $\Ibar(r_{t_n})^*...\Ibar(r_{t_1})^*(\crossx{\Ibar(P)}{\Ibar(A)}{1})$,
+where $r_{t_i}$ is the rule \ItDelta[P][.]{i}
+\item \underline{\textbf{$\boldsymbol {\in}$-rules}} 
+The derivation lemma also tells us that if $r_t$ is an $\in$-rule then it is  
+either \highlight{(1)} of the form \gatdisplayrule{\xDelta{n}}{\ofT{x_i}{\Omega}} for some $n \ge 1$, for some $i$, $1 \leq i \leq n$, 
+and for some $\Omega$ such that \gatdisplayrule{\xDelta{n}}{\Delta_i=\Omega} is a derived rule of $U$
+or \highlight{(2)} it is of the form \gatdisplayrule{P}{\ofT{f(t_1,...t_n)}{\Omega}} for some premise $P$, for some $n \geq 0$ and for some operator symbol $f$ with introductory rule $r_f$ of the form \gatdisplayrule{\xDelta{n}}{\ofT{f(x_1,...x_n)}{\Delta}} where \foreachi, the rule 
+\ItDelta[P]{i}, which we will call $r_{t_i}$, is a derived rule of $U$. 
+
+In  case (1) we define $\Ibar(r_t)$ to be undefined unless  the following preconditions are met:
+\begin{enumerate}
+\item
+\foreachi, the rule $\IDelta{i}$, which we denote $r_{\Delta_i}$, is mapped by $\Ibar$ to some object $\Ibar(r_{\Delta_i})$ of \catcw
+and $1 \base \Ibar(r_{\Delta_1}),...\Ibar(r_{\Delta_n})$ in \catcw 
+\item the rule \gatdisplayrule{\xDelta{n}}{\isT{\Omega}}, which we call $r_\Omega$, 
+is mapped by $\Ibar$ to the object $\crossx{\Ibar(r_{\Delta_n})}{\Ibar(r_{\Delta_i})}{\kern-4pt\Ibar(r_{\Delta_{i-1}})\kern-12pt}$
+\end{enumerate}
+in which case we define $\Ibar(r_t)$ to be $s(p_{\Ibar(r_{\Delta_n}),\Ibar(r_{\Delta_i})})$ . 
+
+In  case (2) 
+we define $\Ibar(r_t)$ to be undefined unless  unless the following preconditions are met:
+\begin{enumerate}
+\item
+the context  $P$ is mapped by $\Ibar$ to some object $\Ibar(P)$ of \catcw and 
+\item
+\foreachi, the rule $\IDelta{i}$, which we denote $r_{\Delta_i}$, is mapped by $\Ibar$ to some object $\Ibar(r_{\Delta_i})$ of \catcw
+and  
+%\foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $b_i$ of \catcw
+and 
+\item the rule \ZDelta, which we shall call $r_\Delta$, is mapped by $\Ibar$ to some object $\Ibar(r_\Delta)$ of \catcw and
+$1 \base \Ibar(r_{\Delta_1}),...\Ibar(r_{\Delta_n}) \base \Ibar(r_\Delta)$ in \catcw 
+and 
+\item
+%\foreachi, $\Ibar(r_{t_i}) \in Sect(r_{t_{i-1}}^*...r_1^* (\crossx{a}{b}{1}))$
+$\tuple{\tn}$ is mapped to a cascade by $\Ibar$,
+\end{enumerate}
+in which case we
+define $\Ibar(r_t)=\Ibar(r_{t_n})^*...\Ibar(r_{t_1})^*(\crossx{\Ibar(P)}{\iI_{op}(f)}{1})$.
+This completes the definition of $\Ibar$.
+\end{enumerate}
+\highlight{END OF Definition of  $\Ibar$}
+\end{definition}
+
+
+\def\restrict{\mathbin{\restriction}}
+\newcommand{\predInstance}{\overline{I \restrict U_p}}
+\newcommand{\Uincrement}{U \setminus\kern-2pt U_p}
+
+\begin{definition}
+ Suppose that $\iI$ is an interpretation of $U$  
+define interpretation $\iI$ to be \term{valid}  iff 
+
+\begin{enumerate}[(i)]
+\item
+for all sort symbols $A$ of $U$ if $A$ has introductory rule $r_A$ then $\Ibar(r_A)$ is defined,
+\item  
+for all operator symbols $f$ of $U$ if $f$ has introductory rule $r_f$ then $\Ibar(r_f)$ is defined,
+
+\item \underline{\textbf{T=-axioms}} 
+for all axioms of the form
+ \gatdisplayrule{\xDelta{n}}{\Delta = \Delta'},
+$\Ibar(r)$ is defined and $\Ibar(r')$ is defined and
+$\Ibar(r) = \Ibar(r')$, where $r$ is the rule
+\ZDelta and  
+and $r'$ is the rule \ZDeltap[,]
+
+\item \underline{\textbf{$\boldsymbol{\in=}$-axioms}} 
+for all axioms  of the form
+\gatdisplayrule{\xDelta{n}}{t = t' \in \Delta},
+$\Ibar(r_t)$ is defined and  $\Ibar(r'_t)$ is defined and
+$\Ibar(r_t) = \Ibar(r'_t)$, where $r_t$ is the rule
+\ZtDelta and  
+and $r'_t$ is the rule \gatdisplayrule{\xDelta{n}}{\ofT{t'}{\Delta'}}.
+\end{enumerate}
+\end{definition}
+
+Now we can state precisely how an interpretation $\iI$ determines an instance: 
+Suppose that $\iI$ is an interpretation of $U$  then $\iI$ is valid  iff $\iI$ determines an instance. 
+I $\iI$ does determine and instance then that instance is $\Ibar$.
+The remainder of this section leads to a proof of this statement in
+lemma  \lref{avalidinterpretationisaninstance} at the end of this section.
+
 \begin{lemma}
 \llabel{towerlemma}
 \IfIpartialmappingUtoC, if $r$ is a derived rule \ZDelta of $U$ and if
 $r$ is consistently interpreted by $I$ 
 then \foreachi, $r_{\Delta_i}$ is consistently interpreted by $I$ and 
-$1 \base I(r_{\Delta_1}) \base ... \base I(r_{\Delta_1}) \base I(r)$ in \catc,
+$1 \base I(r_{\Delta_1}) \base ... \base I(r_{\Delta_m}) \base I(r)$ in \catc,
 where, for each $i$, $r_{\Delta_i}$ is the rule \IDelta{i}.
 \end{lemma}
 \begin{proof}
@@ -130,17 +258,20 @@ Follows from clause (i)(b) of the definition of consistent interpretation.
 then if $r_s$ is the $\in$-rule \ZsOmega and 
 $r_s$ is consistently interpreted by $I$ then
 for all contexts $Q$ and for all realisations $\tuple{\sm}$ of $\yOmega{m}$ wrt $Q$  
-such that \foreachj, $I(r_{s_j})$ is defined 
-and $I(r_{s_j}) \in Sect(I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_{\Omega_j})}{1}))$,
+which are mapped to a cascade by $I$,
 $$ \Imappedrule{Q}{\ofT{s[\SUBsFORy{m}]}{\Omega[\SUBsFORy{m}]}} 
 = I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_s)}{1})
-\in Sect (I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_\Omega)}{1})).$$
+\in Sect (I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_\Omega)}{1})),$$
+where \foreachj, $r_{s_j}$ is the rule \IsOmega{j} and where
+$r_\Omega$ is the rule \ZOmega.
 \end{lemma}
 \begin{proof}
 The definition of consistent interpretation directly requires this for non-variables. 
 It remains to show  this in the case when $s$ is a variable. Suppose $s$ is the variable
 $y_j$. Since in this case $s[\SUBsFORy{m}]$ is $s_j$ what we have to show is that
-$I(s_j) = I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(Q)}{s(p_{b_m,b_j}}{1}))$. This is given by lemma \lref{cascadeprojectionlemma}.
+$I(s_j) = I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(Q)}{s(p_{I(r_{\Omega_m}),I(r_{\Omega_j})}}{1}))$,
+where \foreachj, $r_{\Omega_j}$ is the rule \IOmega{j}. This is given by lemma \lref{cascadeprojectionlemma}.
+\highlight{NO SOMETHING WRONG HERE}
 \end{proof}
 
 
@@ -168,14 +299,12 @@ If $I$ is a partial mapping of T-rules and $\in$-rules of a theory $U$ to object
  if $Q$  and $\encyOmega{m}$ are contexts, for some $m \geq 1$,  and if $\tuple{\sm}$ is a realisation of $\tuple{\yOmega{m}}$ with respect to $Q$,
  if \foreachj, the rule \IsOmega{j} is consistently interpreted by $I$ 
  and if the rule \IOmega{m} is consistently interpreted by $I$
-then $\tuple{I(r_{s_1},...I(r_{s_m}}$ is a cacscade from $I(Q)$ to $I(r_{\Omega_m})$ in \catc,
-where $r_{s_j}$ is the rule \IsOmega{j} and $r_{\Omega_j}$ is the rule \IOmega{j}.
-\foreachj,  $$I(r_{s_j}) \in Sect(I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_{\Omega_j})}{1}))$$
- where $r_{s_j}$ is the rule \IsOmega{j} and $r_{\Omega_j}$ is the rule \IOmega{j}.
+then the realisation $\tuple{s_1,...s_m}$ is mapped by $I$ to a cascade within \catc.
 \end{lemma}
 \begin{proof}
 It follows from the definition of cascade that we need to establish, \foreachj, that
- $$I(r_{s_j}) \in Sect(I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_{\Omega_j})}{1})).$$
+ $$I(r_{s_j}) \in Sect(I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_{\Omega_j})}{1})) ,$$
+  where $r_{s_j}$ is the rule \IsOmega{j} and $r_{\Omega_j}$ is the rule \IOmega{j}.
 To prove this in the case of $m=1$ we need simply show that 
  $$I(r_{s_1}) \in Sect(\crossx{I(Q)}{I(r_{\Omega_1})}{1})).$$
  This follows because from the initial assumption that $r_{s_1}$ is consistently interpreted by $I$ then by definition
@@ -193,7 +322,7 @@ Now since $r_{\Omega_m}$ is consistently interpreted by $I$ it follows, by defin
 $$I(r_{s_j}) \in Sect(I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_{\Omega_j})}{1})).$$
 
 Now it only remains to show that
-$$I(r_{s_m}) \in Sect(I(r_{s_{m-1}})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_{\Omega_m})}{1})).$$
+$$I(r_{s_m}) \in Sect(I(r_{s_{m-1}})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_{\Omega_m})}{1})).$$ \commentary{Tighten this up.}
 
 This we can do because
 $$I(r_{s_m}) \in Sect(\Imappedrule{Q}{\isT{\Omega_m[\SUBsFORy{m-1}]}},$$ since we are given that $r_{s_m}$ is consistently interpreted by $I$
@@ -234,14 +363,14 @@ First, $I(r_{\Delta_n})$ is defined because rule \gatdisplayrule{\xDelta{n}}{\of
 By  lemma \lref{towerlemma} we have 
 $I(r_{\Delta_1}) \base ... I(r_{\Delta_{n-1}}) \base I(r_{\Delta_n})$ in \catc.
 Also because \foreachj,  we assume that the rule \gatdisplayrule{\xDelta{n}}{\ofT{s_j}{\Omega_j[\SUBsFORy{j-1}]}} is consistently interpreted by $I$, 
-we have that $I(r_{s_j}) \in Sect(I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{I(r_{\Delta_n})}{I(r_{\Omega_j})}{1}))$, by lemma \lref{realisationmapstocascade}. Hence 
+we have that $\tuple{\sm}$ is mapped to a cascade by $I$, by lemma \lref{realisationmapstocascade}. Hence 
 from the assumption that $r_\Omega$ is consistently interpreted it follows that $\Imap{\Qtargetruleone}$ is defined and 
 \begin{equation}
 \label{omegaSubsmapping}
 \Imappedrule{\xDelta{n}}{\isT{\Omega[\SUBsFORy{m}]}} 
 = I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(r_{\Delta_n})}{I(r_\Omega)}{1})
 \end{equation}
-and thus $I(r_{\Delta_n}) \base \Imap{\Qtargetruleone}$ in \catcw as required by clause (a).
+and thus that $I(r_{\Delta_n}) \base \Imap{\Qtargetruleone}$ in \catcw as required by clause (a).
 
 Next, for clause (b), we are required to show that $r_{\Delta_n}$ is consistently interpreted by $I$. 
 This follows from the fact that 
@@ -249,12 +378,11 @@ the rule \gatdisplayrule{\xDelta{n}}{\ofT{s_1}{\Omega_1}}  is consistently inter
 and from the definition of consistently interpreted by $I$.
 
 Finally, for clause (c), assume that $P$ is a context,
-assume $\tuple{\tn}$ is a realisation of $\xDelta{n}$ with respect to $P$, 
-assume \foreachi, $I(r_{t_i})$ is defined and $I(r_{t_i}) \in Sect(I(r_{t_{i-1}})^* ... I(r_{t_1})^*\crossx{I(P)}{I(r_{\Delta_i})}{1}$ 
-where $r_{t_i}$ is the rule $\tDelta{i}$, 
+assume $\tuple{\tn}$ is a realisation of $\xDelta{n}$ with respect to $P$ thsat is mapped to a cascade by $I$, 
 we must show that
 $$\Imappedrule{\xDelta{n}}{\isT{\Omega[\SUBsFORy{m}][\SUBtFORx{n}]}}
-                =I(r_{t_n})^* ... I(r_{t_1})^*\big(\crossx{I(P)}{\Imappedrule{\xDelta{n}}{\isT{\Omega[\SUBsFORy{m}]}}}{1}\big)$$
+                =I(r_{t_n})^* ... I(r_{t_1})^*\big(\crossx{I(P)}{\Imappedrule{\xDelta{n}}{\isT{\Omega[\SUBsFORy{m}]}}}{1}\big),$$
+where each $r_{t_i}$ is the rule $\tDelta{i}$.
 By rearrangement of the lhs and by use (\ref{omegaSubsmapping}) this means that we need to show 
 \begin{equation}
 \label{ctarget}
@@ -263,13 +391,13 @@ By rearrangement of the lhs and by use (\ref{omegaSubsmapping}) this means that 
 \end{equation}
 
 \newcommand{\IOmegaDoublySubstituted}[1]{\Omega_#1[\SUBsFORy{#1-1}][\SUBtFORx{n}]}
-Each $r_{s_j}$ is consistently interpreted by $I$ and $\tuple{\tn}$ is a suitably mapped realisation
-of the context $\xDelta{n}$ with respect to $P$ and therefore
+Each $r_{s_j}$ is consistently interpreted by $I$ and $\tuple{\tn}$ is a realisation
+of the context $\xDelta{n}$ with respect to $P$ that is mapped to a cascade by $I$ and therefore
 $$\Imappedrule{P}{\ofT{s_j[\SUBtFORx{n}]}{\IOmegaDoublySubstituted{j}}}
            = I(r_{t_n})^* ... I(r_{t_1})^*\big(\crossx{I(P)}{I(r_{s_j})} {1}\big)$$
 
 
-$$           \in Sect\Big(I(r_{t_n})^* ... I(r_{t_1})^*\big(\crossx{I(P)}{\Imappedrule{\xDelta{n}}{\isT{\Omega_j[\SUBsFORy{j-1}]}}} {1}\big)\Big)$$
+$$           \in Sect\Big(I(r_{t_n})^* ... I(r_{t_1})^*\big(\crossx{I(P)}{\Imappedrule{\xDelta{n}}{\isT{\Omega_j[\SUBsFORy{j-1}]}}} {1}\big)\Big), \mbox{by \highlight{what?}}$$
 $$           = Sect(I(r_{t_n})^* ... I(r_{t_1})^*\big(\crossx{I(P)}{ I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_{\Omega_j})}{1})} {1}\big)), \mbox{by a $j$'th variant of (\lref{omegaSubsmapping})}$$
 $$           =  Sect\Big(
                \big(I(r_{t_n})^*...I(r_{t_1})^*(\crossx{I(r_{\Delta_n})}{I(r_{s_{j-1}})}{1})\big)
@@ -279,7 +407,8 @@ $$           =  Sect\Big(
                \Big) \mbox{by lemma \lref{cascadedpullbackscohere} }
 $$
 and so 
-$\tuple{s_1[\SUBtFORx{n}],...s_m[\SUBtFORx{n}]}$ is a suitably mapped realisation of $\yOmega{m}$ with repect to $P$
+$\tuple{s_1[\SUBtFORx{n}],...s_m[\SUBtFORx{n}]}$ is a realisation of $\yOmega{m}$ with repect to $P$
+that is mapped to a cascade by $I$
 and we can use the fact that $r_\Omega$is consistently interpreted by $I$ 
 to establish that
 \begin{multline}
@@ -296,82 +425,8 @@ and so clause (iii) follows. \commentary{clause (iii) of what}\commentary{enumer
 \item \tbd
 \end{enumerate}
 \end{proof}
-We can show that an instance $I$ of a generalised algebraic theory $U$ in a contextual category \catcw is
-completely determined by its mapping of the introductory rules of sort symbols and operator symbols to
-objects, respectively, sections of \catc. In order to show this we start with this definition:
-
-\begin{definition}
-If $U$ is a generalised algebraic theory  and if \catcw is a contextual category then
-a \term{interpretation} $\iI$ of  $U$ in \catcw consists of a pair :
-\begin{itemize}
-\item a mapping $\Isort$ that maps each sort symbol of $U$ to  an object of \catc,
-\item a mapping $\Iop$ that maps each operator symbol of $U$ to a section of \catcw (i.e. to a morphism $f: A \morph B$ for some 
-$A \base B$ in \catcw such that $f \circ p_B=id_A$).
-\end{itemize}
-\end{definition}
 
 
-We will say that  an interpretation $\iI$ of $U$ in \catcw \term{determines} an  instance $J$ of $U$ in \catcw to mean that for each sort symbol $A$ of $U$,
-$J(r_A) = I_{sort}(A)$, where $r_A$ is the introductory rule for $A$ and that for each operator symbol
-$f$ of $U$,   $J(r_f) = I_{op}(f)$, where $r_f$ is the introductory rule for $f$.
-
-
-\begin{definition} [\highlight{Definition of  $\Ibar$}]
-If $\iI$ is an interpretation of generalised algebraic theory $U$ in contextual catgeory \catcw
-then define a
-partial mapping $\Ibar$  of T-rules and $\in$-rules to objects, respectively sections, of \catcw
-as follows
-\begin{enumerate}[(i)] 
-\item \underline{\textbf{T-rules}} 
-The derivation lemma (lemma \ref{derivationlemma}) tells us that if $r_\Delta$ is a derived T-rule of $U$  then it is of the form \gatdisplayrule{P}{\isT{A(t_1,...t_n)}} for some premise $P$, for some $n \geq 0$ and for some sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule{\xDelta{n}}{\isT{A(x_1,...x_n)}} where \foreachi, the rule 
-\ItDelta[P][,]{i} which we will call $r_{t_i}$, is a derived rule of $U$. 
-We define $\Ibar(r_\Delta)$ to be undefined unless the following preconditions are met:
-\begin{enumerate}[(a)]
-\item
-the context  $P$ is mapped by $\Ibar$ to some object $a$ of \catcw and 
-\item
-\foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $b_i$ of \catcw
-and $1 \base b_1,...\base b_n \base I(A)$ in \catcw and
-\item
-$\Ibar(r_{t_i})$ is defined and $\Ibar(r_{t_i}) \in Sect(\Ibar(r_{t_{i-1}})^*...\Ibar(r_{t_1})^*(\crossx{a}{b_i}{1})$, \foreachi,
-\end{enumerate}
-in which case we define $\Ibar(r_\Delta)$ to be $\Ibar(r_{t_n})^*...\Ibar(r_{t_1})^*(\crossx{a}{I(A)}{1})$. 
-\item \underline{\textbf{$\boldsymbol {\in}$-rules}} 
-The derivation lemma also tells us that if $r_t$ is an $\in$-rule then it is  
-either \highlight{(1)} of the form \gatdisplayrule{\xDelta{n}}{\ofT{x_i}{\Omega}} for some $n \ge 1$, for some $i$, $1 \leq i \leq n$, 
-and for some $\Omega$ such that \gatdisplayrule{\xDelta{n}}{\Delta_i=\Omega} is a derived rule of $U$
-or \highlight{(2)} it is of the form \gatdisplayrule{P}{\ofT{f(t_1,...t_n)}{\Omega}} for some premise $P$, for some $n \geq 0$ and for some operator symbol $f$ with introductory rule $r_f$ of the form \gatdisplayrule{\xDelta{n}}{\ofT{f(x_1,...x_n)}{\Delta}} where \foreachi, the rule 
-\ItDelta[P]{i}, which we will call $r_{t_i}$, is a derived rule of $U$. 
-
-In  case (1) we define $\Ibar(r_t)$ to be undefined unless  the following preconditions are met:
-\begin{enumerate}
-\item
-\foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $a_i$ of \catcw such
-that $1 \base a_1,...\base a_i$ and
-\item the rule \gatdisplayrule{\xDelta{n}}{\isT{\Omega}}, which we call $r_\Omega$, is mapped by $\Ibar$ to the object $\crossx{a_n}{a_i}{a_{i-1}}$
-\end{enumerate}
-in which case we define $\Ibar(r_t)$ to be $s(p_{a_n,a_i})$ . 
-
-In  case (2) 
-we define $\Ibar(r_t)$ to be undefined unless  unless the following preconditions are met:
-\begin{enumerate}
-\item
-the context  $P$ is mapped by $\Ibar$ to some object $a$ of \catcw and 
-\item
-\foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $b_i$ of \catcw
-and 
-\item the rule \ZDelta is mapped by $\Ibar$ to some object $b$ of \catcw and
-$1 \base b_1,...\base b_n \base b$ in \catcw 
-and 
-\item
-\foreachi, $\Ibar(r_{t_i}) \in Sect(r_{t_{i-1}}^*...r_1^* (\crossx{a}{b}{1}))$
-\end{enumerate}
-in which case we
-define $\Ibar(r_t)=\Ibar(r_{t_n})^*...\Ibar(r_{t_1})^*(\crossx{a}{I(f)}{1})$.
-This completes the definition of $\Ibar$.
-\end{enumerate}
-\highlight{END OF Definition of  $\Ibar$}
-\end{definition}
 
 
 \begin{lemma}
@@ -381,7 +436,7 @@ Suppose that  $r_\Omega$ is a derived T-rule \ZOmega of a generalised algebraic 
 and suppose that \foreachj, $r_{\Omega_j}$ is the derived rule
 \IOmega{j},
 if $\iI$ is an interpretation of $U$ in a contextual category \catc
-such that $\Ibar(r_Omega)$ is defined then
+such that $\Ibar(r_\Omega)$ is defined then
 $\Ibar(r_j)$ is defined \foreachj, and 
 $\Ibar(r_1) \base  ... \base \Ibar(r_m) \base \Ibar(r)$ in \catc.
 \end{lemma}
@@ -392,8 +447,9 @@ in \catc. By induction $\Ibar(r_1) \base  ... \base \Ibar(r_m) \base \Ibar(r)$ i
 \end{proof}
 
 \begin{lemma} 
+\llabel{uniquenessofinstancedeterminedbyaninterpretation}
 If $\iI$ is an interpretation of generalised algebraic theory $U$ in contextual catgeory \catcw then then if $\iI$ determines an instance of $U$ then the
-mapping $\Ibar$  is total i.e. is defined for all T- and $\in$-rules and the instance determined by $\iI$ is $\Ibar$.
+mapping $\Ibar$  is total i.e. is defined for all derived T- and $\in$-rules and the instance determined by $\iI$ is $\Ibar$.
 \end{lemma}
 \begin{proof}  
 Use the lemma regarding the interpretation of substitutions (lemma \ref{substitutioninterpretation})...\commentary{expand}
@@ -405,37 +461,7 @@ is well-typed (i.e. to know that it is object $a$ that it is required to be a se
 Similarly we need to be able to interpret both sides of an axiom before we can say whether it is respected
 by the interpretation. For this induction to proceed we need an intermediate definition:
 
-\def\restrict{\mathbin{\restriction}}
-\newcommand{\predInstance}{\overline{I \restrict U_p}}
-\newcommand{\Uincrement}{U \setminus\kern-2pt U_p}
 
-\begin{definition}
- Suppose that $\iI$ is an interpretation of $U$  
-define interpretation $\iI$ to be \term{valid}  iff 
-
-\begin{enumerate}[(i)]
-\item
-for all sort symbols $A$ of $U$ if $A$ has introductory rule $r_A$ then $\Ibar(r_A)$ is defined,
-\item  
-for all operator symbols $f$ of $U$ if $f$ has introductory rule $r_f$ then $\Ibar(r_f)$ is defined,
-
-\item \underline{\textbf{T=-axioms}} 
-for all axiomsof the form
- \gatdisplayrule{\xDelta{n}}{\Delta = \Delta'},
-$\Ibar(r)$ is defined and $\Ibar(r')$ is defined and
-$\Ibar(r) = \Ibar(r')$ where $r$ is the rule
-\ZDelta and  
-and $r'$ is the rule \ZDeltap
-
-\item \underline{\textbf{$\boldsymbol{\in=}$-axioms}} 
-for all axioms  of the form
-\gatdisplayrule{\xDelta{n}}{t = t' \in \Delta},
-$\Ibar(r_t)$ is defined and  $\Ibar(r'_t)$ is defined and
-$\Ibar(r_t) = \Ibar(r'_t)$ where $r_t$ is the rule
-\ZtDelta and  
-and $r'_t$ is the rule \gatdisplayrule{\xDelta{n}}{\ofT{t'}{\Delta'}}.
-\end{enumerate}
-\end{definition}
 
 Now for the main lemma:
 \begin{lemma}
@@ -541,7 +567,7 @@ So we are done if we can prove that
 This is given by lemma \lref{sofpsubstitutionlemma}
 \end{enumerate}
 Next we have to show that 
-By showing that the reklevant preconditions hold we have shown that $I(r_{x_i})$ is defined. 
+By showing that the relevant preconditions hold we have shown that $I(r_{x_i})$ is defined. 
 To show that the rule $r_{x_i}$ is consistently interpreted by $\Ibar$ we just have to show that
  $\Ibar(r_{x_i})=s(p_{a_{n+1},a_i})$. But this is exactly the definition of $\Ibar$ at $r_{x_i}$. 
 \begin{newtt}and that $\Ibar(r_{\Delta_i})=\crossx{a_n}{a_i}{1}$ which we have shown in 1. above.\end{newtt} \\
