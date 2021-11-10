@@ -113,9 +113,10 @@ or they make recursive references to T-rules (the T=-rule case) or to $\in$-rule
 \begin{definition}
 An \term{instance} of a generalised algebraic theory $U$ in a contextual category \catcw is  any mapping 
 of derived T-rules and $\in$-rules of the theory $U$ to objects, respectively sections of the contextual category \catcw that
-consistently interprets every derived rule of $U$.
+consistently interprets every derived rule of $U$ and such that
+if both \gatdisplayrule{P}{\ofT{t}{\Delta}} and \gatdisplayrule{P}{\ofT{t}{\Delta'}} are derived rules of $U$ then 
+$\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta}}}=\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}}$
 \end{definition}
-
 
 We will show that an instance $I$ of a generalised algebraic theory $U$ in a contextual category \catcw is
 completely determined by its mapping of the introductory rules of sort symbols and operator symbols to
@@ -137,10 +138,12 @@ $f$ of $U$,   $I(r_f) = \iI_{op}(f)$, where $r_f$ is the introductory rule for $
 
 We will show (lemma \lref{uniquenessofinstancedeterminedbyaninterpretation}) that 
 if $\iI$ is an interpretation of a generalised algebraic theory $U$ in a contextual catgeory \catcw then
-there is at most one such instance determined by $\iI$.
+there is at most one  instance determined by $\iI$.
+\begin{oldtt}
 To prove this we show that if $\iI$ determines an instance $I$ then
 the partial mapping which we define below as $\Ibar$  is total and is an instance and that
 the instance $I$ determined by $\iI$ is  $\Ibar$.
+\end{oldtt}
 
 \begin{definition} [\highlight{Definition of  $\Ibar$}]
 If $\iI$ is an interpretation of generalised algebraic theory $U$ in a contextual catgeory \catcw
@@ -239,7 +242,7 @@ and $r'_t$ is the rule \gatdisplayrule{\xDelta{n}}{\ofT{t'}{\Delta'}}.
 
 Now we can state precisely how an interpretation $\iI$ determines an instance: 
 Suppose that $\iI$ is an interpretation of $U$  then $\iI$ is valid  iff $\iI$ determines an instance. 
-I $\iI$ does determine and instance then that instance is $\Ibar$.
+If $\iI$ does determine an instance then that instance is $\Ibar$.
 The remainder of this section leads to a proof of this statement in
 lemma  \lref{avalidinterpretationisaninstance} at the end of this section.
 
@@ -529,17 +532,99 @@ in \catc. By induction $1 \base \Ibar(r_1) \base  ... \base \Ibar(r_m) \base \Ib
 \commentary{Have we proved $1 \base r_1$ ??}
 \end{proof}
 
+
+\begin{lemma}
+\llabel{uniquenesssublemma}
+If $I$ and $I'$ are instances of a generalised algebraic theory $U$ in a contextual category \catcw and if \gatdisplayrule{P}{\ofT{t}{\Delta}}
+is a derived rule of $U$ such that $\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta}}}=\Ipmap{\gatdisplayrule{P}{\ofT{t}{\Delta}}}$
+then
+\begin{enumerate}[(i)]
+\item
+$\Imap{\gatdisplayrule{P}{\isT{\Delta}}}=\Ipmap{\gatdisplayrule{P}{\isT{\Delta}}}$
+\item
+$I(P)=I'(P)$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}[(i)]
+\item
+The rule \gatdisplayrule{P}{\ofT{t}{\Delta}} is a derived rule of $U$ and so 
+it is consistently interpreted by $I$ since $I$ is an instance and therefore 
+$\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta}}} \in Sect \big(\Imap{\gatdisplayrule{P}{\isT{\Delta}}})$ by condition (a) of clause (ii) of definition \lref{consistentinterpretation}.
+Likewise it follows that $\Ipmap{\gatdisplayrule{P}{\ofT{t}{\Delta}}} \in Sect \big(\Ipmap{\gatdisplayrule{P}{\isT{\Delta}}})$.
+But $\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta}}} = \Ipmap{\gatdisplayrule{P}{\ofT{t}{\Delta}}}$ and therefore
+$Sect \big(\Imap{\gatdisplayrule{P}{\isT{\Delta}}})=Sect \big(\Ipmap{\gatdisplayrule{P}{\isT{\Delta}}})$
+and therefore $\Imap{\gatdisplayrule{P}{\isT{\Delta}}}=\Ipmap{\gatdisplayrule{P}{\isT{\Delta}}}$.
+\item
+The rule \gatdisplayrule{P}{\isT{\Delta}} is a derived rule of $U$ and so 
+it is consistently interpreted by $I$ since $I$ is an instance and therefore 
+$I(P) \base \Imap{\gatdisplayrule{P}{\isT{\Delta}}}$ in \catcw by condition (a) of clause (i) of definition \lref{consistentinterpretation} . 
+Likewise it follows that  $I'(P) \base \Ipmap{\gatdisplayrule{P}{\isT{\Delta}}}$ in \catc. 
+But $\Imap{\gatdisplayrule{P}{\isT{\Delta}}} = \Ipmap{\gatdisplayrule{P}{\isT{\Delta}}}$ and therefore $I(P)=I'(P)$. 
+\end{enumerate}
+\end{proof}
 \begin{lemma} 
 \llabel{uniquenessofinstancedeterminedbyaninterpretation}
-If $\iI$ is an interpretation of generalised algebraic theory $U$ in contextual catgeory \catcw then then if $\iI$ determines an instance of $U$ then the
-mapping $\Ibar$  is total i.e. is defined for all derived T- and $\in$-rules and the instance determined by $\iI$ is $\Ibar$.
+If $\iI$ is an interpretation of generalised algebraic theory $U$ in contextual catgeory \catcw that determines instances $I$ and $I'$ of $U$ then
+$I=I'$. 
 \end{lemma}
-\begin{proof}  
-This, I think,  follows from use of the Substitution Lemma (lemma \lref{substitutionlemma},
-and from the lemma regarding the interpretation of substitutions i.e. lemma \ref{substitutioninterpretation}. 
-\highlight{Do we need induction on length of term or type expression?}
-\commentary{Be careful: when realisation is empty  then substituting it does not yield longer expression.}
-\tbd
+\begin{proof}
+We show that for all derived  T- and $\in$-rules of $U$, $I(r)=I'(r)$.  
+The proof proceeds by induction on the derivation of $r$. 
+We need only consider principles T1, CF1, CF2(a) and CF2(b), for these are the only principles by which  T-rules and $\in$-rules may be derived.\\
+\underline{T1}
+By this principle from \gatdisplayrule{P}{\Delta=\Delta'} and \gatdisplayrule{P}{\ofT{t}{\Delta}} we can derive \gatdisplayrule[.]{P}{\ofT{t}{\Delta'}}
+Assume the inductive hypothesis that $\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta}}} = \Ipmap{\gatdisplayrule{P}{\ofT{t}{\Delta}}}$.
+We need show that $\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}} = \Ipmap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}}$.
+This follows because from the definition of instance we have that $\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta}}} = \Imap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}}$
+and $\Ipmap{\gatdisplayrule{P}{\ofT{t}{\Delta}}} = \Ipmap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}}$.
+\\
+
+\underline{CF1} According to this principle, 
+whenever a rule of the form \gatdisplayrule{\xDelta{n}}{\isT{\Delta_{n+1}}} is a derived rule of $U$ for some $n \geq 0$
+then so to is the rule \gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}}, \foreachi[n+1], where $x_{n+1}$ is any variable distinct from each of the variables $\xn$. For each $i$, $1 \leq i \leq n+1$, let $r_{\Delta_i}$ be the rule \IDelta{i}. Assume the inductive hypothesis that
+$I(r_{\Delta_{n+1}})=I'(r_{\Delta_{n+1}})$. Because $I$ and $I'$ are instances they both consistently interpret the rule $r_{\Delta_{n+1}}$
+and so it follows by lemma \lref{towerlemma} that
+$I(r_{\Delta_i})=I'(r_{\Delta_i})$, \foreachi. Now, since \gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}} is a derived rule
+of $U$ and is therefore consistently interpreted by both $I$ and $I'$
+it follows by condition (d) of clause (ii) of defintion \lref{consistentinterpretation} that
+$
+\Imap{\gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}}}
+=s(p_{I(r_{\Delta_{n+1}}),I(r_{\Delta_{i}})})
+=s(p_{I'(r_{\Delta_{n+1}}),I'(r_{\Delta_{i}})})
+=\Ipmap{\gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}}}
+$, as required.
+
+\underline{CF2(a)} 
+By this principle, from a sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule[,]{\xDelta{n}}{\isT{A(\xn)}} for  $n \geq 0$, if
+$P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
+and from derived rules $r_{t_i}$ of the form \ItDelta[P]{i}, \foreachi, we may deduce
+the rule \gatdisplayrule{P}{\isT{A(t_1,...t_n)}}, which we shall denote by $r$, is a derived rule of $U$. 
+Because the introductory rule for $A$ is a derived rule of $U$ \footnote{Should really have a lemma for this} and is therefore consistently interpreted by $I$
+since $I$ is an instance, and since  each rule $r_{t_i}$ is consistently interpreted by $I$ we have by lemma \lref{realisationmapstocascade}
+that $\tuple{\tn}$ is mapped to a cascade by $I$ and hence by condition (c) of clause (i) of definition \lref{consistentinterpretation}
+the rule $r$ is mapped  by $I$ to
+$I(r_{t_n})^* ... I(r_{t_1})^*\big(\crossx{I(P)}{I(r_A)}{1}\big)$, where $r_A$ is the introductory rule for $A$.
+Similarly $r$ is mapped by $I'$ to
+$I'(t_n)^* ... I'(t_1)^*\big(\crossx{I'(P)}{I'(r_A)}{1}\big)$.
+By the inductive hypothesis we have both that $I(r_{t_i})=I'(r_{t_i})$, for each $i$, and that $I(P)=I'(P)$,  and 
+because both $I$ and $I'$ are instances which extend interpretation $\iI$
+we have that $I(r_A)=\iI(f)=I'(r_A)$. Therefore $I(r)=I'(r)$.
+\\
+
+\underline{CF2(b)} By this principle, from a operator symbol $f$ with introductory rule $r_f$ of the form \gatdisplayrule[,]{\xDelta{n}}{\ofT{f(\xn)}{\Delta}} for some $n \geq 0$, if
+$P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
+and from derived rules $r_{t_i}$ of the form \ItDelta[P]{i}, \foreachi, we may deduce
+the rule \gatdisplayrule{P}{\ofT{f(t_1,...t_n)}{\Delta[\SUBtFORx{n}]}}, which we shall denote by $r_t$, is a derived rule of $U$. 
+Because the introductory rule for $f$ is a derived rule of $U$ \footnote{Should really have a lemma for this} and therefore consistently interpreted by $I$
+since $I$ is an instance, and because, as above,  $\tuple{\tn}$ is mapped to a cascade by $I$,
+by condition (c) of clause (ii) of definition \lref{consistentinterpretation} the rule $r_t$ is mapped  by $I$ to
+$I(r_{t_n})^* ... I(r_{t_1})^*\big(\crossx{I(P)}{I(r_f)}{1}\big)$, where $r_f$ is the introductory rule for $f$.
+Similarly $r_t$ is mapped by $I'$ to
+$I'(t_n)^* ... I'(t_1)^*\big(\crossx{I'(P)}{I'(r_f)}{1}\big)$.
+By the inductive hypothesis we have both that $I(r_{t_i})=I'(r_{t_i})$, for each $i$, and that $I(P)=I'(P)$,  and 
+because both $I$ and $I'$ are instances which extend interpretation $\iI$
+we have that $I(r_f)=\iI(f)=I'(r_f)$. Therefore $I(r_t)=I'(r_t)$.
 \end{proof}
 
 Now for the main lemma:
@@ -557,9 +642,9 @@ it is only possible to derive rules for which $\Ibar$ is defined and which thems
 The principles of derivation (see \cite{Cartmell86}) are LI1, ... LI7, T1, CF1, CF2(a) and CF2(b), SI1 and SI2. 
 The proof of this  in each the cases  LI1,...LI6 is quite trivial. We consider each of the remaining principles in turn. 
  \\
-\underline{LI7} This is not quite trivial but related to principle T1. \highlight{Think about this.} \\
+\underline{LI7} \commentary{This is not quite trivial but related to principle T1.}  \\
 
-
+\tbd
 \underline{T1}
 By this principle from \gatdisplayrule{P}{\Delta=\Delta'} and \gatdisplayrule{P}{\ofT{t}{\Delta}} we can derive \gatdisplayrule[.]{P}{\ofT{t}{\Delta'}}
 By the inductive hypothesis we assume that rule  \gatdisplayrule{P}{\Delta=\Delta'} is consistently interpreted by $\Ibar$ i.e. that
@@ -736,7 +821,11 @@ This we can do by repeated application of identities (\ref{metagattriplestar})
 and (\ref{metagatcrossstarcross}), which are two of the meta-GAT axioms described earlier.\\
 \end{newtt}
 
-\underline{CF2(b)???} \\
+\underline{CF2(b)} By this principle, from a operator symbol $f$ with introductory rule $r_f$ of the form \gatdisplayrule[,]{\xDelta{n}}{\ofT{f(\xn)}{\Delta}} for some $n \geq 0$, if
+$P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
+and from derived rules $r_{t_i}$ of the form \ItDelta[P]{i}, \foreachi, we may deduce
+the rule \gatdisplayrule{P}{\ofT{f(t_1,...t_n)}{\Delta[\SUBtFORx{n}]}}, which we shall denote by $r$, is a derived rule of $U$. 
+\tbd \\
 
 \underline{SI1} 
 This principle states that if \gatdisplayrule{\yOmega{m}}{\Omega=\Omega'} is a derived rule, if $Q$ is a context and if  $\sm$ and $\smp$ are expressions such that
