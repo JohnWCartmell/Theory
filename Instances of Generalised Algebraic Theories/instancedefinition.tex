@@ -607,8 +607,9 @@ $, as required.
 
 
 \underline{CF2(a)} 
-By this principle, from a sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule[,]{\xDelta{n}}{\isT{A(\xn)}} for  $n \geq 0$, if
-$P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
+By this principle, from a sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule[,]{\xDelta{n}}{\isT{A(\xn)}} for  $n \geq 0$, 
+if the rule \gatdisplayrule[,]{\xDelta{n-1}}{\isT{\Delta_n}} is a derived rule of $U$,
+if $P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
 and from derived rules $r_{t_i}$ of the form \ItDelta[P]{i}, \foreachi, we may deduce
 the rule \gatdisplayrule{P}{\isT{A(t_1,...t_n)}}, which we shall denote by $r$, is a derived rule of $U$. 
 Because the introductory rule for $A$ is a derived rule of $U$ \footnote{Should really have a lemma for this} and is therefore consistently interpreted by $I$
@@ -622,8 +623,8 @@ because both $I$ and $I'$ are instances which extend interpretation $\iI$
 we have that $I(r_A)=\iI(f)=I'(r_A)$. Therefore $I(r)=I'(r)$.
 \\
 
-\underline{CF2(b)} By this principle, from a operator symbol $f$ with introductory rule $r_f$ of the form \gatdisplayrule[,]{\xDelta{n}}{\ofT{f(\xn)}{\Delta}} for some $n \geq 0$, if
-$P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
+\underline{CF2(b)} By this principle, from a operator symbol $f$ with introductory rule $r_f$ of the form \gatdisplayrule[,]{\xDelta{n}}{\ofT{f(\xn)}{\Delta}} for some $n \geq 0$, if the rule \gatdisplayrule[,]{\xDelta{n}}{\isT{\Delta}} is a derived rule of $U$,
+if $P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
 and from derived rules $r_{t_i}$ of the form \ItDelta[P]{i}, \foreachi, we may deduce
 the rule \gatdisplayrule{P}{\ofT{f(t_1,...t_n)}{\Delta[\SUBtFORx{n}]}}, which we shall denote by $r_t$, is a derived rule of $U$. 
 Because the introductory rule for $f$ is a derived rule of $U$ \footnote{Should really have a lemma for this} and therefore consistently interpreted by $I$
@@ -884,33 +885,54 @@ To show that the rule $r_{x_i}$ is consistently interpreted by $\Ibar$ we just h
  $\Ibar(r_{x_i})=s(p_{a_{n+1},a_i})$. But this is exactly the definition of $\Ibar$ at $r_{x_i}$. 
 \begin{newtt}and that $\Ibar(r_{\Delta_i})=\crossx{a_n}{a_i}{1}$ which we have shown in 1. above.\end{newtt} \\
 \highlight{Some more work to be done above since we have to show conditions (a),(b) and (c) hold as well as condition (d). } \\
-\underline{CF2(a)}By this principle, from a sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule[,]{\xDelta{n}}{\isT{A(\xn)}} for some $n \geq 0$, if
-$P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
+\underline{CF2(a)}By this principle, from a sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule[,]{\xDelta{n}}{\isT{A(\xn)}} for some $n \geq 0$, if the rule \gatdisplayrule[,]{\xDelta{n-1}}{\isT{\Delta_n}} is a derived rule of $U$,
+if $P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
 and from derived rules $r_{t_i}$ of the form \ItDelta[P]{i}, \foreachi, we may deduce
 the rule \gatdisplayrule{P}{\isT{A(t_1,...t_n)}}, which we shall denote by $r$, is a derived rule of $U$. \\
-
 
 Assume as the inductive hypotheses that the rule $r_P$ is consistently interpreted by $\Ibar$ and that 
 $\Ibar(r_{t_i})$ is defined \foreachi and that each $r_{t_i}$ is consistently
 interpreted by $Ibar$.
 Now, by lemma \lref{Ibarconsistentonintros} the introductory rule for $A$ is consistently interpreted by $\Ibar$
 and so we can use lemma \lref{substitutioninterpretationlemma}
-to establish that the rule \gatdisplayrule{P}{\isT{A(t_1,...t_n)}} is consistently interpreted by $\Ibar$ as required.
-\underline{CF2(b)} By this principle, from a operator symbol $f$ with introductory rule $r_f$ of the form \gatdisplayrule[,]{\xDelta{n}}{\ofT{f(\xn)}{\Delta}} for some $n \geq 0$, if
-$P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
+to establish that the rule \gatdisplayrule{P}{\isT{A(t_1,...t_n)}} is consistently interpreted by $\Ibar$, as required. \\
+\underline{CF2(b)} By this principle, from a operator symbol $f$ with introductory rule $r_f$ of the form \gatdisplayrule[,]{\xDelta{n}}{\ofT{f(\xn)}{\Delta}} for some $n \geq 0$, if the rule \gatdisplayrule[,]{\xDelta{n}}{\isT{\Delta}} is a derived rule of $U$,
+if $P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
 and from derived rules $r_{t_i}$ of the form \ItDelta[P]{i}, \foreachi, we may deduce
 the rule \gatdisplayrule{P}{\ofT{f(t_1,...t_n)}{\Delta[\SUBtFORx{n}]}}, which we shall denote by $r$, is a derived rule of $U$. 
-\tbd \\
 
+Assume as the inductive hypotheses  that the rule $r_P$ is consistently interpreted by $\Ibar$ and that 
+the rule \gatdisplayrule{\xDelta{n}}{\isT{\Delta}} is consistently interpreted by $\Ibar$
+and that $\Ibar(r_{t_i})$ is defined \foreachi and that each $r_{t_i}$ is consistently
+interpreted by $\Ibar$.
+With these assumptions we can use lemma \lref{Ibarconsistentonintros} to establish that the introductory rule for $f$ is consistently interpreted by $\Ibar$.
+Next we can use lemma \lref{substitutioninterpretationlemma}
+to establish that the rule \gatdisplayrule{P}{\ofT{f(t_1,...t_n)}{\Delta[\SUBtFORx{n}]}} is consistently interpreted by $\Ibar$, as required. \\
+%
 \underline{SI1} 
 This principle states that if \gatdisplayrule{\yOmega{m}}{\Omega=\Omega'} is a derived rule, if $Q$ is a context and if  $\sm$ and $\smp$ are expressions such that
 \foreachj, \gatdisplayrule{Q}{s_j=s'_j \in \Omega\SUBsFORy{j-1}} is a derived rule then we may derive the rule
 \gatdisplayrule{Q}{\Omega[\SUBsFORy{m}]=\Omega'[s'_1|y_1...s'_m|y_m]}. \\
 
-We have to show that this latter rule is consistently intepreted by $\Ibar$ \highlight{CHECK} from the assumption that each of the rules \gatdisplayrule{\yOmega{m}}{\Omega=\Omega'} and
+We have to show that the rule \gatdisplayrule{Q}{\Omega[\SUBsFORy{m}]=\Omega'[s'_1|y_1...s'_m|y_m]} is consistently intepreted by $\Ibar$
+ from the assumption that each of the rules \gatdisplayrule{\yOmega{m}}{\Omega=\Omega'} and
 \gatdisplayrule{Q}{s_j=s'_j \in \Omega\SUBsFORy{j-1}}, \foreachj, are consistently intepreted by $\Ibar$.
+From these inductive hypotheses we know that
+\begin{equation}
+\label{SI1inductiveequation1}
+\Ibar(r_\Omega)=\Ibar(r_{\Omega'})
+\end{equation}
+where $r_\Omega$ is the rule \gatdisplayrule{\yOmega{m}}{\isT{\Omega}} and $r_{\Omega'}$ is the rule \gatdisplayrule{\yOmega{m}}{\isT{\Omega'}} 
+and that, \foreachj,
+\begin{equation}
+\label{SI1inductiveequation2}
+\Ibar(r_{s_j})=\Ibar(r_{s'_j})
+\end{equation}
+where \foreachj, $r_{s_j}$ is the rule \gatdisplayrule{Q}{\ofT{s_j}{\Omega_j[\SUBsFORy{j-1}]}}
+and $r_{s'_j}$ is the rule \gatdisplayrule{Q}{\ofT{s'_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}}.
 
-To do this we have to show that the rules \ZOmegaSUBsmFORym and \gatdisplayrule{Q}{\isT{\Omega'[s'_1|y_1...s'_m|y_m]}}
+To show that \gatdisplayrule{Q}{\Omega[\SUBsFORy{m}]=\Omega'[s'_1|y_1...s'_m|y_m]} is consistently interpreted by $\Ibar$
+we have to show that the rules \ZOmegaSUBsmFORym and \gatdisplayrule{Q}{\isT{\Omega'[s'_1|y_1...s'_m|y_m]}}
 are consistently interpreted by $\Ibar$ and that
 $$
 \ibarmappedrule{Q}{\isT{\Omega[\SUBsFORy{m}]}} = \ibarmappedrule{Q}{\isT{\Omega'[s'_1|y_1...s'_m|y_m]}}.
@@ -930,39 +952,17 @@ are consistently interpreted by $\Ibar$, follows.
 Finally we can show that
 $$
 \ibarmappedrule{Q}{\isT{\Omega[\SUBsFORy{m}]}} = \ibarmappedrule{Q}{\isT{\Omega'[s'_1|y_1...s'_m|y_m]}}.
-$$.
+$$ as follows:
 
-\begin{newtt}
-$$ \gmstar...\gonestar(\crossx{a}{\ibarmappedrule{\yOmega{m}}{\ofT{s}{\Omega}}}{1})$$
-where \foreachj, $g_j$ is the section
-$\displaystyle\Imappedrule{Q}{ \ofT{s_j}{\Omega_j \SUBsFORy{j-1}}}$
-and where $a$ is the object to which $I$ maps context $Q$.
-
-\end{newtt}
-
-because  from the the fact  that \ZOmegaSUBsmFORym is consistently interpreted by $\Ibar$ we have that
-$$
-\Imappedrule{Q}{\isT{\Omega[\SUBsFORy{m}]}} = \gmstar...\gonestar(\crossx{a}{\Imappedrule{\yOmega{m}}{\isT{\Omega}}}{1})
-$$
-where \foreachj, $g_j$ is the section
-$\displaystyle\Imappedrule{Q}{ \ofT{s_j}{\Omega_j \SUBsFORy{j-1}}}$
-and where $a$ is the object to which $\Ibar$ maps context $Q$,
-and similarly we have that
-$$
-\ibarmappedrule{Q}{\isT{\Omega'[s'_1|y_1...s'_m|y_m]}} = \gprimemstar...\gprimeonestar(\crossx{a}{\Imappedrule{\yOmega{m}}{\isT{\Omega'}}}{1})
-$$
-
-where, \foreachj,  
-$g_j$ is the section 
-and $g'_j$ is the section 
-and because \foreachj, $g_j=g'_j$ from the assumption
-that rule \gatdisplayrule{Q}{s_j=s'_j \in \Omega\SUBsFORy{j-1}} is consistently interpreted by $\Ibar$
-and since
-$$
-\ibarmappedrule{\yOmega{m}}{\isT{\Omega}} = \ibarmappedrule{\yOmega{m}}{\isT{\Omega'}}
-$$
-from the assumption that \gatdisplayrule{\yOmega{m}}{\Omega=\Omega'} is consistently interpreted by $\Ibar$.
-
+\begin{align*}
+\ibarmappedrule{Q}{\isT{\Omega[\SUBsFORy{m}]}} 
+    &=I(r_{s_m})^* ... I(r_{s_1})^*\big( \crossx{\Ibar(Q)}{\Ibar(r_\Omega)}{1} \big)
+    &&\mbox{ because $r_\Omega$ is consistently interpreted by $\Ibar$,} \\
+    &=I(r_{s'_m})^* ... I(r_{s'_1})^*\big( \crossx{\Ibar(Q)}{\Ibar(r_{\Omega'})}{1} \big)
+    &&\mbox{ by (\ref{SI1inductiveequation1}) and (\ref{SI1inductiveequation2}),} \\
+    &=\ibarmappedrule{Q}{\isT{\Omega'[s'_1|y_1...s'_m|y_m]}}
+    &&\mbox{ as required, because $r_{\Omega'}$ is consistently interpreted by $\Ibar$.}
+\end{align*}
 
 \vspace{1cm}
 \underline{SI2} 
