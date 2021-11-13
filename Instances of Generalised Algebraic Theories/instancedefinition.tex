@@ -1,4 +1,6 @@
 
+\newcommand{\clause}[1]{clause (#1) of definition \lref{consistentinterpretation}}
+\newcommand{\condition}[2]{condition (#2) of \clause{#1}}
 
 In this section, we will define an instance of a generalised algebraic theory $U$ in a contextual category \catcw to be a consistent mapping 
 of derived T-rules and $\in$-rules of  $U$ to objects, respectively sections of \catc. 
@@ -111,11 +113,18 @@ or they make recursive references to T-rules (the T=-rule case) or to $\in$-rule
 \end{proof}
 
 \begin{definition}
+We will say that a partial mapping I  
+of derived T-rules and $\in$-rules of the theory $U$ to objects, respectively sections of the contextual category \catcw
+is \term{type independent} on   $\in$-rules iff whenever
+\gatdisplayrule{P}{\ofT{t}{\Delta}} and \gatdisplayrule{P}{\ofT{t}{\Delta'}} are derived rules of $U$ then 
+$\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta}}}=\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}}$.
+\end{definition}
+
+\begin{definition}
 An \term{instance} of a generalised algebraic theory $U$ in a contextual category \catcw is  any mapping 
 of derived T-rules and $\in$-rules of the theory $U$ to objects, respectively sections of the contextual category \catcw that
-consistently interprets every derived rule of $U$ and such that
-if both \gatdisplayrule{P}{\ofT{t}{\Delta}} and \gatdisplayrule{P}{\ofT{t}{\Delta'}} are derived rules of $U$ then 
-$\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta}}}=\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}}$
+is type independent on $\in$-rules and which
+consistently interprets every derived rule of $U$.
 \end{definition}
 
 We will show that an instance $I$ of a generalised algebraic theory $U$ in a contextual category \catcw is
@@ -595,6 +604,8 @@ $
 =\Ipmap{\gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}}}
 $, as required.
 
+
+
 \underline{CF2(a)} 
 By this principle, from a sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule[,]{\xDelta{n}}{\isT{A(\xn)}} for  $n \geq 0$, if
 $P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
@@ -602,8 +613,7 @@ and from derived rules $r_{t_i}$ of the form \ItDelta[P]{i}, \foreachi, we may d
 the rule \gatdisplayrule{P}{\isT{A(t_1,...t_n)}}, which we shall denote by $r$, is a derived rule of $U$. 
 Because the introductory rule for $A$ is a derived rule of $U$ \footnote{Should really have a lemma for this} and is therefore consistently interpreted by $I$
 since $I$ is an instance, and since  each rule $r_{t_i}$ is consistently interpreted by $I$ we have by lemma \lref{realisationmapstocascade}
-that $\tuple{\tn}$ is mapped to a cascade by $I$ and hence by condition (c) of clause (i) of definition \lref{consistentinterpretation}
-the rule $r$ is mapped  by $I$ to
+that $\tuple{\tn}$ is mapped to a cascade by $I$ and hence by \condition{i}{c}
 $I(r_{t_n})^* ... I(r_{t_1})^*\big(\crossx{I(P)}{I(r_A)}{1}\big)$, where $r_A$ is the introductory rule for $A$.
 Similarly $r$ is mapped by $I'$ to
 $I'(t_n)^* ... I'(t_1)^*\big(\crossx{I'(P)}{I'(r_A)}{1}\big)$.
@@ -627,14 +637,142 @@ because both $I$ and $I'$ are instances which extend interpretation $\iI$
 we have that $I(r_f)=\iI(f)=I'(r_f)$. Therefore $I(r_t)=I'(r_t)$.
 \end{proof}
 
+\begin{lemma}
+\llabel{T1preservesconsistentinterpretation}
+If $I$ is a partial mapping that is type independent on $\in$-rules,
+if \gatdisplayrule{P}{\Delta=\Delta'} and \gatdisplayrule{P}{\ofT{t}{\Delta}} are derived rules of $U$ 
+which are consistently interpreted by $I$ then the rule \gatdisplayrule{P}{\ofT{t}{\Delta'}}
+is a derived rule of $U$ and is consistently interpreted by $I$.
+\end{lemma}
+\begin{proof}
+That the rule \gatdisplayrule{P}{\ofT{t}{\Delta'}} is derived follows by application of principle T1 to the given derived rules.
+
+Now, because \gatdisplayrule{P}{\Delta=\Delta'} is consistently interpreted by $I$ we know by \clause{iii} that
+\begin{equation}
+\label{T1lemmaEq1}
+\Imap{\gatdisplayrule{P}{\isT{\Delta}}} = \Imap{\gatdisplayrule{P}{\isT{\Delta'}}}.
+\end{equation}
+Because \gatdisplayrule{P}{\ofT{t}{\Delta}} is consistently interpreted by $I$ we know by \condition {ii}{b} that
+\begin{equation}
+\label{T1lemmaEq2}
+\gatdisplayrule{P}{\ofT{t}{\Delta}} \in Sect(\Imap{\gatdisplayrule{P}{\isT{\Delta}}}).
+\end{equation}
+Because $I$ is type independent on $\in$-rules we know, by defintion,  that
+\begin{equation}
+\label{T1lemmaEq3}
+\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta}}} = \Imap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}}.
+\end{equation}
+
+We have to show that conditions (a), (b), (c) and (d) of \clause{ii} hold. We have to show
+\begin{enumerate}[(a)]
+\item $\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}}$ is defined
+and that $\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}} \in Sect(\Imap{\gatdisplayrule{P}{\isT{\Delta'}}})$.
+That  $\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}}$ is defined follows because
+$I$ is type independent on $\in$-rules.
+ That $\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}} \in Sect(\Imap{\gatdisplayrule{P}{\isT{\Delta'}}})$
+  follows from (\ref{T1lemmaEq1}), (\ref{T1lemmaEq2}) and (\ref{T1lemmaEq3}).\\
+\item
+\gatdisplayrule{P}{\isT{\Delta'}} is consistently interpreted by $I$. This  follows from clause (iii) of
+definition \lref{consistentinterpretation} because \gatdisplayrule{P}{\Delta=\Delta'} is consistently interpreted by $I$.
+
+\item
+That for certain appropriate realisations $\tuple{\sm}$,
+$$ \Imappedrule{Q}{\ofT{t[\SUBsFORy{m}]}{\Delta'[\SUBsFORy{m}]}} = I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_{t\Delta'})}{1}),$$
+where  $r_{t\Delta'}$ is \gatdisplayrule{P}{\ofT{t}{\Delta'}}.
+This follows because under these same conditions we know that
+$$ \Imappedrule{Q}{\ofT{t[\SUBsFORy{m}]}{\Delta[\SUBsFORy{m}]}} = I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_{t\Delta})}{1})$$
+where  $r_{t\Delta}$ is \gatdisplayrule{P}{\ofT{t}{\Delta}},
+and because both $I(r_{t\Delta})=I(r_{t\Delta'})$ and 
+$$\Imappedrule{Q}{\ofT{t[\SUBsFORy{m}]}{\Delta'[\SUBsFORy{m}]}} = \Imappedrule{Q}{\ofT{t[\SUBsFORy{m}]}{\Delta'[\SUBsFORy{m}]}}$$
+because $I$ is type independent on $\in$-rules.
+\item
+In the case that $t$ is a variable $y_j$ then
+$$I(r_{t_\Delta'})=s(p_{r_{\Omega_m},r_{\Omega_j}}).$$ This too follows because $I$ is type independent on $\in$-rules.
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}
+\llabel{Ibarintro1}
+Suppose that $\iI$ is an interpretation of $U$  and that $\iI$ is valid  then 
+\begin{enumerate}[(a)]
+\item for every sort symbol $A$ of $U$ with introductory rule $r_A$ of the form \gatdisplayrule[,]{\xDelta{n}}{\isT{A(\xn)}} for some $n \geq 0$,
+$\Ibar(r_A)$ is defined and $\Ibar(r_A)=\iI_{sort}(A)$,
+\item for every operator symbol $f$ of $U$ with introductory rule $r_f$ of the form \gatdisplayrule[,]{\xDelta{n}}{\ofT{f(\xn)}{\Delta}} for some $n \geq 0$,
+$\Ibar(r_f)$ is defined $\Ibar(r_f)=\iI_{op}(f)$,.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}[(i)]
+\item
+Assume $A$ is such a sort symbol of theory $U$.
+For each $i$, $1 \leq i \leq n$, let $r_{x_i}$ be the rule \gatdisplayrule{\xDelta{n}}{\ofT{x_i}{\Delta_i}} and let $r_{\Delta_i}$ by the rule \IDelta{i}.
+From the assumption that $\iI$ is valid, and from what it means for an interpretation to be valid, it follows that  $\Ibar(r_A)$ is defined.
+
+From the definition of $\Ibar$ it follows therefore that $\Ibar(r_{x_i})$ is defined, \foreachi, and we have
+\begin{align*}
+\Ibar(r_A)
+   &=\Ibar(r_{x_i})^*...\Ibar(r_{x_i})^*\big(\crossx{\Ibar(r_{\Delta_n})}{\iI_{sort}(A)}{1}\big)
+   &&\mbox{ by clause (i) of the definition of $\Ibar$,}\\
+   &=s(p_{\Ibar(r_{\Delta_n}),\Ibar(r_{\Delta_n})})^*...s(p_{\Ibar(r_{\Delta_n}),\Ibar(r_{\Delta_1})})^*\big(\crossx{\Ibar(r_{\Delta_n})}{\iI_{sort}(A)}{1}\big)
+   &&\mbox{by clause (ii) of the definition of $\Ibar$,} \\
+   &=\iI_{sort}(A)
+   &&\mbox{by identity (a) of lemma \lref{secondsofpsubstitutionlemma}, as required.}
+\end{align*} 
+\item For an operator symbol $f$ the proof is similar to the above, but in this case using clause (b) of lemma \lref{secondsofpsubstitutionlemma}.
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}
+\llabel{Ibarconsistentonintros}
+Suppose that $\iI$ is an interpretation of $U$  and that $\iI$ is valid  then 
+\begin{enumerate}[(i)]
+\item for every sort symbol $A$ of $U$ with introductory rule $r_A$ of the form \gatdisplayrule[,]{\xDelta{n}}{\isT{A(\xn)}} for some $n \geq 0$,
+if the rule $r_{\Delta_n}$ is consistently interpreted by $\Ibar$ then the rule $r_A$ is consistently interpreted by $\Ibar$,
+\item for every operator symbol $f$ of $U$ with introductory rule $r_f$ of the form \gatdisplayrule[,]{\xDelta{n}}{\ofT{f(\xn)}{\Delta}} for some $n \geq 0$,
+if the rule $r_{\Delta}$ is consistently interpreted by $\Ibar$ then the rule $r_f$ is consistently interpreted by $\Ibar$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}[(i) ]
+    \item We have to show that conditions (a), (b) and (c) of \clause{i} hold.
+    \begin{enumerate}[(a)]
+        \item We need show that $\Ibar(r_A)$ is defined and that $\Ibar(r_{\Delta_n})$ is defined and that $\Ibar(r_{\Delta_n}) \base \Ibar(r_A)$ in \catc.
+        That $\Ibar(r_A)$ is defined is shown in lemma \lref{Ibarintro1}. That $\Ibar(r_{\Delta_n}) \base \Ibar(r_A)$ in \catc follows from 
+        the fact that $\Ibar(r_A)$ is defined and the implication that precondition (b) of clause (i) of the definition of $\Ibar$ must therefore be met.
+        \item We need show that $r_{\Delta_n}$ is consistently interpreted by $\Ibar$. This we have as an assumption.
+        \item we need show that for all contexts $Q$ and for any realisation $\tuple{s_1,...s_n}$ of $\xDelta{n}$ wrt $Q$
+        which is mapped to a cascade by $\Ibar$,
+        $$\ibarmappedrule{Q}{A(s_1,...s_n)}=I(r_{s_n})^*I(r_{s_1})^*\big(\crossx{I(Q)}{I(r_A)}{1}\big)$$
+        where $r_{s_i}$, \foreachi, is the rule \gatdisplayrule{Q}{\ofT{s_i}{\Delta_i[s_{i-1}|x_{i-1},...s_1|x_1]}}.
+        Now this follows from the definition of $\Ibar$ provided that we can show that the preconditions (a), (b) and (c). 
+        We can do this as follows.
+        \begin{enumerate}[(a)]
+            \item That $\Ibar$ is defined at the context $Q$. 
+            This follows because $\Ibar$ is defined at the rule $r_{s_1}$. 
+            \highlight{Assumption that $n \geq 1$!!!}\commentary{patch required to definitions maybe}
+            \item That \foreachi, the rule $\IDelta{i}$, which we denote $r_{\Delta_i}$, is mapped by $\Ibar$ to some object $\Ibar(r_{\Delta_i})$ of \catcw
+            and $1 \base \Ibar(r_{\Delta_1}),...\Ibar(r_{\Delta_n}) \base \iI_{sort}(A)$ in \catcw. 
+            This follows because we have shown that $\Ibar(r_a)$ is defined
+            and that $\Ibar(r_a)= \iI_{sort}(A)$. \highlight{CHECK}
+           \item That $\tuple{s_1,...s_n}$ is mapped to a cascade by $\Ibar$. This is one of the assumptions.
+        \end{enumerate}
+    \end{enumerate}
+    \item Very similar to the above.
+\end{enumerate}
+\end{proof}
+
+
 Now for the main lemma:
 \begin{lemma}
 \llabel{avalidinterpretationisaninstance}
-Suppose that $\iI$ is an interpretation of $U$  then if $\iI$ is valid  then $\Ibar$ is an instance.
+Suppose that $\iI$ is an interpretation of $U$  and that $\iI$ is valid  then $\Ibar$ is an instance determined by $\iI$.
 \end{lemma}
 \begin{proof} 
 \newcommand {\forceSOURCEwidth}{\rule{5cm}{0pt}}  % so as to line up three different arrays
 \newcommand {\forceTARGETwidth}{\rule{2.2cm}{0pt}}
+First note that by examining clause (ii) of the definition of $\Ibar$ we can see that $\Ibar$ is  type independent 
+on $\in$-rules. 
+
 We need to show that for every derived rule $r$ of $U$, $\Ibar(r)$ is defined and $r$ is consistently interpreted\footnote{To be formally correct we need a definition of \textit{consistently interpreted} for partial mappings of rules not just total mappings -- since here at the point we use the definition we have not yet proved $\Ibar$ to be total.} by $\Ibar$. 
 We prove this by induction on the derivation of rules in $U$. We examine each of the principles of derivation in turn
 and show that given the stated assumptions then from rules for which $\Ibar$ is defined and which are consistently interpreted by $\Ibar$ 
@@ -642,30 +780,40 @@ it is only possible to derive rules for which $\Ibar$ is defined and which thems
 The principles of derivation (see \cite{Cartmell86}) are LI1, ... LI7, T1, CF1, CF2(a) and CF2(b), SI1 and SI2. 
 The proof of this  in each the cases  LI1,...LI6 is quite trivial. We consider each of the remaining principles in turn. 
  \\
-\underline{LI7} \commentary{This is not quite trivial but related to principle T1.}  \\
+\underline{LI7} 
+By this principle from \gatdisplayrule{P}{t_1 = t_2 \in \Delta_1} and \gatdisplayrule{P}{\Delta_1=\Delta_2} derive
+\gatdisplayrule{P}{t_1 = t_2 \in \Delta_2}. 
+Assume the inductive hypothesis that \gatdisplayrule{P}{t_1 = t_2 \in \Delta_1} is consistently interpreted by $\iI$,
+so that
+\gatdisplayrule{P}{\ofT{t_1}{\Delta_1}} and
+\gatdisplayrule{P}{\ofT{t_2}{\Delta_1}} are consistently interpreted by $\Ibar$
+and  
+\begin{equation}
+\label{LI7t1t2delta1}
+\ibarmappedrule{P}{\ofT{t_1}{\Delta_1}}=\ibarmappedrule{P}{\ofT{t_2}{\Delta_1}}
+\end{equation}
+and that \gatdisplayrule{P}{\Delta_1=\Delta_2} is consistently interpreted by $\Ibar$.
 
-\tbd
+To show that the conclusion, \gatdisplayrule{P}{t_1 = t_2 \in \Delta_2}, is consistently interpreted by $\Ibar$ we need show that the derived rules 
+\gatdisplayrule{P}{\ofT{t_1}{\Delta_2}} and
+\gatdisplayrule{P}{\ofT{t_2}{\Delta_2}} are consistently interpreted by $\Ibar$
+and that 
+\begin{equation}
+\label{LI7t1t2delta2}
+\ibarmappedrule{P}{\ofT{t_1}{\Delta_2}}=\ibarmappedrule{P}{\ofT{t_2}{\Delta_2}}.
+\end{equation}
+ 
+That  \gatdisplayrule{P}{\ofT{t_1}{\Delta_2}}  is consistently interpreted by $I$ follows 
+from the fact that \gatdisplayrule{P}{\ofT{t_1}{\Delta_1}}  and \gatdisplayrule{P}{\Delta_1=\Delta_2} 
+are consistently interpreted by $I$ by lemma \lref{T1preservesconsistentinterpretation}.
+That \gatdisplayrule{P}{\ofT{t_2}{\Delta_2}}   is consistently interpreted by $I$ follows in the same way.
+
+Equation (\ref{LI7t1t2delta2}) follows from (\ref{LI7t1t2delta1}) from the earlier observation that $\Ibar$ is type independent on $\in$-rules. \\
 \underline{T1}
 By this principle from \gatdisplayrule{P}{\Delta=\Delta'} and \gatdisplayrule{P}{\ofT{t}{\Delta}} we can derive \gatdisplayrule[.]{P}{\ofT{t}{\Delta'}}
-By the inductive hypothesis we assume that rule  \gatdisplayrule{P}{\Delta=\Delta'} is consistently interpreted by $\Ibar$ i.e. that
-$\Ibar$ is defined at both $r_\Delta$ and $r_{\Delta'}$  and that $\Ibar(r_\Delta) = \Ibar(r_{\Delta'})$
-and we also assume that $\Ibar$ is defined at $r_{t\Delta}$ and that this rule
-is consistently interpreted by $\Ibar$ i.e. that $\Ibar(r_{t\Delta}) \in Sect(I(r_{\Delta}))$.
-We have to show that $\Ibar$ is defined at the rule $r_{t\Delta'}$ and that this rule, $r_{t\Delta'}$, is consistently interpreted 
-by $\Ibar$ i.e. that $\Ibar(r_{t\Delta'}) \in Sect(I(r_{t\Delta'}))$. 
-In addition, in the case that  $t$ is simply a variable we are required to show  that $\Ibar(r_{t\Delta'})$ has an appropriate value.
-
-Now from the definition of $\Ibar$ it can be seen that providing that the preconditions are met then  the value of $\Ibar$ at $r_{t\Delta'}$  is the same
-as the value at $r_{t\Delta}$ (since the definition of the value is independent of the type -- $\Delta$ or $\Delta'$) and therefore that the condition(s) for the consistent interpretation of $r_{t\Delta'}$ are met 
-since we have that $Sect(I(r_{t\Delta'}))=Sect(I(r_{t\Delta}))$ as we have assumed that $I(r_{t\Delta'})=I(r_{t\Delta})$. 
-Therefore we simply need to show that the preconditions
-for $\Ibar$ being defined at $r_{t\Delta'}$ hold.
-From examination of the preconditions for $\Ibar$ to be defined at $r_{t\Delta'}$ we see that, whether or not $t$ is simply a variable, 
-each precondition is either independent of the type (i.e. $\Delta'$) in which case must hold,  as we have assumed that 
-$\Ibar(r_{t\Delta})$ be defined,
- or  else  follows directly from our assumption that 
-$\Ibar$ is defined both at $r_\Delta$  and $r_{\Delta'}$ and that $\Ibar(r_\Delta) = \Ibar(r_{\Delta'})$.\\
-
+By the inductive hypothesis we assume that the rules   \gatdisplayrule{P}{\Delta=\Delta'} and \gatdisplayrule{P}{\ofT{t}{\Delta}} are
+consistently interpreted by $\Ibar$. We have to show that the rule \gatdisplayrule[.]{P}{\ofT{t}{\Delta'}} is consistently interpreted by $\Ibar$.
+This is proven in lemma \lref{T1preservesconsistentinterpretation}.
 
 \underline{CF1} According to the principle, whenever a rule of the form \gatdisplayrule{\xDelta{n}}{\isT{\Delta_{n+1}}} is a derived rule of $U$ 
 then so to is the rule \gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}}, \foreachi[n+1], where $x_{n+1}$ is any variable distinct from each of the variables $\xn$.
@@ -735,92 +883,19 @@ By showing that the relevant preconditions hold we have shown that $I(r_{x_i})$ 
 To show that the rule $r_{x_i}$ is consistently interpreted by $\Ibar$ we just have to show that
  $\Ibar(r_{x_i})=s(p_{a_{n+1},a_i})$. But this is exactly the definition of $\Ibar$ at $r_{x_i}$. 
 \begin{newtt}and that $\Ibar(r_{\Delta_i})=\crossx{a_n}{a_i}{1}$ which we have shown in 1. above.\end{newtt} \\
-\underline{CF2(a)}
-By this principle, from a sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule[,]{\xDelta{n}}{\isT{A(\xn)}} for some $n \geq 0$, if
+\highlight{Some more work to be done above since we have to show conditions (a),(b) and (c) hold as well as condition (d). } \\
+\underline{CF2(a)}By this principle, from a sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule[,]{\xDelta{n}}{\isT{A(\xn)}} for some $n \geq 0$, if
 $P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
 and from derived rules $r_{t_i}$ of the form \ItDelta[P]{i}, \foreachi, we may deduce
 the rule \gatdisplayrule{P}{\isT{A(t_1,...t_n)}}, which we shall denote by $r$, is a derived rule of $U$. \\
 
-\noindent Assume as the inductive hypothesis that $\Ibar(r_{t_i})$ is defined \foreachi. We can show that $\Ibar(r)$ is defined providing we can show that conditions (a), (b) and (c) of part (i) of the definition of $\Ibar$ are met. \\
-\noindent Precondition (a), that $P$ is mapped by $\Ibar$ to some object $b$ \highlight{$b_m$} of \catc, follows from the inductive hypothesis applied to  rule $r_P$ asserting that $P$ is a context.  \\
-\noindent Precondition (b) follows from the assumption that $\Ibar$ is relatively well-typed because rule $r$ is well-typed relative to the theory
-$U_p$ because $U$ is a generalised algebraic theory. 
-\noindent Therefore $r_{\Delta_n}$ is a derived rule of $U_p$\\ and so $\predInstance(r_{\Delta_n})$ is defined  because $\predInstance$ is assumed to be total. 
-Therefore $\Ibar(r_{\Delta_n})$ is defined since
-$\Ibar$ extends $\predInstance$ since $\iI$ extends $I \restrict U_p$. 
-\noindent  Precondition (c) follows firstly, because that \foreachi, $\Ibar(r_{t_i})$ is defined, is given by the inductive hypothesis and 
-secondly, that $\Ibar(r_{t_i}) \in Sect(\Ibar(r_{t_{i-1}})^*...^*\Ibar(r_{t_{1}})^*(\crossx{b_m}{a_i}{1}))$ follows  from 
-the inductive hypothesis {CHECK}.\\
 
-\begin{newtt}
-\highlight{Next show the substitution operates as it should.} 
-                                                              \commentary{ Need unify the above and the below.} \\
-
-\newcommand{\clausethreelhs}{(\gmvectorstar (\crossx{c}{f_n}{1}))^* ... (\gmvectorstar (\crossx{c}{f_1}{1})) ^* (\crossx{b_m}{I_A}{1})}
-\newcommand{\clausethreerhs}{\gmvectorstar (  \crossx{c}{(\fnvectorstar(\crossx{b_m}{I_A}{1}))}{1} )}
-\newcommand{\tirule}{\gatdisplayrule{\yOmega{m}}{\ofT{t_i}{\Delta_i[t_1 | x_1,...t_{i-1}|x_{i-1}]}}}
-Now assume that $P$ is the context $\yOmega{m}$, for some $m \geq 0$, so that $r$ is the rule \gatdisplayrule{\yOmega{m}}{\isT{A(\tn)}}
-and suppose $r$  is mapped by $\Ibar$ to some object $b$ of \catcw such that $1 \base b_1 ... \base b_m \base b$. 
-
-Now there are sections  $f_1,..f_n$  of \catcw such that, \foreachi, $\Ibar$ maps
-\begin{equation}
-\label{timapping}
-\begin{array}{c c c}
-\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
-\tirule    & \Imapsto & f_i \\ [0.4cm]
-\end{array}
-\end{equation} 
-Now from the definition of $\Ibar$, we have that $\Ibar$ maps
-\begin{equation*}
-\begin{array}{c c c}
-\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
-\gatdisplayrule{\yOmega{m}}{\isT{A(\tn)}}   & \Imapsto & \fnvectorstar(\crossx{b_m}{I_A}{1})\\ [0.4cm]
-\end{array}
-\end{equation*} 
-
-Assume also  that $Q$ is a context and that $\tuple{\sm}$ is a realisation of $\tuple{\yOmega{m}}$ with respect to $Q$
-and that there is the following mapping by $\Ibar$ into the objects and sections of \catc:
-\begin{equation}
-\label{sjmapping}
-\begin{array}{c c c}
-\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
-Q          & \Imapsto & c   \\ [0.4cm]
-\IsOmega{j}    & \Imapsto & g_j \\ [0.4cm]
-\end{array}
-\end{equation}
-where $g_j \in Sect(g_{j-1}^*...g_i^*(\crossx{c}{b_j}{1}))$ in \catc.
-
-We have to establish that $\Ibar$ maps
-\begin{equation}
-\label{clauseiiirequiredmapping}
-\begin{array}{c c c}
-\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
-\gatdisplayrule{Q}{\isT{A(t_1[\SUBsFORy{m}],...t_n[\SUBsFORy{m}])}}   & \Imapsto & \gmvectorstar (\crossx{c}{\fnvectorstar(\crossx{b_m}{I_A}{1})}{1}) \\ [0.4cm]
-\end{array}
-\end{equation}
-Now, we deduce from \ the inductive hypothesis that $r_{t_i}$ is consistently interpreted and 
-from condition (c) of clause (ii) of definition \lref{consistentinterpretation} from (\ref{timapping}) and from (\ref{sjmapping}) that \foreachi, $\Ibar$ maps
-\begin{equation}
-\begin{array}{c c c}
-\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
-\gatdisplayrule{Q}{\ofT{t_i[\SUBsFORy{m}]}{\Delta_i[t_1 | x_1,...t_{i-1}|x_{i-1}][\SUBsFORy{m}]}}  & \Imapsto & \gmvectorstar (\crossx{c}{f_i}{1}) \\ [0.4cm]
-\end{array}
-\end{equation}
-and therefore from the definition of $\Ibar$ that it maps
-\begin{equation*}
-\begin{array}{c c c}
-\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
-\gatdisplayrule{Q}{\isT{A(t_1[\SUBsFORy{m}],...t_n[\SUBsFORy{m}])}}  & \Imapsto & \clausethreelhs \\ [0.4cm]
-\end{array}
-\end{equation*}
-and therefore to establish (\ref{clauseiiirequiredmapping}) we need to show that
-\begin{equation*}
-\clausethreelhs = \clausethreerhs										
-\end{equation*}
-This we can do by repeated application of identities (\ref{metagattriplestar})
-and (\ref{metagatcrossstarcross}), which are two of the meta-GAT axioms described earlier.\\
-\end{newtt}
-
+Assume as the inductive hypotheses that the rule $r_P$ is consistently interpreted by $\Ibar$ and that 
+$\Ibar(r_{t_i})$ is defined \foreachi and that each $r_{t_i}$ is consistently
+interpreted by $Ibar$.
+Now, by lemma \lref{Ibarconsistentonintros} the introductory rule for $A$ is consistently interpreted by $\Ibar$
+and so we can use lemma \lref{substitutioninterpretationlemma}
+to establish that the rule \gatdisplayrule{P}{\isT{A(t_1,...t_n)}} is consistently interpreted by $\Ibar$ as required.
 \underline{CF2(b)} By this principle, from a operator symbol $f$ with introductory rule $r_f$ of the form \gatdisplayrule[,]{\xDelta{n}}{\ofT{f(\xn)}{\Delta}} for some $n \geq 0$, if
 $P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
 and from derived rules $r_{t_i}$ of the form \ItDelta[P]{i}, \foreachi, we may deduce
