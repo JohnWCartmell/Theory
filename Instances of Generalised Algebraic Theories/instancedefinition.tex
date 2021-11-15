@@ -379,12 +379,12 @@ By  lemma \lref{towerlemma} it then follows that
 $1 \base I(r_{\Delta_1}) \base ... I(r_{\Delta_{n-1}}) \base I(r_{\Delta_n})$ in \catc.
 Also because \foreachj,  we assume that the rule \gatdisplayrule{\xDelta{n}}{\ofT{s_j}{\Omega_j[\SUBsFORy{j-1}]}} is consistently interpreted by $I$, 
 we deduce that $\tuple{\sm}$ is mapped to a cascade by $I$, by lemma \lref{realisationmapstocascade}. Hence 
-from condition (i)(a) of definition \lref{consistentinterpretation} and the assumption that $r_\Omega$ is consistently interpreted it follows that $\Imap{\targetruleone}$ is defined and 
+from condition (i)(a) of definition \lref{consistentinterpretation} and from the assumption that $r_\Omega$ is consistently interpreted it follows that $\Imap{\targetruleone}$ is defined and 
 \begin{equation}
 \label{omegaSubsmapping}
 \Imap{\targetruleone} = I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(r_{\Delta_n})}{I(r_\Omega)}{1})
 \end{equation}
-and thus that $I(r_{\Delta_n}) \base \Imap{\targetruleone}$ in \catcw as required by clause (a).
+and thus\commentary{can we reference a lemma here?} that $I(r_{\Delta_n}) \base \Imap{\targetruleone}$ in \catcw as required by clause (a).
 
 In fact by the same argument and from the fact that \foreachj,  
 the realisation $\tuple{s_1,...s_{j-1}}$ is mapped to a cascade by $I$ and from lemma \lref{towerlemma} that tells us that 
@@ -395,6 +395,7 @@ $\displaystyle\Imappedrule{\xDelta{n}}{\isT{\Omega_j[\SUBsFORy{j-1}]}}$ is defin
 \Imappedrule{\xDelta{n}}{\isT{\Omega_j[\SUBsFORy{j-1}]}} 
 = I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{I(r_{\Delta_j})}{I(r_{\Omega_j})}{1})
 \end{equation}
+We use this fact in a moment in proof that clause (c) is satisfied.
 
 Next, for clause (b), we are required to show that $r_{\Delta_n}$ is consistently interpreted by $I$. 
 This follows from the fact that 
@@ -909,67 +910,133 @@ With these assumptions we can use lemma \lref{Ibarconsistentonintros} to establi
 Next we can use lemma \lref{substitutioninterpretationlemma}
 to establish that the rule \gatdisplayrule{P}{\ofT{f(t_1,...t_n)}{\Delta[\SUBtFORx{n}]}} is consistently interpreted by $\Ibar$, as required. \\
 %
+\newpage
 \underline{SI1} 
-This principle states that if \gatdisplayrule{\yOmega{m}}{\Omega=\Omega'} is a derived rule, if $Q$ is a context and if  $\sm$ and $\smp$ are expressions such that
-\foreachj, \gatdisplayrule{Q}{s_j=s'_j \in \Omega\SUBsFORy{j-1}} is a derived rule then we may derive the rule
-\gatdisplayrule{Q}{\Omega[\SUBsFORy{m}]=\Omega'[s'_1|y_1...s'_m|y_m]}. \\
+\newcommand{\SIonesourcelhs}{\gatdisplayrule{\yOmega{m}}{\isT{\Omega}}}
+\newcommand{\SIonesourcerhs}{\gatdisplayrule{\yOmega{m}}{\isT{\Omega'}}}
+\newcommand{\SIoneconclusion}{\gatdisplayrule{Q}{\Omega[\SUBsFORy{m}]=\Omega'[\SUBspFORy{m}]}}
+\newcommand{\SIoneconclusionlhs}{\ZOmegaSUBsmFORym}
+\newcommand{\SIoneconclusionrhs}{\gatdisplayrule{Q}{\isT{\Omega'[\SUBspFORy{m}]}}}
 
-We have to show that the rule \gatdisplayrule{Q}{\Omega[\SUBsFORy{m}]=\Omega'[s'_1|y_1...s'_m|y_m]} is consistently intepreted by $\Ibar$
- from the assumption that each of the rules \gatdisplayrule{\yOmega{m}}{\Omega=\Omega'} and
-\gatdisplayrule{Q}{s_j=s'_j \in \Omega\SUBsFORy{j-1}}, \foreachj, are consistently intepreted by $\Ibar$.
-From these inductive hypotheses we know that
+This principle states that if \gatdisplayrule{\yOmega{m}}{\Omega=\Omega'} is a derived rule, if $Q$ is a context and if  $\sm$ and $\smp$ are expressions such that \foreachj, \gatdisplayrule{Q}{s_j=s'_j \in \Omega[\SUBsFORy{j-1}]} is a derived rule then we may derive the rule \SIoneconclusion. 
+
+We have to show that the rule \SIoneconclusion is consistently intepreted by $\Ibar$
+from the inductive hypothesis  that the rule \gatdisplayrule{\yOmega{m}}{\Omega=\Omega'}
+and each of the rules \gatdisplayrule{Q}{s_j=s'_j \in \Omega[\SUBsFORy{j-1}]}, \wherej, are consistently intepreted by $\Ibar$.
+
+To show that \SIoneconclusion is consistently interpreted by $\Ibar$
+we have to show that each of the rules \SIoneconclusionlhs and \SIoneconclusionrhs
+are consistently interpreted by $\Ibar$ and that
+\begin{equation}
+\label{SI1inductivetarget2}
+\ibarmappedrule{Q}{\isT{\Omega[\SUBsFORy{m}]}} = \ibarmappedrule{Q}{\isT{\Omega'[\SUBspFORy{m}]}}.
+\end{equation}
+
+From the  inductive hypothesis  and from clauses (iii) and (iv) of definition \lref{consistentinterpretation} it follows that
+each of the rules
+\SIonesourcelhs
+and
+\SIonesourcerhs
+and each of the rules
+\IsOmega{j}
+and
+\gatdisplayrule[,]{Q}{\ofT{s'_j}{\Omega_j[\SUBspFORy{j-1}]}}
+\wherej, are consistently intepreted by $\Ibar$. 
+Therefore from lemma \lref{substitutioninterpretationlemma} it follows that
+ the rules \SIoneconclusionlhs and \SIoneconclusionrhs
+are consistently interpreted by $\Ibar$, as required.
+
+Finally we are required to show  (\ref{SI1inductivetarget2}).
+Now further to what we have said above, note that from the assumptions in the inductive hypothesis 
+and from clauses (iii) and (iv) of definition \lref{consistentinterpretation} we know that
 \begin{equation}
 \label{SI1inductiveequation1}
 \Ibar(r_\Omega)=\Ibar(r_{\Omega'})
 \end{equation}
-where $r_\Omega$ is the rule \gatdisplayrule{\yOmega{m}}{\isT{\Omega}} and $r_{\Omega'}$ is the rule \gatdisplayrule{\yOmega{m}}{\isT{\Omega'}} 
+
+where $r_\Omega$ is the rule \SIonesourcelhs and $r_{\Omega'}$ is the rule \SIonesourcerhs
 and that, \foreachj,
 \begin{equation}
 \label{SI1inductiveequation2}
 \Ibar(r_{s_j})=\Ibar(r_{s'_j})
 \end{equation}
-where \foreachj, $r_{s_j}$ is the rule \gatdisplayrule{Q}{\ofT{s_j}{\Omega_j[\SUBsFORy{j-1}]}}
-and $r_{s'_j}$ is the rule \gatdisplayrule{Q}{\ofT{s'_j}{\Omega_j[s_1|y_1,...s_{j-1}|y_{j-1}]}}.
-
-To show that \gatdisplayrule{Q}{\Omega[\SUBsFORy{m}]=\Omega'[s'_1|y_1...s'_m|y_m]} is consistently interpreted by $\Ibar$
-we have to show that the rules \ZOmegaSUBsmFORym and \gatdisplayrule{Q}{\isT{\Omega'[s'_1|y_1...s'_m|y_m]}}
-are consistently interpreted by $\Ibar$ and that
-$$
-\ibarmappedrule{Q}{\isT{\Omega[\SUBsFORy{m}]}} = \ibarmappedrule{Q}{\isT{\Omega'[s'_1|y_1...s'_m|y_m]}}.
-$$
-From the assumptions that we have made and from the definition of what it means for a rule to be consistently interpreted it follows that
-each of the rules
-\ZOmega
-and
-\gatdisplayrule{\yOmega{m}}{\isT{\Omega'}}
-and each of the rules
-\IsOmega{j}
-and
-\gatdisplayrule[,]{Q}{\sjpconclusion}
-\foreachj, are consistently intepreted by $\Ibar$. Therefore from lemma \lref{substitutioninterpretationlemma} 
-the first part of what we have to prove, that the rules \ZOmegaSUBsmFORym and \gatdisplayrule{Q}{\isT{\Omega'[s'_1|y_1...s'_m|y_m]}}
-are consistently interpreted by $\Ibar$, follows.
-Finally we can show that
-$$
-\ibarmappedrule{Q}{\isT{\Omega[\SUBsFORy{m}]}} = \ibarmappedrule{Q}{\isT{\Omega'[s'_1|y_1...s'_m|y_m]}}.
-$$ as follows:
-
+where  $r_{s_j}$ is the rule \gatdisplayrule{Q}{\ofT{s_j}{\Omega_j[\SUBsFORy{j-1}]}}
+and $r_{s'_j}$ is the rule \gatdisplayrule{Q}{\ofT{s'_j}{\Omega_j[\SUBspFORy{j-1}]}}, \foreachj.
+This means that (\ref{SI1inductivetarget2}) can be shown as follows:
 \begin{align*}
 \ibarmappedrule{Q}{\isT{\Omega[\SUBsFORy{m}]}} 
     &=I(r_{s_m})^* ... I(r_{s_1})^*\big( \crossx{\Ibar(Q)}{\Ibar(r_\Omega)}{1} \big)
     &&\mbox{ because $r_\Omega$ is consistently interpreted by $\Ibar$,} \\
     &=I(r_{s'_m})^* ... I(r_{s'_1})^*\big( \crossx{\Ibar(Q)}{\Ibar(r_{\Omega'})}{1} \big)
     &&\mbox{ by (\ref{SI1inductiveequation1}) and (\ref{SI1inductiveequation2}),} \\
-    &=\ibarmappedrule{Q}{\isT{\Omega'[s'_1|y_1...s'_m|y_m]}}
+    &=\ibarmappedrule{Q}{\isT{\Omega'[\SUBspFORy{m}]}}
     &&\mbox{ as required, because $r_{\Omega'}$ is consistently interpreted by $\Ibar$.}
 \end{align*}
-
-\vspace{1cm}
+\newpage
 \underline{SI2} 
-This principle states that if \gatdisplayrule{\yOmega{m}}{s = s' \in \Omega} is a derived rule, if $Q$ is a context and if  $\sm$ and $\smp$ are expressions such that
-\foreachj, \gatdisplayrule{Q}{s_j=s'_j \in \Omega\SUBsFORy{j-1}} is a derived rule then we may derive the rule
-\gatdisplayrule{Q}{s[\SUBsFORy{m}]=s'[s'_1|y_1...s'_m|y_m] \in \Omega[\SUBsFORy{m}]}. \\
-\vspace{1cm}
+\newcommand{\SItwosourcelhs}{\gatdisplayrule{\yOmega{m}}{\ofT{s}{\Omega}}}
+\newcommand{\SItwosourcerhs}{\gatdisplayrule{\yOmega{m}}{\ofT{s'}{\Omega'}}}
+\newcommand{\SItwoconclusion}{\gatdisplayrule{Q}{s[\SUBsFORy{m}]=s'[\SUBspFORy{m}] \in \Omega[\SUBsFORy{m}]}}
+\newcommand{\SItwoconclusionlhs}{\gatdisplayrule{Q}{\ofT{s[\SUBsFORy{m}]}{\Omega[\SUBsFORy{m}]}}}
+\newcommand{\SItwoconclusionrhs}{\gatdisplayrule{Q}{\ofT{s'[\SUBspFORy{m}]}{\Omega[\SUBsFORy{m}]}}}
+This principle states that if \gatdisplayrule{\yOmega{m}}{s = s' \in \Omega} is a derived rule, 
+if $Q$ is a context and if  $\sm$ and $\smp$ are expressions such that
+\foreachj, \gatdisplayrule{Q}{s_j=s'_j \in \Omega[\SUBsFORy{j-1}]} is a derived rule then we may derive the rule \SItwoconclusion. 
+
+The proof in this case is similar to the case SI1 above. 
+\begin{newtt}
+We have to show that the rule \SItwoconclusion is consistently intepreted by $\Ibar$
+from the inductive hypothesis  that the rule \gatdisplayrule{\yOmega{m}}{s = s' \in \Omega}
+and each of the rules \gatdisplayrule{Q}{s_j=s'_j \in \Omega[\SUBsFORy{j-1}]}, \wherej, are consistently intepreted by $\Ibar$.
+
+To show that \SItwoconclusion is consistently interpreted by $\Ibar$
+we have to show that each of the rules \SItwoconclusionlhs and \SItwoconclusionrhs
+are consistently interpreted by $\Ibar$ and that
+\begin{equation}
+\label{SI2inductivetarget2}
+\ibarmappedrule{Q}{\ofT{s[\SUBsFORy{m}]}{\Omega[\SUBsFORy{m}]}} = \ibarmappedrule{Q}{\ofT{s'[\SUBspFORy{m}]}{\Omega'[\SUBspFORy{m}]}}.
+\end{equation}
+From the  inductive hypothesis  and from clauses (iii) and (iv) of definition \lref{consistentinterpretation} it follows that
+each of the rules
+\SItwosourcelhs
+and
+\SItwosourcerhs
+and each of the rules
+\IsOmega{j}
+and
+\gatdisplayrule[,]{Q}{\ofT{s'_j}{\Omega_j[\SUBspFORy{j-1}]}}
+\wherej, are consistently intepreted by $\Ibar$. 
+Therefore from lemma \lref{substitutioninterpretationlemma} it follows that
+ the rules \SItwoconclusionlhs and \SItwoconclusionrhs
+are consistently interpreted by $\Ibar$, as required.
+
+Finally we are required to show (\ref{SI2inductivetarget2}).
+Now further to what we have said above, note that from the assumptions in the inductive hypothesis 
+and from clauses (iii) and (iv) of definition \lref{consistentinterpretation} we know that
+\begin{equation}
+\label{SI2inductiveequation1}
+\Ibar(r_s)=\Ibar(r_{s'})
+\end{equation}
+where $r_s$ is the rule \SItwosourcelhs and $r_{s'}$ is the rule \SItwosourcerhs 
+and that, \foreachj,
+\begin{equation}
+\label{SI2inductiveequation2}
+\Ibar(r_{s_j})=\Ibar(r_{s'_j})
+\end{equation}
+where  $r_{s_j}$ is the rule \gatdisplayrule{Q}{\ofT{s_j}{\Omega_j[\SUBsFORy{j-1}]}}
+and $r_{s'_j}$ is the rule \gatdisplayrule{Q}{\ofT{s'_j}{\Omega_j[\SUBspFORy{j-1}]}}, \foreachj.
+This means that (\ref{SI2inductivetarget2}) can be shown as follows:
+\begin{align*}
+\ibarmappedrule{Q}{\ofT{s[\SUBsFORy{m}]}{\Omega[\SUBsFORy{m}]}} 
+    &=I(r_{s_m})^* ... I(r_{s_1})^*\big( \crossx{\Ibar(Q)}{\Ibar(r_s)}{1} \big)
+    &&\mbox{ because $r_\Omega$ is consistently interpreted by $\Ibar$,} \\
+    &=I(r_{s'_m})^* ... I(r_{s'_1})^*\big( \crossx{\Ibar(Q)}{\Ibar(r_{s'})}{1} \big)
+    &&\mbox{ by (\ref{SI2inductiveequation1}) and (\ref{SI2inductiveequation2}),} \\
+    &=\ibarmappedrule{Q}{\ofT{s'[\SUBspFORy{m}]}{\Omega'[\SUBspFORy{m}]}}
+    &&\mbox{ as required, because $r_{\Omega'}$ is consistently interpreted by $\Ibar$.}
+\end{align*}
+\newpage
+\end{newtt}
 
 \underline{A1} 
 This principle ensures that an T=axiom is a derived rule providing it is well-typed.
