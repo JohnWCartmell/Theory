@@ -1,7 +1,6 @@
 
 \label{contextualnotationpartone}
-\subsection{The $s$ operator and other operators}
-\note 
+\subsection{The $s$ operator and the tuple operator}
 Terminology: By  the generic term \term{tree} is meant a partially ordered set (poset) $(T, <)$ such that for each $t \in T$, the set $\set{s \in T : s < t}$ is well-ordered by the relation $<$.
 In this discussion we restrict ourselves to rooted $\omega$-trees i.e. trees for which the set $\set{s \in T : s < t}$
 is finite for all $t \in T$ and for which there is a least element in the partial ordering. 
@@ -10,15 +9,18 @@ With respect to a partial ordering $<$, we say that an element $y$ \textit{cover
 If object $y$ covers object $x$ in the partial ordering 
 then we write $x \base y$ (we use this in preference to the more usual $x \lessdot y$).
 
-\note We define the \term{rank} (sometimes this is called the grade) of an element $t \in T$ to be the cardinality
+We define the \term{rank} (sometimes this is called the grade) of an element $t \in T$ to be the cardinality
 of the set $\setsuchthat{s \in T}{s < t}$. If we define the set $T_i$ to be the set of elements of a tree
 of rank $i$ then we have that $T= \bigcup_{i \in N}T_i$. 
 
-\note In the  definition of contextual categories (\cite{Cartmell78,Cartmell86}) there is defined to be such a tree-structure on the objects of the category. In a contextual category the root of the tree of objects is also  a terminal object
+\begin{oldtt} \commentary{Does this contribute anything?}
+In the  definition of contextual categories (\cite{Cartmell78,Cartmell86}) there is defined to be such a tree-structure on the objects of the category. In a contextual category the root of the tree of objects is also  a terminal object
 of the category and is denoted $1$. For $x$ an object of the category we will write  $Cover(x)$ to refer to the set of objects covering $x$.
+\end{oldtt}
 
-\note
-By a \term{tree-structured category} we mean (i) a category with a tree-structure defined on its objects such that the tree of objects has a unique root object and (ii) for every $x \base y$ in the tree of objects  a canonical morphism $p_y:y \rightarrow x$.  I shall say morphisms of this form  are \term{direct dependency morphisms} and they will
+By a \term{tree-structured category} we mean (i) a category with a tree-structure defined on its objects such that the tree of objects has a unique root object 
+\newt{that is also a terminal object of the category} and (ii) for every $x \base y$ in the tree of objects  a canonical morphism $p_y:y \rightarrow x$. 
+I shall say morphisms of this form  are \term{direct dependency morphisms} and they will
 be distinguished in diagrams by an arrow with  a triangular head so:
 \begin{center}
 $
@@ -30,7 +32,6 @@ $
 $
 \end{center}
 
-\note
 If $x$ is an object of a tree-structured category \catcw and if $y \in Cover(x)$ in \catcw then we define 
 the set  of sections of $y$, denoted $Sect(y)$, to be the set of morphisms $s: x \morph y$ in \catcw  such that $s \circ p_y = id_x$. We have therefore that if $s$ is a section of $y$ and $y$ covers $x$ then
 \ \ \ \ 
@@ -62,7 +63,6 @@ $
 $& commutes.
 \end{tabular}
 
-\note
 In the  definition of contextual category given  in [1] and [2], a contextual category is defined to be a tree-structured category 
 \cat{C} with the following additional structure:
 
@@ -157,7 +157,6 @@ q(f \circ g,z) = q(f,g^*z) \circ q(g,z)
 
 
 
-\note
 Following Voevodsky we may replace the pullback condition (condition (ii) above) by introducing and axiomatising an 
 `s' operator  as follows:
 
@@ -214,7 +213,25 @@ s(f \circ q(g,z))=s(f)
 \end{axiom}
 
 
-\note We can introduce several additional notations for use in in contextual categories. 
+\begin{lemma}
+\llabel{footandstactic}
+If $f: A \morph B$ and $f':A \morph B$ in a contextual category \catcw then if 
+$f \circ p_B$ = $f' \circ p_B$ and $s(f) = s(f')$ then $f=f'$.
+\end{lemma}
+\begin{proof}
+Follows by axiom (s2) since we have:
+$f = s(f) \circ q(f \circ p_B,B)  = s(f') \circ q(f' \circ p_B,B) = f'$.
+\end{proof}
+
+From which follows:
+\begin{lemma}
+\llabel{stactic}
+If $A$ is any object of a contextual category \catcw and if $B$ is an object such that $1 \base B$ in \catcw then
+if $f: A \morph B$ and $f':A \morph B$ in  \catcw then $f=f'$ iff $s(f) = s(f')$.
+\end{lemma}
+
+\subsection{Extended $p$ and $^*$ notation}
+We can introduce several additional notations for use in in contextual categories. 
 If $x < y$ in the contextual category \catc, then define the morphism $p_{y,x}:y \morph  x$ in \catc, \\
 
 \begin{tabular}{c c c  c  c  c c}
@@ -242,7 +259,7 @@ $
 		}
 $
 & %5
- as the composition 
+as the composition 
 & %6 c
 $
 \begin{array}{c}
@@ -275,7 +292,6 @@ $x \base w_1 \base ... \base w_n \base y$. It is also useful to have a definitio
 $id_x$, for any object $x$, so that $p_{y,x}$ is defined for any pair of objects $x$ and $y$ such that $x \leq y$.
 We say that any morphism  of the form $p_{y,x}$ is a dependency morphism. 
 
-\note
 The contextual category structure supplies us with pullbacks for direct dependency morpisms.
 These can be pieced together to obtain  a pullback for any indirect dependency morphism   along any morphism with common codomain
 as  whenever $y \leq z$ in $C$ and whenever $f:x \morph y$ in $C$, then we have
@@ -325,24 +341,29 @@ so that (\ref{compositepullbackdefinition}) can be rewritten as:
 \nccdar{z}{y}
 \alabel{p_{z,y}}
 \end{center}
-\note
+\newcommand{\pbpair}[2]{\tuple{#2}_{#1}}
 With respect to any pullback diagram (\ref{compositepullbackout})
- we use the notation $\tuple{h_1,h_2}_{x,y,f,z}$  for the unique morphism   
+ we use the notation $\pbpair{x,y,f,z}{h_1,h_2}$  for the unique morphism   
 $h:w \rightarrow f \sub z$ in \cat{C} such that
 $h \circ p_{f \sub z,x} = h_1$ and $h \circ q(f,z) = h_2$.\\
+\begin{oldtt}
 $\tuple{h_1,h_2}_{x,y,f,z}$ may be be safely elided to $\tuple{h_1,h_2}_{f,z}$ and, rather less safely, to $\tuple{h_1,h_2}$.
-In  elided form we  have 
+In  elided form
+\end{oldtt}
+We  have that $\pbpair{x,y,f,z}{h_1,h_2}$ is defined iff $h_1 \circ f=h_2\circ p_{z,y}$
+and when it is defined we have
 \begin{equation}
-\mbox{$\tuple{h_1,h_2}_{f,z} \circ p_{f^*z,x} = h_1$}
+\pbpair{x,y,f,z}{h_1,h_2} \circ p_{f^*z,x} = h_1
 \end{equation}
 and
 \begin{equation}
-\mbox{$\tuple{h_1,h_2}_{f,z} \circ q(f,z) = h_2$}
+\pbpair{x,y,f,z}{h_1,h_2} \circ q(f,z) = h_2
 \end{equation}
 
-\note
 The following observation
 follows from the way the extended pullback diagrams are constructed. 
+\begin{lemma}
+\llabel{extendedstarcoheres}
 In the extended notation, if $f: x \morph y$ 
 and $y \leq z \leq zz$ in the contextual category C, then
 \begin{equation}
@@ -363,13 +384,13 @@ $
 \end{array}
 $
 %composition
+%\setlength{\fboxrule}{1pt} 
 \makebox[0.2cm]{   % This make box prevents white space pushing out to the right
                    % cannot see where this white space is comin from. To investigate
 									 % change the \makebox[0.2cm] to \fbox and you will see the problem.
-\nccdar{TL}{ML}\blabel{P_{q(f,z)^*zz,f^*z}}\nccdar{ML}{BL}\blabel{p_{f \sub z,x}}\nccdar{TR}{MR}\alabel{p_z}
+\nccdar{TL}{ML}\blabel{p_{q(f,z)^*zz,f^*z}}\nccdar{ML}{BL}\blabel{p_{f \sub z,x}}\nccdar{TR}{MR}\alabel{p_{zz,z}}
 \nccdar{MR}{BR}
-}
-\alabel{p_z}
+\alabel{p_{z,y}}
 %reference
 \ncarr{TL}{TR}
 \alabel{q(q(f,z),zz)}
@@ -377,9 +398,225 @@ $
 \alabel{q(f,z)}
 \ncarr{BL}{BR}
 \blabel{f}
+}
 is diagram (\ref{compositepullbackout}). 
+\end{lemma}
 
-\note
+
+
+Now we extend the $^*$ notation further so that if $x,y,z_1$ and $z_2$ are objects of a contextual catgeory \catcw such that
+$y < z_1$ and $y < z_2$, and if  $f:x\morph y$ and if $g: z_1 \morph z_2$ such that $g \circ p_{z_2,y} = p_{z_1,y}$ 
+as the unique morphism $h:f^*z_1 \morph f^*z_2$ such that
+$h \circ p_{f^*z_2,x} = p_{f^*z_1,x}$ and $h \circ q(f,z_2) = q(f,z_1)\circ g$
+that is to say that we define $f^*g=\pbpair{x,y,f,z_2}{p_{f^*z_1,x},q(f,z_1)\circ g} $
+so that we have the following diagram in \catc
+$$
+\begin{array}{cccp{.9cm}ccc}
+                   &               &\Rnode{TL}{f^*z_2} & &                &                & \ \ \Rnode{TR}{z_2}\ \\ [0.5cm]
+\Rnode{ML}{f^*z_1} &               &                   & &\ \ \Rnode{MR}{z_1}\ \ &                &               \\ [1.2cm]
+                   & \Rnode{BL}{x} &                   & &                & \Rnode{BR}{y}  &
+\end{array}
+$$
+\makebox[0.2cm]{   % This make box prevents white space pushing out to the right
+                   % cannot see where this white space is comin from. To investigate
+                                                       % change the \makebox[0.2cm] to \fbox and you will see the problem.
+\nccdar{TL}{BL}
+\nccdar{ML}{BL}
+\nccdar{TR}{BR}
+\nccdar{MR}{BR}
+\ncarr{TL}{TR}\alabel{q(f,z_2)}
+\ncarr{ML}{MR}\alabel{q(f,z_1)}[0.6]
+\ncarr{BL}{BR}\blabel{f}
+\ncarr{ML}{TL}\alabel{f^*g}
+\ncarr{MR}{TR}\alabel{g}[0.3]
+}
+\begin{lemma} 
+\llabel{stardistributesonobjects}
+For all objects $x_p \base x \leq y_p \base y \leq z_p \base z$ in \catc, for all sections $f: x_p \morph x$ and $g: y \morph y_p$, 
+\begin{equation}
+\label{metagattriplestar}
+(f^*g)^*(f^*z)=f^*(g^*z)
+\end{equation}
+and for all sections $h:z_p \morph z$
+\begin{equation}
+\label{metagattriplestarsection}
+(f^*g)^*(f^*h)=f^*(g^*h)
+\end{equation}
+\end{lemma}
+\begin{proof}
+First see that for any $z$ we can prove $(f^*g)^*(f^*z)=f^*(g^*z)$ as follows
+\begin{align*}
+(f^*g)^*(f^*z)&= (f^*g)^*(q(f,y_2)^*z)  && \mbox{ by lemma \lref{extendedstarcoheres}} \\
+              &= ((f^*g) \circ q(f,y_2))^*z && \mbox{ by (q4)} \\
+              &= (q(f,y_1)\circ g)^*z&& \mbox{ by definition of $f^*g$} \\
+              &= q(f,y_1)^*g^*z&& \mbox{ by (q4)} \\
+              &= f^*(g^*z) &&\mbox{ by lemma \lref{extendedstarcoheres}}      
+\end{align*}
+\end{proof}
+
+
+
+\begin{lemma} \commentary{the general case can be specialised to sections and to weakenings - these separately stated }
+\llabel{stardistributesonmorophismslemma}
+If $f$, $g$ and $h$ are morphisms of a contextual category \catcw such that $f^*g$ and $g^*h$ are both defined then
+\begin{equation}
+\label{stardistributesonmorophisms}
+(f^*g)^*(f^*h)=f^*(g^*h)
+\end{equation}
+\end{lemma}
+\begin{proof}
+\newcommand{\lhsdom}{(f^*g)^*(f^*z_1)}
+\newcommand{\lhscod}{(f^*g)^*(f^*z_2)}
+\newcommand{\lhs}{(f^*g)^*(f^*h)}
+\newcommand{\rhsdom}{f^*(g^*z_1)}
+\newcommand{\rhscod}{f^*(g^*z_2)}
+\newcommand{\rhs}{f^*(g^*h)}
+\newcommand{\fhdom}{f^*z_1}
+\newcommand{\fhcod}{f^*z_2}
+\newcommand{\fh}{f^*h}
+\newcommand{\ghdom}{g^*z_1}
+\newcommand{\ghcod}{g^*z_2}
+\newcommand{\gh}{g^*h}
+\newcommand{\fgdom}{f^*y_1}
+\newcommand{\fgcod}{f^*y_2}
+\newcommand{\fg}{f^*g}
+\newcommand{\fdom}{x_1}
+\newcommand{\fcod}{x_2}
+\newcommand{\f}{f}
+\newcommand{\gdom}{y_1}
+\newcommand{\gcod}{y_2}
+\newcommand{\g}{g}
+\newcommand{\hdom}{z_1}
+\newcommand{\hcod}{z_2}
+\newcommand{\h}{h}
+Suppose $f: x_1 \morph x_2$, $g:y_1 \morph y_2$ and $h:z_1 \morph z_2$ in \catc. 
+Because $f^*g$ is defined then we must have $x_2 < y_1$ and  $x_2 < y_2$ and $g \circ p_{y_2,x_2} = p_{y_1,x_2}$ in \catc. 
+Likewise, because $g^*h$ is defined then we must have $y_2 < z_1$ and  $y_2 < z_2$ and $h \circ p_{z_2,y_2} = p_{z_1,y_2}$.
+By lemma \lref{stardistributesonobjects} $\lhsdom=\rhsdom$ and $\lhscod=\rhscod$
+therefore we have the following diagram in \catc:
+\iffalse   %MIGHT NEED THIS HAND ROLL EQUALITY
+\newcommand{\equality}[2]
+{
+\ncline [doubleline=true, nodesep=0.2cm]{#1}{#2}
+}
+\fi
+$$
+\begin{array}{cccccccp{.05cm}ccccccc}
+\\
+\Rnode{rhsdom}{\rhsdom} &\Rnode{rhsarc}{} & \Rnode{rhscod}{\rhscod}\\[0.75cm]
+\Rnode{lhsdom}{\lhsdom} &\Rnode{lhsarc}{} & \Rnode{lhscod}{\lhscod}\kern-0.75cm & & \Rnode{fhdom}{\fhdom} & & \Rnode{fhcod}{\fhcod}&&
+               \Rnode{ghdom}{\ghdom} & & \Rnode{ghcod}{\ghcod} & & \Rnode{hdom}{\fhdom} & & \Rnode{hcod}{\fhcod}\\ [1.25cm]
+& \Rnode{fgdom}{\fgdom} & & & & \Rnode{fgcod}{\fgcod} &&&& \Rnode{gdom}{\gdom} & & & & \Rnode{gcod}{\gcod}\\[1.25cm]
+&                       & &\Rnode{fdom}{\fdom} & & & && & & &  \Rnode{fcod}{\fcod}
+\end{array}
+$$
+%\ncline [doubleline=true, nodesepA=0.2cm, nodesepB=0.6cm]{rhsarc}{lhsarc}
+\equality{lhsdom}{rhsdom}
+\ncline [doubleline=true, nodesep=0.2cm, offsetB=-0.15cm]{lhscod}{rhscod}
+\nccdar{lhsdom}{fgdom}
+\nccdar{lhscod}{fgdom}
+\nccdar{fhdom}{fgcod}
+\nccdar{fhcod}{fgcod}
+\nccdar{fgdom}{fdom}
+\nccdar{fgcod}{fdom}
+\nccdar{ghdom}{gdom}
+\nccdar{ghcod}{gdom}
+\nccdar{hdom}{gcod}
+\nccdar{hcod}{gcod}
+\nccdar{gdom}{fcod}
+\nccdar{gcod}{fcod}
+%
+\ncarr{lhsdom}{lhscod}
+\alabel{\lhs}
+\ncarr{rhsdom}{rhscod}
+\alabel{\rhs}
+\ncarr{fhdom}{fhcod}
+\alabel{\fh}
+\ncarr{fgdom}{fgcod}
+\alabel{\fg}
+\ncarr{ghdom}{ghcod}
+\alabel{\gh}
+\ncarr{fdom}{fcod}
+\alabel{\f}
+\ncarr{gdom}{gcod}
+\alabel{\g}
+\ncarr{hdom}{hcod}
+\alabel{\h} \\
+and we need to prove that $\lhs=\rhs$.
+\end{proof}
+
+A special case of this lemma is as follows:
+\begin{lemma} \commentary{simple corollary}
+\llabel{stardistributesonsections}\commentary{I cant find where this is used -- it should be though}
+For all objects $x_p \base x \leq y_p \base y \leq z_p \base z$ in \catc, for all sections $f: x_p \morph x$ and $g: y \morph y_p$, 
+\begin{equation}
+\label{metagattriplestar}
+(f^*g)^*(f^*z)=f^*(g^*z)
+\end{equation}
+and for all sections $h:z_p \morph z$
+\begin{equation}
+\label{metagattriplestarsection}
+(f^*g)^*(f^*h)=f^*(g^*h)
+\end{equation}
+\end{lemma}
+
+
+
+% *************************************************************************************
+% sfglemma ****************************************************************************
+\begin{lemma}
+\llabel{sfglemma}
+If $f:A \morph B$ and $g:B\morph C$ in a contextual category \catcw and if $C \in Cover(B)$ then \commentary{is $ft$ defined anywhere?}
+\begin{equation}
+\label{sgflemmagoalone}
+ft(f\circ g)^*C = f^*(ft(g)^*C)
+\end{equation}
+and 
+\begin{equation}
+\label{sgflemmagoaltwo}
+s(f\circ g)=f^*s(g)
+\end{equation}
+where $ft(g) = g \circ p_B$ and  $ft(f \circ g) = f \circ g \circ p_B$ so that we have
+\begin{displaymath}
+\begin{array}{ccp{1.7cm}cp{1.7cm}c}
+ft(f\circ g)^*C=\kern-10pt&\Rnode{TL}{f^*(ft(g)^*C)} & & \Rnode{TC}{ft(g)^*C}          \\ [1.7cm]
+&\Rnode{BL}{A}         & & \Rnode{BC}{B} && \Rnode{BR}{C}
+\end{array}
+\mbox{
+\ncsar{TL}{BL}
+\ncsar{TC}{BC}
+\ncarr{BL}{BC}
+\blabel{f}
+\ncarr{BC}{BR}
+\blabel{g}
+\ncarr{TL}{TC}
+\alabel{q(f,ft(g)^*C)}
+\ncarr{TC}{BR}
+\alabel{q(ft(g),C)}
+\ncleftsimplesection{BL}{TL}
+\alabel{s(f\circ g)=f^*s(g)}
+\ncleftsimplesection{BC}{TC}
+\alabel{s(g)}
+}
+\end{displaymath}
+in \catc.
+\end{lemma}
+\begin{proof}
+That (\ref{sgflemmagoalone}) holds follows by axiom (q4).
+
+To show that (\ref{sgflemmagoaltwo}) holds remember that $s(f \circ g)$is the unique\commentary{have I proved this?} section of $ft(f \circ g)^*C$
+such that $s(f \circ g) \circ q(f \circ g \circ p_C,C) = f\circ g$. Therefore it suffices to show that
+$f^*s(g) \circ q(f \circ g \circ p_C,C) = f\circ g$ and this we can show as follows:
+\begin{align*}
+(f^*s(g)) \circ q(f \circ g \circ p_C,C) &= (f^*s(g)) \circ q(f ,(g \circ p_C)^*C) \circ q(g \circ p_C ,C) &&\mbox{by axiom (q5)} \\
+                             &= f \circ s(g) \circ q(g \circ p_C ,C)                   &&\mbox {from defn. of $f^*s(g)\highlight{EXPAND}$}\\
+                                                                                     &= f \circ g                                              &&\mbox {by axiom (s2)}
+\end{align*}
+\end{proof}
+
+
+\subsection{The $\crossx{}{}{}$ notation}
+
 We shall write $\crossx{y}{z}{x}$ in place of ${p_{y,x}}^*z$, for $x < y$, $x < z$  in \catc. 
 Note that
 $\crossx{y}{z}{x}$  represents what in the generalised algebraic syntax  is the `weakening' of a rule of the form
@@ -395,7 +632,7 @@ y,\, w_1,...w_n \tstyle \isT{z}.
 \genericcrossxproductdiagram % defined in 'paper.tex'
 is a pullback diagram in \ccat.
 
-\note
+
 We can extend the $\crossx{}{}{w}$ notation to morphisms. If $f:x \morph x'$ and $g: y \morph y'$ in a contextual
 category $\ccat[C]$ and if $w$ is an object such that $w < x$, $w <x'$, $w < y$ and $w < y'$ then 
 define $\crossx{f}{g}{w}:\crossx{x}{y}{w} \morph \crossx{x'}{y'}{w}$ in $\ccat[C]$ by
@@ -433,9 +670,8 @@ as shown here:
 In the special case that $x=x'$ and $f=id_x$ then we get  $\crossx{id_x}{g}{w} : \crossx{x}{y}{w} \morph \crossx{x}{y'}{w}$. 
 This morphism we abbreviate as $\crossx{x}{g}{w}$. 
 
-\note
-In the   case that $w$ is the terminal object $1$ then the pullback  specialises to give a product diagram:
 
+In the   case that $w$ is the terminal object $1$ then the pullback  specialises to give a product diagram:
 \begin{displaymath}
 \begin{array}{ccccc}
 \Rnode{xy}{\crossx{x}{y}{1}} &&               &&               \\[1.3cm]
@@ -457,7 +693,6 @@ and
 \tuple{f,g} \circ q(p_{x,1},y) = g
 \end{equation}
 
-\note 
 Note that the product operation $\crossx{}{}{1}$ is far from symmetric 
 because if, for example, $1 \base x$ and $1 \base y$ then $x \base \crossx{x}{y}{1}$ and $y \base \crossx{y}{x}{1}$. We can define 
 a swap operation $sw_{x,y} : \crossx{x}{y}{1} \morph \crossx{y}{x}{1}$ by
@@ -465,7 +700,6 @@ a swap operation $sw_{x,y} : \crossx{x}{y}{1} \morph \crossx{y}{x}{1}$ by
 sw_{x,y} = \tuple{q_{p_x,y}, p_{\crossx{x}{y}{1},x}}
 \end{equation}
 
-\note
 Associativity of $\crossx{}{}w$  follows from the coherence property of the pullbacks in the contextual category. 
 For example if $w < x$, $w < y$, $w < z$ in a \ccat then from coherence of pullbacks in \ccat we have:
 $\crossx{x}{(\crossx{y}{z}{w})}{w} = \crossx{(\crossx{x}{y}{w})}{z}{w}$ as shown here in this diagram:
@@ -492,27 +726,54 @@ $\crossx{x}{(\crossx{y}{z}{w})}{w} = \crossx{(\crossx{x}{y}{w})}{z}{w}$ as shown
 \ncaarr{q(\pc{y}{w},z)}{yz}{z}
 \ncaarr{q(\pc{x}{w},\crossx{y}{z}{w})}{D2}{yz}
 
-
-
-\note In the examples we give later we make use of the following lemmas:
-
+\vspace{0.15cm}
 \begin{lemma}
-\llabel{footandstactic}
-If $f: A \morph B$ and $f':A \morph B$ in a contextual category \catcw then if 
-$f \circ p_B$ = $f' \circ p_B$ and $s(f) = s(f')$ then $f=f'$.
+\llabel{unlabelled}
+\commentary{This is the metaGAT idenity but do we need to replace $x_p$ by any $w$, $w < x$?}
+For all objects $x_p \base x$, and for all objects $y_p \base y \leq z_P \base z$ in \catc, 
+for all sections $g:y_p \morph y$ in \catc, 
+\begin{equation}
+\label{metagatcrossstarcross}
+(\crossx{x}{g}{x_p})^*(\crossx{x}{z}{x_p})=\crossx{x}{(g^*z)}{x_p}
+\end{equation}
+and for all sections $h:z_p \morph z$ in \catc,
+\begin{equation}
+\label{metagatcrossstarcrosssection}
+(\crossx{x}{g}{x_p})^*(\crossx{x}{z}{x_p})=\crossx{x}{(g^*h)}{x_p}.
+\end{equation}
+\end{lemma}
+\begin{lemma}
+\llabel{sofplemma}
+If $1 \base b_1 ... \base b_m$ in \catc, for some $m \ge 1$ in a contextual category \catc then \foreachj,
+$s(p_{b_m,b_j}): b_m \morph \crossx{b_m}{b_j}{b_{j-1}}$ in \catcw.
 \end{lemma}
 \begin{proof}
-Follows by axiom (s2) since we have:
-$f = s(f) \circ q(f \circ p_B,B)  = s(f') \circ q(f' \circ p_B,B) = f'$.
+Because $p_{b_m,b_j}: b_m \morph b_j$ in $\catcw$ and so be definition of operator $s$ it follows that $s(p_{b_m,b_j}): b_m  \morph (p_{b_m,b_j} \circ p_{b_j})^*b_j$
+and we have 
+\begin{align*}
+(p_{b_m,b_j} \circ p_{b_j})^*b_j &= {p_{b_m,b_{j-1}}} ^* b_j  && \mbox{ because $p_{b_m,b_j} \circ p_{b_j}=p_{b_m,b_{j-1}}$,} \\
+                                 &= \crossx{b_m}{b_j}{b_{j-1}} && \mbox{ by definition of $\crossx{}{}{w}$}.
+\end{align*}
 \end{proof}
-
-From which follows:
 \begin{lemma}
-\llabel{stactic}
-If $A$ is any object of a contextual category \catcw and if $B$ is an object such that $1 \base B$ in \catcw then
-if $f: A \morph B$ and $f':A \morph B$ in  \catcw then $f=f'$ iff $s(f) = s(f')$.
+\llabel{sofpsubstitutionlemma}\commentary{Can probably simplify this to single substitution of sofp}\commentary{\highlight{why $a_{n+1}$?}}
+If $1 \base a_1 ... \base a_n$ in \catc, for some $n \ge 1$ in a contextual category \catc then \foreachi,
+\begin{equation*}
+s(p_{a_{n+1},a_{i-1}})^*...s(p_{a_{n+1},a_1})^*(\crossx{a_{n+1}}{a_i}{1}) 
+= \crossx{a_{n+1}}{a_i}{a_{i-1}}.
+\end{equation*} 
 \end{lemma}
-\vspace{0.15cm}
+\begin{proof}
+\end{proof}
+\begin{lemma}
+\llabel{secondsofpsubstitutionlemma}\commentary{Can probably simplify this to single substitution of sofp}\commentary{\highlight{why $a_{n+1}$?}}
+If $1 \base a_1 ... \base a_n \base a_{n+1}$ in \catc, for some $n \ge 1$ in a contextual category \catc then \foreachi,
+\begin{equation*}
+s(p_{a_{n},a_{i-1}})^*...s(p_{a_{n},a_1})^*(\crossx{a_{n}}{a_{n+1}}{1}) = a_{n+1}.
+\end{equation*} 
+\end{lemma}
+\begin{proof}
+\end{proof}
 \begin{lemma}
 \llabel{crosssectionlemma}
 If 
@@ -568,57 +829,6 @@ lhs &=  s(p_B \circ g) \circ q( p_B \circ g \circ p_{B'}, B') && \mbox{since $g$
 \end{align*}
 \end{proof}
 
-% *************************************************************************************
-% sfglemma ****************************************************************************
-\begin{lemma}
-\llabel{sfglemma}
-If $f:A \morph B$ and $g:B\morph C$ in a contextual category \catcw and if $C \in Cover(B)$ then
-\begin{equation}
-\label{sgflemmagoalone}
-ft(f\circ g)^*C = f^*(ft(g)^*C)
-\end{equation}
-and 
-\begin{equation}
-\label{sgflemmagoaltwo}
-s(f\circ g)=f^*s(g)
-\end{equation}
-where $ft(g) = g \circ p_B$ and  $ft(f \circ g) = f \circ g \circ p_B$ so that we have
-\begin{displaymath}
-\begin{array}{ccp{1.7cm}cp{1.7cm}c}
-ft(f\circ g)^*C=\kern-10pt&\Rnode{TL}{f^*(ft(g)^*C)} & & \Rnode{TC}{ft(g)^*C}          \\ [1.7cm]
-&\Rnode{BL}{A}         & & \Rnode{BC}{B} && \Rnode{BR}{C}
-\end{array}
-\mbox{
-\ncsar{TL}{BL}
-\ncsar{TC}{BC}
-\ncarr{BL}{BC}
-\blabel{f}
-\ncarr{BC}{BR}
-\blabel{g}
-\ncarr{TL}{TC}
-\alabel{q(f,ft(g)^*C)}
-\ncarr{TC}{BR}
-\alabel{q(ft(g),C)}
-\ncleftsimplesection{BL}{TL}
-\alabel{s(f\circ g)=f^*s(g)}
-\ncleftsimplesection{BC}{TC}
-\alabel{s(g)}
-}
-\end{displaymath}
-in \catc.
-\end{lemma}
-\begin{proof}
-That (\ref{sgflemmagoalone}) holds follows by axiom (q4).
-
-To show that (\ref{sgflemmagoaltwo}) holds remember that $s(f \circ g)$is the unique\commentary{have I proved this?} section of $ft(f \circ g)^*C$
-such that $s(f \circ g) \circ q(f \circ g \circ p_C,C) = f\circ g$. Therefore it suffices to show that
-$f^*s(g) \circ q(f \circ g \circ p_C,C) = f\circ g$ and this we can show as follows:
-\begin{align*}
-(f^*s(g)) \circ q(f \circ g \circ p_C,C) &= (f^*s(g)) \circ q(f ,(g \circ p_C)^*C) \circ q(g \circ p_C ,C) &&\mbox{by axiom (q5)} \\
-                             &= f \circ s(g) \circ q(g \circ p_C ,C)                   &&\mbox {from defn. of $f^*s(g)$}\\
-														 &= f \circ g                                              &&\mbox {by axiom (s2)}
-\end{align*}
-\end{proof}
 
 \subsection{Cascades of sections}
 The following definition and its accompanying lemma are used when reasoning about the interpretations of theories. 
@@ -771,6 +981,36 @@ we have the following objects and morphisms in \catc:
 }
 \end{array}
 \end{displaymath}
-
 \end{proof}
 
+\begin{lemma} \commentary{moved from later}
+\llabel{cascadedpullbackscohere}
+If $a$ is any object of a contextual category \catcw, if $1 \base b_1 ... \base b_n$ and $1 \base c_1 ... \base c_m$ in \catc, for some $n,m \ge 1$, 
+if $\tuple{\fn}$ is a \term{cascade} from $a$ to $b_n$ and
+if $\tuple{\gm}$ is a \term{cascade} from $b_n$ to $c_m$ and if  $c_m \base c$ in \catcw then
+%\newcommand{\clausethreelhs}{\big(\fmvectorstar (\crossx{a}{g_n}{1})\big)^* ... \big(\fmvectorstar (\crossx{a}{g_1}{1})\big) ^* \big(\crossx{b_m}{c}{1}\big)}
+%\newcommand{\clausethreerhs}{\fmvectorstar \big(  \crossx{a}{(\gnvectorstar(\crossx{b_m}{c}{1}))}{1} \big)}
+\begin{equation}
+\label{cascadedpullbackscohereonobjects}
+\big(\fmvectorstar (\crossx{a}{g_n}{1})\big)^* ... \big(\fmvectorstar (\crossx{a}{g_1}{1})\big) ^* \big(\crossx{b_m}{c}{1}\big) 
+= \fmvectorstar \big(  \crossx{a}{(\gnvectorstar(\crossx{b_m}{c}{1}))}{1} \big)                                    
+\end{equation}
+and if  $h$ is any section of $c$ then 
+\begin{equation}
+\label{cascadedpullbackscohereonsections}
+\big(\fmvectorstar (\crossx{a}{g_n}{1})\big)^* ... \big(\fmvectorstar (\crossx{a}{g_1}{1})\big) ^* \big(\crossx{b_m}{h}{1}\big) 
+= \fmvectorstar \big(  \crossx{a}{(\gnvectorstar(\crossx{b_m}{h}{1}))}{1} \big)                                    
+\end{equation}
+\end{lemma}
+\begin{proof}
+The first follows by repeated application of identities (\ref{metagattriplestar}) and (\ref{metagatcrossstarcross}), 
+the second, similarly, by repeated application of identities (\ref{metagattriplestarsection}) and (\ref{metagatcrossstarcrosssection})
+\end{proof}
+\begin{lemma}
+\llabel{cascadeprojectionlemma}
+If $a$ is any object of a contextual category \catcw, if $1 \base b_1 ... \base b_n$ in \catc, for some $n \ge 1$, 
+if $\tuple{\fn}$ is a \term{cascade} from $a$ to $b_n$ then \foreachi,
+\begin{equation}
+\fnvectorstar(\crossx{a}{s(p_{b_n,b_i})}{1})=f_i.                                    
+\end{equation}
+\end{lemma}
