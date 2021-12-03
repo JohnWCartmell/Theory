@@ -130,8 +130,6 @@ and
 q(id_x,y) = id_y
 \end{axiom}
 
-
-
 \noindent and (iv) whenever 
 $
 \begin{array}{c p{.9cm} c p{.9cm} c}
@@ -154,7 +152,6 @@ and
 \begin{axiom}{q5}
 q(f \circ g,z) = q(f,g^*z) \circ q(g,z)
 \end{axiom}
-
 
 
 Following Voevodsky we may replace the pullback condition (condition (ii) above) by introducing and axiomatising an 
@@ -191,7 +188,6 @@ s(f) \circ q( f \circ p_y     ,y)=f
 
 \noindent
 and such that whenever
-
 \begin{center}
 \begin{displaymath}
 \begin{array}{c p{.9cm} c p{.9cm} c}
@@ -284,7 +280,6 @@ $
 \alabel{p_{w_1}}}
 $ 
 & %7 c
-
 \end{tabular}
 
 \noindent where $w_1, ... w_n$ is the unique sequence of objects of $C$ such that 
@@ -402,8 +397,6 @@ $
 is diagram (\ref{compositepullbackout}). 
 \end{lemma}
 
-
-
 Now we extend the $^*$ notation further so that if $x,y,z_1$ and $z_2$ are objects of a contextual catgeory \catcw such that
 $y < z_1$ and $y < z_2$, and if  $f:x\morph y$ and if $g: z_1 \morph z_2$ such that $g \circ p_{z_2,y} = p_{z_1,y}$ 
 as the unique morphism $h:f^*z_1 \morph f^*z_2$ such that
@@ -466,9 +459,9 @@ If $f$, $g$ and $h$ are morphisms of a contextual category \catcw such that $f^*
 \newcommand{\lhsdom}{(f^*g)^*(f^*z_1)}
 \newcommand{\lhscod}{(f^*g)^*(f^*z_2)}
 \newcommand{\lhs}{(f^*g)^*(f^*h)}
-\newcommand{\rhsdom}{f^*(g^*z_1)}
-\newcommand{\rhscod}{f^*(g^*z_2)}
-\newcommand{\rhs}{f^*(g^*h)}
+\newcommand{\fghdom}{f^*(g^*z_1)}
+\newcommand{\fghcod}{f^*(g^*z_2)}
+\newcommand{\fgh}{f^*(g^*h)}
 \newcommand{\fhdom}{f^*z_1}
 \newcommand{\fhcod}{f^*z_2}
 \newcommand{\fh}{f^*h}
@@ -490,7 +483,7 @@ If $f$, $g$ and $h$ are morphisms of a contextual category \catcw such that $f^*
 Suppose $f: x_1 \morph x_2$, $g:y_1 \morph y_2$ and $h:z_1 \morph z_2$ in \catc. 
 Because $f^*g$ is defined then we must have $x_2 < y_1$ and  $x_2 < y_2$ and $g \circ p_{y_2,x_2} = p_{y_1,x_2}$ in \catc. 
 Likewise, because $g^*h$ is defined then we must have $y_2 < z_1$ and  $y_2 < z_2$ and $h \circ p_{z_2,y_2} = p_{z_1,y_2}$.
-By lemma \lref{stardistributesonobjects} $\lhsdom=\rhsdom$ and $\lhscod=\rhscod$
+By lemma \lref{stardistributesonobjects} $\lhsdom=\fghdom$ and $\lhscod=\fghcod$
 therefore we have the following diagram in \catc:
 \iffalse   %MIGHT NEED THIS HAND ROLL EQUALITY
 \newcommand{\equality}[2]
@@ -501,7 +494,7 @@ therefore we have the following diagram in \catc:
 $$
 \begin{array}{cccccccp{.05cm}ccccccc}
 \\
-\Rnode{rhsdom}{\rhsdom} &\Rnode{rhsarc}{} & \Rnode{rhscod}{\rhscod}\\[0.75cm]
+\Rnode{fghdom}{\fghdom} &\Rnode{rhsarc}{} & \Rnode{fghcod}{\fghcod}\\[0.75cm]
 \Rnode{lhsdom}{\lhsdom} &\Rnode{lhsarc}{} & \Rnode{lhscod}{\lhscod}\kern-0.75cm & & \Rnode{fhdom}{\fhdom} & & \Rnode{fhcod}{\fhcod}&&
                \Rnode{ghdom}{\ghdom} & & \Rnode{ghcod}{\ghcod} & & \Rnode{hdom}{\fhdom} & & \Rnode{hcod}{\fhcod}\\ [1.25cm]
 & \Rnode{fgdom}{\fgdom} & & & & \Rnode{fgcod}{\fgcod} &&&& \Rnode{gdom}{\gdom} & & & & \Rnode{gcod}{\gcod}\\[1.25cm]
@@ -509,8 +502,8 @@ $$
 \end{array}
 $$
 %\ncline [doubleline=true, nodesepA=0.2cm, nodesepB=0.6cm]{rhsarc}{lhsarc}
-\equality{lhsdom}{rhsdom}
-\ncline [doubleline=true, nodesep=0.2cm, offsetB=-0.15cm]{lhscod}{rhscod}
+\equality{lhsdom}{fghdom}
+\ncline [doubleline=true, nodesep=0.2cm, offsetB=-0.15cm]{lhscod}{fghcod}
 \nccdar{lhsdom}{fgdom}
 \nccdar{lhscod}{fgdom}
 \nccdar{fhdom}{fgcod}
@@ -526,8 +519,8 @@ $$
 %
 \ncarr{lhsdom}{lhscod}
 \alabel{\lhs}
-\ncarr{rhsdom}{rhscod}
-\alabel{\rhs}
+\ncarr{fghdom}{fghcod}
+\alabel{\fgh}
 \ncarr{fhdom}{fhcod}
 \alabel{\fh}
 \ncarr{fgdom}{fgcod}
@@ -540,7 +533,22 @@ $$
 \alabel{\g}
 \ncarr{hdom}{hcod}
 \alabel{\h} \\
-and we need to prove that $\lhs=\rhs$.
+and we need to prove that $\lhs=\fgh$. We will prove this using the fact that $\fgh$ is the unqiue morphism such that
+\newcommand{\pfgh}{p_{\fghcod,f^*y_1}}
+\newcommand{\fghone}{p_{\fghdom,f^*y_1}}
+\newcommand{\qfgh}{q(f,\ghcod)}
+\newcommand{\fghtwo}{q(f,\ghdom) \circ (\gh)}
+
+\begin{equation}
+\label{fghpropertyone}
+\fgh \circ \pfgh = \fghone
+\end{equation}
+and
+\begin{equation}
+\label{fghpropertytwo}
+\fgh \circ \qfgh = \fghtwo
+\end{equation}
+
 \end{proof}
 
 A special case of this lemma is as follows:
