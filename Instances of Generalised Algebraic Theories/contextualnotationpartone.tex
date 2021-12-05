@@ -839,25 +839,41 @@ s(p_{a_{n},a_{i}})^*...s(p_{a_{n},a_1})^*(\crossx{a_{n}}{a_j}{1})
 \end{equation*} 
 \end{lemma}
 \begin{proof}
-By induction on $i$.
+By induction on $i$. 
+In the case of $i=1$ we have\commentary{remove repetition: arrange so that induction starts from $n=0$ with nothing to prove.} 
+\begin{align*}
+s(p_{a_n,a_1})^*(\crossx{a_{n}}{a_j}{1})
+& = s(p_{a_n,a_1}) ^* {p_{a_n,1}} ^* a_j
+&&\mbox{ by definition of $\crossx{}{}{}$}\\
+&= s(p_{a_{n},a_{i}})^*  q(p_{a_n,1},a_1) ^* a_j
+&&\mbox{ by definition of extended $^*$,}\\
+&= (s(p_{a_{n},a_1}) \circ q(p_{a_n,1},a_1)) ^* a_j
+&&\mbox{ by (q5),}\\
+&= {p_{a_{n},a_1}}^*a_j
+&&\mbox{ by (s2),} \\
+&= \crossx{a_{n}}{a_j}{a_1}
+&&\mbox{by definition of $\crossx{}{}{}$, as required.}
+\end{align*}
 If $i >1$ then we have the following diagram in \catc 
 $$
-\begin{array}{cp{1.0cm}cc}
-\Rnode{L0}{{p_{a_n,i_{i-1}}}}^*a_j &&                 &                \\[0.75cm]
-\Rnode{L1}{{p_{a_n,i_{i-1}}}}^*a_i &&                 &                \\[0.5cm]
-\Rnode{L2}{a_n}                    &&                 &                \\[0.5cm]
-                                   &&                 &\Rnode{L3}{a_j} \\[1.0cm]
+\begin{array}{cp{0.5cm}cc}
+\Rnode{L0}{{p_{a_n,a_{i-1}}}^*a_j} &&                 &                \\[1.0cm]
+\Rnode{L1}{{p_{a_n,a_{i-1}}}^*a_i} &&                 &                \\[1.0cm]
+\Rnode{L2}{a_n}                    &&                 &                \\[0.25cm]
+                                   && \Rnode{L3}{a_j} &                \\[1.0cm]
                                    && \Rnode{L4}{a_i} &                \\[0.5cm]
 \Rnode{L5}{a_{i-1}}                &&                 &           
 \end{array}
 \mbox{
 \nccdar{L0}{L1} 
-\nccdar{L1}{L2}  
+\ncsar{L1}{L2}  
 \nccdar{L2}{L5}   
 \nccdar{L3}{L4}   
 \ncsar{L4}{L5}
-\ncarr{L1}{L4}
-\alabel{q(p_{a_n,a_{i-1}},a_i)}
+\ncarr[-10]{L1}{L4}
+\alabel{q(p_{a_n,a_{i-1}},a_i)}[0.35]
+\ncleftsimplesection{L2}{L1}
+\alabel{s(p_{a_n,a_i})}
 }
 $$
 and we can show
