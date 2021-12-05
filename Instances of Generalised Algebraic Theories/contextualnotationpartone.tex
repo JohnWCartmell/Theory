@@ -500,7 +500,7 @@ $$
 & \Rnode{fgdom}{\fgdom} & & & & \Rnode{fgcod}{\fgcod} &&&& \Rnode{gdom}{\gdom} & & & & \Rnode{gcod}{\gcod}\\[1.25cm]
 &                       & &\Rnode{fdom}{\fdom} & & & && & & &  \Rnode{fcod}{\fcod}
 \end{array}
-$$
+\mbox{
 %\ncline [doubleline=true, nodesepA=0.2cm, nodesepB=0.6cm]{rhsarc}{lhsarc}
 \equality{lhsdom}{fghdom}
 \ncline [doubleline=true, nodesep=0.2cm, offsetB=-0.15cm]{lhscod}{fghcod}
@@ -532,7 +532,9 @@ $$
 \ncarr{gdom}{gcod}
 \alabel{\g}
 \ncarr{hdom}{hcod}
-\alabel{\h} \\
+\alabel{\h} 
+}
+$$
 and we need to prove that $\lhs=\fgh$. We will prove this using the fact that $\fgh$ is the unqiue morphism such that
 \newcommand{\pfgh}{p_{\fghcod,f^*y_1}}
 \newcommand{\fghone}{p_{\fghdom,f^*y_1}}
@@ -828,24 +830,64 @@ and we have
 \end{align*}
 \end{proof}
 \begin{lemma}
-\llabel{sofpsubstitutionlemma}\commentary{Can probably simplify this to single substitution of sofp}\commentary{\highlight{why $a_{n+1}$?}}
-If $1 \base a_1 ... \base a_n$ in \catc, for some $n \ge 1$ in a contextual category \catc then \foreachi,
+\llabel{sofpsubstitutionlemma}
+If $1 \base a_1 ... \base a_n \base a_{n+1}$, for some $n \ge 1$ in a contextual category \catc, then 
+for each $i$ and $j$, $1 \leq i < j \leq n+1$
 \begin{equation*}
-s(p_{a_{n+1},a_{i-1}})^*...s(p_{a_{n+1},a_1})^*(\crossx{a_{n+1}}{a_i}{1}) 
-= \crossx{a_{n+1}}{a_i}{a_{i-1}}.
+s(p_{a_{n},a_{i}})^*...s(p_{a_{n},a_1})^*(\crossx{a_{n}}{a_j}{1}) 
+= \crossx{a_{n}}{a_j}{a_{i}}.
 \end{equation*} 
 \end{lemma}
 \begin{proof}
+By induction on $i$.
+If $i >1$ then we have the following diagram in \catc 
+$$
+\begin{array}{cp{1.0cm}cc}
+\Rnode{L0}{{p_{a_n,i_{i-1}}}}^*a_j &&                 &                \\[0.75cm]
+\Rnode{L1}{{p_{a_n,i_{i-1}}}}^*a_i &&                 &                \\[0.5cm]
+\Rnode{L2}{a_n}                    &&                 &                \\[0.5cm]
+                                   &&                 &\Rnode{L3}{a_j} \\[1.0cm]
+                                   && \Rnode{L4}{a_i} &                \\[0.5cm]
+\Rnode{L5}{a_{i-1}}                &&                 &           
+\end{array}
+\mbox{
+\nccdar{L0}{L1} 
+\nccdar{L1}{L2}  
+\nccdar{L2}{L5}   
+\nccdar{L3}{L4}   
+\ncsar{L4}{L5}
+\ncarr{L1}{L4}
+\alabel{q(p_{a_n,a_{i-1}},a_i)}
+}
+$$
+and we can show
+\begin{align*}
+s(p_{a_{n},a_{i}})^*...s(p_{a_{n},a_1})^*(\crossx{a_{n}}{a_j}{1})
+& = s(p_{a_{n},a_{i}})^* (\crossx{a_{n}}{a_j}{a_{i-1}})
+&&\mbox{ by the inductive hypthesis,} \\
+&= s(p_{a_{n},a_{i}})^* {p_{a_n,a_{i-1}}} ^* a_j
+&&\mbox{ by definition of $\crossx{}{}{}$}\\
+&= s(p_{a_{n},a_{i}})^*  q(p_{a_n,a_{i-1}},a_i) ^* a_j
+&&\mbox{ by definition of extended $^*$,}\\
+&= (s(p_{a_{n},a_{i}}) \circ q(p_{a_n,a_{i-1}},a_i)) ^* a_j
+&&\mbox{ by (q5),}\\
+&= {p_{a_{n},a_{i}}}^*a_j
+&&\mbox{ by (s2),} \\
+&= \crossx{a_{n}}{a_j}{a_{i}}
+&&\mbox{by definition of $\crossx{}{}{}$, as required.}
+\end{align*}
 \end{proof}
+
+\begin{oldtt}
 \begin{lemma}
-\llabel{secondsofpsubstitutionlemma}\commentary{Can probably simplify this to single substitution of sofp}\commentary{\highlight{why $a_{n+1}$?}}
+\llabel{secondsofpsubstitutionlemma}
 If $1 \base a_1 ... \base a_n \base a_{n+1}$ in \catc, for some $n \ge 1$ in a contextual category \catc then \foreachi,
 \begin{equation*}
 s(p_{a_{n},a_{i-1}})^*...s(p_{a_{n},a_1})^*(\crossx{a_{n}}{a_{n+1}}{1}) = a_{n+1}.
 \end{equation*} 
 \end{lemma}
-\begin{proof}
-\end{proof}
+\end{oldtt}
+
 \begin{lemma}
 \llabel{crosssectionlemma}
 If 
