@@ -1,4 +1,5 @@
 
+
 \label{contextualnotationpartone}
 \subsection{The $s$ operator and the tuple operator}
 Terminology: By  the generic term \term{tree} is meant a partially ordered set (poset) $(T, <)$ such that for each $t \in T$, the set $\set{s \in T : s < t}$ is well-ordered by the relation $<$.
@@ -223,6 +224,21 @@ If $A$ is any object of a contextual category \catcw and if $B$ is an object suc
 if $f: A \morph B$ and $f':A \morph B$ in  \catcw then $f=f'$ iff $s(f) = s(f')$.
 \end{lemma}
 
+One more useful lemma:
+\begin{lemma}
+\llabel{sfsglemma}
+\label{s4}  
+If \cat{C} is a contextual category then for all morphisms $f: x \rightarrow y$ and $g:y \rightarrow z$ in \cat{C},
+$$s(f \circ s(g)) = s(f \circ g)$$
+\end{lemma}
+\begin{proof}
+\begin{align*}
+s( f \circ s(g)) 
+    & = s( f \circ s(g)\circ q(g \circ p_z) , z ))  &\mbox{by axiom s3}\\
+    & = s(f \circ g) &\mbox{by axiom s2} 
+\end{align*}
+\end{proof}
+
 \subsection{Extended $p$ and $^*$ notation}
 We can introduce several additional notations for use in in contextual categories. 
 If $x < y$ in the contextual category \catc, then define the morphism $p_{y,x}:y \morph  x$ in \catc, \\
@@ -391,8 +407,35 @@ $
 is diagram (\ref{compositepullbackout}). 
 \end{lemma}
 
-Now we extend the $^*$ notation further so that if $x,y,z_1$ and $z_2$ are objects of a contextual catgeory \catcw such that
-$y < z_1$ and $y < z_2$, and if  $f:x\morph y$ and if $g: z_1 \morph z_2$ such that $g \circ p_{z_2,y} = p_{z_1,y}$ 
+Now we extend the $^*$ notation further so that if $x,y,z_1$ and $z_2$ are objects of a contextual catgeory \catcw 
+and if $y \leq z_1$ and $y < z_2$, and if  $f:x\morph y$ and if $g: z_1 \morph z_2$ such that $g \circ p_{z_2,y} = p_{z_1,y}$
+then
+\begin{enumerate} [(a)]
+\item if $y=z_1$ then $f^*g: x \morph f^*z_2$,
+\item if $y < z_1$ then $f^*g:f^*z_1 \morph f^*z_2$.
+\end{enumerate}
+
+In case (a), $f^*g$ is defined as the unique morphism $f*g : x \morph f^*z_2$ such that $f^*g \circ p_{f^*z_2,x} = id_x$
+and $f^*g \circ q(f,z_2) = f \circ g$ i.e. such that the following diagram commutes.
+$$
+\begin{array}{cp{.9cm}c}
+\Rnode{TL}{f^*z_2} & &  \Rnode{TR}{z_2}\ \\ [1.5cm]
+\Rnode{BL}{x}      & &  \Rnode{BR}{y}  
+\end{array}
+$$
+\makebox[0.2cm]{   % This make box prevents white space pushing out to the right
+                   % cannot see where this white space is comin from. To investigate
+                                                       % change the \makebox[0.2cm] to \fbox and you will see the problem.
+\nccdar{TL}{BL}
+\nccdar{TR}{BR}
+\ncarr{TL}{TR}\alabel{q(f,z_2)}
+\ncarr{BL}{BR}\blabel{f}
+\ncleftsimplesection{BL}{TL}\alabel{f^*g}
+\ncleftsimplesection{BR}{TR}\alabel{g}
+}
+
+
+In case (b) $f^*g$ is defined
 as the unique morphism $h:f^*z_1 \morph f^*z_2$ such that
 $h \circ p_{f^*z_2,x} = p_{f^*z_1,x}$ and $h \circ q(f,z_2) = q(f,z_1)\circ g$
 that is to say that we define $f^*g=\pbpair{x,y,f,z_2}{p_{f^*z_1,x},q(f,z_1)\circ g} $
@@ -417,17 +460,24 @@ $$
 \ncarr{ML}{TL}\alabel{f^*g}
 \ncarr{MR}{TR}\alabel{g}[0.3]
 }
+
+\begin{lemma}
+\llabel{regardingfstarsection}
+If $f:x \morph y$ and $z \in Cover(y)$ and $g \in Sect(z)$ in a contextual category \catcw then
+\begin{equation*}
+f^*g = s(f \circ g)
+\end{equation*} 
+\end{lemma}
+\begin{proof}
+Straightforward.
+\end{proof}
+
 \begin{lemma} 
 \llabel{stardistributesonobjects}
 For all objects $x_p \base x \leq y_p \base y \leq z_p \base z$ in \catc, for all sections $f: x_p \morph x$ and $g: y \morph y_p$, 
 \begin{equation}
 \label{metagattriplestar}
 (f^*g)^*(f^*z)=f^*(g^*z)
-\end{equation}
-and for all sections $h:z_p \morph z$
-\begin{equation}
-\label{metagattriplestarsection}
-(f^*g)^*(f^*h)=f^*(g^*h)
 \end{equation}
 \end{lemma}
 \begin{proof}
@@ -610,17 +660,20 @@ lhs \circ \qfgh \circ q(g,z_2) &= \lhs \circ q(q(f,y_1),g^*z_2)\circ q(g,z_2) &&
 
 A special case of this lemma is as follows:
 \begin{lemma} \commentary{simple corollary}
-\llabel{stardistributesonsections}\commentary{I cant find where this is used -- it should be though}
+\llabel{stardistributesonsections}
 For all objects $x_p \base x \leq y_p \base y \leq z_p \base z$ in \catc, for all sections $f: x_p \morph x$ and $g: y \morph y_p$, 
+\begin{enumerate}[(i)]
+      \item
 \begin{equation}
-\label{metagattriplestar}
+%\label{metagattriplestar}
 (f^*g)^*(f^*z)=f^*(g^*z)
 \end{equation}
-and for all sections $h:z_p \morph z$
+\item for all sections $h:z_p \morph z$
 \begin{equation}
-\label{metagattriplestarsection}
+%\label{metagattriplestarsection}
 (f^*g)^*(f^*h)=f^*(g^*h)
 \end{equation}
+\end{enumerate}
 \end{lemma}
 
 
@@ -666,6 +719,7 @@ in \catc.
 \end{lemma}
 \begin{proof}
 That (\ref{sgflemmagoalone}) holds follows by axiom (q4).
+\highlight{Change to use} lemma \lref{regardingfstarsection}. \commentary{perhaps}
 
 To show that (\ref{sgflemmagoaltwo}) holds remember that $s(f \circ g)$is the unique\commentary{have I proved this?} section of $ft(f \circ g)^*C$
 such that $s(f \circ g) \circ q(f \circ g \circ p_C,C) = f\circ g$. Therefore it suffices to show that
@@ -795,24 +849,27 @@ $\crossx{x}{(\crossx{y}{z}{w})}{w} = \crossx{(\crossx{x}{y}{w})}{z}{w}$ as shown
 \commentary{This is the metaGAT idenity but do we need to replace $x_p$ by any $w$, $w < x$?}
 For all objects $x_p \base x$, and for all objects $y_p \base y \leq z_P \base z$ in \catc, 
 for all sections $g:y_p \morph y$ in \catc, 
-\begin{equation}
+\begin{enumerate}[(i)]
+\item
+\begin{equation*}
 \label{metagatcrossstarcross}
 (\crossx{x}{g}{x_p})^*(\crossx{x}{z}{x_p})=\crossx{x}{(g^*z)}{x_p}
-\end{equation}
-and for all sections $h:z_p \morph z$ in \catc,
-\begin{equation}
+\end{equation*}
+\item for all sections $h:z_p \morph z$ in \catc,
+\begin{equation*}
 \label{metagatcrossstarcrosssection}
 (\crossx{x}{g}{x_p})^*(\crossx{x}{z}{x_p})=\crossx{x}{(g^*h)}{x_p}.
-\end{equation}
+\end{equation*}
+\end{enumerate}
 \end{lemma}
 \begin{proof}
-(\ref{metagatcrossstarcross}) is a special case of lemma \lref{stardistributesonobjects}
+(i) is a special case of lemma \lref{stardistributesonobjects}
 and
-(\ref{metagatcrossstarcrosssection}) is a special case of lemma \lref{stardistributesonmorophismslemma}.
+(ii) is a special case of lemma \lref{stardistributesonmorophismslemma}.
 \end{proof}
 \begin{lemma}
 \llabel{sofplemma}
-If $1 \base b_1 ... \base b_m$ in \catc, for some $m \ge 1$ in a contextual category \catc then \foreachj,
+If $1 \base b_1 ... \base b_m$ in \catc, for some $m \ge 1$ in a contextual category \catcw then \foreachj,
 $s(p_{b_m,b_j}): b_m \morph \crossx{b_m}{b_j}{b_{j-1}}$ in \catcw.
 \end{lemma}
 \begin{proof}
@@ -1118,8 +1175,8 @@ and if  $h$ is any section of $c$ then
 \end{equation}
 \end{lemma}
 \begin{proof}
-The first follows by repeated application of identities (\ref{metagattriplestar}) and (\ref{metagatcrossstarcross}), 
-the second, similarly, by repeated application of identities (\ref{metagattriplestarsection}) and (\ref{metagatcrossstarcrosssection})
+The first follows by repeated application of identities \lref{stardistributesonsections} (i) and \lref{crossstardistributivitylemma} (i), 
+the second, similarly, by repeated application of identities \lref{stardistributesonsections} (ii) and \lref{crossstardistributivitylemma} (ii).
 \end{proof}
 \begin{lemma}
 \llabel{cascadeprojectionlemma}

@@ -1,6 +1,6 @@
 
 Now we consider what constitutes a monoid internal to a contextual category \catc. That is to say 
-we consider what constitutes an iinstance $I$ of the theory of monoids   in a contextual category \catc.
+we consider what constitutes an instance $I$ of the theory of monoids   in a contextual category \catc.
 For this purpose we shall write the theory of monoids ($tm$) as a generalised algebraic theory like this: 
 \begin{gatrules}
 \gatintros
@@ -47,6 +47,8 @@ y_3 &= q(p_{M^2,1},M). \hspace{1cm}\\
 \begin{lemma}
 \label{internalmonoidlemma}
 An internal monoid in a contextual category \catcw consists of
+\begin{enumerate}[(a)]
+\item 
 \begin{itemize}
 \item An object $M$ of \catcw which is the interpretation of the sort $M$ of theory $tm$,
 \item A section $\fmult$ of \catc, $\fmult \in Sect(\trebleM)$, that is the interpretation of the operator $mult$,
@@ -67,9 +69,10 @@ and
 \bigtuple{(\tuple{y_1,y_2}^*\fmult)\circ q(p_{M^3,1},M),y_3}^*\fmult
 =\bigtuple{y_1,(\tuple{y_2,y_3}^*\fmult)\circ q(p_{M^3,1},M)}^*\fmult
 \end{equation}.
-
-
-Equivalently an internal monoid in a contextual category \catcw consists of
+\end{enumerate}
+Or, equivalently, 
+\begin{enumerate}[(b)]
+\item
 \begin{itemize}
 \item An object $M$ of \catc,
 \item A morphism $mult$ of \catc, $mult: \doubleM \morph M$ in \catc,
@@ -90,34 +93,37 @@ and
 \bigtuple{\tuple{y_1,y_2}\circ mult,y_3}\circ mult
 =\bigtuple{y_1,\tuple{y_2,y_3} \circ mult}\circ mult
 \end{equation}
-which can be rewritten as 
+\end{enumerate}
+Note that equation (\ref{internalmonoidrepresentation2axiom3})  can also be written as 
 \begin{equation}
 \label{internalmonoidrepresentation2axiom3rewritten}
 \tuple{\crossx{mult}{id_M}{1}}\circ mult = \tuple{\crossx{id_M}{mult}{1}}\circ mult.
 \end{equation}
 \end{lemma}
 \begin{proof}
-Of these two equivalent representations the first results from a literal reading of the definition of instance 
-given in section \ref{sectioninwhichinstanceisdefined}. We demonstrate this in table \ref{internalmonoidtable}. 
+We show the derivation of the first of these representations, representation (a),  in table \ref{internalmonoidtable} below. 
 
-From the first representation the second follows as we now show.
-First of all define $mult: \doubleM \morph M$ in \catcw from $\fmult: \doubleM \morph \trebleM$ by defining
+It remains to show that the second representation, representation (b) can be derived from the first representation.
+
+To do this, first of all define $mult: \doubleM \morph M$ in \catcw from $\fmult: \doubleM \morph \trebleM$ by defining
 $mult = \fmult \circ q(p_{\doubleM,1} , M)$. Now we show that each of the equations (\ref{internalmonoidrepresentation1axiom1}),
 (\ref{internalmonoidrepresentation1axiom2}), and (\ref{internalmonoidrepresentation1axiom3}) hold of $\fmult$ iff
 the respective equation (\ref{internalmonoidrepresentation2axiom1}),
 (\ref{internalmonoidrepresentation2axiom2}) or (\ref{internalmonoidrepresentation2axiom3}) hold of $mult$.
 
 That (\ref{internalmonoidrepresentation1axiom1}) holds iff (\ref{internalmonoidrepresentation2axiom1}) holds follows
-because by lemma \ref{stactic}, (\ref{internalmonoidrepresentation2axiom1}) holds iff
+because by lemma \lref{stactic}, (\ref{internalmonoidrepresentation2axiom1}) holds iff
 \begin{equation}
 \label{equivalenceone}
 s(\tuple{p_M \circ unit,id_M} \circ mult) = s(id_M)
 \end{equation}
 which holds iff equation (\ref{internalmonoidrepresentation1axiom1}) holds because 
 \begin{align*}
-s(\tuple{p_M \circ unit,id_M}\circ mult) &= \tuple{p_M \circ unit,id_M} ^* s(mult )  && \mbox{by lemma \ref{sfglemma}} \\
-             &= \tuple{p_M \circ unit,id_M} ^* s(\fmult \circ q(p_{\doubleM,1} , M)) && \mbox{definition of $mult$} \\
-			       &= \tuple{p_M \circ unit,id_M} ^* \fmult                                &&  \mbox{by axiom (s2)}
+s(\tuple{p_M \circ unit,id_M}\circ mult) 
+             &= s(\tuple{p_M \circ unit,id_M}\circ s(mult)) && \mbox{by lemma \lref{sfsglemma},} \\
+             &= \tuple{p_M \circ unit,id_M} ^* s(mult )  && \mbox{by lemma \lref{sfglemma},} \\
+             &= \tuple{p_M \circ unit,id_M} ^* s(\fmult \circ q(p_{\doubleM,1} , M)) && \mbox{definition of $mult$,} \\
+			       &= \tuple{p_M \circ unit,id_M} ^* \fmult                                &&  \mbox{by axiom (s2).}
 \end{align*}
 
 \noindent By the same reasoning, it follows that (\ref{internalmonoidrepresentation1axiom2}) holds iff (\ref{internalmonoidrepresentation2axiom2}) holds.
@@ -130,9 +136,9 @@ First note, though, that
 \end{equation}
 because
 \begin{align*}
-lhs &= (\tuple{y_1,y_2}^*\fmult) \circ q(\tuple{y_1,y_2},M^3) \circ q(p_{M^2,1},M)  && \mbox{by definition of $^*$ \highlight{how?}} \\
-    &= (\tuple{y_1,y_2}^*\fmult) \circ q(\tuple{y_1,y_2} \circ p_{M^2,1},M)         && \mbox{because pullbacks cohere} \\
-    &= (\tuple{y_1,y_2}^*\fmult) \circ q(p_{M^3,1},M)                               && \mbox{because $1$ is terminal }\\
+lhs &= (\tuple{y_1,y_2}^*\fmult) \circ q(\tuple{y_1,y_2},M^3) \circ q(p_{M^2,1},M)  && \mbox{by definition of $^*$, } \\
+    &= (\tuple{y_1,y_2}^*\fmult) \circ q(\tuple{y_1,y_2} \circ p_{M^2,1},M)         && \mbox{by (q5),} \\
+    &= (\tuple{y_1,y_2}^*\fmult) \circ q(p_{M^3,1},M)                               && \mbox{because $1$ is terminal. }\\
     &= rhs
 \end{align*}
 
@@ -148,13 +154,13 @@ and the lhs of (\ref{sofinternalmonoidrepresentation2axiom3}) and the lhs of (\r
 are identical because
 \begin{align*}
 s(\bigtuple{\tuple{y_1,y_2}\circ mult,y_3}\circ mult) 
-    &= \bigtuple{\tuple{y_1,y_2}\circ mult,y_3} ^* s(mult) && \mbox{by lemma \ref{sfglemma}} \\
+    &= \bigtuple{\tuple{y_1,y_2}\circ mult,y_3} ^* s(mult) && \mbox{by lemma \lref{sfglemma}} \\
 		&= \bigtuple{\tuple{y_1,y_2}\circ mult,y_3} ^* s(\fmult \circ q(p_{\doubleM,1} , M)) && \mbox{definition of $mult$} \\
 		&= \bigtuple{\tuple{y_1,y_2}\circ mult,y_3} ^* \fmult                                &&  \mbox{by axiom (s2)} \\
 		&= \bigtuple{\tuple{y_1,y_2}\circ \fmult \circ q(p_{\doubleM,1} , M),y_3} ^* \fmult  
 		                                                                    &&  \mbox{definition of $mult$} \\	
 	  &= \bigtuple{(\tuple{y_1,y_2}^*\fmult)\circ q(p_{M^3,1},M),y_3} ^* \fmult 
-		                                                                    &&  \mbox{by use of (\ref{thirdaxiomsubgoal}) \highlight{how?}}
+		                                                                    &&  \mbox{by (\ref{thirdaxiomsubgoal})}
 \end{align*}
 Similarly, the rhs of (\ref{sofinternalmonoidrepresentation2axiom3}) and the rhs of (\ref{internalmonoidrepresentation1axiom3}) 
 can be shown to be identical.
@@ -162,7 +168,7 @@ can be shown to be identical.
 \begin{table}[H]
 \caption{Deriving what constitutes an instance of the theory of monoids $tm$ in a contextual category \catc.
 The result is shown (highlighted) in rows (\ref{tm1}), (\ref{tm11}), (\ref{tm13}),(\ref{tmax1}), (\ref{tmax2}) and (\ref{tmax3}). Other rows 
-show intermediate steps. Each step is justified by reference to earlier steps and by either application of one clauses (i) through \highlight{CHECK: } of the definition of instance, as appropriate, or by reference to one of the lemmas given earlier.}
+show intermediate steps. Each step other than the first is justified by reference to earlier steps.}
 \label{internalmonoidtable}
 
 \setlength{\arrayrulewidth}{1mm}
@@ -170,7 +176,7 @@ show intermediate steps. Each step is justified by reference to earlier steps an
 \begin{tabular}{l l  c  p{0cm} l  l}
 \multicolumn{2}{l}{Derived Rule} &&& Interpretation by $I$ in \catcw & Reason why\\
 \hline
-\gatinterpretationintro {tm1}{}{\isT{M}}{M \in Cover(1)}{definition \ref{consistentinterpretation} (i)(a)} \\
+\gatinterpretationintro {tm1}{}{\isT{M}}{M \in Cover(1)}{definitions \ref{contextmapping} (ii) and \ref{consistentinterpretation} (i)(a)} \\
 \\[-0.1cm]
 \gatinterpretationdetail{tm2}{\wM}{\isT{M}}{\doubleM \in Cover(M)}{\highlight{lemma \ref{supplementaryweakeninglemma} (i)} and (\ref{tm1})} \\[0.3cm]
 \gatinterpretationdetail{tm3}{\wM}{\ofT{w}{M}}{s(id_M) \in Sect(\doubleM)}{definition \ref{consistentinterpretation} (ii)(d) and (\ref{tm1})} \\[0.3cm]
@@ -192,11 +198,11 @@ show intermediate steps. Each step is justified by reference to earlier steps an
 												{ by axiom (s3)}\\[0.2cm]
 \gatinterpretationmapeqv{s(y_3)} 
 												{definition of $y_3$ }\\[0.2cm]
-\gatinterpretationintro {tm11}{}{\ofT{unit}{M}}{unit \in Sect(M)}{(ii)(a) and (\ref{tm1})} \\
+\gatinterpretationintro {tm11}{}{\ofT{unit}{M}}{unit \in Sect(M)}{definition \ref{consistentinterpretation} (ii)(a) and (\ref{tm1})} \\
 \\[-0.1cm]
-\gatinterpretationdetail{tm12}{\wM}{\ofT{unit}{M}}{\crossx{M}{unit}{1} \in Sect(\doubleM)}{\highlight{lemma \ref{supplementaryweakeninglemma} (i)}, (\ref{tm1}) and (\ref{tm11})} \\[0.3cm]\gatinterpretationmapeqv{s(p_M \circ unit)} 
+\gatinterpretationdetail{tm12}{\wM}{\ofT{unit}{M}}{\crossx{M}{unit}{1} \in Sect(\doubleM)}{\highlight{lemma \ref{supplementaryweakeninglemma} (ii)}, (\ref{tm1}) and (\ref{tm11})} \\[0.3cm]\gatinterpretationmapeqv{s(p_M \circ unit)} 
 												{by lemma \ref{crosssectionlemma}}\\[0.2cm]
-\gatinterpretationintro{tm13}{\xM}{\ofT{\fmult(x_1,x_2)}{M}}{\fmult \in Sect(\trebleM)}{(ii)(a) and (\ref{tm4})} \\
+\gatinterpretationintro{tm13}{\xM}{\ofT{\fmult(x_1,x_2)}{M}}{\fmult \in Sect(\trebleM)}{definition \ref{consistentinterpretation} (ii)(a) and (\ref{tm4})} \\
 \\[-0.1cm]
 \gatinterpretationdetail{tm14}{\wM}
                         {\ofT{\fmult(w,unit)}{M}}
@@ -216,7 +222,7 @@ show intermediate steps. Each step is justified by reference to earlier steps an
                         {\ofT{\fmult(y_1,y_2)}{M}}
 %												{\duple{s(y_1),s(y_2)}^*\fmult}
                         {\tuple{y_1,y_2}^*\fmult}
-												{lemma \ref{supplementarytuplelemma} (ii), (\ref{tm13}), (\ref{tm8}) and (\ref{tm9})}                  \\[0.2cm]
+												{lemma \ref{supplementarytuplelemma} (ii), (\ref{tm8}), (\ref{tm9}) and (\ref{tm13})}                  \\[0.2cm]
 %\gatinterpretationmapeqv{\tuple{y_1,y_2}^*\fmult}
 %												{lemma \ref{thedupletuplelemma} and axiom (s3)}                    \\[0.2cm]										
 					%							&&&&\multicolumn{2}{p{8cm}}{where  $y_i:M^3 \morph M^i$ is defined  
@@ -226,23 +232,34 @@ show intermediate steps. Each step is justified by reference to earlier steps an
                         {\ofT{\fmult(y_2,y_3)}{M}}
                         {\tuple{y_2,y_3}^*\fmult}
 %												{\duple{s(y_2),s(y_3)}^*\fmult}
-												{lemma \ref{supplementarytuplelemma} (ii), (\ref{tm13}), (\ref{tm9}) and (\ref{tm10})}  \\[0.2cm]
+												{lemma \ref{supplementarytuplelemma} (ii), (\ref{tm9}), (\ref{tm10}) and (\ref{tm13})}  \\[0.2cm]
 %\gatinterpretationmapeqv{\tuple{y_2,y_3}^*\fmult} 
 %												{lemma \ref{thedupletuplelemma} and axiom (s3)}\\[0.2cm]
 										
 \gatinterpretationdetail{tm18}{\yM}
                         {\fmult(\fmult(y_1,y_2),y_3)}
 												{\duple{\tuple{y_1,y_2}^*\fmult,s(y_3)}^*\fmult}
-												{lemma \ref{supplementarylemma}, (\ref{tm13}), (\ref{tm16}) and (\ref{tm10})}  \\[0.2cm]
-\gatinterpretationmapeqv{\bigtuple{(\tuple{y_1,y_2}^*\fmult)\circ q(p_{M^3,1},M),y_3}^*\fmult} 
-												{lemma \ref{thedupletuplelemma} and axiom (s3) (twice)} \\[0.2cm]
+												{lemma \ref{supplementarylemma}, (\ref{tm16}), (\ref{tm10}) and (\ref{tm13})}  \\[0.2cm]
+%\gatinterpretationmapeqv{\bigtuple{(\tuple{y_1,y_2}^*\fmult)\circ q(p_{M^3,1},M),y_3}^*\fmult} 
+%												{lemma \ref{thedupletuplelemma} and axiom (s3) (twice)} \\[0.2cm]
+\gatinterpretationmapeqv{\bigtuple{\duple{\tuple{y_1,y_2}^*\fmult},y_3}^*\fmult} 
+												{by definition of $\duple{}$ ??????} \\[0.2cm]
+\gatinterpretationmapeqv{\bigtuple{(\tuple{y_1,y_2}^*\fmult)\circ q(p_{M^3,1},M),y_3}^*\fmult}  
+												{by definition of $\duple{}$ ????????} \\[0.2cm]
 \gatinterpretationdetail{tm19}{\yM}
                         {\fmult(y_1,\fmult(y_2,y_3))}
 												{\duple{s(y_1),\tuple{y_2,y_3}^*\fmult}^*\fmult}
-												{lemma \ref{supplementarylemma}, (\ref{tm13}), (\ref{tm8}) and (\ref{tm17})} \\[0.2cm]
+												{lemma \ref{supplementarylemma}, (\ref{tm8}), (\ref{tm17}) and (\ref{tm13})} \\[0.2cm]
+\gatinterpretationmapeqv{\duple{s(y_1),s(\tuple{y_2,y_3}\circ \fmult)}^*\fmult}
+												{by lemma \lref{regardingfstarsection}} \\[0.2cm]
+\gatinterpretationmapeqv{\duple{s(y_1),s(\tuple{y_2,y_3}\circ \fmult \circ q(p_{M^2,1},M))}^*\fmult}
+												{by (s3)} \\[0.2cm]
+\gatinterpretationmapeqv{\bigtuple{y_1,\tuple{y_2,y_3}\circ \fmult \circ q(p_{M^2,1},M)}^*\fmult}
+												{by  lemma \lref{duplestuplelemma}} \\[0.2cm]
+%\gatinterpretationmapeqv{\bigtuple{y_1, (\tuple{y_2,y_3}^*\fmult) \circ q(p_{M^3,M},M^2) \circ q(p_{M^2,1},M)}^*\fmult}
+%												{by definition of $^*$} \\[0.2cm]
 \gatinterpretationmapeqv{\bigtuple{y_1,(\tuple{y_2,y_3}^*\fmult)\circ q(p_{M^3,1},M)}^*\fmult} 
-												{lemma \ref{thedupletuplelemma}   and axiom (s3) (twice)}\\[0.2cm]
-%												\rowcolor{lightergrey}
+												{by definition of $^*$ and (q5)}\\[0.2cm]
 \gatinterpretationaxcond{tmax1}{\wM}{\fmult(unit,w)=w}{\tuple{p_M \circ unit,id_M}^*\fmult=s(id_M)}{(iv), (\ref{tm15}) and (\ref{tm3})} \\[0.2cm]
 \arrayrulecolor{white}\hline
 %\gatinterpretationaxeqv {\tuple{p_M \circ unit,id_M}\comp \duple{\fmult}=id_M}{could push transform back?} \\
