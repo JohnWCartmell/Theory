@@ -491,7 +491,7 @@ First see that for any $z$ we can prove $(f^*g)^*(f^*z)=f^*(g^*z)$ as follows
 \end{align*}
 \end{proof}
 
-\begin{lemma} \commentary{the general case can be specialised to sections and to weakenings - these separately stated }
+\begin{lemma}
 \llabel{stardistributesonmorophismslemma}
 If $f$, $g$ and $h$ are morphisms of a contextual category \catcw such that $f^*g$ and $g^*h$ are both defined then
 \begin{equation}
@@ -659,7 +659,7 @@ lhs \circ \qfgh \circ q(g,z_2) &= \lhs \circ q(q(f,y_1),g^*z_2)\circ q(g,z_2) &&
 \end{proof}
 
 A special case of this lemma is as follows:
-\begin{lemma} \commentary{simple corollary}
+\begin{lemma} 
 \llabel{stardistributesonsections}
 For all objects $x_p \base x \leq y_p \base y \leq z_p \base z$ in \catc, for all sections $f: x_p \morph x$ and $g: y \morph y_p$, 
 \begin{enumerate}[(i)]
@@ -682,16 +682,12 @@ For all objects $x_p \base x \leq y_p \base y \leq z_p \base z$ in \catc, for al
 % sfglemma ****************************************************************************
 \begin{lemma}
 \llabel{sfglemma}
-If $f:A \morph B$ and $g:B\morph C$ in a contextual category \catcw and if $C \in Cover(B)$ then \commentary{is $ft$ defined anywhere?}
-\begin{equation}
-\label{sgflemmagoalone}
-ft(f\circ g)^*C = f^*(ft(g)^*C)
-\end{equation}
-and 
+If $f:A \morph B$ and $g:B\morph C$ in a contextual category \catcw and if $C \in Cover(B)$ then
 \begin{equation}
 \label{sgflemmagoaltwo}
-s(f\circ g)=f^*s(g)
+f^*s(g)=s(f\circ g)
 \end{equation}
+\iffalse
 where $ft(g) = g \circ p_B$ and  $ft(f \circ g) = f \circ g \circ p_B$ so that we have
 \begin{displaymath}
 \begin{array}{ccp{1.7cm}cp{1.7cm}c}
@@ -716,21 +712,14 @@ ft(f\circ g)^*C=\kern-10pt&\Rnode{TL}{f^*(ft(g)^*C)} & & \Rnode{TC}{ft(g)^*C}   
 }
 \end{displaymath}
 in \catc.
+\fi
 \end{lemma}
 \begin{proof}
-That (\ref{sgflemmagoalone}) holds follows by axiom (q4).
-\highlight{Change to use} lemma \lref{regardingfstarsection}. \commentary{perhaps}
-
-To show that (\ref{sgflemmagoaltwo}) holds remember that $s(f \circ g)$is the unique\commentary{have I proved this?} section of $ft(f \circ g)^*C$
-such that $s(f \circ g) \circ q(f \circ g \circ p_C,C) = f\circ g$. Therefore it suffices to show that
-$f^*s(g) \circ q(f \circ g \circ p_C,C) = f\circ g$ and this we can show as follows:
 \begin{align*}
-(f^*s(g)) \circ q(f \circ g \circ p_C,C) &= (f^*s(g)) \circ q(f ,(g \circ p_C)^*C) \circ q(g \circ p_C ,C) &&\mbox{by axiom (q5)} \\
-                             &= f \circ s(g) \circ q(g \circ p_C ,C)                   &&\mbox {from defn. of $f^*s(g)\highlight{EXPAND}$}\\
-                                                                                     &= f \circ g                                              &&\mbox {by axiom (s2)}
-\end{align*}
+f^*s(g)  &= s(f \circ s(g)) &&\mbox{by lemma \lref{regardingfstarsection}} \\
+         &= s(f \circ g)    &&\mbox {by lemma \lref{sfsglemma}}     
+\end{align*}                                                                               
 \end{proof}
-
 
 \subsection{The $\crossx{}{}{}$ notation}
 
@@ -846,7 +835,7 @@ $\crossx{x}{(\crossx{y}{z}{w})}{w} = \crossx{(\crossx{x}{y}{w})}{z}{w}$ as shown
 \vspace{0.15cm}
 \begin{lemma}
 \llabel{crossstardistributivitylemma}
-\commentary{This is the metaGAT idenity but do we need to replace $x_p$ by any $w$, $w < x$?}
+\commentary{This is the metaGAT idenity but \highlight{do we need} to replace $x_p$ by any $w$, $w < x$?}
 For all objects $x_p \base x$, and for all objects $y_p \base y \leq z_P \base z$ in \catc, 
 for all sections $g:y_p \morph y$ in \catc, 
 \begin{enumerate}[(i)]
@@ -891,7 +880,7 @@ s(p_{a_{n},a_{i}})^*...s(p_{a_{n},a_1})^*(\crossx{a_{n}}{a_j}{1})
 \end{lemma}
 \begin{proof}
 By induction on $i$. 
-In the case of $i=1$ we have\commentary{remove repetition: arrange so that induction starts from $n=0$ with nothing to prove.} 
+In the case of $i=1$ we have\commentary{\highlight{concision}: arrange so that induction starts from $n=0$ with nothing to prove.} 
 \begin{align*}
 s(p_{a_n,a_1})^*(\crossx{a_{n}}{a_j}{1})
 & = s(p_{a_n,a_1}) ^* {p_{a_n,1}} ^* a_j
@@ -1012,8 +1001,6 @@ $f_i \in Sect(\fipvectorstar(\crossx{a}{b_i}{1}))$.
 As we show in the next lemma,  in such a  cascade, for each $i$, 
 $\fipvectorstar(\crossx{a}{b_i}{1} \in Cover(a)$ and so in such a cascade there are the following objects
 and morphisms:
-\commentary{Do I need a lemma to say that $^*$ maps section to sections?}
-
 \newcommand{\ncdotdotdot}[2]
 {\ncline[linestyle=none]{#1}{#2} 
  \ncput[nrot=:U]{\Large$ \hdots$}
@@ -1155,7 +1142,7 @@ we have the following objects and morphisms in \catc:
 \end{displaymath}
 \end{proof}
 
-\begin{lemma} \commentary{moved from later}
+\begin{lemma}
 \llabel{cascadedpullbackscohere}
 If $a$ is any object of a contextual category \catcw, if $1 \base b_1 ... \base b_n$ and $1 \base c_1 ... \base c_m$ in \catc, for some $n,m \ge 1$, 
 if $\tuple{\fn}$ is a \term{cascade} from $a$ to $b_n$ and
