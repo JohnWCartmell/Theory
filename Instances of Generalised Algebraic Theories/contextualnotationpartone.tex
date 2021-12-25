@@ -209,19 +209,19 @@ s(f \circ q(g,z))=s(f)
 
 \begin{lemma}
 \llabel{footandstactic}
-If $f: A \morph B$ and $f':A \morph B$ in a contextual category \catcw then if 
-$f \circ p_B$ = $f' \circ p_B$ and $s(f) = s(f')$ then $f=f'$.
+If $f: x \morph y$ and $f':x \morph y$ in a contextual category \catcw then if 
+$f \circ p_y$ = $f' \circ p_y$ and $s(f) = s(f')$ then $f=f'$.
 \end{lemma}
 \begin{proof}
 Follows by axiom (s2) since we have:
-$f = s(f) \circ q(f \circ p_B,B)  = s(f') \circ q(f' \circ p_B,B) = f'$.
+$f = s(f) \circ q(f \circ p_y,y)  = s(f') \circ q(f' \circ p_y,y) = f'$.
 \end{proof}
 
 From which follows:
 \begin{lemma}
 \llabel{stactic}
-If $A$ is any object of a contextual category \catcw and if $B$ is an object such that $1 \base B$ in \catcw then
-if $f: A \morph B$ and $f':A \morph B$ in  \catcw then $f=f'$ iff $s(f) = s(f')$.
+If $x$ is any object of a contextual category \catcw and if $y$ is an object such that $1 \base y$ in \catcw then
+if $f: x \morph y$ and $f':x \morph y$ in  \catcw then $f=f'$ iff $s(f) = s(f')$.
 \end{lemma}
 
 One more useful lemma:
@@ -682,37 +682,11 @@ For all objects $x_p \base x \leq y_p \base y \leq z_p \base z$ in \catc, for al
 % sfglemma ****************************************************************************
 \begin{lemma}
 \llabel{sfglemma}
-If $f:A \morph B$ and $g:B\morph C$ in a contextual category \catcw and if $C \in Cover(B)$ then
+If $f:x \morph y$ and $g:y\morph z$ in a contextual category \catcw and if $z \in Cover(y)$ then
 \begin{equation}
 \label{sgflemmagoaltwo}
 f^*s(g)=s(f\circ g)
 \end{equation}
-\iffalse
-where $ft(g) = g \circ p_B$ and  $ft(f \circ g) = f \circ g \circ p_B$ so that we have
-\begin{displaymath}
-\begin{array}{ccp{1.7cm}cp{1.7cm}c}
-ft(f\circ g)^*C=\kern-10pt&\Rnode{TL}{f^*(ft(g)^*C)} & & \Rnode{TC}{ft(g)^*C}          \\ [1.7cm]
-&\Rnode{BL}{A}         & & \Rnode{BC}{B} && \Rnode{BR}{C}
-\end{array}
-\mbox{
-\ncsar{TL}{BL}
-\ncsar{TC}{BC}
-\ncarr{BL}{BC}
-\blabel{f}
-\ncarr{BC}{BR}
-\blabel{g}
-\ncarr{TL}{TC}
-\alabel{q(f,ft(g)^*C)}
-\ncarr{TC}{BR}
-\alabel{q(ft(g),C)}
-\ncleftsimplesection{BL}{TL}
-\alabel{s(f\circ g)=f^*s(g)}
-\ncleftsimplesection{BC}{TC}
-\alabel{s(g)}
-}
-\end{displaymath}
-in \catc.
-\fi
 \end{lemma}
 \begin{proof}
 \begin{align*}
@@ -934,59 +908,58 @@ s(p_{a_{n},a_{i}})^*...s(p_{a_{n},a_1})^*(\crossx{a_{n}}{a_j}{1})
 \end{align*}
 \end{proof}
 
-
 \begin{lemma}
 \llabel{crosssectionlemma}
 If 
 \raisebox{-0.15cm}{
 $
 \begin{array}{ c c c}
-\Rnode{B}{B} &              & \Rnode{Bp}{B'} \\[1cm]
-             & \Rnode{A}{A} &     
-\mbox{\ncsar{B}{A}
-\ncsar{Bp}{A}
-%\ncarr[-30]{A}{Bp}
-\ncrightsimplesection{A}{Bp}
+\Rnode{y}{y} &              & \Rnode{Bp}{y'} \\[1cm]
+             & \Rnode{x}{x} &     
+\mbox{\ncsar{y}{x}
+\ncsar{Bp}{x}
+%\ncarr[-30]{x}{Bp}
+\ncrightsimplesection{x}{Bp}
 \blabel{g}}
 \end{array}
 $}
-in a contextual category \catcw and if $g$ is a section of $B'$ (i.e. if $g \circ p_{B'}= id_A$) so that we have 
+in a contextual category \catcw and if $g$ is a section of $y'$ (i.e. if $g \circ p_{y'}= id_x$) so that we have 
 \begin{equation*}
 \begin{array}{ c c c}
-\Rnode{BBp}{\crossx{B}{B'}{A}} \\[1.3cm]
-\Rnode{B}{B} &              & \Rnode{Bp}{B'} \\[1.1cm]
-             & \Rnode{A}{A} &
+\Rnode{BBp}{\crossx{y}{y'}{x}} \\[1.3cm]
+\Rnode{y}{y} &              & \Rnode{Bp}{y'} \\[1.1cm]
+             & \Rnode{x}{x} &
 \mbox{
-\ncsar{BBp}{B}
-\ncrightcrosssection{B}{BBp}
-\blabel{\crossx{B}{g}{A}}
-\ncsar{B}{A}
-\blabel{p_B}
-\ncsar{Bp}{A}
-\ncrightsimplesection{A}{Bp}
+\ncsar{BBp}{y}
+\ncrightcrosssection{y}{BBp}
+\blabel{\crossx{y}{g}{x}}
+\ncsar{y}{x}
+\blabel{p_y}
+\ncsar{Bp}{x}
+\ncrightsimplesection{x}{Bp}
 \blabel{g}
 \ncarr[30]{BBp}{Bp}
-\alabel{q(p_B,B')}
-}														
+\alabel{q(p_y,y')}
+}                                                                                   
 \end{array}
 \end{equation*}
 in \catcw,  then
 \begin{equation}
 \label{crosssectionlemmatarget}
-\crossx{B}{g}{A} = s(p_B \circ g).
+\crossx{y}{g}{x} = s(p_y \circ g).
 \end{equation} 
 \end{lemma}
 \begin{proof}
-$\crossx{B}{g}{A}$ is defined to be the unique section of $\crossx{B}{B'}{A}$ such that $(\crossx{B}{g}{A}) \circ q( p_B,B') = p_B \circ g$ and
+$\crossx{y}{g}{x}$ is defined to be the unique section of $\crossx{y}{y'}{x}$ such that $(\crossx{y}{g}{x}) \circ q( p_y,y') = p_y \circ g$ and
 so (\ref{crosssectionlemmatarget}) follows 
-because $s(p_B \circ g)$ is a section of $\crossx{B}{B'}{A}$ (because by definition it is a section
-of $(p_B \circ g \circ p_{B'}) ^* B'$ and this simplifies, because $g$ is a section, to  ${p_B} ^* B'$ i.e to $\crossx{B}{B'}{A}$ )
+because $s(p_y \circ g)$ is a section of $\crossx{y}{y'}{x}$ (because by definition it is a section
+of $(p_y \circ g \circ p_{y'}) ^*y'$ and this simplifies, because $g$ is a section, to  ${p_y} ^*y'$ i.e to $\crossx{y}{y'}{x}$ )
 and because
-$$s(p_B \circ g) \circ q( p_B,B') = p_B \circ g$$
+$$s(p_y \circ g) \circ q( p_y,y') = p_y \circ g$$
 because
 \begin{align*}
-lhs &=  s(p_B \circ g) \circ q( p_B \circ g \circ p_{B'}, B') && \mbox{since $g$ is a section,} \\
-    &=  p_B \circ g                                           && \mbox{by axiom (s2).} 
+lhs &=  s(p_y \circ g) \circ q( p_y \circ g \circ p_{y'}, y') && \mbox{since $g$ is a section,} \\
+    &=  p_y \circ g                                           && \mbox{by axiom (s2).} 
 \end{align*}
 \end{proof}
 
