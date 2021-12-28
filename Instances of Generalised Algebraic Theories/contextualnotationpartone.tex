@@ -807,21 +807,18 @@ $\crossx{x}{(\crossx{y}{z}{w})}{w} = \crossx{(\crossx{x}{y}{w})}{z}{w}$ as shown
 \ncaarr{q(\pc{x}{w},\crossx{y}{z}{w})}{D2}{yz}
 
 \vspace{0.15cm}
+
 \begin{lemma}
 \llabel{crossstardistributivitylemma}
-\commentary{This is the metaGAT idenity but \highlight{do we need} to replace $x_p$ by any $w$, $w < x$?}
-For all objects $x_p \base x$, and for all objects $y_p \base y \leq z_P \base z$ in \catc, 
-for all sections $g:y_p \morph y$ in \catc, 
+If $w,x,y$ and $z$ are objects of a contextual category \catcw such that $w < x$ and  $w < y < z$ then  
 \begin{enumerate}[(i)]
-\item
+\item for all sections $g \in Sect(y)$ 
 \begin{equation*}
-\label{metagatcrossstarcross}
-(\crossx{x}{g}{x_p})^*(\crossx{x}{z}{x_p})=\crossx{x}{(g^*z)}{x_p}
+(\crossx{x}{g}{w})^*(\crossx{x}{z}{w})=\crossx{x}{(g^*z)}{w}
 \end{equation*}
-\item for all sections $h:z_p \morph z$ in \catc,
+\item and for all sections $h \in Sect(z)$ 
 \begin{equation*}
-\label{metagatcrossstarcrosssection}
-(\crossx{x}{g}{x_p})^*(\crossx{x}{z}{x_p})=\crossx{x}{(g^*h)}{x_p}.
+(\crossx{x}{g}{w})^*(\crossx{x}{z}{w})=\crossx{x}{(g^*h)}{w}.
 \end{equation*}
 \end{enumerate}
 \end{lemma}
@@ -965,184 +962,4 @@ lhs &=  s(p_y \circ g) \circ q( p_y \circ g \circ p_{y'}, y') && \mbox{since $g$
 
 
 \subsection{Cascades of sections}
-The following definition and its accompanying lemma are used when reasoning about the interpretations of theories. 
-\begin{definition}
-If $a$ is any object of a contextual category \catcw and if $1 \base b_1 ... \base b_n$ in \catc, for some $n \ge 1$, 
-then define a \term{cascade} from $a$ to $b_n$ to consist of an n-tuple of sections $\fn$ of \catc, such that \foreachi, 
-$f_i \in Sect(\fipvectorstar(\crossx{a}{b_i}{1}))$.
-\end{definition}
-As we show in the next lemma,  in such a  cascade, for each $i$, 
-$\fipvectorstar(\crossx{a}{b_i}{1} \in Cover(a)$ and so in such a cascade there are the following objects
-and morphisms:
-\newcommand{\ncdotdotdot}[2]
-{\ncline[linestyle=none]{#1}{#2} 
- \ncput[nrot=:U]{\Large$ \hdots$}
-}
-\begin{displaymath}
-\begin{array}{ c p{0.4cm} c p{0.2cm} c p {0.2cm} c } 
-\Rnode{fntarget}{\fnonestar...\ftwostar\fonestar(\crossx{a}{b_n}{1})}
-&&\Rnode{f3target}{\ftwostar\fonestar(\crossx{a}{b_3}{1})}
-&&\Rnode{f2target}{\fonestar(\crossx{a}{b_2}{1})}  
-&& \Rnode{ab1}{\crossx{a}{b_1}{\Rnode{f1target}{1}}}     \\[2cm]
-      &&     &&   \ovalnode[linestyle=none]{a}{a}     &&            
-\makebox[0cm]{
-\ncarc[arcangle=-5,nodesepA=15pt,offsetA=-2pt,nodesepB=3pt,offsetB=-5pt]{->}{a}{f1target}
-\blabel{f_1}[0.6]
-\ncarc[arcangle=10,nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{a}{f2target}
-\alabel{f_2}[0.4]
-\ncarc[arcangle=10,nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{a}{f3target}
-\alabel{f_3}[0.65]
-\ncarc[arcangle=7,nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{a}{fntarget}
-\alabel{f_n}[0.75][0]
-\ncdotdotdot{fntarget}{f3target}
-\setlength{\sarnodesepB}{10pt}
-\ncsar{fntarget}{a}
-\ncsar{f3target}{a}
-\ncsar{f2target}{a}
-\ncsar{f1target}{a}
-\sarreset
-}
-\end{array}
-\hspace{2cm}
-\begin{array}{c}
-\Rnode{bn}{b_n}             \\[1.0cm]
-\Rnode{b2}{b_2}             \\[0.6cm]
-\Rnode{b1}{b_1}             \\[0.6cm]
-\Rnode{abs}{1}              \\
-\makebox[0cm]{
-\ncsar{b}{bn}
-\ncdotdotdot{bn}{b2}
-\ncsar{b2}{b1}
-\ncsar{b1}{abs}
-}
-\end{array}
-\end{displaymath}
-
-
-
-\begin{lemma}
-\llabel{cacscadelemma}
-If $a$ is an object of a contextual category \catc, if $1 \base b_1 ... \base b_n$ in \catcw and if $f_1,...f_n$ is a cascade from $a$ to $b_n$ in  \catcw then \foreachi, $a \base \fipvectorstar(\crossx{a}{b_i}{1})$ in \catc.
-Additionally if $b$ is some object of \catcw such that $b_n \base b$ in \catcw then 
- $a \base \fnvectorstar(\crossx{a}{b}{1})$ in \catcw and
-if $g$ is a section of $b$ then $\fnvectorstar(\crossx{a}{g}{1})$ is a section of $\fnvectorstar(\crossx{a}{b}{1})$.
-\end{lemma}
-\begin{proof}
-From the definition of $\crossx{}{}{1}$ it follows that $a \base \crossx{a}{b_1}{1} \base \crossx{a}{b_2}{1} ... \base \crossx{a}{b_n}{1} \base \crossx{a}{b}{1}$ in \catc. Now since $f_1 \in Sect(\crossx{a}{b_1}{1})$ it follows from the definition of the extended $^*$ notation
-that $a \base f_1^*(\crossx{a}{b_2}{1})  ... \base f_1^*(\crossx{a}{b_n}{1}) \base f_1^*(\crossx{a}{b}{1})$ in \catc.
-
-Similarly, since $f_2 \in Sect(f_1^*(\crossx{a}{b_2}{1}))$ it follows 
-that $a \base f_2^*f_1^*(\crossx{a}{b_3}{1})  ... \base f_2^*f_1^*(\crossx{a}{b_n}{1}) \base f_2^*f_1^*(\crossx{a}{b}{1})$ in \catc.
-
-If we continue in this way we see (by induction,  if we were to be formal about it) that \foreachi, $f_i \in Sect(\fipvectorstar(\crossx{a}{b_i}{1}))$
-and that $a \base \fnvectorstar(\crossx{a}{b}{1})$ in \catc. In fact we see that
-we have the following objects and morphisms in \catc:
-
-\begin{displaymath}
-\begin{array}{c  c p{0.4cm} c p{0.2cm} c p {0.2cm} c  p{0.5cm} c}
-&&&                                               &&                                           && \Rnode{ab}{\crossx{a}{b}{1}}    &&                \\[1.2cm]
-&&&                                               &&  \Rnode{f1ab}{\fonestar(\crossx{a}{b}{1})}
-%\rule[-1cm]{3pt}{1pt}
-&& \Rnode{abn}{\crossx{a}{b_n}{1}} &&                \\[1.2cm]
-&&&                                               &&  \Rnode{f1abn}{\fonestar(\crossx{a}{b_n}{1})}&&                              &&                \\[0.1cm]
-&&&                                               &&                                           && \Rnode{ab3}{\crossx{a}{b_3}{1}} &&                \\[1.2cm]
-&\Rnode{fn1axb}{\fnonestar...\ftwostar\fonestar(\crossx{a}{b}{1})}&& &&\Rnode{f1axb3}{\fonestar(\crossx{a}{b_3}{1})}  && \Rnode{ab2}{\crossx{a}{b_2}{1}}  &&           \\[1.2cm]
-\Rnode{ftarget}{\fnstar...\ftwostar\fonestar(\crossx{a}{b}{1})}\ \ &\Rnode{fntarget}{\fnonestar...\ftwostar\fonestar(\crossx{a}{b_n}{1})}&&
-\Rnode{f3target}{\ftwostar\fonestar(\crossx{a}{b_3}{1})} &&\Rnode{f2target}{\fonestar(\crossx{a}{b_2}{1})}  && \Rnode{ab1}{\crossx{a}{b_1}{\Rnode{f1target}{1}}}     \\[1.2cm]
-&&&                                               &&                                           &&                                                       \\[-6.4cm] %%% HEE HEE HE
-&&&																								&&                                           &&                         && \Rnode{b}{b}                \\[1.2cm]
-&&&																								&&                                           &&                         && \Rnode{bn}{b_n}             \\[0.3cm]
-&&&                                               &&                                           &&                         &&                             \\[0.3cm]
-&&&																								&&                                           &&                         && \Rnode{b3}{b_3}             \\[1.2cm]
-&&&																								&&                                           &&                         && \Rnode{b2}{b_2}             \\[1.2cm]
-&&&																								&&                                           &&                         && \Rnode{b1}{b_1}             \\[0.3cm]
-&&&		\ovalnode[linestyle=none]{a}{a}					    &&                                           &&                         &&                             \\[1.1cm]
-&&&                                               &&                                           && \Rnode{abs}{1} \ \ \ \ \ \ \ \ &&                      \\           
-\makebox[0cm]{
-\ncarr{ab}{b}
-\ncarr{abn}{bn}
-\ncarr{f1ab}{ab}
-\ncarr{f1abn}{abn}
-\ncarr{ab3}{b3}
-\ncarr{ab2}{b2}
-\ncarr{ab1}{b1}
-\ncarr{f1axb3}{ab3}
-\ncarr{f2target}{ab2}
-\ncarr{f3target}{f1axb3}
-\ncarr{ftarget}{fn1axb}
-\ncdotdotdot{fn1axb}{f1ab} 
-\ncdotdotdot{fntarget}{f1abn}
-\ncdotdotdot{fntarget}{f3target}
-%
-\ncarc[arcangle=-20,nodesepA=5pt,offsetA=-3pt,nodesepB=3pt,offsetB=-4pt]{->}{bn}{b}
-\blabel{g}[0.6]
-\ncarc[arcangle=-5,nodesepA=15pt,offsetA=-2pt,nodesepB=3pt,offsetB=-5pt]{->}{a}{f1target}
-\blabel{f_1}[0.6]
-\ncarc[arcangle=10,nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{a}{f2target}
-\alabel{f_2}[0.4]
-\ncarc[arcangle=10,nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{a}{f3target}
-\alabel{f_3}[0.6]
-\ncarc[arcangle=7,nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{a}{fntarget}
-\alabel{f_n}[0.75][0]
-\ncarc[arcangle=7, nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{a}{ftarget}
-\alabel{\fnvectorstar g}[0.6]
-\setlength{\sarnodesepB}{10pt}
-\ncsar{fntarget}{a}
-\ncsar{ftarget}{a}
-\ncsar{f3target}{a}
-\ncsar{f2target}{a}
-\ncsar{f1target}{a}
-\sarreset
-\ncsar{fn1axb}{fntarget}
-%left but two tower
-\ncsar{f1ab}{f1abn}
-\ncdotdotdot {f1abn}{f1axb3}
-\ncsar{f1axb3}{f2target}
-%left but one tower
-\ncsar{ab}{abn}
-\ncdotdotdot{abn}{ab3}
-\ncsar{ab3}{ab2}
-\ncsar{ab2}{ab1}
-%left tower
-\ncsar{b}{bn}
-\ncdotdotdot{bn}{b3}
-\ncsar{b3}{b2}
-\ncsar{b2}{b1}
-\ncsar{b1}{abs}
-\nccdar{a}{abs}
-}
-\end{array}
-\end{displaymath}
-\end{proof}
-
-\begin{lemma}
-\llabel{cascadedpullbackscohere}
-If $a$ is any object of a contextual category \catcw, if $1 \base b_1 ... \base b_n$ and $1 \base c_1 ... \base c_m$ in \catc, for some $n,m \ge 1$, 
-if $\tuple{\fn}$ is a \term{cascade} from $a$ to $b_n$ and
-if $\tuple{\gm}$ is a \term{cascade} from $b_n$ to $c_m$ and if  $c_m \base c$ in \catcw then
-%\newcommand{\clausethreelhs}{\big(\fmvectorstar (\crossx{a}{g_n}{1})\big)^* ... \big(\fmvectorstar (\crossx{a}{g_1}{1})\big) ^* \big(\crossx{b_m}{c}{1}\big)}
-%\newcommand{\clausethreerhs}{\fmvectorstar \big(  \crossx{a}{(\gnvectorstar(\crossx{b_m}{c}{1}))}{1} \big)}
-\begin{equation}
-\label{cascadedpullbackscohereonobjects}
-\big(\fmvectorstar (\crossx{a}{g_n}{1})\big)^* ... \big(\fmvectorstar (\crossx{a}{g_1}{1})\big) ^* \big(\crossx{b_m}{c}{1}\big) 
-= \fmvectorstar \big(  \crossx{a}{(\gnvectorstar(\crossx{b_m}{c}{1}))}{1} \big)                                    
-\end{equation}
-and if  $h$ is any section of $c$ then 
-\begin{equation}
-\label{cascadedpullbackscohereonsections}
-\big(\fmvectorstar (\crossx{a}{g_n}{1})\big)^* ... \big(\fmvectorstar (\crossx{a}{g_1}{1})\big) ^* \big(\crossx{b_m}{h}{1}\big) 
-= \fmvectorstar \big(  \crossx{a}{(\gnvectorstar(\crossx{b_m}{h}{1}))}{1} \big)                                    
-\end{equation}
-\end{lemma}
-\begin{proof}
-The first follows by repeated application of identities \lref{stardistributesonsections} (i) and \lref{crossstardistributivitylemma} (i), 
-the second, similarly, by repeated application of identities \lref{stardistributesonsections} (ii) and \lref{crossstardistributivitylemma} (ii).
-\end{proof}
-\begin{lemma}
-\llabel{cascadeprojectionlemma}
-If $a$ is any object of a contextual category \catcw, if $1 \base b_1 ... \base b_n$ in \catc, for some $n \ge 1$, 
-if $\tuple{\fn}$ is a \term{cascade} from $a$ to $b_n$ then \foreachi,
-\begin{equation}
-\fnvectorstar(\crossx{a}{s(p_{b_n,b_i})}{1})=f_i.                                    
-\end{equation}
-\end{lemma}
+\input{cascades.tex}
