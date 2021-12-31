@@ -21,11 +21,13 @@ For $m \geq 0$, if  $Q$ and $\yOmega{m}$ are contexts and if $\tuple{\sm}$ is a 
 then we will define the mapping of  $\tuple{\sm}$ under $I$ to be the tuple of sections
 $\tuple{I(r_{s_1}),...I(r_{s_m})}$, 
 where \foreachj, $r_{s_j}$ is the derived rule \IsOmega{j}.
-We will say that the realisation $\tuple{\sm}$ is mapped to a cascade iff
+We will say that the realisation $\tuple{\sm}$ is mapped to a cascade iff $I(Q)$ is defined and
  $I(r_{s_j})$ is defined, \foreachj, and 
  $\tuple{I(r_{s_1}),...I(r_{s_m})}$ is a cascade of sections i.e. \foreachj, 
  $I(r_{s_j}) \in Sect(I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_{\Omega_j})}{1}))$,
-where $r_{\Omega_j}$ is the derived rule \IOmega{j}. Note that according to this description the empty realisation, which is a realisation of the empty context with respect to any other context, is deemed to map to a cascade under $I$.  \commentary{Do we need modify defn. of cascade so that empty tuple is a cascade?}
+where $r_{\Omega_j}$ is the derived rule \IOmega{j}. Note that according to this description 
+the empty realisation considered as a realisation of the empty context wrt a context $Q$ is deemed to map to a cascade under $I$ provided that $I(Q)$
+is defined.  
 \end{enumerate}
 \end{numbereddefinition}
 \newcommand{\smMappedToCacscade}{
@@ -72,10 +74,9 @@ where $r_{s_j}$ and $r_{\Omega_j}$ defined as above (in clause (i)), or
 \item in the case that $s$ is the variable $y_j$, \forsomej, so that $r_s$ is the rule \gatdisplayrule{\yOmega{m}}{\ofT{y_j}{\Omega}},
 $$I(r_s) = s(p_{r_{\Omega_m},r_{\Omega_j}})$$
 By lemma \lref{sofplemma}, $s(p_{r_{\Omega_m},r_{\Omega_j}}))$ is a section of the object $\crossx{r_{\Omega_m}}{r_{\Omega_j}}{r_{\Omega_{j-1}}}$.
-\commentary{By implication $I(r_\Omega)=\crossx{r_{\Omega_m}}{r_{\Omega_j}}{r_{\Omega_{j-1}}}$}  
-\commentary{and, btw: $s(id_{r_{\Omega_m}})=\delta_{r_{\Omega_m}}$}
 Note that $p_{x,x}$ is defined to be $id_{x}$ for any object $x$ of \catcw and so in the case of $j=m$, $r_s$
 is mapped to   $s(id_{r_{\Omega_m}})$.
+By implication $I(r_\Omega)=\crossx{r_{\Omega_m}}{r_{\Omega_j}}{r_{\Omega_{j-1}}}$. 
 \end{enumerate}
 
 \item \underline{\textbf{T=-rules}} 
@@ -339,6 +340,12 @@ and since we have from the inductive hypothesis that $\tuple{\sm[-1]}$ is a real
 we establish that
  $$\Imappedrule{Q}{\isT{\Omega_m[\SUBsFORy{m-1}]}}= I(r_{s_{m-1}})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_{\Omega_m})}{1}).$$
  \end{proof}
+Because every initial subtuple of a realisation is a realisation and every initial subtuple of a cascade is a cascade we have the following corollary:
+ \begin{corollary}
+ \llabel{subrealisationmapstocascade}
+ In the situation envisaged in the previous  lemma (lemma \lref{realisationmapstocascade}), \foreachj,
+ the realisation $\tuple{s_1,...s_j}$ is mapped by $I$ to a cascade. 
+ \end{corollary}
 
 \begin{lemma}
 \llabel{substitutioninterpretationlemma}
@@ -377,9 +384,9 @@ from condition (i)(a) of definition \lref{consistentinterpretation} and from the
 \label{omegaSubsmapping}
 \Imap{\targetruleone} = I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(r_{\Delta_n})}{I(r_\Omega)}{1})
 \end{equation}
-and thus\commentary{can we \highlight{reference} a lemma here?} that $I(r_{\Delta_n}) \base \Imap{\targetruleone}$ in \catcw as required by clause (a).
+and thus, by lemma \lref{cascadelemma}, that $I(r_{\Delta_n}) \base \Imap{\targetruleone}$ in \catcw as required by clause (a).
 
-In fact by the same argument and from the fact that \foreachj,  
+In fact by the same argument and from the fact that by corollary \lref{subrealisationmapstocascade}, \foreachj,  
 the realisation $\tuple{s_1,...s_{j-1}}$ is mapped to a cascade by $I$ and from lemma \lref{towerlemma} that tells us that 
 $r_{\Omega_j}$ is consistently interpreted by $I$ we have that
 $\displaystyle\Imappedrule{\xDelta{n}}{\isT{\Omega_j[\SUBsFORy{j-1}]}}$ is defined and 
@@ -388,7 +395,7 @@ $\displaystyle\Imappedrule{\xDelta{n}}{\isT{\Omega_j[\SUBsFORy{j-1}]}}$ is defin
 \Imappedrule{\xDelta{n}}{\isT{\Omega_j[\SUBsFORy{j-1}]}} 
 = I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{I(r_{\Delta_j})}{I(r_{\Omega_j})}{1})
 \end{equation}
-We use this fact in a moment in proof that clause (c) is satisfied.
+We use this fact in a moment in the demonstration that clause (c) is satisfied.
 
 Next, for clause (b), we are required to show that $r_{\Delta_n}$ is consistently interpreted by $I$. 
 This follows from the fact that 
@@ -405,7 +412,7 @@ By rearrangement of the lhs and by use of (\ref{omegaSubsmapping}) this means th
 \begin{multline}
 \label{ctarget}
 \Imappedrule{\xDelta{n}}{\isT{\Omega[s_1[\SUBtFORx{n}]|y_1,... s_m[\SUBtFORx{n}]|y_m]}} \\
-                =I(r_{t_n})^* ... I(r_{t_1})^*\big(\crossx{I(P)}{I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(r_{\Delta_n})}{I(r_\Omega)}{1})}{1}\big)
+            =I(r_{t_n})^* ... I(r_{t_1})^*\Big(\crossx{I(P)}{ \big( I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(r_{\Delta_n})}{I(r_\Omega)}{1}) \big) }{1}\Big)
 \end{multline}
 
 \newcommand{\IOmegaDoublySubstituted}[1]{\Omega_#1[\SUBsFORy{#1-1}][\SUBtFORx{n}]}
@@ -447,9 +454,9 @@ and we can use the initial assumption that $r_\Omega$ is consistently interprete
 to establish that
 \begin{multline}
      \Imappedrule{\xDelta{n}}{\isT{\Omega\big[s_1[\SUBtFORx{n}]|y_1,... s_m[\SUBtFORx{n}]|y_m\big]}} \\
-           =  \Big(I(r_{t_n})^*...I(r_{t_1})^*\big(\crossx{I(r_{\Delta_n})}{I(r_{s_m})}{1}\big)\Big)
+           =  \Big(I(r_{t_n})^*...I(r_{t_1})^*\big(\crossx{I(P)}{I(r_{s_m})}{1}\big)\Big)
                ^* ... 
-              \Big(I(r_{t_n})^*...I(r_{t_1})^*\big(\crossx{I(r_{\Delta_n})}{I(r_{s_1})}{1}\big)\Big)
+              \Big(I(r_{t_n})^*...I(r_{t_1})^*\big(\crossx{I(P)}{I(r_{s_1})}{1}\big)\Big)
                ^*\Big(\crossx{I(P)}{I(r_\Omega)}{1}\Big)
 \end{multline}
 the rhs of which can be rearranged using equation (\lref{cascadedpullbackscohereonobjects}) of lemma \ref{cascadedpullbackscohere}   so as to establish
@@ -519,20 +526,20 @@ This is established as follows:
 
 \begin{lemma}
 \llabel{Ibartowerlemma}
-If $\iI$ is an interpretation of generalised algebraic theory $U$ in contextual category \catc,
-Suppose that  $r_\Omega$ is a derived T-rule \ZOmega of a generalised algebraic theory $U$
-and suppose that \foreachj, $r_{\Omega_j}$ is the derived rule
+Suppose $\iI$ is an interpretation of generalised algebraic theory $U$ in contextual category \catc,
+that  $r_\Omega$ is a derived T-rule \ZOmega of a generalised algebraic theory $U$
+and that \foreachj, $r_{\Omega_j}$ is the derived rule
 \IOmega{j},
 if $\iI$ is an interpretation of $U$ in a contextual category \catcw
 such that $\Ibar(r_\Omega)$ is defined then
-$\Ibar(r_j)$ is defined \foreachj, and 
-$1 \base Ibar(r_1) \base  ... \base \Ibar(r_m) \base \Ibar(r)$ in \catc.
+$\Ibar(r_{\Omega_j})$ is defined \foreachj, and 
+$1 \base \Ibar(r_{\Omega_1}) \base  ... \base \Ibar(r_{\Omega_m}) \base \Ibar(r_\Omega)$ in \catc.
 \end{lemma}
 \begin{proof}
-It follows from the definition of $\Ibar$ that since $\Ibar(r)$ is defined that $\Ibar(r_m)$ is defined and that
-$\Ibar(r_m) \base \Ibar(r)$ in \catc. Now we can repeat and argue that $\Ibar(r_{m-1})$ is defined and that $\Ibar(r_{m-1}) \base \Ibar(r_m)$
-in \catc. By induction $1 \base \Ibar(r_1) \base  ... \base \Ibar(r_m) \base \Ibar(r)$ in \catc, as required. 
-\commentary{Have we proved $1 \base r_1$ ??}
+It follows from the definition of $\Ibar$ that since $\Ibar(r_\Omega)$ is defined that $\Ibar(r_{\Omega_m})$ is defined and that
+$\Ibar(r_{\Omega_m}) \base \Ibar(r_\Omega)$ in \catc. Now we can repeat and argue that $\Ibar(r_{\Omega_{m-1}})$ is defined and that $\Ibar(r_{\Omega_{m-1}}) \base \Ibar(r_{\Omega_m})$
+in \catc. By induction $\Ibar(r_{\Omega_1}) \base  ... \base \Ibar(r_{\Omega_m}) \base \Ibar(r_\Omega)$ in \catc, as required. 
+That $1 \base \Ibar(r_{\Omega_1})$ follows because $\Ibar$ is defined to map the empty context to the object $1$.
 \end{proof}
 
 
@@ -736,23 +743,21 @@ if the rule $r_{\Delta}$ is consistently interpreted by $\Ibar$ then the rule $r
     \item We have to show that conditions (a), (b) and (c) of \clause{i} hold.
     \begin{enumerate}[(a)]
         \item We need show that $\Ibar(r_A)$ is defined and that $\Ibar(r_{\Delta_n})$ is defined and that $\Ibar(r_{\Delta_n}) \base \Ibar(r_A)$ in \catc.
-        That $\Ibar(r_A)$ is defined is shown in lemma \lref{Ibarintro1}. That $\Ibar(r_{\Delta_n}) \base \Ibar(r_A)$ in \catc follows from 
-        the fact that $\Ibar(r_A)$ is defined and the implication that precondition (b) of clause (i) of the definition of $\Ibar$ must therefore be met.
+        That $\Ibar(r_A)$ is defined is shown in lemma \lref{Ibarintro1}. That $\Ibar(r_{\Delta_n}) \base \Ibar(r_A)$ in \catcw follows from 
+        the fact that $\Ibar(r_A)$ is defined and from the implication that precondition (b) of clause (i) of the definition of $\Ibar$ must therefore be met.
         \item We need show that $r_{\Delta_n}$ is consistently interpreted by $\Ibar$. This we have as an assumption.
         \item we need show that for all contexts $Q$ and for any realisation $\tuple{s_1,...s_n}$ of $\xDelta{n}$ wrt $Q$
         which is mapped to a cascade by $\Ibar$,
         $$\ibarmappedrule{Q}{A(s_1,...s_n)}=I(r_{s_n})^*I(r_{s_1})^*\big(\crossx{I(Q)}{I(r_A)}{1}\big)$$
         where $r_{s_i}$, \foreachi, is the rule \gatdisplayrule{Q}{\ofT{s_i}{\Delta_i[s_{i-1}|x_{i-1},...s_1|x_1]}}.
-        Now this follows from the definition of $\Ibar$ provided that we can show that the preconditions (a), (b) and (c). 
+        This follows from the definition of $\Ibar$ provided that we can show that the preconditions (a), (b) and (c). 
         We can do this as follows.
         \begin{enumerate}[(a)]
-            \item That $\Ibar$ is defined at the context $Q$. 
-            This follows because $\Ibar$ is defined at the rule $r_{s_1}$. 
-            \highlight{Assumption} \highlight{ hat $n \geq 1$!!!}\commentary{patch required to definitions maybe}
+            \item That $\Ibar$ is defined at the context $Q$ follows from the definition of realisation $\sntuple$ being mapped to a cascade.
             \item That \foreachi, the rule $\IDelta{i}$, which we denote $r_{\Delta_i}$, is mapped by $\Ibar$ to some object $\Ibar(r_{\Delta_i})$ of \catcw
             and $1 \base \Ibar(r_{\Delta_1}),...\Ibar(r_{\Delta_n}) \base \iI_{sort}(A)$ in \catcw. 
-            This follows because we have shown that $\Ibar(r_a)$ is defined
-            and that $\Ibar(r_a)= \iI_{sort}(A)$. \highlight{CHECK}
+            This follows from the definition of $\Ibar$ because we have shown that $\Ibar(r_a)$ is defined
+            and that $\Ibar(r_A)= \iI_{sort}(A)$. 
            \item That $\tuple{s_1,...s_n}$ is mapped to a cascade by $\Ibar$. This is one of the assumptions.
         \end{enumerate}
     \end{enumerate}
@@ -820,13 +825,12 @@ We have to show that if $\Ibar$ is defined for and consistently interprets any s
 then so to is $\Ibar$ defined for and consistently interprets each associated rule $r_{x_i}$. 
 We show that  if it is the case for $r_{x_j}$ all $j <i$ 
 then it follows that it is the case for each rule \gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}}, which we shall denote  $r_{x_i}$. 
-In so doing we establish that it holds for all $i \leq n +1 $, as required. \commentary{pull through new conditions for consistent interpretation}
+In so doing we establish that it holds for all $i \leq n +1 $, as required. 
 
-So, suppose that for each $j$, $j < i$, that $\Ibar$ is defined for and consistently interprets the rule $r_{x_j}$ i.e. suppose that  $\Ibar(r_{x_j})$ is defined and that
-$\Ibar(r_{x_j})=s(p_{a_{n_1},a_j})$. 
+So, suppose that for each $j$, $j < i$, that $\Ibar$ is defined for and consistently interprets the rule $r_{x_j}$. 
 We shall now show that it follows that 
 $\Ibar$ is defined at the rule $r_{x_i}$ and that this rule is consistently interpreted by $\Ibar$ by showing that
-$\Ibar(r_{x_i})=s(p_{a_{n_1},a_i})$. 
+$\Ibar(r_{x_i})=s(p_{a_{n+1},a_i})$. \commentary{not yet defined $a_i$.}
 
 %Denote the former rule $r_{\Delta_{n+1}}$ and the latter rule $r_{x_i}$. 
 First we have to show that the preconditions for $\Ibar$ to be defined at the rule $r_{x_i}$ hold. These are:
@@ -890,7 +894,7 @@ the rule \gatdisplayrule{P}{\isT{A(t_1,...t_n)}}, which we shall denote by $r$, 
 
 Assume as the inductive hypotheses that the rule $r_P$ is consistently interpreted by $\Ibar$ and that 
 $\Ibar(r_{t_i})$ is defined \foreachi and that each $r_{t_i}$ is consistently
-interpreted by $Ibar$.
+interpreted by $\Ibar$.
 Now, by lemma \lref{Ibarconsistentonintros} the introductory rule for $A$ is consistently interpreted by $\Ibar$
 and so we can use lemma \lref{substitutioninterpretationlemma}
 to establish that the rule \gatdisplayrule{P}{\isT{A(t_1,...t_n)}} is consistently interpreted by $\Ibar$, as required. \\
@@ -962,9 +966,9 @@ and $r_{s'_j}$ is the rule \gatdisplayrule{Q}{\ofT{s'_j}{\Omega_j[\SUBspFORy{j-1
 This means that (\ref{SI1inductivetarget2}) can be shown as follows:
 \begin{align*}
 \ibarmappedrule{Q}{\isT{\Omega[\SUBsFORy{m}]}} 
-    &=I(r_{s_m})^* ... I(r_{s_1})^*\big( \crossx{\Ibar(Q)}{\Ibar(r_\Omega)}{1} \big)
+    &=\Ibar(r_{s_m})^* ... \Ibar(r_{s_1})^*\big( \crossx{\Ibar(Q)}{\Ibar(r_\Omega)}{1} \big)
     &&\mbox{ because $r_\Omega$ is consistently interpreted by $\Ibar$,} \\
-    &=I(r_{s'_m})^* ... I(r_{s'_1})^*\big( \crossx{\Ibar(Q)}{\Ibar(r_{\Omega'})}{1} \big)
+    &=\Ibar(r_{s'_m})^* ... \Ibar(r_{s'_1})^*\big( \crossx{\Ibar(Q)}{\Ibar(r_{\Omega'})}{1} \big)
     &&\mbox{ by (\ref{SI1inductiveequation1}) and (\ref{SI1inductiveequation2}),} \\
     &=\ibarmappedrule{Q}{\isT{\Omega'[\SUBspFORy{m}]}}
     &&\mbox{ as required, because $r_{\Omega'}$ is consistently interpreted by $\Ibar$.}
@@ -1025,9 +1029,9 @@ and $r_{s'_j}$ is the rule \gatdisplayrule{Q}{\ofT{s'_j}{\Omega_j[\SUBspFORy{j-1
 This means that (\ref{SI2inductivetarget2}) can be shown as follows:
 \begin{align*}
 \ibarmappedrule{Q}{\ofT{s[\SUBsFORy{m}]}{\Omega[\SUBsFORy{m}]}} 
-    &=I(r_{s_m})^* ... I(r_{s_1})^*\big( \crossx{\Ibar(Q)}{\Ibar(r_s)}{1} \big)
+    &=\Ibar(r_{s_m})^* ... \Ibar(r_{s_1})^*\big( \crossx{\Ibar(Q)}{\Ibar(r_s)}{1} \big)
     &&\mbox{ because $r_\Omega$ is consistently interpreted by $\Ibar$,} \\
-    &=I(r_{s'_m})^* ... I(r_{s'_1})^*\big( \crossx{\Ibar(Q)}{\Ibar(r_{s'})}{1} \big)
+    &=\Ibar(r_{s'_m})^* ... \Ibar(r_{s'_1})^*\big( \crossx{\Ibar(Q)}{\Ibar(r_{s'})}{1} \big)
     &&\mbox{ by (\ref{SI2inductiveequation1}) and (\ref{SI2inductiveequation2}),} \\
     &=\ibarmappedrule{Q}{\ofT{s'[\SUBspFORy{m}]}{\Omega'[\SUBspFORy{m}]}}
     &&\mbox{ as required, because $r_{\Omega'}$ is consistently interpreted by $\Ibar$.}

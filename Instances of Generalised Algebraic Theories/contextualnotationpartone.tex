@@ -780,7 +780,7 @@ a swap operation $sw_{x,y} : \crossx{x}{y}{1} \morph \crossx{y}{x}{1}$ by
 sw_{x,y} = \tuple{q_{p_x,y}, p_{\crossx{x}{y}{1},x}}
 \end{equation}
 
-Associativity of $\crossx{}{}w$  follows from the coherence property of the pullbacks in the contextual category. 
+The next lemma states the associativity of $\crossx{}{}w$. This  follows from the coherence property of the pullbacks in the contextual category. 
 For example if $w < x$, $w < y$, $w < z$ in a \ccat then from coherence of pullbacks in \ccat we have:
 $\crossx{x}{(\crossx{y}{z}{w})}{w} = \crossx{(\crossx{x}{y}{w})}{z}{w}$ as shown here in this diagram:
  
@@ -795,19 +795,36 @@ $\crossx{x}{(\crossx{y}{z}{w})}{w} = \crossx{(\crossx{x}{y}{w})}{z}{w}$ as shown
 \end{array}
 \end{displaymath}
 
-\ncaarr[50]{q(\pc{\crossx{x}{y}{w}}{w},z)}{J2}{z}
+\ncaarr[50]{q(p_{\crossx{x}{y}{w},w},z)}{J2}{z}
 \ncsar{D2}{xy}
 \ncsar{xy}{x}
 \ncsar{yz}{y}
 \ncsar{x}{w}
 \ncsar{y}{w} 
 \ncsar{z}{w}
-\ncaarr{q(\pc{x}{w},y)}{xy}{y}
-\ncaarr{q(\pc{y}{w},z)}{yz}{z}
-\ncaarr{q(\pc{x}{w},\crossx{y}{z}{w})}{D2}{yz}
+\ncaarr{q(p_{x,w},y)}{xy}{y}
+\ncaarr{q(p_{y,w},z)}{yz}{z}
+\ncaarr{q(p_{x,w},\crossx{y}{z}{w})}{D2}{yz}
 
 \vspace{0.15cm}
-
+\begin{lemma}
+\llabel{crossassociativitylemma}
+If $w,x,y$ and $z$ are objects of a contextual category \catcw and if $w<x$, $w<y$, and $w<z$ then
+\begin{equation*}
+\crossx{x}{(\crossx{y}{z}{w})}{w} = \crossx{(\crossx{x}{y}{w})}{z}{w}
+\end{equation*}
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\crossx{x}{(\crossx{y}{z}{w})}{w} 
+                   &= p_{x,w} ^* p_{y,w} ^* z             && \mbox{by definition of $\crossx{}{}{}$,}  \\
+                   &= q(p_{x,y},y)^*p_{y,w} ^* z          && \mbox{by lemma \lref{extendedstarcoheres},}      \\
+                   &= (q(p_{x,y},y) \circ p_{y,w}) ^* z   && \mbox{by (q4),}                           \\
+                   &= p_{\crossx{x}{y}{w},w} ^* z         && \mbox{since pullback square commutes,}    \\
+                   &= \crossx{(\crossx{x}{y}{w})}  {z}{w}    && \mbox{by definition of $\crossx{}{}{}$.}
+\end{align*}
+\end{proof}
+We also have a distributivity lemma:
 \begin{lemma}
 \llabel{crossstardistributivitylemma}
 If $w,x,y$ and $z$ are objects of a contextual category \catcw such that $w < x$ and  $w < y < z$ then  
@@ -827,83 +844,8 @@ If $w,x,y$ and $z$ are objects of a contextual category \catcw such that $w < x$
 and
 (ii) is a special case of lemma \lref{stardistributesonmorophismslemma}.
 \end{proof}
-\begin{lemma}
-\llabel{sofplemma}
-If $1 \base b_1 ... \base b_m$ in \catc, for some $m \ge 1$ in a contextual category \catcw then \foreachj,
-$s(p_{b_m,b_j}): b_m \morph \crossx{b_m}{b_j}{b_{j-1}}$ in \catcw.
-\end{lemma}
-\begin{proof}
-Because $p_{b_m,b_j}: b_m \morph b_j$ in $\catcw$ and so be definition of operator $s$ it follows that $s(p_{b_m,b_j}): b_m  \morph (p_{b_m,b_j} \circ p_{b_j})^*b_j$
-and we have 
-\begin{align*}
-(p_{b_m,b_j} \circ p_{b_j})^*b_j &= {p_{b_m,b_{j-1}}} ^* b_j  && \mbox{ because $p_{b_m,b_j} \circ p_{b_j}=p_{b_m,b_{j-1}}$,} \\
-                                 &= \crossx{b_m}{b_j}{b_{j-1}} && \mbox{ by definition of $\crossx{}{}{w}$}.
-\end{align*}
-\end{proof}
-\begin{lemma}
-\llabel{sofpsubstitutionlemma}
-If $1 \base a_1 ... \base a_n \base a_{n+1}$, for some $n \ge 1$ in a contextual category \catc, then 
-for each $i$ and $j$, $1 \leq i < j \leq n+1$
-\begin{equation*}
-s(p_{a_{n},a_{i}})^*...s(p_{a_{n},a_1})^*(\crossx{a_{n}}{a_j}{1}) 
-= \crossx{a_{n}}{a_j}{a_{i}}.
-\end{equation*} 
-\end{lemma}
-\begin{proof}
-By induction on $i$. 
-In the case of $i=1$ we have\commentary{\highlight{concision}: arrange so that induction starts from $n=0$ with nothing to prove.} 
-\begin{align*}
-s(p_{a_n,a_1})^*(\crossx{a_{n}}{a_j}{1})
-& = s(p_{a_n,a_1}) ^* {p_{a_n,1}} ^* a_j
-&&\mbox{ by definition of $\crossx{}{}{}$}\\
-&= s(p_{a_{n},a_{i}})^*  q(p_{a_n,1},a_1) ^* a_j
-&&\mbox{ by definition of extended $^*$,}\\
-&= (s(p_{a_{n},a_1}) \circ q(p_{a_n,1},a_1)) ^* a_j
-&&\mbox{ by (q5),}\\
-&= {p_{a_{n},a_1}}^*a_j
-&&\mbox{ by (s2),} \\
-&= \crossx{a_{n}}{a_j}{a_1}
-&&\mbox{by definition of $\crossx{}{}{}$, as required.}
-\end{align*}
-If $i >1$ then we have the following diagram in \catc 
-$$
-\begin{array}{cp{0.5cm}cc}
-\Rnode{L0}{{p_{a_n,a_{i-1}}}^*a_j} &&                 &                \\[1.0cm]
-\Rnode{L1}{{p_{a_n,a_{i-1}}}^*a_i} &&                 &                \\[1.0cm]
-\Rnode{L2}{a_n}                    &&                 &                \\[0.25cm]
-                                   && \Rnode{L3}{a_j} &                \\[1.0cm]
-                                   && \Rnode{L4}{a_i} &                \\[0.5cm]
-\Rnode{L5}{a_{i-1}}                &&                 &           
-\end{array}
-\mbox{
-\nccdar{L0}{L1} 
-\ncsar{L1}{L2}  
-\nccdar{L2}{L5}   
-\nccdar{L3}{L4}   
-\ncsar{L4}{L5}
-\ncarr[-10]{L1}{L4}
-\alabel{q(p_{a_n,a_{i-1}},a_i)}[0.35]
-\ncleftsimplesection{L2}{L1}
-\alabel{s(p_{a_n,a_i})}
-}
-$$
-and we can show
-\begin{align*}
-s(p_{a_{n},a_{i}})^*...s(p_{a_{n},a_1})^*(\crossx{a_{n}}{a_j}{1})
-& = s(p_{a_{n},a_{i}})^* (\crossx{a_{n}}{a_j}{a_{i-1}})
-&&\mbox{ by the inductive hypthesis,} \\
-&= s(p_{a_{n},a_{i}})^* {p_{a_n,a_{i-1}}} ^* a_j
-&&\mbox{ by definition of $\crossx{}{}{}$}\\
-&= s(p_{a_{n},a_{i}})^*  q(p_{a_n,a_{i-1}},a_i) ^* a_j
-&&\mbox{ by definition of extended $^*$,}\\
-&= (s(p_{a_{n},a_{i}}) \circ q(p_{a_n,a_{i-1}},a_i)) ^* a_j
-&&\mbox{ by (q5),}\\
-&= {p_{a_{n},a_{i}}}^*a_j
-&&\mbox{ by (s2),} \\
-&= \crossx{a_{n}}{a_j}{a_{i}}
-&&\mbox{by definition of $\crossx{}{}{}$, as required.}
-\end{align*}
-\end{proof}
+Finally some lemmas on the interplay of $\crossx{}{}{}$ and the $s$ operator.
+\input{sofplemmas.tex}
 
 \begin{lemma}
 \llabel{crosssectionlemma}
