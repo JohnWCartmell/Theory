@@ -902,6 +902,114 @@ lhs &=  s(p_y \circ g) \circ q( p_y \circ g \circ p_{y'}, y') && \mbox{since $g$
 \end{align*}
 \end{proof}
 
+\subsection{Missing lemmas}
+
+\newcommand{\yz}{\crossx{y}{z}{w}}
+\newcommand{\yg}{\crossx{y}{g}{w}}
+\begin{lemma}
+If $n > 1$ \highlight{CHECK} and if $w$, $\xn$ and $z$ are objects of a contextual category \catcw such that $w \base x_1 \base ... \base x_n$ and $w \base z$
+and if $f \in Sect(x_1)$ in \catcw then
+\begin{enumerate}[(i)]
+\item $f * (\yz)= \crossx{(f^*y)}{z}{w}$,
+\item if $g \in Sect(z)$ then $f * (\yg)= \crossx{(f^*y)}{g}{w}$.
+\end{enumerate}
+as shown here:
+\begin{displaymath}
+\begin{array}{cc p{1.25cm} c p{0cm} c} 
+&                         && \Rnode{yz}{\yz} &&              \\[1.2cm]
+\crossx{(f^*y)}{z}{w}=\kern-10pt&\Rnode{fyz}{f^*(\yz)}    && \Rnode{y}{y}    &&              \\[1.2cm]
+&\Rnode{fy}{f^*y}         &&                 &&              \\[0.75cm]
+&                         && \Rnode{xp}{x'}  &&              \\[1.2cm]
+&\Rnode{fxp}{f^*x'}       && \Rnode{x}{x}    && \Rnode{z}{z} \\[1.2cm]
+&                         && \Rnode{w}{w}    &&
+\makebox[0cm]{
+\ncsar{fyz}{fy}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=4pt,nodesepB=3pt,offsetB=2pt]{->}{fy}{fyz}
+\alabel{\crossx{(f^*y)}{g}{w}=f^*(\yg)} [0.4]
+\nccdar{fy}{fxp}
+\ncsar{fxp}{w}
+\ncsar{yz}{y}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=4pt,nodesepB=3pt,offsetB=2pt]{->}{y}{yz}
+\alabel{\yg} [0.4]
+\nccdar{y}{xp}
+\ncsar{xp}{x}
+\ncsar{x}{w}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=2pt,nodesepB=3pt,offsetB=2pt]{->}{w}{x}
+\alabel{f} [0.4]
+\ncsar{z}{w}
+\ncarc[arcangle=-10,nodesepA=5pt,offsetA=-2pt,nodesepB=3pt,offsetB=-2pt]{->}{w}{z}
+\blabel{g} [0.4]
+\ncarr{fyz}{yz}
+\alabel{q(f,\yz)}
+\ncarr{fy}{y}
+\alabel{q(f,y)}
+\ncarr{fxp}{xp}
+\alabel{q(f,x')}
+\ncarr[30]{yz}{z}
+\alabel{q(p_{y,w},z)}
+}
+\end{array}
+\end{displaymath}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}[(i)]
+\item
+\begin{align*}
+f * (\yz) &= q(f,y)^*(\yz)            &&\mbox{ by definition of extended $^*$},                \\
+          &= q(f,y)^*({p_{y,w}} ^* z) &&\mbox{ by definition of $\crossx{}{}{}$,}              \\
+          &= (q(f,y)\circ p_{y,w}) ^* z             &&\mbox{ by (q4)  extended\highlight{?} to morphisms,}                         \\
+          &= (q(f,y) \circ p_{y,x} \circ p_x ) ^* z &&\mbox{ by definition of $p_{y,w}$,}      \\
+          &= (p_{f^*y,w} \circ f \circ p_x ) ^* z   &&\mbox{ because extended pullback diagrams commute,} \\
+          &= {p_{f^*y,w}}^*z                        &&\mbox{ because $f$ is a section,}                   \\
+          &= \crossx{(f^*y)}{z}{w}                  &&\mbox{ by definition of $\crossx{}{}{}$.}
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+\newcommand{\xnz}{\crossx{x_n}{z}{w}}
+\newcommand{\xng}{\crossx{x_n}{g}{w}}
+\begin{lemma}
+\end{lemma}
+\begin{proof}
+\tbd
+
+
+\begin{displaymath}
+\begin{array}{ c p{0.75cm} c p{2.25cm} c p{0.1cm} c p{1.0cm} c} 
+                    &&                                                    &&                && \Rnode{xnz}{\xnz} &&                       \\ [1.2cm]
+                    &&                                                    &&                && \Rnode{xn}{x_n}   &&                       \\ [2.0cm]
+                    && \fnpvectorstar(\xnz)                               &&                &&                   &&                       \\ 
+                    && \Rnode{fnpz}{=\crossx{(\fnpvectorstar x_n)}{z}{w}} &&                && \Rnode{x2}{x_2}   &&             \\ [2.0cm]
+\Rnode{fnxnz}{\fnvectorstar (\xnz)=z} && \Rnode{fnpxnz}{\fnpvectorstar x_n} && \Rnode{f1x2}{f_1 ^* x_2} && \Rnode{x1}{x_1}  && \Rnode{z}{z} \\ [2.4cm]
+                                    &&                                    && \circlenode[framesep=1cm, linestyle=none]{w}{w} \ \ \ \ \ \ \ \ \ \ &&   &&   
+\makebox[0cm]{
+\ncdotdotdot{fnpxnz}{f1x2}
+\ncsar{fnpz}{fnpxnz}
+\ncarc[arcangle=-10,nodesepA=5pt,offsetA=-4pt,nodesepB=3pt,offsetB=-3pt]{->}{fnpxnz}{fnpz}
+\blabel{\fnpvectorstar(\xng)}[0.65]
+\blabel{=\crossx{(\fnpvectorstar x_n)}{g}{w}}[0.4]
+\ncsar{xnz}{xn}
+\ncdotdotdot{xn}{x2}
+\ncsar{x2}{x1}
+\ncsar{fnxnz}{w}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=-2pt,nodesepB=3pt,offsetB=0pt]{->}{w}{fnxnz}
+\alabel{\fnvectorstar(\xng)=g} [0.5]
+\ncsar{fnpxnz}{w}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=-2pt,nodesepB=3pt,offsetB=2pt]{->}{w}{fnpxnz}
+\alabel{f_n} [0.6]
+\ncsar{f1x2}{w}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=-2pt,nodesepB=3pt,offsetB=2pt]{->}{w}{f1x2}
+\alabel{f_2} [0.5]
+\ncsar{x1}{w}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=-2pt,nodesepB=3pt,offsetB=2pt]{->}{w}{x1}
+\alabel{f_1} [0.4]
+\ncsar{z}{w}
+\ncarc[arcangle=-10,nodesepA=5pt,offsetA=0pt,nodesepB=3pt,offsetB=-2pt]{->}{w}{z}
+\blabel{g} [0.4]
+}
+\end{array}
+\end{displaymath}
+\end{proof}
 
 \subsection{Cascades of sections}
 \input{cascades.tex}
