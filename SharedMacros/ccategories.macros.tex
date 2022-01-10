@@ -110,7 +110,11 @@
 
 \newcommand{\ncarr}[3][0]{\ncarc[arcangle=#1,nodesepA=\arrnodesepA,nodesepB=\arrnodesepB,offsetA=\arroffsetA,offsetB=\arroffsetB,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
 
+
 \newcommand{\ncdarr}[3][0]{\ncarc[linestyle=dashed,arcangle=#1,nodesepA=\arrnodesepA,nodesepB=\arrnodesepB,offsetA=\arroffsetA,offsetB=\arroffsetB,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
+
+
+
 
 \newcommand{\jcbarr}[4][0]{ % ncbarr is defined in some third party package so do not use!\emph{}
 \ncarr[#1]{#3}{#4}
@@ -156,6 +160,8 @@
 \newlength{\saroffsetB}
 \newlength{\sarnodesepAsav}
 \newlength{\sarnodesepBsav}
+\newlength{\cdarnodesepAsav}
+\newlength{\cdarnodesepBsav}
 
 \newcommand{\sarreset}{
 \setlength{\sarnodesepA}{0pt}
@@ -205,6 +211,7 @@
 }
 \fi
 
+\iffalse
 % cdar - composite dependency arrow Mark II - double trangle style
 \newcommand{\nccdar}[3][0]{
 \setlength{\sarnodesepAsav}{\sarnodesepA}
@@ -217,6 +224,37 @@
 \setlength{\sarnodesepA}{\sarnodesepAsav}
 \setlength{\sarnodesepB}{\sarnodesepBsav}
 }
+\fi
+
+\iffalse
+% cdar - composite dependency arrow Mark III - circle midway along triangle headed arrow
+\newcommand{\nccdar}[2]
+{\ncsar{#1}{#2} 
+ \ncput[nrot=:U]{%\psellipse(-0.1cm,0)(0.075cm,0.075cm)
+                 \psellipse(0,0)(0.075cm,0.075cm)
+                 %\psellipse(0.1cm,0)(0.075cm,0.075cm)
+                }
+}
+\fi
+
+% cdar - composite dependency arrow Mark IV - jagged triangle headed arrow
+\newcommand{\nccdar}[2]
+{\setlength{\cdarnodesepAsav}{\sarnodesepA}
+\ncline[linestyle=none]{#1}{#2} 
+\ncput[nrot=:U]{
+               \pnode(-0.1,-0.05){#1jaggedsourceto#2}
+               \pnode(-0.3,0.05){#1jaggeddesto#2}
+                }
+ \ncline[nodesepB=0pt]{#1}{#1jaggedsourceto#2}
+ \ncline[nodesepA=0pt, nodesepB=0pt]{#1jaggedsourceto#2}{#1jaggeddesto#2}
+ \setlength{\sarnodesepA}{-3pt}
+ \ncsar{#1jaggeddesto#2}{#2}
+ \setlength{\sarnodesepA}{\cdarnodesepAsav}
+}
+
+
+%\addtolength{\sarnodesepA}{3pt}
+
 
 
 % bcdar - below labelled composite dependency arrow
