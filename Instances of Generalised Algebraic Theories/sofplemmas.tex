@@ -11,6 +11,116 @@ and we have
                                  &= \crossx{b_m}{y_j}{y_{j-1}} && \mbox{ by definition of $\crossx{}{}{w}$}.
 \end{align*}
 \end{proof}
+\newpage
+\begin{lemma}
+\llabel{crosssectionlemma}
+If 
+\raisebox{-0.15cm}{
+$
+\begin{array}{ c c c}
+\Rnode{y}{y} &              & \Rnode{Bp}{y'} \\[1cm]
+             & \Rnode{x}{x} &     
+\mbox{\nccdar{y}{x}
+\ncsar{Bp}{x}
+%\ncarr[-30]{x}{Bp}
+\ncrightsimplesection{x}{Bp}
+\blabel{g}}
+\end{array}
+$}
+in a contextual category \catcw and if $g$ is a section of $y'$ (i.e. if $g \circ p_{y'}= id_x$) so that we have 
+\begin{equation*}
+\begin{array}{ c c c}
+\Rnode{BBp}{\crossx{y}{y'}{x}} \\[1.3cm]
+\Rnode{y}{y} &              & \Rnode{Bp}{y'} \\[1.1cm]
+             & \Rnode{x}{x} &
+\mbox{
+\ncsar{BBp}{y}
+\ncrightcrosssection{y}{BBp}
+\blabel{\crossx{y}{g}{x}}
+\nccdar{y}{x}
+\blabel{p_{y,x}}
+\ncsar{Bp}{x}
+\ncrightsimplesection{x}{Bp}
+\blabel{g}
+\ncarr[30]{BBp}{Bp}
+\alabel{q(p_{y,x},y')}
+}                                                                                   
+\end{array}
+\end{equation*}
+in \catcw,  then
+\begin{equation}
+\label{crosssectionlemmatarget}
+\crossx{y}{g}{x} = s(p_{y,x} \circ g).
+\end{equation} 
+\end{lemma}
+\begin{proof}
+$\crossx{y}{g}{x}$ is defined to be the unique section of $\crossx{y}{y'}{x}$ such that $(\crossx{y}{g}{x}) \circ q( p_{y,x},y') = p_{y,x} \circ g$ and
+so (\ref{crosssectionlemmatarget}) follows 
+because $s(p_{y,x} \circ g)$ is a section of $\crossx{y}{y'}{x}$ (because by definition it is a section
+of $(p_{y,x} \circ g \circ p_{y'}) ^*y'$ and this simplifies, because $g$ is a section, to  ${p_{y,x}} ^*y'$ i.e to $\crossx{y}{y'}{x}$ )
+and because
+$$s(p_{y,x} \circ g) \circ q( p_{y,x},y') = p_{y,x} \circ g$$
+because
+\begin{align*}
+lhs &=  s(p_{y,x} \circ g) \circ q( p_{y,x} \circ g \circ p_{y'}, y') && \mbox{since $g$ is a section,} \\
+    &=  p_{y,x} \circ g                                           && \mbox{by axiom (s2).} 
+\end{align*}
+\end{proof}
+\newpage
+\newcommand{\fsp}{f^*s(p_{y,x})}
+\newcommand{\fyf}{\crossx{(f^*y)}{f}{x_p}}
+\begin{lemma}
+\llabel{missingsublemma3}
+If $x_p$, $x$, $y_p$ and $y$ are objects of a contextual category \catcw such that
+$x_P \base x \leq y_p \base y$ and if $f \in Sect(x)$ then
+$$\fsp = \fyf$$
+as shown here:
+\begin{displaymath}
+\newcommand{\yx}{\crossx{y}{x}{x_p}}
+\newcommand{\fyx}{\crossx{(f^*y)}{x}{x_p}}
+\newcommand{\spyx}{s(p_{y,x})}
+\begin{array}{c p{0.5cm} c p{0.5cm} c} 
+                    &&                 && \Rnode{yx}{\yx}            \\[1.4cm]
+\Rnode{fyx}{\fyx}   &&                 && \Rnode{y}{y}               \\[1.4cm]
+\Rnode{fy}{f^*y}    &&                 && \Rnode{yp}{y_p}            \\[1.2cm]
+\Rnode{fyp}{f^*y_p} &&                 &&                            \\[1.8cm]
+                    && \Rnode{x}{x}    &&                            \\[1.2cm]
+                    && \Rnode{xp}{x_p} &&   
+\makebox[0cm]{
+\ncsar{yx}{y}
+\ncarc[arcangle=15,nodesepA=5pt,offsetA=4pt,nodesepB=3pt,offsetB=2pt]{->}{y}{yx}
+\alabel{\spyx} [0.4]
+\ncsar{y}{yp}
+\nccdar{yp}{x}
+\ncsar{x}{xp}
+\ncarc[arcangle=-15,nodesepA=5pt,offsetA=-2pt,nodesepB=3pt,offsetB=-2pt]{->}{xp}{x}
+\blabel{f} [0.5]
+\ncsar{fyx}{fy}
+\ncarc[arcangle=15,nodesepA=5pt,offsetA=4pt,nodesepB=3pt,offsetB=2pt]{->}{fy}{fyx}
+\alabel{f^*(\spyx)=\fyf} [0.4]
+\ncsar{fy}{fyp}
+\nccdar{fyp}{xp}
+\ncarr{fyx}{yx}
+\alabel{q(f,\yx)}[0.5][-4]
+\ncarr{fy}{y}
+\alabel{q(f,y)}[0.45][-1]
+\ncarr{fyp}{yp}
+\alabel{q(f,y_p)}[0.5][-1]
+}
+\end{array}
+\end{displaymath}
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\fsp &= q(f,y)^*s(p_{y,x})           && \mbox{ by definition of extended $^*$,} \\
+     &= s(q(f,y)\circ s(p_{y,x}))    && \mbox{by lemma \lref{regardingfstarsection},}  \\
+     &= s(q(f,y)\circ p_{y,x})       && \mbox{ by lemma \lref{sfglemma},}  \\
+     &= s(p_{f^*y,x_p} \circ f)      && \mbox{ because pullback diagram commutes,}  \\
+     &= \fyf                         && \mbox{ by lemma  \lref{crosssectionlemma}.}
+\end{align*}
+\end{proof}
+\newpage
+
 \begin{lemma}
 \llabel{sofpsubstitutionlemma}
 If $1 \base x_1 ... \base x_n \base x_{n+1}$, for some $n \ge 1$ in a contextual category \catc, then 

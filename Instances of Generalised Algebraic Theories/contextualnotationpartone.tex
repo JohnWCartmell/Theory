@@ -817,11 +817,11 @@ If $w,x,y$ and $z$ are objects of a contextual category \catcw and if $w<x$, $w<
 \begin{proof}
 \begin{align*}
 \crossx{x}{(\crossx{y}{z}{w})}{w} 
-                   &= p_{x,w} ^* p_{y,w} ^* z             && \mbox{by definition of $\crossx{}{}{}$,}  \\
-                   &= q(p_{x,y},y)^*p_{y,w} ^* z          && \mbox{by lemma \lref{extendedstarcoheres},}      \\
-                   &= (q(p_{x,y},y) \circ p_{y,w}) ^* z   && \mbox{by (q4),}                           \\
-                   &= p_{\crossx{x}{y}{w},w} ^* z         && \mbox{since pullback square commutes,}    \\
-                   &= \crossx{(\crossx{x}{y}{w})}  {z}{w}    && \mbox{by definition of $\crossx{}{}{}$.}
+                   &= {p_{x,w}} ^* {p_{y,w}} ^* z             && \mbox{by definition of $\crossx{}{}{}$,}  \\
+                   &= q(p_{x,y},y)^*{p_{y,w}} ^* z            && \mbox{by lemma \lref{extendedstarcoheres},}      \\
+                   &= (q(p_{x,y},y) \circ p_{y,w}) ^* z       && \mbox{by (q4),}                           \\
+                   &= {p_{\crossx{x}{y}{w},w}} ^* z             && \mbox{since pullback square commutes,}    \\
+                   &= \crossx{(\crossx{x}{y}{w})}  {z}{w}     && \mbox{by definition of $\crossx{}{}{}$.}
 \end{align*}
 \end{proof}
 We also have a distributivity lemma:
@@ -844,74 +844,64 @@ If $w,x,y$ and $z$ are objects of a contextual category \catcw such that $w < x$
 and
 (ii) is a special case of lemma \lref{stardistributesonmorophismslemma}.
 \end{proof}
-Finally some lemmas on the interplay of $\crossx{}{}{}$ and the $s$ operator.
-\input{sofplemmas.tex}
-
-\begin{lemma}
-\llabel{crosssectionlemma}
-If 
-\raisebox{-0.15cm}{
-$
-\begin{array}{ c c c}
-\Rnode{y}{y} &              & \Rnode{Bp}{y'} \\[1cm]
-             & \Rnode{x}{x} &     
-\mbox{\ncsar{y}{x}
-\ncsar{Bp}{x}
-%\ncarr[-30]{x}{Bp}
-\ncrightsimplesection{x}{Bp}
-\blabel{g}}
+Lemmas relating $^*$ and $\crossx{}{}{}$.
+\newcommand{\xz}{\crossx{x}{z}{w}}
+\newcommand{\xg}{\crossx{x}{g}{w}}
+\begin{lemma} 
+\llabel{missingsublemma1}
+If $w$, $x$, and $z$ are objects of a contextual category \catcw such that $w \base x$ and $w \base z$ and if
+$f \in Sect(x)$  then
+\begin{enumerate}[(i)]
+\item 
+$$f^*(\xz)=z$$
+\item and if $g \in Sect(z)$ then
+$$f^*(\xg)=g$$
+\end{enumerate}
+as shown here
+\begin{displaymath}
+\begin{array}{ c p{0.1cm} c p{0.1cm} c } 
+                           &&\Rnode{fnpz}{\xz}                                &&                        \\ [1.8cm]
+\Rnode{fxz}{f^* (\xz)=z} &&\Rnode{x}{x}                                && \Rnode{z}{\ \ \ \ z\ \ \ \ \ \ \ }      \\ [1.8cm]
+                           &&\circlenode[framesep=0.4cm, linestyle=none]{w}{w}&&    
+\makebox[0cm]{
+\ncsar{fnpz}{x}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=4pt,nodesepB=3pt,offsetB=3pt]{->}{x}{fnpz}
+\alabel{\xg}[0.65]
+%\blabel{=\crossx{(\fnpvectorstar x_n)}{g}{w}}[0.4]
+\ncsar{fxz}{w}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=0pt,nodesepB=3pt,offsetB=2pt]{->}{w}{fxz}
+\alabel{f^*(\xg)=g} [0.6]
+\ncsar{x}{w}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=0pt,nodesepB=3pt,offsetB=4pt]{->}{w}{x}
+\alabel{f} [0.5]
+\ncsar{z}{w}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=0pt,nodesepB=3pt,offsetB=2pt]{->}{w}{z}
+\alabel{g} [0.4]
+}
 \end{array}
-$}
-in a contextual category \catcw and if $g$ is a section of $y'$ (i.e. if $g \circ p_{y'}= id_x$) so that we have 
-\begin{equation*}
-\begin{array}{ c c c}
-\Rnode{BBp}{\crossx{y}{y'}{x}} \\[1.3cm]
-\Rnode{y}{y} &              & \Rnode{Bp}{y'} \\[1.1cm]
-             & \Rnode{x}{x} &
-\mbox{
-\ncsar{BBp}{y}
-\ncrightcrosssection{y}{BBp}
-\blabel{\crossx{y}{g}{x}}
-\ncsar{y}{x}
-\blabel{p_y}
-\ncsar{Bp}{x}
-\ncrightsimplesection{x}{Bp}
-\blabel{g}
-\ncarr[30]{BBp}{Bp}
-\alabel{q(p_y,y')}
-}                                                                                   
-\end{array}
-\end{equation*}
-in \catcw,  then
-\begin{equation}
-\label{crosssectionlemmatarget}
-\crossx{y}{g}{x} = s(p_y \circ g).
-\end{equation} 
+\end{displaymath}
 \end{lemma}
 \begin{proof}
-$\crossx{y}{g}{x}$ is defined to be the unique section of $\crossx{y}{y'}{x}$ such that $(\crossx{y}{g}{x}) \circ q( p_y,y') = p_y \circ g$ and
-so (\ref{crosssectionlemmatarget}) follows 
-because $s(p_y \circ g)$ is a section of $\crossx{y}{y'}{x}$ (because by definition it is a section
-of $(p_y \circ g \circ p_{y'}) ^*y'$ and this simplifies, because $g$ is a section, to  ${p_y} ^*y'$ i.e to $\crossx{y}{y'}{x}$ )
-and because
-$$s(p_y \circ g) \circ q( p_y,y') = p_y \circ g$$
-because
+(i) is shown as follows
 \begin{align*}
-lhs &=  s(p_y \circ g) \circ q( p_y \circ g \circ p_{y'}, y') && \mbox{since $g$ is a section,} \\
-    &=  p_y \circ g                                           && \mbox{by axiom (s2).} 
+f^*(\xz)&= f^*({p_{x,w}}^*z)     && \mbox{ by expanding the definition of $\crossx{}{}{}$,}\\
+        &= (f \circ p_{x,w})^*z && \mbox{ by (q4),}\\
+        &= {id_x} ^* z           && \mbox{ since $f$ is a section,}\\
+        &= z                   && \mbox{ by (q2).}
 \end{align*}
+(ii) can be demonstrated in the same way.
 \end{proof}
-
-\subsection{Missing lemmas}
 
 \newcommand{\yz}{\crossx{y}{z}{w}}
 \newcommand{\yg}{\crossx{y}{g}{w}}
-\begin{lemma}
-If $n > 1$ \highlight{CHECK} and if $w$, $\xn$ and $z$ are objects of a contextual category \catcw such that $w \base x_1 \base ... \base x_n$ and $w \base z$
-and if $f \in Sect(x_1)$ in \catcw then
+\begin{lemma} 
+\llabel{missingsublemma2}
+If  $w$, $x$, $x'$, $y$ and $z$ are objects of a contextual category \catcw such that 
+$w \base x \base x'$, $x' \leq y$ and $w \base z$
+and if $f \in Sect(x)$ in \catcw then
 \begin{enumerate}[(i)]
-\item $f * (\yz)= \crossx{(f^*y)}{z}{w}$,
-\item if $g \in Sect(z)$ then $f * (\yg)= \crossx{(f^*y)}{g}{w}$.
+\item $f ^* (\yz)= \crossx{(f^*y)}{z}{w}$
+\item and if $g \in Sect(z)$ then $f ^* (\yg)= \crossx{(f^*y)}{g}{w}$.
 \end{enumerate}
 as shown here:
 \begin{displaymath}
@@ -952,8 +942,7 @@ as shown here:
 \end{displaymath}
 \end{lemma}
 \begin{proof}
-\begin{enumerate}[(i)]
-\item
+We can show (i) holds as follows:
 \begin{align*}
 f * (\yz) &= q(f,y)^*(\yz)            &&\mbox{ by definition of extended $^*$},                \\
           &= q(f,y)^*({p_{y,w}} ^* z) &&\mbox{ by definition of $\crossx{}{}{}$,}              \\
@@ -963,53 +952,14 @@ f * (\yz) &= q(f,y)^*(\yz)            &&\mbox{ by definition of extended $^*$}, 
           &= {p_{f^*y,w}}^*z                        &&\mbox{ because $f$ is a section,}                   \\
           &= \crossx{(f^*y)}{z}{w}                  &&\mbox{ by definition of $\crossx{}{}{}$.}
 \end{align*}
-\end{enumerate}
+By a similar argument we can show that (ii) holds.
 \end{proof}
 
-\newcommand{\xnz}{\crossx{x_n}{z}{w}}
-\newcommand{\xng}{\crossx{x_n}{g}{w}}
-\begin{lemma}
-\end{lemma}
-\begin{proof}
-\tbd
+Finally some lemmas giving identities involving the $s$ operator.
+\input{sofplemmas.tex}
 
 
-\begin{displaymath}
-\begin{array}{ c p{0.75cm} c p{2.25cm} c p{0.1cm} c p{1.0cm} c} 
-                    &&                                                    &&                && \Rnode{xnz}{\xnz} &&                       \\ [1.2cm]
-                    &&                                                    &&                && \Rnode{xn}{x_n}   &&                       \\ [2.0cm]
-                    && \fnpvectorstar(\xnz)                               &&                &&                   &&                       \\ 
-                    && \Rnode{fnpz}{=\crossx{(\fnpvectorstar x_n)}{z}{w}} &&                && \Rnode{x2}{x_2}   &&             \\ [2.0cm]
-\Rnode{fnxnz}{\fnvectorstar (\xnz)=z} && \Rnode{fnpxnz}{\fnpvectorstar x_n} && \Rnode{f1x2}{f_1 ^* x_2} && \Rnode{x1}{x_1}  && \Rnode{z}{z} \\ [2.4cm]
-                                    &&                                    && \circlenode[framesep=1cm, linestyle=none]{w}{w} \ \ \ \ \ \ \ \ \ \ &&   &&   
-\makebox[0cm]{
-\ncdotdotdot{fnpxnz}{f1x2}
-\ncsar{fnpz}{fnpxnz}
-\ncarc[arcangle=-10,nodesepA=5pt,offsetA=-4pt,nodesepB=3pt,offsetB=-3pt]{->}{fnpxnz}{fnpz}
-\blabel{\fnpvectorstar(\xng)}[0.65]
-\blabel{=\crossx{(\fnpvectorstar x_n)}{g}{w}}[0.4]
-\ncsar{xnz}{xn}
-\ncdotdotdot{xn}{x2}
-\ncsar{x2}{x1}
-\ncsar{fnxnz}{w}
-\ncarc[arcangle=10,nodesepA=5pt,offsetA=-2pt,nodesepB=3pt,offsetB=0pt]{->}{w}{fnxnz}
-\alabel{\fnvectorstar(\xng)=g} [0.5]
-\ncsar{fnpxnz}{w}
-\ncarc[arcangle=10,nodesepA=5pt,offsetA=-2pt,nodesepB=3pt,offsetB=2pt]{->}{w}{fnpxnz}
-\alabel{f_n} [0.6]
-\ncsar{f1x2}{w}
-\ncarc[arcangle=10,nodesepA=5pt,offsetA=-2pt,nodesepB=3pt,offsetB=2pt]{->}{w}{f1x2}
-\alabel{f_2} [0.5]
-\ncsar{x1}{w}
-\ncarc[arcangle=10,nodesepA=5pt,offsetA=-2pt,nodesepB=3pt,offsetB=2pt]{->}{w}{x1}
-\alabel{f_1} [0.4]
-\ncsar{z}{w}
-\ncarc[arcangle=-10,nodesepA=5pt,offsetA=0pt,nodesepB=3pt,offsetB=-2pt]{->}{w}{z}
-\blabel{g} [0.4]
-}
-\end{array}
-\end{displaymath}
-\end{proof}
+
 
 \subsection{Cascades of sections}
 \input{cascades.tex}

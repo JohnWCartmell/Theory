@@ -52,6 +52,12 @@
 }
 \end{array}
 \end{displaymath}
+Now  we have that
+\begin{align*}
+\fistar(\fipvectorstar(\xsynyi)) 
+             &= \fistar(s(p_{\fipvectorstar(\xyn),\fipvectorstar(\xyi)})) && \mbox{ as shown above}  \\
+             &= \crossx{\big(\fivectorstar(\xyn)\big)}{f_i}{x}            && \mbox{ by lemma \lref{missingsublemma3}}
+\end{align*}
 
 \hrulefill
 \begin{displaymath}
@@ -75,9 +81,87 @@
 }
 \end{array}
 \end{displaymath}
+From which by missing sublemma \lref{missingsublemma2}
+\begin{align*}
+\fiistar (\fivectorstar(\xsynyi)) 
+    &= \fiistar (\crossx{\big(\fivectorstar(\xyn)\big)}{f_i}{x}) && \mbox{ as shown above} \\
+    &= \crossx{\big(\fiivectorstar(\xyn)\big)}{f_i}{x}           && \mbox{ by lemma \lref{missingsublemma2}}
+\end{align*}
+
+\hrulefill \\
+\begin{newtt}
+ERGO From which by repeated use of missing sublemma \lref{missingsublemma2}
+
+\begin{displaymath}
+\begin{array}{c}
+\fnpvectorstar (\xynyi)=  \\
+\fnpvectorstar \big( \xynxyi \big)= \\
+\Rnode{u1}{\crossx{\big(\fnpvectorstar(\xyn)\big)}{\big(\fnpvectorstar(\xyi)\big)}{x}} \\[2.6cm]
+\Rnode{u2}{\fnpvectorstar(\xyn)}     \\[1.2cm]
+\Rnode{s1}{x} \\
+\makebox[0cm]{
+\ncsar{u1}{u2}
+\ncarc[arcangle=-20,nodesepA=5pt,offsetA=-3pt,nodesepB=3pt,offsetB=3pt]{->}{u2}{u1}
+\blabel{\fnpvectorstar(\xsynyi)=} [0.7]
+\blabel{\fnpvectorstar(\sxynxyi)=}[0.5]
+\blabel{\crossx{\big(\fnpvectorstar(\xyn)\big)}{f_i}{x}}[0.3]
+\ncdotdotdot{u2}{s2}
+\ncsar{u2}{s1}
+\ncarc[arcangle=-20,nodesepA=5pt,offsetA=-3pt,nodesepB=3pt,offsetB=0pt]{->}{s1}{u2}
+\blabel{f_{n}} [0.5]
+}
+\end{array}
+\end{displaymath}
+
+From which
+\begin{align*}
+\fnvectorstar(\xsynyi)&=\fnvectorstar(\sxynxyi)                         &&\mbox{by ??,}                             \\
+                      &= \crossx{\big(\fnvectorstar(\xyn)\big)}{f_i}{x} &&\mbox{by ??,}                             \\
+                      &= f_n ^* \bigg( \crossx{\big(\fnpvectorstar(\xyn)\big)}{f_i}{x} \bigg)                       \\
+                      &= f_i                                            &&\mbox{ by lemma \lref{missingsublemma1}}
+\end{align*}
+\end{newtt}
 
 
-\hrulefill
 
+\begin{oldtt}
+\newcommand{\xnz}{\crossx{x_n}{z}{w}}
+\newcommand{\xng}{\crossx{x_n}{g}{w}}
+\begin{displaymath}
+\begin{array}{ c p{0.75cm} c p{2.25cm} c p{0.1cm} c p{1.0cm} c} 
+                    &&                                                    &&                && \Rnode{xnz}{\xnz} &&                       \\ [1.2cm]
+                    &&                                                    &&                && \Rnode{xn}{x_n}   &&                       \\ [2.0cm]
+                    && \fnpvectorstar(\xnz)                               &&                &&                   &&                       \\ 
+                    && \Rnode{fnpz}{=\crossx{(\fnpvectorstar x_n)}{z}{w}} &&                && \Rnode{x2}{x_2}   &&             \\ [2.0cm]
+\Rnode{fnxnz}{\fnvectorstar (\xnz)=z} && \Rnode{fnpxnz}{\fnpvectorstar x_n} && \Rnode{f1x2}{f_1 ^* x_2} && \Rnode{x1}{x_1}  && \Rnode{z}{z} \\ [2.4cm]
+                                    &&                                    && \circlenode[framesep=1cm, linestyle=none]{w}{w} \ \ \ \ \ \ \ \ \ \ &&   &&   
+\makebox[0cm]{
+\ncdotdotdot{fnpxnz}{f1x2}
+\ncsar{fnpz}{fnpxnz}
+\ncarc[arcangle=-10,nodesepA=5pt,offsetA=-4pt,nodesepB=3pt,offsetB=-3pt]{->}{fnpxnz}{fnpz}
+\blabel{\fnpvectorstar(\xng)}[0.65]
+\blabel{=\crossx{(\fnpvectorstar x_n)}{g}{w}}[0.4]
+\ncsar{xnz}{xn}
+\ncdotdotdot{xn}{x2}
+\ncsar{x2}{x1}
+\ncsar{fnxnz}{w}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=-2pt,nodesepB=3pt,offsetB=0pt]{->}{w}{fnxnz}
+\alabel{\fnvectorstar(\xng)=g} [0.5]
+\ncsar{fnpxnz}{w}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=-2pt,nodesepB=3pt,offsetB=2pt]{->}{w}{fnpxnz}
+\alabel{f_n} [0.6]
+\ncsar{f1x2}{w}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=-2pt,nodesepB=3pt,offsetB=2pt]{->}{w}{f1x2}
+\alabel{f_2} [0.5]
+\ncsar{x1}{w}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=-2pt,nodesepB=3pt,offsetB=2pt]{->}{w}{x1}
+\alabel{f_1} [0.4]
+\ncsar{z}{w}
+\ncarc[arcangle=-10,nodesepA=5pt,offsetA=0pt,nodesepB=3pt,offsetB=-2pt]{->}{w}{z}
+\blabel{g} [0.4]
+}
+\end{array}
+\end{displaymath}
+\end{oldtt}
 \hrulefill
 \newpage
