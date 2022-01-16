@@ -415,7 +415,7 @@ then
 \item if $y < z_1$ then $f^*g:f^*z_1 \morph f^*z_2$.
 \end{enumerate}
 
-In case (a), $f^*g$ is defined as the unique morphism $f*g : x \morph f^*z_2$ such that $f^*g \circ p_{f^*z_2,x} = id_x$
+In case (a), $f^*g$ is defined as the unique morphism $f^*g : x \morph f^*z_2$ such that $f^*g \circ p_{f^*z_2,x} = id_x$
 and $f^*g \circ q(f,z_2) = f \circ g$ i.e. such that the following diagram commutes.
 $$
 \begin{array}{cp{.9cm}c}
@@ -472,6 +472,17 @@ f^*g = s(f \circ g)
 Straightforward.
 \end{proof}
 
+\begin{lemma}\llabel{missingsublemma7}
+If $x$, $y$ and $z$ are onjects of a contextual category \catcw such that $x <y$ and $y \leq z$ 
+and if $f \in Sect(x)$ then
+\begin{equation*}
+f^*s(p_{z,y})=s(p_{f^*z,f^*y})
+\end{equation*}
+\end{lemma}
+\begin{proof}
+\tbd
+\end{proof}
+
 \begin{lemma} 
 \llabel{stardistributesonobjects}
 For all objects $x_p \base x \leq y_p \base y \leq z_p \base z$ in \catc, for all sections $f: x_p \morph x$ and $g: y \morph y_p$, 
@@ -492,10 +503,10 @@ First see that for any $z$ we can prove $(f^*g)^*(f^*z)=f^*(g^*z)$ as follows
 \end{proof}
 
 \begin{lemma}
-\llabel{stardistributesonmorophismslemma}
+\llabel{stardistributesonmorphismslemma}
 If $f$, $g$ and $h$ are morphisms of a contextual category \catcw such that $f^*g$ and $g^*h$ are both defined then
 \begin{equation}
-\label{stardistributesonmorophisms}
+\label{stardistributesonmorphisms}
 (f^*g)^*(f^*h)=f^*(g^*h)
 \end{equation}
 \end{lemma}
@@ -824,6 +835,23 @@ If $w,x,y$ and $z$ are objects of a contextual category \catcw and if $w<x$, $w<
                    &= \crossx{(\crossx{x}{y}{w})}  {z}{w}     && \mbox{by definition of $\crossx{}{}{}$.}
 \end{align*}
 \end{proof}
+Along the same lines
+\begin{lemma}
+\llabel{missingsublemma6}
+If $v$, $w$, $x$, $y$ and $z$ are objects in a contextual category  \catcw 
+such that $v \leq w$, $v \leq x$ and $w \leq y$ and $w \leq z$ then
+\begin{equation*}
+\crossx{(\crossx{x}{y}{v})}{(\crossx{x}{z}{v})}{\crossx{x}{w}{v}}=\crossx{x}{{(\crossx{y}{z}{w})}}{v}
+\end{equation*}
+If $g \in Sect(z)$ then
+\begin{equation*}
+\crossx{(\crossx{x}{y}{v})}{(\crossx{x}{g}{v})}{\crossx{x}{w}{v}}=\crossx{x}{{(\crossx{y}{g}{w})}}{v}
+\end{equation*}
+\end{lemma}
+\begin{proof}
+\tbd
+\end{proof}
+
 We also have a distributivity lemma:
 \begin{lemma}
 \llabel{crossstardistributivitylemma}
@@ -842,8 +870,21 @@ If $w,x,y$ and $z$ are objects of a contextual category \catcw such that $w < x$
 \begin{proof}
 (i) is a special case of lemma \lref{stardistributesonobjects}
 and
-(ii) is a special case of lemma \lref{stardistributesonmorophismslemma}.
+(ii) is a special case of lemma \lref{stardistributesonmorphismslemma}.
 \end{proof}
+
+\begin{lemma}\llabel{missingsublemma5}
+If $x$ is an object of a contextual category \catcw and if $f \in Sect(x)$ then
+\commentary{This corresponds to  MetaGat axiom (26) since $s(p_{x,x})=\delta_x$.}
+\begin{equation*}
+f^*s(p_{x,x}) =f
+\end{equation*}
+\end{lemma}
+\begin{proof}
+\tbd
+\end{proof}
+
+
 Lemmas relating $^*$ and $\crossx{}{}{}$.
 \newcommand{\xz}{\crossx{x}{z}{w}}
 \newcommand{\xg}{\crossx{x}{g}{w}}
@@ -890,6 +931,25 @@ f^*(\xz)&= f^*({p_{x,w}}^*z)     && \mbox{ by expanding the definition of $\cros
         &= z                   && \mbox{ by (q2).}
 \end{align*}
 (ii) can be demonstrated in the same way.
+\end{proof}
+
+\begin{lemma}\llabel{missingsublemma4}
+\commentary{See equations (18) and (19) from MetaGAT paper.}
+If  $v$, $w$, $x$, $y$ and $z$ are objects of a contextual category \catcw such that
+$w \leq x$, $x \leq y$ and $x \leq z$ and if $f: v \morph w$ is a morphism
+then
+\commentary{? Corollary to lemmas \lref{stardistributesonobjects} and \lref{stardistributesonmorphismslemma}.}
+\commentary{Therefore might make this more general and have $g$ any morphism.}
+\begin{equation*}
+f^*(\crossx{y}{z}{x})=\crossx{f^*y}{f^*z}{f^*x}
+\end{equation*}
+and if $g \in Sect(z)$ then
+\begin{equation*}
+f^*(\crossx{y}{g}{x})=\crossx{f^*y}{f^*g}{f^*x}
+\end{equation*}
+\end{lemma}
+\begin{proof}
+\tbd 
 \end{proof}
 
 \newcommand{\yz}{\crossx{y}{z}{w}}

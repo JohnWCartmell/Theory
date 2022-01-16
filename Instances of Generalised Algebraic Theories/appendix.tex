@@ -1,12 +1,173 @@
 
+
+\newcommand{\ynyi}{\crossx{y_n}{y_i}{y_{i-1}}}
+\newcommand{\yiyi}{\crossx{y_i}{y_i}{y_{i-1}}}
+\newcommand{\fipxstarget}{\fipvectorstar(\crossx{x}{(\ynyi)}{1})}
+\newcommand{\fipxspred}{\fipvectorstar(\crossx{x}{y_n}{1})}
+\newcommand{\fitarget}{\fipvectorstar(\crossx{x}{y_i}{1})}
+
 \newcommand{\xyip}{\crossx{x}{y_{i-1}}{1}}
 \newcommand{\xyi}{\crossx{x}{y_i}{1}}
 \newcommand{\xyn}{\crossx{x}{y_n}{1}}
-\newcommand{\ynyi}{\crossx{y_n}{y_i}{y_{i-1}}}
+%\newcommand{\ynyi}{\crossx{y_n}{y_i}{y_{i-1}}}
 \newcommand{\xynyi}{\crossx{x}{(\ynyi)}{1}}
 \newcommand{\xynxyi}{\crossx{(\xyn)}{(\xyi)}{\xyip}}
 \newcommand{\xsynyi}{\crossx{x}{s(p_{y_n,y_i})}{1}}
 \newcommand{\sxynxyi}{s(p_{\xyn,\xyi})}
+\newpage
+\iffalse
+%FIRST ALIGN
+1.
+\begin{align*}
+\crossx{x}{s(p_{y_n,y_i})}{1} 
+      &= s(p_{\crossx{x}{y_n}{1},\crossx{x}{y_i}{1}}) && \mbox{ by lemma \lref{missingsublemma8}.} \\
+\end{align*}
+2.
+%SECOND ALIGN
+\begin{align*}
+\fonestar (\crossx{x}{s(p_{y_n,y_i})}{1})
+      &= \fonestar (s(p_{\crossx{x}{y_n}{1},\crossx{x}{y_i}{1}})) && \mbox{ by lemma \lref{missingsublemma8}.} \\
+      &= s(p_{\fonestar \crossx{x}{y_n}{1},\fonestar\crossx{x}{y_i}{1}}) && \mbox{ by lemma \lref{missingsublemma7}.} 
+\end{align*}
+3.
+%THIRD ALIGN
+\begin{align*}
+\fipvectorstar(\crossx{x}{s(p_{y_n,y_i})}{1})
+      &= s(p_{\fitarget,\fitarget}) && \mbox{ by lemma \lref{missingsublemma7}.} 
+\end{align*}
+4.
+%FOURTH ALIGN
+Now  we have that
+\begin{align*}
+\fistar(\fipvectorstar(\xsynyi)) 
+             &= \fistar(s(p_{\fipvectorstar(\xyn),\fipvectorstar(\xyi)})) && \mbox{ as shown above}  \\
+             &= \crossx{\big(\fivectorstar(\xyn)\big)}{f_i}{x}            && \mbox{ by lemma \lref{missingsublemma3}}
+\end{align*}
+5.
+%FIFTH ALIGN
+From which by missing sublemma \lref{missingsublemma2}
+\begin{align*}
+\fiistar (\fivectorstar(\xsynyi)) 
+    &= \fiistar (\crossx{\big(\fivectorstar(\xyn)\big)}{f_i}{x}) && \mbox{ as shown above} \\
+    &= \crossx{\big(\fiivectorstar(\xyn)\big)}{f_i}{x}           && \mbox{ by lemma \lref{missingsublemma2}}
+\end{align*}
+6.
+%SIXTH ALIGN
+\fi
+From which
+\begin{align*}
+\fnvectorstar\big(\xsynyi\big)
+    &=\fnvectorstar\big(\sxynxyi\big)                       &&\mbox{by lemma \lref{missingsublemma8},}  \\
+    &=\fnstar...\ftwostar\big(s(p_{\fonestar \crossx{x}{y_n}{1},\fonestar\crossx{x}{y_i}{1}})\big) 
+                                                    &&\mbox{by lemma \lref{missingsublemma7},}\\
+    &=\fnstar...\fistar\big(s(p_{\fitarget,\fitarget})\big)
+                                                    &&\mbox{by further repeated use of lemma \lref{missingsublemma7},}   \\
+    &=\fnstar...\fiistar\Big(\crossx{\big(\fivectorstar(\xyn)\big)}{f_i}{x}\Big)
+                                                    &&\mbox{by lemma \lref{missingsublemma3},}   \\
+    &=\fnstar...\fiiistar\Big(\crossx{\big(\fiivectorstar(\xyn)\big)}{f_i}{x}\Big)  
+                                                    &&\mbox{by lemma \lref{missingsublemma2},}  \\
+%   &= \crossx{\big(\fnvectorstar(\xyn)\big)}{f_i}{x} &&\mbox{by lemma \lref{missingsublemma3},}  \\
+    &= \fnstar \Big( \crossx{\big(\fnpvectorstar(\xyn)\big)}{f_i}{x} \Big)
+                                                    &&\mbox{by furhet repeated use of lemma \lref{missingsublemma2} ,}  \\
+    &= f_i                                          &&\mbox{by lemma \lref{missingsublemma1}.}
+\end{align*}
+
+\begin{displaymath}
+\begin{array}{p{1.5cm}  c p{0.1cm} c c p {0.2cm} c  p{0.5cm} c}
+&&&                                               &                     && \Rnode{ab}{\kern-0.9cm\crossx{x}{(\ynyi)}{1}}         &&                \\[2.0cm]
+&&&                                               &  \Rnode{f1ab}{\kern-1cm\fonestar(\crossx{x}{(\ynyi)}{1})}&& \Rnode{abn}{\crossx{x}{y_n}{1}} && \\[2.0cm]
+&\Rnode{fipxstarget}{\fipxstarget}&&                 &  \Rnode{f1abn}{\fonestar(\crossx{x}{y_n}{1})}&&                              &&                \\[2.0cm]
+&\Rnode{fipxspred}{\fipxspred}&&                 &                              && \Rnode{ab3}{\crossx{x}{y_3}{1}} &&                \\[1.2cm]
+&
+%\Rnode{fn1axb}{\kern-1.3cm\fipvectorstar(\crossx{x}{(\yiyi)}{1})}
+&& &\Rnode{f1axb3}{\fonestar(\crossx{x}{y_3}{1})}  && \Rnode{ab2}{\crossx{x}{y_2}{1}}  &&           \\[1.2cm]
+%\Rnode{ftarget}{\fivectorstar(\crossx{x}{(\yiyi)}{1})}\ \ 
+&\Rnode{fitarget}{\fitarget}&&&\Rnode{f2target}{\fonestar(\crossx{x}{y_2}{1})}  && \Rnode{ab1}{\crossx{x}{y_1}{\Rnode{f1target}{1}}}     \\[1.2cm]
+&&&                                &&                          &                                                        \\[-12cm] %was -6.4
+&&&                                &&                          &           && \Rnode{y}{\ynyi}                          \\[2cm]
+&&&                                &&                          &           && \Rnode{bn}{y_n}                           \\[0.3cm]
+&&&                                &&                          &           &&                                           \\[3.9cm] %was 0.3
+&&&                                &&                          &           && \Rnode{b3}{y_3}                           \\[1.2cm]
+&&&                                &&                          &           && \Rnode{b2}{y_2}                           \\[1.2cm]
+&&&                                &&                          &           && \Rnode{b1}{y_1}                           \\[0.9cm]  %was 0.3
+&&& \ovalnode[linestyle=none]{x}{x}&&                          &           &&                                           \\[1.1cm]
+&&&                                &&  \Rnode{abs}{1} \ \ \ \ \ \ \ \ &    &&                                           \\           
+\makebox[0cm]{
+\ncarr{ab}{y}
+\ncarr{abn}{bn}
+\ncarr{f1ab}{ab}
+\ncarr{f1abn}{abn}
+\ncarr{ab3}{b3}
+\ncarr{ab2}{b2}
+\ncarr{ab1}{b1}
+\ncarr{f1axb3}{ab3}
+\ncarr{f2target}{ab2}
+%\ncarr{f3target}{f1axb3}
+\ncarr{ftarget}{fn1axb}
+\ncdotdotdot{fn1axb}{f1ab} 
+\ncdotdotdot{fitarget}{f3target}
+% 
+\ncarc[arcangle=-20,nodesepA=5pt,offsetA=-3pt,nodesepB=3pt,offsetB=-3pt]{->}{bn}{y}
+\blabel{s(p_{y_n,y_i})}[0.4]
+%FIRST ALIGN
+\ncarc[arcangle=-20,nodesepA=5pt,offsetA=-3pt,nodesepB=3pt,offsetB=-3pt]{->}{abn}{ab}
+\blabel{\crossx{x}{s(p_{y_n,y_i})}{1}} [0.5]
+\blabel{=s(p_{\crossx{x}{y_n}{1},\crossx{x}{y_i}{1}})} [0.3]
+%END
+%SECOND ALIGN
+\ncarc[arcangle=20,nodesepA=5pt,offsetA=3pt,nodesepB=3pt,offsetB=3pt]{->}{f1abn}{f1ab}
+\alabel{\fonestar (\crossx{x}{s(p_{y_n,y_i})}{1}) } [0.73]
+\alabel{=\fonestar (s(p_{\crossx{x}{y_n}{1},\crossx{x}{y_i}{1}})) } [0.50]
+\alabel{=s(p_{\fonestar \crossx{x}{y_n}{1},\fonestar\crossx{x}{y_i}{1}})}[0.27]
+%END
+\ncarc[arcangle=-5,nodesepA=15pt,offsetA=-2pt,nodesepB=3pt,offsetB=-5pt]{->}{x}{f1target}
+\blabel{f_1}[0.6]
+\ncarc[arcangle=10,nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{x}{f2target}
+\alabel{f_2}[0.4]
+%\ncarc[arcangle=10,nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{x}{f3target}
+%\alabel{f_3}[0.6]
+\ncarc[arcangle=7,nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{x}{fitarget}
+\alabel{f_i}[0.75][0]
+\ncarc[arcangle=7, nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{x}{ftarget}
+\alabel{\fivectorstar (\crossx{x}{s(p_{y_n,y_i})}{1}) } [0.6]
+\setlength{\sarnodesepB}{10pt}
+\ncsar{fitarget}{x}
+\ncsar{ftarget}{x}
+%\ncsar{f3target}{x}
+\ncsar{f2target}{x}
+\ncsar{f1target}{x}
+\sarreset
+\ncsar{fn1axb}{fntarget}
+
+%left tower
+\ncsar{fipxstarget}{fipxspred}
+%THIRD ALIGN
+\ncarc[arcangle=20,nodesepA=5pt,offsetA=3pt,nodesepB=3pt,offsetB=3pt]{->}{fipxspred}{fipxstarget}  
+\alabel{\fipvectorstar(\crossx{x}{s(p_{y_n,y_i})}{1})} [0.73]
+\alabel{=s(p_{\fitarget,\fitarget})} [0.50]
+%END
+\ncdotdotdot{fipxspred}{fitarget}
+%right but two tower
+\ncsar{f1ab}{f1abn}
+\ncdotdotdot {f1abn}{f1axb3}
+\ncsar{f1axb3}{f2target}
+%right but one tower
+\ncsar{ab}{abn}
+\ncdotdotdot{abn}{ab3}
+\ncsar{ab3}{ab2}
+\ncsar{ab2}{ab1}
+%right tower
+\ncsar{y}{bn}
+\ncdotdotdot{bn}{b3}
+\ncsar{b3}{b2}
+\ncsar{b2}{b1}
+\ncsar{b1}{abs}
+\nccdar{x}{abs}
+}
+\end{array}
+\end{displaymath}
+
+
 \begin{displaymath}
 \begin{array}{c}
 \fippvectorstar (\xynyi)=  \\
