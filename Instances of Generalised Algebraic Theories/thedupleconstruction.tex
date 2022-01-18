@@ -8,6 +8,8 @@
 \newcommand{\duplesjlessone}{\duple{s_1,...s_{j-1}}_{y_{j-1}}}
 \newcommand{\duplesisucc}{{\duple{s_1,...s_{i+1}}_{y_{i+1}}}}
 \newcommand{\duplesnlessone}{{\duple{s_1,...s_{n-1}}_{y_{n-1}}}}
+\newcommand{\ynz}{\crossx{y_n}{z}{y_i}}
+\newcommand{\duplesnsg}{\duple{s_1,...s_n, s(g)}_{\ynz}}
 
 \newcommand {\sonesub}{{s_1}^*}
 \newcommand {\stwosub}{{s_2}^*}
@@ -22,16 +24,7 @@
 \newcommand {\sncascade}{\snsub...\sonesub}
 
 If $x$ is an object of contextual category \catc, if $1 \base y_1 ... \base y_n$ in \catcw and if
-\begin{equation*}
-\begin{array}{l}
-s_1 \in Sect(\crossx{x}{y_1}{1}),                  \\
-s_2 \in Sect(\sonesub (\crossx{x}{y_2}{1})),         \\
-s_3 \in Sect(\stwocascade (\crossx{x}{y_3}{1})),     \\
-\multicolumn{1}{c}{\vdots}                           \\
-s_n \in Sect(\snlessonecascade (\crossx{x}{y_n}{1})) \\
-\end{array}
-\end{equation*}
-\mbox{ in \catc},
+$\sntuple$ is a cascade from $x$ to $y_n$ in \catcw
 then  we can define a morphism
 $\duplesn:x \morph y_n$ in \catcw such that 
 \begin{enumerate}[(i)]
@@ -82,7 +75,7 @@ A similar argument shows that if $g$ is a section of $y$ then $\sisucccascade (\
 \commentary{Make this into a \highlight{lemma} to \highlight{referenced.}}
 
 \begin{lemma}
-\label{dupledestructionlemma}
+\llabel{dupledestructionlemma}
 If $\duplesn : x \morph y_n$ in a contextual category $\catcw$ then \foreachi, 
 \begin{equation}
 \duplesn \circ p_{y_n,y_i} = \duplesi
@@ -92,78 +85,87 @@ If $\duplesn : x \morph y_n$ in a contextual category $\catcw$ then \foreachi,
 Follows because for each $j$, $i < j \leq n$, $\duplesj \circ p_{y_j} = \duplesjlessone$
 and $p_{y_j,y_i} = p_{y_j} \circ p_{y_{j-1},y_i}$.
 \end{proof}
-
-\newcommand{\dupletuplerhs}{\bigtuple{\duplesnlessone,g}_{p_{y_{n-1},y_i},z}}
 \begin{lemma}
-\llabel{thedupletuplelemma}
-If $x$ is an object of contextual category \catc, if $1 \base y_1 ... \base y_n$ in \catcw and if
+\llabel{dupleofslemma}
+If $x$ and $y$ are objects of a contextual category \catcw such that $1 \base y$ and if $g: x \morph y$ is a morphism then
 \begin{equation*}
-\begin{array}{l}
-s_1 \in Sect(\crossx{x}{y_1}{1}),                  \\
-s_2 \in Sect(\sonesub (\crossx{x}{y_2}{1}))=Sect(\duplesone^*y_2),         \\
-s_3 \in Sect(\stwocascade (\crossx{x}{y_3}{1}))=Sect(\duplestwo^*y_3),     \\
-\multicolumn{1}{c}{\vdots}                           \\
-s_n \in Sect(\snlessonecascade (\crossx{x}{y_n}{1})) =Sect(\duplesnlessone^*y_n)\\
-\end{array}
+\duple{s(g)} = g
 \end{equation*}
-\mbox{ in \catc}, and if $y_n$ is $\crossx{y_{n-1}}{z}{y_i}$, for some $i$, $0 \leq i < n$, 
-(where in the case of $n$ equal to $0$ then 
-by $B_0$ we mean the terminal object $1$ of \catc), if $g: x \morph z$ in \catcw and 
-$g \circ p_z = \duplesi$, so that
-$s(g) \in Sect(\duplesnlessone ^* y_n)$
-\footnote {Because by definition of $s(g)$, $s(g) \in Sect((g \circ p_z) ^*z)$ and if 
-$g \circ p_z =  \duplesi$ then 
-\begin{align*}
-(g \circ p_z) ^*z &= \duplesi ^*z  \\
-                  &= (\duplesnlessone \circ {p_{y_{n-1},y_i}})^*z\\
-									&=\duplesnlessone ^* y_n
-\end{align*}
-},  then if $s(g)=s_n$ then 
+\end{lemma}
+\begin{proof}
+$\duple{s(g)}$ is defined si
+By definition, $s(g):x \morph \crossx{x}{y}{1}$ in \catc. 
+Therefore,by definition,  $\duple{s(g)}$ is defined,  $\duple{s(g)}:x \morph y$ in \catc and
+satisfies
+\begin{equation}
+\label{duplesgidentity}
+s(\duple{s(g)}) = s(s(g))
+\end{equation}
+But $s(s(g))=s(g)$ by lemma \lref{sidempotent} and therefore $\duple{s(g)}=g$ by lemma \lref{stactic}.
+\end{proof}
 
-
+%
+\newcommand{\dupletuplerhs}{\bigtuple{\duplesn,g}_{p_{y_{n},y_i},z}}
+\begin{lemma}
+\llabel{thedupletuplelemma} \commentary{rewriting this without introducing a term $s_n$}
+If $x$, $y_1$,...$y_n$ and $z$ are objects of a contextual category \catcw such that $1 \base y_1 ... \base y_n$ in \catcw and
+$y_i \base z$, for some $i$, $0 \leq i \leq n$ (where in the case of $n$ equal to $0$ then 
+by $y_0$ we mean the terminal object $1$ of \catc),
+if $\sntuple$ is a cascade from $x$ to $y_n$ in \catcw 
+and if $g: x \morph z$ in \catcw such that
+$g \circ p_z = \duplesi$, 
+then 
+$\duplesnsg$ is a cascade from $x$ to $\ynz$ in \catcw
+and
 \begin{equation}
 \label{dupletuplegoal}
-\duplesn = \dupletuplerhs\,.
+\duplesnsg = \dupletuplerhs\,.
 \end{equation}
 \end{lemma}
 \begin{proof}
-
-
+To show that $\duplesnsg$ is a cascade from $x$ to $\ynz$ in \catcw we need show that
+$s(g) \in Sect(\duplesn ^* \ynz)$.
+This folows because by definition of $s(g)$, $s(g) \in Sect((g \circ p_z) ^*z)$ and because
+\begin{align*}
+(g \circ p_z) ^*z &= \duplesi ^*z                            && \mbox{from initial assumption that $g \circ p_z =\duplesi$}\\
+                  &= (\duplesn \circ {p_{y_n,y_i}})^*z       && \mbox{by lemma \lref{dupledestructionlemma}} \\
+                  &= {\duplesn} ^* {p_{y_n,y_i}}^*z          && \mbox{by (q4)} \\
+                  &= {\duplesn} ^* (\ynz)                    && \mbox{ by definition of $\crossx{}{}{}$}
+\end{align*}
+ 
 To show that $\dupletuplerhs$ (rhs of (\ref{dupletuplegoal})) is defined we need show that 
 \begin{equation}
-g \circ p_z = \duplesnlessone \circ p_{y_{n-1},y_i}
+g \circ p_z = \duplesn \circ p_{y_n,y_i}
 \end{equation}
 This follows from the assumption that $g \circ p_z = \duplesi$ and from lemma \ref{dupledestructionlemma}.
 
 Now $\dupletuplerhs$ is therefore defined and is the unique morphism such that
 \begin{equation}
-\dupletuplerhs \circ p_{\crossx{y_{n-1}}{z}{1}} = \duplesnlessone
+\dupletuplerhs \circ p_{\crossx{y_n}{z}{1}} = \duplesn
 \end{equation}
 and
 \begin{equation}
-\dupletuplerhs \circ q(p_{y_{n-1},y_i},z) = g
+\dupletuplerhs \circ q(p_{y_n,y_i},z) = g
 \end{equation}
-
 as shown here
-
 \begin{equation}
 \begin{array}{c p{4cm} c p{3cm} c }
 \\[1.75cm]
-\Rnode{x}{x} && \Rnode{Bn1C}{\crossx{y_{n-1}}{z}{1}} &&                            \\[1.5cm]
+\Rnode{x}{x} && \Rnode{Bn1C}{\crossx{y_{n}}{z}{1}} &&                            \\[1.5cm]
 						 &&                                      &&\Rnode{z}{z}                \\[0.5cm]
-             && \Rnode{Bn1}{y_{n-1}}                 &&                            \\[1.5cm]
+             && \Rnode{Bn1}{y_{n}}                 &&                            \\[1.5cm]
 						 &&                                      &&\Rnode{Bi}{y_i}             \\[0.5cm]
 \end{array}
 \mbox{\ncdarr{x}{Bn1C}
 \alabel{ \dupletuplerhs}
 \ncarr{x}{Bn1}
-\blabel{\duplesnlessone}
+\blabel{\duplesn}
 \ncsar{Bn1C}{Bn1}
-\blabel{p_{\crossx{y_{n-1}}{z}{1}}}
+\blabel{p_{\crossx{y_{n}}{z}{1}}}
 \nccdar{Bn1}{Bi}
-\blabel{p_{y_{n-1},y_i}}
+\blabel{p_{y_{n},y_i}}
 \ncarr{Bn1C}{z}
-\alabel{q(p_{y_{n-1},y_i},z)}[0.3]
+\alabel{q(p_{y_{n},y_i},z)}[0.3]
 \ncsar{z}{Bi}
 \alabel{p_z}
 \ncarr[60]{x}{z}
@@ -175,50 +177,49 @@ Therefore to show (\ref{dupletuplegoal}), as we are required,  it suffices  to s
 
 \begin{equation}
 \label{dupletuplesubgoalone}
-\duplesn \circ p_{\crossx{y_{n-1}}{z}{y_i}} = \duplesnlessone
+\duplesnsg \circ p_{\crossx{y_n}{z}{y_i}} = \duplesn
 \end{equation}
+which holds from by definition of $\duple{}$,
 and
 \begin{equation}
 \label{dupletuplesubgoaltwo}
-\duplesn \circ q(p_{y_{n-1},y_i},z) = g
+\duplesnsg \circ q(p_{y_n,y_i},z) = g
 \end{equation}
-
-(\ref{dupletuplesubgoalone}) holds from the definition of $\duple{}_{y_n}$ because we have initially assumed that $y_n=\crossx{y_{n-1}}{z}{y_i}$.
-
-We show that (\ref{dupletuplesubgoaltwo}) holds by using lemma \ref{footandstactic} and showing that
+which we show  by using lemma \ref{footandstactic} and showing that
 \begin{equation}
 \label{dupletuplesubgoaltwoone}
-\duplesn \circ q(p_{y_{n-1},y_i},z) \circ p_z = g \circ p_z
+\duplesnsg \circ q(p_{y_n,y_i},z) \circ p_z = g \circ p_z
 \end{equation}
 and
 \begin{equation}
 \label{dupletuplesubgoaltwotwo}
-s(\duplesn \circ q(p_{y_{n-1},y_i},z)) = s(g)
+s(\duplesnsg \circ q(p_{y_n,y_i},z)) = s(g)
 \end{equation}
-
-(\ref{dupletuplesubgoaltwotwo}) follows immediately because by axiom \highlight{(s3)} \commentary{check use of parenthesis in reference to (q1),...(s3)} etc.
-$s(\duplesn \circ q(p_{y_{n-1},y_i},z))=s(\duplesn)=s_n$ and from the initial assumption 
-$s(g)=s_n$.
-
-We are left with proving (\ref{dupletuplesubgoaltwoone}) which we can do as follows:
+(\ref{dupletuplesubgoaltwoone}) is proved as follows:
 \begin{align*}
-\duplesn \circ q(p_{y_{n-1},y_i},z) \circ p_z 
-              &=  \duplesn \circ p_{\crossx{y_{n-1}}{z}{y_i}} \circ p_{y_{n-1},y_i} 
+\duplesnsg \circ q(p_{y_n,y_i},z) \circ p_z 
+              &=  \duplesnsg \circ p_{\crossx{y_n}{z}{y_i}} \circ p_{y_n,y_i} 
                                                && \mbox{commutivity of pullback square},               \\
-							&=\duplesn \circ p_{\crossx{y_{n-1}}{z}{y_i},y_i} && \mbox{definition of extended $p$,}  \\
+							&=\duplesnsg \circ p_{\crossx{y_n}{z}{y_i},y_i} && \mbox{definition of extended $p$,}  \\
 							&=\duplesi                                        && \mbox{lemma \ref{dupledestructionlemma},} \\
 							&= g \circ p_z                                    && \mbox{from the initial assumption.}
 \end{align*}
+and (\ref{dupletuplesubgoaltwotwo}) as follows 
+\begin{align*}
+s(\duplesnsg \circ q(p_{y_n,y_i},z))&=s(\duplesnsg)          &&\mbox{by (s3),}\\
+                                    &=s(g)                   &&\mbox{by definition of $\tuple{}$.}
+\end{align*}
 \end{proof}
-
+%
 \begin{lemma}
 \llabel{duplestuplelemma}
-In appropriate conditions
+If $x$, $y$ and $z$ are objects of a contextual category \catcw such that $1 \base y$ and $1 \base z$ and if $g_1:x \morph y$
+and $g_2:x \morph z$ in \catcw then
 \begin{equation*}
-\duple{s(g_1),...s(g_n)}=\tuple{g_1,...g_n}
+\duple{s(g_1),s(g_2)}=\tuple{g_1,g_2}
 \end{equation*}
 \end{lemma}
 \begin{proof}
-Use lemma \lref{thedupletuplelemma}.
+Follows from lemmas \lref{thedupletuplelemma} and \lref{dupleofslemma}.
 \tbd
 \end{proof}

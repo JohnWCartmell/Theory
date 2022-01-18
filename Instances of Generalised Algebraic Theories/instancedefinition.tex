@@ -700,7 +700,7 @@ Suppose that $\iI$ is an interpretation of $U$  and that $\iI$ is valid  then
 \item for every sort symbol $A$ of $U$ with introductory rule $r_A$ of the form \gatdisplayrule[,]{\xDelta{n}}{\isT{A(\xn)}} for some $n \geq 0$,
 $\Ibar(r_A)$ is defined and $\Ibar(r_A)=\iI_{sort}(A)$,
 \item for every operator symbol $f$ of $U$ with introductory rule $r_f$ of the form \gatdisplayrule[,]{\xDelta{n}}{\ofT{f(\xn)}{\Delta}} for some $n \geq 0$,
-$\Ibar(r_f)$ is defined $\Ibar(r_f)=\iI_{op}(f)$,.
+$\Ibar(r_f)$ is defined $\Ibar(r_f)=\iI_{op}(f)$.
 \end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -777,9 +777,11 @@ Suppose that $\iI$ is an interpretation of $U$  and that $\iI$ is valid  then $\
 First note that by examining clause (ii) of the definition of $\Ibar$ we can see that $\Ibar$ is  type independent 
 on $\in$-rules. 
 
-We need to show that for every derived rule $r$ of $U$, $\Ibar(r)$ is defined and $r$ is consistently interpreted\footnote{To be formally correct we need a definition of \textit{consistently interpreted} for partial mappings of rules not just total mappings -- since here at the point we use the definition we have not yet proved $\Ibar$ to be total.} by $\Ibar$. 
+We need to show that for every derived rule $r$ of $U$, $\Ibar(r)$ is defined and $r$ 
+is consistently interpreted\footnote{The reason that we have defined
+\textit{consistently interpreted} for partial mappings of rules and not just for total mappings is because  here -- at the point that we use the definition -- we have not yet proved $\Ibar$ to be total.} by $\Ibar$. 
 We prove this by induction on the derivation of rules in $U$. We examine each of the principles of derivation in turn
-and show that given the stated assumptions then from rules for which $\Ibar$ is defined and which are consistently interpreted by $\Ibar$ 
+and show that from rules for which $\Ibar$ is defined and which are consistently interpreted by $\Ibar$ 
 it is only possible to derive rules for which $\Ibar$ is defined and which themselves are consistently interpreted by $\Ibar$.
 The principles of derivation (see \cite{Cartmell86}) are LI1, ... LI7, T1, CF1, CF2(a) and CF2(b), SI1 and SI2. 
 The proof of this  in each the cases  LI1,...LI6 is quite trivial. We consider each of the remaining principles in turn. 
@@ -819,35 +821,38 @@ By the inductive hypothesis we assume that the rules   \gatdisplayrule{P}{\Delta
 consistently interpreted by $\Ibar$. We have to show that the rule \gatdisplayrule[.]{P}{\ofT{t}{\Delta'}} is consistently interpreted by $\Ibar$.
 This is proven in lemma \lref{T1preservesconsistentinterpretation}. \\
 %
-% 
-\newpage
 %
-%
-\underline{CF1} According to the principle, whenever a rule of the form \gatdisplayrule{\xDelta{n}}{\isT{\Delta_{n+1}}} is a derived rule of $U$ 
-then so to is the rule \gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}}, \foreachi[n+1], where $x_{n+1}$ is any variable distinct from each of the variables $\xn$.
-We have to show that if $\Ibar$ is defined for and consistently interprets any such T-rule, which we will denote, $r_{\Delta_{n+1}}$, 
+\underline{CF1} According to the principle, 
+whenever a rule of the form \gatdisplayrule{\xDelta{n}}{\isT{\Delta_{n+1}}} is a derived rule of $U$ 
+then so to is the rule \gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}}, \foreachi[n+1], 
+where $x_{n+1}$ is any variable distinct from each of the variables $\xn$.
+Let $r_{x_i}$ be the rule \gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}}.
+We have to show that if $\Ibar$ is defined for and consistently interprets any such derived T-rule
+\gatdisplayrule{\xDelta{n}}{\isT{\Delta_{n+1}}}, 
+which we will denote, $r_{\Delta_{n+1}}$, 
 then so to is $\Ibar$ defined for and consistently interprets each associated rule $r_{x_i}$. 
 Since $\Ibar$ is defined for $r_{\Delta_{n+1}}$ it follows by lemma \lref{Ibartowerlemma} that 
-$\Ibar(r_{\Delta_i})$ is defined \foreachi, where $r_{Delta_i}$ is the rule \gatdisplayrule{\xDelta{i-1}}{\isT{\Delta_{i}}}.
+$\Ibar(r_{\Delta_i})$ is defined \foreachi[n+1], where $r_{\Delta_i}$ is the rule \gatdisplayrule{\xDelta{i-1}}{\isT{\Delta_{i}}}.
 Denote by $a_i$ the object  $\Ibar(r_{\Delta_i})$ \foreachi[n+1]. By lemma \lref{Ibartowerlemma}
 it follows that $1 \base a_1 ... \base a_n \base a_{n+1}$ in \catc.  
-We show that  if it is the case for $r_{x_j}$ all $j <i$ 
-then it follows that it is the case for each rule \gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}}, which we shall denote  $r_{x_i}$. 
-In so doing we establish that it holds for all $i \leq n +1 $, as required. 
+It suffices to show show that \foreachi[n+1],
+if it is the case that $\Ibar$ is defined at and consistently interprets every rule $r_{x_j}$ all $j <i$ 
+then it follows that $\Ibar$ is defined at and consistently interprets the rule $r_{x_i}$. 
 
-So, suppose that for each $j$, $j < i$, that $\Ibar$ is defined for and consistently interprets the rule $r_{x_j}$. 
+So, suppose such an $i$ and suppose that for each $j$, $j < i$, 
+that $\Ibar$ is defined for and consistently interprets the rule $r_{x_j}$. 
 We shall now show that it follows that 
 $\Ibar$ is defined at the rule $r_{x_i}$ and that this rule is consistently interpreted by $\Ibar$ by showing that
-$\Ibar(r_{x_i})=s(p_{a_{n+1},a_i})$. \commentary{not yet defined $a_i$.}
+$\Ibar(r_{x_i})=s(p_{a_{n+1},a_i})$. 
 
 %Denote the former rule $r_{\Delta_{n+1}}$ and the latter rule $r_{x_i}$. 
 First we have to show that the preconditions for $\Ibar$ to be defined at the rule $r_{x_i}$ hold. These are:
 
 \begin{enumerate}
-\item That \foreachi, the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $a_i$ of \catcw such
-that $1 \base a_1,...\base a_i$. This follows from lemma \lref{Ibartowerlemma}. \commentary{\highlight{CHECK}}
+\item The first precondition is that \foreachi[n+1], the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $a_i$ of \catcw such
+that $1 \base a_1,...\base a_i$. We have established this above. 
 
-\item That the rule \DDelta{n+1}{i} is mapped by $\Ibar$ to the object $\crossx{a_{n+1}}{a_i}{a_{i-1}}$.
+\item The second precondition is that the rule \DDelta{n+1}{i} be mapped by $\Ibar$ to the object $\crossx{a_{n+1}}{a_i}{a_{i-1}}$.
 
 This we can show as follows.
 \newcommand{\deltaimapped}{\crossx{a_{n+1}}{a_i}{a_{i-1}}}
@@ -855,11 +860,10 @@ This we can show as follows.
 Let $r_{\Delta_i}$ be the rule \IDelta{i}.
 
 
-
 Because $\Ibar(r_{\Delta_i}) = a_i$,
 because  we have that
-$\tuple{x_1,...x_{i-1}}$ is a realisation of context $\xDelta{i-1}$ with respect to context $\Delta_{n+1}$ 
-and since we have assumed for each $j<i$ that $r_{x_j}$ is consistently interpreted by $\Ibar$ and in particular
+$\tuple{x_1,...x_{i-1}}$ is a realisation of context $\xDelta{i-1}$ with respect to context $\xDelta{n+1}$ 
+and since we have assumed for each $j<i$ that $\Ibar$ is defined at and consistently interprets $r_{x_j}$  and in particular
 that
 \begin{equation*}
 \begin{array}{c c c }
@@ -882,19 +886,25 @@ i.e.
 \DDelta{n+1}{i}  & \Imapsto & \deltaimappedlong.\\ [0.4cm]
 \end{array}
 \end{equation*}
-So we are done if we can prove that
-
+but
 \begin{equation*}
 \deltaimappedlong = \deltaimapped
 \end{equation*}  
-This is given by lemma \lref{sofpsubstitutionlemma}
+ by lemma \lref{sofpsubstitutionlemma}.
+ Therefore \begin{equation*}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\DDelta{n+1}{i}  & \Imapsto & \deltaimapped\\ [0.4cm]
+\end{array}
+\end{equation*}
+as required for this precondition.
 \end{enumerate}
-Next we have to show that 
-By showing that the relevant preconditions hold we have shown that $I(r_{x_i})$ is defined. 
-To show that the rule $r_{x_i}$ is consistently interpreted by $\Ibar$ we just have to show that
- $\Ibar(r_{x_i})=s(p_{a_{n+1},a_i})$. But this is exactly the definition of $\Ibar$ at $r_{x_i}$. 
-and that $\Ibar(r_{\Delta_i})=\crossx{a_n}{a_i}{1}$ which we have shown in 1. above.\\
-\highlight{Some more work to be done above since we have to show conditions (a),(b) and (c) hold as well as condition (d). } \\
+Since we have shown the preconditions hold then it follows from the definition of $\Ibar$ that 
+ $\Ibar(r_{x_i})=s(p_{a_{n+1},a_i}) \in Sect(\crossx{a_{n+1}}{a_i}{a_{i-1}})$.
+
+In fact, along the way in this proof that $\Ibar$ is defined at the rule $r_{x_i}$ we have shown that each of the required conditions 
+ (a), (b) and (d) of clause (ii) of definition \lref{consistentinterpretation} holds. This establishes, as required,
+that the rule  $r_{x_i}$ is consistently interpreted by $\Ibar$. \\
 \underline{CF2(a)}By this principle, from a sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule[,]{\xDelta{n}}{\isT{A(\xn)}} for some $n \geq 0$, if the rule \gatdisplayrule[,]{\xDelta{n-1}}{\isT{\Delta_n}} is a derived rule of $U$,
 if $P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
 and from derived rules $r_{t_i}$ of the form \ItDelta[P]{i}, \foreachi, we may deduce
