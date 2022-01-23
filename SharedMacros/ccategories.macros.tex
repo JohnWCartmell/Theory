@@ -84,7 +84,7 @@
  
 \newcommand\dhead{\scaleobj{0.6}{\triangleright}}
 %\newcommand{\dmorph}{\, \mbox{---} \! \cdot \! \raisebox{1.1pt}{\dhead}}    % dot style
-\newcommand{\dmorph}{\, \mbox{---}\kern-1pt\raisebox{1.1pt}{\dhead\kern-1.75pt\dhead}}\,     % double triangle style
+\newcommand{\dmorph}{\, \mbox{---}\kern-1pt\raisebox{1.1pt}{\dhead\kern-1.75pt\dhead}}    % double triangle style
 
 % projection tree
 %\newcommand{\proj}[2]{proj_{#2}(#1)}
@@ -137,14 +137,18 @@
 \newcommandx*\blabel[3][2=0.5,3=2,usedefault]{\nbput[labelsep=#3pt,npos=#2]{\footnotesize $#1$}}
 
 % Added April 2021
+% renamed January 2022
+\newcommand{\ncleftsection}[3][30] 
+{\ncarc[arcangle=#1,nodesepA=4pt,nodesepB=3pt,offsetA=1pt,offsetB=0pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
+\newcommand{\ncrightsection}[3][-30] 
+{\ncarc[arcangle=#1,nodesepA=4pt,nodesepB=3pt,offsetA=-1pt,offsetB=0pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
+
 \newcommand{\ncrightcrosssection}[3][-30] 
 {\ncarc[arcangle=#1,nodesepA=5pt,nodesepB=-2pt,offsetA=0pt,offsetB=1pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
-\newcommand{\ncrightsimplesection}[3][-30] 
-{\ncarc[arcangle=#1,nodesepA=6pt,nodesepB=5pt,offsetA=-1pt,offsetB=0pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
+
 \newcommand{\ncleftcrosssection}[3][30] 
 {\ncarc[arcangle=#1,nodesepA=5pt,nodesepB=-2pt,offsetA=0pt,offsetB=-1pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
-\newcommand{\ncleftsimplesection}[3][30] 
-{\ncarc[arcangle=#1,nodesepA=6pt,nodesepB=5pt,offsetA=1pt,offsetB=0pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
+
 
 
 \newif \ifbars
@@ -238,18 +242,19 @@
 \fi
 
 % cdar - composite dependency arrow Mark IV - jagged triangle headed arrow
-\newcommand{\nccdar}[2]
+\newcommand{\nccdar}[3][0]
 {\setlength{\cdarnodesepAsav}{\sarnodesepA}
-\ncline[linestyle=none]{#1}{#2} 
+\ncline[linestyle=none,arcangle=#1]{#2}{#3} 
 \ncput[nrot=:U]{
-               \pnode(-0.1,-0.05){#1jaggedsourceto#2}
-               \pnode(-0.3,0.05){#1jaggeddesto#2}
+               \pnode(-0.1,-0.05){#2jaggedsourceto#3}
+               \pnode(-0.3,0.05){#2jaggeddesto#3}
                 }
- \ncline[nodesepB=0pt]{#1}{#1jaggedsourceto#2}
- \ncline[nodesepA=0pt, nodesepB=0pt]{#1jaggedsourceto#2}{#1jaggeddesto#2}
+ \ncline[nodesepB=0pt]{#2}{#2jaggedsourceto#3}
+ \ncline[nodesepA=0pt, nodesepB=0pt]{#2jaggedsourceto#3}{#2jaggeddesto#3}
  \setlength{\sarnodesepA}{-3pt}
- \ncsar{#1jaggeddesto#2}{#2}
+ \ncsar{#2jaggeddesto#3}{#3}
  \setlength{\sarnodesepA}{\cdarnodesepAsav}
+ \ncline[linestyle=none,arcangle=#1]{#2}{#3}  % just so that labels could be approx placed and for backward compatibility
 }
 
 
@@ -262,6 +267,7 @@
 \nccdar[#1]{#3}{#4}
 \nbput[labelsep=2pt]{\footnotesize $#2$}
 }
+
 % acdar - above labelled composite dependency arrow
 \newcommand{\ncacdar}[4][0]{
 \nccdar[#1]{#3}{#4}

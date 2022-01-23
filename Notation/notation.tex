@@ -8,14 +8,14 @@
 \usepackage{enumerate}
 \usepackage {textcomp}
 \usepackage{ulem}
-\usepackage[left=1.5cm, right=1cm,  top=1cm, bottom=1.0cm]{geometry}
+\usepackage[left=1.5cm, right=1.0cm,  top=2.0cm, bottom=2.0cm]{geometry}
 \input{../SharedMacros/ccategories.macros}
 \input{../SharedMacros/gats.macros}
 \input{../SharedMacros/metagat.macros}
 \input{../SharedMacros/general.macros}
 \input{../SharedMacros/diagram.macros}
 
-\usepackage{arydshln}
+\usepackage{arydshln} %Draw dash-lines in array/tabular 
 
 \usepackage{mathtools} %for \bigtimes
 \title{Notation - supporting macros}
@@ -482,7 +482,6 @@ Example of using \verb!\begin{notebox}[Example]...\end{notebox}!
 \end{notebox}
 
 
-
 \section {cccategories.macros }
 \vspace{5mm}
 \subsection{General}
@@ -529,47 +528,58 @@ Example of using \verb!\begin{notebox}[Example]...\end{notebox}!
 \verb!\primeds{A}!& $\primeds{A}$                    &\\
 \hline
 \end{tabular}
-
+\newpage
 \subsection {pstricks macros for arrows, s-arrows and d-arrows}
 The following macros supplement the node connection macros (prefix 'nc') from pstricks and are implemented by combining pstricks 'nc' macros and put macros naput (put above) and nbput (put below). Arrowheads are either open or open triangles (representing S-morphisms). \\
-%\begin{table}[h]
-%	\centering
-		\begin{tabular}{|l |  p{5cm} | c |}
+
+\begin{tabular}{|l |  p{5cm} | c |}
 		\hline
 		\multicolumn{3}{|c|}{pstricks macros for arrows and s-arrows} \\
-		   \hline	   
+		   \hline	 
 		   \verb!\ncarr[ang]{A}{B}! &  an arrow between nodes A and B optionally an arc of angle ang (default 0)
-			& $$\Rnode{A}{A} \hspace{0.75cm} \Rnode{B}{B}$$ \ncarr{A}{B}
-			\\
-		   \hline	   
+			& \raisebox{-0.3cm}{$$\Rnode{A}{A} \hspace{0.75cm} \Rnode{B}{B}$$ \ncarr{A}{B}}
+      \\ 
+      \hline       
+       \verb!\alabel{f}[npos][labelseppts]! & label above the arrow (default npos 0.5, default labelseppts 2)
+      & \raisebox{-0.3cm}{$$\Rnode{A}{A} \hspace{0.75cm} \Rnode{B}{B}$$ \ncarr{A}{B}\alabel{f}}
+      \\  [0.3cm]     \hline       
+       \verb!\blabel{f}[npos][labelseppts]! & label below the arrow (default npos 0.5, default labelseppts 2)
+      & \raisebox{-0.3cm}{$$\Rnode{A}{A} \hspace{0.75cm} \Rnode{B}{B}$$ \ncarr{A}{B}\blabel{f}}
+      \\ [0.6cm]
+      \hline
+%  
 		   \verb!\ncdarr[ang]{A}{B}! &  an dashed arrow between nodes A and B optionally an arc of angle ang (default 0)
 			& $$\Rnode{A}{A} \hspace{0.75cm} \Rnode{B}{B}$$ \ncdarr{A}{B}
 			\\
-		   \hline
-		 	 \verb!\jcbarr[ang]{f}{A}{B}! & an arrow f between nodes A and B labelled below optionally an arc of angle ang (default 0)
-			&
-			\\
-		 	 \hline
-		 	 \verb!\ncaarr[ang]{f}{A}{B}! & an arrow f between nodes A and B labelled above optionally an arc of angle ang (default 0)
-			&
-			\\
-			\hline	   
+			\hline
+% 
 		   \verb!\ncsar[ang]{A}{B}! &  an S-arrow between nodes A and B optionally an arc of angle ang (default 0)
 			&
 			\raisebox{-0.6cm}{$
 \begin{array} {c}
-\Rnode{A}{A} \\ [0.6cm]
+\Rnode{A}{A} \\ [1.0cm]
 \Rnode{B}{B}
 \end{array}$\ncsar{A}{B}} \\
-		 	 \hline			
-		 	 \verb!\ncbsar[ang]{f}{A}{B}! & an s-arrow f between nodes A and B labelled below optionally an arc of angle ang (default 0)
-			&
-			\\
-		 	 \hline
-		 	 \verb!\ncasar[ang]{f}{A}{B}! & an s-arrow f between nodes A and B labelled above optionally an arc of angle ang (default 0)
-			&
-			\\
-						\hline	   
+		 	 \hline	
+%  
+       \verb!\ncleftsection[ang]{A}{B}! &  a section optionally an arc of angle ang (default 30)
+      &
+      \raisebox{-0.6cm}{$
+\begin{array} {c}
+\Rnode{B}{B} \\ [1.0cm]
+\Rnode{A}{A}
+\end{array}$\ncsar{B}{A}\ncleftsection{A}{B}} \\
+       \hline  
+%  
+       \verb!\ncrightsection[ang]{A}{B}! &  a section optionally an arc of angle ang (default -30)
+      &
+      \raisebox{-0.6cm}{$
+\begin{array} {c}
+\Rnode{B}{B} \\ [1.0cm]
+\Rnode{A}{A}
+\end{array}$\ncsar{B}{A}\ncrightsection{A}{B}} \\
+       \hline  
+%
 		   \verb!\nccdar[ang]{A}{B}! &  a composite dependency arrow between nodes A and B optionally an arc of angle ang (default 0)
 			&
 			\raisebox{-0.75cm}{$
@@ -577,33 +587,36 @@ The following macros supplement the node connection macros (prefix 'nc') from ps
 \Rnode{A}{A} \\ [0.75cm]
 \Rnode{B}{B}
 \end{array}$\nccdar{A}{B}} \\
-		 	 \hline			
-		 	 \verb!\ncbcdar[ang]{f}{A}{B}! & a composite dependency arrow f between nodes A and B labelled below optionally an arc of angle ang (default 0)
-			&
-			\raisebox{-0.75cm}{$
-\begin{array} {c}
-\Rnode{A}{A} \\ [0.75cm]
-\Rnode{B}{B}
-\end{array}$\ncbcdar{f}{A}{B}}
-			\\
-			\hline
-		 	 \verb!\ncacdar[ang]{f}{A}{B}! & a composite dependency arrow f between nodes A and B labelled above optionally an arc of angle ang (default 0)
-						&
-			\raisebox{-0.75cm}{$
-\begin{array} {c}
-\Rnode{A}{A} \\ [0.75cm]
-\Rnode{B}{B}
-\end{array}$\ncacdar{f}{A}{B}}
-			\\
-		 	 \hline	   
-		   \verb!\nrsarr{A}{B}! &  a recursive S-arrow between nodes A and B i.e one that loops around
+		 	 \hline
+%   
+		   \verb!\ncrsar{A}{B}! &  an upside down recursive S-arrow between nodes A and B i.e one that loops around (see below)
 			&
 			\\ 
 			\hline		
-		\end{tabular}
-%\end{table}
-\vspace{0.5cm}
+\end{tabular}
 
+\newpage
+\subsection{DEPRECATED}
+\begin{tabular}{|l |  p{5cm} | c |}
+    \hline
+    \multicolumn{3}{|c|}{pstricks macros for arrows and s-arrows} \\
+       \hline  
+       \verb!\jcbarr[ang]{f}{A}{B}! & DEPRECATED - use \verb'\ncarr' and \verb'\blabel'&\\
+       \hline
+       \verb!\ncaarr[ang]{f}{A}{B}! & DEPRECATED - use \verb'\ncarr' and \verb'\alabel'&\\
+       \hline     
+       \verb!\ncbsar[ang]{f}{A}{B}! & DEPRECATED - use \verb'\ncsar' and \verb'\blabel'&\\ 
+       \hline
+       \verb!\ncasar[ang]{f}{A}{B}! & DEPRECATED - use \verb'\ncsarr' and \verb'\alabel'&\\
+       \hline   
+       \verb!\ncbcdar[ang]{f}{A}{B}! & DEPRECATED - use \verb'\nccdar' and \verb'\blabel'&\\
+       \hline      
+       \verb!\ncacdar[ang]{f}{A}{B}! & DEPRECATED - use \verb'\nccdar' and \verb'\alabel'&\\
+       \hline       
+\end{tabular}
+
+\vspace{0.5cm}
+\newpage
 \noindent For example:
 \begin{verbatim}
 \begin{center}

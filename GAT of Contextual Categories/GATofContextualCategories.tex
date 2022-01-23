@@ -16,6 +16,11 @@
 \usepackage{float}
 \usepackage[section]{placeins}
 
+\newcommand{\ssub}{\kern-2pt^*\kern-1pt}
+\renewcommand{\sub}{^*\kern-1pt}
+
+\newcommand{\byaxiom}[1]{by axiom (\ref{#1})}
+
 \setcounter{equation}{0}
 \title{Generalised Algebraic Axiomatisations of Contextual Categories}
 \subtitle{Corrected 6 April 2018 \\
@@ -249,32 +254,32 @@ q(f \circ g,z) = q(f,g^*z) \circ q(g,z)
 \subsubsection{Equational Definition following Voevodsky}
 Following Voevodsky, however, we may replace the pullback condition, (ii), above, by additional structure as follows:
 
-\noindent (ii') for all morphisms $f: x \rightarrow y$, a morphism $s(f) : x \rightarrow f \sub p_y \sub y$ such that:
+\noindent (ii') for all morphisms $f: x \rightarrow y$, a morphism $s(f) : x \rightarrow f \sub {p_y} \ssub y$ such that:
 
 \begin{axiom}{s1}
-s(f) \circ p_{f\sub p_y \sub y}=id_x
+s(f) \circ p_{f\sub {p_y} \ssub y}=id_x
 \end{axiom}
 
 \noindent and
 
 \begin{axiom}{s2}
-s(f) \circ q( f \circ p_y     ,y)=f
+s(f) \circ q( f \circ p_y ,y)=f
 \end{axiom}	
 
 \noindent i.e. such that the following diagrams commute:
 \begin{center}
 \begin{displaymath}
 \begin{array}{cccp{1.cm} cp{.9cm}c}
-&\Rnode{fXyyM}{f\sub p_y \sub y}&  & &  \Rnode{fXyy}{f\sub p_y \sub y} & & \Rnode{yXy}{p_y \sub y}\\ [1.2cm]
+&\Rnode{fXyyM}{f\sub {p_y} \ssub y}&  & &  \Rnode{fXyy}{f\sub {p_y} \ssub y} & & \Rnode{yXy}{{p_y} \ssub y}\\ [1.2cm]
 \Rnode{xL}{x} & &\Rnode{xR}{x} & &\Rnode{x}{x}         & & \Rnode{y}{y}
 \end{array}
 \end{displaymath}
-\ncasar{p_{f\sub p_y \sub y}}{fXyy}{x}
+\ncasar{p_{f\sub {p_y} \ssub y}}{fXyy}{x}
 \jcbarr{f}{x}{y}
-\ncaarr{q(f,p_y \sub y)}{fXyy}{yXy}
-\ncasar{p_{p_y \sub y}}{yXy}{y}
+\ncaarr{q(f,{p_y} \ssub y)}{fXyy}{yXy}
+\ncasar{p_{{p_y} \ssub y}}{yXy}{y}
 \ncaarr{s(f)}{xL}{fXyyM}
-\ncasar{p_{f\sub p_y \sub y}}{fXyyM}{xR}
+\ncasar{p_{f\sub {p_y} \ssub y}}{fXyyM}{xR}
 \jcbarr{id_x}{xL}{xR}
 \end{center}
 
@@ -304,16 +309,16 @@ s(f \circ q(g,z))=s(f)
 \noindent
 This equation is well-typed because
 \begin{align*}
-      lhs = &\ofT{s(f \circ q(g,z))} {Hom(w,(f \circ q(g,z) ) \sub p_z \sub z} ) \\
+      lhs = &\ofT{s(f \circ q(g,z))} {Hom(w,(f \circ q(g,z) ) \sub {p_z} \ssub z} ) \\
       rhs = &\ofT{s(f)} {Hom(w,(f \circ   p_{g \sub z} ) \sub  g \sub z } )\\
 \end{align*}
 and
 \begin{equation*}
-     Hom(w,(f \circ q(g,z) ) \sub p_z \sub z ) = Hom(w,(f \circ   p_{g \sub z} ) \sub  g \sub z )
+     Hom(w,(f \circ q(g,z) ) \sub {p_z} \ssub zz ) = Hom(w,(f \circ   p_{g \sub z} ) \sub  g \sub z )
 \end{equation*}
 because
 \begin{align*}
-(f \circ q(g,z) ) \sub p_z \sub z 
+(f \circ q(g,z) ) \sub {p_z} \ssub z 
                  & = f \sub ((q(g,z) \circ p_z) \sub z &\mbox{by (\ref{q4})}\\
                  & = f \sub ( p_{g \sub z} \circ g ) \sub z&\mbox{by (\ref{q1})}\\
                  & = (f \circ   p_{g \sub z} ) \sub  g \sub z&\mbox{by (\ref{q4})}
@@ -323,7 +328,7 @@ because
 
 \begin{lemma}
  If \cat{C} is a tree-structured category with operators, q, * and s satisfying
-axioms q1-q5 and s1-s3 then for all objects $w$ of \cat{C}, and for all
+axioms q1-q5 and (s1)-s3 then for all objects $w$ of \cat{C}, and for all
 morphisms $h_1: w \rightarrow x$ and $h_2: w \rightarrow z$  such that
 
 $h_1 \circ f = h_2 \circ p_z$ 
@@ -342,7 +347,7 @@ as shown in the following diagram:
 \begin{equation}
 \label{voevodsky}
 \begin{array}{cp{0.5cm}cp{1.2cm}c}
-\Rnode{gpz}{(h_2 \circ p_z)\sub z = {h_1} \kern-3pt \sub f \sub z} &&    &&   \\ [1.7cm]
+\Rnode{gpz}{(h_2 \circ p_z)\sub z = {h_1} \ssub f \sub z} &&    &&   \\ [1.7cm]
 \Rnode{w}{w} &&                     &&           \\ [0.3cm]
              &&\Rnode{fstarz}{f^*z} && \Rnode{z}{z}\\ [1.2cm]
              &&\Rnode{x}{x}         && \Rnode{y}{y}
@@ -357,7 +362,7 @@ as shown in the following diagram:
 \ncaarr[35]{}{w}{z}
 \naput[labelsep=0.05]{\footnotesize $h_2$}
 \ncaarr[30]{s(h_2)}{w}{gpz}
-\ncasar{{p_{h_1}} \kern-3pt \sub f \sub z}{gpz}{w}
+\ncasar{p_{{h_1}  \ssub f \sub z}} {gpz}{w}
 \ncaarr[10]{}{gpz}{fstarz}
 \naput[npos=0.3, labelsep=0.05]{\footnotesize $q(h_1,f \sub z)$}
 \psset{linestyle=dashed}
@@ -440,7 +445,7 @@ $q(f \circ g,z) = q(f,g^*z) \circ q(g,z), $
 				   whenever  $ \ofObi{w}{n} ,\ \ofObi{x}{m} ,\ \ofObi{y}{p}, 
 					\ofHomij{f}{n}{m}{w}{x} ,\  \ofHomij{g}{m}{p}{x}{y}    $ \\[0.25cm]
 					
-$s(f) \circ p_{f \sub p_y \sub y} = id(x),$ 
+$s(f) \circ p_{f \sub {p_y} \ssub y} = id(x),$ 
           whenever $\ofObi{x}{n} ,\  \ofObi{y}{m} ,\  \ofHomij{f}{n}{m}{x}{y} $ \\ [0.25cm]
 				
 $s(f) \circ q( f \circ p_y    ,y))=f, $	
@@ -461,59 +466,96 @@ $$s(f \circ s(g)) = s(f \circ g)$$
 \begin{proof}
 \begin{align*}
 s( f \circ s(g)) 
-    & = s( f \circ s(g)\circ q(g \circ p_z) , z ))  &\mbox{by axiom s3}\\
-    & = s(f \circ g) &\mbox{by axiom s2} 
+    & = s( f \circ s(g)\circ q(g \circ p_z) , z ))  &\mbox{by axiom (s3)}\\
+    & = s(f \circ g) &\mbox{by axiom (s2)} 
 \end{align*}
 \end{proof}
 
-
-\subsubsection {Extending the $\sub$ operator}
+\newcommand{\hash}{^\#}
+\subsubsection {The  $\hash$ operator}
 
 As a preliminary to presenting an alternative axiomatisation of the generalised algbraic theory of contextual categories
-we introduce two new operators. The first we consider to be an extension to the $\sub$ operator and applies to certain morphisms as follows: 
+we introduce two new operators. The first is $\hash$ and applies to certain morphisms as follows: 
 if $f:x \longrightarrow y_p$, $y_p \base y$, and $g:y_p \longrightarrow y$ in a contextual category \cat{C} then
-define $f \sub g: x \longrightarrow (f \circ g \circ p_y) \sub y$ to be the morphism $s(f \circ g)$. \\
+define $f \hash g: x \longrightarrow (f \circ g \circ p_y) \sub y$ to be the morphism $s(f \circ g)$. \\
+
+\begin{equation*}
+\begin{array}{c p{1.5cm} c}
+\rnode{TL}{( f \circ g \circ p_y)^*y} &&                \\[0.3cm]
+                                      && \Rnode{TR}{y}  \\[0.3cm]
+\Rnode{BL}{x}                         &&                \\[0.3cm]
+                                      && \Rnode{BR}{y_p} \\
+\mbox{
+%
+\ncsar{TL}{BL}
+\ncleftsection{BL}{TL}
+\alabel{f\hash g}
+%
+\ncsar{TR}{BR}
+\ncrightsection{BR}{TR}
+\blabel{g}
+%
+\ncarr{TL}{TR}
+\alabel{q(f \circ g \circ p_y,y)}
+%
+\ncarr{BL}{BR}
+\blabel{f}
+}
+\end{array}
+\end{equation*}
 
 \begin{lemma} 
-\label{lemmastarsection} 
+\llabel{lemmastarsection} 
 \noindent If $f:x \longrightarrow y_p$, $y_p \base y$, and $g:y_p \longrightarrow y$ in a contextual category \cat{C} then
-$f \sub g$ is a section i.e. $f \sub g \circ p_{(f \circ g \circ p_y) \sub y} = id_x$
+$f \hash g$ is a section i.e. $f \hash g \circ p_{(f \circ g \circ p_y) \sub y} = id_x$
 \end{lemma}
 \begin{proof}
-This follows from the definition of $\sub$ and from axiom s1.
+This follows from the definition of $\hash$ and from axiom (s1).
 \end{proof}
 
+Also note that it follows from the defininitions that if $g$ is a section then $f\hash g = f\sub g$.
+
 \begin{lemma} 
-\label{lemmastar1}  
+\llabel{lemmahash1}  
 If $f:x \longrightarrow y_p$ and $y_p \base y$ and  $g:y_p \longrightarrow y$ in \cat(C) 
 as shown here:
 \vspace{3mm}
-\begin{center}
 \begin{displaymath}
-\begin{array}{cp{.9cm}c}
+\begin{array}{cp{1.2cm}c}
 \Rnode{fgpy}{(f \circ g \circ p_y)\sub y} & & \Rnode{y}{y}\\ [1.2cm]
-\Rnode{x}{x}         & & \Rnode{yp}{y_p}
+\Rnode{x}{x}         & & \Rnode{yp}{y_p} \\
+\mbox{
+%
+\ncsar{fgpy}{x}
+\ncleftsection{x}{fgpy}
+\alabel{f \hash g}
+%
+\ncarr{x}{yp}
+\blabel{f}
+%
+\ncarr{fgpy}{y}
+\alabel{q(f\circ g \circ p_y,y)}
+%
+\ncsar{y}{yp}
+\ncleftsection{yp}{y}
+\alabel{g}
+%
+%\ncaarr[35]{f \sub g}{x}{fgpy}   
+}
 \end{array}
 \end{displaymath}
-\ncbsar{}{fgpy}{x}
-\jcbarr{f}{x}{yp}
-\ncaarr{q(f\circ g \circ p_y,y)}{fgpy}{y}
-\ncasar{}{y}{yp}
-\ncaarr[35]{g}{yp}{y}
-\ncaarr[35]{f \sub g}{x}{fgpy}
-\end{center}
 
 then 
 $$
-f \sub g \circ q(f \circ g \circ p_y,y) = f \circ g
+f \hash g \circ q(f \circ g \circ p_y,y) = f \circ g.
 $$
 \end{lemma}
 \begin{proof}
-Follows directly from the definition of $\sub$ and by axiom s2.
+Follows directly from the definition of $\hash$ and by axiom (s2).
 \end{proof}
 
 \begin{lemma}
-\label{lemmastar2}
+\label{lemmahash2}
 if $f_1:x_1 \longrightarrow x_2$ and $f_1:x_2 \longrightarrow y_p$
 and $y_p \base y$ and  $g:y_p \longrightarrow y$ in a contextual category \cat{C} as here:
 
@@ -525,7 +567,7 @@ and $y_p \base y$ and  $g:y_p \longrightarrow y$ in a contextual category \cat{C
 \Rnode{x1}{x_1}         & & \Rnode{x2}{x_2}         & & \Rnode{yp}{y_p}
 \end{array}
 \end{displaymath}
-\ncbsar{}{ffgpy}{x_1}
+%\ncbsar{}{ffgpy}{x_1}
 \jcbarr{f_1}{x1}{x2}
 \jcbarr{f_2}{x2}{yp}
 \ncasar{}{y}{yp}
@@ -534,17 +576,16 @@ and $y_p \base y$ and  $g:y_p \longrightarrow y$ in a contextual category \cat{C
 
 then
 \begin{equation*}
-f_1 \sub f_2 \sub g = (f_1 \circ f_2) \sub g
+f_1 \hash f_2 \hash g = (f_1 \circ f_2) \hash g
 \end{equation*}
 \end{lemma}
 \begin{proof}
 \begin{align*}
-lhs &= s(f_1 \circ f_2 \circ g)  && \mbox{from defn. of extended $\sub$} \\
-    &= s(f_1 \circ s(f_2 \circ g))&&\mbox{by lemma \ref{s4}} \\
-		&= f_1 \sub f_2 \sub g       && \mbox{from defn. of extended $\sub$} \\
-	  &= rhs                                    && \mbox{as required.}
+lhs &= s(f_1 \circ f_2 \circ g)     && \mbox{from defn. of extended $\hash$} \\
+    &= s(f_1 \circ s(f_2 \circ g))  && \mbox{by lemma \ref{s4}} \\
+		&= f_1 \hash f_2 \hash g    && \mbox{from defn. of extended $\hash$} \\
+	  &= rhs                        && \mbox{as required.}
 \end{align*}
-
 \end{proof}
 
 
@@ -557,7 +598,7 @@ the morphism $s(id_x)$.
 \label {deltalemma}
 If x is an object of a contextual category \cat{C} then $\delta_x$ satisfies:
 \begin{enumerate}[(i)]
-\item $\delta_x$ is a section i.e $\delta_x \circ p_x = id_x$.
+\item $\delta_x$ is a section i.e $\delta_x \circ p_{p_x \sub x} = id_x$.
 \item $\delta_x \circ q(p_x,x) = id_x$.
 \end{enumerate}
 \end{lemma}
@@ -571,7 +612,7 @@ Follows from definition of $\delta$ and from axioms \ref{s1} and axiom \ref{s3}.
 Whenever $y_p \base y$ and
 $f: x \longrightarrow y_p$ in a contextual category \cat{C} then 
 \begin{equation*}
-q(f,y) \sub \delta_y   = delta_{f \sub y}
+q(f,y) \hash \delta_y   = \delta_{f \sub y}
 \end{equation*}
 \end{lemma}
 \begin{proof}
@@ -579,16 +620,16 @@ Use lemma \ref{s4} and axiom \ref{s3}.
 \end{proof}
 
 
-\subsection{$\delta\sub$ axiomatisation.}
-We can now give an alternative axiomatision of the generalised algebraic theory of contextual categories which we provisionally call a $\delta\sub$-structure. 
+\subsection{$\delta\hash$ axiomatisation.}
+We can now give an alternative axiomatision of the generalised algebraic theory of contextual categories which we provisionally call a $\delta\hash$-structure. 
 
 \subsubsection{Definition}
 
-A $\delta\sub$-structure is a tree category \cat(C) with  operators $\sub$ and
+A $\delta\hash$-structure is a tree category \cat(C) with  operators $\hash$ and
 $q$ satisfying axioms q1 - q5 given above and with the following additional structure:
  \begin{enumerate}[I.]
 \item
-If $f:x \longrightarrow y_p$ and $y_p \base y$ and  $g:y_p \longrightarrow y$ in \cat(C) then a morphism $f \sub g : x \longrightarrow (f \circ g \circ p_y)*y$
+If $f:x \longrightarrow y_p$ and $y_p \base y$ and  $g:y_p \longrightarrow y$ in \cat(C) then a morphism $f \hash g : x \longrightarrow (f \circ g \circ p_y)*y$
 as shown here:
 \vspace{3mm}
 \begin{center}
@@ -603,16 +644,16 @@ as shown here:
 \ncaarr{q(f\circ g \circ p_y,y)}{fgpy}{y}
 \ncasar{}{y}{yp}
 \ncaarr[35]{g}{yp}{y}
-\ncaarr[35]{f \sub g}{x}{fgpy}
+\ncaarr[35]{f \hash g}{x}{fgpy}
 \end{center}
 
 satisfying 
-\begin{axiom}{star1}
-f \sub g \circ p_{(f \circ g \circ p_y) \sub y} = id_x
+\begin{axiom}{hash1}
+(f \hash g) \circ p_{(f \circ g \circ p_y) \sub y} = id_x
 \end{axiom}
 and 
-\begin{axiom}{star2}
-f \sub g \circ q(f \circ g \circ p_y,y) = f \circ g
+\begin{axiom}{hash2}
+(f \hash g) \circ q(f \circ g \circ p_y,y) = f \circ g
 \end{axiom}
 
 and such that if $f_1:x_1 \longrightarrow x_2$ and $f_1:x_2 \longrightarrow y_p$
@@ -626,7 +667,7 @@ and $y_p \base y$ and  $g:y_p \longrightarrow y$ in \cat(C) as here:
 \Rnode{x1}{x_1}         & & \Rnode{x2}{x_2}         & & \Rnode{yp}{y_p}
 \end{array}
 \end{displaymath}
-\ncbsar{}{ffgpy}{x_1}
+%\ncbsar{}{ffgpy}{x_1}
 \jcbarr{f_1}{x1}{x2}
 \jcbarr{f_2}{x2}{yp}
 \ncasar{}{y}{yp}
@@ -634,8 +675,8 @@ and $y_p \base y$ and  $g:y_p \longrightarrow y$ in \cat(C) as here:
 \end{center}
 
  then
-\begin{axiom}{star3}
-f_1 \sub f_2 \sub g = (f_1 \circ f_2) \sub g
+\begin{axiom}{hash3}
+f_1 \hash f_2 \hash g = (f_1 \circ f_2) \hash g
 \end{axiom}
 
 \item
@@ -643,7 +684,7 @@ For any object $x$ of \cat(C) a morphism $\delta_x:x \longrightarrow p_x \sub x$
 \noindent
 $\delta_x$ is a section i.e :
 \begin{axiom}{delta1}
-\delta_x \circ p_x = id_x
+\delta_x \circ p_{p_x\sub x} = id_x
 \end{axiom}
 \noindent
 and
@@ -653,59 +694,73 @@ and
 
 and whenever $y_p \base y$, 
 $f: x \longrightarrow y_p$  in \cat{C}
-as here:
-
+then
+\begin{axiom}{delta3}
+q(f,y) \hash \delta_y   = \delta_{f \sub y}
+\end{axiom}
+as shown here:
 \vspace{3mm}
-\begin{center}
 \begin{displaymath}
 \begin{array}{cp{.9cm}cp{.9cm}c}
-\Rnode{pfy}{{p_{f \sub y}}\sub f \sub y}  & &\Rnode{py}{p_y \sub y}\\ [1.2cm]
+\Rnode{pfy}{{p_{f \sub y}}\sub f \sub y}  & &\Rnode{py}{{p_y} \ssub y}\\ [1.2cm]
 \Rnode{fy}{f \sub y} & &\Rnode{y}{y}\\ [1.2cm]
-\Rnode{x}{x}         & & \Rnode{yp}{y_p}
+\Rnode{x}{x}         & & \Rnode{yp}{y_p} \\
+\mbox{
+\ncarr{x}{yp}
+\blabel{f}
+%
+\ncsar{fy}{x}
+%
+\ncarr{fy}{y}
+\blabel{q(f,y)}
+%
+\ncsar{y}{yp}
+\ncsar{pfy}{fy}
+\ncsar{py}{y}
+%
+\ncarr{pfy}{py}
+\alabel{q(q(f,y),{p_y} \ssub y)}
+%
+\ncarr[35]{y}{py}
+\alabel{\delta_y}
+%
+\ncarr[35]{fy}{pfy} 
+\alabel{\delta_{f \sub y}} 
+}
 \end{array}
 \end{displaymath}
-\jcbarr{f}{x}{yp}
-\ncbsar{}{fy}{x}
-\jcbarr{q(f,y)}{fy}{y}
-\ncasar{}{y}{yp}
-\ncasar{}{pfy}{fy}
-\ncasar{}{py}{y}
-\ncaarr{q(q(f,y),p_y \sub y)}{pfy}{py}
-\ncaarr[35]{\delta_y}{y}{py}
-\ncaarr[35]{\delta_{f \sub y}}{fy}{pfy}
-\end{center}
-then 
-\begin{axiom}{delta3}
-q(f,y) \sub \delta_y   = delta_{f \sub y}
-\end{axiom}
+
+
 \end{enumerate}
 
-\subsubsection{Recovery of $s$ from $*$ and $delta$}
+\subsubsection{Recovery of $s$ from $\hash$ and $delta$}
 
-That a contextual category has $\delta\sub$-structure we have shown in lemmas \ref{lemmastar1}, \ref{lemmastar2},
+That a contextual category has $\delta\hash$-structure we have shown in lemmas \ref{lemmahash1}, \ref{lemmahash2},
 \ref{deltalemma} and \ref{deltalemma2}.
-It remains to show that within any $\delta\sub$-structure an operator $s$ can be defined and satisfies axioms s1,s2 and s3.
+It remains to show that within any $\delta\hash$-structure an operator $s$ can be defined and satisfies axioms (s1), (s2) and (s3).
 \noindent
-Define $s(f)$ to be $f \sub \delta_y$ . 
+Define $s(f)$ to be $f \hash\delta_y$ . 
 \noindent
-That axiom s1 holds follows from axiom \ref{star1}.
+That axiom (s1) holds follows from axiom \ref{hash1}.
 \noindent
-We prove axiom s2, which is:
+We prove axiom (s2), which is:
 \begin{equation*}
-s(f) \circ q( f \circ p_y     ,y)=f,
+s(f) \circ q( f \circ p_y ,y)=f,
 \end{equation*}
 \noindent
  as follows:
 \begin{align*}
-lhs &= f \sub \delta_y \circ q(f \circ p_y, y)  && \mbox{from defn of s} \\
-  &= f \sub \delta_y \circ q(f,p_y \sub y) \circ q(p_y,y)&&\mbox{by \ref{q5}} \\
-  &= f \circ \delta_y \circ q(p_y,y)        && \mbox{from \ref{star2}} \\
-	&= f \circ id_y                           && \mbox{by \ref{delta2}} \\
-	&= rhs                                    && \mbox{as required.}
+s(f) \circ q( f \circ p_y ,y)
+ &= (f \hash \delta_y) \circ q(f \circ p_y, y)                                                  && \mbox{from defn of $s$,} \\
+ &= (f \hash \delta_y) \circ q(f,{p_y} \ssub y) \circ q(p_y,y)                                     && \mbox{by \ref{q5},} \\
+ &= (f \hash \delta_y) \circ q(f \circ \delta_y \circ p_{{p_y} \ssub y},{p_y} \ssub y) \circ q(p_y,y) && \mbox{since $\delta_y$ is a section,} \\
+ &= f \circ \delta_y \circ q(p_y,y)                                                             && \mbox{from \ref{hash2},} \\
+ &= f \circ id_y                                                                                && \mbox{by \ref{delta2},} \\
+ &= f                                                                                           && \mbox{as required.}
 \end{align*}
 
 \noindent
-Finally we prove axiom s3, which is
+Finally we prove axiom (s3), which is
 \begin{equation*}
 s(f \circ q(g,z))=s(f),
 \end{equation*}
@@ -713,12 +768,17 @@ s(f \circ q(g,z))=s(f),
 \noindent
  as follows:
 \begin{align*}
-lhs &= (f \circ q(g,z)) \sub \delta_z    && \mbox{from defn of s} \\
-  &= f \sub (  q(g,z) \sub \delta_z)     &&\mbox{by \ref{star3}} \\
-  &= f \sub \delta_{g \sub z}            && \mbox{from \ref{delta3}} \\
-	&= rhs                                 && \mbox{as required.}
+s(f \circ q(g,z)) &= (f \circ q(g,z)) \hash \delta_z      && \mbox{from the  definition given for $s$,} \\
+                  &= f \hash (  q(g,z) \hash \delta_z)     &&\mbox{\byaxiom{hash3},} \\
+                  &= f \hash \delta_{g \sub z}            && \mbox{from lemma \ref{xdelta3},} \\
+	              &= s(f)                                && \mbox{by definition given for $s$, as required.}
 \end{align*}
-
+Experimant
+\begin{equation}
+\label{myhash1}
+\tag{$\#1$}
+\sigma = \alpha
+\end{equation}
 
 \bibliography{../SharedBibliography/temp/bibliography}
  
