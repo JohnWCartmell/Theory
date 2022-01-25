@@ -15,9 +15,11 @@
 \usepackage{esvect}
 \usepackage{float}
 \usepackage[section]{placeins}
+\usepackage{mathdots}
 
 \newcommand{\ssub}{\kern-2pt^*\kern-1pt}
 \renewcommand{\sub}{^*\kern-1pt}
+\newcommand{\hash}{^\#}
 
 \newcommand{\byaxiom}[1]{by axiom (\ref{#1})}
 
@@ -25,7 +27,8 @@
 \title{Generalised Algebraic Axiomatisations of Contextual Categories}
 \subtitle{Corrected 6 April 2018 \\
           Extended 14 June 2018 \\
-					Corrected 5 July 2018, 14 Feb 2021}
+					Corrected 5 July 2018, 14 Feb 2021 \\
+          Further corrections, revised notation ($\hash$ instead of $\sub$) 25 Jan 2022}
 \author{John Cartmell}
 \date{}
 \begin{document}
@@ -38,8 +41,8 @@ The syntactic notion of \textit{generalised algebraic theory} (GAT) and the  equ
 In \cite{Cartmell78} it was noted that the theory of contextual categories can be expressed as a generalised algebraic theory by the axiomatisation of identity types on the morphism types of the category 
 (the identity types are required in order to phrase the pullback structure required by the definition of contextual category); thus contextual categories are a generalised algebraic equivalent of GATs and, in this sense, the machinary of GATs is able to self-describe; something which cannot be said of Lawvere algebraic theories nor of many-sorted algebraic theories.  
 
- Voevodsky in \cite{Voevodsky14C} has shown a better way of representing contextual categories as generalised algebraic; one which doesn't necessitate the introdution of types other than those for objects and morphisms. To do this he introduces an operator `s' which cannonically maps any morphism to a representative section; he shows that suitably axiomatised this implies the existence of pullbacks.  The purpose of this paper is to describe the generalised algebraic theory
-of contextual categories which results from following this approach (note however that Voevodsky used the term \textit{c-system} in preference to \textit{contextual category}) and then to introduce a further generalised algebraic axiomatisation using operators $\sub$ and $\delta$ in place of Voevodsky's operator $s$.   
+ Voevodsky in \cite{Voevodsky14C} has shown a better way of representing contextual categories as generalised algebraic; one which doesn't necessitate the introduction of types other than those for objects and morphisms. To do this he introduces an operator `s' which cannonically maps any morphism to a representative section; he shows that suitably axiomatised this implies the existence of pullbacks.  The purpose of this paper is to describe the generalised algebraic theory
+of contextual categories which results from following this approach (note however that Voevodsky used the term \textit{C-system} in preference to \textit{contextual category}) and then to introduce a further generalised algebraic axiomatisation using operators $\hash$ and $\delta$ in place of Voevodsky's operator $s$.   
 
 As a prelude to presenting the theory we first present two simpler but related theories (previously presented in \cite{Cartmell78} and \cite{Cartmell86}): the GAT of categories and the GAT of trees.
 
@@ -48,6 +51,7 @@ As a prelude to presenting the theory we first present two simpler but related t
 
 \newcommand{\ofOb}[1]{\ofT{#1}{\Ob}}
 \newcommand{\ofHom}[2]{\ofT{#1}{\Hom(#2)}}
+
 \vspace{0.03cm} 
 \begin{tabular}{>{\itshape}l l}
 Symbol & \itshape{Introductory Rule} \\
@@ -66,8 +70,8 @@ $ \circ(\circ(f,g),h) = \circ(f,\circ(g,h))  \mbox{,  whenever\ } \ofOb{w,x,y,z}
 \end{tabular} \\
 \vspace{.3cm}  \\
 
-\input{../SharedText/treeofconcepts}
 
+\input{../SharedText/treeofconcepts}
 
 \subsection{Rooted $\omega$-trees}
 A contextual catgeory has a rooted $\omega$-tree of objects and we think of this tree as a tree of dependencies among concepts. \\
@@ -219,14 +223,10 @@ $h \circ p_{f \sub z} = h_1$ and $h \circ q(f,z) = h_2$, as shown here:
 \begin{axiom}{q2}
 id_x^*y=y
 \end{axiom}
-
 and
-
 \begin{axiom}{q3}
 q(id_x,y) = id_y
 \end{axiom}
-
-
 
 \noindent and (iv) whenever 
 $
@@ -238,14 +238,10 @@ $
 \jcbarr{f}{w}{x}
 \jcbarr{g}{x}{y}
 \ncasar{c}{z}{y}
-in \cat{C}, 
-
-then
-
+in \cat{C}, then
 \begin{axiom}{q4}
 (f \circ g)^*z =  f^* (g ^* z)
 \end{axiom}
-
 and 
 \begin{axiom}{q5}
 q(f \circ g,z) = q(f,g^*z) \circ q(g,z)
@@ -255,13 +251,11 @@ q(f \circ g,z) = q(f,g^*z) \circ q(g,z)
 Following Voevodsky, however, we may replace the pullback condition, (ii), above, by additional structure as follows:
 
 \noindent (ii') for all morphisms $f: x \rightarrow y$, a morphism $s(f) : x \rightarrow f \sub {p_y} \ssub y$ such that:
-
 \begin{axiom}{s1}
 s(f) \circ p_{f\sub {p_y} \ssub y}=id_x
 \end{axiom}
 
 \noindent and
-
 \begin{axiom}{s2}
 s(f) \circ q( f \circ p_y ,y)=f
 \end{axiom}	
@@ -305,12 +299,11 @@ and such that whenever
 \begin{axiom}{s3}
 s(f \circ q(g,z))=s(f)
 \end{axiom}
-
 \noindent
 This equation is well-typed because
 \begin{align*}
       lhs = &\ofT{s(f \circ q(g,z))} {Hom(w,(f \circ q(g,z) ) \sub {p_z} \ssub z} ) \\
-      rhs = &\ofT{s(f)} {Hom(w,(f \circ   p_{g \sub z} ) \sub  g \sub z } )\\
+      rhs = &\ofT{s(f)} {Hom(w,(f \circ   p_{g \sub z} ) \sub  g \sub z } )
 \end{align*}
 and
 \begin{equation*}
@@ -319,9 +312,9 @@ and
 because
 \begin{align*}
 (f \circ q(g,z) ) \sub {p_z} \ssub z 
-                 & = f \sub ((q(g,z) \circ p_z) \sub z &\mbox{by (\ref{q4})}\\
-                 & = f \sub ( p_{g \sub z} \circ g ) \sub z&\mbox{by (\ref{q1})}\\
-                 & = (f \circ   p_{g \sub z} ) \sub  g \sub z&\mbox{by (\ref{q4})}
+                 & = f \sub ((q(g,z) \circ p_z) \sub z &\mbox{\byaxiom{q4},}\\
+                 & = f \sub ( p_{g \sub z} \circ g ) \sub z&\mbox{\byaxiom{q1},}\\
+                 & = (f \circ   p_{g \sub z} ) \sub  g \sub z&\mbox{\byaxiom{q4}.}
 \end{align*}
 
 \subsubsection{Construction of pullbacks (Voevodsky)}
@@ -339,6 +332,7 @@ $h \circ p_{f \sub z} = h_1$ and $h \circ q(f,z) = h_2$.
 
 Use the following construction of such an $h$ as given by Voevodsky  (see diagram (\ref{voevodsky}):
 \begin{equation}
+\label{hdef}
 h = s(h_2) \circ q(h_1,f \sub z)
 \end{equation}
 as shown in the following diagram:
@@ -372,22 +366,20 @@ as shown in the following diagram:
 As required we have 
 \begin{align*}
 h \circ p_{f \sub z}
-                 & = s(h_2) \circ q(h_1,f \sub z) \circ p_{f \sub z} &\\
-                 & = s(h_2) \circ p_{h_1 \sub f \sub z} \circ h_1 &&\mbox{by (\ref{q1})}\\
-								& = s(h_2) \circ p_{(h_1 \circ f) \sub z} \circ h_1 &&\mbox{by (\ref{q4})}\\
-								& = s(h_2) \circ p_{(h_2 \circ p_z) \sub z} \circ h_1 &&\mbox{since }h_1 \circ f = h_2 \circ p_z \\
-                 & = h_1                                              &&\mbox{by (\ref{s1})}
+       & = s(h_2) \circ q(h_1,f \sub z) \circ p_{f \sub z}   && \mbox{expanding definition of $h$ given in (\ref{hdef}),}   \\ 
+       & = s(h_2) \circ p_{h_1 \sub f \sub z} \circ h_1      && \mbox{\byaxiom{q1},}                                        \\
+	   & = s(h_2) \circ p_{(h_1 \circ f) \sub z} \circ h_1   && \mbox{\byaxiom{q4},}                                        \\
+	   & = s(h_2) \circ p_{(h_2 \circ p_z) \sub z} \circ h_1 && \mbox{using the assumption that }h_1 \circ f = h_2 \circ p_z,                   \\
+       & = h_1                                               && \mbox{\byaxiom{s1}.}
 \end{align*}
 \noindent
 and we have:
-
 \begin{align*}
 h \circ q(f,z)
-                 & = s(h_2) \circ q(h_1,f \sub z) \circ q(f,z) &\\
-                 & = s(h_2) \circ q(h_1 \circ f,z)   &&\mbox{by (\ref{q5})}\\
-								 & = s(h_2) \circ q(h_2 \circ p_z ,z)&&\mbox{since }h_1 \circ f = h_2 \circ p_z \\
-                 & = h_2  \circ id_w                 &&\mbox{by (\ref{s2})} \\
-								 & = h_2
+    & = s(h_2) \circ q(h_1,f \sub z) \circ q(f,z) && \mbox{expanding definition of $h$ given in (\ref{hdef}),}      \\
+	& = s(h_2) \circ q(h_2 \circ p_z ,z)          && \mbox{using the assumption that }h_1 \circ f = h_2 \circ p_z,                      \\
+    & = h_2  \circ id_w                           && \mbox{\byaxiom{s2}.}                                           \\
+	& = h_2
 \end{align*}
 
 \noindent 
@@ -404,11 +396,11 @@ h' \circ q(f,z) = h_2
 \noindent then
 \begin{align*}
 h'
-        & = s(h')              \circ q(h' \circ p_{f \sub z},f \sub z) &&\mbox{by (\ref{s2})}\\
-			  & = s(h' \circ q(f,z)) \circ q(h' \circ p_{f \sub z},f \sub z)&&\mbox{by \ref{s3} }\\
-        & = s(h  \circ q(f,z)) \circ q(h \circ p_{f \sub z},f \sub z) &&\mbox{by (\ref{hprime1}) and (\ref{hprime2})} \\
-				& = s(h)               \circ q(h \circ p_{f \sub z},f \sub z) &&\mbox{by (\ref{s3})}\\
-				& = h                                                         &&\mbox{by (\ref{s2})}
+        & = s(h') \circ q(h' \circ p_{f \sub z},f \sub z)              &&\mbox{\byaxiom{s2},}                           \\
+		& = s(h' \circ q(f,z)) \circ q(h' \circ p_{f \sub z},f \sub z) &&\mbox{\byaxiom{s3}, }                          \\
+        & = s(h  \circ q(f,z)) \circ q(h \circ p_{f \sub z},f \sub z)  &&\mbox{using assumptions (\ref{hprime1}) and (\ref{hprime2}),} \\
+		& = s(h)               \circ q(h \circ p_{f \sub z},f \sub z)  &&\mbox{\byaxiom{s3},}                           \\
+		& = h                                                          &&\mbox{\byaxiom{s2}, as required.}
 \end{align*}
 \end{proof}
 
@@ -466,16 +458,17 @@ $$s(f \circ s(g)) = s(f \circ g)$$
 \begin{proof}
 \begin{align*}
 s( f \circ s(g)) 
-    & = s( f \circ s(g)\circ q(g \circ p_z) , z ))  &\mbox{by axiom (s3)}\\
-    & = s(f \circ g) &\mbox{by axiom (s2)} 
+    & = s( f \circ s(g)\circ q(g \circ p_z) , z ))  &\mbox{by axiom (s3),}\\
+    & = s(f \circ g) &\mbox{by axiom (s2), as required.} 
 \end{align*}
 \end{proof}
 
-\newcommand{\hash}{^\#}
+
 \subsubsection {The  $\hash$ operator}
 
 As a preliminary to presenting an alternative axiomatisation of the generalised algbraic theory of contextual categories
-we introduce two new operators. The first is $\hash$ and applies to certain morphisms as follows: 
+we introduce two new operators. The first\footnote{In earlier drafts of this paper (those prior to January 2022) 
+I called the first of these two operators $\sub$ because it can be seen as an extension of the $\sub$ operator as defined, for example in my ``Instances of GATS'' paper.} is called $\hash$ and applies to certain morphisms as follows: 
 if $f:x \longrightarrow y_p$, $y_p \base y$, and $g:y_p \longrightarrow y$ in a contextual category \cat{C} then
 define $f \hash g: x \longrightarrow (f \circ g \circ p_y) \sub y$ to be the morphism $s(f \circ g)$. \\
 
@@ -581,9 +574,9 @@ f_1 \hash f_2 \hash g = (f_1 \circ f_2) \hash g
 \end{lemma}
 \begin{proof}
 \begin{align*}
-lhs &= s(f_1 \circ f_2 \circ g)     && \mbox{from defn. of extended $\hash$} \\
-    &= s(f_1 \circ s(f_2 \circ g))  && \mbox{by lemma \ref{s4}} \\
-		&= f_1 \hash f_2 \hash g    && \mbox{from defn. of extended $\hash$} \\
+lhs &= s(f_1 \circ f_2 \circ g)     && \mbox{from definition of  $\hash$,} \\
+    &= s(f_1 \circ s(f_2 \circ g))  && \mbox{by lemma \ref{s4},}           \\
+		&= f_1 \hash f_2 \hash g    && \mbox{from definition of $\hash$,}  \\
 	  &= rhs                        && \mbox{as required.}
 \end{align*}
 \end{proof}
@@ -616,7 +609,7 @@ q(f,y) \hash \delta_y   = \delta_{f \sub y}
 \end{equation*}
 \end{lemma}
 \begin{proof}
-Use lemma \ref{s4} and axiom \ref{s3}.
+Use lemma \ref{s4} and axiom (\ref{s3}).
 \end{proof}
 
 
@@ -626,7 +619,7 @@ We can now give an alternative axiomatision of the generalised algebraic theory 
 \subsubsection{Definition}
 
 A $\delta\hash$-structure is a tree category \cat(C) with  operators $\hash$ and
-$q$ satisfying axioms q1 - q5 given above and with the following additional structure:
+$q$ satisfying axioms (q1) -- (q5) given above and with the following additional structure:
  \begin{enumerate}[I.]
 \item
 If $f:x \longrightarrow y_p$ and $y_p \base y$ and  $g:y_p \longrightarrow y$ in \cat(C) then a morphism $f \hash g : x \longrightarrow (f \circ g \circ p_y)*y$
@@ -648,13 +641,13 @@ as shown here:
 \end{center}
 
 satisfying 
-\begin{axiom}{hash1}
+\begin{axiomtagged}{hash1}{$\#1$}
 (f \hash g) \circ p_{(f \circ g \circ p_y) \sub y} = id_x
-\end{axiom}
+\end{axiomtagged}
 and 
-\begin{axiom}{hash2}
+\begin{axiomtagged}{hash2}{$\#2$}
 (f \hash g) \circ q(f \circ g \circ p_y,y) = f \circ g
-\end{axiom}
+\end{axiomtagged}
 
 and such that if $f_1:x_1 \longrightarrow x_2$ and $f_1:x_2 \longrightarrow y_p$
 and $y_p \base y$ and  $g:y_p \longrightarrow y$ in \cat(C) as here:
@@ -675,29 +668,29 @@ and $y_p \base y$ and  $g:y_p \longrightarrow y$ in \cat(C) as here:
 \end{center}
 
  then
-\begin{axiom}{hash3}
+\begin{axiomtagged}{hash3}{$\#$3}
 f_1 \hash f_2 \hash g = (f_1 \circ f_2) \hash g
-\end{axiom}
+\end{axiomtagged}
 
 \item
 For any object $x$ of \cat(C) a morphism $\delta_x:x \longrightarrow p_x \sub x$ such that
 \noindent
 $\delta_x$ is a section i.e :
-\begin{axiom}{delta1}
+\begin{axiomtagged}{delta1}{$\delta$1}
 \delta_x \circ p_{p_x\sub x} = id_x
-\end{axiom}
+\end{axiomtagged}
 \noindent
 and
-\begin{axiom}{delta2}
+\begin{axiomtagged}{delta2}{$\delta$2}
 \delta_x \circ q(p_x,x) = id_x
-\end{axiom}
+\end{axiomtagged}
 
 and whenever $y_p \base y$, 
 $f: x \longrightarrow y_p$  in \cat{C}
 then
-\begin{axiom}{delta3}
+\begin{axiomtagged}{delta3}{$\delta$3}
 q(f,y) \hash \delta_y   = \delta_{f \sub y}
-\end{axiom}
+\end{axiomtagged}
 as shown here:
 \vspace{3mm}
 \begin{displaymath}
@@ -752,10 +745,11 @@ s(f) \circ q( f \circ p_y ,y)=f,
 \begin{align*}
 s(f) \circ q( f \circ p_y ,y)
  &= (f \hash \delta_y) \circ q(f \circ p_y, y)                                                  && \mbox{from defn of $s$,} \\
- &= (f \hash \delta_y) \circ q(f,{p_y} \ssub y) \circ q(p_y,y)                                     && \mbox{by \ref{q5},} \\
- &= (f \hash \delta_y) \circ q(f \circ \delta_y \circ p_{{p_y} \ssub y},{p_y} \ssub y) \circ q(p_y,y) && \mbox{since $\delta_y$ is a section,} \\
- &= f \circ \delta_y \circ q(p_y,y)                                                             && \mbox{from \ref{hash2},} \\
- &= f \circ id_y                                                                                && \mbox{by \ref{delta2},} \\
+ &= (f \hash \delta_y) \circ q(f,{p_y} \ssub y) \circ q(p_y,y)                                  && \mbox{\byaxiom{q5},} \\
+ &= (f \hash \delta_y) \circ q(f \circ \delta_y \circ p_{{p_y} \ssub y},{p_y} \ssub y) \circ q(p_y,y) 
+                                                                                                && \mbox{since $\delta_y$ is a section,} \\
+ &= f \circ \delta_y \circ q(p_y,y)                                                             && \mbox{\byaxiom{hash2},} \\
+ &= f \circ id_y                                                                                && \mbox{\byaxiom{delta2},} \\
  &= f                                                                                           && \mbox{as required.}
 \end{align*}
 
@@ -768,17 +762,11 @@ s(f \circ q(g,z))=s(f),
 \noindent
  as follows:
 \begin{align*}
-s(f \circ q(g,z)) &= (f \circ q(g,z)) \hash \delta_z      && \mbox{from the  definition given for $s$,} \\
-                  &= f \hash (  q(g,z) \hash \delta_z)     &&\mbox{\byaxiom{hash3},} \\
-                  &= f \hash \delta_{g \sub z}            && \mbox{from lemma \ref{xdelta3},} \\
-	              &= s(f)                                && \mbox{by definition given for $s$, as required.}
+s(f \circ q(g,z)) &= (f \circ q(g,z)) \hash \delta_z      && \mbox{from the definition given for $s$,} \\
+                  &= f \hash (  q(g,z) \hash \delta_z)    &&\mbox{\byaxiom{hash3},} \\
+                  &= f \hash \delta_{g \sub z}            && \mbox{\byaxiom{delta3},} \\
+	              &= s(f)                                 && \mbox{by definition given for $s$, as required.}
 \end{align*}
-Experimant
-\begin{equation}
-\label{myhash1}
-\tag{$\#1$}
-\sigma = \alpha
-\end{equation}
 
 \bibliography{../SharedBibliography/temp/bibliography}
  
