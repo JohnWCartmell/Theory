@@ -6,6 +6,7 @@
 \usepackage{twoopt}
 \usepackage{scalerel} 
 \usepackage{xargs}
+\usepackage{environ}
 
 %\usepackage{mathabx}  %Caused font problems
 %\usepackage{MnSymbol}  % caused font problems
@@ -94,6 +95,16 @@
 
 %pstrick supplements for arrows
 
+
+% This arrows container uses makebox to prevent white space pushing out to the right
+% cannot see where this white space is coming from. To investigate
+% change the \makebox[0.2cm] to \fbox and look at a diagram with lots of arrows and you will see the problem.
+\NewEnviron{arrows}{%
+\makebox[0.1cm]{
+\BODY
+}
+}
+
 \newlength{\arrnodesepA}
 \newlength{\arrnodesepB}
 \newlength{\arroffsetA}
@@ -110,11 +121,7 @@
 
 \newcommand{\ncarr}[3][0]{\ncarc[arcangle=#1,nodesepA=\arrnodesepA,nodesepB=\arrnodesepB,offsetA=\arroffsetA,offsetB=\arroffsetB,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
 
-
 \newcommand{\ncdarr}[3][0]{\ncarc[linestyle=dashed,arcangle=#1,nodesepA=\arrnodesepA,nodesepB=\arrnodesepB,offsetA=\arroffsetA,offsetB=\arroffsetB,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
-
-
-
 
 \newcommand{\jcbarr}[4][0]{ % ncbarr is defined in some third party package so do not use!\emph{}
 \ncarr[#1]{#3}{#4}
@@ -148,8 +155,6 @@
 
 \newcommand{\ncleftcrosssection}[3][30] 
 {\ncarc[arcangle=#1,nodesepA=5pt,nodesepB=-2pt,offsetA=0pt,offsetB=-1pt,arrowsize=5pt,arrowinset=0.7]{->}{#2}{#3}}
-
-
 
 \newif \ifbars
 % to supress display of bars use \barsfalse to swith them on use \barstrue
@@ -187,7 +192,6 @@
 \setlength{\sarnodesepA}{\sarnodesepAsav}
 \setlength{\sarnodesepB}{\sarnodesepBsav}
 }
-
 
 % bsar - below labelled S-arrow
 \newcommand{\ncbsar}[4][0]{

@@ -1,0 +1,694 @@
+\documentclass[10pt,a4paper]{scrartcl}
+\usepackage[margin=3cm]{geometry}
+\usepackage{array}
+\input{../SharedMacros/ermacros}
+\input{../SharedMacros/ccategories.macros}
+\input{../SharedMacros/gats.macros}
+\input{../SharedMacros/metagat.macros}
+\input{../SharedMacros/erdiagram}
+\input{../SharedMacros/theorems.macros}
+\input{../SharedMacros/general.macros}
+\usepackage{tipa}
+\usepackage{textcomp}
+\usepackage{mnsymbol}
+\usepackage{ifsym}
+\usepackage{esvect}
+\usepackage{float}
+\usepackage[section]{placeins}
+\usepackage{mathdots}
+
+
+\newcommand{\ssub}{\kern-2pt^*\kern-1pt}
+\renewcommand{\sub}{^*\kern-1pt}
+\newcommand{\hash}{^\#}
+\newcommand{\byaxiom}[1]{by axiom (\ref{#1})}
+%
+\newcommand{\pbar}{\bar{p}}
+\newcommand{\pp}[2]{\pbar(#1,#2)}
+%
+\newcommand{\qbar}{\bar{q}}
+\renewcommand{\qq}[2]{\qbar(#1,#2)}   %sadly I have previously used \qq for quine quote
+%
+\newcommand{\dsub}{^{\ast \kern-1pt \ast}\kern-2pt}
+
+\setcounter{equation}{0}
+\title{Derived Structure Notation for Contextual Categories}
+\subtitle{Drafted \\ January 2022 \\}
+\author{John Cartmell}
+\date{}
+\begin{document}
+\maketitle
+\bibliographystyle{plain}
+
+\section{Introduction}
+The  notion of \textit{contextual category} is introduced in  \cite{Cartmell78} and summarised in \cite{Cartmell86}. Whereas generally the objects of categories can be taken to represent types, the objects of contextual categories can be taken to represent what I have described as `types that vary' but which subsequently have become know as dependent types. Equally they can be taken to represent contexts: the algebra of contextual categories is an algebra of context.  
+
+Here I describe some extensions to the basic notation of contextual categories by presenting a revised definition of contextual category that is equivalent to the original definition but in which the extended notation is primitive. The purpose is to give a way of organising the presentation and thereby subsequent use of the extended structure.
+\iffalse
+By extending Voevodsky's `s' operator axiomatisation to fit the new situation I show that the revised definition, as so too the original,  can be represented equationally.
+\fi
+\highlight{Need to decide} how to word all this. Is it a revised definition or is it a description of derived structure?
+%\section{Definition of Contextual Categories}
+
+\section {Tree-Structured Categories}
+\newcommand{\pbartag}[1]{$P#1$}
+By a tree-structured category we mean
+\begin{itemize}
+\item 
+a category \catcw with a tree-structure defined on its objects such that the tree of objects has a unique root object and 
+\item  for every $x \leq y$ in the tree of objects  a cannonical morphism $\pp{y}{x} :y \rightarrow x$
+satisfying
+\item for any object $x$ of $\catcw$,
+\begin{axiomtagged}{pp1}{$\pbartag{1}$}
+\pp{x}{x}=id_x
+\end{axiomtagged}
+\item for all objects $x$, $y$ and $z$ of \catcw such that $x \leq y \leq z$
+\begin{axiomtagged}{pp2}{$\pbartag{2}$}
+\pp{z}{y} \circ \pp{y}{x} = \pp{z}{x}
+\end{axiomtagged}
+\end{itemize}
+
+The cannonical morphisms will be distinguished in diagrams by a jagged arrows with  
+a triangular heads so:
+
+\begin{equation*}
+\begin{array}{p{2cm}p{0.5cm}p{0.5cm}p{0.5cm}}
+\Rnode{y}{y}& \\ [1.4cm]
+\Rnode{x}{x} \\
+\end{array}
+\begin{arrows}
+\nccdar{y}{x}
+\blabel{\pp{y}{x}}[0.3]
+\end{arrows}
+\end{equation*}
+
+
+\section{Contextual Categories}
+
+%\subsection{Revised Definition}
+The revised definition which we now give is equivalent to the original definition.
+
+A  \term{contextual category} has the following derived structure\footnote{Note that (\ref{qq1}) to (\ref{qq5}) are extended forms of  (q1) to (q5) from the original definition.}
+%\newcommand{\qbartag}[1]{$\qbar \textsl{#1}$}
+%\newcommand{\qbartag}[1]{$\qbar \textsl{#1}$}
+\newcommand{\qbartag}[1]{$Q \textsl{#1}$}
+\begin{itemize}
+\item
+for all morphisms $f: x \morph y$ in \catcw and for all objects $z$ such that $x \leq z$ in \catc, 
+an object $f \dsub z$ such that $x \leq f \dsub z$ and
+\begin{itemize}
+\item such that for all morphisms $f:x \morph y$ in \catcw 
+\begin{axiomtagged}{qq0}{\qbartag{0}}
+f \dsub y = x
+\end{axiomtagged}
+\item such that if $w$, $x$, $y$ and $z$ are objects of \catc, if $f:w \morph x$ in \catcw and $x \leq y \base z$ then $f \dsub y \base f \dsub z$ in \catc,
+\end{itemize}
+\item
+for all morphisms $f: x \morph y$ in \catcw and for all objects $z$ such that $x \leq z$ in \catc, 
+a morphism $\qq{f}{z}: f \dsub z \morph z$ such that
+\begin{axiomtagged}{qq1}{\qbartag{1}}
+\qq{f}{z} \circ \pp{z}{y} = \pp{f \dsub z}{x} \circ f
+\end{axiomtagged}
+and such that the diagram
+\begin{displaymath}
+\begin{array}{cp{.9cm}c}
+\Rnode{fstarz}{f\dsub z} & & \Rnode{z}{z}\\ [1.2cm]
+\Rnode{x}{x}         & & \Rnode{y}{y}
+\end{array}
+\begin{arrows}
+\nccdar{fstarz}{x}
+\blabel{\pp{f \dsub z}{x}}
+\ncarr{x}{y}
+\blabel{f}
+\ncarr{fstarz}{z}
+\alabel{\qq{f}{z}}
+\nccdar{z}{y}
+\alabel{\pp{z}{x}}
+\end{arrows}
+\end{displaymath}
+ whose commutivity is given \byaxiom{qq1} is a pullback diagram in \catc,
+\item such that  $x$ and $y$ are objects of \catcw such that $x \leq y$ then
+\begin{axiomtagged}{qq2}{\qbartag{2}}
+{id_x} \dsub y = y
+\end{axiomtagged}
+and
+\begin{axiomtagged}{qq3}{\qbartag{3}}
+\qq{id_x}{y} = id_y
+\end{axiomtagged}
+and 
+\item
+such that for all objects
+$w$, $x$, $y$ and $z$ of \catcw such that $y \leq z$, if $f: w \morph x$ and $g:x \morph w$
+in \catc, then
+\begin{axiomtagged}{qq4}{\qbartag{4}}
+(f \circ g)\dsub z =  f \dsub (g \dsub z)
+\end{axiomtagged}
+and 
+\begin{axiomtagged}{qq5}{\qbartag{5}}
+\bar{q}(f \circ g,z) = \bar{q}(f,g \dsub z) \circ \bar{q}(g,z)
+\end{axiomtagged}
+as shown in this diagram
+\begin{displaymath}
+\begin{array}{c p{1.3cm} c p{2.0cm} c}
+                                                   &&                        &&           \\ [0.5cm] % need space for top most arc and label
+\Rnode{UTL}{(f \circ g) \dsub z} \ \ \ \           &&                        &&           \\ [0.05cm]
+\Rnode{TL}{=f \dsub (g \dsub z)}  && \Rnode{TC}{g \dsub z}  &   & \Rnode{TR}{z}           \\ [1.2cm]
+\Rnode{BL}{w} &&\Rnode{BC}{x} &   & \Rnode{BR}{y}                                         \\ [0.5cm]
+\end{array}
+\begin{arrows}
+% composition
+\nccdar{TL}{BL}
+%
+\nccdar{TC}{BC}
+%
+\nccdar{TR}{BR}
+\alabel{\pp{z}{y}}
+%
+% reference
+\ncarr{BL}{BC}
+\blabel{f}
+%
+\ncarr{BC}{BR}
+\blabel{g}
+%
+\ncarr{TL}{TC}
+\alabel{\qq{f}{g \dsub z}}
+%
+\ncarr{TC}{TR}
+\alabel{\qq{g}{z}}
+%
+\ncarr[30]{UTL}{TR}
+\alabel{\bar{q}(f \circ g,z)}
+\end{arrows}
+\end{displaymath}
+
+\item such that if $w$, $x$, $y$ and $z$ are objects of \catc, if $f:w \morph x$ in \catcw and $x \leq y \leq z$ then
+\begin{axiomtagged}{qq6}{\qbartag{6}}
+f\dsub z = \qq{f}{y} \dsub z
+\end{axiomtagged}
+ and 
+\begin{axiomtagged}{qq7}{\qbartag{7}}
+\qq{f}{z} = \qq{\qq{f}{y}}{z}
+\end{axiomtagged}
+as shown in this diagram
+\begin{displaymath}
+\begin{array}{ccp{4.0cm}c}
+%&                             &&              \\ [0.1cm]
+&f\dsub z = \ \ \ \ \ \ \     &&              \\
+&\Rnode{TL}{\qq{f}{y}\dsub z} && \Rnode{TR}{z}\\ [1.2cm]
+&\Rnode{ML}{f \dsub y}        && \Rnode{MR}{y}\\ [1.2cm]
+&\Rnode{BL}{w}                && \Rnode{BR}{x} 
+\end{array}
+\begin{arrows} 
+%composition  
+\nccdar{TL}{ML}
+%
+\nccdar{ML}{BL}
+\nccdar{TR}{MR}
+%
+\nccdar{MR}{BR}
+%reference
+\ncarr{TL}{TR}
+\alabel{\qq{f}{z}=\qq{\qq{f}{y}}{z}}
+%
+\ncarr{ML}{MR}
+\alabel{\qq{f}{y}}
+%
+\ncarr{BL}{BR}
+\blabel{f}
+\end{arrows}
+\end{displaymath}
+\end{itemize}
+
+
+\begin{lemma}
+If $f:x \morph y$ in contextual category \catcw then $\qq{f}{y}=f$.
+\end{lemma}
+\begin{proof}
+Use (\ref{qq0}) and (\ref{qq1}).
+\end{proof}.
+
+\iffalse
+\subsubsection{Equational Definition following Voevodsky}
+Following Voevodsky, however, we may replace the pullback condition, (ii), above, by additional structure as follows:
+
+\noindent (ii') for all morphisms $f: x \rightarrow y$, a morphism $s(f) : x \rightarrow f \sub {p_y} \ssub y$ such that:
+\begin{axiom}{s1}
+s(f) \circ p_{f\sub {p_y} \ssub y}=id_x
+\end{axiom}
+
+\noindent and
+\begin{axiom}{s2}
+s(f) \circ q( f \circ p_y ,y)=f
+\end{axiom}	
+
+\noindent i.e. such that the following diagrams commute:
+\begin{displaymath}
+\begin{array}{cccp{1.cm} cp{.9cm}c}
+&\Rnode{fXyyM}{f\sub {p_y} \ssub y}&  & &  \Rnode{fXyy}{f\sub {p_y} \ssub y} & & \Rnode{yXy}{{p_y} \ssub y}\\ [1.2cm]
+\Rnode{xL}{x} & &\Rnode{xR}{x} & &\Rnode{x}{x}         & & \Rnode{y}{y}
+\end{array}
+\begin{arrows}
+\ncasar{p_{f\sub {p_y} \ssub y}}{fXyy}{x}
+\jcbarr{f}{x}{y}
+\ncaarr{q(f,{p_y} \ssub y)}{fXyy}{yXy}
+\ncasar{p_{{p_y} \ssub y}}{yXy}{y}
+\ncaarr{s(f)}{xL}{fXyyM}
+\ncasar{p_{f\sub {p_y} \ssub y}}{fXyyM}{xR}
+\jcbarr{id_x}{xL}{xR}
+\end{arrows}
+\end{displaymath}
+
+
+\noindent
+and such that whenever
+
+\begin{displaymath}
+\begin{array}{c p{.9cm} c p{.9cm} c}
+\Rnode{w}{w}&& \Rnode{g*z}{g \sub z} && \Rnode{z}{z} \\ [1.2cm]
+            && \Rnode{x}{x}  && \Rnode{y}{y} \\ [0.2cm]
+\end{array}
+\begin{arrows}
+\jcbarr{f}{w}{g*z}
+\jcbarr{g}{x}{y}
+\ncaarr{q(g,z)}{g*z}{z}
+\ncasar{}{g*z}{x}
+\ncasar{}{z}{y}
+\end{arrows}
+\end{displaymath}
+
+
+\noindent in \cat{C} then
+
+\begin{axiom}{s3}
+s(f \circ q(g,z))=s(f)
+\end{axiom}
+\noindent
+This equation is well-typed because
+\begin{align*}
+      lhs = &\ofT{s(f \circ q(g,z))} {Hom(w,(f \circ q(g,z) ) \sub {p_z} \ssub z} ) \\
+      rhs = &\ofT{s(f)} {Hom(w,(f \circ   p_{g \sub z} ) \sub  g \sub z } )
+\end{align*}
+and
+\begin{equation*}
+     Hom(w,(f \circ q(g,z) ) \sub {p_z} \ssub zz ) = Hom(w,(f \circ   p_{g \sub z} ) \sub  g \sub z )
+\end{equation*}
+because
+\begin{align*}
+(f \circ q(g,z) ) \sub {p_z} \ssub z 
+                 & = f \sub ((q(g,z) \circ p_z) \sub z &\mbox{\byaxiom{q4},}\\
+                 & = f \sub ( p_{g \sub z} \circ g ) \sub z&\mbox{\byaxiom{q1},}\\
+                 & = (f \circ   p_{g \sub z} ) \sub  g \sub z&\mbox{\byaxiom{q4}.}
+\end{align*}
+
+
+\subsubsection{Construction of pullbacks (Voevodsky)}
+
+\begin{lemma}
+ If \cat{C} is a tree-structured category with operators, q, * and s satisfying
+axioms q1-q5 and (s1)-s3 then for all objects $w$ of \cat{C}, and for all
+morphisms $h_1: w \rightarrow x$ and $h_2: w \rightarrow z$  such that
+
+$h_1 \circ f = h_2 \circ p_z$ 
+there exists a unique $h:w \rightarrow f \sub z$ in \cat{C}   such that
+$h \circ p_{f \sub z} = h_1$ and $h \circ \qq{f}{z} = h_2$.
+\end{lemma}
+\begin{proof}
+
+Use the following construction of such an $h$ as given by Voevodsky  (see diagram (\ref{voevodsky}):
+\begin{equation}
+\label{hdef}
+h = s(h_2) \circ q(h_1,f \sub z)
+\end{equation}
+as shown in the following diagram:
+\vspace{3mm}
+\begin{equation}
+\label{voevodsky}
+\begin{array}{cp{0.5cm}cp{1.2cm}c}
+\Rnode{gpz}{(h_2 \circ p_z)\sub z = {h_1} \ssub f \sub z} &&    &&   \\ [1.7cm]
+\Rnode{w}{w} &&                     &&           \\ [0.3cm]
+             &&\Rnode{fstarz}{f^*z} && \Rnode{z}{z}\\ [1.2cm]
+             &&\Rnode{x}{x}         && \Rnode{y}{y}
+\end{array}
+\begin{arrows}
+\ncbsar{p_{f \sub z}}{fstarz}{x}
+\jcbarr{f}{x}{y}
+\ncaarr{\qq{f}{z}}{fstarz}{z}
+\ncasar{p_z}{z}{y}
+\setlength{\arrnodesepA}{3pt}
+\jcbarr[-35]{h_1}{w}{x}
+\ncaarr[35]{}{w}{z}
+\naput[labelsep=0.05]{\footnotesize $h_2$}
+\ncaarr[30]{s(h_2)}{w}{gpz}
+\ncasar{p_{{h_1}  \ssub f \sub z}} {gpz}{w}
+\ncaarr[10]{}{gpz}{fstarz}
+\naput[npos=0.3, labelsep=0.05]{\footnotesize $q(h_1,f \sub z)$}
+\psset{linestyle=dashed}
+\ncaarr{h}{w}{fstarz}
+\end{arrows}
+\end{equation}
+
+\noindent
+As required we have 
+\begin{align*}
+h \circ p_{f \sub z}
+       & = s(h_2) \circ q(h_1,f \sub z) \circ p_{f \sub z}   && \mbox{expanding definition of $h$ given in (\ref{hdef}),}   \\ 
+       & = s(h_2) \circ p_{h_1 \sub f \sub z} \circ h_1      && \mbox{\byaxiom{q1},}                                        \\
+	   & = s(h_2) \circ p_{(h_1 \circ f) \sub z} \circ h_1   && \mbox{\byaxiom{q4},}                                        \\
+	   & = s(h_2) \circ p_{(h_2 \circ p_z) \sub z} \circ h_1 && \mbox{using the assumption that }h_1 \circ f = h_2 \circ p_z,                   \\
+       & = h_1                                               && \mbox{\byaxiom{s1}.}
+\end{align*}
+\noindent
+and we have:
+\begin{align*}
+h \circ \qq{f}{z}
+    & = s(h_2) \circ q(h_1,f \sub z) \circ \qq{f}{z} && \mbox{expanding definition of $h$ given in (\ref{hdef}),}      \\
+	& = s(h_2) \circ q(h_2 \circ p_z ,z)          && \mbox{using the assumption that }h_1 \circ f = h_2 \circ p_z,                      \\
+    & = h_2  \circ id_w                           && \mbox{\byaxiom{s2}.}                                           \\
+	& = h_2
+\end{align*}
+
+\noindent 
+To show that such an $h$ is unique assume that we also have $h'$ satisfying
+\begin{equation}
+\label{hprime1}
+h' \circ p_{f \sub z} = h_1
+\end{equation}
+and
+\begin{equation}
+\label{hprime2}
+h' \circ \qq{f}{z} = h_2
+\end{equation}
+\noindent then
+\begin{align*}
+h'
+        & = s(h') \circ q(h' \circ p_{f \sub z},f \sub z)              &&\mbox{\byaxiom{s2},}                           \\
+		& = s(h' \circ \qq{f}{z}) \circ q(h' \circ p_{f \sub z},f \sub z) &&\mbox{\byaxiom{s3}, }                          \\
+        & = s(h  \circ \qq{f}{z}) \circ q(h \circ p_{f \sub z},f \sub z)  &&\mbox{using assumptions (\ref{hprime1}) and (\ref{hprime2}),} \\
+		& = s(h)               \circ q(h \circ p_{f \sub z},f \sub z)  &&\mbox{\byaxiom{s3},}                           \\
+		& = h                                                          &&\mbox{\byaxiom{s2}, as required.}
+\end{align*}
+\end{proof}
+
+
+\subsubsection {The  $\hash$ operator}
+
+As a preliminary to presenting an alternative axiomatisation of the generalised algbraic theory of contextual categories
+we introduce two new operators. The first\footnote{In earlier drafts of this paper (those prior to January 2022) 
+I called the first of these two operators $\sub$ because it can be seen as an extension of the $\sub$ operator as defined, for example in my ``Instances of GATS'' paper.} is called $\hash$ and applies to certain morphisms as follows: 
+if $f:x \longrightarrow y_p$, $y_p \base y$, and $g:y_p \longrightarrow y$ in a contextual category \cat{C} then
+define $f \hash g: x \longrightarrow (f \circ g \circ p_y) \sub y$ to be the morphism $s(f \circ g)$. \\
+
+\begin{equation*}
+\begin{array}{c p{1.5cm} c}
+\rnode{TL}{( f \circ g \circ p_y)^*y} &&                \\[0.3cm]
+                                      && \Rnode{TR}{y}  \\[0.3cm]
+\Rnode{BL}{x}                         &&                \\[0.3cm]
+                                      && \Rnode{BR}{y_p} \\
+\end{array}
+\begin{arrows}
+%
+\ncsar{TL}{BL}
+\ncleftsection{BL}{TL}
+\alabel{f\hash g}
+%
+\ncsar{TR}{BR}
+\ncrightsection{BR}{TR}
+\blabel{g}
+%
+\ncarr{TL}{TR}
+\alabel{q(f \circ g \circ p_y,y)}
+%
+\ncarr{BL}{BR}
+\blabel{f}
+\end{arrows}
+\end{equation*}
+
+\begin{lemma} 
+\llabel{lemmastarsection} 
+\noindent If $f:x \longrightarrow y_p$, $y_p \base y$, and $g:y_p \longrightarrow y$ in a contextual category \cat{C} then
+$f \hash g$ is a section i.e. $f \hash g \circ p_{(f \circ g \circ p_y) \sub y} = id_x$
+\end{lemma}
+\begin{proof}
+This follows from the definition of $\hash$ and from axiom (s1).
+\end{proof}
+
+Also note that it follows from the defininitions that if $g$ is a section then $f\hash g = f\sub g$.
+
+\begin{lemma} 
+\llabel{lemmahash1}  
+If $f:x \longrightarrow y_p$ and $y_p \base y$ and  $g:y_p \longrightarrow y$ in \cat(C) 
+as shown here:
+\vspace{3mm}
+\begin{displaymath}
+\begin{array}{cp{1.2cm}c}
+\Rnode{fgpy}{(f \circ g \circ p_y)\sub y} & & \Rnode{y}{y}\\ [1.2cm]
+\Rnode{x}{x}         & & \Rnode{yp}{y_p} \\
+\end{array}
+\begin{arrows}
+%
+\ncsar{fgpy}{x}
+\ncleftsection{x}{fgpy}
+\alabel{f \hash g}
+%
+\ncarr{x}{yp}
+\blabel{f}
+%
+\ncarr{fgpy}{y}
+\alabel{q(f\circ g \circ p_y,y)}
+%
+\ncsar{y}{yp}
+\ncleftsection{yp}{y}
+\alabel{g}
+%
+\end{arrows}
+\end{displaymath}
+
+then 
+$$
+f \hash g \circ q(f \circ g \circ p_y,y) = f \circ g.
+$$
+\end{lemma}
+\begin{proof}
+Follows directly from the definition of $\hash$ and by axiom (s2).
+\end{proof}
+
+\begin{lemma}
+\label{lemmahash2}
+if $f_1:x_1 \longrightarrow x_2$ and $f_1:x_2 \longrightarrow y_p$
+and $y_p \base y$ and  $g:y_p \longrightarrow y$ in a contextual category \cat{C} as here:
+
+\vspace{3mm}
+\begin{displaymath}
+\begin{array}{cp{.9cm}cp{.9cm}c}
+ & & & &\Rnode{y}{y}\\ [1.2cm]
+\Rnode{x1}{x_1}         & & \Rnode{x2}{x_2}         & & \Rnode{yp}{y_p}
+\end{array}
+\begin{arrows}
+\jcbarr{f_1}{x1}{x2}
+\jcbarr{f_2}{x2}{yp}
+\ncasar{}{y}{yp}
+\ncaarr[35]{g}{yp}{y}
+\end{arrows}
+\end{displaymath}
+
+
+then
+\begin{equation*}
+f_1 \hash f_2 \hash g = (f_1 \circ f_2) \hash g
+\end{equation*}
+\end{lemma}
+\begin{proof}
+\begin{align*}
+lhs &= s(f_1 \circ f_2 \circ g)     && \mbox{from definition of  $\hash$,} \\
+    &= s(f_1 \circ s(f_2 \circ g))  && \mbox{by lemma \ref{s4},}           \\
+		&= f_1 \hash f_2 \hash g    && \mbox{from definition of $\hash$,}  \\
+	  &= rhs                        && \mbox{as required.}
+\end{align*}
+\end{proof}
+
+\subsubsection {Definition of $\delta$}
+
+If x is an object of a contextual category \cat{C} then define $\delta_x: x \longrightarrow p_x \sub x$ to be
+the morphism $s(id_x)$.
+
+\begin{lemma}
+\label {deltalemma}
+If x is an object of a contextual category \cat{C} then $\delta_x$ satisfies:
+\begin{enumerate}[(i)]
+\item $\delta_x$ is a section i.e $\delta_x \circ p_{p_x \sub x} = id_x$.
+\item $\delta_x \circ q(p_x,x) = id_x$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Follows from definition of $\delta$ and from axioms \ref{s1} and axiom \ref{s3}.
+\end{proof}
+
+\begin{lemma}
+\label {deltalemma2}
+Whenever $y_p \base y$ and
+$f: x \longrightarrow y_p$ in a contextual category \cat{C} then 
+\begin{equation*}
+q(f,y) \hash \delta_y   = \delta_{f \sub y}
+\end{equation*}
+\end{lemma}
+\begin{proof}
+Use lemma \ref{s4} and axiom (\ref{s3}).
+\end{proof}
+
+\subsection{$\delta\hash$ axiomatisation.}
+We can now give an alternative axiomatision of the generalised algebraic theory of contextual categories which we provisionally call a $\delta\hash$-structure. 
+
+\subsubsection{Definition}
+
+A $\delta\hash$-structure is a tree category \cat(C) with  operators $\hash$ and
+$q$ satisfying axioms (q1) -- (q5) given above and with the following additional structure:
+ \begin{enumerate}[I.]
+\item
+If $f:x \longrightarrow y_p$ and $y_p \base y$ and  $g:y_p \longrightarrow y$ in \cat(C) then a morphism $f \hash g : x \longrightarrow (f \circ g \circ p_y)*y$
+as shown here:
+\vspace{3mm}
+\begin{displaymath}
+\begin{array}{cp{.9cm}c}
+\Rnode{fgpy}{(f \circ g \circ p_y)\sub y} & & \Rnode{y}{y}\\ [1.2cm]
+\Rnode{x}{x}         & & \Rnode{yp}{y_p}
+\end{array}
+\begin{arrows}
+\ncbsar{}{fgpy}{x}
+\jcbarr{f}{x}{yp}
+\ncaarr{q(f\circ g \circ p_y,y)}{fgpy}{y}
+\ncasar{}{y}{yp}
+\ncaarr[35]{g}{yp}{y}
+\ncaarr[35]{f \hash g}{x}{fgpy}
+\end{arrows}
+\end{displaymath}
+
+
+satisfying 
+\begin{axiomtagged}{hash1}{$\#1$}
+(f \hash g) \circ p_{(f \circ g \circ p_y) \sub y} = id_x
+\end{axiomtagged}
+and 
+\begin{axiomtagged}{hash2}{$\#2$}
+(f \hash g) \circ q(f \circ g \circ p_y,y) = f \circ g
+\end{axiomtagged}
+
+and such that if $f_1:x_1 \longrightarrow x_2$ and $f_1:x_2 \longrightarrow y_p$
+and $y_p \base y$ and  $g:y_p \longrightarrow y$ in \cat(C) as here:
+
+\vspace{3mm}
+\begin{displaymath}
+\begin{array}{cp{.9cm}cp{.9cm}c}
+ & & & &\Rnode{y}{y}\\ [1.2cm]
+\Rnode{x1}{x_1}         & & \Rnode{x2}{x_2}         & & \Rnode{yp}{y_p}
+\end{array}
+\begin{arrows}
+\jcbarr{f_1}{x1}{x2}
+\jcbarr{f_2}{x2}{yp}
+\ncasar{}{y}{yp}
+\ncaarr[35]{g}{yp}{y}
+\end{arrows}
+\end{displaymath}
+
+ then
+\begin{axiomtagged}{hash3}{$\#$3}
+f_1 \hash f_2 \hash g = (f_1 \circ f_2) \hash g
+\end{axiomtagged}
+
+\item
+For any object $x$ of \cat(C) a morphism $\delta_x:x \longrightarrow p_x \sub x$ such that
+\noindent
+$\delta_x$ is a section i.e :
+\begin{axiomtagged}{delta1}{$\delta$1}
+\delta_x \circ p_{p_x\sub x} = id_x
+\end{axiomtagged}
+\noindent
+and
+\begin{axiomtagged}{delta2}{$\delta$2}
+\delta_x \circ q(p_x,x) = id_x
+\end{axiomtagged}
+
+and whenever $y_p \base y$, 
+$f: x \longrightarrow y_p$  in \cat{C}
+then
+\begin{axiomtagged}{delta3}{$\delta$3}
+q(f,y) \hash \delta_y   = \delta_{f \sub y}
+\end{axiomtagged}
+as shown here:
+\vspace{3mm}
+\begin{displaymath}
+\begin{array}{cp{.9cm}cp{.9cm}c}
+\Rnode{pfy}{{p_{f \sub y}}\sub f \sub y}  & &\Rnode{py}{{p_y} \ssub y}\\ [1.2cm]
+\Rnode{fy}{f \sub y} & &\Rnode{y}{y}\\ [1.2cm]
+\Rnode{x}{x}         & & \Rnode{yp}{y_p} \\
+\end{array}
+\begin{arrows}
+\ncarr{x}{yp}
+\blabel{f}
+%
+\ncsar{fy}{x}
+%
+\ncarr{fy}{y}
+\blabel{q(f,y)}
+%
+\ncsar{y}{yp}
+\ncsar{pfy}{fy}
+\ncsar{py}{y}
+%
+\ncarr{pfy}{py}
+\alabel{q(q(f,y),{p_y} \ssub y)}
+%
+\ncarr[35]{y}{py}
+\alabel{\delta_y}
+%
+\ncarr[35]{fy}{pfy} 
+\alabel{\delta_{f \sub y}} 
+\end{arrows}
+\end{displaymath}
+\end{enumerate}
+
+\subsubsection{Recovery of $s$ from $\hash$ and $delta$}
+
+That a contextual category has $\delta\hash$-structure we have shown in lemmas \ref{lemmahash1}, \ref{lemmahash2},
+\ref{deltalemma} and \ref{deltalemma2}.
+It remains to show that within any $\delta\hash$-structure an operator $s$ can be defined and satisfies axioms (s1), (s2) and (s3).
+\noindent
+Define $s(f)$ to be $f \hash\delta_y$ . 
+\noindent
+That axiom (s1) holds follows from axiom \ref{hash1}.
+\noindent
+We prove axiom (s2), which is:
+\begin{equation*}
+s(f) \circ q( f \circ p_y ,y)=f,
+\end{equation*}
+\noindent
+ as follows:
+\begin{align*}
+s(f) \circ q( f \circ p_y ,y)
+ &= (f \hash \delta_y) \circ q(f \circ p_y, y)                                                  && \mbox{from defn of $s$,} \\
+ &= (f \hash \delta_y) \circ q(f,{p_y} \ssub y) \circ q(p_y,y)                                  && \mbox{\byaxiom{q5},} \\
+ &= (f \hash \delta_y) \circ q(f \circ \delta_y \circ p_{{p_y} \ssub y},{p_y} \ssub y) \circ q(p_y,y) 
+                                                                                                && \mbox{since $\delta_y$ is a section,} \\
+ &= f \circ \delta_y \circ q(p_y,y)                                                             && \mbox{\byaxiom{hash2},} \\
+ &= f \circ id_y                                                                                && \mbox{\byaxiom{delta2},} \\
+ &= f                                                                                           && \mbox{as required.}
+\end{align*}
+
+\noindent
+Finally we prove axiom (s3), which is
+\begin{equation*}
+s(f \circ q(g,z))=s(f),
+\end{equation*}
+
+\noindent
+ as follows:
+\begin{align*}
+s(f \circ q(g,z)) &= (f \circ q(g,z)) \hash \delta_z      && \mbox{from the definition given for $s$,} \\
+                  &= f \hash (  q(g,z) \hash \delta_z)    &&\mbox{\byaxiom{hash3},} \\
+                  &= f \hash \delta_{g \sub z}            && \mbox{\byaxiom{delta3},} \\
+	              &= s(f)                                 && \mbox{by definition given for $s$, as required.}
+\end{align*}
+\fi
+\bibliography{../SharedBibliography/temp/bibliography}
+ 
+\end{document}
