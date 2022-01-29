@@ -385,31 +385,38 @@ f^*zz = q(f, z)^*zz
 q(f, zz) = q(q(f, z), zz)
 \end{equation}
 and so the outer diagram in
-\renewcommand{\pc}[2]{p_{#1,#2}}  % as \pc defined in ccategories macros differently to this
+%\renewcommand{\pc}[2]{p_{#1,#2}}  % as \pc defined in ccategories macros differently to this   %UNUSED
 $
 \begin{array}{ccp{.9cm}c}
 \\[0.25cm]
 &\Rnode{TL}{q(f,z)^*zz} & & \Rnode{TR}{zz}\\ [1.2cm]
 &\Rnode{ML}{f^*z} & & \Rnode{MR}{z}\\ [1.2cm]
-&\Rnode{BL}{x}         & & \Rnode{BR}{y} \\[1.0cm]
+&\Rnode{BL}{x}         & & \Rnode{BR}{y} 
 \end{array}
-$
-%composition
-%\setlength{\fboxrule}{1pt} 
-\makebox[0.2cm]{   % This make box prevents white space pushing out to the right
-                   % cannot see where this white space is comin from. To investigate
-									 % change the \makebox[0.2cm] to \fbox and you will see the problem.
-\nccdar{TL}{ML}\blabel{p_{q(f,z)^*zz,f^*z}}\nccdar{ML}{BL}\blabel{p_{f \sub z,x}}\nccdar{TR}{MR}\alabel{p_{zz,z}}
+\begin{arrows} 
+%composition  
+\nccdar{TL}{ML}
+\blabel{p_{q(f,z)^*zz,f^*z}}
+%
+\nccdar{ML}{BL}
+\blabel{p_{f \sub z,x}}
+%
+\nccdar{TR}{MR}
+\alabel{p_{zz,z}}
+%
 \nccdar{MR}{BR}
 \alabel{p_{z,y}}
 %reference
 \ncarr{TL}{TR}
 \alabel{q(q(f,z),zz)}
+%
 \ncarr{ML}{MR}
 \alabel{q(f,z)}
+%
 \ncarr{BL}{BR}
 \blabel{f}
-}
+\end{arrows}
+$
 is diagram (\ref{compositepullbackout}). 
 \end{lemma}
 
@@ -628,7 +635,6 @@ and because by lemma \lref{stardistributesonobjects} $\lhscod=\fghcod$.
 Since 
 \begin{center}
 \begin{equation}
-\label{compositepullbackout}
 \begin{array}{cp{.9cm}c}
 \Rnode{TL}{g^*z_2} & & \Rnode{TR}{z_2}\\ [1.2cm]
 \Rnode{BL}{\gdom}         & & 
