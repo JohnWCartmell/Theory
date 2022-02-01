@@ -9,7 +9,7 @@
 \newcommand{\duplesisucc}{{\duple{s_1,...s_{i+1}}_{y_{i+1}}}}
 \newcommand{\duplesnlessone}{{\duple{s_1,...s_{n-1}}_{y_{n-1}}}}
 \newcommand{\ynz}{\crossx{y_n}{z}{y_i}}
-\newcommand{\duplesnsg}{\duple{s_1,...s_n, s(g)}_{\ynz}}
+
 
 \newcommand {\sonesub}{{s_1}^*}
 \newcommand {\stwosub}{{s_2}^*}
@@ -103,11 +103,132 @@ s(\duple{s(g)}) = s(s(g))
 \end{equation}
 But $s(s(g))=s(g)$ by lemma \lref{sidempotent} and therefore $\duple{s(g)}=g$ by lemma \lref{stactic}.
 \end{proof}
-
 %
+%
+%
+{ % BEGIN   {thegeneraldupletuplelemma} and proof
+\newcommand{\tuplesnsg}{\tuple{s_1,...s_n,s(g)}}
+\newcommand{\duplesnsg}{\duple{s_1,...s_n, s(g)}_{f^*z}}
+\newcommand{\dupletuplerhs}{\bigtuple{\duplesn,g}}
+\begin{lemma}
+\llabel{thegeneraldupletuplelemma} 
+If $x$, $y_1$,...$y_n$, $z_p$ and $z$ are objects of a contextual category \catcw 
+such that $1 \base y_1 ... \base y_n$ and $z_p \base z$ in \catc, 
+if $f: y_n \morph z_p$, so that this diagram 
+\begin{displaymath}
+\begin{array} {c p{3cm} c p{2cm} c}
+              && \Rnode{TL}{f^*z}  && \Rnode{TR}{z}  \\[1.2cm]
+              && \Rnode{BL}{y_n}   && \Rnode{BR}{z_p}
+\end{array}
+\begin{arrows}
+\ncsar{TL}{BL}
+\ncsar{TR}{BR}
+\ncarr{TL}{TR}
+\alabel{q(f,z)}
+\ncarr{BL}{BR}
+\blabel{f}
+\end{arrows}
+\end{displaymath}
+is a pullback, if $\tuplesnsg$ is a cascade from $x$ to $f^*z$ and $g:x \morph z$ in \catcw 
+such that
+\begin{equation} \label{generaldupletuplegiven}
+g \circ p_z = \duplesn \circ f
+\end{equation} 
+then
+\begin{equation}
+\label{generaldupletuplegoaltwo}
+\duplesnsg = \dupletuplerhs
+\end{equation}
+where $\dupletuplerhs$ is the unique morphism $\dupletuplerhs:x \morph f^*z$ such that
+\begin{equation}
+\label{generaldupletupledefone}
+\dupletuplerhs \circ q(f,z) =g
+\end{equation} 
+and 
+\begin{equation}
+\dupletuplerhs \circ p_{f^*z} = \duplesn
+\end{equation}
+ as shown in this diagram
+\begin{displaymath}
+\begin{array} {c p{3cm} c p{2cm} c}
+% FL is Far Left !!
+\Rnode{FL}{x} &&                   &&                \\[1.0cm]
+              && \Rnode{TL}{f^*z}  && \Rnode{TR}{z}  \\[1.2cm]
+              && \Rnode{BL}{y_n}   && \Rnode{BR}{z_p}
+\end{array}
+\begin{arrows}
+\ncsar{TL}{BL}
+\ncsar{TR}{BR}
+\ncarr[30]{FL}{TR}
+\alabel{g}
+\ncarr{FL}{TL}
+\alabel{\dupletuplerhs}[0.7][1]
+\ncarr[-20]{FL}{BL}
+\blabel{\duplesn}[0.5][0]
+\ncarr{TL}{TR}
+\alabel{q(f,z)}
+\ncarr{BL}{BR}
+\blabel{f}
+\end{arrows}
+\end{displaymath}
+\end{lemma}
+\begin{proof}
+\iffalse
+To show $\tuplesnsg$ is a cascade from $x$ to $f^*z$ then we must have that
+$\sntuple$ is a cascade from $x$ to $y_n$ and that $s(g) \in Sect(s_n^*...s_1^*(\crossx{x}{f^*z}{1}))$.
+From the definition of $s$ we have that $s(g)\in Sect((g \circ p_z) ^* z)$ and and therefore 
+we need to show that
+\begin{equation}
+\label{generaldupletupleone}
+s_n^*...s_1^*(\crossx{x}{f^*z}{1}) = (g \circ p_z) ^* z.
+\end{equation}
+which we show as follows
+\begin{align*}
+s_n^*...s_1^*(\crossx{x}{f^*z}{1}) &= \duplesn ^* f^*z  && \mbox{ by (d3),} \\
+            &= (\duplesn \circ f)^* z                   && \mbox{ by (q5)}  \\
+            &= (g \circ p_z) ^* z                       && \mbox{ by  (\ref{generaldupletuplegiven}). }
+\end{align*}
+\fi
+To show (\ref{generaldupletuplegoaltwo})
+we need just show that
+\begin{equation}
+\label{generaldupletuplesubgoalone}
+\duplesnsg \circ q(f,z) =g
+\end{equation} 
+and 
+\begin{equation}
+\label{generaldupletuplesubgoaltwo}
+\duplesnsg \circ p_{f^*z} = \duplesn
+\end{equation}
+(\ref{generaldupletuplesubgoalone}) follows because by lemma \lref{footandstactic}
+ it suffices to show that
+\begin{equation}
+\label{generaldupletuplesubgoaloneone}
+\duplesnsg \circ q(f,z) \circ p_z =g \circ p_z,
+\end{equation}
+which follows directly from (\ref{generaldupletupledefone}), and
+\begin{equation}
+\label{generaldupletuplesubgoalonetwo}
+s(\duplesnsg \circ q(f,z)) =s(g)
+\end{equation}
+which we prove as follows:
+\begin{align*}
+s(\duplesnsg \circ q(f,z)) &=s(\duplesnsg  && \mbox{ by (s3),} \\
+                          &= s(g)                       && \mbox{ by (d1).}
+\end{align*}
+whereas (\ref{generaldupletuplesubgoaltwo}) is an instance of clause (d2) of the definition of $\duple{}$.
+\end{proof}
+} % END   {thegeneraldupletuplelemma} and proof
+%
+%
+%
+
+\highlight{The following becomes a special case of the generaldupletuplelemma.}
+{ % BEGIN {thedupletuplelemma} and proof 
+\newcommand{\duplesnsg}{\duple{s_1,...s_n, s(g)}_{\ynz}}
 \newcommand{\dupletuplerhs}{\bigtuple{\duplesn,g}_{p_{y_{n},y_i},z}}
 \begin{lemma}
-\llabel{thedupletuplelemma} \commentary{rewriting this without introducing a term $s_n$}
+\llabel{thedupletuplelemma} 
 If $x$, $y_1$,...$y_n$ and $z$ are objects of a contextual category \catcw such that $1 \base y_1 ... \base y_n$ in \catcw and
 $y_i \base z$, for some $i$, $0 \leq i \leq n$ (where in the case of $n$ equal to $0$ then 
 by $y_0$ we mean the terminal object $1$ of \catc),
@@ -125,12 +246,12 @@ and
 \begin{proof}
 To show that $\duplesnsg$ is a cascade from $x$ to $\ynz$ in \catcw we need show that
 $s(g) \in Sect(\duplesn ^* \ynz)$.
-This folows because by definition of $s(g)$, $s(g) \in Sect((g \circ p_z) ^*z)$ and because
+This follows because by definition of $s(g)$, $s(g) \in Sect((g \circ p_z) ^*z)$ and because
 \begin{align*}
-(g \circ p_z) ^*z &= \duplesi ^*z                            && \mbox{from initial assumption that $g \circ p_z =\duplesi$}\\
-                  &= (\duplesn \circ {p_{y_n,y_i}})^*z       && \mbox{by lemma \lref{dupledestructionlemma}} \\
-                  &= {\duplesn} ^* {p_{y_n,y_i}}^*z          && \mbox{by (q4)} \\
-                  &= {\duplesn} ^* (\ynz)                    && \mbox{ by definition of $\crossx{}{}{}$}
+(g \circ p_z) ^*z &= \duplesi ^*z                            && \mbox{from initial assumption that $g \circ p_z =\duplesi$,}\\
+                  &= (\duplesn \circ {p_{y_n,y_i}})^*z       && \mbox{by lemma \lref{dupledestructionlemma},} \\
+                  &= {\duplesn} ^* {p_{y_n,y_i}}^*z          && \mbox{by (q4),} \\
+                  &= {\duplesn} ^* (\ynz)                    && \mbox{ by definition of $\crossx{}{}{}$.}
 \end{align*}
  
 To show that $\dupletuplerhs$ (rhs of (\ref{dupletuplegoal})) is defined we need show that 
@@ -210,6 +331,7 @@ s(\duplesnsg \circ q(p_{y_n,y_i},z))&=s(\duplesnsg)          &&\mbox{by (s3),}\\
                                     &=s(g)                   &&\mbox{by definition of $\tuple{}$.}
 \end{align*}
 \end{proof}
+} % END of {thedupletuplelemma} and proof%
 %
 \begin{lemma}
 \llabel{duplestuplelemma}
