@@ -27,43 +27,51 @@ If $x$ is an object of contextual category \catc, if $1 \base y_1 ... \base y_n$
 $\sntuple$ is a cascade from $x$ to $y_n$ in \catcw
 then  we can define a morphism
 $\duplesn:x \morph y_n$ in \catcw such that 
-\begin{enumerate}[(i)]
-\item $s(\duplesn) = s_n$,
-\item for $n> 1$, $\duplesn \circ p_{y_n} = \duplesnlessone$, and 
-\item for all objects $y$ of \catcw such that $y_n < y$, 
-$\sncascade (\crossx{x}{y}{1}) = \duplesn ^*y$, \\
-and for all sections $s$ of $y$,
-$\sncascade (\crossx{x}{s}{1}) = \duplesn ^* s$.
-\end{enumerate}
+\begin{axiom}{d1}
+s(\duplesn) = s_n,
+\end{axiom}
+for $n> 1$, 
+\begin{axiom}{d2}
+\duplesn \circ p_{y_n} = \duplesnlessone, 
+\end{axiom}
+and for all objects $y$ of \catcw such that $y_n < y$, 
+\begin{axiom}{d3a}
+{\duplesn} ^*y = \sncascade (\crossx{x}{y}{1}),
+\end{axiom}
+and for all sections $g$ of $y$,
+\begin{axiom}{d3b}
+{\duplesn} ^* g = \sncascade (\crossx{x}{g}{1}).
+\end{axiom}
+
 
 The definition of $\duplesn$ proceeds by induction. 
 Define $\duplesone= s_1 \circ q(p_{x,1},y_1)$.
-By axiom (s1), it follows immediately that $s(\duplesone)=s_1$.
+By axiom (s1), we directly establish, (d1), that $s(\duplesone)=s_1$.
 
-If $y_1 <y$ in \catcw then we have $\sonesub (\crossx{x}{y}{1})=\duplesone ^*y$ because
+If $y_1 <y$ in \catcw then we establish (d3a), that $\sonesub (\crossx{x}{y}{1})=\duplesone ^*y$ as follows
 \begin{align*}
-\sonesub (\crossx{x}{y}{1})&= \sonesub q(p_{x,1},y_1)^*y     && \mbox{by definition of $\crossx{1}{}{}$,}\\
+\sonesub (\crossx{x}{y}{1})&= \sonesub q(p_{x,1},y_1)^*y     && \mbox{by definition of $\crossx{}{}{1}$,}\\
                          &= (s_1 \circ q(p_{x,1},y_1))^*y   && \mbox{by pullback coherence axiom (q5),}\\
                          &= \duplesone ^*y                   && \mbox{by definition of $\duplesone ^*y$.}
 \end{align*}
-Also, if $g$ is a section of $y$ then we can show, by a similar argument, 
-that $\sonesub (\crossx{x}{g}{1})=\duplesone ^* g$. 
+Also, if $g$ is a section of $y$ then we can show (d3b),  
+that $\sonesub (\crossx{x}{g}{1})=\duplesone ^* g$, by a similar argument. 
 
-Now assume that $\duplesi$ is defined and satisfies (i) to (iii) above. 
+Now assume that $\duplesi$ is defined and satisfies (\ref{d1}) to (\ref{d3b}) above. 
 In particular we have  $\sicascade y_{i+1} = \duplesi ^*y_{i+1}$, and therefore that
 $s_{i+1} \in Sect(\duplesi ^*y_{i+1})$, and this then allows us to define $\duplesisucc$ by 
 \begin{equation*}
 \duplesisucc = s_{i+1} \circ q(\duplesi, y_{i+1}).
 \end{equation*} 
-Immediately by axiom s3
-we have that $s(\duplesisucc)=s_{i+1}$.
-We have that $\duplesisucc \circ p_{y_{i+1}}= \duplesi$ because
+Immediately by axiom (s3)
+we establish (d1), that $s(\duplesisucc)=s_{i+1}$.
+We establish (d2), that $\duplesisucc \circ p_{y_{i+1}}= \duplesi$, as follows
 \begin{align*}
 \duplesisucc \circ p_{y_{i+1}} &=s_{i+1} \circ q(\duplesi, y_{i+1}) \circ p_{y_{i+1}} && \mbox{by definition of $\duplesisucc$,} \\
                                &=s_{i+1} \circ p_{\duplesi ^*y_{i+1}} \circ \duplesi && \mbox{because the pullback diagram commutes,} \\
 															 &= \duplesi                       && \mbox{because $s_{i+1}$ is a section.}
 \end{align*}
-To establish (iii), suppose $y$ is some object such that $y_{i+1} < y$ in \catcw then we can show that $\sisucccascade (\crossx{x}{y}{1})=\duplesisucc ^*y$ as follows:
+To establish (\ref{d3a}), suppose $y$ is some object such that $y_{i+1} < y$ in \catcw then we can show that $\sisucccascade (\crossx{x}{y}{1})=\duplesisucc ^*y$ as follows:
 \begin{align*}
 \sisucccascade (\crossx{x}{y}{1}) 
               &= \sisuccsub \duplesi ^*y && \mbox{by inductive hypothesis,} \\
@@ -71,8 +79,8 @@ To establish (iii), suppose $y$ is some object such that $y_{i+1} < y$ in \catcw
                          &= (s_{i+1} \circ q(\duplesi,y_{i+1}))^*y   && \mbox{by pullback coherence axiom,}\\
                          &= \duplesisucc ^*y                   && \mbox{by definition of $\duplesisucc$.}
 \end{align*}
-A similar argument shows that if $g$ is a section of $y$ then $\sisucccascade (\crossx{x}{g}{1})=\duplesisucc ^* g$.
-\commentary{Make this into a \highlight{lemma} to \highlight{referenced.}}
+A similar argument shows that if $g$ is a section of $y$ then $\sisucccascade (\crossx{x}{g}{1})=\duplesisucc ^* g$ to establish (\ref{d3b}).
+
 
 \begin{lemma}
 \llabel{dupledestructionlemma}
@@ -114,7 +122,7 @@ But $s(s(g))=s(g)$ by lemma \lref{sidempotent} and therefore $\duple{s(g)}=g$ by
 \llabel{thegeneraldupletuplelemma} 
 If $x$, $y_1$,...$y_n$, $z_p$ and $z$ are objects of a contextual category \catcw 
 such that $1 \base y_1 ... \base y_n$ and $z_p \base z$ in \catc, 
-if $f: y_n \morph z_p$, so that this diagram 
+if $f: y_n \morph z_p$, so that there is this pullback diagram 
 \begin{displaymath}
 \begin{array} {c p{3cm} c p{2cm} c}
               && \Rnode{TL}{f^*z}  && \Rnode{TR}{z}  \\[1.2cm]
@@ -129,7 +137,7 @@ if $f: y_n \morph z_p$, so that this diagram
 \blabel{f}
 \end{arrows}
 \end{displaymath}
-is a pullback, if $\tuplesnsg$ is a cascade from $x$ to $f^*z$ and $g:x \morph z$ in \catcw 
+in \catc, if $\tuplesnsg$ is a cascade from $x$ to $f^*z$ and $g:x \morph z$ in \catcw 
 such that
 \begin{equation} \label{generaldupletuplegiven}
 g \circ p_z = \duplesn \circ f
