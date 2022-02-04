@@ -77,8 +77,8 @@
 \newcommand {\assocfogmapped}{\tuple{\dddot z_1,\dddot z_2,\dddot z_3,f,g}^*\fcomp }
 \newcommand {\assoclhsmapped}{\duple{s(\dddot z_1),s(\dddot z_3),s(\dddot z_4),\assocfogmapped,s(h)}^*\fcomp}
 \newcommand {\assoclhsremapped}{\tuple{\dddot z_1,\dddot z_3,\dddot z_4,(\assocfogmapped) \circ q(\tuple{\dddot z_1,\dddot z_3},Hom),h}^*\fcomp}
-\newcommand {\assocgohmapped}{\duple{s(\dddot z_1),s(\dddot z_2),s(\dddot z_3),s(g),s(h)}^*\fcomp }
-\newcommand {\assocgohremapped}{\tuple{\dddot z_1,\dddot z_2,\dddot z_3,g,h}^*\fcomp }
+\newcommand {\assocgohmapped}{\duple{s(\dddot z_2),s(\dddot z_3),s(\dddot z_4),s(g),s(h)}^*\fcomp }
+\newcommand {\assocgohremapped}{\tuple{\dddot z_2,\dddot z_3,\dddot z_4,g,h}^*\fcomp }
 \newcommand {\assocrhsmapped}{\duple{s(\dddot z_1),s(\dddot z_2),s(\dddot z_4),s(f),\assocgohremapped}^*\fcomp}
 \newcommand {\assocrhsremapped}{\tuple{\dddot z_1,\dddot z_2,\dddot z_4,f,(\assocgohremapped) \circ q(\tuple{\dddot z_2,\dddot z_4},Hom)}^*\fcomp}
 
@@ -91,6 +91,58 @@
 % These two should maybe be moved into ccategories shared macros
 \newcommand{\ccplaceholder}{\rule[-0.2cm]{0cm}{0.6cm}\kern0.2cm}
 \newcommand{\rightend}[1] { \kern-0.2cm\Rnode{#1} {\ccplaceholder} }
+
+
+
+\newcommand{\associativitytermdiagramrhs}
+{
+\begin{array} {cp{1.4cm}c}
+                        && \Rnode{RTR}{\compsix}  \\[0.9cm]
+\Rnode{RML}{Hom}        && \Rnode{RMR}{\compfive} \\[0.9cm]
+\Rnode{RBL}{Hom}        && \Rnode{RBR}{\compfour} \\[0.9cm]
+                        && \Rnode{RVBR}{\OOO}    
+\end{array}
+\begin{arrows}
+% composition
+\ncsar{RTR}{RMR}
+\ncsar{RMR}{RBR}
+\ncsar{RBR}{RVBR}
+\ncarr{RMR}{RML}
+\blabel{q(\tuple{\dot y_2,\dot y_3},Hom)}
+\ncarr{RBR}{RBL}
+\blabel{q(\tuple{y_1,y_2},Hom)}
+\end{arrows}
+}
+
+
+\newcommand{\associativitytermdiagram} [3]
+{
+\begin{displaymath}
+\begin{array}{c p{6cm} c}
+                                                                       \\[0.6cm]
+\Rnode{L}{\associativitypremisemapped} && \associativitytermdiagramrhs \\
+&& \\[1.0cm]
+\end{array}
+\begin{arrows}
+\ncdarr[25]{L}{RTR}
+\alabel{\tuple{#1,#2,#3}}[0.6]
+\ncarr[5]{L}{RML}
+\alabel{#3}[0.6]
+\ncarr[-5]{L}{RBL}
+\blabel{#2}[0.6]
+\ncarr[-25]{L}{RVBR}
+\blabel{\tuple{#1}}[0.6]
+\end{arrows}
+\end{displaymath}
+}
+
+% associativity lhs definition
+
+\associativitytermdiagram{\dddot z_1, \dddot z_3,\dddot z_4}{(\assocfogmapped) \circ q(\tuple{\dddot z_1,\dddot z_3},Hom)}{h}
+\vspace{0.5cm}
+% associativity rhs definition
+\associativitytermdiagram{\dddot z_1, \dddot z_2,\dddot z_4}{f}{(\assocgohremapped) \circ q(\tuple{\dddot z_2,\dddot z_4},Hom)}
+
 
 In this second example we describe the structure of internal categories by following the main definition and examining
 what constitutes an instance of the (generalised algebraic) theory of categories ($tc$) in some \commentary{words accidentally different to monoid example}
