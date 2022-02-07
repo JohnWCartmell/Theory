@@ -24,16 +24,16 @@
 
 
 %Composition introductory rule
-\newcommand{\compfour}{\tuple{y_1,y_2}^*Hom}
-\newcommand{\compfive}{\tuple{\dot y_2,\dot y_3}^*Hom}
-\newcommand{\compsix}{\tuple{\ddot y_1,\ddot y_3}^*Hom}
+\newcommand{\compdomparent}{\tuple{y_1,y_2}^*Hom}
+\newcommand{\compdomain}{\tuple{\dot y_2,\dot y_3}^*Hom}
+\newcommand{\compcodomain}{\tuple{\ddot y_1,\ddot y_3}^*Hom}
 
 
 % Left identity axiom mapping
-\newcommand{\leftidentitymapped}{\tuple{x_1,x_1,x_2,x_1\circ \fid,id_{Hom}}^*\fcomp=s(id_{Hom})}
+\newcommand{\leftidentitymapped}{\tuple{\dot x_1,\dot x_1,\dot x_2,\dot x_1\circ \fid,id_{Hom}}^*\fcomp=s(id_{Hom})}
 
 % Right identity axiom mapping
-\newcommand{\rightidentitymapped}{\tuple{x_1,x_1,x_2,id_{Hom},x_2\circ \fid}^*\fcomp=s(id_{Hom})}
+\newcommand{\rightidentitymapped}{\tuple{\dot x_1,\dot x_1,\dot x_2,id_{Hom},\dot x_2\circ \fid}^*\fcomp=s(id_{Hom})}
 
 
 %*****************************
@@ -69,18 +69,25 @@
 \newcommand {\assocfremapped}{s(f)}
 \newcommand {\assocgremapped}{s(g)}
 \newcommand {\assochremapped}{s(h)}
-\newcommand{\associativitylhstype}{\isT{{Hom(z_1,z_4)}}}
-\newcommand{\associativitylhstypemappedinitially}{\duple{s(\dddot z_1),s(\dddot z_4)}^*Hom}
-\newcommand{\associativitylhstypemapped}{\tuple{\dddot z_1,\dddot z_4}^*Hom}
-\newcommand{\associativitylhstermtyping}{\ofT{(f \circ g) \circ h}{Hom(z_1,z_4)}}
-\newcommand{\associativityrhstermtyping}{\ofT{f \circ (g \circ h)}{Hom(z_1,z_4)}}	
-\newcommand {\assocfogmapped}{\tuple{\dddot z_1,\dddot z_2,\dddot z_3,f,g}^*\fcomp }
+\newcommand {\associativitylhstype}{\isT{{Hom(z_1,z_4)}}}
+\newcommand {\associativitylhstypemappedinitially}{\duple{s(\dddot z_1),s(\dddot z_4)}^*Hom}
+\newcommand {\associativitylhstypemapped}{\tuple{\dddot z_1,\dddot z_4}^*Hom}
+\newcommand {\associativitylhstermtyping}{\ofT{(f \circ g) \circ h}{Hom(z_1,z_4)}}
+\newcommand {\associativityrhstermtyping}{\ofT{f \circ (g \circ h)}{Hom(z_1,z_4)}}	
+\newcommand {\assocfogmapped}{\duple{s(\dddot z_1),s(\dddot z_2),s(\dddot z_3),s(f),s(g)}^*\fcomp }
+%\newcommand {\assocfogremapped}{\tuple{\dddot z_1,\dddot z_2,\dddot z_3,f,g}^*\fcomp } %fuller notation
+\newcommand {\assocfogremapped}{\tuple{f,g}^*\fcomp}                                    % more abbreviated notation
 \newcommand {\assoclhsmapped}{\duple{s(\dddot z_1),s(\dddot z_3),s(\dddot z_4),\assocfogmapped,s(h)}^*\fcomp}
-\newcommand {\assoclhsremapped}{\tuple{\dddot z_1,\dddot z_3,\dddot z_4,(\assocfogmapped) \circ q(\tuple{\dddot z_1,\dddot z_3},Hom),h}^*\fcomp}
+%\newcommand {\assoclhsremapped}{\tuple{\dddot z_1,\dddot z_3,\dddot z_4,(\assocfogremapped) \circ q(\tuple{\dddot z_1,\dddot z_3},Hom),h}^*\fcomp}   % fuller notation
+
+\newcommand {\assoclhsremappingtuple}{\tuple{(\assocfogremapped) \circ q(\tuple{\dddot z_1,\dddot z_3},Hom),h}}
+\newcommand {\assoclhsremapped}{\assoclhsremappingtuple^*\fcomp}                                                                                                 % more abbreviated notation
 \newcommand {\assocgohmapped}{\duple{s(\dddot z_2),s(\dddot z_3),s(\dddot z_4),s(g),s(h)}^*\fcomp }
-\newcommand {\assocgohremapped}{\tuple{\dddot z_2,\dddot z_3,\dddot z_4,g,h}^*\fcomp }
+%\newcommand {\assocgohremapped}{\tuple{\dddot z_2,\dddot z_3,\dddot z_4,g,h}^*\fcomp } % fuller notation
+\newcommand {\assocgohremapped}{\tuple{g,h}^*\fcomp }                                   % more abbreviated notation
 \newcommand {\assocrhsmapped}{\duple{s(\dddot z_1),s(\dddot z_2),s(\dddot z_4),s(f),\assocgohremapped}^*\fcomp}
-\newcommand {\assocrhsremapped}{\tuple{\dddot z_1,\dddot z_2,\dddot z_4,f,(\assocgohremapped) \circ q(\tuple{\dddot z_2,\dddot z_4},Hom)}^*\fcomp}
+\newcommand {\assocrhsremappingtuple}{\tuple{f,(\assocgohremapped) \circ q(\tuple{\dddot z_2,\dddot z_4},Hom)}}
+\newcommand {\assocrhsremapped}{\assocrhsremappingtuple^*\fcomp}
 
 \newcommand{\assocequivalentlhs}{\tuple{\dddot z_1,\dddot z_3,\dddot z_4,\tuple{\dddot z_1,\dddot z_2,\dddot z_3,f,g}\circ \compmorph,h} \circ \compmorph}
 \newcommand{\assocequivalentrhs}{\tuple{\dddot z_1,\dddot z_2,\dddot z_4,f,\tuple{\dddot z_1,\dddot z_2,\dddot z_3,g,h}\circ \compmorph} \circ \compmorph}
@@ -97,14 +104,14 @@
 \newcommand{\associativitytermdiagramrhs}
 {
 \begin{array} {cp{1.4cm}c}
-                        && \Rnode{RTR}{\compsix}  \\[0.9cm]
-\Rnode{RML}{Hom}        && \Rnode{RMR}{\compfive} \\[0.9cm]
-\Rnode{RBL}{Hom}        && \Rnode{RBR}{\compfour} \\[0.9cm]
+ %                       && \Rnode{RTR}{\compcodomain}  \\[0.9cm]
+\Rnode{RML}{Hom}        && \Rnode{RMR}{\compdomain} \\[0.9cm]
+\Rnode{RBL}{Hom}        && \Rnode{RBR}{\compdomparent} \\[0.9cm]
                         && \Rnode{RVBR}{\OOO}    
 \end{array}
 \begin{arrows}
 % composition
-\ncsar{RTR}{RMR}
+%\ncsar{RTR}{RMR}
 \ncsar{RMR}{RBR}
 \ncsar{RBR}{RVBR}
 \ncarr{RMR}{RML}
@@ -114,34 +121,30 @@
 \end{arrows}
 }
 
-
-\newcommand{\associativitytermdiagram} [3]
+% \associativitytermdiagram [angle][width]{first 3 object projection}{Hom projection}{Hom projection}
+\newcommandtwoopt{\associativitytermdiagram}[5][30][6cm]
 {
 \begin{displaymath}
-\begin{array}{c p{6cm} c}
-                                                                       \\[0.6cm]
-\Rnode{L}{\associativitypremisemapped} && \associativitytermdiagramrhs \\
-&& \\[1.0cm]
+\begin{array}{c p{#2} c}
+                                                                                        \\[1.0cm]
+\Rnode{L}{\associativitypremisemapped} && \raisebox{-2cm}{$\associativitytermdiagramrhs$} \\
+&& \\%[0.25cm]
 \end{array}
 \begin{arrows}
-\ncdarr[25]{L}{RTR}
-\alabel{\tuple{#1,#2,#3}}[0.6]
+\ncdarr[#1]{L}{RMR}
+\alabel{\tuple{
+%#3,
+#4,#5}}[0.6]
 \ncarr[5]{L}{RML}
-\alabel{#3}[0.6]
+\alabel{#5}[0.6]
 \ncarr[-5]{L}{RBL}
-\blabel{#2}[0.6]
-\ncarr[-25]{L}{RVBR}
-\blabel{\tuple{#1}}[0.6]
+\blabel{#4}[0.6]
+\ncarr[-#1]{L}{RVBR}
+\blabel{\tuple{#3}}[0.6]
 \end{arrows}
 \end{displaymath}
 }
 
-% associativity lhs definition
-
-\associativitytermdiagram{\dddot z_1, \dddot z_3,\dddot z_4}{(\assocfogmapped) \circ q(\tuple{\dddot z_1,\dddot z_3},Hom)}{h}
-\vspace{0.5cm}
-% associativity rhs definition
-\associativitytermdiagram{\dddot z_1, \dddot z_2,\dddot z_4}{f}{(\assocgohremapped) \circ q(\tuple{\dddot z_2,\dddot z_4},Hom)}
 
 
 In this second example we describe the structure of internal categories by following the main definition and examining
@@ -182,13 +185,25 @@ For a further simplification we write $\qq{id}$ for $I(id)$ and   $\qq{\circ}$ f
 those uses of `$Ob$' and `$Hom$' in reference to sorts of the theory $tc$ from those uses in reference to the interpretation of these sorts in the contextual category \catc. 
 
 With respect to the projection morphisms of powers of $Ob$, I will use the conventions described earlier in section \ref{projectionnaming}.
-\note
+
+\begin{newtt}
+As we show on table \lref{???} If $I$ is an instance of $tc$ in a contextual category \catcw then, with the adopted convention,
+then $Ob$ is an object of \catcw such that $1 \base Ob$ and $Hom$ is an object such that $\OO \base Hom$. As described earlier 
+we will name the two projections of $\OO$ as $x_1$ and $x_2$. In addtion we will define $\dot x_1,\dot x_2:Hom \morph \O$ by
+$\dot x_i = p_{Hom} \circ x_i$.
+\end{newtt}
+
+Description of $\fid$.
+
+Description of left identity axiom. 
+
+
 In regard to the object $Ob^3$ in \catcw, for $i=1,2,3$, I define
  $y_i: \OOO \morph Ob$ to be the i'th projection morphism  i.e. $y_1 = p_{\OOO,Ob}$, $y_2 = p_{Ob^3}\circ q(t_{Ob},Ob)$,$y_3 = q(t_{Ob^2},Ob)$
 This enables us to construct the following pullback
 \begin{equation*}
 \begin{array}{r  p{4cm} c}
-\compfour     \rightend{Qpp} && \Rnode{Hom}{Hom}               \\ [1cm]
+\compdomparent     \rightend{Qpp} && \Rnode{Hom}{Hom}               \\ [1cm]
 \OOO          \rightend{O3}  && \Rnode{O2}{Ob^2}              
 \end{array}
 \mbox{
@@ -200,15 +215,15 @@ This enables us to construct the following pullback
 \alabel{\tuple{y_1,y_2}}}
 \end{equation*}														
 
-In accordance with a convention mentioned earlier we now define $\dot y_i : \compfour \morph Ob$, for $i = 1,2,3$, 
-                                     by $\dot y_i = p_{\compfour}\circ y_i$. \\
+In accordance with a convention mentioned earlier we now define $\dot y_i : \compdomparent \morph Ob$, for $i = 1,2,3$, 
+                                     by $\dot y_i = p_{\compdomparent}\circ y_i$. \\
 																																																												
 Next we consider the pullback:
 
 \begin{equation*}
 \begin{array}{r  p{4cm} c}
-\compfive     \rightend{Qpp} && \Rnode{Hom}{Hom}               \\ [1cm]
-\compfour     \rightend{O3}  && \Rnode{O2}{Ob^2}              
+\compdomain     \rightend{Qpp} && \Rnode{Hom}{Hom}               \\ [1cm]
+\compdomparent     \rightend{O3}  && \Rnode{O2}{Ob^2}              
 \end{array}
 \mbox{
 \ncsar{Qpp}{O3}
@@ -219,14 +234,14 @@ Next we consider the pullback:
 \alabel{\tuple{\dot y_2,\dot y_3}}}
 \end{equation*}	
 
-and define   $\ddot y_i : \compfive \morph Ob$, for $i = 1,2,3$, 
-                                     by $\ddot y_i = p_{\compfive}\circ \dot y_i$. \\
+and define   $\ddot y_i : \compdomain \morph Ob$, for $i = 1,2,3$, 
+                                     by $\ddot y_i = p_{\compdomain}\circ \dot y_i$. \\
 																		
 Now we are able to consider  the pullback
 \begin{equation*}
 \begin{array}{r  p{4cm} c}
-\compsix     \rightend{Qpp} && \Rnode{Hom}{Hom}               \\ [1cm]
-\compfive     \rightend{O3}  && \Rnode{O2}{Ob^2}              
+\compcodomain     \rightend{Qpp} && \Rnode{Hom}{Hom}               \\ [1cm]
+\compdomain     \rightend{O3}  && \Rnode{O2}{Ob^2}              
 \end{array}
 \mbox{
 \ncsar{Qpp}{O3}
@@ -237,7 +252,7 @@ Now we are able to consider  the pullback
 \alabel{\tuple{\ddot y_1,\ddot y_3}}}
 \end{equation*}	
 which is relevant to us because in the lemma that follows we will show that for an interpretation\highlight{?} $I$ to be valid the section $I(\circ)$ must be a section of 
-the pullback object $\compsix$.																	
+the pullback object $\compcodomain$.																	
 					
 Next we turn to consideration of $Ob^4$.
 Following the earlier convention we define the projection functions 
@@ -306,6 +321,31 @@ With $f$, $g$ ad $h$ so defined, the following diagrams
 \ccsquareacross{h}{\tuple{z_3, z_4}}
 }
 \end{equation*} commute in \catc.	\\
+
+\newpage
+% <f,g> defintion
+Define $\tuple{f,g}:\associativitypremisemapped \morph \compdomain$ by
+% <f,g> definition
+
+\associativitytermdiagram[25][4cm]{\dddot z_1, \dddot z_2,\dddot z_3}{f}{g}
+
+
+% <g,h> definition
+We  define z234 and
+$\tuple{g,h}:\associativitypremisemapped \morph \compdomain$ in a similar manner as shown in this diagram
+\associativitytermdiagram[25][4cm]{\dddot z_1, \dddot z_2,\dddot z_3}{g}{h}
+
+
+% associativity lhs definition
+We can then define a morphism $\assoclhsremappingtuple:\associativitypremisemapped \morph \compdomain$ in a similar way as 
+\associativitytermdiagram{\dddot z_1, \dddot z_3,\dddot z_4}{(\assocfogremapped) \circ q(\tuple{\dddot z_1,\dddot z_3},Hom)}{h}
+We use this in describing the mapping of the  left hand side of the associativity axiom.
+
+% associativity rhs definition
+and we can then define a morphism $\assoclhsremappingtuple$ which is defined nin a similar way so that 
+\associativitytermdiagram{\dddot z_1, \dddot z_2,\dddot z_4}{f}{(\assocgohremapped) \circ q(\tuple{\dddot z_2,\dddot z_4},Hom)}
+
+
 
 
 \begin{lemma}
@@ -381,7 +421,7 @@ An internal category in a contextual category \catcw consists of
 \item An object $Ob$ of \catc,
 \item an object $Hom \in Cover(O^2)$ in \catc,
 \item A section $\fid \in Sect(s(id_{Ob})^*Hom)$ in \catc, 
-\item A section $\fcomp \in Sect(\compsix) $ of \catc \\ 
+\item A section $\fcomp \in Sect(\compcodomain) $ of \catc \\ 
 													
 \end{itemize}
 such that
@@ -404,16 +444,16 @@ and
 Equivalently an internal category in a contextual category \catcw consists of
 \item objects $Ob$ and  $Hom$  and a section $\fid$ in \catc,  as above, along with
 \begin{itemize}
-\item a morphism $\compmorph$ of \catc, $\compmorph: \compfive \morph Hom$ in \catc
+\item a morphism $\compmorph$ of \catc, $\compmorph: \compdomain \morph Hom$ in \catc
 \end{itemize}
 such that
 \begin{equation}
 \label{leftidentityrepresentation2}
-\tuple{x_1,x_1,x_2,x_1\circ \fid,id_{Hom}} \circ \compmorph =id_{Hom}
+\tuple{\dot x_1,\dot \dot x_1,\dot x_2,\dot x_1\circ \fid,id_{Hom}} \circ \compmorph =id_{Hom}
 \end{equation}
 \begin{equation}
 \label{rightidentityrepresentation2}
-\tuple{x_1,x_1,x_2,id_{Hom},x_2 \circ \fid} \circ \compmorph =id_{Hom}
+\tuple{\dot x_1,\dot x_1,\dot x_2,id_{Hom},\dot x_2 \circ \fid} \circ \compmorph =id_{Hom}
 \end{equation}
 and
 \begin{equation}
@@ -472,14 +512,14 @@ The reasoning follows the patterns indicated in accompanying tables \ref{interna
 \multicolumn{2}{l}{Derived Rule} &&& Interpretation by $I$ in \catcw \\
 \hline
 \gatinterpretationdetail{comp1}{\ofT{x_1,x_2}{Ob}}{\isT{Ob}}{ \OOO \in Cover(\OO) }{}              \\
-\gatinterpretationdetail{comp2}{\ofT{y_1,y_2,y_3}{Ob}}{\isT{Hom(y_1,y_2)}}{ \compfour \in Cover(\OOO) }{} \\
+\gatinterpretationdetail{comp2}{\ofT{y_1,y_2,y_3}{Ob}}{\isT{Hom(y_1,y_2)}}{ \compdomparent \in Cover(\OOO) }{} \\
 \gatinterpretationdetail{comp3}{\ofT{y_1,y_2,y_3}{Ob}, \ofT{f_1}{Hom(y_1,y_2)}}{\isT{Hom(y_2,y_3)}}
-                        {  \compfive \in Cover(\compfour) }{} \\
+                                                                          {  \compdomain \in Cover(\compdomparent) }{} \\
 \gatinterpretationdetail{comp4}{\ofT{y_1,y_2,y_3}{Ob}, \ofT{f}{Hom(y_1,y_2)},\ofT{g}{Hom(y_2,y_3)}} {\isT{Hom(y_1,y_3)}}
-                        { \compsix \in Cover(\compfive) }{} \\
+                                                                         { \compcodomain \in Cover(\compdomain) }{} \\
 \gatinterpretationintro {compintro}	{\ofT{y_1,y_2,y_3}{Ob}, \ofT{f}{Hom(y_1,y_2)},\ofT{g}{Hom(y_2,y_3)}} 
                                     {\ofT{f \circ g}{Hom(y_1,y_3)}}
-																    {\fcomp \in Sect(\compsix)}
+																    {\fcomp \in Sect(\compcodomain)}
 \end{tabular}
 \end{table}
 
