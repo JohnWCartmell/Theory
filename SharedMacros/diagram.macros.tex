@@ -6,9 +6,9 @@
 
 
 \newcommand{\ccsquareoutline}[6]
-{\begin{array}{cp{#1}c}
-\Rnode{TL}{#3}  & &  \Rnode{TR}{#4}\\ [#2]
-\Rnode{BL}{#5}  & &  \Rnode{BR}{#6}
+{\begin{array}{c p{#1} c}
+\Rnode{TL}{#3}  &\ &  \Rnode{TR}{#4}\\[#2]
+\Rnode{BL}{#5}  &\ &  \Rnode{BR}{#6}
 \end{array}
 }
 \newcommand{\ccsquareacross}[2]
@@ -26,4 +26,43 @@
 \newcommand{\ccsquareanddroppers}[6]
 {\ccsquareoutline{#1}{#2}{#3}{#4}{#5}{#6}
 \ccsquaredown{p_{#3}}{p_{#4}}
+}
+\newcommand{\ccsquareprimitivedroppers}
+{
+\begin{arrows}
+\ncsar{TL}{BL}
+\ncsar{TR}{BR}
+\end{arrows}
+}
+
+% ccprimitivepullbacksquare{width}{height}{TR}{BL}{BR}{f}
+\newcommand{\ccprimitivepullbacksquare}[6]
+{\ccsquareoutline{#1}{#2}{#6^*#3}{#3}{#4}{#5}
+\ccsquareprimitivedroppers
+\ccsquareacross{q(#6,#3)}{#6}
+}
+
+ 
+\NewEnviron{coneoutline}[3]{% width depth source
+\begin{array} {c p{#1} c}
+                      \\[0.5cm]
+\Rnode{OTL}{#3} &\ &  \\[#2]
+&&
+\BODY
+\end{array}
+}
+
+\newcommand{\conearrows}[3]
+{\begin{arrows}
+\ncarr[-15]{OTL}{BL}
+\blabel{#1}
+\ncarr[20]{OTL}{TR}
+\alabel{#2}
+\ncdarr{OTL}{TL}
+\salabel{#3}[0.5]
+\end{arrows}
+}
+
+\newcommand{\conearrowsdefiningtuple}[2]
+{\conearrows{#1}{#2}{\tuple{#1,#2}}
 }

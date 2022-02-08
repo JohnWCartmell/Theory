@@ -30,10 +30,18 @@
 
 
 % Left identity axiom mapping
-\newcommand{\leftidentitymapped}{\tuple{\dot x_1,\dot x_1,\dot x_2,\dot x_1\circ \fid,id_{Hom}}^*\fcomp=s(id_{Hom})}
 
+
+\newcommand{\leftidentitytuplepp} {\tuple{\dot x_1, \dot x_1, \dot x_2}} 
+\newcommand{\leftidentitytuplep} {\tuple{\dot x_1, \dot x_1, \dot x_2, \dot x_1 \circ \fid}} 
+\newcommand{\leftidentitytuple} {\tuple{\dot x_1, \dot x_1, \dot x_2, \dot x_1 \circ \fid, id_{Hom}}} 
+\newcommand{\leftidentitymapped}{\leftidentitytuple^*\fcomp=s(id_{Hom})}
+
+\newcommand{\leftidentityduplepp} {\duple{s(\dot x_1), s(\dot x_1), s(\dot x_2)}} 
+\newcommand{\leftidentityduplep} {\duple{s(\dot x_1), s(\dot x_1), s(\dot x_2), s(\dot x_1 \circ \fid)}} 
+\newcommand{\leftidentityduple} {\duple{s(\dot x_1), s(\dot x_1), s(\dot x_2), s(\dot x_1 \circ \fid), s(id_{Hom})}} 
 % Right identity axiom mapping
-\newcommand{\rightidentitymapped}{\tuple{\dot x_1,\dot x_1,\dot x_2,id_{Hom},\dot x_2\circ \fid}^*\fcomp=s(id_{Hom})}
+\newcommand{\rightidentitymapped}{\tuple{\dot x_1,\dot x_2,\dot x_2,id_{Hom},\dot x_2\circ \fid}^*\fcomp=s(id_{Hom})}
 
 
 %*****************************
@@ -186,18 +194,21 @@ those uses of `$Ob$' and `$Hom$' in reference to sorts of the theory $tc$ from t
 
 With respect to the projection morphisms of powers of $Ob$, I will use the conventions described earlier in section \ref{projectionnaming}.
 
-\begin{newtt}
 As we show on table \lref{???} If $I$ is an instance of $tc$ in a contextual category \catcw then, with the adopted convention,
-then $Ob$ is an object of \catcw such that $1 \base Ob$ and $Hom$ is an object such that $\OO \base Hom$. As described earlier 
-we will name the two projections of $\OO$ as $x_1$ and $x_2$. In addtion we will define $\dot x_1,\dot x_2:Hom \morph \O$ by
-$\dot x_i = p_{Hom} \circ x_i$.
-\end{newtt}
+then $Ob$ is an object of \catcw such that $1 \base Ob$ and $Hom$ is an object such that $\OO \base Hom$. 
 
-Description of $\fid$.
+We will show that an instance of $tc$ in a contextual category \catcw, i.e. an internal category in \catcw, 
+consist of the following:
 
-Description of left identity axiom. 
+\begin{itemize}
+\item An object $Ob$ of \catc,
+\item an object $Hom \in Cover(\OO)$ in \catc,
+\item A section $\fid \in Sect(s(id_{Ob})^*Hom)$ in \catc, 								
+\end{itemize}
+plus a section $\fcomp$, whose codomain we are now going to go on and describe, and such that
+ such that the left and right identity axioms and the associativity axiom hold.
 
-
+\subsection{codomain of $\fcomp$}
 In regard to the object $Ob^3$ in \catcw, for $i=1,2,3$, I define
  $y_i: \OOO \morph Ob$ to be the i'th projection morphism  i.e. $y_1 = p_{\OOO,Ob}$, $y_2 = p_{Ob^3}\circ q(t_{Ob},Ob)$,$y_3 = q(t_{Ob^2},Ob)$
 This enables us to construct the following pullback
@@ -252,8 +263,101 @@ Now we are able to consider  the pullback
 \alabel{\tuple{\ddot y_1,\ddot y_3}}}
 \end{equation*}	
 which is relevant to us because in the lemma that follows we will show that for an interpretation\highlight{?} $I$ to be valid the section $I(\circ)$ must be a section of 
-the pullback object $\compcodomain$.																	
-					
+the pullback object $\compcodomain$.
+
+Using this notation we can now say that an internal category in a contextual category \catcw consists of
+\begin{itemize}
+\item An object $Ob$ of \catc,
+\item an object $Hom \in Cover(\OO)$ in \catc,
+\item A section $\fid \in Sect(s(id_{Ob})^*Hom)$ in \catc, 
+\item A section $\fcomp \in Sect(\compcodomain) $ of \catc 											
+\end{itemize}
+such that the left and right identity axioms and the associativity axiom hold. We turn our attention to the representation of these axioms.
+
+\subsubsection*{Left Identity Axiom}
+As described earlier we will name the two projections of $\OO$ as $x_1$ and $x_2$. In addition we will define $\dot x_1,\dot x_2:Hom \morph Ob$ by
+$\dot x_i = p_{Hom} \circ x_i$.
+
+We define $\leftidentitytuplepp$ the unique morphism $Hom \morph \OOO$ such that 
+\begin{equation}
+\leftidentitytuplepp \circ y_1 = x_1,
+\end{equation}
+\begin{equation}
+\leftidentitytuplepp \circ y_2 = x_1
+\end{equation}
+and
+\begin{equation}
+\leftidentitytuplepp \circ y_3 = x_2.
+\end{equation}
+
+By application of Lemma \lref{absolutedupletuplelemma} we have that
+\begin{equation}
+\label{leftidentitydupletupleppidentity}
+\leftidentitytuplepp = \leftidentityduplepp
+\end{equation}
+
+We define $\leftidentitytuplep$
+to be the unique morphism $\leftidentitytuplep :  Hom \morph \compdomparent$
+such that 
+ \begin{equation}
+ \leftidentitytuplep \circ p_{\compdomparent} = \leftidentitytuplepp  
+\end{equation}
+ and 
+\begin{equation}
+\leftidentitytuplep \circ q(\tuple{y_1,y_2},Hom) = \dot x_1 \circ \fid
+\end{equation}
+as shown here
+\begin{displaymath}
+\begin{coneoutline}{1cm}{0.5cm}{X}
+\ccprimitivepullbacksquare{3cm}{1.2cm}{Hom}{\OOO}{\OO}{\tuple{y_1,y_2}}
+\end{coneoutline}
+%\conearrowsdefiningtuple{xxx}{yyy}
+\conearrowsdefiningtuple{\leftidentitytuplepp}{\dot x_1 \circ \fid}
+\end{displaymath}
+
+By  Lemma \lref{absolutedupletuplelemma} we have 
+\begin{equation}
+\label{leftidentitydupletuplepidentity}
+\leftidentitytuplep = \leftidentityduplep.
+\end{equation}
+
+
+We define $\leftidentitytuple$
+to be the unique morphism $\leftidentitytuple :  Hom \morph \compdomain$
+such that 
+ \begin{equation}
+ \leftidentitytuple \circ p_{\compdomain} = \leftidentitytuplepp  
+\end{equation}
+ and 
+\begin{equation}
+\leftidentitytuple \circ q(\tuple{\dot y_2,\dot y_3},Hom) = \dot x_1 \circ id_{Hom}
+\end{equation}
+\begin{displaymath}
+\begin{coneoutline}{1cm}{0.5cm}{X}
+\ccprimitivepullbacksquare{3cm}{1.2cm}{Hom}{\OOO}{\OO}{\tuple{\dot y_2,\dot y_3}}
+\end{coneoutline}
+\conearrowsdefiningtuple{\leftidentitytuplep}{id_{Hom}}
+\end{displaymath}
+By  Lemma \lref{absolutedupletuplelemma} we have 
+\begin{equation}
+\label{leftidentitydupletupleidentity}
+\leftidentitytuple = \leftidentityduple.
+\end{equation}
+
+Since the codomain of $\leftidentitytuple$ is the 
+domain of the section $\fcomp$  then $\leftidentitytuple^*\fcomp$
+is defined. We will show that the left identity axiom is satisfied iff
+\begin{equation}
+\leftidentitymapped
+\end{equation}
+is satisfied in \catc.
+
+
+
+
+	
+
+\subsection*{Associativity Axiom}				
 Next we turn to consideration of $Ob^4$.
 Following the earlier convention we define the projection functions 
 to be $z_1,z_2,z_3$ and $z_4$ so that for $i = 1, 2,3,4$, $z_i: \OOOO \morph Ob$. \\
@@ -419,10 +523,9 @@ The context $\associativitypremise$ is therefore mapped to $\associativitypremis
 An internal category in a contextual category \catcw consists of
 \begin{itemize}
 \item An object $Ob$ of \catc,
-\item an object $Hom \in Cover(O^2)$ in \catc,
+\item an object $Hom \in Cover(\OO)$ in \catc,
 \item A section $\fid \in Sect(s(id_{Ob})^*Hom)$ in \catc, 
-\item A section $\fcomp \in Sect(\compcodomain) $ of \catc \\ 
-													
+\item A section $\fcomp \in Sect(\compcodomain) $ of \catc 											
 \end{itemize}
 such that
 \begin{equation}
@@ -453,7 +556,7 @@ such that
 \end{equation}
 \begin{equation}
 \label{rightidentityrepresentation2}
-\tuple{\dot x_1,\dot x_1,\dot x_2,id_{Hom},\dot x_2 \circ \fid} \circ \compmorph =id_{Hom}
+\tuple{\dot x_1,\dot x_2,\dot x_2,id_{Hom},\dot x_2 \circ \fid} \circ \compmorph =id_{Hom}
 \end{equation}
 and
 \begin{equation}
@@ -640,11 +743,7 @@ Part Four. Associativity axiom.
 Ob      \rightend{O}       & & & \Rnode{Hpp}{Ob}           \\ [1cm]
 \Rnode{abs}{1}        \\ 
 \end{array} \\
-\mbox{ % sadly this is taking up horizontal space and pushing visible diagram to the left 
-       % I tried \sbox0 but sadly this stopped the arrows being typeset also
-			 % need to try and debug this sometime instead I have put as a row in an outer array 
-			 % this will just cause one blank line
-			 % change mbox to fbox to see what is happening
+\begin{arrows}
 \ncsar{Q}{Qp}
 \ncsar{Qp}{Qpp}
 \ncsar{Qpp}{O4}
@@ -662,7 +761,7 @@ Ob      \rightend{O}       & & & \Rnode{Hpp}{Ob}           \\ [1cm]
 \ncarrZ{O4}{Hpp}          \alabel{z_2}
 \ncarrZZ[10]{O4}{Hpp}     \alabel{z_3}
 \ncarrZZZ[20]{O4}{Hpp}    \alabel{z_4}
-}
+\end{arrows}
 \end{array}
 \end{equation*}
 \fi
