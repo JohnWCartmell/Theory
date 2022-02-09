@@ -30,18 +30,82 @@
 
 
 % Left identity axiom mapping
-
-
 \newcommand{\leftidentitytuplepp} {\tuple{\dot x_1, \dot x_1, \dot x_2}} 
 \newcommand{\leftidentitytuplep} {\tuple{\dot x_1, \dot x_1, \dot x_2, \dot x_1 \circ \fid}} 
 \newcommand{\leftidentitytuple} {\tuple{\dot x_1, \dot x_1, \dot x_2, \dot x_1 \circ \fid, id_{Hom}}} 
-\newcommand{\leftidentitymapped}{\leftidentitytuple^*\fcomp=s(id_{Hom})}
+\newcommand{\leftidentityrhsmapped}{s(id_{Hom})}
+\newcommand{\leftidentitylhsremapped}{\leftidentitytuple^*\fcomp}
+\newcommand{\leftidentitymapped}{\leftidentitylhsremapped=\leftidentityrhsmapped}
+
+    
+\newcommand{\leftidentitylhsmapped}{\duple{s(\dot{x_1}),s(\dot{x_1}),s(p_{Hom,\OO}),\leftidentityidremapped,s(id_{Hom})}^*\fcomp}
+
 
 \newcommand{\leftidentityduplepp} {\duple{s(\dot x_1), s(\dot x_1), s(\dot x_2)}} 
 \newcommand{\leftidentityduplep} {\duple{s(\dot x_1), s(\dot x_1), s(\dot x_2), s(\dot x_1 \circ \fid)}} 
 \newcommand{\leftidentityduple} {\duple{s(\dot x_1), s(\dot x_1), s(\dot x_2), s(\dot x_1 \circ \fid), s(id_{Hom})}} 
 % Right identity axiom mapping
 \newcommand{\rightidentitymapped}{\tuple{\dot x_1,\dot x_2,\dot x_2,id_{Hom},\dot x_2\circ \fid}^*\fcomp=s(id_{Hom})}
+
+\newcommand{\homdiagram}{
+\begin{array}{c}
+\Rnode{H}{Hom}                   \\[1.0cm]
+\Rnode{OO}{\OO}                  \\[1.0cm]
+\Rnode{O}{Ob}                    \\[1.0cm]
+\Rnode{abs}{1} 
+\end{array} 
+\begin{arrows}
+\ncsar{H}{OO}
+\ncsar{OO}{O}
+\ncsar{O}{abs}
+\end{arrows}
+}
+
+\newcommand{\leftidentitydiagramrhs}{
+\begin{array}{c}
+\Rnode{TR}{\compcodomain}   \\[1cm]
+\Rnode{MR}{\compdomain}     \\[1cm]
+\Rnode{LMR}{\compdomparent} \\[1cm]
+\Rnode{BR}{\OOO}
+\end{array}
+\begin{arrows}
+%
+ \ncsar{TR}{MR}
+ \ncsar{MR}{LMR}
+ \ncsar{LMR}{BR}
+ %
+ \ncleftsection{MR}{TR}
+ \alabel{\fcomp}
+ \end{arrows}
+}
+
+\newcommand{\leftidentitydiagramlhs}{
+\begin{array}{c }
+\leftidentitytuple^*\compcodomain\kern1cm  \\
+%=\tuple{x_1,x_2}^*Hom\kern-0.5cm                    \\
+%={p_{Hom}}^*Hom\kern0.5cm                  \\                  
+\Rnode{HH}{=\crossx{Hom}{Hom}{\OO}} \\[1.0cm]
+\homdiagram
+\end{array}
+\begin{arrows}
+\ncsar{HH}{H}
+\ncleftcrosssection{H}{HH}
+\alabel{\leftidentitymapped}
+\end{arrows} 
+}
+
+\newcommand{\leftidentitydiagram}{
+\begin{array}{c p{1cm} c}
+\leftidentitydiagramlhs   && \leftidentitydiagramrhs 
+\end{array}
+\begin{arrows}
+\ncarr{H}{MR}
+\alabel{\leftidentitytuple}
+\end{arrows}
+}
+
+
+
 
 
 %*****************************
@@ -289,7 +353,6 @@ and
 \begin{equation}
 \leftidentitytuplepp \circ y_3 = x_2.
 \end{equation}
-
 By application of Lemma \lref{absolutedupletuplelemma} we have that
 \begin{equation}
 \label{leftidentitydupletupleppidentity}
@@ -314,7 +377,6 @@ as shown here
 %\conearrowsdefiningtuple{xxx}{yyy}
 \conearrowsdefiningtuple{\leftidentitytuplepp}{\dot x_1 \circ \fid}
 \end{displaymath}
-
 By  Lemma \lref{absolutedupletuplelemma} we have 
 \begin{equation}
 \label{leftidentitydupletuplepidentity}
@@ -350,12 +412,10 @@ is defined. We will show that the left identity axiom is satisfied iff
 \begin{equation}
 \leftidentitymapped
 \end{equation}
-is satisfied in \catc.
-
-
-
-
-	
+is satisfied in \catcw as shown in this diagram
+\begin{displaymath}
+\leftidentitydiagram
+\end{displaymath}
 
 \subsection*{Associativity Axiom}				
 Next we turn to consideration of $Ob^4$.
@@ -627,9 +687,7 @@ The reasoning follows the patterns indicated in accompanying tables \ref{interna
 \end{table}
 
 \newcommand{\leftidentityidremapped}{s(\dot{x_1}\circ \fid)}
-\newcommand{\leftidentityrhsmapped}{s(id_{Hom})}      
-\newcommand{\leftidentitylhsmapped}{\duple{s(\dot{x_1}),s(\dot{x_1}),s(p_{Hom,\OO}),\leftidentityidremapped,s(id_{Hom})}^*\fcomp}
-\newcommand{\leftidentitylhsremapped}{\tuple{\dot{x_1},\dot{x_1},\dot{x_2},\dot{x_1}\circ \fid,id_{Hom}}^*\fcomp}
+
 
 \begin{table}[H]
 \caption{Deriving what constitutes an intepretation of the theory of categories $tc$ in a contextual category \catc.
