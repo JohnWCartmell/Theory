@@ -1,7 +1,7 @@
 
 
 \label{contextualnotationpartone}
-\subsection{The $s$ operator and the tuple operator}
+\subsection{Definition}
 Terminology: By  the generic term \term{tree} is meant a partially ordered set (poset) $(T, <)$ such that for each $t \in T$, the set $\set{s \in T : s < t}$ is well-ordered by the relation $<$.
 In this discussion we restrict ourselves to rooted $\omega$-trees i.e. trees for which the set $\set{s \in T : s < t}$
 is finite for all $t \in T$ and for which there is a least element in the partial ordering. 
@@ -150,102 +150,13 @@ and
 \begin{axiom}{q5}
 q(f \circ g,z) = q(f,g^*z) \circ q(g,z)
 \end{axiom}
+%XXXXXXXXXXXXXXXXXXXXXXXXXX
+%Moved from later
 
 
-Following Voevodsky \cite{Voevodsky14C} we may replace the pullback condition (condition (ii) above) by introducing and axiomatising an 
-`s' operator  as follows:
-
-\noindent (ii') for all morphisms $f: x \rightarrow y$, a morphism $s(f) : x \rightarrow f \sub p_y \sub y$ such that both:
-
-\begin{axiom}{s1}
-s(f) \circ p_{f\sub p_y \sub y}=id_x
-\end{axiom}
-
-\noindent and
-
-\begin{axiom}{s2}
-s(f) \circ q( f \circ p_y     ,y)=f
-\end{axiom}	
-
-\noindent i.e. such that the following diagrams commute:
-\begin{center}
-\begin{displaymath}
-\begin{array}{cccp{1.cm} cp{.9cm}c}
-&\Rnode{fXyyM}{f\sub p_y \sub y}&  & &  \Rnode{fXyy}{f\sub p_y \sub y} & & \Rnode{yXy}{p_y \sub y}\\ [1.2cm]
-\Rnode{xL}{x} & &\Rnode{xR}{x} & &\Rnode{x}{x}         & & \Rnode{y}{y}
-\end{array}
-\end{displaymath}
-\ncasar{p_{f\sub p_y \sub y}}{fXyy}{x}
-\jcbarr{f}{x}{y}
-\ncaarr{q(f,p_y \sub y)}{fXyy}{yXy}
-\ncasar{p_{p_y \sub y}}{yXy}{y}
-\ncaarr{s(f)}{xL}{fXyyM}
-\ncasar{p_{f\sub p_y \sub y}}{fXyyM}{xR}
-\jcbarr{id_x}{xL}{xR}
-\end{center}
-
-\noindent
-and such that whenever
-\begin{center}
-\begin{displaymath}
-\begin{array}{c p{.9cm} c p{.9cm} c}
-\Rnode{w}{w}&& \Rnode{g*z}{g \sub z} && \Rnode{z}{z} \\ [1.2cm]
-            && \Rnode{x}{x}  && \Rnode{y}{y} \\ [0.2cm]
-\end{array}
-\end{displaymath}
-\jcbarr{f}{w}{g*z}
-\jcbarr{g}{x}{y}
-\ncaarr{q(g,z)}{g*z}{z}
-\ncasar{}{g*z}{x}
-\ncasar{}{z}{y}
-\end{center}
-
-\noindent in \cat{C} then
-
-\begin{axiom}{s3}
-s(f \circ q(g,z))=s(f)
-\end{axiom}
 
 
-\begin{lemma}
-\llabel{footandstactic}
-If $f: x \morph y$ and $f':x \morph y$ in a contextual category \catcw then if 
-$f \circ p_y$ = $f' \circ p_y$ and $s(f) = s(f')$ then $f=f'$.
-\end{lemma}
-\begin{proof}
-Follows by axiom (s2) since we have:
-$f = s(f) \circ q(f \circ p_y,y)  = s(f') \circ q(f' \circ p_y,y) = f'$.
-\end{proof}
-From which follows:
-\begin{lemma}
-\llabel{stactic}
-If $x$ is any object of a contextual category \catcw and if $y$ is an object such that $1 \base y$ in \catcw then
-if $f: x \morph y$ and $f':x \morph y$ in  \catcw then $f=f'$ iff $s(f) = s(f')$.
-\end{lemma}
-One more useful lemma:
-\begin{lemma}
-\llabel{sfsglemma}
-\label{s4}  
-If \cat{C} is a contextual category then for all morphisms $f: x \rightarrow y$ and $g:y \rightarrow z$ in \cat{C},
-$$s(f \circ s(g)) = s(f \circ g)$$
-\end{lemma}
-\begin{proof}
-\begin{align*}
-s( f \circ s(g)) 
-    & = s( f \circ s(g)\circ q(g \circ p_z) , z ))  &\mbox{by axiom s3}\\
-    & = s(f \circ g) &\mbox{by axiom s2} 
-\end{align*}
-\end{proof}
-From which follows:
-\begin{lemma}
-\llabel{sidempotent}
-If $f:x \morph y$  in a contextual category \catcw  then
-\begin{equation*}
-s(f)=s(s(f)).
-\end{equation*}
-\end{lemma}
-
-\subsection{Extended $p$ and $^*$ notation}
+\subsection{Extended $p$, $q$ and $^*$ notation}
 We can introduce several additional notations for use in in contextual categories. 
 If $x < y$ in the contextual category \catc, then define the morphism $p_{y,x}:y \morph  x$ in \catc, \\
 
@@ -355,24 +266,9 @@ so that (\ref{compositepullbackdefinition}) can be rewritten as:
 \nccdar{z}{y}
 \alabel{p_{z,y}}
 \end{center}
-\newcommand{\pbpair}[2]{\tuple{#2}_{#1}}
-\begin{oldtt}
-With respect to any pullback diagram (\ref{compositepullbackout})
-\commentary{Remove this}
- we use the notation $\pbpair{x,y,f,z}{h_1,h_2}$  for the unique morphism   
-$h:w \rightarrow f \sub z$ in \cat{C} such that
-$h \circ p_{f \sub z,x} = h_1$ and $h \circ q(f,z) = h_2$.\\
 
-We  have that $\pbpair{x,y,f,z}{h_1,h_2}$ is defined iff $h_1 \circ f=h_2\circ p_{z,y}$
-and when it is defined we have
-\begin{equation}
-\pbpair{x,y,f,z}{h_1,h_2} \circ p_{f^*z,x} = h_1
-\end{equation}
-and
-\begin{equation}
-\pbpair{x,y,f,z}{h_1,h_2} \circ q(f,z) = h_2
-\end{equation}
-\end{oldtt}
+\newcommand{\pbpair}[2]{\tuple{#2}_{#1}}
+
 
 The following observation
 follows from the way the extended pullback diagrams are constructed. 
@@ -423,6 +319,196 @@ $
 is diagram (\ref{compositepullbackout}). 
 \end{lemma}
 
+\subsection{Axiomatisation of the extended p,q and $^*$ notation}
+\newcommand{\ssub}{\kern-2pt^*\kern-1pt}
+\renewcommand{\sub}{^*\kern-1pt}
+\newcommand{\hash}{^\#}
+\newcommand{\byaxiom}[1]{by axiom (\ref{#1})}
+%
+\newcommand{\pbar}{\bar{p}}
+\newcommand{\pp}[2]{\pbar(#1,#2)}
+%
+\newcommand{\qbar}{\bar{q}}
+\newcommand{\extq}[2]{\qbar(#1,#2)}   %sadly I have previously used \extq for quine quote
+%
+\newcommand{\dsub}{^{\ast \kern-1pt \ast}\kern-2pt}
+
+\newcommand{\pbartag}[1]{$P#1$}
+
+We present the basic properties of the extended $p$, $q$ and $^*$ notation in the form of a  revised definition of contextual category. This revised definition is easily be shown to be  equivalent to the original definition.
+
+A  \term{contextual category} is
+\begin{itemize}
+\item 
+a category \catcw with a tree-structure defined on its objects such that the tree of objects has a unique root object and 
+\item  for every $x \leq y$ in the tree of objects  a cannonical morphism $\pp{y}{x} :y \rightarrow x$
+satisfying
+\item for any object $x$ of $\catcw$,
+\begin{axiomtagged}{pp1}{$\pbartag{1}$}
+\pp{x}{x}=id_x
+\end{axiomtagged}
+\item for all objects $x$, $y$ and $z$ of \catcw such that $x \leq y \leq z$
+\begin{axiomtagged}{pp2}{$\pbartag{2}$}
+\pp{z}{y} \circ \pp{y}{x} = \pp{z}{x}
+\end{axiomtagged}
+\end{itemize}
+
+The cannonical morphisms will be distinguished in diagrams by a jagged arrows with  
+a triangular heads so:
+
+\begin{equation*}
+\begin{array}{p{2cm}p{0.5cm}p{0.5cm}p{0.5cm}}
+\Rnode{y}{y}& \\ [1.4cm]
+\Rnode{x}{x} \\
+\end{array}
+\begin{arrows}
+\nccdar{y}{x}
+\blabel{\pp{y}{x}}[0.3]
+\end{arrows}
+\end{equation*}
+
+and the following additional structure\footnote{Note that (\ref{qq1}) to (\ref{qq5}) are extended forms of  (q1) to (q5) from the original definition.}
+%\newcommand{\qbartag}[1]{$\qbar \textsl{#1}$}
+%\newcommand{\qbartag}[1]{$\qbar \textsl{#1}$}
+\newcommand{\qbartag}[1]{$Q \textsl{#1}$}
+\begin{itemize}
+\item
+for all morphisms $f: x \morph y$ in \catcw and for all objects $z$ such that $y \leq z$ in \catc, 
+an object $f \dsub z$ such that $x \leq f \dsub z$ and
+\begin{itemize}
+\item such that for all morphisms $f:x \morph y$ in \catcw 
+\begin{axiomtagged}{qq0}{\qbartag{0}}
+f \dsub y = x
+\end{axiomtagged}
+\item such that if $w$, $x$, $y$ and $z$ are objects of \catc, if $f:w \morph x$ in \catcw and $x \leq y \base z$ then $f \dsub y \base f \dsub z$ in \catc,
+\end{itemize}
+\item
+for all morphisms $f: x \morph y$ in \catcw and for all objects $z$ such that $y \leq z$ in \catc, 
+a morphism $\extq{f}{z}: f \dsub z \morph z$ such that
+\begin{axiomtagged}{qq1}{\qbartag{1}}
+\extq{f}{z} \circ \pp{z}{y} = \pp{f \dsub z}{x} \circ f
+\end{axiomtagged}
+and such that the diagram
+\begin{displaymath}
+\begin{array}{cp{.9cm}c}
+\Rnode{fstarz}{f\dsub z} & & \Rnode{z}{z}\\ [1.2cm]
+\Rnode{x}{x}         & & \Rnode{y}{y}
+\end{array}
+\begin{arrows}
+\nccdar{fstarz}{x}
+\blabel{\pp{f \dsub z}{x}}
+\ncarr{x}{y}
+\blabel{f}
+\ncarr{fstarz}{z}
+\alabel{\extq{f}{z}}
+\nccdar{z}{y}
+\alabel{\pp{z}{x}}
+\end{arrows}
+\end{displaymath}
+ whose commutivity is given \byaxiom{qq1} is a pullback diagram in \catc,
+\item such that  $x$ and $y$ are objects of \catcw such that $x \leq y$ then
+\begin{axiomtagged}{qq2}{\qbartag{2}}
+{id_x} \dsub y = y
+\end{axiomtagged}
+and
+\begin{axiomtagged}{qq3}{\qbartag{3}}
+\extq{id_x}{y} = id_y
+\end{axiomtagged}
+and 
+\item
+such that for all objects
+$w$, $x$, $y$ and $z$ of \catcw such that $y \leq z$, if $f: w \morph x$ and $g:x \morph w$
+in \catc, then
+\begin{axiomtagged}{qq4}{\qbartag{4}}
+(f \circ g)\dsub z =  f \dsub (g \dsub z)
+\end{axiomtagged}
+and 
+\begin{axiomtagged}{qq5}{\qbartag{5}}
+\bar{q}(f \circ g,z) = \bar{q}(f,g \dsub z) \circ \bar{q}(g,z)
+\end{axiomtagged}
+as shown in this diagram
+\begin{displaymath}
+\begin{array}{c p{1.3cm} c p{2.0cm} c}
+                                                   &&                        &&           \\ [0.5cm] % need space for top most arc and label
+\Rnode{UTL}{(f \circ g) \dsub z} \ \ \ \           &&                        &&           \\ [0.05cm]
+\Rnode{TL}{=f \dsub (g \dsub z)}  && \Rnode{TC}{g \dsub z}  &   & \Rnode{TR}{z}           \\ [1.2cm]
+\Rnode{BL}{w} &&\Rnode{BC}{x} &   & \Rnode{BR}{y}                                         \\ [0.5cm]
+\end{array}
+\begin{arrows}
+% composition
+\nccdar{TL}{BL}
+%
+\nccdar{TC}{BC}
+%
+\nccdar{TR}{BR}
+\alabel{\pp{z}{y}}
+%
+% reference
+\ncarr{BL}{BC}
+\blabel{f}
+%
+\ncarr{BC}{BR}
+\blabel{g}
+%
+\ncarr{TL}{TC}
+\alabel{\extq{f}{g \dsub z}}
+%
+\ncarr{TC}{TR}
+\alabel{\extq{g}{z}}
+%
+\ncarr[30]{UTL}{TR}
+\alabel{\bar{q}(f \circ g,z)}
+\end{arrows}
+\end{displaymath}
+
+\item such that if $w$, $x$, $y$ and $z$ are objects of \catc, if $f:w \morph x$ in \catcw and $x \leq y \leq z$ then
+\begin{axiomtagged}{qq6}{\qbartag{6}}
+f\dsub z = \extq{f}{y} \dsub z
+\end{axiomtagged}
+ and 
+\begin{axiomtagged}{qq7}{\qbartag{7}}
+\extq{f}{z} = \extq{\extq{f}{y}}{z}
+\end{axiomtagged}
+as shown in this diagram
+\begin{displaymath}
+\begin{array}{ccp{4.0cm}c}
+%&                             &&              \\ [0.1cm]
+&f\dsub z = \ \ \ \ \ \ \     &&              \\
+&\Rnode{TL}{\extq{f}{y}\dsub z} && \Rnode{TR}{z}\\ [1.2cm]
+&\Rnode{ML}{f \dsub y}        && \Rnode{MR}{y}\\ [1.2cm]
+&\Rnode{BL}{w}                && \Rnode{BR}{x} 
+\end{array}
+\begin{arrows} 
+%composition  
+\nccdar{TL}{ML}
+%
+\nccdar{ML}{BL}
+\nccdar{TR}{MR}
+%
+\nccdar{MR}{BR}
+%reference
+\ncarr{TL}{TR}
+\alabel{\extq{f}{z}=\extq{\extq{f}{y}}{z}}
+%
+\ncarr{ML}{MR}
+\alabel{\extq{f}{y}}
+%
+\ncarr{BL}{BR}
+\blabel{f}
+\end{arrows}
+\end{displaymath}
+\end{itemize}
+
+
+\begin{lemma}
+If $f:x \morph y$ in contextual category \catcw then $\extq{f}{y}=f$.
+\end{lemma}
+\begin{proof}
+Use (\ref{qq0}) and (\ref{qq1}).
+\end{proof}.
+
+
+\subsection{Extending $^*$ to morphisms}
 Now we extend the $^*$ notation further so that if $x,y,z_1$ and $z_2$ are objects of a contextual catgeory \catcw 
 and if $y \leq z_1$ and $y < z_2$, and if  $f:x\morph y$ and if $g: z_1 \morph z_2$ such that $g \circ p_{z_2,y} = p_{z_1,y}$
 then
@@ -477,27 +563,6 @@ $$
 \ncarr{MR}{TR}\alabel{g}[0.3]
 }
 
-\begin{lemma}
-\llabel{regardingfstarsection}
-If $f:x \morph y$ and $z \in Cover(y)$ and $g \in Sect(z)$ in a contextual category \catcw then
-\begin{equation*}
-f^*g = s(f \circ g)
-\end{equation*} 
-\end{lemma}
-\begin{proof}
-Straightforward.
-\end{proof}
-
-\begin{lemma}\llabel{missingsublemma7}
-If $x$, $y$ and $z$ are onjects of a contextual category \catcw such that $x <y$ and $y \leq z$ 
-and if $f \in Sect(x)$ then
-\begin{equation*}
-f^*s(p_{z,y})=s(p_{f^*z,f^*y})
-\end{equation*}
-\end{lemma}
-\begin{proof}
-\tbd
-\end{proof}
 
 \begin{lemma} 
 \llabel{stardistributesonobjects}
@@ -722,8 +787,121 @@ f^*s(g)  &= s(f \circ s(g)) &&\mbox{by lemma \lref{regardingfstarsection}} \\
 \end{proof}
 
 
+\subsection {Voevodsky's axiomatisation}
+Following Voevodsky \cite{Voevodsky14C} we may replace the pullback condition (condition (ii) above) by introducing and axiomatising an 
+`s' operator  as follows:
 
+\noindent (ii') for all morphisms $f: x \rightarrow y$, a morphism $s(f) : x \rightarrow f \sub p_y \sub y$ such that both:
 
+\begin{axiom}{s1}
+s(f) \circ p_{f\sub p_y \sub y}=id_x
+\end{axiom}
+
+\noindent and
+
+\begin{axiom}{s2}
+s(f) \circ q( f \circ p_y     ,y)=f
+\end{axiom} 
+
+\noindent i.e. such that the following diagrams commute:
+\begin{center}
+\begin{displaymath}
+\begin{array}{cccp{1.cm} cp{.9cm}c}
+&\Rnode{fXyyM}{f\sub p_y \sub y}&  & &  \Rnode{fXyy}{f\sub p_y \sub y} & & \Rnode{yXy}{p_y \sub y}\\ [1.2cm]
+\Rnode{xL}{x} & &\Rnode{xR}{x} & &\Rnode{x}{x}         & & \Rnode{y}{y}
+\end{array}
+\end{displaymath}
+\ncasar{p_{f\sub p_y \sub y}}{fXyy}{x}
+\jcbarr{f}{x}{y}
+\ncaarr{q(f,p_y \sub y)}{fXyy}{yXy}
+\ncasar{p_{p_y \sub y}}{yXy}{y}
+\ncaarr{s(f)}{xL}{fXyyM}
+\ncasar{p_{f\sub p_y \sub y}}{fXyyM}{xR}
+\jcbarr{id_x}{xL}{xR}
+\end{center}
+
+\noindent
+and such that whenever
+\begin{center}
+\begin{displaymath}
+\begin{array}{c p{.9cm} c p{.9cm} c}
+\Rnode{w}{w}&& \Rnode{g*z}{g \sub z} && \Rnode{z}{z} \\ [1.2cm]
+            && \Rnode{x}{x}  && \Rnode{y}{y} \\ [0.2cm]
+\end{array}
+\end{displaymath}
+\jcbarr{f}{w}{g*z}
+\jcbarr{g}{x}{y}
+\ncaarr{q(g,z)}{g*z}{z}
+\ncasar{}{g*z}{x}
+\ncasar{}{z}{y}
+\end{center}
+
+\noindent in \cat{C} then
+
+\begin{axiom}{s3}
+s(f \circ q(g,z))=s(f)
+\end{axiom}
+
+\begin{lemma}
+\llabel{footandstactic}
+If $f: x \morph y$ and $f':x \morph y$ in a contextual category \catcw then if 
+$f \circ p_y$ = $f' \circ p_y$ and $s(f) = s(f')$ then $f=f'$.
+\end{lemma}
+\begin{proof}
+Follows by axiom (s2) since we have:
+$f = s(f) \circ q(f \circ p_y,y)  = s(f') \circ q(f' \circ p_y,y) = f'$.
+\end{proof}
+From which follows:
+\begin{lemma}
+\llabel{stactic}
+If $x$ is any object of a contextual category \catcw and if $y$ is an object such that $1 \base y$ in \catcw then
+if $f: x \morph y$ and $f':x \morph y$ in  \catcw then $f=f'$ iff $s(f) = s(f')$.
+\end{lemma}
+One more useful lemma:
+\begin{lemma}
+\llabel{sfsglemma}
+\label{s4}  
+If \cat{C} is a contextual category then for all morphisms $f: x \rightarrow y$ and $g:y \rightarrow z$ in \cat{C},
+$$s(f \circ s(g)) = s(f \circ g)$$
+\end{lemma}
+\begin{proof}
+\begin{align*}
+s( f \circ s(g)) 
+    & = s( f \circ s(g)\circ q(g \circ p_z) , z ))  &\mbox{by axiom s3}\\
+    & = s(f \circ g) &\mbox{by axiom s2} 
+\end{align*}
+\end{proof}
+From which follows:
+\begin{lemma}
+\llabel{sidempotent}
+If $f:x \morph y$  in a contextual category \catcw  then
+\begin{equation*}
+s(f)=s(s(f)).
+\end{equation*}
+\end{lemma}
+\begin{lemma}
+\llabel{regardingfstarsection}
+If $f:x \morph y$ and $z \in Cover(y)$ and $g \in Sect(z)$ in a contextual category \catcw then
+\begin{equation*}
+f^*g = s(f \circ g)
+\end{equation*} 
+\end{lemma}
+\begin{proof}
+Straightforward.
+\end{proof}
+
+\begin{lemma}\llabel{missingsublemma7}
+If $x$, $y$ and $z$ are onjects of a contextual category \catcw such that $x <y$ and $y \leq z$ 
+and if $f \in Sect(x)$ then
+\begin{equation*}
+f^*s(p_{z,y})=s(p_{f^*z,f^*y})
+\end{equation*}
+\end{lemma}
+\begin{proof}
+\tbd
+\end{proof}
+
+% end of the 's' subsection
 
 \subsection{The $\crossx{}{}{}$ notation}
 
