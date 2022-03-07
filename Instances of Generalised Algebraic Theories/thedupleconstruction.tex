@@ -68,15 +68,15 @@ we establish (d1), that $s(\duplesisucc)=s_{i+1}$.
 We establish (d2), that $\duplesisucc \circ p_{y_{i+1}}= \duplesi$, as follows
 \begin{align*}
 \duplesisucc \circ p_{y_{i+1}} &=s_{i+1} \circ q(\duplesi, y_{i+1}) \circ p_{y_{i+1}} && \mbox{by definition of $\duplesisucc$,} \\
-                               &=s_{i+1} \circ p_{\duplesi ^*y_{i+1}} \circ \duplesi && \mbox{because the pullback diagram commutes,} \\
+                               &=s_{i+1} \circ p_{\duplesi ^*y_{i+1}} \circ \duplesi && \mbox{by (Q1),} \\
 															 &= \duplesi                       && \mbox{because $s_{i+1}$ is a section.}
 \end{align*}
 To establish (\ref{d3a}), suppose $y$ is some object such that $y_{i+1} < y$ in \catcw then we can show that $\sisucccascade (\crossx{x}{y}{1})=\duplesisucc ^*y$ as follows:
 \begin{align*}
 \sisucccascade (\crossx{x}{y}{1}) 
               &= \sisuccsub \duplesi ^*y && \mbox{by inductive hypothesis,} \\
-                         &= \sisuccsub q(\duplesi,y_{i+1})^*y  && \mbox{by definition of extended $^*$,}\\
-                         &= (s_{i+1} \circ q(\duplesi,y_{i+1}))^*y   && \mbox{by pullback coherence axiom,}\\
+                         &= \sisuccsub q(\duplesi,y_{i+1})^*y  && \mbox{by (Q6),}\\
+                         &= (s_{i+1} \circ q(\duplesi,y_{i+1}))^*y   && \mbox{by (Q4),}\\
                          &= \duplesisucc ^*y                   && \mbox{by definition of $\duplesisucc$.}
 \end{align*}
 A similar argument shows that if $g$ is a section of $y$ then $\sisucccascade (\crossx{x}{g}{1})=\duplesisucc ^* g$ to establish (\ref{d3b}).
@@ -327,35 +327,20 @@ s(\duplesnsg \circ q(p_{y_n,y_i},z)) = s(g)
 \begin{align*}
 \duplesnsg \circ q(p_{y_n,y_i},z) \circ p_z 
               &=  \duplesnsg \circ p_{\crossx{y_n}{z}{y_i}} \circ p_{y_n,y_i} 
-                                               && \mbox{commutivity of pullback square},               \\
-							&=\duplesnsg \circ p_{\crossx{y_n}{z}{y_i},y_i} && \mbox{definition of extended $p$,}  \\
+                                               && \mbox{by (q1),}               \\
+							&=\duplesnsg \circ p_{\crossx{y_n}{z}{y_i},y_i} && \mbox{by (P2),}  \\
 							&=\duplesi                                        && \mbox{lemma \ref{dupledestructionlemma},} \\
 							&= g \circ p_z                                    && \mbox{from the initial assumption.}
 \end{align*}
 and (\ref{dupletuplesubgoaltwotwo}) as follows 
 \begin{align*}
 s(\duplesnsg \circ q(p_{y_n,y_i},z))&=s(\duplesnsg)          &&\mbox{by (s3),}\\
-                                    &=s(g)                   &&\mbox{by definition of $\tuple{}$.}
+                                    &=s(g)                   &&\mbox{by (d1).}
 \end{align*}
 \end{proof}
 } % END of {thedupletuplelemma} and proof%
 %
-\begin{oldtt}
-\begin{lemma}
-\llabel{OLDduplestuplelemmaxxxxxxxxx}
-If $x$, $y$ and $z$ are objects of a contextual category \catcw \commentary{\highlight{?} This used in monoid example in a single case. Can absolutedupletuplelemma be used instead?} 
-such that $1 \base y$ and $1 \base z$ and if $g_1:x \morph y$ and $g_2:x \morph z$ in \catcw then
-\begin{equation*}
-\duple{s(g_1),s(g_2)}=\tuple{g_1,g_2}
-\end{equation*}
-\end{lemma}
-\begin{proof}
-Follows from lemmas \lref{thedupletuplelemma} and \lref{dupleofslemma}.
-\tbd
-\end{proof}
-\highlight{I am not sure we need this -- just use the previous binary lemma instead} \\
-\highlight { -- at point of use will rely on $\tuple{v_1,v_2,v_3} = \tuple{\tuple{v_1,v_2},v_3}$}
-\end{oldtt}
+
 \begin{lemma}
 \llabel{absolutedupletuplelemma}
 For $n > 1$, if $x$ and $y_1,...y_n$ are objects of a contextual category \catcw and if \foreachi, $f_i: x \morph y_i$ then

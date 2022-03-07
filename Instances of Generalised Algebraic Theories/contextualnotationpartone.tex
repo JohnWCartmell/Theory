@@ -61,7 +61,10 @@ $
 $& commutes.
 \end{tabular}
 
-In the  definition of contextual category given  in [1] and [2], a contextual category is defined to be a tree-structured category 
+The following is the original  definition of contextual category given  in [1] and [2], 
+\begin{definition}
+\llabel{contextualcategory}
+A \term{contextual category} is defined to be a tree-structured category 
 \cat{C} with the following additional structure:
 
 \noindent 
@@ -150,6 +153,8 @@ and
 \begin{axiom}{q5}
 q(f \circ g,z) = q(f,g^*z) \circ q(g,z)
 \end{axiom}
+
+\end{definition}
 %XXXXXXXXXXXXXXXXXXXXXXXXXX
 %Moved from later
 
@@ -219,7 +224,7 @@ We say that any morphism  of the form $p_{y,x}$ is a dependency morphism.
 
 The contextual category structure supplies us with pullbacks for direct dependency morpisms.
 These can be pieced together to obtain  a pullback for any indirect dependency morphism   along any morphism with common codomain
-as  whenever $y \leq z$ in $C$ and whenever $f:x \morph y$ in $C$, then we have
+as  whenever $y < z$ in $C$ and whenever $f:x \morph y$ in $C$, then we have
 the following canonical pullback for the morphism $p_{z, y}$ along $f$, where
 $w_1, ... w_n$ is the unique sequence of objects of $C$ such that 
 $y \base w_1 \base ... \base w_n \base z$:
@@ -240,6 +245,8 @@ $y \base w_1 \base ... \base w_n \base z$:
 \nccdar{TOPR}{zOTTOMR}
 \alabel{p_{z,y}}
 \end{center}
+
+  
 
 Since these constructed pullbacks form an important part of contextual
 category structure we would like a simpler notation for them. As no confusion is
@@ -267,8 +274,10 @@ so that (\ref{compositepullbackdefinition}) can be rewritten as:
 \alabel{p_{z,y}}
 \end{center}
 
-\newcommand{\pbpair}[2]{\tuple{#2}_{#1}}
+In addition whenever $f:x \morph y$ in \catcw then we define $f^*y=y$ and $q(f,y)=f$ so that $f^*z$ and $q(f,z)$ are defined
+and give a pullback diagram whenever $y \leq z$ in \catc.
 
+\newcommand{\pbpair}[2]{\tuple{#2}_{#1}}
 
 The following observation
 follows from the way the extended pullback diagrams are constructed. 
@@ -319,28 +328,32 @@ $
 is diagram (\ref{compositepullbackout}). 
 \end{lemma}
 
-\subsection{Axiomatisation of the extended p,q and $^*$ notation}
+\subsection{Axiomatisation of the extended $p$, $q$ and $^*$ notation}
 \newcommand{\ssub}{\kern-2pt^*\kern-1pt}
 \renewcommand{\sub}{^*\kern-1pt}
 \newcommand{\hash}{^\#}
 \newcommand{\byaxiom}[1]{by axiom (\ref{#1})}
 %
-\newcommand{\pbar}{\bar{p}}
-\newcommand{\pp}[2]{\pbar(#1,#2)}
+%\newcommand{\pbar}{\bar{p}}
+%\newcommand{\pp}[2]{\pbar(#1,#2)}
+\newcommand{\pp}[2]{p_{#1,#2}}
+
 %
-\newcommand{\qbar}{\bar{q}}
-\newcommand{\extq}[2]{\qbar(#1,#2)}   %sadly I have previously used \extq for quine quote
+%\newcommand{\qbar}{\bar{q}}
+%\newcommand{\extq}[2]{\qbar(#1,#2)}   %sadly I have previously used \extq for quine quote
+\newcommand{\extq}[2]{q(#1,#2)}   
 %
 \newcommand{\dsub}{^{\ast \kern-1pt \ast}\kern-2pt}
 
 \newcommand{\pbartag}[1]{$P#1$}
 
-We present the basic properties of the extended $p$, $q$ and $^*$ notation in the form of a  revised definition of contextual category. This revised definition is easily be shown to be  equivalent to the original definition.
+We present the basic properties of the extended $p$, $q$ and $^*$ notation in the form of a  revised definition of contextual category. This revised definition is easily be shown to be  equivalent to the original definition\footnote{Note that (\ref{qq1}) to (\ref{qq5}) in thgis definition are extended forms of  (q1) to (q5) from the original definition.}.
 
-A  \term{contextual category} is
+\begin{definition}
+A  \term{contextual category} is a category \catcw with a tree-structure defined on its objects 
+such that the tree of objects has a unique root object
+and  with  the following additional structure
 \begin{itemize}
-\item 
-a category \catcw with a tree-structure defined on its objects such that the tree of objects has a unique root object and 
 \item  for every $x \leq y$ in the tree of objects  a cannonical morphism $\pp{y}{x} :y \rightarrow x$
 satisfying
 \item for any object $x$ of $\catcw$,
@@ -353,21 +366,7 @@ satisfying
 \end{axiomtagged}
 \end{itemize}
 
-The cannonical morphisms will be distinguished in diagrams by a jagged arrows with  
-a triangular heads so:
 
-\begin{equation*}
-\begin{array}{p{2cm}p{0.5cm}p{0.5cm}p{0.5cm}}
-\Rnode{y}{y}& \\ [1.4cm]
-\Rnode{x}{x} \\
-\end{array}
-\begin{arrows}
-\nccdar{y}{x}
-\blabel{\pp{y}{x}}[0.3]
-\end{arrows}
-\end{equation*}
-
-and the following additional structure\footnote{Note that (\ref{qq1}) to (\ref{qq5}) are extended forms of  (q1) to (q5) from the original definition.}
 %\newcommand{\qbartag}[1]{$\qbar \textsl{#1}$}
 %\newcommand{\qbartag}[1]{$\qbar \textsl{#1}$}
 \newcommand{\qbartag}[1]{$Q \textsl{#1}$}
@@ -498,7 +497,7 @@ as shown in this diagram
 \end{arrows}
 \end{displaymath}
 \end{itemize}
-
+\end{definition}
 
 \begin{lemma}
 If $f:x \morph y$ in contextual category \catcw then $\extq{f}{y}=f$.
@@ -510,37 +509,12 @@ Use (\ref{qq0}) and (\ref{qq1}).
 
 \subsection{Extending $^*$ to morphisms}
 Now we extend the $^*$ notation further so that if $x,y,z_1$ and $z_2$ are objects of a contextual catgeory \catcw 
-and if $y \leq z_1$ and $y < z_2$, and if  $f:x\morph y$ and if $g: z_1 \morph z_2$ such that $g \circ p_{z_2,y} = p_{z_1,y}$
-then
-\begin{enumerate} [(a)]
-\item if $y=z_1$ then $f^*g: x \morph f^*z_2$,
-\item if $y < z_1$ then $f^*g:f^*z_1 \morph f^*z_2$.
-\end{enumerate}
+and if $y \leq z_1$ and $y \leq z_2$, and if  $f:x\morph y$ and if $g: z_1 \morph z_2$ such that $g \circ p_{z_2,y} = p_{z_1,y}$
+then $f^*g:f^*z_1 \morph f^*z_2$.
 
-In case (a), $f^*g$ is defined as the unique morphism $f^*g : x \morph f^*z_2$ such that $f^*g \circ p_{f^*z_2,x} = id_x$
-and $f^*g \circ q(f,z_2) = f \circ g$ i.e. such that the following diagram commutes.
-$$
-\begin{array}{cp{.9cm}c}
-\Rnode{TL}{f^*z_2} & &  \Rnode{TR}{z_2}\ \\ [1.5cm]
-\Rnode{BL}{x}      & &  \Rnode{BR}{y}  
-\end{array}
-$$
-\makebox[0.2cm]{   % This make box prevents white space pushing out to the right
-                   % cannot see where this white space is comin from. To investigate
-                                                       % change the \makebox[0.2cm] to \fbox and you will see the problem.
-\nccdar{TL}{BL}
-\nccdar{TR}{BR}
-\ncarr{TL}{TR}\alabel{q(f,z_2)}
-\ncarr{BL}{BR}\blabel{f}
-\ncleftsection{BL}{TL}\alabel{f^*g}
-\ncleftsection{BR}{TR}\alabel{g}
-}
-
-
-In case (b) $f^*g$ is defined
+$f^*g$ is defined
 as the unique morphism $h:f^*z_1 \morph f^*z_2$ such that
 $h \circ p_{f^*z_2,x} = p_{f^*z_1,x}$ and $h \circ q(f,z_2) = q(f,z_1)\circ g$
-that is to say that we define $f^*g=\pbpair{x,y,f,z_2}{p_{f^*z_1,x},q(f,z_1)\circ g} $
 so that we have the following diagram in \catc
 $$
 \begin{array}{cccp{.9cm}ccc}
@@ -563,35 +537,6 @@ $$
 \ncarr{MR}{TR}\alabel{g}[0.3]
 }
 
-
-\begin{lemma} 
-\llabel{stardistributesonobjects}
-For all objects $x_p \base x \leq y_p \base y \leq z_p \base z$ in \catc, for all sections $f: x_p \morph x$ and $g: y \morph y_p$, 
-\begin{equation}
-\label{metagattriplestar}
-(f^*g)^*(f^*z)=f^*(g^*z)
-\end{equation}
-\end{lemma}
-\begin{proof}
-First see that for any $z$ we can prove $(f^*g)^*(f^*z)=f^*(g^*z)$ as follows
-\begin{align*}
-(f^*g)^*(f^*z)&= (f^*g)^*(q(f,y_2)^*z)  && \mbox{ by lemma \lref{extendedstarcoheres}} \\
-              &= ((f^*g) \circ q(f,y_2))^*z && \mbox{ by (q4) \highlight{(Q4), surely}} \\
-              &= (q(f,y_1)\circ g)^*z&& \mbox{ by definition of $f^*g$} \\
-              &= q(f,y_1)^*g^*z&& \mbox{ by (q4)} \\
-              &= f^*(g^*z) &&\mbox{ by lemma \lref{extendedstarcoheres}}      
-\end{align*}
-\end{proof}
-
-\begin{lemma}
-\llabel{stardistributesonmorphismslemma}
-If $f$, $g$ and $h$ are morphisms of a contextual category \catcw such that $f^*g$ and $g^*h$ are both defined then
-\begin{equation}
-\label{stardistributesonmorphisms}
-(f^*g)^*(f^*h)=f^*(g^*h)
-\end{equation}
-\end{lemma}
-\begin{proof}
 \newcommand{\lhsdom}{(f^*g)^*(f^*z_1)}
 \newcommand{\lhscod}{(f^*g)^*(f^*z_2)}
 \newcommand{\lhs}{(f^*g)^*(f^*h)}
@@ -616,18 +561,87 @@ If $f$, $g$ and $h$ are morphisms of a contextual category \catcw such that $f^*
 \newcommand{\hdom}{z_1}
 \newcommand{\hcod}{z_2}
 \newcommand{\h}{h}
+
+\begin{lemma} 
+\llabel{stardistributesonobjects}
+For all objects $x_1$, $x_2$, $y_1$, $y_2$ and $z$ in \catcw such that $x_2 \leq y_1$, $x_2 \leq y_2$ and $y_2 \leq z$, 
+for all morphisms $f: x_1 \morph x_2$ and $g: y_1 \morph y_2$, \commentary{this lemma has neem more general -- as the next lemma is}
+\begin{equation}
+\label{metagattriplestar}
+(f^*g)^*(f^*z)=f^*(g^*z)
+\end{equation}
+as shown here
+
+\begin{displaymath}
+\begin{array}{c p{0.05cm} c p{1cm} c p{3.0cm} c p{0.5cm} c p{0.5cm} c }
+\Rnode{lhs}{(f^*g)^*(f^*z)}                                                                                  \\[1.25cm]
+\Rnode{rhs}{f^*(g^*z)} & & & & \Rnode{fz}{f^*z}      && \Rnode{gz}{g^*z}    & & & & \Rnode{z}{z}             \\[1.5cm]
+\Rnode{fgdom}{\fgdom}       & & & & \Rnode{fgcod}{\fgcod} && \Rnode{gdom}{\gdom} & & & & \Rnode{gcod}{\gcod} \\[1.25cm]
+                      & &\Rnode{fdom}{\fdom} & & & && &   \Rnode{fcod}{\fcod} &&
+\end{array}
+\begin{arrows}
+%\ncline [doubleline=true, nodesepA=0.2cm, nodesepB=0.6cm]{rhsarc}{lhsarc}
+\equality{lhs}{rhs}
+%\ncline [doubleline=true, nodesep=0.2cm, offsetB=-0.15cm]{lhscod}{fghcod}
+\nccdar{rhs}{fgdom}
+\nccdar{fz}{fgcod}
+\nccdar{fgdom}{fdom}
+\nccdar{fgcod}{fdom}
+\nccdar{gz}{gdom}
+\nccdar{ghcod}{gdom}
+\nccdar{z}{gcod} %Need space here
+\nccdar{gdom}{fcod}
+\nccdar{gcod}{fcod}
+%
+\ncarr{fgdom}{fgcod}
+\alabel{\fg}[0.6]
+\ncarr[20]{fgdom}{gdom}
+\alabel{q(f,y_1)}[0.2]
+\ncarr[20]{fgcod}{gcod}
+\alabel{q(f,y_2)}[0.4]
+\ncarr{fdom}{fcod}
+\alabel{\f}
+\ncarr{gdom}{gcod}
+\alabel{\g}
+\ncarr[15]{lhs}{fz}
+\alabel{q(f^*g,f^*z)}[0.4]
+\ncarr{gz}{z}
+\alabel{q(g,z)}[0.35]
+\ncarr[20]{fz}{z}
+\alabel{q(f,z)}
+\ncarr[20]{rhs}{gz}
+\alabel{q(f,g^*z)}[0.15]
+\end{arrows}
+\end{displaymath}
+
+\end{lemma}
+\begin{proof}
+\begin{align*}
+(f^*g)^*(f^*z)&= (f^*g)^*(q(f,y_2)^*z)  && \mbox{ by (Q6),} \\
+              &= ((f^*g) \circ q(f,y_2))^*z && \mbox{ by (Q4),} \\
+              &= (q(f,y_1)\circ g)^*z&& \mbox{ by definition of $f^*g$,} \\
+              &= q(f,y_1)^*g^*z&& \mbox{ by (Q4),} \\
+              &= f^*(g^*z) &&\mbox{ by (Q6).}      
+\end{align*}
+\end{proof}
+
+\begin{lemma}
+\llabel{stardistributesonmorphismslemma}
+If $f$, $g$ and $h$ are morphisms of a contextual category \catcw such that $f^*g$ and $g^*h$ are both defined then
+\begin{equation}
+\label{stardistributesonmorphisms}
+(f^*g)^*(f^*h)=f^*(g^*h)
+\end{equation}
+\end{lemma}
+\begin{proof}
+
 Suppose $f: x_1 \morph x_2$, $g:y_1 \morph y_2$ and $h:z_1 \morph z_2$ in \catc. 
-Because $f^*g$ is defined then we must have $x_2 < y_1$ and  $x_2 < y_2$ and $g \circ p_{y_2,x_2} = p_{y_1,x_2}$ in \catc. 
-Likewise, because $g^*h$ is defined then we must have $y_2 < z_1$ and  $y_2 < z_2$ and $h \circ p_{z_2,y_2} = p_{z_1,y_2}$.
+Because $f^*g$ is defined then we must have $x_2 \leq y_1$ and  $x_2 \leq y_2$ and $g \circ p_{y_2,x_2} = p_{y_1,x_2}$ in \catc. 
+Likewise, because $g^*h$ is defined then we must have $y_2 \leq z_1$ and  $y_2 \leq z_2$ and $h \circ p_{z_2,y_2} = p_{z_1,y_2}$.
 By lemma \lref{stardistributesonobjects} $\lhsdom=\fghdom$ and $\lhscod=\fghcod$
 therefore we have the following diagram in \catc:
-\iffalse   %MIGHT NEED THIS HAND ROLL EQUALITY
-\newcommand{\equality}[2]
-{
-\ncline [doubleline=true, nodesep=0.2cm]{#1}{#2}
-}
-\fi
-$$
+
+\begin{displaymath}
 \begin{array}{cccccccp{.05cm}ccccccc}
 \\
 \Rnode{fghdom}{\fghdom} &\Rnode{rhsarc}{} & \Rnode{fghcod}{\fghcod}\\[0.75cm]
@@ -636,7 +650,7 @@ $$
 & \Rnode{fgdom}{\fgdom} & & & & \Rnode{fgcod}{\fgcod} &&&& \Rnode{gdom}{\gdom} & & & & \Rnode{gcod}{\gcod}\\[1.25cm]
 &                       & &\Rnode{fdom}{\fdom} & & & && & & &  \Rnode{fcod}{\fcod}
 \end{array}
-\mbox{
+\begin{arrows}
 %\ncline [doubleline=true, nodesepA=0.2cm, nodesepB=0.6cm]{rhsarc}{lhsarc}
 \equality{lhsdom}{fghdom}
 \ncline [doubleline=true, nodesep=0.2cm, offsetB=-0.15cm]{lhscod}{fghcod}
@@ -669,8 +683,8 @@ $$
 \alabel{\g}
 \ncarr{hdom}{hcod}
 \alabel{\h} 
-}
-$$
+\end{arrows}
+\end{displaymath}
 and we need to prove that $\lhs=\fgh$. We will prove this using the fact that $\fgh$ is the unqiue morphism such that
 \newcommand{\pfgh}{p_{\fghcod,f^*y_1}}
 \newcommand{\fghone}{p_{\fghdom,f^*y_1}}
@@ -725,26 +739,26 @@ and
 (\ref{fghpropertytwosubgoalone}) is shown as follows:
 \begin{align*}
 \lhs \circ \qfgh \circ p_{g^*z_2,\gdom} 
- &= \lhs \circ q(q(f,y_1),g^*z_2) \circ p_{g^*z_2,\gdom} &&\mbox{1. by definition of extended $^*$,} \\
- &= \lhs \circ p_{\fghcod,f^*y_1} \circ q(f,y_1)&&\mbox{2. by (q1),} \\
- &= p_{\fghdom,f^*y_1} \circ q(f,y_1)&&\mbox{3. by definition of $\lhs$,} \\
- &= q(f,g^*z_1) \circ p_{g^*z_1,y_1}&&\mbox{4. by (q1),} \\
- &= \fghtwo \circ p_{g^*z_2,\gdom}&&\mbox{5. by definition of $\gh$, as required} \\
+ &= \lhs \circ q(q(f,y_1),g^*z_2) \circ p_{g^*z_2,\gdom} &&\mbox{by (Q7),} \\
+ &= \lhs \circ p_{\fghcod,f^*y_1} \circ q(f,y_1)&&\mbox{by (Q1) \highlight{plus a bit?},} \\
+ &= p_{\fghdom,f^*y_1} \circ q(f,y_1)&&\mbox{by definition of $\lhs$,} \\
+ &= q(f,g^*z_1) \circ p_{g^*z_1,y_1}&&\mbox{by (Q1) \highlight{plus a bit?},} \\
+ &= \fghtwo \circ p_{g^*z_2,\gdom}&&\mbox{by definition of $\gh$, as required} \\
 \end{align*}
 and (\ref{fghpropertytwosubgoaltwo}) as follows:
 \begin{align*}
-lhs \circ \qfgh \circ q(g,z_2) &= \lhs \circ q(q(f,y_1),g^*z_2)\circ q(g,z_2) && \mbox{by lemma \lref{extendedstarcoheres},} \\
-    &= \lhs \circ q(q(f,y_1) \circ g, z_2) && \mbox{by (q5),} \\
+lhs \circ \qfgh \circ q(g,z_2) &= \lhs \circ q(q(f,y_1),g^*z_2)\circ q(g,z_2) && \mbox{by (Q7),} \\
+    &= \lhs \circ q(q(f,y_1) \circ g, z_2) && \mbox{by (Q5),} \\
     &= \lhs \circ q(\fg \circ q(f,y_2), z_2) && \mbox{by definition of $f^*g$,} \\
-    &= \lhs \circ q(\fg, q(f,y_2)^*z_2) \circ q(q(f,y_2),z_2) && \mbox{by (q5),} \\
-		&= \lhs \circ q(\fg, f^*z_2) \circ q(f,z_2) && \mbox{by lemma \lref{extendedstarcoheres},} \\
+    &= \lhs \circ q(\fg, q(f,y_2)^*z_2) \circ q(q(f,y_2),z_2) && \mbox{by (Q5),} \\
+		&= \lhs \circ q(\fg, f^*z_2) \circ q(f,z_2) && \mbox{by (Q7),} \\
     &= q(\fg, f^*z_1) \circ \fh \circ q(f,z_2) && \mbox{by definition of $\lhs$,} \\
     &= q(\fg, f^*z_1) \circ q(f,z_1) \circ h && \mbox{by definition of $\fh$,} \\
-    &= q(\fg, f^*z_1) \circ q(q(f,y_2),z_1) \circ h && \mbox{by lemma \lref{extendedstarcoheres},} \\
-    &= q(\fg \circ q(f,y_2),z_1) \circ h && \mbox{by (q5),} \\
+    &= q(\fg, f^*z_1) \circ q(q(f,y_2),z_1) \circ h && \mbox{by (Q7),} \\
+    &= q(\fg \circ q(f,y_2),z_1) \circ h && \mbox{by (Q5),} \\
     &= q(q(f,y_1) \circ g,z_1) \circ h && \mbox{by definition of $\fg$,}\\
-    &= q(q(f,y_1), g^*z_1) \circ q(g,z_1) \circ h && \mbox{by (q5),} \\
-    &= q(f, g^*z_1) \circ q(g,z_1) \circ h && \mbox{by lemma \lref{extendedstarcoheres}, } \\
+    &= q(q(f,y_1), g^*z_1) \circ q(g,z_1) \circ h && \mbox{by (Q5),} \\
+    &= q(f, g^*z_1) \circ q(g,z_1) \circ h && \mbox{by (Q7), } \\
     &= \fghtwo \circ q(g,z_2) && \mbox{by definition of $\gh$, as required.} 
 \end{align*}
 \end{proof}
@@ -788,7 +802,7 @@ f^*s(g)  &= s(f \circ s(g)) &&\mbox{by lemma \lref{regardingfstarsection}} \\
 
 
 \subsection {Voevodsky's axiomatisation}
-Following Voevodsky \cite{Voevodsky14C} we may replace the pullback condition (condition (ii) above) by introducing and axiomatising an 
+Following Voevodsky \cite{Voevodsky14C} we may replace the pullback condition (condition (ii) of definition \lref{contextualcategory}) by introducing and axiomatising an 
 `s' operator  as follows:
 
 \noindent (ii') for all morphisms $f: x \rightarrow y$, a morphism $s(f) : x \rightarrow f \sub p_y \sub y$ such that both:
@@ -1000,9 +1014,9 @@ If $w,x,y$ and $z$ are objects of a contextual category \catcw and if $w<x$, $w<
 \begin{align*}
 \crossx{x}{(\crossx{y}{z}{w})}{w} 
                    &= {p_{x,w}} ^* {p_{y,w}} ^* z             && \mbox{by definition of $\crossx{}{}{}$,}  \\
-                   &= q(p_{x,y},y)^*{p_{y,w}} ^* z            && \mbox{by lemma \lref{extendedstarcoheres},}      \\
-                   &= (q(p_{x,y},y) \circ p_{y,w}) ^* z       && \mbox{by (q4),}                           \\
-                   &= {p_{\crossx{x}{y}{w},w}} ^* z             && \mbox{since pullback square commutes,}    \\
+                   &= q(p_{x,y},y)^*{p_{y,w}} ^* z            && \mbox{by (Q6),}      \\
+                   &= (q(p_{x,y},y) \circ p_{y,w}) ^* z       && \mbox{by (Q4)\highlight{??},}                           \\
+                   &= {p_{\crossx{x}{y}{w},w}} ^* z           && \mbox{by (Q1),}    \\
                    &= \crossx{(\crossx{x}{y}{w})}  {z}{w}     && \mbox{by definition of $\crossx{}{}{}$.}
 \end{align*}
 \end{proof}
@@ -1184,17 +1198,17 @@ as shown here:
 \end{displaymath}
 \end{lemma}
 \begin{proof}
-We can show (i) holds as follows:
+We can show (i) holds as follows: \commentary{Can I not just use \lref{stardistributesonobjects} to prove this this?}
 \begin{align*}
-f * (\yz) &= q(f,y)^*(\yz)            &&\mbox{ by definition of extended $^*$},                \\
-          &= q(f,y)^*({p_{y,w}} ^* z) &&\mbox{ by definition of $\crossx{}{}{}$,}              \\
-          &= (q(f,y)\circ p_{y,w}) ^* z             &&\mbox{ by (q4)  extended\highlight{?} to morphisms,}                         \\
+f^*(\yz) &= q(f,y)^*(\yz)                           &&\mbox{ by (Q6),}                \\
+          &= q(f,y)^*({p_{y,w}} ^* z)               &&\mbox{ by definition of $\crossx{}{}{}$,}              \\
+          &= (q(f,y)\circ p_{y,w}) ^* z             &&\mbox{ by (Q4),}                         \\
           &= (q(f,y) \circ p_{y,x} \circ p_x ) ^* z &&\mbox{ by definition of $p_{y,w}$,}      \\
-          &= (p_{f^*y,w} \circ f \circ p_x ) ^* z   &&\mbox{ because extended pullback diagrams commute,} \\
+          &= (p_{f^*y,w} \circ f \circ p_x ) ^* z   &&\mbox{ by (Q1),} \\
           &= {p_{f^*y,w}}^*z                        &&\mbox{ because $f$ is a section,}                   \\
           &= \crossx{(f^*y)}{z}{w}                  &&\mbox{ by definition of $\crossx{}{}{}$.}
 \end{align*}
-By a similar argument we can show that (ii) holds.
+By a similar argument we can show that (ii) holds. \commentary{Will it really be similar -- might I need new lemmas such as a morphism \highlight{variant of Q4}? }\commentary{Can I use lemma \lref{stardistributesonmorphisms} for this part of the proof?}
 \end{proof}
 
 Finally some lemmas giving identities involving the $s$ operator.
