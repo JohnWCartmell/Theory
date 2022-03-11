@@ -1,4 +1,3 @@
-Using the notation just introduced we can give a modified version of lemma \lref{substitutioninterpretationlemma}.
 
 \begin{lemma}
 \llabel{supplementarylemma}
@@ -15,7 +14,8 @@ $$\displaystyle\Imappedrule{Q}{\ofT{s[s_1|y_1...s_m|y_m]}{\Omega[s_1|y_1...s_m|y
 \end{enumerate}
 \end{lemma}
 \begin{proof}
-\tbd
+(i) follows because $r_\Omega$ being a derived rule must be consistently interpreted by $I$ and so can use clause (i)(c) of definition \lref{consistentinterpretation} and then simplify using (d3a). (ii) follows likewise using clause (ii)(c) of definition \lref{consistentinterpretation} and then
+(d3b).
 \end{proof}
 
 
@@ -45,7 +45,7 @@ $$\displaystyle\Imappedrule{Q}{\ofT{s[s_1|y_1...s_m|y_m]}{\Omega[s_1|y_1...s_m|y
 \begin{lemma}
 \llabel{supplementaryweakeninglemma}
 If $I$ is an instance of the generalised algebraic theory $U$ in a contextual category \catcw then
-if  $Q$ and $\encyOmega{m}$ are contexts, for some $m \geq 1$,  then
+if  $Q$ and $\encyOmega{m}$ are contexts, for some $m \geq 0$,  then
 \begin{enumerate}[(i)]
 \item if the rule \ZOmega which we denote $r_\Omega$ is a derived rule of $U$ then
 $$\displaystyle\Imappedrule{Q,\, \yOmega{m}}{\isT{\Omega}}=\crossx{I(Q)}{I(r_\Omega)}{1}$$
@@ -54,5 +54,29 @@ $$\displaystyle\Imappedrule{Q,\, \yOmega{m}}{\ofT{s}{\Omega}}=\crossx{I(Q)}{I(r_
 \end{enumerate}
 \end{lemma}
 \begin{proof}
-\tbd
+The  $m=0$ case was shown in lemma \lref{typeweakeninglemma}.
+For $m \geq 1$ we can assume, inductively, that the result holds for all j,  $j \leq m$, so that 
+we can assume \foreachj, the rule \gatdisplayrule{Q,\, \yOmega{j-1}}{\isT{\Omega_j}} is mapped by $I$ to
+$\crossx{I(Q)}{I(r_{\Omega_j})}{1}$.
+
+\newcommand{\IofyweakenedbyQ}[1]{I(s(p_{\crossx{I(Q)}{I(r_{\Omega_m})}{1}, \crossx{I(Q)}{I(r_{\Omega_#1})}{1}}))}
+With this assumption, because $I$ is an instance then from clause (ii)(d) of definition \lref{consistentinterpretation} 
+we have that, \foreachj,
+\begin{equation}
+\label{weakendedyinterpretation}
+I(r_{y_j})=\IofyweakenedbyQ{j} 
+\end{equation}
+where $r_{y_j}$  is the rule \gatdisplayrule{Q,\, \yOmega{m}}{\ofT{y_j}{\Omega_j}}.
+
+Now we  prove (i) as follows:
+\begin{align*}
+\displaystyle\Imappedrule{Q,\, \yOmega{m}}{\isT{\Omega}}  \kern-2cm   \\
+          &= \duple{I(r_{y_1}),... I(r_{y_n})} ^* I(r_\Omega)                   && \mbox{By lemma \lref{supplementarylemma},}     \\ 
+          &= \duple{\IofyweakenedbyQ{1},... \IofyweakenedbyQ{m}} ^* I(r_\Omega) && \mbox{using (\ref{weakendedyinterpretation}),}                         \\
+          &= q(p_{I(Q),1},I(r_{\Omega_m})) ^* I(r_\Omega)                       && \mbox{by \lref{duplesofplemma},}               \\
+          &= {p_{I(Q),1}} ^*  I(r_\Omega)                                         && \mbox{by (Q6),}                                \\
+          &= \crossx{I(Q)}{I(r_\Omega)}{1}                                      && \mbox{by definition of $\crossx{}{}{1}$.}  
+\end{align*} 
+(ii) follows in like manner.
+
 \end{proof}
