@@ -80,3 +80,32 @@ Now we  prove (i) as follows:
 (ii) follows in like manner.
 
 \end{proof}
+
+\begin{lemma}
+\llabel{Xnlemma}
+If $\iI$ is an interpretation of a generalised algebraic theory $U$ in a contextual category \catcw and if $X$ is an absolute sort symbol of $U$ which is mapped 
+by $\iI_{sort}$ to an object $X$ of \catcw (so that $1 \base X$ in \catc) then for any $n \geq 1$ 
+\begin{enumerate}[(i)]
+\item
+The context $\tuple{\ofT{x_1}{X},...\ofT{x_n}{X}}$ is mapped by $\Ibar$ to the object $X^n$ of \catc,
+\item the rule 
+\gatdisplayrule{\ofT{x_1}{X},... \ofT{x_n}{X}}{\ofT{x_i}{X}} is mapped by $\Ibar$ to the section $s(p_i)$ of $X^{n+1}$, where $p_i$ is the $i$'th projection morphism, $p_i: X^n \morph X$,
+\item if $P$ is a context of $U$ that extends the context $\tuple{\ofT{x_1}{X},...\ofT{x_n}{X}}$ and if $P$ is mapped by $\Ibar$ to
+the object $Y$ of \catcw (so that $X < Y$ in \catc) then the rule 
+\gatdisplayrule{P}{\ofT{x_i}{X}} is mapped by $\Ibar$ to the section $s(p_{Y,X^n}\circ p_i)$ of object $\crossx{Y}{X}{1}$, where $p_i$ is the $i$'th projection morphism, $p_i: X^n \morph X$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(i) is proved by induction on $n$. The case of $n=1$ is trivial and is simple because by definition the mapping of the context $\ofT{x_1}{X}$ is simply the mapping of the rule $\tstyle \isT{X}$ which is the mapping under $\iI_{sort}$ of the sort symbol $X$. For the inductive step assume that (i) holds in the case of $n-1$ and therefore that the context $\ofT{x_1}{X},... \ofT{x_{n-1}}{X}$ is mapped by $\Ibar$ to the context $X^{n-1}$. 
+By lemma \lref{typeweakeninglemma} (case $m=0$) we determine that 
+the mapping under $\Ibar$ of the rule \gatdisplayrule{\ofT{x_1}{X},... \ofT{x_{n-1}}{X}}{\isT{X}} is $\crossx{X^{n-1}}{X}{1}$ i.e. is $X^n$.
+
+(ii) By clause (ii)(d) of definition \lref{consistentinterpretation} 
+the rule \gatdisplayrule{P}{\ofT{x_i}{X}} is mapped by $\Ibar$ to $s(p_{Y,X^i})$ but
+\begin{align*}
+s(p_{Y,X^i}) &= s(p_{Y,X^i} \circ q(p_{X^{i-1},1},X))                     &&\mbox{by (s3),}\\
+             &= s(p_{Y,X^n} \circ p_{X^n,X^i} \circ q(p_{X^{i-1},1},X))   &&\mbox{by (P2),}\\
+             &= s(p_{Y,X^n} \circ p_i)                                    &&\parbox[t]{4.2cm}{where $p_i$ is the i'th projection morphism $p_i:X^n \morph X$.}
+\end{align*}
+and so we have shown \gatdisplayrule{P}{\ofT{x_i}{X}} is mapped by $\Ibar$ to $s(p_{Y,X^n}\circ p_i)$, as required.
+\end{proof}

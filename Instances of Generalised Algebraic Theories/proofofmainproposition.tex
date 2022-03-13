@@ -1,0 +1,828 @@
+\begin{lemma}
+\llabel{towerlemma}
+\IfIpartialmappingUtoC, if $r$ is a derived rule \ZDelta of $U$ and if
+$r$ is consistently interpreted by $I$ 
+then \foreachi, $r_{\Delta_i}$ is consistently interpreted by $I$ and 
+$1 \base I(r_{\Delta_1}) \base ... \base I(r_{\Delta_n}) \base I(r)$ in \catc,
+where, for each $i$, $r_{\Delta_i}$ is the rule \IDelta{i}.
+\end{lemma}
+\begin{proof}
+Follows from clause (i)(b) of the definition of consistent interpretation.
+\end{proof}
+
+\iffalse
+\begin{lemma}
+\llabel{substitutionsublemma}
+\IfIpartialmappingUtoC,
+then if $r_s$ is the $\in$-rule \ZsOmega and 
+$r_s$ is consistently interpreted by $I$ then
+for all contexts $Q$ and for all realisations $\tuple{\sm}$ of $\yOmega{m}$ wrt $Q$  
+which are mapped to a cascade by $I$,
+$$ \Imappedrule{Q}{\ofT{s[\SUBsFORy{m}]}{\Omega[\SUBsFORy{m}]}} 
+= I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_s)}{1})
+\in Sect (I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_\Omega)}{1})),$$
+where \foreachj, $r_{s_j}$ is the rule \IsOmega{j} and where
+$r_\Omega$ is the rule \ZOmega.
+\end{lemma}
+\begin{proof}
+The definition of consistent interpretation directly requires this for non-variables. 
+It remains to show  this in the case when $s$ is a variable. Suppose $s$ is the variable
+$y_j$. Since in this case $s[\SUBsFORy{m}]$ is $s_j$ what we have to show is that
+$I(s_j) = I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(Q)}{s(p_{I(r_{\Omega_m}),I(r_{\Omega_j})}}{1}))$,
+where \foreachj, $r_{\Omega_j}$ is the rule \IOmega{j}. This is given by lemma \lref{cascadeprojectionlemma}.
+\end{proof}
+\fi
+
+\begin{lemma}
+\llabel{typeweakeninglemma}
+\IfIpartialmappingUtoC,
+if \ZOmega is a derived rule of $U$  which  is consistently interpreted by $I$ 
+and if $Q$ is a context and $I(Q)$ is defined 
+then $\Imappedrule{Q}{\isT{\Omega_1}}=\crossx{I(Q)}{\Imappedrule{}{\isT{\Omega_1}}}{1}$.
+\end{lemma}
+\begin{proof}
+Since \ZOmega is consistently interpreted by $I$ then it follows by lemma \lref{towerlemma} that the rule 
+\gatdisplayrule{}{\isT{\Omega_1}} (the rule with empty context and asserting $\Omega_1$ to be a type) is interpreted consistently
+by $I$. Since $Q$ is a context and since the empty tuple $\tuple{}$ is a realisation of the empty context with respect to $Q$ that, by definition, maps to a cascade then it follows from the definition of what it means for  \gatdisplayrule{}{\isT{\Omega}} to be consistently interpreted by $I$ that
+$\Imappedrule{Q}{\isT{\Omega_1}}=\crossx{I(Q)}{\Imappedrule{}{\isT{\Omega_1}}}{1}$, as required.
+\end{proof}
+The following lemma establishes that if all the elements of a realisation are consistently interpreted by a mapping then the elements are 
+mapped to a cascade. 
+\begin{lemma}
+\llabel{realisationmapstocascade}
+\newcommand {\forceSOURCEwidth}{\rule{5cm}{0pt}}  % so as to line up three different arrays
+\newcommand {\forceTARGETwidth}{\rule{2.2cm}{0pt}}
+If $I$ is a partial mapping of T-rules and $\in$-rules of a theory $U$ to objects, respectively sections of a contextual category \catc,
+ if $Q$  and $\encyOmega{m}$ are contexts, for some $m \geq 1$,  and if $\tuple{\sm}$ is a realisation of $\tuple{\yOmega{m}}$ with respect to $Q$,
+ if \foreachj, the rule \IsOmega{j} is consistently interpreted by $I$ 
+ and if the rule \IOmega{m} is consistently interpreted by $I$
+then the realisation $\tuple{s_1,...s_m}$ is mapped by $I$ to a cascade.
+\end{lemma}
+\begin{proof}
+It follows from the definition of cascade that we need to establish, \foreachj, that
+ $$I(r_{s_j}) \in Sect(I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_{\Omega_j})}{1})) ,$$
+  where $r_{s_j}$ is the rule \IsOmega{j} and $r_{\Omega_j}$ is the rule \IOmega{j}.
+To prove this in the case of $m=1$ we need simply show that 
+ $$I(r_{s_1}) \in Sect(\crossx{I(Q)}{I(r_{\Omega_1})}{1})).$$
+ This follows because from the initial assumption that $r_{s_1}$ is consistently interpreted by $I$ and so by definition \lref{consistentinterpretation}, clause (ii),
+ I(Q) is defined and  $I(r_{s_1}) \in Sect(I\big(\gatdisplayrule{Q}{\isT{\Omega_1}}\big))$ 
+ and because \IOmega{m} is consistently interpreted by $I$ we can use lemma \lref{typeweakeninglemma} to establish $I(\gatdisplayrule{Q}{\isT{\Omega_1}}) = \crossx{I(Q)}{I(r_{\Omega_1})}{1})$.
+
+Next we complete the proof by showing that the proposition that the lemma holds at a given $m$ follows from
+the assumption that it holds at $m-1$. So assume that $Q$  and $\encyOmega{m}$ are contexts, 
+that $\tuple{\sm}$ is a realisation of $\tuple{\yOmega{m}}$ with respect to $Q$,
+assume that \foreachj, the rule \IsOmega{j} is consistently interpreted by $I$ 
+and that the rule $r_{\Omega_m}$ is consistently interpreted by $I$. 
+From these assumptions it follows
+that  $\tuple{\sm[-1]}$ is a realisation of $\tuple{\yOmega{m-1}}$ with respect to $Q$.
+Now since $r_{\Omega_m}$ is consistently interpreted by $I$ it follows, by definition,  that $r_{\Omega_{m-1}}$ is consistently interpreted by $I$. This means that we can use the inductive hypothesis to establish that $\tuple{\sm[-1]}$ maps to a cascade which is to say that \foreachj[m-1],  
+$$I(r_{s_j}) \in Sect(I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_{\Omega_j})}{1})).$$
+
+It only remains to show that
+$$I(r_{s_m}) \in Sect(I(r_{s_{m-1}})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_{\Omega_m})}{1})).$$ \
+
+This we can do because first of all, since we are given that $r_{s_m}$ is consistently interpreted by $I$ and using definition \lref{consistentinterpretation}, clause (ii), we establish that
+$$I(r_{s_m}) \in Sect(\Imappedrule{Q}{\isT{\Omega_m[\SUBsFORy{m-1}]}}.$$ 
+Next, because $r_{\Omega_m}$ is consistently interpreted by $I$ then using definition \lref{consistentinterpretation}, clause (i)(c), 
+and since we have from the inductive hypothesis that $\tuple{\sm[-1]}$ is a realisation of $\tuple{\yOmega{m-1}}$ with respect to $Q$ that maps to a cascade,
+we establish that
+ $$\Imappedrule{Q}{\isT{\Omega_m[\SUBsFORy{m-1}]}}= I(r_{s_{m-1}})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_{\Omega_m})}{1}).$$
+ \end{proof}
+Because every initial subtuple of a realisation is a realisation and every initial subtuple of a cascade is a cascade we have the following corollary:
+ \begin{corollary}
+ \llabel{subrealisationmapstocascade}
+ In the situation envisaged in the previous  lemma (lemma \lref{realisationmapstocascade}), \foreachj,
+ the realisation $\tuple{s_1,...s_j}$ is mapped by $I$ to a cascade. 
+ \end{corollary}
+
+\begin{lemma}
+\llabel{substitutioninterpretationlemma}
+\IfIpartialmappingUtoC,
+if we suppose that $Q$ and $\encyOmega{m}$ are contexts, for some $m \geq 1$, 
+and that $\tuple{\sm}$ is a realisation of $\encyOmega{m}$ wrt $Q$ and
+if we suppose that \foreachj, the rule \IsOmega{j} is consistently interpreted by $I$ then
+\begin{enumerate}[(i)]
+\item if \ZOmega is a derived rule which is consistently interpreted by $I$
+then the derived rule \ZOmegaSUBsmFORym is consistently interpreted by $I$,
+\item if \ZsOmega is a derived rule which is consistently interpreted by $I$
+then the derived rule \ZsOmegaSUBsmFORym is consistently interpreted by $I$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Suppose  $Q$ to be the context $\xDelta{n}$, for some $n \geq 0$. Let $r_{\Delta_i}$, \foreachi, be the rule \IDelta{i}.
+
+The rule \IDelta{n} is a derived rule of $U$ because we have assumed that $Q$ is a context. 
+\begin{enumerate}[(i)]
+\item
+\newcommand{\targetruleone}{\gatdisplayrule{\xDelta{n}}{\isT{\Omega[\SUBsFORy{m}]}}}
+Let $r_\Omega$ be the rule \ZOmega and assume it to be consistently interpreted by $I$.
+To show that the rule \ZOmegaSUBsmFORym is consistently interpreted by $I$ we need show that conditions (a), (b) and (c)
+of clause (i) of definition \lref{consistentinterpretation} hold for this rule.
+To  show  that condition (a) holds we have to show that $I(r_{\Delta_n})$ is defined 
+and $\Imap{\targetruleone}$ is defined and that  $I(r_{\Delta_n}) \base \Imap{\targetruleone}$ in \catc. 
+That $I(r_{\Delta_n})$ is defined follows from the initial assumption
+that the rule \gatdisplayrule{\xDelta{n}}{\ofT{s_1}{\Omega_1}} is consistently interpreted by $I$
+and from condition (ii)(b) of definition \lref{consistentinterpretation}. 
+By  lemma \lref{towerlemma} it then follows that 
+$1 \base I(r_{\Delta_1}) \base ... I(r_{\Delta_{n-1}}) \base I(r_{\Delta_n})$ in \catc.
+Also because \foreachj,  we assume that the rule \gatdisplayrule{\xDelta{n}}{\ofT{s_j}{\Omega_j[\SUBsFORy{j-1}]}} is consistently interpreted by $I$, 
+we deduce that $\tuple{\sm}$ is mapped to a cascade by $I$, by lemma \lref{realisationmapstocascade}. Hence 
+from condition (i)(a) of definition \lref{consistentinterpretation} and from the assumption that $r_\Omega$ is consistently interpreted it follows that $\Imap{\targetruleone}$ is defined and 
+\begin{equation}
+\label{omegaSubsmapping}
+\Imap{\targetruleone} = I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(r_{\Delta_n})}{I(r_\Omega)}{1})
+\end{equation}
+and thus, by lemma \lref{cascadelemma}, that $I(r_{\Delta_n}) \base \Imap{\targetruleone}$ in \catcw as required by clause (a).
+
+In fact by the same argument and from the fact that by corollary \lref{subrealisationmapstocascade}, \foreachj,  
+the realisation $\tuple{s_1,...s_{j-1}}$ is mapped to a cascade by $I$ and from lemma \lref{towerlemma} that tells us that 
+$r_{\Omega_j}$ is consistently interpreted by $I$ we have that
+$\displaystyle\Imappedrule{\xDelta{n}}{\isT{\Omega_j[\SUBsFORy{j-1}]}}$ is defined and 
+\begin{equation}
+\label{omegajSubsmapping}
+\Imappedrule{\xDelta{n}}{\isT{\Omega_j[\SUBsFORy{j-1}]}} 
+= I(r_{s_{j-1}})^*...I(r_{s_1})^*(\crossx{I(r_{\Delta_j})}{I(r_{\Omega_j})}{1})
+\end{equation}
+We use this fact in a moment in the demonstration that clause (c) is satisfied.
+
+Next, for clause (b), we are required to show that $r_{\Delta_n}$ is consistently interpreted by $I$. 
+This follows from the fact that 
+the rule \gatdisplayrule{\xDelta{n}}{\ofT{s_1}{\Omega_1}}  is consistently interpreted by $I$ 
+and from condition (ii)(b) of definition \lref{consistentinterpretation}.
+
+Finally, for clause (c), assume that $P$ is a context,
+assume $\tuple{\tn}$ is a realisation of $\xDelta{n}$ with respect to $P$ that is mapped to a cascade by $I$, 
+we must show that
+$$\Imappedrule{\xDelta{n}}{\isT{\Omega[\SUBsFORy{m}][\SUBtFORx{n}]}}
+                =I(r_{t_n})^* ... I(r_{t_1})^*\big(\crossx{I(P)}{\Imappedrule{\xDelta{n}}{\isT{\Omega[\SUBsFORy{m}]}}}{1}\big),$$
+where each $r_{t_i}$ is the rule $\ItDelta{i}$.
+By rearrangement of the lhs and by use of (\ref{omegaSubsmapping}) this means that we need to show 
+\begin{multline}
+\label{ctarget}
+\Imappedrule{\xDelta{n}}{\isT{\Omega[s_1[\SUBtFORx{n}]|y_1,... s_m[\SUBtFORx{n}]|y_m]}} \\
+            =I(r_{t_n})^* ... I(r_{t_1})^*\Big(\crossx{I(P)}{ \big( I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(r_{\Delta_n})}{I(r_\Omega)}{1}) \big) }{1}\Big)
+\end{multline}
+
+\newcommand{\IOmegaDoublySubstituted}[1]{\Omega_#1[\SUBsFORy{#1-1}][\SUBtFORx{n}]}
+Now, each $r_{s_j}$ is consistently interpreted by $I$ and $\tuple{\tn}$ is a realisation
+of the context $\xDelta{n}$ with respect to $P$ that is mapped to a cascade by $I$ and therefore using 
+by condition (c) of clause (ii) of definition \lref{consistentinterpretation} we have 
+\begin{multline*}
+\Imappedrule{P}{\ofT{s_j[\SUBtFORx{n}]}{\IOmegaDoublySubstituted{j}}}
+           = I(r_{t_n})^* ... I(r_{t_1})^*\big(\crossx{I(P)}{I(r_{s_j})} {1}\big) \\
+           \in Sect\Big(I(r_{t_n})^* ... I(r_{t_1})^*\Big(\crossx{I(P)}{\Imappedrule{\xDelta{n}}{\isT{\Omega_j[\SUBsFORy{j-1}]}}} {1}\Big)\Big)
+\end{multline*}
+
+and since
+\begin{align*}
+I(r_{t_n})^* ... I(r_{t_1})^*\Big(\crossx{I(P)}{\Imappedrule{\xDelta{n}}{\isT{\Omega_j[\SUBsFORy{j-1}]}}} {1}\Big)\kern-8.5cm\\
+        & = I(r_{t_n})^* ... I(r_{t_1})^*\Big(\crossx{I(P)}{ I(r_{s_{j-1}})^*...I(r_{s_1})^*\big(\crossx{I(Q)}{I(r_{\Omega_j})}{1}\big)} {1}\Big) 
+                                                               &&\mbox{by (\lref{omegajSubsmapping}),}\\
+        & =  \Big(I(r_{t_n})^*...I(r_{t_1})^*(\crossx{I(r_{\Delta_n})}{I(r_{s_{j-1}})}{1})\Big)
+               ^* ... 
+             \Big(I(r_{t_n})^*...I(r_{t_1})^*(\crossx{I(r_{\Delta_n})}{I(r_{s_1})}{1})\Big)
+               ^*\Big(\crossx{I(P)}{I(r_{\Omega_j})}{1}\Big)
+                                                            &&\mbox{by lemma \lref{cascadedpullbackscohere}}
+\end{align*}
+then we have
+\begin{multline*}
+\Imappedrule{P}{\ofT{s_j[\SUBtFORx{n}]}{\IOmegaDoublySubstituted{j}}}
+           = I(r_{t_n})^* ... I(r_{t_1})^*\big(\crossx{I(P)}{I(r_{s_j})} {1}\big) \\
+\in Sect\bigg( \Big(I(r_{t_n})^*...I(r_{t_1})^*(\crossx{I(r_{\Delta_n})}{I(r_{s_{j-1}})}{1})\Big)
+               ^* ... 
+             \Big(I(r_{t_n})^*...I(r_{t_1})^*(\crossx{I(r_{\Delta_n})}{I(r_{s_1})}{1})\Big)
+               ^*\Big(\crossx{I(P)}{I(r_{\Omega_j})}{1}\Big) 
+        \bigg)
+\end{multline*}
+
+and so 
+$\tuple{s_1[\SUBtFORx{n}],...s_m[\SUBtFORx{n}]}$ is a realisation of $\yOmega{m}$ with repect to $P$
+that is mapped to a cascade by $I$
+and we can use the initial assumption that $r_\Omega$ is consistently interpreted by $I$ 
+to establish that
+\begin{multline}
+     \Imappedrule{\xDelta{n}}{\isT{\Omega\big[s_1[\SUBtFORx{n}]|y_1,... s_m[\SUBtFORx{n}]|y_m\big]}} \\
+           =  \Big(I(r_{t_n})^*...I(r_{t_1})^*\big(\crossx{I(P)}{I(r_{s_m})}{1}\big)\Big)
+               ^* ... 
+              \Big(I(r_{t_n})^*...I(r_{t_1})^*\big(\crossx{I(P)}{I(r_{s_1})}{1}\big)\Big)
+               ^*\Big(\crossx{I(P)}{I(r_\Omega)}{1}\Big)
+\end{multline}
+the rhs of which can be rearranged using equation (\lref{cascadedpullbackscohereonobjects}) of lemma \ref{cascadedpullbackscohere}   so as to establish
+equation (\ref{ctarget}) as required to show that condition (c) holds.
+
+\item 
+\newcommand{\targetruletwo}{\gatdisplayrule{\xDelta{n}}{\ofT{s[\SUBsFORy{m}]}{\Omega[\SUBsFORy{m}]}}}
+Now let $r_s$ be the rule \ZsOmega and assume this rule to be consistently interpreted by $I$ as defined
+in clause (ii) of definition \lref{consistentinterpretation}. Condition (b) of the definition tells us that
+\targetruleone must be consistently interpreted by $I$ and therefore in this part (ii) of the proof we can use
+anything or everything established in part (i) of this proof.
+
+We need to show that the rule \ZsOmegaSUBsmFORym is consistently interpreted by $I$ and for this we need show that conditions (a), (b), (c) and (d)
+of clause (ii) of definition \lref{consistentinterpretation} hold for this rule.
+
+To show that condition (a) holds we need show that $I(r_{\Delta_n})$ and $\Imap{\targetruleone}$ are defined, which we have established already in part (i),
+and that $$\Imap{\targetruletwo} \in Sect\big(\Imap{\targetruleone}\big).$$
+This follows from the initial assumption that \ZsOmega is consistently interpreted by $I$ 
+and because we have already established that $\tuple{\sm}$ is a realisation which is mapped to a cascade by $I$
+and from which we can use condition (c) of clause (ii) of lemma \ref{consistentinterpretation} to deduce that
+\begin{multline}
+\label{targetrule2mapping}
+\Imap{\targetruletwo} = I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(r_{\Delta_n})}{I(r_s)}{1})\\
+                      \in Sect\big(\Imap{\targetruleone}\big)
+\end{multline}
+To show that condition (b) holds we have to show that the rule \targetruleone is consistently interpreted by $I$. 
+This is established in part (i) of this proof.
+
+To show that condition (c) holds assume that $P$ is a context and $\tuple{\tn}$ is a realisation as described in part (i) of this proof.
+We need to show that 
+\begin{multline}
+\Imappedrule{\xDelta{n}}{\ofT{s[\SUBsFORy{m}][\SUBtFORx{n}]}{\Omega[\SUBsFORy{m}][\SUBtFORx{n}]}} \\
+                =I(r_{t_n})^* ... I(r_{t_1})^*\big(\crossx{I(P)}{\Imappedrule{\xDelta{n}}{\ofT{s[\SUBsFORy{m}]}{\Omega[\SUBsFORy{m}]}}}{1}\big),
+\end{multline}
+
+which after rearangement of the lhs and use of (\ref{targetrule2mapping}) means that we need to show that
+
+\begin{multline}
+\label{ctargettwo}
+\Imappedrule{\xDelta{n}}{\ofT{s[s_1[\SUBtFORx{n}]|y_1,... s_m[\SUBtFORx{n}]|y_m]}{\Omega[s_1[\SUBtFORx{n}]|y_1,... s_m[\SUBtFORx{n}]|y_m]}}\\
+                =I(r_{t_n})^* ... I(r_{t_1})^*\big(\crossx{I(P)}{I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(r_{\Delta_n})}{I(r_s)}{1})}{1}\big)
+\end{multline}
+Similarly to part (i) of this proof, 
+this follows because $\tuple{s[s_1[\SUBtFORx{n}]|y_1,... s_m[\SUBtFORx{n}]|y_m]}$
+is a realisation which is mapped by $I$ to a cascade,
+from the initial assumption that 
+\ZsOmega is a derived rule which is consistently interpreted by $I$
+and by use of equation (\lref{cascadedpullbackscohereonsections}) of lemma \ref{cascadedpullbackscohere}.
+
+Finally, we need show that condition (d) holds in the case that the expression $s[\SUBsFORy{m}]$ is simply a variable. For this to be the case the
+expression $s$ must be a variable, $y_j$, say, and the expression $s_j$ must be a variable $x_i$, say,  
+so that the expression $s[\SUBsFORy{m}]$ is simply the variable $x_i$. To show that condition (d) holds we need to show that
+$$\Imap{\gatdisplayrule{\xDelta{n}}{\ofT{x_i}{\Omega[\SUBsFORy{m}]}}}=s(p_{r_{\Delta_n},r_{\Delta_i}}).$$
+This is established as follows:
+\begin{align*}
+\Imap{\gatdisplayrule{\xDelta{n}}{\ofT{x_i}{\Omega[\SUBsFORy{m}]}}}\kern-3cm\\
+&=I(r_{s_m})^*...I(r_{s_1})^*\Big(\crossx{I(r_{\Delta_n})}{\Imap{\gatdisplayrule{\yOmega{m}}{\ofT{y_j}{\Omega}}}} {1}  \Big) \kern-1.5cm
+                                                                               && \kern1.5cm \parbox[t]{4.5cm}{by condition (c) of clause (ii) of definition \lref{consistentinterpretation}, }\\
+&=I(r_{s_m})^*...I(r_{s_1})^*\Big(\crossx{I(r_{\Delta_n})} {s(p_{r_{\Omega_m},r_{\Omega_j}})} {1}  \Big) 
+                                                                               && \mbox{because $r_s$ is consistently interpreted by $I$, } \\
+&=I(r_{s_j})                                                                   && \mbox{by lemma \lref{cascadeprojectionlemma}}, \\
+&=s(p_{\Delta_n,\Delta_i})                  && \mbox{because $r_{s_j}$ is  \gatdisplayrule{\xDelta{n}}{\ofT{x_i}{\Omega_j[\SUBsFORy{j-1}]}} }\\
+&                                                                              &&  \mbox{and this is consistently interpreted by $I$.} \\
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}
+\llabel{Ibartowerlemma}
+Suppose $\iI$ is an interpretation of generalised algebraic theory $U$ in contextual category \catc,
+that  $r_\Omega$ is a derived T-rule \ZOmega of  $U$
+and that \foreachj, $r_{\Omega_j}$ is the derived rule
+\IOmega{j},
+if  $\Ibar(r_\Omega)$ is defined then
+$\Ibar(r_{\Omega_j})$ is defined \foreachj, and 
+$1 \base \Ibar(r_{\Omega_1}) \base  ... \base \Ibar(r_{\Omega_m}) \base \Ibar(r_\Omega)$ in \catc.
+\end{lemma}
+\begin{proof}
+It follows from the definition of $\Ibar$ that since $\Ibar(r_\Omega)$ is defined that $\Ibar(r_{\Omega_m})$ is defined and that
+$\Ibar(r_{\Omega_m}) \base \Ibar(r_\Omega)$ in \catc. Now we can repeat and argue that $\Ibar(r_{\Omega_{m-1}})$ is defined and that $\Ibar(r_{\Omega_{m-1}}) \base \Ibar(r_{\Omega_m})$
+in \catc. By induction $\Ibar(r_{\Omega_1}) \base  ... \base \Ibar(r_{\Omega_m}) \base \Ibar(r_\Omega)$ in \catc, as required. 
+That $1 \base \Ibar(r_{\Omega_1})$ follows because $\Ibar$ is defined to map the empty context to the object $1$.
+\end{proof}
+
+
+\begin{lemma}
+\llabel{uniquenesssublemma}
+If $I$ and $I'$ are instances of a generalised algebraic theory $U$ in a contextual category \catcw and if \gatdisplayrule{P}{\ofT{t}{\Delta}}
+is a derived rule of $U$ such that $\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta}}}=\Ipmap{\gatdisplayrule{P}{\ofT{t}{\Delta}}}$
+then
+\begin{enumerate}[(i)]
+\item
+$\Imap{\gatdisplayrule{P}{\isT{\Delta}}}=\Ipmap{\gatdisplayrule{P}{\isT{\Delta}}}$
+\item
+$I(P)=I'(P)$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}[(i)]
+\item
+The rule \gatdisplayrule{P}{\ofT{t}{\Delta}} is a derived rule of $U$ and so 
+it is consistently interpreted by $I$ since $I$ is an instance and therefore 
+$\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta}}} \in Sect \big(\Imap{\gatdisplayrule{P}{\isT{\Delta}}})$ by condition (a) of clause (ii) of definition \lref{consistentinterpretation}.
+Likewise it follows that $\Ipmap{\gatdisplayrule{P}{\ofT{t}{\Delta}}} \in Sect \big(\Ipmap{\gatdisplayrule{P}{\isT{\Delta}}})$.
+But $\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta}}} = \Ipmap{\gatdisplayrule{P}{\ofT{t}{\Delta}}}$ and therefore
+$Sect \big(\Imap{\gatdisplayrule{P}{\isT{\Delta}}})=Sect \big(\Ipmap{\gatdisplayrule{P}{\isT{\Delta}}})$
+and therefore $\Imap{\gatdisplayrule{P}{\isT{\Delta}}}=\Ipmap{\gatdisplayrule{P}{\isT{\Delta}}}$.
+\item
+The rule \gatdisplayrule{P}{\isT{\Delta}} is a derived rule of $U$ and so 
+it is consistently interpreted by $I$ since $I$ is an instance and therefore 
+$I(P) \base \Imap{\gatdisplayrule{P}{\isT{\Delta}}}$ in \catcw by condition (a) of clause (i) of definition \lref{consistentinterpretation} . 
+Likewise it follows that  $I'(P) \base \Ipmap{\gatdisplayrule{P}{\isT{\Delta}}}$ in \catc. 
+But $\Imap{\gatdisplayrule{P}{\isT{\Delta}}} = \Ipmap{\gatdisplayrule{P}{\isT{\Delta}}}$ and therefore $I(P)=I'(P)$. 
+\end{enumerate}
+\end{proof}
+\begin{lemma} 
+\llabel{uniquenessofinstancedeterminedbyaninterpretation}
+If $\iI$ is an interpretation of generalised algebraic theory $U$ in contextual catgeory \catcw that determines instances $I$ and $I'$ of $U$ then
+$I=I'$. 
+\end{lemma}
+\begin{proof}
+We show that for all derived  T- and $\in$-rules of $U$, $I(r)=I'(r)$.  
+The proof proceeds by induction on the derivation of $r$. 
+We need only consider principles T1, CF1, CF2(a) and CF2(b), for these are the only principles by which  T-rules and $\in$-rules may be derived.\\
+\underline{T1}
+By this principle from \gatdisplayrule{P}{\Delta=\Delta'} and \gatdisplayrule{P}{\ofT{t}{\Delta}} we can derive \gatdisplayrule[.]{P}{\ofT{t}{\Delta'}}
+Assume the inductive hypothesis that $\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta}}} = \Ipmap{\gatdisplayrule{P}{\ofT{t}{\Delta}}}$.
+We need show that $\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}} = \Ipmap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}}$.
+This follows because from the definition of instance we have that $\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta}}} = \Imap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}}$
+and $\Ipmap{\gatdisplayrule{P}{\ofT{t}{\Delta}}} = \Ipmap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}}$.
+\\
+
+\underline{CF1} According to this principle, 
+whenever a rule of the form \gatdisplayrule{\xDelta{n}}{\isT{\Delta_{n+1}}} is a derived rule of $U$ for some $n \geq 0$
+then so to is the rule \gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}}, \foreachi[n+1], where $x_{n+1}$ is any variable distinct from each of the variables $\xn$. For each $i$, $1 \leq i \leq n+1$, let $r_{\Delta_i}$ be the rule \IDelta{i}. Assume the inductive hypothesis that
+$I(r_{\Delta_{n+1}})=I'(r_{\Delta_{n+1}})$. Because $I$ and $I'$ are instances they both consistently interpret the rule $r_{\Delta_{n+1}}$
+and so it follows by lemma \lref{towerlemma} that
+$I(r_{\Delta_i})=I'(r_{\Delta_i})$, \foreachi. Now, since \gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}} is a derived rule
+of $U$ and is therefore consistently interpreted by both $I$ and $I'$
+it follows by condition (d) of clause (ii) of defintion \lref{consistentinterpretation} that
+$
+\Imap{\gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}}}
+=s(p_{I(r_{\Delta_{n+1}}),I(r_{\Delta_{i}})})
+=s(p_{I'(r_{\Delta_{n+1}}),I'(r_{\Delta_{i}})})
+=\Ipmap{\gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}}}
+$, as required.
+
+\underline{CF2(a)}\ By this principle, from a sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule[,]{\xDelta{n}}{\isT{A(\xn)}} for  $n \geq 0$, 
+if the rule \gatdisplayrule[,]{\xDelta{n-1}}{\isT{\Delta_n}} is a derived rule of $U$,
+if $P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
+and from derived rules $r_{t_i}$ of the form \ItDelta[P]{i}, \foreachi, we may deduce
+the rule \gatdisplayrule{P}{\isT{A(t_1,...t_n)}}, which we shall denote by $r$, is a derived rule of $U$. 
+Because by lemma \lref{everyintroruleisderived} the introductory rule for $A$ is a derived rule of $U$  and is therefore consistently interpreted by $I$
+since $I$ is an instance, and since  each rule $r_{t_i}$ is consistently interpreted by $I$ we have by lemma \lref{realisationmapstocascade}
+that $\tuple{\tn}$ is mapped to a cascade by $I$ and hence by \condition{i}{c}
+$I(r_{t_n})^* ... I(r_{t_1})^*\big(\crossx{I(P)}{I(r_A)}{1}\big)$, where $r_A$ is the introductory rule for $A$.
+Similarly $r$ is mapped by $I'$ to
+$I'(t_n)^* ... I'(t_1)^*\big(\crossx{I'(P)}{I'(r_A)}{1}\big)$.
+By the inductive hypothesis we have both that $I(r_{t_i})=I'(r_{t_i})$, for each $i$, and that $I(P)=I'(P)$,  and 
+because both $I$ and $I'$ are instances which extend interpretation $\iI$
+we have that $I(r_A)=\iI(f)=I'(r_A)$. Therefore $I(r)=I'(r)$.
+\\
+
+\underline{CF2(b)}\ By this principle, from a operator symbol $f$ with introductory rule $r_f$ of the form \gatdisplayrule[,]{\xDelta{n}}{\ofT{f(\xn)}{\Delta}} for some $n \geq 0$, if the rule \gatdisplayrule[,]{\xDelta{n}}{\isT{\Delta}} is a derived rule of $U$,
+if $P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
+and from derived rules $r_{t_i}$ of the form \ItDelta[P]{i}, \foreachi, we may deduce
+the rule \gatdisplayrule{P}{\ofT{f(t_1,...t_n)}{\Delta[\SUBtFORx{n}]}}, which we shall denote by $r_t$, is a derived rule of $U$. 
+Because by lemma \lref{everyintroruleisderived}the introductory rule for $f$ is a derived rule of $U$ and therefore consistently interpreted by $I$
+since $I$ is an instance, and because, as above,  $\tuple{\tn}$ is mapped to a cascade by $I$,
+by condition (c) of clause (ii) of definition \lref{consistentinterpretation} the rule $r_t$ is mapped  by $I$ to
+$I(r_{t_n})^* ... I(r_{t_1})^*\big(\crossx{I(P)}{I(r_f)}{1}\big)$, where $r_f$ is the introductory rule for $f$.
+Similarly $r_t$ is mapped by $I'$ to
+$I'(t_n)^* ... I'(t_1)^*\big(\crossx{I'(P)}{I'(r_f)}{1}\big)$.
+By the inductive hypothesis we have both that $I(r_{t_i})=I'(r_{t_i})$, for each $i$, and that $I(P)=I'(P)$,  and 
+because both $I$ and $I'$ are instances which extend interpretation $\iI$
+we have that $I(r_f)=\iI(f)=I'(r_f)$. Therefore $I(r_t)=I'(r_t)$.
+\end{proof}
+
+\begin{definition}
+We will say that a partial mapping I  
+of derived T-rules and $\in$-rules of the theory $U$ to objects, respectively sections of the contextual category \catcw
+is \term{type independent} on   $\in$-rules iff whenever
+\gatdisplayrule{P}{\ofT{t}{\Delta}} and \gatdisplayrule{P}{\ofT{t}{\Delta'}} are derived rules of $U$ then 
+$\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta}}}=\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}}$.
+\end{definition}
+
+\begin{lemma}
+\llabel{T1preservesconsistentinterpretation}
+If $I$ is a partial mapping that is type independent on $\in$-rules,
+if \gatdisplayrule{P}{\Delta=\Delta'} and \gatdisplayrule{P}{\ofT{t}{\Delta}} are derived rules of $U$ 
+which are consistently interpreted by $I$ then the rule \gatdisplayrule{P}{\ofT{t}{\Delta'}}
+is a derived rule of $U$ and is consistently interpreted by $I$.
+\end{lemma}
+\begin{proof}
+That the rule \gatdisplayrule{P}{\ofT{t}{\Delta'}} is derived follows by application of principle T1 to the given derived rules.
+
+Now, because \gatdisplayrule{P}{\Delta=\Delta'} is consistently interpreted by $I$ we know by \clause{iii} that
+\begin{equation}
+\label{T1lemmaEq1}
+\Imap{\gatdisplayrule{P}{\isT{\Delta}}} = \Imap{\gatdisplayrule{P}{\isT{\Delta'}}}.
+\end{equation}
+Because \gatdisplayrule{P}{\ofT{t}{\Delta}} is consistently interpreted by $I$ we know by \condition {ii}{b} that
+\begin{equation}
+\label{T1lemmaEq2}
+\gatdisplayrule{P}{\ofT{t}{\Delta}} \in Sect(\Imap{\gatdisplayrule{P}{\isT{\Delta}}}).
+\end{equation}
+Because $I$ is type independent on $\in$-rules we know, by defintion,  that
+\begin{equation}
+\label{T1lemmaEq3}
+\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta}}} = \Imap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}}.
+\end{equation}
+
+We have to show that conditions (a), (b), (c) and (d) of \clause{ii} hold. We have to show
+\begin{enumerate}[(a)]
+\item $\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}}$ is defined
+and that $\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}} \in Sect(\Imap{\gatdisplayrule{P}{\isT{\Delta'}}})$.
+That  $\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}}$ is defined follows because
+$I$ is type independent on $\in$-rules.
+ That $\Imap{\gatdisplayrule{P}{\ofT{t}{\Delta'}}} \in Sect(\Imap{\gatdisplayrule{P}{\isT{\Delta'}}})$
+  follows from (\ref{T1lemmaEq1}), (\ref{T1lemmaEq2}) and (\ref{T1lemmaEq3}).\\
+\item
+\gatdisplayrule{P}{\isT{\Delta'}} is consistently interpreted by $I$. This  follows from clause (iii) of
+definition \lref{consistentinterpretation} because \gatdisplayrule{P}{\Delta=\Delta'} is consistently interpreted by $I$.
+
+\item
+That for certain appropriate realisations $\tuple{\sm}$,
+$$ \Imappedrule{Q}{\ofT{t[\SUBsFORy{m}]}{\Delta'[\SUBsFORy{m}]}} = I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_{t\Delta'})}{1}),$$
+where  $r_{t\Delta'}$ is \gatdisplayrule{P}{\ofT{t}{\Delta'}}.
+This follows because under these same conditions we know that
+$$ \Imappedrule{Q}{\ofT{t[\SUBsFORy{m}]}{\Delta[\SUBsFORy{m}]}} = I(r_{s_m})^*...I(r_{s_1})^*(\crossx{I(Q)}{I(r_{t\Delta})}{1})$$
+where  $r_{t\Delta}$ is \gatdisplayrule{P}{\ofT{t}{\Delta}},
+and because both $I(r_{t\Delta})=I(r_{t\Delta'})$ and 
+$$\Imappedrule{Q}{\ofT{t[\SUBsFORy{m}]}{\Delta'[\SUBsFORy{m}]}} = \Imappedrule{Q}{\ofT{t[\SUBsFORy{m}]}{\Delta'[\SUBsFORy{m}]}}$$
+because $I$ is type independent on $\in$-rules.
+\item
+In the case that $t$ is a variable $y_j$ then
+$$I(r_{t_\Delta'})=s(p_{r_{\Omega_m},r_{\Omega_j}}).$$ This too follows because $I$ is type independent on $\in$-rules.
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}
+\llabel{Ibarintro1}
+Suppose that $\iI$ is an interpretation of $U$  and that $\iI$ is valid  then 
+\begin{enumerate}[(a)]
+\item for every sort symbol $A$ of $U$ with introductory rule $r_A$ of the form \gatdisplayrule[,]{\xDelta{n}}{\isT{A(\xn)}} for some $n \geq 0$,
+$\Ibar(r_A)$ is defined and $\Ibar(r_A)=\iI_{sort}(A)$,
+\item for every operator symbol $f$ of $U$ with introductory rule $r_f$ of the form \gatdisplayrule[,]{\xDelta{n}}{\ofT{f(\xn)}{\Delta}} for some $n \geq 0$,
+$\Ibar(r_f)$ is defined $\Ibar(r_f)=\iI_{op}(f)$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}[(i)]
+\item
+Assume $A$ is such a sort symbol of theory $U$.
+For each $i$, $1 \leq i \leq n$, let $r_{x_i}$ be the rule \gatdisplayrule{\xDelta{n}}{\ofT{x_i}{\Delta_i}} and let $r_{\Delta_i}$ by the rule \IDelta{i}.
+From the assumption that $\iI$ is valid, and from what it means for an interpretation to be valid, it follows that  $\Ibar(r_A)$ is defined.
+
+From the definition of $\Ibar$ it follows therefore that $\Ibar(r_{x_i})$ is defined, \foreachi, and we have
+\begin{align*}
+\Ibar(r_A)
+   &=\Ibar(r_{x_i})^*...\Ibar(r_{x_i})^*\big(\crossx{\Ibar(r_{\Delta_n})}{\iI_{sort}(A)}{1}\big)
+   &&\mbox{ by clause (i) of the definition of $\Ibar$,}\\
+   &=s(p_{\Ibar(r_{\Delta_n}),\Ibar(r_{\Delta_n})})^*...s(p_{\Ibar(r_{\Delta_n}),\Ibar(r_{\Delta_1})})^*\big(\crossx{\Ibar(r_{\Delta_n})}{\iI_{sort}(A)}{1}\big)
+   &&\mbox{by clause (ii) of the definition of $\Ibar$,} \\
+   &={p_{\Ibar(r_{\Delta_n}),\Ibar(r_{\Delta_n})}}^* \iI_{sort}(A)
+   &&\mbox{by identity (a) of lemma \lref{sofpsubstitutionlemma}, } \\
+   &={id_{\Ibar(r_{\Delta_n})}}^* \iI_{sort}(A)
+   &&\mbox{by definition of $p_{\Ibar(r_{\Delta_n}),\Ibar(r_{\Delta_n})}$, } \\
+   &=\iI_{sort}(A)
+   &&\mbox{by (q3), as required.}
+\end{align*} 
+\item For an operator symbol $f$ the proof is similar to the above, but in this case using clause (b) of lemma \lref{sofpsubstitutionlemma}.
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}
+\llabel{Ibarconsistentonintros}
+Suppose that $\iI$ is an interpretation of $U$  and that $\iI$ is valid  then 
+\begin{enumerate}[(i)]
+\item for every sort symbol $A$ of $U$ with introductory rule $r_A$ of the form \gatdisplayrule[,]{\xDelta{n}}{\isT{A(\xn)}} for some $n \geq 0$,
+if the rule $r_{\Delta_n}$ is consistently interpreted by $\Ibar$ then the rule $r_A$ is consistently interpreted by $\Ibar$,
+\item for every operator symbol $f$ of $U$ with introductory rule $r_f$ of the form \gatdisplayrule[,]{\xDelta{n}}{\ofT{f(\xn)}{\Delta}} for some $n \geq 0$,
+if the rule $r_{\Delta}$ is consistently interpreted by $\Ibar$ then the rule $r_f$ is consistently interpreted by $\Ibar$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}[(i) ]
+    \item We have to show that conditions (a), (b) and (c) of \clause{i} hold.
+    \begin{enumerate}[(a)]
+        \item We need show that $\Ibar(r_A)$ is defined and that $\Ibar(r_{\Delta_n})$ is defined and that $\Ibar(r_{\Delta_n}) \base \Ibar(r_A)$ in \catc.
+        That $\Ibar(r_A)$ is defined is shown in lemma \lref{Ibarintro1}. That $\Ibar(r_{\Delta_n}) \base \Ibar(r_A)$ in \catcw follows from 
+        the fact that $\Ibar(r_A)$ is defined and from the implication that precondition (b) of clause (i) of the definition of $\Ibar$ must therefore be met.
+        \item We need show that $r_{\Delta_n}$ is consistently interpreted by $\Ibar$. This we have as an assumption.
+        \item we need show that for all contexts $Q$ and for any realisation $\tuple{s_1,...s_n}$ of $\xDelta{n}$ wrt $Q$
+        which is mapped to a cascade by $\Ibar$,
+        $$\ibarmappedrule{Q}{A(s_1,...s_n)}=I(r_{s_n})^*I(r_{s_1})^*\big(\crossx{I(Q)}{I(r_A)}{1}\big)$$
+        where $r_{s_i}$, \foreachi, is the rule \gatdisplayrule{Q}{\ofT{s_i}{\Delta_i[s_{i-1}|x_{i-1},...s_1|x_1]}}.
+        This follows from the definition of $\Ibar$ provided that we can show that the preconditions (a), (b) and (c). 
+        We can do this as follows.
+        \begin{enumerate}[(a)]
+            \item That $\Ibar$ is defined at the context $Q$ follows from the definition of realisation $\sntuple$ being mapped to a cascade.
+            \item That \foreachi, the rule $\IDelta{i}$, which we denote $r_{\Delta_i}$, is mapped by $\Ibar$ to some object $\Ibar(r_{\Delta_i})$ of \catcw
+            and $1 \base \Ibar(r_{\Delta_1}),...\Ibar(r_{\Delta_n}) \base \iI_{sort}(A)$ in \catcw. 
+            This follows from the definition of $\Ibar$ because we have shown that $\Ibar(r_a)$ is defined
+            and that $\Ibar(r_A)= \iI_{sort}(A)$. 
+           \item That $\tuple{s_1,...s_n}$ is mapped to a cascade by $\Ibar$. This is one of the assumptions.
+        \end{enumerate}
+    \end{enumerate}
+    \item Very similar to the above.
+\end{enumerate}
+\end{proof}
+
+
+Now for the main lemma:
+\begin{lemma}
+\llabel{avalidinterpretationisaninstance}
+Suppose that $\iI$ is an interpretation of $U$  and that $\iI$ is valid  then $\Ibar$ is an instance determined by $\iI$.
+\end{lemma}
+\begin{proof} 
+\newcommand {\forceSOURCEwidth}{\rule{5cm}{0pt}}  % so as to line up three different arrays
+\newcommand {\forceTARGETwidth}{\rule{2.2cm}{0pt}}
+First note that by examining clause (ii) of the definition of $\Ibar$ we can see that $\Ibar$ is  type independent 
+on $\in$-rules. 
+
+We need to show that for every derived rule $r$ of $U$, $\Ibar(r)$ is defined and $r$ 
+is consistently interpreted\footnote{The reason that we have defined
+\textit{consistently interpreted} for partial mappings of rules and not just for total mappings is because  here -- at the point that we use the definition -- we have not yet proved $\Ibar$ to be total.} by $\Ibar$. 
+We prove this by induction on the derivation of rules in $U$. We examine each of the principles of derivation in turn
+and show that from rules for which $\Ibar$ is defined and which are consistently interpreted by $\Ibar$ 
+it is only possible to derive rules for which $\Ibar$ is defined and which themselves are consistently interpreted by $\Ibar$.
+The principles of derivation (see \cite{Cartmell86}) are LI1, ... LI7, T1, CF1, CF2(a) and CF2(b), SI1 and SI2. 
+The proof of this  in each the cases  LI1,...LI6 is quite trivial. We consider each of the remaining principles in turn. 
+ \\
+\underline{LI7} 
+By this principle from \gatdisplayrule{P}{t_1 = t_2 \in \Delta_1} and \gatdisplayrule{P}{\Delta_1=\Delta_2} derive
+\gatdisplayrule{P}{t_1 = t_2 \in \Delta_2}. 
+Assume the inductive hypothesis that \gatdisplayrule{P}{t_1 = t_2 \in \Delta_1} is consistently interpreted by $\iI$,
+so that
+\gatdisplayrule{P}{\ofT{t_1}{\Delta_1}} and
+\gatdisplayrule{P}{\ofT{t_2}{\Delta_1}} are consistently interpreted by $\Ibar$
+and  
+\begin{equation}
+\label{LI7t1t2delta1}
+\ibarmappedrule{P}{\ofT{t_1}{\Delta_1}}=\ibarmappedrule{P}{\ofT{t_2}{\Delta_1}}
+\end{equation}
+and that \gatdisplayrule{P}{\Delta_1=\Delta_2} is consistently interpreted by $\Ibar$.
+
+To show that the conclusion, \gatdisplayrule{P}{t_1 = t_2 \in \Delta_2}, is consistently interpreted by $\Ibar$ we need show that the derived rules 
+\gatdisplayrule{P}{\ofT{t_1}{\Delta_2}} and
+\gatdisplayrule{P}{\ofT{t_2}{\Delta_2}} are consistently interpreted by $\Ibar$
+and that 
+\begin{equation}
+\label{LI7t1t2delta2}
+\ibarmappedrule{P}{\ofT{t_1}{\Delta_2}}=\ibarmappedrule{P}{\ofT{t_2}{\Delta_2}}.
+\end{equation}
+ 
+That  \gatdisplayrule{P}{\ofT{t_1}{\Delta_2}}  is consistently interpreted by $\Ibar$ follows 
+from the fact that \gatdisplayrule{P}{\ofT{t_1}{\Delta_1}}  and \gatdisplayrule{P}{\Delta_1=\Delta_2} 
+are consistently interpreted by $\Ibar$ by lemma \lref{T1preservesconsistentinterpretation}.
+That \gatdisplayrule{P}{\ofT{t_2}{\Delta_2}}   is consistently interpreted by $\Ibar$ follows in the same way.
+
+Equation (\ref{LI7t1t2delta2}) follows from (\ref{LI7t1t2delta1}) from the earlier observation that $\Ibar$ is type independent on $\in$-rules. \\
+\underline{T1}
+By this principle from \gatdisplayrule{P}{\Delta=\Delta'} and \gatdisplayrule{P}{\ofT{t}{\Delta}} we can derive \gatdisplayrule[.]{P}{\ofT{t}{\Delta'}}
+By the inductive hypothesis we assume that the rules   \gatdisplayrule{P}{\Delta=\Delta'} and \gatdisplayrule{P}{\ofT{t}{\Delta}} are
+consistently interpreted by $\Ibar$. We have to show that the rule \gatdisplayrule[.]{P}{\ofT{t}{\Delta'}} is consistently interpreted by $\Ibar$.
+This is proven in lemma \lref{T1preservesconsistentinterpretation}. \\
+%
+%
+\underline{CF1} According to the principle, 
+whenever a rule of the form \gatdisplayrule{\xDelta{n}}{\isT{\Delta_{n+1}}} is a derived rule of $U$ 
+then so to is the rule \gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}}, \foreachi[n+1], 
+where $x_{n+1}$ is any variable distinct from each of the variables $\xn$.
+Let $r_{x_i}$ be the rule \gatdisplayrule{\xDelta{n+1}}{\ofT{x_i}{\Delta_{i}}}.
+We have to show that if $\Ibar$ is defined for and consistently interprets any such derived T-rule
+\gatdisplayrule{\xDelta{n}}{\isT{\Delta_{n+1}}}, 
+which we will denote, $r_{\Delta_{n+1}}$, 
+then so to is $\Ibar$ defined for and consistently interprets each associated rule $r_{x_i}$. 
+Since $\Ibar$ is defined for $r_{\Delta_{n+1}}$ it follows by lemma \lref{Ibartowerlemma} that 
+$\Ibar(r_{\Delta_i})$ is defined \foreachi[n+1], where $r_{\Delta_i}$ is the rule \gatdisplayrule{\xDelta{i-1}}{\isT{\Delta_{i}}}.
+Denote by $a_i$ the object  $\Ibar(r_{\Delta_i})$ \foreachi[n+1]. By lemma \lref{Ibartowerlemma}
+it follows that $1 \base a_1 ... \base a_n \base a_{n+1}$ in \catc.  
+It suffices to show show that \foreachi[n+1],
+if it is the case that $\Ibar$ is defined at and consistently interprets every rule $r_{x_j}$ all $j <i$ 
+then it follows that $\Ibar$ is defined at and consistently interprets the rule $r_{x_i}$. 
+
+So, suppose such an $i$ and suppose that for each $j$, $j < i$, 
+that $\Ibar$ is defined for and consistently interprets the rule $r_{x_j}$. 
+We shall now show that it follows that 
+$\Ibar$ is defined at the rule $r_{x_i}$ and that this rule is consistently interpreted by $\Ibar$ by showing that
+$\Ibar(r_{x_i})=s(p_{a_{n+1},a_i})$. 
+
+%Denote the former rule $r_{\Delta_{n+1}}$ and the latter rule $r_{x_i}$. 
+First we have to show that the preconditions for $\Ibar$ to be defined at the rule $r_{x_i}$ hold. These are:
+
+\begin{enumerate}
+\item The first precondition is that \foreachi[n+1], the context $\xDelta{i}$ is mapped by $\Ibar$ to some object $a_i$ of \catcw such
+that $1 \base a_1,...\base a_i$. We have established this above. 
+
+\item The second precondition is that the rule \DDelta{n+1}{i} be mapped by $\Ibar$ to the object $\crossx{a_{n+1}}{a_i}{a_{i-1}}$.
+
+This we can show as follows.
+\newcommand{\deltaimapped}{\crossx{a_{n+1}}{a_i}{a_{i-1}}}
+\newcommand{\deltaimappedlong}{s(p_{a_{n+1},a_{i-1}})^*...s(p_{a_{n+1},a_1})^*(\crossx{a_{n+1}}{a_i}{1})}
+Let $r_{\Delta_i}$ be the rule \IDelta{i}.
+
+
+Because $\Ibar(r_{\Delta_i}) = a_i$,
+because  we have that
+$\tuple{x_1,...x_{i-1}}$ is a realisation of context $\xDelta{i-1}$ with respect to context $\xDelta{n+1}$ 
+and since we have assumed for each $j<i$ that $\Ibar$ is defined at and consistently interprets $r_{x_j}$  and in particular
+that
+\begin{equation*}
+\begin{array}{c c c }
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\gatdisplayrule{\xDelta{n+1}}{\ofT{x_j}{\Delta_j}}  & \Imapsto & s(p_{a_{n+1},a_j}) \\ [0.4cm]
+\end{array}
+\end{equation*}
+and since we have assumed that $r_{\Delta_i}$ is consistently interpreted by $\Ibar$ and in particular that clause (ii)(b) of the definition of consistently interpreted holds
+then we have that
+\begin{equation*}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\gatdisplayrule{\xDelta{n+1}}{\isT{\Delta_i[x_1|x_1,...x_{i-1}|x_{i-1}]}}  & \Imapsto & \deltaimappedlong \\ [0.4cm]
+\end{array}
+\end{equation*}
+i.e.
+\begin{equation*}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\DDelta{n+1}{i}  & \Imapsto & \deltaimappedlong.\\ [0.4cm]
+\end{array}
+\end{equation*}
+but
+\begin{equation*}
+\deltaimappedlong = \deltaimapped
+\end{equation*}  
+ by lemma \lref{sofpsubstitutionlemma}.
+ Therefore \begin{equation*}
+\begin{array}{c c c}
+\forceSOURCEwidth & & \forceTARGETwidth \\ [-0.1cm]
+\DDelta{n+1}{i}  & \Imapsto & \deltaimapped\\ [0.4cm]
+\end{array}
+\end{equation*}
+as required for this precondition.
+\end{enumerate}
+Since we have shown the preconditions hold then it follows from the definition of $\Ibar$ that 
+ $\Ibar(r_{x_i})=s(p_{a_{n+1},a_i}) \in Sect(\crossx{a_{n+1}}{a_i}{a_{i-1}})$.
+
+In fact, along the way in this proof that $\Ibar$ is defined at the rule $r_{x_i}$ we have shown that each of the required conditions 
+ (a), (b) and (d) of clause (ii) of definition \lref{consistentinterpretation} holds. This establishes, as required,
+that the rule  $r_{x_i}$ is consistently interpreted by $\Ibar$. \\
+\underline{CF2(a)}\ By this principle, from a sort symbol $A$ with introductory rule $r_A$ of the form \gatdisplayrule[,]{\xDelta{n}}{\isT{A(\xn)}} for some $n \geq 0$, if the rule \gatdisplayrule[,]{\xDelta{n-1}}{\isT{\Delta_n}} is a derived rule of $U$,
+if $P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
+and from derived rules $r_{t_i}$ of the form \ItDelta[P]{i}, \foreachi, we may deduce
+the rule \gatdisplayrule{P}{\isT{A(t_1,...t_n)}}, which we shall denote by $r$, is a derived rule of $U$. \\
+
+Assume as the inductive hypotheses that the rule $r_P$ is consistently interpreted by $\Ibar$ and that 
+$\Ibar(r_{t_i})$ is defined \foreachi and that each $r_{t_i}$ is consistently
+interpreted by $\Ibar$.
+Now, by lemma \lref{Ibarconsistentonintros} the introductory rule for $A$ is consistently interpreted by $\Ibar$
+and so we can use lemma \lref{substitutioninterpretationlemma}
+to establish that the rule \gatdisplayrule{P}{\isT{A(t_1,...t_n)}} is consistently interpreted by $\Ibar$, as required. \\
+\underline{CF2(b)}\ By this principle, from a operator symbol $f$ with introductory rule $r_f$ of the form \gatdisplayrule[,]{\xDelta{n}}{\ofT{f(\xn)}{\Delta}} for some $n \geq 0$, if the rule \gatdisplayrule[,]{\xDelta{n}}{\isT{\Delta}} is a derived rule of $U$,
+if $P$ is a context and if in particular the rule $r_P$ asserting that $P$ is a context is a derived rule of $U$
+and from derived rules $r_{t_i}$ of the form \ItDelta[P]{i}, \foreachi, we may deduce
+the rule \gatdisplayrule{P}{\ofT{f(t_1,...t_n)}{\Delta[\SUBtFORx{n}]}}, which we shall denote by $r$, is a derived rule of $U$. 
+
+Assume as the inductive hypotheses  that the rule $r_P$ is consistently interpreted by $\Ibar$ and that 
+the rule \gatdisplayrule{\xDelta{n}}{\isT{\Delta}} is consistently interpreted by $\Ibar$
+and that $\Ibar(r_{t_i})$ is defined \foreachi and that each $r_{t_i}$ is consistently
+interpreted by $\Ibar$.
+With these assumptions we can use lemma \lref{Ibarconsistentonintros} to establish that the introductory rule for $f$ is consistently interpreted by $\Ibar$.
+Next we can use lemma \lref{substitutioninterpretationlemma}
+to establish that the rule \gatdisplayrule{P}{\ofT{f(t_1,...t_n)}{\Delta[\SUBtFORx{n}]}} is consistently interpreted by $\Ibar$, as required. \\
+%
+\underline{SI1} 
+\newcommand{\SIonesourcelhs}{\gatdisplayrule{\yOmega{m}}{\isT{\Omega}}}
+\newcommand{\SIonesourcerhs}{\gatdisplayrule{\yOmega{m}}{\isT{\Omega'}}}
+\newcommand{\SIoneconclusion}{\gatdisplayrule{Q}{\Omega[\SUBsFORy{m}]=\Omega'[\SUBspFORy{m}]}}
+\newcommand{\SIoneconclusionlhs}{\ZOmegaSUBsmFORym}
+\newcommand{\SIoneconclusionrhs}{\gatdisplayrule{Q}{\isT{\Omega'[\SUBspFORy{m}]}}}
+
+This principle states that if \gatdisplayrule{\yOmega{m}}{\Omega=\Omega'} is a derived rule, if $Q$ is a context and if  $\sm$ and $\smp$ are expressions such that \foreachj, \gatdisplayrule{Q}{s_j=s'_j \in \Omega[\SUBsFORy{j-1}]} is a derived rule then we may derive the rule \SIoneconclusion. 
+
+We have to show that the rule \SIoneconclusion is consistently intepreted by $\Ibar$
+from the inductive hypothesis  that the rule \gatdisplayrule{\yOmega{m}}{\Omega=\Omega'}
+and for $1 \leq j \leq m$ the rules \gatdisplayrule{Q}{s_j=s'_j \in \Omega[\SUBsFORy{j-1}]},  are consistently intepreted by $\Ibar$.
+
+To show that \SIoneconclusion is consistently interpreted by $\Ibar$
+we have to show that each of the rules \SIoneconclusionlhs and \SIoneconclusionrhs
+are consistently interpreted by $\Ibar$ and that
+\begin{equation}
+\label{SI1inductivetarget2}
+\ibarmappedrule{Q}{\isT{\Omega[\SUBsFORy{m}]}} = \ibarmappedrule{Q}{\isT{\Omega'[\SUBspFORy{m}]}}.
+\end{equation}
+
+From the  inductive hypothesis  and from clauses (iii) and (iv) of definition \lref{consistentinterpretation} it follows that
+each of the rules
+\SIonesourcelhs
+and
+\SIonesourcerhs
+and each of the rules
+\IsOmega{j}
+and
+\gatdisplayrule[,]{Q}{\ofT{s'_j}{\Omega_j[\SUBspFORy{j-1}]}}
+\wherej, are consistently intepreted by $\Ibar$. 
+Therefore from lemma \lref{substitutioninterpretationlemma} it follows that
+ the rules \SIoneconclusionlhs and \SIoneconclusionrhs
+are consistently interpreted by $\Ibar$, as required.
+
+Finally we are required to show  (\ref{SI1inductivetarget2}).
+Now further to what we have said above, note that from the assumptions in the inductive hypothesis 
+and from clauses (iii) and (iv) of definition \lref{consistentinterpretation} we know that
+\begin{equation}
+\label{SI1inductiveequation1}
+\Ibar(r_\Omega)=\Ibar(r_{\Omega'})
+\end{equation}
+
+where $r_\Omega$ is the rule \SIonesourcelhs and $r_{\Omega'}$ is the rule \SIonesourcerhs
+and that, \foreachj,
+\begin{equation}
+\label{SI1inductiveequation2}
+\Ibar(r_{s_j})=\Ibar(r_{s'_j})
+\end{equation}
+where  $r_{s_j}$ is the rule \gatdisplayrule{Q}{\ofT{s_j}{\Omega_j[\SUBsFORy{j-1}]}}
+and $r_{s'_j}$ is the rule \gatdisplayrule{Q}{\ofT{s'_j}{\Omega_j[\SUBspFORy{j-1}]}}, \foreachj.
+This means that (\ref{SI1inductivetarget2}) can be shown as follows:
+\begin{align*}
+\ibarmappedrule{Q}{\isT{\Omega[\SUBsFORy{m}]}} 
+    &=\Ibar(r_{s_m})^* ... \Ibar(r_{s_1})^*\big( \crossx{\Ibar(Q)}{\Ibar(r_\Omega)}{1} \big)
+    &&\mbox{ because $r_\Omega$ consistently interpreted by $\Ibar$,} \\
+    &=\Ibar(r_{s'_m})^* ... \Ibar(r_{s'_1})^*\big( \crossx{\Ibar(Q)}{\Ibar(r_{\Omega'})}{1} \big)
+    &&\mbox{ by (\ref{SI1inductiveequation1}) and (\ref{SI1inductiveequation2}),} \\
+    &=\ibarmappedrule{Q}{\isT{\Omega'[\SUBspFORy{m}]}}
+%    &&\parbox[t]{5.5cm}{ as required, because $r_{\Omega'}$ is consistently interpreted by $\Ibar$.}
+    &&\mbox{ because $r_\Omega'$ consistently interpreted by $\Ibar$.} 
+\end{align*}
+\newpage
+\underline{SI2} 
+\newcommand{\SItwosourcelhs}{\gatdisplayrule{\yOmega{m}}{\ofT{s}{\Omega}}}
+\newcommand{\SItwosourcerhs}{\gatdisplayrule{\yOmega{m}}{\ofT{s'}{\Omega'}}}
+\newcommand{\SItwoconclusion}{\gatdisplayrule{Q}{s[\SUBsFORy{m}]=s'[\SUBspFORy{m}] \in \Omega[\SUBsFORy{m}]}}
+\newcommand{\SItwoconclusionlhs}{\gatdisplayrule{Q}{\ofT{s[\SUBsFORy{m}]}{\Omega[\SUBsFORy{m}]}}}
+\newcommand{\SItwoconclusionrhs}{\gatdisplayrule{Q}{\ofT{s'[\SUBspFORy{m}]}{\Omega[\SUBsFORy{m}]}}}
+This principle states that if \gatdisplayrule{\yOmega{m}}{s = s' \in \Omega} is a derived rule, 
+if $Q$ is a context and if  $\sm$ and $\smp$ are expressions such that
+\foreachj, \gatdisplayrule{Q}{s_j=s'_j \in \Omega[\SUBsFORy{j-1}]} is a derived rule then we may derive the rule \SItwoconclusion. 
+
+The proof in this case is similar to the case SI1 above. 
+
+We have to show that the rule \SItwoconclusion is consistently intepreted by $\Ibar$
+from the inductive hypothesis  that the rule \gatdisplayrule{\yOmega{m}}{s = s' \in \Omega}
+and \foreachj  and each of the rules \gatdisplayrule{Q}{s_j=s'_j \in \Omega[\SUBsFORy{j-1}]}, wherej,  are consistently intepreted by $\Ibar$.
+
+To show that \SItwoconclusion is consistently interpreted by $\Ibar$
+we have to show that each of the rules \SItwoconclusionlhs and \SItwoconclusionrhs\ 
+are consistently interpreted by $\Ibar$ and that
+\begin{equation}
+\label{SI2inductivetarget2}
+\ibarmappedrule{Q}{\ofT{s[\SUBsFORy{m}]}{\Omega[\SUBsFORy{m}]}} = \ibarmappedrule{Q}{\ofT{s'[\SUBspFORy{m}]}{\Omega'[\SUBspFORy{m}]}}.
+\end{equation}
+From the  inductive hypothesis  and from clauses (iii) and (iv) of definition \lref{consistentinterpretation} it follows that
+each of the rules
+\SItwosourcelhs
+and
+\SItwosourcerhs
+and each of the rules
+\IsOmega{j}
+and
+\gatdisplayrule[,]{Q}{\ofT{s'_j}{\Omega_j[\SUBspFORy{j-1}]}}
+\wherej, are consistently intepreted by $\Ibar$. 
+Therefore from lemma \ref{substitutioninterpretationlemma} it follows that
+ the rules \SItwoconclusionlhs and \SItwoconclusionrhs
+are consistently interpreted by $\Ibar$, as required.
+
+Finally we are required to show (\ref{SI2inductivetarget2}).
+Now further to what we have said above, note that from the assumptions in the inductive hypothesis 
+and from clauses (iii) and (iv) of definition \lref{consistentinterpretation} we know that
+\begin{equation}
+\label{SI2inductiveequation1}
+\Ibar(r_s)=\Ibar(r_{s'})
+\end{equation}
+where $r_s$ is the rule \SItwosourcelhs and $r_{s'}$ is the rule \SItwosourcerhs 
+and that, \foreachj,
+\begin{equation}
+\label{SI2inductiveequation2}
+\Ibar(r_{s_j})=\Ibar(r_{s'_j})
+\end{equation}
+where  $r_{s_j}$ is the rule \gatdisplayrule{Q}{\ofT{s_j}{\Omega_j[\SUBsFORy{j-1}]}}
+and $r_{s'_j}$ is the rule \gatdisplayrule{Q}{\ofT{s'_j}{\Omega_j[\SUBspFORy{j-1}]}}, \foreachj.
+This means that (\ref{SI2inductivetarget2}) can be shown as follows:
+\begin{align*}
+\ibarmappedrule{Q}{\ofT{s[\SUBsFORy{m}]}{\Omega[\SUBsFORy{m}]}} \kern-3cm  \\
+    &=\Ibar(r_{s_m})^* ... \Ibar(r_{s_1})^*\big( \crossx{\Ibar(Q)}{\Ibar(r_s)}{1} \big)
+              &&\mbox{ because $r_\Omega$ consistently interpreted by $\Ibar$,} \\
+    &=\Ibar(r_{s'_m})^* ... \Ibar(r_{s'_1})^*\big( \crossx{\Ibar(Q)}{\Ibar(r_{s'})}{1} \big)
+              &&\mbox{ by (\ref{SI2inductiveequation1}) and (\ref{SI2inductiveequation2}),} \\
+    &=\ibarmappedrule{Q}{\ofT{s'[\SUBspFORy{m}]}{\Omega'[\SUBspFORy{m}]}}
+%             &&\parbox[t]{5.5cm}{ as required, because $r_{\Omega'}$ is consistently interpreted by $\Ibar$.}
+              &&\mbox{ because $r_\Omega'$ consistently interpreted by $\Ibar$.} 
+\end{align*}
+
+\underline{A1} 
+This principle ensures that an T=axiom is a derived rule providing it is well-typed.
+It states that from an axiom \gatdisplayrule{\xDelta{n}}{\Delta=\Delta'} and from derived rules
+ \ZDelta and \ZDeltap we may derive
+\gatdisplayrule{\xDelta{n}}{\Delta=\Delta'}.
+
+\vspace{1cm}
+Follows immeadiately from the fact fact that $\Ibar$ is  valid.\\
+
+\underline{A2} 
+This principle ensures that an $\in$=axiom is a derived rule providing it is well-typed.
+It states that from an axiom \gatdisplayrule{\xDelta{n}}{t=t' \in \Delta} and from derived rules
+ \ZtDelta and \ZtpDelta we may derive
+\gatdisplayrule{\xDelta{n}}{t=t' \in \Delta}.
+
+Follows immeadiately from the fact that $\Ibar$ is  valid. 
+\end{proof}
+

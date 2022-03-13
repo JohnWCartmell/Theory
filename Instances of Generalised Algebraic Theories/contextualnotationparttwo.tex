@@ -1,4 +1,542 @@
 
 
+\subsection{Properties of the extended $^*$ notation}
+\begin{lemma} 
+\llabel{stardistributesonobjects}
+For all objects $x_1$, $x_2$, $y_1$, $y_2$ and $z$ in \catcw such that $x_2 \leq y_1$, $x_2 \leq y_2$ and $y_2 \leq z$, 
+for all morphisms $f: x_1 \morph x_2$ and $g: y_1 \morph y_2$, 
+\begin{equation}
+\label{metagattriplestar}
+(f^*g)^*(f^*z)=f^*(g^*z)
+\end{equation}
+as shown here
+
+\begin{displaymath}
+\begin{array}{c p{0.05cm} c p{1cm} c p{3.0cm} c p{0.5cm} c p{0.5cm} c }
+\Rnode{lhs}{(f^*g)^*(f^*z)}                                                                                  \\[1.25cm]
+\Rnode{rhs}{f^*(g^*z)} & & & & \Rnode{fz}{f^*z}      && \Rnode{gz}{g^*z}    & & & & \Rnode{z}{z}             \\[1.5cm]
+\Rnode{fgdom}{\fgdom}       & & & & \Rnode{fgcod}{\fgcod} && \Rnode{gdom}{\gdom} & & & & \Rnode{gcod}{\gcod} \\[1.25cm]
+                      & &\Rnode{fdom}{\fdom} & & & && &   \Rnode{fcod}{\fcod} &&
+\end{array}
+\begin{arrows}
+%\ncline [doubleline=true, nodesepA=0.2cm, nodesepB=0.6cm]{rhsarc}{lhsarc}
+\equality{lhs}{rhs}
+%\ncline [doubleline=true, nodesep=0.2cm, offsetB=-0.15cm]{lhscod}{fghcod}
+\nccdar{rhs}{fgdom}
+\nccdar{fz}{fgcod}
+\nccdar{fgdom}{fdom}
+\nccdar{fgcod}{fdom}
+\nccdar{gz}{gdom}
+\nccdar{ghcod}{gdom}
+\nccdar{z}{gcod} %Need space here
+\nccdar{gdom}{fcod}
+\nccdar{gcod}{fcod}
+%
+\ncarr{fgdom}{fgcod}
+\alabel{\fg}[0.6]
+\ncarr[20]{fgdom}{gdom}
+\alabel{q(f,y_1)}[0.2]
+\ncarr[20]{fgcod}{gcod}
+\alabel{q(f,y_2)}[0.4]
+\ncarr{fdom}{fcod}
+\alabel{\f}
+\ncarr{gdom}{gcod}
+\alabel{\g}
+\ncarr[15]{lhs}{fz}
+\alabel{q(f^*g,f^*z)}[0.4]
+\ncarr{gz}{z}
+\alabel{q(g,z)}[0.35]
+\ncarr[20]{fz}{z}
+\alabel{q(f,z)}
+\ncarr[20]{rhs}{gz}
+\alabel{q(f,g^*z)}[0.15]
+\end{arrows}
+\end{displaymath}
+
+\end{lemma}
+\begin{proof}
+\begin{align*}
+(f^*g)^*(f^*z)&= (f^*g)^*(q(f,y_2)^*z)  && \mbox{ by (Q6),} \\
+              &= ((f^*g) \circ q(f,y_2))^*z && \mbox{ by (Q4),} \\
+              &= (q(f,y_1)\circ g)^*z&& \mbox{ by definition of $f^*g$,} \\
+              &= q(f,y_1)^*g^*z&& \mbox{ by (Q4),} \\
+              &= f^*(g^*z) &&\mbox{ by (Q6).}      
+\end{align*}
+\end{proof}
+
+\begin{lemma}
+\llabel{stardistributesonmorphismslemma}
+If $f$, $g$ and $h$ are morphisms of a contextual category \catcw such that $f^*g$ and $g^*h$ are both defined then
+\begin{equation}
+\label{stardistributesonmorphisms}
+(f^*g)^*(f^*h)=f^*(g^*h)
+\end{equation}
+\end{lemma}
+\begin{proof}
+
+Suppose $f: x_1 \morph x_2$, $g:y_1 \morph y_2$ and $h:z_1 \morph z_2$ in \catc. 
+Because $f^*g$ is defined then we must have $x_2 \leq y_1$ and  $x_2 \leq y_2$ and $g \circ p_{y_2,x_2} = p_{y_1,x_2}$ in \catc. 
+Likewise, because $g^*h$ is defined then we must have $y_2 \leq z_1$ and  $y_2 \leq z_2$ and $h \circ p_{z_2,y_2} = p_{z_1,y_2}$.
+By lemma \lref{stardistributesonobjects} $\lhsdom=\fghdom$ and $\lhscod=\fghcod$
+therefore we have the following diagram in \catc:
+
+\begin{displaymath}
+\begin{array}{cccccccp{.05cm}ccccccc}
+\\
+\Rnode{fghdom}{\fghdom} &\Rnode{rhsarc}{} & \Rnode{fghcod}{\fghcod}\\[0.75cm]
+\Rnode{lhsdom}{\lhsdom} &\Rnode{lhsarc}{} & \Rnode{lhscod}{\lhscod}\kern-0.75cm & & \Rnode{fhdom}{\fhdom} & & \Rnode{fhcod}{\fhcod}&&
+               \Rnode{ghdom}{\ghdom} & & \Rnode{ghcod}{\ghcod} & & \Rnode{hdom}{\rule[-3pt]{0pt}{0pt}\hdom}\ \  & & \ \ \Rnode{hcod}{\hcod}\\ [1.25cm]
+& \Rnode{fgdom}{\fgdom} & & & & \Rnode{fgcod}{\fgcod} &&&& \Rnode{gdom}{\gdom} & & & & \Rnode{gcod}{\gcod}\\[1.25cm]
+&                       & &\Rnode{fdom}{\fdom} & & & && & & &  \Rnode{fcod}{\fcod}
+\end{array}
+\begin{arrows}
+%\ncline [doubleline=true, nodesepA=0.2cm, nodesepB=0.6cm]{rhsarc}{lhsarc}
+\equality{lhsdom}{fghdom}
+\ncline [doubleline=true, nodesep=0.2cm, offsetB=-0.15cm]{lhscod}{fghcod}
+\nccdar{lhsdom}{fgdom}
+\nccdar{lhscod}{fgdom}
+\nccdar{fhdom}{fgcod}
+\nccdar{fhcod}{fgcod}
+\nccdar{fgdom}{fdom}
+\nccdar{fgcod}{fdom}
+\nccdar{ghdom}{gdom}
+\nccdar{ghcod}{gdom}
+\nccdar{hdom}{gcod} %Need space here
+\nccdar{hcod}{gcod}
+\nccdar{gdom}{fcod}
+\nccdar{gcod}{fcod}
+%
+\ncarr{lhsdom}{lhscod}
+\alabel{\lhs}
+\ncarr{fghdom}{fghcod}
+\alabel{\fgh}
+\ncarr{fhdom}{fhcod}
+\alabel{\fh}
+\ncarr{fgdom}{fgcod}
+\alabel{\fg}
+\ncarr{ghdom}{ghcod}
+\alabel{\gh}
+\ncarr{fdom}{fcod}
+\alabel{\f}
+\ncarr{gdom}{gcod}
+\alabel{\g}
+\ncarr{hdom}{hcod}
+\alabel{\h} 
+\end{arrows}
+\end{displaymath}
+and we need to prove that $\lhs=\fgh$. We will prove this using the fact that $\fgh$ is the unqiue morphism such that
+\newcommand{\pfgh}{p_{\fghcod,f^*y_1}}
+\newcommand{\fghone}{p_{\fghdom,f^*y_1}}
+\newcommand{\qfgh}{q(f,\ghcod)}
+\newcommand{\fghtwo}{q(f,\ghdom) \circ (\gh)}
+\begin{equation}
+\fgh \circ \pfgh = \fghone
+\end{equation}
+and
+\begin{equation}
+\fgh \circ \qfgh = \fghtwo
+\end{equation}
+and therefore it suffices to show that
+\begin{equation}
+\label{fghpropertyone}
+\lhs \circ \pfgh = \fghone
+\end{equation}
+and
+\begin{equation}
+\label{fghpropertytwo}
+\lhs \circ \qfgh = \fghtwo
+\end{equation}
+
+(\ref{fghpropertyone}) follows because by definition of $\lhs$,
+\begin{equation*}
+\lhs \circ p_{\lhscod,f^*y_1} = \fghone
+\end{equation*}
+and because by lemma \lref{stardistributesonobjects} $\lhscod=\fghcod$.
+
+Since 
+\begin{center}
+\begin{equation}
+\begin{array}{cp{.9cm}c}
+\Rnode{TL}{g^*z_2} & & \Rnode{TR}{z_2}\\ [1.2cm]
+\Rnode{BL}{\gdom}         & & 
+\end{array}
+\end{equation}
+\nccdar{TL}{BL}
+\blabel{p_{g^*z_2,\gdom}}
+\ncaarr{q(g,z_2)}{TL}{TR}
+\end{center}
+is a limit cone, to show (\ref{fghpropertytwo}) it suffices to show that  
+\begin{equation}
+\label{fghpropertytwosubgoalone}
+\lhs \circ \qfgh \circ p_{g^*z_2,\gdom} = \fghtwo \circ p_{g^*z_2,\gdom}
+\end{equation}
+and
+\begin{equation}
+\label{fghpropertytwosubgoaltwo}
+\lhs \circ \qfgh \circ q(g,z_2) = \fghtwo \circ q(g,z_2)
+\end{equation}
+(\ref{fghpropertytwosubgoalone}) is shown as follows:
+\begin{align*}
+\lhs \circ \qfgh \circ p_{g^*z_2,\gdom} 
+ &= \lhs \circ q(q(f,y_1),g^*z_2) \circ p_{g^*z_2,\gdom} &&\mbox{by (Q7),} \\
+ &= \lhs \circ p_{\fghcod,f^*y_1} \circ q(f,y_1)&&\mbox{by (Q1),} \\
+ &= p_{\fghdom,f^*y_1} \circ q(f,y_1)&&\mbox{by definition of $\lhs$,} \\
+ &= q(f,g^*z_1) \circ p_{g^*z_1,y_1}&&\mbox{by (Q1),} \\
+ &= \fghtwo \circ p_{g^*z_2,\gdom}&&\mbox{by definition of $\gh$, as required} \\
+\end{align*}
+and (\ref{fghpropertytwosubgoaltwo}) as follows:
+\begin{align*}
+lhs \circ \qfgh \circ q(g,z_2) &= \lhs \circ q(q(f,y_1),g^*z_2)\circ q(g,z_2) && \mbox{by (Q7),} \\
+    &= \lhs \circ q(q(f,y_1) \circ g, z_2) && \mbox{by (Q5),} \\
+    &= \lhs \circ q(\fg \circ q(f,y_2), z_2) && \mbox{by definition of $f^*g$,} \\
+    &= \lhs \circ q(\fg, q(f,y_2)^*z_2) \circ q(q(f,y_2),z_2) && \mbox{by (Q5),} \\
+		&= \lhs \circ q(\fg, f^*z_2) \circ q(f,z_2) && \mbox{by (Q7),} \\
+    &= q(\fg, f^*z_1) \circ \fh \circ q(f,z_2) && \mbox{by definition of $\lhs$,} \\
+    &= q(\fg, f^*z_1) \circ q(f,z_1) \circ h && \mbox{by definition of $\fh$,} \\
+    &= q(\fg, f^*z_1) \circ q(q(f,y_2),z_1) \circ h && \mbox{by (Q7),} \\
+    &= q(\fg \circ q(f,y_2),z_1) \circ h && \mbox{by (Q5),} \\
+    &= q(q(f,y_1) \circ g,z_1) \circ h && \mbox{by definition of $\fg$,}\\
+    &= q(q(f,y_1), g^*z_1) \circ q(g,z_1) \circ h && \mbox{by (Q5),} \\
+    &= q(f, g^*z_1) \circ q(g,z_1) \circ h && \mbox{by (Q7), } \\
+    &= \fghtwo \circ q(g,z_2) && \mbox{by definition of $\gh$, as required.} 
+\end{align*}
+\end{proof}
+
+A special case of this lemma is as follows:
+\begin{lemma} 
+\llabel{stardistributesonsections}
+For all objects $x_p \base x \leq y_p \base y \leq z_p \base z$ in \catc, for all sections $f: x_p \morph x$ and $g: y \morph y_p$, 
+\begin{enumerate}[(i)]
+      \item
+\begin{equation}
+%\label{metagattriplestar}
+(f^*g)^*(f^*z)=f^*(g^*z)
+\end{equation}
+\item for all sections $h:z_p \morph z$
+\begin{equation}
+%\label{metagattriplestarsection}
+(f^*g)^*(f^*h)=f^*(g^*h)
+\end{equation}
+\end{enumerate}
+\end{lemma}
+
+
+\subsection {Properties of the `s' operator}
+
+\begin{lemma}
+\llabel{sfglemma}
+If $f:x \morph y$ and $g:y\morph z$ in a contextual category \catcw and if $z \in Cover(y)$ then
+\begin{equation}
+\label{sgflemmagoaltwo}
+f^*s(g)=s(f\circ g)
+\end{equation}
+\end{lemma}
+\begin{proof}
+\begin{align*}
+f^*s(g)  &= s(f \circ s(g)) &&\mbox{by lemma \lref{regardingfstarsection}} \\
+         &= s(f \circ g)    &&\mbox {by lemma \lref{sfsglemma}}     
+\end{align*}                                                                               
+\end{proof}
+
+\begin{lemma}
+\llabel{footandstactic}
+If $f: x \morph y$ and $f':x \morph y$ in a contextual category \catcw and if 
+$f \circ p_y$ = $f' \circ p_y$ and $s(f) = s(f')$ then $f=f'$.
+\end{lemma}
+\begin{proof}
+Follows by axiom (s2) since we have:
+$f = s(f) \circ q(f \circ p_y,y)  = s(f') \circ q(f' \circ p_y,y) = f'$.
+\end{proof}
+From which follows:
+\begin{lemma}
+\llabel{stactic}
+If $x$ is any object of a contextual category \catcw and if $y$ is an object such that $1 \base y$ in \catcw then
+if $f: x \morph y$ and $f':x \morph y$ in  \catcw then $f=f'$ iff $s(f) = s(f')$.
+\end{lemma}
+One more useful lemma:
+\begin{lemma}
+\llabel{sfsglemma}
+\label{s4}  
+If \cat{C} is a contextual category then for all morphisms $f: x \rightarrow y$ and $g:y \rightarrow z$ in \cat{C},
+$$s(f \circ s(g)) = s(f \circ g)$$
+\end{lemma}
+\begin{proof}
+\begin{align*}
+s( f \circ s(g)) 
+    & = s( f \circ s(g)\circ q(g \circ p_z) , z ))  &\mbox{by axiom s3}\\
+    & = s(f \circ g) &\mbox{by axiom s2} 
+\end{align*}
+\end{proof}
+From which follows:
+\begin{lemma}
+\llabel{sidempotent}
+If $f:x \morph y$  in a contextual category \catcw  then
+\begin{equation*}
+s(f)=s(s(f)).
+\end{equation*}
+\end{lemma}
+\begin{lemma}
+\llabel{regardingfstarsection}
+If $f:x \morph y$ and $z \in Cover(y)$ and $g \in Sect(z)$ in a contextual category \catcw then
+\begin{equation*}
+f^*g = s(f \circ g)
+\end{equation*} 
+\end{lemma}
+\begin{proof}
+Straightforward.
+\end{proof}
+
+\begin{lemma}\llabel{missingsublemma7}
+If $x$, $y$ and $z$ are objects of a contextual category \catcw such that $x <y$ and $y \leq z$ 
+and if $f \in Sect(x)$ then
+\begin{equation*}
+f^*s(p_{z,y})=s(p_{f^*z,f^*y})
+\end{equation*}
+\end{lemma}
+\begin{proof}
+\tbd
+\end{proof}
+
+
+\subsection{Properties of the $\cross{}{}{}$ notation}
+The next lemma states the associativity of $\crossx{}{}w$. This  follows from the coherence property of the pullbacks in the contextual category. 
+For example if $w < x$, $w < y$, $w < z$ in a \ccat then from coherence of pullbacks in \ccat we have:
+$\crossx{x}{(\crossx{y}{z}{w})}{w} = \crossx{(\crossx{x}{y}{w})}{z}{w}$ as shown here in this diagram:
+ 
+\begin{displaymath}
+\begin{array}{cp{1.0cm}cp{1.0cm}c}
+\Rnode{J1}{}\Rnode{D1} {\crossx{(\crossx{x}{y}{w})}{z}{w}}\Rnode{J2}{} \ \ \ \ \   &&  &&  \\ 
+= && && \\
+\Rnode{D2} {\crossx{x}{(\crossx{y}{z}{w})}{w}}    &&  &&                        \\ [1.3cm]
+\Rnode{xy}{\crossx{x}{y}{w}}&& \Rnode{yz}{\crossx{y}{z}{w}} &&                      \\[1.3cm]
+\Rnode{x}{x}&& \Rnode{y}{y} && \ \ \ \ \ \ \ \ \ \ \ \ \ \Rnode{z}{z}                                        \\[1.3cm]
+             && \Rnode{w}{w} &&                                                     
+\end{array}
+\end{displaymath}
+
+\ncaarr[50]{q(p_{\crossx{x}{y}{w},w},z)}{J2}{z}
+\ncsar{D2}{xy}
+\ncsar{xy}{x}
+\ncsar{yz}{y}
+\ncsar{x}{w}
+\ncsar{y}{w} 
+\ncsar{z}{w}
+\ncaarr{q(p_{x,w},y)}{xy}{y}
+\ncaarr{q(p_{y,w},z)}{yz}{z}
+\ncaarr{q(p_{x,w},\crossx{y}{z}{w})}{D2}{yz}\vspace{0.15cm}
+\begin{lemma}
+\llabel{crossassociativitylemma}
+If $w,x,y$ and $z$ are objects of a contextual category \catcw and if $w<x$, $w<y$, and $w<z$ then
+\begin{equation*}
+\crossx{x}{(\crossx{y}{z}{w})}{w} = \crossx{(\crossx{x}{y}{w})}{z}{w}
+\end{equation*}
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\crossx{x}{(\crossx{y}{z}{w})}{w} 
+                   &= {p_{x,w}} ^* {p_{y,w}} ^* z             && \mbox{by definition of $\crossx{}{}{}$,}  \\
+                   &= q(p_{x,y},y)^*{p_{y,w}} ^* z            && \mbox{by (Q6),}      \\
+                   &= (q(p_{x,y},y) \circ p_{y,w}) ^* z       && \mbox{by (Q4),}                           \\
+                   &= {p_{\crossx{x}{y}{w},w}} ^* z           && \mbox{by (Q1),}    \\
+                   &= \crossx{(\crossx{x}{y}{w})}  {z}{w}     && \mbox{by definition of $\crossx{}{}{}$.}
+\end{align*}
+\end{proof}
+
+\begin{lemma}
+\llabel{missingsublemma6}
+If $v$, $w$, $x$, $y$ and $z$ are objects in a contextual category  \catcw 
+such that $v \leq w$, $v \leq x$ and $w \leq y$ and $w \leq z$ then
+\begin{equation*}
+\crossx{(\crossx{x}{y}{v})}{(\crossx{x}{z}{v})}{\crossx{x}{w}{v}}=\crossx{x}{{(\crossx{y}{z}{w})}}{v}
+\end{equation*}
+If $g \in Sect(z)$ then
+\begin{equation*}
+\crossx{(\crossx{x}{y}{v})}{(\crossx{x}{g}{v})}{\crossx{x}{w}{v}}=\crossx{x}{{(\crossx{y}{g}{w})}}{v}
+\end{equation*}
+\end{lemma}
+\begin{proof}
+\tbd
+\end{proof}
+
+\begin{lemma}\llabel{missingsublemma8}
+If $w$, $x$, $y$ and $z$ are objects in a contextual category  \catcw 
+such that  and $w \leq x$ and $w \leq y \leq z$ then
+\begin{equation*}
+\crossx{x}{s(p_{z,y})}{w}= s(p_{\crossx{x}{z}{w},\crossx{x}{y}{w}})
+\end{equation*}
+\end{lemma}
+\begin{proof}
+\tbd
+\end{proof}
+
+\begin{lemma}
+\llabel{crossstardistributivitylemma}
+If $w,x,y$ and $z$ are objects of a contextual category \catcw such that $w < x$ and  $w < y < z$ then  
+\begin{enumerate}[(i)]
+\item for all sections $g \in Sect(y)$ 
+\begin{equation*}
+(\crossx{x}{g}{w})^*(\crossx{x}{z}{w})=\crossx{x}{(g^*z)}{w}
+\end{equation*}
+\item and for all sections $h \in Sect(z)$ 
+\begin{equation*}
+(\crossx{x}{g}{w})^*(\crossx{x}{z}{w})=\crossx{x}{(g^*h)}{w}.
+\end{equation*}
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(i) is a special case of lemma \lref{stardistributesonobjects}
+and
+(ii) is a special case of lemma \lref{stardistributesonmorphismslemma}.
+\end{proof}
+
+\begin{lemma}\llabel{missingsublemma5}
+If $x$ is an object of a contextual category \catcw and if $f \in Sect(x)$ then
+\commentary{This corresponds to  MetaGat axiom (26) since $s(p_{x,x})=\delta_x$.}
+\begin{equation*}
+f^*s(p_{x,x}) =f
+\end{equation*}
+\end{lemma}
+\begin{proof}
+\tbd
+\end{proof}
+
+
+%Lemmas relating $^*$ and $\crossx{}{}{}$.
+\newcommand{\xz}{\crossx{x}{z}{w}}
+\newcommand{\xg}{\crossx{x}{g}{w}}
+\begin{lemma} 
+\llabel{missingsublemma1}
+If $w$, $x$, and $z$ are objects of a contextual category \catcw such that $w \base x$ and $w \base z$ and if
+$f \in Sect(x)$  then
+\begin{enumerate}[(i)]
+\item 
+$$f^*(\xz)=z$$
+\item and if $g \in Sect(z)$ then
+$$f^*(\xg)=g$$
+\end{enumerate}
+as shown here
+\begin{displaymath}
+\begin{array}{ c p{0.1cm} c p{0.1cm} c } 
+                           &&\Rnode{fnpz}{\xz}                                &&                        \\ [1.8cm]
+\Rnode{fxz}{f^* (\xz)=z} &&\Rnode{x}{x}                                && \Rnode{z}{\ \ \ \ z\ \ \ \ \ \ \ }      \\ [1.8cm]
+                           &&\circlenode[framesep=0.4cm, linestyle=none]{w}{w}&&    
+\makebox[0cm]{
+\ncsar{fnpz}{x}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=4pt,nodesepB=3pt,offsetB=3pt]{->}{x}{fnpz}
+\alabel{\xg}[0.65]
+%\blabel{=\crossx{(\fnpvectorstar x_n)}{g}{w}}[0.4]
+\ncsar{fxz}{w}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=0pt,nodesepB=3pt,offsetB=2pt]{->}{w}{fxz}
+\alabel{f^*(\xg)=g} [0.6]
+\ncsar{x}{w}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=0pt,nodesepB=3pt,offsetB=4pt]{->}{w}{x}
+\alabel{f} [0.5]
+\ncsar{z}{w}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=0pt,nodesepB=3pt,offsetB=2pt]{->}{w}{z}
+\alabel{g} [0.4]
+}
+\end{array}
+\end{displaymath}
+\end{lemma}
+\begin{proof}
+(i) is shown as follows
+\begin{align*}
+f^*(\xz)&= f^*({p_{x,w}}^*z)     && \mbox{ by expanding the definition of $\crossx{}{}{}$,}\\
+        &= (f \circ p_{x,w})^*z && \mbox{ by (q4),}\\
+        &= {id_x} ^* z           && \mbox{ since $f$ is a section,}\\
+        &= z                   && \mbox{ by (q2).}
+\end{align*}
+(ii) can be demonstrated in the same way.
+\end{proof}
+
+\begin{lemma}\llabel{missingsublemma4}
+\commentary{See equations (18) and (19) from MetaGAT paper.}
+If  $v$, $w$, $x$, $y$ and $z$ are objects of a contextual category \catcw such that
+$w \leq x$, $x \leq y$ and $x \leq z$ and if $f: v \morph w$ is a morphism
+then
+\commentary{? Corollary to lemmas \lref{stardistributesonobjects} and \lref{stardistributesonmorphismslemma}.}
+\commentary{Therefore might make this more general and have $g$ any morphism.}
+\begin{equation*}
+f^*(\crossx{y}{z}{x})=\crossx{f^*y}{f^*z}{f^*x}
+\end{equation*}
+and if $g \in Sect(z)$ then
+\begin{equation*}
+f^*(\crossx{y}{g}{x})=\crossx{f^*y}{f^*g}{f^*x}
+\end{equation*}
+\end{lemma}
+\begin{proof}
+\tbd 
+\end{proof}
+
+\newcommand{\yz}{\crossx{y}{z}{w}}
+\newcommand{\yg}{\crossx{y}{g}{w}}
+\begin{lemma} 
+\llabel{missingsublemma2}
+If  $w$, $x$, $x'$, $y$ and $z$ are objects of a contextual category \catcw such that 
+$w \base x \base x'$, $x' \leq y$ and $w \base z$
+and if $f \in Sect(x)$ in \catcw then
+\begin{enumerate}[(i)]
+\item $f ^* (\yz)= \crossx{(f^*y)}{z}{w}$
+\item and if $g \in Sect(z)$ then $f ^* (\yg)= \crossx{(f^*y)}{g}{w}$.
+\end{enumerate}
+as shown here:
+\begin{displaymath}
+\begin{array}{cc p{1.25cm} c p{0cm} c} 
+&                         && \Rnode{yz}{\yz} &&              \\[1.2cm]
+\crossx{(f^*y)}{z}{w}=\kern-10pt&\Rnode{fyz}{f^*(\yz)}    && \Rnode{y}{y}    &&              \\[1.2cm]
+&\Rnode{fy}{f^*y}         &&                 &&              \\[0.75cm]
+&                         && \Rnode{xp}{x'}  &&              \\[1.2cm]
+&\Rnode{fxp}{f^*x'}       && \Rnode{x}{x}    && \Rnode{z}{z} \\[1.2cm]
+&                         && \Rnode{w}{w}    &&
+\makebox[0cm]{
+\ncsar{fyz}{fy}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=4pt,nodesepB=3pt,offsetB=2pt]{->}{fy}{fyz}
+\alabel{\crossx{(f^*y)}{g}{w}=f^*(\yg)} [0.4]
+\nccdar{fy}{fxp}
+\ncsar{fxp}{w}
+\ncsar{yz}{y}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=4pt,nodesepB=3pt,offsetB=2pt]{->}{y}{yz}
+\alabel{\yg} [0.4]
+\nccdar{y}{xp}
+\ncsar{xp}{x}
+\ncsar{x}{w}
+\ncarc[arcangle=10,nodesepA=5pt,offsetA=2pt,nodesepB=3pt,offsetB=2pt]{->}{w}{x}
+\alabel{f} [0.4]
+\ncsar{z}{w}
+\ncarc[arcangle=-10,nodesepA=5pt,offsetA=-2pt,nodesepB=3pt,offsetB=-2pt]{->}{w}{z}
+\blabel{g} [0.4]
+\ncarr{fyz}{yz}
+\alabel{q(f,\yz)}
+\ncarr{fy}{y}
+\alabel{q(f,y)}
+\ncarr{fxp}{xp}
+\alabel{q(f,x')}
+\ncarr[30]{yz}{z}
+\alabel{q(p_{y,w},z)}
+}
+\end{array}
+\end{displaymath}
+\end{lemma}
+\begin{proof}
+We can show (i) holds as follows: \commentary{Can I not just use \lref{stardistributesonobjects} to prove this this?}
+\begin{align*}
+f^*(\yz) &= q(f,y)^*(\yz)                           &&\mbox{ by (Q6),}                \\
+          &= q(f,y)^*({p_{y,w}} ^* z)               &&\mbox{ by definition of $\crossx{}{}{}$,}              \\
+          &= (q(f,y)\circ p_{y,w}) ^* z             &&\mbox{ by (Q4),}                         \\
+          &= (q(f,y) \circ p_{y,x} \circ p_x ) ^* z &&\mbox{ by definition of $p_{y,w}$,}      \\
+          &= (p_{f^*y,w} \circ f \circ p_x ) ^* z   &&\mbox{ by (Q1),} \\
+          &= {p_{f^*y,w}}^*z                        &&\mbox{ because $f$ is a section,}                   \\
+          &= \crossx{(f^*y)}{z}{w}                  &&\mbox{ by definition of $\crossx{}{}{}$.}
+\end{align*}
+By a similar argument we can show that (ii) holds. \commentary{Will it really be similar -- might I need new lemmas such as a morphism \highlight{variant of Q4}? }\commentary{Can I use lemma \lref{stardistributesonmorphisms} for this part of the proof?}
+\end{proof}
+
+\input{sofplemmas.tex}
+
+
+
+\subsection{Cascades of sections}
+\input{cascades.tex}
+
 
 
