@@ -23,7 +23,7 @@ and subject to the requirement that n-ary predicate, respectively function, symb
 As defined by Tarski in the so called satisfaction definition
 such an interpretation induces an interpretation of all
 closed well formed formulas of the signature as truth values. 
-A model of a theory is defined to be an interpretation of the theory such that all axioms of the theory are mapped to true (i.e. are satisfied by the interpretation). 
+A model of a theory is defined to be an interpretation of the theory that is valid i.e. such that all axioms of the theory are mapped to true (i.e. are satisfied by the interpretation). 
 
 Note that the distinction between signature and theory is significant because it makes possible a definition of model 
 via a definition of interpretation: an interpretation is an interpretation of a signature, 
@@ -37,17 +37,16 @@ This usage in which  theory refers to the net effect of a signature plus associa
 can be formalised by describing a 
 theory not as we have outlined above but as any set of sentences
  (of a given signature) that is closed under logical deduction\footnote{One such theory in this sense is the total set of true sentences of a model and  
-this is called the diagram of the model. I have a  memory of a conference in the 1970's and of hearing a German set theorist
- remark that "God doesn't need Logic -- he has the diagram of the universe". He meant, of course, diagram in this sense of set of all true sentences.}. 
+this is called the diagram of the model. I was told in Oxford in 1976 "God doesn't need Logic -- he has the diagram of the universe".}. 
 If we adopt this other useage in which a theory is a set of sentences closed under deduction then a signature plus axioms is referred to not as a theory but as a presentation of a theory. 
 
-A most significant subclass of the class of elementary theories is the class of algebraic theories. 
+A significant subclass of the class of elementary theories is the class of algebraic theories. 
 What is meant by a algebraic theory, prior to Lawvere at least, is an elementary theory in a signature having only function symbols, 
 i.e. having no predicate symbols, 
 and in which every axiom is an equational identity between open terms with the understanding that
 all variables are universally quantified. 
-Because algebraic theories are special kinds of elementary theory the definitions of interpretation and model  specialise to yield definitions of 
-interpretation and model for algebraic theories; in this special case, though, a model of a theory $U$ is usually spoken of as an algebra of $U$.
+Because algebraic theories are special kinds of elementary theory the general definitions of interpretation and model  specialise to yield definitions of 
+interpretation and model for algebraic theories. In the case of an algebraic theory $U$, a model of a theory $U$ is usually spoken of as an algebra of $U$.
 
 In the traditional view, the domain of interpretation of an algebraic theory may be any set $A$ 
 and each n-ary function symbol is to be interpreted by a  function $f:A^n \morph A$.
@@ -60,7 +59,7 @@ For $U$ an algebraic theory, the term `model of $U$' therefore may take two mean
 \item in the restricted sense in which the interpretation is by sets and functions, such models are sometimes said to be algebras or
 $U$-algebras. The category of $U$-algebras is denoted $U$-$alg$. 
 \end{enumerate} 
-Model in sense (ii) is a special case of model in sense (i) ---  the case in which the category with finite products is taken to be the category of sets and functions.
+Model in sense (ii) is a special case of model in sense (i) ---  the case in which the target category is taken to be the category of sets and functions.
 
 For completeness I must mention a different but related use of the term `interpretation' to describe 
 mappings of the syntax of one theory to the syntax of a second
@@ -186,48 +185,29 @@ a valid interpretation of $U$ in $C$. This definition may of course be specialis
 $U$-algebra by particularising to the case where $C$ is the contextual category $\Fam$.
 
 
-From the details in
-section \ref{sectioninwhichinstanceisdefined} 
-of the definition of interpretation
-it turns out that 
-to every gat $U$ there is a theory of internal $U$-structures. We shall denote this theory as $\hatU$.
-
-Every such theory $\hatU$ is an extension of the generalised algebraic theory of contextual categories
-by a set of rules (introductory rules and axioms) that have  the empty context as premise
- --- as such it is an extension
-by constants and equational identities between closed terms.  Conversely every  extension of
-the theory of contextual categories by just constants and equational identities between closed terms can be interpreted as being a description of a generalised algebraic theory. This is expoited in \cite{BCDEpaper}.
 
 
-The instances of $\hatU$  in $\Fam$ consist of  internal $U$-structures  i.e. they consist of contextual categories \catcw along with particular instances $I$ of
-the theory $U$ in the contextual category \catc. \\
-The category of $\hatU$-algebras is (isomorphic to) the category of internal $U$-structures.
-
-
-\label{termmodelEQfreealgebra}For any generalised algebraic theory $\gat[U]$ we have two different 
- descriptions of the initial object of the category of internal $\gatU$-structures:
-one as the free algebra $K_{\hatU}$ of the theory $\hatU$ as summarised above and one  as the pair $\bigtuple{\CofU, I_{triv}}$ 
-where $I_{triv}$ is the trivial instance of $\gatU$ in $\CofU$. We have therefore that
-\begin{equation*}
-K_{\hat{U}} \cong \bigtuple{\CofU, I_{triv}}
-\end{equation*}
-in the category of internal $U$-structures.
-
-
+\newpage
 \subsection{Outline}
-\highlight{The following must be revised following the reorganisation}
-To pave the way for the main definition,
-the definition of generalised algebraic theories is reviewed 
+
+The definition of generalised algebraic theories is reviewed 
 in section \ref{generalisedalgrbraictheories}, and
 a summary of some housekeeping lemmas from \cite{Cartmell78} is given. 
 Various  extensions to the notation of contextual categories are described in section \ref{contextualnotationpartone} 
 including a description of Voevodsky's `s' operator and of a local product notation 
-that uses an operator $\crossx{}{}{}$ as a special case of pullback. Various
-identities that we require are then detailed. 
-The main definition is in section \ref{sectioninwhichinstanceisdefined}.
-In section
- \ref{contextualnotationparttwo} introduce a further extension to the notation of contextual categories and present and prove various identities that 
-support the presentation and simplication of examples.
+that uses an operator $\crossx{}{}{}$ as a special case of pullback. The notation described is then used in the main definitions of \term{instance} and \term{valid interpretation} as given in section \ref{sectioninwhichinstanceisdefined} 
+where we also present the proposition that states the correspondence between the two
+\begin{itemize} \renewcommand\labelitemi{--}
+\item every valid interpretation uniquely determines an instance,
+\item every instance is uniquely determined by a valid interpretation.
+\end{itemize} 
+
+This proposition is proved in section \ref{proofofmainproposition} and requires a series of 
+algebraic identities  which we therefore develop beforehand in section \ref{contextualnotationparttwo}.
+
+
+In section \ref{supplementarymaterial} we introduce further extensions to the notation of contextual categories and present and prove various identities that 
+support the presentation of examples that are then given in sections \ref{monoidsinstanceexample}  and \ref{categoriesinstanceexample}.
 
 We show in lemma \ref{internalmonoidlemma}  that 
 the generalised algebraic theory of internal monoids can be expressed  as 
@@ -256,7 +236,31 @@ as an example of a finite product (FP) sketch.
 
 As a second worked example (in lemma \ref{internalcategorylemma})  we derive the generalised algebraic theory of internal categories.
 
+\subsection{Observation}
+It can be seen from the detail definitions given in
+section \ref{sectioninwhichinstanceisdefined}
+that to every gat $U$ there is a theory of internal $U$-structures. We shall denote this theory as $\hatU$.
+
+Every such theory $\hatU$ is an extension of the generalised algebraic theory of contextual categories
+by a set of rules (introductory rules and axioms) that have  the empty context as premise
+ --- as such it is an extension
+by constants and equational identities between closed terms.  Conversely every  extension of
+the theory of contextual categories by just constants and equational identities between closed terms can be interpreted as being a description of a generalised algebraic theory. This is expoited in \cite{BCDEpaper}.
+
+The instances of $\hatU$  in $\Fam$ consist of  internal $U$-structures  i.e. they consist of contextual categories \catcw along with particular instances $I$ of
+the theory $U$ in the contextual category \catc. \\
+The category of $\hatU$-algebras is (isomorphic to) the category of internal $U$-structures.
+
+\label{termmodelEQfreealgebra}For any generalised algebraic theory $\gat[U]$ we have two different 
+ descriptions of the initial object of the category of internal $\gatU$-structures:
+one as the free algebra $K_{\hatU}$ of the theory $\hatU$ as summarised above and one  as the pair $\bigtuple{\CofU, I_{triv}}$ 
+where $I_{triv}$ is the trivial instance of $\gatU$ in $\CofU$. We have therefore that
+\begin{equation*}
+K_{\hat{U}} \cong \bigtuple{\CofU, I_{triv}}
+\end{equation*}
+in the category of internal $U$-structures.
+
 \subsection{Acknowledgement}
-I have written this paper after studying a draft of a paper (\cite{BCDEpaper}) sent to me by 
- one of its authors, Peter Dybjer. I hope the material presented here sheds some light on that paper. 
-The two examples that I give are the same two presented there.
+I wrote this paper after studying a draft of [\cite{BCDEpaper}] sent to me by 
+ one of its authors, Peter Dybjer. I hope that the material presented here sheds some light on that paper. 
+They give two examples and I have  elaborated the same two. 
