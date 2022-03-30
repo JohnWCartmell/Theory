@@ -22,15 +22,30 @@
 
 \setcounter{equation}{0}
 
-
-\title[Types in practice and in theory]{Data Specifications, Categories, Theories\\ -- Types in practice and in theory}
+\title[John Cartmell]{Mathematical Theory of Data}
 %% Which is to say types as they are used in practice in software development and as represented in theory in categories and in syntactic type theories.
 %% There is also a subplot concerning representation of context which certain types depend on -- again represented in practice and in theory. 
 \author{John Cartmell}
 \institute{Otium}
 \date{Jan 25, 2019}
 \bibliographystyle{plainnat}
+\usepackage{bibentry}
+\nobibliography*
+
 \begin{document}
+
+\newcommand{\attr}[1]{#1}
+\renewcommand{\attr}[1]{\psframebox[linecolor=red,framearc=.1]{#1}}
+\newcommand{\attrtype}[1]{#1}
+\renewcommand{\attrtype}[1]{\psframebox[linecolor=blue,framearc=.1]{#1}}
+\newcommand{\etype}[1]{#1}
+\renewcommand{\etype}[1]{\psframebox[linecolor=red,framearc=.1]{#1}}
+
+\newcommand{\CEsymboltype}[0]{varchar(2)}
+\newcommand{\CEatomicnumbertype}{number(1,1000)}
+\newcommand{\CEfloattype}{float}
+\newcommand{\CEnametype}{varchar(64)}
+\newcommand{\CEvalencynumbertype}{number(-7,7)}
 
 \begin{frame}
 \titlepage
@@ -49,260 +64,9 @@
 \end{frame}
 \fi
 
-%\iffalse
 
 
-\begin{frame}{Introduction}
-\begin{itemize}
-\item
-What types of things are there and how are they related? 
-\begin{itemize}
-\pause \item Data specifications provide the answer to this question in the context of a software development. 
-\pause \item Types theories provide the answer in the context of mathematics. 
-\pause \item Category theory abstracts across both these domains.
-\end{itemize}
-\end{itemize}
 
-\end{frame}
-\begin{frame}{Overview}
-Data specification method 
-\begin{itemize}
-\item is a method for expressing a  theory (of what is)
-\item uniquivocally it enables definitions of types and certain relationships between these types
-\item types are equally types of data and types of real world entity
-\end{itemize}
-\end{frame}
-\newcommand{\attr}[1]{#1}
-\renewcommand{\attr}[1]{\psframebox[linecolor=red,framearc=.1]{#1}}
-\newcommand{\attrtype}[1]{#1}
-\renewcommand{\attrtype}[1]{\psframebox[linecolor=red,framearc=.1]{#1}}
-\newcommand{\etype}[1]{#1}
-\renewcommand{\etype}[1]{\psframebox[linecolor=red,framearc=.1]{#1}}
-
-\begin{frame}{Chemical Element DS as Directed Graph}
-\scalebox{0.65}{
-\input{chemicalElementGraph}
-} \\
-\vspace {0.25cm}
-\textit{
-\begin{tabular} {c p{0cm} p{2.5cm} l}
-the types of entities and       & & the attributes   & the  types  \\
-their inter-relationships       & & of the entities     & of the attributes \\
-  & &            &
-\end{tabular}
-}
-\end{frame}
-
-\begin{frame}{Chemical Element DS viewed as ER diagram}
-\begin{center}
-\scalebox{0.85}{
-\input{\erpictureFolder/chemicalElementAttributes}
-}
-\end{center}
-
-\end{frame}
-
-\begin{frame}{Basic Chemistry viewed as ER diagram}
-\begin{center}
-\scalebox{0.5}{
-\input{\erpictureFolder/molecularStructure}
-}
-\end{center}
-\end{frame}
-
-
-\begin{frame}{MolecularGeometry ERA diagram  -- Logical }
-\begin{center}
-\scalebox{0.5}{
-\input{\erpictureFolder/molecularGeometry.tex}
-}
-\end{center}
-\end{frame}
-
-\begin{frame}{MolecularGeometry ERA diagram -- Hierarchical}
-\begin{center}
-\scalebox{0.5}{
-\input{\erpictureFolder/molecularGeometry.hierarchical.tex}
-}
-\end{center}
-\end{frame}
-
-\begin{frame}{MolecularGeometry  ERA diagram -- Relational}
-\begin{center}
-\scalebox{0.5}{
-\input{\erpictureFolder/molecularGeometry.relational.tex}
-}
-\end{center}
-\end{frame}
-
-
-\begin{frame}{ER modelling Meta-Model}
-\scalebox{0.23}{
-\input{\erpictureFolder/ERmodelERmodel}
-}
-\end{frame}
-
-
-\begin{frame}{Data Specifications}
-\begin{itemize}
-\item presentations of theories of what is
-\item choice of primitives in presentation is choice of which data to be stored or communicated
-\item independency of primitives is absence of redundancy in data (3NF, BCNF)
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Notions of ...}
-\begin{columns}[t]
-\column{7.0cm}
-\begin{itemize}
-\item {... structure
-   \begin{itemize}
-	    \item category
-			\item contextual category (c-system)
-			\item category with attributes$^*$
-			\item lextensive category
-			\item topos
-	 \end{itemize}
-	}
-	\end{itemize}
-\column{5cm}
-\begin{itemize}
-	\item {... theory
-   \begin{itemize}
-	    \item many-sorted algebraic
-			\item essentially algebraic
-			\item generalised algebraic
-			\item intuitionistic logic
-			\item Martin-L\"of type theory
-	 \end{itemize}
-	}
-	\end{itemize}
-\end{columns}
-\begin{columns}[t]
-\column{6.0cm}
-\pause \begin{itemize}
-\item {Methods of data specification
-   \begin{itemize}
-	    \item relational data model\Rnode{RDB}{\ }
-			\item interface defn. language{\scriptsize(IDL)}$^*$\Rnode{IDL}{}
-			\item {\scriptsize XML} schema$^*$\Rnode{XML}{\ }
-			\item entity/{\scriptsize ER} model$^*$
-			\item extd. {\scriptsize ER} model$^*$\Rnode{ER}{}
-	 \end{itemize}
-	 }
-\end{itemize}
-\column{4cm}
-\onslide<2-4>\raisebox{-2.5cm}{$^*$ \footnotesize \textit{various definitions of these}}
-\end{columns}
-\iffalse
-\onslide<5-7> \ncdiag[linecolor=red,linewidth=2pt,angleA=0, angleB=0, armA=0.5, armB=0.8, linearc=.2]{->}{ER}{XML}
-\onslide<6-7> \ncdiag[linecolor=red,linewidth=2pt,angleA=0, angleB=0, armA=2.5, armB=0.5, linearc=.2]{->}{ER}{IDL}
-\onslide<7> \ncdiag[linecolor=red,linewidth=2pt,angleA=0, angleB=0, armA=2.8, armB=1.95, linearc=.2]{->}{ER}{RDB}
-\fi
-\end{frame}
-
-\begin{frame}{Category of Partial Maps}
-Formalised by Cockett and Lack as 'Restriction Categories'.
-There is a locally ordered 2-category associated with a restriction category.
-Many diagrams commute upto $\leq$.
-Outer Join is pullback.
-Inner Join is 2-pullback.
-
-\end{frame}
-
-
-\begin{frame}{Data Specification viewed as ER diagram}
-\begin{center}
-\scalebox{0.5}{
-\input{\erpictureFolder/molecularStructure.relational}
-}
-\end{center}
-\end{frame}
-\begin{frame}{ER modelling Meta-Model}
-\scalebox{0.23}{
-\input{\erpictureFolder/ERmodelERmodel}
-}
-\end{frame}
-\begin{frame}{Example -- LCMSMS Data -- Seven Pullback Diagrams}
-\scalebox{0.2}{
-\input{\erpictureFolder/chromatogramanalysisrecord}
-}
-\end{frame}
-
-\begin{frame}{Croswfoot notation for binary relationships}
-\begin{center}
-\scalebox{0.9}{
-\input{\erpictureFolder/refrelEggLaidByChicken}
-}
-\end{center}
-is read as
-\begin{center}
-\begin{enumerate}
-\item Each egg \textit{is laid by} \textbf{exactly one} chicken.
-\item Each chicken \textit{lays} \textbf{zero,one or more} eggs.
-\end{enumerate}
-\end{center}
- \textit{is laid by} therefore represents a partial function with inverse \textit{lays}.
-\end{frame}
-
-\begin{frame}{Chicken and Egg}
-A further relationship 
-\begin{center}
-\scalebox{0.9}{
-\input{\erpictureFolder/refrelChickenLayingAndHatchedFromEgg}
-}
-\end{center}
-reads
-\begin{center}
-\begin{enumerate}
-\item Each egg \textit{hatches into} \textbf{zero or one} chickens.
-\item Each chicken \textit{hatched from} \textbf{exactly one} egg.
-\end{enumerate}
-\end{center}
- \textit{hatched from} therefore represents an injective function with inverse \textit{hatches into}.
-\end{frame}
-
-
-\begin{frame}{Coproducts and Inheritance in ER}
-\begin{itemize}
-\pause \item In either formal grammar or in IDL from Carnegie-Melon we may write A ::= A1 \textbar\  A2
-\pause \item In an ER model  A is said to generalise A1 and A2, (A1 and A2 are said to inherit from A) and this is represented
-(in Barker's book for example) so:
-\begin{center}
-\scalebox{0.85}{
-\input{\erpictureFolder/generalisation}
-}
-\end{center}
-\pause \item In category theory this situation is represented by a coproductL A = A1 + A2  
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Data Specifications}
-Two kinds of types in play
-\begin{itemize}
-\item the types of data defined -- the definienda
-\pause \item the atomic types used -- the definiens  -- string, integer, float, boolean and so on.
-\pause \item in ER modelling the former are called \textit{entity types}
-\pause \item the latter are called \textit{attribute types} or \textit{domains}.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Categories and Data Specifications}
-\begin{itemize} \footnotesize
-\item  \cite{Johnson93} 
-\begin{itemize} 
-\item describe a category equivalent to an ER schema which they loosely describe as the classifying category of the schema
-\item argue that it is/needs to be a lextensive category
-\item those objects of the category which are coproducts of morphisms from terminal object represent the attribute type (though they use the term attribute here).
-\end{itemize}
-\pause \item developed further in \cite{johnson2002REL} and \cite{Johnson2002ERA}
-\begin{itemize} \footnotesize
-\pause \item The term `EA-sketch' introduced for a sketch representing an ER model 
-\pause \item comparison with the relational model of data and with categorical data specifications\cite{piessens1995}
-\end{itemize}
-\pause \item Cadish and Diskin wrote a preprint with subtitle a Manifesto of Categorizing DataBase Theory in 1995.
-\end{itemize}
-\end{frame}
 
 \iffalse
 \begin{frame}{ER's Binary Relationships as Morphisms}
@@ -331,33 +95,7 @@ zero or one        &                     &     &\\
 \end{frame}
 \fi
 
-\begin{frame}{Enumerated Types}
-\pause for example
-\begin{itemize} 
-\pause \item pascal: type Boolean=(True,False)
-\pause \item C-M IDL: boolean ::= true | false
-\pause \item In an ER+ model:
-\scalebox{0.85}{
-\input{\erpictureFolder/boolean1}
-}
-\end{itemize}
-\end{frame}
 
-\begin{frame}{Types and relationships}
-The following ER diagram:
-\begin{center}
-\scalebox{0.9}{
-\input{\erpictureFolder/refrelEggLaidByChicken}
-}
-\end{center}
-\begin{center}
-\begin{enumerate}
-\item Can be considered a data specification.
-\item Is \textbf{not} a database specification. 
-\end{enumerate}
-\end{center}
-Note: This is the arrow category -- morphisms interpreted by partial functions. 
-\end{frame}
 
 \begin{frame}{Identifying Features in Database Specifications}
 \begin{itemize}
@@ -369,24 +107,7 @@ i.e a mono source
 \end {itemize}
 \end{frame}
 
-\begin{frame}{bar notation}
-\begin{itemize}
-\item bar across a relationship indicates that it is one of the identifying features
-\item if departments identified by department code
-\item and employee identified by employee number within department 
-\end{itemize}
-\end{frame}
 
-\begin{frame}
-\begin{center}{ER modelling notation}
-(departmentEmployeeComposite here)
-\iffalse
-\scalebox{0.50}{
-\input{departmentEmployeeComposite}
-}
-\fi
-\end{center}
-\end{frame}
 
 \iffalse
 \begin{frame}{ER modelling notation}
@@ -398,53 +119,7 @@ i.e a mono source
 \end{frame}
 \fi
 
-\begin{frame}{Grammar or ER}
-\begin{itemize}
-\pause \item Based on syntax given by Brinton (Structure of English Sentence)
-\end{itemize}
-\begin{center}
-\scalebox{0.85}{
-\input{\erpictureFolder/brintonTransitiveIntransitiveAndDiTransitiveCombined}
-}
-\end{center}
-\begin{itemize}
-\pause \item This is a fragment of either or both of a data specification (ER model) and/or a grammar.
-\end{itemize}
-\end{frame}
 
-\iffalse
-\begin{frame}{Chicken and Egg}
-The next ER diagram:
-\begin{center}
-\scalebox{0.9}{
-\input{\erpictureFolder/refrelChickenLayingAndHatchedFromEgg}
-}
-\end{center}
-\begin{center}
-\begin{enumerate}
-\item Has faults as a data specification.
-\item Is still not a database specification. 
-\end{enumerate}
-\end{center}
-\end{frame}
-\fi
-
-\begin{frame}{Relational Model of Data - a certain kind of presentation/sketch}
-
-\end{frame}
-
-
-\begin{frame}{Relational Model of Data}
-\scalebox{0.6}{
-\input{\erpictureFolder/relationalMetaModel3}
-}
-\end{frame}
-
-\begin{frame}{Relational Model of Data}
-\scalebox{0.6}{
-\input{\erpictureFolder/relationalMetaModel3.relational}
-}
-\end{frame}
 
 \begin{frame}{Database Normal Forms}
 \begin{itemize}
@@ -466,44 +141,9 @@ The next ER diagram:
 \end{frame}
 
 
-\begin{frame}{Entity Modelling ER modelling}
-Entity Modelling/ER Modelling
-\end{frame}
-
-\begin{frame}{Extended Entity Modelling}
-Single model mapping to both relational schema and to XML schema
-\end{frame}
-\begin{frame}{Composition v. Reference}
-\end{frame}
-\begin{frame}{Network v Hierarchy}
-\end{frame}
-\begin{frame}{Integrity Constraints}
-\end{frame}
-\begin{frame} {ER $\Longrightarrow$ Relational (Chen's Transformation)}
-\end{frame}
-\begin{frame}{Database Normalisation}
-\end{frame}
-\begin{frame}{A big problem}
-\end{frame}
-\begin{frame}{Commutative diagrams to the rescue}
-\end{frame}
-\begin{frame}{Is it really a solution?}
-\end{frame}
-
-
-\begin{frame}{Generalised Algebriac Theories}
-\end{frame}
-\begin{frame}{Contextual Categories}
-\end{frame}
-
-\begin{frame}{Alternatives To Contextual Catgories}
-\end{frame}
-
-
 \begin{frame}{Bibliography}
 \bibliography{../SharedBibliography/temp/bibliography}
 \end{frame}
 
-%\fi
 
 \end{document}

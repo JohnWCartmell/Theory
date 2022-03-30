@@ -1,0 +1,346 @@
+\documentclass[xcolor=pst,dvips]{beamer}   %, handout
+
+\usepackage{mathptmx}
+\usepackage{amsfonts}
+\usepackage{wasysym}
+\usepackage{url}
+\usepackage{hyperref}
+
+%\input{../SharedMacros/theorems.macros}
+\input{../SharedMacros/ccategories.macros}
+\input{../SharedMacros/gats.macros}
+\input{../SharedMacros/metagat.macros}
+\input{../SharedMacros/ermacros}
+\input{../SharedMacros/erdiagram}    %beamer aware version
+\input{../SharedMacros/indexedsets.macros}
+\renewcommand{\erpictureFolder}[0]{../SharedPictures}
+
+\usetheme{Szeged}
+\usecolortheme{dolphin}
+
+%\setbeamertemplate{navigation symbols}{}
+
+\setcounter{equation}{0}
+
+\title[John Cartmell]{ERA Diagrams}
+%% Which is to say types as they are used in practice in software development and as represented in theory in categories and in syntactic type theories.
+%% There is also a subplot concerning representation of context which certain types depend on -- again represented in practice and in theory. 
+\author{John Cartmell}
+\institute{Otium}
+\date{Jan 25, 2019}
+\bibliographystyle{plainnat}
+\usepackage{bibentry}
+\nobibliography*
+
+\begin{document}
+
+\newcommand{\attr}[1]{#1}
+\renewcommand{\attr}[1]{\psframebox[linecolor=red,framearc=.1]{#1}}
+\newcommand{\attrtype}[1]{#1}
+\renewcommand{\attrtype}[1]{\psframebox[linecolor=blue,framearc=.1]{#1}}
+\newcommand{\etype}[1]{#1}
+\renewcommand{\etype}[1]{\psframebox[linecolor=red,framearc=.1]{#1}}
+
+\newcommand{\CEsymboltype}[0]{varchar(2)}
+\newcommand{\CEatomicnumbertype}{number(1,1000)}
+\newcommand{\CEfloattype}{float}
+\newcommand{\CEnametype}{varchar(64)}
+\newcommand{\CEvalencynumbertype}{number(-7,7)}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Chemical Element DS as Directed Graph}
+\scalebox{0.65}{
+\input{chemicalElementGraph}
+} \\
+\vspace {0.25cm}
+\textit{
+\begin{tabular} {c p{0cm} p{2.5cm} l}
+the types of entities and       & & the attributes   & the  types  \\
+their inter-relationships       & & of the entities     & of the attributes \\
+  & &            &
+\end{tabular}
+}
+\end{frame}
+
+\begin{frame}{Chemical Element DS viewed as ER diagram}
+\begin{center}
+\scalebox{0.85}{
+\input{\erpictureFolder/chemicalElementAttributes}
+}
+\end{center}
+
+\end{frame}
+
+\begin{frame}{Basic Chemistry viewed as ER diagram}
+\begin{center}
+\scalebox{0.5}{
+\input{\erpictureFolder/molecularStructure}
+}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{MolecularGeometry ERA diagram  -- Logical }
+\begin{center}
+\scalebox{0.5}{
+\input{\erpictureFolder/molecularGeometry.tex}
+}
+\end{center}
+\end{frame}
+
+\begin{frame}{MolecularGeometry ERA diagram -- Hierarchical}
+\begin{center}
+\scalebox{0.5}{
+\input{\erpictureFolder/molecularGeometry.hierarchical.tex}
+}
+\end{center}
+\end{frame}
+
+\begin{frame}{MolecularGeometry  ERA diagram -- Relational}
+\begin{center}
+\scalebox{0.5}{
+\input{\erpictureFolder/molecularGeometry.relational.tex}
+}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{ER modelling Meta-Model}
+\scalebox{0.23}{
+\input{\erpictureFolder/ERmodelERmodel}
+}
+\end{frame}
+
+
+
+\begin{frame}{Data Specification viewed as ER diagram}
+\begin{center}
+\scalebox{0.5}{
+\input{\erpictureFolder/molecularStructure.relational}
+}
+\end{center}
+\end{frame}
+\begin{frame}{ER modelling Meta-Model}
+\scalebox{0.23}{
+\input{\erpictureFolder/ERmodelERmodel}
+}
+\end{frame}
+\begin{frame}{Example -- LCMSMS Data -- Seven Pullback Diagrams}
+\scalebox{0.2}{
+\input{\erpictureFolder/chromatogramanalysisrecord}
+}
+\end{frame}
+
+\begin{frame}{Croswfoot notation for binary relationships}
+\begin{center}
+\scalebox{0.9}{
+\input{\erpictureFolder/refrelEggLaidByChicken}
+}
+\end{center}
+is read as
+\begin{center}
+\begin{enumerate}
+\item Each egg \textit{is laid by} \textbf{exactly one} chicken.
+\item Each chicken \textit{lays} \textbf{zero,one or more} eggs.
+\end{enumerate}
+\end{center}
+ \textit{is laid by} therefore represents a partial function with inverse \textit{lays}.
+\end{frame}
+
+\begin{frame}{Chicken and Egg}
+A further relationship 
+\begin{center}
+\scalebox{0.9}{
+\input{\erpictureFolder/refrelChickenLayingAndHatchedFromEgg}
+}
+\end{center}
+reads
+\begin{center}
+\begin{enumerate}
+\item Each egg \textit{hatches into} \textbf{zero or one} chickens.
+\item Each chicken \textit{hatched from} \textbf{exactly one} egg.
+\end{enumerate}
+\end{center}
+ \textit{hatched from} therefore represents an injective function with inverse \textit{hatches into}.
+\end{frame}
+
+
+\begin{frame}{Coproducts and Inheritance in ER}
+\begin{itemize}
+\pause \item In either formal grammar or in IDL from Carnegie-Melon we may write A ::= A1 \textbar\  A2
+\pause \item In an ER model  A is said to generalise A1 and A2, (A1 and A2 are said to inherit from A) and this is represented
+(in Barker's book for example) so:
+\begin{center}
+\scalebox{0.85}{
+\input{\erpictureFolder/generalisation}
+}
+\end{center}
+\pause \item In category theory this situation is represented by a coproductL A = A1 + A2  
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{ER's Binary Relationships as Morphisms}
+\footnotesize
+\begin{tabular} {l l l l}
+cardinality        & inverse cardinality &     &\\
+exactly one        & zero, one or many   &     & $f: A \morph B$\\
+exactly one        & zero or one         &     & f is injective $f: A \hookrightarrow B$\\
+one or many        &                     &     &f is partial $f:A \rightharpoonup B$\\
+zero, one or many  &                     &     &\\
+zero or one        &                     &     &\\
+\end{tabular}
+\end{frame}
+
+\iffalse
+\begin{frame}{\textit{a priori}s}
+\begin{itemize}
+\item In language theory, formal grammars have terminals (and non-terminals)
+\pause \item In data specifications, we have use of basic types string, integer, float, boolean and so on
+              in addition maybe define enumerations 
+\pause \item in categorical data types we have \textit{a priori}s i.e coproducts of terminal object
+\pause \item In relational data models we have domains
+\pause \item in ER models many-one relationships to the basic types are called attributes and are graphically distinct from other relationships
+\end{itemize}
+\end{frame}
+\fi
+
+\begin{frame}{Enumerated Types}
+\pause for example
+\begin{itemize} 
+\pause \item pascal: type Boolean=(True,False)
+\pause \item C-M IDL: boolean ::= true | false
+\pause \item In an ER+ model:
+\scalebox{0.85}{
+\input{\erpictureFolder/boolean1}
+}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Types and relationships}
+The following ER diagram:
+\begin{center}
+\scalebox{0.9}{
+\input{\erpictureFolder/refrelEggLaidByChicken}
+}
+\end{center}
+\begin{center}
+\begin{enumerate}
+\item Can be considered a data specification.
+\item Is \textbf{not} a database specification. 
+\end{enumerate}
+\end{center}
+Note: This is the arrow category -- morphisms interpreted by partial functions. 
+\end{frame}
+
+\begin{frame}{Identifying Features in Database Specifications}
+\begin{itemize}
+\item database specifications are data specifications in which types of entity have 
+identifying features
+\item combination of relationships which can identify an entity unquely
+i.e a mono source
+\item achieves principle of identity of indiscernibles
+\end {itemize}
+\end{frame}
+
+\begin{frame}{bar notation}
+\begin{itemize}
+\item bar across a relationship indicates that it is one of the identifying features
+\item if departments identified by department code
+\item and employee identified by employee number within department 
+\end{itemize}
+\end{frame}
+
+\iffalse
+\begin{frame}
+\begin{center}{ER modelling notation}
+(departmentEmployeeComposite here)
+\scalebox{0.50}{
+\input{departmentEmployeeComposite}
+}
+\end{center}
+\end{frame}
+\fi
+
+
+\begin{frame}{ER modelling notation}
+\begin{center}
+\scalebox{0.85}{
+\input{\erpictureFolder/departmentEmployee1}
+}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Grammar or ER}
+\begin{itemize}
+\pause \item Based on syntax given by Brinton (Structure of English Sentence)
+\end{itemize}
+\begin{center}
+\scalebox{0.85}{
+\input{\erpictureFolder/brintonTransitiveIntransitiveAndDiTransitiveCombined}
+}
+\end{center}
+\begin{itemize}
+\pause \item This is a fragment of either or both of a data specification (ER model) and/or a grammar.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Chicken and Egg}
+The next ER diagram:
+\begin{center}
+\scalebox{0.9}{
+\input{\erpictureFolder/refrelChickenLayingAndHatchedFromEgg}
+}
+\end{center}
+\begin{center}
+\begin{enumerate}
+\item Has faults as a data specification.
+\item Is still not a database specification. 
+\end{enumerate}
+\end{center}
+\end{frame}
+
+
+
+
+\begin{frame}{Relational Model of Data}
+\scalebox{0.6}{
+\input{\erpictureFolder/relationalMetaModel3}
+}
+\end{frame}
+
+\begin{frame}{Relational Model of Data}
+\scalebox{0.6}{
+\input{\erpictureFolder/relationalMetaModel3.relational}
+}
+\end{frame}
+
+\begin{frame}{Database Normal Forms}
+\begin{itemize}
+\item presentations (sketches) should be minimal and avoid redundancy:
+\item how to make this precise?
+\item in case of relational data model leads to 
+   \begin{itemize}
+     \item third normal form (3NF)
+     \item Boyce-Codd normal form (BCNF)
+     \item fourth normal form (4NF)
+     \item fifth normal form (5NF)
+   \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Bibliography}
+\bibliography{../SharedBibliography/temp/bibliography}
+\end{frame}
+
+
+\end{document}
