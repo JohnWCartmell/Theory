@@ -128,7 +128,7 @@ Inclusion dependencies, like functional dependencies and multi-valued dependenci
 or, more pragmatically, as referential constraints\footnote{	Also known colloquially, and rather horribly in my opinion, as foreign key constraints}in the ISO SQL standard\cite{ISOSQL2016} and in relation to XML
 (\cite{fan2003}, for instance); whether implicitly, or explicitly as in the relational paradigm, these are lynchpins of  data specifications.
 
-\note Various authors (\cite{Alderson97},\cite{Johnson93}) have noted the importance of commutative diagrams in data specifications.
+\note Various authors (\cite{CartmellScopePaper},\cite{Johnson93}) have noted the importance of commutative diagrams in data specifications.
 \begin{newtt}Commutative diagrams are another kind of semantic constraint -- we can call them commutivity constraints but equally they might be called path equivalence constraints.\end{newtt}\commentary{reword}  The fact is that relational designs fairly frequently have commutivity constraints implicitly represented within  and this having been achieved  by designers following prescriptions to normalise data and to eliminate duplicates rather than with awareness of the underlying commutivity. 
 Shlaer and Lang illustrate this in \cite{Shlaer96} where they describe alternative paths between two nodes as
 relationship loops, when distinct paths are equivalent they say that there are dependencies
@@ -227,6 +227,24 @@ Path equivalence constraints (aka commutivity constraints) can therefore be foun
 The discussion in Shlaer and Lang \cite{Shlaer96} is an exception.
 
 \section{The Dry Run  -- Data Specification as Presentation of Category}
+
+\newcommand{\paralleldiag}[4]
+{
+ $
+\rule[-0.3cm]{0pt}{0.9cm} %to add vertical space of diagram -- based on lowering diagram 0.3cm and heght 0.9cm
+                            % change thickness from 0pt to 1 pt to debug
+\begin{array}{c p{0.5cm} c  }
+ \Rnode{a}{#1}     &&   \Rnode{b}{#2}
+\end{array} 
+\begin{arrows}
+\ncarc[nodesep=2pt,arcangle=10,offset=2pt]{->}{a}{b}
+\alabel{#3}
+\ncarc[nodesep=2pt,arcangle=-10,offset=-2pt]{->}{a}{b}
+\blabel{#4}
+\end{arrows}
+$  
+}
+
 \note
 In this dry run -- data specification as presentation of category i.e. as linear sketch \cite{BarrandWells}-- we will formulate 
 definitions of maximal constrainedness, commutivity constraint, functional dependency and referential inclusion dependency
@@ -246,6 +264,98 @@ With an assumption of local finiteness (not ideal) we will show that from these 
 requirement then  all commutivity constraints,  functional dependencies and referential inclusion dependencies arising from the requirement are represented in the data specification.
 
 \subsection {Definitions}
+
+\subsection{Directed Graphs}
+Regarding directed graphs and reflecting a category theory mindset we will use terminology as follows:
+\begin{itemize}
+\item
+ If $f: a \morph b$ in an edge of a directed graph $G$ then we will say that $a$ is the \term{domain} of $f$ and $b$ is the \term{codomain} of $f$.
+\item
+If $a$ and $b$ are nodes of a directed graph $G$ then a \term{path} through $G$ with domain $a$ and 
+codomain $b$ of length $n$, where $n \geq 0$, we define to be  an n-tuple of  $n$ edges: $p_i: x_i \morph x_{i+1} $ in $G$ where $x_0=a$ and $x_n=b$. We shall write this n-tuple as $p_1 \circ p_2... \circ p_n$. 
+We will use the same notation if any of the $p_i$ are edges rather than paths as we will not need distinguish  an edge from a singleton path along that edge. 
+\item two paths have the same domain and the same codomain then we shall say that they are \term{commensurate}.
+\end{itemize}
+
+\subsection{Instances of directed graphs}
+An instance of a directed graph $G$ is a mapping of $G$ to the category of finite sets and functions.
+If $G$ is a directed graph and $D$ is an instance then for every node $a$ of $G$, $D(a)$ is a finite set
+and for every edge $f:a \morph b$ in $G$, $F(f):D(a) \morph D(b)$ in $\Fin$. Given such an instance $D$ of 
+directed graph $G$ we can interpret every path $p:a \morph b$ through $G$ as a function $D(p): D(a) \morph D(b)$.
+
+A \term{requirement} (for a data specification) is a set of instances. 
+
+Two commensurate paths $p_1$ and $p_2$ are  said to be \term{equivalent with respect to a requirement $R$}, 
+written $R \models p_1 \sim p_2$, iff 
+for all instances $D \in R$, $D(p1)=D(p_2)$.
+
+The following is a trivial consequence of these definitions.
+\begin{lemma}
+\label{pathequivalenceinference}
+If $G$ is a directed graph and if $R$ is a requirement then 
+\begin{itemize}
+\item if \paralleldiag{a}{b}{p_1}{p_2} and $q: b \morph c$ are paths in $G$ then if $R \models p_1 \sim p_2$  
+then $R \models p_1 \circ q \sim p_2 \circ q$,
+\item if $p: a \morph b$ and \paralleldiag{b}{c}{q_1}{q_2} and $q: b \morph c$ are paths in $G$ then if $R \models q_1 \sim q_2$  
+then $R \models p \circ q_1 \sim p \circ q_2$.
+\end{itemize}
+\end{lemma}
+
+
+\subsection{Sketches}
+By a  \term{sketch for a category} we shall mean a directed graph and a set specified path equivalences.
+Each path equivalence consists of a pair $f_1 \circ ... \circ f_n$ and $g_1 \circ ... \circ g_m$ of commensurate paths and can be represented as a diagram so
+\begin{displaymath}      
+\begin{array}{cp{0.5cm}cp{0.5cm}cp{0.25cm}cp{0.25cm}cp{0.5cm}cp{0.5cm}c}
+            &&               &&                &&                  &&                &&               && \\[0.1cm] % vertical space
+            &&\Rnode{TL}{c_1}&&\Rnode{TIL}{c_2}&&\Rnode{TC}{\hdots}&& \Rnode{TIR}{c_{n-2}} && \Rnode{TR}{c_{n-1}} &&  \\[0.2cm]
+\Rnode{a}{a}&&               &&                &&                  &&                &&               && \Rnode{b}{b} \\[0.2cm]
+            &&\Rnode{BL}{d_1}&&\Rnode{BIL}{d_2}&&\Rnode{BC}{\hdots}&& \Rnode{BIR}{d_{m-2}} && \Rnode{BR}{d_{m-1}} &&  \\[0.2cm]        
+\end{array}
+\begin{arrows}
+\ncarr{a}{TL}
+\alabel{f_1}
+\ncarr{TL}{TIL}
+\alabel{f_2}
+\ncarr{TIL}{TC}
+\ncarr{TC}{TIR}
+\ncarr{TIR}{TR}
+\alabel{f_{n-1}}
+\ncarr{TR}{b}
+\alabel{f_n}
+\ncarr{a}{BL}
+\blabel{g_1}
+\ncarr{BL}{BIL}
+\blabel{g_2}
+\ncarr{BIL}{BC}
+\ncarr{BC}{BIR}
+\ncarr{BIR}{BR}
+\blabel{g_{m-1}}
+\ncarr{BR}{b}
+\blabel{g_n}
+\end{arrows}
+\end{displaymath}
+
+For what we are here calling a sketch of a category Barr and Wells use the \term{linear sketch} and define it as a (directed) graph plus a set of diagrams.
+
+We define the equivalence relation $\sim_S$ of path equivalence determined by a sketch $S$ to be the closure of the set of the specified path equivalences under the following
+
+\begin{itemize}
+\item for any path $p$, $p \sim_S p$,
+\item for any paths $p_1$ and $p_2$ if $p_1 \sim_S p_2$ then $p_2 \sim_S p_1$,
+\item for any paths $p_1$,$p_2$ and $p_3$ if $p_1 \sim_S p_2$ and $p_2 \sim_S p_3$ then $p_1 \sim_S p_3$,
+\item if \paralleldiag{a}{b}{p_1}{p_2} and $q: b \morph c$ are paths in $G$ and if $p_1 \sim_S p_2$  
+then $p_1 \circ q \sim_S p_2 \circ q$,
+\item if $p: a \morph b$ and \paralleldiag{b}{c}{q_1}{q_2} and $q: b \morph c$ are paths in $G$ then if $q_1 \sim_S q_2$  
+then $q_1 \circ p \sim_S q_2 \circ p$.
+\end{itemize}
+
+The category generated by sketch (called the theory of the sketch in Barr and Wells) is the category with
+the nodes of the directed graph of $S$ as objects and with equivalence classes of paths as morphisms.
+Composition is defined from composition of representative paths and from the definition of $\sim_S$ is well-defined.
+
+A sketch is said to be \term{redundancy free} 
+if there is no smaller sketch which generates the same category (upto isomorphism of categories).
 
 
 \subsubsection{Maximal Constrainedness}
@@ -343,7 +453,7 @@ iff there exists a morphism $i:a \morph c$ in $\catc$ such that in each instance
 
 \subsubsection{Path Equivalence}
 
-\newcommand{\fgpralleldiag}
+\newcommand{\fgparalleldiag}
 {
  $
 \rule[-0.3cm]{0pt}{0.9cm} %to add vertical space of diagram -- based on lowering diagram 0.3cm and heght 0.9cm
@@ -364,14 +474,14 @@ $
 
 \begin{definition}
 If $\catcw$ is a  category, if $\reqtc$ is a set of instances
- and if \fgpralleldiag in $\catc$, then say that path $f$ is equivalent to path $g$ with respect to the requirement $R_C$ 
+ and if \fgparalleldiag in $\catc$, then say that path $f$ is equivalent to path $g$ with respect to the requirement $R_C$ 
  (and write $f \pequiv g$) iff
 in all instances $D \in \reqtc$, $D(f)=D(g)$.
 \end{definition}
 
 \begin{definition}
 If $\catc$ is a  category and $\reqtc$ is a set of instances,
- and if \fgpralleldiag in $\catc$ such that $f \pequiv g$
+ and if \fgparalleldiag in $\catc$ such that $f \pequiv g$
  then say that the path equivalence $f \pequiv g$ is represented in \catcw iff
  $f=g$.
 \end{definition}
@@ -381,7 +491,7 @@ If $\catc$ is a  category and $\reqtc$ is a set of instances,
 If $\catc$ is a  category and $\reqtc$ is a set of instances,
  then say that  $\catc$ is \term{logically complete} with respect 
 to the requirement $\reqtc$ iff all path equivalences with respect to $R_C$ are represented in \catcw 
-i.e. iff for all diagrams \fgpralleldiag in $\catc$,  
+i.e. iff for all diagrams \fgparalleldiag in $\catc$,  
 if in all instances $D \in \reqtc$, $D(f)=D(g)$,  then $f=g$ in $\catc$.
 \end{definition}
 \end{oldtt}
