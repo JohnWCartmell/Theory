@@ -44,12 +44,12 @@ REVISED March 2022
 
 \section{Background}
 \note
-Methods for describing the structure of data occur in programming languages, where they vary depending on
-the model of computation (object-oriented, functional,symbolic and so on);
-they occur as dedicated specification methods, such is the entity relationship method,
+Methods for describing the structure of data are fundamental to most programming languages, 
+where they vary depending on the model of computation (object-oriented, functional, symbolic and so on);
+they occur as dedicated specification methods, such as the entity relationship method,
 and  in database technologies, where they vary by the data model (relational, hierarchical, nested relational,
-graph based). Finally they underlie interfacing technologies which are either binary such as 
-the many that implement some variant of IDL (Interface Definition Language) or text based such as XML. 
+graph based, etc.). Finally they underlie interfacing technologies and either describe binary formats such as 
+the many that implement some variant of IDL (Interface Definition Language) or text formats such as epitomised by XML. 
 
 \note 
 There are similarities between the methods when they are viewed abstractly but there are significant differences too and so a study of these different methods brings us to many essentially distinct notions of data specification.
@@ -57,15 +57,19 @@ There are similarities between the methods when they are viewed abstractly but t
 \note
 The thinking is that when viewed abstractly each data specification is a 
 theory\footnote{The role of such a theory can be foregrounded by speaking of it
- as a \textit {theory of what is} and otherwise might be said to be an \textit{ontology}.} and  to each different notion of data specification corresponds a different notion of theory. An organisation of this thinking will lead to a mathematical theory of data. Such a theory has a role to play in improving  the way we think about, discuss, design, develop and transform data specifications. I strongly believe that a fully elaborated mathematical theory of data will foster significant improvements in  techniques and tools for the management of data. 
+ as a \textit {theory of what is} or as an \textit{ontology}.} and  to each different notion of data specification corresponds a different notion of theory. An \oldt{organisation of this thinking, 
+an} exploration of the different notions of theory that can properly be said to be methods of data specification
+and a study of their meta-mathematical properties 
+ will constitute a mathematical theory of data which, therefore, is, a meta-theory. Such a meta-theory has a role to play in improving  the way we think about, discuss, design, develop and transform data specifications. I strongly believe that such a fully elaborated mathematical theory of data will foster significant improvements in  techniques and tools for the management of data. 
 
+\newt{Formulation of goodness criteria, demonstration of interrelationship with traditional criteria of 1st -- 5th normal form}
 \note 
 The relational model of data underpinning the majority of databases for fifty years or so, is exceptional in that it has a body of theory; this theory includes quality criteria  distinguishing good data specifications from bad. 
 One of the goals of a mathematical theory of data is to enable these relational prescriptions of goodness
 to be generalised to become generally applicable. The \textit{dry run} below suggests this is possible.
 
 \note
-Data is required for a purpose, generally to describe real world things in some or other context. This constitutes an intended usage for a data specification. Of all structurally compliant instances of a data specification some are required for the intended usage and, generally speaking, some not.
+Data is required for a purpose, generally to describe real world things in some or other context. This constitutes an intended usage for a data specification. Of all structurally compliant instances of a data specification some are required for the intended usage and, generally speaking, some are not.
 Notionally let there be a requirement $R$ that equates to a subset of the set of all compliant data instances 
 of a data specification and serving to characterise its intended use. 
 
@@ -125,7 +129,7 @@ or, more pragmatically, as referential constraints\footnote{	Also known colloqui
 (\cite{fan2003}, for instance); whether implicitly, or explicitly as in the relational paradigm, these are lynchpins of  data specifications.
 
 \note Various authors (\cite{Alderson97},\cite{Johnson93}) have noted the importance of commutative diagrams in data specifications.
-Commutative diagrams are another kind of semantic constraint -- we can call them commutivity constraints but equally they might be called path equivalence constraints.  The fact is that relational designs fairly frequently have commutivity constraints implicitly represented within  and this having been achieved  by designers following prescriptions to normalise data and to eliminate duplicates rather than with awareness of the underlying commutivity. 
+\begin{newtt}Commutative diagrams are another kind of semantic constraint -- we can call them commutivity constraints but equally they might be called path equivalence constraints.\end{newtt}\commentary{reword}  The fact is that relational designs fairly frequently have commutivity constraints implicitly represented within  and this having been achieved  by designers following prescriptions to normalise data and to eliminate duplicates rather than with awareness of the underlying commutivity. 
 Shlaer and Lang illustrate this in \cite{Shlaer96} where they describe alternative paths between two nodes as
 relationship loops, when distinct paths are equivalent they say that there are dependencies
 between the relationships. Kolp and Zimnyi ((\cite{Kolp1995})) instead use the term
@@ -136,7 +140,7 @@ transformation from ER model to relational model.
 \section{Examples of Path Equivalences aka Commutative Diagrams}
 
 A data specification that describes the relational model of data (in other words, the data specification that is the relational meta-model) when viewed abstractly as a directed graph
-is always going to include nodes corresponding to the concepts of table ($t$) , column ($c$), foreign key constraint ($fk$) and foreign key element ($fke$) as well as others
+include nodes representing the concepts of table ($t$) , column ($c$), foreign key constraint ($fk$) and foreign key element ($fke$) as well as others
 \iffalse
 \raisebox{-0.7cm}
 {\footnotesize
@@ -149,7 +153,7 @@ is always going to include nodes corresponding to the concepts of table ($t$) , 
 }
 \vspace{0.25cm}
 \fi
-and is also going to include the following edges:	\\
+and  also includes the following edges:	\\
 \begin{tabular}{p{1cm} c}
 &
 {\footnotesize
@@ -242,24 +246,6 @@ With an assumption of local finiteness (not ideal) we will show that from these 
 requirement then  all commutivity constraints,  functional dependencies and referential inclusion dependencies arising from the requirement are represented in the data specification.
 
 \subsection {Definitions}
-\subsubsection{Completeness}
-If $\catc$ is a locally finite category and $\reqtc$ is a set of instances, then
-say that  $\catc$ is \term{complete} with respect 
-to the requirement $\reqtc$ 
-iff for all diagrams
-$
-\rule[-0.3cm]{0pt}{0.9cm} %to add vertical space of diagram -- based on lowering diagram 0.3cm and heght 0.9cm
-                            % change thickness from 0pt to 1 pt to debug
-\begin{array}{c p{0.5cm} c  }
- \Rnode{a}{a}            &&   \Rnode{b}{b}
-\end{array} 
-$
-\ncarc[nodesep=2pt,arcangle=10,offset=2pt]{->}{a}{b}
-\alabel{f}
-\ncarc[nodesep=2pt,arcangle=-10,offset=-2pt]{->}{a}{b}
-\blabel{g}
-in $\catc$,  if in all instances $D \in \reqtc$, $D(f)=D(g)$, 
-then $f=g$ in $\catc$.
 
 
 \subsubsection{Maximal Constrainedness}
@@ -355,51 +341,53 @@ with respect  to $\reqtc$ then say that the inclusion dependency $I$ is \term{re
 iff there exists a morphism $i:a \morph c$ in $\catc$ such that in each instance $D \in \reqtc$, $D(i) = I_D$. 
 \end{definition}
 
-\subsection{Representation Lemmas}
+\subsubsection{Path Equivalence}
 
-The most immediate consequence of the definition of maximal constrainedness is given by the next lemma.
-\begin{lemma}
-If $\catc$ is a locally finite category and $\reqtc$ is a set of instances, if $\catc$ is 
-\term{maximally constrained} to the requirement $\reqtc$ then
-for all diagrams
-$
+\newcommand{\fgpralleldiag}
+{
+ $
 \rule[-0.3cm]{0pt}{0.9cm} %to add vertical space of diagram -- based on lowering diagram 0.3cm and heght 0.9cm
                             % change thickness from 0pt to 1 pt to debug
 \begin{array}{c p{0.5cm} c  }
  \Rnode{a}{a}            &&   \Rnode{b}{b}
 \end{array} 
-$
+\begin{arrows}
 \ncarc[nodesep=2pt,arcangle=10,offset=2pt]{->}{a}{b}
 \alabel{f}
 \ncarc[nodesep=2pt,arcangle=-10,offset=-2pt]{->}{a}{b}
 \blabel{g}
-in $\catc$,  if in all instances $D \in \reqtc$, $D(f)=D(g)$, 
-then $f=g$ in $\catc$.
-\end{lemma}
-\begin{proof}
-Suppose such a category  $\catc$  that  is 
-\term{maximally constrained} to a requirement $\reqtc$
-and suppose 
-$
-\rule[-0.3cm]{0pt}{0.8cm} %to add vertical space of diagram -- based on lowering diagram 0.3cm and heght 0.9cm
-                            % change thickness from 0pt to 1 pt to debug
-\begin{array}{c p{0.5cm} c  }
- \Rnode{a}{a}            &&   \Rnode{b}{b}
-\end{array} 
-$
-\ncarc[nodesep=2pt,arcangle=10,offset=2pt]{->}{a}{b}
-\alabel{f}
-\ncarc[nodesep=2pt,arcangle=-10,offset=-2pt]{->}{a}{b}
-\blabel{g}
-in $\catc$. From sketch $S$ of $C$ we can construct a sketch $S'$ by formally adding a path equivalence $f=g$.
-$S'$ generates a category $C'$ for which we have a functor $I: \catc \morph \catcp$. 
-Because $D(f) = D(g)$ in every instance $D \in \reqtc$
-it follows that $I$ is consistent with $\reqtc$. Because $\catc$ is maximally constrained to $\reqtc$
-and because $I: \catc \morph \catcp$ is consistent with $\reqtc$ it follows that the functor $Hom_{\catc}(a,-): \catc \morph \Fin$ 
-can be extended to a functor $F: \catcp \morph \Fin$. Since $I(f)=I(g)$ in $\catcp$ then $F(I(f))=F(I(g))$. But $I \circ F
-= hom(a,-)$ therefore we have that $Hom(a,f)=Hom(a,g)$ and, applying both sides to $id_a$, that $f=g$ in $C$ as required.
-\end{proof}
+\end{arrows}
+$  
+}
 
+\newcommand{\pequiv}[1][R_C]{\underset{#1}{\equiv}}
+
+\begin{definition}
+If $\catcw$ is a  category, if $\reqtc$ is a set of instances
+ and if \fgpralleldiag in $\catc$, then say that path $f$ is equivalent to path $g$ with respect to the requirement $R_C$ 
+ (and write $f \pequiv g$) iff
+in all instances $D \in \reqtc$, $D(f)=D(g)$.
+\end{definition}
+
+\begin{definition}
+If $\catc$ is a  category and $\reqtc$ is a set of instances,
+ and if \fgpralleldiag in $\catc$ such that $f \pequiv g$
+ then say that the path equivalence $f \pequiv g$ is represented in \catcw iff
+ $f=g$.
+\end{definition}
+
+\begin{oldtt}
+\begin{definition}
+If $\catc$ is a  category and $\reqtc$ is a set of instances,
+ then say that  $\catc$ is \term{logically complete} with respect 
+to the requirement $\reqtc$ iff all path equivalences with respect to $R_C$ are represented in \catcw 
+i.e. iff for all diagrams \fgpralleldiag in $\catc$,  
+if in all instances $D \in \reqtc$, $D(f)=D(g)$,  then $f=g$ in $\catc$.
+\end{definition}
+\end{oldtt}
+
+\subsection{Representation Lemmas}
+\subsubsection{Representation of Functional Dependencies}
 \begin{lemma}
 If $\catc$ is a locally finite category and $\reqtc$ is a set of instances, if $\catc$ is 
 \term{maximally constrained} to the requirement $\reqtc$ then
@@ -479,6 +467,7 @@ $\fundep{H}{f}{g}$ is represented in $\catc$.
 
 \end{proof}
 
+\subsubsection{Representation of Referential Inclusion Dependencies}
 \begin{lemma}
 \label{catincdsrepresented}
 If $\catc$ is a locally finite category and $\reqtc$ is a set of instances, if $\catc$ is 
@@ -525,6 +514,87 @@ the sketch $S'$ so that in category $C'$ we have $\qq{f} \circ q_i = f_i$. From 
 that $F'(\qq{f}) \circ F'(q_i) = F'(f_i)$ i.e. $F'(\qq{f}) \circ Hom(a,q_i) = Hom(a,f_i)$. 
 Applying left and right hand sides to $id_a$ we get $F'(\qq{f})(id_a) \circ q_i = f_i$, as required.
 \end{proof}
+
+\subsubsection{Representation of Path Equivalences}
+
+\begin{lemma}
+\llabel{pathequivalencerepresentationlemma}
+If $\catc$ is a locally finite category and $\reqtc$ is a set of instances, if $\catc$ is 
+\term{maximally constrained} to the requirement $\reqtc$ then all path equivalences with respect
+to $R_C$ are represented in \catcw
+i.e. for all diagrams
+$
+\rule[-0.3cm]{0pt}{0.9cm} %to add vertical space of diagram -- based on lowering diagram 0.3cm and heght 0.9cm
+                            % change thickness from 0pt to 1 pt to debug
+\begin{array}{c p{0.5cm} c  }
+ \Rnode{a}{a}            &&   \Rnode{b}{b}
+\end{array} 
+$
+\ncarc[nodesep=2pt,arcangle=10,offset=2pt]{->}{a}{b}
+\alabel{f}
+\ncarc[nodesep=2pt,arcangle=-10,offset=-2pt]{->}{a}{b}
+\blabel{g}
+in $\catc$,  if in all instances $D \in \reqtc$, $D(f)=D(g)$, 
+then $f=g$ in $\catc$.
+\end{lemma}
+\begin{proof}
+Suppose such a category  $\catcw$  that  is 
+\term{maximally constrained} to a requirement $\reqtc$
+and suppose 
+$
+\rule[-0.3cm]{0pt}{0.8cm} %to add vertical space of diagram -- based on lowering diagram 0.3cm and heght 0.9cm
+                            % change thickness from 0pt to 1 pt to debug
+\begin{array}{c p{0.5cm} c  }
+ \Rnode{a}{a}            &&   \Rnode{b}{b}
+\end{array} 
+$
+\ncarc[nodesep=2pt,arcangle=10,offset=2pt]{->}{a}{b}
+\alabel{f}
+\ncarc[nodesep=2pt,arcangle=-10,offset=-2pt]{->}{a}{b}
+\blabel{g}
+in $\catc$. From sketch $S$ of $C$ we can construct a sketch $S'$ by formally adding a path equivalence $f=g$.
+$S'$ generates a category $C'$ for which we have a functor $I: \catc \morph \catcp$. 
+Because $D(f) = D(g)$ in every instance $D \in \reqtc$
+it follows that $I$ is consistent with $\reqtc$. Because $\catc$ is maximally constrained to $\reqtc$
+and because $I: \catc \morph \catcp$ is consistent with $\reqtc$ it follows that the functor $Hom_{\catc}(a,-): \catc \morph \Fin$ 
+can be extended to a functor $F: \catcp \morph \Fin$. Since $I(f)=I(g)$ in $\catcp$ then $F(I(f))=F(I(g))$. But $I \circ F
+= hom(a,-)$ therefore we have that $Hom(a,f)=Hom(a,g)$ and, applying both sides to $id_a$, that $f=g$ in $C$ as required.
+\end{proof}
+
+In this lemma above we have assumed that \catcw is locally finite. Can we not prove this result for all categories? The following example shows not. 
+\begin{example}
+Suppose \catcw is the category generated by the directed graph
+\input{completenesscounterexample}
+subject to the identities
+\begin{equation}
+\label{fhidentity}
+f \circ h = id_a
+\end{equation}
+\begin{equation}
+\label{ghidentity}
+g \circ h = id_a
+\end{equation}
+and 
+\begin{equation}
+\label{rhhpidentity}
+r \circ h \circ h' = id_b
+\end{equation}
+
+We can show that for any functor $D:\catc \morph Fin$, $D(f)=D(g)$. For any requirement 
+$R_C$, therefore, $f$ is equivalent to $g$ with respect to $R_C$ and as $f \neq g$ this equivalence of $f$ and $g$ 
+is not represented in \catc. Lemma \lref{pathequivalencerepresentationlemma} cannot therefore be made applicable to all categories (or to all finitely presented categories) as we might wish.
+
+To complete this example we must assume some functor $D:\catc \morph Fin$ and show that $D(f)=D(g)$. 
+First note that we know that $D(r) \circ D(h \circ h')=id_{D(b)}$ because this follows from
+identity (\ref {rhhpidentity}) and from the functoriality of $D$, Since 
+the set $D(b)$ is finite it follows that $D(r): D(b) \morph D(b)$ is surjective and injective 
+and that the function $D(h \circ h'):D(b) \morph D(b)$ is surjective and injective and from this later
+that the function $D(h)$ is injective.
+Because of identities (\ref{fhidentity}) and (\ref{ghidentity}) and from the 
+functoriality of $D$ we have that $D(f) \circ D(h) =id_{D(a)}=D(g) \circ D(h)$. Because $D(h)$ is injective it follows 
+that $D(f)=D(g)$, as required.
+
+\end{example}
 \section{Case Study}
 \input{case_study}
 \section{Discussion}
