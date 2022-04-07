@@ -1,4 +1,87 @@
 
+Is a presentation of a category really a notion of data specification? 
+Well, as we might specify data in an XML schema, or in IDL or in a relational schema, then it isn't. But as we might outline
+data in a preliminary design of such, say like shown in this fragment 
+$
+\begin{array}{c p{0.05cm}c p{0.5cm}c}
+                        & & \rule[-0.3cm]{0pt}{0.8cm}\Rnode{p}{p}roject& &             \\ [0.3cm]
+    project-wo\Rnode{w}{rker} & &                   & &  \\ [0.3cm]     
+                         & & \Rnode{e}{e}mployee      & &             \\ [0.6cm]     
+                         & & \Rnode{dep}{d}ependent  & &             
+\end{array}
+\begin{arrows}
+\ncarr{w}{p} 
+\alabel{R_1}[0.5][-1]
+\ncarr{w}{e} 
+\blabel{R_2}[0.5][-1]
+\ncarr{dep}{e} 
+\alabel{S_0}
+\end{arrows}
+$,
+then it might be.
+
+It also might be \textit{after we take away detail} from a complete specification to achieve an abstraction. Thus we can recognise
+occurrences of directed graphs within larger and fully detailed data specifications wherever we can find occurrences
+of this diagram:
+$$
+\begin{array}{c p{0.25cm} c  p{0.25cm} c }
+\Rnode{e}{e} &&                   && \Rnode{n}{n} \\[0.4cm]
+\end{array}
+$$
+\Etme[20]{e}{n}
+\alabel{src}[0.75]
+\Etme[-20]{e}{n}
+\blabel{tgt}[0.75]
+
+I mention this  because Bachman in his 1969 paper \textit{Data Structure Diagrams} \cite{Bachman1969}
+enthuses over multiple occurrences of this shape appearing in  a larger data specification\footnote{Though his notation is different and in particular his arrows are the reverse of ours.}. 
+\subsubsection{Molecular Structure}
+\subsubsection{Tabular Data}
+\begin{displaymath}
+\begin{array}{c p{0.25cm}c p{0.25cm}c}
+             && \Rnode{t}{t}   &&              \\ [0.4cm]
+\Rnode{r}{r} &&                && \Rnode{c}{c} \\ [0.4cm]     
+             && \Rnode{d}{d} &&                    
+\end{array}
+\begin{arrows}
+\ncarr{r}{t} 
+\alabel{R_1}[0.5]%[-1]
+\ncarr{c}{t} 
+\blabel{R_2}[0.5]%[-1]
+\ncarr{d}{r} 
+\alabel{S_1}
+\ncarr{d}{c}
+\blabel{S_2} 
+\end{arrows}
+\end{displaymath}
+
+\subsubsection{Function Application}
+\begin{tabular}{c p{1cm}c}
+$
+\begin{array}{c p{0.25cm}c p{0.25cm}c}
+\Rnode{TL}{a} &&                && \Rnode{TR}{f} \\ [0.6cm] 
+\Rnode{BL}{ap} &&                && \Rnode{BR}{fp}   
+\end{array}
+\begin{arrows}
+\ncarr{TL}{TR} 
+\alabel{R_1}
+\ncarr{BL}{BR} 
+\blabel{R_2}
+\ncarr{BL}{TL} 
+\alabel{S_1}
+\ncarr{BR}{TR}
+\blabel{S_2} 
+\end{arrows}
+$
+&&
+\begin{tabular}{c p{0.2cm} c}
+a  && function application i.e. use of a function \\
+ap && actual parameter supplied to a function \\
+f  && a function definition                   \\
+fp && a formal parameter of a function 
+\end{tabular}
+\end{tabular}
+
 \subsubsection{Relational Meta-Model}
 A data specification that describes the relational model of data (in other words, the data specification that is the relational meta-model) when viewed abstractly as a directed graph
 include nodes representing the concepts of table ($t$) , column ($c$), foreign key constraint ($fk$) and foreign key element ($fke$) as well as others
@@ -45,8 +128,8 @@ $
 \vspace{0.2cm}
 \end{tabular}
 
-It is a striking fact that two non-trivial path equivalences  will hold between paths constructed from these edges
-in that both the diagram
+It is a striking fact that two non-trivial path equivalences  
+will hold between paths constructed from these edges in that both the diagram
 \begin{tabular}{ c c c}
 \footnotesize{
 $
