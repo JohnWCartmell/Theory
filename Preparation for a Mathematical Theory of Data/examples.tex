@@ -1,0 +1,88 @@
+
+\subsubsection{Relational Meta-Model}
+A data specification that describes the relational model of data (in other words, the data specification that is the relational meta-model) when viewed abstractly as a directed graph
+include nodes representing the concepts of table ($t$) , column ($c$), foreign key constraint ($fk$) and foreign key element ($fke$) as well as others
+\iffalse
+\raisebox{-0.7cm}
+{\footnotesize
+\begin{tabular}{cp{0.75cm}cp{13cm}}
+                 &$t$&    &  table  \\ [0.1cm]
+                 &$c$&    & column  \\ [0.1cm]
+                &$fk$&    & foreign key -- consists of one or more foreign key elements \\[0.1cm]
+               &$fke$&    & foreign key element --  associates a referencing column and a referred to column. 
+\end{tabular}	
+}
+\vspace{0.25cm}
+\fi
+and  also includes the following edges:	\\
+\begin{tabular}{p{1cm} c}
+&
+{\footnotesize
+$		
+\begin{array}{cp{0.75cm}cp{13cm}}	
+                                                                  \\			
+\Rnode{c}{c}      && \Rnode{t}{t}   & the parent table of a column\\[0.2cm]   
+\Rnode{fk}{fk}    && \Rnode{t2}{t}  & the parent table of a foreign key\\[0.2cm] 
+\Rnode{fke}{fke}  && \Rnode{fk2}{fk}& the foreign key a foreign key element is part of\\[0.2cm]  
+\Rnode{fk3}{fk}   && \Rnode{t3}{t}  & the table that the foreign key defines a reference to\\[0.2cm]     
+\Rnode{fke2}{fke} && \Rnode{c2}{c}  & the referencing column identified by the foreign key element\\[0.2cm]     
+\Rnode{fke3}{fke} && \Rnode{c3}{c}  & the referred to column identified by the foreign key element         
+\end{array}
+$
+\ncarr{c}{t}
+\alabel{p_c}
+\ncarr{fk}{t2} 
+\alabel{p_f}
+\ncarr{fke}{fk2}
+\alabel{p_e}
+\ncarr{fk3}{t3} 
+\alabel{r_0}
+\ncarr{fke2}{c2}
+\alabel{r_1}
+\ncarr{fke3}{c3}
+\alabel{r_2}
+}
+\vspace{0.2cm}
+\end{tabular}
+
+It is a striking fact that two non-trivial path equivalences  will hold between paths constructed from these edges
+in that both the diagram
+\begin{tabular}{ c c c}
+\footnotesize{
+$
+\begin{array}{cp{0.75cm}c}
+   \Rnode{t}{t}       & &              \\[1.2cm]   
+	 \Rnode{fk}{fk}     & &              \\[1.2cm] 
+	 \Rnode{fke}{fke}   & & \Rnode{c}{c} \\[0cm]
+							        & &               % horizontal spece needed    
+\end{array}
+$
+\ncarr{fk}{t} 
+\alabel{p_f}
+\ncarr{fke}{c}
+\blabel{r_1}
+\ncarr{fke}{fk}
+\alabel{p_e}
+\ncarr{c}{t}
+\blabel{p_c}
+}
+&and the diagram&
+{\footnotesize
+$
+\begin{array}{cp{0.75cm}c}
+   \Rnode{fk}{fk}     & & \Rnode{t}{t} \\[1.2cm]     
+	 \Rnode{fke}{fke}   & & \Rnode{c}{c}
+\end{array}
+$
+\ncarr{fk}{t} 
+\alabel{r_0}
+\ncarr{fke}{c}
+\blabel{r_2}
+\ncarr{fke}{fk}
+\alabel{p_e}
+\ncarr{c}{t}
+\blabel{p_c}
+}  \ \ will commute.
+\end{tabular}
+Path equivalence constraints (aka commutivity constraints) can therefore be found right at the heart of the relational model of data. Despite this, to my knowledge, this type of constraint  is absent from relational data theory and this  despite the fact, as mentioned above, that they have a direct bearing on the construction of schemas in third normal form.
+The discussion in Shlaer and Lang \cite{Shlaer96} is an exception.

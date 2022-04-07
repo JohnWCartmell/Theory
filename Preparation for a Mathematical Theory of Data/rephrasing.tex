@@ -1,0 +1,83 @@
+
+The definitions of functional depedency and referential inclusion dependency that have been given above 
+can be rephrased slightly as we now describe. The rephrasing leads to a future note in which we will describe the use of categories with specified monos, epis and epi-mono splits as data specifications.
+\subsection{Functional Dependencies}
+\begin{lemma}
+If $\catc$ is a locally finite category and $\reqtc$ is a set of instances, if \fgsourcediag in \catcw
+then if there exists a functional dependency $\fundep{H}{f}{g}$  with respect to $R_C$ then
+for each instance  $D \in \reqtc$, $D(f)$ is surjective.
+\end{lemma}
+\begin{proof}
+Follows from the uniqueness condition for $H_D$ in the definition of functional dependency which cannot hold in any instance $D \in \reqtc$ in which $D(f)$ is not surjective.
+\end{proof}
+\begin{corollary}
+For any morphism $f:a \morph a$ is \catcw there is a functional dependency $\fundep{H}{f}{f}$ iff
+in each instance  $D \in \reqtc$, $D(f)$ is surjective.
+\end{corollary}
+\begin{proof}
+Follows from the previous lemma because in every instance $D \in \reqtc$ 
+we can take the function $H_D: D(A) \morph D(a)$ to be the identity function on the set $D(a)$
+so that  $D(f) \circ H_D = D(f)$. 
+\end{proof}
+This lemma and its corallary  mean that we can replace the uniqueness requirement in the 
+definition of functional dependency by a requirement that each $D(f)$ be surjective and obtain the following
+rephrasing of the definition:
+\begin{definition}
+If $\catc$ is a locally finite category and $\reqtc$ is a set of instances, if \fgsourcediag in \catcw
+then there is a  \term{functional dependency} of $g$ on $f$ with respect to $\reqtc$ iff
+\begin{itemize}
+\item in every instance $D$ the function $D(f)$ is surjective and
+\item
+there is a family of functions $H_D)_{D \in \reqtc}$ such that 
+in each instance $D$, $H_D$ is a  function $H_D: D(b) \morph D(c)$, 
+such that $D(f) \circ H_D = D(g)$. 
+\end{itemize}
+\end{definition}
+\subsection{Inclusion Dependencies}
+\begin{oldtt}
+\begin{lemma}
+If $\catc$ is a category and $\reqtc$ is a set of instances and if
+\fnsourceqnsource
+in $\catc$
+such that $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$ is a referential inclusion dependency with respect  to $\reqtc$ then in each instance $D \in \reqtc$ the family of functions
+$q_{i, 1 \leq i \leq n}$ is jointly-injective.
+\end{lemma}
+\begin{proof}
+NOT TRUE
+\end{proof}
+\end{oldtt}
+
+\newcommand {\qnsourcediag}{
+$
+\begin{array}{c p{0.5cm} c  }
+             &&   \Rnode{b}{b_1} \\[0.01cm]
+\Rnode{a}{a} &&                \\[0.01cm] 
+             &&   \Rnode{c}{b_n}         
+\end{array} 
+\begin{arrows}
+\ncarr{a}{b}
+\alabel{q_1}
+\ncarr{a}{c}
+\blabel{q_n}
+\end{arrows}
+$  
+}
+
+\begin{lemma}
+If $\catc$ is a  category and $\reqtc$ is a set of instances, if \qnsourcediag in \catcw
+then there is a referential inclusion dependency $c[q_1,...q_n] \subseteq c[q_1,..q_n]$
+with respect to $R_C$
+iff in each instance $D \in \reqtc$ the family of functions $D(q_{i})_{1 \leq i \leq n}$ is jointly-injective.
+\end{lemma}
+\begin{proof}
+\end{proof}
+
+This lemma and its corollary \highlight{???} enable us to rephrase the definition of referential inclusion dependency \commentary{reword}
+without an explicit uniqueness condition as follows:
+\begin{definition}
+a \term{referential inclusion dependency} $I$, written $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$, is a family of functions $I_D)_{D \in \reqtc}$
+\begin{itemize}
+\item such that each instance $D \in \reqtc$, $I_D$ is a  function $I_D : D(a) \morph D(c)$ such that for each $i$, $1 \leq i \le n$, $I_D \circ D(q_i) = D(f_i)$ and 
+\item such that the family of functions $q_{i, 1 \leq i \leq n}$ is jointly-injective.
+\end{itemize}
+\end{definition}
