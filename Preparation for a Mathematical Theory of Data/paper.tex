@@ -41,6 +41,10 @@ DRAFTED October 2020 \\
 REVISED March 2022
 \end{center}
 
+\newcommand{\seenudgeup}[1]{\rule{0.1cm}{#1}}
+\newcommand{\seenudgedown}[1]{\rule[-#1]{0.1cm}{0.1cm}}
+\newcommand{\nudgeup}[1]{\rule{0cm}{#1}}
+\newcommand{\nudgedown}[1]{\rule[-#1]{0cm}{0.1cm}}
 
 \newcommand{\paralleldiag}[4]
 {
@@ -59,7 +63,27 @@ REVISED March 2022
 $  
 }
 
+
+\newcommand{\sourcediag}[5]{
+$
+\begin{array}{c p{0.5cm} c  }
+             &&   \Rnode{b}{#2} \\[0.01cm]
+\Rnode{a}{#1} &&                \\[0.01cm] 
+             &&   \Rnode{c}{#3} 
+\end{array} 
+\begin{arrows}
+\ncarr{a}{b}
+\alabel{#4}
+\ncarr{a}{c}
+\blabel{#5}
+\end{arrows}
+$  
+}
+\newcommand{\fgsourcediag}{\sourcediag{a}{b}{c}{f}{g}}
+
+
 \section{Background}
+\iffalse
 \input{background}
 
 \section{Investigation -- Data Specification as Sketch of Category}
@@ -81,6 +105,8 @@ You may also consider that the definitions given in this investigation are embry
 
 \subsection{Definitions}
 \input{basic_definitions}
+\fi %##############################################################
+
 \subsection{Examples - Sketch of category as Data Specification}
 \input{examples}
 \subsection{Goodness Criteria}

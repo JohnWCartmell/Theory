@@ -1,4 +1,13 @@
 
+\newenvironment{graph} % graph with key alongside
+{
+\begin{tabular}{c p{1cm}c}
+}
+{
+\end{tabular}
+}
+
+\iffalse
 Is a presentation of a category really a notion of data specification? 
 Well, as we might specify data in an XML schema, or in IDL or in a relational schema, then it isn't. But as we might outline
 data in a preliminary design of such, say like shown in this fragment 
@@ -37,7 +46,8 @@ I mention this  because Bachman in his 1969 paper \textit{Data Structure Diagram
 enthuses over multiple occurrences of this shape appearing in  a larger data specification\footnote{Though his notation is different and in particular his arrows are the reverse of ours.}. 
 \subsubsection{Molecular Structure}
 \subsubsection{Tabular Data}
-\begin{displaymath}
+\begin{graph}
+$
 \begin{array}{c p{0.25cm}c p{0.25cm}c}
              && \Rnode{t}{t}   &&              \\ [0.4cm]
 \Rnode{r}{r} &&                && \Rnode{c}{c} \\ [0.4cm]     
@@ -53,35 +63,96 @@ enthuses over multiple occurrences of this shape appearing in  a larger data spe
 \ncarr{d}{c}
 \blabel{S_2} 
 \end{arrows}
-\end{displaymath}
+$
+&&
+\begin{key}
+\keyentry{t} {table}  {a table of data}
+\keyentry{r} {row}    {a row within a table}
+\keyentry{c} {column} {a column within a table}                
+\keyentry{d} {data}   {each data item is located in both a row and a column} 
+\end{key}
+\end{graph}
+
+
 
 \subsubsection{Function Application}
-\begin{tabular}{c p{1cm}c}
+In this example we give a simplified description of data representing a computer program
+written in some modular programming language.\\ 
+\begin{graph}
 $
 \begin{array}{c p{0.25cm}c p{0.25cm}c}
-\Rnode{TL}{a} &&                && \Rnode{TR}{f} \\ [0.6cm] 
-\Rnode{BL}{ap} &&                && \Rnode{BR}{fp}   
+               && \Rnode{abs}{p} &&               \\ [0.7cm]  
+               && \Rnode{T}{pm} &&               \\ [0.7cm]    
+\Rnode{TL}{fc} &&               && \Rnode{TR}{f} \\ [0.8cm] 
+\Rnode{BL}{ap} &&               && \Rnode{BR}{fp}   
 \end{array}
 \begin{arrows}
-\ncarr{TL}{TR} 
+\ncarr{T}{abs} 
+\alabel{R_0}
+\ncarr{TL}{T} 
 \alabel{R_1}
-\ncarr{BL}{BR} 
+\ncarr{TR}{T} 
 \blabel{R_2}
-\ncarr{BL}{TL} 
+\ncarr{TL}{TR} 
 \alabel{S_1}
+\ncarr{BL}{BR} 
+\blabel{S_2}
+\ncarr{BL}{TL} 
+\alabel{Q_1}
 \ncarr{BR}{TR}
-\blabel{S_2} 
+\blabel{Q_2} 
 \end{arrows}
 $
 &&
-\begin{tabular}{c p{0.2cm} c}
-a  && function application i.e. use of a function \\
-ap && actual parameter supplied to a function \\
-f  && a function definition                   \\
-fp && a formal parameter of a function 
-\end{tabular}
-\end{tabular}
+\begin{key}
+\keyentry{p}  {program}             {a computer program}
+\keyentry{pm} {program module}      {part of a computer program ($R_0$)}
+\keyentry{fc} {function call}       {point of use of a function in a program}
+\keyentry{ap} {actual parameter}    {supply of a value to the formal parameter ($S_2$) of a function in a function call ($Q_1$)}
+\keyentry{f } {function}            {the definition of a function within a program}                
+\keyentry{fp} {formal parameter}    {defined for a function in its definition} 
+\end{key} 
+\end{graph} \\
+Subject to path equivalences: 
+\begin{equation}
+\label{programquivalence1}
+Q_1\circ S_1 \sim S_2 \circ S_1
+\end{equation}
+\begin{equation}
+\label{programequivalence2}
+R_1 \circ R_0 \sim S_1 \circ R_2 \circ R_0
+\end{equation}
 
+I ask the reader to interpret these path equivalences and what they say about the programming language. 
+In practice we would also specify that functions and possibly formal parameters are named and that 
+to each formal parameter there should correspond at most one actual parameter within any given function call.
+This means that the pair of functions 
+\nudgeup{0.9cm}\nudgedown{0.65cm} \sourcediag{D(ap)}{D(fc)}{D(fp)}{D(Q_1)}{D(S_2)}
+will be jointly injective 
+i.e. comprise a mono-source\footnote{Terminology that is used in the context of data specifications in Piersenns.} in  category $\Fin$.
+Note also that in a programming language which does not support default values for formals and as a cosnequence
+actual parameter values must be supplied for all formals (in a programming langauge which does not support default values for parameters) in every function call then in every instance $D$ of a valid program the diagram
+\begin{displaymath}
+\begin{array}{c p{0.25cm}c p{0.25cm}c} 
+                  &&               &&                   \\[0.3cm]
+\Rnode{TL}{D(fc)} &&               && \Rnode{TR}{D(f)}  \\[0.8cm] 
+\Rnode{BL}{D(ap)} &&               && \Rnode{BR}{D(fp)} \\[0.3cm]
+\end{array}
+\begin{arrows}
+\ncarr{TL}{TR} 
+\alabel{D(S_1)}
+\ncarr{BL}{BR} 
+\blabel{D(S_2)}
+\ncarr{BL}{TL} 
+\alabel{D(Q_1)}
+\ncarr{BR}{TR}
+\blabel{D(Q_2)} 
+\end{arrows}
+\end{displaymath}
+will be a pullback diagram in $\Fin$. Representation of pullbacks in data specifications will be a subject of a future note.
+Fagin uses the term \term{projection-join dependency} in such situations and his projection-join normal form states when the such
+ dependency is justified in a data specification. 
+\fi
 \subsubsection{Relational Meta-Model}
 A data specification that describes the relational model of data (in other words, the data specification that is the relational meta-model) when viewed abstractly as a directed graph
 include nodes representing the concepts of table ($t$) , column ($c$), foreign key constraint ($fk$) and foreign key element ($fke$) as well as others
@@ -92,7 +163,7 @@ include nodes representing the concepts of table ($t$) , column ($c$), foreign k
                  &$t$&    &  table  \\ [0.1cm]
                  &$c$&    & column  \\ [0.1cm]
                 &$fk$&    & foreign key -- consists of one or more foreign key elements \\[0.1cm]
-               &$fke$&    & foreign key element --  associates a referencing column and a referred to column. 
+               &$fke$&    & foreign key element --  . 
 \end{tabular}	
 }
 \vspace{0.25cm}
@@ -127,6 +198,50 @@ $
 }
 \vspace{0.2cm}
 \end{tabular}
+
+as follows:
+
+\begin{graph}
+$
+\begin{array}{p {1cm} c p{0.9cm} c p{0.7cm} c}
+&              && \Rnode{abs}{rdb}  &&         \\[0.7cm]
+&              && \Rnode{T}{t}      &&         \\[0.75cm]
+&\Rnode{ML}{c} && \Rnode{MC}{pke}   &&  \Rnode{MR}{fk}  \\[0.7cm]
+&              &&                   &&  \Rnode{BR}{fke}  \\[1.3cm]
+\end{array}
+\begin{arrows}
+% composition
+\ncarr{T}{abs}
+\blabel{S_0}
+\ncarr{ML}{T}
+\alabel{S_1}[0.4]
+\ncarr{MC}{T}
+\blabel{S_2}[0.4]
+\ncarr{MR}{T}
+\blabel{S_3}[0.4]
+\ncarr{BR}{MR}
+\blabel{S_4}
+% reference
+\ncarr[20]{MC}{ML}
+\alabel{R_1}
+\ncangle[angleA=180,linearc=0.1]{->}{BR}{MC}
+\alabel{R_?}
+\ncloop[nodesepA=4pt,angleB=180,nodesepB=3pt,loopsize=-2.0cm,armA=0.6cm,armB=2.7cm,linearc=0.2cm]{->}{MR}{T}
+\naput[npos=2.5,labelsep=2pt]{\footnotesize $R_2$}
+\ncloop[nodesepA=4pt,angleB=180,nodesepB=3pt,loopsize=-0.5cm,armA=0.3cm,armB=0.4cm,linearc=0.15cm]{->}{BR}{ML}
+\nbput[npos=2.5,labelsep=2pt]{\footnotesize $R_3$}
+\end{arrows}
+$
+&&
+\begin{key}
+\keyentry{rdb}{relational database}{}
+\keyentry{t}{table}{a table within a relational database($S_0$)}
+\keyentry{c}{column}{a column of a table ($S_1$)}
+\keyentry{pke}{primary key element}{identifies a column ($R_1$)to be part of the primary key of a table}
+\keyentry{fk}{foreign key}{implements a relationship between one table ($S_3$) and another ($R_2$)}
+\keyentry{fke}{foreign key element}{associates a referencing column ($R?$) and a referred to column ($R_3$)}
+\end{key}
+\end{graph}
 
 It is a striking fact that two non-trivial path equivalences  
 will hold between paths constructed from these edges in that both the diagram
