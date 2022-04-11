@@ -155,59 +155,14 @@ Fagin uses the term \term{projection-join dependency} in such situations and his
 \fi
 \subsubsection{Relational Meta-Model}
 A data specification that describes the relational model of data (in other words, the data specification that is the relational meta-model) when viewed abstractly as a directed graph
-include nodes representing the concepts of table ($t$) , column ($c$), foreign key constraint ($fk$) and foreign key element ($fke$) as well as others
-\iffalse
-\raisebox{-0.7cm}
-{\footnotesize
-\begin{tabular}{cp{0.75cm}cp{13cm}}
-                 &$t$&    &  table  \\ [0.1cm]
-                 &$c$&    & column  \\ [0.1cm]
-                &$fk$&    & foreign key -- consists of one or more foreign key elements \\[0.1cm]
-               &$fke$&    & foreign key element --  . 
-\end{tabular}	
-}
-\vspace{0.25cm}
-\fi
-and  also includes the following edges:	\\
-\begin{tabular}{p{1cm} c}
-&
-{\footnotesize
-$		
-\begin{array}{cp{0.75cm}cp{13cm}}	
-                                                                  \\			
-\Rnode{c}{c}      && \Rnode{t}{t}   & the parent table of a column\\[0.2cm]   
-\Rnode{fk}{fk}    && \Rnode{t2}{t}  & the parent table of a foreign key\\[0.2cm] 
-\Rnode{fke}{fke}  && \Rnode{fk2}{fk}& the foreign key a foreign key element is part of\\[0.2cm]  
-\Rnode{fk3}{fk}   && \Rnode{t3}{t}  & the table that the foreign key defines a reference to\\[0.2cm]     
-\Rnode{fke2}{fke} && \Rnode{c2}{c}  & the referencing column identified by the foreign key element\\[0.2cm]     
-\Rnode{fke3}{fke} && \Rnode{c3}{c}  & the referred to column identified by the foreign key element         
-\end{array}
-$
-\ncarr{c}{t}
-\alabel{p_c}
-\ncarr{fk}{t2} 
-\alabel{p_f}
-\ncarr{fke}{fk2}
-\alabel{p_e}
-\ncarr{fk3}{t3} 
-\alabel{r_0}
-\ncarr{fke2}{c2}
-\alabel{r_1}
-\ncarr{fke3}{c3}
-\alabel{r_2}
-}
-\vspace{0.2cm}
-\end{tabular}
-
-as follows:
-
+includes, amongst others, nodes representing the concepts of table ($t$) , column ($c$), foreign key constraint ($fk$) and foreign key element ($fke$) as follows:
 \begin{graph}
 $
 \begin{array}{p {1cm} c p{0.9cm} c p{0.7cm} c}
-&              && \Rnode{abs}{rdb}  &&         \\[0.7cm]
-&              && \Rnode{T}{t}      &&         \\[0.75cm]
-&\Rnode{ML}{c} && \Rnode{MC}{pke}   &&  \Rnode{MR}{fk}  \\[0.7cm]
-&              &&                   &&  \Rnode{BR}{fke}  \\[1.3cm]
+&                && \Rnode{abs}{rdb}  &&         \\[0.7cm]
+&                && \Rnode{T}{t}      &&         \\[0.75cm]
+&\Rnode{ML}{pke} && \Rnode{MC}{c}     &&  \Rnode{MR}{fk}  \\[0.7cm]
+&                &&                   &&  \Rnode{BR}{fke}  \\[1.3cm]
 \end{array}
 \begin{arrows}
 % composition
@@ -222,11 +177,9 @@ $
 \ncarr{BR}{MR}
 \blabel{S_4}
 % reference
-\ncarr[20]{MC}{ML}
-\alabel{R_1}
-\ncangle[angleA=180,linearc=0.1]{->}{BR}{MC}
-\alabel{R_?}
-\ncloop[nodesepA=4pt,angleB=180,nodesepB=3pt,loopsize=-2.0cm,armA=0.6cm,armB=2.7cm,linearc=0.2cm]{->}{MR}{T}
+\ncarr[-20]{ML}{MC}
+\blabel{R_1}
+\ncloop[nodesepA=4pt,angleB=180,nodesepB=3pt,loopsize=-2.0cm,armA=0.6cm,armB=3.0cm,linearc=0.2cm]{->}{MR}{T}
 \naput[npos=2.5,labelsep=2pt]{\footnotesize $R_2$}
 \ncloop[nodesepA=4pt,angleB=180,nodesepB=3pt,loopsize=-0.5cm,armA=0.3cm,armB=0.4cm,linearc=0.15cm]{->}{BR}{ML}
 \nbput[npos=2.5,labelsep=2pt]{\footnotesize $R_3$}
@@ -243,44 +196,61 @@ $
 \end{key}
 \end{graph}
 
-It is a striking fact that two non-trivial path equivalences  
-will hold between paths constructed from these edges in that both the diagram
-\begin{tabular}{ c c c}
-\footnotesize{
-$
+Subject to the following path equivalences:
+\begin{align}
+\label{R1scope}
+&R_1 \circ S_2 = S_1, && \mbox{or, equivalently, }
 \begin{array}{cp{0.75cm}c}
-   \Rnode{t}{t}       & &              \\[1.2cm]   
-	 \Rnode{fk}{fk}     & &              \\[1.2cm] 
-	 \Rnode{fke}{fke}   & & \Rnode{c}{c} \\[0cm]
-							        & &               % horizontal spece needed    
+   \Rnode{t}{t}       & &              \\[1.2cm] 
+   \Rnode{pke}{pke}   & & \Rnode{c}{c} \\[0cm]
+                             & &               % horizontal spece needed    
 \end{array}
-$
-\ncarr{fk}{t} 
-\alabel{p_f}
-\ncarr{fke}{c}
-\blabel{r_1}
-\ncarr{fke}{fk}
-\alabel{p_e}
+\begin{arrows}
+\ncarr{pke}{t} 
+\alabel{S_1}
 \ncarr{c}{t}
-\blabel{p_c}
-}
-&and the diagram&
-{\footnotesize
-$
+\blabel{S_2}
+\ncarr{pke}{c}
+\blabel{R_1}
+\end{arrows} \mbox{ commutes,} \\
+\label{R2scope}
+&R_2 \circ  S_0 = S_3 \circ S_0, && \mbox{or, equivalently, \ \ }
+\begin{array}{cp{0.75cm}c}
+                & \Rnode{rdb}{rdb} &                    \\[1.2cm]
+\Rnode{Lt}{t}   &                  &                    \\[1.2cm]  
+\Rnode{fk}{fk}  &                  & \Rnode{Rt}{t}       \\[0cm]
+                &                  &               % horizontal spece needed    
+\end{array}
+\begin{arrows}
+\ncarr{Lt}{rdb}
+\alabel{S_0}
+\ncarr{Rt}{rdb}
+\blabel{S_0}
+\ncarr{fk}{Lt}
+\alabel{S_3}
+\ncarr{fk}{Rt}
+\blabel{R_2}
+\end{arrows} \mbox{ commutes,} \\
+\label{R3scope}
+&R_3 \circ S_1 = S_4 \circ R_2, && \mbox{or, equivalently, \ \ }
 \begin{array}{cp{0.75cm}c}
    \Rnode{fk}{fk}     & & \Rnode{t}{t} \\[1.2cm]     
-	 \Rnode{fke}{fke}   & & \Rnode{c}{c}
+	\Rnode{fke}{fke}   & & \Rnode{pk}{pk}
 \end{array}
-$
+\begin{arrows}
 \ncarr{fk}{t} 
-\alabel{r_0}
-\ncarr{fke}{c}
-\blabel{r_2}
+\alabel{R_2}
+\ncarr{fke}{pk}
+\blabel{R_3}
 \ncarr{fke}{fk}
-\alabel{p_e}
-\ncarr{c}{t}
-\blabel{p_c}
-}  \ \ will commute.
-\end{tabular}
-Path equivalence constraints (aka commutivity constraints) can therefore be found right at the heart of the relational model of data. Despite this, to my knowledge, this type of constraint  is absent from relational data theory and this  despite the fact, as mentioned above, that they have a direct bearing on the construction of schemas in third normal form.
-The discussion in Shlaer and Lang \cite{Shlaer96} is an exception.
+\alabel{S_4}
+\ncarr{pk}{t}
+\blabel{S_1}
+\end{arrows} \mbox{ \ \ \ commutes.} 
+\end{align}
+It is a striking fact that we find thesepath equivalence constraints (aka commutivity constraints) right at the heart of the relational model of data. Nonetheless this type of constraint  is absent from relational data theory and this  despite the fact, as mentioned above, that they have a direct bearing on the construction of schemas in third normal form.
+The discussion in Shlaer and Lang \cite{Shlaer96} is an exception. These diagrams, 
+(\ref{R1scope}), (\ref{R2scope}) and (\ref{R3scope}), follow a familiar pattern. In \cite{CartmellScopePaper} 
+such diagrams are referred to as scope diagrams.
+
+

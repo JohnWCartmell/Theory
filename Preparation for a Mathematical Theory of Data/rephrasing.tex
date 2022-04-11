@@ -1,7 +1,9 @@
 
-The definitions of functional depedency and referential inclusion dependency that have been given above 
-can be rephrased slightly as we now describe. The rephrasing leads to a future note in which we will describe the use of categories with specified monos, epis and epi-mono splits as data specifications.
-\subsection{Functional Dependencies}
+The definition of functional dependency  that has been given above 
+can be rephrased slightly as we now describe. The rephrasing and an observation regarding
+inclusion dependencies and jointly-injective functions points the
+way to a future note in which we will describe the use of categories with specified monos, epis and epi-mono splits as data specifications.
+\subsubsection{Rephrasing of Principle 2B regarding Representation of Functional Dependencies}
 \begin{lemma}
 If $\catc$ is a locally finite category and $\reqtc$ is a set of instances, if \fgsourcediag in \catcw
 then if there exists a functional dependency $\fundep{H}{f}{g}$  with respect to $R_C$ then
@@ -33,20 +35,20 @@ in each instance $D$, $H_D$ is a  function $H_D: D(b) \morph D(c)$,
 such that $D(f) \circ H_D = D(g)$. 
 \end{itemize}
 \end{definition}
-\subsection{Inclusion Dependencies}
-\begin{oldtt}
+\subsubsection{Regarding Jointly-Injectives and Inclusion Dependencies}
+
 \begin{lemma}
 If $\catc$ is a category and $\reqtc$ is a set of instances and if
 \fnsourceqnsource
 in $\catc$
-such that $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$ is a referential inclusion dependency with respect  to $\reqtc$ then in each instance $D \in \reqtc$ the family of functions
-$q_{i, 1 \leq i \leq n}$ is jointly-injective.
+such that $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$ is an inclusion dependency with respect  to $\reqtc$ then if in each instance $D \in \reqtc$ the family of functions
+$q_{i, 1 \leq i \leq n}$ is jointly-injective then $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$ is a referential inclusion dependency.
 \end{lemma}
 \begin{proof}
-NOT TRUE
+Straightforward.
 \end{proof}
-\end{oldtt}
 
+\iffalse
 \newcommand {\qnsourcediag}{
 $
 \begin{array}{c p{0.5cm} c  }
@@ -62,22 +64,5 @@ $
 \end{arrows}
 $  
 }
+\fi
 
-\begin{lemma}
-If $\catc$ is a  category and $\reqtc$ is a set of instances, if \qnsourcediag in \catcw
-then there is a referential inclusion dependency $c[q_1,...q_n] \subseteq c[q_1,..q_n]$
-with respect to $R_C$
-iff in each instance $D \in \reqtc$ the family of functions $D(q_{i})_{1 \leq i \leq n}$ is jointly-injective.
-\end{lemma}
-\begin{proof}
-\end{proof}
-
-This lemma and its corollary \highlight{???} enable us to rephrase the definition of referential inclusion dependency \commentary{reword}
-without an explicit uniqueness condition as follows:
-\begin{definition}
-a \term{referential inclusion dependency} $I$, written $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$, is a family of functions $I_D)_{D \in \reqtc}$
-\begin{itemize}
-\item such that each instance $D \in \reqtc$, $I_D$ is a  function $I_D : D(a) \morph D(c)$ such that for each $i$, $1 \leq i \le n$, $I_D \circ D(q_i) = D(f_i)$ and 
-\item such that the family of functions $q_{i, 1 \leq i \leq n}$ is jointly-injective.
-\end{itemize}
-\end{definition}
