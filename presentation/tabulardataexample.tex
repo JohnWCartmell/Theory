@@ -1,0 +1,89 @@
+ \documentclass[10pt,a4paper]{article}
+%\input{thepreamble.tex}
+\input{../SharedMacros/ccategories.macros}
+\input{../SharedMacros/ermacros}
+\input{../SharedMacros/erdiagram}
+\input{../SharedMacros/theorems.macros}
+\input{../SharedMacros/general.macros}
+\usepackage{mathptmx}  % This changes font to roman
+\usepackage{anyfontsize}
+\usepackage{mathtools}  % why have we got this?
+\usepackage{alltt}    
+\usepackage{mnsymbol} %used for rightpitchfork
+\usepackage{cmll}
+\usepackage{ulem}
+\renewcommand{\ttdefault}{txtt}
+\usepackage[left=1.5cm, right=4cm, marginparwidth=3cm, top=2cm, bottom=2.0cm]{geometry}
+\usepackage{framed}
+\usepackage[font=small]{caption}
+\setlength{\captionmargin}{2cm}
+\theoremstyle{remark}
+\newtheorem*{lemma*}{Lemma}
+
+
+\renewcommand{\term}[1]{\textit{#1}}  %SIMPLE UNINDEXED VERSION
+
+%ENDCOPY
+
+\begin{document}
+\title{Tbular Datsa Example}
+
+% abstract here for ams
+
+\author{John Cartmell}
+
+\date{}
+
+%\maketitle
+
+
+
+\newcommand{\seenudgeup}[1]{\rule{0.1cm}{#1}}
+\newcommand{\seenudgedown}[1]{\rule[-#1]{0.1cm}{0.1cm}}
+\newcommand{\nudgeup}[1]{\rule{0cm}{#1}}
+\newcommand{\nudgedown}[1]{\rule[-#1]{0cm}{0.1cm}}
+
+\begin{displaymath}
+\begin{array}{cp{0.75cm}cp{0.75cm}cp{2.5cm}c}
+             && \Rnode{abs}{abs}  &&                 &&                        \\[1.8cm]
+             && \Rnode{t}{t}      &&                 &&  \Rnode{text}{text}    \\[1.8cm]
+\Rnode{r}{r} &&                   && \Rnode{c}{c}    &&  \Rnode{number}{number}\\[1.8cm]
+             && \Rnode{d}{d}      &&                 &&  \Rnode{float}{float}
+\end{array}
+\begin{arrows}
+\ncarr{t}{abs}
+\ncarr{r}{t}
+\ncarr{c}{t}
+\ncarr{d}{r}
+\ncarr{d}{c}
+\ncarr[50]{t}{text}
+\alabel{name}
+\ncarr[15]{t}{text}
+\alabel{title}
+\ncarr[30]{r}{number}
+\alabel{no}
+\ncarr[15]{c}{number}
+\alabel{no}
+\ncarr[15]{d}{float}
+\alabel{content}
+\end{arrows}
+\end{displaymath}
+
+
+\begin{verbatim}
+whole => Set Of tabulardata,
+
+tabulardata => 
+         Set Of row,
+         Set of column
+
+row => rowno : number,
+       Set Of data
+
+column => colno : number,
+          title : string
+
+datacell => colno : number,
+            content: float
+\end{verbatim}
+\end{document}
