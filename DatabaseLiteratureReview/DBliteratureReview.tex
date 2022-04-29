@@ -18,6 +18,10 @@
 %\usepackage{enumerate} %This is in ermacros
 \usepackage{url}
 \usepackage{hyperref}
+\usepackage{framed}
+
+
+
 % \usepackage{environ}  %This is in ermacros
 \NewEnviron{shrunkdisplay}{%
 \begin{equation*}
@@ -34,13 +38,19 @@
 \usepackage{bibentry}
 \nobibliography*
 
+\newcommand{\displaybibentry}[1]
+{\begin{framed}
+\bibentry{#1}
+\end{framed}
+}
+
 \title{Review of Data/Database Specification Literature}
 \author{John Cartmell\footnote{john.w.cartmell gmail.com}\\ \normalsize{\textit{Ad Otium}}}
 \begin{document}
 \maketitle
 
 \section{Codd and the Relational Model of Data}
-
+\displaybibentry{CoddBook1990}
 From Codd's 1990 book \cite{CoddBook1990}
 
 \begin{quote}
@@ -49,12 +59,10 @@ order predicate logic and the theory of relations.
 \end{quote} 
 
 In 1970, in \\
-\bibentry{Codd1970}\\
+\displaybibentry{Codd1970}
 Codd introduces the relational model of data and introduces the idea of normal form.
 
-
-\bibentry{Codd1971} \\
-
+\displaybibentry{Codd1971} 
 In 1971, the terms `functional dependency' and  `third normal form' are introduced 
 in an IBM techical report published in a now out of print book (also unavailable on Amazon).
 
@@ -73,7 +81,7 @@ approach to database management.
 
 
 \section{Chen}
-\bibentry{Chen1976} 
+\displaybibentry{Chen1976} 
 
 
 Chen introduces the entity-relationship model of data. 
@@ -130,12 +138,16 @@ division, which in turn consists of the division number and the name of the comp
 \end{quote}
 
 \section{Fagin}
+\subsection{1977 Fourth Normal Form}
+\displaybibentry{Fagin1977}
 Fagin \cite{Fagin1977} introduces fourth normal form(4NF) and multivalued dependencies.
 
+\subsection{1979 Projection-Join Normal Form aka Fifth Normal Form}
 The fifth normal form was first described by Ronald Fagin in his 1979  paper Normal forms and relational database operators\cite{Fagin1979}. He christened it `projection-join normal form' and gives reasons for his preference for this term.
 
-\section{Zaniolo}
-Very well written paper [\cite{zaniolo1982}]. Good place to go for a reminder of normal forms.
+\section{Zaniolo 1982}
+\displaybibentry{zaniolo1982}
+Very well written paper. Good place to go for a reminder of normal forms.
 \begin{itemize}
 \item uses the terms \textit{attribute} and \textit{domain} 
 \item to each attribute of a relation there is an underlying domain
@@ -189,17 +201,15 @@ The relationsal model is therefore not in BCNF. It is not possible to express su
 
 Compare this notion of elementary key with Ling and Goh'definition of ``essential'' and ``weakly-essential'' attributes. What is the diffeence between Ling \& Goh's Improved 3NF and Zaniolo's Elementary Key Normal Form?
 
-\section{Cartmell 1987}
-\cite{Cartmell86B}
-\bibentry{Cartmell86B}
+\section{Cartmell 1986}
+\displaybibentry{CartmellNetworkDataModel}
 
-\section{Cartmell 1997}
-\cite{Alderson97}
-\bibentry{Alderson97}
+\section{Cartmell \& Alderson 1997}
+\displaybibentry{CartmellScopePaper}
 
-\section{Carboni, Lack and Walters}
+\section{Carboni, Lack and Walters --  Extensive and Distributive Categories}
+\displaybibentry{Carboni1993}
 
-From [\cite{Carboni1993}]:
 \begin{quote}
 In a category with sums and pullbacks along injections, sums are
 said to be disjoint if the pullback of the injections of a binary sum is the initial
@@ -267,8 +277,7 @@ This is effectively relationship specialisation, in CAIS-A
 In Toolbuilder $f$ would be modelled as an aggregation of $f_1$ and $f_2$ i.e. as 
 a derived relationship.
 \section {Diskin and Cadish 1996}
-\cite{Diskin1996DatabaseDesign}
-\bibentry{Diskin1996DatabaseDesign}
+\displaybibentry{Diskin1996DatabaseDesign}
 
 \begin{quote}
 ...it seems for us that
@@ -297,7 +306,8 @@ Finally It is shown that data specifications give rise to MD-sketches and in thi
 
 
 \subsection{Proving semantical equivalence of data specifications, 1997}
-See \cite{piessens1997}
+
+\displaybibentry{piessens1997}
 
 This paper deals with finite sketches. Finitely presented categories with cones and cocones which becomne limits and colimits.
 
@@ -315,7 +325,8 @@ procedure to prove the equivalence of the theories of two sketches is given.
 
 
 \section {Johnson and others}
-\subsection{\cite{Johnson93}      }
+\subsection{1994 Commutative Diagramns in Information Modelling} 
+\displaybibentry{Johnson93}
 Having define a directed graph in which nodes are either types of entity or
 else attributes and the edges are functional (many-one) relationships
 they argue that there is a composition structure on this graph
@@ -440,12 +451,39 @@ and from which he `endeavours to establish':
 \textit{All} a priori \textit{knowledge deals exclusively with the relations of universals.}
 \end{quote}
 
-\subsection{Sketch Data Models, Relational Schema and Data Specifications, Johnstone and Roseburgh }
-See \cite{johnson2002REL}.
+\subsection{2001 Sketch Data Models, Relational Schema and Data Specifications, Johnstone and Roseburgh }
+\displaybibentry{johnson2001}
+I have marked up my paper copy of this paper.
+
+This paper has definitions of EA sketch and of (relational) database schema.
+It describes how a database schema can be constructed from an EA sketch and, vice-versa, how an EA sketch can be constructured from a database schema. These constructions are defined as functors betwixt a category of EA sketches and a category of database schemas.
+
+Their definition of database schema has each table with a single primary keys i.e. consisting of a single column rather the more usual one or more columns. As a consequence of this when a round trip is made  
+EA sketch $\morph$ database schema $\morph$ EA sketch then the resulting sketch has no commuting diagerams.
+In fact no commutimng diagrams are ever produced by the construction  database schema $\morph$ EA sketch.
+Things would be far different if composite primary keys and thereby composite foreign keys 
+had not been ignored.
+
+Johnson and Rosebrugh use the term `attribute' is used for a node/object which is a coproduct of a number of copies of the terminal object $1$ and use the term `entity' for other node/objects other than $1$ itself.
+They say  \textit{sometimes we have insisted that attributes not be the domains of arrows}. It seems they no longer insist on this. 
+
+I do not understand the discussion in  section 4. Normalisation
+This section commences with:
+\textit{In principle the databae scheme arising from a keyed EA sketch should be close
+to being normalised.}
+
+By my reckoning this is just wrong. The EA sketch may well not represent all reachable functional depedencies.
+
+
+Followed by: \textit{Recall that functional dependencies are specifed from one set of attributes to another}. They don't say where to recall this from. I think they are refering to quite a restricted and in my mind invalid way of framing functional dependencies and not how Codd conceptualised it in 1971.
+
+Their section 7 Conclusion is in the main maybe intended to be word play but it really isn't funny. Don't just confuse do something about it. Don't talk about models of categories or sketches talk about instances.
 
 
 
-\subsection{\cite{Johnson2002ERA} }
+\subsection{2002 Entity-relationship-attribute designs and
+sketches }
+\displaybibentry{Johnson2002ERA}
 Discussion of overloading of the term`model'.
 Introduction of the term `EA-sketch'. 
 
@@ -479,16 +517,18 @@ universal means
 disjoint means 
 Why is this?
 
-\section{IDL (carnegie-Melon)}
+\section{IDL (Carnegie-Melon)}
 
-From \cite{Nestor1981}:
+\subsection{Nestor 1981}
+\displaybibentry{Nestor1981}
 
 \begin{quote}
 This report defines IDL, a mechanism for specifying properties, of structured data. The objective of this
 specification is to permit the data to be communicated safety and efficiently among related programs.
 \end{quote}
 
-See Lamb 1997 [\cite{Lamb1997}]
+\subsection{Lamb1997}
+\displaybibentry{Lamb1997}
 On why you should use IDL:
 \begin{quote}
 1. IDL can describe complex data structures in a simple but formal way.
