@@ -22,11 +22,11 @@
 
 \setcounter{equation}{0}
 
-\title[John Cartmell]{Mathematical Theory of Data}
+\title[John Cartmell]{Mathematical Theory of Data \\ -- Philosophy}
 %% Which is to say types as they are used in practice in software development and as represented in theory in categories and in syntactic type theories.
 %% There is also a subplot concerning representation of context which certain types depend on -- again represented in practice and in theory. 
 \author{John Cartmell}
-\institute{Otium}
+\institute{Ad Otium}
 \date{Jan 25, 2019}
 \bibliographystyle{plainnat}
 \usepackage{bibentry}
@@ -34,36 +34,100 @@
 
 \begin{document}
 
-\newcommand{\attr}[1]{#1}
-\renewcommand{\attr}[1]{\psframebox[linecolor=red,framearc=.1]{#1}}
-\newcommand{\attrtype}[1]{#1}
-\renewcommand{\attrtype}[1]{\psframebox[linecolor=blue,framearc=.1]{#1}}
-\newcommand{\etype}[1]{#1}
-\renewcommand{\etype}[1]{\psframebox[linecolor=red,framearc=.1]{#1}}
-
-\newcommand{\CEsymboltype}[0]{varchar(2)}
-\newcommand{\CEatomicnumbertype}{number(1,1000)}
-\newcommand{\CEfloattype}{float}
-\newcommand{\CEnametype}{varchar(64)}
-\newcommand{\CEvalencynumbertype}{number(-7,7)}
 
 \begin{frame}
 \titlepage
 \end{frame}
 
-\iffalse
-\AtBeginSubsection[]
-{
-  \begin{frame}<beamer>
-    \frametitle{Layout}
-    \tableofcontents[currentsection,currentsubsection]
-  \end{frame}
-} 
-\begin{frame}{Table of Contents}
-\tableofcontents
-\end{frame}
-\fi
 
+\begin{frame}{Introduction}
+\begin{itemize}
+\item
+What types of things are there and how are they related? 
+\begin{itemize}
+\pause \item Data specifications provide the answer to this question in the context of a software development. 
+\pause \item Types theories provide the answer in the context of mathematics. 
+\pause \item Category theory abstracts across both these domains.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Overview}
+Data specification method 
+\begin{itemize}
+\item is a method for expressing a  theory (of what is)
+\item unequivocally it enables definitions of types and certain relationships between these types
+\item types are equally types of data and types of real world entity
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Data Specifications}
+\begin{itemize}
+\item presentations of theories of what is
+\item choice of primitives in presentation is choice of which data to be stored or communicated
+\item independency of primitives is absence of redundancy in data (3NF, BCNF)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Notions of ...}
+\begin{columns}[t]
+\column{7.0cm}
+\begin{itemize}
+\item {... structure
+   \begin{itemize}
+	    \item category
+			\item contextual category (c-system)
+			\item category with attributes$^*$
+			\item lextensive category
+			\item topos
+	 \end{itemize}
+	}
+	\end{itemize}
+\column{5cm}
+\begin{itemize}
+	\item {... theory
+   \begin{itemize}
+	    \item many-sorted algebraic
+			\item essentially algebraic
+			\item generalised algebraic
+			\item intuitionistic logic
+			\item Martin-L\"of type theory
+	 \end{itemize}
+	}
+	\end{itemize}
+\end{columns}
+\begin{columns}[t]
+\column{6.0cm}
+\pause \begin{itemize}
+\item {Methods of data specification
+   \begin{itemize}
+	    \item relational data model\Rnode{RDB}{\ }
+			\item interface defn. language{\scriptsize(IDL)}$^*$\Rnode{IDL}{}
+			\item {\scriptsize XML} schema$^*$\Rnode{XML}{\ }
+			\item entity/{\scriptsize ER} model$^*$
+			\item extd. {\scriptsize ER} model$^*$\Rnode{ER}{}
+	 \end{itemize}
+	 }
+\end{itemize}
+\column{4cm}
+\onslide<2-4>\raisebox{-2.5cm}{$^*$ \footnotesize \textit{various definitions of these}}
+\end{columns}
+\iffalse
+\onslide<5-7> \ncdiag[linecolor=red,linewidth=2pt,angleA=0, angleB=0, armA=0.5, armB=0.8, linearc=.2]{->}{ER}{XML}
+\onslide<6-7> \ncdiag[linecolor=red,linewidth=2pt,angleA=0, angleB=0, armA=2.5, armB=0.5, linearc=.2]{->}{ER}{IDL}
+\onslide<7> \ncdiag[linecolor=red,linewidth=2pt,angleA=0, angleB=0, armA=2.8, armB=1.95, linearc=.2]{->}{ER}{RDB}
+\fi
+\end{frame}
+
+\begin{frame}{Data Specifications}
+Two kinds of types in play
+\begin{itemize}
+\item the types of data defined -- the definienda
+\pause \item the atomic types used -- the definiens  -- string, integer, float, boolean and so on.
+\pause \item in ER modelling the former are called \textit{entity types}
+\pause \item the latter are called \textit{attribute types} or \textit{domains}.
+\end{itemize}
+\end{frame}
 
 \begin{frame}{ER's Binary Relationships as Morphisms}
 \footnotesize
@@ -101,15 +165,6 @@ i.e a mono source
 \end{frame}
 
 
-\begin{frame}{ER modelling notation}
-\begin{center}
-\scalebox{0.85}{
-\input{\erpictureFolder/departmentEmployee1}
-}
-\end{center}
-\end{frame}
-
-
 \begin{frame}{Database Normal Forms}
 \begin{itemize}
 \item presentations (sketches) should be minimal and avoid redundancy:
@@ -124,14 +179,18 @@ i.e a mono source
 \end{itemize}
 \end{frame}
 
-\begin{frame}{XML schemas}
 
+\begin{frame}{Feature Matrix}
+\resizebox{11.3cm}{!}{
+\input{content/featurelist}
+\featurelist
+}
 \end{frame}
-
 
 \begin{frame}{Bibliography}
 \bibliography{../SharedBibliography/temp/bibliography}
 \end{frame}
 
+%\fi
 
 \end{document}
