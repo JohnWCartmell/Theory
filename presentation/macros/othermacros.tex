@@ -1,0 +1,152 @@
+%
+% othermacros
+%
+
+
+\newcommand{\IfSforCwithRCwords}
+{If $S$ is a sketch for category \catcw and if $S$ is considered as a data specification with requirement $\reqtc$\ }
+
+\newcommand{\IfSforCwithRCwordsvariant}
+{If $S$ is a sketch for structured category \catcw and if $S$ is considered as a data specification with requirement $\reqtc$\ }
+
+\newcommand{\goodnesscriteria}[1]
+{\textbf{Goodness Criteria #1:}}
+\newcommand{\scmonosketchwording}
+{If $S$ is a sketch of a category with finite products and epi-mono splits considered as a data specification
+then}
+
+% From the Mathematical Theory of data paper
+\newcommand{\ssfd}[2]{\ensuremath{#1 \morph #2}}  % singleton-singleton
+\newcommand{\smfd}[2]{\ensuremath{\ssfd{#1}{\set{#2}}}}  % singleton-many
+\newcommand{\msfd}[2]{\ensuremath{\ssfd{\set{#1}}{#2}}}  % many-singleton
+\newcommand{\mmfd}[2]{\ensuremath{\msfd{#1}{\set{#2}}}}  % many-many
+
+
+
+% All these should find a home in SharedMacros eventually 
+
+% Commands for making a bit of vertical space. used when arrows and particularly labels of arrows
+% use spec that is otherwise accounted for.
+\newcommand{\seeroomup}[1]{\rule{0.1cm}{#1}}
+\newcommand{\seeroomdown}[1]{\rule[-#1]{0.1cm}{0.1cm}}
+\newcommand{\roomup}[1]{\rule{0cm}{#1}}
+\newcommand{\romdown}[1]{\rule[-#1]{0cm}{0.1cm}}
+
+
+
+% DIAGRAMS START HERE
+\newcommand{\binarysourcediag}[5]{
+$
+\begin{array}{c p{0.5cm} c  }
+             &&   \Rnode{b}{#2} \\[0.01cm]
+\Rnode{a}{#1} &&                \\[0.01cm] 
+             &&   \Rnode{c}{#3} 
+\end{array} 
+\begin{arrows}
+\ncarr{a}{b}
+\alabel{#4}
+\ncarr{a}{c}
+\blabel{#5}
+\end{arrows}
+$  
+}
+\newcommand{\fgsourcediag}{\binarysourcediag{a}{b}{c}{f}{g}}
+
+% \multisource{n}{a}{b}{f}
+\newcommand{\multisourcediagram}[4]
+{
+$
+\begin{array}{c p{2.0cm} c p{2.0cm} c}				
+               &&  \Rnode{B1}{#3_1}    \\ [0.75cm]
+		       &&  \Rnode{B2}{#3_2}    \\ [0.5cm]
+\Rnode{A}{#2}  &&                      \\ [-0.5cm]
+		       &&       \vdots         \\ [0.85cm]
+               &&  \Rnode{Bn}{#3_{#1}}  
+\end{array}
+%\setlength{\arrnodesepA}{7pt}
+%\setlength{\arrnodesepB}{8pt}
+%\setlength{\arroffsetA}{2pt}
+%\setlength{\arroffsetB}{0pt}
+\begin{arrows}
+\ncarr{A}{B1}
+\alabel{#4_1}[0.5]
+\ncarr{A}{B2}
+\alabel{#4_2}[0.5][-1]
+\ncarr{A}{Bn}
+\blabel{#4_{#1}}[0.5][-1]
+\end{arrows}
+$
+}
+
+%new to this paper
+\newcommand{\fghfactordiagram}[6]
+{
+\binarysourcediag{#1}{#2\roomup{0.5cm}}{#3}{#4}{#5}
+\begin{arrows}
+\ncarr{b}{c}
+\alabel{#6}
+\end{arrows}
+}
+
+\newcommand{\fghpartialfactordiagram}[6]
+{
+\binarysourcediag{#1}{#2\roomup{0.5cm}}{#3}{#4}{#5}
+\begin{arrows}
+\ncdarr{b}{c} %dashed arrow
+\alabel{#6}
+\end{arrows}
+}
+
+\newcommand{\fnsourceqnsource}
+{
+$
+\begin{array}{c p{0.25cm} c  p{0.25cm} c }
+             &&   \Rnode{b1}{b_1} &&              \\[0.4cm]
+\Rnode{a}{a} &&                   && \Rnode{c}{c} \\[0.4cm]
+             &&   \Rnode{bn}{b_n} &&              
+\end{array} 
+\begin{arrows}
+\ncarr{a}{b1}
+\alabel{f_1}
+\ncarr{c}{b1}
+\blabel{q_1} 
+\ncarr{a}{bn}
+\blabel{f_n}
+\ncarr{c}{bn}
+\alabel{q_n}
+\end{arrows}
+$   
+}
+\newcommand{\fgparalleldiag}
+{
+ $
+\rule[-0.3cm]{0pt}{0.9cm} %to add vertical space of diagram -- based on lowering diagram 0.3cm and heght 0.9cm
+                            % change thickness from 0pt to 1 pt to debug
+\begin{array}{c p{0.5cm} c  }
+ \Rnode{a}{a}            &&   \Rnode{b}{b}
+\end{array} 
+\begin{arrows}
+\ncarc[nodesep=2pt,arcangle=10,offset=2pt]{->}{a}{b}
+\alabel{f}
+\ncarc[nodesep=2pt,arcangle=-10,offset=-2pt]{->}{a}{b}
+\blabel{g}
+\end{arrows}
+$  
+}
+
+\newcommand{\fgcomposablediagram}[5]{
+\mbox{
+\roomup{0.45cm}
+$
+\begin{array}{c p{0.5cm}cp{0.5cm}c}
+\Rnode{x}{#1}&&\Rnode{y}{#2}&&\Rnode{z}{#3}
+\end{array}
+\begin{arrows}
+\ncarr{x}{y}
+\alabel{#4}
+\ncarr{y}{z}
+\alabel{#5}
+\end{arrows}
+$    
+}
+}

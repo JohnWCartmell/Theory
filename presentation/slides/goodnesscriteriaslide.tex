@@ -13,12 +13,11 @@
 \input{\sharedmacros/metagat.macros}
 \input{\sharedmacros/ermacros}
 \input{\sharedmacros/erdiagram}    %beamer aware version
+\input{../macros/generalmacros}
+\input{../macros/othermacros}
 
 \renewcommand{\erpictureFolder}[0]{../../SharedPictures}
 
-\newcommand{\fundep}[3]{#2 \xrightarrow{#1} #3}  % copied from general.macros because 
-                                                 % that causes numerous problems in the context of beamer
-\newcommand{\term}[1]{\textit{#1}} % this defined in general.macros but problem with this and beamer
 
 \usetheme{Szeged}
 \usecolortheme{dolphin}
@@ -37,74 +36,8 @@
 \usepackage{bibentry}
 \nobibliography*
 
-\newcommand{\seeroomup}[1]{\rule{0.1cm}{#1}}
-\newcommand{\seeroomdown}[1]{\rule[-#1]{0.1cm}{0.1cm}}
-\newcommand{\roomup}[1]{\rule{0cm}{#1}}
-\newcommand{\romdown}[1]{\rule[-#1]{0cm}{0.1cm}}
 
-\newcommand{\sourcediag}[5]{
-$
-\begin{array}{c p{0.5cm} c  }
-             &&   \Rnode{b}{#2} \\[0.01cm]
-\Rnode{a}{#1} &&                \\[0.01cm] 
-             &&   \Rnode{c}{#3} 
-\end{array} 
-\begin{arrows}
-\ncarr{a}{b}
-\alabel{#4}
-\ncarr{a}{c}
-\blabel{#5}
-\end{arrows}
-$  
-}
-\newcommand{\fgsourcediag}{\sourcediag{a}{b}{c}{f}{g}}
 
-%new to this paper
-\newcommand{\fghfactordiagram}[6]
-{
-\sourcediag{#1}{#2\roomup{0.5cm}}{#3}{#4}{#5}
-\begin{arrows}
-\ncarr{b}{c}
-\alabel{#6}
-\end{arrows}
-}
-
-\newcommand{\fnsourceqnsource}
-{
-$
-\begin{array}{c p{0.25cm} c  p{0.25cm} c }
-             &&   \Rnode{b1}{b_1} &&              \\[0.4cm]
-\Rnode{a}{a} &&                   && \Rnode{c}{c} \\[0.4cm]
-             &&   \Rnode{bn}{b_n} &&              
-\end{array} 
-\begin{arrows}
-\ncarr{a}{b1}
-\alabel{f_1}
-\ncarr{c}{b1}
-\blabel{q_1} 
-\ncarr{a}{bn}
-\blabel{f_n}
-\ncarr{c}{bn}
-\alabel{q_n}
-\end{arrows}
-$   
-}
-\newcommand{\fgparalleldiag}
-{
- $
-\rule[-0.3cm]{0pt}{0.9cm} %to add vertical space of diagram -- based on lowering diagram 0.3cm and heght 0.9cm
-                            % change thickness from 0pt to 1 pt to debug
-\begin{array}{c p{0.5cm} c  }
- \Rnode{a}{a}            &&   \Rnode{b}{b}
-\end{array} 
-\begin{arrows}
-\ncarc[nodesep=2pt,arcangle=10,offset=2pt]{->}{a}{b}
-\alabel{f}
-\ncarc[nodesep=2pt,arcangle=-10,offset=-2pt]{->}{a}{b}
-\blabel{g}
-\end{arrows}
-$  
-}
 
 \begin{document}
 
@@ -170,9 +103,6 @@ Such a $\catcp$, as a theory, will be a tighter fit to the given requirement
 because it will rule out some unwanted instances.
 \end{frame}
 
-\newcommand{\IfSforCwithRCwords}{If $S$ is a sketch for category \catcw and if $S$ is considered as a data specification with requirement $\reqtc$\ }
-
-\newcommand{\IfSforCwithRCwordsvariant}{If $S$ is a sketch for structured category \catcw and if $S$ is considered as a data specification with requirement $\reqtc$\ }
 
 \begin{frame}
 \begin{definition}
@@ -278,11 +208,10 @@ If $R_C$ is the set of all functors from \catcw into $\Fin$ then with respect to
 \end{itemize}
 \end{frame}
 
-
 \begin{frame}
 \begin{definition}
 If $\catc$ is a category and $\reqtc$ is a set of instances and if \fgsourcediag
-in $\catc$ then there is a  \term{functional dependency} of $g$ on $f$ with respect to $\reqtc$ iff
+in $\catc$ then there is a  \term{total functional dependency} of $g$ on $f$ with respect to $\reqtc$ iff
 there is a family of functions $H_D)_{D \in \reqtc}$ such that 
 in each instance $D$, $H_D$ is a unique function $H_D: D(b) \morph D(c)$, such that 
 \fghfactordiagram{D(a)}{D(b)}{D(c)}{D(f)}{D(g)}{H_D} commutes.
@@ -306,16 +235,14 @@ or, for that matter, as an edge in a presentation. Neither are we alluding to a 
 If $\catc$ is a category and $\reqtc$ is a set of instances, if
 \fgsourcediag
 in $\catc$ 
-and if there is a functional dependency $\fundep{H}{f}{g}$ then say that 
-the functional dependency $H$ is \term{represented} in $\catc$ 
+and if there is a total functional dependency $\fundep{H}{f}{g}$ then say that 
+this functional dependency  is \term{represented} in $\catc$ 
 iff there exists a morphism $h:b \morph c$ in $\catc$ such that for each instance $D \in \reqtc$, $D(h)=H_D$.
 \end{definition}
 \end{frame}
 
-
-
 \begin{frame}
-\textbf {Goodness Criteria 2B:} \IfSforCwithRCwords then all functional dependencies present in $R_C$
+\textbf {Goodness Criteria 2B:} \IfSforCwithRCwords then all total functional dependencies present in $R_C$
 ought to be represented in \catc.
 
 I would like to show that this goodness criteria follows from the criteria of maximal constrainedness
@@ -326,13 +253,12 @@ but I have only managed to prove this in the case that \catcw is locally finite.
 \begin{lemma}[Functional Dependency Representation Lemma]
 If $\catc$ is a locally finite category and $\reqtc$ is a set of instances, if $\catc$ is 
 \textit{maximally constrained} to the requirement $\reqtc$ then
-all functional dependencies $\fundep{H}{f}{g}$  with respect to $\reqtc$ are represented in $\catc$.
+all total functional dependencies $\fundep{H}{f}{g}$  with respect to $\reqtc$ are represented in $\catc$.
 \end{lemma}
 \begin{proof}
-uses a quotient of the coprodct of hom functor xxx with itself.
+uses a quotient of the coproduct of hom functor xxx with itself.
 \end{proof}
 \end{frame}
-
 
 
 \subsection{Referential Inclusion Dependencies}
@@ -385,6 +311,55 @@ If $\catc$ is a locally finite category and $\reqtc$ is a set of instances, if $
 \textit{maximally constrained} to the requirement $\reqtc$ then
 every referential inclusion dependency with respect to $\reqtc$ is represented in $\catc$.
 \end{lemma}
+\end{frame}
+
+\begin{frame}{Finitary Property}
+\begin{definition}
+Define a category \catcw to have the \term{finitary property} iff for all objects $x$ and for all endomorphisms 
+$f: x \morph x$ the following are equivalent
+\begin{itemize}
+\item $f$ is a monomorphism,
+\item $f$ is an epimorphism.
+\end{itemize}
+\end{definition}
+\end{frame}
+
+\begin{frame}{Deducing Monos and Epis}
+In any category \catcw, whenever \fgcomposablediagram{x}{y}{z}{f}{g} then
+\begin{itemize}
+\item $f \circ g$ is a monomorphism implies $f$ is a monomorphism.
+\item $f \circ g$ is an epimorphism implies $g$ is an epimorphism.
+\end{itemize}
+\medskip
+If \catcw has the \term{finitary property} then whenever \fgcomposablediagram{x}{x}{x}{f}{g} 
+such that $f \circ g = id_x$ then
+\begin{itemize}
+\item $f$ is a monomorphism and an epimorphism,
+\item $g$ is a monomorphism and an epimorphism.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+Now return to this example.
+\input{../content/frompreparationpaper/completenesscounterexample}
+subject to the identities
+\begin{equation}
+\label{fhidentity}
+f \circ h = id_a,
+\end{equation}
+\begin{equation}
+\label{ghidentity}
+g \circ h = id_a,
+\end{equation}
+\begin{equation}
+\label{rhhpidentity}
+r \circ h \circ h' = id_b.
+\end{equation}
+
+If we see this as a sketch for a category with the finitary property then we can deduce that $h$ is an epimorphism
+and from this that $f=g$.  It is no longer a counter example (to criteria 2 implies criteria 2A).
+\medskip
+I am left wondering ...  
 \end{frame}
 
 \iffalse
