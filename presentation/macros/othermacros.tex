@@ -16,10 +16,14 @@ If $S$ is a sketch for category \catcw considered as a data specification with r
 \newcommand{\IfSforCwithRCwordsvariant}{
 If $S$ is a sketch for structured category \catcw and if $S$ is considered as a data specification with requirement $\reqtc$\ }
 \newcommand{\IfSforepimonoCwithRCwords}{
-If $S$ is a sketch for category with epi-mono splits \catcw considered as a data specification with requirement $\reqtc$\ }
+If $S$ is a sketch for a category \catcw with epi-mono splits considered as a data specification with requirement $\reqtc$\ }
+\iffalse
 \newcommand{\scmonosketchwording}{
 If $S$ is a sketch of a category with finite products and epi-mono splits considered as a data specification
 with requirement $\reqtc$\ }
+\fi
+\newcommand{\IfSforproductepimonoCwithRCwords}{
+If $S$ is a sketch for category with finite products and epi-mono splits, \catcw, considered as a data specification with requirement $\reqtc$\ }
 
 \newcommand{\goodnesscriteria}[1]{\textbf{Goodness Criteria #1:}}
 
@@ -81,7 +85,7 @@ $
 $
 \begin{array}{c p{0.4cm} c p{0.4cm} c}
               && \Rnode{b}{#2}  &&                 \\[0.6cm]
-\Rnode{a}{#1} &&                && \Rnode{c}{#3}   \\[0.6cm]
+\Rnode{a}{#1} &&                && \Rnode{c}{#3}  
 \end{array}
 \begin{arrows}
 \ncarr{a}{b}
@@ -94,36 +98,95 @@ $
 $
 }
 
-\newcommand{\epimonosplitdiagram}[3]{
-\commutativetrianglediagram{#1}{img(#3)}{#2}{#3_e}{#3_m}{#3}   
-}
-
-% \multisource{n}{a}{b}{f}
-\newcommand{\multisourcediagram}[4]{
+\newcommand{\commutativetrianglediagrammutant}[6]{
 $
-\begin{array}{c p{2.0cm} c p{2.0cm} c}				
-               &&  \Rnode{B1}{#3_1}    \\ [0.75cm]
-		       &&  \Rnode{B2}{#3_2}    \\ [0.5cm]
-\Rnode{A}{#2}  &&                      \\ [-0.5cm]
-		       &&       \vdots         \\ [0.85cm]
-               &&  \Rnode{Bn}{#3_{#1}}  
+\begin{array}{c  c  c}
+              & \Rnode{b}{#2}  &                 \\[0.85cm]
+\Rnode{a}{#1} &                & \Rnode{c}{#3}  
 \end{array}
-%\setlength{\arrnodesepA}{7pt}
-%\setlength{\arrnodesepB}{8pt}
-%\setlength{\arroffsetA}{2pt}
-%\setlength{\arroffsetB}{0pt}
 \begin{arrows}
-\ncarr{A}{B1}
-\alabel{#4_1}[0.5]
-\ncarr{A}{B2}
-\alabel{#4_2}[0.5][-1]
-\ncarr{A}{Bn}
-\blabel{#4_{#1}}[0.5][-1]
+\ncarr{a}{b}
+\alabel{#4}[0.15]
+\ncarr{b}{c}
+\alabel{#5}[0.6]
+\ncarr{a}{c}
+\blabel{#6}
 \end{arrows}
 $
 }
 
-%new to this paper
+\newcommand{\epimonosplitdiagram}[3]{
+\commutativetrianglediagram{#1}{img(#3)}{#2}{#3_e}{#3_m}{#3}   
+}
+
+
+\iffalse %saved
+\begin{array}{c p{2.0cm} c }                
+               &&  \Rnode{b1}{#3_1}    \\ [0.75cm]
+               &&  \Rnode{b2}{#3_2}    \\ [0.5cm]
+\Rnode{a}{#2}  &&                      \\ [-0.5cm]
+               &&       \vdots         \\ [0.85cm]
+               &&  \Rnode{bn}{#3_{#1}}  
+\end{array}
+\fi
+
+%nakedmultisourceobjects{n}{a}{b}{f}
+\newcommand{\nakedmultisourceobjects}[4]{
+\begin{array}{c p{2.0cm} c }
+\Rnode{a}{#2}   &&
+\begin{array}{c }                
+\Rnode{b1}{#3_1}   \\ [0.75cm]
+\Rnode{b2}{#3_2}   \\ [0.25cm]
+\vdots             \\ [0.35cm]
+\Rnode{bn}{#3_{#1}}  
+\end{array}
+\end{array}
+}
+
+% \nakedmultisourcediagram{n}{a}{b}{f}
+\newcommand{\nakedmultisourcediagram}[4]{
+\nakedmultisourceobjects{#1}{#2}{#3}{#4}
+\begin{arrows}
+\ncarr{a}{b1}
+\alabel{#4_1}[0.5]
+\ncarr{a}{b2}
+\alabel{#4_2}[0.5][-1]
+\ncarr{a}{bn}
+\blabel{#4_{#1}}[0.5][-1]
+\end{arrows}
+}
+
+% \nakedmultisourcepathdiagram{n}{a}{b}{f}
+\newcommand{\nakedmultisourcepathdiagram}[4]{
+\nakedmultisourceobjects{#1}{#2}{#3}{#4}
+\begin{arrows}
+\simplepath{a}{b1}
+\alabel{#4_1}[0.5]
+\simplepath{a}{b2}
+\alabel{#4_2}[0.5][-1]
+\simplepath{a}{bn}
+\blabel{#4_{#1}}[0.5][-1]
+\end{arrows}
+}
+
+
+\newcommand{\multisourcediagram}[4]{$\nakedmultisourcediagram{#1}{#2}{#3}{#4}$}
+\newcommand{\multisourcepathdiagram}[4]{$\nakedmultisourcepathdiagram{#1}{#2}{#3}{#4}$}
+
+
+
+% \multisourcedefinitiondiagram{x}{g}{h}{n}{a}{b}{f}
+\newcommand{\monosourcedefinitiondiagram}[7]{
+$
+\begin{array}{c p{1.5cm} c}
+\Rnode{x}{#1} && \nakedmultisourcediagram{#4}{#5}{#6}{#7}
+\end{array}
+\begin{arrows}
+\parallelarrows{x}{a}{#2}{#3}
+\end{arrows}
+$
+}
+
 \newcommand{\fghfactordiagram}[6]
 {
 \binarysourcediagram{#1}{#2\roomup{0.5cm}}{#3}{#4}{#5}
@@ -160,6 +223,14 @@ $
 \end{arrows}
 $   
 }
+
+\newcommand{\parallelarrows}[4]{
+\ncarc[nodesep=2pt,arcangle=10,offset=2pt]{->}{#1}{#2}
+\alabel{#3}
+\ncarc[nodesep=2pt,arcangle=-10,offset=-2pt]{->}{#1}{#2}
+\blabel{#4}
+}
+
 \newcommand{\fgparalleldiagram}{
  $
 \rule[-0.3cm]{0pt}{0.9cm} %to add vertical space of diagram -- based on lowering diagram 0.3cm and heght 0.9cm
@@ -168,10 +239,13 @@ $
  \Rnode{a}{a}            &&   \Rnode{b}{b}
 \end{array} 
 \begin{arrows}
+\iffalse
 \ncarc[nodesep=2pt,arcangle=10,offset=2pt]{->}{a}{b}
 \alabel{f}
 \ncarc[nodesep=2pt,arcangle=-10,offset=-2pt]{->}{a}{b}
 \blabel{g}
+\fi
+\parallelarrows{a}{b}{f}{g}
 \end{arrows}
 $  
 }

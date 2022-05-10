@@ -19,6 +19,7 @@
 \input{\sharedmacros/erdiagram}    %beamer aware version
 \input{../macros/generalmacros}
 \input{../macros/othermacros}
+\input{../macros/sketchmacros}
 
 \renewcommand{\erpictureFolder}[0]{../../SharedPictures}
 
@@ -41,24 +42,24 @@
 \usepackage{bibentry}
 \nobibliography*
 
- 
-
 \begin{document}
 \section{\MToDsection}
 \subsection{\MToDsubsectionliteraturewithProductsandEpiMonosCategories}
 
-\begin{frame}{Mono Source Definition} %copied from skecthmonics.tex
-\begin{definition}
-In a category \cat{C}, a  \term{source} is a family of morphisms with common domain: \\
-\begin{center}
+
+\begin{frame}{Definitions} 
+In a category \catc, a  \term{source} is a family of morphisms with common domain: \\
 \scalebox{0.65}{
-\input{../content/monoSource}
+\multisourcediagram{n}{a}{b}{f}
 } 
-\end{center}
 \medskip
-Such a source is said to be a \textit{mono source} iff for all $g,h:X \morph A$ in \cat{C} if $g \circ f_i = h \circ f_i$, for each $i, 1 \leq i \leq n$, then $g=h$.
-\end{definition}
+Such a source is said to be a \term{mono source}  iff for all $g,h:x \morph a$ in \catcw 
+so that \scalebox{0.65}{
+\monosourcedefinitiondiagram{x}{g}{h}{n}{a}{b}{f}
+} 
+in \catcw then if $g \circ f_i = h \circ f_i$, for each $i$,  then $g=h$.
 \end{frame}
+
 
 \begin{frame}{Mono Source Limit Cone}  %copied from sketchmonics.tex
 Lemma: In a category \cat{C}
@@ -74,6 +75,8 @@ is a limit cone.
 \end{frame}
 
 
+
+
 \begin{frame}{Composition of mono sources}
 If $i$ and $j$ are mono sources and $f \in i$ so that
 \begin{center}
@@ -87,67 +90,122 @@ then $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono so
 \begin{frame}{Sketches for categories with finite products and epi-mono splits.}
 By a sketch for a category with finite products and epi-mono splits I shall mean a quintuple
 $\tuple{G,PE,M,P,E}$
- where $G$ is a directed graph, 
-$PE$ is a set of path equivalences, 
-$M$ is a set of $G$-sources deemed to be mono-sources,
-$P$ is a set of $G$-sources deemed to be product diagrams, 
-and $E$ is a set of $G$-paths deemed to be epimorphisms.
+\begin{itemize}
+\item  where $G$ is a directed graph, 
+\item  $PE$ is a set of path equivalences, 
+\item  $M$ is a set of $G$-sources deemed to be mono-sources,
+\item  $P$ is a set of $G$-sources deemed to be product diagrams, 
+\item  and $E$ is a set of $G$-paths deemed to be epimorphisms.
+\end{itemize}
 \medskip
-From such a sketch we can generate a category with finite products and epi-mono splits.  (unsubstantiated)   
+From such a sketch we can generate a category with finite products and epi-mono splits.  \pause (unsubstantiated)   
 \end{frame}
 
 \begin{frame}
-\scmonosketchwording 
+\IfSforproductepimonoCwithRCwords
 
-\goodnesscriteria{1C} If $\set{x,p_1,...p_n}\in P$ then there exists $f: x \morph y$ in $G$ such that there does not exist $i$, $1 \leq x \leq n$
-such that for some $g$, $f \circ p_i = g$. 
-
+\goodnesscriteria{1C} If $P$ contains the source \scalebox{0.65}{\multisourcediagram{n}{x}{y}{p}} 
+then there ought to exist a node $z$ and an edge $f: x \morph z$ in $G$ such that morphism $f$ does not factor through any of the $p_i$ morphisms 
+i.e. such that there exist $g: y_i \morph z$ in \catcw, for some $i$, such that $p_i\circ g = f$ in \catc. 
 \end{frame}
 
-\subsection{Functional Dependencies}
-\begin{frame} {Functional Dependency (Prior Definition)}
-\begin{definition}
-If $\catc$ is a category and $\reqtc$ is a set of instances and if \fgsourcediagram
-in $\catc$ then there is a  \term{functional dependency} of $g$ on $f$ with respect to $\reqtc$ iff
-there is a family of functions $H_D)_{D \in \reqtc}$ such that 
-in each instance $D$, $H_D$ is a unique function $H_D: D(b) \morph D(c)$, such that 
-\fghfactordiagram{D(a)}{D(b)}{D(c)}{D(f)}{D(g)}{H_D} commutes.
-\end{definition}
-\end{frame}
-
-\begin{frame} {Functional Dependency (Better Definition!)}
-\begin{definition}
-If $\catc$ is a category and $\reqtc$ is a set of instances and if \fgsourcediagram
-in $\catc$ then there is a  \term{functional dependency} of $g$ on $f$ with respect to $\reqtc$ iff
-there is a family of functions $H_D)_{D \in \reqtc}$ such that 
-in each instance $D$, $H_D$ is a unique partial function $H_D: D(b) \morph D(c)$, such that
-$domain(H_D) = image(D(f))$ and
-\fghpartialfactordiagram{D(a)}{D(b)}{D(c)}{D(f)}{D(g)}{H_D} commutes.
-\end{definition}
-\end{frame}
-
-\begin{frame}{Revised Representation Lemma}
-
-
+\begin{frame}{Goodness Criteria 2B Revisited}
+Restate how functional dependencies and their representations are defined in terms of \highlight{sketches} of categories with products and epi mono splits.
 \end{frame}
 
 
-\begin{frame}{Revised Definition of Functional Dependency}
-If $\catc$ is a category and $\reqtc$ is a set of instances and if 
-\scalebox{0.5}{\multisourcediagram{n}{a}{b}{x}},
-is a source at object $a$ in \catcw and $y: a \morph c$ is a morphism
-then say that $y$ is \term{functionally dependent} on the source \xnset
-with respect to $\reqtc$, 
-for which  we write  \msfd{x_1,...x_n}{y}, 
-iff in each defining instance $D \in \reqtc$ there exists a  partial 
-function $f_D: D(b_1) \times ... \times D(b_n) \rightarrow D(c)$ 
+\begin{frame}{Functional Dependency Restated}
+\IfSforproductepimonoCwithRCwords, 
+if \scalebox{0.65}{\multisourcepathdiagram{n}{a}{b}{x}} is a path source in $S$ and if
+$y: a \morph c$ is a path in $S$
+then path $y$ is said to be \term{functionally dependent} on the set of paths $\set{x_1,...x_n}$ with respect to the requirement $\reqtc$
+iff the function $D(y)$ factors through $D(\tuple{x_1,... x_n })$
+
+i.e. iff in each $D \in \reqtc$ there exists a  (unique)
+function $H_D: img(D(\tuple{x_1,... x_n })) \morph D(c)$ 
 such that 
-domain of $f_D \subseteq img(D(\tuple{x_1,... x_n })$ 
+\scalebox{0.65}{\commutativetrianglediagrammutant{D(a)}{img(D(\tuple{x_1,... x_n }))}{D(c)}{D(\xntuple)}{f_D}{D(y)}} commutes.
+\end{frame}
+\begin{frame} 
+CORRECT THIS DIAGRAM
+\scalebox{0.65}{ 
+$
+\begin{array}{cp{2cm}ccp{0.5cm}cc}
+                & &         & \Rnode{Eb1}{D(b_1)}& &                            &        \\[0.6cm]
+                & &         & \Rnode{Eb2}{D(b_2)}& &                            &        \\[0.6cm]
+                & &\vdots   &                     & &                            &        \\[0.2cm]                                              
+\Rnode{Ea}{E_a} & &         & \Rnode{Ebn}{D(b_n)}& & \Rnode{Jnctn}{}            &        \\[1.0cm]
+                & &         & \Rnode{Ec}{D(c)}   & &                            &  
+\end{array}
+\begin{arrows}
+\simplepath{Ea}{Eb1}
+\alabel{D(x_1)}
+\simplepath{Ea}{Eb2}
+\alabel{D(x_2)}
+\simplepath{Ea}{Ebn}
+\alabel{D(x_n)}
+\simplepath{Ea}{Ec}
+\blabel{D(y)}
+\nchmarr[15][45]{Eb1}{Ebn}{Jnctn}{Ec}
+\naput[npos=-0.1]{$f_E$}
+\ncarc[arcangle=15]{Eb2}{Jnctn}
+\end{arrows}
+$
+}
+\end{frame}
+
+
+
+\begin{frame}{Notation}
+That a path  $y$ is functionally dependent on the set of paths $\set{x_1,...x_n}$ 
+is written  \msfd{x_1,...x_n}{y}.
+\end{frame}
+
+%UNUSED
+\iffalse
+\begin{frame}{Functional Dependency original}
+\IfSforproductepimonoCwithRCwords.
+ 
+if for some $n \geq 1$, $a$, $b_{i}, 1 \leq i \leq n$,  and $c$ are nodes and 
+if  $x_{i, 1 \leq i \leq n}$, and $y$ are paths such
+that for each $i$, $x_i : a \rightarrow b_i$, and such that $y: a \rightarrow c$ 
+as shown here:
+\begin{center}
+\scalebox{4.5}{
+\setlength{\arraycolsep}{.2cm}
+$
+\begin{array}{cp{2cm}cc}
+             & &         & \Rnode{b1}{b_1} \\ [0.5cm]
+                         & &         & \Rnode{b2}{b_2} \\ [0.6cm]
+                         & & \vdots  &                 \\ [0.2cm]
+\Rnode{a}{a} & &         & \Rnode{bn}{b_n} \\ [1.0cm]
+             & &         & \Rnode{c}{c}   \\
+\end{array}
+\begin{arrows}
+\simplepath{a}{b1}
+\alabel{x_1}
+\simplepath{a}{b2}
+\alabel{x_2}
+\simplepath{a}{bn}
+\alabel{x_n}
+\simplepath{a}{c}
+\blabel{y}
+\end{arrows}
+$
+}
+\end{center}
+ 
+then path $y$ is said to be \term{functionally dependent} on the set of paths $\{x_1,...x_n\}$ in ???, 
+for which  we write  \msfd{x_1,...x_n}{y},
+iff
+ in each defining instance $E$ of ??? there exists a  partial 
+function $f_E: E_{b_1} \times E_{b_n} \rightarrow E_c$ 
+\noindent such that 
+domain of $f_E \subseteq img(E_{\tuple{x_1,... x_n }})$ 
 and  
-$D(\xntuple) \circ D(f) = D(y)$
+$E_{\xntuple} \circ f_E = E_y$ 
 
 \begin{center}
-\scalebox{0.5}{ 
 $
 \begin{array}{cp{2cm}ccp{0.5cm}cc}
                             & &         & \Rnode{Eb1}{E_{b_1}}& &                            &        \\ [0.6cm]
@@ -157,123 +215,47 @@ $
                             & &         & \Rnode{Ec}{{E_c}}   & &                            &        \\
 \end{array}
 \begin{arrows}
-\ncarr{Ea}{Eb1}
+\simplepath{Ea}{Eb1}
 \alabel{E_{x_1}}
-\ncarr{Ea}{Eb2}
+\simplepath{Ea}{Eb2}
 \alabel{E_{x_2}}
-\ncarr{Ea}{Ebn}
+\simplepath{Ea}{Ebn}
 \alabel{E_{x_n}}
-\ncarr{Ea}{Ec}
-\alabel{E_y}
+\simplepath{Ec}
+\blabel{E_y}
 \nchmarr[15][45]{Eb1}{Ebn}{Jnctn}{Ec}
 \naput[npos=-0.1]{$f_E$}
 \ncarc[arcangle=15]{Eb2}{Jnctn}
 \end{arrows}
 $
-}
 \end{center}
+
 \end{frame}
+\fi
 
-\begin{frame}{Revised Definition of Functional Dependency cont.}
-\medskip
-In the above definition, if within an instance $E$ there does exist such a partial function $f_E$ then $f_E$ will be the unique such partial function. For if partial function $f'_E$ is another such then given a $\tuple{E_{x_1}(e),...E_{x_n}(e)} \in img(E_{\tuple{x_1,...x_n}})$
-we have that $f_E(\tuple{E_{x_1}(e),...E_{x_n}(e)})=E_y(e)=f'_E(\tuple{E_{x_1}(e),...E_{x_n}(e)})$.
-\end{frame}
-
-
-\begin{frame}
-Our use of the $\morph$ notation for functional dependencies here is coming from relational database theory where it is usual to represent such a functional dependency as we have here by asserting that 
-$$
-f \morph g
-$$
-Note that this use of an $\morph$ notation is independent of our use of $\morph$ as a morphism of a category 
-or, for that matter, as an edge in a presentation. Neither are we alluding to a bicategory structure. We have two distinct uses for $\morph$ (three if you distinguish arrows in presentations from arrows in categories). 
-\end{frame}
-
-
-\begin{frame}
-\begin{definition}
-If $\catc$ is a category and $\reqtc$ is a set of instances, if
-\fgsourcediagram
-in $\catc$ 
-and if there is a functional dependency $\fundep{H}{f}{g}$ then say that 
-the functional dependency $H$ is \term{represented} in $\catc$ 
-iff there exists a morphism $h:b \morph c$ in $\catc$ such that for each instance $D \in \reqtc$, $D(h)=H_D$.
-\end{definition}
-\end{frame}
-
-\begin{frame}
-\textbf {Goodness Criteria 2B:} \IfSforCwithRCwords then all functional dependencies present in $R_C$
-ought to be represented in \catc.
-
-I would like to show that this goodness criteria follows from the criteria of maximal constrainedness
-but I have only managed to prove this in the case that \catcw is locally finite.
-\end{frame}
-
-\begin{frame}
-\begin{lemma}[Functional Dependency Representation Lemma]
-If $\catc$ is a locally finite category and $\reqtc$ is a set of instances, if $\catc$ is 
-\textit{maximally constrained} to the requirement $\reqtc$ then
-all functional dependencies $\fundep{H}{f}{g}$  with respect to $\reqtc$ are represented in $\catc$.
-\end{lemma}
-\begin{proof}
-uses a quotient of the coproduct of hom functor xxx with itself.
-\end{proof}
-\end{frame}
-
-
-\subsection{Referential Inclusion Dependencies}
-\begin{frame} {Improved Definition}
-\begin{definition}
-If $\catc$ is a category and $\reqtc$ is a set of instances 
-and if
-\fnsourceqnsource
-in $\catc$, then an \term{inclusion dependency} $I$, written $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$, is a family of functions $I_D)_{D \in \reqtc}$
-such that each instance $D \in \reqtc$, $I_D$ is a function $I_D : D(a) \morph D(c)$ such that
-for each $i$, $1 \leq i \le n$, $I_D \circ D(q_i) = D(f_i)$.
-\end{definition}
-
-If each function in this family is the unique such function then the inclusion dependency is said to be referential. Just to be clear the definition is this:
-\end{frame}
-
-\begin{frame}
-\begin{definition}
-If $\catc$ is a category and $\reqtc$ is a set of instances 
-and if
-\fnsourceqnsource
-in $\catc$, then a \term{referential inclusion dependency} $I$, written $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$, is a family of functions $I_D)_{D \in \reqtc}$
-such that each instance $D \in \reqtc$, $I_D$ is a unique function $I_D : D(a) \morph D(c)$ such that
-for each $i$, $1 \leq i \le n$, $I_D \circ D(q_i) = D(f_i)$.
-\end{definition}
-\end{frame}
-
-\begin{frame}
-\begin{definition}
-If $\catc$ is a category and $\reqtc$ is a set of instances and if
-\fnsourceqnsource
-in $\catc$ and if $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$ is a referential inclusion dependency
-with respect  to $\reqtc$ then say that the inclusion dependency $I$ is \term{represented} in $\catc$
-iff there exists a morphism $i:a \morph c$ in $\catc$ such that in each instance $D \in \reqtc$, $D(i) = I_D$. 
-\end{definition}
-\end{frame}
-
-\begin{frame}
-\textbf {Goodness Criteria 2C:} \IfSforCwithRCwords 
-then all referential inclusion dependencies present in $R_C$
-ought to be be represented in \catc.
-
-I would like to show that this goodness criteria follows from the criteria of maximal constrainedness
-but I have only managed to prove this in the case that \catcw is locally finite.
-\end{frame}
-
-\begin{frame}
-\begin{lemma}[Referential Inclusion Dependency Representation Lemma]
-If $\catc$ is a locally finite category and $\reqtc$ is a set of instances, if $\catc$ is 
-\textit{maximally constrained} to the requirement $\reqtc$ then
-every referential inclusion dependency with respect to $\reqtc$ is represented in $\catc$.
-\end{lemma}
-\end{frame}
-
-
-
+%UNUSED
+\iffalse
+\scalebox{0.45}{
+\setlength{\arraycolsep}{.2cm}
+$
+\begin{array}{cp{2cm}cc}
+             & &         & \Rnode{b1}{b_1} \\ [0.5cm]
+                         & &         & \Rnode{b2}{b_2} \\ [0.6cm]
+                         & & \vdots  &                 \\ [0.2cm]
+\Rnode{a}{a} & &         & \Rnode{bn}{b_n} \\ [1.0cm]
+             & &         & \Rnode{c}{c}   \\
+\end{array}
+\begin{arrows}
+\simplepath{a}{b1}
+\alabel{x_1}
+\simplepath{a}{b2}
+\alabel{x_2}
+\simplepath{a}{bn}
+\alabel{x_n}
+\simplepath{a}{c}
+\blabel{y}
+\end{arrows}
+$
+}
+\fi
 \end{document}
