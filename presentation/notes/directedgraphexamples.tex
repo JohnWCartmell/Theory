@@ -24,7 +24,9 @@
 \usepackage{arydshln} % vertical dashed lines between columns of an array
 
 
-\renewcommand{\term}[1]{\textit{#1}}  %SIMPLE UNINDEXED VERSION
+\input{../macros/othermacros.tex}
+
+\renewcommand{\term}[1]{\textit{#1}}
 
 %ENDCOPY
 
@@ -47,22 +49,8 @@
 \newcommand{\stringtype}{text}
 \newcommand{\numbertype}{number}
 
-\newcommand{\binarysourcediag}[5]  %copied fron preparation paper
-{$
-\begin{array}{c p{0.5cm} c  }
-             &&   \Rnode{b}{#2} \\[0.01cm]
-\Rnode{a}{#1} &&                \\[0.01cm] 
-             &&   \Rnode{c}{#3} 
-\end{array} 
-\begin{arrows}
-\ncarr{a}{b}
-\alabel{#4}
-\ncarr{a}{c}
-\blabel{#5}
-\end{arrows}
-$  
-}
-% Example of above: \newcommand{\fgsourcediag}{\binarysourcediag{a}{b}{c}{f}{g}}
+
+% Example of above: \newcommand{\fgsourcediag}{\binarysourcediagram{a}{b}{c}{f}{g}}
 
 \newcommand{\dgsrcedge}
 {
@@ -274,7 +262,7 @@ Instances are functors from \catcw to $\Fin$ that preserve finite coproducts.
 \end{displaymath}
 \subsection*{Edge labels unique within edges leaving a node (eg a state transition diagram)}
 
-Specify  that this source \binarysourcediag{edge}{node}{l}{src}{label} is  a monosource. A 
+Specify  that this source \binarysourcediagram{edge}{node}{l}{src}{label} is  a monosource. A 
 rough and ready notation for this is to bar arrows that participate in the mono source as so:
 
 \begin{displaymath}

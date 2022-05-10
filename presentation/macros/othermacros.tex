@@ -2,18 +2,27 @@
 % othermacros
 %
 
+% Document structure
+\newcommand{\MToDsection}{Mathematical Theory of Data}
+\newcommand{\MToDsubsectionIntroduction}{Introduction}
+\newcommand{\MToDsubsectionLiterature}{Literature}
+\newcommand{\MToDsubsectionCategories}{Categories}
+\newcommand{\MToDsubsectionCategorieswithEpiMonos}{Categories with Mono-Epi Splits}
+\newcommand{\MToDsubsectionliteraturewithProductsandEpiMonosCategories}{Categories with Finite Products and Mono-Epi Splits}
+\newcommand{\MToDsubsectionERA}{Entity-Relationship Notation}
 
-\newcommand{\IfSforCwithRCwords}
-{If $S$ is a sketch for category \catcw and if $S$ is considered as a data specification with requirement $\reqtc$\ }
+\newcommand{\IfSforCwithRCwords}{
+If $S$ is a sketch for category \catcw considered as a data specification with requirement $\reqtc$\ }
+\newcommand{\IfSforCwithRCwordsvariant}{
+If $S$ is a sketch for structured category \catcw and if $S$ is considered as a data specification with requirement $\reqtc$\ }
+\newcommand{\IfSforepimonoCwithRCwords}{
+If $S$ is a sketch for category with epi-mono splits \catcw considered as a data specification with requirement $\reqtc$\ }
+\newcommand{\scmonosketchwording}{
+If $S$ is a sketch of a category with finite products and epi-mono splits considered as a data specification
+with requirement $\reqtc$\ }
 
-\newcommand{\IfSforCwithRCwordsvariant}
-{If $S$ is a sketch for structured category \catcw and if $S$ is considered as a data specification with requirement $\reqtc$\ }
+\newcommand{\goodnesscriteria}[1]{\textbf{Goodness Criteria #1:}}
 
-\newcommand{\goodnesscriteria}[1]
-{\textbf{Goodness Criteria #1:}}
-\newcommand{\scmonosketchwording}
-{If $S$ is a sketch of a category with finite products and epi-mono splits considered as a data specification
-then}
 
 % From the Mathematical Theory of data paper
 \newcommand{\ssfd}[2]{\ensuremath{#1 \morph #2}}  % singleton-singleton
@@ -30,17 +39,16 @@ then}
 \newcommand{\seeroomup}[1]{\rule{0.1cm}{#1}}
 \newcommand{\seeroomdown}[1]{\rule[-#1]{0.1cm}{0.1cm}}
 \newcommand{\roomup}[1]{\rule{0cm}{#1}}
-\newcommand{\romdown}[1]{\rule[-#1]{0cm}{0.1cm}}
+\newcommand{\roomdown}[1]{\rule[-#1]{0cm}{0.1cm}}
 
 
 
 % DIAGRAMS START HERE
-\newcommand{\binarysourcediag}[5]{
-$
-\begin{array}{c p{0.5cm} c  }
-             &&   \Rnode{b}{#2} \\[0.01cm]
-\Rnode{a}{#1} &&                \\[0.01cm] 
-             &&   \Rnode{c}{#3} 
+\newcommand{\nakedbinarysourcediagram}[5]{
+\begin{array}{c p{0.5cm} c}
+             &&   \Rnode{b}{#2}\\[0.01cm]
+\Rnode{a}{#1} &&               \\[0.01cm] 
+             &&   \Rnode{c}{#3}
 \end{array} 
 \begin{arrows}
 \ncarr{a}{b}
@@ -48,13 +56,50 @@ $
 \ncarr{a}{c}
 \blabel{#5}
 \end{arrows}
-$  
 }
-\newcommand{\fgsourcediag}{\binarysourcediag{a}{b}{c}{f}{g}}
+
+\newcommand{\binarysourcediagram}[5]{$\nakedbinarysourcediagram{#1}{#2}{#3}{#4}{#5}$}
+\newcommand{\fgsourcediagram}{\binarysourcediagram{a}{b}{c}{f}{g}}
+
+
+\newcommand{\unaryfdrepresentationdiagram}[8]{
+$
+\begin{array}{c p{0.2cm} c}
+\nakedbinarysourcediagram{#1}{#2}{#3}{#4}{#5}&& \Rnode{d}{#6}
+\end{array}
+\begin{arrows}
+\ncarr{d}{b}
+\idcomp
+\blabel{#7}
+\ncarr{d}{c}
+\alabel{#8}
+\end{arrows}
+$
+}
+
+\newcommand{\commutativetrianglediagram}[6]{
+$
+\begin{array}{c p{0.4cm} c p{0.4cm} c}
+              && \Rnode{b}{#2}  &&                 \\[0.6cm]
+\Rnode{a}{#1} &&                && \Rnode{c}{#3}   \\[0.6cm]
+\end{array}
+\begin{arrows}
+\ncarr{a}{b}
+\alabel{#4}
+\ncarr{b}{c}
+\alabel{#5}
+\ncarr{a}{c}
+\blabel{#6}
+\end{arrows}
+$
+}
+
+\newcommand{\epimonosplitdiagram}[3]{
+\commutativetrianglediagram{#1}{img(#3)}{#2}{#3_e}{#3_m}{#3}   
+}
 
 % \multisource{n}{a}{b}{f}
-\newcommand{\multisourcediagram}[4]
-{
+\newcommand{\multisourcediagram}[4]{
 $
 \begin{array}{c p{2.0cm} c p{2.0cm} c}				
                &&  \Rnode{B1}{#3_1}    \\ [0.75cm]
@@ -81,24 +126,22 @@ $
 %new to this paper
 \newcommand{\fghfactordiagram}[6]
 {
-\binarysourcediag{#1}{#2\roomup{0.5cm}}{#3}{#4}{#5}
+\binarysourcediagram{#1}{#2\roomup{0.5cm}}{#3}{#4}{#5}
 \begin{arrows}
 \ncarr{b}{c}
 \alabel{#6}
 \end{arrows}
 }
 
-\newcommand{\fghpartialfactordiagram}[6]
-{
-\binarysourcediag{#1}{#2\roomup{0.5cm}}{#3}{#4}{#5}
+\newcommand{\fghpartialfactordiagram}[6]{
+\binarysourcediagram{#1}{#2\roomup{0.5cm}}{#3}{#4}{#5}
 \begin{arrows}
 \ncdarr{b}{c} %dashed arrow
 \alabel{#6}
 \end{arrows}
 }
 
-\newcommand{\fnsourceqnsource}
-{
+\newcommand{\fnsourceqnsource}{
 $
 \begin{array}{c p{0.25cm} c  p{0.25cm} c }
              &&   \Rnode{b1}{b_1} &&              \\[0.4cm]
@@ -117,8 +160,7 @@ $
 \end{arrows}
 $   
 }
-\newcommand{\fgparalleldiag}
-{
+\newcommand{\fgparalleldiagram}{
  $
 \rule[-0.3cm]{0pt}{0.9cm} %to add vertical space of diagram -- based on lowering diagram 0.3cm and heght 0.9cm
                             % change thickness from 0pt to 1 pt to debug
@@ -150,3 +192,4 @@ $
 $    
 }
 }
+

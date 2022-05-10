@@ -1,0 +1,142 @@
+\documentclass[xcolor=pst,dvips]{beamer}   %, handout
+
+\usepackage{mathptmx}
+\usepackage{amsfonts}
+\usepackage{wasysym}
+\usepackage{url}
+\usepackage{hyperref}
+
+\newcommand{\sharedmacros}{../../SharedMacros}
+%\input{\sharedmacros/general.macros}    %causes problems when used with bamer
+\input{\sharedmacros/ccategories.macros}
+\input{\sharedmacros/gats.macros}
+\input{\sharedmacros/metagat.macros}
+\input{\sharedmacros/ermacros}
+\input{\sharedmacros/erdiagram}    %beamer aware version
+\input{../macros/generalmacros}
+\input{../macros/othermacros}
+
+\renewcommand{\erpictureFolder}[0]{../../SharedPictures}
+
+
+\usetheme{Szeged}
+\usecolortheme{dolphin}
+
+%\setbeamertemplate{navigation symbols}{}
+
+\setcounter{equation}{0}
+
+\title[John Cartmell]{Mathematical Theory of Data}
+%% Which is to say types as they are used in practice in software development and as represented in theory in categories and in syntactic type theories.
+%% There is also a subplot concerning representation of context which certain types depend on -- again represented in practice and in theory. 
+\author{John Cartmell}
+\institute{ad otium}
+\date{Jan 25, 2019}
+\bibliographystyle{plainnat}
+\usepackage{bibentry}
+\nobibliography*
+
+
+
+
+\begin{document}
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section{\MToDsection}
+\subsection{\MToDsubsectionCategorieswithEpiMonos}
+\begin{frame}{Definition}
+A \term{category with epi-mono splits} is a category such that for all $f:x \morph y$
+in \catcw there exists an object $img(f)$, an epimorphism $f_e:x \morph img(f)$
+and a monomorphism $f_m:img(f) \morph y$ such that
+\scalebox{0.9}{\roomup{1.3cm}\epimonosplitdiagram{x}{y}{f}}
+commutes. 
+
+An \term{instance} of a category with epi-mono splits \catcw is a functor from 
+\catcw to the category $\Fin$ of finite sets and functions.
+\end{frame}
+
+\begin{frame}{Representation of FDs}
+\begin{definition}
+If $\catc$ is a category and $\reqtc$ is a set of instances, 
+if \fgsourcediagram in $\catc$ 
+and if there is a functional dependency $\fundep{H}{f}{g}$ then say that 
+this functional dependency  is \term{represented} in $\catc$ 
+iff there exists an object $d$ of \catc, a monomorphism $q:d \morph b$ and a morphism $w: d \morph c$
+such that \scalebox{0.9}{\unaryfdrepresentationdiagram{a}{b}{c}{f}{g}{d}{q}{w}} commutes.
+\end{definition}
+\end{frame}
+
+\begin{frame}{Representation Lemma for FDs}
+{\small Note: I can prove this only in the case that \catcw is locally finite.
+
+No longer restricted to the case that each $D(f)$ is surjective.}
+
+\begin{lemma}
+If $\catc$ is a locally finite category with epi-mono splits that is 
+\textit{maximally constrained} to a requirement $\reqtc$ then
+if $\fundep{H}{f}{g}$  is a functional dependency with respect to $\reqtc$
+then $\fundep{H}{f}{g}$ is represented in $\catc$.
+\end{lemma}
+\begin{proof}
+Because 
+\scalebox{0.9}{\unaryfdrepresentationdiagram{\roomup{0.6cm}\roomdown{0.4cm}a}{b}{c}{f}{g}{im(f)}{f_m}{w}$\begin{arrows}\ncarr{a}{d}\alabel{f_e}\end{arrows}$} commutes in \catcw  where $w$ represents 
+the functional dependency of $g$ on $f_e$ whose existence is given by previous version of this lemma.
+\end{proof}
+\end{frame}
+
+\begin{frame}{Referential Inclusion Dependencies}
+\begin{definition}
+If $\catc$ is a category with epi mono splits, if $\reqtc$ is a set of instances 
+and if \fnsourceqnsource in $\catc$ and  $\set{q_1,...q_n}$ is a mono-source
+ then a \term{referential inclusion dependency} $I$, written $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$, 
+ is a family of functions $I_D)_{D \in \reqtc}$
+such that for each instance $D \in \reqtc$, $I_D$ is a function $I_D : D(a) \morph D(c)$ and
+for each $i$, $1 \leq i \le n$, $I_D \circ D(q_i) = D(f_i)$.
+\end{definition}
+\end{frame}
+
+
+\begin{frame}{Representation of Referential Inclusion Dependencies}
+\begin{definition}
+If $\catc$ is a category with epi mono splits 
+and if $\reqtc$ is a set of instances
+and \fnsourceqnsource in $\catc$ 
+and if $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$ is a referential inclusion dependency
+with respect  to $\reqtc$ 
+then say that the inclusion dependency $I$ is \term{represented} in $\catc$
+iff there exists a morphism $i:a \morph c$ in $\catc$ such that in each instance $D \in \reqtc$, $D(i) = I_D$. 
+\end{definition}
+\end{frame}
+
+\begin{frame}{Epi Mono Goodness Criteria}
+\IfSforepimonoCwithRCwords then
+\begin{itemize}
+\item \goodnesscriteria{2D} the set of instances $\reqtc$ should be jointly reflective of monomorphisms,
+\item \goodnesscriteria{2E} the set of instances $\reqtc$ should be jointly reflective of epimorphisms.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Knowns and unknowns}
+\IfSforepimonoCwithRCwords then
+\begin{itemize}
+\item Local finiteness and Criteria 2 (maximal constrainedness) implies Criteria 2D (jointly reflective of monomorphisms),
+\item Local finiteness and Criteria 2 (maximal constrainedness) implies Criteria 2E (jointly reflective of epimorphisms).
+\item Can local finiteness assumption be replaced by the finitary property?
+\item Can reverse implications be made - With what additional assumptions do criteria 2A--2E imply maximal constrainedness? 
+\end{itemize}
+\end{frame}
+
+
+\iffalse
+\begin{frame}{Bibliography}
+\bibliography{../../SharedBibliography/temp/bibliography}
+\end{frame}
+\fi
+
+%\fi
+
+\end{document}
