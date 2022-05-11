@@ -19,6 +19,9 @@
 \usetheme{Szeged}
 \usecolortheme{dolphin}
 
+\input{../macros/generalmacros.tex}
+\input{../macros/othermacros.tex}
+
 %\setbeamertemplate{navigation symbols}{}
 
 \setcounter{equation}{0}
@@ -35,13 +38,11 @@
 
 \begin{document}
 \section{\MToDsection}
-\subsection{\MToDIntroduction}
-
+\subsection{\MToDsubsectionIntroduction}
 
 \begin{frame}
 \titlepage
 \end{frame}
-
 
 \begin{frame}{Introduction}
 \begin{itemize}
@@ -64,97 +65,84 @@ Data specification method
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Data Specifications}
+\begin{frame}{Methods of Data Specification}
 \begin{itemize}
-\item presentations of theories of what is
-\item choice of primitives in presentation is choice of which data to be stored or communicated
-\item independency of primitives is absence of redundancy in data (3NF, BCNF)
+	\item schema of relational database,\Rnode{i1}{},
+	\item structure described by Carnegie-Mellon IDL,
+	\item schema of nested relational database,
+	\item message structure described by Google protocol buffer IDL,
+	\item XML schema language,
+	\item ER script.\Rnode{i6}{}
 \end{itemize}
+\begin{arrows}
+\ncarr{i6}{i1}
+\end{arrows}
 \end{frame}
 
-\begin{frame}{Notions of ...}
-\begin{columns}[t]
-\column{7.0cm}
+\begin{frame}{Data Specifications}
 \begin{itemize}
-\item {... structure
-   \begin{itemize}
-	    \item category
-			\item contextual category (c-system)
-			\item category with attributes$^*$
-			\item lextensive category
-			\item topos
-	 \end{itemize}
-	}
-	\end{itemize}
-\column{5cm}
-\begin{itemize}
-	\item {... theory
-   \begin{itemize}
-	    \item many-sorted algebraic
-			\item essentially algebraic
-			\item generalised algebraic
-			\item intuitionistic logic
-			\item Martin-L\"of type theory
-	 \end{itemize}
-	}
-	\end{itemize}
-\end{columns}
-\begin{columns}[t]
-\column{6.0cm}
-\pause \begin{itemize}
-\item {Methods of data specification
-   \begin{itemize}
-	    \item relational data model\Rnode{RDB}{\ }
-			\item interface defn. language{\scriptsize(IDL)}$^*$\Rnode{IDL}{}
-			\item {\scriptsize XML} schema$^*$\Rnode{XML}{\ }
-			\item entity/{\scriptsize ER} model$^*$
-			\item extd. {\scriptsize ER} model$^*$\Rnode{ER}{}
-	 \end{itemize}
-	 }
+\item presentations of theories of what is i.e. an ontology
+\item choice of primitives in presentation is choice of which data to be stored or communicated
+\item independence of primitives is absence of redundancy in data 
+\item engineering driven goodness criteria (3NF, BCNF, 4NF, 5NF) reinterpreted as driving logical completeness of theory with respect to intended instances
 \end{itemize}
-\column{4cm}
-\onslide<2-4>\raisebox{-2.5cm}{$^*$ \footnotesize \textit{various definitions of these}}
-\end{columns}
-\iffalse
-\onslide<5-7> \ncdiag[linecolor=red,linewidth=2pt,angleA=0, angleB=0, armA=0.5, armB=0.8, linearc=.2]{->}{ER}{XML}
-\onslide<6-7> \ncdiag[linecolor=red,linewidth=2pt,angleA=0, angleB=0, armA=2.5, armB=0.5, linearc=.2]{->}{ER}{IDL}
-\onslide<7> \ncdiag[linecolor=red,linewidth=2pt,angleA=0, angleB=0, armA=2.8, armB=1.95, linearc=.2]{->}{ER}{RDB}
-\fi
 \end{frame}
 
 \begin{frame}{Data Specifications}
 Two kinds of types in play
 \begin{itemize}
-\item the types of data defined -- the definienda
-\pause \item the atomic types used -- the definiens  -- string, integer, float, boolean and so on.
-\pause \item in ER modelling the former are called \textit{entity types}
-\pause \item the latter are called \textit{attribute types} or \textit{domains}.
+\item  the \textit{definienda} -- types all of whose instances are \term{particulars}
+\begin{itemize}
+\item employee, department, student, account, product, order, shipment, delivery, flight, booking and so on
+\item molecular structure, atom, bond, element, isotope, reaction, metabolite, mass trace, chromatogram, peak
+\item table, column, primary key, foreign key
+\item node and edge. 
+\end{itemize}
+\pause 
+\item  the \textit{definiens}  -- types all of whose instances are \term{universals}
+\begin{itemize}
+       \item string, integer, float, boolean and so on
+\end{itemize}
+\end{itemize}
+\pause
+\begin{itemize}
+\item in ER modelling 
+\begin{itemize}
+\item the \textit{definienda} are called \textit{entity types}
+\item the \textit{definiens} are called \textit{attribute types} or \textit{domains}.
+\end{itemize}
 \end{itemize}
 \end{frame}
 
-\begin{frame}{ER's Binary Relationships as Morphisms}
-\footnotesize
-\begin{tabular} {l l l l}
-cardinality        & inverse cardinality &     &\\
-exactly one        & zero, one or many   &     & $f: A \morph B$\\
-exactly one        & zero or one         &     & f is injective $f: A \hookrightarrow B$\\
-one or many        &                     &     &f is partial $f:A \rightharpoonup B$\\
-zero, one or many  &                     &     &\\
-zero or one        &                     &     &\\
-\end{tabular}
-\end{frame}
-
-
-\begin{frame}{\textit{a priori}s}
+\begin{frame}{Types all of whose instances are Universals}
 \begin{itemize}
 \item In language theory, formal grammars have terminals (and non-terminals)
 \pause \item In data specifications, we have use of basic types string, integer, float, boolean and so on
               in addition maybe define enumerations 
-\pause \item in categorical data types we have \textit{a priori}s i.e coproducts of terminal object
+\pause \item in categorical data types we have  i.e coproducts of terminal object
 \pause \item In relational data models we have domains
-\pause \item in ER models many-one relationships to the basic types are called attributes and are graphically distinct from other relationships
+\pause \item in ER models many-one relationships to the basic types are called attributes and are graphically distinct from other relationships.
 \end{itemize}
 \end{frame}
+
+
+\begin{frame}{Data Specifications}
+A data specification is a sketch of a category with some additional structure:
+\begin{itemize}
+\item that it is a \term{sketch} is crucial because it is only nodes and edges of the sketch for which data is stored and/or communicated, 
+\item that there are commutative diagrams is crucial to construction of physical 
+specifications from logical specifications.
+\item that the category had additional structure is significant:
+\begin{itemize}
+\item so that we can give account of database normal forms 
+(BCNF, 3NF, 4NF and 5NF),
+\item so that we can allow for missing data as represented by NULL values, 
+\item so that we can distinguish structural from non-structural relationships to describe structure nesting and thereby hierarchical data,
+\item so that types of universals can be distinguished from types of particulars.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
 
 
 \begin{frame}{Identifying Features in Database Specifications}
@@ -166,7 +154,6 @@ i.e a mono source
 \item achieves principle of identity of indiscernibles
 \end {itemize}
 \end{frame}
-
 
 \begin{frame}{Database Normal Forms}
 \begin{itemize}
@@ -182,7 +169,6 @@ i.e a mono source
 \end{itemize}
 \end{frame}
 
-
 \begin{frame}{Additional Structure}
 \resizebox{11.3cm}{!}{
 \input{../content/featurelist}
@@ -194,6 +180,5 @@ i.e a mono source
 \bibliography{../../SharedBibliography/temp/bibliography}
 \end{frame}
 
-%\fi
 
 \end{document}
