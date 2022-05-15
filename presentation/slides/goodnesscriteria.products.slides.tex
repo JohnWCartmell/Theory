@@ -9,6 +9,8 @@
 \usepackage{wasysym}
 \usepackage{url}
 \usepackage{hyperref}
+%\usepackage{pst-arrow}
+
 
 \newcommand{\sharedmacros}{../../SharedMacros}
 %\input{\sharedmacros/general.macros}    %causes problems when used with bamer
@@ -22,8 +24,6 @@
 \input{../macros/sketchmacros}
 
 \renewcommand{\erpictureFolder}[0]{../../SharedPictures}
-
-
 
 \usetheme{Szeged}
 \usecolortheme{dolphin}
@@ -46,7 +46,6 @@
 \section{\MToDsection}
 \subsection{\MToDsubsectionliteraturewithProductsandEpiMonosCategories}
 
-
 \begin{frame}{Definitions} 
 In a category \catc, a  \term{source} is a family of morphisms with common domain: \\
 \scalebox{0.65}{
@@ -60,7 +59,6 @@ so that \scalebox{0.65}{
 in \catcw then if $g \circ f_i = h \circ f_i$, for each $i$,  then $g=h$.
 \end{frame}
 
-
 \begin{frame}{Mono Source Limit Cone}  %copied from sketchmonics.tex
 Lemma: In a category \cat{C}
 \scalebox{0.65}{
@@ -73,9 +71,6 @@ Lemma: In a category \cat{C}
 is a limit cone.
 \end{center}
 \end{frame}
-
-
-
 
 \begin{frame}{Composition of mono sources}
 If $i$ and $j$ are mono sources and $f \in i$ so that
@@ -98,7 +93,7 @@ $\tuple{G,PE,M,P,E}$
 \item  and $E$ is a set of $G$-paths deemed to be epimorphisms.
 \end{itemize}
 \medskip
-From such a sketch we can generate a category with finite products and epi-mono splits.  \pause (unsubstantiated)   
+From such a sketch we can generate a category with finite products and designated monomorphisms and epimorphisms.  \pause (unsubstantiated)   
 \end{frame}
 
 \begin{frame}
@@ -112,7 +107,6 @@ i.e. such that there exist $g: y_i \morph z$ in \catcw, for some $i$, such that 
 \begin{frame}{Goodness Criteria 2B Revisited}
 Restate how functional dependencies and their representations are defined in terms of \highlight{sketches} of categories with products and epi mono splits.
 \end{frame}
-
 
 \begin{frame}{Functional Dependency Restated}
 \IfSforproductepimonoCwithRCwords, 
@@ -128,13 +122,13 @@ such that
 \end{frame}
 \begin{frame} 
 CORRECT THIS DIAGRAM
-\scalebox{0.65}{ 
+\scalebox{0.9}{ 
 $
 \begin{array}{cp{2cm}ccp{0.5cm}cc}
                 & &         & \Rnode{Eb1}{D(b_1)}& &                            &        \\[0.6cm]
                 & &         & \Rnode{Eb2}{D(b_2)}& &                            &        \\[0.6cm]
                 & &\vdots   &                     & &                            &        \\[0.2cm]                                              
-\Rnode{Ea}{E_a} & &         & \Rnode{Ebn}{D(b_n)}& & \Rnode{Jnctn}{}            &        \\[1.0cm]
+\Rnode{Ea}{D(a)} & &         & \Rnode{Ebn}{D(b_n)}& & \Rnode{Jnctn}{}            &        \\[1.0cm]
                 & &         & \Rnode{Ec}{D(c)}   & &                            &  
 \end{array}
 \begin{arrows}
@@ -146,19 +140,50 @@ $
 \alabel{D(x_n)}
 \simplepath{Ea}{Ec}
 \blabel{D(y)}
-\nchmarr[15][45]{Eb1}{Ebn}{Jnctn}{Ec}
-\naput[npos=-0.1]{$f_E$}
+\nchpmarr[15][45]{Eb1}{Ebn}{Jnctn}{Ec}
+\naput[npos=-0.1]{$h_D$}
 \ncarc[arcangle=15]{Eb2}{Jnctn}
+%\ncline{h-}{Eb1}{Ebn}
 \end{arrows}
 $
 }
 \end{frame}
 
-
-
 \begin{frame}{Notation}
 That a path  $y$ is functionally dependent on the set of paths $\set{x_1,...x_n}$ 
 is written  \msfd{x_1,...x_n}{y}.
+\end{frame}
+
+\begin{frame}{Main Lemma}
+Suppose that $S$ is a sketch for such a category \catcw that 
+is maximally constrained to a set of instances $\reqtc$, assume that $S$ is simple and that \catcw is locally finite,
+suppose that $x_1,...x_n$ and $y$ are edges
+ within sketch $S$ with common codomain, 
+if \msfd{x_1,...x_n}{y} is an intransitive functional dependency in \catcw  with respect to $\reqtc$
+ then $\xnset$ is a designated mono source in \catc.
+\end{frame}
+
+\begin{frame}{Referential Inclusion Dependencies}
+\begin{definition}
+If $\catc$ is a something or other, if $\reqtc$ is a set of instances 
+and if \fnsourceqnsource in $\catc$ and  $\set{q_1,...q_n}$ is a mono-source
+ then a \term{referential inclusion dependency} $I$, written $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$, 
+ is a family of functions $I_D)_{D \in \reqtc}$
+such that for each instance $D \in \reqtc$, $I_D$ is a function $I_D : D(a) \morph D(c)$ and
+for each $i$, $1 \leq i \le n$, $I_D \circ D(q_i) = D(f_i)$.
+\end{definition}
+\end{frame}
+
+\begin{frame}{Representation of Referential Inclusion Dependencies}
+\begin{definition}
+If $\catc$ is a something or other
+and if $\reqtc$ is a set of instances
+and \fnsourceqnsource in $\catc$ 
+and if $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$ is a referential inclusion dependency
+with respect  to $\reqtc$ 
+then say that the inclusion dependency $I$ is \term{represented} in $\catc$
+iff there exists a morphism $i:a \morph c$ in $\catc$ such that in each instance $D \in \reqtc$, $D(i) = I_D$. 
+\end{definition}
 \end{frame}
 
 %UNUSED

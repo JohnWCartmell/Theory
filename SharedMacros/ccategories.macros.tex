@@ -326,6 +326,13 @@
 \ncarc[arcangle=#2,nodesepB=\marnodesepB,offsetB=\maroffsetB]{->}{#5}{#6}
 }%
 
+% partial multi arrow uses h to specify half an arrow but doesnt work well because curvature and hook interfere
+\newcommandtwoopt{\nchpmarr}[6][8][8]{%
+\ncarc[nodesepA=\marnodesepA,nodesepB=0,arcangle=#1]{-}{#3}{#5}
+\ncarc[nodesepB=0,arcangle=#1]{-}{#4}{#5}
+\ncarc[arcangle=#2,nodesepB=\marnodesepB,offsetB=\maroffsetB]{-h}{#5}{#6}  
+}%
+
 \newcommandtwoopt{\ncamarr}[7][8][8]{%
 \ncmarr[#1][#2]{#4}{#5}{#6}{#7}
 \naput[npos=.05]{$#3$}
