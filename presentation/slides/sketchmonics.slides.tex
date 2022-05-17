@@ -12,6 +12,8 @@
 \newcommand{\CEnametype}{varchar(64)}
 \newcommand{\CEvalencynumbertype}{number(-7,7)}
 
+
+\iffalse % doesnt belong here
 \begin{frame}{Definitions - Johnstone et al.}
 \begin{definition}{Johnstone et al}
 An \textit{EA sketch} is a sketch $\tuple{G,D,L,C}$ where $G$ is a directed graph, $D$ a set of diagrams in $G$, $L$ a set of finite cones and
@@ -23,6 +25,7 @@ If $S$ is an EA-sketch then the theory of $S$ is the lextensive category generat
 If $S$ is an EA sketch then a model of $S$ is a functor to the category of finite sets preserving finite limits and coproducts.
 The category of models is denoted $Mod(S,\cat{FinSet})$.
 \end{frame}
+\fi
 
 \begin{frame}{Data Specification of the Chemical Elements as a Directed Graph}
 \scalebox{0.65}{
@@ -30,6 +33,7 @@ The category of models is denoted $Mod(S,\cat{FinSet})$.
 } 
 \end{frame}
 
+\iffalse %doesnt belong here
 \begin{frame}{Relational Database Theory}
 \begin{itemize}
 \item classic relational database normal form definitions ({\scriptsize 3NF, EKNF, BCNF, 4NF,5NF, INC-NF}) can be transfered into the more general framework
@@ -59,31 +63,8 @@ of ER modelling and formalised within the definitional framework of EA sketches
 \item more than 99.99 percent of entity modelling uses just mono sources and no other limits
 \end{itemize}
 \end{frame}
+\fi
 
-\begin{frame}{Mono Source Definition}
-\begin{definition}
-In a category \cat{C}, a family of morphisms with common domain: \\
-\begin{center}
-\scalebox{0.65}{
-\input{../content/monoSource}
-} 
-\end{center}
-is said to be a \textit{mono source} iff for all $g,h:X \morph A$ in \cat{C} if $g \circ f_i = h \circ f_i$, for each $i, 1 \leq i \leq n$, then $g=h$.
-\end{definition}
-\end{frame}
-
-\begin{frame}{Mono Source Limit Cone}
-Lemma: In a category \cat{C}
-\scalebox{0.65}{
-\input{../content/monoSource}
-} is a mono source iff \\
-\begin{center}
-\scalebox{0.65}{
-\input{../content/monoSourceLimitCone}
-} 
-is a limit cone.
-\end{center}
-\end{frame}
 
 \begin{frame}{Each entity type has at least on mono source defined}
 \begin{tabular}{l}
@@ -142,38 +123,4 @@ In the category there are two further \textit{derived}  mono sources: \\
 \end{tabular}
 \end{frame}
 
-\begin{frame}{Normalisation}
-\begin{definition}
-{ \footnotesize
-If $T$ is a theory and $W \subset |Mod(T,FinSet)|$ is an intended usage then an interpretation (theory morphism) $I: T \morph T'$ is an improvement of $T$ wrt $W$ iff 
-$Mod(I,Finset): Mod(U',Finset) \morph Mod(U,Finset)$ is injective but not surjective
-and $W \subseteq img(Mod(I,Finset))$.
-i.e. for all models $U \in W$ there exists $U' \in Mod(T,Finset)$ such that $I \circ U'=U$
-$
-\begin{array} {c p{2cm} c}
-\Rnode{T}{T} && \\ [0.25cm]
-             && \Rnode{finset}{Finset} \\ [0.25cm]
-\Rnode{Tp}{T'}  
-\end{array}
-$
-\ncarr {T}{finset}
-\alabel{U}
-\ncarr{T}{Tp}
-\blabel{I}
-\ncarr{Tp}{finset}
-\blabel{U'} 
-}
-\end{definition}
 
-\begin{definition}
-If a theory $T$ has no improvement wrt to an intended usage $W$ then $T$ is said to be \textit{optimally formulated} wrt $W$.
-\end{definition}
-\end{frame}
-
-\begin{frame}{Propositions}
-\begin{itemize}
-\item If a relational schema $R$ can be normalised to $R'$ then the associated theory $T$ of $R$ can be improved to the associated thery $T'$ of $R'$.
-
-\item If a relational database schema is in normal form then its associated theory is optimally formulated.
-\end{itemize}
-\end{frame} 

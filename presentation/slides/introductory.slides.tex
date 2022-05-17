@@ -138,6 +138,72 @@ i.e a mono source
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Relational Database Theory}
+\begin{itemize}
+\item classic relational database normal form definitions ({\scriptsize 3NF, EKNF, BCNF, 4NF,5NF, INC-NF}) can be transfered into the more general framework
+of ER modelling and formalised within the definitional framework of EA sketches
+
+\item such normal forms  examine the fit of a sketch/theory (database schema) to an intended usage
+
+\item we can assume that the intended usage is represented by a full-subcategory of the category $Mod(S,\cat{FinSet})$
+
+\item in such a situation the classic normal forms address the question can the sketch/theory $S$ be improved by addition or removal of morphisms and/or commutative diagrams and/or limit cones.
+\item normalisation has dual goal of obtaining as complete a theory as possible and of eliminating redundancy from the sketch.  
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Normal Forms}
+\begin{itemize}
+\item IN-NF -- Ling and Goh -- there are no redundant attributes except if absolutely necessary in order to specify a mono source
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Normalisation}
+\begin{definition}
+{ \footnotesize
+If $T$ is a theory and $W \subset |Mod(T,FinSet)|$ is an intended usage then an interpretation (theory morphism) $I: T \morph T'$ is an improvement of $T$ wrt $W$ iff 
+$Mod(I,Finset): Mod(U',Finset) \morph Mod(U,Finset)$ is injective but not surjective
+and $W \subseteq img(Mod(I,Finset))$.
+i.e. for all models $U \in W$ there exists $U' \in Mod(T,Finset)$ such that $I \circ U'=U$
+$
+\begin{array} {c p{2cm} c}
+\Rnode{T}{T} && \\ [0.25cm]
+             && \Rnode{finset}{Finset} \\ [0.25cm]
+\Rnode{Tp}{T'}  
+\end{array}
+$
+\ncarr {T}{finset}
+\alabel{U}
+\ncarr{T}{Tp}
+\blabel{I}
+\ncarr{Tp}{finset}
+\blabel{U'} 
+}
+\end{definition}
+
+\begin{definition}
+If a theory $T$ has no improvement wrt to an intended usage $W$ then $T$ is said to be \textit{optimally formulated} wrt $W$.
+\end{definition}
+\end{frame}
+
+\begin{frame}{Propositions}
+\begin{itemize}
+\item If a relational schema $R$ can be normalised to $R'$ then the associated theory $T$ of $R$ can be improved to the associated thery $T'$ of $R'$.
+
+\item If a relational database schema is in normal form then its associated theory is optimally formulated.
+\end{itemize}
+\end{frame} 
+
+\begin{frame}{Defining Candidate Keys and/or Identifying Relationships in an EA sketch.  }
+\begin{itemize}
+\item concept of \textit{candidate keys} used in relational database normal form definitions {\scriptsize (3NF, EKNF, BCNF)}
+\item in ER model talk about \textit{identifying} families of relationships
+\item in category theory such a key or a family of relationships is a mono source i.e. a to jointly monic family of morphisms
+\item mono sources and hence candidate keys can be defined as limit cones
+\item more than 99.99 percent of entity modelling uses just mono sources and no other limits
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Additional Structure}
 \resizebox{11.3cm}{!}{
 \input{../content/featurelist}
