@@ -3,11 +3,95 @@
 \scalebox{0.75}{
 \input{../content/chemistrydata/element.display.tabular}
 }
+\begin{itemize}
+	\item Underline indicates some kind of key attribute i.e. some kind of uniqueness constraint.
+\end{itemize}
+An example of data organised hierarchically. 
+I will use the A-word. Columns I will say are attributes. Attributes are string valued or integer valued or float  valued.
+Certain columns hold unique values. In database speak these are key attributes. In the language we use
+symbol is the primary key. Name is also unque and could have been chosen as the key instead. It is called a candidate key attribute.
+
+
+This data is displayed as described by the nested relational model of data. This is a hierarchical model.
+Other hierarchical models are that of XML. And that of Google ProtocolBuffer messaging system as described in protocol buffer IDL language.
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Message Structure}
+A corresponding message structure might be defined 
+in an IDL style language by:
+
+\begin{lstlisting}[basicstyle=\footnotesize,language=IDL]
+struct compound => 
+    symbol: string,
+    name : string,
+    atomic_no: integer,
+    relative_atomoc_mass : float,
+    valencies: valency repeated,
+    allotropes : allotrope repeated
+
+struct valency =>  number : integer 
+
+struct allotrope =>
+   name : string,
+   melting_point : float,
+   boiling_point : float,
+   density : float
+\end{lstlisting}
 \end{frame}
 
 
 \begin{frame}{Chemical Compound Data}
 \scalebox{0.75}{
 \input{../content/chemistrydata/compound.display.tabular}
+}
+\begin{itemize}
+\item $\largeAsterisk$ Asterisk here denotes a foreign key attribute. 
+\pause This witnesses a relationship between this part of a formula and an element. \pause It implements a pointer.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Jackson Structure Diagrams}
+\begin{tabular}{c c}
+\scalebox{0.9}{\jacksonbinarydiagram{compound\kern0.1cm}{alias \kern1.2cm}{occurrence\kern0cm}}
+&
+\scalebox{0.9}{\jacksonbinarydiagram{element\kern0.4cm}{valency \kern0.8cm}{allotrope\kern0.3cm}}
+\end{tabular}
+\end{frame}
+
+\begin{frame}{Bachman Structure Diagrams}
+\begin{tabular}{c c}
+\scalebox{0.9}{\bachmanbinarydiagram[left]{compound\kern0.1cm}{alias \kern1.2cm}{occurrence}}
+&
+\scalebox{0.9}{\bachmanbinarydiagram[right]{element\kern0.4cm}{valency \kern0.8cm}{allotrope\kern0.3cm}}
+\end{tabular}
+\begin{itemize}
+	\item This diagram describes the hierarchcal structure of the nested tables of data I started with.
+	\item It doesn't show all the relationships in the data
+	\pause \item there is a set of zero, one or more occurrences that point to any given element
+	\pause \ncline[linewidth=1.5pt, linestyle=dashed]{<-}{leftC}{rightA}
+\end{itemize}
+\end{frame}
+
+\begin{frame} 
+In my tables the relationship between occurence and element is implemented by the symbol attribute of the compound data.
+Looking up the symbol of an occurence in the symbol of the element data.
+The symbol attribue of compound is called a foreign key
+and the symbol attribute of the compound table is called a primary key. 
+\end{frame}
+
+\begin{frame}{Bachman Network Structure Representation}
+\begin{itemize}
+	\item Bachman is credited with the concept of network database.
+    \item A network structure can have parts `contained in' many non-commensurate wholes.
+    \item Using such we don't need commit to one hierarchy or the other. 
+ \end{itemize}
+\bachmannetworkdiagram{compound\kern0.3cm}{element\kern0.6cm}{occurrence\kern0.2cm}
+\end{frame}
+
+\begin{frame}{Restructured Chemical Element Data}
+\scalebox{0.75}{
+\input{../content/chemistrydata/element.second.display.tabular}
 }
 \end{frame}

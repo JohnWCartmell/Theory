@@ -25,10 +25,63 @@
 
 \input{../macros/generalmacros.tex}
 \input{../macros/othermacros.tex}
-
+\input{../macros/beamerclashmacros.tex}
 %ENDCOPY
 
 \begin{document}
+
+
+\section{preintroduction}
+title: aspects of the mathematical theory of data
+.subtitle making the trivial trivially trivial
+\note
+I will start by giving examples of different styles for depicting data structure
+\note
+I will include my own favourite style which can loosely be described as the ER style
+and which I have implemented as a specification tool thsat I'll refer to as ER Script\\
+E - entity - or entity type (what it depicts are types of entity)\\
+R - relationship -- by which is meant many-one functional relationship\\
+\note
+ER modelling sometimes called ERA modelling
+A - attribute \\
+such relationships and attributes can be represented as the morphisms of a category
+
+\note
+R - is a relationship (morphism) between types (objects) whose instances are particulars\\
+A - is a relationship (morphism) between one type whose (object) instances are particulars and another type (object) whose instances are universals
+\note
+I will describe network, hierarchical and relational models of data
+\note In their most abstract form I shall refer to data specifications as 'logical'.
+\note When they are slightly less abstract and indicate the presence, the absence, or the degree of hierarchy i shall refer to them as 'representational'. 
+\note
+I will describe how there can be logical and representational data specifications
+(though all data specifications may be abstract)
+\note
+a single logical specification can generally imbuded with hierarchy in  multiple ways. 
+Each such then corresponding to a 'representational' data specification.
+\note
+representation specifications vary dependening on whether network, hierarchical or relational  i.e. amount of hierarchy
+\note Relationships in a logical specification must be implemented in a representational specification by either 
+the hierarchical containment relationship, a foreign key or, if there is such a thing by a pointer.  
+\note a foreign key is a transparent pointer in that it holds the key of one entity in another entity.
+\note
+I will draw parallel with structure of depedent types as per contextual categories generalised algebraic theory
+A representational specification is to a logical specification as a category is to a contectual category.
+\note 
+I will speak of the relational database normal forms as `goodness criteria' - for this is what they are.  
+\note
+I will describe a category theory style description of goodness criteria i.e. normal forms from relational database theory - this is unfinished work and there are several open issues.
+\note Nonetheless, for me at least, I can shed a little light on what previously I found to be mysterious.
+\note 
+I will describe the significance of commutative diagrams in structure of representational data specifications 
+\note
+I will describe the significance of commutative diagrams in combating the loss of specification and design documentation - dont have a separate design from implementation - situation at nomura in 1998/1999 - (data models are large)
+\note I will point out that only certain diagrams contribute . These are ones I called scope diagrams in 1986 where I pointed out
+the parallels with dependent type structure.
+\note 
+BTW It is these most significant diagrams (scope diagrams) that I have implemented support for in ER script.
+\note 
+I will mention an example in which we implemented an application  to process and manage  chromatography data management.
 
 \section{introduction}
 start with introductory generalities including table of features within structured data
@@ -38,7 +91,37 @@ go to chemistry data
 
 discuss nested relational data model discuss XML tags discuss IDL languages
 discusssion of Jackson notation
+
+\begin{center}
+\begin{tabular}{c c}
+\jacksonbinarydiagram{compound\kern0.3cm}{alias \kern1.2cm}{occurrence\kern0.2cm}
+&
+\jacksonbinarydiagram{element\kern0.6cm}{valency \kern0.8cm}{allotrope\kern0.5cm}
+\end{tabular}
+\end{center}
+
+\begin{tabular}{c c}
+\scalebox{0.9}{\bachmanbinarydiagram[left]{compound\kern0.1cm}{alias \kern1.2cm}{occurrence}}
+&
+\scalebox{0.9}{\bachmanbinarydiagram[right]{element\kern0.4cm}{valency \kern0.8cm}{allotrope\kern0.3cm}}
+\ncline{<-}{leftC}{rightA}
+\end{tabular}
+
+\begin{center}
+\bachmannetworkdiagram{compound\kern0.3cm}{element\kern0.6cm}{occurrence\kern0.2cm}
+\end{center}
+
+
 data structure diagram notation - hierarchical
+\begin{center}
+\begin{tabular}{c  c}
+$\nakedSWSEsourcediagram{left}{compound}{alias}{occurence}{}{}$ & $\nakedSWSEsourcediagram{right}{element}{valency}{allotrope}{}{}$
+\begin{arrows}
+\ncarr{righta}{leftc}
+\end{arrows}
+\end{tabular}
+\end{center}
+
 data structure notation         - network (add one relationship - different color)
 describe foreign key - foreign key constraint - referential integrity constraint
 
@@ -49,15 +132,11 @@ then show box notation
 
 then show ER script diagram
 
-discuss relational 1NF, 2NF and 3NF and
-show data when "normalised"
- discuss how many more foreign keys now
 
-relation - tuple row - relational schema subset of cartesian product
 
 COULD mention keys and foreign keys at this point. Because rows of the second tabular are referenced by columns of the first tabular.
 
-This is called an \term{inclusion depedency}
+This is called an \term{inclusion dependency}
   and is expressed by 
 
 $compound[formula.symbol] \subseteq element[symbol]$
@@ -65,6 +144,23 @@ $compound[formula.symbol] \subseteq element[symbol]$
 Since on the rhs symbol is a key to element then this inclusion dependency is \textit{referential}.
 
 In practice called foreign key or a referential integirty constraint.
+
+Continue with category notation.
+
+Go to logical specification plus representational overlay.
+Latter specifies the hierarchical structure of the data.
+
+Representation os structural "compsotion" from non-structural "reference" relations from PCTE and CAIS.
+
+Can be seen as a distinguished set of morphisms.
+
+Relational is extreme in that the hierarchy is trivial i.e. flat hierarchy.
+
+discuss relational 1NF, 2NF and 3NF and
+show data when "normalised"
+ discuss how many more foreign keys now
+
+relation - tuple row - relational schema subset of cartesian product
 
 Codd 1970 exhorts 1st Normal Form so without repeated values for example like so:
 Two tabulars.
@@ -93,5 +189,16 @@ Each diagram gives the scope of a relationship
 Equivalent to giving signature of an operation in a GAT
 With the restriction that identifying relationships are structural these are sufficient to achieve generation of relational model from an ER model and for it to be in normal form.
 
+Maybe go back to Chen and his unified model of data.
+
+\section{Chromatography Data Processing}
+\note This was an application written to process data from an LCMSMS data collected from a mass spec front ended by a liquid chromatography system. 
+\note We implemented an application to improve on software available from manufacturers. 
+\note This diagram depicts the model of the data. 
+\note nearly every r of ltd scope defined by a scope diagram i.e. a commutative diagram. 7 pullback diagrams - all translated into program code.
+\note code or physical data specifications generated in xslt, IDL, java, Ecma script,
+\note separation achieved  separation of the trivial data management code from the core algorithms,
+\note There is an adage from Peter Freyd from 1965: category theory is to ... \textit{to show that which is  trivial is trivially trivial}. 
+\note In relation to software  I have been describing \textit{making} the trivial trivially trivial. 
 \end{document}
 

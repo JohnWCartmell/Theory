@@ -12,9 +12,15 @@
 % used in data tables
 \newcommand{\colhead}[1]{\textbf{\textcolor{white}{#1}}}
 \definecolor{myblue}{RGB}{71,71,186}
+\newcommand{\largeAsterisk}{\mathop{\scalebox{1.5}{\raisebox{-0.2ex}{$\ast$}}}}
+\newcommand{\fk}[1]{$#1^{\largeAsterisk}$}
+\newcommand{\pk}[1]{\underline{#1}}
+\newcommand{\seck}[1]{\dashuline{#1}}  % secondary key
+\newcommand{\pkfk}[1]{$\underline{#1}^{\largeAsterisk}$} % primary key that is a foreign key
 % \vpad gives vertical padding in a tabular
 \newcommand{\vpad}[1]{\multicolumn{#1}{c}{}\\[-0.25cm]}
 
+% words words words
 \newcommand{\catMEterm}{category with designated monomorphisms and epimorphisms\ }
 \newcommand{\IfSforCwithRCwords}{
 If $S$ is a sketch for category \catcw considered as a data specification with requirement $\reqtc$\ }
@@ -55,8 +61,65 @@ considered as a data specification with requirement $\reqtc$\ }
 \newcommand{\roomdown}[1]{\rule[-#1]{0cm}{0.1cm}}
 
 
+% BOX DIAGRAMS
+\newcommand{\attr}[1]{#1}
+\renewcommand{\attr}[1]{\psframebox[linecolor=red,framearc=.1]{#1}}
+\newcommand{\attrtype}[1]{#1}
+\renewcommand{\attrtype}[1]{\psframebox[linecolor=blue,framearc=.1]{#1}}
+\newcommand{\etype}[1]{#1}
+\renewcommand{\etype}[1]{\psframebox[linecolor=red,framearc=.1]{#1}}
 
-% DIAGRAMS START HERE
+
+\newcommand{\regularizetextheight}{\roomup{0.3cm}\roomdown{0.1cm}}
+
+\newcommand{\binarystructurediagramnodes}[4][]{
+\rput[tr](4.0,3){\Rnode{#1A}{\psframebox[framesep=10pt]{\regularizetextheight#2}}} 
+\rput[tr](2.4,1){\rnode{#1B}{\psframebox[framesep=10pt]{\regularizetextheight#3}}}     
+\rput[tr](5.6,1){\rnode{#1C}{\psframebox[framesep=10pt]{\regularizetextheight#4}}}        
+}
+
+\newcommand{\jacksonbinarydiagram}[3]
+{
+\pspicture(-0.4,0)(5.7,3)  % lower left is 0,0 upper right is 8,3
+%\psgrid
+\binarystructurediagramnodes{#1}{#2}{#3}
+\rput[tr](2.3,0.9){*}
+\rput[tr](5.4,0.9){*}
+\ncangle[offsetA=-0.5cm, angleA=-90,angleB=90,armB=0.5cm]{A}{B}
+\ncangle[offsetA=0.5cm, angleA=-90,angleB=90,armB=0.5cm]{A}{C}
+\endpspicture      
+}
+
+\newcommand{\bachmanbinarydiagram}[4][]
+{
+\pspicture(-0.4,0)(5.7,3)  % lower left is 0,0 upper right is 8,3
+%\psgrid
+\binarystructurediagramnodes[#1]{#2}{#3}{#4}
+\ncline[linewidth=3pt]{->}{#1A}{#1B}
+\ncline[linewidth=3pt]{->}{#1A}{#1C}
+\endpspicture      
+}
+
+
+\newcommand{\binarynetworkdiagramnodes}[3]{ 
+\rput[tr](2.4,3){\rnode{A}{\psframebox[framesep=10pt]{\regularizetextheight#1}}}     
+\rput[tr](5.6,3){\rnode{B}{\psframebox[framesep=10pt]{\regularizetextheight#2}}} 
+\rput[tr](4.0,1){\Rnode{C}{\psframebox[framesep=10pt]{\regularizetextheight#3}}}       
+}
+
+\newcommand{\bachmannetworkdiagram}[3]
+{
+\pspicture(-0.4,0)(5.7,3)  % lower left is 0,0 upper right is 8,3
+%\psgrid
+\binarynetworkdiagramnodes{#1}{#2}{#3}
+\ncline[linewidth=3pt]{->}{A}{C}
+\ncline[linewidth=3pt]{->}{B}{C}
+\endpspicture      
+}
+
+
+
+% Category DIAGRAMS START HERE
 \newcommand{\nakedbinarysourcediagram}[5]{
 \begin{array}{c p{0.5cm} c}
              &&   \Rnode{b}{#2}\\[0.01cm]
@@ -73,6 +136,36 @@ considered as a data specification with requirement $\reqtc$\ }
 
 \newcommand{\binarysourcediagram}[5]{$\nakedbinarysourcediagram{#1}{#2}{#3}{#4}{#5}$}
 \newcommand{\fgsourcediagram}{\binarysourcediagram{a}{b}{c}{f}{g}}
+
+%  binary source diagram with arrows pointing SE and SW
+% nakedSWSEsourcediagram{prefix}{a}{b}{c}{f}{g}
+\newcommand{\nakedSWSEsourcediagram}[6]{
+\begin{array}{c c c}
+              & \Rnode{#1a}{#2} &               \\[1.0cm] 
+\Rnode{#1b}{#3} &               &\Rnode{#1c}{#4}
+\end{array} 
+\begin{arrows}
+\ncarr{#1a}{#1b}
+\alabel{#5}
+\ncarr{#1a}{#1c}
+\blabel{#6}
+\end{arrows}
+}
+
+
+%  binary sink diagram with arrows pointing SE and SW
+\newcommand{\nakedNWNEsinkdiagram}[5]{
+\begin{array}{c c c}
+              & \Rnode{a}{#1} &               \\[0.5cm] 
+\Rnode{b}{#2} &               &\Rnode{c}{#3}
+\end{array} 
+\begin{arrows}
+\ncarr{b}{a}
+\alabel{#4}
+\ncarr{c}{a}
+\blabel{#5}
+\end{arrows}
+}
 
 
 \newcommand{\unaryfdrepresentationdiagram}[8]{
@@ -195,7 +288,6 @@ $
 
 \newcommand{\multisourcediagram}[4]{$\nakedmultisourcediagram{#1}{#2}{#3}{#4}$}
 \newcommand{\multisourcepathdiagram}[4]{$\nakedmultisourcepathdiagram{#1}{#2}{#3}{#4}$}
-
 
 
 % \multisourcedefinitiondiagram{x}{g}{h}{n}{a}{b}{f}
