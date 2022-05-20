@@ -1,8 +1,75 @@
 
+
+
+\begin{frame}
+\begin{center}
+\scalebox{0.75}{
+\input{../content/chemistrydata/relational/compound.relational.display.tabular}
+}
+\end{center}
+\begin{itemize}
+	\item A purely relational table -- subset of cartesian product of `string' and `number' --  rows are tuples.  
+	\item The `name' column is the primary key. 
+\end{itemize}
+\end{frame}
+\begin{frame}
+\begin{center}
+\scalebox{0.75}{
+\input{../content/chemistrydata/relational/aliases.display.tabular}
+}
+\end{center}
+\begin{itemize}
+\item	In this table
+\begin{itemize}
+	\item The `alias' column is a primary key.
+	\item The `aliased' column is a foreign key into the `compound' table i.e.
+	\begin{equation}
+	               aliases[aliased] \subseteq compound[name] 
+	\end{equation}
+	such as this known (and supported in relational software as) \term{referential integrity constraint}s or \term{foreign key constraint}s.) 
+\end{itemize}
+\end{itemize}
+\end{frame}
+\begin{frame}
+\begin{center}
+\scalebox{0.75}{
+\input{../content/chemistrydata/relational/formula.display.tabular}
+}
+\end{center}
+\begin{itemize}
+	\item In this table 
+	\begin{itemize}
+	\item The primary key is a composite of `name' and `element' columns.  
+	\item The 'compound' columns is a foreign key into the `compound' table i.e.
+	\begin{equation}
+	              formula[compound] \subseteq compound[name]
+	\end{equation}
+	\item The 'element' column is a foreign key into the `element' table i.e.
+	\begin{equation}
+	              formula[element] \subseteq element[symbol]
+	\end{equation}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{All three}
+\scalebox{0.75}{
+\input{../content/chemistrydata/relational/formula.display.tabular}
+}
+\scalebox{0.75}{
+\input{../content/chemistrydata/relational/aliases.display.tabular}
+}
+\scalebox{0.75}{
+\input{../content/chemistrydata/relational/compound.relational.display.tabular}
+}
+\end{frame}
+
 \begin{frame}{Chemical Element Data}
 \scalebox{0.75}{
 \input{../content/chemistrydata/element.display.tabular}
 }
+
 \begin{itemize}
 	\item Underline indicates some kind of key attribute i.e. some kind of uniqueness constraint.
 \end{itemize}
@@ -73,6 +140,11 @@ struct allotrope =>
 	\pause \ncline[linewidth=1.5pt, linestyle=dashed]{<-}{leftC}{rightA}
 \end{itemize}
 \end{frame}
+
+
+
+
+
 
 \begin{frame} 
 In my tables the relationship between occurence and element is implemented by the symbol attribute of the compound data.
