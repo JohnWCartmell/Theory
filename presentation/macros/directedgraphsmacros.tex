@@ -1,0 +1,233 @@
+
+
+
+\newcommand{\stringtype}{text}
+\newcommand{\numbertype}{number}
+
+\newcommand{\dgsrcedge}
+{
+\setlength{\arroffsetA}{3pt}
+\setlength{\arroffsetB}{3pt}
+\ncarr[5]{edge}{node} 
+\arreset  
+}
+\newcommand{\structuraldgsrcedge}
+{
+\setlength{\saroffsetA}{3pt}
+\setlength{\saroffsetB}{3pt}
+\ncsar[5]{edge}{node} 
+\sarreset 
+}
+\newcommand{\dgtargetedge}
+{
+\setlength{\arroffsetA}{-3pt}
+\setlength{\arroffsetB}{-3pt}
+\ncarr[-5]{edge}{node} 
+\arreset   
+}
+\newcommand{\dgbasic}
+{
+\begin{array}{c}
+\Rnode{node}{node}  \\[2cm]
+\Rnode{edge}{edge}       
+\end{array}
+\begin{arrows}
+\dgsrcedge
+\alabel{src}
+\dgtargetedge
+\blabel{trg}
+\end{arrows}    
+}
+
+% dgbasiclabelled{labeltype}
+\newcommand{\dgbasiclabelled}[1]
+{
+\begin{array}{cp{0.75cm}c}
+%rule [raise-height]{width}{height}
+\dgbasic   &&  \Rnode{labeltypelhs}{\rule[0cm]{0cm}{0.3cm}}\Rnode{labeltype}{#1} 
+\end{array}
+\begin{arrows}
+\ncarr{node}{labeltypelhs}
+\alabel{label}
+\ncarr{edge}{labeltypelhs}
+\blabel{label}
+\end{arrows}       
+}
+
+\newcommand{\setoflabelleddgs}
+{
+\begin{array}{cp{1.0cm} : p{0.5cm}c}
+\setofdg   &&&
+\begin{array}{l}
+\Rnode{text}{}\stringtype \\[1cm]
+\Rnode{number}{}\numbertype 
+\end{array}
+\end{array}
+\begin{arrows}
+\ncarr{dg}{text}
+\alabel{name}[0.3]
+\ncarr{node}{number}
+\alabel{label}[0.3]
+\ncarr{edge}{number}
+\blabel{label}[0.3]   
+\end{arrows}
+}
+
+
+\newcommand{\structuraldgbasic}
+{
+\begin{array}{c}
+\Rnode{node}{node}  \\[2cm]
+\Rnode{edge}{edge}       
+\end{array}
+\begin{arrows}
+\structuraldgsrcedge
+\alabel{src}
+\dgtargetedge
+\blabel{trg}
+\end{arrows}    
+}
+
+\newcommand{\nodepartof}
+{
+\ncarr{node}{dg}     
+}
+\newcommand{\structuralnodepartof}
+{
+\ncsar{node}{dg}     
+}
+
+\newcommand{\setofdg}
+{
+\begin{array}{c}
+\rnode{dg}{dg} \\[2cm]
+\dgbasic
+\begin{arrows}
+\nodepartof
+\end{arrows}
+\end{array}
+}
+
+
+\newcommand{\structuralsetofdg}
+{
+\begin{array}{c}
+\rnode{dg}{dg} \\[2cm]
+\structuraldgbasic
+\begin{arrows}
+\structuralnodepartof
+\end{arrows}
+\end{array}
+}
+
+
+\newcommand{\dgnumericallylabelleddetail}
+{
+\begin{array} {c}
+\begin{array} {p{1.5cm} c}
+     & \Rnode{abs}{\ \ 1\ \ }  
+\end{array} \\[1.0cm]
+\dgbasiclabelled{number}  
+\end{array}
+\begin{arrows}
+%\setlength{\arroffsetA}{3pt}
+\setlength{\arroffsetA}{-6pt}
+\setlength{\arroffsetB}{-12pt}
+\ncarr{abs}{labeltype}
+\alabel{0}
+\setlength{\arroffsetA}{3pt}
+\setlength{\arroffsetB}{0pt}
+\ncarr{abs}{labeltype}
+\alabel{1}
+\setlength{\arroffsetA}{9pt}
+\setlength{\arroffsetB}{12pt}
+\ncarr{abs}{labeltype}
+\alabel{2 \hdots}
+\end{arrows}
+}
+
+
+
+\newcommand{\dgabsuniquelylabelled}
+{
+\begin{array}{cp{0.75cm}c}
+\dgbasic   &&  \Rnode{l}{l} 
+\end{array}
+\begin{arrows}
+\ncarr{node}{l}
+\alabel{label}
+\idcomp
+\ncarr{edge}{l}
+\blabel{label}
+\idcomp
+\end{arrows}
+}
+
+
+\newcommand{\dglocallyuniquelylabelleddirectedgraph}
+{
+\begin{array}{cp{0.75cm}c}
+\dgbasic   &&  \Rnode{l}{l} 
+\end{array}
+\begin{arrows}
+\ncarr{node}{l}
+\alabel{label}
+\idcomp
+\ncarr{edge}{l}
+\blabel{label}
+\idcomp
+\dgsrcedge  % redrawn so that I can bar it with \idcomp
+\idcomp
+\end{arrows}
+}
+
+
+\newcommand{\setdgexitsuniquelylabelled}
+{
+\setoflabelleddgs
+%
+\begin{arrows}
+%redraw arrows and bar using \idcomp
+\ncarr{dg}{text}
+\idcomp
+\ncarr{node}{number}
+\idcomp
+\ncarr{edge}{number}
+\idcomp
+\dgsrcedge  % redrawn so that I can bar it with \idcomp
+\idcomp
+\nodepartof  % repeat so thatI can bar with \idcomp
+\idcomp
+\end{arrows}
+}
+
+
+
+
+\newcommand{\structuralsetofsgincludingabs}
+{
+\begin{array}{cp{0.75cm}c}
+\Rnode{abs}{abs}                       \\[1cm]
+\structuralsetofdg   &&  \Rnode{u}{u} 
+\end{array}
+\begin{arrows}
+\ncsar{dg}{abs}
+\ncarr{dg}{u}
+\alabel{name}
+\idcomp
+\ncarr{node}{u}
+\alabel{label}
+\idcomp
+\ncarr{edge}{u}
+\blabel{label}
+\idcomp
+\structuraldgsrcedge  % redrawn so that I can bar it with \idcomp
+\idcomp
+\structuralnodepartof  % repeat so that I can bar with \idcomp
+\idcomp
+\end{arrows}
+}
+
+
+
+

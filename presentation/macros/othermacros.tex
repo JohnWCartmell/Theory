@@ -117,6 +117,67 @@ considered as a data specification with requirement $\reqtc$\ }
 \endpspicture      
 }
 
+%craft bachman nwtrok share diagram
+\newcommand{\doublebinarynetworkdiagramnodes}[6]{ 
+\rput[tc](-2.5,3){\rnode{A}{\psframebox[framesep=10pt]{\regularizetextheight#1}}}  
+\rput[tc](2.0,3){\rnode{B}{\psframebox[framesep=10pt]{\regularizetextheight#2}}}    
+\rput[tc](-4.1,1){\rnode{C}{\psframebox[framesep=10pt]{\regularizetextheight#3}}} 
+\rput[tc](-1.05,1){\rnode{D}{\psframebox[framesep=10pt]{\regularizetextheight#4}}}  
+\rput[tc](2.0,1){\rnode{E}{\psframebox[framesep=10pt]{\regularizetextheight#5}}}   
+\rput[tc](5.0,1){\rnode{F}{\psframebox[framesep=10pt]{\regularizetextheight#6}}}   
+}
+
+\newcommand{\doublebachmannetworkdiagram}[6]
+{
+\pspicture(-5.6,0)(6.5,3)  % lower left is 0,0 upper right is 8,3
+%\psgrid
+\doublebinarynetworkdiagramnodes{#1}{#2}{#3}{#4}{#5}{#6}
+\ncline[linewidth=3pt]{->}{A}{C}
+\ncline[linewidth=3pt]{->}{A}{D}
+\ncline[linewidth=3pt]{->}{B}{D}
+\ncline[linewidth=3pt]{->}{B}{E}
+\ncline[linewidth=3pt]{->}{B}{F}
+\endpspicture      
+}
+
+\newcommand{\doublecategorynetworkdiagram}[6]
+{
+\pspicture(-5.6,0)(6.5,3)  % lower left is 0,0 upper right is 8,3
+%\psgrid
+\doublebinarynetworkdiagramnodes{#1}{#2}{#3}{#4}{#5}{#6}
+\ncarr{C}{A}
+\ncarr{D}{A}
+\ncarr{D}{B}
+\ncarr{E}{B}
+\ncarr{F}{B}
+\endpspicture      
+}
+
+\newcommand{\mixedcategorynetworkdiagram}[6]
+{
+\pspicture(-5.6,0)(6.5,3)  % lower left is 0,0 upper right is 8,3
+%\psgrid
+\doublebinarynetworkdiagramnodes{#1}{#2}{#3}{#4}{#5}{#6}
+\ncline[linewidth=2.5pt]{->}{C}{A}
+\ncline[linewidth=2.5pt]{->}{D}{A}
+\ncarr{D}{B}
+\ncline[linewidth=2.5pt]{->}{E}{B}
+\ncline[linewidth=2.5pt]{->}{F}{B}
+\endpspicture      
+}
+
+\newcommand{\contextualcategorynetworkdiagram}[6]
+{
+\pspicture(-5.6,0)(6.5,3)  % lower left is 0,0 upper right is 8,3
+%\psgrid
+\doublebinarynetworkdiagramnodes{#1}{#2}{#3}{#4}{#5}{#6}
+\ncsar{C}{A}
+\ncsar{D}{A}
+\ncarr{D}{B}
+\ncsar{E}{B}
+\ncsar{F}{B}
+\endpspicture      
+}
 
 
 % Category DIAGRAMS START HERE
