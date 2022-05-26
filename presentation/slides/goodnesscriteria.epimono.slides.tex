@@ -1,16 +1,4 @@
 
-\iffalse %DONT NEED THIS -- CHANGE OF APPROACH
-\begin{frame}{Definition}
-A \term{category with epi-mono splits} is a category such that for all $f:x \morph y$
-in \catcw there exists an object $img(f)$, an epimorphism $f_e:x \morph img(f)$
-and a monomorphism $f_m:img(f) \morph y$ such that
-\scalebox{0.9}{\roomup{1.3cm}\epimonosplitdiagram{x}{y}{f}}
-commutes. 
-
-An \term{instance} of a category with epi-mono splits \catcw is a functor from 
-\catcw to the category $\Fin$ of finite sets and functions that preserves epimorphims and monomorphisms.
-\end{frame}
-\fi
 
 
 \begin{frame}{Definition}
@@ -18,10 +6,10 @@ An \term{instance} of a category with epi-mono splits \catcw is a functor from
 \item A \term{\catMEterm} is a triple $\tuple{\catc,M,E}$ where 
 \begin{itemize}
 \item \catcw is a category,
-\item $M$ is a set of designated monomorphisms of \catc closed under composition and including all identity morphisms,
-\item $E$ is a set of designated epimorphisms of \catc closed under composition and including all identity morphisms.
+\item $M$ is a set of designated monomorphisms of \catcw closed under composition and including all identity morphisms,
+\item $E$ is a set of designated epimorphisms of \catcw closed under composition and including all identity morphisms.
 \end{itemize}
-\item An instance $F$ of a \catMEterm is a functor $F: \catc \morph \Fin$ 
+\item Define an instance $F$ of a \catMEterm to be a functor $F: \catc \morph \Fin$ 
 that preserves the designated monomorphisms and epimorphisms.
 
 %Note that \catcw may well have other monomorphisms and epimorphisms but these need not be preserved by an instance $F$.
@@ -33,13 +21,33 @@ that preserves the designated monomorphisms and epimorphisms.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Goodness Type1 Criteria}
-bring forward from previous case and then add
+
+\begin{frame}{Goodness Type 1 Criteria}
+\medskip
+\goodnessoneA.
+\medskip
+\goodnessoneB.
+
+\newcommand{\goodnessoneC}{
+\goodnesscriteria{1C} \\
+There ought not exist $m \in M$ such that $m \in \overline{M \setminus m}$
+}
+\newcommand{\goodnessoneD}{
+\goodnesscriteria{1D} \\
+There ought not exist $e \in E$ such that $e \in \overline{E \setminus e}$
+}
+
+\goodnessoneC. \\
+\medskip
+\goodnessoneD. \\
+\medskip
+
+Definition of closure of set of monomorphics includes
 \begin{itemize}
-    \item there are no identity morphisms in $M$ or $E$,
-\item if paths $f$ and $g$ are in $M_0$ then $f \circ g$ ought not to be in $M_0$,
-\item if paths $f$ and $g$ are in $E_0$ then $f \circ g$ ought not to be in $E_0$.
+\item $f \in \overline{M}$ and $g \in \overline{M}$ then $f \circ g \in \overline{M}$
+\item $f \circ g \in \overline{M}$ then $f \in \overline{M}$
 \end{itemize}
+and to which we might add the rule that expresses the finitary property.
 \end{frame}
 
 \begin{frame}{Definitions}
@@ -81,9 +89,9 @@ such that in every instance $D \in \reqtc$,
 \begin{frame}{Lemma}
 \begin{lemma}
 If \catcw is a \catMEterm with a finite sketch and if $f$ is any  morphism 
-not having an epi-mono split then \catcw can be extended to a category $\catcp$ with finite sketch so that
+not having an epi-mono factorisation then \catcw can be extended to a category $\catcp$ with finite sketch so that
 \begin{itemize} 
-\item $f$ has an epi-mono split in $\catcp$,
+\item $f$ has an epi-mono factorisation in $\catcp$,
 \item every morphism $h:im(f) \morph x$ in $\catcp$ factors through $f_m$,
 \item every instance of \catcw uniquely extends, upto isomorphism, to an instance of $\catcp$,
 \item \catcw is maximally constrained to $\reqtc$ iff $\catcp$ is maximally constrained to $\reqtc$ (extended to $\catcp$).
@@ -101,11 +109,11 @@ If $\catc$ is a locally finite \catMEterm that is
 if $\fundep{H}{f}{g}$  is an \highlight{intransitive}  functional dependency with respect to $\reqtc$
 then $\fundep{H}{f}{g}$ is represented in $\catc$.
 \end{lemma}
-\begin{proof} If $f$ has a mono-epi split then
+\begin{proof} If $f$ has a mono-epi factorisation then
 \scalebox{0.9}{\unaryfdrepresentationdiagram{\roomup{0.6cm}\roomdown{0.4cm}a}{b}{c}{f}{g}{im(f)}{f_m}{h}$\begin{arrows}\ncarr{a}{d}\alabel{f_e}\end{arrows}$} commutes in \catcw  where $h$ represents 
 the functional dependency of $g$ on $f_e$.
 %whose existence is given by previous version of this lemma.
-Otherwise extend \catcw so that $f$ has an epi-mono split.
+Otherwise extend \catcw so that $f$ has an epi-mono factorisation.
 Establish a $h: b \morph c$ in \catcw that represents $H$.
 \end{proof}
 \end{frame}

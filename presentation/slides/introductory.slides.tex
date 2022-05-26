@@ -1,47 +1,104 @@
 
-\begin{frame}{Introduction}
-\begin{itemize}
-\item
-What types of things are there and how are they related? 
-\begin{itemize}
-\pause \item Data specifications provide the answer to this question in the context of a software development. 
-\pause \item Types theories provide the answer in the context of mathematics. 
-\pause \item Category theory abstracts across both these domains.
-\end{itemize}
-\end{itemize}
-\end{frame}
 
-\begin{frame}{Overview}
-Data specification method 
+\begin{frame}{Data Specification}
+A data specification  
 \begin{itemize}
-\item is a method for expressing a  theory (of what is)
+\item is a  theory (of what is)
+\end{itemize}
+\medskip
+\textcolor{myblue}{\scalebox{2}{$\therefore$}} a data specification method 
+\begin{itemize}
+\item is a method for expressing such a  theory
 \item unequivocally it enables definitions of types and certain relationships between these types
 \item types are equally types of data and types of real world entity
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Data Specifications}
+More precisely, 
+\begin{itemize}
+\item data specification are presentations of theories of what is
+\item choice of primitives in a given presentation is choice of which data to be stored or communicated
+\item independence of primitives is absence of redundancy in data 
+\item engineering driven goodness criteria (3NF, BCNF, 4NF, 5NF)  can be interpreted as driving 
+logical completeness of the theory with respect to intended instances
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Data Specification as Category}
+\begin{itemize}
+\item
+What types of things are there and how are they related? 
+\pause \begin{itemize}
+\item Data specifications provide the answer to this question in the context of a software development. 
+\item Types theories provide the answer in the context of mathematics. 
+\item Category theory abstracts across both these domains.
+\end{itemize}
+\item Not surprising that a data spcification can be seen as a category or as a sketch of a category
+\pause \item ... or as a contextual category
+\pause ... since our instinct for types and types that vary comes from the real world not from mathematics.
+\end{itemize}
+\end{frame}
+
+\iffalse
+\begin{frame}{Levels of Data Specification}
+\begin{itemize}
+\item logical   -- a sketch for a category of some kind
+\item structural -- a sketch for some kind of category with distinguished morphisms indicating structural relationships
+\item representational -- structural PLUS representational indicators for non-structural relationships
+\item technological    -- IDL, SQL, XML 
+\end{itemize}
+\end{frame}
+\fi
+
+\newcommand{\bigdownarrow}
+{
+\scalebox{0.3}
+{
+\begin{pspicture}(3,3.5) 
+%\psgrid
+%\psset{doublesep=2cm} 
+\psBigArrow[fillstyle=solid, fillcolor=blue!30,linecolor=blue](2.0,3)(2.0,0)
+\end{pspicture}
+}
+}
+\begin{frame}{Levels of Data Specification}
+\begin{center}
+\begin{tabular}{c l}
+                              & \raisebox{0cm}{\parbox{5cm}{sketch of category of some kind}}\\
+\cline{1-1}
+\multicolumn{1}{|c|}{logical} & \\
+\cline{1-1}
+\multicolumn{1}{c}{\bigdownarrow} & \raisebox{0.5cm}{\parbox{5cm}{distinguish morphisms/relationships represented in data by containment}} \\
+\cline{1-1}
+\multicolumn{1}{|c|}{structural} &\\
+\cline{1-1}
+\multicolumn{1}{c}{\bigdownarrow} & \raisebox{0.5cm}{\parbox{5cm}{add edges for foreign keys representing non-containment relationships and add path equivalences that define them}} \\
+\cline{1-1}
+\multicolumn{1}{|c|}{representational} & \\
+\cline{1-1}
+\multicolumn{1}{c}{\bigdownarrow} & \raisebox{0.5cm}{choice of technology} \\
+\cline{1-1}
+\multicolumn{1}{|c|}{technological} & \raisebox{0cm}{\parbox{5cm}{IDL, XML, SQL}}\\
+\cline{1-1}
+\end{tabular}
+\end{center}
+\end{frame}
+
+\iffalse
 \begin{frame}{Methods of Data Specification}
 \begin{itemize}
-	\item schema of relational database,\Rnode{i1}{},
+	\item schema of relational database,
 	\item structure described by Carnegie-Mellon IDL,
 	\item schema of nested relational database,
 	\item message structure described by Google protocol buffer IDL,
 	\item XML schema language,
-	\item ER script.\Rnode{i6}{}
+	\item ER script.
 \end{itemize}
-\begin{arrows}
-\ncarr{i6}{i1}
-\end{arrows}
 \end{frame}
+\fi
 
-\begin{frame}{Data Specifications}
-\begin{itemize}
-\item presentations of theories of what is i.e. an ontology
-\item choice of primitives in presentation is choice of which data to be stored or communicated
-\item independence of primitives is absence of redundancy in data 
-\item engineering driven goodness criteria (3NF, BCNF, 4NF, 5NF) reinterpreted as driving logical completeness of theory with respect to intended instances
-\end{itemize}
-\end{frame}
+
 
 \begin{frame}{Data Specifications}
 Two kinds of types in play
@@ -69,17 +126,6 @@ Two kinds of types in play
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Types all of whose instances are Universals}
-\begin{itemize}
-\item In language theory, formal grammars have terminals (and non-terminals)
-\pause \item In data specifications, we have use of basic types string, integer, float, boolean and so on
-              in addition maybe define enumerations 
-\pause \item in categorical data types we have  i.e coproducts of terminal object
-\pause \item In relational data models we have domains
-\pause \item in ER models many-one relationships to the basic types are called attributes and are graphically distinct from other relationships.
-\end{itemize}
-\end{frame}
-
 
 \begin{frame}{Data Specifications}
 A data specification is a sketch of a category with some additional structure:
@@ -100,15 +146,6 @@ specifications from logical specifications.
 
 
 
-\begin{frame}{Identifying Features in Database Specifications}
-\begin{itemize}
-\item database specifications are data specifications in which types of entity have 
-identifying features
-\item combination of relationships which can identify an entity unquely
-i.e a mono source
-\item achieves principle of identity of indiscernibles
-\end {itemize}
-\end{frame}
 
 \begin{frame}{Database Normal Forms}
 \begin{itemize}
@@ -158,6 +195,7 @@ of ER modelling and formalised within the definitional framework of EA sketches
 \end{itemize}
 \end{frame}
 
+\iffalse %moved into goodness criteria section and reworded
 \begin{frame}{Normalisation}
 \begin{definition}
 { \footnotesize
@@ -186,6 +224,7 @@ If a theory $T$ has no improvement wrt to an intended usage $W$ then $T$ is said
 \end{definition}
 \end{frame}
 
+
 \begin{frame}{Propositions}
 \begin{itemize}
 \item If a relational schema $R$ can be normalised to $R'$ then the associated theory $T$ of $R$ can be improved to the associated thery $T'$ of $R'$.
@@ -193,6 +232,7 @@ If a theory $T$ has no improvement wrt to an intended usage $W$ then $T$ is said
 \item If a relational database schema is in normal form then its associated theory is optimally formulated.
 \end{itemize}
 \end{frame} 
+\fi
 
 \begin{frame}{Defining Candidate Keys and/or Identifying Relationships in an EA sketch.  }
 \begin{itemize}
