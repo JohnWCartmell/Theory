@@ -1,13 +1,21 @@
 \frametitle{Message Structure}
-IDL style
-\begin{lstlisting}[basicstyle=\footnotesize,language=IDL]
-abs => Set Of dg
+A corresponding message structure might be defined
+in an IDL style language by:
 
-dg => Set Of node
+\begin{lstlisting}[basicstyle=\footnotesize,keywordstyle={\ttfamily\color{green}\bfseries},language=myIDL]
+struct compound =>
+    symbol: string,
+    name : string,
+    atomic_no: integer,
+    relative_atomoc_mass : float,
+    valencies: Set Of valency,
+    allotropes : Set Of allotrope
 
-node => label: u,
-        Set Of edge
+struct valency =>  number : integer
 
-edge => label : u,
-        targetlabel: u
+struct allotrope =>
+   name : string,
+   melting_point : float,
+   boiling_point : float,
+   density : float
 \end{lstlisting}

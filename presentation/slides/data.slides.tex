@@ -6,16 +6,26 @@
 }
 
 \begin{itemize}
-	\item Underline indicates some kind of key attribute i.e. some kind of uniqueness constraint.
+	\item An example of data organised in nested relations.
+	\item Underlined column indicates a key attribute and thereby a uniqueness constraint.
+	\item Some data relationships are represented by physical containment relationships in the message structure i.e. by nesting.
 \end{itemize}
-An example of data organised hierarchically. 
-I will use the A-word. Columns I will say are attributes. Attributes are string valued or integer valued or float  valued.
-Certain columns hold unique values. In database speak these are key attributes. In the language we use
-symbol is the primary key. Name is also unque and could have been chosen as the key instead. It is called a candidate key attribute.
+\end{frame}
+
+\lstdefinelanguage{MyIDL}[]{IDL}
+{morekeywords={Set,Of},sensitive=true}
 
 
-This data is displayed as described by the nested relational model of data. This is a hierarchical model.
-Other hierarchical models are that of XML. And that of Google ProtocolBuffer messaging system as described in protocol buffer IDL language.
+
+\begin{frame}[fragile]{Description of Chemical Element Table}
+In an IDL data specification it would look something like this:
+\only<1>{\lstinputlisting
+[basicstyle=\footnotesize,language=myIDL]
+{compound.idl}}
+\onslide<2->\lstinputlisting
+[basicstyle=\footnotesize,keywordstyle={\ttfamily\color{green}\bfseries},language=myIDL]
+{compound.idl}
+
 \end{frame}
 
 \begin{frame}{Chemical Compound Data}
@@ -24,10 +34,9 @@ Other hierarchical models are that of XML. And that of Google ProtocolBuffer mes
 }
 \begin{itemize}
 \item $\largeAsterisk$ Asterisk here denotes a foreign key attribute. 
-\pause This witnesses a relationship between this part of a formula and an element. \pause It implements a pointer.
-	\item The 'element' column is a foreign key into the `element' table i.e.
+\item The 'symbol' attribute is a foreign key into the `element' table i.e.
 	\begin{equation}
-	              formula[element] \subseteq element[symbol]
+	              formula[symbol] \subseteq element[symbol]
 	\end{equation}
 \end{itemize}	
 \end{frame}
@@ -36,14 +45,14 @@ Other hierarchical models are that of XML. And that of Google ProtocolBuffer mes
 A corresponding message structure might be defined 
 in an IDL style language by:
 
-\begin{lstlisting}[basicstyle=\footnotesize,language=IDL]
+\begin{lstlisting}[basicstyle=\footnotesize,keywordstyle={\ttfamily\color{green}\bfseries},language=myIDL]
 struct compound => 
     symbol: string,
     name : string,
     atomic_no: integer,
     relative_atomoc_mass : float,
     valencies: Set Of valency,
-    allotropes : Set of allotrope
+    allotropes : Set Of allotrope
 
 struct valency =>  number : integer 
 
