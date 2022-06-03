@@ -2,6 +2,22 @@
 % othermacros
 %
 
+% copied and edited from \idcomp to make stronger linestyle
+\newcommand{\addedgebar}{
+\ncput[npos=0, nrot=:U]{\psline[linewidth=1.25pt](0.2,-0.1)(0.2,0.1)}
+}
+\newcommand{\addedgedoublebar}{
+\ncput[npos=0, nrot=:U]{\psline[linewidth=1.25pt](0.2,-0.1)(0.2,0.1)}
+\ncput[npos=0, nrot=:U]{\psline[linewidth=1.25pt](0.3,-0.1)(0.3,0.1)}
+}
+\newcommand{\addedgetriplebar}{
+\ncput[npos=0, nrot=:U]{\psline[linewidth=1.25pt](0.2,-0.1)(0.2,0.1)}
+\ncput[npos=0, nrot=:U]{\psline[linewidth=1.25pt](0.3,-0.1)(0.3,0.1)}
+\ncput[npos=0, nrot=:U]{\psline[linewidth=1.25pt](0.4,-0.1)(0.4,0.1)}
+}
+
+%\newcommand{\addedgebar}{\ifbars{\ncput[npos=0, nrot=:U]{\psline(0.2,-0.075)(0.2,0.075)}}\fi}
+
 %copied from database literature review
 \newcommand{\displaybibentry}[1]
 {\begin{framed}
@@ -74,10 +90,22 @@ considered as a data specification with requirement $\reqtc$\ }
 
 \newcommand{\regularizetextheight}{\roomup{0.3cm}\roomdown{0.1cm}}
 
+\newcommand{\unarystructurediagramnodes}[3][]{
+\rput[tc](2.4,3){\Rnode{#1A}{\psframebox[framesep=10pt]{\regularizetextheight#2}}} 
+\rput[tc](2.4,1){\rnode{#1B}{\psframebox[framesep=10pt]{\regularizetextheight#3}}}           
+}
+
 \newcommand{\binarystructurediagramnodes}[4][]{
 \rput[tr](4.0,3){\Rnode{#1A}{\psframebox[framesep=10pt]{\regularizetextheight#2}}} 
 \rput[tr](2.4,1){\rnode{#1B}{\psframebox[framesep=10pt]{\regularizetextheight#3}}}     
 \rput[tr](5.6,1){\rnode{#1C}{\psframebox[framesep=10pt]{\regularizetextheight#4}}}        
+}
+
+\newcommand{\triplestructurediagramnodes}[5][]{ 
+\rput[tc](2.0,3){\rnode{#1A}{\psframebox[framesep=10pt]{\regularizetextheight#2}}}     
+\rput[tc](-1.05,1){\rnode{#1B}{\psframebox[framesep=10pt]{\regularizetextheight#3}}}  
+\rput[tc](2.0,1){\rnode{#1C}{\psframebox[framesep=10pt]{\regularizetextheight#4}}}   
+\rput[tc](5.0,1){\rnode{#1D}{\psframebox[framesep=10pt]{\regularizetextheight#5}}}   
 }
 
 \newcommand{\jacksonbinarydiagram}[3]
@@ -99,6 +127,30 @@ considered as a data specification with requirement $\reqtc$\ }
 \binarystructurediagramnodes[#1]{#2}{#3}{#4}
 \ncline[linewidth=3pt]{->}{#1A}{#1B}
 \ncline[linewidth=3pt]{->}{#1A}{#1C}
+\endpspicture      
+}
+
+\newcommand{\unarystructurediagram}[3][]
+{
+\pspicture(0.9,0)(3.9,3.5)  
+%\psgrid
+\unarystructurediagramnodes[#1]{#2}{#3}
+\endpspicture      
+}
+
+\newcommand{\binarystructurediagram}[4][]
+{
+\pspicture(-0.4,0)(5.7,3)  
+%\psgrid
+\binarystructurediagramnodes[#1]{#2}{#3}{#4}
+\endpspicture      
+}
+
+\newcommand{\triplestructurediagram}[5][]
+{
+\pspicture(-2.5,0)(6.4,3.5)  
+%\psgrid
+\triplestructurediagramnodes[#1]{#2}{#3}{#4}{#5}
 \endpspicture      
 }
 
@@ -168,19 +220,74 @@ considered as a data specification with requirement $\reqtc$\ }
 \endpspicture      
 }
 
+\newcommand{\contextualcategoryblockstyleexamplekernel}[6]{
+\pspicture(-5.6,0)(6.5,3)  % lower left is 0,0 upper right is 8,3
+%\psgrid
+\doublebinarynetworkdiagramnodes{#1}{#2}{#3}{#4}{#5}{#6}
+\ncsar{C}{A}
+\ncsar{E}{B}
+\ncsar{F}{B}
+\endpspicture
+}
+
 \newcommand{\contextualcategorynetworkdiagram}[6]
+{
+\contextualcategoryblockstyleexamplekernel{#1}{#2}{#3}{#4}{#5}{#6}
+\ncsar{D}{A}
+\ncarr{D}{B}
+}
+
+\newcommand{\contextualcategorynetworkdiagramreorganised}[6]
+{
+\contextualcategoryblockstyleexamplekernel{#1}{#2}{#3}{#4}{#5}{#6}
+\ncarr{D}{A}
+\ncsar{D}{B}
+}
+
+
+\newcommand{\contextualcategorynetworkdiagramtopologised}[6]
+{
+\begin{tabular}{c c c}
+\scalebox{0.9}{\binarystructurediagram[left]{compound\kern0.1cm}{alias \kern1.2cm}{occurence}}
+&&
+\scalebox{0.9}{\binarystructurediagram[right]{element\kern0.4cm}{valency \kern0.8cm}{allotrope\kern0.3cm}}
+\end{tabular}
+\ncangle[offsetA=0.15cm, angleA=0,offsetB=-0.25cm, angleB=180, armB=2.5cm]{->}{leftC}{rightA}
+\ncsar{leftB}{leftA}
+\ncsar{leftC}{leftA}
+\ncsar{rightB}{rightA}
+\ncsar{rightC}{rightA}
+}
+
+\newcommand{\contextualcategorynetworkdiagramreorganisedtopologised}[6]
+{
+\begin{tabular}{c c c}
+\scalebox{0.9}{\unarystructurediagram[left]{compound\kern0.1cm}{alias \kern1.2cm}}
+&&
+\scalebox{0.9}{\triplestructurediagram[right]{element\kern0.4cm}{occurence}{valency \kern0.8cm}{allotrope\kern0.3cm}}
+\end{tabular}
+\ncangle[offsetA=0.15cm, angleA=180,offsetB=-0.25cm, angleB=0, armB=0.9cm]{->}{rightB}{leftA}
+\ncsar{leftB}{leftA}
+\ncsar{leftC}{leftA}
+\ncsar{rightB}{rightA}
+\ncsar{rightC}{rightA}
+\ncsar{rightD}{rightA}
+}
+
+\iffalse
+\newcommand{\contextualcategorynetworkdiagramreorganised}[6]
 {
 \pspicture(-5.6,0)(6.5,3)  % lower left is 0,0 upper right is 8,3
 %\psgrid
 \doublebinarynetworkdiagramnodes{#1}{#2}{#3}{#4}{#5}{#6}
 \ncsar{C}{A}
-\ncsar{D}{A}
-\ncarr{D}{B}
+\ncarr{D}{A}
+\ncsar{D}{B} 
 \ncsar{E}{B}
 \ncsar{F}{B}
 \endpspicture      
 }
-
+\fi
 
 % Category DIAGRAMS START HERE
 \newcommand{\nakedbinarysourcediagram}[5]{
