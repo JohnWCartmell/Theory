@@ -145,11 +145,26 @@ not having an epi-mono factorisation then \catcw can be extended to a category $
 \end{frame}
 
 \begin{frame}{Second Sublemma}
-If \catcw is a \catMEterm and if $F: \catcw \morph \Fin$ is a functor which preserves designated momomorphisms
+If \catcw is a category with designated epimorphisms then let its split category 
+$\catc_s$ be the category \catcw with an additional split morphism for every designated epimorphism.
+i.e. for every designated epimorphism $f: a \morph b$ we add a morphism $f_s:b \morph a$
+such that $f_s \circ f = id_B$.
+\medskip
+If \catcw is a category with designated monomorphisms and epimorphsims and its split category
+is locally finite, if $F: \catcw \morph \Fin$ is a functor which preserves designated momomorphisms
 then there is an $F':\catcw \morph Fin$ that preserves designated monomorphisms and epimorphisms
-and that extends $F$ i.e. such that $F \hookedarrow F'$ in the functor category \Fin^{\catc}.
+and that extends $F$ i.e. such that $F \hookrightarrow F'$ in the functor category $\Fin^{\catc}$.
+\end{frame}
 
-Not Proven.  
+\begin{frame}{Proof of Second SubLemma}
+Hand wavy proof as follows:
+Extend $F:\catcw \morph \Fin$ along the inclusion functor $I_s:\catc \morph \catc_s$ to get a functor 
+$F_s:\catc_s \morph \Fin$ and a natural transformation $F \hookrightarrow I_s \circ F_s$. \\
+\medskip
+Nature of the construction is such that $F_s$ preserves designated monomorphisms because $F$ does.\\
+\medskip
+$F_s$ preserves designated epimorphisms since any functor preserves split epimorphisms.
+Define $F'$ to be $I_s \circ F_s$.
 \end{frame}
 
 \begin{frame}{Representation Lemma for FDs}
@@ -158,26 +173,26 @@ Not Proven.
 No longer restricted to the case that each $D(f)$ is surjective.}
 
 \begin{lemma}
-If $\catc$ is a locally finite \catMEterm that is 
+If \catcw is a category with designated monomorphisms and epimorphsims and its split category
+is locally finite and if \catcw is
 \textit{maximally constrained} to a requirement $\reqtc$ then
 if $\fundep{H}{f}{g}$  is a functional dependency with respect to $\reqtc$
 then $\fundep{H}{f}{g}$ is represented in $\catc$.
 \end{lemma}
-\begin{proof} If $f$ has a mono-epi factorisation then
-\scalebox{0.9}{\unaryfdrepresentationdiagram{\roomup{0.6cm}\roomdown{0.4cm}a}{b}{c}{f}{g}{im(f)}{f_m}{h}$\begin{arrows}\ncarr{a}{d}\alabel{f_e}\end{arrows}$} commutes in \catcw  where $h$ represents 
-the functional dependency of $g$ on $f_e$.  \highlight{THIS IS WRONG},
-%whose existence is given by previous version of this lemma.
-Otherwise extend \catcw so that $f$ has an epi-mono factorisation.
-Establish that there is already a representation in \catcw.
+\begin{proof} Extend \catcw to \catcpw so that $f$ has an epi-mono factorisation in \catcpw
+and so that there  is a morphism $\qq{h}$ such that
+\scalebox{0.9}{\unaryfdrepresentationdiagram{\roomup{0.6cm}\roomdown{0.4cm}a}{b}{c}{f}{g}{im(f)}{f_m}{\qq{h}}$
+\begin{arrows}\ncarr{a}{d}\alabel{f_e}\end{arrows}$} 
+commutes in \catcp.  
 \end{proof}
 \end{frame}
 
-\begin{frame}{Proof 1. goes here}
+\begin{frame}{Proof cont. 1}
 We have \fgsourcediagram in \catc.\\
 \medskip
 Define functor $F: \catc \morph \Fin$ be the coproduct $Hom_{\catc}(a,-) + Hom_{\catc}(a,-)$
 as previously with injections $L$ and $R$, respectively so that
-for each object $x$ of $\catc$ the diagram
+for each object $x$ of \catcw the diagram
 \begin{center}
 $
 \begin{array}{c p{0.5cm} c p{0.5cm} c  }
@@ -191,32 +206,31 @@ $
 \end{center}
 is a coproduct in $\Fin$.
 \medskip
-Define $G: \catc \morph \Fin$ as quotient $F/\sim$.
-If we define \sim as previously in the earlier proof then we find that $G$ does not preserve 
-designated monomorphisms. 
- where
+Define $G: \catc \morph \Fin$ as quotient $F/\sim$ where 
+to ensure $G$ preserves designated monomorphisms  $\sim$ is defined as follows
 \begin{align*}
-L_x(k_1) \sim_x R_x(k_2) & \mbox{ iff  $k_1$ and $k_2$????????????}\\
+L_x(k_1) \sim_x R_x(k_2) & \mbox{ \parbox{6cm}{iff  $k_1=k_2$ and there is a functional dependency 
+$f \morph k_1$ in \catcw with respect to $\reqtc$ and  this functional dependency is represented in \catc.}}\\
 L_x(k_1) \sim_x L_x(k_2) & \mbox{ iff $k_1 = k_2$,} \\
 R_x(k_1) \sim_x R_x(k_2) & \mbox{ iff $k_1 = k_2$.} \\
 \end{align*} 
 \end{frame}
 
-\begin{frame}{Proof 2. goes here}
-We have \simpleunaryfdrepresentationdiagram{a}{b}{c}{f}{g}{\qq{h}}  in \catcp.\\
+\begin{frame}{Proof cont 2.}
+We have \simpleunaryfdrepresentationdiagram{a}{Im(f)}{c}{f_e}{g}{\qq{h}}  in \catcp.\\
 \medskip
 Extend $G$ to $G':\catcp \morph \Fin.$ \\
-
+Because $f_m$ is a designated monomorphism and $f_m \circ f_e = f$ then
+there is a representation of functional dependency $f \morph f_e$ in \catc.
+Hence  we have that $[L_b(f_e)]= [R_b(f_e)]$.
 \medskip
 \begin{align*}
-&\mbox{Now} & L_b(f)]                         &= [R_b(f)]                 \\
-&\mbox{i.e.}& G'(f)([L_a(id_a)])              &= G'(f)([R_a(id_a)])       \\
-&\therefore & G'(\qq{h}) (G'(f)([L_a(id_a)])) &= G'(\qq{h}) (G'(f)([R_a(id_a)])) \\
+&\mbox{i.e.}& G'(f_e)([L_a(id_a)])              &= G'(f_e)([R_a(id_a)])       \\
+&\therefore & G'(\qq{h}) (G'(f_e)([L_a(id_a)])) &= G'(\qq{h}) (G'(f_e)([R_a(id_a)])) \\
 &\therefore & G'(g)([L_a(id_a)])              &= G'(g)([R_a(id_a)]) & &    \\
-&\therefore & [L_c(g)] = [R_c(g)] 
+&\therefore & [L_c(g)] &= [R_c(g)] 
 \end{align*}
-Therefore there exists $k:b \morph c$ in 
-$\catc$ such that $f \circ k = g$ and we have shown as required that the function dependency
+Therefore by definition of $\sim$ the functional dependency
 $\fundep{H}{f}{g}$ is represented in $\catc$.
 \end{frame}
 
