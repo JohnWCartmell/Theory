@@ -1,6 +1,4 @@
 
-
-
 \newcommand{\stringtype}{text}
 \newcommand{\numbertype}{number}
 
@@ -28,7 +26,7 @@
 \newcommand{\dgbasic}
 {
 \begin{array}{c}
-\Rnode{node}{node}  \\[2cm]
+\Rnode{node}{node}  \\[1.5cm]
 \Rnode{edge}{edge}       
 \end{array}
 \begin{arrows}
@@ -57,6 +55,7 @@
 \newcommand{\setoflabelleddgs}
 {
 \begin{array}{cp{1.0cm} : p{0.5cm}c}
+\Rnode{abs}{abs} &&& \\[1.5cm]
 \setofdg   &&&
 \begin{array}{l}
 \Rnode{text}{}\stringtype \\[1cm]
@@ -64,6 +63,7 @@
 \end{array}
 \end{array}
 \begin{arrows}
+\ncarr{dg}{abs}
 \ncarr{dg}{text}
 \alabel{name}[0.3]
 \ncarr{node}{number}
@@ -73,7 +73,8 @@
 \end{arrows}
 }
 
-
+\iffalse
+REmoved TARGET
 \newcommand{\structuraldgbasic}
 {
 \begin{array}{c}
@@ -87,6 +88,7 @@
 \blabel{trg}
 \end{arrows}    
 }
+\fi
 
 \newcommand{\nodepartof}
 {
@@ -132,12 +134,19 @@
 \newcommand{\structuralsetofdg}
 {
 \begin{array}{c}
-\rnode{dg}{dg} \\[2cm]
-\structuraldgbasic
+\rnode{abs}{abs}    \\[1.5cm]
+\rnode{dg}{dg}      \\[1.5cm]
+\Rnode{node}{node}  \\[1.5cm]
+\Rnode{edge}{edge}       
+\end{array}
 \begin{arrows}
+\ncsar{dg}{abs}
+\structuraldgsrcedge
+\alabel{src}
+\dgtargetedge
+\blabel{trg}
 \structuralnodepartof
 \end{arrows}
-\end{array}
 }
 
 
@@ -221,30 +230,55 @@
 \end{arrows}
 }
 
+\newcommand{\structuralsetoflabelleddgs}
+{
+\begin{array}{cp{1.0cm} : p{0.5cm}c}
+\structuralsetofdg   &&&
+\begin{array}{l}
+                         \\[0.85cm]
+\Rnode{text}{}\stringtype \\[1cm]
+\Rnode{number}{}\numbertype 
+\end{array}
+\end{array}
+\begin{arrows}
+\ncarr{dg}{text}
+\alabel{name}[0.3]
+\ncarr{node}{number}
+\alabel{label}[0.3]
+\ncarr{edge}{number}
+\blabel{label}[0.3]   
+\end{arrows}
+}
 
 
-
+%TARGET
 \newcommand{\structuralsetofsgincludingabs}
 {
 \begin{array}{cp{0.75cm}c}
-\Rnode{abs}{abs}                       \\[1cm]
-\structuralsetofdg   &&  \Rnode{u}{u} 
+\structuralsetoflabelleddgs  
 \end{array}
 \begin{arrows}
-\ncsar{dg}{abs}
-\ncarr{dg}{u}
-\alabel{name}
-\idcomp
-\ncarr{node}{u}
-\alabel{label}
-\idcomp
-\ncarr{edge}{u}
-\blabel{label}
-\idcomp
 \structuraldgsrcedge  % redrawn so that I can bar it with \idcomp
 \idcomp
 \structuralnodepartof  % repeat so that I can bar with \idcomp
 \idcomp
+\end{arrows}
+}
+
+\newcommand{\dgforeignkeydiagram}
+{
+\begin{array} {c p{0.5cm} c}
+\Rnode{node}{node} &&                      \\[0.5cm]
+                   &&\Rnode{number}{}\numbertype\\[0.5cm]
+\Rnode{edge}{edge} && 
+\end{array}
+\begin{arrows}
+\ncarr{node}{number}
+\alabel{label}
+\ncarr{edge}{node}
+\alabel{trg}
+\ncarr{edge}{number}
+\blabel{trglabel}
 \end{arrows}
 }
 

@@ -54,27 +54,18 @@
 
 \begin{frame}{Set of Named and Labelled Directed Graphs}
 \begin{displaymath}
+\begin{array}{c}
 \setoflabelleddgs
+\end{array}
 \end{displaymath}
 \end{frame}
 
-\iffalse
-\begin{frame}{Slide X5}
-\begin{displaymath}
-\dgabsuniquelylabelled
-\end{displaymath}
-\end{frame}
-
-\begin{frame}{Slide X6}
-\begin{displaymath}
-\dglocallyuniquelylabelleddirectedgraph
-\end{displaymath}
-\end{frame}
-\fi
 
 \begin{frame}{Specifying Uniquesness of Names and Labels}
 \begin{displaymath}
+\begin{array}{c}
 \setdgexitsuniquelylabelled
+\end{array}
 \end{displaymath}
 
 Assuming nodes are uniquely labelled within each directed graph. \\
@@ -89,25 +80,46 @@ Assuming outgoing edges nested within nodes.\\
 Assuming nodes nested within directed graphs.
 \end{frame}
 
+\begin{frame}{Specifying Representation by foreign key}
+\begin{tabular}{p{5.5cm}  p{0.1cm}  p{5cm} }
+\begin{displaymath}
+\structuralsetofsgincludingabs
+\begin{arrows}
+\ncarr[-40]{edge}{number}
+\blabel{trglabel}[0.2]
+\end{arrows}
+\end{displaymath}
+& & 
+\onslide<2->{such that \begin{displaymath} 
+\setofdgcommutativediagram
+\end{displaymath} commutes } \onslide<3->{and 
+\begin{displaymath}
+\dgforeignkeydiagram
+\end{displaymath} commutes.}
+\end{tabular}
+\end{frame}
+
+
+
 \begin{frame}[fragile]{IDL style Message Structure}
 \lstdefinelanguage{MyIDL}[]{IDL}
 {morekeywords={Set,Of, struct},sensitive=true}
 \begin{lstlisting}[basicstyle=\footnotesize,keywordstyle={\ttfamily\color{green}\bfseries},language=myIDL]
 struct abs => 
-        Set Of dg
+        dgs: Set Of dg
 
 struct dg => 
-        Set Of node
+        name : text,
+        nodes: Set Of node
 
 struct node => 
-        label: u,
-        Set Of edge
+        label: number,
+        outgoing_edges : Set Of edge
 
 struct edge => 
-       label : u,
-       targetlabel: u
+       label : number,
+       targetlabel: number
 \end{lstlisting}
-
 
 \end{frame}
 

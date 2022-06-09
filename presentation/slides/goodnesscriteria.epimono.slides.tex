@@ -28,15 +28,6 @@ that preserves the designated monomorphisms and epimorphisms.
 \medskip
 \goodnessoneB.
 
-\newcommand{\goodnessoneC}{
-\goodnesscriteria{1C} \\
-There ought not exist $m \in M$ such that $m \in \overline{M \setminus m}$
-}
-\newcommand{\goodnessoneD}{
-\goodnesscriteria{1D} \\
-There ought not exist $e \in E$ such that $e \in \overline{E \setminus e}$
-}
-
 \goodnessoneC. \\
 \medskip
 \goodnessoneD. \\
@@ -51,6 +42,8 @@ and to which we might add the rule that expresses the finitary property.
 \end{frame}
 
 \begin{frame}{Definitions}
+
+\highlight{This slide ...these concepts...may not be needed.}
 A functional depdency is said to be \term{transitive} ...
 
 Otherwise a functional dependency is said to be \term{intransitive}.
@@ -71,33 +64,94 @@ such that in each instance $D \in \reqtc$,
 If $H$ is such a functional dependency then we say that $\fundep{H}{f}{g}$ in $\catc$ with respect to $\reqtc$.
 \end{frame}
 
-\begin{frame}{Representation of FDs}
-\begin{definition}
-%If there is a functional dependency $\fundep{H}{f}{g}$ $\catc$ is such a category and $\reqtc$ is a set of instances, 
-If $\fundep{H}{f}{g}$ is an \highlight{intransitive}  functional dependency wrt such a category \catcw and set of instances $\reqtc$, 
-where \scalebox{0.9}{\roomdown{0.8cm}\fgsourcediagram} in $\catc$, 
+\newcommand{\representationdiagram}{
+\newcommand{\myspacing}{0.15cm}
+$
+\begin{array}{c p{1.25cm} c c p{0.5cm} c}
+            && \Rnode{b}{b}&                &&                \\[\myspacing]
+            &&             &                &&\Rnode{d1}{d_1} \\[\myspacing]
+            &&             &\Rnode{b1}{b_1} &&                \\[\myspacing]
+            &&             &                &&\Rnode{d2}{d_2} \\[\myspacing]
+\Rnode{a}{a}&&             &\Rnode{b2}{b_2} &&                \\ %\multirow{2}{5pt}{\vdots}   \\
+            &&             &\vdots          &&\vdots          \\
+            &&             &\Rnode{bnp}{b_{n-1}} &&           \\[\myspacing]
+            &&             &                &&\Rnode{dn}{d_n} \\[\myspacing]
+            && \Rnode{c}{c}  
+\end{array}
+\begin{arrows}
+\ncarr[3]{a}{b}\alabel{f}
+\ncarr[-3]{a}{c}\blabel{g}
+\ncarr[-5]{d1}{b}\blabel{q_1}[0.35]\idcomp
+\ncarr{d1}{b1}\blabel{h_1}
+\ncarr{d2}{b1}\blabel{q_2}[0.35]\idcomp
+\ncarr{d2}{b2}\blabel{h_2}
+\ncarr{dn}{bnp}\blabel{q_n}[0.35]\idcomp
+\ncarr[5]{dn}{c}\alabel{h_n}
+\end{arrows}
+$
+}
+
+\newcommand{\mappedrepresentationdiagram}{
+\newcommand{\myspacing}{0.25cm}
+$
+\begin{array}{ c p{0.2cm} c p{0.5cm} c}
+\Rnode{Imgf}{Img(D(f))} && \Rnode{b}{D(b)}   &&                   \\[\myspacing]
+                        &&                   &&\Rnode{d1}{D(d_1)} \\[\myspacing]
+                        &&\Rnode{b1}{D(b_1)} &&                   \\[\myspacing]
+                        &&                   &&\Rnode{d2}{D(d_2)} \\[\myspacing]
+                        &&\Rnode{b2}{D(b_2)} &&                   \\ %\multirow{2}{5pt}{\vdots}   \\
+                        &&\vdots             &&\vdots             \\
+                        &&\Rnode{bnp}{d(b_{n-1})} &&           \\[\myspacing]
+                        &&                   &&\Rnode{dn}{D(d_n)} \\[\myspacing]
+\Rnode{c}{D(c)}  
+\end{array}
+\begin{arrows}
+\ncline{H->}{Imgf}{b}
+\ncarr{Imgf}{c}\alabel{H_D}
+\ncarr[5]{b}{d1}\alabel{D(q_1)^{-1}}[0.5][-3]
+\ncarr{d1}{b1}\blabel{D(h_1)}[0.5][-1]
+\ncarr{b1}{d2}\alabel{D(q_2)^{-1}}[0.5][-3]
+\ncarr{d2}{b2}\blabel{D(h_2)}[0.5][-1]
+\ncarr{bnp}{dn}\alabel{D(q_n)^{-1}}[0.5][-3]
+\ncarr[5]{dn}{c}\alabel{D(h_n)}[0.5][-1]
+\end{arrows}
+$
+}
+
+\begin{frame}{Definition of Representation of FDs in Category with Designated Monomorphisms}
+If $\fundep{H}{f}{g}$ is such a  functional dependency 
 then $H$  is \term{represented} in $\catcw$ 
-iff there exists an object $d$ of \catc, a monomorphism $q$ and a morphism $h$
-like so:
-\scalebox{0.9}{\roomup{1.2cm}\unaryfdrepresentationdiagram{a}{b}{c}{f}{g}{d}{q}{h}}
-such that in every instance $D \in \reqtc$,
-\scalebox{0.9}{\roomup{1.2cm}\unaryfdrepresentationmappeddiagram{a}{b}{c}{f}{g}{d}{q}{h}} commutes.
-\end{definition}
+\begin{tabular} {c c}
+\multicolumn{1}{p{3.5cm}}{iff there exits} 
+                    & \multicolumn{1}{p{4.1cm}}{\onslide<2->{such that for each $D \in \reqtc$}}\\
+\scalebox{0.9}{\representationdiagram} 
+                    & \onslide<2->{\scalebox{0.85}{\mappedrepresentationdiagram}}               \\
+                    & \multicolumn{1}{r}{\onslide<2->{commutes.}}
+\end{tabular}
 \end{frame}
 
 
-\begin{frame}{Lemma}
+\begin{frame}{First Sublemma}
 \begin{lemma}
 If \catcw is a \catMEterm with a finite sketch and if $f$ is any  morphism 
 not having an epi-mono factorisation then \catcw can be extended to a category $\catcp$ with finite sketch so that
 \begin{itemize} 
-\item $f$ has an epi-mono factorisation in $\catcp$,
+\item $f$ has an epi-mono factorisation \factorisationfdiagram in $\catcp$,
 \item every morphism $h:im(f) \morph x$ in $\catcp$ factors through $f_m$,
 \item every instance of \catcw uniquely extends, upto isomorphism, to an instance of $\catcp$,
 \item \catcw is maximally constrained to $\reqtc$ iff $\catcp$ is maximally constrained to $\reqtc$ (extended to $\catcp$).
 \end{itemize} 
 \end{lemma} 
 \end{frame}
+
+\begin{frame}{Second Sublemma}
+If \catcw is a \catMEterm and if $F: \catcw \morph \Fin$ is a functor which preserves designated momomorphisms
+then there is an $F':\catcw \morph Fin$ that preserves designated monomorphisms and epimorphisms
+and that extends $F$ i.e. such that $F \hookedarrow F'$ in the functor category \Fin^{\catc}.
+
+Not Proven.  
+\end{frame}
+
 \begin{frame}{Representation Lemma for FDs}
 {\small Note: I can prove this only in the case that \catcw is locally finite.
 
@@ -106,16 +160,64 @@ No longer restricted to the case that each $D(f)$ is surjective.}
 \begin{lemma}
 If $\catc$ is a locally finite \catMEterm that is 
 \textit{maximally constrained} to a requirement $\reqtc$ then
-if $\fundep{H}{f}{g}$  is an \highlight{intransitive}  functional dependency with respect to $\reqtc$
+if $\fundep{H}{f}{g}$  is a functional dependency with respect to $\reqtc$
 then $\fundep{H}{f}{g}$ is represented in $\catc$.
 \end{lemma}
 \begin{proof} If $f$ has a mono-epi factorisation then
 \scalebox{0.9}{\unaryfdrepresentationdiagram{\roomup{0.6cm}\roomdown{0.4cm}a}{b}{c}{f}{g}{im(f)}{f_m}{h}$\begin{arrows}\ncarr{a}{d}\alabel{f_e}\end{arrows}$} commutes in \catcw  where $h$ represents 
-the functional dependency of $g$ on $f_e$.
+the functional dependency of $g$ on $f_e$.  \highlight{THIS IS WRONG},
 %whose existence is given by previous version of this lemma.
 Otherwise extend \catcw so that $f$ has an epi-mono factorisation.
-Establish a $h: b \morph c$ in \catcw that represents $H$.
+Establish that there is already a representation in \catcw.
 \end{proof}
+\end{frame}
+
+\begin{frame}{Proof 1. goes here}
+We have \fgsourcediagram in \catc.\\
+\medskip
+Define functor $F: \catc \morph \Fin$ be the coproduct $Hom_{\catc}(a,-) + Hom_{\catc}(a,-)$
+as previously with injections $L$ and $R$, respectively so that
+for each object $x$ of $\catc$ the diagram
+\begin{center}
+$
+\begin{array}{c p{0.5cm} c p{0.5cm} c  }
+\Rnode{h1}{Hom_{\catc}(a,x)}  &&\Rnode{Fx}{F(x)}  &&   \Rnode{h2}{Hom_{\catc}(a,x)}       
+\end{array} 
+$
+\ncarr{h1}{Fx}
+\alabel{L_x}
+\ncarr{h2}{Fx}
+\blabel{R_x}
+\end{center}
+is a coproduct in $\Fin$.
+\medskip
+Define $G: \catc \morph \Fin$ as quotient $F/\sim$.
+If we define \sim as previously in the earlier proof then we find that $G$ does not preserve 
+designated monomorphisms. 
+ where
+\begin{align*}
+L_x(k_1) \sim_x R_x(k_2) & \mbox{ iff  $k_1$ and $k_2$????????????}\\
+L_x(k_1) \sim_x L_x(k_2) & \mbox{ iff $k_1 = k_2$,} \\
+R_x(k_1) \sim_x R_x(k_2) & \mbox{ iff $k_1 = k_2$.} \\
+\end{align*} 
+\end{frame}
+
+\begin{frame}{Proof 2. goes here}
+We have \simpleunaryfdrepresentationdiagram{a}{b}{c}{f}{g}{\qq{h}}  in \catcp.\\
+\medskip
+Extend $G$ to $G':\catcp \morph \Fin.$ \\
+
+\medskip
+\begin{align*}
+&\mbox{Now} & L_b(f)]                         &= [R_b(f)]                 \\
+&\mbox{i.e.}& G'(f)([L_a(id_a)])              &= G'(f)([R_a(id_a)])       \\
+&\therefore & G'(\qq{h}) (G'(f)([L_a(id_a)])) &= G'(\qq{h}) (G'(f)([R_a(id_a)])) \\
+&\therefore & G'(g)([L_a(id_a)])              &= G'(g)([R_a(id_a)]) & &    \\
+&\therefore & [L_c(g)] = [R_c(g)] 
+\end{align*}
+Therefore there exists $k:b \morph c$ in 
+$\catc$ such that $f \circ k = g$ and we have shown as required that the function dependency
+$\fundep{H}{f}{g}$ is represented in $\catc$.
 \end{frame}
 
 \begin{frame}{Epi Mono Type 2 Goodness Criteria}
