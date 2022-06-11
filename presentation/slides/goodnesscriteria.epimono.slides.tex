@@ -41,14 +41,6 @@ Definition of closure of set of monomorphics includes
 and to which we might add the rule that expresses the finitary property.
 \end{frame}
 
-\begin{frame}{Definitions}
-
-\highlight{This slide ...these concepts...may not be needed.}
-A functional depdency is said to be \term{transitive} ...
-
-Otherwise a functional dependency is said to be \term{intransitive}.
-\end{frame}
-
 
 \begin{frame}{Revised Definition of Functional Dependency}
 \begin{definition}
@@ -56,12 +48,11 @@ If \scalebox{0.9}{\fgsourcediagram} in a \catMEterm \catcw  and if $\reqtc$ is a
 then we say that there is a  \term{functional dependency} of $g$ on $f$ with respect to $\reqtc$ iff
 for every $D \in \reqtc$, $D(g)$ factors through $D(f)$. \\
 \medskip
-Equivalently there is a family of unique functions $H_D:img(D(f)) \morph D(c))_{D \in \reqtc}$
+\pause Equivalently there is a family of  functions $H_D:img(D(f)) \morph D(c))_{D \in \reqtc}$
 such that in each instance $D \in \reqtc$,
 \scalebox{0.9}{\fghfactordiagram{\roomup{0.4cm}\roomdown{0.3cm}D(a)}{img(D(f))}{D(c)}{D(f)}{D(g)}{H_D}} commutes.
 \end{definition}
 
-If $H$ is such a functional dependency then we say that $\fundep{H}{f}{g}$ in $\catc$ with respect to $\reqtc$.
 \end{frame}
 
 \newcommand{\representationdiagram}{
@@ -132,6 +123,7 @@ then $H$  is \term{represented} in $\catcw$
 
 
 \begin{frame}{First Sublemma}
+\highlight{DONT think this is whorthwhile showing anymore}
 \begin{lemma}
 If \catcw is a \catMEterm with a finite sketch and if $f$ is any  morphism 
 not having an epi-mono factorisation then \catcw can be extended to a category $\catcp$ with finite sketch so that
@@ -145,20 +137,24 @@ not having an epi-mono factorisation then \catcw can be extended to a category $
 \end{frame}
 
 \begin{frame}{Second Sublemma}
+\highlight{Rename "Sublemma"}
 If \catcw is a category with designated epimorphisms then let its split category 
 $\catc_s$ be the category \catcw with an additional split morphism for every designated epimorphism.
 i.e. for every designated epimorphism $f: a \morph b$ we add a morphism $f_s:b \morph a$
-such that $f_s \circ f = id_B$.
+such that $f_s \circ f = id_B$. \\
 \medskip
 If \catcw is a category with designated monomorphisms and epimorphsims and its split category
-is locally finite, if $F: \catcw \morph \Fin$ is a functor which preserves designated momomorphisms
+is locally finite, if $F: \catcw \morph \Fin$ is a functor which preserves designated monomorphisms
 then there is an $F':\catcw \morph Fin$ that preserves designated monomorphisms and epimorphisms
 and that extends $F$ i.e. such that $F \hookrightarrow F'$ in the functor category $\Fin^{\catc}$.
 \end{frame}
 
 \begin{frame}{Proof of Second SubLemma}
+\highlight{Rename "Proof of Sublemma"}
 Hand wavy proof as follows:
-Extend $F:\catcw \morph \Fin$ along the inclusion functor $I_s:\catc \morph \catc_s$ to get a functor 
+There is an inclusion functor $I_s:\catc \morph \catc_s$.
+
+Extend $F:\catcw \morph \Fin$ along this inclusion functor  to get a functor 
 $F_s:\catc_s \morph \Fin$ and a natural transformation $F \hookrightarrow I_s \circ F_s$. \\
 \medskip
 Nature of the construction is such that $F_s$ preserves designated monomorphisms because $F$ does.\\
@@ -178,7 +174,8 @@ is locally finite and if \catcw is
 \textit{maximally constrained} to a requirement $\reqtc$ then
 if $\fundep{H}{f}{g}$  is a functional dependency with respect to $\reqtc$
 then $\fundep{H}{f}{g}$ is represented in $\catc$.
-\end{lemma}
+\end{lemma} \highlight{Get rid of this proof -- need cut and paste somewhere I can later find it}
+\highlight{Also copy later into key result.}
 \begin{proof} Extend \catcw to \catcpw so that $f$ has an epi-mono factorisation in \catcpw
 and so that there  is a morphism $\qq{h}$ such that
 \scalebox{0.9}{\unaryfdrepresentationdiagram{\roomup{0.6cm}\roomdown{0.4cm}a}{b}{c}{f}{g}{im(f)}{f_m}{\qq{h}}$
@@ -220,7 +217,7 @@ R_x(k_1) \sim_x R_x(k_2) & \mbox{ iff $k_1 = k_2$.} \\
 We have \simpleunaryfdrepresentationdiagram{a}{Im(f)}{c}{f_e}{g}{\qq{h}}  in \catcp.\\
 \medskip
 Extend $G$ to $G':\catcp \morph \Fin.$ \\
-Because $f_m$ is a designated monomorphism and $f_m \circ f_e = f$ then
+Because $f_m$ is a designated monomorphism and $f_e \circ f_m = f$ then
 there is a representation of functional dependency $f \morph f_e$ in \catc.
 Hence  we have that $[L_b(f_e)]= [R_b(f_e)]$.
 \medskip
@@ -238,29 +235,46 @@ $\fundep{H}{f}{g}$ is represented in $\catc$.
 From local finiteness and maximal constrainedness it follows that all the following goodness criteria hold: 
 \begin{itemize}
 \item \textbf{2A}:  \catcw ought to be equationally complete wrt $\reqtc$,         
-\item \textbf{2B}:  all $\reqtc$ intransitive functional depedencies ought to be represented in \catc,
+\item \textbf{2B}:  all $\reqtc$ functional depedencies ought to be represented in \catc,
 \item \textbf{2C}:  all $\reqtc$ referential inclusion dependencies ought to be represented in \catc, 
 \pause \item \textbf{2D}:  if $f$ is injective in every $D \in \reqtc$ then $f$ ought to be a designated monomorphism in \catc,
 \pause \item \textbf{2E}:  if $f$ is surjective in every $D \in \reqtc$ then $f$ ought to be a designated epimorphism in \catc.
 \end{itemize}
-We can also show that \textbf{2B} can be weakened. If all intransitive dependencies \textbf{upon edges} from sketch $S$ are represented then 
-all intransitive depedencies are represented.
+We can also show that \textbf{2B} can be weakened. If all functional dependencies \textbf{upon edges} from sketch $S$ are represented then 
+all functional dependencies are represented. \highlight{Too much information}
 \end{frame}
 
-\begin{frame}{Simplifying Assumption}
-Say that the sketch $S$ is simple if it is minimal (no equivalent subsketches) and if there are no path equivalences in $S$ in which one side path or the other is of length 1.  
-\end{frame}
+\begin{frame}{Obtaining BCNF}
+Tp proceed further 
+\begin{itemize}
+    \item I need work with categories \catcw with designated monomorphisms and epimorphisms
+    and epi-mono splits 
+    \item I need assume that \catcw is maximally constrained to $\reqtc$ 
+    amongst other categories with designated monomorphisms and epimorphisms
+    \item I also need assuume that the the underlying category is 
+    maximally constrained to $\reqtc$
+\end{itemize}
+\highlight{CONTINUE FROM THIS POINT}
 
+\medskip
+\goodnesscriteria{2B'} Whenever \fgsourcediagram in \catc and  $f$ is a designated epimorphism, if
+$f \morph g$ is a functional dependency  wrt $\reqtc$ then there ought to exist a morphism
+$h: b \morph c$ in \catcw such that
+\simpleunaryfdrepresentationdiagram{a}{b}{c}{f}{g}{h}
+commutes.
+\end{frame}
 
 \begin{frame}{Tellingly...}
-With the additional assumption now that $S$ is simple we can show that if
-ff goodness criteria 2A and 2B then 
+We can show that if
+ goodness criteria 2A,  2B' and 2C are met then 
 \begin{itemize}
-\item If $\fundep{H}{f}{g}$ is a non-trivial \highlight{intransitive}  functional dependency wrt  category \catcw and set of instances $\reqtc$
- then $f$ is a monomorphism.
+\item If $f$ and $g$ are edges of a sketch of category \catcw 
+with designated monomorphisms and epimorphims and if $\fundep{H}{f}{g}$ is a non-trivial  functional dependency wrt set of instances $\reqtc$ then $f$ is a monomorphism. 
 
-\item This moves us into sight of the goal of "explaining the BCNF (normal form) criteria from first principle". \highlight{Much earlier need to state BCNF.}
+\item This moves us into sight of the goal of "explaining the Boyce-Codd Normal Form (BCNF) criteria from first principles". \highlight{Somewhere need to state BCNF.}
 
-\item To get closer we need add finite products to the mix.
+\item We cannot obtain this result without Criteria 2B' -- Criteria 2B alone is insufficient.
+
+\item To get closer to BCNF we need add finite products to the mix.
 \end{itemize}
 \end{frame}
