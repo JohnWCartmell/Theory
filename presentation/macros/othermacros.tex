@@ -460,8 +460,8 @@ $
 \end{array}
 \fi
 
-%nakedmultisourceobjects{n}{a}{b}{f}
-\newcommand{\nakedmultisourceobjects}[4]{
+%nakedmultisourceobjects{n}{a}{b}
+\newcommand{\nakedmultisourceobjects}[3]{
 \begin{array}{c p{2.0cm} c }
 \Rnode{a}{#2}   &&
 \begin{array}{c }                
@@ -475,7 +475,7 @@ $
 
 % \nakedmultisourcediagram{n}{a}{b}{f}
 \newcommand{\nakedmultisourcediagram}[4]{
-\nakedmultisourceobjects{#1}{#2}{#3}{#4}
+\nakedmultisourceobjects{#1}{#2}{#3}
 \begin{arrows}
 \ncarr{a}{b1}
 \alabel{#4_1}[0.5]
@@ -504,7 +504,7 @@ $
 \newcommand{\multisourcepathdiagram}[4]{$\nakedmultisourcepathdiagram{#1}{#2}{#3}{#4}$}
 
 
-% \multisourcedefinitiondiagram{x}{g}{h}{n}{a}{b}{f}
+% \monosourcedefinitiondiagram{x}{g}{h}{n}{a}{b}{f}
 \newcommand{\monosourcedefinitiondiagram}[7]{
 $
 \begin{array}{c p{1.5cm} c}
@@ -512,6 +512,31 @@ $
 \end{array}
 \begin{arrows}
 \parallelarrows{x}{a}{#2}{#3}
+\end{arrows}
+$
+}
+
+%\multisourcenplusonediagram{n}{a}{b}{f}{c}{g}
+\newcommand{\multisourcenplusonediagram}[6]{
+$
+\begin{array}{c p{2.0cm} c }
+\Rnode{a}{#2}   &&
+\begin{array}{c }                
+\Rnode{b1}{#3_1}   \\ [0.55cm]
+\Rnode{b2}{#3_2}   \\ 
+\vdots             \\ 
+\Rnode{bn}{#3_{#1}} \\ [0.65cm] 
+\Rnode{c}{#5} 
+\end{array}
+\end{array}
+\begin{arrows}
+\ncarr{a}{b1}
+\alabel{#4_1}[0.6][1]
+\ncarr{a}{b2}
+\alabel{#4_2}[0.6][0]
+\ncarr{a}{bn}
+\blabel{#4_{#1}}[0.6][0]
+\ncarr{a}{c}\blabel{#6}[0.6][0]
 \end{arrows}
 $
 }

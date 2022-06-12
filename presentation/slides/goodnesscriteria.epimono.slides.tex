@@ -58,26 +58,37 @@ such that in each instance $D \in \reqtc$,
 \newcommand{\representationdiagram}{
 \newcommand{\myspacing}{0.15cm}
 $
-\begin{array}{c p{1.25cm} c c p{0.5cm} c}
-            && \Rnode{b}{b}&                &&                \\[\myspacing]
-            &&             &                &&\Rnode{d1}{d_1} \\[\myspacing]
-            &&             &\Rnode{b1}{b_1} &&                \\[\myspacing]
-            &&             &                &&\Rnode{d2}{d_2} \\[\myspacing]
-\Rnode{a}{a}&&             &\Rnode{b2}{b_2} &&                \\ %\multirow{2}{5pt}{\vdots}   \\
-            &&             &\vdots          &&\vdots          \\
-            &&             &\Rnode{bnp}{b_{n-1}} &&           \\[\myspacing]
-            &&             &                &&\Rnode{dn}{d_n} \\[\myspacing]
-            && \Rnode{c}{c}  
+\begin{array}[t]{c p{1.25cm} c c p{0.5cm} c}
+            &&             &                 && \Rnode{b}{b}         \\[1.0cm]
+            &&             & \Rnode{d1}{d_1} &&                      \\[\myspacing]
+            &&             &                 && \Rnode{b1}{b_1}      \\[\myspacing]
+            &&             & \Rnode{d2}{d_2} &&                      \\[\myspacing]
+\Rnode{a}{a}&&             &                 && \Rnode{b2}{b_2}      \\ 
+            &&             & \vdots          && \vdots               \\
+            &&             &                 && \Rnode{bnp}{b_{n-1}} \\[\myspacing]
+            &&             & \Rnode{dn}{d_n} &&                      \\[1.0cm]
+            &&             &                 && \Rnode{c}{c}  
 \end{array}
 \begin{arrows}
-\ncarr[3]{a}{b}\alabel{f}
-\ncarr[-3]{a}{c}\blabel{g}
-\ncarr[-5]{d1}{b}\blabel{q_1}[0.35]\idcomp
-\ncarr{d1}{b1}\blabel{h_1}
-\ncarr{d2}{b1}\blabel{q_2}[0.35]\idcomp
-\ncarr{d2}{b2}\blabel{h_2}
-\ncarr{dn}{bnp}\blabel{q_n}[0.35]\idcomp
-\ncarr[5]{dn}{c}\alabel{h_n}
+\ncarr[20]{a}{b}\alabel{f}
+\ncarr[-20]{a}{c}\blabel{g}
+\ncarr[-5]{d1}{b}\alabel{q_1}[0.35]\idcomp
+\ncarr{d1}{b1}\alabel{h_1}[0.5][0]
+\ncarr{d2}{b1}\alabel{q_2}[0.35]\idcomp
+\ncarr{d2}{b2}\alabel{h_2}[0.5][0]
+\ncarr{dn}{bnp}\alabel{q_n}[0.35]\idcomp
+\ncarr[5]{dn}{c}\alabel{h_n}[0.5][1]
+\end{arrows}
+$
+}
+
+\newcommand{\fullrepresentationdiagram}{
+\representationdiagram
+$
+\begin{arrows}
+\ncarr{a}{d1}\alabel{f_1}[0.675]
+\ncarr{a}{d2}\alabel{f_2}[0.65]
+\ncarr{a}{dn}\alabel{f_n}[0.7][-1]
 \end{arrows}
 $
 }
@@ -109,7 +120,9 @@ $
 $
 }
 
+\iffalse
 \begin{frame}{Definition of Representation of FDs in Category with Designated Monomorphisms}
+\highlight{Remove this on inline into representationlemma}
 If $\fundep{H}{f}{g}$ is such a  functional dependency 
 then $H$  is \term{represented} in $\catcw$ 
 \begin{tabular} {c c}
@@ -120,8 +133,8 @@ then $H$  is \term{represented} in $\catcw$
                     & \multicolumn{1}{r}{\onslide<2->{commutes.}}
 \end{tabular}
 \end{frame}
-
-
+\fi
+\iffalse
 \begin{frame}{First Sublemma}
 \highlight{DONT think this is whorthwhile showing anymore}
 \begin{lemma}
@@ -135,23 +148,23 @@ not having an epi-mono factorisation then \catcw can be extended to a category $
 \end{itemize} 
 \end{lemma} 
 \end{frame}
+\fi
 
-\begin{frame}{Second Sublemma}
-\highlight{Rename "Sublemma"}
+\begin{frame}{Sublemma}
+If \catcw is a category with designated monomorphisms and epimorphsims 
+ if $F: \catcw \morph \Fin$ is a functor which preserves designated monomorphisms
+then there is an $F':\catcw \morph \Fin$ that preserves designated monomorphisms and epimorphisms
+and that extends $F$ i.e. such that $F \hookrightarrow F'$ in the functor category $\Fin^{\catc}$.
+\end{frame}
+
+\begin{frame}{Proof of SubLemma}
+Hand wavy proof as follows:
+
 If \catcw is a category with designated epimorphisms then let its split category 
 $\catc_s$ be the category \catcw with an additional split morphism for every designated epimorphism.
 i.e. for every designated epimorphism $f: a \morph b$ we add a morphism $f_s:b \morph a$
 such that $f_s \circ f = id_B$. \\
-\medskip
-If \catcw is a category with designated monomorphisms and epimorphsims and its split category
-is locally finite, if $F: \catcw \morph \Fin$ is a functor which preserves designated monomorphisms
-then there is an $F':\catcw \morph Fin$ that preserves designated monomorphisms and epimorphisms
-and that extends $F$ i.e. such that $F \hookrightarrow F'$ in the functor category $\Fin^{\catc}$.
-\end{frame}
 
-\begin{frame}{Proof of Second SubLemma}
-\highlight{Rename "Proof of Sublemma"}
-Hand wavy proof as follows:
 There is an inclusion functor $I_s:\catc \morph \catc_s$.
 
 Extend $F:\catcw \morph \Fin$ along this inclusion functor  to get a functor 
@@ -163,18 +176,45 @@ $F_s$ preserves designated epimorphisms since any functor preserves split epimor
 Define $F'$ to be $I_s \circ F_s$.
 \end{frame}
 
-\begin{frame}{Representation Lemma for FDs}
-{\small Note: I can prove this only in the case that \catcw is locally finite.
-
-No longer restricted to the case that each $D(f)$ is surjective.}
-
-\begin{lemma}
-If \catcw is a category with designated monomorphisms and epimorphsims and its split category
-is locally finite and if \catcw is
+\begin{frame}{Representation for FDs Part One}
+If \catcw is a category with designated monomorphisms and epimorphsims  and if \catcw is
 \textit{maximally constrained} to a requirement $\reqtc$ then
 if $\fundep{H}{f}{g}$  is a functional dependency with respect to $\reqtc$
-then $\fundep{H}{f}{g}$ is represented in $\catc$.
-\end{lemma} \highlight{Get rid of this proof -- need cut and paste somewhere I can later find it}
+then there is a diagram\\
+\medskip
+\begin{minipage}[t][.45cm][t]{5.5cm} %just to get alignment at top small height content pos t 
+\scalebox{0.9}{\representationdiagram} 
+\hspace*{\fill} in \catc
+\end{minipage} 
+\pause \begin{minipage}[t]{4.5cm}
+such that for each $D \in \reqtc$
+\scalebox{0.85}{\mappedrepresentationdiagram}
+\hspace*{\fill} commutes.
+\end{minipage}
+\end{frame}
+
+\begin{frame}{Representation Lemma for FDs Part Two}
+If in addition the underlying category \catcw is maximally constrained  
+ to the requirement $\reqtc$ then
+there are morphisms $f_1,...fn$ such that
+then $\fundep{H}{f}{g}$ is represented in $\catc$ by  $n+1$ commuting diagrams
+as follows
+\begin{center}
+\scalebox{0.9}{\fullrepresentationdiagram}
+\end{center} 
+\end{frame}
+\begin{frame}{Significance}
+In this situation if \catcw is doubly maximally constrained 
+and if \scalebox{0.9}{\fgsourcediagram} in \catcw
+then if $D(g)$ factors through
+$D(f)$ in every instance $D \in \reqtc$  then   
+$F(g)$ factors through
+$F(f)$ for every instance $F: \catc \morph \Fin$. 
+\end{frame}
+
+\iffalse
+\begin{frame} {Proof}
+\highlight{Get rid of this proof -- need cut and paste somewhere I can later find it}
 \highlight{Also copy later into key result.}
 \begin{proof} Extend \catcw to \catcpw so that $f$ has an epi-mono factorisation in \catcpw
 and so that there  is a morphism $\qq{h}$ such that
@@ -185,7 +225,7 @@ commutes in \catcp.
 \end{frame}
 
 \begin{frame}{Proof cont. 1}
-We have \fgsourcediagram in \catc.\\
+We have \fgsourcediagram in \catc. \highlight{\footnotesize See handwritten notes 12/06/22 for other details of this proof.}\\
 \medskip
 Define functor $F: \catc \morph \Fin$ be the coproduct $Hom_{\catc}(a,-) + Hom_{\catc}(a,-)$
 as previously with injections $L$ and $R$, respectively so that
@@ -230,9 +270,10 @@ Hence  we have that $[L_b(f_e)]= [R_b(f_e)]$.
 Therefore by definition of $\sim$ the functional dependency
 $\fundep{H}{f}{g}$ is represented in $\catc$.
 \end{frame}
+\fi
 
 \begin{frame}{Epi Mono Type 2 Goodness Criteria}
-From local finiteness and maximal constrainedness it follows that all the following goodness criteria hold: 
+From double maximal constrainedness it follows that all the following goodness criteria are met: 
 \begin{itemize}
 \item \textbf{2A}:  \catcw ought to be equationally complete wrt $\reqtc$,         
 \item \textbf{2B}:  all $\reqtc$ functional depedencies ought to be represented in \catc,
@@ -240,12 +281,40 @@ From local finiteness and maximal constrainedness it follows that all the follow
 \pause \item \textbf{2D}:  if $f$ is injective in every $D \in \reqtc$ then $f$ ought to be a designated monomorphism in \catc,
 \pause \item \textbf{2E}:  if $f$ is surjective in every $D \in \reqtc$ then $f$ ought to be a designated epimorphism in \catc.
 \end{itemize}
+\iffalse
 We can also show that \textbf{2B} can be weakened. If all functional dependencies \textbf{upon edges} from sketch $S$ are represented then 
 all functional dependencies are represented. \highlight{Too much information}
+\fi
+\end{frame}
+
+\begin{frame}{Assuming epi-mono splits}
+\begin{itemize}
+\item For every functional dependency $\fundep{H}{f}{g}$ where \fgsourcediagram in \catcw 
+there is an object $d$, a designated monomorphism $m:d \morph b$ and a morphism
+$h: d \morph c$ such that 
+$
+\begin{array}{c p{0.1cm} c p{0.1cm} c}
+             && \Rnode{b}{b} &&              \\[0.5cm]
+\Rnode{a}{a} &&              && \Rnode{d}{d} \\[0.5cm]
+             && \Rnode{c}{c} &&   
+\end{array}
+\begin{arrows}
+\ncarr{a}{b} \alabel{f}
+\ncarr{a}{c} \blabel{g}
+\ncarr{d}{b} \blabel{m} \idcomp
+\ncarr{d}{c} \alabel{h} 
+\end{arrows}
+$ commutes.
+\item This gives us what we want: if $S$ is a sketch which is simple for a category $C$ with designated 
+monomorphisms and epimorphisms and epi-mono splits which is double maximally constrained to requirements 
+$\reqtc$ then
+if  $\fundep{H}{f}{g}$ is a non-trivial functional dependency between edges $f$ and $g$ of the sketch $S$
+then $f$ is a designated monomorphism.
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Obtaining BCNF}
-Tp proceed further 
+Tp proceed further \highlight{Remove this slide}
 \begin{itemize}
     \item I need work with categories \catcw with designated monomorphisms and epimorphisms
     and epi-mono splits 
@@ -264,7 +333,7 @@ $h: b \morph c$ in \catcw such that
 commutes.
 \end{frame}
 
-\begin{frame}{Tellingly...}
+\begin{frame}{Tellingly...}\highlight{Remove this slide}
 We can show that if
  goodness criteria 2A,  2B' and 2C are met then 
 \begin{itemize}
@@ -278,3 +347,5 @@ with designated monomorphisms and epimorphims and if $\fundep{H}{f}{g}$ is a non
 \item To get closer to BCNF we need add finite products to the mix.
 \end{itemize}
 \end{frame}
+
+

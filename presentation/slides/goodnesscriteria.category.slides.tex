@@ -122,7 +122,41 @@ I am going to
 Herein lies much of the mathematical theory of data but as many or more questions than answers.
 \end{frame}
 
+\begin{frame}{Definitions} 
+In a category \catc, a  \term{source} is a family of morphisms with common domain: \\
+\scalebox{0.65}{
+\multisourcediagram{n}{a}{b}{f}
+} 
+\medskip
+Such a source is said to be a \term{mono source}  iff for all $g,h:x \morph a$ in \catcw 
+so that \scalebox{0.65}{
+\monosourcedefinitiondiagram{x}{g}{h}{n}{a}{b}{f}
+} 
+in \catcw then if $g \circ f_i = h \circ f_i$, for each $i$,  then $g=h$.
+\end{frame}
 
+\begin{frame}{Alternative Definition}{Mono Source Limit Cone}  
+In a category \cat{C},
+\scalebox{0.65}{
+\input{../content/monoSource}
+} is a mono source iff \\
+\begin{center}
+\scalebox{0.65}{
+\input{../content/monoSourceLimitCone}
+} 
+is a limit cone.
+\end{center}
+\end{frame}
+
+\begin{frame}{BCNF in the abstract}
+If $S$ is a simple sketch for a category $C$ with designated mono-sources  and finite products
+and $S$ is considered as a data specification with requirement $\reqtc$, then it ought to be the case
+that if  
+\multisourcenplusonediagram{n}{a}{b}{x}{c}{y}
+are edges of $S$
+and if \msfd{x_1,...x_n}{y}  is a non-trivial functional dependency  between these edges then
+$x_1,...x_n$ is a designated mono-source.
+\end{frame}
 
 
 \begin{frame}{Sketches of Categories as Data Specifications}
@@ -353,15 +387,39 @@ I would like to show that this goodness criteria follows from the criteria of ma
 but I have managed to prove this only in the case that \catcw is locally finite. \highlight{CHECK}
 \end{frame}
 
-\begin{frame}
-\begin{lemma}[Referential Inclusion Dependency Representation Lemma]
-If $\catc$ is a locally finite category and $\reqtc$ is a set of instances, if $\catc$ is 
+\begin{frame}{Representation Lemma for Referential Inclusion Dependencies}
+If \catcw is a locally finite category and $\reqtc$ is a set of instances, if \catcw is 
 \textit{maximally constrained} to the requirement $\reqtc$ then
 every referential inclusion dependency with respect to $\reqtc$ is represented in $\catc$.
-\end{lemma}
 \end{frame}
 
-\begin{frame}{Three Goodness Criteria for Categories}
+\begin{frame}{Proof}
+Suppose $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$ is a referential inclusion dependency
+where for each $i$, $1 \leq i \leq n$,
+\scalebox{0.9}{$
+\begin{array}{c p{0.5cm} c p{0.5cm} c}
+             &&\Rnode{bi}{b_i} &&              \\[0.5cm]
+\Rnode{a}{a} &&                && \Rnode{c}{c}
+\end{array}
+\begin{arrows}
+\ncarr{a}{bi}\alabel{f_i}
+\ncarr{c}{bi}\blabel{q_i}
+\end{arrows}
+$} in \catc.
+
+Extend category \catcw to a category \catcpw such that in \catcpw there is
+a morphism $\qq{r}: a \morph c$ such that for each $i$, $1 \leq i \leq n$, 
+$\qq{r} \circ q_i = f_i$.
+Every $D \in \reqtc$ extends uniquely to functor $D: \catcp \morph \Fin$. Therefore, since \catcw is maximally constrained then every functor $F: \catc \morph \Fin$ can be extended to $F':\catcp \morph \Fin$. \\
+\pause Let $H: \catcp \morph \Fin$ be the extension of the hom functor $Hom(a,-): \catc \morph \Fin$ to 
+\catcp. \\
+\pause For each $i$, we have $H(\qq{r}) \circ H(q_i) = H(f_i)$, \\
+\pause \hspace {3cm} i.e. $H(\qq{r}) \circ Hom(a,q_i) = Hom(a,f_i)$. \\
+\pause Therefore in particular $H(\qq{r})(id_a) \circ q_i =  f_i$. \\
+\pause Hence $H(\qq{r})(id_a):a \morph c$ in \catcw represents the inclusion dependency $I$.
+\end{frame}
+
+\begin{frame}{Three Goodness Criteria for Categories as Data Specifications }
 Definition of Goodness Criteria 2A, 2B and 2C:
 \begin{itemize}
 \item If \catcw is a category and $\reqtc$ is a set of instances of \catcw then
