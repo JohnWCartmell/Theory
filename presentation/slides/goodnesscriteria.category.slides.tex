@@ -37,6 +37,8 @@ in a state that doesn't correspond to any possible  real world state.
 \end{frame}
 
 \begin{frame}{Rationale for Type 2 Criteria}
+Try all we can to avoid the possibility of a system state 
+that doesn't correspond to any real world state.
 \begin{itemize}
 \item Good data modelling is good theorising and good theorising is having the tightest theory that fits the facts.
 \item Software Engineering: 
@@ -47,9 +49,6 @@ in a state that doesn't correspond to any possible  real world state.
 \item Use declarative style if possible.
 \end{itemize}
 \end{itemize}
-
-Try all we can to avoid the possibility of a system state 
-that doesn't correspond to any real world state.
 \end{frame}
 
 \begin{frame}{Key definition: \catcw \textit{maximally constrained} to $\reqtc$}
@@ -149,15 +148,17 @@ is a limit cone.
 \end{frame}
 
 \begin{frame}{BCNF in the abstract}
-If $S$ is a simple sketch for a category $C$ with designated mono-sources  and finite products
+If $S$ is a sketch for a category $C$ with designated mono-sources  and finite products
 and $S$ is considered as a data specification with requirement $\reqtc$, then it ought to be the case
-that if  
-\multisourcenplusonediagram{n}{a}{b}{x}{c}{y}
+that if 
+\scalebox{0.9}{\multisourcenplusonediagram{n}{a}{b}{x}{c}{y}}
 are edges of $S$
-and if \msfd{x_1,...x_n}{y}  is a non-trivial functional dependency  between these edges then
-$x_1,...x_n$ is a designated mono-source.
+and if \msfd{x_1,...x_n}{y}  is a non-trivial functional dependency  between these edges
+then \onslide<1>{...}
+\onslide<2>{\scalebox{0.8}{\multisourcediagram{n}{a}{b}{x}} is a designated mono-source.}
 \end{frame}
 
+\comingnext{Sketches of Categories as Data Specifications}
 
 \begin{frame}{Sketches of Categories as Data Specifications}
 By a \term{sketch for a category} we mean a pair $\tuple{G,PE}$ where 
@@ -256,24 +257,22 @@ $$
 for functional dependency is adapted from relational database theory. 
 
 \begin{itemize}
-\item This is not to imply a morphism or 2-cell or any such thing.
+\item This is not to imply a morphism or 2-cell or anDefinition of y such thing.
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-\begin{definition}{Representation of Functional Dependency}
+\begin{frame}{Definition of Representation of Functional Dependency}
 If $\catc$ is a category and $\reqtc$ is a set of instances, 
 if \fgsourcediagram in $\catc$ 
 and if there is a functional dependency $\fundep{H}{f}{g}$ then say that 
 this functional dependency  is \term{represented} in $\catc$ 
 iff there exists a morphism $h:b \morph c$ in $\catc$ such that for each instance $D \in \reqtc$, $D(h)=H_D$.
-\end{definition}
 \medskip
-If \catcw is a requirement and $\reqtc$ a set of instances then \catcw is said to be 
+\pause If \catcw is a requirement and $\reqtc$ a set of instances then \catcw is said to be 
 \textit{functionally complete} with respect to $\reqtc$ iff every functional dependency
 present in $\reqtc$ is represented in \catc.\\
 \medskip
-\goodnesscriteria{2B}\IfSforCwithRCwords then \catcw ought to be functionally complete with respect to $\reqtc$.
+\pause \goodnesscriteria{2B}\IfSforCwithRCwords then \catcw ought to be functionally complete with respect to $\reqtc$.
 \end{frame}
 
 \begin{frame}{Representation Lemma for Functional Dependencies}
@@ -342,15 +341,13 @@ $\fundep{H}{f}{g}$ is represented in $\catc$.
 \end{frame}
 
 
-\begin{frame}{Inclusion Dependencies}
-\begin{definition}
+\begin{frame}{Definition of Inclusion Dependencies}
 If $\catc$ is a category and $\reqtc$ is a set of instances 
 and if
 \fnsourceqnsource
 in $\catc$, then an \term{inclusion dependency} $I$, written $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$, is a family of functions $I_D)_{D \in \reqtc}$
 such that each instance $D \in \reqtc$, $I_D$ is a function $I_D : D(a) \morph D(c)$ such that
 for each $i$, $1 \leq i \le n$, $I_D \circ D(q_i) = D(f_i)$.
-\end{definition}
 
 If each function in this family is the unique such function then the inclusion dependency is said to be referential. Just to be clear the definition is this:
 \end{frame}
@@ -384,7 +381,7 @@ iff all referential inclusion dependencies present in $\reqtc$ are represented i
 \catcw ought to be referentially complete with respect to $\reqtc$.
 
 I would like to show that this goodness criteria follows from the criteria of maximal constrainedness
-but I have managed to prove this only in the case that \catcw is locally finite. \highlight{CHECK}
+but I have managed to prove this only in the case that \catcw is locally finite. 
 \end{frame}
 
 \begin{frame}{Representation Lemma for Referential Inclusion Dependencies}
@@ -419,7 +416,7 @@ Every $D \in \reqtc$ extends uniquely to functor $D: \catcp \morph \Fin$. Theref
 \pause Hence $H(\qq{r})(id_a):a \morph c$ in \catcw represents the inclusion dependency $I$.
 \end{frame}
 
-\begin{frame}{Three Goodness Criteria for Categories as Data Specifications }
+\begin{frame}{Three Goodness Criteria}{for Categories as Data Specifications}
 Definition of Goodness Criteria 2A, 2B and 2C:
 \begin{itemize}
 \item If \catcw is a category and $\reqtc$ is a set of instances of \catcw then

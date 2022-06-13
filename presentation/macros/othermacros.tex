@@ -585,6 +585,19 @@ $
 \blabel{#4}
 }
 
+\newcommand{\paralleldiagram}[4]{
+$
+\rule[-0.3cm]{0pt}{0.9cm} %to add vertical space of diagram -- based on lowering diagram 0.3cm and heght 0.9cm
+                            % change thickness from 0pt to 1 pt to debug
+\begin{array}{c p{0.5cm} c}
+\Rnode{a}{#1}       &&   \Rnode{b}{#2}
+\end{array} 
+\begin{arrows}
+\parallelarrows{a}{b}{#3}{#4}
+\end{arrows}
+$
+}
+
 \newcommand{\fgparalleldiagram}{
  $
 \rule[-0.3cm]{0pt}{0.9cm} %to add vertical space of diagram -- based on lowering diagram 0.3cm and heght 0.9cm
@@ -593,12 +606,6 @@ $
  \Rnode{a}{a}            &&   \Rnode{b}{b}
 \end{array} 
 \begin{arrows}
-\iffalse
-\ncarc[nodesep=2pt,arcangle=10,offset=2pt]{->}{a}{b}
-\alabel{f}
-\ncarc[nodesep=2pt,arcangle=-10,offset=-2pt]{->}{a}{b}
-\blabel{g}
-\fi
 \parallelarrows{a}{b}{f}{g}
 \end{arrows}
 $  

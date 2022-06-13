@@ -1,5 +1,7 @@
 
 
+\comingnext{Sketches of Categories with Designated Monomorphisms and Epimorphisms and Finite Products as Data Specifications}
+\renewcommand{\slidecontext}{Sketches of Categories with Designated Mono's and Epi's and Finite Products as Data Specifications}
 
 \begin{frame}{Composition of mono sources}
 If $i$ and $j$ are mono sources and $f \in i$ so that
@@ -25,30 +27,37 @@ $\tuple{G,PE,M,P,E}$
 From such a sketch we can generate a category with \thirdstructure.  
 \end{frame}
 
-\begin{frame}{Goodness Criteria 1XXX - Fagin's 4NF}
-\IfSforproductepimonoCwithRCwords
+\begin{frame}{Goodness Criteria 1F}{\slidecontext}
 
-\goodnesscriteria{1C} If $P$ contains the source \scalebox{0.65}{\multisourcediagram{n}{x}{y}{p}} 
-then there ought to exist a node $z$ and an edge $f: x \morph z$ in $G$ such that morphism $f$ does not factor through any of the $p_i$ morphisms 
-i.e. such that there exist $g: y_i \morph z$ in \catcw, for some $i$, such that $p_i\circ g = f$ in \catc. 
+In  a nutshell... "don't model products needlessly".\\
+
+\pause In otherwords:\\
+\medskip
+\IfSforproductepimonoCwithRCwords then
+
+\goodnesscriteria{1F} If $P$ contains the source \scalebox{0.65}{\multisourcediagram{n}{x}{y}{p}} 
+then there ought to exist a node $z$ and an edge $f: x \morph z$ in $G$.
 \end{frame}
 
-\begin{frame}{Goodness Criteria 2B Revisited}
-Restate how functional dependencies and their representations are defined in terms of \highlight{sketches} of categories with \thirdstructure.
+\begin{frame}{Goodness Criteria 2B Revisited}{\slidecontext}
+Next:\\
+Restate how functional dependencies and their representations are defined in terms of sketches of categories with \thirdstructure.
 \end{frame}
 
-\begin{frame}{Functional Dependency Restated}
+\begin{frame}{Functional Dependency Restated}{\slidecontext}
 \IfSforproductepimonoCwithRCwords, 
 if \scalebox{0.65}{\multisourcepathdiagram{n}{a}{b}{x}} is a path source in $S$ and if
 $y: a \morph c$ is a path in $S$
 then path $y$ is said to be \term{functionally dependent} on the set of paths $\set{x_1,...x_n}$ with respect to the requirement $\reqtc$
 iff the function $D(y)$ factors through $D(\tuple{x_1,... x_n })$
 
-i.e. iff in each $D \in \reqtc$ there exists a  (unique)
-function $H_D: img(D(\tuple{x_1,... x_n })) \morph D(c)$ 
-such that 
+\pause iff in each $D \in \reqtc$ there exists a  (unique)
+function $H_D: img(D(\tuple{x_1,... x_n })) \morph D(c)$ \\
+\hspace*{\fill}such that \kern14pt
 \scalebox{0.65}{\commutativetrianglediagrammutant{D(a)}{img(D(\tuple{x_1,... x_n }))}{D(c)}{D(\xntuple)}{f_D}{D(y)}} commutes.
 \end{frame}
+
+\iffalse
 \begin{frame} 
 CORRECT THIS DIAGRAM
 \scalebox{0.9}{ 
@@ -77,26 +86,29 @@ $
 $
 }
 \end{frame}
+\fi
 
 \begin{frame}{Notation}
 That a path  $y$ is functionally dependent on the set of paths $\set{x_1,...x_n}$ 
 is written  \msfd{x_1,...x_n}{y}.
 \end{frame}
 
-\begin{frame}{BCNF in a nutshell}
-Suppose that $S$ is a sketch for such a category \catcw and that \catcw 
-is maximally constrained to a set of instances $\reqtc$, 
-assume that $S$ is simple and that \catcw is locally finite,
-suppose that $x_1,...x_n$ and $y$ are edges
- within sketch $S$ with common codomain, 
-if \msfd{x_1,...x_n}{y} is an intransitive functional dependency in \catcw  with respect to $\reqtc$
- then $\xnset$ is a designated mono source in \catc.
+\begin{frame}{Meeting BCNF}{\slidecontext}
+If $S$ is a sketch for a category $C$ with designated mono-sources, epi-mono factorisations  and finite products
+and that $S$ is considered as a data specification with requirement $\reqtc$, then 
+if $S$ is simple and \catcw is appropriately finite then $S$ as data specification
+with requirement $\reqtc$ meets the abstract BCNF criteria:
 
-Follows from the earlier constraints brought forward into this new scenario.
+\pause if  
+\multisourcenplusonediagram{n}{a}{b}{x}{c}{y}
+are edges of $S$
+and if \msfd{x_1,...x_n}{y}  is a non-trivial functional dependency  between these edges then
+$x_1,...x_n$ is a designated mono-source.
 \end{frame}
 
+
 \iffalse
-\begin{frame}{Referential Inclusion Dependencies}
+\begin{frame}{Referential Inclusion Dependencies}{\slidecontext}
 \begin{definition}
 If $\catc$ is a category with \thirdstructure, if $\reqtc$ is a set of instances 
 and if \fnsourceqnsource in $\catc$ and  $\set{q_1,...q_n}$ is a mono-source
@@ -108,7 +120,7 @@ for each $i$, $1 \leq i \le n$, $I_D \circ D(q_i) = D(f_i)$.
 \end{definition}
 \end{frame}
 
-\begin{frame}{Representation of Referential Inclusion Dependencies}
+\begin{frame}{Representation of Referential Inclusion Dependencies}{\slidecontext}
 \begin{definition}
 If $\catc$ is a category with \thirdstructure
 and if $\reqtc$ is a set of instances
