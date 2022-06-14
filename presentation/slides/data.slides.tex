@@ -1,11 +1,4 @@
-\begin{frame}{Levels of Data Specification}
-\begin{itemize}
-\item logical   -- a sketch for a category of some kind
-\item structural -- a sketch for some kind of category with distinguished morphisms indicating structural relationships
-\item representational -- structural PLUS representational indicators for non-structural relationships
-\item technological    -- IDL, SQL, XML 
-\end{itemize}
-\end{frame}
+
 
 \begin{frame}{Chemical Element Data}
 \scalebox{0.75}{
@@ -13,16 +6,27 @@
 }
 
 \begin{itemize}
-	\item Underline indicates some kind of key attribute i.e. some kind of uniqueness constraint.
+	\item An example of data organised in nested relations.
+	\item Underlined column indicates a key attribute and thereby a uniqueness constraint.
+	\item Some data relationships are represented by physical containment relationships in the message structure i.e. by nesting.
 \end{itemize}
-An example of data organised hierarchically. 
-I will use the A-word. Columns I will say are attributes. Attributes are string valued or integer valued or float  valued.
-Certain columns hold unique values. In database speak these are key attributes. In the language we use
-symbol is the primary key. Name is also unque and could have been chosen as the key instead. It is called a candidate key attribute.
+\end{frame}
 
+\lstdefinelanguage{MyIDL}[]{IDL}
+{morekeywords={Set,Of, struct},sensitive=true}
+\input{../content/chemistryData/definitions.tex}
 
-This data is displayed as described by the nested relational model of data. This is a hierarchical model.
-Other hierarchical models are that of XML. And that of Google ProtocolBuffer messaging system as described in protocol buffer IDL language.
+\begin{frame}[fragile]{Description of Chemical Element Table}
+In an IDL data specification it would look something like this:
+\only<1>{\lstinputlisting
+[basicstyle=\footnotesize,language=myIDL]
+{../content/chemistryData/element.idl}
+}
+\onslide<2->{\lstinputlisting
+[basicstyle=\footnotesize,keywordstyle={\ttfamily\color{green}\bfseries},language=myIDL]
+{../content/chemistryData/element.idl}
+}
+
 \end{frame}
 
 \begin{frame}{Chemical Compound Data}
@@ -31,10 +35,9 @@ Other hierarchical models are that of XML. And that of Google ProtocolBuffer mes
 }
 \begin{itemize}
 \item $\largeAsterisk$ Asterisk here denotes a foreign key attribute. 
-\pause This witnesses a relationship between this part of a formula and an element. \pause It implements a pointer.
-	\item The 'element' column is a foreign key into the `element' table i.e.
+\item The 'symbol' attribute is a foreign key into the `element' table i.e.
 	\begin{equation}
-	              formula[element] \subseteq element[symbol]
+	              formula[symbol] \subseteq element[symbol]
 	\end{equation}
 \end{itemize}	
 \end{frame}
@@ -43,39 +46,43 @@ Other hierarchical models are that of XML. And that of Google ProtocolBuffer mes
 A corresponding message structure might be defined 
 in an IDL style language by:
 
-\begin{lstlisting}[basicstyle=\footnotesize,language=IDL]
-struct compound => 
-    symbol: string,
-    name : string,
-    atomic_no: integer,
-    relative_atomoc_mass : float,
-    valencies: Set Of valency,
-    allotropes : Set of allotrope
+\only<1>{\lstinputlisting
+[basicstyle=\footnotesize,language=myIDL]
+{../content/chemistryData/compound.idl}
+}
+\onslide<2->{\lstinputlisting
+[basicstyle=\footnotesize,keywordstyle={\ttfamily\color{green}\bfseries},language=myIDL]
+{../content/chemistryData/compound.idl}
+}
 
-struct valency =>  number : integer 
-
-struct allotrope =>
-   name : string,
-   melting_point : float,
-   boiling_point : float,
-   density : float
-\end{lstlisting}
 \end{frame}
 
 
-
+\newcommand{\occurence}{\parbox{1.5cm}{occurring element}}
 
 \begin{frame}{Jackson Structure Diagrams}
 \begin{tabular}{c c}
-\scalebox{0.9}{\jacksonbinarydiagram{compound\kern0.1cm}{alias \kern1.2cm}{occurrence\kern0cm}}
+\scalebox{0.9}{\jacksonbinarydiagram{compound\kern0.1cm}{alias \kern1.2cm}{\occurence\kern0cm}}
 &
 \scalebox{0.9}{\jacksonbinarydiagram{element\kern0.4cm}{valency \kern0.8cm}{allotrope\kern0.3cm}}
 \end{tabular}
 \end{frame}
 
+\begin{frame}{Jackson Structure Diagrams}
+Diagrammatic niceties call an `'occuring element' an 'occurence'. 
+
+\begin{center}
+\begin{tabular}{c c}
+\scalebox{0.9}{\jacksonbinarydiagram{compound\kern0.1cm}{alias \kern1.2cm}{occurence\kern0cm}}
+&
+\scalebox{0.9}{\jacksonbinarydiagram{element\kern0.4cm}{valency \kern0.8cm}{allotrope\kern0.3cm}}
+\end{tabular}
+\end{center}
+\end{frame}
+
 \begin{frame}{Bachman Structure Diagrams}
 \begin{tabular}{c c}
-\scalebox{0.9}{\bachmanbinarydiagram[left]{compound\kern0.1cm}{alias \kern1.2cm}{occurrence}}
+\scalebox{0.9}{\bachmanbinarydiagram[left]{compound\kern0.1cm}{alias \kern1.2cm}{occurence}}
 &
 \scalebox{0.9}{\bachmanbinarydiagram[right]{element\kern0.4cm}{valency \kern0.8cm}{allotrope\kern0.3cm}}
 \end{tabular}
@@ -88,40 +95,40 @@ struct allotrope =>
 \end{frame}
 
 \begin{frame}{Bachman Network Diagram!!}
-\doublebachmannetworkdiagram{compound\kern0.1cm}{element\kern0.4cm}{alias \kern1.2cm}{occurrence\kern0cm}{valency \kern0.8cm}{allotrope\kern0.3cm}
+\doublebachmannetworkdiagram{compound\kern0.1cm}{element\kern0.4cm}{alias \kern1.2cm}{occurence\kern0cm}{valency \kern0.8cm}{allotrope\kern0.3cm}
 \end{frame}
 
 \begin{frame}{Network Diagram Morphisms Version}
-\doublecategorynetworkdiagram{compound\kern0.1cm}{element\kern0.4cm}{alias \kern1.2cm}{occurrence\kern0cm}{valency \kern0.8cm}{allotrope\kern0.3cm}
+\doublecategorynetworkdiagram{compound\kern0.1cm}{element\kern0.4cm}{alias \kern1.2cm}{occurence\kern0cm}{valency \kern0.8cm}{allotrope\kern0.3cm}
 
 \begin{itemize}
-	\item arrows now represent functional many-one relationships - these are mmorphisms
+	\item arrows now represent functional many-one relationships - these are morphisms
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}{Network Diagram Distinguished Morphisms Version}
-\contextualcategorynetworkdiagram{compound\kern0.1cm}{element\kern0.4cm}{alias \kern1.2cm}{occurrence\kern0cm}{valency \kern0.8cm}{allotrope\kern0.3cm}
+\contextualcategorynetworkdiagram{compound\kern0.1cm}{element\kern0.4cm}{alias \kern1.2cm}{occurence\kern0cm}{valency \kern0.8cm}{allotrope\kern0.3cm}
 \begin{itemize}
 	\item distinguished arrows now represent containment relationships
 	\item others represent foreign key implemented relationships
 \end{itemize}
 \end{frame}
 
-\begin{frame} 
-In my tables the relationship between occurence and element is implemented by the symbol attribute of the compound data.
-Looking up the symbol of an occurence in the symbol of the element data.
-The symbol attribue of compound is called a foreign key
-and the symbol attribute of the compound table is called a primary key. 
+\begin{frame}{Network Diagram Distinguished Morphisms Version Reorganised}
+\contextualcategorynetworkdiagramreorganised{compound\kern0.1cm}{element\kern0.4cm}{alias \kern1.2cm}{occurence\kern0cm}{valency \kern0.8cm}{allotrope\kern0.3cm}
+\begin{itemize}
+	\item distinguished arrows now represent containment relationships
+	\item others represent foreign key implemented relationships
+\end{itemize}
 \end{frame}
 
-\begin{frame}{Bachman Network Structure Representation}
-\begin{itemize}
-	\item Bachman is credited with the concept of network database.
-    \item A network structure can have parts `contained in' many non-commensurate wholes.
-    \item Using such we don't need commit to one hierarchy or the other. 
- \end{itemize}
-\bachmannetworkdiagram{compound\kern0.3cm}{element\kern0.6cm}{occurrence\kern0.2cm}
+\begin{frame}{Made clearer}
+\contextualcategorynetworkdiagramtopologised{compound\kern0.1cm}{element\kern0.4cm}{alias \kern0.6cm}{occurence\kern0cm}{valency \kern0.8cm}{allotrope\kern0.3cm}
+\end{frame}
+
+\begin{frame}{What if}
+\contextualcategorynetworkdiagramreorganisedtopologised{compound\kern0.1cm}{element\kern0.4cm}{alias \kern0.6cm}{occurence\kern0cm}{valency \kern0.8cm}{allotrope\kern0.3cm}
 \end{frame}
 
 \begin{frame}{Restructured Chemical Element Data}
@@ -130,69 +137,35 @@ and the symbol attribute of the compound table is called a primary key.
 }
 \end{frame}
 
-\begin{frame}
-\begin{center}
-\scalebox{0.75}{
-\input{../content/chemistrydata/relational/compound.relational.display.tabular}
-}
-\end{center}
+\begin{frame}{Purely Relational Data}
 \begin{itemize}
-	\item A purely relational table -- subset of cartesian product of `string' and `number' --  rows are tuples.  
-	\item The `name' column is the primary key. 
+	\item There is no nesting whatsoever
+	\item All relationships (arrows) implemented by foreign keys
 \end{itemize}
-\end{frame}
-\begin{frame}
-\begin{center}
+\begin{tabular}[t] {c c}
+\multicolumn{2}{c}{\scalebox{0.75}{
+\input{../content/chemistrydata/relational/compound.relational.display.tabular}
+}} \\[1cm]
 \scalebox{0.75}{
 \input{../content/chemistrydata/relational/aliases.display.tabular}
-}
-\end{center}
-\begin{itemize}
-\item	In this table
-\begin{itemize}
-	\item The `alias' column is a primary key.
-	\item The `aliased' column is a foreign key into the `compound' table i.e.
-	\begin{equation}
-	               aliases[aliased] \subseteq compound[name] 
-	\end{equation}
-	such as this known (and supported in relational software as) \term{referential integrity constraint}s or \term{foreign key constraint}s.) 
-\end{itemize}
-\end{itemize}
-\end{frame}
-\begin{frame}
-\begin{center}
+} &
 \scalebox{0.75}{
 \input{../content/chemistrydata/relational/formula.display.tabular}
 }
-\end{center}
-\begin{itemize}
-	\item In this table 
-	\begin{itemize}
-	\item The primary key is a composite of `name' and `element' columns.  
-	\item The 'compound' columns is a foreign key into the `compound' table i.e.
-	\begin{equation}
-	              formula[compound] \subseteq compound[name]
-	\end{equation}
-	\item The 'element' column is a foreign key into the `element' table i.e.
-	\begin{equation}
-	              formula[element] \subseteq element[symbol]
-	\end{equation}
-    \end{itemize}
-\end{itemize}
+\end{tabular}
+
 \end{frame}
 
 
-\begin{frame}{All three}
-\scalebox{0.75}{
-\input{../content/chemistrydata/relational/formula.display.tabular}
-}
-\scalebox{0.75}{
-\input{../content/chemistrydata/relational/aliases.display.tabular}
-}
-\scalebox{0.75}{
-\input{../content/chemistrydata/relational/compound.relational.display.tabular}
-}
+
+
+\begin{frame}{Logical Data Specification of the Chemical Elements as a Directed Graph}
+\scalebox{0.9}{
+\input{../content/chemistryData/chemicalElementGraphVariant}
+} 
 \end{frame}
+
+
 
 
 

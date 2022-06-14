@@ -1,27 +1,16 @@
+\comingnext{Sketches of Categories with Designated Monomorphisms and Epimorphisms as Data Specifications}
 
-\iffalse %DONT NEED THIS -- CHANGE OF APPROACH
-\begin{frame}{Definition}
-A \term{category with epi-mono splits} is a category such that for all $f:x \morph y$
-in \catcw there exists an object $img(f)$, an epimorphism $f_e:x \morph img(f)$
-and a monomorphism $f_m:img(f) \morph y$ such that
-\scalebox{0.9}{\roomup{1.3cm}\epimonosplitdiagram{x}{y}{f}}
-commutes. 
-
-An \term{instance} of a category with epi-mono splits \catcw is a functor from 
-\catcw to the category $\Fin$ of finite sets and functions that preserves epimorphims and monomorphisms.
-\end{frame}
-\fi
-
+\renewcommand{\slidecontext}{Sketches of Categories with Designated Mono's and Epi's as Data Specifications}
 
 \begin{frame}{Definition}
 \begin{itemize}
 \item A \term{\catMEterm} is a triple $\tuple{\catc,M,E}$ where 
 \begin{itemize}
 \item \catcw is a category,
-\item $M$ is a set of designated monomorphisms of \catc closed under composition and including all identity morphisms,
-\item $E$ is a set of designated epimorphisms of \catc closed under composition and including all identity morphisms.
+\item $M$ is a set of designated monomorphisms of \catcw closed under composition and including all identity morphisms,
+\item $E$ is a set of designated epimorphisms of \catcw closed under composition and including all identity morphisms.
 \end{itemize}
-\item An instance $F$ of a \catMEterm is a functor $F: \catc \morph \Fin$ 
+\item Define an instance $F$ of a \catMEterm to be a functor $F: \catc \morph \Fin$ 
 that preserves the designated monomorphisms and epimorphisms.
 
 %Note that \catcw may well have other monomorphisms and epimorphisms but these need not be preserved by an instance $F$.
@@ -33,110 +22,279 @@ that preserves the designated monomorphisms and epimorphisms.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Goodness Type1 Criteria}
-bring forward from previous case and then add
+\begin{frame}{Goodness Type 1 Criteria}{\slidecontext}
+\medskip
+\goodnessoneA.
+\medskip
+\goodnessoneB.
+
+\goodnessoneC. \\
+\medskip
+\goodnessoneD. \\
+\medskip
+
+Definition of closure of set of monomorphics includes
 \begin{itemize}
-    \item there are no identity morphisms in $M$ or $E$,
-\item if paths $f$ and $g$ are in $M_0$ then $f \circ g$ ought not to be in $M_0$,
-\item if paths $f$ and $g$ are in $E_0$ then $f \circ g$ ought not to be in $E_0$.
+\item $f \in \overline{M}$ and $g \in \overline{M}$ then $f \circ g \in \overline{M}$
+\item $f \circ g \in \overline{M}$ then $f \in \overline{M}$
 \end{itemize}
+and to which we might add the rule that expresses the finitary property.
 \end{frame}
 
-\begin{frame}{Definitions}
-A functional depdency is said to be \term{transitive} ...
-
-Otherwise a functional dependency is said to be \term{intransitive}.
-\end{frame}
-
-
-\begin{frame}{Revised Definition of Functional Dependency}
+\begin{frame}{Revised Definition of Functional Dependency}{\slidecontext}
 \begin{definition}
 If \scalebox{0.9}{\fgsourcediagram} in a \catMEterm \catcw  and if $\reqtc$ is a set of instances of \catcw
 then we say that there is a  \term{functional dependency} of $g$ on $f$ with respect to $\reqtc$ iff
 for every $D \in \reqtc$, $D(g)$ factors through $D(f)$. \\
 \medskip
-Equivalently there is a family of unique functions $H_D:img(D(f)) \morph D(c))_{D \in \reqtc}$
+\pause Equivalently there is a family of  functions $H_D:img(D(f)) \morph D(c))_{D \in \reqtc}$
 such that in each instance $D \in \reqtc$,
 \scalebox{0.9}{\fghfactordiagram{\roomup{0.4cm}\roomdown{0.3cm}D(a)}{img(D(f))}{D(c)}{D(f)}{D(g)}{H_D}} commutes.
 \end{definition}
-
-If $H$ is such a functional dependency then we say that $\fundep{H}{f}{g}$ in $\catc$ with respect to $\reqtc$.
 \end{frame}
 
-\begin{frame}{Representation of FDs}
-\begin{definition}
-%If there is a functional dependency $\fundep{H}{f}{g}$ $\catc$ is such a category and $\reqtc$ is a set of instances, 
-If $\fundep{H}{f}{g}$ is an \highlight{intransitive}  functional dependency wrt such a category \catcw and set of instances $\reqtc$, 
-where \scalebox{0.9}{\roomdown{0.8cm}\fgsourcediagram} in $\catc$, 
-then $H$  is \term{represented} in $\catcw$ 
-iff there exists an object $d$ of \catc, a monomorphism $q$ and a morphism $h$
-like so:
-\scalebox{0.9}{\roomup{1.2cm}\unaryfdrepresentationdiagram{a}{b}{c}{f}{g}{d}{q}{h}}
-such that in every instance $D \in \reqtc$,
-\scalebox{0.9}{\roomup{1.2cm}\unaryfdrepresentationmappeddiagram{a}{b}{c}{f}{g}{d}{q}{h}} commutes.
-\end{definition}
+\newcommand{\representationdiagram}{
+\newcommand{\myspacing}{0.15cm}
+$
+\begin{array}[t]{c p{1.25cm} c c p{0.5cm} c}
+            &&             &                 && \Rnode{b}{b}         \\[1.0cm]
+            &&             & \Rnode{d1}{d_1} &&                      \\[\myspacing]
+            &&             &                 && \Rnode{b1}{b_1}      \\[\myspacing]
+            &&             & \Rnode{d2}{d_2} &&                      \\[\myspacing]
+\Rnode{a}{a}&&             &                 && \Rnode{b2}{b_2}      \\ 
+            &&             & \vdots          && \vdots               \\
+            &&             &                 && \Rnode{bnp}{b_{n-1}} \\[\myspacing]
+            &&             & \Rnode{dn}{d_n} &&                      \\[1.0cm]
+            &&             &                 && \Rnode{c}{c}  
+\end{array}
+\begin{arrows}
+\ncarr[20]{a}{b}\alabel{f}
+\ncarr[-20]{a}{c}\blabel{g}
+\ncarr[-5]{d1}{b}\alabel{q_1}[0.35]\idcomp
+\ncarr{d1}{b1}\alabel{h_1}[0.5][0]
+\ncarr{d2}{b1}\alabel{q_2}[0.35]\idcomp
+\ncarr{d2}{b2}\alabel{h_2}[0.5][0]
+\ncarr{dn}{bnp}\alabel{q_n}[0.35]\idcomp
+\ncarr[5]{dn}{c}\alabel{h_n}[0.5][1]
+\end{arrows}
+$
+}
+
+\newcommand{\fullrepresentationdiagram}{
+\representationdiagram
+$
+\begin{arrows}
+\ncarr{a}{d1}\alabel{f_1}[0.675]
+\ncarr{a}{d2}\alabel{f_2}[0.65]
+\ncarr{a}{dn}\alabel{f_n}[0.7][-1]
+\end{arrows}
+$
+}
+
+\newcommand{\mappedrepresentationdiagram}{
+\newcommand{\myspacing}{0.25cm}
+$
+\begin{array}{ c p{0.2cm} c p{0.5cm} c}
+\Rnode{Imgf}{Img(D(f))} && \Rnode{b}{D(b)}   &&                   \\[\myspacing]
+                        &&                   &&\Rnode{d1}{D(d_1)} \\[\myspacing]
+                        &&\Rnode{b1}{D(b_1)} &&                   \\[\myspacing]
+                        &&                   &&\Rnode{d2}{D(d_2)} \\[\myspacing]
+                        &&\Rnode{b2}{D(b_2)} &&                   \\ %\multirow{2}{5pt}{\vdots}   \\
+                        &&\vdots             &&\vdots             \\
+                        &&\Rnode{bnp}{d(b_{n-1})} &&           \\[\myspacing]
+                        &&                   &&\Rnode{dn}{D(d_n)} \\[\myspacing]
+\Rnode{c}{D(c)}  
+\end{array}
+\begin{arrows}
+\ncline{H->}{Imgf}{b}
+\ncarr{Imgf}{c}\alabel{H_D}
+\ncarr[5]{b}{d1}\alabel{D(q_1)^{-1}}[0.5][-3]
+\ncarr{d1}{b1}\blabel{D(h_1)}[0.5][-1]
+\ncarr{b1}{d2}\alabel{D(q_2)^{-1}}[0.5][-3]
+\ncarr{d2}{b2}\blabel{D(h_2)}[0.5][-1]
+\ncarr{bnp}{dn}\alabel{D(q_n)^{-1}}[0.5][-3]
+\ncarr[5]{dn}{c}\alabel{D(h_n)}[0.5][-1]
+\end{arrows}
+$
+}
+
+\begin{frame}{Sublemma}
+If \catcw is a category with designated monomorphisms and epimorphsims 
+if 
+ $$F: \catcw \morph \Fin$$
+  is a functor which preserves designated monomorphisms
+then there is an 
+$$F':\catcw \morph \Fin$$
+that preserves designated monomorphisms and epimorphisms
+and that extends $F$ i.e. such that $F \hookrightarrow F'$ in the functor category $\Fin^{\catc}$.
 \end{frame}
 
+\begin{frame}{Proof of SubLemma}
+Hand wavy proof as follows:
 
-\begin{frame}{Lemma}
-\begin{lemma}
-If \catcw is a \catMEterm with a finite sketch and if $f$ is any  morphism 
-not having an epi-mono split then \catcw can be extended to a category $\catcp$ with finite sketch so that
-\begin{itemize} 
-\item $f$ has an epi-mono split in $\catcp$,
-\item every morphism $h:im(f) \morph x$ in $\catcp$ factors through $f_m$,
-\item every instance of \catcw uniquely extends, upto isomorphism, to an instance of $\catcp$,
-\item \catcw is maximally constrained to $\reqtc$ iff $\catcp$ is maximally constrained to $\reqtc$ (extended to $\catcp$).
-\end{itemize} 
-\end{lemma} 
+If \catcw is a category with designated epimorphisms then let its split category 
+$\catc_s$ be the category \catcw with an additional split morphism for every designated epimorphism.
+i.e. for every designated epimorphism $f: a \morph b$ we add a morphism $f_s:b \morph a$
+such that $f_s \circ f = id_B$. \\
+
+There is an inclusion functor $I_s:\catc \morph \catc_s$.
+
+Extend $F:\catcw \morph \Fin$ along this inclusion functor  to get a functor 
+$F_s:\catc_s \morph \Fin$ and a natural transformation $F \hookrightarrow I_s \circ F_s$. \\
+\medskip
+Nature of the construction is such that $F_s$ preserves designated monomorphisms because $F$ does.\\
+\medskip
+$F_s$ preserves designated epimorphisms since any functor preserves split epimorphisms.
+Define $F'$ to be $I_s \circ F_s$.
 \end{frame}
-\begin{frame}{Representation Lemma for FDs}
-{\small Note: I can prove this only in the case that \catcw is locally finite.
 
-No longer restricted to the case that each $D(f)$ is surjective.}
-
-\begin{lemma}
-If $\catc$ is a locally finite \catMEterm that is 
+\begin{frame}{Representation for FDs Part One}{\slidecontext}
+If \catcw is a category with designated monomorphisms and epimorphsims  and if \catcw is
 \textit{maximally constrained} to a requirement $\reqtc$ then
-if $\fundep{H}{f}{g}$  is an \highlight{intransitive}  functional dependency with respect to $\reqtc$
-then $\fundep{H}{f}{g}$ is represented in $\catc$.
-\end{lemma}
-\begin{proof} If $f$ has a mono-epi split then
-\scalebox{0.9}{\unaryfdrepresentationdiagram{\roomup{0.6cm}\roomdown{0.4cm}a}{b}{c}{f}{g}{im(f)}{f_m}{h}$\begin{arrows}\ncarr{a}{d}\alabel{f_e}\end{arrows}$} commutes in \catcw  where $h$ represents 
-the functional dependency of $g$ on $f_e$.
-%whose existence is given by previous version of this lemma.
-Otherwise extend \catcw so that $f$ has an epi-mono split.
-Establish a $h: b \morph c$ in \catcw that represents $H$.
+if $\fundep{H}{f}{g}$  is a functional dependency with respect to $\reqtc$
+then there is a diagram\\
+\medskip
+\begin{minipage}[t][.45cm][t]{5.5cm} %just to get alignment at top small height content pos t 
+\scalebox{0.9}{\representationdiagram} 
+\hspace*{\fill} in \catc
+\end{minipage} 
+\pause \begin{minipage}[t]{4.5cm}
+such that for each $D \in \reqtc$
+\scalebox{0.85}{\mappedrepresentationdiagram}
+\hspace*{\fill} commutes.
+\end{minipage}
+\end{frame}
+
+\begin{frame}{Representation Lemma for FDs Part Two}{\slidecontext}
+If in addition the underlying category \catcw is maximally constrained  
+ to the requirement $\reqtc$ then
+there are morphisms $f_1,...fn$ such that
+then $\fundep{H}{f}{g}$ is represented in $\catc$ by  $n+1$ commuting diagrams
+as follows
+\begin{center}
+\scalebox{0.9}{\fullrepresentationdiagram}
+\end{center} 
+\end{frame}
+
+\begin{frame}{Significance}
+In this situation if \catcw is doubly maximally constrained 
+and if \scalebox{0.9}{\fgsourcediagram} in \catcw
+then if $D(g)$ factors through
+$D(f)$ in every instance $D \in \reqtc$  then   
+$F(g)$ factors through
+$F(f)$ for every instance $F: \catc \morph \Fin$. 
+\end{frame}
+
+\iffalse
+\begin{frame} {Proof}
+\highlight{Get rid of this proof -- need cut and paste somewhere I can later find it}
+\highlight{Also copy later into key result.}
+\begin{proof} Extend \catcw to \catcpw so that $f$ has an epi-mono factorisation in \catcpw
+and so that there  is a morphism $\qq{h}$ such that
+\scalebox{0.9}{\unaryfdrepresentationdiagram{\roomup{0.6cm}\roomdown{0.4cm}a}{b}{c}{f}{g}{im(f)}{f_m}{\qq{h}}$
+\begin{arrows}\ncarr{a}{d}\alabel{f_e}\end{arrows}$} 
+commutes in \catcp.  
 \end{proof}
 \end{frame}
 
-\begin{frame}{Epi Mono Type 2 Goodness Criteria}
-From local finiteness and maximal constrainedness it follows that all the following goodness criteria hold: 
+\begin{frame}{Proof cont. 1}
+We have \fgsourcediagram in \catc. \highlight{\footnotesize See handwritten notes 12/06/22 for other details of this proof.}\\
+\medskip
+Define functor $F: \catc \morph \Fin$ be the coproduct $Hom_{\catc}(a,-) + Hom_{\catc}(a,-)$
+as previously with injections $L$ and $R$, respectively so that
+for each object $x$ of \catcw the diagram
+\begin{center}
+$
+\begin{array}{c p{0.5cm} c p{0.5cm} c  }
+\Rnode{h1}{Hom_{\catc}(a,x)}  &&\Rnode{Fx}{F(x)}  &&   \Rnode{h2}{Hom_{\catc}(a,x)}       
+\end{array} 
+$
+\ncarr{h1}{Fx}
+\alabel{L_x}
+\ncarr{h2}{Fx}
+\blabel{R_x}
+\end{center}
+is a coproduct in $\Fin$.
+\medskip
+Define $G: \catc \morph \Fin$ as quotient $F/\sim$ where 
+to ensure $G$ preserves designated monomorphisms  $\sim$ is defined as follows
+\begin{align*}
+L_x(k_1) \sim_x R_x(k_2) & \mbox{ \parbox{6cm}{iff  $k_1=k_2$ and there is a functional dependency 
+$f \morph k_1$ in \catcw with respect to $\reqtc$ and  this functional dependency is represented in \catc.}}\\
+L_x(k_1) \sim_x L_x(k_2) & \mbox{ iff $k_1 = k_2$,} \\
+R_x(k_1) \sim_x R_x(k_2) & \mbox{ iff $k_1 = k_2$.} \\
+\end{align*} 
+\end{frame}
+
+\begin{frame}{Proof cont 2.}
+We have \simpleunaryfdrepresentationdiagram{a}{Im(f)}{c}{f_e}{g}{\qq{h}}  in \catcp.\\
+\medskip
+Extend $G$ to $G':\catcp \morph \Fin.$ \\
+Because $f_m$ is a designated monomorphism and $f_e \circ f_m = f$ then
+there is a representation of functional dependency $f \morph f_e$ in \catc.
+Hence  we have that $[L_b(f_e)]= [R_b(f_e)]$.
+\medskip
+\begin{align*}
+&\mbox{i.e.}& G'(f_e)([L_a(id_a)])              &= G'(f_e)([R_a(id_a)])       \\
+&\therefore & G'(\qq{h}) (G'(f_e)([L_a(id_a)])) &= G'(\qq{h}) (G'(f_e)([R_a(id_a)])) \\
+&\therefore & G'(g)([L_a(id_a)])              &= G'(g)([R_a(id_a)]) & &    \\
+&\therefore & [L_c(g)] &= [R_c(g)] 
+\end{align*}
+Therefore by definition of $\sim$ the functional dependency
+$\fundep{H}{f}{g}$ is represented in $\catc$.
+\end{frame}
+\fi
+
+\begin{frame}{Type 2 Goodness Criteria}{\slidecontext}
+From double maximal constrainedness it follows that all the following goodness criteria are met: 
 \begin{itemize}
 \item \textbf{2A}:  \catcw ought to be equationally complete wrt $\reqtc$,         
-\item \textbf{2B}:  all $\reqtc$ intransitive functional depedencies ought to be represented in \catc,
+\item \textbf{2B}:  all $\reqtc$ functional depedencies ought to be represented in \catc,
 \item \textbf{2C}:  all $\reqtc$ referential inclusion dependencies ought to be represented in \catc, 
 \pause \item \textbf{2D}:  if $f$ is injective in every $D \in \reqtc$ then $f$ ought to be a designated monomorphism in \catc,
 \pause \item \textbf{2E}:  if $f$ is surjective in every $D \in \reqtc$ then $f$ ought to be a designated epimorphism in \catc.
 \end{itemize}
-We can also show that \textbf{2B} can be weakened. If all intransitive dependencies \textbf{upon edges} from sketch $S$ are represented then 
-all intransitive depedencies are represented.
+\iffalse
+We can also show that \textbf{2B} can be weakened. If all functional dependencies \textbf{upon edges} from sketch $S$ are represented then all functional dependencies are represented. \highlight{Too much information}
+\fi
 \end{frame}
 
-\begin{frame}{Simplifying Assumption}
-Say that the sketch $S$ is simple if it is minimal (no equivalent subsketches) and if there are no path equivalences in $S$ in which one side path or the other is of length 1.  
-\end{frame}
-
-
-\begin{frame}{Tellingly...}
-With the additional assumption now that $S$ is simple we can show that if
-ff goodness criteria 2A and 2B then 
+\begin{frame}{Further Assumptions}
+Now we will make two further assumptions.
 \begin{itemize}
-\item If $\fundep{H}{f}{g}$ is a non-trivial \highlight{intransitive}  functional dependency wrt  category \catcw and set of instances $\reqtc$
- then $f$ is a monomorphism.
+\item That category \catcw has epi-mono factorisations.
+\item \goodnesscriteria{1F}: That the sketch $S$ is simple i.e there are no path equivalences 
+in the sketch in which one side has length 1. 
+\end{itemize}
+Criteria 1F rules out, for example, edges $y$ and $r$ such that $r \circ y = y$.
+\end{frame}
 
-\item This moves us into sight of the goal of "explaining the BCNF (normal form) criteria from first principle". \highlight{Much earlier need to state BCNF.}
-
-\item To get closer we need add finite products to the mix.
+\begin{frame}{Assuming epi-mono factorisations}{Suitable Category with Designated Mono's and Epi's}
+\begin{itemize}
+\item For every functional dependency $\fundep{H}{f}{g}$ where \fgsourcediagram in \catcw 
+there is an object $d$, a designated monomorphism $m:d \morph b$ and a morphism
+$h: d \morph c$ such that 
+$
+\begin{array}{c p{0.1cm} c p{0.1cm} c}
+             && \Rnode{b}{b} &&              \\[0.5cm]
+\Rnode{a}{a} &&              && \Rnode{d}{d} \\[0.5cm]
+             && \Rnode{c}{c} &&   
+\end{array}
+\begin{arrows}
+\ncarr{a}{b} \alabel{f}
+\ncarr{a}{c} \blabel{g}
+\ncarr{d}{b} \blabel{m} \idcomp
+\ncarr{d}{c} \alabel{h} 
+\end{arrows}
+$ commutes.
+\item This gives us the unary case of BCNF: if $S$ is  \textit{simple} sketch for a
+\textit{suitable} category $C$ with designated 
+monomorphisms and epimorphisms and epi-mono factorisations which is double maximally constrained to requirements 
+$\reqtc$ then
+if  $\fundep{H}{x}{y}$ is a non-trivial functional dependency between edges $x$ and $y$ of the sketch $S$
+then $f$ is a designated monomorphism.
 \end{itemize}
 \end{frame}
+
+
+

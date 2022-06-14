@@ -1,0 +1,48 @@
+\newcommand{\nestedcell}[3]{
+\cline {2-2}
+\rowcolor{#1} &\multicolumn{1}{|c|}{ \cellcolor{#2}#3}&\\
+\cline {2-2}
+\rowcolor{#1} & & \\
+}
+
+\newcommand{\databasesubtypes}{
+\begin{tabular}{| p{0.05cm} c p{0.05cm}|}
+\hline
+\rowcolor{white}\multicolumn{3}{|l|}{\roomdown{0.25cm}database specific}\\
+\nestedcell{white}{lightyellow}{relational(rdb)--SQL}
+\nestedcell{white}{lightyellow}{nrdb}
+\nestedcell{white}{lightyellow}{hierarchical--IMS}
+\nestedcell{white}{lightyellow}{network--CODASYL}
+\hline
+\end{tabular}	
+}
+
+\newcommand{\innermessagingsubtypes}{
+\begin{tabular}{p{0.05cm} c  p{0.05cm}}
+\hline
+\multicolumn{3}{l}{\roomdown{0.25cm}pointer free}\\
+\nestedcell{lightyellow}{white}{XML}
+\nestedcell{lightyellow}{white}{IDL-PB}
+\hline
+\end{tabular}	
+}
+
+\newcommand{\messagingsubtypes}{
+\begin{tabular}{| p{0.05cm} c p{0.05cm}|}
+\hline
+\rowcolor{white}\multicolumn{3}{|l|}{\roomdown{0.25cm}message specific}\\
+\nestedcell{white}{lightyellow}{\innermessagingsubtypes}
+\nestedcell{white}{lightyellow}{IDL-CMU}
+\hline
+\end{tabular}	
+}
+
+\begin{frame}{Data specification methods}
+\begin{tabular} {|p{0.05cm} c p{0.05cm} c p{0.05cm}|}
+\hline
+\rowcolor{lightyellow}\multicolumn{5}{|l|}{\roomdown{0.25cm}data specification methods} \\
+\rowcolor{lightyellow} &\databasesubtypes && \messagingsubtypes &     \\
+\rowcolor{lightyellow} &                  &&                    &     \\
+\hline
+\end{tabular}
+\end{frame}

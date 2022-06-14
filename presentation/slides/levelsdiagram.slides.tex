@@ -1,0 +1,104 @@
+\newcommand{\bigdownarrow}
+{\scalebox{0.3}{
+\begin{pspicture}(3,3.5) 
+%\psgrid
+%\psset{doublesep=2cm} 
+\psBigArrow[fillstyle=solid, fillcolor=blue!30,linecolor=blue](2.0,3)(2.0,0)
+\end{pspicture}
+}}
+\newcommand{\biguparrow}
+{\scalebox{0.3}{
+\begin{pspicture}(3,3.5) 
+%\psgrid
+%\psset{doublesep=2cm} 
+\psBigArrow[fillstyle=solid, fillcolor=red!30,linecolor=red](1.1,0)(1.1,3)
+\end{pspicture}
+}}
+\begin{frame}{Logical and Technological Data Specifications}
+\begin{center}
+\begin{tabular}{c l}
+\cline{1-1}
+\multicolumn{1}{|c|}{logical} &  \raisebox{0cm}{\parbox{5cm}{sketch of category of some kind}} \\
+\cline{1-1}
+\multicolumn{1}{c}{\bigdownarrow} &  \\
+\cline{1-1}
+\multicolumn{1}{|c|}{technological} & \raisebox{0cm}{\parbox{5cm}{IDL, XML, SQL, etc.}}\\
+\cline{1-1}
+\end{tabular}
+\end{center}
+\begin{itemize}
+    \item there is a logical data specification i.e. a sketch of a category behind every 
+    technological data specification
+    \item the generic goodness criteria are defined at the logical level
+    \item I will show that a relational data specification passes the BCNF test
+    iff its logical specification satisfies certain generic goodness criteria
+    \item logical specifications are technology neutral. A single logical data specification can be carried forward into multiple technological specifications i.e. one for each technology or language of interest.
+\end{itemize}
+\end{frame}
+
+\newcommand{\fourlevelstabular}
+{
+\begin{tabular}{c}
+\cline{1-1}
+\multicolumn{1}{|c|}{logical}     \\
+\cline{1-1}
+\multicolumn{1}{c}{\bigdownarrow} \\
+\cline{1-1}
+\multicolumn{1}{|c|}{structural}  \\
+\cline{1-1} \\[-0.3cm]
+\multicolumn{1}{c}{\bigdownarrow} \\
+\cline{1-1}
+\multicolumn{1}{|c|}{representational} \\
+\cline{1-1} \\[-0.3cm]
+\multicolumn{1}{c}{\bigdownarrow}   \\
+\cline{1-1}
+\multicolumn{1}{|c|}{technological} \\
+\cline{1-1}
+\end{tabular}   
+}
+
+\newcommand{\fourlevelstexttabular}
+{
+\begin{tabular}{p{6cm}}
+\onslide<1->\\[-0.2cm]
+\onslide<1->sketch of category of some kind \\[0.5cm]
+\onslide<2->sketch as above with morphisms distinguished to indicate implementation by containment relationship  \\[0.1cm]
+\onslide<3-> sketch with distinguised morphisms plus  foreign keys for some non-distinguished morphisms \\[0.3cm]
+\onslide<1->IDL, XML, SQL etc\\
+all relationships implemented by pointers, foreign keys or containment
+\end{tabular}   
+}
+
+\begin{frame}{Different Levels of Data Specification}{different amounts of detail}
+\begin{center}
+\begin{tabular}{c c}
+\fourlevelstabular&\pause\fourlevelstexttabular 
+\end{tabular}
+\end{center}
+\end{frame}
+
+\iffalse
+\begin{frame}{Different Kinds of Data Specification}
+\begin{center}
+\begin{tabular}{c l}
+\cline{1-1}
+\multicolumn{1}{|c|}{logical} &  \raisebox{0cm}{\parbox{5cm}{sketch of category of some kind}} \\
+\cline{1-1}
+\\[-0.1cm]
+\multicolumn{1}{c}{\bigdownarrow} & \raisebox{0.5cm}{\parbox{6cm}{distinguish morphisms/relationships represented in data by containment}} \\
+\cline{1-1}
+\multicolumn{1}{|c|}{structural} &\\
+\cline{1-1}
+\multicolumn{1}{c}{\bigdownarrow} & \raisebox{0.5cm}{\parbox{6cm}{add edges for foreign keys representing non-containment relationships and add path equivalences that define them}} \\
+\cline{1-1}
+\multicolumn{1}{|c|}{representational} & \\
+\cline{1-1}
+\\[-0.1cm]
+\multicolumn{1}{c}{\bigdownarrow} & \raisebox{0.5cm}{choice of technology} \\
+\cline{1-1}
+\multicolumn{1}{|c|}{technological} & \raisebox{0cm}{\parbox{5cm}{IDL, XML, SQL}}\\
+\cline{1-1}
+\end{tabular}
+\end{center}
+\end{frame}
+\fi

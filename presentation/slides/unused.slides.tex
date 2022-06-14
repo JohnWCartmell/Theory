@@ -1,0 +1,76 @@
+
+\subsection{Sketch Monics}
+\input{../slides/sketchmonics.slides}
+
+
+\begin{frame}{Types all of whose instances are Universals}
+\begin{itemize}
+\item In language theory, formal grammars have terminals (and non-terminals)
+\pause \item In data specifications, we have use of basic types string, integer, float, boolean and so on
+              in addition maybe define enumerations 
+\pause \item in categorical data types we have  i.e coproducts of terminal object
+\pause \item In relational data models we have domains
+\pause \item in ER models many-one relationships to the basic types are called attributes and are graphically distinct from other relationships.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Identifying Features in Database Specifications}
+\begin{itemize}
+\item database specifications are data specifications in which types of entity have 
+identifying features
+\item combination of relationships which can identify an entity unquely
+i.e a mono source
+\item achieves principle of identity of indiscernibles
+\end {itemize}
+\end{frame}
+
+\begin{frame}{Normalisation}
+\begin{definition}
+{ \footnotesize
+If $T$ is a theory and $W \subset |Fun(T,\Fin)|$ is an intended usage then an interpretation (theory morphism) $I: T \morph T'$ is an improvement of $T$ wrt $W$ iff 
+$Fun(I,\Fin): Fun(U',\Fin) \morph Fun(U,\Fin)$ is injective but not surjective
+and $W \subseteq img(Fun(I,\Fin))$.
+i.e. for all models $U \in W$ there exists $U' \in Fun(T,\Fin)$ such that $I \circ U'=U$
+$
+\begin{array} {c p{2cm} c}
+\Rnode{Cp}{C'} && \\ [0.25cm]
+             && \Rnode{finset}{\Fin} \\ [0.25cm]
+\Rnode{C}{C}  
+\end{array}
+\begin{arrows}
+\ncarr {C}{finset}
+\blabel{U}
+\ncarr{C}{Cp}
+\alabel{I}
+\ncarr{Cp}{finset}
+\alabel{U'} 
+\end{arrows}
+$
+}
+\end{definition}
+
+\begin{definition}
+If a theory $T$ has no improvement wrt to an intended usage $W$ then $T$ is said to be \textit{optimally formulated} wrt $W$.
+\end{definition}
+\end{frame}
+
+\begin{frame}{Propositions}
+\begin{itemize}
+\item If a relational schema $R$ can be normalised to $R'$ then the associated theory $T$ of $R$ can be improved to the associated thery $T'$ of $R'$.
+
+\item If a relational database schema is in normal form then its associated theory is optimally formulated.
+\end{itemize}
+\end{frame} 
+
+\begin{frame}
+\begin{definition}
+Define \catcw to be \textit{maximally constrained} to the requirement $\reqtc$ iff 
+for all structured categories $\catcp$ 
+and for all structure preserving functors $I:\catc \morph \catcp$ 
+satisfying that for all functors $D \in \reqtc$ 
+there exists a  unique $D' : \catcp \morph \Fin$ such that $Z \circ D'=D$,
+then for all functors $F: \catc \morph \Fin$  
+there exists an $F' : \catcp \morph \Fin$ such that $I \circ F'=F$.
+\end{definition}
+\end{frame}

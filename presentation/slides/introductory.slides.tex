@@ -1,47 +1,132 @@
 
-\begin{frame}{Introduction}
+\begin{frame}{Relational Normal Form Criteria}
+Classic relational database normal form criteria 
 \begin{itemize}
-\item
-What types of things are there and how are they related? 
-\begin{itemize}
-\pause \item Data specifications provide the answer to this question in the context of a software development. 
-\pause \item Types theories provide the answer in the context of mathematics. 
-\pause \item Category theory abstracts across both these domains.
-\end{itemize}
+    \item are not really normal forms!
+    \item are goodness criteria (GC) that articulate good engineering principles
+    \item they include:
+        \begin{center}
+        \begin{tabular}{p{6.0cm}  l }
+         \innerbullet first normal form (1NF)            &\Rnode{A1}{}                       \\
+         \innerbullet 2nd normal form (2NF)              &                                   \\
+         \innerbullet 3rd normal form (3NF)              &
+                      \Rnode{A2}{}\braceLabel{A1}{A2}{Codd 1970,1971}                        \\
+         \innerbullet Boyce-Codd normal form (BCNF)      &                                   \\
+         \innerbullet 4th normal form (4NF)              & -- Fagin 1977                     \\
+         \innerbullet projection-join normal form (5NF)  & -- Fagin 1979                     \\
+         \innerbullet inclusion normal form (IN-NF)      & -- Ling and Goh  1992
+        \end{tabular}
+        \end{center}
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Overview}
-Data specification method 
+\begin{frame}{Introduction}
+I wish to show that
 \begin{itemize}
-\item is a method for expressing a  theory (of what is)
+\item we can genericise relational database normal form criteria into abstract logical terms,
+\item achieve goodness criteria that are generic i.e. can be applied to any data specifications not just to relational schema,
+ \item that the classic relational database normal form criteria (2NF, 3NF, BCNF, INC-NF, 4NF, 5NF)  are  consequences of these generic goodness criteria.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{View}
+A data specification  
+\begin{itemize}
+\item is a  theory (of what is)
+\end{itemize}
+\medskip
+A data specification method 
+\begin{itemize}
+\item is a method for expressing such a  theory
 \item unequivocally it enables definitions of types and certain relationships between these types
 \item types are equally types of data and types of real world entity
 \end{itemize}
+More precisely, 
+\begin{itemize}
+\item data specification are \underline{presentations} of theories of what is,
+\item choice of primitives in a given presentation is choice of which data to be stored or communicated.
+\end{itemize}
 \end{frame}
 
+\begin{frame}{Goodness Criteria}
+I will define two types of goodness criteria
+\begin{itemize}
+    \item Goodness Criteria of Type 1 -- absence of redundancy in presentation.
+    \item Ensures absence of redundancy in data and in data management logic.
+    \item Spelt out in more detail in criteria 1A, 1B and so on
+    \item  Goodness Criteria of Type 2 -- the theory be the tightest fit to the facts 
+    \item Two ways of expressing this. 
+    \begin{itemize}
+        \item Criteria 2 is that the theory is maximally constrained.
+        \item Criteria 2A, 2B etc.  that it be logically complete in some sense.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Data Specification as Category}
+\begin{itemize}
+ \item Not surprising that a data specification can represented as a category or as a sketch of a category
+\pause \item
+What types of things are there and how are they related? 
+\begin{itemize}
+\item Data specifications provide the answer to this question in the context of a software development. 
+\item Types theories provide the answer in the context of mathematics. 
+\item Category theory abstracts across both these domains.
+\end{itemize}
+\pause \item Nor is it surpising if data specifications can be seen in terms
+of contextual categories or a sketches for a contextual categories
+because as categories model types so contextual categories model types that vary
+and  our instinct for types and types that vary comes from the real world not from mathematics.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Overview}
+\begin{center}
+\begin{tabular}{p{12cm}}
+\begin{itemize}
+    \item data specifications 
+    \begin{itemize}
+        \item as sketches of structured categories of some kind
+        \item data instances as certain structure preserving functors to the category of finite sets $\Fin$
+    \end{itemize}
+    \item database specifications
+    \begin{itemize}
+         \item category has designated mono sources for some of its objects 
+    \end{itemize}
+    \item relational database specifications charcterised by
+    \begin{itemize}
+         \item no use of containment or nesting
+         \item no  hierarchical organisation -- said to be flat
+         \item no use of pointers 
+         \item instead uses foreign keys to represent relationships in the data
+    \end{itemize}
+\end{itemize} 
+\end{tabular}
+\end{center}
+\end{frame}
+
+
+\input{../slides/kindsofdataspec.slides}
+
+
+\input{../slides/levelsdiagram.slides}
+
+
+
+
+\iffalse
 \begin{frame}{Methods of Data Specification}
 \begin{itemize}
-	\item schema of relational database,\Rnode{i1}{},
+	\item schema of relational database,
 	\item structure described by Carnegie-Mellon IDL,
 	\item schema of nested relational database,
 	\item message structure described by Google protocol buffer IDL,
 	\item XML schema language,
-	\item ER script.\Rnode{i6}{}
-\end{itemize}
-\begin{arrows}
-\ncarr{i6}{i1}
-\end{arrows}
-\end{frame}
-
-\begin{frame}{Data Specifications}
-\begin{itemize}
-\item presentations of theories of what is i.e. an ontology
-\item choice of primitives in presentation is choice of which data to be stored or communicated
-\item independence of primitives is absence of redundancy in data 
-\item engineering driven goodness criteria (3NF, BCNF, 4NF, 5NF) reinterpreted as driving logical completeness of theory with respect to intended instances
+	\item ER script.
 \end{itemize}
 \end{frame}
+\fi
 
 \begin{frame}{Data Specifications}
 Two kinds of types in play
@@ -69,17 +154,6 @@ Two kinds of types in play
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Types all of whose instances are Universals}
-\begin{itemize}
-\item In language theory, formal grammars have terminals (and non-terminals)
-\pause \item In data specifications, we have use of basic types string, integer, float, boolean and so on
-              in addition maybe define enumerations 
-\pause \item in categorical data types we have  i.e coproducts of terminal object
-\pause \item In relational data models we have domains
-\pause \item in ER models many-one relationships to the basic types are called attributes and are graphically distinct from other relationships.
-\end{itemize}
-\end{frame}
-
 
 \begin{frame}{Data Specifications}
 A data specification is a sketch of a category with some additional structure:
@@ -100,16 +174,7 @@ specifications from logical specifications.
 
 
 
-\begin{frame}{Identifying Features in Database Specifications}
-\begin{itemize}
-\item database specifications are data specifications in which types of entity have 
-identifying features
-\item combination of relationships which can identify an entity unquely
-i.e a mono source
-\item achieves principle of identity of indiscernibles
-\end {itemize}
-\end{frame}
-
+\iffalse
 \begin{frame}{Database Normal Forms}
 \begin{itemize}
 \item presentations (sketches) should be minimal and avoid redundancy:
@@ -123,41 +188,24 @@ i.e a mono source
    \end{itemize}
 \end{itemize}
 \end{frame}
-
-\begin{frame}{Database Normal Forms}
-\begin{itemize}
-\item presentations (sketches) should be minimal and avoid redundancy:
-\item how to make this precise?
-\item in case of relational data model leads to 
-   \begin{itemize}
-     \item third normal form (3NF)
-     \item Boyce-Codd normal form (BCNF)
-     \item fourth normal form (4NF)
-     \item fifth normal form (5NF)
-   \end{itemize}
-\end{itemize}
-\end{frame}
+\fi
 
 \begin{frame}{Relational Database Theory}
 \begin{itemize}
-\item classic relational database normal form definitions ({\scriptsize 3NF, EKNF, BCNF, 4NF,5NF, INC-NF}) can be transfered into the more general framework
-of ER modelling and formalised within the definitional framework of EA sketches
+\item classic relational database normal form definitions ({\scriptsize 3NF, EKNF, BCNF, 4NF,5NF, INC-NF}) can be abstracted  into a general logical framework
 
 \item such normal forms  examine the fit of a sketch/theory (database schema) to an intended usage
 
-\item we can assume that the intended usage is represented by a full-subcategory of the category $Mod(S,\cat{FinSet})$
+\item we can assume that the intended usage is represented by a full-subcategory of the category $Fun(S,\cat{FinSet})$
 
 \item in such a situation the classic normal forms address the question can the sketch/theory $S$ be improved by addition or removal of morphisms and/or commutative diagrams and/or limit cones.
 \item normalisation has dual goal of obtaining as complete a theory as possible and of eliminating redundancy from the sketch.  
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Normal Forms}
-\begin{itemize}
-\item IN-NF -- Ling and Goh -- there are no redundant attributes except if absolutely necessary in order to specify a mono source
-\end{itemize}
-\end{frame}
 
+
+\iffalse %moved into goodness criteria section and reworded
 \begin{frame}{Normalisation}
 \begin{definition}
 { \footnotesize
@@ -186,6 +234,7 @@ If a theory $T$ has no improvement wrt to an intended usage $W$ then $T$ is said
 \end{definition}
 \end{frame}
 
+
 \begin{frame}{Propositions}
 \begin{itemize}
 \item If a relational schema $R$ can be normalised to $R'$ then the associated theory $T$ of $R$ can be improved to the associated thery $T'$ of $R'$.
@@ -193,6 +242,7 @@ If a theory $T$ has no improvement wrt to an intended usage $W$ then $T$ is said
 \item If a relational database schema is in normal form then its associated theory is optimally formulated.
 \end{itemize}
 \end{frame} 
+\fi
 
 \begin{frame}{Defining Candidate Keys and/or Identifying Relationships in an EA sketch.  }
 \begin{itemize}
@@ -209,5 +259,21 @@ If a theory $T$ has no improvement wrt to an intended usage $W$ then $T$ is said
 \input{../content/featurelist}
 \featurelist
 }
+\end{frame}
+
+\begin{frame}{How to proceed}
+\begin{itemize}
+\pause \item I will
+\begin{itemize}
+   \item give an example of nested tables of data
+   \item describe relational model  and other data models 
+   \pause \item touch on my favourite -- ER modelling and ER script
+   \pause \item describe Boyce-Codd normal form (BCNF)
+   \pause \item GCs for sketches of categories as data specifications 
+   \pause \item GCs for sketches of categories with designated monos and epis
+   \pause \item GCs for sketches of categories with designated monos and epis and with finite products
+  \pause \item with some additional assumptions prove BCNF
+\end{itemize}
+\end{itemize}
 \end{frame}
 

@@ -1,0 +1,113 @@
+
+
+$
+\begin{array}{c c c p{3.5cm} l}
+        &              &          &&\attrtype{\Rnode{symboltype}{\CDsymboltype}  }         \\ [0.25cm]
+        &\etype{\Rnode{element}{chemical\ element}\Rnode{elementR}{}}\kern-1.5cm&  &&                 \\ [0.1cm]
+		&              &      &&\attrtype{\Rnode{atomicnumbertypeL}{\CDatomicnumbertype}}   \\ [0.75cm]
+        &              &                        &&\attrtype{\Rnode{nametype}{\CDnametype}}   \\ [0.45cm]
+        &              & \etype{\Rnode{allotrope}{allotrope}\Rnode{allotropeR}{}}    &&      \\ [0.45cm]
+        &              &                        &&\attrtype{\Rnode{floattype}{\CDfloattype}} \\ [0.75cm]
+\etype{\Rnode{valency}{valency}\Rnode{valencyR}{}}\kern-1.5cm& &&&\attrtype{\Rnode{valencynumbertype}{\CDvalencynumbertype}}\\
+\end{array}
+$
+\newcommand{\CDvalencyuparrow}{
+\setlength{\arrnodesepA}{7pt}
+\setlength{\arrnodesepB}{8pt}
+\setlength{\arroffsetA}{0pt}
+\setlength{\arroffsetB}{7pt}
+\ncarr[10]{valency}{element}
+}
+\CDvalencyuparrow
+\newcommand{\CDallotropeuparrow}{
+\setlength{\arrnodesepB}{7pt}
+\setlength{\arroffsetA}{0pt}
+\setlength{\arroffsetB}{0pt}
+\ncarr[-5]{allotrope}{element}
+}
+\CDallotropeuparrow
+\newcommand{\CDsymbolattribute}{
+\setlength{\arroffsetB}{0pt}
+\setlength{\arrnodesepB}{3pt}
+\setlength{\arroffsetB}{-2pt}
+\setlength{\arroffsetA}{5pt}
+\ncarr[15]{elementR}{symboltype}
+}
+\CDsymbolattribute
+\alabel{symbol}[0.4][0]
+
+
+
+\newcommand{\CDatomicnumberattribute}{
+\setlength{\arroffsetA}{0pt}
+\setlength{\arrnodesepB}{3pt}
+\setlength{\arroffsetB}{0pt}
+\ncarr[5]{elementR}{atomicnumbertypeL}
+}
+\CDatomicnumberattribute
+\alabel{atomic\,number}[0.4]
+
+\newcommand{\CDelementnameattribute}{
+\setlength{\arroffsetA}{-5pt}
+\setlength{\arroffsetB}{4pt}
+\ncarr[5]{elementR}{nametype}
+}
+\CDelementnameattribute
+\alabel{name}[0.3]
+
+\newcommand{\CDallotropenameattribute}{
+\setlength{\arroffsetA}{2pt}
+\setlength{\arroffsetB}{-4pt}
+\ncarr[5]{allotropeR}{nametype}
+}
+\CDallotropenameattribute
+\alabel{name}[0.3]
+
+\newcommand{\CDmeltingpointattribute}{
+\setlength{\arroffsetA}{-2pt}
+\setlength{\arroffsetB}{2pt}
+\ncarr[5]{allotropeR}{floattype}
+}
+\CDmeltingpointattribute
+\alabel{melting\,point}[0.35][-1]
+
+\newcommand{\CDboilingpointattribute}
+{\setlength{\arroffsetA}{-6pt}
+\setlength{\arroffsetB}{-2pt}
+\ncarr[-5]{allotropeR}{floattype}
+}
+\CDboilingpointattribute
+\blabel{boiling\,point}[0.35][-1]
+
+\newcommand{\CDnumberattribute}
+{\setlength{\arroffsetA}{2pt}
+\setlength{\arroffsetB}{-2pt}
+\ncarr[5]{valencyR}{valencynumbertype}
+}
+\CDnumberattribute
+\alabel{number}[0.3]
+
+%barring of mono sources i.e. uniqueness constraints start here
+\pause
+% type chemical element
+\CDsymbolattribute
+\addedgebar
+
+% type valency
+\CDvalencyuparrow
+\addedgebar
+\CDnumberattribute
+\addedgebar
+
+% type allotrope
+\CDallotropeuparrow
+\addedgebar
+\CDallotropenameattribute
+\addedgebar
+
+% Second uniqueness constraint for type chemical element- use double bar
+\CDatomicnumberattribute
+\addedgedoublebar
+% Third uniqueness constraint for chemical element - use triplebar
+\CDelementnameattribute
+\addedgetriplebar

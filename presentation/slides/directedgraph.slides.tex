@@ -1,77 +1,126 @@
 
-\begin{frame}
+\begin{frame}{Theory of a Directed Graph}
 \begin{displaymath}
 \dgbasic
 \end{displaymath}
 \end{frame}
 
-\begin{frame}
-\begin{displaymath}
-\setofdg
-\end{displaymath}
+
+\begin{frame}{Theory of a Set of Directed Graphs}
+\begin{tabular}{p{2cm} p{2cm} p{0.5cm} p{5cm}}
+& \begin{displaymath} 
+\setofdg 
+\begin{arrows}
+\ncarr{dg}{abs}
+\end{arrows}
+\end{displaymath} & & 
+\onslide<2->{\vspace{1.0cm}such that \begin{displaymath} 
+\setofdgcommutativediagram
+\end{displaymath} commutes.}
+\end{tabular}
+\onslide<3->{ If I am to generate a category with terminal object from this sketch I should not have to include the terminal object in the sketch. However for the purposes of illustration it hlps me if I do.}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Theory of a Set of Directed Graphs}
+\begin{tabular}{p{2cm} p{2cm} p{0.5cm} p{5cm}}
+& \begin{displaymath} 
+\begin{array}{c}
+\rnode{abs}{abs}\\[1.3cm]
+\setofdg 
+\end{array}
+\begin{arrows}
+\ncarr{dg}{abs}
+\end{arrows}
+\end{displaymath} & & 
+\vspace{2.0cm}such that \begin{displaymath} 
+\setofdgcommutativediagram
+\end{displaymath} commutes.
+\end{tabular}
+\end{frame}
+
+\iffalse
+\begin{frame}{Slide X1}
 \begin{displaymath}
 \dgbasiclabelled{l}
 \end{displaymath}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Slide X2}
 \begin{displaymath}
 \dgbasiclabelled{number}
 \end{displaymath}
 \end{frame}
+\fi
 
-\begin{frame}
+\begin{frame}{Set of Named and Labelled Directed Graphs}
 \begin{displaymath}
-\dgnumericallylabelleddetail
-\end{displaymath}
-\end{frame}
-
-\begin{frame}
-\begin{displaymath}
+\begin{array}{c}
 \setoflabelleddgs
+\end{array}
 \end{displaymath}
 \end{frame}
 
-\begin{frame}
-\begin{displaymath}
-\dgabsuniquelylabelled
-\end{displaymath}
-\end{frame}
 
-\begin{frame}
+\begin{frame}{Specifying Uniquesness of Names and Labels}
 \begin{displaymath}
-\dglocallyuniquelylabelleddirectedgraph
-\end{displaymath}
-\end{frame}
-
-\begin{frame}
-\begin{displaymath}
+\begin{array}{c}
 \setdgexitsuniquelylabelled
+\end{array}
 \end{displaymath}
+
+Assuming nodes are uniquely labelled within each directed graph. \\
+Assuming outgoing edges from a node are labelled uniquely.
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Specifying structure}
 \begin{displaymath}
 \structuralsetofsgincludingabs
 \end{displaymath}
+Assuming outgoing edges nested within nodes.\\
+Assuming nodes nested within directed graphs.
 \end{frame}
 
-\begin{frame}[fragile]{Message Structure}
-IDL style
-\begin{lstlisting}[basicstyle=\footnotesize,language=IDL]
-abs => Set Of dg
+\begin{frame}{Specifying Representation by foreign key}
+\begin{tabular}{p{5.5cm}  p{0.1cm}  p{5cm} }
+\begin{displaymath}
+\structuralsetofsgincludingabs
+\begin{arrows}
+\ncarr[-40]{edge}{number}
+\blabel{trglabel}[0.2]
+\end{arrows}
+\end{displaymath}
+& & 
+\onslide<2->{such that \begin{displaymath} 
+\setofdgcommutativediagram
+\end{displaymath} commutes } \onslide<3->{and 
+\begin{displaymath}
+\dgforeignkeydiagram
+\end{displaymath} commutes.}
+\end{tabular}
+\end{frame}
 
-dg => Set Of node
 
-node => label: u,
-        Set Of edge
 
-edge => label : u,
-        targetlabel: u
+\begin{frame}[fragile]{IDL style Message Structure}
+\lstdefinelanguage{MyIDL}[]{IDL}
+{morekeywords={Set,Of, struct},sensitive=true}
+\begin{lstlisting}[basicstyle=\footnotesize,keywordstyle={\ttfamily\color{green}\bfseries},language=myIDL]
+struct abs => 
+        dgs: Set Of dg
+
+struct dg => 
+        name : text,
+        nodes: Set Of node
+
+struct node => 
+        label: number,
+        outgoing_edges : Set Of edge
+
+struct edge => 
+       label : number,
+       targetlabel: number
 \end{lstlisting}
+
 \end{frame}
 
 

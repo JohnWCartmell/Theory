@@ -2,6 +2,22 @@
 % othermacros
 %
 
+% copied and edited from \idcomp to make stronger linestyle
+\newcommand{\addedgebar}{
+\ncput[npos=0, nrot=:U]{\psline[linewidth=1.25pt](0.2,-0.1)(0.2,0.1)}
+}
+\newcommand{\addedgedoublebar}{
+\ncput[npos=0, nrot=:U]{\psline[linewidth=1.25pt](0.2,-0.1)(0.2,0.1)}
+\ncput[npos=0, nrot=:U]{\psline[linewidth=1.25pt](0.3,-0.1)(0.3,0.1)}
+}
+\newcommand{\addedgetriplebar}{
+\ncput[npos=0, nrot=:U]{\psline[linewidth=1.25pt](0.2,-0.1)(0.2,0.1)}
+\ncput[npos=0, nrot=:U]{\psline[linewidth=1.25pt](0.3,-0.1)(0.3,0.1)}
+\ncput[npos=0, nrot=:U]{\psline[linewidth=1.25pt](0.4,-0.1)(0.4,0.1)}
+}
+
+%\newcommand{\addedgebar}{\ifbars{\ncput[npos=0, nrot=:U]{\psline(0.2,-0.075)(0.2,0.075)}}\fi}
+
 %copied from database literature review
 \newcommand{\displaybibentry}[1]
 {\begin{framed}
@@ -19,6 +35,9 @@
 \newcommand{\pkfk}[1]{\underline{#1}$^{\largeAsterisk}$} % primary key that is a foreign key
 % \vpad gives vertical padding in a tabular
 \newcommand{\vpad}[1]{\multicolumn{#1}{c}{}\\[-0.25cm]}
+% used in slides
+\newcommand{\innerbullet}{{\footnotesize $\color{blue}{\blacktriangleright}$}\ }% dont remove space at end
+\newcommand{\braceLabel}[3]{\psbrace[ref=lC,braceWidth=1pt,braceWidthInner=3pt,braceWidthOuter=3pt](#2)(#1){#3} }
 
 % words words words
 \newcommand{\catMEterm}{category with designated monomorphisms and epimorphisms\ }
@@ -35,12 +54,33 @@ If $S$ is a sketch for such a category
 considered as a data specification
 with requirement $\reqtc$\ }
 \fi
+\newcommand{\spacechar}{\ }
+\newcommand{\thirdstructure}{designated monomorphisms and epimorphisms and with finite products}
 \newcommand{\IfSforproductepimonoCwithRCwords}{
-If $S$ is a sketch for such a category
+If $S$ is a sketch for  a category with \thirdstructure \spacechar
 %category \catcw with finite products and designated monomorphisms and epimorphisms 
 considered as a data specification with requirement $\reqtc$\ }
 
 \newcommand{\goodnesscriteria}[1]{\textbf{Goodness Criteria #1:}}
+
+\newcommand{\goodnessoneA}{
+\goodnesscriteria{1A} There ought not to be an edge $e$ in $G$ for which there is an equivalent path $p$ which  does not containing $e$
+}
+\newcommand{\goodnessoneB}{
+\goodnesscriteria{1B} 
+There ought not exist $d \in PE$ such that $d \in \overline{PE \setminus d}$
+}
+
+\newcommand{\goodnessoneC}{
+\goodnesscriteria{1C} \\
+There ought not exist $m \in M$ such that $m \in \overline{M \setminus m}$
+}
+\newcommand{\goodnessoneD}{
+\goodnesscriteria{1D} \\
+There ought not exist $e \in E$ such that $e \in \overline{E \setminus e}$
+}
+
+
 
 
 % From the Mathematical Theory of data paper
@@ -72,10 +112,22 @@ considered as a data specification with requirement $\reqtc$\ }
 
 \newcommand{\regularizetextheight}{\roomup{0.3cm}\roomdown{0.1cm}}
 
+\newcommand{\unarystructurediagramnodes}[3][]{
+\rput[tc](2.4,3){\Rnode{#1A}{\psframebox[framesep=10pt]{\regularizetextheight#2}}} 
+\rput[tc](2.4,1){\rnode{#1B}{\psframebox[framesep=10pt]{\regularizetextheight#3}}}           
+}
+
 \newcommand{\binarystructurediagramnodes}[4][]{
 \rput[tr](4.0,3){\Rnode{#1A}{\psframebox[framesep=10pt]{\regularizetextheight#2}}} 
 \rput[tr](2.4,1){\rnode{#1B}{\psframebox[framesep=10pt]{\regularizetextheight#3}}}     
 \rput[tr](5.6,1){\rnode{#1C}{\psframebox[framesep=10pt]{\regularizetextheight#4}}}        
+}
+
+\newcommand{\triplestructurediagramnodes}[5][]{ 
+\rput[tc](2.0,3){\rnode{#1A}{\psframebox[framesep=10pt]{\regularizetextheight#2}}}     
+\rput[tc](-1.05,1){\rnode{#1B}{\psframebox[framesep=10pt]{\regularizetextheight#3}}}  
+\rput[tc](2.0,1){\rnode{#1C}{\psframebox[framesep=10pt]{\regularizetextheight#4}}}   
+\rput[tc](5.0,1){\rnode{#1D}{\psframebox[framesep=10pt]{\regularizetextheight#5}}}   
 }
 
 \newcommand{\jacksonbinarydiagram}[3]
@@ -97,6 +149,30 @@ considered as a data specification with requirement $\reqtc$\ }
 \binarystructurediagramnodes[#1]{#2}{#3}{#4}
 \ncline[linewidth=3pt]{->}{#1A}{#1B}
 \ncline[linewidth=3pt]{->}{#1A}{#1C}
+\endpspicture      
+}
+
+\newcommand{\unarystructurediagram}[3][]
+{
+\pspicture(0.9,0)(3.9,3.5)  
+%\psgrid
+\unarystructurediagramnodes[#1]{#2}{#3}
+\endpspicture      
+}
+
+\newcommand{\binarystructurediagram}[4][]
+{
+\pspicture(-0.4,0)(5.7,3)  
+%\psgrid
+\binarystructurediagramnodes[#1]{#2}{#3}{#4}
+\endpspicture      
+}
+
+\newcommand{\triplestructurediagram}[5][]
+{
+\pspicture(-2.5,0)(6.4,3.5)  
+%\psgrid
+\triplestructurediagramnodes[#1]{#2}{#3}{#4}{#5}
 \endpspicture      
 }
 
@@ -166,21 +242,89 @@ considered as a data specification with requirement $\reqtc$\ }
 \endpspicture      
 }
 
+\newcommand{\contextualcategoryblockstyleexamplekernel}[6]{
+\pspicture(-5.6,0)(6.5,3)  % lower left is 0,0 upper right is 8,3
+%\psgrid
+\doublebinarynetworkdiagramnodes{#1}{#2}{#3}{#4}{#5}{#6}
+\ncsar{C}{A}
+\ncsar{E}{B}
+\ncsar{F}{B}
+\endpspicture
+}
+
 \newcommand{\contextualcategorynetworkdiagram}[6]
+{
+\contextualcategoryblockstyleexamplekernel{#1}{#2}{#3}{#4}{#5}{#6}
+\ncsar{D}{A}
+\ncarr{D}{B}
+}
+
+\newcommand{\contextualcategorynetworkdiagramreorganised}[6]
+{
+\contextualcategoryblockstyleexamplekernel{#1}{#2}{#3}{#4}{#5}{#6}
+\ncarr{D}{A}
+\ncsar{D}{B}
+}
+
+
+\newcommand{\contextualcategorynetworkdiagramtopologised}[6]
+{
+\begin{tabular}{c c c}
+\scalebox{0.9}{\binarystructurediagram[left]{compound\kern0.1cm}{alias \kern1.2cm}{occurence}}
+&&
+\scalebox{0.9}{\binarystructurediagram[right]{element\kern0.4cm}{valency \kern0.8cm}{allotrope\kern0.3cm}}
+\end{tabular}
+\ncangle[offsetA=0.15cm, angleA=0,offsetB=-0.25cm, angleB=180, armB=2.5cm]{->}{leftC}{rightA}
+\ncsar{leftB}{leftA}
+\ncsar{leftC}{leftA}
+\ncsar{rightB}{rightA}
+\ncsar{rightC}{rightA}
+}
+
+\newcommand{\contextualcategorynetworkdiagramreorganisedtopologised}[6]
+{
+\begin{tabular}{c c c}
+\scalebox{0.9}{\unarystructurediagram[left]{compound\kern0.1cm}{alias \kern1.2cm}}
+&&
+\scalebox{0.9}{\triplestructurediagram[right]{element\kern0.4cm}{occurence}{valency \kern0.8cm}{allotrope\kern0.3cm}}
+\end{tabular}
+\ncangle[offsetA=0.15cm, angleA=180,offsetB=-0.25cm, angleB=0, armB=0.9cm]{->}{rightB}{leftA}
+\ncsar{leftB}{leftA}
+\ncsar{leftC}{leftA}
+\ncsar{rightB}{rightA}
+\ncsar{rightC}{rightA}
+\ncsar{rightD}{rightA}
+}
+
+\iffalse
+\newcommand{\contextualcategorynetworkdiagramreorganised}[6]
 {
 \pspicture(-5.6,0)(6.5,3)  % lower left is 0,0 upper right is 8,3
 %\psgrid
 \doublebinarynetworkdiagramnodes{#1}{#2}{#3}{#4}{#5}{#6}
 \ncsar{C}{A}
-\ncsar{D}{A}
-\ncarr{D}{B}
+\ncarr{D}{A}
+\ncsar{D}{B} 
 \ncsar{E}{B}
 \ncsar{F}{B}
 \endpspicture      
 }
-
+\fi
 
 % Category DIAGRAMS START HERE
+
+
+\newcommand{\factorisationfdiagram}{
+    $
+    \begin{array}{c p{1cm} c p{1.0cm} c}
+    \Rnode{a}{a}&&\Rnode{Imf}{Im(f)}&&\Rnode{b}{b}
+    \end{array}
+    \begin{arrows}
+    \ncline{->>}{a}{Imf}\alabel{f_e}
+    \ncarr{Imf}{b}\alabel{f_m}\idcomp
+    \end{arrows}
+    $
+}
 \newcommand{\nakedbinarysourcediagram}[5]{
 \begin{array}{c p{0.5cm} c}
              &&   \Rnode{b}{#2}\\[0.01cm]
@@ -228,6 +372,15 @@ considered as a data specification with requirement $\reqtc$\ }
 \end{arrows}
 }
 
+\newcommand{\simpleunaryfdrepresentationdiagram}[6]{
+$
+\nakedbinarysourcediagram{#1}{#2}{#3}{#4}{#5}
+\begin{arrows}
+\ncarr{b}{c}
+\alabel{#6}
+\end{arrows}
+$
+}
 
 \newcommand{\unaryfdrepresentationdiagram}[8]{
 $
@@ -307,8 +460,8 @@ $
 \end{array}
 \fi
 
-%nakedmultisourceobjects{n}{a}{b}{f}
-\newcommand{\nakedmultisourceobjects}[4]{
+%nakedmultisourceobjects{n}{a}{b}
+\newcommand{\nakedmultisourceobjects}[3]{
 \begin{array}{c p{2.0cm} c }
 \Rnode{a}{#2}   &&
 \begin{array}{c }                
@@ -322,7 +475,7 @@ $
 
 % \nakedmultisourcediagram{n}{a}{b}{f}
 \newcommand{\nakedmultisourcediagram}[4]{
-\nakedmultisourceobjects{#1}{#2}{#3}{#4}
+\nakedmultisourceobjects{#1}{#2}{#3}
 \begin{arrows}
 \ncarr{a}{b1}
 \alabel{#4_1}[0.5]
@@ -351,7 +504,7 @@ $
 \newcommand{\multisourcepathdiagram}[4]{$\nakedmultisourcepathdiagram{#1}{#2}{#3}{#4}$}
 
 
-% \multisourcedefinitiondiagram{x}{g}{h}{n}{a}{b}{f}
+% \monosourcedefinitiondiagram{x}{g}{h}{n}{a}{b}{f}
 \newcommand{\monosourcedefinitiondiagram}[7]{
 $
 \begin{array}{c p{1.5cm} c}
@@ -359,6 +512,31 @@ $
 \end{array}
 \begin{arrows}
 \parallelarrows{x}{a}{#2}{#3}
+\end{arrows}
+$
+}
+
+%\multisourcenplusonediagram{n}{a}{b}{f}{c}{g}
+\newcommand{\multisourcenplusonediagram}[6]{
+$
+\begin{array}{c p{2.0cm} c }
+\Rnode{a}{#2}   &&
+\begin{array}{c }                
+\Rnode{b1}{#3_1}   \\ [0.55cm]
+\Rnode{b2}{#3_2}   \\ 
+\vdots             \\ 
+\Rnode{bn}{#3_{#1}} \\ [0.65cm] 
+\Rnode{c}{#5} 
+\end{array}
+\end{array}
+\begin{arrows}
+\ncarr{a}{b1}
+\alabel{#4_1}[0.6][1]
+\ncarr{a}{b2}
+\alabel{#4_2}[0.6][0]
+\ncarr{a}{bn}
+\blabel{#4_{#1}}[0.6][0]
+\ncarr{a}{c}\blabel{#6}[0.6][0]
 \end{arrows}
 $
 }
@@ -407,6 +585,19 @@ $
 \blabel{#4}
 }
 
+\newcommand{\paralleldiagram}[4]{
+$
+\rule[-0.3cm]{0pt}{0.9cm} %to add vertical space of diagram -- based on lowering diagram 0.3cm and heght 0.9cm
+                            % change thickness from 0pt to 1 pt to debug
+\begin{array}{c p{0.5cm} c}
+\Rnode{a}{#1}       &&   \Rnode{b}{#2}
+\end{array} 
+\begin{arrows}
+\parallelarrows{a}{b}{#3}{#4}
+\end{arrows}
+$
+}
+
 \newcommand{\fgparalleldiagram}{
  $
 \rule[-0.3cm]{0pt}{0.9cm} %to add vertical space of diagram -- based on lowering diagram 0.3cm and heght 0.9cm
@@ -415,12 +606,6 @@ $
  \Rnode{a}{a}            &&   \Rnode{b}{b}
 \end{array} 
 \begin{arrows}
-\iffalse
-\ncarc[nodesep=2pt,arcangle=10,offset=2pt]{->}{a}{b}
-\alabel{f}
-\ncarc[nodesep=2pt,arcangle=-10,offset=-2pt]{->}{a}{b}
-\blabel{g}
-\fi
 \parallelarrows{a}{b}{f}{g}
 \end{arrows}
 $  
