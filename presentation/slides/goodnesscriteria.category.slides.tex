@@ -1,11 +1,11 @@
 
 \comingnext{General definitions}
 
-\begin{frame}{Data Specification}
+\begin{frame}{Data Specification and Instance}
 A \textit{data specification} is a sketch $S$ for some kind of structured category \catc.
 i.e. it is a directed graph plus some path equivalences (diagrams in other words) plus 
-some additional structure.  
-
+some additional structure.  \\
+\medskip
 An \textit{instance} of a data specification is a mapping $D$ from the directed graph
 to the category of sets and functions which preserves structure so as
 to induce a structure preserving functor $D: \catc \morph \Fin$.
@@ -55,12 +55,12 @@ that doesn't correspond to any real world state.
 
 \begin{frame}{Key definition: \catcw \textit{maximally constrained} to $\reqtc$}
 \begin{itemize}
-\item The structured category \catcw ought to be the tightest possible fit to the requirement $R_{\catc}$.
 
-\item The question -- is there a $\catcp$ that extends \catcw and that will do a better job. 
+
+\item  question -- is there a $\catcp$ that extends \catcw and that will do a better job. 
 
 \item Is there a $\catcp$ and an $I: \catc \morph \catcp$  such that 
-all instances in the requirement $\reqtc$ factor though $I$
+all instances in the requirement $\reqtc$ uniquely factor though $I$
 $$
 \begin{array} {c p{2cm} c}
 \Rnode{Cp}{C'} && \\ [0.25cm]
@@ -76,13 +76,14 @@ $$
 \alabel{D'} 
 \end{arrows}
 $$
-and
-\pause  at least one other instance $F$ of \catcw does not factor through $I$.
+\pause  and at least one other instance $F$ of \catcw does not factor through $I$.
 \ncarr[-20]{C}{finset}
 \blabel{F} 
 \end{itemize}
 \pause If there is no such $I: \catc \morph \catcp$ then we shall say that 
-\catcw is \term{maximally constrained} with respect to $\reqtc$.
+\catcw is \term{maximally constrained} with respect to $\reqtc$.\\
+\medskip
+ ...meaning  that structured category \catcw  is the tightest possible fit to facts i.e. to the requirement $R_{\catc}$.
 \end{frame}
 
 \begin{frame}{Representational Completeness}
@@ -99,7 +100,6 @@ Alternative way of approaching tightest fit:
 2D. & mono complete           \\
 2E. & epi complete            \\
 2F. & product complete        \\
-2G. & pullback complete       \\
 \end{tabular}
 \end{center}
 \pause \item In these defintions that \catcw is $x$ complete wrt $\reqtc$ will mean exactly that the set of instances $\reqtc$ are jointly reflective of $x$.
@@ -117,10 +117,9 @@ For each of
 I am going to
 \begin{itemize}
 \item define appropriate notions of representational completeness,
-\item explore relationship between representational completeness and maximal constrainedness.
+\item explore the relationship between representational completeness and maximal constrainedness.
 \end{itemize}
-
-Herein lies much of the mathematical theory of data but as many or more questions than answers.
+{\large Before which -- BCNF that which I want to get to as a consequence of notions of tightest fit.}
 \end{frame}
 
 
@@ -141,24 +140,27 @@ then \onslide<1>{...}
 By a \term{sketch for a category} we mean a pair $\tuple{G,PE}$ where 
 $G$ is a directed graph and $PE$ is a set of path equivalences. \\
 \medskip
-\goodnessoneA. \\
+We interpret  the type 1 goodness criteria that the sketch be minimal as meaning 
+\begin{itemize}
+\item \goodnessoneA. \\
 \medskip
-\goodnessoneB.
+\item \goodnessoneB.
+\end{itemize}
 \end{frame}
 
-\begin{frame}{Equational Completeness}
-\begin{definition}
+\begin{frame}{Equational Completeness and Goodness Criteria 2A}
+\pause \begin{definition}
 If $\catc$ is a  category and $\reqtc$ is a set of instances,
  then say that  $\catc$ is \term{equationally complete} with respect 
 to the requirement $\reqtc$ iff all path equivalences with respect to $R_C$ are represented in \catcw 
 i.e. iff for all diagrams \fgparalleldiagram in $\catc$,  
 if in all instances $D \in \reqtc$, $D(f)=D(g)$,  then $f=g$.
 \end{definition}
-
-In other words:
-the set of functors $\reqtc$ is jointly faithful.
 \medskip
-\goodnesscriteria{2A} \IfSforCwithRCwords then \catcw ought to be equationally complete
+\pause In other words:
+the set of functors $\reqtc$ is jointly faithful. \\
+\medskip
+\pause \goodnesscriteria{2A} \IfSforCwithRCwords then \catcw ought to be equationally complete
 with respect to $R_C$.
 \end{frame}
 
@@ -243,7 +245,7 @@ If $\catc$ is a category and $\reqtc$ is a set of instances,
 if \fgsourcediagram in $\catc$ 
 and if there is a functional dependency $\fundep{H}{f}{g}$ then say that 
 this functional dependency  is \term{represented} in $\catc$ 
-iff there exists a morphism $h:b \morph c$ in $\catc$ such that for each instance $D \in \reqtc$, $D(h)=H_D$.
+iff there exists a morphism $h:b \morph c$ in $\catc$ such that for each instance $D \in \reqtc$, $D(h)=H_D$. \\
 \medskip
 \pause If \catcw is a requirement and $\reqtc$ a set of instances then \catcw is said to be 
 \textit{functionally complete} with respect to $\reqtc$ iff every functional dependency
@@ -261,10 +263,10 @@ If $\catc$ is a locally finite category and $\reqtc$ is a set of instances, if $
 \catcw is functionally complete with respect to $\reqtc$.
 \end{lemma}
 \begin{proof}
-Suppose$\fundep{H}{f}{g}$  is a functional dependency with respect to $\reqtc$
-such that in all instances $D \in \reqtc$, $D(f)$ is surjective.
+Suppose$\fundep{H}{f}{g}$  is a functional dependency with respect to $\reqtc$.
+Hence in all instances $D \in \reqtc$, $D(f)$ is surjective.
 
-Extend \catcw to $\catcp$ by formally adding a morphism $h$. Extend each $D$ to a $D'$ by defining $D(h)=H_D$. 
+Extend \catcw to $\catcp$ by formally adding a morphism $\qq{h}$ such that $f \circ \qq{h}=g$. Extend each $D$ to a $D'$ by defining $D(h)=H_D$. 
 Because $D(f)$ is surjective $D'$ is unique. 
 Define a functor from \catcw to $\Fin$ as  a certain quotient of the coproduct of functor $Hom_{\catc}(a,-)$ with itself. 
 Extend to $\catcp$ and demonstrate that there exists $k:b \morph c$ in \catcw such that $f \circ k=g$. 
@@ -317,60 +319,7 @@ $\catc$ such that $f \circ k = g$ and we have shown as required that the functio
 $\fundep{H}{f}{g}$ is represented in $\catc$.
 \end{frame}
 
-
-\begin{frame}{Definition of Inclusion Dependencies}
-If $\catc$ is a category and $\reqtc$ is a set of instances 
-and if
-\fnsourceqnsource
-in $\catc$, then an \term{inclusion dependency} $I$, written $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$, is a family of functions $I_D)_{D \in \reqtc}$
-such that each instance $D \in \reqtc$, $I_D$ is a function $I_D : D(a) \morph D(c)$ such that
-for each $i$, $1 \leq i \le n$, $I_D \circ D(q_i) = D(f_i)$.
-
-If each function in this family is the unique such function then the inclusion dependency is said to be referential. Just to be clear the definition is this:
-\end{frame}
-
-\begin{frame}{Definition of Referential Inclusion Dependency}
-\begin{definition}
-If $\catc$ is a category and $\reqtc$ is a set of instances 
-and if
-\fnsourceqnsource
-in $\catc$, then a \term{referential inclusion dependency} $I$, written $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$, is a family of functions $I_D)_{D \in \reqtc}$
-such that each instance $D \in \reqtc$, $I_D$ is a unique function $I_D : D(a) \morph D(c)$ such that
-for each $i$, $1 \leq i \le n$, $I_D \circ D(q_i) = D(f_i)$.
-\end{definition}
-\end{frame}
-
-\begin{frame}{Definition of Referentially Complete}
-\begin{definition}
-If $\catc$ is a category and $\reqtc$ is a set of instances and if
-\fnsourceqnsource
-in $\catc$ and if $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$ is a referential inclusion dependency
-with respect  to $\reqtc$ then say that the inclusion dependency $I$ is \term{represented} in $\catc$
-iff there exists a morphism $i:a \morph c$ in $\catc$ such that in each instance $D \in \reqtc$, $D(i) = I_D$. 
-\end{definition}
-If \catcw is a category and $\reqtc$ a set of instances then 
-\catcw is \term{referentially complete} with respect to $\reqtc$ 
-iff all referential inclusion dependencies present in $\reqtc$ are represented in \catc.
-\end{frame}
-
-\begin{frame}{Goodness Criteria 2C}
-\goodnesscriteria{2C} \IfSforCwithRCwords 
-\catcw ought to be referentially complete with respect to $\reqtc$.
-
-I would like to show that this goodness criteria follows from the criteria of maximal constrainedness
-but I have managed to prove this only in the case that \catcw is locally finite. 
-\end{frame}
-
-\begin{frame}{Representation Lemma for Referential Inclusion Dependencies}
-If \catcw is a locally finite category and $\reqtc$ is a set of instances, if \catcw is 
-\textit{maximally constrained} to the requirement $\reqtc$ then
-every referential inclusion dependency with respect to $\reqtc$ is represented in $\catc$.
-\end{frame}
-
-\begin{frame}{Proof}
-Suppose $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$ is a referential inclusion dependency
-where for each $i$, $1 \leq i \leq n$,
-\scalebox{0.9}{$
+\newcommand{\incdsetup}{$
 \begin{array}{c p{0.5cm} c p{0.5cm} c}
              &&\Rnode{bi}{b_i} &&              \\[0.5cm]
 \Rnode{a}{a} &&                && \Rnode{c}{c}
@@ -379,7 +328,94 @@ where for each $i$, $1 \leq i \leq n$,
 \ncarr{a}{bi}\alabel{f_i}
 \ncarr{c}{bi}\blabel{q_i}
 \end{arrows}
-$} in \catc.
+$}
+
+\newcommand{\incdresolution}{$
+\begin{array}{c p{0.5cm} c p{0.5cm} c}
+             &&\Rnode{bi}{D(b_i)} &&              \\[0.5cm]
+\Rnode{a}{D(a)} &&                && \Rnode{c}{D(c)}
+\end{array}
+\begin{arrows}
+\ncarr{a}{bi}\alabel{D(f_i)}
+\ncarr{c}{bi}\blabel{D(q_i)}
+\ncarr{a}{c}\blabel{J_D}
+\end{arrows}
+$}
+
+\begin{frame}{Inclusion Dependencies}
+In a relational database there is an \textit{inclusion dependency} denoted
+$$a[f_1,...f_n] \subseteq c[q_1,..q_n]$$ 
+iff
+\begin{itemize}
+\item $a$ and $c$ are tables
+\item $f_1,...f_n$ are columns of table $a$
+\item $q_1,...q_n$ are columns of table $c$
+\item in all instances of the database
+       $\{\tuple{r.f_1,...r.f_n} | r \in \mbox{ rows of } a\} \subseteq \{\tuple{s.q_1,...s.q_n} | s \in \mbox{ rows of } c\}$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Referential Inclusion Dependencies -- Foreign Keys}
+$$a[f_1,...f_n] \subseteq c[q_1,..q_n]$$ 
+This inclusion dependency is said to be referential iff to each row $r$ of table $a$ there is a unique row $s$ of table $b$
+such that for each $i$, $s.q_i=r.f_i$.
+\pause
+\begin{itemize}
+    \item Then $\tuple{f_1,...f_n}$ is said to be a foreign key referencing the key $\tuple{q_1,...q_n}$.
+    \item The constraint is called a foreign key constraint or a referential integrity constraint.
+    \item It is the way relationships in data are implemented in relational databases.
+    \item Programmers use these to navigate the data.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Definition of Inclusion Dependencies}
+If $\catc$ is a category and $\reqtc$ is a set of instances 
+and if
+\incdsetup
+in $\catc$, for $i$, $1 \leq i \leq n$, then an \term{inclusion dependency} $J$, written $a[f_1,...f_n] \overset{J}{\subseteq} c[q_1,..q_n]$, is a family of functions $J_D)_{D \in \reqtc}$
+such that each instance $D \in \reqtc$, $J_D$ is a function 
+ such that
+ \incdresolution commutes, for $i$, $1 \leq i \leq n$. \\
+
+\medskip
+\begin{itemize}
+\item If each $J_D$ is the unique such function then the inclusion dependency is said to be referential. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Definition of Referentially Complete}
+\begin{definition}
+If $\catc$ is a category and $\reqtc$ is a set of instances and if
+\fnsourceqnsource
+in $\catc$ and if $a[f_1,...f_n] \overset{J}{\subseteq} c[q_1,..q_n]$ is a referential inclusion dependency
+with respect  to $\reqtc$ then say that the inclusion dependency $J$ is \term{represented} in $\catc$
+iff there exists a morphism $j:a \morph c$ in $\catc$ such that in each instance $D \in \reqtc$, $D(j) = J_D$. 
+\end{definition}
+If \catcw is a category and $\reqtc$ a set of instances then 
+\catcw is \term{referentially complete} with respect to $\reqtc$ 
+iff all referential inclusion dependencies present in $\reqtc$ are represented in \catc.
+\end{frame}
+
+\begin{frame}{Goodness Criteria 2C}
+\goodnesscriteria{2C} \IfSforCwithRCwords 
+then \catcw ought to be referentially complete with respect to $\reqtc$.
+\end{frame}
+
+\begin{frame}{Representation Lemma for Referential Inclusion Dependencies}
+If \catcw is a locally finite category and $\reqtc$ is a set of instances, if \catcw is 
+\textit{maximally constrained} to the requirement $\reqtc$ then
+every referential inclusion dependency with respect to $\reqtc$ is represented in $\catc$.
+\end{frame}
+
+
+
+
+
+\begin{frame}{Proof}
+Suppose $a[f_1,...f_n] \overset{J}{\subseteq} c[q_1,..q_n]$ is a referential inclusion dependency
+where for each $i$, $1 \leq i \leq n$,
+\scalebox{0.9}{\incdsetup} in \catc.
 
 Extend category \catcw to a category \catcpw such that in \catcpw there is
 a morphism $\qq{r}: a \morph c$ such that for each $i$, $1 \leq i \leq n$, 
@@ -390,7 +426,7 @@ Every $D \in \reqtc$ extends uniquely to functor $D: \catcp \morph \Fin$. Theref
 \pause For each $i$, we have $H(\qq{r}) \circ H(q_i) = H(f_i)$, \\
 \pause \hspace {3cm} i.e. $H(\qq{r}) \circ Hom(a,q_i) = Hom(a,f_i)$. \\
 \pause Therefore in particular $H(\qq{r})(id_a) \circ q_i =  f_i$. \\
-\pause Hence $H(\qq{r})(id_a):a \morph c$ in \catcw represents the inclusion dependency $I$.
+\pause Hence $H(\qq{r})(id_a):a \morph c$ in \catcw represents the inclusion dependency $J$.
 \end{frame}
 
 \begin{frame}{Three Goodness Criteria}{for Categories as Data Specifications}
