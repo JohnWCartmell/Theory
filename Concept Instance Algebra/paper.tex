@@ -28,6 +28,17 @@
 
 
 \bibliographystyle{plain} % was hplain
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Commands to control level of detail in pictures
+\newcounter{levelofdetail}
+\newcommand{\waitfor}[2]{\ifnum #1 > \value{levelofdetail} \else #2 \fi}
+% Setting a high number for level of detail shows most detail
+\setcounter{levelofdetail}{10}
+% In presentations waitfor is implemented using onslide as follows
+%\newcommand{\waitfor}[2]{\onslide<#1->{#2}} 
+%Because of this outside of a waitfor level of detail is 1
+% frist level programmed with waitfor should be level 2
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\dottree}
 { \pstree
@@ -60,13 +71,7 @@
         {#1}}
 }
 
-\NewEnviron{tightquote} %italic text indented left and right hand side
-{\begin{adjustwidth}{1.5cm}{1.5cm}
-\textit{
-\BODY
-}
-\end{adjustwidth}
-}
+
 
 \title{MetaGAT Algebra aka Concept-Instance Algebra}
 \author{John Cartmell}
@@ -120,17 +125,18 @@ Some of these \textit{intimate relationships} are shown in this diagram:
   
 \erinlinePicture{modelBook2ToLetter1}{5.5}
 
-%\iffalse
+
 
 \section{The Meta-Theory of Generalised Algebraic Theories}
-This document introduces  \highlight{a generalised algebraic theory of generalised algebraic theories}   
-which we call \highlight{$MetaGAT$} in view of the fact that it can said to be a meta theory of generalised algebraic theories. We describe and discuss the relationship of the theory $MetaGAT$ to the theory of contextual categories.  
+In such and uch a place I describe a generalised algebraic theory of generalised algebraic theories  
+which I call \highlight{$MetaGAT$} in view of the fact that it can said to be a meta theory of generalised algebraic theories.
+Here I re-articulate in an attempt not to lean as heavily on an appeal to syntactic notions. 
 
 \section{Background}
 As described in \cite{Cartmell86}, Contextual Categories provide algebraic representations of Generalised Algebraic Theories  in the sense that to every Generalised Algebraic Theory $U$ there is a contextual category $\mathbb{C}(U)$ such that algebras of the theory $U$ are exactly structure preserving functors (contextual functors)  from $\mathbb{C}(U)$ into the contextual category $Fam$ of sets, families of sets and so on. We summarise this by saying that Contextual Categories provide the algebraic semantics of Generalised Algebraic Theories. 
 
 \noindent
-\highlightpara{Contextual categories contain structure that is in some sense redundant; this is in the same way that a Lawvere algebraic theory contains redundant structure compared to the otherwise equivalent notion, from universal algebra, of an abstract clone (see, for example, \cite{KerkoffonClones}). In both cases the redundancy is introduced in order to achieve a definition in which the algebras are categories with some sort of additional structure. Remove the redundancy and there is no longer a category directly visible in the definitions.}
+Contextual categories contain structure that is in some sense redundant; this is in the same way that a Lawvere algebraic theory contains redundant structure compared to the otherwise equivalent notion, from universal algebra, of an abstract clone (see, for example, \cite{KerkoffonClones}). In both cases the redundancy is introduced in order to achieve a definition in which the algebras are categories with some sort of additional structure. Remove the redundancy and there is no longer a category directly visible in the definitions.
 
 Terminology: By \highlight{a section of an object $B$}
  in a contextual category \catc, I mean a morphism $f:A\rightarrow B$ in \catc, where 
@@ -138,61 +144,69 @@ $A \base B$ and satisfying  $f \comp p_B = id_A$\footnote{In my thesis the notat
 
 
   
-A \highlight{$MetaGAT$-algebra} consists of \highlight{an $\omega$-tree of objects} and, 
-\highlight{for each object $x$, a set}
-said to be the set of sections of $x$.
-It comes equipped with three \highlight{operations $^*$, $\crossx{}{}{}$ and $\delta$} and   
+A \term{concept-instance} algebra consists of an $\omega$-tree of concepts and, 
+for each concept $x$, a set $i(x)$
+said to be the set of instances of $x$.
+It comes equipped with three operations $^*$, $\crossx{}{}{}$ and $\delta$ and   
 satisfies certain axioms.
 
 \noindent
-\highlightpara{One way of explaining what constitutes a  MetaGAT algebra is to say that it consists of the $\omega$-tree of objects of a contextual category along with, for each object 
-its set of sections  and with operations and axioms that completely encapsulate the structure of the contextual category.} 
+One way of explaining what constitutes a concept-instance algebra 
+is to say that it consists of the $\omega$-tree of objects of a contextual category along with, 
+for each object its set of sections  and with operations and axioms that completely encapsulate the structure of the contextual category. Vladimir Voevodsy and referred to such structures as \term{B-systems}.
 
-The tree of objects corresponds to the tree of objects of a contextual category and so each each object corresponds to  a rule of the form
+The concepts of a concept-instance algebra corresponds to the objects of a contextual category. 
+Accordingly  each concept corresponds to  a rule of a genealised algebraic theory $U$ of the form
 \gatdisplayrule{\xDelta{n}}{\isT{\Delta}}. \\
-Each  section corresponds to a rule of the form:
+Each instance corresponds to a rule of the form:
  \gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta}}.
-
 
 \vspace{1cm}
 The  operations $^*$ and $\crossx{}{}{}$  
- correspond in the syntax to  substitution and  weakening. 
+ correspond in the syntax to  substitution and  weakening but here I refer to them as \term{particulising} and 
+ \term{positing}.
 
 In brief, these operations are as follows:
 
 \begin{enumerate}
-\item In a metaGAT algebra $A$, if $y$ is an object and if $f$ is a section of $y$ and if $z$ is an object so that $y < z$ then $f^*z$ is defined and is an object of $A$ 
+\item In a concept-instance algebra $A$, if $y$ is a concept and if $f$ is an instance of $y$
+ and if $z$ is a concept so that $y < z$ then $f^*z$ is defined and is a concept of $A$ 
       such that \commentary{we could speak of concept $z$ being particularised to instance $f$.}
 			\begin{enumerate}[(a)]
-			\item if $y \base z$ then $z \base f^*z$,
+			\item if $y \base z$ then $x \base f^*z$,
 			\item if $z \base z'$ and $y <z$ then $f^*z \base f^*z'$,
 			\end{enumerate}
-\item if in addition $g$ is a section of $z$ then $f^*g$ is defined and is a section at $f^*z$. 
+\setcounter{levelofdetail}{1} % do not display  g or f^*g
+\input{starintrocaseone}
+\item if in addition $g$ is a instance of $z$ then $f^*g$ is defined and is a concept at $f^*z$. 
+\setcounter{levelofdetail}{3} % include display of g and f^*g 
+\input{starintrocaseone}
 
-At this point it follows that if $y \base z_1 ... \base z_m \base z$ and $g$ is a section of $z$ then we have:
+
+At this point it follows that if $y \base z_1 ... \base z_m \base z$ and $g$ is a instance of $z$ then we have:
 
 \commentary{intrductory rules for $^*$}
-\input{starintroshortened} 
+\input{starintrospeltout} 
 
-\item If $w,x$ and $y$ are objects of $A$  and if $w \base x$ and $w < y$ then $x \cross_w y$ is an object of $A$ 
+\item If $w,x$ and $y$ are concepts of $A$  and if $w \base x$ and $w < y$ then $x \cross_w y$ is a concept of $A$ 
 such that
     \begin{enumerate}[(a)]
 		\item if $w \base y$ then $x \base x \cross_w y$,
 		\item if $y \base y'$ and $y <z$ then $x \cross_w y \base x \cross_w y'$,
 		\end{enumerate}
-\item if in addition $g$ is a section of $y$ then $x \cross_w g$ is an section of $x \cross_w y$.
+\item if in addition $g$ is a instance of $y$ then $x \cross_w g$ is an instance of $x \cross_w y$.
 
-At this point it follows that if $w \base y_1 ... \base y_m \base y$ and $g$ is a section of $y$ then we have
+At this point it follows that if $w \base y_1 ... \base y_m \base y$ and $g$ is a instance of $y$ then we have
 \commentary{introductory rules for $\cross$}
 \input{crossinstanceintroshortened}
 \vspace{0.5cm}
-\item If $x$ and $y$ are objects of $A$ such that $x \base y$ then $\delta_y$ is a section of $\crossx{y}{y}{x}$
+\item If $x$ and $y$ are concepts of $A$ such that $x \base y$ then $\delta_y$ is a instance of $\crossx{y}{y}{x}$
 \vspace{0.5cm}
 \commentary{introductory rule for $\delta$}
 \input{deltaintroshortened} 
 \end{enumerate}
 
-Such a structure as this is a metaGAT algebra providing the following axioms hold  
+Such a structure as this is a concept-instance algebra providing the following axioms hold  
 \begin{equation}
 (f^*g)^*(f^*v) = f^*(g^*v)
 \end{equation}
@@ -200,7 +214,7 @@ Such a structure as this is a metaGAT algebra providing the following axioms hol
 (x \cross y) \cross (x \cross v) = x \cross (y \cross v), 
 \end{equation}
 \begin{equation}
-f^*(x \cross v) = y, \mbox{ when $f$ is a section of $x$,} 
+f^*(x \cross v) = y, \mbox{ when $f$ is a instance of $x$,} 
 \end{equation}
 \begin{equation}
 f^*y \cross f^*v = f^*(y \cross v)
@@ -213,13 +227,13 @@ f^*y \cross f^*v = f^*(y \cross v)
 \end{equation}
 \highlight{axioms missing!!!!}
 
-where $x, y, z$ are objects, $f$ and $g$ are sections and $v$ is either an object or a section. In instances of $\cross$ subscripts must be chosen appropriately
+where $x, y, z$ are concepts, $f$ and $g$ are concepts and $v$ is either a concept or a concept. In instances of $\cross$ subscripts must be chosen appropriately
 and in all cases the axiom holds whenever either side is defined. Full detail iof these axioms including choices of subscripts is given below.
 
-\iffalse
+
 We can visualise the first of these axioms like this: 
 \input{stardistributivityaxiom}
-\fi
+
 
 \noindent
 \highlightpara{
@@ -278,9 +292,119 @@ We also say that an instance $g$ of a concept $y$ is within $x$ provided that co
 Therefore every concept and instance is either the absolute or is within the absolute.
 Therefore the absolute  is also \term{the whole}\footnote{See also \url{www.entitymodelling.org/tutorialone/absolute.html}}. It is the concept of the whole of everything.
 
-\highlight{THE END}
 
- \newpage
+\subsection{Concepts, contexts and instances within a cricket match.}
+\newcommand{\inningsCrossSide}{\crossx{innings\kern-0.3cm}{\kern-0.3cm side}{match}}
+\newcommand{\inningsCrossPlayer}{\crossx{innings\kern-0.3cm}{\kern-0.3cm player}{match}}
+\newcommand{\fieldingSidePlayer}{fieldingSide ^* (\inningsCrossPlayer)}
+\newcommand{\battingSidePlayer}{battingSide ^* (\inningsCrossPlayer)}
+\newcommand{\overCrossFieldingSidePlayer}{\crossx{over\kern-0.4cm}{\kern-0.4cm(\fieldingSidePlayer)}{innings}}
+\newcommand{\deliveryCrossBattingSidePlayer}{\crossx{delivery\kern-0.4cm}{\kern-0.4cm (\battingSidePlayer)}{innings}}
+\begin{tabular}{l p{12cm}}
+%$\base\ match$           & there is such a thing as a $match$                                 \\
+$match\base side$        & there is such a thing as a $match$ and within the context of a $match$ there is such a thing as a $side$  \\ 
+$homeSide$               & the $homeSide$ is an instance of a $side$                             \\
+$side \base player$      & within the context of a $side$ there is such a thing as a $player$   \\
+$captain \in player$     & within the context of a $side$,  the $captain$ is an instance of a $player$ \\
+%$wicketkeeper \in player$& within the context of a $side$ within a $match$ the $wicketkeeper$ is a(n instance of a) $player$\\
+$match \base innings$    & within the context of a $match$ there is such a thing as a $innings$    \\
+$innings \base over$     & within the context of an $innings$ there is such a thing as an $over$            \\
+$over \base delivery$    & within the context of an $over$ there is such a thing as a $delivery$ \\
+\end{tabular}
+
+\noindent
+\begin{tabular}{l p{6.5cm}}
+
+$fieldingSide \in \inningsCrossSide$ & within the context of an $innings$ of a $match$, 
+                                      the $fieldingSide$ is an instance of a $side$ of that $match$           \\
+$bowler \in \overCrossFieldingSidePlayer$ & within the context of an $over$ of an innings, the $bowler$ is an instance of a $fieldingSide$
+$player$ within the context of that $innings$ \\
+$battingSide \in \inningsCrossSide$ & within the context of an $innings$ of a $match$, 
+                                      the $battingSide$ is an instance of a $side$ of that $match$         
+\end{tabular}
+
+\vspace{1.3cm}
+\begin{displaymath}
+\pstree[treemode=R,levelsep=*0.65cm,treesep=1cm,nodesep=0.05]
+{
+    \Tr{\circ}
+}
+{
+    \pstree [levelsep=*0.85cm]
+    {
+		\Tr{match} 
+	}
+	{		  
+		\pstree [levelsep=*0.85cm]
+		{
+				   \Tr{side} \uppermember {homeSide}
+		}
+		{
+					\Tr{player} \uppermember {captain}
+		}
+	    \pstree [levelsep=*0.85cm]
+		{
+			\Tr{innings} 
+		}
+		{		  
+		    \pstree [levelsep=*0.85cm]
+			{
+					   \Tr{over} 
+			}
+			{   
+					   \Tr{delivery} 
+			}			
+		}		
+	}	
+}
+\end{displaymath}
+
+\vspace{1.3cm}
+\begin{displaymath}
+\pstree[treemode=R,levelsep=*0.65cm,treesep=1cm,nodesep=0.05]
+{
+    \Tr{\circ}
+}
+{
+    \pstree [levelsep=*0.85cm]
+    {
+		\Tr{match} 
+	}
+	{		  
+		\Tr{side} 
+	    \pstree [levelsep=*0.85cm]
+		{
+			\Tr{innings} 
+		}
+		{		  
+			\Tr{\inningsCrossSide} \member {battingSide}		
+		}		
+	}	
+}
+\end{displaymath}
+
+
+\noindent
+\begin{tabular}{l | m{6.5cm}} 
+$  \noleft
+  {\arraycolsep=0pt
+   \begin{array}{l}
+facingBatter \in \deliveryCrossBattingSidePlayer \\
+nonFacingBatter \in \deliveryCrossBattingSidePlayer 
+    \end{array} 
+   }
+   \ \right\}
+  $ & within the context of a $innings$ within a $match$, the $facingBatter$ and the $nonFacingBatter$ 
+  are instances of $battingSide$ $player$s within the context of that $innings$ \\
+\end{tabular}
+
+\newpage
+
+ \begin{tabular}{l p{5cm}}
+$\base sport \base match$            & within the context of a $sport$ there are $match$es      \\
+$cricket \in sport$                  & $cricket$ is a $sport$                                   \\
+$\therefore \base cricket^*match$    & there are $cricket^*matches$                             \\
+\end{tabular}
 
 \note
 Both concepts and instances can be particularised.
@@ -501,7 +625,8 @@ where $1$ represents \textit{the absolute}.
 
 Particularisation of  citizen to instance france of country is written as
 $france^*citizen$.
-%\fi
+
+
 
 \section{Trees of Concepts and the GAT of $\omega$-trees}
 \input {../SharedText/treeofconcepts}
