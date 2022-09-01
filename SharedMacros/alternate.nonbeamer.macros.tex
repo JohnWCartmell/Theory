@@ -1,0 +1,18 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% alternate.beamer.macros.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This file contains implmentation of macros that are also implmented in
+% beamer.macros.tex 
+% The implementations here should be used for when papers are being built
+% i.e. for non-presentations i.e. for papers.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Commands to control level of detail in pictures
+\newcounter{levelofdetail}
+\newcommand{\waitfor}[2]{\ifnum #1 > \value{levelofdetail} \else #2 \fi}
+% Setting a high number for level of detail shows most detail
+\setcounter{levelofdetail}{10}
+% In presentations waitfor is implemented using onslide as follows
+%\renewcommand{\waitfor}[2]{\onslide<#1->{#2}} 
+%Because of this outside of a waitfor level of detail is 1
+% frist level programmed with waitfor should be level 2
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
