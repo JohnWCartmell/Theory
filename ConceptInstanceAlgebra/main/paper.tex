@@ -165,12 +165,11 @@ In brief, these operations are as follows:
 			\begin{enumerate}[(a)]
 			\item if $y \base z$ then $x \base f^*z$,
 			\item if $z \base z'$ and $y <z$ then $f^*z \base f^*z'$,
-			\end{enumerate}
-\setcounter{levelofdetail}{1} % do not display  g or f^*g
-\input{../content/starintrocaseone}
-\item if in addition $g$ is a instance of $z$ then $f^*g$ is defined and is a concept at $f^*z$. 
-\setcounter{levelofdetail}{3} % include display of g and f^*g 
-\input{../content/starintrocaseone}
+			\end{enumerate} 
+
+\input{../content/starintro.concepts.caseone}
+\item if in addition $g$ is a instance of $z$ then $f^*g$ is defined and is a concept at $f^*z$. \\
+\input{../content/starintro.instances.caseone}
 
 
 At this point it follows that if $y \base z_1 ... \base z_m \base z$ and $g$ is a instance of $z$ then we have:
@@ -196,30 +195,29 @@ At this point it follows that if $w \base y_1 ... \base y_m \base y$ and $g$ is 
 \input{../content/deltaintroshortened} 
 \end{enumerate}
 
+\textit{Note to myself: In the above I ought to remove subscript from crossx.}
+
 Such a structure as this is a concept-instance algebra providing the following axioms hold  
-\begin{equation}
-(f^*g)^*(f^*v) = f^*(g^*v)
-\end{equation}
-\begin{equation}
-(x \cross y) \cross (x \cross v) = x \cross (y \cross v), 
-\end{equation}
-\begin{equation}
-f^*(x \cross v) = y, \mbox{ when $f$ is a instance of $x$,} 
-\end{equation}
-\begin{equation}
-f^*y \cross f^*v = f^*(y \cross v)
-\end{equation}
-\begin{equation}
-(x \cross g)^*(x \cross v)=x \cross(g^*v)
-\end{equation}
-\begin{equation}
-\delta_x ^*(x \cross y)=y
-\end{equation}
-\highlight{axioms missing!!!!}
-
-where $x, y, z$ are concepts, $f$ and $g$ are concepts and $v$ is either a concept or a concept. In instances of $\cross$ subscripts must be chosen appropriately
-and in all cases the axiom holds whenever either side is defined. Full detail iof these axioms including choices of subscripts is given below.
-
+\begin{align}
+(f^*g)^*(f^*z) &= f^*(g^*z)        &\mbox{\scriptsize(8)}& \mbox{whenever $f \in inst(x),\ g \in inst(y),\ x < y$ and  $y < z$} \\
+(f^*g)^*(f^*h) &= f^*(g^*h)        &\mbox{\scriptsize(9)}& \mbox{where as above  and also $h \in inst(z)$ }\\
+(x \cross y) \cross (x \cross z) &= x \cross (y \cross z)
+                                   &\mbox{\scriptsize(14)}& \mbox{whenever $x_c < y$, where $x_c \base x$, and $x_c < z$} \\
+(x \cross y) \cross (x \cross g) &= x \cross (y \cross g)
+                                   &\mbox{\scriptsize(15)}& \mbox{where as above  and also $g \in inst(z)$}\\
+f^*(x \cross y) &= y               &\mbox{\scriptsize(16)}& \mbox{whenever $f \in inst(x)$ and $x_c < y$, where $x_c \base x$}\\
+f^*(x \cross g) &= g               &\mbox{\scriptsize(17)}& \mbox{where as above  and also $g \in inst(y)$}\\
+f^*y \cross f^*z &= f^*(y \cross z)  %problem here  
+                    &\mbox{\scriptsize(18)}& \mbox{whenever $f \in inst(x)$, $x < z$, $x < y$ and $y_c <z$ where $y_c \base y$}\\
+f^*y \cross f^*g &= f^*(y \cross g)    &\mbox{\scriptsize(19)}& \mbox{where as above  and also $g \in inst(z)$}\\
+(x \cross g)^*(x \cross z)&=x \cross(g^*z) &\mbox{\scriptsize(20)}& \mbox{whenever $g \in inst(y)$ and $x_c < y$ and $y < z$, where $x_c \base x$}\\
+(x \cross g)^*(x \cross h)&=x \cross(g^*h) &\mbox{\scriptsize(21)}& \mbox{where as above  and also $h \in inst(z)$}\\
+\delta_x ^*(x \cross y)&=y                 &\mbox{\scriptsize(24)}& \mbox{whenever  $x < y$}\\
+\delta_x ^*(x \cross g)&=g                 &\mbox{\scriptsize(25)}& \mbox{whenever  $x < y$ and $g\in inst(y)$}\\
+f \sub \diag(x) &= f                       &\mbox{\scriptsize(26)}& \mbox{whenever  $f \in inst(x)$}\\
+f \sub \diag(y) &= \diag(f \sub y)         &\mbox{\scriptsize(27)}& \mbox{whenever  $f \in inst(x)$ and  $x < y$.}
+\end{align}
+Middle column references equation from meta-GAT paper.
 
 We can visualise the first of these axioms like this: 
 \input{../content/stardistributivityaxiom}
