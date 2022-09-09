@@ -1,36 +1,36 @@
 \newcommand{\ofOb}[1]{\ofT{#1}{\Ob}}
 \newcommand{\ofHom}[2]{\ofT{#1}{\Hom(#2)}}
 
-
-\begin{frame}{Genneralised Algebraic Theories}
-
-\gatdisplayrule{\xDelta{n}}{\isT{\Delta}}
-
-
-\gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta}}
-
-
-\gatdisplayrule{\xDelta{n}}{\Delta=\Delta'} 
-
-\gatdisplayrule{\xDelta{n}}{t=\ofT{t'}{\Delta}} 
-
-\end{frame}
-\begin{frame}{Test}
-\begin{tabular}{>{\itshape}l l}
-Symbol & \itshape{Introductory Rule} \\
-\Ob  &$\isT{\Ob}$\\
-$$\Hom &$\ofOb{x,y} \tstyle \isT{\Hom(x,y)} $\\
-$\circ$ & $\ofOb{x,y,z},\ofHom{f}{x,y},\ofHom{g}{y,z} \tstyle \ofHom{\circ(f,g)}{x,z}$ \\
-id      & $ \ofOb{x} \tstyle \ofHom{id(x)}{x,x} $\\
-\end{tabular} \\
-\vspace{.1cm}  
-
-\begin{tabular}{l}
-\itshape{Axioms} \\
-$\circ(id(x),f)=f \mbox{,  whenever\ } \ofOb{x,y},\ofHom{f}{x,y}  $\\
-$\circ(f,id(y))=f \mbox{,  whenever\ } \ofOb{x,y},\ofHom{f}{x,y}  $\\
-$ \circ(\circ(f,g),h) = \circ(f,\circ(g,h))  \mbox{,  whenever\ } \ofOb{w,x,y,z}, \ofHom{f}{w,x}, \ofHom{g}{x,y}, \ofHom{h}{y,z}$
+\begin{frame}{Generalised Algebraic Theories}
+Expressed in a syntax that
+\begin{itemize}
+\item involves rules of these forms\\
+\begin{tabular}{c p{1cm} c}
+\gatdisplayrule{\xDelta{n}}{\isT{\Delta}}   & \gatdisplayrule{\xDelta{n}}{\ofT{t}{\Delta}}\\
+\gatdisplayrule{\xDelta{n}}{\Delta=\Delta'} & \gatdisplayrule{\xDelta{n}}{t=\ofT{t'}{\Delta}} 
 \end{tabular}
+\item and meta-rules which I call principles of derivation each enabling a rule of one of the above forms to be derived from a number of other previously derived rules
+\begin{itemize}
+\item LI1...LI7 -- Laws of Identity,
+\item T1 -- Transfer Law,
+\item CF1, CF2(a) and CF2(b) -- Cut-free versions of term and type substitution laws,
+\item SI1 and SI2 -- Substitution of and into Identicals.
+\end{itemize} 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Generalised Algebraic Theories}
+\begin{itemize}
+\item A set of sort symbols each with an introductory rule. 
+A sort symbol $A$ must have an introductory rule of the form \genericAintroductoryrule and this rule must be well-typed.
+\item A set of operator symbols each with an introductory rule. 
+An operator symbol $f$ must have an introductory rule of this form   \genericfintroductoryrule and this rule  must be well-typed,
+\item a set of well-typed axioms. Each axiom is of one of these two forms
+\begin{tabular}{c p{1cm} c}
+\gatdisplayrule{\xDelta{n}}{\Delta=\Delta'} & \gatdisplayrule{\xDelta{n}}{t=\ofT{t'}{\Delta}} 
+\end{tabular}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Theory of Categories}
