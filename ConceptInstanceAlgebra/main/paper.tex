@@ -13,6 +13,9 @@
 \usepackage{float} % for H option for tables and figures
 \usepackage{changepage} % used for adjustwidth
 
+\newcommand{\SharedMacros}{../../SharedMacros}
+\newcommand{\SharedText}{../../SharedText}
+
 %\usepackage{enumitem} % to be able to [resume] an enumeration but clashes with [(i)] !!
 \input{../../SharedMacros/ermacros}
 \input{../../SharedMacros/ccategories.macros}
@@ -31,6 +34,8 @@
 
 \bibliographystyle{plain} % was hplain
 
+\newcommand{\CItreemode}{D}  % so that trees are top down
+\newcommand{\CItreesep}{2cm}  % horizontal spearation of limbs of top down tree
 
 \newcommand{\dottree}
 { \pstree
@@ -312,65 +317,10 @@ $battingSide \in \inningsCrossSide$ & within the context of an $innings$ of a $m
 \end{tabular}
 
 \vspace{1.3cm}
-\begin{displaymath}
-\pstree[treemode=R,levelsep=*0.65cm,treesep=1cm,nodesep=0.05]
-{
-    \Tr{\circ}
-}
-{
-    \pstree [levelsep=*0.85cm]
-    {
-		\Tr{match} 
-	}
-	{		  
-		\pstree [levelsep=*0.85cm]
-		{
-				   \Tr{side} \uppermember {homeSide}
-		}
-		{
-					\Tr{player} \uppermember {captain}
-		}
-	    \pstree [levelsep=*0.85cm]
-		{
-			\Tr{innings} 
-		}
-		{		  
-		    \pstree [levelsep=*0.85cm]
-			{
-					   \Tr{over} 
-			}
-			{   
-					   \Tr{delivery} 
-			}			
-		}		
-	}	
-}
-\end{displaymath}
+\input{../content/cricketBasicInstances}
 
 \vspace{1.3cm}
-\begin{displaymath}
-\pstree[treemode=R,levelsep=*0.65cm,treesep=1cm,nodesep=0.05]
-{
-    \Tr{\circ}
-}
-{
-    \pstree [levelsep=*0.85cm]
-    {
-		\Tr{match} 
-	}
-	{		  
-		\Tr{side} 
-	    \pstree [levelsep=*0.85cm]
-		{
-			\Tr{innings} 
-		}
-		{		  
-			\Tr{\inningsCrossSide} \member {battingSide}		
-		}		
-	}	
-}
-\end{displaymath}
-
+\input{../content/cricketBattingSideIntro}
 
 \noindent
 \begin{tabular}{l | m{6.5cm}} 

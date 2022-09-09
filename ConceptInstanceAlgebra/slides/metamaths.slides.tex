@@ -1,0 +1,230 @@
+
+\newcommand{\inst}{i} 
+\newcommand{\cpt}{c} 
+\begin{frame}{Generalised Algebraic Theory of Concept Instance Algebras}
+\begin{itemize}
+\item There is a generalised algebraic theory of concept instance algebras.
+\item sorts representing levels of concepts are $\cpt_1, \cpt_2 ...$.
+\item sort $\cpt_{n}$ is introduced by:
+\gatdisplayrule{\ofT{x_1}{\cpt_1},... \ofT{x_{n-1}}{\cpt_{n-1}(x_1,...x_{n-2})}} {\isT{\cpt_{n}(x_1,...x_{n-1})}}
+\item sorts representing instances are $\inst_1, \inst_2, ....$.
+\item sort $\inst_{n}$ is introduced by:
+\gatdisplayrule{\context{x}{\cpt}{n}}{\isT{\inst_{n}(x_1,...x_n)}}
+\item Similarly 
+\begin{itemize}
+\item countably many $^*$, $\cross$ and $\delta$ operations,
+\item countably many axioms for each of the axioms given earlier.
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Relationship with Contextual Categories \& Generalised Algebraic Theories}
+There are equivalences of categories between
+\begin{itemize}
+\item the category of generalised algebraic theories
+\end{itemize}
+and each of the following
+\begin{itemize}
+\item the category of concept instance algebras,
+\item the category of contextual categories,
+\item the category of contextual categories with families
+\end{itemize}
+but not with 
+\begin{itemize}
+\item the category of categories with families.
+\end{itemize}
+\end{frame}
+
+
+\iffalse
+\begin{frame}
+\begin{displaymath}
+\begin{array}{c p{0.1cm} c}
+                     && \Rnode{root}{\circ}     \\[0.4cm]
+                     && \Rnode{C0}{\cpt_0}         \\[0.4cm]
+\Rnode{I0}{\inst_0}      && \Rnode{C1}{\cpt_1}         \\[0.4cm]
+\Rnode{I1}{\inst_1}      && \Rnode{C2}{\cpt_2}         \\[0.25cm]
+\Rnode{I2}{\inst_2}      && \vdots                  \\[0.25cm]
+\vdots			     && \Rnode{Ci}{\cpt_i}         \\[0.4cm]
+\Rnode{Ii}{\inst_i}      && \Rnode{Csi}{\cpt_{i+1}}    \\[0.25cm]
+\Rnode{Isi}{\inst_{i+1}} && \vdots                  \\[0.25cm]
+\vdots               &&
+\end{array}
+\begin{arrows}
+\ncline[nodesep=4pt]{C0}{root}
+\ncline[nodesep=4pt]{C1}{C0}
+\ncline[nodesep=4pt]{C2}{C1}
+\ncline[nodesep=4pt]{Csi}{Ci}
+\ncline[nodesep=4pt]{I0}{C0}
+\ncline[nodesep=4pt]{I1}{C1}
+\ncline[nodesep=4pt]{I2}{C2}
+\ncline[nodesep=4pt]{Ii}{Ci}
+\ncline[nodesep=4pt]{Isi}{Csi}
+\end{arrows}
+\end{displaymath}
+\end{frame}
+\fi
+
+\begin{frame}{Now as a Concept-Instance Algebra}
+ \def\dedge{\ncline[linestyle=dotted]}
+$$
+\pstree[treemode=\CItreemode, treefit=loose,treenodesize=0.25cm,levelsep=0.65cm,treesep=0.7cm,nodesep=2pt]
+{
+  \Tr{\circ}
+}
+{
+  \pstree
+  {
+     \Tr{\cpt_0}
+  }
+  {
+    \Tr{\inst_0}
+	\pstree
+	{
+	     \Tr{\cpt_1}
+	}
+	{
+      \Tr{\inst_1}
+  	  \pstree
+	  {
+	     \Tr{\cpt_2}
+	  }
+	  {  
+		 \Tr{\inst_2}
+		 \pstree%[levelsep=*0.75cm]
+		 {
+		    \Tr[edge=\dedge]{\cpt_i} 
+		 }
+		 {  
+	        \Tr{\inst_i}
+	        \pstree[levelsep=0.75cm,treesep=1.5cm] 
+			{
+			   \Tr{\cpt_{i+1}}
+			}
+			{
+			   \Tr{\inst_{i+1}}
+			   \Tr[edge=\dedge]{\ \ \ \ \ \nudgeup{0.3cm} \ \ \ \ \ \ \ \ } 
+			}
+		 }
+	  }
+	}
+  }
+}
+$$
+$$_0\cross_0$$
+$$\qq{_0\cross_0}$$
+$$\qq{\kern-3pt_0\cross_0\kern-3pt}$$
+$$\qq{\cross_{0,0}} \in inst(\cpt_0 \cross (\cpt_0 \cross \cpt_0))$$
+$$\qq{\delta_0} \in inst({\delta_{\cpt_0}}^*(\qq{\cross_0}^* (\cpt_0 \cross ( \cpt_0 \cross \inst_0))))$$
+\end{frame}
+
+\begin{frame}{As a Contextual Category}
+ \def\dedge{\ncline[linestyle=dotted]}
+ \def\sedge{\ncksar}
+\begin{displaymath}
+\pstree[edge=\sedge, treemode=U, treefit=loose,treenodesize=0.25cm,levelsep=0.8cm,treesep=0.7cm,nodesep=2pt]
+{
+  \Tr{1}
+}
+{
+  \pstree
+  {
+     \Tr{\cpt_0}
+  }
+  {
+    \Tr{\inst_0}
+	\pstree
+	{
+	     \Tr{\cpt_1}
+	}
+	{
+      \Tr{\inst_1}
+  	  \pstree
+	  {
+	     \Tr{\cpt_2}
+	  }
+	  {  
+		 \Tr{\inst_2}
+		 \pstree%[levelsep=*0.75cm]
+		 {
+		    \Tr[edge=\dedge]{\cpt_i} 
+		 }
+		 {  
+	        \Tr{\inst_i}
+	        \pstree[levelsep=0.75cm,treesep=1.5cm] 
+			{
+			   \Tr{\cpt_{i+1}}
+			}
+			{
+			   \Tr{\inst_{i+1}}
+			   \Tr[edge=\dedge]{\ \ \ \ \ \nudgeup{0.3cm} \ \ \ \ \ \ \ \ } 
+			}
+		 }
+	  }
+	}
+  }
+}
+\end{displaymath}
+\end{frame}
+
+\begin{frame}{Richard Garner...}
+Describes a monad on the category $\Set^C$, where $C$ is this category 
+ \def\dedge{\ncline[linestyle=dotted]}
+ \def\backarrow{\nckarr}
+$$
+  \pstree[edge=\backarrow, treemode=U, treefit=loose,treenodesize=0.25cm,levelsep=0.8cm,treesep=0.7cm,nodesep=2pt]
+  {
+     \Tr{\cpt_0}
+  }
+  {
+    \Tr{\inst_0}
+	\pstree
+	{
+	     \Tr{\cpt_1}
+	}
+	{
+      \Tr{\inst_1}
+  	  \pstree
+	  {
+	     \Tr{\cpt_2}
+	  }
+	  {  
+		 \Tr{\inst_2}
+		 \pstree%[levelsep=*0.75cm]
+		 {
+		    \Tr[edge=\dedge]{\cpt_i} 
+		 }
+		 {  
+	        \Tr{\inst_i}
+	        \pstree[levelsep=0.75cm,treesep=1.5cm] 
+			{
+			   \Tr{\cpt_{i+1}}
+			}
+			{
+			   \Tr{\inst_{i+1}}
+			   \Tr[edge=\dedge]{\ \ \ \ \ \nudgeup{0.3cm} \ \ \ \ \ \ \ \ } 
+			}
+		 }
+	  }
+	}
+  }
+$$ and defines the algebras as equivalent to B-systems.
+\end{frame}
+
+
+\begin{frame}{Fungible Algebras}
+Q. Are the following types of structure fungable
+\begin{itemize}
+\item concept instance algebras,
+\item contextual categories,
+\item contextual categories with families.
+\end{itemize}
+A. Depends on the matter at hand. If we are looking for Set-like instances of theories then they are, 
+more generally they are not.
+
+\begin{itemize}
+\item concept-instance algebras are $\Sigma Id$-fungible
+\end{itemize}
+\end{frame}
+

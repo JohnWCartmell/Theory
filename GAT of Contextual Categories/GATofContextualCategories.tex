@@ -1,13 +1,16 @@
 \documentclass[10pt,a4paper]{scrartcl}
 \usepackage[margin=3cm]{geometry}
 \usepackage{array}
-\input{../SharedMacros/ermacros}
-\input{../SharedMacros/ccategories.macros}
-\input{../SharedMacros/gats.macros}
-\input{../SharedMacros/metagat.macros}
-\input{../SharedMacros/erdiagram}
-\input{../SharedMacros/theorems.macros}
-\input{../SharedMacros/general.macros}
+\newcommand{\SharedMacros}{../SharedMacros}
+\newcommand{\SharedText}{../SharedText}
+
+\input{\SharedMacros/ermacros}
+\input{\SharedMacros/ccategories.macros}
+\input{\SharedMacros/gats.macros}
+\input{\SharedMacros/metagat.macros}
+\input{\SharedMacros/erdiagram}
+\input{\SharedMacros/theorems.macros}
+\input{\SharedMacros/general.macros}
 \usepackage{tipa}
 \usepackage{textcomp}
 \usepackage{mnsymbol}
@@ -29,7 +32,7 @@
           Extended 14 Jun 2018 \\
 		  Corrected 5 Jul 2018, 14 Feb 2021 \\
           Further corrections, revised notation ($\hash$ instead of $\sub$) 25 Jan 2022 \\
-          Tidy up a few things 27 Aug 2022}
+          Tidy up a few things 27 Aug 2022, Minor Corrections 8 Sept 2022}
 \author{John Cartmell}
 \date{}
 \begin{document}
@@ -72,7 +75,7 @@ $ \circ(\circ(f,g),h) = \circ(f,\circ(g,h))  \mbox{,  whenever\ } \ofOb{w,x,y,z}
 \vspace{.3cm}  \\
 
 
-\input{../SharedText/treeofconcepts}
+\input{\SharedText/treeofconcepts}
 
 \subsection{Rooted $\omega$-trees}
 A contextual catgeory has a rooted $\omega$-tree of objects and we think of this tree as a tree of dependencies among concepts. \\
@@ -127,7 +130,7 @@ $\Homij{n}{m} $ &$\ofObi{x}{n} ,\  \ofObi{y}{m} \ \tstyle \isT{\HomijBar{n}{m}{x
 $\circ$ & $\ofObi{x}{n}, \  \ofObi{y}{m}, \ \ofObi{z}{p}, \ \ofHomij{f}{n}{m}{x}{y},\ofHomij{g}{m}{p}{y}{z} \tstyle \ofHomij{\circ(f,g)}{n}{p}{x}{z}$ \\ [0.25cm]
 $id_n   $   & $ \ofObi{x}{n} \tstyle \ofHomij{id_n(x)}{n}{n}{x}{x} $\\ [0.25cm]
 $p_n   $   & $ \ofObi{x}{n} \tstyle \ofHomij{p_n(x)}{n}{n-1}{x}{x_{n-1}} $\\ [0.25cm]
-$1     $   & $\ofT{1}{Base} $\\         [0.25cm]
+$1     $   & $\ofT{1}{\Sz} $\\         [0.25cm]
 $t_n   $   & $ \ofObi{x}{n} \tstyle t_n(x) \in \Homij{n}{0}(x,1)$\\ [0.25cm]
 \end{tabular} \\
 \vspace{.1cm}  \\
@@ -141,7 +144,7 @@ $ \circ(\circ(f,g),h) = \circ(f,\circ(g,h)),$ \ whenever \\ [0.2cm]
 $ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
 \ofObi{w}{l} , \ \ofObi{x}{n} , \ \ofObi{y}{m} , \ \ofObi{z}{p}, \ 
  \ofHomij{f}{l}{n}{w}{x}, \ofHomij{g}{n}{m}{x}{y}, \ofHomij{h}{m}{p}{y}{z}$ \\ [0.25cm]
-$x = y, $ whenever $x,y \in Base $ \\ [0.25cm]
+$x = y, $ whenever $x,y \in \Sz $ \\ [0.25cm]
 $f = t_n(x),  $ whenever $ \ofObi{x}{n}, \ f \in \Homij{n}{0}(x,1)$\\ [0.25cm]
 \end{tabular}  \\
 \vspace{.05cm}  \\
@@ -412,9 +415,9 @@ the following additional structure: \\
 \vspace{0.1cm} 
 \begin{tabular}{>{\itshape}l l}
 Symbol & \itshape{Introductory Rule} \\[0.1cm]
-$\sub $&$ \ofObi{x}{n} ,\  \ofObi{y}{m} ,\  \ofHomij{f}{n}{m}{x}{y} ,\  \ofT{z}{\Obi{m}(y)}
-\tstyle \ofT {f \sub z}{\Obi{n}(x) } $\\[0.25cm]
-$ q  $&$ \ofObi{x}{n} ,\  \ofObi{y}{m} ,\  \ofHomij{f}{n}{m}{x}{y} ,\  \ofT{z}{\Obi{m}(y)}
+$\sub $&$ \ofObi{x}{n} ,\  \ofObi{y}{m} ,\  \ofHomij{f}{n}{m}{x}{y} ,\  \ofT{z}{\Si{m}(y)}
+\tstyle \ofT {f \sub z}{\Si{n+1}(x) } $\\[0.25cm]
+$ q  $&$ \ofObi{x}{n} ,\  \ofObi{y}{m} ,\  \ofHomij{f}{n}{m}{x}{y} ,\  \ofT{z}{\Si{m}(y)}
 \tstyle
                      \ofT{q(f,z)}{  \Homij{n}{m+1}(f\sub y_m  , y_m ) }$  \\ [0.25cm]
 $ s  $ & $ \ofObi{x}{n} ,\  \ofObi{y}{m} ,\  \ofHomij{f}{n}{m}{x}{y} \tstyle
