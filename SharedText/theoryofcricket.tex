@@ -1,0 +1,30 @@
+
+% In this example I have had to fine tune the various widths.
+% I haven't been able to find a way of getting the dotfill to fill
+% out the entire width of a containing column of an array.
+\begin{displaymath}
+\begin{array}{l}
+\isT{match} \\
+\begin{gatgroup}{\ofT{m}{match}}
+  \gatleaf[8.0cm]{}{\isT{innings(m)}} \\
+  \gatleaf[8cm]{}{\isT{side(m)}}\\
+  \gatleaf[8cm]{}{\ofT{homeSide(m)}{side}}\\
+  \begin{gatgroup}{\ofT{s}{side(m)}}
+    \gatleaf[6cm]{} {\isT{player(s)}} \\
+    \gatleaf[6cm]{} {\ofT{captain(s)}{player(s)}}
+  \end{gatgroup} \\
+    \begin{gatgroup}{\ofT{i}{innings(m)}}
+    \gatleaf[6cm]{}{\ofT{fieldingSide(i)}{side}} \\
+    \gatleaf[6cm]{}{\ofT{battingSide(i)}{side}} \\
+    \gatleaf[6cm]{}{\isT{over(i)}} \\
+    \begin{gatgroup}{\ofT{o} {over(i)}}
+      \gatleaf[5.8cm]{}{\ofT{bowler(o)}{player(fieldingSide(i))}} \\
+      \gatleaf[5.8cm]{}{\isT{delivery(o)}} \\
+      \gatleaf[5.8cm]{}{\ofT{facingBatter(d)}{player(battingSide(i))}} \\
+      \makebox[5.8cm][r]{\hspace{2cm} \dotfill where $\ofT{d}{delivery(o)}$  }
+    \end{gatgroup} 
+  \end{gatgroup} 
+\end{gatgroup}
+\end{array}
+\end{displaymath}
+
