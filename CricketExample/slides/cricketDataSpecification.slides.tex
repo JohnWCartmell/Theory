@@ -1,0 +1,151 @@
+
+
+
+\begin{frame}{Cricket Logical Model}
+\begin{center}
+\scalebox{0.75}{\input{../content/cricketMatch.logical}}
+\end{center}
+\end{frame}
+
+%\scopeTriangle{subject}{domain}{codomain}{apex}{diagonal}{riser}
+\newcommand{\scopeTriangle}[6]
+{
+ \begin{array}{c  c  c}
+                & \Rnode{apex}{#4} &                \\[1cm]
+\Rnode{dom}{#2} &                  & \Rnode{cod}{#3} 
+\end{array}
+\begin{arrows}
+\ncarr{dom}{cod}
+\blabel{#1}
+\ncsar{dom}{apex}
+\alabel{#5}[0.2]
+\ncsar{cod}{apex}
+\blabel{#6}[0.2]
+\end{arrows} 
+}
+
+
+\begin{frame}{the battingSide}
+\begin{equation}
+\label{battingSideScopeText}
+\parbox{9.5cm}{The $battingSide$ within an $innnings$ of a $match$ is a $side$ within that same $match$.}
+\end{equation}
+\medskip
+\begin{equation}
+\label{battingSideScopeDiagram}
+\scopeTriangle{battingSide}{innings}{side}{match}{..}{..}
+\end{equation}
+\medskip
+\begin{itemize}
+\item Statement (\ref{battingSideScopeText}) specifies the \textit{scope} of the $batingSide$ relationship.
+\item It means that starting from an $innings$ there are two navigation paths that are equivalent:
+\begin{itemize}
+  \item $..$ 
+  \item $battingSide/..$
+\end{itemize}
+\item This fact can be represented by saying that diagram (\ref{battingSideScopeDiagram}) commutes.
+%\item In ERScript reference relationships may have a scope specified for them. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{the fieldingSide}
+The $fieldingSide$ likewise. 
+\medskip
+\begin{equation}
+\scopeTriangle{fieldingSide}{innings}{side}{match}{..}{..}
+\end{equation}
+\end{frame}
+
+\begin{frame}{The bowler}
+\begin{equation}
+\label{bowlerScopeText}
+\parbox{9.5cm}{The $bowler$ within an $over$ of an $innnings$ of a $match$ is a $player$ within the $fieldingSide$ within that $innings$.}
+\end{equation}
+\medskip
+\begin{equation}
+\label{bowlerScopeDiagram}
+\ccsquareoutline{3cm}{1.0cm}{innings}{side}{over}{player}
+\ccsquareacross{fieldingSide}{bowler}
+\ccsquareup{..}{..}
+\end{equation}
+\medskip
+\begin{itemize}
+\item Statement (\ref{bowlerScopeText}) specifies the \textit{scope} of the $bowler$ relationship.
+\item It means that starting from an instance of $over$ there are two navigation paths that are equivalent:
+\begin{itemize}
+  \item $../fieldingSide$ 
+  \item $bowler/..$
+\end{itemize}
+\item In other words, diagram (\ref{bowlerScopeDiagram}),above, commutes.
+%\item In ERScript reference relationships may have a scope specified for them. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The facingBatter}
+\begin{equation}
+\label{facingBatterScopeText}
+\parbox{9.5cm}{The $facingBatter$ for a $delivery$ of an $over$ of an $innnings$ is a $player$ within the $battingingSide$ within that $innings$}.
+\end{equation}
+\medskip
+\begin{equation}
+\label{facingBatterScopeDiagram}
+\begin{array}{c p{2cm} c}
+\Rnode{innings}{innings} && \Rnode{side}{side} \\[0.75cm]
+\Rnode{over}{over}    &&      \\[0.75cm]
+\Rnode{delivery}{delivery} && \Rnode{player}{player} 
+\end{array}
+\begin{arrows}
+\ncsar{delivery}{over}
+\alabel{..}
+\ncsar{over}{innings}
+\alabel{..}
+\ncsar{player}{side}
+\blabel{..}
+\ncarr{innings}{side}
+\alabel{battingSide}
+\ncarr{delivery}{player}
+\blabel{facingBatter}
+\end{arrows}
+\end{equation}
+\medskip
+\begin{itemize}
+\item (\ref{facingBatterScopeText}) specifies the \textit{scope} of the $facingBatter$ relationship.
+\item It means that starting from an instance of $delivery$ there are two navigation paths that are equivalent:
+\begin{itemize}
+  \item $../../battingSide$ 
+  \item $facingBatter/..$
+\end{itemize}
+\item In other words, diagram (\ref{facingBatterScopeDiagram}), above, commutes.
+%\item In ERScript reference relationships may have a scope specified for them. 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Cricket as Data Specification}
+\newcommand{\logicalAnnotation}
+{\begin{tabular}[b]{p{6.5cm}}
+Logical or Conceptual\\
+\footnotesize  Start here with along with specification of
+scopes for reference relationships (not show)
+\end{tabular}
+}
+\newcommand{\hierarchicalAnnotation}
+{\begin{tabular}[b]{p{6.5cm}}
+Physical...Hierarchical (auto-generated)\\
+\footnotesize Suitable for representation in XML or IDL.
+ fk attrs added to represent horizontal reference (R) relationships.
+ In this representation the (D) relationships are implemented by structural containment.
+\end{tabular}
+}
+\newcommand{\relationalAnnotation}
+{\begin{tabular}[b]{p{6.5cm}}
+Physical...Relational (auto-generated)\\
+\footnotesize  For representation in a relational schema.
+Further fk attrs added to represent the dependency (D) relationships.
+\end{tabular}
+}
+\begin{tabular}{l l}
+\raisebox{-1.9cm}{\scalebox{0.75}{\input{../content/cricketMatch.physicalAbbreviated.relational}} }
+& \kern-3cm\onslide*<1-1>{\logicalAnnotation} \onslide*<2-2>{\hierarchicalAnnotation}\onslide*<3-3>{\relationalAnnotation}
+\end{tabular}
+\end{frame}
