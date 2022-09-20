@@ -1,0 +1,219 @@
+
+
+\begin{frame}{Dependency Category}
+\noindent A second possibility is to represent a dependency between one type B and another A by a directed 
+edge $B \smorph A$ then in any particular 
+situation the types and their dependencies form a directed graph.
+\\
+
+\noindent Furthermore, any directed graph (well-founded acyclic category?)makes sense as, and can be interpreted as, a set of types and type dependencies 
+providing (i) there are no cycles in
+the graph and provided that (ii) all nodes B there are only finitely many A, such that $B \smorph A$ and (iii) there are 
+no infinite sequences of the form $A_1 \smorph A_2 \smorph A_3 ....$. We will call any directed graph that 
+meets these conditions a dependency graph or  d-graph and we will call the edges dependencies. 
+\end{frame}
+
+\begin{frame} The directed graph:
+\begin{equation}
+\begin{array}{ccc}
+\Rnode{C}{C}   &            &                 \\ [0.8cm]
+\Rnode{B1}{B_1}&            &\Rnode{B2}{B_2}  \\ [0.8cm]
+               &\Rnode{A}{A}&                 
+\end{array}
+\ncsar{C}{B1}
+\ncsar{B1}{A}
+\ncsar{B2}{A} 
+\end{equation}
+\\
+
+\noindent interpreted as types and type dependencies expresses the following:
+\addtocounter{equation}{-1}
+\begin{subequations}
+\begin{align}
+&A\mbox{ is a type} \\
+&x\in A : B_1(x) \mbox{ is a type} \\
+&x\in A : B_2(x) \mbox{ is a type} \\
+&x\in A, y\in B_1(x): C(x,y) \mbox{ is a type}
+\end{align}
+\end{subequations}
+
+\end{frame}
+
+
+\begin{frame}
+Similarly the directed graph:
+
+\begin{center}
+$
+\begin{array}{p{1.5cm}cccp{2cm}c}
+&                & \Rnode{C2}{C}&   \\ [0.8cm]
+&                & \Rnode{B}{B} &  \\ [0.8cm]
+&\Rnode{A1}{A_1} &              & \Rnode{A2}{A_2}\\ [0.4cm]
+&                &\stepcounter{equation}(\theequation) &  \\
+\end{array}
+$
+\ncsar{C2}{B}
+\ncsar{B}{A1}
+\ncsar{B}{A2}
+\setlength {\saroffsetA}{-2pt}
+\setlength {\saroffsetB}{-2pt}
+\ncsar[-15]{C3}{B3}
+\setlength {\saroffsetA}{2pt}
+\setlength {\saroffsetB}{2pt}
+\ncsar[15]{C3}{B3}
+\sarreset
+\ncsar{B3}{A3}
+\end{center}
+
+\noindent can be interpreted as representing the following type system:
+
+\addtocounter{equation}{-1}
+\begin{align}
+&A_1\mbox{ is a type} && \tag*{(\theequation a)}\\
+&A_2\mbox{ is a type} && \tag*{(\theequation b)}\\
+&x_1\in A_1, x_2 \in A_2 : B(x_1,x_2) \mbox{ is a type} && \tag*{(\theequation c)}\\
+&x_1\in A_1, x_2 \in A_2, y \in B(x_1,x_2): C(x_1,x_2,y) \mbox{ is a type} && \tag*{(\theequation d)}\\
+\end{align}
+\end{frame}
+
+\begin{frame}
+A third notation is an extended style of entity modelling style developed by the author and documented at \href{www.entitymodelling.org}{www.entitymodelling.org}. In this notation, type dependencies are represented by what are called composition relationships; these are distinguished from other functional relationships by being draw leaving the
+lower edge of a box and entering the upper edge of the box representing the dependent type. \\
+
+\noindent Examples are given in figures \ref{partsOfSpeech} and \ref{citizen}.
+
+\begin{center}
+\begin{figure} [H]
+\hspace {1.5cm}
+(a)
+\begin{tabular}{>{\textit} l l}
+Symbol & \itshape{Introductory Rule} \\ 
+\hline 
+language &$\tstyle \isT{language} $\\
+sentence &$x \in language \tstyle sentence(x) \mbox{ is a type} $\\
+word &$x \in language \tstyle word(x) \mbox{ is a type} $\\
+noun &$x \in language ,\ y \in sentence(x)  \tstyle noun(y) \mbox{ is a type} $\\
+verb &$x \in language ,\ y \in sentence(x)  \tstyle verb(y) \mbox{ is a type} $\\
+adjective &$x \in language ,\ y \in sentence(x)  \tstyle adjective(y) \mbox{ is a type}$
+\end{tabular} 
+\vspace{0.5cm}
+
+\hspace{0.5cm}
+(b)
+\setlength{\arraycolsep}{0cm}
+$
+\begin{array}{ c c c c}
+&                            &  \Rnode{1}{1}               &             \\ [1.3cm]
+&                            & \Rnode{language}{language}  &             \\ [1.3cm]
+& \Rnode{sentence}{sentence} &                     & \Rnode{word}{word}\\ [1.3cm]
+\Rnode{noun}{noun}         & \Rnode{verb}{verb}  & \Rnode{adjective}{adjective} &
+\end{array}
+$
+\hspace {1.0cm}
+(c)
+\erinlinePicture{partsOfSpeech}{4}
+\ncsar{language}{1}
+\ncsar{sentence}{language}
+\ncsar{word}{language}
+\ncsar{noun}{sentence}
+\ncsar{verb}{sentence}
+\ncsar{adjective}{sentence}
+\caption{Three representations of a system of types (a) rules in a formal mathematical syntax,
+(b) a graph of  type dependencies (c) entity modelling notation.}
+\label{partsOfSpeech}
+\end{figure}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\begin{figure} [H]
+(a) \erinlinePicture{performanceOfPlayAnnotated}{3.5}
+
+(b)
+\begin{minipage}[c]{0.6 \textwidth}
+\begin{tabular}{l l}
+Symbol & \itshape{Introductory Rule} \\ 
+\hline 
+$play$ &$\tstyle \isT{play} $\\
+$performance$ &$\tstyle \isT{performance} $\\
+$of       $& $ x \in performance \tstyle \ofT{of(x)}{play}$ \\
+$character$&$x \in play \tstyle character(x) \mbox{ is a type} $\\
+$castMember$&$x \in performance \tstyle castMember(x) \mbox{ is a type}$ \\
+$playsPartOf$& $ x \in performance ,\ y \in castMember(x) \tstyle \ofT{playsPartOf(y)}{character} $\\
+\end{tabular}
+\end{minipage}
+\caption{A cast member plays a part in the same play that they are pert of the performance of. This is reflected in (b) by examination of the variables in the intoductory rule for $playsPartOf$. In the entity modelling diagram, (a), this is documented in a scope constraint (~/.. = ../of)  which specifies that the square of relationships commutes. See \href{http://www.entitymodelling.org/tutorialone/scopediagrams.html}
+{www.entitymodelling.org/tutorialone/scopediagrams}}.
+\label{citizen}
+\end{figure}
+\end{center}
+\end{frame}
+
+\begin{frame}{Equivalent paths }
+
+Consider the following two rules:
+\begin{subequations}
+\begin{align} 
+           & x_1 \in A, y_1 \in B_1(x_1), x_2 \in A, y_2 \in B_2(x_2) : C(x_1,y_1,x_2,y_2) \mbox{ is a type}\label{multipleInstanceA}\\
+\mbox{and}& \notag \\
+           & x \in A, y_1 \in B_1(x), y_2 \in B_2(x) : C(x,y_1,y_2) \mbox{ is a type} \label{singleInstanceA}
+\end{align}
+\end{subequations}
+
+\noindent They both give rise to a graph like this:
+
+\begin{equation}
+\begin{array}{ccc}
+               &\Rnode{C}{C}   &             \\ [0.8cm]
+\Rnode{B1}{B_1}&            &\Rnode{B2}{B_2}  \\ [0.8cm]
+               &\Rnode{A}{A}&                 \\
+\end{array}
+\ncsar{C}{B1}
+\ncsar{C}{B2}
+\ncsar{B1}{A}
+\ncsar{B2}{A} 
+\end{equation}
+\\
+
+In the case of \eqref{singleInstanceA}, $C$ relies for context on instances of $B_1$ and $B_2$ which themselves are based within the context of a common instance of $A$.
+
+In the case of \eqref{singleInstanceA}, but not in case \eqref{multipleInstanceA}, we say that the path:
+$ C \smorph B_1 \smorph A$ is equivalent to the path: $ C \smorph B_2 \smorph A$.
+\end{frame}
+
+\begin{frame}
+We call any graph endowed with such an equivalence relation a dependency structure. It follows from the definitions that every set of type definitions gives rise to a dependency structure and it is easy to see that the converse is true: that every dependency structure, up to isomorphism of structures, arises as the dependency structure of a set of type definitions.
+\\ 
+
+In order to specify a dependency structure it is necessary to specify the dependency graph and then for 
+each subgraph of the form:
+
+\begin{math}
+\begin{array}{p{3cm}cccc}
+&                      &\Rnode{C}{C}&                      & \\ [0.8cm]
+& \Rnode{Ln}{L_n}      &            &\Rnode{Rm}{R_m}       & \\ [0.6cm]
+& \Rnode{Ln1}{L_{n-1}} &            &\Rnode{Rm1}{R_{m-1}}  & \\
+& \Rnode{Ldots}{\vdots}&            &\Rnode{Rdots}{\vdots} & \\
+& \Rnode{L1}{L_1}      &            &\Rnode{R1}{R_1}       & \\ [0.8cm]
+&                      &\Rnode{A}{A}&                      & \\
+\end{array}
+\ncsar{C}{Ln}
+\ncsar{C}{Rm}
+\ncsar{Ln}{Ln1}
+\ncsar{Rm}{Rm1}
+\ncsar{L1}{A}
+\ncsar{R1}{A} 
+\end{math} 
+\\
+whether the two paths left and right are equivalent. This is to say whether there are one or two instances of $A$ 
+depended on by $C$. 
+ 
+Hiearchical dependency structures, developed further, lead to the notion of contextual category (described  in \cite{Cartmell78} and subsequently published in \cite{Cartmell86}). 
+\end{frame}
+
+
+
+
+
+

@@ -1,4 +1,26 @@
 
+
+\begin{frame}{Concept, Context, Instance}
+All that there is...
+\begin{itemize}
+\item ...is in context.
+\item ... is concept and instance of concept.
+\end{itemize}
+There is...
+\begin{itemize}
+\item a root concept that represents the absolute or the whole.
+\end{itemize}
+To every concept $x$ there are...
+\begin{itemize}
+\item ...other concepts and their instances for which $x$ provides context.
+\end{itemize}
+Further...
+\begin{itemize}
+\item a concept whose context is provided by the absolute can be said to be an absolute concept.  
+All of its instances can also be said to be absolute.
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Concepts with a dependency on context}
 \begin{center}
 \raisebox{-0.5cm}{
@@ -20,285 +42,60 @@ in the context of some other thing,
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Opposite Side}
+\iffalse
+{\begin{displaymath}
+\begin{array}{c p{0.5cm} c  c} 
+                &&\rnode{Bp}{} &                   \\
+\rnode{A}{}&                   &                   \\[0.25cm]
+                &&             & \rnode{Cp}{} \\
+\end{array}
+\ncline[nodesep=0pt]{A}{Bp}
+\ncput{\rnode{B}{}}
+\ncline[nodesep=0pt]{A}{Cp}
+\ncput{\rnode{C}{}}
+\ncline[nodesep=0pt]{Bp}{Cp}
+\ncline[nodesep=0pt]{B}{C}
+%labels
+\nput[labelsep=1pt]{180}{A}{A}
+\nput[labelsep=2pt]{80}{Bp}{B'}
+\nput[labelsep=1pt]{290}{Cp}{C'}
+\nput[labelsep=1pt]{120}{B}{B}
+\nput[labelsep=2pt]{260}{C}{C}
+\end{displaymath}
+}
+\fi
+
+\textit{"in the context of an angle of a triangle, the opposite side is an instance of a side of the same triangle"}
+\medskip
+In the algebra is written as
+$$oppositeSide \in inst(angle \cross side)$$
+because
+\begin{itemize}
+\item $angle \cross side$ represents a $side$ in the context of an $angle$ of the same $triangle$
+\end{itemize}
+provided we assume that
+\begin{itemize}
+\item $triangle \base angle$ and $triangle \base side$.
+\end{itemize}
+With these same assumptions, in the algebra, we have that
+\begin{itemize}
+\item $angle \base (angle \cross side)$.
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}
-\begin{tabular}{c p{2cm} c }
-\textit{I can help.} & &\textit{I will carry the can.}
-\end{tabular}
+\begin{equation}
+\label{examplesentence}
+\mbox{\textit{I \underline{can} carry the \underline{can}.}}
+\end{equation}
+If (\ref{examplesentence}) is given as an example of a sentence having a word that is both a verb and a noun then
+\medskip
 \begin{itemize}
-\item a word cannot be said to be `noun', `verb', 'adjective' or such like lest it be appearing in some grammatically OK sentence so `noun' and `verb` as types of thing are dependent on sentence-like types of thing
-\item what we mean by \textit{sentence} depends on a\textit{language} as context
-\item we have $language \base sentence$ and $sentence \base noun$, $sentence \base verb$ and so on.
+\item \textit{noun} and \textit{verb} as types of thing are dependent on (grammatical) \textit{sentence}s for context
+\item what is a (grammatical) \textit{sentence} depends on \textit{language} as context.
 \end{itemize}
-There is a tree of concepts
+There is a tree of contexts and concepts which we show like this
 \input{../content/languageTree}
 \end{frame}
-
-\begin{frame}
-Its the same with types that vary. 
-Concepts like `angle', `edge', `boundary', `bounding line' as we learm the concepts
-we learn that do not stand alone; similarly
-we have dependent concepts like  face of cube,  endpoint of line,   junction between lines, citizen (of a country), tangent (to a curve), atom of a molecule,  nucleus of a cell. 
-\begin{tabular}{l l}
-endpoint & of line\\
-junction & between lines\\
-citizen & of country\\
-tangent & to curve\\
-%atom & of molecule\\
-nucleous & of cell \\
-%angle & between lines \\
-edge & of something \\
-%boundary & of extent\\
-%bounding line \\
-face & of cube\\
-\end{tabular}
-\end{frame}
-
-\begin{frame}
-\begin{align*}
-&\tstyle \isT{Triangle} \\
-&\ofT{x}{Triangle} \tstyle \isT{Side(x)} 
-\end{align*}  
-
-\begin{align*}
-&\tstyle \isT{Country} \\
-&x \in Country \tstyle Citizen(x) \mbox{ is a type}
-\end{align*}
-\noindent we might then go on to write: 
-\begin{equation*}
-\tstyle JohnC \in Citizen(UK)
-\end{equation*}
-which is well formed providing that:
-\begin{equation*}
-\tstyle \ofT{UK}{Country}
-\end{equation*}
-\end{frame}
-
-\begin{frame}
-\begin{equation*}
-x \in Triangle, y \in Angle(x): oppositeSide(x,y) \in Side(x)
-\end{equation*}
-
-\noindent Having this notation then leads us to be able to make type assertions such as
-\begin{equation*}
-x \in Country \tstyle headOfState(x) \in Citizen(x)
-\end{equation*}
-\end{frame}
-
-\begin{frame}
-\noindent A second possibility is to represent a dependency between one type B and another A by a directed 
-edge $B \smorph A$ then in any particular 
-situation the types and their dependencies form a directed graph.
-\\
-
-\noindent Furthermore, any directed graph makes sense as, and can be interpreted as, a set of types and type dependencies 
-providing (i) there are no cycles in
-the graph and provided that (ii) all nodes B there are only finitely many A, such that $B \smorph A$ and (iii) there are 
-no infinite sequences of the form $A_1 \smorph A_2 \smorph A_3 ....$. We will call any directed graph that 
-meets these conditions a dependency graph or  d-graph and we will call the edges dependencies. 
-\end{frame}
-
-\begin{frame} The directed graph:
-\begin{equation}
-\begin{array}{ccc}
-\Rnode{C}{C}   &            &                 \\ [0.8cm]
-\Rnode{B1}{B_1}&            &\Rnode{B2}{B_2}  \\ [0.8cm]
-               &\Rnode{A}{A}&                 
-\end{array}
-\ncsar{C}{B1}
-\ncsar{B1}{A}
-\ncsar{B2}{A} 
-\end{equation}
-\\
-
-\noindent interpreted as types and type dependencies expresses the following:
-\addtocounter{equation}{-1}
-\begin{subequations}
-\begin{align}
-&A\mbox{ is a type} \\
-&x\in A : B_1(x) \mbox{ is a type} \\
-&x\in A : B_2(x) \mbox{ is a type} \\
-&x\in A, y\in B_1(x): C(x,y) \mbox{ is a type}
-\end{align}
-\end{subequations}
-
-\end{frame}
-
-
-\begin{frame}
-Similarly the directed graph:
-
-\begin{center}
-$
-\begin{array}{p{1.5cm}cccp{2cm}c}
-&                & \Rnode{C2}{C}&   \\ [0.8cm]
-&                & \Rnode{B}{B} &  \\ [0.8cm]
-&\Rnode{A1}{A_1} &              & \Rnode{A2}{A_2}\\ [0.4cm]
-&                &\stepcounter{equation}(\theequation) &  \\
-\end{array}
-$
-\ncsar{C2}{B}
-\ncsar{B}{A1}
-\ncsar{B}{A2}
-\setlength {\saroffsetA}{-2pt}
-\setlength {\saroffsetB}{-2pt}
-\ncsar[-15]{C3}{B3}
-\setlength {\saroffsetA}{2pt}
-\setlength {\saroffsetB}{2pt}
-\ncsar[15]{C3}{B3}
-\sarreset
-\ncsar{B3}{A3}
-\end{center}
-
-\noindent can be interpreted as representing the following type system:
-
-\addtocounter{equation}{-1}
-\begin{align}
-&A_1\mbox{ is a type} && \tag*{(\theequation a)}\\
-&A_2\mbox{ is a type} && \tag*{(\theequation b)}\\
-&x_1\in A_1, x_2 \in A_2 : B(x_1,x_2) \mbox{ is a type} && \tag*{(\theequation c)}\\
-&x_1\in A_1, x_2 \in A_2, y \in B(x_1,x_2): C(x_1,x_2,y) \mbox{ is a type} && \tag*{(\theequation d)}\\
-\end{align}
-\end{frame}
-
-\begin{frame}
-A third notation is an extended style of entity modelling style developed by the author and documented at \href{www.entitymodelling.org}{www.entitymodelling.org}. In this notation, type dependencies are represented by what are called composition relationships; these are distinguished from other functional relationships by being draw leaving the
-lower edge of a box and entering the upper edge of the box representing the dependent type. \\
-
-\noindent Examples are given in figures \ref{partsOfSpeech} and \ref{citizen}.
-
-\begin{center}
-\begin{figure} [H]
-\hspace {1.5cm}
-(a)
-\begin{tabular}{>{\textit} l l}
-Symbol & \itshape{Introductory Rule} \\ 
-\hline 
-language &$\tstyle \isT{language} $\\
-sentence &$x \in language \tstyle sentence(x) \mbox{ is a type} $\\
-word &$x \in language \tstyle word(x) \mbox{ is a type} $\\
-noun &$x \in language ,\ y \in sentence(x)  \tstyle noun(y) \mbox{ is a type} $\\
-verb &$x \in language ,\ y \in sentence(x)  \tstyle verb(y) \mbox{ is a type} $\\
-adjective &$x \in language ,\ y \in sentence(x)  \tstyle adjective(y) \mbox{ is a type}$
-\end{tabular} 
-\vspace{0.5cm}
-
-\hspace{0.5cm}
-(b)
-\setlength{\arraycolsep}{0cm}
-$
-\begin{array}{ c c c c}
-&                            &  \Rnode{1}{1}               &             \\ [1.3cm]
-&                            & \Rnode{language}{language}  &             \\ [1.3cm]
-& \Rnode{sentence}{sentence} &                     & \Rnode{word}{word}\\ [1.3cm]
-\Rnode{noun}{noun}         & \Rnode{verb}{verb}  & \Rnode{adjective}{adjective} &
-\end{array}
-$
-\hspace {1.0cm}
-(c)
-\erinlinePicture{partsOfSpeech}{4}
-\ncsar{language}{1}
-\ncsar{sentence}{language}
-\ncsar{word}{language}
-\ncsar{noun}{sentence}
-\ncsar{verb}{sentence}
-\ncsar{adjective}{sentence}
-\caption{Three representations of a system of types (a) rules in a formal mathematical syntax,
-(b) a graph of  type dependencies (c) entity modelling notation.}
-\label{partsOfSpeech}
-\end{figure}
-\end{center}
-\end{frame}
-
-\begin{frame}
-\begin{center}
-\begin{figure} [H]
-(a) \erinlinePicture{performanceOfPlayAnnotated}{3.5}
-
-(b)
-\begin{minipage}[c]{0.6 \textwidth}
-\begin{tabular}{l l}
-Symbol & \itshape{Introductory Rule} \\ 
-\hline 
-$play$ &$\tstyle \isT{play} $\\
-$performance$ &$\tstyle \isT{performance} $\\
-$of       $& $ x \in performance \tstyle \ofT{of(x)}{play}$ \\
-$character$&$x \in play \tstyle character(x) \mbox{ is a type} $\\
-$castMember$&$x \in performance \tstyle castMember(x) \mbox{ is a type}$ \\
-$playsPartOf$& $ x \in performance ,\ y \in castMember(x) \tstyle \ofT{playsPartOf(y)}{character} $\\
-\end{tabular}
-\end{minipage}
-\caption{A cast member plays a part in the same play that they are pert of the performance of. This is reflected in (b) by examination of the variables in the intoductory rule for $playsPartOf$. In the entity modelling diagram, (a), this is documented in a scope constraint (~/.. = ../of)  which specifies that the square of relationships commutes. See \href{http://www.entitymodelling.org/tutorialone/scopediagrams.html}
-{www.entitymodelling.org/tutorialone/scopediagrams}}.
-\label{citizen}
-\end{figure}
-\end{center}
-\end{frame}
-
-\begin{frame}{Equivalent paths }
-
-Consider the following two rules:
-\begin{subequations}
-\begin{align} 
-           & x_1 \in A, y_1 \in B_1(x_1), x_2 \in A, y_2 \in B_2(x_2) : C(x_1,y_1,x_2,y_2) \mbox{ is a type}\label{multipleInstanceA}\\
-\mbox{and}& \notag \\
-           & x \in A, y_1 \in B_1(x), y_2 \in B_2(x) : C(x,y_1,y_2) \mbox{ is a type} \label{singleInstanceA}
-\end{align}
-\end{subequations}
-
-\noindent They both give rise to a graph like this:
-
-\begin{equation}
-\begin{array}{ccc}
-               &\Rnode{C}{C}   &             \\ [0.8cm]
-\Rnode{B1}{B_1}&            &\Rnode{B2}{B_2}  \\ [0.8cm]
-               &\Rnode{A}{A}&                 \\
-\end{array}
-\ncsar{C}{B1}
-\ncsar{C}{B2}
-\ncsar{B1}{A}
-\ncsar{B2}{A} 
-\end{equation}
-\\
-
-In the case of \eqref{singleInstanceA}, $C$ relies for context on instances of $B_1$ and $B_2$ which themselves are based within the context of a common instance of $A$.
-
-In the case of \eqref{singleInstanceA}, but not in case \eqref{multipleInstanceA}, we say that the path:
-$ C \smorph B_1 \smorph A$ is equivalent to the path: $ C \smorph B_2 \smorph A$.
-\end{frame}
-
-\begin{frame}
-We call any graph endowed with such an equivalence relation a dependency structure. It follows from the definitions that every set of type definitions gives rise to a dependency structure and it is easy to see that the converse is true: that every dependency structure, up to isomorphism of structures, arises as the dependency structure of a set of type definitions.
-\\ 
-
-In order to specify a dependency structure it is necessary to specify the dependency graph and then for 
-each subgraph of the form:
-
-\begin{math}
-\begin{array}{p{3cm}cccc}
-&                      &\Rnode{C}{C}&                      & \\ [0.8cm]
-& \Rnode{Ln}{L_n}      &            &\Rnode{Rm}{R_m}       & \\ [0.6cm]
-& \Rnode{Ln1}{L_{n-1}} &            &\Rnode{Rm1}{R_{m-1}}  & \\
-& \Rnode{Ldots}{\vdots}&            &\Rnode{Rdots}{\vdots} & \\
-& \Rnode{L1}{L_1}      &            &\Rnode{R1}{R_1}       & \\ [0.8cm]
-&                      &\Rnode{A}{A}&                      & \\
-\end{array}
-\ncsar{C}{Ln}
-\ncsar{C}{Rm}
-\ncsar{Ln}{Ln1}
-\ncsar{Rm}{Rm1}
-\ncsar{L1}{A}
-\ncsar{R1}{A} 
-\end{math} 
-\\
-whether the two paths left and right are equivalent. This is to say whether there are one or two instances of $A$ 
-depended on by $C$. 
- 
-Hiearchical dependency structures, developed further, lead to the notion of contextual category (described  in \cite{Cartmell78} and subsequently published in \cite{Cartmell86}). 
-\end{frame}
-
-
-
-
-
-
