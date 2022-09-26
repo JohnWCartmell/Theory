@@ -12,6 +12,11 @@
 %            Accidental forked changes merged on 08/02/2019.
 % 15/03/2019 Continuation of 29/01/2019. Need fix fontsize of 
 %            ERrelname and ERscope.	 
+% 22/09/2022 Restructure the representation of attributes.
+%            This is to enable hierarchical and relational attributes to
+%            be animated in Beamer slides. See erdiagram.beamer.renewals.tex.
+% 23/09/2022 Add a representation \errelid. Share body with \errelname.
+%            See also  erdiagram.beamer.renewals.tex.
 % ***********************************************************
  \usepackage{anyfontsize}             % 29/01/2019 
   
@@ -196,17 +201,44 @@
 \ertext{#1}{#2}{#3}{#4}
 }
 
-% \errelname {#1 x} {#2 y} {#3 text anchor} {#4 text} 
-\newcommand {\errelname}[4]
+%private
+\newcommand {\errelnamebody}[4]
 {
 \rput[B#3]{0}(#1,#2){\erextrasmallitalictext{#4}}
 }
 
+% \errelname {#1 x} {#2 y} {#3 text anchor} {#4 text} 
+\newcommand {\errelname}[4]
+{
+\errelnamebody{#1}{#2}{#3}{#4}    
+}
+
+%private
+\newcommand {\errelidbody}[4]
+{
+\rput[B#3]{0}(#1,#2){\erextrasmallitalictext{#4}}
+}
+
+% \errelid {#1 x} {#2 y} {#3 text anchor} {#4 text} 
+\newcommand {\errelid}[4]
+{
+\errelidbody{#1}{#2}{#3}{#4}    
+}
+
+
+
+
+%private
+% \erscopebody {#1 x} {#2 y} {#3 text anchor} {#4 text}  15 March 2019
+\newcommand {\erscopebody}[4]
+{
+\rput[B#3]{0}(#1,#2){\erextrasmallitalictext{#4}}
+}
 
 % \erscope {#1 x} {#2 y} {#3 text anchor} {#4 text}  15 March 2019
 \newcommand {\erscope}[4]
 {
-\rput[B#3]{0}(#1,#2){\erextrasmallitalictext{#4}}
+  \erscopebody{#1}{#2}{#3}{#4}
 }
 
 % \erreletname {#1 x} {#2 y} {#3 text anchor} {#4 text}  15 March 2019
@@ -235,7 +267,7 @@
 \newcommand {\erderattrmarkeropt}
 {\fontsize{8}{10}\selectfont $\circ$}
 
-% \erattr {#1 x} {#2 y} {#3 ismandatory}{#4 idenitfying} {#5 text}
+% \erattr {#1 x} {#2 y} {#3 ismandatory}{#4 identifying} {#5 text}
 \newcommand {\erattr}[5]
 {
 \ifthenelse{\equal{#3}{1}}
@@ -243,12 +275,37 @@
 {\rput[l]{0}(#1,#2){\erattrmarkeropt \ersmallitalictext{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}
 }
 
+% Deprecated \erdattr
 \newcommand {\erdattr}[5]
 {
 \ifthenelse{\equal{#3}{1}}
 {\rput[l]{0}(#1,#2){\erderattrmarkermand \ersmallitalictext{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}
 {\rput[l]{0}(#1,#2){\erderattrmarkeropt \ersmallitalictext{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}
 }
+
+%\erHierarchicalAttribute {#1 x} {#2 y} {#3 ismandatory}{#4 identifying} {#5 name} {#6 annotation}
+\newcommand {\erHierarchicalAttribute}[6]
+{
+\erRelorHierAttribute{#1}{#2}{#3}{#4}{#5}{#6}
+}
+
+%\erRelationalAttribute {#1 x} {#2 y} {#3 ismandatory}{#4 identifying} {#5 name} {#6 annotation}
+\newcommand {\erRelationalAttribute}[6]
+{
+\erRelorHierAttribute{#1}{#2}{#3}{#4}{#5}{#6}
+}
+
+%\erRelorHierAttribute {#1 x} {#2 y} {#3 ismandatory}{#4 identifying} {#5 name} {#6 annotation}
+\newcommand {\erRelorHierAttribute}[6]
+{
+\ifthenelse{\equal{#3}{1}}
+{\rput[l]{0}(#1,#2){\erderattrmarkermand \ersmallitalictext{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}#6}}}
+{\rput[l]{0}(#1,#2){\erderattrmarkeropt \ersmallitalictext{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}#6}}}
+}
+
+
+
+
 
 
 % \erarc {#1 x0} {#2 y0} {#3 x1} {#4 y1} {#5 x2} {#6 y2} {#7 x3} {#8 y3}

@@ -1,0 +1,95 @@
+
+
+
+\begin{frame}{Relational Meta Model - Logical Model}
+\begin{center}
+\scalebox{0.75}{\input{../content/relationalMetaModel3.relational}}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{primaryKeyEntry.column Scope}
+\begin{equation}
+\label{primaryKeyEntry.columnScopeText}
+\parbox{9.5cm}{The $column$ within a $primary\ key\ entry$ of a $table$ is a $column$ of that same $table$.}
+\end{equation}
+\medskip
+\begin{equation}
+\label{primaryKeyEntry.columnScopeDiagram}
+\scalebox{0.75}{\only<1>{\input{../content/relationalMM3PrimaryKeyEntryColumn.scope.tex}}} \only<2>{\scopeTriangle{column}{primary\ key\ entry}{column}{table}{of}{of}}
+\end{equation}
+\medskip
+\begin{itemize}
+\item Statement (\ref{primaryKeyEntry.columnScopeText}) specifies the \textit{scope} of the $column$ relationship.
+\item It means that starting from a $primary\ key\ entry$ there are two navigation paths that are equivalent:
+\begin{itemize}
+  \item $of$ 
+  \item $column/of$
+\end{itemize}
+\item This fact can be represented by saying that the diagram (\ref{primaryKeyEntry.columnScopeDiagram}) commutes.
+\only<2>{Alternatively we can represent as a scope annotation \textit{s:of=d:of} on the ER diagram or as a diagram of morphisms.}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{foreignKeyEntry.from\_column Scope}
+\begin{equation}
+\label{foreignKeyEntry.toScopeText}
+\parbox{9.5cm}{The $from\_column$ within a $foreign\ key\ entry$ of a $foreign\ key$ of a $table$ is a $column$ of that same $table$.}
+\end{equation}
+\begin{equation}
+\label{foreignKeyEntry.toScopeDiagram}
+\raisebox{-1cm}{\scalebox{0.65}{\input{../content/relationalMM3ForeignKeyEntryFromColumn.scope.tex}}}
+\end{equation}
+\begin{itemize}
+\item Statement (\ref{foreignKeyEntry.toScopeText}) specifies the \textit{scope} of the $from\_column$ relationship.
+\item So, from $foreign\ key\ entry$ two navigation paths that are equivalent:
+\begin{itemize}
+  \item $part\_of/of$ 
+  \item $from\_column/of$
+\end{itemize}
+\item In other words, diagram (\ref{foreignKeyEntry.toScopeDiagram}),above, commutes
+\item and the scope of the \textit{from column} relationship is annotated as $s:part\_of/of=d:of$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{foreignKeyEntry.to Scope}
+\begin{equation}
+\label{foreignKeyEntry.toScopeText}
+\parbox{9.5cm}{The $to$ $primary\ key\ entry$ of a $foreign\ key\ entry$ of a $foreign\ key$ is a $primary\ key\ entry$ of the $to\_table$ of that $foreign\ key$.}
+\end{equation}
+\begin{equation}
+\label{foreignKeyEntry.toScopeDiagram}
+\raisebox{-1cm}{\scalebox{0.75}{\input{../content/relationalMM3ForeignKeyEntryTo.scope.tex}}}
+\end{equation}
+\begin{itemize}
+\item The scope of the \textit{to} relationship is described by the commutivity of (\ref{foreignKeyEntry.toScopeDiagram}),above,
+ and the scope of the \textit{to} relationship may be annotated as $s:part\_of/to\_table=d:of$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{foreignKeyEntry.to Scope Being a Pullback}
+It is also the case that
+\begin{equation}
+\label{foreignKeyEntry.to.pullbackText}
+\parbox{9.5cm}{
+For every \textit{primary key entry} of the \textit{to\_table} of a \textit{foreign key} there is a 
+$foreign\ key\ entry$ that is \textit{part\_of} that \textit{foreign key} and which is $to$ the $primary\ key\ entry$.
+}
+\end{equation}
+\begin{equation}
+\label{foreignKeyEntry.toScopeDiagram}
+\raisebox{-1cm}{\scalebox{0.65}{\input{../content/relationalMM3ForeignKeyEntryTo.scope.tex}}}
+\end{equation}
+\begin{itemize}
+\item Statement (\ref{foreignKeyEntry.to.pullbackText}) expresses the fact that 
+diagram  (\ref{foreignKeyEntry.toScopeDiagram}) is  a  pullback diagram.
+\end{itemize}
+\end{frame}
+
+
+
+
+
+
+
