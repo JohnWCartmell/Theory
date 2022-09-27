@@ -49,6 +49,8 @@
 \usepackage{arydshln} % vertical dashed lines between columns of an array
 \usepackage{pst-arrow} %for \bigarrow
 \usepackage{hhline}
+%\usepackage{xstring} %comapre strings using \IfStrEq
+
 
 %Redefine the \Fin macro to be category of sets
 %\renewcommand{\Fin}{\Set
@@ -66,6 +68,22 @@
 \end{frame}
 }
 
+%\scopeTriangle{subject}{domain}{codomain}{apex}{diagonal}{riser}
+\newcommand{\scopeTriangle}[6]
+{
+ \begin{array}{c  c  c}
+                & \Rnode{apex}{#4} &                \\[1cm]
+\Rnode{dom}{#2} &                  & \Rnode{cod}{#3} 
+\end{array}
+\begin{arrows}
+\ncarr{dom}{cod}
+\blabel{#1}
+\ncsar{dom}{apex}
+\alabel{#5}[0.2]
+\ncsar{cod}{apex}
+\blabel{#6}[0.2]
+\end{arrows} 
+}
 
 \begin{document}
 \begin{frame}
@@ -73,8 +91,57 @@
 \nobibliography{../../SharedBibliography/temp/bibliography}
 \end{frame}
 
+
 \input{../slides/cricketDataSpecification.slides}
+
 
 \input{../slides/relationalMetaModelDataSpecification.slides}
 
+\iffalse
+\begin{frame}{Test renewcommand inside other command}
+\newcommand{\switch}{off}
+\newcommand{\switchon}
+{
+  \renewcommand{\switch}{on}
+}
+\switch
+
+\switchon
+\switch
+\end{frame}
+\begin{frame}{test}
+\only<0>{Shown on slide zero}
+\only<1>{Slide 1}
+\only<2>{Slide 2}
+\only<3>{Slide 3}
+\only<4>{Slide 4}
+\only<1-2>{Only shown on slide 1-2 onwards}
+\only<2-3>{Only shown on slide 2-3 onward}
+\end{frame}
+
+\begin{frame}{Test conditions}
+\newcommand{\xxa}{xxx}
+\newcommand{\xxb}{xxx}
+\newcommand{\xxc}{xy}
+\newcommand{\xxe}{}
+\newcommand{\myempty}{}
+
+\ifx\xxa\xxa yOK identitytrue
+\else out of spec A
+\fi
+
+\ifx\xxa\xxb yOK identitytrue
+\else out of spec B
+\fi
+
+\ifx\xxa\xxc out of spec C
+\else yOK non identity of discernibles
+\fi
+
+\ifx\xxe\myempty yOK xxe is empty
+\else out of spec empty not empty
+\fi
+\end{frame}
+
+\fi
 \end{document}

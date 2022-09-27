@@ -9,36 +9,73 @@
 %  appear successively as the presentation advances. 
 %
 % Created 22 Sep 2022.
+\newcommand{\scopesSlideRange}{0}
+\newcommand{\referenceImplementorAttributesSlideRange}{0}
+\newcommand{\referenceImplementorAttributeswithRelIdAnnotationSlideRange}{0}
+\newcommand{\dependencyImplementorAttributesSlideRange}{0}
+\newcommand{\dependencyImplementorAttributeswithRelIdAnnotationSlideRange}{0}
+\newcommand{\relIdSlideRange}{0}
 
+
+% By default there is no animation
+\newcommand{\erDisplayAllWithoutAnimation}
+{
+\renewcommand{\scopesSlideRange}{1}
+\renewcommand{\referenceImplementorAttributesSlideRange}{1}
+\renewcommand{\referenceImplementorAttributeswithRelIdAnnotationSlideRange}{1}
+\renewcommand{\dependencyImplementorAttributesSlideRange}{1}
+\renewcommand{\dependencyImplementorAttributeswithRelIdAnnotationSlideRange}{1}
+\renewcommand{\relIdSlideRange}{1}
+}
+\erDisplayAllWithoutAnimation %set the default
+
+% Can reset to a five slide animation
 % Slide 1 - shows logical model without scopes and without relationship ids
 % Slide 2 - adds scopes -- these indicate equivalent paths i.e. commutative diagrams
 % Slide 3 - reveals attributes required in a hierarchical implementation such as XML or Googles protocol buff IDL
 % Silde 4 - reveals attributes required in a relational implementation
 % slide 5 - annotates relationships with identifiers and tags attributes to
 %            indicate the relationships which they are there to implement
+\newcommand{\erDisplayFiveSlideAnimation}
+{
+\renewcommand{\scopesSlideRange}{2}
+\renewcommand{\referenceImplementorAttributesSlideRange}{3-4}
+\renewcommand{\referenceImplementorAttributeswithRelIdAnnotationSlideRange}{5}
+\renewcommand{\dependencyImplementorAttributesSlideRange}{4}
+\renewcommand{\dependencyImplementorAttributeswithRelIdAnnotationSlideRange}{5}
+\renewcommand{\relIdSlideRange}{5}
+}
 
 %\erHierarchicalAttribute {#1 x} {#2 y} {#3 ismandatory}{#4 identifying} {#5 name} {#6 annotation}
-\renewcommand {\erHierarchicalAttribute}[6]
+% Attributes required in a hierarchical implementation
+% These are reference implementor attributes
+\renewcommand {\erHierarchicalAttribute}[6] 
 {
-\only<3-4>{\erRelorHierAttribute{#1}{#2}{#3}{#4}{#5}{}}
-\only<5>{\erRelorHierAttribute{#1}{#2}{#3}{#4}{#5}{#6}}
+\only<\referenceImplementorAttributesSlideRange>
+          {\erRelorHierAttribute{#1}{#2}{#3}{#4}{#5}{}}
+\only<\referenceImplementorAttributeswithRelIdAnnotationSlideRange>
+          {\erRelorHierAttribute{#1}{#2}{#3}{#4}{#5}{#6}}
 }
 
 %\erRelationalAttribute {#1 x} {#2 y} {#3 ismandatory}{#4 identifying} {#5 name} {#6 annotation}
-\renewcommand {\erRelationalAttribute}[6]
+% Additional attributes required in a relational implementation
+% These are depdendency implementor attributes
+\renewcommand {\erRelationalAttribute}[6]   %These are dependency implementor attributes
 {
-\only<4>{\erRelorHierAttribute{#1}{#2}{#3}{#4}{#5}{}}
-\only<5>{\erRelorHierAttribute{#1}{#2}{#3}{#4}{#5}{#6}}
+\only<\dependencyImplementorAttributesSlideRange>
+        {\erRelorHierAttribute{#1}{#2}{#3}{#4}{#5}{}}
+\only<\dependencyImplementorAttributeswithRelIdAnnotationSlideRange>
+        {\erRelorHierAttribute{#1}{#2}{#3}{#4}{#5}{#6}}
 }
 
 % \errelid {#1 x} {#2 y} {#3 text anchor} {#4 text} 
 \renewcommand {\errelid}[4]
 {
-\only<5>{\errelidbody{#1}{#2}{#3}{#4}}    
+\only<\relIdSlideRange>{\errelidbody{#1}{#2}{#3}{#4}}    
 }
 
 % \erscope {#1 x} {#2 y} {#3 text anchor} {#4 text}  15 March 2019
 \renewcommand {\erscope}[4]
 {
-  \only<2>{\erscopebody{#1}{#2}{#3}{#4}}
+  \only<\scopesSlideRange>{\erscopebody{#1}{#2}{#3}{#4}}
 }
