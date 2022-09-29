@@ -79,9 +79,20 @@ $foreign\ key\ entry$ that is \textit{part\_of} that \textit{foreign key} and wh
 \end{equation}
 \begin{itemize}
 \item Statement (\ref{foreignKeyEntry.to.pullbackText}) expresses the fact that 
-diagram  (\ref{foreignKeyEntry.toScopeDiagram}) is  a  pullback diagram.
+diagram  (\ref{foreignKeyEntry.toScopeDiagram}) is  a  pullback diagram
+i.e. that the foreign key entries in a foreign key match exactly the primary key entries in the corresponding primary key.
 \end{itemize}
+\scalebox{0.8}{
+\begin{tabular}{l c l}
+\textbf{select} fkid,pkeid      &        & \textbf{select} fkid, pkeid \\ 
+\textbf{from} foreign\_key\_entry&$\equiv$&  \textbf{from} foreign\_key fk, primary\_key\_entry pke \\
+                                &        &  \textbf{where} fk.to\_table\_id = pk\\
+                                &        &  \textbf{and} pke.of\_table\_id=pk 
+\end{tabular} 
+}
 \end{frame}
+
+
 
 \begin{frame}{Relational Meta Model - Logical2Physical Transforms}
 \erDisplayFiveSlideAnimation
