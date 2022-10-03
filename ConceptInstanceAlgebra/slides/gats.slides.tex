@@ -39,6 +39,68 @@ An operator symbol $f$ must have an introductory rule of this form   \genericfin
 \input{\SharedText/theoryofcategories.flexible}
 \end{frame}
 
+\newcommand{\SigmaA}{\Sigma A}
+\begin{frame}{Adding a Sigma sort to a generalised algebraic theory $U$.}
+If a generalised algebraic theory has a sort symbol $A$ introduced by rule
+{\footnotesize \genericAintroductoryrule} then can extend $U$ by a sort symbol $\SigmaA$ and three operations: 
+\begin{center}
+\footnotesize
+\begin{tabular}{c l}
+$\SigmaA$ & \gatdisplayrule{\xDelta{n-1}} {\isT{\SigmaA(x_1,...x_{n-1})}} \\
+$pr$  & \gatdisplayrule{\xDelta{n}, \ofT{y}{A(\xn)}}  {\ofT{pr(x_n,y)} {\SigmaA(x_1,...x_{n-1})}} \\
+$p_1$ & \gatdisplayrule{\xDelta{n-1},\ofT{z}{\SigmaA(x_1,...x_{n-1})}}{\ofT{p1(z)} {\Delta_n}} \\
+$p_2$ & \gatdisplayrule{\xDelta{n-1},\ofT{z}{\SigmaA(x_1,...x_{n-1})}}{\ofT{p2(z)} {A(x_1,...x_{n-1}, p_1(z))}} 
+\end{tabular}
+\end{center}
+\end{frame}
+\begin{frame}
+subject to axioms
+\begin{center}
+\footnotesize 
+\begin{tabular}{c}
+\gatdisplayrule{\xDelta{n}, \ofT{y}{A(\xn)}}  {p_1(pr(x_n,y))=x_n} \\
+\gatdisplayrule{\xDelta{n}, \ofT{y}{A(\xn)}}  {p_2(pr(x_n,y))=y} \\
+\gatdisplayrule{\xDelta{n-1},\ofT{z}{\SigmaA(x_1,...x_{n-1})}}{pr(p_1(z),p_2(z))=z} \\ 
+\end{tabular}
+\end{center}
+
+so that in the extended theory $U_{\SigmaA}$ there is a sort symbol representing 
+$$\sum_{\ofT{x_n}{\Delta_n}}{A(\xn)}$$.
+
+Since \cat{Fam} has cannonical $\Sigma$ operations 
+every U-algebra extends to a $U_{\SigmaA}$-algebra and the category \cat{U-alg} 
+is equivalent to the category \cat{$U_{\SigmaA}$-alg}.
+\end{frame}
+
+\newcommand{\IdA}{IdA}
+\begin{frame}{Adding an Id sort to a generalised algebraic theory $U$.}
+If a generalised algebraic theory has a sort symbol $A$ introduced by rule
+{\footnotesize \genericAintroductoryrule} then can extend $U$ by a sort symbol $\IdA$ and an operation $r$ 
+\begin{center}
+\footnotesize
+\begin{tabular}{c l}
+$\IdA$ & \gatdisplayrule{\xDelta{n}, \ofT{y_1}{A(\xn)}, \ofT{y_2}{A(\xn)}}  {\isT{\IdA(y_1,y_2)}} \\
+$r$    & \gatdisplayrule{\xDelta{n}, \ofT{y}{A(\xn)}}  {\ofT{r(y)}{\IdA(y,y)}} 
+\end{tabular}
+\end{center}
+\end{frame}
+\begin{frame}
+subject to the axiom
+\begin{center}
+\footnotesize 
+\begin{tabular}{c}
+\gatdisplayrule{\xDelta{n}, \ofT{y_1}{A(\xn)}, \ofT{y_2}{A(\xn)}, \ofT{z}{\IdA(y_1,y_2)}}
+  {y1=y2}
+\end{tabular}
+\end{center}
+
+so that in the extended theory $U_{\IdA}$ there is a sort symbol representing 
+the identity on type $A$.
+
+Every U-algebra extends to a $U_{\IdA}$-algebra and the category \cat{U-alg} 
+is equivalent to the category \cat{$U_{\IdA}$-alg}.
+\end{frame}
+
 \iffalse
 \begin{frame}{Theory of Cricket}
 \footnotesize
