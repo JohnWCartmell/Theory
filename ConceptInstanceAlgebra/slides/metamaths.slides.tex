@@ -1,28 +1,41 @@
 
 \newcommand{\inst}{i} 
 \newcommand{\cpt}{c} 
+%\cptintro{1-2}{3-} shows formal rule on slides <1-2> and informal rule on slides <3->
+\newcommand{\cptintro}[2]{
+\only<#1>{ {\footnotesize \gatdisplayrule{\ofT{x_1}{\cpt_1},...\, \ofT{x_{n}}{\cpt_{n+1}(x_1,...x_{n-1})}} {\isT{\cpt_{n}(\xn)}} } }
+\only<#2>{{\footnotesize \gatdisplayrule{\ofT{x_1}{\cpt_1},...\, \ofT{x_{n}}{\cpt_{n}(x_{n-1})}} {\isT{\cpt_{n+1}(x_n)}}} }
+}
+\newcommand{\instintro}[2]{
+\only<#1>{\footnotesize \gatdisplayrule{\context{x}{\cpt}{n}}{\isT{\inst_{n}(x_1,...x_n)}}}
+\only<#2>{\footnotesize \gatdisplayrule{\ofT{x_1}{\cpt_1},...\, \ofT{x_{n}}{\cpt_{n}(x_{n-1})}}{\isT{\inst_{n}(x_n)}}}
+}
+
+
 \begin{frame}{Generalised Algebraic Theory of Concept Instance Algebras}
 \begin{itemize}
 \item There is a generalised algebraic theory $tci$ of concept instance algebras.
-\item sorts representing levels of concepts are $\cpt_1, \cpt_2 ...$.
-\item sort $\cpt_{n}$ is introduced by:
-\gatdisplayrule{\ofT{x_1}{\cpt_1},... \ofT{x_{n-1}}{\cpt_{n-1}(x_1,...x_{n-2})}} {\isT{\cpt_{n}(x_1,...x_{n-1})}}
+\item sorts representing concepts are $\cpt_1, \cpt_2 ...$.
+\item sort $\cpt_{n+1}$ is introduced by:
+\cptintro{1}{2-}
+\onslide<3->{
 \item sorts representing instances are $\inst_1, \inst_2, ....$.
 \item sort $\inst_{n}$ is introduced by:
-\gatdisplayrule{\context{x}{\cpt}{n}}{\isT{\inst_{n}(x_1,...x_n)}}
+\instintro{3}{4-}
+}
+\onslide<5->{
 \item Similarly 
 \begin{itemize}
 \item countably many $^*$, $\cross$ and $\delta$ operations,
 \item countably many axioms for each of the axioms given earlier.
 \end{itemize}
+}
 \end{itemize}
-
 \end{frame}
 
 \begin{frame}{Generalised Algebraic Theory of Contextual Categories}
 \begin{itemize}
 \item There is a generalised algebraic theory $tcc$ of contextual categories. This result is due to Vladimir Voevodsky.
-\item $tcc$ has countably many sort symbols and countably many operations.
 \item I describe $tcc$ in a paper called "Generalised Algebraic Axiomatisations of Contextual Cageories"
 which can be found on my ResearchGate page.
 \item $tcc$ has an operator $s$ which constructs a section from a morphism.
@@ -30,19 +43,58 @@ which can be found on my ResearchGate page.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Construction of CI-algebra from Contextual Category is Generalised Algebraic}
+\renewcommand{\obj}{obj}
+\renewcommand{\hom}{hom}
+\newcommand{\objintro}[2]{
+	\only<#1>{{\footnotesize \gatdisplayrule{\context{x}{\obj}{n}} {\isT{\obj_{n+1}(\xn)}}}}
+  \only<#2>{{\footnotesize \gatdisplayrule{\contextShortstyle{x}{\obj}{n}} {\isT{\obj_{n+1}(x_n)}}}}
+}
+\newcommand{\homintro}[2]{
+\only<#1>{
+{\footnotesize \gatdisplayrule{\context{x}{\obj}{n}, \context{y}{\obj}{m}} {\isT{\hom_{n,m}(\xn,\ym)}}}
+}
+\only<#2>{
+{\footnotesize \gatdisplayrule{\contextShortstyle{x}{\obj}{n}, \contextShortstyle{y}{\obj}{m}} {\isT{\hom_{n,m}(x_n,y_m)}}}
+}
+}
+\begin{frame}{Generalised Algebraic Theory of Contextual Categories cont.}
 \begin{itemize}
-\item The construction described above of a CI-algebra from Contextual Category can be described 
-by an interpretation $I_{CI}:tci^+ \morph tcc$ where $tci^+$ is the theory $tci$ extended 
-by (countable many) $\Sigma$ types for all instance types. 
-\item The construction described above of a contextual category from a CI-algebra can be described 
-by an interpretation $I_{CC}:tcc^+ \morph tci$ where $tci^+$ is the theory of $tcc$ extended by identity types for all types of $Hom$ types.
-\item In the category of generalised algebraic theories $I_{CC}$ is an equivalence\footnote{what is this?} with inverse $I_{CI}$. 
+\item sorts representing objects are $\obj_0, \obj_1 ...$.
+\item sort $\obj_{n}$ is introduced by:
+\objintro{1}{2-}
+\onslide<3->
+{
+\item sorts representing morphisms are $\hom_{n,m}$, for $n,m \geq 0$,
+\item sort $\hom_{n,m}$ is introduced by:
+\homintro{3}{4-}
+}
+\onslide<5->{
+\item Also 
+\begin{itemize}
+\item countably many $id$, $\circ$, $p$, $^*$, $q$, and $s$ operations  
+\item countably many axioms.
+\end{itemize}
+}
 \end{itemize}
 \end{frame}
 
-
-
+\newcommand{\tccalg}{tcc\mhyphen alg}
+\newcommand{\tcialg}{tci\mhyphen alg}
+\newcommand{\tccplusalg}{tcc^+\mhyphen alg}
+\newcommand{\tciplusalg}{tci^+\mhyphen alg}
+\begin{frame}{Construction of CI-algebra from Contextual Category is Generalised Algebraic}
+\begin{itemize}
+\item The construction described above of a CI-algebra from Contextual Category can be described 
+by an interpretation $I_{CI}:tci \morph tcc^+$ where $tcc^+$ is the theory $tcc$ extended 
+by (countable many) $\Sigma$ and identity types. 
+\item The construction described above of a contextual category from a CI-algebra can be described 
+by an interpretation $I_{CC}:tcc \morph tci^+$ where $tci^+$ is the theory $tci$ extended by 
+(countable many) $\Sigma$ types.
+\item Can show that $I_CI$ and $I_CC$ extend to pseudo inverses in the category \cat{GAT}.
+\item From this we have $\tcialg \simeq \tciplusalg \simeq \tccplusalg \simeq \tccalg$.
+\item i.e. category of concept-instance algebras equivalent to category of contextual categories.
+\end{itemize}
+\end{frame}
 
 \begin{frame}{Relationship with Contextual Categories \& Generalised Algebraic Theories}
 The following categories are all equivalent
@@ -193,7 +245,7 @@ Describes a monad on the category $\Set^C$, where $C$ is this category
  \def\dedge{\ncline[linestyle=dotted]}
  \def\backarrow{\nckarr}
 $$
-  \pstree[edge=\backarrow, treemode=U, treefit=loose,treenodesize=0.25cm,levelsep=0.8cm,treesep=0.7cm,nodesep=2pt]
+  \pstree[edge=\backarrow, treemode=\CItreemode, treefit=loose,treenodesize=0.25cm,levelsep=0.8cm,treesep=0.7cm,nodesep=2pt]
   {
      \Tr{\cpt_0}
   }
