@@ -10,6 +10,7 @@ and these must satisfy various axioms.
 \end{itemize}
 \end{frame}
 
+\iffalse
 \begin{frame}{Summary of Operations -- $^*$, $\cross$ and $\delta$}
 Summary: assume $x_c \base x$ and $y_c \base y$ in the tree of concepts of an algebra $A$. \\
 \medskip
@@ -38,30 +39,43 @@ $\delta_x$   & this $x$                 &                         & $\delta_x \i
 \end{tabular}
 }
 \end{frame}
+\fi
 
 \begin{frame}{Concepts and their Contexts}
 \begin{itemize}
 \item In a concept-instance algebra $A$ concepts are equally contexts.
-\item If $a \base b \base c$ in the tree of concepts of algebra $A$ 
-then $a$ is  the context for concept $b$ and $b$ is to  the context for concept $c$.
+\medskip
+\pause
+\item If $x_1 \base x_2 ... \base x_n \base y$ in the tree of concepts then
+\begin{itemize}
+    \item $x_1\base x_2 ...\base x_n$ is a system of nested contexts,
+    \item $x_n$ is the context for $y$,
+    \item $x_i < y$ means that $x_i$ is part of the context for $y$.
+\end{itemize}
 \end{itemize} 
+
+\end{frame}
+
+\begin{frame}{Example context/concept trees}
 \begin{tabular}{c c c c}
+& \underline{From grammar}  && \onslide<3->{\underline{From the game of cricket}} \\[0.5cm]
 \raisebox{-4cm}{\rule{0cm}{4cm}} % to claim space and stop slide wiggle in animation
  &
 \onslide<2->{\only<2-3>{$\input{../content/languageTree}$}\only<4->{\def\psedge{\ncksar}$\input{../content/languageTree}$}}
 & &
 \onslide<3->{\only<3-4>{$\input{../content/cricketBasics.tex}$}\only<5>{\def\psedge{\ncksar}$\input{../content/cricketBasics.tex}$}}
 \end{tabular}
-
 \end{frame}
 
 \def\psedge{\ncksar}  % Now redefine globally
 
-\begin{frame}{Concepts, Contexts  and Instances}
+\begin{frame}{Instances}
 \begin{itemize}
-\item If $x_c \base x$  in algebra $A$ and if $i \in inst_A(x)$ thn $i$ is to be considered an instance of $x$ in context $x_c$.
-\onslide<2-> {\item  $homeSide \in inst(side)$ and $match \base side$ implies  $match$ is context for $homeSide$}
-\onslide<4-> {\item $captain \in inst(player)$ and $side \base player$ implies $side$ is context for $captain$.}
+\item If $i \in inst(x)$ and $x_c \base x$  so that $x_c$ is context for $x$ then
+ $x_c$ is context for $i$.
+ \medskip
+\onslide<2-> {\item Example: $homeSide \in inst(side)$ and $match \base side$ implies  $match$ is context for $homeSide$.}
+\onslide<4-> {\item Example: $captain \in inst(player)$ and $side \base player$ implies $side$ is context for $captain$.}
 \end{itemize}
 \onslide<3->{$$\input{../content/cricketBasicInstances.tex}$$}
 \end{frame}

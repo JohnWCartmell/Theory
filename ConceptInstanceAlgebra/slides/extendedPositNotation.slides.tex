@@ -6,31 +6,33 @@
 \newcommand{\overCrossFieldingSidePlayer}{\crossx{over\kern-0.4cm}{\kern-0.4cm(\fieldingSidePlayer)}{innings}}
 \newcommand{\deliveryCrossBattingSidePlayer}{\crossx{delivery\kern-0.4cm}{\kern-0.4cm (\battingSidePlayer)}{innings}}
 
-\begin{frame}{Extending the $\crossx{}{}{}$ Notation}
-Define $\crossx{x}{y}{w}$ whenever $w < x$ and $w<y$.
-
-If $w \base x_1 \base ... \base x_n $
-and $w \base y_1 \base ... \base y_m$ then define 
-$$\crossx{x_n}{y_m}{w}=x_n \cross ( x_{n-1} \cross ... (x_1 \cross y_m)...)$$
-
-\textit{\Large could improve this animation}
+\begin{frame}{Introducing the $\crossx{x}{y}{w}$ and $\crossx{x}{g}{w}$ Notation}
 \pause
+\begin{itemize}
+\item $\crossx{x}{y}{w}$ is defined whenever $w < x$ and $w<y$.
+\pause
+\item Suppose $w \base x_1 \base ... \base x_n $
+and $w \base y_1 \base ... \base y_m$, 
 \begin{center}
 \input{../content/extendedcrossnotation.instances}
 \end{center}
+\onslide<5->{\item Define $\crossx{x_n}{y_i}{w}=x_n \cross ( x_{n-1} \cross ... (x_1 \cross y_i)...)$.}
+\onslide<6->{\item Similarly, if $g \in inst(y_i)$ then define $\crossx{x_n}{g}{w}=x_n \cross ( x_{n-1} \cross ... (x_1 \cross g)...)$}.
+\end{itemize}
 \end{frame}
 
-\begin{frame}{Extended $\delta$ Notation}
-\textit{\Large could improve this animation}
-
-If $1 \base x_1 \base x_2 ... \base x_n$
-then \foreachi, define 
+\begin{frame}{Introducing $\delta_{x_n,x_i}$ Notation}
+\begin{itemize}
+\item Suppose $1 \base x_1 \base x_2 ... \base x_n$ and $1 \leq i \leq n$,
+\begin{center}
+\input{../content/extendedDelta}
+\end{center}
+\onslide<4>{\item define 
 $\delta_{x_n,x_i} \in inst(\crossx{x_n}{x_i}{x_{i-1}})$ by:
 \begin{tabular}{c c}
 $\delta_{x_n,x_n}=\delta_{x_n}$ & $\delta_{x_n,x_i}=\crossx{x_n}{\delta_{x_{n-1}}}{x_{i-1}}$
 \end{tabular}
-\begin{center}
-\input{../content/extendedDelta}
-\end{center}
+}
+\end{itemize}
 \end{frame}
 
