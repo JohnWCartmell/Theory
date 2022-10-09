@@ -1,61 +1,21 @@
 \begin{frame}{CC -- Construction of Contextual Category}
 \begin{itemize}
 \item From a concept-instance algebra $A$ we can construct a contextual category $CC(A)$.
-\item tree of objects of the category is the tree of concepts of the ci-algebra.
-\item morphisms of \catcw n-tuples, $\tuple{\fn}:x \morph y_n$, 
-      where $1 \base y_1 \base y_2 ... \base y_n$ in $A$ where $f_1 \in inst(\crossx{x}{y_1}{1})$, 
-       $f_2 \in inst(\fonestar(\crossx{x}{y_2}{1}))$,...
-       $f_n \in inst(\fnonestar...\ftwostar\fonestar(\crossx{x}{y_n}{1}))$
-as shown here 
-
-\scalebox{0.75}{
-$
-\begin{array}{ c p{0.4cm} c p{0.2cm} c p {0.2cm} c } 
-\Rnode{fntarget}{\fnonestar...\ftwostar\fonestar(\crossx{x}{y_n}{1})}
-&&\Rnode{f3target}{\ftwostar\fonestar(\crossx{x}{y_3}{1})}
-&&\Rnode{f2target}{\fonestar(\crossx{x}{y_2}{1})}  
-&& \Rnode{ab1}{\crossx{x}{y_1}{\Rnode{f1target}{1}}}     \\[2cm]
-      &&     &&   \ovalnode[linestyle=none]{x}{x}     &&            
-\begin{arrows}
-\ncarc[arcangle=-5,nodesepA=15pt,offsetA=-2pt,nodesepB=3pt,offsetB=-5pt]{->}{x}{f1target}
-\blabel{f_1}[0.6]
-\ncarc[arcangle=10,nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{x}{f2target}
-\alabel{f_2}[0.4]
-\ncarc[arcangle=10,nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{x}{f3target}
-\alabel{f_3}[0.65]
-\ncarc[arcangle=7,nodesepA=15pt,offsetA=1pt,nodesepB=2pt,offsetB=2pt]{->}{x}{fntarget}
-\alabel{f_n}[0.75][0]
-\ncdotdotdot{fntarget}{f3target}
-\setlength{\sarnodesepB}{10pt}
-\ncsar{fntarget}{x}
-\ncsar{f3target}{x}
-\ncsar{f2target}{x}
-\ncsar{f1target}{x}
-\sarreset
-\end{arrows}
-\end{array}
-\hspace{2cm}
-\begin{array}{c}
-\Rnode{bn}{y_n}             \\[1.0cm]
-\Rnode{b2}{y_2}             \\[0.8cm]
-\Rnode{b1}{y_1}             \\[0.8cm]
-\Rnode{abs}{1}              \\
-\begin{arrows}
-\ncdotdotdot{bn}{b2}
-\ncsar{b2}{b1}
-\ncsar{b1}{abs}
-\end{arrows}
-\end{array}
-\begin{arrows}
-\nccdar{x}{abs}
-\end{arrows}
-$
-}
+\item the tree of objects of the category $CC(A)$ is defined to be the tree of concepts of the CI-algebra.
+\item if $x$ and $y_n$ are concepts and $1 \base y_1 \base y_2 ... \base y_n$ in $A$
+then $Hom_{CC(A)}(x,y_n)$ is defined to be the set of n-tuples $\tuple{\fn}$ of instances of $A$ 
+where 
+\begin{align*}
+f_1 \in in&st(\crossx{x}{y_1}{1}),                                 \\ 
+f_2 \in in&st(\fonestar(\crossx{x}{y_2}{1})),                      \\
+&\vdots                                                            \\
+f_n \in in&st(\fnonestar...\ftwostar\fonestar(\crossx{x}{y_n}{1})) \\
+\end{align*}
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Identity and Dependency Morphisms in $C(A)$}
-If $1 \base x_1 \base x_2 ... \base x_n$ in $C(A)$
+\begin{frame}{Identity and Dependency Morphisms in $CC(A)$}
+If $1 \base x_1 \base x_2 ... \base x_n$ in $CC(A)$
 then 
 \begin{itemize}
 \item define the identity morphism $id_{x_n}:x_n \morph x_n$  
@@ -81,31 +41,30 @@ $$
 \newcommand{\pullbackobject}{\fnvectorstar(\crossx{x}{y}{1})}
 \newcommand{\deltaterm}{\delta_{\pullbackobject,x}}
 
-Define composition
+Define composition by
 \begin{equation} 
 \tuple{f_1,...f_n}\circ \tuple{g_1,...g_m} 
 =\tuple{\fnvectorstar(\crossx{x}{g_1}{1}),...\fnvectorstar(\crossx{x}{g_m}{1})},
 \end{equation}
-$^*$ 
+define the $^*$ operator by
 \begin{equation} 
-\tuple{\fn}^*y=\pullbackobject
+\tuple{\fn}^*y=\pullbackobject,
 \end{equation}
-and $q$ 
+define the $q$ operator by
 \begin{equation} 
 q(\tuple{\fn},y)=
-\tuple{{\beta}^*f_1,...{\beta}^*f_n,\beta}
+\tuple{{\beta}^*f_1,...{\beta}^*f_n,\beta},
 \end{equation}
-
 where 
-$\beta = \deltaterm$
+$\beta = \deltaterm$,
 
-and $s$ 
+and define the $s$ operator by 
 \begin{equation} 
 s(\tuple{\fn})=f_n.
 \end{equation}
 
-Can prove that $C(A)$ is a contextual category by showing that as defined
-$\circ$,$id$, $^*$, $q$, $s$ are all well-defined, properly typed and satisfy the axioms discovered by Vladimir Voevodsky and documented on my ResearchGate page
+Can prove that $CC(A)$ is a contextual category by showing that the operators
+$\circ$,$id$, $^*$, $q$, $s$ are well-defined, properly typed and satisfy the axioms discovered by Vladimir Voevodsky and documented on my ResearchGate page
 www.researchgate.net/profile/John-Cartmell
 as 
 "Generalised Algebraic Axiomatisations of Contextual Categories".
