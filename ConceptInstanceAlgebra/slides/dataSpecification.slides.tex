@@ -1,5 +1,124 @@
+
+\newcommand{\fieldingSideIntroSlide}{2}
+\newcommand{\fieldingSideScopeSlide}{3}
+\newcommand{\battingSideIntroSlide}{4}
+\newcommand{\battingSideScopeSlide}{5}
+\newcommand{\bowlerIntroSlide}{6}
+\newcommand{\bowlerScopeSlide}{7}
+\newcommand{\facingBatterIntroSlide}{8}
+\newcommand{\facingBatterScopeSlide}{9}
+\newcommand{\finalPointSlide}{10}
+
+\newcommand{\cricketFieldingSideScope}{
+\only<\fieldingSideScopeSlide>{
+specify\ that
+$$\scopeTriangle{fieldingSide}{innings}{side}{match}{}{}$$
+commutes.
+}
+}
+
+\newcommand{\cricketBattingSideScope}{
+\only<\battingSideScopeSlide>{
+specify\ that
+$$\scopeTriangle{battingSide}{innings}{side}{match}{}{}$$
+commutes.
+}}
+
+\newcommand{\cricketBowlerScope}{
+\only<\bowlerScopeSlide>{
+specify\ that
+$$
+\ccsquareoutline{2cm}{1.0cm}{innings}{side}{over}{player}
+\ccsquareacross{fieldingSide}{bowler}
+\ccsquareup{}{}
+$$
+commutes.}
+}
+
+\newcommand{\cricketFacingBatterScope}{
+\only<\facingBatterScopeSlide>{
+specify\ that
+$$
+\begin{array}{c p{1.5cm} c}
+\Rnode{innings}{innings} && \Rnode{side}{side} \\[0.75cm]
+\Rnode{over}{over}    &&      \\[0.75cm]
+\Rnode{delivery}{delivery} && \Rnode{player}{player} 
+\end{array}
+\begin{arrows}
+\ncsar{delivery}{over}
+\ncsar{over}{innings}
+\ncsar{player}{side}
+\ncarr{innings}{side}
+\alabel{battingSide}
+\ncarr{delivery}{player}
+\blabel{facingBatter}
+\end{arrows}
+$$
+commutes.}
+}
+
+\newcommand{\RRnode}[1]{\Rnode{#1}{#1}}
+
+\newcommand{\cricketcategory}
+{
+$
+\begin{array}{c p{1.5cm} c}
+\multicolumn{3}{c}{\Rnode{abs}{1}}\\[1cm]
+\multicolumn{3}{c}{\RRnode{match}} \\[1cm]
+\RRnode{innings}  && \RRnode{side}\\[1cm]
+\RRnode{over}     && \RRnode{player}\\[1cm]
+\RRnode{delivery} &&  \\
+\end{array}
+\begin{arrows}
+\ncsar{match}{abs}
+\ncsar{innings}{match}
+\ncsar{over}{innings}
+\ncsar{delivery}{over}
+\ncsar{side}{match}
+\ncsar{player}{side}
+\setlength{\arroffsetA}{2pt}
+\setlength{\arroffsetB}{2pt}
+\onslide<\fieldingSideIntroSlide->{
+\ncarr{innings}{side}
+\alabel{fieldingSide}
+}
+\setlength{\arroffsetA}{-2pt}
+\setlength{\arroffsetB}{-2pt}
+\onslide<\battingSideIntroSlide->{
+\ncarr{innings}{side}
+\blabel{battingSide}
+}
+\setlength{\arroffsetA}{0pt}
+\setlength{\arroffsetB}{0pt}
+\onslide<\bowlerIntroSlide->{
+\ncarr{over}{player}
+\alabel{bowler}
+}
+\onslide<\facingBatterIntroSlide->{
+\ncarr{delivery}{player}
+\blabel{facingBatter}
+}
+\end{arrows}
+$}
+
+\begin{frame}{Cricket Contextual Category}
+\begin{tabular}{p{5cm} p{1cm} p{2.5cm}}
+\cricketcategory & &
+\parbox[c]{2.5cm}{\cricketFieldingSideScope
+\cricketBattingSideScope
+\cricketBowlerScope
+\cricketFacingBatterScope}
+\end{tabular}
+\onslide<\finalPointSlide>{
+\begin{itemize}
+    \item This contextual category can be interpreted as a data specification.
+    \item Abstractly, instances are contextual functors to \cat{Fam}.
+\end{itemize}
+}
+\end{frame}
+
 % I copied this whole side from cricket presentation
-\begin{frame}{Cricket as Data Specification}
+\begin{frame}{Cricket as Data Specification in ER Notation}
 \erDisplayFiveSlideAnimation
 %\erDisplayAllWithoutAnimation
 \newcommand{\logicalAnnotation}
