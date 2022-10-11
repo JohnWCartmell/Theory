@@ -3,12 +3,15 @@
 %  ****************************
 %
 %  Renew macros defined in erdiagram so that 
+%             core attributes
 %             hierarchical attributes
 %             relational attribuites 
 %             annotations identifying relationships ali=ongside above attribute names
 %  appear successively as the presentation advances. 
 %
 % Created 22 Sep 2022.
+% core attributes catered for 11 Oct 2022
+\newcommand{\coreAttributesSlideRange}{0}
 \newcommand{\scopesSlideRange}{0}
 \newcommand{\referenceImplementorAttributesSlideRange}{0}
 \newcommand{\referenceImplementorAttributeswithRelIdAnnotationSlideRange}{0}
@@ -20,12 +23,13 @@
 % By default there is no animation
 \newcommand{\erDisplayAllWithoutAnimation}
 {
-\renewcommand{\scopesSlideRange}{1}
+\renewcommand{\coreAttributesSlideRange}{1-}
+\renewcommand{\scopesSlideRange}{1-}
 \renewcommand{\referenceImplementorAttributesSlideRange}{0}
-\renewcommand{\referenceImplementorAttributeswithRelIdAnnotationSlideRange}{1}
+\renewcommand{\referenceImplementorAttributeswithRelIdAnnotationSlideRange}{1-}
 \renewcommand{\dependencyImplementorAttributesSlideRange}{0}
-\renewcommand{\dependencyImplementorAttributeswithRelIdAnnotationSlideRange}{1}
-\renewcommand{\relIdSlideRange}{1}
+\renewcommand{\dependencyImplementorAttributeswithRelIdAnnotationSlideRange}{1-}
+\renewcommand{\relIdSlideRange}{1-}
 }
 \erDisplayAllWithoutAnimation %set the default
 
@@ -38,6 +42,7 @@
 %            indicate the relationships which they are there to implement
 \newcommand{\erDisplayFiveSlideAnimation}
 {
+\renewcommand{\coreAttributesSlideRange}{1-}
 \renewcommand{\scopesSlideRange}{2}
 \renewcommand{\referenceImplementorAttributesSlideRange}{3-4}
 \renewcommand{\referenceImplementorAttributeswithRelIdAnnotationSlideRange}{5}
@@ -51,6 +56,7 @@
 % Slide 2 - adds scopes -- these indicate equivalent paths i.e. commutative diagrams
 \newcommand{\erDisplayTwoSlideAnimation}
 {
+\renewcommand{\coreAttributesSlideRange}{1-}
 \renewcommand{\scopesSlideRange}{2}
 \renewcommand{\referenceImplementorAttributesSlideRange}{0}
 \renewcommand{\referenceImplementorAttributeswithRelIdAnnotationSlideRange}{0}
@@ -63,12 +69,35 @@
 % Slide 1 - shows logical model without scopes and without relationship ids
 \newcommand{\erDisplayPureLogicalWithoutAnimation}
 {
+
+\renewcommand{\coreAttributesSlideRange}{1-}
 \renewcommand{\scopesSlideRange}{0}
 \renewcommand{\referenceImplementorAttributesSlideRange}{0}
 \renewcommand{\referenceImplementorAttributeswithRelIdAnnotationSlideRange}{0}
 \renewcommand{\dependencyImplementorAttributesSlideRange}{0}
 \renewcommand{\dependencyImplementorAttributeswithRelIdAnnotationSlideRange}{0}
 \renewcommand{\relIdSlideRange}{0}
+}
+
+% Can reset to a pure abstract model 
+% Slide 1 - shows logical model without attributes without scopes and without relationship ids
+\newcommand{\erDisplayPureLogicalWithoutAttributesWithoutAnimation}
+{
+\renewcommand{\coreAttributesSlideRange}{0}
+\renewcommand{\scopesSlideRange}{0}
+\renewcommand{\referenceImplementorAttributesSlideRange}{0}
+\renewcommand{\referenceImplementorAttributeswithRelIdAnnotationSlideRange}{0}
+\renewcommand{\dependencyImplementorAttributesSlideRange}{0}
+\renewcommand{\dependencyImplementorAttributeswithRelIdAnnotationSlideRange}{0}
+\renewcommand{\relIdSlideRange}{0}
+}
+
+
+\renewcommand{\erCoreAttribute}[5]{
+\only<\coreAttributesSlideRange>
+{
+\erattr{#1}{#2}{#3}{#4}{#5}
+}
 }
 
 %\erHierarchicalAttribute {#1 x} {#2 y} {#3 ismandatory}{#4 identifying} {#5 name} {#6 annotation}
