@@ -7,7 +7,16 @@
 \newcommand{\bowlerScopeSlide}{7}
 \newcommand{\facingBatterIntroSlide}{8}
 \newcommand{\facingBatterScopeSlide}{9}
-\newcommand{\finalPointSlide}{10}
+\newcommand{\bulletPointSlide}{10}
+\newcommand{\sideNameIntroSlide}{11}
+\newcommand{\playerNameIntroSlide}{12}
+\newcommand{\playerNumberIntroSlide}{13}
+\newcommand{\matchIdIntroSlide}{14}
+\newcommand{\sideNameIntroSlideRange}{\sideNameIntroSlide-\matchIdIntroSlide}
+\newcommand{\playerNameIntroSlideRange}{\playerNameIntroSlide-\matchIdIntroSlide}
+\newcommand{\playerNumberIntroSlideRange}{\playerNumberIntroSlide-\matchIdIntroSlide}
+\newcommand{\matchIdIntroSlideRange}{\matchIdIntroSlide-\matchIdIntroSlide}
+\newcommand{\finalSlide}{15}
 
 \newcommand{\cricketFieldingSideScope}{
 \only<\fieldingSideScopeSlide>{
@@ -62,11 +71,11 @@ commutes.}
 \newcommand{\cricketcategory}
 {
 $
-\begin{array}{c p{1.5cm} c}
-\multicolumn{3}{c}{\Rnode{abs}{1}}\\[1cm]
-\multicolumn{3}{c}{\RRnode{match}} \\[1cm]
-\RRnode{innings}  && \RRnode{side}\\[1cm]
-\RRnode{over}     && \RRnode{player}\\[1cm]
+\begin{array}{c p{1.5cm} c p{1.5cm} c}
+\multicolumn{3}{c}{\Rnode{abs}{1}}  &&                          \\[1cm]
+\multicolumn{3}{c}{\RRnode{match}}  &&                          \\[1cm]
+\RRnode{innings}  && \RRnode{side}  && \onslide<\sideNameIntroSlideRange>{\RRnode{string}}              \\[1cm]
+\RRnode{over}     && \RRnode{player}&& \onslide<\playerNumberIntroSlideRange>{\RRnode{positiveInteger}} \\[1cm]
 \RRnode{delivery} &&  \\
 \end{array}
 \begin{arrows}
@@ -98,6 +107,23 @@ $
 \ncarr{delivery}{player}
 \blabel{facingBatter}
 }
+%attributes
+\onslide<\matchIdIntroSlideRange>{
+\ncarr{match}{string}
+\alabel{id}[0.3]
+}
+\onslide<\sideNameIntroSlideRange>{
+\ncarr{side}{string}
+\alabel{name}[0.4]
+}
+\onslide<\playerNameIntroSlideRange>{
+\ncarr{player}{string}
+\alabel{name}[0.35][0.1]
+}
+\onslide<\playerNumberIntroSlideRange>{
+\ncarr{player}{positiveInteger}
+\blabel{number}
+}
 \end{arrows}
 $}
 
@@ -109,33 +135,42 @@ $}
 \cricketBowlerScope
 \cricketFacingBatterScope}
 \end{tabular}
-\onslide<\finalPointSlide>{
+\onslide<\bulletPointSlide-\matchIdIntroSlide>{
 \begin{itemize}
-    \item This contextual category can be interpreted as a data specification.
-    \item Abstractly, instances are contextual functors to \cat{Fam}.
+    \item This structure can be interpreted as a data specification.
+    \item Abstractly, instances are contextual functors to \cat{FinFam}.
 \end{itemize}
-}
+\onslide<\finalSlide>}{}%pause for reflection
 \end{frame}
 
+\iffalse{
 \begin{frame}
 \erDisplayPureLogicalWithoutAttributesWithoutAnimation
 \scalebox{0.75}{\input{../../SharedPictures/cricketMatch.relational}}
 \end{frame}
+}\fi
 
 % I copied this whole side from cricket presentation
-\begin{frame}{Cricket as Data Specification in ER Notation}
-\erDisplayFiveSlideAnimation
+% Then i changed to be a EarlyStartFiveSlideAnimation
+\begin{frame}{in Entity-Relationship (ER) Notation}
+\erDisplayEarlyStartFiveSlideAnimation
 %\erDisplayAllWithoutAnimation
 \newcommand{\logicalAnnotation}
 {\begin{tabular}[b]{p{6.5cm}}
 Logical or Conceptual\\
-\footnotesize  Start here 
+\footnotesize  
 \end{tabular}
 }
 \newcommand{\logicalWithScopesAnnotation}
 {\begin{tabular}[b]{p{6.5cm}}
 Logical or Conceptual\\
-\footnotesize  Add scopes for reference relationships 
+\footnotesize  Add scopes for reference relationships. 
+\end{tabular}
+}
+\newcommand{\logicalWithAttributes}
+{\begin{tabular}[b]{p{6.5cm}}
+Logical or Conceptual\\
+\footnotesize  With core attributes added.
 \end{tabular}
 }
 \newcommand{\hierarchicalAnnotation}
@@ -158,8 +193,9 @@ Further fk attrs added to represent the dependency (D) relationships.
 & \kern-3cm
 \onslide*<1-1>{\raisebox{-1cm}{\logicalAnnotation}}
 \onslide*<2-2>{\raisebox{-1cm}{\logicalWithScopesAnnotation}}
-\onslide*<3-3>{\hierarchicalAnnotation}
-\onslide*<4-4>{\relationalAnnotation}
+\onslide*<3-3>{\raisebox{-1cm}{\logicalWithAttributes}}
+\onslide*<4-4>{\hierarchicalAnnotation}
+\onslide*<5->{\relationalAnnotation}
 \end{tabular}
 \end{frame}
 
