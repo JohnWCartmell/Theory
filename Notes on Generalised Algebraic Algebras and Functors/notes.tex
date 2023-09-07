@@ -1,0 +1,275 @@
+
+\section{Finite Limits}
+\mynote 
+ From any category with a coherent system of pullbacks and a terminal object a contextual category can be constructed. I don't know what to call this but 
+I refer to \textit{morphisms with codomain} it in my thesis and in the ``GATSandCCs'' paper.
+Suppose I denote by $mwc(\catc)$ the contextual category corresponding to a nicely behaved category \catcw with finite limits. Am I not right in saying that a contextual category $\cat{D}$ is contextually equivalent\footnote{meaning equivalent as categories via functors that are contextual functors} to 
+a contextual category of the form $mwc(\catc)$ iff $\cat{D}$ has identity types and sigma types
+(strongest possible axiomatisations for these). The interest in this might be because if $\Pi$ types are added then we get  a path to locally cartesian closed categories as models of Martin-Loff type theory via gats and contextual categories. 
+
+\section{Other matters}
+
+\mynote From my 1986 paper (\cite{Cartmell86})based on my thesis (\cite{Cartmell78}):
+\begin{tightquote}
+Every interpretation $I:U \morph U'$ induces a contextual functor 
+$C(I):C(U) \morph C(U')$. Composition with $C(I)$ is a functor from 
+$ConFunc(C(U'),Fam)$ to
+$ConFunc(C(U),Fam)$. It is the functor $\Ialg:\Upalg \morph \Ualg$. Those functors
+between categories of models which are induced in this way are called generalised
+algebraic functors. We can show that all generalised algebraic functors have a left adjoint.
+This is
+equivalent to a known generalisation of Lawvere \cite{LawvereAlgebraicTheories}'s theorem that all algebraic
+functors have a left adjoint. 
+\end{tightquote}
+A year or too back, Jonathan Sterling asked me about the proof of this. The question threw me and I couldn't give a good answer and therefore I think there is work to be done in this area unless someone has cleaned up in the meantime\footnote{Nathanael Arkor (thank you) suggests that we can just rely on the corresponding result for essentially algebraic theories}.
+\mynote
+Sketches: You would think that we could give a definition for a sketch of contextual category 
+similar to  definitions such as those of linear sketch, finite product (FP) sketch, finite discrete (FD) sketch and finite limit (FL) sketch. Such a CC sketch would be syntax-free way a way of defining a generalised algebraic theory and it would parallel and benefit from treatments given to other notions of theory versus category with additional structure. 
+\mynote
+Generators and relations: On the other hand we should be able to construct contextual categories by generators and  
+relations as Maclane describes the construction of categories by generators and relations
+[page 51,52 Categories for the Working Mathematician]. Maybe it isn't  straightforward  though because of the inductive nature of the types/objects. 
+\mynote Richard Garner has suggested (private communication) that there is a class of generalised algebraic theories for which the algebras are isomorphic to algebras  over a monad on a certain category of Set-valued functors. Developing this idea: 
+
+\noindent
+It seems that we can almost certainly characterise that class of interpretations between 
+generalised algeabraic theories such that the corresponding generalised algebraic functors are monadic.
+
+From this characterisation will follow 
+\begin{itemize}
+\item Ricard Garner's account of (the equivalent of) MetaGat algebras,
+\item  the known result that the category of categories is monadic over the category of reflexive graphs, 
+\item the known result that the category of reflexive graphs is monadic over \cat{Set},
+\item the known result that the category of categories is not monadic over \cat{Set}.
+\end{itemize}
+
+\mynote
+Lawvere defines a functor which he calls algebraic-structure as a  left adjoint  to the algebraic-semantics functor which in turn is defined as the functor which takes a theory to its concrete category of algebras. 
+The algebraic-structure functor is an answer to questions of the form ... what is the best way of modelling such and such algebraically? 
+Conceptually this is most interesting  and Lawvere gives lots of examples. 
+
+Lawvere's algebraic structure functor generalises to the case of many-sorted algebraic theories.
+Can it in some way, shape or form be generalised to generalised algeabraic theories? 
+
+\section {The Contextual Category Fam}
+
+\section{The Concept Instance Algebra Fam}
+
+\subsection {Sets and Families }
+\subsubsection{Sets and Functions}
+So far we have been talking about types of things and types used in language to describe situations. Sets and functions and families of sets and functions provide the most abstract interpretations of these linguistic situations.  
+We denote the large set of all sets by $U$. For any two sets X and Y we denote by $X^Y$ the set of functions with domain X and codomain Y.
+
+\subsubsection{Set Indexed Families of Sets}
+An indexed family of sets $B_{a)a\in A}$ (see figure) 
+\begin{figure}[h]
+%\begin{center}
+\begin{pspicture}(0,0.5)(9,5.5)
+%\psgrid
+%\putfamilyOfSets[rot]{basescale}{childscale}{x}{y}{childoffset}{nodeprefix}
+\rput{*270}(1,5){
+  \putfamilyOfSets[*270]{.75}{0.4}{2cm}{2.5cm}{2.3cm}{FAM}
+  }
+\rput[l](1.5,4.2){ \psframebox*{set A} }
+\rput[l](6.5,2){ \psframebox*{set $B_a$, for every $a \in A$} }
+\end{pspicture}
+%\end{center}
+\caption{An element of $^1U$ - the (large) set of all set indexed families of sets}
+\end{figure}
+can be defined as a function $B:A \rightarrow U$ and the (large) set of all indexed families of sets can be defined to the union over sets $A \in U$ of the large set $U^A$. The union over all sets A of the set of A-indexed families of sets $U^A$ we will denote by $^1U$. Thus,
+\begin{equation}  
+^1U = \bigcup_{A\in U}U^A
+\end{equation}
+\subsubsection{An Indexed Family of Families of Sets}
+\noindent An indexed family of families of sets(see figure)
+% Examples
+\begin{figure}[h]
+\begin{center}
+\begin{pspicture}(0,0)(10,10)
+%\psgrid
+%\putfamilyOfSets[rot]{basescale}{childscale}{x}{y}{childoffset}{nodeprefix}
+\rput{*270}(1,10){
+  \putthreeset[*270]{.75}{5cm}{1cm}{BASE}
+  \putfamilyOfSets[*270]{.5}{0.25}{2cm}{2.5cm}{1.3cm}{FAML}
+  \putfamilyOfSets[*270]{.5}{0.25}{5cm}{3cm}{1.3cm}{FAMM}
+  \putfamilyOfSets[*270]{.5}{0.25}{8cm}{2.5cm}{1.3cm}{FAMR}
+}
+\ncline[nodesep=3pt]{|->}{BASEl}{FAMLBASEc}
+\ncline[nodesep=3pt]{|->}{BASEm}{FAMMBASEc}
+\ncline[nodesep=3pt]{|->}{BASEr}{FAMRBASEc}
+\rput[l](.6,6.6){\psframebox*{set A} }
+\rput[l](6,2){\psframebox*{a set indexed family $B_a$, for every $a \in A$} }
+\end{pspicture}
+\caption {A set indexed family of set indexed families of sets}
+\end{center}
+\end{figure}
+\noindent can be defined to be a function from a set A to the (large) set $^1U$ of all set indexed families. The (large) set of all set indexed families of sets is denoted $^2U$ and can be defined as the disjoint union:
+\begin{equation}  
+^2U = \bigcup_{A\in U}(^1U)^A
+\end{equation}
+
+\noindent We define a large set $^nU$, for all $n, n > 0$,  and we define functions $dep_n:\,^nU \rightarrow\,^{n-1}U$, for all $n, n \ge 1$.
+$^0U$ is defined to the U, the set of all sets.
+$^1U$ is defined to the set of all set indexed families. $dep_1$ is defined to the function that maps the A-indexed family B to the set A.
+$^{n+1}U$ is defined to the set of all set-indexed families of elements of $^nU$. That is:
+\begin{equation}
+^{n+1}U = \bigcup_{A\in U}(^nU)^A
+\end{equation}
+
+\noindent To define $dep_{n+1}$ we need to define $dep_{n+1}(X_{n+1})$, for any $X_{n+1} \in\,^{n+1}U$. Such an $X_{n+1}$ consists of a pair $\left\langle A,F_n\right\rangle$,
+where A is a set and $F_n:A \rightarrow\, ^nU$. Define:
+\begin{align}
+  &dep_{n+1}              \notag     \\
+\left\langle A,F_n\right\rangle &\longmapsto F_n \circ dep_n
+\end{align}
+\noindent In summary, we have defined sets and functions:
+
+\vspace{0.25cm}
+\begin{center}
+\begin{math}
+\setlength{\arraycolsep}{.5cm}
+\begin{array}{cccccccc}
+\Rnode{U0}{^0U}&\Rnode{U1}{^1U}&\Rnode{U2}{^2U}&\cdots&\Rnode{Unp}{^{n-1}U}&\Rnode{Un}{^nU}&\Rnode{Uns}{^{n+1}U}&\cdots
+\end{array}
+\ncline{<-}{U0}{U1}
+\naput{dep_1}
+\ncline{<-}{U1}{U2}
+\naput{dep_2}
+\ncline{<-}{Unp}{Un}
+\naput{dep_n}
+\ncline{<-}{Un}{Uns}
+\naput{dep_{n+1}}
+\end{math}
+\end{center}
+
+\noindent With small abuse of notation, instead of 'let $A_{n+1} \in\,^{n+1}U$ we can say:
+\begin{center}
+\begin{math}
+\mbox{let }A_0 \in\,^0U_0,\mbox{let }A_1 \in\,^1U(A_0),...,\mbox{let }A_n \in\,^nU(A_{n-1}) \mbox{and let }A_{n+1} \in ^{n+1}U(A_n) 
+\end{math}
+\end{center}
+
+\subsubsection{Sections of an indexed family of sets}
+If $B{a)a\in A}$ in an A-indexed family of sets the a section of B is a function $b:A \rightarrow \bigcup_{a \in A}{B(a)}$ such that
+for each $a \in A, b(a) \in B(a)$. Here is a picture:  
+\begin{figure}[h]
+
+\begin{pspicture}(0,0.5)(9,5.5)
+%\psgrid
+%\putfamilyOfSets[rot]{basescale}{childscale}{x}{y}{childoffset}{nodeprefix}
+\rput{*270}(1,5){
+  \putfamilyOfSets[*270]{.75}{0.4}{2cm}{2.5cm}{2.3cm}{FAM}
+  }
+\rput[l](1.5,4.2){ \psframebox*{set A} }
+\rput[l](6.5,2){ \psframebox*{set $B_a$, for every $a \in A$} }
+\rput[l](6.5,1.5){ \psframebox*{elemnt b(a) of the set $B_a$, for every $a \in A$} }
+
+\ncarc[nodesep=2pt,arcangle=20]{->}{FAMBASEl}{Ll}
+\ncarc[nodesep=2pt,arcangle=20]{->}{FAMBASEm}{Mm}
+\ncarc[nodesep=2pt,arcangle=-20]{->}{FAMBASEr}{Rr}
+\end{pspicture}
+
+\caption{A section b of A-indexed family of sets B}
+\end{figure}
+
+\subsubsection{Sections of a indexed family of family of sets}
+Diagram here.
+Mathematical definition.
+\subsubsection{Sections in General}
+Diagram here.
+Mathematical definition.
+
+
+
+\subsection{Types and Databases}
+\noindent Instances of types can be represented in databases and represented as data in tables\footnote{It is an important part of building any software
+system to ensure that the real world objects that need be represented in the system are suitably represented in data and much of this endeavour amounts to understanding the types of the entites involved and the proper representation of these types in short to proper data mdoelling based on suitable conceptual modelling.}.
+\\
+
+\noindent Suppose we build a database of molecular structure, for example of pharmaceuticals. Structure involves (covalent) bonds between atoms within a molecule
+\footnote{It is important to note that we are modelling molecular structure here and that it is structures that we are storing in our database i.e. the templates adhered by molecules rather than the individual molecules themselves.}. 
+The types of interest are molecule, atom (within molecular structure and bond. 
+We can represent the type dependencies by the following dependency graph which we also declare to commute:
+
+\begin{equation}
+\begin{array}{p{1.5cm}cccp{2cm}c}
+  & \Rnode{bond}{bond} \\ [0.8cm]
+  & \Rnode{atom}{atom} \\ [0.8cm]
+  & \Rnode{molecule}{molecule}  \\ [0.4cm]
+\end{array}
+\setlength {\saroffsetA}{-2pt}
+\setlength {\saroffsetB}{-2pt}
+\ncsar[-15]{bond}{atom}
+\setlength {\saroffsetA}{2pt}
+\setlength {\saroffsetB}{2pt}
+\ncsar[15]{bond}{atom}
+\sarreset
+\ncsar{atom}{molecule}
+\end{equation}
+
+\noindent In the simplest database containing multiple molecular structures there would be two tables of data.
+\begin{table}[ht]
+\begin{minipage}[b]{0.5\linewidth}\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{Atom} \\ \hline
+Molecule&AtomNo&AtomType\\
+\hline
+water&1&H\\
+water&2&O\\
+water&3&O\\
+\hline
+\end{tabular}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.5\linewidth}
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\multicolumn{4}{|c|}{Bond} \\ \hline
+Molecule&End1&End2&BondType \\
+\hline
+water&1&2&Single\\
+water&1&3&Single\\
+\hline
+\end{tabular}
+\end{minipage}
+\end{table}
+Maybe add another molecule, maybe label diagram above - end1, end2.
+\noindent There are three areas of interest:
+
+(i) How a database model is represented in type theory
+
+(ii) How it is then represented in a categorical structure.
+
+(iii) How this same structure can be presented.
+
+
+\noindent and two aspects:
+
+(a) relational model
+
+(b) entity relational model
+
+\noindent Just as there is a notion of normal form in the relational model being in 4th normal form is there a corresponding definition within context of entity-relationship models?
+
+
+\subsubsection {Example - $^{\omega}U$}
+The definitions above of sets $^nU$ and associated functions $dep_n$ define a hierarchical dependency graph of sets, families of sets, families of families of sets and so on, and, since the set of nodes is the set $\bigcup_{n \ge 0}{^nU}$, it will be denoted $^\omega U$.
+
+\subsection{Section Structures}
+Each element of $^\omega U$ has a set of sections and sections can be combined to give new ones by functional composition and the combination operation satisfies simple associativity/distributive laws (can't remember them right now - need to work them out again or find 30-odd year old notes).
+
+We define a section structure to be any dependency graph endowed with a set of sections for each element and a composition operator which satisfies the aforesaid associativity/distributive laws.
+
+If B is an A-indexed family of sets and then we say: $A \triangleleft B$ in $^\omega U$ and we represent sections of B as arrows.
+$\langle$ Diagram Here $\rangle$
+//
+
+\noindent A cartesian section structure si defined to be a section structure with product operation obeying the following rules:
+$\langle$ Can't remember them right now - need to work them out again? $\rangle$
+
+\noindent What is troubling me here is whether I can manage to make sense of product types before I introduce sections or non-d-morphisms. I *can* but what meaningful things can be said: (i) each dependency graph can be represented by a hierarchical graph with product structure - use dependency coverings to define it (ii) I can define a network version of 
+omega U (iii) I can show that models(realisations) of a dependency graph in network set correspond to realisations of its hierarchical equivalent in omega U.
+  
+  
