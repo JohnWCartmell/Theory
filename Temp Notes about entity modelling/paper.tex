@@ -1,6 +1,6 @@
 \documentclass[10pt,a4paper]{article}
 % 08/02/2019 Maintenance -- use of \obj macro changed to use of \Ob.
-\usepackage[margin=3cm]{geometry}
+\usepackage{geometry}
 \usepackage{pstricks}
 \usepackage{pst-node}
 \usepackage{pst-tree}
@@ -32,11 +32,38 @@
 
 \renewcommand{\erpictureFolder}[0]{../SharedPictures}
 
+\newcommand{\chenboxhalfwidth}{1.1}
+\newcommand{\chenboxhalfheight}{0.75}
+
+% \chenbox{label}{text}
+\newcommand{\chenbox}[2]{
+	\rput[l](0,\chenboxhalfheight){\pnode{#1N}}
+	\rput[l](0,-\chenboxhalfheight){\pnode{#1S}}
+	\rput[l](\chenboxhalfwidth,0){\pnode{#1E}}
+	\rput[l](-\chenboxhalfwidth,0){\pnode{#1W}}
+  \psframe(-\chenboxhalfwidth,-\chenboxhalfheight)(\chenboxhalfwidth,\chenboxhalfheight)
+  \rput(0,0){\scriptsize #2}
+}
+
+% \chendiamond{label}{text}
+\newcommand{\chendiamond}[2]{
+	\rput[l](0,\chenboxhalfheight){\pnode{#1N}}
+	\rput[l](0,-\chenboxhalfheight){\pnode{#1S}}
+	\rput[l](\chenboxhalfwidth,0){\pnode{#1E}}
+	\rput[l](-\chenboxhalfwidth,0){\pnode{#1W}}
+  \psdiamond(0,0)(\chenboxhalfwidth,\chenboxhalfheight)  
+  %\rput(0,0){\scriptsize \begin{tabular}{c}PROJECT-\\WORKER\end{tabular}}
+  \rput(0,0){\scriptsize #2}
+}
+
 \title{Temp Notes on Entity Modelling}
 \author{John Cartmell}
 \begin{document}
 \maketitle
 
-\input{notes.tex}
+%\input{notes.tex}
+\begin{center}
+\input{manufacturing.tex}
+\end{center}
 
 \end{document}
