@@ -1,6 +1,6 @@
 \documentclass[10pt,a4paper]{article}
-% 08/02/2019 Maintenance -- use of \obj macro changed to use of \Ob.
-\usepackage{geometry}
+
+%\usepackage{geometry}
 \usepackage{pstricks}
 \usepackage{pst-node}
 \usepackage{pst-tree}
@@ -33,12 +33,20 @@
 \renewcommand{\erpictureFolder}[0]{../SharedPictures}
 
 \newcommand{\chenboxhalfwidth}{1.1}
+\newcommand{\chenboxquarterwidth}{0.55}
 \newcommand{\chenboxhalfheight}{0.75}
+\newcommand{\chenboxquarterheight}{0.375}
 
 % \chenbox{label}{text}
 \newcommand{\chenbox}[2]{
 	\rput[l](0,\chenboxhalfheight){\pnode{#1N}}
+	\rput[l](\chenboxhalfwidth,\chenboxhalfheight){\pnode{#1NE}}
+	\rput[l](-\chenboxhalfwidth,\chenboxhalfheight){\pnode{#1NW}}
 	\rput[l](0,-\chenboxhalfheight){\pnode{#1S}}
+	\rput[l](\chenboxhalfwidth,-\chenboxhalfheight){\pnode{#1SE}}
+	\rput[l](-\chenboxhalfwidth,-\chenboxhalfheight){\pnode{#1SW}}
+	\rput[l](\chenboxquarterwidth,-\chenboxhalfheight){\pnode{#1SSE}}
+	\rput[l](-\chenboxquarterwidth,-\chenboxhalfheight){\pnode{#1SSW}}
 	\rput[l](\chenboxhalfwidth,0){\pnode{#1E}}
 	\rput[l](-\chenboxhalfwidth,0){\pnode{#1W}}
   \psframe(-\chenboxhalfwidth,-\chenboxhalfheight)(\chenboxhalfwidth,\chenboxhalfheight)
@@ -48,6 +56,8 @@
 % \chendiamond{label}{text}
 \newcommand{\chendiamond}[2]{
 	\rput[l](0,\chenboxhalfheight){\pnode{#1N}}
+	\rput[l](\chenboxquarterwidth,\chenboxquarterheight){\pnode{#1NE}}
+	\rput[l](-\chenboxquarterwidth,\chenboxquarterheight){\pnode{#1NW}}
 	\rput[l](0,-\chenboxhalfheight){\pnode{#1S}}
 	\rput[l](\chenboxhalfwidth,0){\pnode{#1E}}
 	\rput[l](-\chenboxhalfwidth,0){\pnode{#1W}}
@@ -61,9 +71,7 @@
 \begin{document}
 \maketitle
 
-%\input{notes.tex}
-\begin{center}
-\input{manufacturing.tex}
-\end{center}
+\input{notes.tex}
+
 
 \end{document}
