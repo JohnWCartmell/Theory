@@ -19,29 +19,51 @@ An entity model serves to describe a domain of discourse. In the general case it
 \mynote
 In this section we are going to discuss binary, ternary, and more generally n-ary, relationships and also  directional, many-many and many-one relationships. To add to this proliferation of terms, some of our many-one relationships can be very usefully described as functional relationships and the others as partial functional relationships. 	The proliferation comes about from the need for clarity --- if we are to err then we would that we err on the side of pedantry --- but also to ensure that we link up with mathematical terminology, where appropriate, and have available the intuitions that come along with this.
 
-\mynote Strictly speaking, directional relationships are not as their name suggests, types of relationships, but are ways of looking at or considering binary relationships. Each binary relationship is a binary relationship viewed at or considered from one end or the other. Each binary relationship can be considered as a directional relationship in two different ways. Each pair of directional relationships matching a given relationship is said to be the inverse of the other. 
+\mynote Strictly speaking, directional relationships are not as their name suggests, types of relationships, but are ways of looking at or considering binary relationships. Each binary relationship is a binary relationship viewed at or considered from one end or the other. Each binary relationship can be considered as a directional relationship in two different ways, see figure \ref{relationshipTerminology} for a visualisation of this.
+
+\begin{figure}
+\label{relationshipTerminology}
+\input{relationshipTerminology.tex}
+\caption{Every binary relationship can be thought of as consisting of a pair of directional relationships each of which is one view of the binary relationship. Directional relationships can be one-one, one-many or many-one. There are other possibilities besides as we will discuss.  }
+\end{figure}
 
 \mynote
-A final challenge terminologically is that some many-one relationships are going to be said to be attributes. Most descriptions of entity modelling see many-one relationships and attributes as distinct and contrasting and we wouldn't usually see attributes as kinds of relationships but it is more accurate to say that they are.
+In standard entity modelling terminology an attribute relates entity to a value but whilst they relate things they are not considered to be relationships. If you ask why not then the answer is that it is just so.
+This gives us a challenge -- shall we describe attributes as certain types of relationships or should we not?
+In the description below we will describe attributes as certain kinds of relationship but later we shall 
+proceed as if relationships and attributes were distinct which, as we have said, is the ususal way of things. 
+
+\mynote 
+At first glance the following two dictionary entries that you can find online seem to be saying the same thing
+\begin{erquote}
+a relationship between two things is the way in which they are connected
+\end{erquote}
+and 
+\begin{erquote}
+a relationship is a connection, association, or involvement between two things.
+\end{erquote}
+These entries describe what here we call \textit{binary relationships} but
+a more careful reading reveals a significant difference between the two because \textit{friendship} as an abstract thing satisfies the first definition but not the second whereas a particular friendship such as that between \textit{Don Quixote} and \textit{Sancho Panza} satisfies the second  but not the first. 
+So as to distinguish the two meanings some authors use the term \textit{relationship type} for the first sense of (binary) relationship and reserve the term \textit{relationship} itself for the second. Here we will stick with the single word relationship but if we need to emphasise the second meaning we may speak of instances of relationships. 
+
+\mynote
+In another dictionary we find 
+\begin{erquote}
+In logic and mathematics relationship is another name for relation.
+\end{erquote}
+and in yet another there is a definition of mathematical relation as a subset of the cartesiona product of two sets (which is therefore in fact a definition of a binary relation).\footnote{Chambers definition here}.
  
-\mynote Dictionary definitions of the term relationship include the following
-\begin{itemize}
-\item --- A relationship between two things is the way in which they are connected.
-\item --- A relationship is a particular instance of being related.
-\item --- In logic and mathematics relationship is another name for relation.
-\item --- A relationship is a connection, association, or involvement between two things.
-\end{itemize}
 
 \mynote In two cases above the dictionary is describing relationships between two kinds of things and these are the relationships we are concerned with here and which, being between two things, are called binary relationships. How do we explain what these are? It is a lot clearer if we proceed by example.
 
 \mynote
-Well, friendship,  marriage, adjacency, ownership and succession can all be given examples of binary relationships. There are binary relationships too  between parent and child, between teacher and student and between a planet and the star that it orbits.   
+Well, friendship,  marriage, adjacency, ownership and succession are all examples of binary relationships. There are binary relationships too  between parent and child, between teacher and student and between a planet and the star that it orbits.   
 The following are also binary relationships:
 being employed by, in the sense that a person might be employed by a particular employee,
 managing, in the sense that an employee might manage a project. There are binary relationships too between a sales order and the customer that it is ordered by and between a debit card and  the bank that issued it. A banking transaction has binary relationships both with the account debited and with the account credited. 
 
 \mynote The most important feature of relationships as the term is used  in this book is that the existence of a relationship instance between and two particular entities should be a matter of black and white.\footnote{we easily drawn in to speaking of binary relationships having instances and it is easy to talk about these instances as relationships which, though an overloading of the term relationship, doesn't present practical difficulties.
-I think this overloading of the term relationship is already observable in the dictionary bullet points I gave above. Is this the same overloading as when we say that a pig is a type of animal but then speak of an instance of the type as a pig?} For example between any particular Jack and any particular Jill we must take it that there either is or is not a friendship between them. There can be no equivocation or matter of degree --- either the relationship is or is not. This is a point of difference, by the way, between our terminology and that of Chen --- Chen's relationships may have attributes associated with them, our relationships do not and are mathematical binary relations. We will see that such black and white binary relationships are all we need for modelling and that many-many relationships are not needed either. 
+I think this overloading of the term relationship is already observable in the dictionary bullet points I gave above. Is this the same overloading as when we say that a pig is a type of animal but then speak of an instance of the type as a pig?} For example between any particular Jack and any particular Jill we must take it that there either is or is not a friendship between them. There can be no equivocation or matter of degree --- either the relationship is or is not. This is a point of difference, by the way, between our terminology and that of Chen --- Chen's relationships may have attributes (properties) assined to them, our relationships may not which is why they are, mathematically, binary relations. We will see that such black and white binary relationships are all we need for modelling and that many-many relationships are not needed either. 
 
 \section{Attributes}
 \mynote Though we do not set out to model types of universals and the relationships between them 
