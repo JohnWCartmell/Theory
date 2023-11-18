@@ -1,0 +1,463 @@
+
+\usepackage{mathptmx}
+\usepackage{amsfonts}
+\usepackage{wasysym}
+\usepackage{url}
+\usepackage{hyperref}
+
+\newcommand{\sharedmacros}{../../SharedMacros}
+%\input{\sharedmacros/general.macros}    %causes problems when used with bamer
+\input{\sharedmacros/ccategories.macros}
+\input{\sharedmacros/gats.macros}
+\input{\sharedmacros/metagat.macros}
+\input{\sharedmacros/ermacros}
+\input{\sharedmacros/erdiagram}    %beamer aware version
+\input{../macros/beamermacros}
+\input{../macros/generalmacros}
+\input{../macros/othermacros}
+\input{../macros/sketchmacros}
+\input{../macros/directedgraphsmacros}
+
+\renewcommand{\erpictureFolder}[0]{../../SharedPictures}
+\setcounter{equation}{0}
+
+
+
+
+%\usepackage{arydshln} % vertical dashed lines between columns of an array
+
+\title[John Cartmell]{Mathematical Theory of Data}
+%% Which is to say types as they are used in practice in software development and as represented in theory in categories and in syntactic type theories.
+%% There is also a subplot concerning representation of context which certain types depend on -- again represented in practice and in theory. 
+\subtitle{Generic Goodness Criteria for Data Specifications}
+%subtitle{... and making the trivial trivially trivial}
+\author{John Cartmell}
+\institute{\\}
+\date{Aug 15, 2022}
+\bibliographystyle{plainnat}
+\usepackage{framed}
+\usepackage{bibentry}
+\usepackage{colortbl}
+\usepackage{ulem}   % for \dashuline{dashing} for seconday key
+\usepackage{listings}
+\lstset{%
+  escapeinside={(*}{*)},%
+}
+\usepackage{arydshln} % vertical dashed lines between columns of an array
+\usepackage{pst-arrow} %for \bigarrow
+
+
+%Redefine the \Fin macro to be category of sets
+%\renewcommand{\Fin}{\Set}
+
+
+\newcommand{\slidecontext}{Introduction} % to be redefined before use
+
+\newcommand{\comingnext}[1]{
+\begin{frame}{COMING NEXT}
+\begin{center}
+\Large #1
+\end{center}
+\end{frame}
+}
+
+
+\begin{document}
+\begin{frame}
+\titlepage
+\nobibliography{../../SharedBibliography/temp/bibliography}
+\end{frame}
+
+\section{Mathematical Theory of Data LITE}
+
+\begin{frame}{Overview}
+I will cover
+\begin{itemize}
+\item the mathematical theory of data,
+\item principles and criteria for goodness of data specifications,
+\item the relevance of commutative diagrams and therefore category theory.
+\end{itemize}
+
+
+
+\medskip
+\pause
+It will be observed that
+\begin{itemize}
+\item \textit{good data modelling is good theorising}.
+\end{itemize}
+\end{frame}
+
+\iffalse
+\subsection{Example}
+\begin{frame}{Example -- LCMSMS Data}
+\scalebox{0.2}{
+\input{\erpictureFolder/chromatogramanalysisrecord}
+}
+\end{frame}
+\fi
+
+\input{relationalDataSlide}
+
+\newcommand{\studentDeptInclusionDependency}
+{student[dept] \subseteq department[name]}
+\newcommand{\studentSupervisorInclusionDependency}
+{student[dept,svr] \subseteq professor[dept,no]}
+\newcommand{\professorDeptInclusionDependency}
+{professor[dept] \subseteq department[name]}
+\newcommand{\headOfDeptInclusionDependency}
+{department[name,hd]  \subseteq professor[dept,no]}
+
+
+\begin{frame}{Data Slide 1}
+\input{../content/professorStudentDepartment.display.tabular}
+\begin{align*}
+\studentDeptInclusionDependency  \\
+\studentSupervisorInclusionDependency\\
+\professorDeptInclusionDependency\\
+\headOfDeptInclusionDependency  \\
+\end{align*}
+{\small{move student table to the left}}
+\end{frame}
+
+\newcommand{\studentDepartmentAttribute}[1]     {\onslide<1-2>{#1}}
+\newcommand{\studentDepartmentRelationship}[1]  {\onslide<2->{#1}}
+\newcommand{\studentProfessorAttribute}[1]      {\onslide<1-4>{#1}}
+\newcommand{\studentProfessorRelationship}[1]   {\onslide<4->{#1}}
+\newcommand{\professorDepartmentAttribute}[1]   {\onslide<1-6>{#1}}
+\newcommand{\professorDepartmentRelationship}[1]{\onslide<6->{#1}}
+\newcommand{\departmentProfessorAttribute}[1]   {\onslide<1-8>{#1}}
+\newcommand{\departmentProfessorRelationship}[1]{\onslide<8->{#1}}
+
+
+\newcommand{\professorStudentDepartmentRelationalSchematic}
+{
+\begin{tabular}{c p{0.25cm} c p{0.25cm} c}
+$\begin{array}{c p{0.3cm} c p{0.1cm} c}
+\multicolumn{5}{c}{\Rnode{student}{student}} \\[-0.3cm]
+\multicolumn{5}{c}{\Rnode{sB1}{}\hspace{0.5cm}\Rnode{sB2}{}\hspace{0.5cm}\Rnode{sB3}{}} \\[1.0cm]
+\Rnode{sv1}{v} && \studentDepartmentAttribute{\Rnode{sv2}{v}} && \studentProfessorAttribute{\Rnode{sv3}{v}}
+\end{array}
+\begin{arrows}
+\ncarr{sB1}{sv1}
+\alabel{name}[0.55][0.1]
+\addedgebar
+\studentDepartmentAttribute{
+  \ncarr{sB2}{sv2}
+  \alabel{dept}[0.57][0.1]
+}
+\studentProfessorAttribute{
+  \ncarr{sB3}{sv3}
+  \alabel{svr}[0.6][0.1]
+}
+\end{arrows}$
+&&
+$\begin{array}{c p{0.3cm} c p{0.1cm} c}
+\multicolumn{5}{c}{\Rnode{professor}{professor}} \\[-0.3cm]
+\multicolumn{5}{c}{\Rnode{pB1}{}\hspace{0.5cm}\Rnode{pB2}{}\hspace{0.5cm}\Rnode{pB3}{}} \\[1.0cm]
+\professorDepartmentAttribute{\Rnode{pv1}{v}} && \Rnode{pv2}{v} && \Rnode{pv3}{v} 
+\end{array}
+\begin{arrows}
+\professorDepartmentAttribute{
+  \ncarr{pB1}{pv1}
+  \alabel{dept}[0.5][0.1]
+  \addedgebar
+}
+\ncarr{pB2}{pv2}
+\alabel{no}[0.575][0.1]
+\addedgebar
+\ncarr{pB3}{pv3}
+\alabel{name}[0.6][0.1]
+\end{arrows}$
+&&
+$\begin{array}{c p{0.2cm} c }
+\multicolumn{3}{c}{\Rnode{department}{department}} \\[-0.3cm]
+\multicolumn{3}{c}{\Rnode{dB1}{}\hspace{0.5cm}\Rnode{dB2}{}} \\[1.0cm]
+\hspace{0.2cm}\Rnode{dv1}{v} && \departmentProfessorAttribute{\Rnode{dv2}{v}} 
+\end{array}
+\begin{arrows}
+\ncarr{dB1}{dv1}
+\alabel{name}[0.55][0.1]
+\addedgebar
+\departmentProfessorAttribute{
+  \ncarr{dB2}{dv2}
+  \alabel{hd}[0.575][0.1]
+}
+\end{arrows}$ \\[1cm]
+\end{tabular}
+}
+
+\iffalse
+\newcommand{\abstractionOfd}
+{
+  Consider the first inclusion dependency. Because department.name is monomorphic this inclusion dependency is a referential inclusion depdendency. 
+It establishes a functional relationship between student and department which we label d such that 
+$\begin{array}{c c c}
+\makebox[1cm][c]{\Rnode{student}{student}} && \makebox[1cm][c]{\Rnode{department}{department}} \\[0.5cm]
+           &    \makebox[1cm][c]{\Rnode{v}{v}}    &
+\end{array}
+\begin{arrows}
+\ncarr{student}{department}
+\alabel{d}
+\ncarr{student}{v}
+\alabel{dept}
+\ncarr{department}{v}
+\alabel{name}
+\addedgebar
+\end{arrows}
+$
+}
+\fi
+
+\iffalse
+\begin{frame}{Data Schematic}
+\vspace{1cm}
+\professorStudentDepartmentRelationalSchematic
+\begin{align*}
+\studentDeptInclusionDependency   \\
+\studentSupervisorInclusionDependency  \\    
+\professorDeptInclusionDependency \\
+\headOfDeptInclusionDependency    
+\end{align*}
+$\begin{arrows}
+\studentDepartmentRelationship{
+  \ncarr[20]{student}{department}
+  \alabel{d}[0.4]
+}
+\studentProfessorRelationship{
+  \ncarr[5]{student}{professor}
+  \alabel{s}[0.4]
+}
+\professorDepartmentRelationship{
+  \ncarr[5]{professor}{department}
+  \alabel{d'}[0.4]
+}
+\departmentProfessorRelationship{
+  \ncarr[5]{department}{professor}
+  \alabel{hd}[0.4]
+}\end{arrows}
+$
+
+\onslide<9>{}%need to force slide 9 to appear without hd attribute
+\end{frame}
+
+\fi
+
+\iffalse
+\newcommand{\studentSvr}[1]{\onslide<1-1>{#1}}
+\newcommand{\studentDept}[1]{\onslide<1-2>{#1}}
+\newcommand{\departmentHd}[1]{\onslide<1-3>{#1}}
+\newcommand{\professorDept}[1]{\onslide<1-4>{#1}}
+\newcommand{\notProfessorDept}[1]{\onslide<5>{#1}}
+
+\newcommand{\studentProfessorDepartmentCommutingDiagrams}
+{
+  \begin{tabular}{c c c}
+$\begin{array}{c c c}
+  & \makebox[1cm][c]{\Rnode{department}{department}}  & \\[0.5cm]
+\makebox[1cm][c]{\Rnode{student}{student}} && \makebox[1cm][c]{\Rnode{professor}{professor}}
+\end{array}
+\begin{arrows}
+\ncarr{student}{department}
+\alabel{d}
+\ncarr{student}{professor}
+\blabel{s}
+\ncarr{professor}{department}
+\blabel{d'}
+\end{arrows}
+$ &
+$\begin{array}{c  c  c}
+    & \makebox[1cm][c]{\Rnode{department}{department}} & \\[0.5cm]
+\makebox[1cm][c]{\Rnode{professor1}{professor}} && \makebox[1cm][c]{\Rnode{professor2}{professor}}
+\end{array}
+\begin{arrows}
+\ncarr{professor1}{department}
+\alabel{d'}
+\ncarr{department}{professor2}
+\alabel{hd}
+\ncarr{professor1}{professor2}
+\blabel{id}
+\end{arrows}
+$
+\end{tabular}
+}
+\fi
+
+\iffalse
+\begin{frame}{Overlay}
+\begin{overlayarea}{5cm}{10cm}
+\begin{align*}
+\studentDeptInclusionDependency   \\
+\studentSupervisorInclusionDependency  \\    
+\professorDeptInclusionDependency \\
+\headOfDeptInclusionDependency    
+\end{align*}
+\end{overlayarea}
+\end{frame}
+\fi
+
+\iffalse
+\begin{frame}{Data Schematic TWO}
+\begin{tabular}{c p{0.5cm} c}
+\multicolumn{3}{c}{
+\hspace{0.5cm}
+% department
+$\begin{array}{c c  p{0.5cm} c}
+department
+&\kern-0.5cm\begin{array}{c}\Rnode{dR1}{}\\[-0.1cm]\Rnode{dR2}{}\end{array}
+&&\begin{array}{c}\Rnode{dv1}{v}\\[0.2cm] \departmentHd{\Rnode{dv2}{v}}\end{array} \\[-0.5cm]
+\Rnode{dL1}{}\hspace{1cm}\Rnode{dL2}{} \hspace{0.2cm} \Rnode{dL3}{}&&&
+\end{array}
+\begin{arrows}
+\ncarr{dR1}{dv1}
+\alabel{name}[0.5][0.1]
+\addedgebar
+\departmentHd{
+  \ncarr{dR2}{dv2}
+  \alabel{hd}[0.5][0.1]
+}
+\end{arrows}$ % end department
+} % end multicolumn{2}
+\\[2cm]
+%student
+$\begin{array}{c p{0.3cm} c p{0.1cm} c}
+\multicolumn{5}{c}{\Rnode{student}{student}} \\[-0.3cm]
+\multicolumn{5}{c}{\Rnode{sB1}{}\hspace{0.5cm}\Rnode{sB2}{}\hspace{0.5cm}\Rnode{sB3}{}} \\[1.0cm]
+\Rnode{sv1}{v} && \studentDept{\Rnode{sv2}{v}} && \studentSvr{\Rnode{sv3}{v}}
+\end{array}
+\begin{arrows}
+\ncarr{student}{dL1}
+\alabel{d}[0.3]
+\ncarr{sB1}{sv1}
+\alabel{name}[0.55][0.1]
+\addedgebar
+\studentDept{
+  \ncarr{sB2}{sv2}
+  \alabel{dept}[0.57][0.1]
+}
+\studentSvr{
+  \ncarr{sB3}{sv3}
+  \alabel{svr}[0.6][0.1]
+}
+\end{arrows}$ %end student
+&&\\[-2.8cm]
+&&
+%professor
+$\begin{array}{c c  p{0.5cm} c}
+\Rnode{professor}{professor}\kern-0.5cm
+&\begin{array}{c}\Rnode{pR1}{}\\[-0.1cm]\Rnode{pR2}{}\\[-0.1cm]\Rnode{pR3}{}\end{array}
+&&\begin{array}{c}\professorDept{\Rnode{pv1}{v}}\\[0.2cm] \Rnode{pv2}{v}\\[0.2cm] \Rnode{pv3}{v}\end{array}
+\end{array}
+\begin{arrows}
+\ncarr{professor}{dL2}
+\alabel{d'}[0.4]
+\notProfessorDept{\addedgebar}
+\ncarr[30]{dL3}{professor}
+\alabel{h}[0.3]
+\ncarr{student}{professor}
+\blabel{s}
+\professorDept{
+  \ncarr{pR1}{pv1}
+  \alabel{dept}[0.5][0.1]
+  \addedgebar
+}
+\ncarr{pR2}{pv2}
+\alabel{no}[0.5][1]
+\addedgebar
+\ncarr{pR3}{pv3}
+\alabel{name}[0.5][0.1]
+\end{arrows}$ % end professor
+\\[2cm]
+\end{tabular}
+\pause 
+\studentProfessorDepartmentCommutingDiagrams
+\end{frame}
+\fi
+
+\begin{frame}{test}
+test
+\end{frame}
+
+
+
+\begin{frame}{Nested data structures}
+draw single nested relational data model
+less columns now and that is because some structure is represented niot by foreign keys but by the nesting of struture. Thats why this example is representative of how data about departments, professors and students might be represented in other messaging systems such as XML ad IDL and also in hierarchical databases. 
+
+decisions about how which data relationships to represent by nesting are recorded by distinguishing certain morphisms of the sketch as being represented `structurally'
+(in IDL for eaxample the keyword would be struct).
+
+These distinguished morphisms determine (have you guessed this yet) a contextual category 
+\end{frame}
+
+\begin{frame}
+same again diagram with dependency morphisms replacing d1 and d2
+\end{frame}
+
+\begin{frame}{Missing Data and Range Categories}
+\end{frame}
+
+\begin{frame}{Drum banging}
+\begin{itemize}
+\item relational schemas (SQL) can be generated from this diagram. So to data structure definitions in programming language and in messaging technologies such as XML and IDL. 
+\item the commutivity of the diagrams, $s \circ d2 = d_1$ and $h circ d2 =id$, is reflected in the relational structure and the other representations such as in XML and IDL.  
+\item that the triangles commutes has an effect on the relational structure but equally on xml or idl or other such message structures. 
+\item that documentation or conceptualisation of commutivity of diagrams of relationships in data is not been common practice has had a profound negative impact on programming and data engineering.
+\item This is because methodolgies and working practices have evoled to work around the absence of the concept.
+\item working practices follow methodologies  follow theories and all shore up an ignorance of the the concept of commutivity of diagrams of data relationships.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Generalities at this point}
+
+go off into generalities at this point. data specificatioms as theories of what is
+\end{frame}
+
+
+
+
+
+
+\iffalse
+\subsection{Preamble}
+\input{../slides/normalformliterature.slides}
+
+\subsection{Introduction}
+\input{../slides/introductory.slides}
+
+\subsection{Example Data}
+\input{../slides/data.slides}
+
+\subsection{Directed Graphs}
+\input{../slides/directedgraph.slides}
+
+\subsection{Categories}
+\input{../slides/goodnesscriteria.category.slides}
+
+\subsection{Categories with Designated Monomorphisms and Epimorphims}
+\input{../slides/goodnesscriteria.epimono.slides}
+
+\subsection{Categories with Finite Products and Designated Monomorphisms and Epimorphims}
+\input{../slides/goodnesscriteria.products.slides}
+
+\begin{frame}{Summary}
+\begin{itemize}
+\item If a sketch of a category with designated monos and epis, finite products and epi-mono splits is
+ considered as a data specification with a given requirement then there are  two generic criteria which when met
+ ensure that it meets an abstract BCNF criteria.
+\item Similar results can be obtained for 2NF and where appropraite 3NF criteria as well as for 4NF and 5NF but in this case a category with limits is required.
+\end{itemize}
+\end{frame}
+\fi
+
+
+\iffalse
+
+\subsection{Entity-Relationship Notation}
+\input{../slides/ERA.slides}
+
+\subsection{Unused}
+\input{../slides/unused.slides}
+\fi
+
+\end{document}
