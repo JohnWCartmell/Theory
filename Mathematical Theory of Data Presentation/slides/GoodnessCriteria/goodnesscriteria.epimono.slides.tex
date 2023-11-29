@@ -1,3 +1,5 @@
+\input{../content/categoriesWithDesignatedMonosAndEpis/common.tex}
+
 \comingnext{Sketches of Categories with Designated Monomorphisms and Epimorphisms as Data Specifications}
 
 \renewcommand{\slidecontext}{Sketches of Categories with Designated Mono's and Epi's as Data Specifications}
@@ -53,70 +55,6 @@ such that in each instance $D \in \reqtc$,
 \end{definition}
 \end{frame}
 
-\newcommand{\representationdiagram}{
-\newcommand{\myspacing}{0.1cm}
-$
-\begin{array}[t]{c p{1.25cm} c c p{0.5cm} c}
-            &&             &                 && \Rnode{b}{b}         \\[1.0cm]
-            &&             & \Rnode{d1}{d_1} &&                      \\[\myspacing]
-            &&             &                 && \Rnode{b1}{b_1}      \\[\myspacing]
-            &&             & \Rnode{d2}{d_2} &&                      \\[\myspacing]
-\Rnode{a}{a}&&             &                 && \Rnode{b2}{b_2}      \\[-0.2cm] 
-            &&             & \vdots          && \vdots               \\[-0.2cm]
-            &&             &                 && \Rnode{bnp}{b_{n-1}} \\[\myspacing]
-            &&             & \Rnode{dn}{d_n} &&                      \\[1.0cm]
-            &&             &                 && \Rnode{c}{c}  
-\end{array}
-\begin{arrows}
-\ncarr[20]{a}{b}\alabel{f}
-\ncarr[-20]{a}{c}\blabel{g}
-\ncarr[-5]{d1}{b}\alabel{q_1}[0.35]\idcomp
-\ncarr{d1}{b1}\alabel{h_1}[0.5][0]
-\ncarr{d2}{b1}\alabel{q_2}[0.35]\idcomp
-\ncarr{d2}{b2}\alabel{h_2}[0.5][0]
-\ncarr{dn}{bnp}\alabel{q_n}[0.35]\idcomp
-\ncarr[5]{dn}{c}\alabel{h_n}[0.5][1]
-\end{arrows}
-$
-}
-
-\newcommand{\fullrepresentationdiagram}{
-\representationdiagram
-$
-\begin{arrows}
-\ncarr{a}{d1}\alabel{f_1}[0.675]
-\ncarr{a}{d2}\alabel{f_2}[0.65]
-\ncarr{a}{dn}\alabel{f_n}[0.7][-1]
-\end{arrows}
-$
-}
-
-\newcommand{\mappedrepresentationdiagram}{
-\newcommand{\myspacing}{0.25cm}
-$
-\begin{array}{ c p{0.2cm} c p{0.5cm} c}
-\Rnode{Imgf}{Img(D(f))} && \Rnode{b}{D(b)}   &&                   \\[\myspacing]
-                        &&                   &&\Rnode{d1}{D(d_1)} \\[\myspacing]
-                        &&\Rnode{b1}{D(b_1)} &&                   \\[\myspacing]
-                        &&                   &&\Rnode{d2}{D(d_2)} \\[\myspacing]
-                        &&\Rnode{b2}{D(b_2)} &&                   \\ %\multirow{2}{5pt}{\vdots}   \\
-                        &&\vdots             &&\vdots             \\
-                        &&\Rnode{bnp}{d(b_{n-1})} &&           \\[\myspacing]
-                        &&                   &&\Rnode{dn}{D(d_n)} \\[\myspacing]
-\Rnode{c}{D(c)}  
-\end{array}
-\begin{arrows}
-\ncline{H->}{Imgf}{b}
-\ncarr{Imgf}{c}\alabel{H_D}
-\ncarr[5]{b}{d1}\alabel{D(q_1)^{-1}}[0.5][-3]
-\ncarr{d1}{b1}\blabel{D(h_1)}[0.5][-1]
-\ncarr{b1}{d2}\alabel{D(q_2)^{-1}}[0.5][-3]
-\ncarr{d2}{b2}\blabel{D(h_2)}[0.5][-1]
-\ncarr{bnp}{dn}\alabel{D(q_n)^{-1}}[0.5][-3]
-\ncarr[5]{dn}{c}\alabel{D(h_n)}[0.5][-1]
-\end{arrows}
-$
-}
 
 \begin{frame}{Sublemma}
 If \catcw is a category with designated monomorphisms and epimorphsims 
@@ -145,31 +83,11 @@ Define $F'$ to be $I_s \circ F_s$.
 \end{frame}
 
 \begin{frame}{Representation for FDs Part One}{\slidecontext}
-If \catcw is a category with designated monomorphisms and epimorphsims  and if \catcw is
-\textit{maximally constrained} to a requirement $\reqtc$ then
-if $\fundep{H}{f}{g}$  is a functional dependency with respect to $\reqtc$
-then there is a diagram\\
-\medskip
-\begin{minipage}[t][.45cm][t]{5.5cm} %just to get alignment at top small height content pos t 
-\scalebox{0.9}{\representationdiagram} 
-\hspace*{\fill} in \catc
-\end{minipage} 
-\pause \begin{minipage}[t]{4.5cm}
-such that for each $D \in \reqtc$
-\scalebox{0.85}{\mappedrepresentationdiagram}
-\hspace*{\fill} commutes.
-\end{minipage}
+\representationLemmaPartOne
 \end{frame}
 
 \begin{frame}{Representation Lemma for FDs Part Two}{\slidecontext}
-If in addition the underlying category \catcw is maximally constrained  
- to the requirement $\reqtc$ then
-there are morphisms $f_1,...fn$ such that
-then $\fundep{H}{f}{g}$ is represented in $\catc$ by  $n+1$ commuting diagrams
-as follows
-\begin{center}
-\scalebox{0.9}{\fullrepresentationdiagram}
-\end{center} 
+\representationLemmaPartTwo
 \end{frame}
 
 \begin{frame}{Significance}
@@ -245,7 +163,7 @@ $\fundep{H}{f}{g}$ is represented in $\catc$.
 From double maximal constrainedness it follows that all the following goodness criteria are met: 
 \begin{itemize}
 \item \textbf{2A}:  \catcw ought to be equationally complete wrt $\reqtc$,         
-\item \textbf{2B}:  all $\reqtc$ functional depedencies ought to be represented in \catc,
+\item \textbf{2B}:  all $\reqtc$ functional dependencies ought to be represented in \catc,
 \item \textbf{2C}:  all $\reqtc$ referential inclusion dependencies ought to be represented in \catc, 
 \pause \item \textbf{2D}:  if $D(f)$ is injective in every $D \in \reqtc$ then $f$ ought to be a designated monomorphism in \catc,
 \pause \item \textbf{2E}:  if $D(f)$ is surjective in every $D \in \reqtc$ then $f$ ought to be a designated epimorphism in \catc.
@@ -288,7 +206,7 @@ $ commutes.
 monomorphisms and epimorphisms and epi-mono factorisations which is double maximally constrained to requirements 
 $\reqtc$ then
 if  $\fundep{H}{x}{y}$ is a non-trivial functional dependency between edges $x$ and $y$ of the sketch $S$
-then $f$ is a designated monomorphism.
+then $x$ is a designated monomorphism.
 \end{itemize}
 \end{frame}
 

@@ -1,0 +1,180 @@
+
+\newcommand{\studentDepartmentAttribute}[1]             {\onslide<1-5>{#1}}
+\newcommand{\studentDepartmentAttributeStrikeout}[1]    {\onslide<5>{#1}}
+\newcommand{\popupAbstractionOfd}[1]                    {\only   <2-6>{#1}}
+\newcommand{\popupAbstractionOfdDetail}[1]              {\onslide<3-6>{#1}}
+\newcommand{\studentDepartmentRelationship}[1]          {\onslide<4->{#1}}
+
+\newcommand{\professorDepartmentAttribute}[1]           {\onslide<1-10>{#1}}
+\newcommand{\professorDepartmentAttributeStrikeout}[1]  {\onslide<10>{#1}}
+\newcommand{\popupAbstractionOfdPrime}[1]               {\only   <7-11>{#1}}
+\newcommand{\popupAbstractionOfdPrimeDetail}[1]         {\onslide<8-11>{#1}}
+\newcommand{\professorDepartmentRelationship}[1]        {\onslide<9->{#1}}
+\newcommand{\professorDepartmentRelationshipBar}[1]     {\onslide<11>{#1}}
+
+\newcommand{\studentProfessorAttribute}[1]              {\onslide<1-15>{#1}}
+\newcommand{\studentProfessorAttributeStrikeout}[1]     {\onslide<15>{#1}}
+\newcommand{\popupAbstractionOfs}[1]                    {\only   <12-16>{#1}}
+\newcommand{\popupAbstractionOfsDetail}[1]              {\onslide<13-16>{#1}}
+\newcommand{\studentProfessorRelationship}[1]           {\onslide<14->{#1}}
+
+\newcommand{\departmentProfessorAttribute}[1]           {\onslide<1-20>{#1}}
+\newcommand{\departmentProfessorAttributeStrikeout}[1]  {\onslide<20>{#1}}
+\newcommand{\popupAbstractionOfhd}[1]                   {\only   <17-21>{#1}}
+\newcommand{\popupAbstractionOfhdDetail}[1]             {\onslide<18-21>{#1}}
+\newcommand{\departmentProfessorRelationship}[1]        {\onslide<19->{#1}}
+
+
+\newcommand{\professorStudentDepartmentRelationalSchematic}
+{
+\begin{tabular}{c p{0.25cm} c p{0.25cm} c}
+$\begin{array}{c p{0.3cm} c p{0.1cm} c}
+\multicolumn{5}{c}{\Rnode{student}{student}} \\[-0.3cm]
+\multicolumn{5}{c}{\Rnode{sB1}{}\hspace{0.5cm}\Rnode{sB2}{}\hspace{0.5cm}\Rnode{sB3}{}} \\[1.0cm]
+\Rnode{sv1}{v} && \studentDepartmentAttribute{\Rnode{sv2}{v}} && \studentProfessorAttribute{\Rnode{sv3}{v}}
+\end{array}
+\begin{arrows}
+\ncarr{sB1}{sv1}
+\alabel{name}[0.55][0.1]
+\addedgebar
+\studentDepartmentAttribute{
+  \ncarr{sB2}{sv2}
+  \alabel{dept}[0.57][0.1]
+  \studentDepartmentAttributeStrikeout{\ncstrikeout{sB2}{sv2}}
+}
+\studentProfessorAttribute{
+  \ncarr{sB3}{sv3}
+  \alabel{svr}[0.6][0.1]
+  \studentProfessorAttributeStrikeout{\ncstrikeout{sB3}{sv3}}
+}
+\end{arrows}$
+&&
+$\begin{array}{c p{0.3cm} c p{0.1cm} c}
+\multicolumn{5}{c}{\Rnode{professor}{professor}} \\[-0.3cm]
+\multicolumn{5}{c}{\Rnode{pB1}{}\hspace{0.5cm}\Rnode{pB2}{}\hspace{0.5cm}\Rnode{pB3}{}} \\[1.0cm]
+\professorDepartmentAttribute{\Rnode{pv1}{v}} && \Rnode{pv2}{v} && \Rnode{pv3}{v} 
+\end{array}
+\begin{arrows}
+\professorDepartmentAttribute{
+  \ncarr{pB1}{pv1}
+  \alabel{dept}[0.5][0.1]
+  \addedgebar
+  \professorDepartmentAttributeStrikeout{\ncstrikeout{pB1}{pv1}}
+}
+\ncarr{pB2}{pv2}
+\alabel{no}[0.575][0.1]
+\addedgebar
+\ncarr{pB3}{pv3}
+\alabel{name}[0.6][0.1]
+\end{arrows}$
+&&
+$\begin{array}{c p{0.2cm} c }
+\multicolumn{3}{c}{\Rnode{department}{department}} \\[-0.3cm]
+\multicolumn{3}{c}{\Rnode{dB1}{}\hspace{0.5cm}\Rnode{dB2}{}} \\[1.0cm]
+\hspace{0.2cm}\Rnode{dv1}{v} && \departmentProfessorAttribute{\Rnode{dv2}{v}} 
+\end{array}
+\begin{arrows}
+\ncarr{dB1}{dv1}
+\alabel{name}[0.55][0.1]
+\addedgebar
+\departmentProfessorAttribute{
+  \ncarr{dB2}{dv2}
+  \alabel{hd}[0.575][0.1]
+  \departmentProfessorAttributeStrikeout{\ncstrikeout{dB2}{dv2}}
+}
+\end{arrows}$
+\end{tabular}
+}
+
+\newcommand{\abstractionOfd}
+{
+ establishes a functional relationship $d: student \morph department$ such that
+$\composeSevenShaped[0.85cm]{student}{department}{v}{d}{name}{dept}$
+commutes.
+}
+
+\newcommand{\abstractionOfdPrime}
+{
+ establishes a functional relationship $d': professor \morph department$ such that
+$\composeSevenShaped[0.85cm]{professor}{department}{v}{d'}{name}{dept}$ commutes. 
+}
+
+\newcommand{\abstractionOfs}
+{
+establishes a functional relationship $s: student \morph professor$ such that 
+$\composeSevenShaped[0.85cm]{student}{professor}{v} {s}{dept}{dept}$ 
+and
+$\composeSevenShaped[0.85cm]{student}{professor}{v}{s}{no}{svr}$ commute.
+
+The commutivity of left hand triangle simplifies to commutivity of
+$\composeSevenShaped[0.85cm]{student}{professor}{department}{s}{d'}{d}$
+.
+}
+
+\newcommand{\abstractionOfhd}
+{
+establishes a functional relationship
+$department \morph professor$ such that 
+$\composeSevenShaped[0.85cm]{department}{professor}{v}{h}{dept}{name}$ commute and
+$\composeSevenShaped[0.85cm]{department}{professor}{v}{h}{no}{hd}$.
+The commutivity of left hand triangle simplifies to commutivity of
+$\composeSevenShaped[0.85cm]{department}{professor}{department}{h}{d'}{id}$
+.
+}
+
+
+\newcommand{\abstractionToSketch}
+{
+\popupAbstractionOfd{
+\begin{block}{$\studentDeptInclusionDependency$}
+\popupAbstractionOfdDetail{\abstractionOfd}
+\end{block}
+}
+\popupAbstractionOfdPrime{
+\begin{block}{$\professorDeptInclusionDependency$}
+\popupAbstractionOfdPrimeDetail{\abstractionOfdPrime}
+\end{block}
+}
+\popupAbstractionOfs{
+\begin{block}{$\studentSupervisorInclusionDependency$}
+\popupAbstractionOfsDetail{\abstractionOfs}
+\end{block}
+}
+\popupAbstractionOfhd{
+\begin{block}{$\headOfDeptInclusionDependency$}
+\popupAbstractionOfhdDetail{\abstractionOfhd}
+\end{block}
+}
+}
+
+
+\begin{frame}{Relational Data Schematic}
+\vspace{0.9cm}
+\professorStudentDepartmentRelationalSchematic
+$\begin{arrows}
+\studentDepartmentRelationship{
+  \ncarr[20]{student}{department}
+  \alabel{d}[0.4]
+}
+\studentProfessorRelationship{
+  \ncarr[5]{student}{professor}
+  \alabel{s}[0.4]
+}
+\professorDepartmentRelationship{
+  \ncarr[5]{professor}{department}
+  \alabel{d'}[0.4]
+  \professorDepartmentRelationshipBar{\addedgebar}
+}
+\departmentProfessorRelationship{
+  \ncarr[5]{department}{professor}
+  \alabel{hd}[0.4]
+}\end{arrows}
+$
+
+\begin{overlayarea}{11cm}{7cm}
+\abstractionToSketch
+\onslide<20>{END}%need to force slide 20 to appear without hd attribute ??
+\end{overlayarea}
+
+\end{frame}
+

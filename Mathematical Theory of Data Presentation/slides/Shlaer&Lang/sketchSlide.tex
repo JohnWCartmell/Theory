@@ -1,0 +1,88 @@
+
+% The following command has a command passed to it as parameter.
+% The expected value of the parameter is either the ncarr or the ncsar command.
+% This command is used to draw the arrows from student -> department
+% and professor -> department.
+% In this way this command can be used to draw a sketch of a catagory 
+% or a sketch of a contextual category.
+\newcommand{\sketchgraph}[1]
+{
+\begin{displaymath}
+\begin{array}{c c c p{1cm} c}
+  & \makebox[2cm][c]{\Rnode{department}{department}\Rnode{departmentRight}{}}  & \\[2cm]
+\makebox[1cm][c]{\Rnode{student}{student}} 
+      && \makebox[1cm][c]{\Rnode{professor}{professor}}
+      && \Rnode{v}{v} \\[1.2cm]
+\end{array}
+\begin{arrows}
+\setlength{\arrnodesepA}{4pt}  %2
+\setlength{\arroffsetA}{-3pt}  %0
+\ncarr[15]{departmentRight}{v}
+\alabel{name}[0.3]
+\addedgebar
+\arreset
+\ncarr[15]{department}{professor}
+\alabel{h}[0.3]
+#1{student}{department}
+\alabel{d}[0.3]
+\ncarr[-50]{student}{v}
+\blabel{name}[0.2]
+\addedgebar
+\ncarr{student}{professor}
+\blabel{s}[0.3]
+#1[15]{professor}{department}
+\alabel{d'}[0.3]
+\addedgebar
+\ncarr[15]{professor}{v}
+\alabel{no}[0.3]
+\addedgebar
+\ncarr[-15]{professor}{v}
+\blabel{name}[0.3]
+\end{arrows}
+\end{displaymath}
+}
+
+% likewsie this command has a command as parameter
+\newcommand{\studentProfessorDepartmentCommutingDiagrams}[1]
+{
+\begin{tabular}{c c c}
+$\begin{array}{c c c}
+  & \makebox[1cm][c]{\Rnode{department}{department}}  & \\[0.5cm]
+\makebox[1cm][c]{\Rnode{student}{student}} && \makebox[1cm][c]{\Rnode{professor}{professor}}
+\end{array}
+\begin{arrows}
+#1{student}{department}
+\alabel{d}
+\ncarr{student}{professor}
+\blabel{s}
+#1{professor}{department}
+\blabel{d'}
+\end{arrows}
+$ & and &
+$\begin{array}{c  c  c}
+    & \makebox[1cm][c]{\Rnode{department}{department}} & \\[0.5cm]
+\makebox[1cm][c]{\Rnode{professor1}{professor}} && \makebox[1cm][c]{\Rnode{professor2}{professor}}
+\end{array}
+\begin{arrows}
+#1{professor1}{department}
+\alabel{d'}
+\ncarr{department}{professor2}
+\alabel{hd}
+\ncarr{professor1}{professor2}
+\blabel{id}
+\end{arrows}
+$
+\end{tabular}
+}
+
+\begin{frame}{Data Schematic Two -- Sketch}
+\sketchgraph{\ncarr}
+\pause 
+\begin{block}{subject to commutivity of }
+\vspace{0.25cm}
+\studentProfessorDepartmentCommutingDiagrams{\ncarr}
+\vspace{0.25cm}
+\end{block}
+\end{frame}
+
+
