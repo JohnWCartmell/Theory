@@ -147,24 +147,63 @@ $$\widehat{f \circ \bar{g}} = \hat{f} \circ \bar{g}.$$
 RR.4. If \sequentialdiag{a}{b}{c}{f}{g} in \catcw then
 $$\widehat{(hat({f}) \circ g)} = \widehat{f \circ g}.$$
 
+\begin{lemma}
+\label{restrictioncatlemma}
+In any restriction category \catc
+\begin{enumerate} [(i)]
+\item For $f:a \morph b$ in \catcw,
+$$\bar{\bar{f}}=\bar{f}$$
+\item If \sequentialdiag{a}{b}{c}{k}{j} in \catcw 
+and $k$ is total i.e. $\bar{k}=id_a$ then
+$$\overline{k \circ j} = \overline{k \circ \bar{j}}.$$
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate} [(i)]
+\item Use R3 with $g$ being $id_b$.
+\item 
+\begin{align*}
+\overline{k \circ j} &= \overline{k \circ j} \circ \bar{k}    && \mbox{since $k$ total}\\
+                     &= \overline{\overline{k \circ j} \circ k} && \mbox{by R.3} \\
+                     &= \overline{k \circ \bar{j}}              && \mbox{by R.4 ?}
+\end{align*}
+\end{enumerate}
+\end{proof}
+
 
 Let the category \FinPar be the range catgory of finite sets and partial functions.
 
-
-\subsection{$Hom$ Functor is a Restriction Functor}
+\subsection{$HomT$ Functor is a Restriction Functor}
+If \catcw is a restriction functor then
+let $HomT_\catc(a,-): \catc \morph \Par$ be the sub functor of $Hom_\catc(a,-)$
+where $HomT_\catc(a,x)$ is the set of total morphisms i.e.
+$$HomT(a,x)=\setsuchthat{k \in Hom(a,x)}{\bar{k}=id_a}.$$
+and where when $j:x \morph x' in \catc$ then $HomT(a,j)(k)=k \circ j$ provided the rhs is total or is undefined otherwise.  
  
 \begin{lemma}
 If \catcw is a restriction catgory and $a$ is an object of \catcw 
-then the functor $Hom_\catcw(a,-)$ preserves the restriction operator i.e.
+then the functor $HomT_\catc(a,-)$ preserves the restriction operator i.e.
 for all $j:x \morph y$ in \catc
-$$Hom_\catcw(a,\bar{j})=\overline{Hom_\catcw(a,j)}$$
+$$HomT_\catc(a,\bar{j})=\overline{HomT_\catc(a,j)}$$
 \end{lemma}
 \begin{proof}
-\begin{align*}
-lhs &= \lambda k \in Hom_\catcw(a,x).k \circ \bar{j}  \\
-rhs &=  id_{Hom_\catcw(a,x)}
-\end{align*}
-Sufficient that $\bar{j}=id_x$.
+Both $HomT_\catc(a,\bar{j})$ and $HomT_\catc(a,\bar{j})$ are less than id function on 
+the set $Hom(a,x)$. 
+\newt{IS IT TRUE THAT  $HomT_\catc(a,\bar{j})$ less than identity function???.}
+
+\newt{WHY IS THIS? can we show that if $k \circ \bar{j}$ is total then $k \circ \bar{j}=k$.}
+
+\newt{if so}It suffices to show that each are defined on exactly the same morphisms.
+
+LHS is defined on exactly those $k:a \morph x$ such that $k \circ \bar{j}$ is total.
+and LHS less than or equal id becayuse
+WE CAN SHOW THAT if $k \circ \bar{j}$ is total then $k \circ \bar{j}=k$
+
+RHS is defined on exactly those $k:a \morph x$ such that $k \circ j$ is total
+and is less than or equal id. Therefore required to show that
+$k \circ j$ is total iff $k \circ \bar{j}$ is total. and this is the case 
+because by 
+lemma \ref{restrictioncatlemma} (ii), $\overline{k \circ j}=\overline{k \circ \bar{j}}$ 
 \end{proof}
 
 \subsection{Split assumption and $Hom$ as a Range Functor}
@@ -172,6 +211,11 @@ Sufficient that $\bar{j}=id_x$.
 In a range category \catcw then a morphism $f:a \morph b$ is split iff
 there exists $f_s:b \morph a$ such that $f_s \circ f = \hat{f}$.
 \end{definition}
+\begin{lemma}
+\commentary{appropos of nothing}
+If \catcw is a range category and morphism $j$ is split by $j_s$ then $j_s$ is split by
+$\hat{j_s}\circ j$.
+\end{lemma}
 \begin{lemma}
 If \catcw is a range category in which every morphism is split then
 for every object $a$ of \catcw the functor $Hom_\catcw: \catcw \morph \Par$ preserves the range operator.
@@ -182,7 +226,7 @@ $$\widehat{Hom_\catcw(a,j)}=Hom_\catcw(a,\hat{j})$$
 and for this it suffices to show that the range of $Hom_\catcw(a,j)$ i.e. this set
 $$\setsuchthat{ k \circ j}{k: a \morph x }$$ 
 is identical to the range of $Hom_\catcw(a,\hat{j})$ i.e. this set
-$$\setsuchthat{k' \circ \hat{j}}{k':a \morph y}.$$
+$$\setsuchthat{k' \circ \hat{j}}{k':a \morph y}.$$   WHY??
 
 The first set is included in the second because for any morphism of the form $k \circ j$, $k$ total is of the form $k' \circ j$, $k'$ total, because we can take $k'$ to be $k \circ j$ because then $k' \circ \hat{j} = (k \circ j) \circ \hat{j}= k \circ(j \circ \hat{j})= k \circ j$. 
 
@@ -191,9 +235,31 @@ Let $j_s : y \morph x$ be the splitting of $j$ i.e. be such that $j_s \circ j = 
 The second set is included in the first because if a morphism is of the form $k' \circ \hat{j}$ then it of the form $k \circ j$ because $k$ can be taken to be $k' \circ j_s$ for then we have $k' \circ \hat{j} = k' \circ j_s \circ j = k \circ j$. 
  \end{proof}
 
+ \begin{lemma}
+If \catcw is a range category in which every morphism is split then
+for every object $a$ of \catcw the functor $HomT_\catcw: \catcw \morph \Par$ preserves the range operator.  ??????????????????0
+\end{lemma}
+\begin{proof}
+If $j: x \morph y$ in \catcw then we are required to prove that
+$$\widehat{HomT_\catcw(a,j)}=HomT_\catcw(a,\hat{j})$$
+and for this it suffices to show that the range of $HomT_\catcw(a,j)$ i.e. this set
+$$\setsuchthat{ k \circ j}{k: a \morph x 
+      \mbox{ and } k \mbox{ total and } k \circ j \mbox{ total} }$$ 
+is identical to the range of $HomT_\catcw(a,\hat{j})$ i.e. this set
+$$\setsuchthat{k' \circ \hat{j}}{k':a \morph y 
+      \mbox{ and } k' \mbox{ total and } k' \circ \hat{j} \mbox{ total}}.$$
+\newt{WHY IS THIS? can we show that if $k \circ \hat{j}$ is total then $k \circ \hat{j}=k$.}
+
+The first set is included in the second because for any total morphism of the form $k \circ j$, with $k$ total, is of the form $k' \circ \hat{j}$, with $k'$ total, because we can take $k'$ to be $k \circ j$ because then $k' \circ \hat{j} = (k \circ j) \circ \hat{j}= k \circ(j \circ \hat{j})= k \circ j$. 
+
+Let $j_s : y \morph x$ be the splitting of $j$ i.e. be such that $j_s \circ j = \hat{j}$.
+
+The second set is included in the first because if a morphism is of the form $k' \circ \hat{j}$ then it of the form $k \circ j$ because $k$ can be taken to be $k' \circ j_s$ for then we have $k' \circ \hat{j} = k' \circ j_s \circ j = k \circ j$. 
+ \end{proof}
+
 \begin{corollary}
 If \catcw is a range category in which every morphism is split then
-for every object $a$ of \catcw the functor $Hom_\catcw(a,-): \catcw \morph \Par$ is a range functor.
+for every object $a$ of \catcw the functor $HomT_\catcw(a,-): \catcw \morph \Par$ is a range functor.
 \end{corollary}
 
 
