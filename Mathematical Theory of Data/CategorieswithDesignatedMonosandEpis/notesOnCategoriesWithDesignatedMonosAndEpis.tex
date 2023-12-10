@@ -1,0 +1,337 @@
+ \documentclass[12pt,a4paper]{article}
+
+\newcommand{\sharedmacros}{../../SharedMacros}
+\input{\sharedmacros/ccategories.macros}
+\input{\sharedmacros/ermacros}
+\input{\sharedmacros/erdiagram}
+\input{\sharedmacros/theorems.macros}
+\input{\sharedmacros/general.macros.v2}
+\usepackage{mathptmx}  % This changes font to roman
+\usepackage{anyfontsize}
+\usepackage{mathtools}  % why have we got this?
+\usepackage{alltt}    
+\usepackage{mnsymbol} %used for rightpitchfork
+\usepackage{cmll}
+\usepackage{ulem}
+\renewcommand{\ttdefault}{txtt}
+\usepackage[left=1.5cm, right=4cm, marginparwidth=3cm, top=2cm, bottom=2.0cm]{geometry}
+\usepackage{framed}
+\usepackage[font=small]{caption}
+\setlength{\captionmargin}{2cm}
+\theoremstyle{remark}
+\newtheorem*{lemma*}{Lemma}
+
+\usepackage{arydshln} % vertical dashed lines between columns of an array
+
+%\input{../macros/generalmacros.tex}
+\input{../macros/othermacros.tex}
+%\input{../macros/beamerclashmacros.tex}
+%ENDCOPY
+
+\begin{document}
+\section{Categories with Designated Monos and Epis}
+\newcommand{\pause}{}
+\input{content.macros.tex}
+
+
+\subsection{Hom functor}
+\begin{lemma}
+If $a$ is any object of a category \catcw then the Hom functor 
+$Hom(a,-) : \catc \morph \Set$ preserves monomorphims.
+\end{lemma}
+\begin{proof}
+Pretty much the definition of a morphism $j:x \morph y$ being a monomorphism is that 
+the function $Hom(a,j)$ is injective for any object $a$.
+\end{proof}
+
+\begin{lemma}
+If \catcw is a category and $F: \catc \morph \Set$ is a funtor then
+if $e:x \morph y$ is an epimorphism that is split by $e_s: y \morph x$
+then $F(e)$ is an epimorphism that is split by $F(e_s$.
+\end{lemma}
+\begin{proof}
+Because for any functor $F$, $e_s \circ e = id_y$ in \catcw implies 
+$F(e_s) \circ F(e) = id_F(y)$ in \Set.
+\end{proof}
+
+\begin{lemma}
+If $F: \catcw \morph \Set$ and $G: \catcw \morph \Set$ are functors,
+if $j: x \morph y$ is a monomorphism in \catc,
+if $F(j)$ and $G(j)$ are injective i.e. are monomorphisms in \Set then
+then the coproduct $F+G$ in the functor category $\Set^\catc$ preserves the monomorphism
+$j$ i.e. (F+G)(j) is alo injective.
+\end{lemma}
+
+\subsection{Definitions}
+\begin{definition}
+If \scalebox{0.9}{\fgsourcediagram} in a \catMEterm \catcw  and if $\reqtc$ is a set of instances of \catcw
+then we say that there is a  \textit{functional dependency} of $g$ on $f$ with respect to $\reqtc$ iff
+for every $D \in \reqtc$, $D(g)$ factors through $D(f)$. \\
+\medskip
+\pause Equivalently there is a family of  functions $H_D:img(D(f)) \morph D(c))_{D \in \reqtc}$
+such that in each instance $D \in \reqtc$,
+\scalebox{0.9}{\fghfactordiagram{\roomup{0.4cm}\roomdown{0.3cm}D(a)}{img(D(f))}{D(c)}{D(f)}{D(g)}{H_D}} commutes.
+\end{definition}
+
+\begin{definition}
+If \catcw is a category with designated monomorphisms and epimorphsims 
+considered as a data specification with requirement $\reqtc$, 
+if $\fundep{H}{f}{g}$  is a functional dependency with respect to $\reqtc$
+then the functional dependency is weakly represented in \catcw iff
+there  is a diagram\\
+\medskip
+%\begin{minipage}[t][.45cm][t]{5.5cm} %just to get alignment at top small height content pos t 
+\scalebox{0.9}{\representationdiagram} 
+%\end{minipage} 
+in \catcw such that for each $D \in \reqtc$
+%\begin{minipage}[t]{4.5cm}
+\scalebox{0.85}{\mappedrepresentationdiagram}
+%\end{minipage}
+commutes.
+\end{definition}
+
+\begin{lemma}
+If \catcw is a category with designated monomorphisms and epimorphsims 
+considered as a data specification with requirement $\reqtc$ then
+\begin{enumerate}[(i)]
+\item if 
+$
+\begin{array}{c p{1cm} c p{1cm} c}
+          && \Rnode{b}{b} \\[0.6cm]
+\Rnode{a}{a} && \Rnode{x}{x} && \Rnode{y}{y}\\[0.2cm]
+\end{array}
+\begin{arrows}
+\ncarr{a}{b}
+\alabel{f}
+\ncarr{a}{x}
+\blabel{k}
+\ncarr{x}{y}
+\blabel{m}
+\addedgebar
+\end{arrows}
+$
+in \catc, where $m$ is a designated monomorphism, then if there is a functional dependency 
+$\fundep{H}{f}{k \circ m}$ in \catcw with respect to  $\reqtc$
+then there is a functional dependency $\fundep{H'}{f}{k}$ in \catcw with respect to $\reqtc$. If $H$ is weakly represented in \catcw then so to is $H'$.
+\item if 
+$
+\begin{array}{c p{1cm} c p{1cm} c}            
+             && \Rnode{b}{b}                              \\[0.6cm]
+\Rnode{a}{a} && \Rnode{x}{x} && \Rnode{y}{y}  \\[0.2cm]
+\end{array}
+\begin{arrows}
+\ncarr{a}{b}
+\alabel{f}
+\ncarr{a}{x}
+\alabel{k}
+\ncarr{x}{y}
+\alabel{h}
+\end{arrows}
+$
+in \catcw then if there is a functional dependency 
+$\fundep{H}{f}{k}$ in \catcw with respect to $\reqtc$
+then there is a functional dependency $\fundep{H'}{f}{f \comp h}$
+with respect to $\reqtc$. If $H$ is weakly represented in \catcw then so to is $H'$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Easy, 
+\begin{enumerate}[(i)]
+\item 
+Because $m$ is a designated monomorphism then for each instance $D$,
+the function $D(m)$ is injective and therefore has an inverse $D(m)^{-1}$.
+Define $H'_D$ to be $H_D \circ D(m)^{-1}$.  
+\item
+Define $H'_D$ to be $H_D \circ D(h)$.
+\end{enumerate}
+In both cases it is evident, from the definition of weakly represented, that if
+$H$ is weakly represented in \catcw then so to is $H'$. In the first case the diagram
+that constitues the weak representation of $H$ may be argmented by the pair of the
+designated monomorphism $m$ and the identify morphism. In the second case the diagram
+is argmented by composing $h_n$ with $h$.
+\end{proof}
+
+\subsection{Representation Lemmas}
+
+\begin{lemma}
+If \catcw is a category with designated monomorphisms and epimorphsims  and if \catcw is
+\textit{maximally constrained} to a requirement $\reqtc$ then every functional dependency
+ $\fundep{H}{f}{g}$ with respect to $\reqtc$ is weakly represented in \catcw.
+\end{lemma}
+\begin{proof}
+Suppose that we have \fgsourcediagram in \catcw and a functional dependency
+$\fundep{H}{f}{g}$. We need show the functional dependency is represented in \catc.
+
+Define functor $F: \catc \morph \Fin$ 
+to be the coproduct $Hom_{\catc}(a,-) + Hom_{\catc}(a,-)$
+with injections $L$ and $R$, respectively so that
+for each object $x$ of \catcw the diagram
+\begin{center}
+$
+\begin{array}{c p{0.5cm} c p{0.5cm} c  }
+\Rnode{h1}{Hom_{\catc}(a,x)}  &&\Rnode{Fx}{F(x)}  &&   \Rnode{h2}{Hom_{\catc}(a,x)}       
+\end{array} 
+$
+\ncarr{h1}{Fx}
+\alabel{L_x}
+\ncarr{h2}{Fx}
+\blabel{R_x}
+\end{center}
+is a coproduct in $\Fin$.
+\medskip
+Define $G: \catc \morph \Fin$ as quotient $F/\sim$ where 
+to ensure $G$ preserves designated monomorphisms  $\sim$ is defined as follows
+\begin{align*}
+L_x(k_1) \sim_x R_x(k_2) & \mbox{ \parbox{6cm}{iff  $k_1=k_2$ and there is a functional dependency 
+$f \morph k_1$ in \catcw with respect to $\reqtc$ and  this functional dependency is represented in \catc.}}\\
+L_x(k_1) \sim_x L_x(k_2) & \mbox{ iff $k_1 = k_2$,} \\
+R_x(k_1) \sim_x R_x(k_2) & \mbox{ iff $k_1 = k_2$.} \\
+\end{align*}
+
+Now extend \catcw to \catcpw so that $f$ has an epi-mono factorisation in \catcpw
+and so that there  is a morphism $\qq{h}$ such that
+\scalebox{0.9}{\unaryfdrepresentationdiagram{\roomup{0.6cm}\roomdown{0.4cm}a}{b}{c}{f}{g}{im(f)}{f_m}{\qq{h}}$
+\begin{arrows}\ncarr{a}{d}\alabel{f_e}\end{arrows}$} 
+commutes in \catcp. \\
+\begin{newtt}I guess the idea here is to designate $f_e$ as an epimorphism. Equally we could simple define an $f_s$ that splits $f_e$ i.e. such that $f_s \circ f_e = id_im{f}$.
+\newt{BUT THEN COULD GET RID $\qq{h}$ because would have $\qq{h}=f_s \circ g$
+BUT THERE AGAIN PROVISO THAT $f_s$ IS INFORMATION IRRELEVANT.}.
+
+HANG ON THOUGH. Each D can be extended in multiple ways because there can be lots of different splitting functions. CRIKEY!
+
+Need every morphism to be split by a partial. Here $f$ will be split and the splitting of $f_e$ will be $f_m \circ f_s$
+\end{newtt}.
+
+\begin{newtt}
+BIG THING HERE: Show that every $D \in \reqtc$ extends uniquely to
+a functor $D' \catcp \morph \Set$.
+\end{newtt}
+
+We have \simpleunaryfdrepresentationdiagram{a}{Im(f)}{c}{f_e}{g}{\qq{h}}  in \catcp.\\
+\medskip
+Extend $G$ to $G':\catcp \morph \Fin.$ \\
+Because $f_m$ is a designated monomorphism and $f_e \circ f_m = f$ then
+there is a representation of functional dependency $f \morph f_e$ in \catc
+\newt{Not so $f_e$ isn't a morphism of \catc}.
+Hence  we have that $[L_b(f_e)]= [R_b(f_e)]$.
+\medskip
+\begin{align*}
+&\mbox{i.e.}& G'(f_e)([L_a(id_a)])              &= G'(f_e)([R_a(id_a)])       \\
+&\therefore & G'(\qq{h}) (G'(f_e)([L_a(id_a)])) &= G'(\qq{h}) (G'(f_e)([R_a(id_a)])) \\
+&\therefore & G'(g)([L_a(id_a)])              &= G'(g)([R_a(id_a)]) & &    \\
+&\therefore & [L_c(g)] &= [R_c(g)] 
+\end{align*}
+Therefore by definition of $\sim$ the functional dependency
+$\fundep{H}{f}{g}$ is represented in $\catc$. \commentary{must mean that sequence of 
+back facing monos and morphisms}
+\end{proof}
+
+I want to achieve representations of fds as described in this lemma but I really don't want the assumption that the underlying catagory is maximally constrained to the requirement.
+
+There is a sublemma regarding extending a Fin valued functor that preserves monos to one that preserves monos and epis. Not obvious where this sublemma is used. 
+
+\newt{I now believe that I can show ref inc deps are simply
+represented by assuming epis are split. The proof using Hom functor from the preparation paper goes through fine. In turn the following lemma now dfoesn't need assume 
+that \catc maximally constrained. Big improvement.}  
+\begin{lemma}
+\representationLemmaPartTwo
+\end{lemma}
+\begin{proof}
+My guess is that I make the additional assumption that the underlying category is maximally constrained to the requirment in order that I can then use the fact that referential inclusion depedencies are represented to inder the existence of $f_1, ... f_n$.
+
+In daybook 17th June 2022 I have a counter example to all referential inclusion dependencies (RIDs) being represented. This counter example is circumvented if all epis are split.
+This suggests to me that I should be looking for all epis being split rather than underlying category being maximally constrained.
+
+I don't know where a proof that RIDs are represented along the lines of the proof in the category case breaks down. The breakdown should be circumvented if epis split. 
+Actually I have hand written notes from today that suggests that the proof breaks down because the functor hom(a,-) does not preserve (designated) epis unless all (designated) epis are split. It will be a step forward if I can write this up. Assume designated epis split then we get RIDs represented. You might think that we could then use this proof and the extension to a catgeory in which epis split to get all RIDs represented. The counter example of 11th June 2022 might show otherwise.  
+\end{proof}
+
+
+\begin{example}
+Suppose sketch S for a category with designated monos and epis 
+has these objects and edges 
+$$
+\begin{array}{c c p{0.5cm}  c c}
+\Rnode{s}{s} &            &&\Rnode{b}{b} &               \\[1.0cm]
+             &\Rnode{a}{a}&&             & \Rnode{c}{c}
+\end{array}
+\begin{arrows}
+\ncarr{s}{b}
+\alabel{g}
+\ncarr{b}{c}
+\alabel{m}
+\addedgebar
+\ncline{->>}{s}{a}
+\blabel{e}
+\ncarr{a}{c}
+\alabel{f}
+\end{arrows}
+$$ and such that this diagram is defined as a commuting diagram.
+Consider the category \catcw with designated monos and epis generated by this sketch and
+consider that the requirement $\reqtc$ is the category of all mono and epi preserving functors from \catcw to the category \Fin. Since all epis in \Fin are split it follows
+that for any functor $F: \catc \morph \Fin$ that $(F^{-1}(e) \circ F(g)) \circ F(m) = F(f)$.
+
+Therefore there is a referential inclusion dependency
+$$
+a[f] \subseteq b[m]
+$$
+but this referential inclusion dependency is not represented in \catc.
+\end{example}
+
+Two takeaways from this example
+\begin{itemize}
+	\item if $S$ is seens as a skecth for a category with designated monomorphisms and 
+	designated epimoorphisms with designated splits then the  referential inclusion dependency is represented since $e_s \circ g$ will represent it where 
+	$e_s$ is the spli of epimorphism $e$.
+	\item alternatively we could investigate the consequences of saying that the 
+	referential inclusion dependency is represented by the diagram
+$
+\begin{array}{c p{0.1cm} c p{0.25cm}  c }
+\nudgeup{0.6cm}\Rnode{s}{s} &&            &&\Rnode{b}{b}   \\[0.75cm]
+             &&\Rnode{a}{a}&&            
+\end{array}
+\begin{arrows}
+\ncarr{s}{b}
+\alabel{g}
+\ncline{->>}{s}{a}
+\blabel{e}
+\end{arrows}
+$
+We can guess straight away that we are going to have to close the definition transitively and define the representation of inclusion dependencies to be in the general case
+
+$$
+\begin{array} {c c c c c c c c c c c}
+     & \makebox[1cm][c]{\Rnode{s1}{$s_1$}} && 
+       \makebox[1cm][c]{\Rnode{s2}{$s_2$}}  &&&&&& 
+       \makebox[1cm][c]{\Rnode{sn}{$s_n$}} & \\[0.75cm]
+\Rnode{a}{a} && \Rnode{d1}{d_1} && \Rnode{d2}{d_2} && \hdots 
+                      && \Rnode{dn1}{d_{n-1}} && \Rnode{b}{b} 
+\end{array}
+\begin{arrows}
+\ncline{->>}{s1}{a}
+\blabel{e_1}[0.4]
+\ncline{->>}{s2}{d1}
+\blabel{e_2}[0.4]
+\ncline{->>}{sn}{dn1}
+\blabel{e_n}[0.4]
+\ncarr{s1}{d1}
+\alabel{g_1}[0.4]
+\ncarr{s2}{d2}
+\alabel{g_1}[0.4]
+\ncarr{sn}{b}
+\alabel{g_n}[0.4]
+\end{arrows}
+$$
+Are there notions of weak and strong representation?
+\end{itemize}
+
+
+
+
+
+
+
+
+
+\end{document}
+
