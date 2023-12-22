@@ -1,55 +1,62 @@
 
 \newcommand{\studentDepartmentAttribute}[1]             {\onslide<1-5>{#1}}
+\newcommand{\popupInitialInclusionDependencies}[1]       {\only<1-4>{#1}}
 \newcommand{\studentDepartmentAttributeStrikeout}[1]    {\onslide<5>{#1}}
-\newcommand{\popupAbstractionOfd}[1]                    {\only   <2-6>{#1}}
-\newcommand{\popupAbstractionOfdDetail}[1]              {\onslide<3-6>{#1}}
+\newcommand{\popupMarkedUpInitialInclusionDependencies}[1] {\only<5>{#1}}
+\newcommand{\popupAbstractionOfd}[1]                    {\only   <2-5>{#1}} %was 6
+\newcommand{\popupAbstractionOfdDetail}[1]              {\onslide<3-5>{#1}} %was 6
 \newcommand{\studentDepartmentRelationship}[1]          {\onslide<4->{#1}}
+\newcommand{\popupFirstRewrittenInclusionDependencies}   {\only   <6-9>}
 
 \newcommand{\professorDepartmentAttribute}[1]           {\onslide<1-10>{#1}}
 \newcommand{\professorDepartmentAttributeStrikeout}[1]  {\onslide<10>{#1}}
-\newcommand{\popupAbstractionOfdPrime}[1]               {\only   <7-11>{#1}}
+\newcommand{\popupMarkedUpFirstRewrittenInclusionDependencies}[1]
+                                                        {\only   <10>{#1}}
+\newcommand{\popupAbstractionOfdPrime}[1]               {\only   <7-10>{#1}}
 \newcommand{\popupAbstractionOfdPrimeDetail}[1]         {\onslide<8-11>{#1}}
 \newcommand{\professorDepartmentRelationship}[1]        {\onslide<9->{#1}}
-\newcommand{\professorDepartmentRelationshipBar}[1]     {\onslide<11>{#1}}
+\newcommand{\professorDepartmentRelationshipBar}[1]     {\onslide<11->{#1}}
 
+\newcommand{\popupSecondRewrittenInclusionDependencies} {\only  <11-16>}
 \newcommand{\studentProfessorAttribute}[1]              {\onslide<1-15>{#1}}
 \newcommand{\studentProfessorAttributeStrikeout}[1]     {\onslide<15>{#1}}
 \newcommand{\popupAbstractionOfs}[1]                    {\only   <12-16>{#1}}
 \newcommand{\popupAbstractionOfsDetail}[1]              {\onslide<13-16>{#1}}
 \newcommand{\studentProfessorRelationship}[1]           {\onslide<14->{#1}}
 
+\newcommand{\popupThirdRewrittenInclusionDependencies}  {\only  <17-20>}
 \newcommand{\departmentProfessorAttribute}[1]           {\onslide<1-20>{#1}}
 \newcommand{\departmentProfessorAttributeStrikeout}[1]  {\onslide<20>{#1}}
-\newcommand{\popupAbstractionOfhd}[1]                   {\only   <17-21>{#1}}
-\newcommand{\popupAbstractionOfhdDetail}[1]             {\onslide<18-21>{#1}}
-\newcommand{\departmentProfessorRelationship}[1]        {\onslide<19->{#1}}
+\newcommand{\popupAbstractionOfhd}[1]                   {\only   <18-20>{#1}}
+\newcommand{\popupAbstractionOfhdDetail}[1]             {\onslide<19-20>{#1}}
+\newcommand{\departmentProfessorRelationship}[1]        {\onslide<19-20>{#1}}
 
 
 \newcommand{\professorStudentDepartmentRelationalSchematic}
 {
-\begin{tabular}{c p{0.25cm} c p{0.25cm} c}
-$\begin{array}{c p{0.3cm} c p{0.1cm} c}
+\begin{tabular}{c p{0.25cm} c p{0.5cm} c}
+$\begin{array}{c p{0.01cm} c p{0.2cm} c}
 \multicolumn{5}{c}{\Rnode{student}{student}} \\[-0.3cm]
-\multicolumn{5}{c}{\Rnode{sB1}{}\hspace{0.5cm}\Rnode{sB2}{}\hspace{0.5cm}\Rnode{sB3}{}} \\[1.0cm]
+\multicolumn{5}{c}{\Rnode{sB1}{}\hspace{0.4cm}\Rnode{sB2}{}\hspace{0.5cm}\Rnode{sB3}{}} \\[1.0cm]
 \Rnode{sv1}{v} && \studentDepartmentAttribute{\Rnode{sv2}{v}} && \studentProfessorAttribute{\Rnode{sv3}{v}}
 \end{array}
 \begin{arrows}
 \ncarr{sB1}{sv1}
-\alabel{name}[0.55][0.1]
+\blabel{sName}[0.55][0.1]
 \addedgebar
 \studentDepartmentAttribute{
   \ncarr{sB2}{sv2}
-  \alabel{dept}[0.57][0.1]
+  \alabel{sDept}[0.57][0.1]
   \studentDepartmentAttributeStrikeout{\ncstrikeout{sB2}{sv2}}
 }
 \studentProfessorAttribute{
   \ncarr{sB3}{sv3}
-  \alabel{svr}[0.6][0.1]
+  \alabel{sSv}[0.55][0.1]
   \studentProfessorAttributeStrikeout{\ncstrikeout{sB3}{sv3}}
 }
 \end{arrows}$
 &&
-$\begin{array}{c p{0.3cm} c p{0.1cm} c}
+$\begin{array}{c p{0.1cm} c p{0.01cm} c}
 \multicolumn{5}{c}{\Rnode{professor}{professor}} \\[-0.3cm]
 \multicolumn{5}{c}{\Rnode{pB1}{}\hspace{0.5cm}\Rnode{pB2}{}\hspace{0.5cm}\Rnode{pB3}{}} \\[1.0cm]
 \professorDepartmentAttribute{\Rnode{pv1}{v}} && \Rnode{pv2}{v} && \Rnode{pv3}{v} 
@@ -57,29 +64,29 @@ $\begin{array}{c p{0.3cm} c p{0.1cm} c}
 \begin{arrows}
 \professorDepartmentAttribute{
   \ncarr{pB1}{pv1}
-  \alabel{dept}[0.5][0.1]
+  \blabel{pDept}[0.5][0.1]
   \addedgebar
   \professorDepartmentAttributeStrikeout{\ncstrikeout{pB1}{pv1}}
 }
 \ncarr{pB2}{pv2}
-\alabel{no}[0.575][0.1]
+\blabel{pNo}[0.55][0.1]
 \addedgebar
 \ncarr{pB3}{pv3}
-\alabel{name}[0.6][0.1]
+\alabel{pName}[0.5][0.1]
 \end{arrows}$
 &&
-$\begin{array}{c p{0.2cm} c }
-\multicolumn{3}{c}{\Rnode{department}{department}} \\[-0.3cm]
-\multicolumn{3}{c}{\Rnode{dB1}{}\hspace{0.5cm}\Rnode{dB2}{}} \\[1.0cm]
-\hspace{0.2cm}\Rnode{dv1}{v} && \departmentProfessorAttribute{\Rnode{dv2}{v}} 
+$\begin{array}{c  c }
+\multicolumn{2}{c}{\Rnode{department}{department}} \\[-0.3cm]
+\multicolumn{2}{c}{\Rnode{dB1}{}\hspace{0.5cm}\Rnode{dB2}{}} \\[1.0cm]
+\hspace{0.2cm}\Rnode{dv1}{v} & \departmentProfessorAttribute{\Rnode{dv2}{v}} 
 \end{array}
 \begin{arrows}
 \ncarr{dB1}{dv1}
-\alabel{name}[0.55][0.1]
+\blabel{dName}[0.5][0.1]
 \addedgebar
 \departmentProfessorAttribute{
   \ncarr{dB2}{dv2}
-  \alabel{hd}[0.575][0.1]
+  \alabel{dHd}[0.5][0.1]
   \departmentProfessorAttributeStrikeout{\ncstrikeout{dB2}{dv2}}
 }
 \end{arrows}$
@@ -88,60 +95,142 @@ $\begin{array}{c p{0.2cm} c }
 
 \newcommand{\abstractionOfd}
 {
- establishes a functional relationship $d: student \morph department$ such that
-$\composeSevenShaped[0.85cm]{student}{department}{v}{d}{name}{dept}$
-commutes.
+Remove $sDept$ and replace by an edge $d: student \morph department$.
+Rewrite appearances of $sDept$ in the sketch by $d \circ dName$.
 }
 
 \newcommand{\abstractionOfdPrime}
 {
- establishes a functional relationship $d': professor \morph department$ such that
-$\composeSevenShaped[0.85cm]{professor}{department}{v}{d'}{name}{dept}$ commutes. 
+Remove $pDept$ and replace ny an edge $d': professor \morph department$.
+%$\composeSevenShaped[0.85cm]{professor}{department}{v}{d'}{name}{dept}$ commutes. 
+Rewrite appearances of $pDept$ in the sketch by $d' \comp dName$.
 }
 
 \newcommand{\abstractionOfs}
 {
-establishes a functional relationship $s: student \morph professor$ such that 
-$\composeSevenShaped[0.85cm]{student}{professor}{v} {s}{dept}{dept}$ 
-and
-$\composeSevenShaped[0.85cm]{student}{professor}{v}{s}{no}{svr}$ commute.
-
-The commutivity of left hand triangle simplifies to commutivity of
-$\composeSevenShaped[0.85cm]{student}{professor}{department}{s}{d'}{d}$
-.
+Remove $sSv$ and replace by an edge  $s: student \morph professor$.
+Rewrite appearances of $sSv$ in the sketch by $s \comp pNo$.
+Add commutative diagram
+$\composeSevenShaped[0.85cm]{student}{professor}{v} {s}{d' \circ dName}{d \circ dName}$ 
+ simplify to
+$\composeSevenShaped[0.85cm]{student}{professor}{department}{s}{d'}{d }$
+Keep $\composeSevenShaped[0.85cm]{student}{professor}{v}{s}{no}{svr}$ commute
+pending rethink.
 }
 
 \newcommand{\abstractionOfhd}
 {
-establishes a functional relationship
-$department \morph professor$ such that 
-$\composeSevenShaped[0.85cm]{department}{professor}{v}{h}{dept}{name}$ commute and
-$\composeSevenShaped[0.85cm]{department}{professor}{v}{h}{no}{hd}$.
-The commutivity of left hand triangle simplifies to commutivity of
-$\composeSevenShaped[0.85cm]{department}{professor}{department}{h}{d'}{id}$
+Replace $dHd$ by an edge  $hd: department \morph professor$,
+add commutivity of
+$\composeSevenShaped[0.85cm]{department}{professor}{v}{hd}{d' \circ dName}{dName}$
+ simplfy to
+$\composeSevenShaped[0.85cm]{department}{professor}{department}{hd}{d'}{id}$
 .
+Keep $\composeSevenShaped[0.85cm]{department}{professor}{v}{h}{no}{hd}$.
+}
+
+\newcommand{\circledStudentSupervisorInclusionDependency}
+{
+{student[\psovalbox[linecolor=red, boxsep=false]{sDept},sSv] \subseteq professor[pDept,pNo]}
+}
+
+\newcommand{\rewrittenStudentSupervisorInclusionDependency}
+{
+{student[d \circ dName,sSv] \subseteq professor[pDept,pNo]}
+}
+
+\newcommand{\circledRewrittenStudentSupervisorInclusionDependency}
+{
+{student[d \circ dName,sSv] 
+   \subseteq professor[\psovalbox[linecolor=red, boxsep=false]{pDept},pNo]}
+}
+\newcommand{\circledHeadOfDeptIncD}
+{department[dName,dHd]  
+   \subseteq professor[\psovalbox[linecolor=red, boxsep=false]{pDept},pNo]}
+
+\newcommand{\secondRewrittenStudentSupervisorInclusionDependency}
+{
+{student[d \circ dName,sSv] 
+   \subseteq professor[d \circ dName,pNo]}
+}
+\newcommand{\secondRewrittenHeadOfDeptIncD}
+{department[dName,dHd]  
+   \subseteq professor[d' \circ dName,pNo]}
+
+
+\newcommand{\initialInclusionDependencies}
+{
+$\studentDeptInclusionDependency$
+$\professorDeptInclusionDependency$
+$\studentSupervisorInclusionDependency$
+$\headOfDeptInclusionDependency$
+}
+
+\newcommand{\strikeout}[1]{\colorbox{red}{\sout{#1}}}
+\newcommand{\initialMarkedUpInclusionDependencies}
+{
+\st{$\studentDeptInclusionDependency$}
+$\professorDeptInclusionDependency$
+$\circledStudentSupervisorInclusionDependency$
+$\headOfDeptInclusionDependency$
+}
+             
+\newcommand{\firstRewrittenInclusionDependencies}
+{
+firstReWritten
+$\professorDeptInclusionDependency$
+$\rewrittenStudentSupervisorInclusionDependency$
+$\headOfDeptInclusionDependency$
+}
+
+\newcommand{\markedUpFirstRewrittenInclusionDependencies}
+{markedUpFirstRewritten\\
+\st{$\professorDeptInclusionDependency$}
+$\circledRewrittenStudentSupervisorInclusionDependency$
+$\circledHeadOfDeptIncD$
+}
+\newcommand{\secondRewrittenInclusionDependencies}
+{
+SecondRewritten\\
+$\secondRewrittenStudentSupervisorInclusionDependency$
+$\secondRewrittenHeadOfDeptIncD$
+}
+
+\newcommand{\thirdRewrittenInclusionDependencies}
+{
+thirdReWritten\\
+$\secondRewrittenHeadOfDeptIncD$ % sic
 }
 
 
 \newcommand{\abstractionToSketch}
 {
-\popupAbstractionOfd{
-\begin{block}{$\studentDeptInclusionDependency$}
+\popupInitialInclusionDependencies{\initialInclusionDependencies}
+\popupMarkedUpInitialInclusionDependencies{\initialMarkedUpInclusionDependencies}
+\popupFirstRewrittenInclusionDependencies{\firstRewrittenInclusionDependencies}
+\popupMarkedUpFirstRewrittenInclusionDependencies
+                                    {\markedUpFirstRewrittenInclusionDependencies}
+\popupSecondRewrittenInclusionDependencies{\secondRewrittenInclusionDependencies}
+\popupThirdRewrittenInclusionDependencies{\thirdRewrittenInclusionDependencies}
+
+\popupAbstractionOfd{                    
+\begin{block}{Step 1. Eliminate $\studentDeptInclusionDependency$}
 \popupAbstractionOfdDetail{\abstractionOfd}
 \end{block}
 }
+
 \popupAbstractionOfdPrime{
-\begin{block}{$\professorDeptInclusionDependency$}
+\begin{block}{Step 2. Eliminate $\professorDeptInclusionDependency$}
 \popupAbstractionOfdPrimeDetail{\abstractionOfdPrime}
 \end{block}
 }
 \popupAbstractionOfs{
-\begin{block}{$\studentSupervisorInclusionDependency$}
+\begin{block}{Step 3. Eliminate $\secondRewrittenStudentSupervisorInclusionDependency$}
 \popupAbstractionOfsDetail{\abstractionOfs}
 \end{block}
 }
 \popupAbstractionOfhd{
-\begin{block}{$\headOfDeptInclusionDependency$}
+\begin{block}{Step 4. Eliminate this final inclusion dependency.}
 \popupAbstractionOfhdDetail{\abstractionOfhd}
 \end{block}
 }
@@ -172,6 +261,7 @@ $\begin{arrows}
 $
 
 \begin{overlayarea}{11cm}{7cm}
+
 \abstractionToSketch
 \onslide<20>{END}%need to force slide 20 to appear without hd attribute ??
 \end{overlayarea}

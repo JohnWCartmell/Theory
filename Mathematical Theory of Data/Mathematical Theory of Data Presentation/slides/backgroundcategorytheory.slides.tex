@@ -1,0 +1,103 @@
+
+\begin{frame}{Definitions} 
+In a category \catc, a  \textit{source} is a family of morphisms with common domain: \\
+\scalebox{0.65}{
+\multisourcediagram{n}{a}{b}{f}
+} 
+\medskip
+Such a source is said to be a \textit{mono source}  iff for all $g,h:x \morph a$ in \catcw 
+so that \scalebox{0.65}{
+\monosourcedefinitiondiagram{x}{g}{h}{n}{a}{b}{f}
+} 
+in \catcw then if $g \circ f_i = h \circ f_i$, for each $i$,  then $g=h$.
+\medskip
+OR, in presence of cartesian products, $<f_1,...f_n>$ is a monomorphim.
+\end{frame}
+
+\iffalse DONT NEED THIS
+\begin{frame}{Alternative Definition}{Mono Source Limit Cone}  
+In a category \cat{C},
+\scalebox{0.65}{
+\input{../content/monoSource}
+} is a mono source iff \\
+\begin{center}
+\scalebox{0.65}{
+\input{../content/monoSourceLimitCone}
+} 
+is a limit cone.
+\end{center}
+\end{frame}
+\fi
+
+\begin{frame}{Restriction Catgeories (2002, Cockett and Lack)}
+A \textit{restriction category} is a  category along with an operator
+that maps every morphism $f$ to an idempotent $\bar{f}$ on its domain satisfying
+
+R.1 For $f:a \morph b$ in \catcw $$\bar{f} \circ f =f$$.
+
+R.2. If \fgsourcediag in \catcw then
+$$\bar{g} \circ \bar{f}=\bar{f} \circ \bar{g}.$$
+
+R.3. If \fgsourcediag in \catcw then
+$$\overline{\bar{f} \circ g} = \bar{f} \circ \bar{g}$$.
+
+R.4. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
+$$f \circ \bar{g} = \overline{f \circ g} \circ f$$.
+\end{frame}
+\begin{frame}{Range Categories (2012, Cockett, Guo and Hofstra)}
+
+A \textit{\rangeplus category} is a restriction category 
+with an additional operator as follows
+if $f: a \morph b$ in  \catcw then
+$$\hat{f}: b \morph b$$
+satisfying
+
+RR.1 For $f:a \morph b$ in \catcw $$\bar{\hat{f}} = \hat{f}.$$
+
+RR.2 For $f:a \morph b$ in \catcw $$f \circ \hat{f} = f.$$
+
+RR.3. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
+$$\widehat{f \circ \bar{g}} = \hat{f} \circ \bar{g}.$$
+
+RR.4. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
+$$\widehat{(hat({f}) \circ g)} = \widehat{f \circ g}.$$
+
+RR.5 whenever $\equaliser{a}{f}{\paralleldiag{b}{c}{g}{h}}$ in \catcw then
+ $$f \circ g = f \circ h \Rightarrow  \hat{f} \circ g = \hat{f} \circ h$$.
+\end{frame}
+
+\begin{frame}
+In a restriction category there is a partial ordering on each hom set
+Hom(a,b) defined by:
+$$f \leq g iff f = \bar{g} \circ f$$
+\end{frame}
+
+
+
+\begin{frame}{Schein’s Theorem for Range Categories}
+Cockett \textit{et al} prove that if a range category \catcw satisfies 
+RR.5
+then there is a faithful functor $S: \catc \morph \Par$. \\
+\end{frame}
+
+\begin{frame}{Partial Inverse of a Monomorphism}
+If  $m:a \morph b$ is a monomorphim in range category \catcw then
+a map $m^{-1}: b \morph a$ 
+$$
+\begin{array}{c p{1cm} c}
+\Rnode{a}{a} && \Rnode{b}{b}
+\end{array}
+\begin{arrows}
+\ncarr{a}{b}
+\alabel{m}
+\ncarr[30]{b}{a}
+\alabel{m^{-1}}
+\end{arrows}
+$$
+I will say $m^{-1}$ is the \textit{(partial) inverse} of $m$ iff
+\begin{center}
+$m \circ m^{-1}= id_a$
+\hspace{0.75cm} and \hspace{0.75cm}
+$m^{-1} \circ m= \widehat{m}.$
+\end{center} 
+\end{frame}

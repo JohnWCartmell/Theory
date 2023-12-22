@@ -24,6 +24,8 @@
 \setcounter{equation}{0}
 
 
+
+
 \title[John Cartmell]{Elements of a Mathematical Theory of Data}
 %% Which is to say types as they are used in practice in software development and as represented in theory in categories and in syntactic type theories.
 %% There is also a subplot concerning representation of context which certain types depend on -- again represented in practice and in theory. 
@@ -36,6 +38,8 @@
 \usepackage{bibentry}
 \usepackage{colortbl}
 \usepackage{ulem}   % for \dashuline{dashing} for seconday key
+\usepackage{soul,xcolor} % also used for striking out text 
+
 \usepackage{listings}
 \lstset{%
   escapeinside={(*}{*)},%
@@ -58,23 +62,28 @@
 \end{frame}
 }
 
+\newcommand{\fgsourcediag}{$\binarysourcediag{a}{b}{c}{f}{g}$}
+\newcommand{\rangeplus}{$\mbox{range}^+\ $}
 
 \begin{document}
+
+\setstcolor{red}
 \begin{frame}
 \titlepage
 \nobibliography{../../SharedBibliography/temp/bibliography}
 \end{frame}
 
-\begin{frame}{Background}
-\begin{itemize}
-\item Concept Instance Algebras
-\item Preparation for a Mathematical Theory Of Data
-\item Instances of Generalised Algebraic Theories
-\end{itemize}
-\vspace{3cm}
-\url{www.researchgate.net/profile/John-Cartmell}
-\end{frame}
+\iffalse   
 
+\begin{frame}{Preamble}
+\underline{\url{www.researchgate.net/profile/John-Cartmell}}
+\medskip
+\begin{itemize}
+\item Preparation for a Mathematical Theory Of Data - prequel to my talk here
+\pause \item Concept Instance Algebras (\textit{circa} 1973)
+\pause \item Instances of Generalised Algebraic Theories 
+\end{itemize}
+\end{frame}
 
 \begin{frame}{Terminology}
 \begin{itemize}
@@ -83,23 +92,24 @@
 \item \textit{data specifications} except when I forget and I call them \textit{data models}
 \item the act of constructing data specifications is \textit{data modelling}
 \item a \textit{model of data} is a meta-theory (a meta-model) describing what constitutes a data specification 
-\item most significantly there are \textit{relational} and \textit{nested relational} models of data
-\item the mathematical theory of data is a new proposed meta-theory of data with a claim to universiality.
+\item most significantly there are
+\begin{itemize}
+\item \textit{relational} and 
+\item \textit{nested relational} 
+models of data
+\end{itemize}
+\item the mathematical theory of data is a new proposed meta-theory of data that supports technology  independent reasoning about data specifications
 \end{itemize}
 \end{frame}
 
-
 \section{Mathematical Theory of Data LITE}
 
-\begin{frame}{The Thesis}
+\begin{frame}{why? --- The Thesis}
 \begin{itemize}[<+->]
-  \item A key activity in s/w systems development and maintenance is the creation and maintenance of specifications of the data stored in databases and variously intra-communicated between components of a system and inter-communicated between systems in messages. 
-  \item There are gross inefficiencies in methodologies and working practices used in carrying out this key activity and in the data specifications themselves. These are reflected in undue complexity in program code to access and manage the data.
-  \item These inefficiences have been established and endorsed by theory and by those experts who promote this theory and associated methodologies.
-  \item A new theory is required to both expose and remedy the shortcomings.
-  \item This should be the role of a new \textit{Mathematical Theory of Data}.
-  \item The dual challenge is to develop the theory and to positively impact best practice.
-  \item Here, today, I am talking about some elements of this meta-theory.
+  \item There are gross inefficiencies in ther methodologies and working practices used in  a the key activity in s/w systems development and maintenance namely in  the creation and maintenance of specifications of the data stored in databases and variously intra-communicated between components of a system and inter-communicated between systems in messages. 
+  \item These inefficiences have been established and endorsed by a theory which is grossly inadequate.
+  \item A new theory is required to expose and remedy the shortcomings.
+  \item The challenge is positively impact best practice.
 \end{itemize}
 \end{frame}
 
@@ -108,16 +118,29 @@
 \item is a meta-theory,
 \item covers \textit{principles} and \textit{criteria} for goodness of data specifications,
 \item reveals the significance of commutative diagrams and therefore category theory,
-\item slogan \textit{--- good data modelling is good theorising}. 
+\item slogan on the tin\textit{--- good data modelling is good theorising}. 
 \end{itemize}
 \end{frame}
+
+\input{../slides/normalformliterature.slides}
+\fi
+
+\iffalse
+\input{../slides/generalintroductory.slides}
+\input{../slides/specificintroductory.slides}
+
+\input{../slides/backgroundcategorytheory.slides}
+\fi
+\input{../slides/datacategorydefinition.slides}
 
 \input{../slides/Shlaer&Lang/relationalDataSlide}  % this slide defines inclusion dependencies
 \input{../slides/Shlaer&Lang/relationalDataSchematicSlide}
 \input{../slides/Shlaer&Lang/sketchSlide}
+\iffalse
 \input{../slides/Shlaer&Lang/nestedRelationalDataSlide}
 \input{../slides/Shlaer&Lang/nestedRelationalDataSchematicSlide}
 \input{../slides/Shlaer&Lang/contextualSketchSlide}
+\fi
 
 \iffalse
 \subsection{Example}
@@ -142,6 +165,7 @@ Generated into code in XML, ECMA Javascript, Python.
 \end{frame}
 \fi
 
+\iffalse
 \begin{frame}{Nested data structures}
 draw single nested relational data model
 less columns now and that is because some structure is represented niot by foreign keys but by the nesting of struture. Thats why this example is representative of how data about departments, professors and students might be represented in other messaging systems such as XML ad IDL and also in hierarchical databases. 
@@ -152,9 +176,6 @@ decisions about how which data relationships to represent by nesting are recorde
 These distinguished morphisms determine (have you guessed this yet) a contextual category 
 \end{frame}
 
-\begin{frame}
-same again diagram with dependency morphisms replacing d1 and d2
-\end{frame}
 
 \begin{frame}{Missing Data and Range Categories}
 \end{frame}
@@ -166,19 +187,6 @@ same again diagram with dependency morphisms replacing d1 and d2
 \item that the triangles commutes has an effect on the relational structure but equally on xml or idl or other such message structures. 
 \end{itemize}
 \end{frame}
-
-\begin{frame}{Generalities at this point}
-
-go off into generalities at this point. data specificatioms as theories of what is
-\end{frame}
-
-
-\iffalse
-\subsection{Preamble}
-\input{../slides/normalformliterature.slides}
-
-\subsection{Introduction}
-\input{../slides/introductory.slides}
 \fi
 
 \iffalse
@@ -187,10 +195,10 @@ go off into generalities at this point. data specificatioms as theories of what 
 
 \subsection{Directed Graphs}
 \input{../slides/directedgraph.slides}
-
+\fi
+\iffalse
 \subsection{Categories}
 \input{../slides/goodnesscriteria.category.slides}
-
 
 \subsection{Categories with Designated Monomorphisms and Epimorphims}
 \input{../slides/goodnesscriteria.epimono.slides}

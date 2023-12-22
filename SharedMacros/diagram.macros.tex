@@ -110,4 +110,240 @@
 \end{arrows}
 }
 
+\newcommand{\binarysourcediag}[5]{
+\begin{array}{c p{0.5cm} c  }
+             &&   \Rnode{b}{#2} \\[0.01cm]
+\Rnode{a}{#1} &&                \\[0.01cm] 
+             &&   \Rnode{c}{#3} 
+\end{array} 
+\begin{arrows}
+\ncarr{a}{b}
+\alabel{#4}
+\ncarr{a}{c}
+\blabel{#5}
+\end{arrows} 
+}
+%\newcommand{\fgsourcediag}{\binarysourcediag{a}{b}{c}{f}{g}}
+
+\newcommand{\paralleldiag}[4]
+{
+\rule[-0.3cm]{0pt}{0.9cm} %to add vertical space of diagram -- based on lowering diagram 0.3cm and heght 0.9cm
+                            % change thickness from 0pt to 1 pt to debug
+\begin{array}{c p{0.5cm} c  }
+ \Rnode{a}{#1}     &&   \Rnode{b}{#2}
+\end{array} 
+\begin{arrows}
+\ncarc[nodesep=2pt,arcangle=10,offset=2pt]{->}{a}{b}
+\alabel{#3}
+\ncarc[nodesep=2pt,arcangle=-10,offset=-2pt]{->}{a}{b}
+\blabel{#4}
+\end{arrows}
+}
+
+\newcommand{\sequentialdiag}[5]
+{
+\begin{array}{c p{0.5cm} c p{0.5cm} c }
+ \Rnode{a}{#1}     &&   \Rnode{b}{#2} && \Rnode{c}{#3}
+\end{array} 
+\begin{arrows}
+\ncarr{a}{b}
+\alabel{#4}
+\ncarr{b}{c}
+\alabel{#5}
+\end{arrows}
+}
+
+% eg. \equaliser{e}{h}{\paralleldiag{a}{b}{f}{g}}
+\newcommand{\equaliser}[3]{
+\begin{array}{c p{0.5cm} c}
+\Rnode{e}{#1} && #3
+\end{array}
+\begin{arrows}
+\ncarr{e}{a}
+\alabel{#2}
+\end{arrows}  
+}
+
+% eg. \coequaliser{c}{q}{\paralleldiag{a}{b}{f}{g}}
+\newcommand{\coequaliser}[3]{
+\begin{array}{c p{0.5cm} c}
+#3  && \Rnode{c}{#1} 
+\end{array}
+\begin{arrows}
+\ncarr{b}{c}
+\alabel{#2}
+\end{arrows}  
+}
+
+
+
+\newcommand{\alternatediag}[5]
+{
+\begin{array}{c p{0.5cm} c p{0.5cm} c }
+ \Rnode{a}{#1}     &&   \Rnode{b}{#2} && \Rnode{c}{#3}
+\end{array} 
+\begin{arrows}
+\ncarr{a}{b}
+\alabel{#4}
+\ncarr{c}{b}
+\blabel{#5}
+\end{arrows}
+}
+
+\newcommand{\alternatingchainfg}[5]
+{
+\begin{array}{c p{0.5cm} c p{0.5cm} c p{0.5cm} c p{0.5cm} c  c p{0.5cm} c p{0.5cm} c}
+ \Rnode{a1}{#1_1} &&  \Rnode{b1}{#2_1} && \Rnode{a2}{#1_2} && \Rnode{b2}{#2_2} 
+                  && \Rnode{dots}{\hspace{0.3cm}...} 
+                  &\Rnode{an}{#1_#5}&&\Rnode{bn}{#2_#5}&&\Rnode{an1}{#1_{#5+1}}
+\end{array} 
+\begin{arrows}
+\ncarr{a1}{b1}
+\alabel{#3_1}
+\ncarr{a2}{b1}
+\blabel{#4_1}
+\ncarr{a2}{b2}
+\alabel{#3_2}
+\ncarr{dots}{b2}
+\blabel{#4_2}
+\ncarr{an}{bn}
+\alabel{#3_#5}
+\ncarr{an1}{bn}
+\blabel{#4_#5}
+\end{arrows}
+}
+
+\newcommand{\alternatingchainff}[5]
+{
+\begin{array}{c p{0.5cm} c p{0.5cm} c p{0.5cm} c p{0.5cm} c  c p{0.5cm} c }
+ \Rnode{a1}{#1_1} &&  \Rnode{b1}{#2_1} && \Rnode{a2}{#1_2} && \Rnode{b2}{#2_2} 
+                  && \Rnode{dots}{\hspace{0.3cm}...} 
+                  &\Rnode{an}{#1_#5}&&\Rnode{bn}{#2_#5}
+\end{array} 
+\begin{arrows}
+\ncarr{a1}{b1}
+\alabel{#3_1}
+\ncarr{a2}{b1}
+\blabel{#4_1}
+\ncarr{a2}{b2}
+\alabel{#3_2}
+\ncarr{dots}{b2}
+\blabel{#4_2}
+\ncarr{an}{bn}
+\alabel{#3_#5}
+\end{arrows}
+}
+
+\newcommand{\alternatingchaingg}[5]
+{
+\begin{array}{c p{0.5cm} c p{0.5cm} c p{0.5cm} c p{0.5cm} c  c p{0.5cm} c p{0.5cm} c}
+ \Rnode{b0}{#2_0} && \Rnode{a1}{#1_1} &&  \Rnode{b1}{#2_1} && \Rnode{a2}{#1_2} 
+                  && \Rnode{dots}{\hspace{0.3cm}...} 
+                  &\Rnode{an}{#1_#5}&&\Rnode{bn}{#2_#5}&&\Rnode{an1}{#1_{#5+1}}
+\end{array} 
+\begin{arrows}
+\ncarr{a1}{b0}
+\blabel{#4_0}
+\ncarr{a1}{b1}
+\alabel{#3_1}
+\ncarr{a2}{b1}
+\blabel{#4_1}
+\ncarr{a2}{dots}
+\alabel{#3_2}
+%\ncarr{dots}{b2}
+%\blabel{#4_2}
+\ncarr{an}{bn}
+\alabel{#3_#5}
+\ncarr{an1}{bn}
+\blabel{#4_#5}
+\end{arrows}
+}
+
+
+\newcommand{\alternatingchaingf}[5]
+{
+\begin{array}{c p{0.5cm} c p{0.5cm} c p{0.5cm} c p{0.5cm} c c p{0.5cm} c }
+\Rnode{b0}{#2_0} && \Rnode{a1}{#1_1} && \Rnode{b1}{#2_1} && \Rnode{a2}{#1_2} 
+                  && \Rnode{dots}{\hspace{0.3cm}...} 
+                  &\Rnode{an}{#1_#5}&&\Rnode{bn}{#2_#5}
+\end{array} 
+\begin{arrows}
+\ncarr{a1}{b0}
+\blabel{#4_0}
+\ncarr{a1}{b1}
+\alabel{#3_1}
+\ncarr{a2}{b1}
+\blabel{#4_1}
+\ncarr{a2}{dots}
+\alabel{#3_2}
+%\ncarr{dots}{b2}
+%\blabel{#4_2}
+\ncarr{an}{bn}
+\alabel{#3_#5}
+\end{arrows}
+}
+
+
+
+\newcommand{\fnsourceqnsource}
+{
+$
+\begin{array}{c p{0.25cm} c  p{0.25cm} c }
+             &&   \Rnode{b1}{b_1} &&              \\[0.4cm]
+\Rnode{a}{a} &&                   && \Rnode{c}{c} \\[0.4cm]
+             &&   \Rnode{bn}{b_n} &&              
+\end{array} 
+\begin{arrows}
+\ncarr{a}{b1}
+\alabel{f_1}
+\ncarr{c}{b1}
+\blabel{q_1} 
+\ncarr{a}{bn}
+\blabel{f_n}
+\ncarr{c}{bn}
+\alabel{q_n}
+\end{arrows}
+$   
+}
+
+% \source{a}{b}{f}{n}
+\newcommand{\source}[4]
+{
+\begin{array}{c p{2.0cm} c}              
+               & &  \Rnode{B1}{#2_1}   \\ [0.5cm]
+               & &  \Rnode{B2}{#2_2}   \\ [-0.1cm]
+\Rnode{A}{#1}  & &                     \\ [-0.3cm]
+               & &  \vdots             \\ [0.1cm]
+               & &  \Rnode{Bn}{#2_{#4}}  
+\end{array}
+\begin{arrows}
+\ncarr{A}{B1}
+\alabel{#3_1}[0.5]
+\ncarr{A}{B2}
+\alabel{#3_2}[0.5][-1]
+\ncarr{A}{Bn}
+\blabel{#3_{#4}}[0.5][-1]
+\end{arrows}
+}
+
+% \parallelsource{a}{b}{f}
+\newcommand{\parallelsource}[4]
+{
+\begin{array}{c p{2.0cm} c}              
+               & &  \Rnode{B1}{#2}   \\ [0.5cm]
+               & &  \Rnode{B2}{#2}   \\ [-0.1cm]
+\Rnode{A}{#1}  & &                    \\ [-0.3cm]
+               & &  \vdots            \\ [0.1cm]
+               & &  \Rnode{Bn}{#2}  
+\end{array}
+\begin{arrows}
+\ncarr{A}{B1}
+\alabel{#3_1}[0.5]
+\ncarr{A}{B2}
+\alabel{#3_2}[0.5][-1]
+\ncarr{A}{Bn}
+\blabel{#3_{#4}}[0.5][-1]
+\end{arrows}
+}
+
 

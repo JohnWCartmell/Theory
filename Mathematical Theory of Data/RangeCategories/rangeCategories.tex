@@ -1,0 +1,369 @@
+
+\newcommand{\rangeplus}{$\mbox{range}^+\ $}
+
+\section{Restriction Categories}
+
+From Cockett \& Lack, a restriction category is a category \catcw with an additiona operator (the restriction operator) such that
+if $f: a \morph b$ in \catcw then
+$$\bar{f}: a \morph a$$ 
+and satisfying
+
+R.1 For $f:a \morph b$ in \catcw $$\bar{f} \circ f =f$$.
+
+R.2. If \fgsourcediag in \catcw then
+$$\bar{g} \circ \bar{f}=\bar{f} \circ \bar{g}.$$
+
+R.3. If \fgsourcediag in \catcw then
+$$\overline{\bar{f} \circ g} = \bar{f} \circ \bar{g}$$.
+
+R.4. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
+$$f \circ \bar{g} = \overline{f \circ g} \circ f$$.
+
+\section{Range Categories}
+
+A \term{range category} is a retriction category with an additional operator as follows
+if $f: a \morph b$ in  \catcw then
+$$\hat{f}: b \morph b$$
+satisfying
+
+RR.1 For $f:a \morph b$ in \catcw $$\bar{\hat{f}} = \hat{f}.$$
+
+RR.2 For $f:a \morph b$ in \catcw $$f \circ \hat{f} = f.$$
+
+RR.3. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
+$$\widehat{f \circ \bar{g}} = \hat{f} \circ \bar{g}.$$
+
+RR.4. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
+$$\widehat{(hat({f}) \circ g)} = \widehat{f \circ g}.$$
+
+\begin{lemma}
+\label{restrictioncatlemma}
+In any restriction category \catc
+\begin{enumerate} [(i)]
+\item For $f:a \morph b$ in \catcw,
+$$\bar{\bar{f}}=\bar{f}$$
+\item If $\sequentialdiag{a}{b}{c}{k}{j}$ in \catcw 
+and $k$ is total i.e. $\bar{k}=id_a$
+and if $k \circ \bar{j}$ is total i.e. $\overline{k \circ \bar{j}}=id_a$
+then
+$$k \circ \bar{j} = k.$$
+\item If $\sequentialdiag{a}{b}{c}{k}{j}$ in \catcw 
+and $k$ is total i.e. $\bar{k}=id_a$ then
+$$\overline{k \circ j} = \overline{k \circ \bar{j}}.$$
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate} [(i)]
+\item Use R3 with $g$ being $id_b$.
+\item 
+\begin{align*}
+k \circ \bar{j} &= k \circ \bar{\bar{j}}              && \mbox{from (i),}\\
+                &= \overline{k \circ \bar{j}} \circ k && \mbox{by R.4,}   \\
+                &= k                                  && \mbox{from assumption $k \circ \bar{j}$ is total.}
+\end{align*}
+\item 
+\begin{align*}
+\overline{k \circ j} &= \overline{k \circ j} \circ \bar{k}    && \mbox{from assumption that $k$ total,}\\
+                     &= \overline{\overline{k \circ j} \circ k} && \mbox{by R.3,} \\
+                     &= \overline{k \circ \bar{j}}              && \mbox{by R.4.}
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+Let the category \FinPar be the range catgory of finite sets and partial functions.
+
+\subsection{Split assumption}
+\begin{definition}
+In a range category \catcw then a morphism $f:a \morph b$ is split iff
+there exists $f_s:b \morph a$ 
+such that
+\begin{equation*} 
+f_s \circ f = \hat{f} = \bar{f_s}
+\end{equation*}
+and
+\begin{equation*} 
+f \circ f_s = \hat{f_s} = \bar{f}
+\end{equation*}
+\end{definition}
+
+\begin{lemma}
+\label{jsbarj}
+In a range category \catcw if $f_s$ is a splitting of a morphism $f$ 
+then $f_s \circ \bar{f} = f_s.$
+\end{lemma}
+\begin{proof}
+\begin{align*}
+f_s \circ \bar{f} 
+      &= f_s \circ (f \circ f_s) 
+             && \mbox{because $\bar{f}=f \circ f_s$, by definition of splitting, } \\
+      &= \bar{f_s} \circ f_s     
+             && \mbox{because $f \circ f_s = \bar{f_s}$, from same definition,}    \\
+             && 
+      &= f_s   &&\mbox{by R.1, as required.}
+\end{align*}
+\end{proof}
+
+\begin{lemma}
+If $f:a \morph a$ in a range category \catcw then for any morphism 
+$f: a \morph b$
+\begin{enumerate}[(i)] 
+\item $\hat{\hat{f}}=\hat{f}$,
+\item $\hat{f} \comp \hat{f} = \hat{f}$,
+\item $\hat{\bar{f}}=\bar{f}$,
+\item $\bar{\hat{f}}=\hat{f}$,
+\item $\bar{f}$ is a splitting of itself,
+\item $\hat{f}$ is a splitting of itself.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Straightforward.
+\end{proof}
+
+\begin{definition}
+A range category with coherent splittings is a range category \catcw along with for every
+morphism $f:a \morph b$ a splitting $f_s:b \morph a$ such that if
+$\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then $(f \circ g)_s=g_s \circ f_s$.
+\end{definition}
+
+\begin{lemma}
+\label{splittingsequencepair}
+If \catcw is a range category with coherent splittings then if
+$\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw
+ then 
+ \begin{enumerate}[(i)]
+ \item $\overline{f \circ g}=f \circ \bar{g} \circ f_s$,
+ \item $\widehat{f \circ g}=g_s\circ \hat{f} \circ g$
+\end{enumerate}
+ \end{lemma}
+\begin{proof}
+\end{proof}
+
+\begin{lemma}
+\label{splittingalternatepair}
+If \catcw is a range category with coherent splittings then if
+$\alternatediag{a}{b}{c}{f}{g}$ in \catcw
+ then 
+ \begin{enumerate}[(i)]
+ \item $\overline{f \circ g_s}=f \circ \hat{g} \circ f_s$,
+ \item $\widehat{f \circ g_s} = g\circ \hat{f} \circ g_s$
+\end{enumerate}
+ \end{lemma}
+\begin{proof}
+Use lemma \ref{splittingsequencepair}.
+\end{proof}
+
+\iffalse
+\newcommand{\range}[1]{\hat{}(#1)}
+\newcommand{\psplit}[1]{#1^{-1}}
+\begin{lemma}
+\label{splittingalternatesequences}
+If \catcw is a range category with coherent splittings then 
+\begin{enumerate}[(i)]
+\item if $\alternatingchainfg{a}{b}{f}{g}{n}$ in \catcw then
+\begin{align*}
+\overline{f_1 \circ \psplit{g_1} \circ f_2 \circ \psplit{g_2} 
+... \circ f_n \circ \psplit{g_n} } 
+= f_1 \circ \psplit{g_1}  ... f_n  \circ \psplit{g_n}   
+\circ g_n \circ \psplit{f_n} ... \circ g_1 \circ \psplit{f_1}\\
+\range{f_1 \circ \psplit{g_1} \circ f_2 \circ \psplit{g_2} 
+... \circ f_n \circ \psplit{g_n} } 
+= g_n \circ \psplit{f_n} ... g_1 \circ \psplit{f_1} \circ f_1 \circ \psplit{g_1}
+... \circ f_n \circ \psplit{g_n}
+\end{align*}
+\item if $\alternatingchainff{a}{b}{f}{g}{n}$ in \catcw then 
+\begin{align*}
+\overline{f_1 \circ \psplit{g_1} \circ f_2 \circ \psplit{g_2} 
+... \circ f_n  } 
+= f_1 \circ \psplit{g_1}  ... f_n  \circ \psplit{f_n} ... \circ g_1 \circ \psplit{f_1}\\
+\range{f_1 \circ \psplit{g_1} \circ f_2 \circ \psplit{g_2} 
+... \circ f_n  } 
+= \psplit{f_n} ... g_1 \circ \psplit{f_1} \circ f_1 
+... \circ f_n \circ \psplit{g_1}
+\end{align*}
+\item if $\alternatingchaingg{a}{b}{f}{g}{n}$ in \catcw then 
+$$etc.$$
+\item if $\alternatingchaingf{a}{b}{f}{g}{n}$ in \catcw then
+$$etc.$$
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Use lemma \ref{splittingalternatepair}.
+\end{proof}
+\fi
+
+\section{Construction of a Category with Coherent Splittings from a Range Category}
+I tried to do a explicit constructon of a catgeory with coherent splittings from a range category. I was trying to show that a range category could be faithfully embedded in a 
+range category with coherent splittings.
+
+Sadly this failed and with good reason.
+
+Consider the range category generated by the  sketch with this graph
+$\equaliser{a}{f}{\paralleldiag{b}{c}{g}{h}}$
+and subject to  equations $\hat{f} = \bar{g} = \bar{h}$ and $f \circ g = f \circ h$.
+In this range category then $f$ and $g$ are distinct morphisms.
+If we add a morphsim $f_s$ as a splitting of the morphism $f$  then it follows that $g = h$. This is a counter example, therefore, to the suggestiion that every range 
+category can be embedded faithfully in a range category with splittings.
+
+
+\section{Construction of Restriction Functors}
+
+\subsection{$HomP$ is a Restriction Functor}
+If \catcw is a restriction functor then
+let $HomP_\catc(a,-): \catc \morph \SetP$ be the  functor
+defined as follows. $HomP(a,x)=Hom(a,x)$.
+If $j: x \morph y$ then partial function $HomP(a,j): HomP(a,x) \morph HomP(a,y)$
+is defined as follows:
+\begin{align*}
+HomP(a,j)(k) = k \circ j &\mbox{ if $k \circ \bar{j} = k$} \\
+                         & \mbox{ is undefined otherwise}
+\end{align*}
+\begin{lemma}
+If \catcw is a restriction catgory and $a$ is an object of \catcw 
+then the functor $HomP_\catc(a,-)$ preserves the restriction operator i.e.
+for all $j:x \morph y$ in \catc
+$$HomP_\catc(a,\bar{j})=\overline{HomP_\catc(a,j)}$$
+\end{lemma}
+\begin{proof}
+Both $HomP_\catc(a,\bar{j})$ and $\overline{HomP_\catc(a,j)}$ are less than id function on the set $Hom(a,x)$. 
+The former because by definition of $HomP$ 
+if $HomP_\catc(a,\bar{j})(k)$ is defined then $HomP_\catc(a,\bar{j})(k)=k$.
+The latter by definition of $\bar{f}$, for any function $f$.
+
+It suffices to show that $HomP_\catc(a,\bar{j})$ is defined iff and only if
+$HomP_\catc(a,j)$ is defined which we can do as follows.
+ Let $k \in Hom(a,x)$. $HomP_\catc(a,\bar{j})(k)$
+is defined iff $k \circ \bar{\bar{j}}$ i.e. $k \circ \bar{j}$ is defined
+iff $HomP_\catc(a,j)(k)$ is defined. 
+\end{proof}
+
+
+\subsection{Coproducts of Set valued Range Functors}
+\subsection{Quotients of Set valued Restriction Functors}
+
+\newcommand{\Fquotient}{F/\sim}
+Suppose \catcw is a restriction category and that $F: \catc \morph \SetP$ is a restriction functor into the restriction category of sets and partial functions. Suppose that for every object $x$ of \catcw there is an equivalence relationship $\sim_x$ defined on the set $F(x)$. Suppose that this equivalence relationship has the following property(s):
+For every morphism $j:x \morph y$ in \catcw, for all elements $k1,k2 \in F(x)$,
+\begin{enumerate}
+\item $F(j)(k_1)$ is defined iff $F(j)(k_2)$ is defined, 
+\item $k_1 \sim_x k_2 \mbox{ and } F(j)(k_1) \mbox{ is defined } \implies F(j)(k_1) \sim_y F(j)(k_2).$
+\end{enumerate}
+Define functor $\Fquotient: \catcw \morph \SetP$ by defining
+\begin{align*}
+&x             &&\mapsto F(x)/\sim_x 
+                & \mbox{i.e. the set of equivalence classes of $F(x)$ wrt equivalence relation $\sim$}\\
+&j: x \morph y &&\mapsto F(j)/\sim
+\end{align*} 
+where $F(j)/\sim$ is defined by
+\begin{align*}
+[k] \mapsto [F(j)(k)] && \mbox{provided $F(j)(k)$ is defined, is undefined otherwise.}
+\end{align*}
+which is well-defined because of the assumption made above.
+
+It is easy to see that $\Fquotient$ is a functor (i.e. respects composition $\circ$ and identity morphisms.)
+
+\begin{lemma}
+The functor $\Fquotient$ is a restriction functor.
+\end{lemma}
+\begin{proof}
+We need to show that  $\Fquotient$ respects the restriction operator
+i.e. we need to show that for any morphism $j:x \morph y$ in \catcw, $\Fquotient(\bar{j})= \overline{\Fquotient(j)}$.
+
+The LHS, $\Fquotient(\bar{j})$, is defined to  be the partial function
+$$ [k] \mapsto [F(\bar{j})(k)] \mbox{ providing $F(\bar{j})(k)$ is defined, is undefind otherwise,}$$
+in otherwords, since  $F$ assumed to be a restriction functor it can be defined as mapping
+$$ [k] \mapsto [\overline{F(j)}(k)] \mbox{providing $\overline{F(j)}(k)$ is defined, is undefind otherwise,}$$
+and this in turn, because of the definition of restriction in \SetP, means that it maps
+$$ [k] \mapsto [k] \mbox{providing $F(j)(k)$ is defined, is undefined otherwise.}$$
+
+Meanwhile the RHS, $\overline{\Fquotient(j)}$  is defined as the partial function that 
+maps $[k]$  to $[k]$  provided  $\Fquotient(j)(k)$ is defined, and to be undefined otherwise.
+
+Because,
+from the definition of $\Fquotient$, $\Fquotient(j)([k])$ is defined iff $F(j)(k)$ is defined then
+we have shown that LHS and RHS are identical functions, as required.
+\end{proof}
+
+\section{Construction of Range Functors}
+
+ \subsection{Split assumption and $HomP$ as a Range Functor}
+
+\begin{lemma}
+If \catcw is a range category in which every morphism is split then
+for every object $a$ of \catcw the functor $HomP_\catcw: \catcw \morph \SetP$ preserves the range operator.
+\end{lemma}
+\begin{proof}
+If $j: x \morph y$ in \catcw then we are required to prove that
+$$\widehat{HomP_\catcw(a,j)}=HomP_\catcw(a,\hat{j})$$
+and for this it suffices to show that the range of $HomP_\catcw(a,j)$ 
+i.e. this set
+$$\setsuchthat{ k \circ j}{k: a \morph x \mbox{ and } k \circ \bar{j} = k }$$ 
+is identical to the range of $HomP_\catcw(a,\hat{j})$ 
+i.e. this set
+$$\setsuchthat{k' \circ \hat{j}}{k':a \morph y \mbox{ and } k' \circ \bar{\hat{j}} = k' }.$$   
+i.e. this set
+$$\setsuchthat{k' \circ \hat{j}}{k':a \morph y \mbox{ and } k' \circ \hat{j} = k' }.$$
+
+The first set is included in the second because for any morphism of the form $k \circ j$, 
+where $k \circ \bar{j}=k$, 
+is of the form $k' \circ \hat{j}$, for $k' \circ \hat{j} = k'$, 
+because we can take $k'$ to be $k \circ j$ 
+because then 
+$k' \circ \hat{j} = (k \circ j) \circ \hat{j}= k \circ(j \circ \hat{j})= k \circ j = k'$,
+as required. 
+
+Let $j_s : y \morph x$ be the splitting of $j$ i.e. be such that $j_s \circ j = \hat{j}$.
+
+The second set is included in the first because if a morphism is of the form $k' \circ \hat{j}$, where $k' \circ \hat{j} = k'$, then it of the form $k \circ j$, where $k \circ \bar{j}=k$, because $k$ can be taken to be $k' \circ j_s$ for then we have 
+$k' \circ \hat{j} = k' \circ j_s \circ j = k \circ j$
+and we have $k \circ \bar{j}= k' \circ j_s \circ \bar{j} =  k' \circ j_s = k$ using lemma
+\ref{jsbarj}, as required. 
+ \end{proof}
+
+\begin{corollary}
+If \catcw is a range category in which every morphism is split then
+for every object $a$ of \catcw the functor $HomT_\catcw(a,-): \catcw \morph \SetP$ is a range functor.
+\end{corollary}
+
+\subsection{About HomP}
+\begin{lemma}
+\label{HomOfEffbargbar}
+\fgsourcediag
+\begin{align*}
+[L_c(f)] &= [L_a(Hom(a,f)(\bar{f}\circ\bar{g}))] \\
+[L_c(g)] &= [L_a(Hom(a,g)(\bar{f}\circ\bar{g}))]
+\end{align*} 
+\end{lemma}
+\begin{proof}
+\end{proof}
+\subsection{Coproducts of Set valued Range Functors}
+TBD
+\subsection{Quotients of Set valued Range Functors}
+\begin{lemma}
+\label{rangefunctorquotient}
+The functor $\Fquotient$ is a range functor.
+\end{lemma}
+\begin{proof} \commentary{Proof reviewed on 12 Dec 2023.}
+We need to show that  $\Fquotient$ respects the range operator
+i.e. we need to show that for any morphism $j:x \morph y$ in \catcw, 
+ $\Fquotient(\hat{j})= \widehat{\Fquotient(j)}$.
+
+The LHS, $\Fquotient(\hat{j})$, is defined to  be 
+the partial function which maps $[k']$, where $k' \in F(y)$, as follows
+$$ [k'] \mapsto [F(\hat{j})(k')] \mbox{ providing $F(\hat{j})(k')$ is defined, and is undefined otherwise.}$$
+In otherwords, since  $F$ assumed to be a range functor it can be defined as mapping
+$$ [k'] \mapsto [\widehat{F(j)}(k')] \mbox{ providing $\widehat{F(j)}(k')$ is defined and being undefined otherwise,}$$
+and this in turn, because of the definition of ranges in \SetP, means that it maps
+$$ [k'] \mapsto [k'] \mbox{providing there exists $k \in F(x)$ such that $k'=F(j)(k)$ and being undefined otherwise.}$$
+
+Meanwhile the RHS, $\widehat{\Fquotient(j)}$  is defined as the partial function that 
+maps $[k']$  to $[k']$  provided  there exists $k \in F(x)$ such that
+$\Fquotient(j)([k])=[k']$ to be undefined otherwise.
+
+Because,
+from the definition of $\Fquotient$ we have that $\Fquotient(j)([k])= [F(j)(k)]$   
+we have  that LHS and RHS are identical functions, as required.
+\end{proof}
+
+\section{\rangeplus categories}
+A \rangeplus category is a range category for which the embedding into the freely 
+generated range category with partial sections is faithful.

@@ -1,0 +1,140 @@
+\newcommand{\datacat}{$\gamma$-category }
+
+\begin{frame}{Definition}
+
+I assume a fixed set $V$ of universals and define data specifications and instances relative to $V$. 
+
+\begin{itemize}
+\item A \textit{\datacat} is a triple $\tuple{\catc,M,v}$ where 
+\begin{itemize}
+\item \catcw is a \rangeplus category with specified finite products,
+\item $M$ is a set of designated monomorphisms of \catcw closed under composition and including all identity morphisms 
+and such that each $m \in M$   has a partial inverse $m^{-1}$,
+\item a distinguished object $v$, such that every morphism $f: v \morph x$ in \catcw 
+factors through $m^{-1}$, for some monomorphism $m$
+\end{itemize}
+\item Define an instance $F$ of a \datacat to be a 
+range functor $F: \catc \morph \Par$ 
+that preserves the specified finite products
+and maps the object $v$ to the set $V$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Data Specifications}
+A data specification is a restricted kind of sketch for a \datacat category
+with a designated object $v$ and designated finite products and designated monomorphisms.
+
+The most significant restrictions are 
+\begin{itemize}
+\item the designated object $v$ has no outgoing edges.
+\item every non-v-node is the domain of at least one v-valued mono-source
+i.e. for every non-v-node $a$, for some $n \geq 1$, there exists a source
+\begin{displaymath}
+\parallelsource{a}{v}{m}{n}
+\end{displaymath}
+which is designated as a mono-source i.e. for which $\tuple{m_1,...m_n}$ is a designated monomorphism.
+\end{itemize}
+
+There are other restrictions which I won't describe here.
+
+\end{frame}
+
+\begin{frame}{Relational Data Specifications}
+What is much more interesting is that we can give additional conditions for such a sketch to be a relational data specification or a logical data specification (akin to an entity relational model).
+\medskip
+A relational data specification is a data specification 
+such that the sketch has no edges between non-v-nodes.
+
+How can that be? 
+\end{frame}
+
+\iffalse
+\begin{frame}
+Well in a relational specification if I wish to represent a morphism 
+$f: a \morph b$ in the category, without representing $f$ in the sketch
+then I select a mono-source
+$\parallelsource{b}{v}{m}{n}$ is a designated and add edges
+
+$\parallelsource{a}{v}{f}{n}$ to the sketch along with 
+the commuting diagram
+$\tuple{f_1,...f_n} \circ \widehat{\tuple{m_1,...m_n}}=\tuple{f_1,...f_n}$
+
+Then $f$ in the category is constructed from the sketch as $\tuple{f_1,...f_n} \circ \tuple{m_1,...m_n}^{-1}$
+\end{frame}
+\fi
+
+\begin{frame}{Relational Data Specification}
+\begin{definition}
+A \textit{relational data specification} is one whose only edges have a non-v-node as a domain and the $v$ node as codomain. 
+\end{definition}
+
+In relational-speak the non-v-nodes of the sketch are 
+said to be tables and the edges are said to be columns. 
+
+\begin{definition}
+A \textit{classic relational data specification} is a
+relational data specification
+in which every specified path equivalence is of the form 
+$$\ntuple{f} \circ \widehat{\ntuple{m}}=\ntuple{f}$$,
+where the $f_i$ and $m_i$ are  edges, 
+i.e. is representative of a referential inclusion dependency
+$$a[f_1,...f_n] \subseteq b[m_1,...m_n].$$
+Additional condition regarding the $\bar{f_i}$.
+\end{definition}
+\end{frame}
+
+\begin{frame}{Chen's Method 1976}
+\begin{lemma}
+For any data specification there is an equivalent data specification
+(one with the same theory category) which is relational.
+\end{lemma}
+\begin{proof}
+The first-cut construction is
+given a data specification in which contrary to the definition of relational there is an edge $f:a \morph b$ replace $f$ in the sketch by edges $\fn$
+where $\wanton{m}$ is a v-valued mono-source with domain $a$ 
+and inclusion dependency 
+$$a[f_1,...f_n] \subseteq b[m_1,...m_n]$$
+to the sketch.
+In path equivalences replace uses of $f$ by uses of
+$$\ntuple{f}\circ \ntuple{m}^{-1}$$.
+Need to be more sophisicated to take account of commutative diagrams.
+\end{proof}
+\end{frame}
+
+\begin{frame}{Logical Data Specifications (Entity Relationship Models)}
+The extreme opposite of a relational model. In principle at least:
+\begin{definition}
+A data specification is said to be \textit{pure logical} iff 
+it does not contain any path equivalence of the form
+$$\ntuple{p} \comp \widehat{\ntuple{m}}=\ntuple{p}$$
+where  each $p_i: a \morph v$  is a path and 
+where $\ntuple{m}$ is a  v-valued mono-source at $b$,
+ i.e. does not have a path equivalence such 
+ as would represent a referential inclusion dependency
+$$a[p_1,...p_n] \subseteq b[m_1,...m_n]$$.
+\end{definition}
+\end{frame}
+
+\begin{frame}{Abstraction of Logical Model}
+\begin{lemma}
+For any classic relational data specification 
+there is an equivalent data specification
+(i.e. one with the same theory category) which is logical.
+\end{lemma}
+
+\begin{proof}
+In outline: We construct a series of equivalent models by eliminating each 
+inclusion dependency in turn. When all eliminated the resulting model is the required logical model. Eliminate the inclusion dependency 
+$a[f_1,...f_n] \subseteq b[m_1,...m_n]$
+as follows:
+\begin{itemize}
+\item remove the inclusion dependency,
+\item replace by an edge $f: a \morph b$, 
+\item remove those $f_i$ that are edges and 
+rewrite any occurrence of such $f_i$ in the remaining inclusion depdencies by $f \circ  m_i$, 
+\item for those $f_i$ that are not edges add a path equivalence (i.e. a commuting diagram)
+$f \circ m_i = f_i$.
+\end{itemize}
+\end{proof}
+An example follows.
+\end{frame}
