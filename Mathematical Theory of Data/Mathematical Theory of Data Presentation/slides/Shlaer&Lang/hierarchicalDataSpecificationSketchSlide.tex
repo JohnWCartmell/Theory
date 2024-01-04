@@ -1,0 +1,54 @@
+
+\newcommand{\nestedDataSchematic}
+{
+\begin{displaymath}
+\begin{array}{c c c c}
+  & \makebox[1cm][c]{\Rnode{department}{departm\Rnode{departmentRight}{ent}}} \\
+  &               &                               &\hspace{0.6cm}\Rnode{v}{v}\\[0.4cm]
+  &               &                               &\Rnode{vTWO}{v} \\[0.5cm]
+\makebox[1cm][c]{\Rnode{student}{student}} 
+      && \makebox[1cm][c]{\Rnode{professor}{professor}}              \\[0.6cm]
+\Rnode{sv1}{v}\hspace{0.5cm}\Rnode{sv2}{v} &&   
+                       \Rnode{pv1}{v}\hspace{0.5cm}\Rnode{pv2}{v}  
+\end{array}
+\begin{arrows}
+\ncarr{departmentRight}{v}
+\alabel{dName}[0.4]
+\addedgebar
+\ncarr{departmentRight}{vTWO}
+\blabel{dHd}[0.4][0]
+\arreset
+\ncsar{student}{department}
+\alabel{d}[0.3]
+\ncarr{student}{sv1}
+\blabel{sName}[0.4]
+\addedgebar
+\ncarr{student}{sv2}
+\alabel{sSv}[0.4]
+\ncsar{professor}{department}
+\blabel{d'}[0.3]
+\addedgebar
+\ncarr{professor}{pv1}
+\blabel{pNo}[0.4]
+\addedgebar
+\ncarr{professor}{pv2}
+\alabel{pName}[0.4]
+\end{arrows}
+\end{displaymath}
+}
+
+\newcommand{\relabelledNestedStudentSupervisorInclusionDependency}
+{student[d,svr] \subseteq professor[d',no]}
+
+\newcommand{\relabelledNestedHeadOfDeptInclusionDependency}
+{department[identity,hd]  \subseteq professor[d',no]}
+
+\begin{frame}{Hierarchical Data Specification Sketch }
+\nestedDataSchematic
+\begin{align*}
+\relabelledNestedStudentSupervisorInclusionDependency\\
+\relabelledNestedHeadOfDeptInclusionDependency  \\
+\end{align*}
+\end{frame}
+
+

@@ -20,13 +20,15 @@
 \input{../macros/sketchmacros}
 \input{../macros/directedgraphsmacros}
 
-\renewcommand{\erpictureFolder}[0]{../../SharedPictures}
+\renewcommand{\erpictureFolder}[0]{../../../SharedPictures}
 \setcounter{equation}{0}
 
+\makeatletter
+\newcommand{\xRightarrow}[2][]{\ext@arrow 0359\Rightarrowfill@{#1}{#2}}
+\makeatother
 
 
-
-\title[John Cartmell]{Elements of a Mathematical Theory of Data}
+\title[John Cartmell]{Exploring the Mathematical Theory of Data}
 %% Which is to say types as they are used in practice in software development and as represented in theory in categories and in syntactic type theories.
 %% There is also a subplot concerning representation of context which certain types depend on -- again represented in practice and in theory. 
 
@@ -64,6 +66,10 @@
 
 \newcommand{\fgsourcediag}{$\binarysourcediag{a}{b}{c}{f}{g}$}
 \newcommand{\rangeplus}{$\mbox{range}^+\ $}
+\newcommand{\datacat}{$\gamma$-structured category}
+\newcommand{\datacatw}{\datacat\ }
+
+\newtheorem{construction}[theorem]{Construction}
 
 \begin{document}
 
@@ -71,9 +77,8 @@
 \begin{frame}
 \titlepage
 \nobibliography{../../SharedBibliography/temp/bibliography}
-\end{frame}
+\end{frame} 
 
-\iffalse   
 
 \begin{frame}{Preamble}
 \underline{\url{www.researchgate.net/profile/John-Cartmell}}
@@ -98,18 +103,18 @@
 \item \textit{nested relational} 
 models of data
 \end{itemize}
-\item the mathematical theory of data is a new proposed meta-theory of data that supports technology  independent reasoning about data specifications
+\item the \textit{mathematical theory of data} is a meta-theory of data that supports technology  independent reasoning about data specifications.
 \end{itemize}
 \end{frame}
 
-\section{Mathematical Theory of Data LITE}
 
-\begin{frame}{why? --- The Thesis}
+\begin{frame}{Why?}
 \begin{itemize}[<+->]
-  \item There are gross inefficiencies in ther methodologies and working practices used in  a the key activity in s/w systems development and maintenance namely in  the creation and maintenance of specifications of the data stored in databases and variously intra-communicated between components of a system and inter-communicated between systems in messages. 
+  \item There are gross inefficiencies in the methodologies and working practices used in  a key activity in s/w systems development and maintenance namely in  the creation and maintenance of specifications of the data stored in databases and 
+  represented in messages variously intra-communicated between components of systems and inter-communicated between systems. 
   \item These inefficiences have been established and endorsed by a theory which is grossly inadequate.
   \item A new theory is required to expose and remedy the shortcomings.
-  \item The challenge is positively impact best practice.
+  \item The challenge is to positively impact best practice.
 \end{itemize}
 \end{frame}
 
@@ -123,109 +128,35 @@ models of data
 \end{frame}
 
 \input{../slides/normalformliterature.slides}
-\fi
-
-\iffalse
 \input{../slides/generalintroductory.slides}
 \input{../slides/specificintroductory.slides}
-
 \input{../slides/backgroundcategorytheory.slides}
-\fi
 \input{../slides/datacategorydefinition.slides}
-
-\input{../slides/Shlaer&Lang/relationalDataSlide}  % this slide defines inclusion dependencies
-\input{../slides/Shlaer&Lang/relationalDataSchematicSlide}
-\input{../slides/Shlaer&Lang/sketchSlide}
-\iffalse
-\input{../slides/Shlaer&Lang/nestedRelationalDataSlide}
-\input{../slides/Shlaer&Lang/nestedRelationalDataSchematicSlide}
-\input{../slides/Shlaer&Lang/contextualSketchSlide}
-\fi
-
-\iffalse
-\subsection{Example}
-\begin{frame}{Example -- LCMSMS Data}
-\scalebox{0.2}{
-\input{\erpictureFolder/chromatogramanalysisrecord}
-}
-\pause
-\vspace{-5cm}
-\begin{block}{}
-This diagram has representations of
-\begin{itemize}
-  \item a terminal object,
-  \item 35 structurally implemented relationships, 
-  \item 22 reference relationships implemented by foreign key,
-  \item 5 coproducts,
-  \item approx 15 commutative diagrams,
-  \item xxx pullback diagrams.
-\end{itemize}
-Generated into code in XML, ECMA Javascript, Python.
-\end{block}
-\end{frame}
-\fi
-
-\iffalse
-\begin{frame}{Nested data structures}
-draw single nested relational data model
-less columns now and that is because some structure is represented niot by foreign keys but by the nesting of struture. Thats why this example is representative of how data about departments, professors and students might be represented in other messaging systems such as XML ad IDL and also in hierarchical databases. 
-
-decisions about how which data relationships to represent by nesting are recorded by distinguishing certain morphisms of the sketch as being represented `structurally'
-(in IDL for eaxample the keyword would be struct).
-
-These distinguished morphisms determine (have you guessed this yet) a contextual category 
-\end{frame}
-
-
-\begin{frame}{Missing Data and Range Categories}
-\end{frame}
-
-\begin{frame}{The problem caused by absence.}
-\begin{itemize}
-\item relational schemas (SQL) can be generated from this diagram. So to data structure definitions in programming language and in messaging technologies such as XML and IDL. 
-\item the commutivity of the diagrams, $s \circ d2 = d_1$ and $h circ d2 =id$, is reflected in the relational structure and the other representations such as in XML and IDL.  
-\item that the triangles commutes has an effect on the relational structure but equally on xml or idl or other such message structures. 
-\end{itemize}
-\end{frame}
-\fi
-
-\iffalse
-\subsection{Example Data}
-\input{../slides/data.slides}
-
-\subsection{Directed Graphs}
-\input{../slides/directedgraph.slides}
-\fi
-\iffalse
-\subsection{Categories}
-\input{../slides/goodnesscriteria.category.slides}
-
-\subsection{Categories with Designated Monomorphisms and Epimorphims}
-\input{../slides/goodnesscriteria.epimono.slides}
-
-\subsection{Categories with Finite Products and Designated Monomorphisms and Epimorphims}
-\input{../slides/goodnesscriteria.products.slides}
+\input{../slides/GoodnessCriteria/goodnesscriteria.gammacategory.slides}
 
 \begin{frame}{Summary}
-\begin{itemize}
-\item If a sketch of a category with designated monos and epis, finite products and epi-mono splits is
- considered as a data specification with a given requirement then there are  two generic criteria which when met
- ensure that it meets an abstract BCNF criteria.
-\item Similar results can be obtained for 2NF and where appropraite 3NF criteria as well as for 4NF and 5NF but in this case a category with limits is required.
-\end{itemize}
+\begin{center}
+\begin{tabular}{c p{0.75cm} c p{0.75cm} c}
+\Rnode{A}{\parbox{2cm}{\textit{Two \\Fundamental Principles}}} 
+             &$\Longrightarrow$& \Rnode{B}{\parbox{1.5cm}{\textit{Generic Goodness Criteria}}} 
+             &$\Longrightarrow$& \Rnode{C}{\parbox{1.5cm}{\textit{Classic Normal Forms}}}
+\begin{arrows}
+%\ncarr{A}{B}
+%\ncarr{B}{C}
+\end{arrows}
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{c p{0.75cm} c p{0.75cm} c}
+\Rnode{A}{\parbox{2cm}{\textit{Logical Data \\Specifications}}} 
+             &$\Longrightarrow$& \Rnode{B}{\parbox{1.5cm}{\textit{Physical Data Specifications}}} 
+\begin{arrows}
+%\ncarr{A}{B}
+%\ncarr{B}{C}
+\end{arrows}
+\end{tabular}
+\end{center}
 \end{frame}
-\fi
-
-
-
-\iffalse
-\subsection{Entity-Relationship Notation}
-\input{../slides/ERA.slides}
-\fi
-
-\iffalse
-\subsection{Unused}
-\input{../slides/unused.slides}
-\fi
 
 \end{document}

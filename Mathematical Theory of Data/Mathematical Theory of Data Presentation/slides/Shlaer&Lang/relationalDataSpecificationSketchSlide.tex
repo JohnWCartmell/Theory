@@ -1,0 +1,106 @@
+
+%These will be redefined in the next slide
+\newcommand{\studentDepartmentAttribute}[1]{#1}
+\newcommand{\studentProfessorAttribute}[1]{#1}
+\newcommand{\professorDepartmentAttribute}[1]{#1}
+\newcommand{\departmentProfessorAttribute}[1]{#1}
+\newcommand{\studentDepartmentAttributeStrikeout}[1]{}
+\newcommand{\studentProfessorAttributeStrikeout}[1]{}
+\newcommand{\professorDepartmentAttributeStrikeout}[1]{}
+\newcommand{\departmentProfessorAttributeStrikeout}[1]{}
+
+\newcommand{\professorStudentDepartmentRelationalSchematic}
+{
+\begin{tabular}{c p{0.25cm} c p{0.5cm} c}
+$\begin{array}{c p{0.01cm} c p{0.2cm} c}
+\multicolumn{5}{c}{\Rnode{student}{student}} \\[-0.3cm]
+\multicolumn{5}{c}{\Rnode{sB1}{}\hspace{0.4cm}\Rnode{sB2}{}\hspace{0.5cm}\Rnode{sB3}{}} \\[1.0cm]
+\Rnode{sv1}{v} && \studentDepartmentAttribute{\Rnode{sv2}{v}} && \studentProfessorAttribute{\Rnode{sv3}{v}}
+\end{array}
+\begin{arrows}
+\ncarr{sB1}{sv1}
+\blabel{sName}[0.55][0.1]
+\addedgebar
+\studentDepartmentAttribute{
+  \ncarr{sB2}{sv2}
+  \alabel{sDept}[0.57][0.1]
+  \studentDepartmentAttributeStrikeout{\ncstrikeout{sB2}{sv2}}
+}
+\studentProfessorAttribute{
+  \ncarr{sB3}{sv3}
+  \alabel{sSv}[0.55][0.1]
+  \studentProfessorAttributeStrikeout{\ncstrikeout{sB3}{sv3}}
+}
+\end{arrows}$
+&&
+$\begin{array}{c p{0.1cm} c p{0.01cm} c}
+\multicolumn{5}{c}{\Rnode{professor}{professor}} \\[-0.3cm]
+\multicolumn{5}{c}{\Rnode{pB1}{}\hspace{0.5cm}\Rnode{pB2}{}\hspace{0.5cm}\Rnode{pB3}{}} \\[1.0cm]
+\professorDepartmentAttribute{\Rnode{pv1}{v}} && \Rnode{pv2}{v} && \Rnode{pv3}{v} 
+\end{array}
+\begin{arrows}
+\professorDepartmentAttribute{
+  \ncarr{pB1}{pv1}
+  \blabel{pDept}[0.5][0.1]
+  \addedgebar
+  \professorDepartmentAttributeStrikeout{\ncstrikeout{pB1}{pv1}}
+}
+\ncarr{pB2}{pv2}
+\blabel{pNo}[0.55][0.1]
+\addedgebar
+\ncarr{pB3}{pv3}
+\alabel{pName}[0.5][0.1]
+\end{arrows}$
+&&
+$\begin{array}{c  c }
+\multicolumn{2}{c}{\Rnode{department}{department}} \\[-0.3cm]
+\multicolumn{2}{c}{\Rnode{dB1}{}\hspace{0.5cm}\Rnode{dB2}{}} \\[1.0cm]
+\hspace{0.2cm}\Rnode{dv1}{v} & \departmentProfessorAttribute{\Rnode{dv2}{v}} 
+\end{array}
+\begin{arrows}
+\ncarr{dB1}{dv1}
+\blabel{dName}[0.5][0.1]
+\addedgebar
+\departmentProfessorAttribute{
+  \ncarr{dB2}{dv2}
+  \alabel{dHd}[0.5][0.1]
+  \departmentProfessorAttributeStrikeout{\ncstrikeout{dB2}{dv2}}
+}
+\end{arrows}$
+\end{tabular}
+}
+
+
+\newcommand{\rightsquiggle}
+{
+  \textcolor{red}{ \Large$\leftrightsquigarrow$ }
+}
+
+\newcommand{\inclusionDependencies}
+{
+\begin{overprint}
+\vspace{1cm}
+\begin{itemize}
+\item $\studentDeptInclusionDependency$ 
+                    \onslide<2->{\rightsquiggle $sDept \circ \widehat{dName} = sDept$}\\
+\medskip
+\item $\professorDeptInclusionDependency$  
+                    \onslide<3->{\rightsquiggle  $pDept \circ \widehat{dName} = pDept$} \\
+\medskip
+\item $\studentSupervisorInclusionDependency$  \\
+\hspace{2.5cm}\onslide<4->{\rightsquiggle $\tuple{sDept,sSv} \circ \widehat{\tuple{pDept,pNo}} 
+                                                              = \tuple{sDept,sSv}$ }  \\
+%\smallskip
+\item $\headOfDeptInclusionDependency$   \\
+\hspace{2.5cm}\onslide<5->{\rightsquiggle  $\tuple{dName,dHd} \circ \widehat{\tuple{pDept,pNo}} 
+              = \tuple{dName,dHd}$}
+\end{itemize}
+\end{overprint}
+}
+
+\begin{frame}{Relational Sketch}
+\vspace{0.9cm}
+\professorStudentDepartmentRelationalSchematic
+\inclusionDependencies
+\end{frame}
+
