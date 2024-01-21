@@ -20,6 +20,9 @@
 \input{../macros/sketchmacros}
 \input{../macros/directedgraphsmacros}
 
+
+
+
 \renewcommand{\erpictureFolder}[0]{../../../SharedPictures}
 \setcounter{equation}{0}
 
@@ -34,7 +37,7 @@
 
 \author{John Cartmell}
 \institute{\\}
-\date{Dec 12, 2023}
+\date{Jan 18, 2024}
 \bibliographystyle{plainnat}
 \usepackage{framed}
 \usepackage{bibentry}
@@ -54,22 +57,18 @@
 %\renewcommand{\Fin}{\Set}
 
 
-\newcommand{\slidecontext}{Introduction} % to be redefined before use
-
-\newcommand{\comingnext}[1]{
-\begin{frame}{COMING NEXT}
-\begin{center}
-\Large #1
-\end{center}
-\end{frame}
-}
 
 \newcommand{\fgsourcediag}{$\binarysourcediag{a}{b}{c}{f}{g}$}
-\newcommand{\rangeplus}{$\mbox{range}^+\ $}
+\newcommand{\rangeplus}{RR.5 range } % has trailing space
 \newcommand{\datacat}{$\gamma$-structured category}
 \newcommand{\datacatw}{\datacat\ }
-
+\mathchardef\localjchyphen="2D
 \newtheorem{construction}[theorem]{Construction}
+
+\newcommand{\IfSforGammaCwithRCwords}{
+If $S$ is a sketch for \datacatw \catcw considered as a data specification with requirement $\reqtc$\ }
+\newcommand{\IfSforGammaCwithRCwordsvariant}{
+If $S$ is a sketch for \datacatw  \catcw and if $S$ is considered as a data specification with requirement $\reqtc$\ }
 
 \begin{document}
 
@@ -80,33 +79,66 @@
 \end{frame} 
 
 
+% see top level tex for NotesnAll
+\ifNotesnAll
+\begin{frame}{Title page Notes}
+\begin{itemize}
+  \item HELLO EVERYBODY. 
+  \item Thank you Shaowei for inviting me to present.
+  \item Thank you everybody for coming to listen.
+  \item As you see, I will be speaking of the mathematical theory of data.
+\end{itemize}
+\end{frame}
+\fi
+
+
 \begin{frame}{Preamble}
 \underline{\url{www.researchgate.net/profile/John-Cartmell}}
 \medskip
 \begin{itemize}
-\item Preparation for a Mathematical Theory Of Data - prequel to my talk here
-\pause \item Concept Instance Algebras (\textit{circa} 1973)
-\pause \item Instances of Generalised Algebraic Theories 
+\item Preparation for a Mathematical Theory Of Data
+\item Concept Instance Algebras (\textit{circa} 1973)
+\item Instances of Generalised Algebraic Theories 
 \end{itemize}
 \end{frame}
+\ifNotesnAll
+\begin{frame}{Preamble Notes (1)}
+\begin{itemize}
+\item I would like to start just by mentioning three papers that I have posted on my Research Gate page.
+\item The first is contains useful background to the talk I give here.
+  \item The second describes some algebras that I first defined about 50 years ago to be the algebraic equivalents of the syntactic notion of a Generalised Algebraic Theory. 
+\begin{itemize}
+  \item I was being supervised by Professor Dana Scott. 
+  \item I took Dana a draft of my thesis in which I defined GATs, these algebras and a lengthy proof of equivalence.
+  \item Dana didn't look too impressed and simply said ``couldn't you make these algebras into categories like Lawvere has done''. I went away crestfallen.
+  \item By the next morning I had the definition of contextual categories and had the onerous task of proving contextual categories and GATs were equivalent ... which of course I did do ... and I went on to write up the proof in my thesis.
+  \item So, thank you Dana for taking me into your research group at Oxford and thank you for posing that ``couldn't you just..'' question.
+\end{itemize}
+\end{itemize}
+\end{frame}
+\begin{frame}{Preamble Notes(2)}
+\begin{itemize}
+  \item The third paper here also relates to my thesis. It expores the definition of models of generalised algebriac theories in sets and families of sets WITHOUT going via contextual categories. BUT, and it is a big but, in this paper ...and generally, I speak of INSTANCES rather than models. 
+  This is because I want to use  the word model  AS OTHER SCIENTISTS USE IT and ... NOT as it used in mathematical logic. Therefore for me theories have instances, not models.
+\end{itemize}
+\end{frame}
+\fi
 
 \begin{frame}{Terminology}
 \begin{itemize}
 \item \textit{modelling} for me is \textit{theorizing}
-\item \textit{instances of theories}  rather then \textit{models of theories}
-\item \textit{data specifications} except when I forget and I call them \textit{data models}
+\item I speak of \textit{instances of theories}  rather then \textit{models of theories}
+\item I speak of \textit{data specifications} except when I forget and I call them \textit{data models}
 \item the act of constructing data specifications is \textit{data modelling}
-\item a \textit{model of data} is a meta-theory (a meta-model) describing what constitutes a data specification 
-\item most significantly there are
+\item a \textit{model of data} is a meta-theory (a meta-model) describing what constitutes a data specification. Most significantly there are
 \begin{itemize}
 \item \textit{relational} and 
 \item \textit{nested relational} 
 models of data
 \end{itemize}
-\item the \textit{mathematical theory of data} is a meta-theory of data that supports technology  independent reasoning about data specifications.
+\item the \textit{mathematical theory of data} is a meta-theory of data that supports technology  independent reasoning about data specifications in all their forms.
 \end{itemize}
 \end{frame}
-
 
 \begin{frame}{Why?}
 \begin{itemize}[<+->]
@@ -121,11 +153,12 @@ models of data
 \begin{frame}{Mathematical Theory of Data}
 \begin{itemize}
 \item is a meta-theory,
-\item covers \textit{principles} and \textit{criteria} for goodness of data specifications,
-\item reveals the significance of commutative diagrams and therefore category theory,
-\item slogan on the tin\textit{--- good data modelling is good theorising}. 
+\item it covers \textit{principles} and \textit{criteria} for goodness of data specifications,
+\item it reveals the significance of commutative diagrams and therefore category theory.
+\item The slogan on the tin is \textit{Good Data Modelling is Good Theorising}. 
 \end{itemize}
 \end{frame}
+
 
 \input{../slides/normalformliterature.slides}
 \input{../slides/generalintroductory.slides}
@@ -133,30 +166,7 @@ models of data
 \input{../slides/backgroundcategorytheory.slides}
 \input{../slides/datacategorydefinition.slides}
 \input{../slides/GoodnessCriteria/goodnesscriteria.gammacategory.slides}
+\input{../slides/revisedBestPractice}
 
-\begin{frame}{Summary}
-\begin{center}
-\begin{tabular}{c p{0.75cm} c p{0.75cm} c}
-\Rnode{A}{\parbox{2cm}{\textit{Two \\Fundamental Principles}}} 
-             &$\Longrightarrow$& \Rnode{B}{\parbox{1.5cm}{\textit{Generic Goodness Criteria}}} 
-             &$\Longrightarrow$& \Rnode{C}{\parbox{1.5cm}{\textit{Classic Normal Forms}}}
-\begin{arrows}
-%\ncarr{A}{B}
-%\ncarr{B}{C}
-\end{arrows}
-\end{tabular}
-\end{center}
-
-\begin{center}
-\begin{tabular}{c p{0.75cm} c p{0.75cm} c}
-\Rnode{A}{\parbox{2cm}{\textit{Logical Data \\Specifications}}} 
-             &$\Longrightarrow$& \Rnode{B}{\parbox{1.5cm}{\textit{Physical Data Specifications}}} 
-\begin{arrows}
-%\ncarr{A}{B}
-%\ncarr{B}{C}
-\end{arrows}
-\end{tabular}
-\end{center}
-\end{frame}
 
 \end{document}

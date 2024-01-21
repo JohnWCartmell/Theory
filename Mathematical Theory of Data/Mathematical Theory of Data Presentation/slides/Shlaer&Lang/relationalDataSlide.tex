@@ -2,18 +2,68 @@
 \newcommand{\studentDeptInclusionDependency}
 {student[sDept] \subseteq department[dName]}
 \newcommand{\studentSupervisorInclusionDependency}
-{student[sDept,sSv] \subseteq professor[pDept,pNo]}
+{student[sDept,sSv] \subseteq professor[pDept,pId]}
 \newcommand{\professorDeptInclusionDependency}
 {professor[pDept] \subseteq department[dName]}
 \newcommand{\headOfDeptInclusionDependency}
-{department[dName,dHd]  \subseteq professor[pDept,pNo]}
+{department[dName,dHd]  \subseteq professor[pDept,pId]}
 
 \begin{frame}{Relational Data}
 \input{../content/Shlaer&Lang/professorStudentDepartment.display.tabular}
+\begin{overlayarea}{\textwidth}{6cm}
+\only<2>{
 \begin{itemize}
-\pause \item $\studentDeptInclusionDependency$ \\
-\pause \item $\professorDeptInclusionDependency$      \\
-\pause \item $\studentSupervisorInclusionDependency$  \\
-\pause \item $\headOfDeptInclusionDependency$         \\
+\item students and departments are identified by name,
+\item professors are identified by combination of department and id,
 \end{itemize}
+}
+\only<3->{
+\begin{itemize}
+\item rows of the \textit{student} table reference the \textit{department} table by virtue of a column that instances values from the identifying column that table,
+\onslide<4->{	
+\fcolorbox{red}{white}{$\studentDeptInclusionDependency$},
+}
+\onslide<5->{
+\item similarly,
+\fcolorbox{red}{white}{$\professorDeptInclusionDependency$},
+}
+\onslide<6->{
+\item rows of the \textit{student} table reference the \textit{professor} table by virtue of two columns  instancing values from the identifying columns of that table,
+}
+\onslide<7->{
+\fcolorbox{red}{white}{$\studentSupervisorInclusionDependency$},
+}
+\onslide<8->{ 
+\item similarly,
+\fcolorbox{red}{white}{$\headOfDeptInclusionDependency$}.
+}
+\end{itemize}
+}
+\end{overlayarea}
+\end{frame}
+
+\iffalse
+\newcommand{\studentDeptRangeExpression}
+{$\widehat{sDept} \leq \widehat{dName}$}
+\newcommand{\studentSupervisorRangeExpression}
+{$\widehat{\tuple{sDept,sSv}} \leq \widehat{\tuple{pDept,pId}}$}
+\newcommand{\professorDeptRangeExpression}
+{$\widehat{pDept} \leq \widehat{dName}$}
+\newcommand{\headOfDeptRangeExpression}
+{$\widehat{\tuple{dName,dHd}}  \leq \widehat{\tuple{pDept,pId}}$}
+\fi
+
+\begin{frame}{Referential Inclusion Dependencies as Range Identities}
+
+\begin{itemize}
+\item Now think of each column as a function that maps rows of a table to values.
+\item Each inclusion dependency can be expressed as identity on the ranges of these functions.
+\item Each $$a[f] \subseteq b[q]$$
+can be represented as
+$$\widehat{f} \leq \widehat{q} \mbox{ in \Par,}$$
+\item Similarly $$a[f_1,...f_n] \subseteq b[q_1,...q_n]$$
+can be represented as
+$$\widehat{\tuple{f_1,...f_n}} \leq \widehat{\tuple{q_1,...q_n}} \mbox{ in \Par.}$$
+\end{itemize}
+
 \end{frame}

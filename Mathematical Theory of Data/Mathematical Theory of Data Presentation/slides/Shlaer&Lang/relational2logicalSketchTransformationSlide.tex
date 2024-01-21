@@ -9,7 +9,7 @@
 \newcommand{\popupFirstRewrittenInclusionDependencies}    {\only   <6-9>}
 
 \renewcommand{\professorDepartmentAttribute}[1]           {\onslide<1-10>{#1}}
-\newcommand{\reprofessorDepartmentAttributeStrikeout}[1]  {\onslide<10>{#1}}
+\renewcommand{\professorDepartmentAttributeStrikeout}[1]  {\onslide<10>{#1}}
 \newcommand{\popupMarkedUpFirstRewrittenInclusionDependencies}[1]
                                                         {\only   <10>{#1}}
 \newcommand{\popupAbstractionOfdPrime}[1]               {\only   <7-10>{#1}}
@@ -17,19 +17,22 @@
 \newcommand{\professorDepartmentRelationship}[1]        {\onslide<9->{#1}}
 \newcommand{\professorDepartmentRelationshipBar}[1]     {\onslide<11->{#1}}
 
-\newcommand{\popupSecondRewrittenInclusionDependencies} {\only  <11-16>}
-\newcommand{\restudentProfessorAttribute}[1]            {\onslide<1-15>{#1}}
-\newcommand{\restudentProfessorAttributeStrikeout}[1]   {\onslide<15>{#1}}
-\newcommand{\popupAbstractionOfs}[1]                    {\only   <12-16>{#1}}
-\newcommand{\popupAbstractionOfsDetail}[1]              {\onslide<13-16>{#1}}
+\newcommand{\popupSecondRewrittenInclusionDependencies} {\only  <11-14>}
+\renewcommand{\studentProfessorAttribute}[1]            {\onslide<1-15>{#1}}
+\renewcommand{\studentProfessorAttributeStrikeout}[1]   {\onslide<15>{#1}}
+\newcommand{\popupMarkedUpSecondRewrittenInclusionDependencies}[1]
+                                                        {\only   <15>{#1}}
+\newcommand{\popupAbstractionOfs}[1]                    {\only   <12-15>{#1}}
+\newcommand{\popupAbstractionOfsDetail}[1]              {\onslide<13-15>{#1}}
 \newcommand{\studentProfessorRelationship}[1]           {\onslide<14->{#1}}
 
-\newcommand{\popupThirdRewrittenInclusionDependencies}  {\only  <17-20>}
-\renewcommand{\departmentProfessorAttribute}[1]         {\onslide<1-20>{#1}}
-\renewcommand{\departmentProfessorAttributeStrikeout}[1]{\onslide<20>{#1}}
-\newcommand{\popupAbstractionOfhd}[1]                   {\only   <18-20>{#1}}
-\newcommand{\popupAbstractionOfhdDetail}[1]             {\onslide<19-20>{#1}}
-\newcommand{\departmentProfessorRelationship}[1]        {\onslide<19-20>{#1}}
+\newcommand{\popupThirdRewrittenInclusionDependencies}  {\only  <16-18>}
+\renewcommand{\departmentProfessorAttribute}[1]         {\onslide<1-19>{#1}}
+\renewcommand{\departmentProfessorAttributeStrikeout}[1]{\onslide<19>{#1}}
+\newcommand{\popupMarkedUpThirdRewrittenInclusionDependencies}  {\only  <19>}
+\newcommand{\popupAbstractionOfhd}[1]                   {\only   <17-19>{#1}}
+\newcommand{\popupAbstractionOfhdDetail}[1]             {\onslide<18-19>{#1}}
+\newcommand{\departmentProfessorRelationship}[1]        {\onslide<18-19>{#1}}
 
 
 \newcommand{\abstractionOfd}
@@ -48,13 +51,11 @@ Rewrite appearances of $pDept$ in the sketch by $d' \comp dName$.
 \newcommand{\abstractionOfs}
 {
 Remove $sSv$ and replace by an edge  $s: student \morph professor$.
-Rewrite appearances of $sSv$ in the sketch by $s \comp pNo$.
+Rewrite appearances of $sSv$ in the sketch by $s \comp pId$.
 Add commutative diagram
 $\composeSevenShaped[0.85cm]{student}{professor}{v} {s}{d' \circ dName}{d \circ dName}$ 
  simplify to
-$\composeSevenShaped[0.85cm]{student}{professor}{department}{s}{d'}{d }$
-Keep $\composeSevenShaped[0.85cm]{student}{professor}{v}{s}{no}{svr}$ commute
-pending rethink.
+$\composeSevenShaped[0.85cm]{student}{professor}{department}{s}{d'}{d }.$
 }
 
 \newcommand{\abstractionOfhd}
@@ -65,36 +66,35 @@ $\composeSevenShaped[0.85cm]{department}{professor}{v}{h}{d' \circ dName}{dName}
  simplfy to
 $\composeSevenShaped[0.85cm]{department}{professor}{department}{h}{d'}{id}$
 .
-Keep $\composeSevenShaped[0.85cm]{department}{professor}{v}{h}{no}{h}$.
 }
 
 \newcommand{\circledStudentSupervisorInclusionDependency}
 {
-{student[\psovalbox[linecolor=red, boxsep=false]{sDept},sSv] \subseteq professor[pDept,pNo]}
+{student[\psovalbox[linecolor=red, boxsep=false]{sDept},sSv] \subseteq professor[pDept,pId]}
 }
 
 \newcommand{\rewrittenStudentSupervisorInclusionDependency}
 {
-{student[d \circ dName,sSv] \subseteq professor[pDept,pNo]}
+{student[d \circ dName,sSv] \subseteq professor[pDept,pId]}
 }
 
 \newcommand{\circledRewrittenStudentSupervisorInclusionDependency}
 {
 {student[d \circ dName,sSv] 
-   \subseteq professor[\psovalbox[linecolor=red, boxsep=false]{pDept},pNo]}
+   \subseteq professor[\psovalbox[linecolor=red, boxsep=false]{pDept},pId]}
 }
 \newcommand{\circledHeadOfDeptIncD}
 {department[dName,dHd]  
-   \subseteq professor[\psovalbox[linecolor=red, boxsep=false]{pDept},pNo]}
+   \subseteq professor[\psovalbox[linecolor=red, boxsep=false]{pDept},pId]}
 
 \newcommand{\secondRewrittenStudentSupervisorInclusionDependency}
 {
 {student[d \circ dName,sSv] 
-   \subseteq professor[d \circ dName,pNo]}
+   \subseteq professor[d \circ dName,pId]}
 }
 \newcommand{\secondRewrittenHeadOfDeptIncD}
 {department[dName,dHd]  
-   \subseteq professor[d' \circ dName,pNo]}
+   \subseteq professor[d' \circ dName,pId]}
 
 
 \newcommand{\initialInclusionDependencies}
@@ -138,7 +138,14 @@ Keep $\composeSevenShaped[0.85cm]{department}{professor}{v}{h}{no}{h}$.
 \newcommand{\secondRewrittenInclusionDependencies}
 {
 \begin{itemize}
-\item $\secondRewrittenStudentSupervisorInclusionDependency$
+\item $\secondRewrittenStudentSupervisorInclusionDependency$ 
+\item $\secondRewrittenHeadOfDeptIncD$
+\end{itemize}
+}
+\newcommand{\markedUpSecondRewrittenInclusionDependencies}
+{
+\begin{itemize}
+\item \st{$\secondRewrittenStudentSupervisorInclusionDependency$} 
 \item $\secondRewrittenHeadOfDeptIncD$
 \end{itemize}
 }
@@ -147,6 +154,13 @@ Keep $\composeSevenShaped[0.85cm]{department}{professor}{v}{h}{no}{h}$.
 {
 \begin{itemize}
 \item $\secondRewrittenHeadOfDeptIncD$ % sic
+\end{itemize}
+}
+
+\newcommand{\markedUpThirdRewrittenInclusionDependencies}
+{
+\begin{itemize}
+\item \st{$\secondRewrittenHeadOfDeptIncD$}
 \end{itemize}
 }
 
@@ -159,7 +173,11 @@ Keep $\composeSevenShaped[0.85cm]{department}{professor}{v}{h}{no}{h}$.
 \popupMarkedUpFirstRewrittenInclusionDependencies
                                     {\markedUpFirstRewrittenInclusionDependencies}
 \popupSecondRewrittenInclusionDependencies{\secondRewrittenInclusionDependencies}
+\popupMarkedUpSecondRewrittenInclusionDependencies
+                                    {\markedUpSecondRewrittenInclusionDependencies}
 \popupThirdRewrittenInclusionDependencies{\thirdRewrittenInclusionDependencies}
+\popupMarkedUpThirdRewrittenInclusionDependencies
+                                    {\markedUpThirdRewrittenInclusionDependencies}
 
 \popupAbstractionOfd{                    
 \begin{block}{Step 1. Eliminate $\studentDeptInclusionDependency$}
@@ -184,8 +202,41 @@ Keep $\composeSevenShaped[0.85cm]{department}{professor}{v}{h}{no}{h}$.
 }
 }
 
+%  this command has a command as parameter
+\newcommand{\studentProfessorDepartmentCommutingDiagrams}[1]
+{
+\begin{tabular}{c c c}
+$\begin{array}{c c c}
+  & \makebox[1cm][c]{\Rnode{department}{department}}  & \\[0.5cm]
+\makebox[1cm][c]{\Rnode{student}{student}} && \makebox[1cm][c]{\Rnode{professor}{professor}}
+\end{array}
+\begin{arrows}
+#1{student}{department}
+\alabel{d}
+\ncarr{student}{professor}
+\blabel{s}
+#1{professor}{department}
+\blabel{d'}
+\end{arrows}
+$ & and &
+$\begin{array}{c  c  c}
+    & \makebox[1cm][c]{\Rnode{department}{department}} & \\[0.5cm]
+\makebox[1cm][c]{\Rnode{professor1}{professor}} && \makebox[1cm][c]{\Rnode{professor2}{professor}}
+\end{array}
+\begin{arrows}
+#1{professor1}{department}
+\alabel{d'}
+\ncarr{department}{professor2}
+\alabel{h}
+\ncarr{professor1}{professor2}
+\blabel{id}
+\end{arrows}
+$
+\end{tabular}
+}
 
-\begin{frame}{Transform Relational Sketch to Logical Sketch}
+
+\begin{frame}{Example --- Transform Relational Sketch to Logical Sketch}
 \vspace{0.9cm}
 \professorStudentDepartmentRelationalSchematic
 $\begin{arrows}
@@ -211,7 +262,11 @@ $
 \begin{overlayarea}{11cm}{7cm}
 
 \abstractionToSketch
-\onslide<20>{END}%need to force slide 20 to appear without hd attribute ??
+\onslide<21>{\begin{block}{subject to commutivity of }
+\vspace{0.25cm}
+\studentProfessorDepartmentCommutingDiagrams{\ncarr}
+\vspace{0.25cm}
+\end{block}}
 \end{overlayarea}
 
 \end{frame}

@@ -1,5 +1,5 @@
 
-\begin{frame}{Definitions} 
+\begin{frame}{Mono Sources} 
 In a category \catc, a  \textit{source} is a family of morphisms with common domain: \\
 \scalebox{0.65}{
 \multisourcediagram{n}{a}{b}{f}
@@ -14,10 +14,10 @@ in \catcw then if $g \circ f_i = h \circ f_i$, for each $i$,  then $g=h$.
 OR, in presence of cartesian products, $<f_1,...f_n>$ is a monomorphim.
 \end{frame}
 
-
-\begin{frame}{Restriction Categories I(2002, Cockett and Lack)}
-There is a category $\Par$ of sets and partial functions.
-\medskip
+\begin{frame}{Category of Sets and Partial Functions}
+\begin{itemize}
+\item There is a category $\Par$ of sets and partial functions.
+\item
 For a partial function $f : A \morph B$ define its restriction idempotent to
 be the  function
 $\bar{f} : A \morph A$ is defined by
@@ -28,8 +28,20 @@ $\bar{f} : A \morph A$ is defined by
       undefined   & \mbox{otherwise.}
     \end{cases}
   \end{equation*}
-
-  This $bar$ operator satisfies four algebraic identities R.1, R.2, R3, and R.4.
+\item  This $bar$ operator satisfies four algebraic identities R.1, R.2, R3, and R.4.
+  \item Also for a partial $f : A \morph B$ define its range idempotent to
+be the  function
+$\hat{f} : B \morph B$ is defined by
+  \begin{equation*}
+    \hat{f}(b)  =
+    \begin{cases}
+      b           & \mbox{if there exists $a \in A$ such that $f(a)=b$,}\\
+      undefined   & \mbox{otherwise.}
+    \end{cases}
+  \end{equation*}
+  \item This \textit{hat} operator satisfies identities
+  RR.1, ...RR.5.
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Restriction Categories I(2002, Cockett and Lack)}
@@ -49,66 +61,56 @@ $$f \circ \bar{g} = \overline{f \circ g} \circ f$$.
 
 \end{frame}
 
-\begin{frame}{Restriction Categories III (2006, Cockett and Lack)}
-
-In this paper Cockett and Lack define
+\begin{frame}{Range Categories (2012, Cockett, Guo and Hofstra)}
 \begin{itemize}
-\item the \textit{restriction product} of a pair of objects in a restriction category,
-
-\item give the cartesian product of sets in $\Par$ as an example.
+\pause \item
+A \textit{range category} is a restriction category 
+with an additional operator as follows
+if $f: a \morph b$ in  \catcw then
+$\hat{f}: b \morph b$ satisfying \\
+\medskip
+\begin{quote}
+RR.1 For $f:a \morph b$ in \catc, $\bar{\hat{f}} = \hat{f}.$ \\
+\medskip
+RR.2 For $f:a \morph b$ in \catc, $f \circ \hat{f} = f.$ \\
+\medskip
+RR.3. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
+$\widehat{f \circ \bar{g}} = \hat{f} \circ \bar{g}.$ \\
+\medskip
+RR.4. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
+$\widehat{(hat({f}) \circ g)} = \widehat{f \circ g}.$
+\end{quote}
+\pause \item A range category may additionally satisfy
+RR.5 if $\equaliser{a}{f}{\paralleldiag{b}{c}{g}{h}}$ then
+ $f \circ g = f \circ h \Rightarrow  \hat{f} \circ g = \hat{f} \circ h.$
 \end{itemize}
 \end{frame}
 
-\begin{frame}
+
+\begin{frame}{Restriction Products}
 \begin{itemize}
-\item In a restriction category there is a partial ordering on each hom set
-Hom(a,b) defined by:
+\item The ususal cartesian product of sets in the category of sets and partial functions
+  $\Par$ does not satisfy the ususal categorical cartesian product conditions.
+\item In 2006 ``Restriction Categories III'' Cockett and Lack define 
+the appropriate notion of product.
+\item They define \textit{restriction product} of a pair of objects in a restriction category.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Partial Ordering of $Hom(A,B)$}
+\begin{itemize}
+\item In a restriction category we can define a partial ordering on each hom set
+Hom(a,b) by defining :
 $$f \leq g \mbox{ iff } f = \bar{g} \circ f$$,
-\item meaning if left hand side defined the right hand side defined and equal,
-\item there are lots of data specification near commutative 
+\item we can think of $f \leq g$ as meaning that if $f$ is defined then $g$ is defined and the two are equal,
+%in my experience
+\pause \item there are lots of data specifications having near commutative 
 diagrams i.e. instances of relationships $f$, $g$ and $h$
 satisfying
 $$ f \circ g \leq h$$.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Range Categories (2012, Cockett, Guo and Hofstra)}
-
-A \textit{range category} is a restriction category 
-with an additional operator as follows
-if $f: a \morph b$ in  \catcw then
-$$\hat{f}: b \morph b$$
-satisfying
-
-RR.1 For $f:a \morph b$ in \catcw $$\bar{\hat{f}} = \hat{f}.$$
-
-RR.2 For $f:a \morph b$ in \catcw $$f \circ \hat{f} = f.$$
-
-RR.3. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
-$$\widehat{f \circ \bar{g}} = \hat{f} \circ \bar{g}.$$
-
-RR.4. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
-$$\widehat{(hat({f}) \circ g)} = \widehat{f \circ g}.$$
-
-\end{frame}
-
-
-
-
-
-\begin{frame}{Schein’s Theorem for Range Categories}
-\begin{itemize}
-\item A range category may specify
-RR.5 whenever $\equaliser{a}{f}{\paralleldiag{b}{c}{g}{h}}$ in \catcw then
- $$f \circ g = f \circ h \Rightarrow  \hat{f} \circ g = \hat{f} \circ h$$.
-
-\item  The category of sets and partial functions satisfies RR.5.
-
-\item Cockett \textit{et al} prove that if a range category \catcw satisfies 
-RR.5
-then there is a faithful functor $S: \catc \morph \Par$.
-\end{itemize}
-\end{frame}
 
 \begin{frame}{Partial Inverse of a Monomorphism}
 If  $m:a \morph b$ is a monomorphim in range category \catcw then

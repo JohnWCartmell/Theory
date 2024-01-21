@@ -1,7 +1,5 @@
 
 \begin{frame}{Definition -- \datacat}
-
-I assume a fixed set $V$ of universals and define data specifications and instances relative to $V$. 
 \medskip
 I shall use the shorthand \textit{\datacat} to mean a triple $\tuple{\catc,M,v}$ where 
 \begin{itemize}
@@ -11,36 +9,62 @@ and such that each $m \in M$   has a partial inverse $m^{-1}$,
 \item a distinguished object $v$, such that every morphism $f: v \morph x$ in \catcw 
 factors through $m^{-1}$, for some monomorphism $m$.
 \end{itemize}
+
+\medskip
+Note that it follows from this definition that a sketch for a \textit{\datacat} has no need for edges with domain $v$.
 \end{frame}
 
-\begin{frame}{Data Specifications}
-In this presentation, by \textit{data specification} I shall mean a sketch for a \datacat. \\
-\medskip
-Note that in a data specification the designated object $v$ will have no outgoing edges. \\
-\medskip
-If $S$ is a sketch for \datacatw denote by $T(S)$ the \datacatw generated from $S$. \\
-\medskip
+\begin{frame}{Data Specification and Data Specification Instance}
+In this presentation, 
 \begin{itemize}
-\item Define an instance $F$ of a data specification $S$ to be a 
-range functor $F: T(S) \morph \Par$ 
-that preserves the specified finite products
-and maps the object $v$ to the set $V$.
-\end{itemize} 
+\item by \textit{data specification} I shall mean a sketch for a \datacatw such that the designated object $v$ has no outgoing edges -- 
+ neither edges  \underline{$v \morph v$} 
+nor edges \underline{$v \morph non\localjchyphen v$}.\\
+\item If $S$ is a sketch for \datacatw denote by $\catc(S)$ the \datacatw generated from $S$. \\
+\pause \item Define an \textit{instance} of a data specification $S$ to be a 
+range functor $F: \catc(S) \morph \Par$ 
+that preserves the specified restriction products
+and maps the object $v$ to the set $V$. \\
 \medskip
-Such an $F$ will preserve designated monomorphisms and their inverses.
+Note that such an $F$ will preserve designated monomorphisms and their inverses.
+\end{itemize} 
+I will muddle up data specifications and sketches in these slides. \\ 
+I will speak of $\catc(S)$ as the theory category. \\
+\medskip
+Next I want to give some examples to show how all this works in practice.
+The very next next example is of the ... relational model of data.
 \end{frame}
 
+\ifNotesnAll
+\begin{frame}{Example}
+Now I want to give some examples to show how all this works in practice and I want to start with the dear old relational model of data. 
+\end{frame}
+\fi
 \input{../slides/Shlaer&Lang/relationalDataSlide}  % this slide defines inclusion dependencies
 \input{../slides/Shlaer&Lang/relationalDataSpecificationSketchSlide}
 
-\begin{frame}{Relational Data Specifications}
-Famously, the relational model of data does not support structural containment. Therefore
-for a physical model to be relational it must not have any edges between non-v-nodes.
+\begin{frame}{Classifying Data Specifications}
+\begin{center}
+\pstree{\TR{\framebox[3cm][c]{data specification}}}{%
+\TR{\framebox[2cm][c]{logical}}
+\pstree{\TR{\framebox[2cm][c]{physical}}}{\TR{\framebox[2.5cm][c]{relational}} \TR{\framebox[2.5cm][c]{non-relational}}}
+}
+\end{center}
 \medskip
+\begin{itemize}
+\pause \item in \textit{relational} sketches all edges are 
+of the \underline{$non\localjchyphen v \morph v$} type and each such represents a column of a table/relation,
+\pause \item other \textit{physical sketches} (\textit{non-relational}) in addition 
+to the \underline{$non\localjchyphen v \morph v$} type edges have edges of the \underline{$non\localjchyphen v \morph non\localjchyphen v$} type and these represent structural containment,
+\item non-relational physical data specifications are also said to be \textit{hierarchical}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Characterisation of Relational Data Specifications}
 \begin{definition}
 A data specification is \textit{relational} iff
 \begin{itemize}
-	\item the only edges have domain a non-v-node and codomain v,
+	\item all edges are of the \underline{$non\localjchyphen v \morph v$} type,
 \item every non-v-node is the domain of at least one v-valued mono-source
 i.e. for every non-v-node $a$, for some $n \geq 1$, there exists a source
 \begin{displaymath}
@@ -51,7 +75,7 @@ which is designated as a mono-source i.e. for which $\tuple{m_1,...m_n}$ is a de
 \end{definition}
 \end{frame}
 
-\begin{frame}{Transform a Relational Data Specification to a Logical Data Specification}
+\begin{frame}{Construction -- Transform a Relational Sketch to a Logical Sketch}
 \begin{lemma}
 For any classic relational data specification 
 there is an equivalent data specification
@@ -59,8 +83,8 @@ there is an equivalent data specification
 \end{lemma}
 
 \begin{proof}
-In outline: We construct a series of equivalent models by eliminating each 
-inclusion dependency in turn. When all eliminated the resulting model is the required logical model. Eliminate the inclusion dependency 
+In outline: We construct a series of equivalent sketches by eliminating each 
+inclusion dependency in turn. When all eliminated the resulting sketch is the required logical sketch. Eliminate the inclusion dependency 
 $a[f_1,...f_n] \subseteq b[m_1,...m_n]$
 as follows:
 \begin{itemize}
@@ -79,11 +103,21 @@ An example follows.
 
 \input{../slides/Shlaer&Lang/logicalDataSpecificationSketchSlide}
 
+\begin{frame}{Characterisation of  Logical Data Specification}
+\begin{definition}
+A data specification $S$ is \textit{logical} iff
+\begin{itemize}
+	\item there does not exist an edge $e$ of the sketch $S$ for which there is a decomposition in the theory category $\catc(S)$ i.e. such that 
+	for some morphisms $f_1$ and $f_2$  distinct from $e$,
+	$e = f_1 \circ f_2$. 
+\end{itemize}
+\end{definition}
+\end{frame}
 
-\newcommand{\transone}{\parbox{2cm}{\textit{Chen's \\transform \\(automated)}}}
+\newcommand{\transone}{\parbox{2cm}{\textit{Chen's 1976\\transform \\(automated)}}}
 \newcommand{\transtwo}{\parbox{2cm}{\textit{normalise \\ a la Codd \\(manual)}}}
-\begin{frame}{Best Practice -- Structured Systemns Analysis and Design}
-
+\begin{frame}{Best Practice -- Structured Systems Analysis and Design}
+Current Best Practice
 \begin{center}
 \begin{tabular}{ p{1.25cm} p{2cm} p{1.25cm} p{2cm}  p{1.25cm}}
 \parbox{3cm}{logical \\ data \\ specification}&  $\xRightarrow{\transone}$ & \parbox{3cm}{relational \\ data \\specification} & $ \xRightarrow{\transtwo} $ & \parbox{3.5cm}{relational \\data \\specification}
@@ -91,16 +125,19 @@ An example follows.
 \end{center}
 \end{frame}
 
-\begin{frame}{ Chen's First Cut Transformation 1976}
+\begin{frame}{ Chen's Transformation 1976 \onslide<3->{\textcolor{red}{made diagram aware}}}
 \begin{construction}
-From a logical data specification construct a relational data specification.
+\onslide<3>{\hspace{6.4cm}\textcolor{red}{with the same theory category}\\}
+From a logical data specification construct a relational data specification
+\onslide<3>{\raisebox{-0.1cm}{\Large\textcolor{red}{$\leftthreetimes$}}}. 
 \end{construction}
 \textbf{Chen's 1976 Method}
 Replace $f:a \morph b$ in the sketch by edges $\fn$
-where $\wanton{m}$ is a v-valued mono-source with domain $a$ 
-and inclusion dependency 
-$$a[f_1,...f_n] \subseteq b[m_1,...m_n].$$
+where $\wanton{m}$ is a v-valued mono-source with domain $b$ 
+and add inclusion dependency 
+$a[f_1,...f_n] \subseteq b[m_1,...m_n].$
 
+\pause
 \textbf{Problem with this method}
 \begin{itemize}
 	\item Doesn't take account of commutative diagrams,
@@ -109,48 +146,36 @@ $$a[f_1,...f_n] \subseteq b[m_1,...m_n].$$
 		\item doesn't have equivalent theory category,
 		\item often is not be in normal form.  
 	\end{itemize}
-	\item This weakness has huge implications for how data specifications are written and maintained.
+	\item This weakness negatively impacts how data specifications are written and maintained.
 \end{itemize}
+\pause
 \textbf{Mission}
 \begin{itemize}
-	\item Theoretically justify an improved algorithm, i.e. one that takes account of commutative diagrams, change how data specifications are managed and databases are programmed.
+	\item Theoretically justify an improved algorithm, i.e. one that takes account of commutative diagrams, and thereby change how data specifications are managed and databases are programmed.
 \end{itemize}
 \end{frame}
 
-\newcommand{\newtrans}{\parbox{2cm}{\textit{diagram \\ aware \\ transformation \\ (automated)}}}
-\begin{frame}{Revised Best Practice -- Abstract to Logical Level}
+%\newcommand{\newtrans}{\parbox{2cm}{\textit{diagram \\ aware \\ transformation \\ (automated)}}
 
-\begin{center}
-\begin{tabular}{ p{1.25cm} p{2cm} p{1.25cm}}
-\parbox{3cm}{logical \\ data \\ specification}&  $\xRightarrow{\newtrans}$ & \parbox{3cm}{relational \\ data \\specification}
-\end{tabular}
-\end{center}
-\textbf{Impact}
-\begin{itemize}
-	\item No manual normalisation process.
-	\item No source code required to describe the physical level.
-\end{itemize}
-\end{frame}
-
-
+\input{../slides/revisedBestPractice}
 \input{../slides/Shlaer&Lang/nestedRelationalDataSlide}
 \input{../slides/Shlaer&Lang/hierarchicalDataSpecificationSketchSlide}
 
-\begin{frame}{Physical Data Specification}
+\begin{frame}{Characterisation of Physical Data Specification}
 \begin{definition}
 A data specification is \textit{physical} iff
 \begin{itemize}
-\item every non-v-node is the codomain of at most one edge
+\item every non-v-node is the domain of at most one edge of the \underline{$non\localjchyphen v \morph non\localjchyphen v$} type.
 \end{itemize}
 \end{definition}
 In a physical data specification every node and every edge has physical significance
 in the database or message structure.
 \begin{itemize}
-\item Nodes other than v in a physical data specification represent types of entity (ER-speak) 
-or record, or represent tables (relational) or structs (IDL).  
-\item Edges between non-v-nodes represent those relationships in the data that are physically represented  by \textit{structural containment}.
-\item Remaining edges (i.e. those having domain a  non-v-node and codomain v) represent
-attributes (ER) or columns of tables (relational) or scalar fields within structs (IDL).  
+\item Nodes other than v in a physical data specification represent entity types (ER-notation) 
+or  tables (relational) or structs (IDL) or similar.  
+\item Edges of the \underline{$non\localjchyphen v \morph non\localjchyphen v$} type represent those relationships in the data that are physically represented  by \textit{structural containment}.
+\item Remaining edges (i.e. those of the \underline{$non\localjchyphen v \morph v$} type) represent
+attributes (ER) or columns of tables (relational) or scalar fields within structs (IDL) or such like.  
 \end{itemize}
 \end{frame}
 
@@ -163,15 +188,22 @@ attributes (ER) or columns of tables (relational) or scalar fields within struct
 \pause
 \vspace{-5cm}
 \begin{block}{}
-This diagram has representations of
+This example has 
 \begin{itemize}
-  \item 33 structural relationships i.e. implemented by structural containment, 
-  \item 26 reference relationships i.e. implemented by foreign key,
-  \item 16 non-trivial commutative diagrams,
-  \item 6 pullback diagrams.
+  \item 33  relationships implemented by structural containment, 
+  \item 26  relationships implemented by relational referencing (inclusion depedencies),
+  \pause \item 16 non-trivial commutative diagrams,
+  \pause \item 6 pullback diagrams.
 \end{itemize}
-Generated into code in XML, ECMA Javascript, Python.
+Generated into code in XML, ECMA Javascript and Python. 
 \end{block}
 \end{frame}
 
+\ifNotesnAll
+\begin{frame}Example LCMSMS Notes
+\begin{itemize}
+  \item This is an example of a data specification written by myself on a project when I worked for a science company. This was a project to build an application for managing and interpreting data from mass spectrometers using liquid chromatography. The application was written in javascript and python and used XML and IDL at various positions in the architecture.
+\end{itemize}
+\end{frame}
+\fi
 

@@ -46,7 +46,7 @@ $\begin{array}{c p{0.1cm} c p{0.01cm} c}
   \professorDepartmentAttributeStrikeout{\ncstrikeout{pB1}{pv1}}
 }
 \ncarr{pB2}{pv2}
-\blabel{pNo}[0.55][0.1]
+\blabel{pId}[0.55][0.1]
 \addedgebar
 \ncarr{pB3}{pv3}
 \alabel{pName}[0.5][0.1]
@@ -75,32 +75,60 @@ $\begin{array}{c  c }
 {
   \textcolor{red}{ \Large$\leftrightsquigarrow$ }
 }
-
+\iffalse
 \newcommand{\inclusionDependencies}
 {
 \begin{overprint}
 \vspace{1cm}
 \begin{itemize}
 \item $\studentDeptInclusionDependency$ 
-                    \onslide<2->{\rightsquiggle $sDept \circ \widehat{dName} = sDept$}\\
+                    \onslide<3->{\rightsquiggle $sDept \circ \widehat{dName} = sDept$}\\
 \medskip
 \item $\professorDeptInclusionDependency$  
-                    \onslide<3->{\rightsquiggle  $pDept \circ \widehat{dName} = pDept$} \\
+                    \onslide<4->{\rightsquiggle  $pDept \circ \widehat{dName} = pDept$} \\
 \medskip
 \item $\studentSupervisorInclusionDependency$  \\
-\hspace{2.5cm}\onslide<4->{\rightsquiggle $\tuple{sDept,sSv} \circ \widehat{\tuple{pDept,pNo}} 
+\hspace{2.5cm}\onslide<5->{\rightsquiggle $\tuple{sDept,sSv} \circ \widehat{\tuple{pDept,pId}} 
                                                               = \tuple{sDept,sSv}$ }  \\
 %\smallskip
 \item $\headOfDeptInclusionDependency$   \\
-\hspace{2.5cm}\onslide<5->{\rightsquiggle  $\tuple{dName,dHd} \circ \widehat{\tuple{pDept,pNo}} 
+\hspace{2.5cm}\onslide<6->{\rightsquiggle  $\tuple{dName,dHd} \circ \widehat{\tuple{pDept,pId}} 
               = \tuple{dName,dHd}$}
 \end{itemize}
 \end{overprint}
 }
+\fi
 
-\begin{frame}{Relational Sketch}
+\newcommand{\studentDeptRangeExpression}
+{$\widehat{sDept} \leq \widehat{dName}$}
+\newcommand{\studentSupervisorRangeExpression}
+{$\widehat{\tuple{sDept,sSv}} \leq \widehat{\tuple{pDept,pId}}$}
+\newcommand{\professorDeptRangeExpression}
+{$\widehat{pDept} \leq \widehat{dName}$}
+\newcommand{\headOfDeptRangeExpression}
+{$\widehat{\tuple{dName,dHd}}  \leq \widehat{\tuple{pDept,pId}}$}
+
+\begin{frame}{Sketch  for \datacat (Relational)}
 \vspace{0.9cm}
+\begin{block}{Directed Graph}
 \professorStudentDepartmentRelationalSchematic
-\inclusionDependencies
+\end{block}
+\begin{block}{Mono-sources}
+Indicated by bars on the graph.
+\end{block}
+\begin{block}{Identities}
+\begin{tabular}{c l}
+\studentDeptRangeExpression &
+\onslide<2->{\rightsquiggle $sDept \circ \widehat{dName} = sDept$}\\
+\professorDeptRangeExpression &
+ \onslide<3->{\rightsquiggle  $pDept \circ \widehat{dName} = pDept$}   \\
+\studentSupervisorRangeExpression &
+\onslide<4->{\rightsquiggle $\tuple{sDept,sSv} \circ \widehat{\tuple{pDept,pId}} 
+                                                              = \tuple{sDept,sSv}$ }\\
+\headOfDeptRangeExpression &
+ \onslide<5->{\rightsquiggle  $\tuple{dName,dHd} \circ \widehat{\tuple{pDept,pId}} 
+              = \tuple{dName,dHd}$}      \\
+\end{tabular}
+\end{block}
 \end{frame}
 

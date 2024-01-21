@@ -34,7 +34,7 @@
 \alabel{d'}[0.3]
 \addedgebar
 \ncarr[15]{professor}{v}
-\alabel{pNo}[0.3]
+\alabel{pId}[0.3]
 \addedgebar
 \ncarr[-15]{professor}{v}
 \blabel{pName}[0.3]
@@ -42,42 +42,11 @@
 \end{displaymath}
 }
 
-% likewsie this command has a command as parameter
-\newcommand{\studentProfessorDepartmentCommutingDiagrams}[1]
-{
-\begin{tabular}{c c c}
-$\begin{array}{c c c}
-  & \makebox[1cm][c]{\Rnode{department}{department}}  & \\[0.5cm]
-\makebox[1cm][c]{\Rnode{student}{student}} && \makebox[1cm][c]{\Rnode{professor}{professor}}
-\end{array}
-\begin{arrows}
-#1{student}{department}
-\alabel{d}
-\ncarr{student}{professor}
-\blabel{s}
-#1{professor}{department}
-\blabel{d'}
-\end{arrows}
-$ & and &
-$\begin{array}{c  c  c}
-    & \makebox[1cm][c]{\Rnode{department}{department}} & \\[0.5cm]
-\makebox[1cm][c]{\Rnode{professor1}{professor}} && \makebox[1cm][c]{\Rnode{professor2}{professor}}
-\end{array}
-\begin{arrows}
-#1{professor1}{department}
-\alabel{d'}
-\ncarr{department}{professor2}
-\alabel{h}
-\ncarr{professor1}{professor2}
-\blabel{id}
-\end{arrows}
-$
-\end{tabular}
-}
 
-\begin{frame}{Logical Data Specification -- Sketch}
+
+\begin{frame}{Resulting Logical Data Specification}
 \sketchgraph{\ncarr}
-\pause 
+
 \begin{block}{subject to commutivity of }
 \vspace{0.25cm}
 \studentProfessorDepartmentCommutingDiagrams{\ncarr}
