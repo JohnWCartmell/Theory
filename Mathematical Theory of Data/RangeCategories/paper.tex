@@ -54,11 +54,19 @@ DRAFTING December 2023
 \begin{definition}
 If $\catc$ is a category and $\reqtc$ is a set of instances and if \fgsourcediag
 in $\catc$ then there is a  \term{functional dependency} of $g$ on $f$ with respect to $\reqtc$ iff
-there is a family of functions $H_D)_{D \in \reqtc}$ such that 
-in each instance $D$, $H_D$ is a unique function $H_D: D(b) \morph D(c)$, such that $D(f) \circ H_D = D(g)$ and $\overline{H_D}=\widehat{D(f)}$.
+there is a family of partial functions $H_D)_{D \in \reqtc}$ such that 
+in each instance $D$,  $H_D: D(b) \morph D(c)$, such that $D(f) \circ H_D = D(g)$ and $\overline{H_D}=\widehat{D(f)}$.
 If there is such a functional dependency then we say that $\fundep{H}{f}{g}$ in $\catc$ with respect to $\reqtc$.
 \end{definition}
-
+\begin{newtt}
+Use RR.5 (which holds in \Par) to show that in every $D$, such an $H_D$ is the unique such partial function:
+\begin{align*}
+&&D(f) \circ H_D &= D(f) \circ H'_D \\
+\mbox{therefore }&&\widehat{D(f)} \circ H_D &= \widehat{D(f)} \circ H'_D  & \mbox{by RR.5}\\
+\mbox{therefore }&&\overline{H_D} \circ H_D &=  \overline{H'_D} \circ H'_D  &             \\
+\mbox{therefore }&&H_D &= H'_D
+\end{align*}
+\end{newtt}
 \begin{lemma}
 \label{fdrangesublemma}
 If $\fundep{H}{f}{g}$ is a functional dependency then
@@ -74,11 +82,6 @@ $$\widehat{H_D}=\widehat{D(g)}.$$
 \end{proof}
 
 \begin{definition}
-\commentary{
-I considered adding to this definition  the requirement that $\bar{h}=\hat{f}$.
-Then it will follow that in each instance $D(h)=H_D$. 
-This isn't a matter of substance -- either way will be equivalent. What turns it for me is that the $h$ as I have it may well be closer to the sketch i.e. what is stored in the data.
-}
 If $\catc$ is a range category and $\reqtc$ is a set of instances, if
 \fgsourcediag
 in $\catc$ 
