@@ -1,0 +1,85 @@
+
+\begin{frame}{Theory of a Directed Graph }
+\begin{equation}
+\dgbasic
+\end{equation}
+
+\begin{itemize}
+        \item this specifies pure structure
+        \item no indication of how an instance will or can be communicated
+        \item is a sketch of a category or contextual category
+        \item corresponds to a generalised algebraic theory
+        \item this pure structure cannot be represented directly as is in data
+        because... 
+\end{itemize}
+\pause \begin{block}{Rule  (missing from my earlier presenation)}
+for there to be a physical representation of a structure need 
+that if a node has more than one incoming edge then it needs an outgoing v-valued mono-source
+\end{block}
+\end{frame}
+
+\begin{frame}{Logical Data Specification}
+\begin{equation}
+\dgnodelabelled{v}
+\end{equation}
+\begin{itemize}
+        \item to be able to communicate edges need to label nodes
+        \item this object v has fixed interpretation -- think of this as the alphabet?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Annotated Logical Data Specification}
+\begin{equation}
+\dgstructuralnodelabelled{v}
+\end{equation}
+\begin{itemize}
+\item annotated to indicate which relationships to be implmented by structural containment
+\item is sketch for contextual category i.e. is generalised algebraic theory
+\end{itemize}  
+\end{frame}
+
+\begin{frame}{Physical Data Specification (Hierarchical)}
+\begin{equation}
+\begin{array} {p{4cm} p{5cm}}
+%\parbox{4cm}{
+$\dgphysical{v}$
+%}
+ &
+subject to  $\widehat{target} \leq \widehat{label}$
+\end{array}
+\end{equation}
+\begin{itemize}
+\item Note that for this to have an equivalent theory category to the logical data specification (2) I require both restriction structure and partial inverses to monomorphisms (so as to have a partial inverse to the label morphism).
+\end{itemize}  
+\end{frame}
+
+\begin{frame}[fragile]{Example Graph (XML)}
+\lstdefinelanguage{MyIDL}[]{IDL}
+{morekeywords={Set,Of, struct},sensitive=true}
+\begin{lstlisting}[basicstyle=\footnotesize,keywordstyle={\ttfamily\color{green}\bfseries},language=myIDL]
+<graph>
+    <node label="a">
+        <edge target="b"/>
+    </node>
+    <node label="b">
+        <edge target="c"/>
+    </node>
+    <node label="c">
+    </node>
+</graph>
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Same Graph Represented Relationally (XML)}
+\lstdefinelanguage{MyIDL}[]{IDL}
+{morekeywords={Set,Of, struct},sensitive=true}
+\begin{lstlisting}[basicstyle=\footnotesize,keywordstyle={\ttfamily\color{green}\bfseries},language=myIDL]
+<graph>
+    <node label="a"/>/
+    <node label="b"/>/
+    <node label="c"/>/
+    <edge source="a" target="b"/>
+    <edge source="a" target="c"/>
+</graph>
+\end{lstlisting}
+\end{frame}

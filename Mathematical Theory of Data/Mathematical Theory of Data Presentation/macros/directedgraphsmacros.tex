@@ -23,6 +23,8 @@
 \ncarr[-5]{edge}{node} 
 \arreset   
 }
+
+
 \newcommand{\dgbasic}
 {
 \begin{array}{c}
@@ -35,6 +37,80 @@
 \dgtargetedge
 \blabel{trg}
 \end{arrows}    
+}
+
+\newcommand{\structuraldgbasic}
+{
+\begin{array}{c}
+\Rnode{node}{node}  \\[1.5cm]
+\Rnode{edge}{edge}       
+\end{array}
+\begin{arrows}
+\structuraldgsrcedge
+\alabel{src}
+\dgtargetedge
+\blabel{trg}
+\end{arrows}    
+}
+
+\newcommand{\structuraldgbasicreduced}
+{
+\begin{array}{c}
+\Rnode{node}{node}  \\[1.5cm]
+\Rnode{edge}{edge}       
+\end{array}
+\begin{arrows}
+\setlength{\saroffsetA}{3pt}
+\setlength{\saroffsetB}{3pt}
+\ncsar{edge}{node} 
+\sarreset 
+\alabel{src}
+\end{arrows}    
+}
+
+
+% dgnodelabelled{labeltype}
+\newcommand{\dgnodelabelled}[1]
+{
+\begin{array}{cp{0.75cm}c}
+%rule [raise-height]{width}{height}
+\dgbasic   &&  \Rnode{labeltypelhs}{\rule[0cm]{0cm}{0.3cm}}\Rnode{labeltype}{#1} 
+\end{array}
+\begin{arrows}
+\ncarr{node}{labeltypelhs}
+\alabel{label}
+\addedgebar
+\end{arrows}       
+}
+
+% dgnodelabelled{labeltype}
+\newcommand{\dgstructuralnodelabelled}[1]
+{
+\begin{array}{cp{0.75cm}c}
+%rule [raise-height]{width}{height}
+\structuraldgbasic   &&  \Rnode{labeltypelhs}{\rule[0cm]{0cm}{0.3cm}}\Rnode{labeltype}{#1} 
+\end{array}
+\begin{arrows}
+\ncarr{node}{labeltypelhs}
+\alabel{label}
+\addedgebar
+\end{arrows}       
+}
+
+% dgphysical{labeltype}
+\newcommand{\dgphysical}[1]
+{
+\begin{array}{cp{0.75cm}c}
+%rule [raise-height]{width}{height}
+\structuraldgbasicreduced   &&  \Rnode{labeltypelhs}{\rule[0cm]{0cm}{0.3cm}}\Rnode{labeltype}{#1} 
+\end{array}
+\begin{arrows}
+\ncarr{node}{labeltypelhs}
+\alabel{label}
+\addedgebar
+\ncarr{edge}{labeltypelhs}
+\blabel{target}
+\end{arrows}       
 }
 
 % dgbasiclabelled{labeltype}
@@ -73,22 +149,6 @@
 \end{arrows}
 }
 
-\iffalse
-REmoved TARGET
-\newcommand{\structuraldgbasic}
-{
-\begin{array}{c}
-\Rnode{node}{node}  \\[1.5cm]
-\Rnode{edge}{edge}       
-\end{array}
-\begin{arrows}
-\structuraldgsrcedge
-\alabel{src}
-\dgtargetedge
-\blabel{trg}
-\end{arrows}    
-}
-\fi
 
 \newcommand{\nodepartof}
 {
@@ -175,8 +235,6 @@ REmoved TARGET
 \end{arrows}
 }
 
-
-
 \newcommand{\dgabsuniquelylabelled}
 {
 \begin{array}{cp{0.75cm}c}
@@ -191,7 +249,6 @@ REmoved TARGET
 \idcomp
 \end{arrows}
 }
-
 
 \newcommand{\dglocallyuniquelylabelleddirectedgraph}
 {
@@ -209,7 +266,6 @@ REmoved TARGET
 \idcomp
 \end{arrows}
 }
-
 
 \newcommand{\setdgexitsuniquelylabelled}
 {
