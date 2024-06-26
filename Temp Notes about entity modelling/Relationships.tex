@@ -1,5 +1,6 @@
 
 \section{Relationships}
+\label{Relationships}
 \mynote
 A defining feature of entity modelling is the description
  (the modelling) of the relationships that can possible  exist between things according as to the types of things that they are. 
@@ -75,8 +76,8 @@ In it he gives the example of a relationship between an employee and the departm
 
 \noindent This relationship can be described from  two complementary points of view as
 \begin{align}
-\label{employing}&\mbox{every department may be employing one or more employees,} \\
-\label{employedby}&\mbox{every employee must be employed by exactly one department.}
+\label{employingText}&\mbox{every department may be employing one or more employees,} \\
+\label{employedByText}&\mbox{every employee must be employed by exactly one department.}
 \end{align}
 
 \noindent In the notation used in this book, which is based on the Barker-Ellis notation,  this diamond and its two connectors are replaced by a single line. The fact that there
@@ -84,19 +85,21 @@ are multiple employees within a department is represented on the diagram by draw
 \definecolor{lightyellow}{cmyk}{0,0,0,0}
 
 \begin{gather}
-\label{employsRelationship}
+\label{employsRelationshipDiagram}
 \raisebox{-1cm}{\input{\ImagesFolder/departmentEmployee.tex}}
 \end{gather}
 
 \noindent In this form the relationship can be read directionally
  --- left to right it
-reads as  (\ref{employing}), above,  right to left it reads as (\ref{employedby}). 
+reads as  (\ref{employingText}), above,  
+right to left it reads as (\ref{employedByText}). 
 We can think of there being two directional relationships here inseparably
 connected (meta-related, in fact) as the poles of a magnet.
 
 \noindent The right to left reading expresses a many-one directional relationship and this is otherwise known as a functional relationship. In mathematical notation this would indicate a function and be 
 represented by an arrow: 
 \begin{equation}
+\label{employedByFunction}
 employed\,by : employee \longrightarrow department
 \end{equation}
 \noindent
@@ -104,14 +107,17 @@ To be clear, every binary relationship can be thought of as consisting of a pair
 
 \mynote Mathematically speaking, every function has an inverse which generally is many-valued and which therefore is represented as a separate function whose target is a power set i.e. a set of subsets. In our case here the inverse to the function \textit{employed by} will in some mathematical circles by represented by a function
 \begin{equation}
+\label{employingFunction}
 employing : department \longrightarrow \mathcal{P}(employee).\footnote{Where $\mathcal{P}$ represents power set so that $\mathcal{P}(x)$ is the set of subsets of set $x$.}
 \end{equation}
 
-\noindent Let me recap this illustration. The function signatures (3) and (4) express the same information as the words do in (1) and (2).
-Diagram (\ref{employsRelationship}) encapsulates the same information and also expresses  the fact that (1) and (2) are complementary i.e. that
-an employee works for a particular department if an only if that particular department employs the employee.
+\noindent Let me recap this illustration. The function signatures (\ref{employedByFunction}) and (\ref{employingFunction}) express the same 
+information as the words do in (\ref{employedByText}) and (\ref{employingText}).
+Diagram (\ref{employsRelationshipDiagram}) encapsulates the same information and also expresses  the fact that (\ref{employingText}) and (\ref{employedByText}) are complementary 
+i.e. that an employee works for a particular department if an only if that particular department employs the employee.
 Finally, this complementarity may be expressed in the mathematical language of
-sets and functions by asserting  function (4) to be the inverse to function (3).   
+sets and functions by asserting  function (\ref{employingFunction}) to be the inverse to function (\ref{employedByFunction}).
+
 
 \subsubsection*{Many-many Binary Relationships}
 In Chen's paper the relationship between employees and projects (whose meaning is that
@@ -136,8 +142,7 @@ a project has many employees assigned to it, $M$ in fact, for some $M >= 0$. \\
 
 \noindent Also notice that the relationship is labelled at both ends. Each text label gives the name of the relationship from the point of view of the type of entity at that end of the line.
 \noindent In fact, many-many relationships are infrequently used in entity models and never used at all when modelling data.
-Consider that we can make a thing out of the fact of the assignment of an employee to a project. This means that we can entify the many-many relationship and model the relationship like this:
-
+Consider that we can make a thing out of the fact of the assignment of an employee to a project. This means that we can entify the many-many relationship and model the relationship like this:\commentary{squeeze this diagram and flip labels}
 \begin{gather}
 \label{projectWorkerOurStyleMediated}
 \raisebox{-1cm}{
@@ -151,6 +156,10 @@ The original many-many relationship is now mediated by the entity type PROJECT W
 
 \mynote Strictly speaking, directional relationships are not, as their name suggests, types of relationships, but are ways of looking at or considering binary relationships. Each directional relationship is a binary relationship viewed at or considered from one end or the other. Each binary relationship can be considered as a directional relationship in two different ways.
 This is how binary relationships are described in the entity modelling meta-model given later.
+\begin{noteforfuture}
+give planet and star and maybe other examples here.
+\end{noteforfuture}
+
 \mynote Functional relationships in mathematics that are total are usually depicted by the arrow symbol $\longrightarrow$.
 
 The partial arrow symbol $\rightharpoonup$ may be used if not know to be total. 
@@ -174,15 +183,21 @@ or this
 A\,\barkerEllisD\,B
 \end{center}
 
-If in any of these four cases it is known in addition that that the map is injective then the crowsfoot is omitted and so it is depicted is one of
+If in any of these four cases it is known in addition that that the map is injective then the crowsfoot is omitted and so the relationship is depicted by a line which may be dashed or half dashed. The possibilities are:
 \begin{center}
-A\,\barkerEllisE\,B \\
-A\,\barkerEllisF\,B \\
-A\,\barkerEllisG\,B \\
+\begin{tabular} {c c c c}
+A\,\barkerEllisE\,B &
+A\,\barkerEllisF\,B &
+A\,\barkerEllisG\,B &
 A\,\barkerEllisH\,B 
+\end{tabular}
 \end{center}
-
+\commentary{maybe omit these four depictions}
 Note that in this final case the relationship in question establishes a 1-1 correspondence between types A and B.
+
+\begin{noteforfuture}
+have an example of some sort here with a variety of cardinalities or refer forward to the manufacturing example?
+\end{noteforfuture}
 
 \subsection*{Ternary Relationships}
 For the sake of completeness I should mention that Chen also represents ternary relationships and gives an 
@@ -192,3 +207,7 @@ example of a ternary relationship between a project, a supplier and a part which
 \end{center}
 
 In the Barker-Ellis style there are no ternary relationships nor are any needed since ternary relationships can be represented as a combination of binary relationships and entity types. The fact that all relationships are binary and are represented by lines only rather than diamonds  is of practical importance in that more details can be fitted onto diagrams.
+
+\mynote 
+We don't have a simple name for the relationship between a planet and the star it orbits. Instead we have  relative terms `orbits' and `orbited by' which describe each of the parties in the relationship from the point of view of the other. This dual naming of binary relationships is the way that relationships are named in an entity model. 
+This is where a diagram comes in handy. \commentary{What is this about?}

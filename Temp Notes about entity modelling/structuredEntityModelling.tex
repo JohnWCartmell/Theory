@@ -1,21 +1,49 @@
 \section{Structured Entity Modelling}
+\label{StructuredEntityModelling}
 Chen's paper introduced the idea of entities being dependent on binary relationships with others for both their identification and their existence:
-\begin{quote}
+\begin{erquote}
 Theoretically, any kind of relationship may be used to identify entities. For simplicity, we shall restrict ourselves to the use of only one kind of relationship: the binary relationships with 1:n mapping in which the existence of the n entities on one side of the relationship depends on the existence of one entity on the other side of the relationship. For example, one employee may have n ( = 0, 1, 2, . . .) dependants, and the existence of the dependants depends on the existence of the corresponding employee. This method of identification of entities by relationships with other entities can be applied recursively until the entities which can be identified by their own attribute values are reached. For example, the primary key of a department in a company may consist of the department number and the primary key of the division, which in turn consists of the division number and the name of the company.
-\end{quote}
+\end{erquote}
 
-Following PCTE8 we use the term composition relationship for Chen's binary relationships with 1:n mapping in which the existence of the n entities on one side ... depends on the existence of one entity on the other side and we use the term reference relationship for binary relationships which are neither composition relationships nor their inverses. We shall also describe the inverses of composition relationships as being dependency relationships. Earlier than this a similar distinction had been made by the designers of the CAIS9 specification but in which the two kinds of relationship were distinguished as primary and secondary — their rationale for the distinction was as follows10:
-
+Following PCTE8 we use the term composition relationship for Chen's binary relationships with 1:n mapping in which the existence of the n entities on one side ... depends on the existence of one entity on the other side and we use the term reference relationship for binary relationships which are neither composition relationships nor their inverses. We shall also describe the inverses of composition relationships as being dependency relationships. Earlier than this a similar distinction had been made by the designers of the CAIS9 specification but in which the two kinds of relationship were distinguished as primary and secondary — their rationale for the distinction was as follows:
+\begin{erquote}
 [Entities] and relationships may form a general graph or bowl of spaghetti. However, this raises various practical problems of deletion and garbage collection, long term naming, and unconnected sub-graphs. CAIS therefore designates certain relationships as primary (and all others as secondary) and requires that all [Entities] and primary relationships in the database form a single tree structure.
-This distinction between composition and reference made by both CAIS and then PCTE served the goal of modelling computer file systems within a database framework, see figure 9 for example.
+\end{erquote}
+This distinction between composition and reference made by both CAIS and then PCTE served the goal of modelling computer file systems within a database framework, see figure \ref{filesystem2} for example.
+\commentary{Need mention UML also}
 
-Figure 9An ER model of folder system modelling the hierarchical structure as a recursive composition relationship and shortcuts as reference relationships.
-In this presentation we shall not assume that all composition relationships are identifying nor, vice-versa, that only composition relationships may be identifying. To depict ER-schemas we use a variant of the Barker-Ellis notation. Figure 10 is a meta-model of this notation — it is an ER schema describing ER schemas.
+\begin{figure}[H]
+\begin{center}
+\input{\ImagesFolder/filesystem2}
+\end{center}
+\caption{An ER model of folder system modelling the hierarchical structure as a recursive composition relationship and shortcuts as reference relationships.}
+\label{filesystem2}
+\end{figure}
+
+In this presentation we shall not assume that all composition relationships are identifying nor, vice-versa, that only composition relationships may be identifying. To depict ER-schemas we use a variant of the Barker-Ellis notation. \commentary{concept of identifying not yet defined.}
+Figure \ref{entityRelationalMetaModel1} is a meta-model of this notation — it is an ER schema describing ER schemas.
 
 In cases where we wish to distinguish composition relationships from reference relationships then we draw the diagram top down: an anonymous root entity type (the ‘absolute’) is introduced at the top of the diagram, relationships leaving the lower edges of boxes are composition relationships and they always meet the top edge of the box representing the dependent type, reference relationships meet boxes from one side or the other. We note that there is a structural resemblance to diagrams drawn by Bachman. To summarise, for composition relationships the crows feet point down; at this point the notation converges with that of SSADM for which one explanation says: ‘there are no dead crows’. Our diagrams also have reference relationships and for these the crows feet are pointing sideways (the crows, presumably, at rest). The entity types which have the least numbers of instances occur at the top of our diagrams whereas in what seems an odd choice they occur to the bottom right in the diagrams style promoted in Barker's Entity Modelling book.
 
+\begin{figure}[H]
+\begin{center}
+\input{\ImagesFolder/entityRelationalMetaModel1}
+\end{center}
+\caption{The logical ER meta-model. A simple version of the logical ER model of a logical ER model.}
+\label{entityRelationalMetaModel1}
+\end{figure}
 
-Figure 10The logical ER meta-model. A simple version of the logical ER model of a logical ER model.
+\begin{noteforfuture}
+above diagram questionable:
+\begin{enumerate}
+\item I haven't figured out where identifying features will be defined.
+\item I need a version of this diagram that shows the absolute.
+\item reintroduce earlier meta model diagram? One without attributes?
+\item relationship becomes directional relationship
+\item replace cardinality by optionality plus many-valuedness ?
+\end{enumerate}
+\end{noteforfuture}
+
 
 
 
