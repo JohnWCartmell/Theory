@@ -1,14 +1,84 @@
 \section{Identifying Features}
 \label{IdentifyingFeatures}
+\mynote
+Flight number, payment card number, country code, international bank account number (IBAN), social security number, passport number, part number and many like attributes are designed to uniquely identify entities of a type and to distinguish them from others of the same type. They are said to be identifying attributes.
 
-\mynote We say that a set of features of a type of entity i.e. a set of attributes and outgoing directional relationships, is identifying provided that the values of these features is guaranteed to uniquely identify an entity of the type i.e. to be such that no two distinct entities of the type can have identical values for all of the features.
+\mynote 
+Attributes such as country code and international bank account number 
+have values  specified in international standards and are globally unique. 
+Other attributes such as 
+social security number, car registration plate number and passport number have unique values and are therefore identifying with respect to particular issuing authorities, typically at a national level.
 
-\mynote Very often the set of identifying features of a type of entity will be a singleton set containing a single attribute. An example of this 
-in  shown in figure \ref{BoardingPass2} in which entities of type \textit{airline route} are uniquely identified by the \textit{flight number} attribute. This is
+\mynote
+In entity modelling we are very interested in documenting which attributes are identifying and in which contexts and in many of the diagram notations enable representation of this. The style we use in this book will be explained shortly.
+
+\mynote It is highly desirable that an entity model specifies identifying features for all of the types of entity it describes and it is crucially so  for those models that are to eb used as data specifications, though there is a subtlety here which will be addressed later.  
+
+\mynote
+There are a couple of ways of arguing why this should be the case. 
+
+\mynote At a philosophical level we can argue that there is no point in specifying types whose instances cannot be correlated with entities in the real world, however abstract or fictional these might be. Without identifying features how can we correlate entities with real world counterparts?
+Real world entities must have features that can be used to discriminate them and these features should be documented in the entity model. Why must real world entities have identifying features? 
+Philosophers argue about it -- it is called the principle of xxx.
+
+\mynote Identifying features give meaning to our entity models by establishing correlations of our notional entities with real world entities.
+
+\mynote A little more concretely 
+\begin{itemize}
+\item attributes that are unique in context give us ways of identifying entities in that context, 
+\item they give us ways of referencing one entity from the context of another, 
+\item they give us ways of describing a relationship of one entity to another,
+\item they give us ways of communicating relationships from within the context of an entity,
+\item they give us ways of communicating entities, 
+\item ultimately this facilitates the storage of entities in data systems. 
+\end{itemize}
+
+\mynote
+Identifying attributes give us concrete ways of identifying entities within a context. Therefore, they allow us to reference one entity in the context of another. This enables us to describe the relationships between entities. Consequently, they provide methods for communicating these relationships within the context of an entity, which ultimately facilitates the storage of entities in data systems
+
+\mynote Identifying attributes are of particular significance with regard to 
+\begin{itemize}
+	\item how relationships are represented in data and therefore how communicated and stored,
+	\item evaluating the goodness of an entity model.
+\end{itemize}  
+
+\mynote
+It is obvious from these examples that such attributes only identify uniquely within an overall system or context. If this system or context is the subject of an entity model, or if it dominates the subject, then these attributes are documented in the entity model as identifying attributes. 
+
+\mynote From a mathematical perspective, attributes can be viewed as partial functions. Identifying attributes are total functions that are injective.  
+
+\mynote
+A marriage entity you might think to be unquely identifiable from its context of being a marriage between two distinct people. But it isn't since there are two distinct marriages of film stars Richard Burton and Elizabeth Taylor. Instead we must say that it is the date of a marriage that identifies it with repect to these two film stars or the ordinal number (and so we say the first marriage, the second marriage and so on).
+
+\mynote Sometimes entities are unique with respect to the contexts in which they arise. In cases such as this they are identified by the relationships they have with other entities. They are sometimes said to be intersection entities.
+
+\commentary{referential attributes represent data not concept}
+\commentary{relationships model concept and context not data}
+
+\mynote Payment card numbers and international bank account numbers are designed to be global in scope.
+
+\mynote
+Various conventions have been used diagrammatically to convey that an attribute is identifying. In Barker's book the \# symbol is placed to the left of the attribute to indicate as much. In diagrams in this book the name of the attribute is underlined and this is consistent with many papers on relational theory in which  the names of columns are underlined to show that they are key columns. 
+
+\mynote
+More generally an attribute may only be identifying in more restrictive contexts and in the case it will be identifying 
+
+\commentary{Sort code and account number. The relational analysis of attributes.} 
+
+\mynote A set of features of a type of entity i.e. a set of attributes and outgoing direction We say that al relationships, is said to be \textit{identifying} provided that the values of these features,
+taken together, is guaranteed to uniquely identify an entity of the type i.e. to be such that no two distinct entities of the type can have identical values for all of the features. 
+
+\mynote In the simplest cases a single attribute will suffice. Social security number, part no, 
+passport number and like attributes are designed to uniquely identify entities of the type from others of the type. 
+An example of this 
+in  shown in figure \ref{boardingPass2} in which entities of type \textit{airline route} are uniquely identified by a \textit{flight number} attribute.
+This is
 indicated in the diagram  by the underlining of the name of this attribute where it appears on the diagram.\footnote{Aside: There is a trivial difference here from Barker's notation because he distinguishes the identifying attributes with a \# symbol where we here use  underlining.} 
 
-\mynote In other cases the set of identifying features will consist of a number of attributes. In such case  the values of these attributes taken together, uniquely identify entities of the type. Context is most significant though.
-If the context of an entity model is an individal map thenb a spot height is identified by a combination of latitude and longitude as shown here by underlining the two attributes latitude and longitude: 
+\mynote In this simplest case  a singleton set containing a single attribute is identifying.
+
+\mynote In other cases the set of identifying features will consist of a number of attributes. In such case  the values of these attributes taken together, uniquely identify entities of the type. Context is most significant though. \commentary{There are two contexts at play here. The context of an individual entity within the model and the context of the model as a whole.}
+If the context of an entity model is an individual map then a spot height is identified by a combination of latitude and longitude as shown here by underlining the two attributes latitude and longitude: 
 
 \begin{center}
 \input{\ImagesFolder/mapSpotHeight0.tex}
@@ -27,7 +97,7 @@ has to be included in the set of identifying features for this type of entity. I
 \erboxedFigPicture{boardingPass2.tex}{H}
 {This example is based on an example developed in the Barker book. I have simplified in some areas.}
 
-\commentary{airline route versus flight reminds me of sassure discussion re: trains}
+\commentary{airline route versus flight reminds me of Sassure discussion re: trains}
 
 \begin{noteforfuture}
 For discussion of universals in  the context of mereology see A.J.Cotnoir in my data/database literature review. In particular

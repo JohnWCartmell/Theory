@@ -3,7 +3,7 @@
 \label{Relationships}
 \mynote
 A defining feature of entity modelling is the description
- (the modelling) of the relationships that can possible  exist between things according as to the types of things that they are. 
+ (the modelling) of the relationships that may or may not  exist between things according as to the types of things that they are. 
 \mynote 
 We need to say something about this term `relationship' as it is used in
 entity modelling.
@@ -20,7 +20,7 @@ a relationship is a connection, association, or involvement between two things.
 At first reading these two dictionary entries seem to be in accord and indeed 
 they both describe what would more specifically be called \textit{binary relationships} involving as they do exactly two things in relationship with each other.
 A more careful reading reveals a significant difference between the two because \textit{friendship} as an abstraction satisfies the first definition but not the second whereas a particular friendship such as that between \textit{Don Quixote} and \textit{Sancho Panza} satisfies the second  but not the first. 
-To distinguish the two meanings some authors use the term \textit{relationship type} for the first sense and reserve the term \textit{relationship} itself for the second. Here we will stick with the single word relationship, which, for us, can therefore have two distinct meanings. If we need to emphasise the second meaning we may speak of instances of relationships. When speaking in this way we might say that their is a relationship called `friendship' between people and that there is an instance of this relationship between \textit{Don Quixote} and \textit{Sancho Panza}.
+To distinguish the two meanings some authors use the term \textit{relationship type} for the first sense and reserve the term \textit{relationship} itself for the second. Here we will stick with the \commentary{re-jiggle}single word relationship, which, for us, can therefore have two distinct meanings\footnote{interpretations?}. If we need to emphasise the second of the two we may speak of instances of relationships rather than relationships. When speaking in this way we might say that there is a relationship called `friendship' between people and that there is an instance of this relationship between \textit{Don Quixote} and \textit{Sancho Panza}.
 
 \mynote
 Just for the record, in another dictionary we find 
@@ -35,7 +35,7 @@ Friendship,  marriage, adjacency, ownership and succession are all examples of b
 The following are also binary relationships:
 being employed by, in the sense that a person might be employed by a particular employee,
 managing, in the sense that an employee might manage a project. 
-There are binary relationships between a sales order and the customer making the order and between a debit card and  the bank that issues the card. As a final example, a banking transaction has binary relationships both with the account debited and with the account credited. 
+There are binary relationships too between a sales order and the customer making the order and between a debit card and  the bank that issues the card. As a final example, a banking transaction has binary relationships both with the account debited and with the account credited. 
 
 \mynote The most important feature of relationships as the term is used  in this book is that the existence of a relationship instance between any two particular entities should be a matter of black and white. For example between any particular Jack and any particular Jill we must take it that there either is or is not a friendship between them. There can be no equivocation or matter of degree --- either the relationship is or is not. This is a point of difference, by the way, between our terminology and that of Chen --- Chen's relationships may have attributes (properties) assigned to them, our relationships may not which is why they are, mathematically, binary relations. We will see that such (black and white) binary relationships are all we need for modelling and that many-many relationships are not needed either. 
 
@@ -48,7 +48,7 @@ For the planet-star relationship the two points of view are
 \end{itemize}
 
 In these descriptions the language is slightly ambiguous and questions arise.
-Does every planet orbit exactly one star or may it orbit multiple stars? Do any stars have no planets orbiting them?
+Does every planet orbit exactly one star or may it orbit multiple stars? Are there  stars having no planets orbiting them?
 
 In an entity model ambiguities such as these are removed. 
 The planet-star relationship would be expressed in more detail as
@@ -57,8 +57,8 @@ The planet-star relationship would be expressed in more detail as
 \item every star may be orbited by one or more planets.
 \end{itemize}
 
-Note that these two prescriptions describe the very same relationship from opposite ends. That they are complementary points of view I can express like this:
-
+Note that these two prescriptions describe the very same relationship from opposite ends. 
+They are complementary points of view, a fact which  can be expressed like this:
 \begin{itemize}
 \item a planet is orbiting a star if and only if the star is orbited by the planet.
 \end{itemize}
@@ -66,21 +66,19 @@ Note that these two prescriptions describe the very same relationship from oppos
 \mynote
 Chen introduces diagrammatic representations of entities and relationships in his 
 1976 paper. There is a great deal to find in this paper and it has been very influential and therefore is historically important but his diagram style in many peoples opinion is a poor notation and less practical than other notations which were subsequently published many of which were then summarised by Chen himself in his 1983 paper. 
-Our preferred notation is the Barker-Ellis notation and it is a variation on this that is used in this book. 
-It is helpful though
+Of these, our preferred notation is the Barker-Ellis notation and it is a variation on this that is used in this book. 
+Because it is frequently seen, at least academically, it is appropriate
 to describe the Chen notation for relationships and then to contrast with the Barker-Ellis style.
 \mynote
 In his introduction to entity relationship diagramming, Chen gives an example of an entity relationship diagram describing the types of entities relevant to the organisation of an imaginary manufacturing company.
-In it he gives the example of a relationship between an employee and the department in which they work. 
-
-\noindent In his diamond notation Chen draws the relationship like this:
+In it he gives the example of a relationship between an employee and the department in which they work. In his diamond notation Chen draws the relationship like this:
 \begin{center}
 \scalebox{0.9}{\input{\handCraftedImagesFolder/ChenStyleDepartmentEmployee.tex}}
 \end{center}
 
-\noindent In the Chen notation, the numeric $1$ that labels the left hand line in this diagram indicates that every employee is in exactly one department and the corresponding annotation N on the right side indicates the fact that there are many employees within each department. \\
+\noindent In this diagram, the numeric $1$ that labels the left hand line in this diagram indicates that every employee is in exactly one department and the corresponding annotation N on the right side indicates the fact that there are many employees within each department. \\
 
-\noindent This relationship can be described from  two complementary points of view as
+\noindent This relationship can therefore be described from  two complementary points of view as
 \begin{align}
 \label{employingText}&\mbox{every department may be employing one or more employees,} \\
 \label{employedByText}&\mbox{every employee must be employed by exactly one department.}
@@ -89,7 +87,7 @@ In it he gives the example of a relationship between an employee and the departm
 
 \subsection*{Barker-Ellis Notation}
 \noindent In the notation used in this book, which is based on the Barker-Ellis notation,  this diamond and its two connectors are replaced by a single line. The fact that there
-are multiple employees within a department is represented on the diagram by drawing a crows foot at the employee end of the line and the relationship is drawn like so:
+are multiple employees within a department is represented by drawing a crows foot at the employee end of the line. The relationship is drawn like so:
 \definecolor{lightyellow}{cmyk}{0,0,0,0}
 
 \begin{gather}
@@ -101,26 +99,29 @@ are multiple employees within a department is represented on the diagram by draw
  --- left to right it
 reads as  (\ref{employingText}), above,  
 right to left it reads as (\ref{employedByText}). 
+
+\noindent
 We can think of there being two directional relationships here inseparably
 connected (meta-related, in fact) as the poles of a magnet.
-
-\noindent The right to left reading expresses a many-one directional relationship and this is otherwise known as a functional relationship. In mathematical notation this would indicate a function and be 
-represented by an arrow: 
-\begin{equation}
-\label{employedByFunction}
-employed\,by : employee \longrightarrow department
-\end{equation}
-\noindent
-To be clear, every binary relationship can be thought of as consisting of a pair of directional relationships each one of which is one view of it. 
+The right to left reading expresses a many-one directional relationship and this is otherwise known as a functional relationship.
 
  
 \subsection*{Recap -- Relationships Looked at Directionally}
+
+\noindent
+To be clear, every binary relationship can be thought of as consisting of a pair of directional relationships each one of which is one view of it. \commentary{subsection rejig required}
 \mynote Strictly speaking, directional relationships are not, as their name suggests, types of relationships, but are ways of looking at or considering binary relationships. Each directional relationship is a binary relationship viewed at or considered from one end or the other. Each binary relationship can be considered as a directional relationship in two different ways.
 This is how binary relationships are described in the entity modelling meta-model given later.
 
 \mynote A directional relationship which is many-one is said to be a functional relationship.
 In mathematics we also talk of functional relationships but also just say function.
 \mynote
+In mathematical notation this would indicate a function and be 
+represented by an arrow: 
+\begin{equation}
+\label{employedByFunction}
+employed\,by : employee \longrightarrow department
+\end{equation}
 \begin{noteforfuture}
 give planet and star and maybe other examples here.
 \end{noteforfuture}
@@ -161,11 +162,11 @@ a project has many employees assigned to it, $M$ in fact, for some $M >= 0$. \\
 }
 \end{gather}
 
-\noindent Also notice that the relationship is labelled at both ends. Each text label gives the name of the relationship from the point of view of the type of entity at that end of the line.
+\noindent As before, the relationship is labelled at both ends. Each text label gives the name of the relationship from the point of view of the type of entity at that end of the line.
 
 \subsection*{Elimination of Many-many Relationships}
-\noindent In fact, many-many relationships are infrequently used in entity models and never used at all when modelling data.
-Consider that we can make a thing out of the fact of the assignment of an employee to a project. This means that we can entify the many-many relationship and model the relationship like this:\commentary{squeeze this diagram and flip labels}
+\noindent In fact, many-many relationships are infrequently used in entity models and never used at all when modelling for the purpose of data specification.
+Consider that we can make a thing out of the fact of the assignment of an employee to a project. This means that we can entify the many-many relationship and remodel the relationship (\ref{employeeProjectWorker}) like this:\commentary{squeeze this diagram and flip labels}
 \begin{gather}
 \label{employeeProjectWorkerMediated}
 \raisebox{-1cm}{
@@ -174,21 +175,22 @@ Consider that we can make a thing out of the fact of the assignment of an employ
 \end{gather}
 \noindent
 In (\ref{employeeProjectWorkerMediated}) the  many-many relationship depicted in (\ref{employeeProjectWorker}) is now mediated by the conjunction of  type
-\textit{project assignment} and two functional relationships. Because we can 'entify' many-many relationships in this way and mediate them by other entity types and functional relationships they can be eliminated from entity modelling. Because only functional relationships have direct representations in data, however represented, then it is usual to eliminate many-many relationships from entity models in favour of functional relationships. Since the remaining relationships are functional, in one direction or the other, so it is that in most entity models types are related solely by functional relationships and their inverses. In this form, entity modelling models the world in functional relationships, a fact that isn't usually given due attention.
+\textit{project assignment} and two functional relationships. Because we can `'entify' many-many relationships in this way and mediate them by entity types and functional relationships they can be eliminated from entity modelling. Only functional relationships have direct representations in data, however represented, and for this reason it is usual to eliminate many-many relationships from entity models in favour of functional relationships. Since the remaining relationships are functional, in one direction or the other, so it is that in most entity models types are related solely by functional relationships and their inverses. In this form, entity modelling models the world in functional relationships, a fact that isn't usually articulated.
 
 \mynote For the sake of completeness, I should mention that in situations
 such as (\ref{employeeProjectWorkerMediated}) above, the mediating entity or indeed its type is often referred to as an \textit{intersection entity}.
 
 \subsection*{Mathematical Notation}
 \mynote
-Before I describe how in the Barker-Ellis style the representations of functional relationships can be styled to give additional information about them  I feel it is right to bring to mind corresponding mathematical notations.\footnote{This book promotes my favourite notation but I think it important to describe other notations as well especially those used in mathematics.}
+Before I describe how, in the Barker-Ellis style, the representations of functional relationships are styled to give additional information about them
+ it is appropriate to bring to mind corresponding mathematical notations.\footnote{This book promotes my favourite notation but I think it important to describe other notations as well especially those used in mathematics.}
 
 \mynote Functional relationships in mathematics that are total are usually depicted by the arrow symbol $\longrightarrow$ so the assertion that $f:A \longrightarrow B$ in mathematics generally means that $f$ is a functional relationship from $A$ to $B$ which is defined everywhere i.e. is total.\footnote{The more abstract use of $\longrightarrow$ in category theory is a notable exception and is entirely germane as we will discuss later.} 
 For a functional relationship that is not known to be total 
 then a partial arrow symbol $\longrightharpoonup$ is used instead so in this case it might be asserted that $f:A \longrightharpoonup B$.
 Finally, the notation $f: A \longtwoheadrightarrow B$ can be used to assert that $f$ is a total functional relationship that is surjective.  
 
-\noindent All of these notations have equivalents in the Barker-Ellis style though this isn't the usual way of introducing the matter in, say, Barker's book.
+\noindent All of these notations have equivalents in the Barker-Ellis style, as we will now see.
 
 \subsection*{Barker-Ellis Styling of Relationships}
 \mynote We have already seen above examples of Barker-Ellis style depictions of relationships in which functional relationships of A to B
@@ -242,7 +244,7 @@ The next thing to point out is that multiple relationships can be depicted on a 
 \input{\ImagesFolder/shlaerMellorDeptStudentProfessor0.tex}
 \end{center}
 
-This diagram is then said to be an entity relationship diagram, in this case in the Barker Ellis style. In this boook there will be many of these smaller exmaples but we can imagine most of these to be fragments of some larger diagram which is the backbone to an entity model.
+This diagram is then said to be an entity relationship diagram, in this case in the Barker Ellis style. In this book there will be many of these smaller examples but we can imagine most of these to be fragments of some larger diagram which is the backbone to an entity model.
 In a later section Structured Entity Modelling we will describe additional meanings that we ascribe to relationships dependent on their orientations on the diagram. These are then the ascribed meanings in the remainder of this book. 
 
 \subsection*{Ternary Relationships}
@@ -258,7 +260,7 @@ In the Barker-Ellis style there are no ternary relationships nor are any needed 
 
 \mynote
 When it comes to describing how this ternary relationship of Chen's can be represented in terms of binary many-one relationships then I have to guess a bit at what Chen intended this ternary relationship to mean in the context of his hypothetical manufacturing company. 
-Having made my guess I have represented this ternary relationhip by type \textit{project supply option} 
+Having made my guess I have represented this ternary relationship by type \textit{project supply option} 
 in the Barker-Ellis style diagram given  in figure \ref{ChenManufacturingBarkerEllisStyle} in the next section. I hope that you agree that this Barker-Ellis style diagram leaves less to the imagination than Chen's diagram did. 
 
 \subsection*{Phraseology}
@@ -266,4 +268,4 @@ in the Barker-Ellis style diagram given  in figure \ref{ChenManufacturingBarkerE
 We don't have a simple name for the relationship between a planet and the star it orbits. Instead we have  relative terms `orbits' and `orbited by' which describe each of the parties in the relationship from the point of view of the other. This dual naming of binary relationships is the way that relationships are named in an entity model. 
 This is where a diagram comes in handy. 
 \mynote
-From this naming and diagramming of relationships there is a phraeology i.e. a particular mode of expression that is described by Barker in his book. Two phrases can be generated to describe a relationship. The gramaticallity of the phrase egnerated depends on a carefully choice of label for each end of the relationship. 
+From this naming and diagramming of relationships there is a phraseology i.e. a particular mode of expression,  described, for example, by Barker in his book. Two phrases can be generated to describe a relationship. The grammatically of the phrase generated depends on a carefully choice of label for each end of the relationship. \commentary{Spell this out.}
