@@ -229,6 +229,7 @@ may be dashed or half dashed as the case might be, the possibilities being:
 A\,\barkerEllisE\,B, 
 A\,\barkerEllisF\,B, 
 A\,\barkerEllisG\,B or 
+
 A\,\barkerEllisH\,B.
 
 \commentary{maybe omit these four depictions}
@@ -243,9 +244,106 @@ The next thing to point out is that multiple relationships can be depicted on a 
 \begin{center}
 \input{\ImagesFolder/shlaerMellorDeptStudentProfessor0.tex}
 \end{center}
-
+\commentary{Correct above diagram. Move left and also majors in $\leftarrow$ majoring in}
 This diagram is then said to be an entity relationship diagram, in this case in the Barker Ellis style. In this book there will be many of these smaller examples but we can imagine most of these to be fragments of some larger diagram which is the backbone to an entity model.
 In a later section Structured Entity Modelling we will describe additional meanings that we ascribe to relationships dependent on their orientations on the diagram. These are then the ascribed meanings in the remainder of this book. 
+
+ 
+
+\subsection*{Relationship Phraseology} 
+\mynote 
+Consider the binary relationship between a moon and the planet it is orbiting. 
+I will represent it in the  Barker-Ellis style in this way
+\begin{gather}
+\label{planetMoon}
+\raisebox{-1cm}{
+\input{\ImagesFolder/planetMoon.tex}
+}
+\end{gather}
+
+I don't have a simple name for the binary relationship but instead I have  relative terms `orbiting' and `orbited by' which describe each of the parties in the relationship from the point of view of the other. This dual naming of binary relationships is the way that relationships are named in an entity model and the diagram ties these names together as we have discussed.
+
+\mynote
+In the Barker-Ellis notation the idea is to choose these relationship labels
+carefully so that a phraseology, i.e. a particular templated form of expression,
+can be used to produce textual descriptions of the relationship which are both meaningful and grammatical.
+We have already seen examples of this in the rendering of
+relationship (\ref{employsRelationshipDiagram}) by texts 
+(\ref{employedByText}) and (\ref{employsRelationshipDiagram}), above.
+
+Now from (\ref{planetMoon}) applying the Barker-Ellis  phraseology and reading the 
+relationship left-to-right we read the relationship as telling us something about every planet, because the relationship line is dashed representing optionality then we phrase that every planet \textit{may be} 
+in a relationship,
+because there is a crowsfoot on the opposite end we phrase that the relationship is to 
+\textit{one or more} moons.  In this way, from the standard phraseology, we obtain a textual description:
+\begin{itemize}
+\renewcommand\labelitemi{--}
+\item every planet may be orbited by one or more moons.
+\end{itemize}
+This is grammatical only because I 
+because I chose the label `orbited by' with care and with foreknowledge of this  phraseology.
+ 
+Applying the same rules but now reading  the relationship from right-to-left and interpreting the solid line as 
+ meaning that every moon \textit{must be} in relationship with a planet we get
+\begin{itemize}
+\renewcommand\labelitemi{--}
+\item every moon must be orbiting  one and only one planet.
+\end{itemize}
+Without foreknowledge of the phraseology I might instead have chosen the word `orbits' for the name of my directional relationship but if I had so chosen then applying the phraseology would have yielded an ungrammatical sentence.\footnote{I would have got "Every moon must be orbits one and only one planet." which is not grammatically correct.}
+
+\subsection*{Phrasing Relationship Instances}
+\mynote
+A second phraseology can be used to describe instances of relationships rather than relationships themselves. 
+Again the phraseology can be used in either direction i.e. from the point of view
+of the planet or from the point of view of the moon.
+In the right-to-left direction the planet is the subject. The relationship of planet Jupiter with one of its moons can be phrased like this
+
+\begin{itemize}
+\renewcommand\labelitemi{--}
+\item Jupiter is orbited by Io
+\end{itemize}
+
+This same relationship instance can be phrased in the other direction, right-to-left wrt to diagram (\ref{planetMoon}) and in this phrasing the moon Io is the subject
+
+\begin{itemize}
+\renewcommand\labelitemi{--}
+\item Io is orbiting  Jupiter
+\end{itemize}
+
+If many such facts as this one such as
+\begin{itemize}
+\renewcommand\labelitemi{--} 
+\item Saturn is orbited by Titan, 
+\item Mars is orbited by Phobos, 
+\item Jupiter is orbited by Europa,
+\end{itemize}
+and so on  are to be conveyed then it is likely we won't spell them all out in phrases at all
+but instead  will convey the totality of like facts in tabular form like this:
+\begin{center}
+\begin{tabular}{|l | l|}
+\hline
+planet & orbited by \\
+\hline\hline
+Jupiter  & Io \\
+\hline
+Saturn   & Titan    \\
+\hline
+Mars     & Phobos    \\
+\hline
+Jupiter  & Europa         \\
+\hline
+%Jupiter  & Io         \\
+%\hline%
+%Saturn   & Rhea    \\
+%\hline
+\vdots    & \vdots  \\
+\hline
+\end{tabular}
+\end{center}
+in which in the first row the column headings refer  back to the relationship (\ref{planetMoon})
+and subsequent rows, in the context of the column headings, communicate relationship instances. 
+What we are looking at here of course is a data table and one aspect of this book 
+is the richness of the meta-relationship between  entity models and data structure.
 
 \subsection*{Ternary Relationships}
 For the sake of completeness I should mention that Chen also represents ternary relationships and gives an 
@@ -261,11 +359,4 @@ In the Barker-Ellis style there are no ternary relationships nor are any needed 
 \mynote
 When it comes to describing how this ternary relationship of Chen's can be represented in terms of binary many-one relationships then I have to guess a bit at what Chen intended this ternary relationship to mean in the context of his hypothetical manufacturing company. 
 Having made my guess I have represented this ternary relationship by type \textit{project supply option} 
-in the Barker-Ellis style diagram given  in figure \ref{ChenManufacturingBarkerEllisStyle} in the next section. I hope that you agree that this Barker-Ellis style diagram leaves less to the imagination than Chen's diagram did. 
-
-\subsection*{Phraseology}
-\mynote 
-We don't have a simple name for the relationship between a planet and the star it orbits. Instead we have  relative terms `orbits' and `orbited by' which describe each of the parties in the relationship from the point of view of the other. This dual naming of binary relationships is the way that relationships are named in an entity model. 
-This is where a diagram comes in handy. 
-\mynote
-From this naming and diagramming of relationships there is a phraseology i.e. a particular mode of expression,  described, for example, by Barker in his book. Two phrases can be generated to describe a relationship. The grammatically of the phrase generated depends on a carefully choice of label for each end of the relationship. \commentary{Spell this out.}
+in the Barker-Ellis style diagram given  in figure \ref{ChenManufacturingBarkerEllisStyle} in the next section. I hope that you agree that this Barker-Ellis style diagram leaves less to the imagination than Chen's diagram did.

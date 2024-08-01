@@ -1,27 +1,102 @@
 \section{Identifying Features}
 \label{IdentifyingFeatures}
 \mynote
-Flight number, payment card number, country code, international bank account number (IBAN), social security number, passport number, part number and many like attributes are designed to uniquely identify entities of a type and to distinguish them from others of the same type. They are said to be identifying attributes.
+Flight number, payment card number, country code, international bank account number (IBAN), 
+international standard book number (ISBN), social security number, passport number, part number and many like attributes are designed to uniquely identify entities of a type and to distinguish them from others of the same type. They can be said to be identifying attributes.
+\mynote 
+ Sometimes, as in a coordinate system, it is a combination of attributes 
+ that provide values that taken together are unique and that enable an entity to be uniquely identified.  In such a case it is a set of attributes, such as latitude and longitude, rather than an individual attribute, that can be said to be identifying.
 
 \mynote 
-Attributes such as country code and international bank account number 
-have values  specified in international standards and are globally unique. 
-Other attributes such as 
-social security number, car registration plate number and passport number have unique values and are therefore identifying with respect to particular issuing authorities, typically at a national level.
+Whereas some attributes, such as ISBN and IBAN, are designed to be globally unique others such as 
+car registration plate number and passport number have values that are unique, and are therefore identifying, only with respect to particular issuing authorities, typically at a national level.
 
 \mynote
-In entity modelling we are very interested in documenting which attributes are identifying and in which contexts and in many of the diagram notations enable representation of this. The style we use in this book will be explained shortly.
+In entity modelling there are a number of reasons why we will likely be  interested in documenting
+which attributes  are uniquely valued and therefore identifying and in which contexts. 
+Many  entity 
+relationship diagram notations enable representation of such attributes and contexts.
+The style we use in this book will be explained shortly.
 
-\mynote It is highly desirable that an entity model specifies identifying features for all of the types of entity it describes and it is crucially so  for those models that are to eb used as data specifications, though there is a subtlety here which will be addressed later.  
+\mynote 
+We argue that it is desirable that an entity model documents identifying features for the types of entities it describes and that it is absolutely necessary for most types in those models that are to be used as data specifications. 
+
+\mynote 
+One argument uses a philosophical perspective according to which real world entities must have features that can be used to discriminate them i.e. to identify them -- this is called the principle of the identity of indiscernibles. 
+According to this argument, these identifying features may be 
+represented by attributes and relationships of a type in an entity model to give meaning to the type
+by establish a precise correlation between instances of the type and 
+`real world' entities -- for without such identifying features, goes the argument, how can we precisely correlate instances of our types with real world counterparts?
+In summary, identifying features give meaning to our entity models by establishing correlations of our notional entities with real world entities.
 
 \mynote
-There are a couple of ways of arguing why this should be the case. 
+Sometimes in a situation being modelled, entitites of a type are named and then in the model
+we can represent name as an attribute associated with entitites of the type.  
+Such name attributes are architypal examples of identifying attributes --- we name things so that we can identify them in context. In such a situation the name of an entity, i.e. the value of the name attribute,  can be used in context to definitively identify the entity.
+Quoting this value, i.e. using the name, is one way of referencing an entity of the type from within the context of another entity. This is illustrated in  an example given earlier in which we presented this statement
+\begin{equation}
+\label{JupiterIoShort}
+\mbox{\textit{Jupiter is orbited by Io.}}
+\end{equation}
+as a representation of an instance of the binary relationship
+\begin{gather}
+\label{planetMoon}
+\raisebox{-1cm}{
+\input{\ImagesFolder/planetMoon.tex}
+}
+\end{gather}
 
-\mynote At a philosophical level we can argue that there is no point in specifying types whose instances cannot be correlated with entities in the real world, however abstract or fictional these might be. Without identifying features how can we correlate entities with real world counterparts?
-Real world entities must have features that can be used to discriminate them and these features should be documented in the entity model. Why must real world entities have identifying features? 
-Philosophers argue about it -- it is called the principle of xxx.
+In the context of statement (\ref{JupiterIoShort}), Jupiter is the name of and therefore  a reference to a planet and  Io is the name of and therefore a reference to a moon i.e. a natural satellite.  
+We understand  (\ref{JupiterIoShort}), theerefore, to be shorthand for the 
+more pernickerty 
+\begin{equation}
+\mbox{\textit{The planet with name `Jupiter' is orbited by the moon with name `Io'.}}
+\end{equation}
 
-\mynote Identifying features give meaning to our entity models by establishing correlations of our notional entities with real world entities.
+As an aside, note that in other contexts, both Jupiter and Io are names of mythological figures. In fact, there is also an asteroid named Io. These names are only unique within the specific contexts of planets and moons, respectively.
+
+\mynote
+We are very much stating the obvious of course but there is a pattern here and it is repeated over and over when instances of relationships are communicated  and the same pattern occurs more formally  and uniformly when instances of relationships are communicated and/or stored in data.
+
+\mynote
+ Not just name attributes but identifying attributes more generally provide us with ways of 
+ referencing entitites and thereby communicating instances of relationships. 
+ This is often the most pragmatic reason for requiring types to have associated identifying feature. 
+
+ \mynote
+Various conventions have been used diagrammatically to convey that an attribute is identifying. In Barker's book the \# symbol is placed to the left of the attribute to indicate as much. In diagrams in this book the name of the attribute is underlined and this is consistent with many papers on relational theory in which  the names of columns are underlined to show that they are key columns. 
+We can modify () by adding the naming of planets and moon and graphically representing them as identifying attributes as follows:
+
+
+
+
+
+
+
+Whereas the names of moons and planets are unique in the context of the solar system then the names of characters in Shakespeare's plays are not.
+So Antonio is the name of a character in five of Shakespeare's plays and in two of these there is a character named Sebastian. 
+\begin{multline}
+\mbox{\textit{Antonio  is a sea captain who loves  Sebastian in Twelfth Night.}} \\
+\mbox{\textit{Antonio  is the brother of Prospero who conspires with Sebastian in the Tempest.} }
+\end{multline}
+
+On the otherhand contrast with
+\begin{equation}
+\mbox{\textit{w from x bears striking resemblance to y from z.}}
+\end{equation}
+
+w,x,y and z are referentials
+
+Antonio, SEbastian and twelth Night are referentials. Why are there not four referentials in this communication. Because two of the four have collapsed into one. 
+
+Antonio and Twelth Night refer
+Sebastian and Twelth Nioght refer.
+
+Twelth Night doubles up.
+
+
+
+Now two plays arev referenced this is because bears striking resenmbalnce to is not internal relationship.
 
 \mynote A little more concretely 
 \begin{itemize}
@@ -48,17 +123,14 @@ It is obvious from these examples that such attributes only identify uniquely wi
 \mynote From a mathematical perspective, attributes can be viewed as partial functions. Identifying attributes are total functions that are injective.  
 
 \mynote
-A marriage entity you might think to be unquely identifiable from its context of being a marriage between two distinct people. But it isn't since there are two distinct marriages of film stars Richard Burton and Elizabeth Taylor. Instead we must say that it is the date of a marriage that identifies it with repect to these two film stars or the ordinal number (and so we say the first marriage, the second marriage and so on).
+A marriage entity you might think to be uniquely identifiable from its context of being a marriage between two distinct people. But it isn't since there are two distinct marriages of film stars Richard Burton and Elizabeth Taylor. Instead we must say that it is the date of a marriage that identifies it with respect to these two film stars or the ordinal number (and so we say the first marriage, the second marriage and so on).
 
 \mynote Sometimes entities are unique with respect to the contexts in which they arise. In cases such as this they are identified by the relationships they have with other entities. They are sometimes said to be intersection entities.
 
 \commentary{referential attributes represent data not concept}
 \commentary{relationships model concept and context not data}
 
-\mynote Payment card numbers and international bank account numbers are designed to be global in scope.
 
-\mynote
-Various conventions have been used diagrammatically to convey that an attribute is identifying. In Barker's book the \# symbol is placed to the left of the attribute to indicate as much. In diagrams in this book the name of the attribute is underlined and this is consistent with many papers on relational theory in which  the names of columns are underlined to show that they are key columns. 
 
 \mynote
 More generally an attribute may only be identifying in more restrictive contexts and in the case it will be identifying 
@@ -94,17 +166,12 @@ has to be included in the set of identifying features for this type of entity. I
 \mynote Work on this example from page 3-13 of Barker.
 \commentary{flight needs data  of departure (time of departure not required)}
 
-\erboxedFigPicture{boardingPass2.tex}{H}
+\erboxedFigPicture{boardingPass2}{H}
 {This example is based on an example developed in the Barker book. I have simplified in some areas.}
 
 \commentary{airline route versus flight reminds me of Sassure discussion re: trains}
 
-\begin{noteforfuture}
-For discussion of universals in  the context of mereology see A.J.Cotnoir in my data/database literature review. In particular
-\begin{erquote}
-Universals are typically said to be ‘wholly located wherever they are instantiated’.
-\end{erquote}
-\end{noteforfuture}
+
 
 \begin{noteforfuture}
 unreal identities - range from ISBNs and such to system-specific identifiers. part numbers.
