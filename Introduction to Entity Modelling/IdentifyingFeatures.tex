@@ -29,10 +29,13 @@ by establish a precise correlation between instances of the type and
 `real world' entities -- for without such identifying features, goes the argument, how can we precisely correlate instances of our types with real world counterparts?
 In summary, identifying features give meaning to our entity models by establishing correlations of our notional entities with real world entities.
 
+\mynote 
+I am not sure this philosophical argument holds water when we are most often dealing with banes and identities imposed by man. The moons of Jupiter are named by man. What gives meaning to the name though is the orbit of the moon to Jupiter and upon initial observation the observed angular separation of the moon to Jupiter. So approximate average radius of the orbit is unique also. 
+
 \mynote
-Sometimes in a situation being modelled, entitites of a type are named and then in the model
-we can represent name as an attribute associated with entitites of the type.  
-Such name attributes are architypal examples of identifying attributes --- we name things so that we can identify them in context. In such a situation the name of an entity, i.e. the value of the name attribute,  can be used in context to definitively identify the entity.
+Sometimes in a situation being modelled, entities of a type are named and then in the model
+we can represent name as an attribute associated with entities of the type.  
+Such name attributes are archetypal examples of identifying attributes --- we name things so that we can identify them in context. In such a situation the name of an entity, i.e. the value of the name attribute,  can be used in context to definitively identify the entity.
 Quoting this value, i.e. using the name, is one way of referencing an entity of the type from within the context of another entity. This is illustrated in  an example given earlier in which we presented this statement
 \begin{equation}
 \label{JupiterIoShort}
@@ -46,41 +49,70 @@ as a representation of an instance of the binary relationship
 }
 \end{gather}
 
-In the context of statement (\ref{JupiterIoShort}), Jupiter is the name of and therefore  a reference to a planet and  Io is the name of and therefore a reference to a moon i.e. a natural satellite.  
-We understand  (\ref{JupiterIoShort}), theerefore, to be shorthand for the 
+In the context of statement (\ref{JupiterIoShort}), Jupiter is the name of, and therefore  a reference to, a planet and  Io is the name of, and therefore a reference to, a moon i.e. a natural satellite.  
+We understand  (\ref{JupiterIoShort}), therefore, to be shorthand for the 
 more pernickerty 
 \begin{equation}
 \mbox{\textit{The planet with name `Jupiter' is orbited by the moon with name `Io'.}}
 \end{equation}
 
-As an aside, note that in other contexts, both Jupiter and Io are names of mythological figures. In fact, there is also an asteroid named Io. These names are only unique within the specific contexts of planets and moons, respectively.
-
 \mynote
 We are very much stating the obvious of course but there is a pattern here and it is repeated over and over when instances of relationships are communicated  and the same pattern occurs more formally  and uniformly when instances of relationships are communicated and/or stored in data.
 
 \mynote
+Note that within the context of the solar system the name Io  doesn't uniquely identify this moon of Jupiter amongst all named solar system objects since it is also the name of an asteroid that orbits within the asteroid belt.
+The names of moons are only unique as names of moons. 
+Of course in other contexts, both Jupiter and Io are the names of mythological figures. 
+
+
+\mynote
  Not just name attributes but identifying attributes more generally provide us with ways of 
- referencing entitites and thereby communicating instances of relationships. 
+ referencing entities and thereby communicating instances of relationships. 
  This is often the most pragmatic reason for requiring types to have associated identifying feature. 
 
  \mynote
 Various conventions have been used diagrammatically to convey that an attribute is identifying. In Barker's book the \# symbol is placed to the left of the attribute to indicate as much. In diagrams in this book the name of the attribute is underlined and this is consistent with many papers on relational theory in which  the names of columns are underlined to show that they are key columns. 
-We can modify () by adding the naming of planets and moon and graphically representing them as identifying attributes as follows:
-
-
-
+\mynote
+Focusing on just this aspect of the solar system we  draw this model containing the relationship () and showing name attributes of both moons and planets and
+underlining these to showing that each of them is unique and therefore identifying. 
+\begin{noteforfuture}
+diagram here showing absolute, planet, moon, orbits relationship and 
+name attributes underlined. 
+\end{noteforfuture}
 
 \mynote
-Whereas the names of moons and planets are unique in the context of the solar system then the names of characters in Shakespeare's plays are not. Shakepears's charcaters are named unqiuely only within the context of individual plays. To show this on an entity relationship diagram we underline the name attribute and put a bar through the relationshiop of a character with  play as shown here:
+Whereas the names of moons and planets are unique in the context of the solar system then the names of characters in Shakespeare's plays are not. Shakespeare's characters are named uniquely only within the context of individual plays. To document this on an entity relationship diagram we underline the name attribute and put a bar through the relationship that contributes to the identification like this \barkerEllisJ, for example, as we illustrate twice over in this relationship
 
+\begin{noteforfuture}
+diagram here showing characters and plays, with name and title 
+attributes underlined and relationship barred.
+\end{noteforfuture}
+In this diagram we have shown characters being identified by name and by play 
+and plays being identified by title and by playwright. Playwrights we have indicated arte identified by their names.
 
-\mynote Now obviously a character is referenced from within a play by use of their name., of course they are.
-So we have, in the context of the plays of William Shakepeare,
+\mynote What this diagram implies is that characters from plays need be identified by three referentials - the name of the character, the title of the play and the name of the playwright.
+Example.
+\mynote Naively this implies that if we wish to communicate a instance of relationship between two different plays then we will be required to communicate six referentials -- that is three to identify one party in the relationship and three to identify the other party. This is not the case, and so not what we instinctively do, when we have \textit{a priori} knowledge of the relationship that limits it scope. If we know the relationship is confined to individual playwrights or is internal to individual play or script then clearly we do not have to communicate the playwright and play title twice over. The number of referentials may in such a case collapse to four: name of playwright, title of play and name of character.
+Shlair-Lang in a very much underrated paper coinded the term \textit{collapsed referentials} for this phenomena in the context of data representation of models represented in entity relationship notation.
 
+\mynote 
+So we have, in the context of the plays of William Shakespeare,
 \begin{equation}
-\mbox{\textit{The character Antonio in Twelth Night loves Sebastian.}
+\mbox{\textit{The character Antonio in Twelfth Night loves Sebastian.}}
 \end{equation} 
 
+You might think that a pedantic elaboration statement of this would be this linger statement.
+\begin{equation}
+\text{\parbox{9cm}{\textit{The character named Antonio in Shakespeare's play Twelfth Night loves the character named Sebastian in Shakespeare play Twelfth Night.}}}
+\end{equation} 
+
+but there is a reason why the shorter
+\begin{equation}
+\text{\parbox{9cm}{\textit{The character named Antonio in Shakespeare's play Twelfth Night loves the character named Sebastian.}}}
+\end{equation} 
+is equally unambiguous. This is because the relationship 'loves' in this context is a relationship which is internal to the plot of a play, Twelfth night in this case.
+Reading from left to right we establish that we are making a statement about 
+Antonio from Twelfth Night  and so must look to establish Sebastian as a character from Twelfth Night. This is the first example of a relationship which is not global in scope (it is local to the play) and therefore describing instances of the relationship doesn't require as many referential attributes as would otherwise be the case if it was global in scope.
 
 So Antonio is the name of a character in five of Shakespeare's plays and in two of these there is a character named Sebastian. 
 \begin{multline}
@@ -88,23 +120,22 @@ So Antonio is the name of a character in five of Shakespeare's plays and in two 
 \mbox{\textit{Antonio  is the brother of Prospero who conspires with Sebastian in the Tempest.} }
 \end{multline}
 
-On the otherhand contrast with
+On the other hand contrast with
 \begin{equation}
 \mbox{\textit{w from x bears striking resemblance to y from z.}}
 \end{equation}
 
 w,x,y and z are referentials
 
-Antonio, SEbastian and twelth Night are referentials. Why are there not four referentials in this communication. Because two of the four have collapsed into one. 
+None of these referentials collapse. The models of the two relationships
+look the same but behind the scenes they are different. They have different scopes and we come back to talking about these later.
 
-Antonio and Twelth Night refer
-Sebastian and Twelth Nioght refer.
+Antonio and Twelfth Night refer
+Sebastian and Twelfth Night refer.
 
-Twelth Night doubles up.
+Twelfth Night doubles up.
 
-
-
-Now two plays arev referenced this is because bears striking resenmbalnce to is not internal relationship.
+Now two plays are referenced this is because bears striking resemblance to is not internal relationship.
 
 \mynote A little more concretely 
 \begin{itemize}
@@ -120,10 +151,8 @@ Now two plays arev referenced this is because bears striking resenmbalnce to is 
 Identifying attributes give us concrete ways of identifying entities within a context. Therefore, they allow us to reference one entity in the context of another. This enables us to describe the relationships between entities. Consequently, they provide methods for communicating these relationships within the context of an entity, which ultimately facilitates the storage of entities in data systems
 
 \mynote Identifying attributes are of particular significance with regard to 
-\begin{itemize}
-	\item how relationships are represented in data and therefore how communicated and stored,
-	\item evaluating the goodness of an entity model.
-\end{itemize}  
+ how relationships are represented in data and therefore how communicated and stored.
+They are also significant in evaluating the goodness of an entity model, as we will see later.
 
 \mynote
 It is obvious from these examples that such attributes only identify uniquely within an overall system or context. If this system or context is the subject of an entity model, or if it dominates the subject, then these attributes are documented in the entity model as identifying attributes. 
@@ -133,11 +162,10 @@ It is obvious from these examples that such attributes only identify uniquely wi
 \mynote
 A marriage entity you might think to be uniquely identifiable from its context of being a marriage between two distinct people. But it isn't since there are two distinct marriages of film stars Richard Burton and Elizabeth Taylor. Instead we must say that it is the date of a marriage that identifies it with respect to these two film stars or the ordinal number (and so we say the first marriage, the second marriage and so on).
 
-\mynote Sometimes entities are unique with respect to the contexts in which they arise. In cases such as this they are identified by the relationships they have with other entities. They are sometimes said to be intersection entities.
+\mynote Sometimes there are just relationships in the set of required features of a type of anentity. Sometimes entities are unique with respect to the contexts in which they arise. In cases such as this they are identified by the relationships they have with other entities. They are sometimes said to be intersection entities.
 
 \commentary{referential attributes represent data not concept}
 \commentary{relationships model concept and context not data}
-
 
 
 \mynote
@@ -154,8 +182,6 @@ An example of this
 in  shown in figure \ref{boardingPass2} in which entities of type \textit{airline route} are uniquely identified by a \textit{flight number} attribute.
 This is
 indicated in the diagram  by the underlining of the name of this attribute where it appears on the diagram.\footnote{Aside: There is a trivial difference here from Barker's notation because he distinguishes the identifying attributes with a \# symbol where we here use  underlining.} 
-
-\mynote In this simplest case  a singleton set containing a single attribute is identifying.
 
 \mynote In other cases the set of identifying features will consist of a number of attributes. In such case  the values of these attributes taken together, uniquely identify entities of the type. Context is most significant though. \commentary{There are two contexts at play here. The context of an individual entity within the model and the context of the model as a whole.}
 If the context of an entity model is an individual map then a spot height is identified by a combination of latitude and longitude as shown here by underlining the two attributes latitude and longitude: 
@@ -177,8 +203,12 @@ has to be included in the set of identifying features for this type of entity. I
 \erboxedFigPicture{boardingPass2}{H}
 {This example is based on an example developed in the Barker book. I have simplified in some areas.}
 
-\commentary{airline route versus flight reminds me of Sassure discussion re: trains}
+\begin{noteforfuture}
+In this figure \ref{boardingPass2} example aircraft registration number is an absent referentials from
+boarding pass. Referentials can collapse but they can also be totally absented. Maybe call them indirect referentials. 
+\end{noteforfuture}
 
+\commentary{airline route versus flight reminds me of Saussure discussion re: trains}
 
 
 \begin{noteforfuture}

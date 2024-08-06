@@ -1,0 +1,32 @@
+
+\section{The Distinction Between Composition and Reference}
+\label{DistinctionBetweenCompositionAndReference}
+
+The entity modelling notation in one form or another is a part of the core syllabus in the information sciences. Invariably, though, no distinction is made between composition and reference.\footnote{
+The one exception to this would be in teaching of the UML notation wherein there is a further classification of composition relationships resulting in three subclasses of the core relationship concept rather than two as here.} This is a weakness currently; students are not being provided with the best conceptual tools for database design and without these tools there remains a database normalisation step which is not properly explained and has the feel of a dark art. The concept of relationship scope is the key missing concept and it is introduced in the sections which follow. Before this however we revisit the distinction between compsotion and reference and ask ‘is this a real distinction?’.
+
+Consider these two superficially similar types of relationship:
+\begin{itemize}
+\item the relationship between a play and the characters within the play,
+\item the relationship between a play and performances of that play.
+\end{itemize}
+The first of these would generally be classified as a composition relationship for we can say that a play is in part composed of all the characters within it, whereas the second would generally be classified as a reference relationship for we would not say that a play is in part composed of all of it's performances. For this reason an entity model describing just these three entity types, play, performance and character, contains both vertical composition relationships and an orthogonal reference relationship, as shown below in figure \ref{modelPerformancePlayCharacter}.
+
+\begin{erboxedFigure}{H}{modelPerformancePlayCharacter}{Composition and reference}
+\begin{erbulletedModel}{modelPerformancePlayCharacter}{3}{4.5}{5}
+\item a play is composed of one or more characters
+\item a performance is a performance of exactly one play
+\end{erbulletedModel}
+\end{erboxedFigure}
+
+Since it is a distinction rarely made many readers may be sceptical of whether there is a credible distinction between composition and reference; in the circumstances such doubts are reasonable and much of this chapter will be devoted to examples and implications of the distinction. So far much weight has rested on appeal to a sense of what constitutes a part and of what parts something can reasonably be said to be composed. There is another way of thinking about it though. We said in the introduction that entity modelling was concerned with what could be known of an entity; now, another way of asking what can be known of an entity is to ask what description can be given of an entity or what of an entity can be communicated.
+
+If focusing on parts and composition doesn't clarify the distinction between composition and reference or, for that matter, to convince of the credibility of the distinction, then another ways of clarifying relies on a focus on full description or communication and this in turns leads to the idea of copying the full description of an entity - for to communicate an entity is to copy it in some way from source to destination.
+
+Therefore we ask what would be communicated in a full description of a play and we answer that surely it would include a full description of each of the characters? The play-characters relationship therefore passes the full description test and is classified as a composition relationship. The play-performances relationship on the other hand fails this same test - it is not necessary to describe every performance of a play in order to fully describe the play - it fails the full description test.
+
+The matter will not rest however - there are many relationships which can be modelled either way and then models containing them are subtly different and are appropriate in different circumstances.
+
+\erboxedFigPicture{filesystem2}{H}{
+The folder example is an excellent example of a composition relationship. I cannot delete a folder on my computer without deleting all the folders and files contained within it (of course I can move the contained items first and then delete the parent folder). Shortcuts are different - I can delete a shortcut to a file or folder without deleting the file or folder. Therefore the relationship between a shortcut and that which it is a short cut to is a reference relationship.}
+
