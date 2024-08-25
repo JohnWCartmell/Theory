@@ -7,7 +7,7 @@ A defining feature of entity modelling is the description
 \mynote 
 We need to say something about this term `relationship' as it is used in
 entity modelling.
-As a starting point consider these two definitions that I found online. 
+As a starting point consider these two general definitions that I found online. 
 
 \begin{erquote}
 a relationship between two things is the way in which they are connected
@@ -141,7 +141,7 @@ Finally, this complementarity may be expressed in the mathematical language of
 sets and functions by asserting  function (\ref{employingFunction}) to be the inverse to function (\ref{employedByFunction}).
 
 
-\subsubsection*{Notations for Many-many Binary Relationships}
+\subsubsection*{Many-Many Binary Relationships}
 In Chen's paper the relationship between employees and projects (whose meaning is that
 an employee is assigned to work on a project) is depicted like this.
 \begin{gather}
@@ -162,9 +162,13 @@ a project has many employees assigned to it, $M$ in fact, for some $M >= 0$. \\
 }
 \end{gather}
 
-\noindent As before, the relationship is labelled at both ends. Each text label gives the name of the relationship from the point of view of the type of entity at that end of the line.
+\noindent As before, the relationship is labelled at both ends. Each text label gives the name of the relationship from the point of view of the type of entity at that end of the line and can be used to phrase the relationship:
+\begin{align}
+\label{assignedToText}&\mbox{every employee may be assigned to one or more projects,} \\
+\label{assignedText}&\mbox{every project may be assigned one or more employees.}
+\end{align}
 
-\subsection*{Elimination of Many-many Relationships}
+\subsection*{Elimination of Many-Many Relationships}
 \noindent In fact, many-many relationships are infrequently used in entity models and never used at all when modelling for the purpose of data specification.
 Consider that we can make a thing out of the fact of the assignment of an employee to a project. This means that we can entify the many-many relationship and remodel the relationship (\ref{employeeProjectWorker}) like this:\commentary{squeeze this diagram and flip labels}
 \begin{gather}
@@ -175,15 +179,18 @@ Consider that we can make a thing out of the fact of the assignment of an employ
 \end{gather}
 \noindent
 In (\ref{employeeProjectWorkerMediated}) the  many-many relationship depicted in (\ref{employeeProjectWorker}) is now mediated by the conjunction of  type
-\textit{project assignment} and two functional relationships. Because we can `'entify' many-many relationships in this way and mediate them by entity types and functional relationships they can be eliminated from entity modelling. Only functional relationships have direct representations in data, however represented, and for this reason it is usual to eliminate many-many relationships from entity models in favour of functional relationships. Since the remaining relationships are functional, in one direction or the other, so it is that in most entity models types are related solely by functional relationships and their inverses. In this form, entity modelling models the world in functional relationships, a fact that isn't usually articulated.
+\textit{project assignment} and two functional relationships. 
+Because we can `entify' many-many relationships in this way and mediate them by entity types and functional relationships they can be eliminated from entity modelling. 
+Only functional relationships have direct representations in data, 
+however this data is represented, and for this reason it is usual to eliminate many-many relationships from entity models in favour of functional relationships. Since the remaining relationships are functional, in one direction or the other, so it is that in most entity models types are related solely by functional relationships and their inverses. In this form, entity modelling models the world in functional relationships, a fact that isn't usually articulated.
 
 \mynote For the sake of completeness, I should mention that in situations
 such as (\ref{employeeProjectWorkerMediated}) above, the mediating entity or indeed its type is often referred to as an \textit{intersection entity}.
 
 \subsection*{Mathematical Notation}
 \mynote
-Before I describe how, in the Barker-Ellis style, the representations of functional relationships are styled to give additional information about them
- it is appropriate to bring to mind corresponding mathematical notations.\footnote{This book promotes my favourite notation but I think it important to describe other notations as well especially those used in mathematics.}
+Before I describe how, in the Barker-Ellis style, the representations of functional relationships can be styled to give additional information about them
+ it is appropriate to bring to mind some corresponding mathematical notations.\footnote{This book promotes my favourite notation but I think it important to describe other notations as well especially those used in mathematics.}
 
 \mynote Functional relationships in mathematics that are total are usually depicted by the arrow symbol $\longrightarrow$ so the assertion that $f:A \longrightarrow B$ in mathematics generally means that $f$ is a functional relationship from $A$ to $B$ which is defined everywhere i.e. is total.\footnote{The more abstract use of $\longrightarrow$ in category theory is a notable exception and is entirely germane as we will discuss later.} 
 For a functional relationship that is not known to be total 
@@ -198,18 +205,21 @@ are shown like this:
 \begin{center}
 A\,\barkerEllisA\,B
 \end{center}
-\noindent for example as here
-\begin{center}
-\input{\ImagesFolder/shlaerMellorDeptStudentProfessor0A.tex}
-\end{center}
+\noindent for example as here:
+\begin{equation}
+\label{shlaerMellorDeptStudentProfessor0A}
+\raisebox{-0.45cm}{\input{\ImagesFolder/shlaerMellorDeptStudentProfessor0A.tex}}
+\end{equation}
+
 If however a functional relationship is known to be total then the left half line is drawn as a solid line instead of a dashed line like so \barkerEllisC
 % \begin{center}
 % A\,\barkerEllisC\,B
 % \end{center}
-for example as here 
-\begin{center}
-\input{\ImagesFolder/shlaerMellorDeptStudentProfessor0C.tex}
-\end{center}
+for example as here: 
+\begin{equation}
+\label{shlaerMellorDeptStudentProfessor0C}
+\raisebox{-0.8cm}{\input{\ImagesFolder/shlaerMellorDeptStudentProfessor0C.tex}}
+\end{equation}
 In either case if the map is known to be surjective then the right hand half line is solidified and looks as this \barkerEllisB or \barkerEllisD
 % \begin{center}
 % A\,\barkerEllisB\,B
@@ -218,10 +228,11 @@ or this
 % \begin{center}
 % A\,\barkerEllisD\,B
 % \end{center}
-as for example in the relationship between a professor and the department they are a part of 
-\begin{center}
-\input{\ImagesFolder/shlaerMellorDeptStudentProfessor0B.tex}
-\end{center}
+as for example in the relationship between a professor and the department they are a part of:
+\begin{equation}
+\label{shlaerMellorDeptStudentProfessor0B}
+\raisebox{-0.45cm}{\input{\ImagesFolder/shlaerMellorDeptStudentProfessor0B.tex}}
+\end{equation}
 \footnote{In these examples we have assumed (and then documented) that departments \textbf{must} have professors and \textbf{may} have students.}
 
 If in any of these cases it is known in addition  that the map is injective i.e. that two distinct instances of the A type cannot be related to the vary same instance of the B type then the crowsfoot is omitted and so the relationship is depicted by a line that
@@ -240,23 +251,27 @@ have an example of some sort here with a variety of cardinalities or refer forwa
 \end{noteforfuture}
 
 \subsection*{Diagramming Relationships}
-The next thing to point out is that multiple relationships can be depicted on a single diagram and the relationship lines can be routed about as convenient for the drawing as here:
-\begin{center}
-\input{\ImagesFolder/shlaerMellorDeptStudentProfessor0.tex}
-\end{center}
+The next thing to point out is that multiple relationships can be depicted on a single diagram and the relationship lines can be routed about as convenient for the drawing.
+For example we can depict all three relationship 
+(\ref{shlaerMellorDeptStudentProfessor0A}), 
+(\ref{shlaerMellorDeptStudentProfessor0C}) and 
+(\ref{shlaerMellorDeptStudentProfessor0B}) on a single diagram as here:
+\begin{equation}
+\label{shlaerMellorDeptStudentProfessor0}
+\raisebox{-2cm}{\input{\ImagesFolder/shlaerMellorDeptStudentProfessor0.tex}}
+\end{equation}
+
 \commentary{Correct above diagram. Move left and also majors in $\leftarrow$ majoring in}
-This diagram is then said to be an entity relationship diagram, in this case in the Barker Ellis style. In this book there will be many of these smaller examples but we can imagine most of these to be fragments of some larger diagram which is the backbone to an entity model.
+This diagram is then said to be an entity relationship diagram. This one here is in the Barker Ellis style. In this book there will be many of these smaller examples but we can imagine most of these to be fragments of some larger diagram which backbones an entity model.
 In a later section Structured Entity Modelling we will describe additional meanings that we ascribe to relationships dependent on their orientations on the diagram. These are then the ascribed meanings in the remainder of this book. 
 
- 
-
-\subsection*{Relationship Phraseology} 
+\subsection*{Barker-Ellis Phraseology} 
 \mynote 
 Consider the binary relationship between a moon and the planet it is orbiting. 
 I will represent it in the  Barker-Ellis style in this way
 \begin{gather}
 \label{planetMoon}
-\raisebox{-1cm}{
+\raisebox{-0.65cm}{
 \input{\ImagesFolder/planetMoon.tex}
 }
 \end{gather}
@@ -265,31 +280,33 @@ I don't have a simple name for the binary relationship but instead I have  relat
 
 \mynote
 In the Barker-Ellis notation the idea is to choose these relationship labels
-carefully so that a phraseology, i.e. a particular templated form of expression,
+carefully so that a certain phraseology, i.e. a particular templated form of expression,
 can be used to produce textual descriptions of the relationship which are both meaningful and grammatical.
-We have already seen examples of this in the rendering of
+We have already seen an example of this in the rendering of
 relationship (\ref{employsRelationshipDiagram}) by texts 
-(\ref{employedByText}) and (\ref{employsRelationshipDiagram}), above.
+(\ref{employingText}) and (\ref{employedByText}), above. 
+Another example is the phrasing of relationship (\ref{employsRelationshipDiagram})
+by texts (\ref{assignedToText}) and (\ref{assignedText}). \commentary{Have any other examples been given hithertofore?} 
 
 Now from (\ref{planetMoon}) applying the Barker-Ellis  phraseology and reading the 
 relationship left-to-right we read the relationship as telling us something about every planet, because the relationship line is dashed representing optionality then we phrase that every planet \textit{may be} 
 in a relationship,
 because there is a crowsfoot on the opposite end we phrase that the relationship is to 
 \textit{one or more} moons.  In this way, from the standard phraseology, we obtain a textual description:
-\begin{itemize}
-\renewcommand\labelitemi{--}
-\item every planet may be orbited by one or more moons.
-\end{itemize}
+
+\begin{align}
+&\mbox{every planet may be orbited by one or more moons} 
+\end{align}
+
 This is grammatical only because I 
-because I chose the label `orbited by' with care and with foreknowledge of this  phraseology.
+because I chose the label `orbited by' with care and with foreknowledge of the  phraseology.
  
 Applying the same rules but now reading  the relationship from right-to-left and interpreting the solid line as 
- meaning that every moon \textit{must be} in relationship with a planet we get
-\begin{itemize}
-\renewcommand\labelitemi{--}
-\item every moon must be orbiting  one and only one planet.
-\end{itemize}
-Without foreknowledge of the phraseology I might instead have chosen the word `orbits' for the name of my directional relationship but if I had so chosen then applying the phraseology would have yielded an ungrammatical sentence.\footnote{I would have got "Every moon must be orbits one and only one planet." which is not grammatically correct.}
+ meaning that every moon \textit{must be} in relationship with a planet we get:
+\begin{align}
+&\mbox{every moon must be orbiting  one and only one planet} 
+\end{align}
+Without foreknowledge of the phraseology I might instead have chosen the word `orbits' for the name of my directional relationship but if I had so chosen then applying the phraseology would have yielded an ungrammatical sentence.\footnote{I would have got "Every moon must be orbits one and only one planet" which is ungrammatical.}
 
 \subsection*{Phrasing Relationship Instances}
 \mynote
@@ -310,7 +327,7 @@ This same relationship instance can be phrased in the other direction, right-to-
 \item Io is orbiting  Jupiter
 \end{itemize}
 
-If many such facts as this one such as
+If many such facts as this one and
 \begin{itemize}
 \renewcommand\labelitemi{--} 
 \item Saturn is orbited by Titan, 
@@ -343,20 +360,5 @@ Jupiter  & Europa         \\
 in which in the first row the column headings refer  back to the relationship (\ref{planetMoon})
 and subsequent rows, in the context of the column headings, communicate relationship instances. 
 What we are looking at here of course is a data table and one aspect of this book 
-is the richness of the meta-relationship between  entity models and data structure.
+is the richness of the connection between  entity models and data structure.
 
-\subsection*{Ternary Relationships}
-For the sake of completeness I should mention that Chen also represents ternary relationships and gives an 
-example of a ternary relationship between a project, a supplier and a part which he shows like this:
-
-
-\begin{center}
-\scalebox{0.9}{\input{\handCraftedImagesFolder/ChenStyleSupplierProjectPart.tex}}
-\end{center}
-
-In the Barker-Ellis style there are no ternary relationships nor are any needed since ternary relationships can be represented as a combination of binary relationships and entity types. The fact that all relationships are binary and are represented by lines only rather than diamonds  is of practical importance in that more details can be fitted onto diagrams.
-
-\mynote
-When it comes to describing how this ternary relationship of Chen's can be represented in terms of binary many-one relationships then I have to guess a bit at what Chen intended this ternary relationship to mean in the context of his hypothetical manufacturing company. 
-Having made my guess I have represented this ternary relationship by type \textit{project supply option} 
-in the Barker-Ellis style diagram given  in figure \ref{ChenManufacturingBarkerEllisStyle} in the next section. I hope that you agree that this Barker-Ellis style diagram leaves less to the imagination than Chen's diagram did.
