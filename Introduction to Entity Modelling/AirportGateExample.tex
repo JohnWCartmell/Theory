@@ -1,0 +1,118 @@
+\section{Airport Gate Example}
+\label{AirportGateExample}
+
+\mynote 
+This example is based on a message that I received on my phone on the day that I returned from a recent (at time of writing) holiday. The message read:
+\begin{equation}
+\label{LH2502PhoneMessage}
+\text{\parbox{9cm}{\textit{
+Your flight LH2502 from Munich to Manchester on 14 August 2024 at 15:55 will depart from gate L06.}}}
+\end{equation}
+Consider, this message contains multiple referentials and individually or combined these make reference to
+multiple entities:
+\begin{itemize}
+	\item the flight number, LH2502, makes reference to an \textit{airline service},\footnote{which, from one point of view at least, is a little odd because the name flight number purports to reference a flight. It isn't so odd though because on any given day flight numbers do reference flights.}
+	\item each airport name, Munich, respectively, Manchester, makes reference to an \textit{airport},
+	\item the combination of flight number, LH2502, and date, 14 August 2024, make reference to a \textit{flight},
+	\item the combination of the airport the flight is identified as being from, Munich, and the gate number, 
+	L06, identifies a \textit{gate}.
+\end{itemize}
+\mynote 
+These referentials, the names (Munich, Manchester), numbers (LH2502, L06) and the date (14 August 2024)
+I can understand as the values of attributes of the various referenced entitites. 
+The types of these entities (airline service, airport, flight and gate), the relationships between them and the attributes employed
+(flight number, date of departure, airport name and gate number) I can arrange on a diagram like this:
+\begin{equation}
+\label{boardingGate1}
+\raisebox{-1.5cm}{\input{\ImagesFolder/boardingGate1.tex}}
+\end{equation}
+Like so many examples this diagram doesn't have the full generality needed to be decriptive of all air transport situations (what about airports with multiple terminals? what about code sharing flights? what about change of gauge?\footnote{You might be intersted in looking up use of this term `change of gauge' in relation to air transport
+ --- it describes a way of operating an airline service that falls outside the reality described by my diagram here. The term is borrowed (airquotes) from its use describing a reality that might be faced by a rail transport system. }). Nonetheless this is a useful example and it has some very interesting features and has instances of impactful patterns that recur over and again in modelling situations.
+
+\mynote
+The underlining of the flight number attribute in the representation
+\raisebox{-0.5cm}{\input{\ImagesFolder/boardingGate0B.tex}} of the airline service type
+on diagram (\ref{boardingGate1}), and the absence of other underlined attributes, is interpreted as meaning that:
+\begin{equation}
+\label{airlineServiceIdentification}
+\text{\parbox{9cm}{\textit{
+Each airline service can be uniquely identified or referenced by its flight number.}}}
+\end{equation}
+Just to be be absolutely clear what this means --- it means no two distinct airline services have the same flight number. Thinking for a moment about the mathematical expression of this --- it means that the flight number attribute, which we know like all attributes can be thought of mathematically as a function, is a function that is total and is injective.\footnote{
+If $f: A \longrightarrow B$ is a function then the function is injective iff for all $x,y \in A$,
+$f(x) = f(y)$ implies $x=y$. 
+}
+ \mynote
+Whereas the flight number of an airline service is unique the date of departure of a
+flight is definitely not -- many flights leave each day. Instead flights are uniquely identified by the combination of their date of departure and the airline service that they are an instance of.
+ To document this on the diagram we underline the name attribute and put a bar, like this \barkerEllisJ, through the relationship that contributes to the identification and provides context so that
+ the type flight on the diagram appears like this:
+ \begin{equation}
+ \label{boardingGate0A}
+\raisebox{-1.5cm}{\input{\ImagesFolder/boardingGate0A.tex}}
+\end{equation}
+
+In summary, this part of the diagram conveys 
+\begin{equation}
+\label{airlineFlightIdentification}
+\text{\parbox{9cm}{\textit{
+Each flight can be uniquely identified or referenced by its date of departure in the context of the airline service that it is an instance of.}}}
+\end{equation}
+
+\mynote
+Because of (\ref{airlineServiceIdentification}), that a airline service is identified or referenced by flight number,  we can fill out the detail in (\ref{airlineFlightIdentification}) and deduce:
+\begin{equation}
+\label{airlineFlightNetIdentification}
+\text{\parbox{9cm}{\textit{
+Each flight can be uniquely identified or referenced by its date of departure along with the flight number of the airline service that it is an instance of}}}
+\end{equation}
+and that is how we were able to, nay, were expected to, interpret the flight number LH2502, 
+and date, 14 August 2024, in the original phone message (\ref{LH2502PhoneMessage}) --- as identifying a flight.\footnote{Because flight number got involved in the identification of flights indirectly, 
+ mediated by the  relationship of a flight to an airline service, 
+ and because multiple level of this sort of thing are common, flight number in such a situation is sometimes said to be cascaded.}
+
+\mynote
+Looking at the right hand side of diagram (\ref{boardingGate1}),
+the name attribute of an airport is underlined to indicate that
+it is an identifying attribute and so, in the absence of other identifying attributes and relationships,
+that:
+\begin{equation}
+\label{airportIdentification}
+\text{\parbox{9cm}{\textit{
+Each airport can be uniquely identified or referenced by its name.}}}
+\end{equation}
+and if we inspect the representation of the type \textit{gate} then we see that it says:
+\begin{equation}
+\label{gateIdentification}
+\text{\parbox{9cm}{\textit{
+Each gate can be uniquely identified or referenced by its gate number in the context of the airport that it is located at.}}}
+\end{equation}
+
+\mynote
+Because of (\ref{airportIdentification}), that a airport is identified or referenced by its name,  we can fill out the detail in (\ref{gateIdentification}) and deduce that:
+\begin{equation}
+\label{gateNetIdentification}
+\text{\parbox{9cm}{\textit{
+Each gate can be uniquely identified or referenced by its gate number along with the name of the airport it is located at.}}}
+\end{equation}
+\subsubsection{Discussion --- scope of relationship}
+This doesn't yet give a full explanation of the original phone message 
+(\ref{LH2502PhoneMessage}) though because
+in the message there are two airport names. 
+I was expected to know somehow which of the two airports named along with the my gate number L06
+was the location of my gate.  Was it L06 at Manchester or was it L06 at Munich? How was I supposed to know? 
+
+\mynote The answer to this question involves knowing something about the arrangement
+of the concepts and relationships shown in diagram (\ref{boardingGate1}) 
+and this something I needed to know and all of us would have known is not
+currently represented in the diagram.  This missing something is an example of a phenomena  
+that is massively understudied and unreported. It is something that mathematicians, particularly those versed in category theory, come across all the time but which entity modellers, data modellers and programmers literally have no words for and therefore it remains largely unobserved and wholly unremarked even though it is extremely impactful.
+
+\mynote 
+Why didn't the message say gate L06 of Munich airport?
+That's because everybody knows and so I am expected to know that my flight will be leaving from a gate at the same airport as the airline service that I have booked is departing from. 
+Diagram (\ref{boardingGate1}) doesn't express this fact. 
+Later in this book we introduce the concept of relationship scope and 
+suggest an annotation that could be added to the diagram to rectify this shortcoming.
+
+It is to the impoverishment of data specifiers everywhere (and surely this includes all programmers) that these phenomena are not in the core common syllabus of computer science. 

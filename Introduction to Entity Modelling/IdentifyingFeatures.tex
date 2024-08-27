@@ -7,25 +7,103 @@ and, loosely, we shall also say each of the attributes and relationships in the 
 
 \subsection{Notation}
  \mynote
-Various conventions have been used diagrammatically to convey that an attribute is identifying. In Barker's book the \# symbol is placed to the left of the attribute to indicate as much. In diagrams in this book the name of the attribute is underlined and this is consistent with many papers on relational theory in which  the names of columns are underlined to show that they are key columns.
+Various conventions have been used diagrammatically to convey that an attribute is identifying. In Barker's book the \# symbol is placed to the left of the attribute to indicate as much. In diagrams in this book the name of the attribute is underlined and this is consistent with papers on relational theory in which  the names of columns are underlined to show that they are key columns.
 
 \mynote Identifying relationships on the other hand, both in this book and in Barker's book 
-are distinguished by drawing a bar across them so that they like this: \barkerEllisJ or like this: \barkerEllisK.
+are distinguished by drawing a bar across them so that they like this: \barkerEllisJ\ or like this: \barkerEllisK.
+
+\subsection{Why Are We Bothered?}
+\mynote
+In entity modelling there are a number of reasons why we will likely be
+interested in documenting identifying features. The main reason is that we cannot convey, communicate or store instances of relationships without recourse to identification of entitites by use of identifying features. 
+
+ 
+\subsection{Examples}
+\mynote
+Flight number, payment card number, country code, international bank account number (IBAN), 
+international standard book number (ISBN), social security number, passport number, part number and many like attributes are designed specifically for the purpose of enabling unique identification of entities of a particular type so that each entity of the type can be referenced. Such attributes are said to be identifying attributes and are underlined 
+on diagrams to indicate as much. Attributes 
+such as ISBN and IBAN are designed to be globally unique.  
+Others such as:
+\begin{itemize}
+\item
+car registration plate number and passport number have values that are unique, and are therefore identifying, only with respect to particular issuing authorities, for example at a national level,
+\item part numbers may be unique with respect to particular part suppliers or manufacturers,
+\item airport terminal numbers are unique and therefore identifying with respect to the airports they are located at.
+\end{itemize}
+In these cases the underlining of the identifying attribute is combined with the barring of the context providing relationship as shown in these fragments in which, in the absence of other detail, types \textit{passport}, \textit{part} and \textit{terminal} are shown to be idenfied uniquely in relation
+to \textit{country}, \textit{supplier} and \textit{airport}, respectively, and these later types aare shown to have instances uniquely identified by name:
+
+\begin{tabular} {m{3.5cm} m{3.5cm} m{3.5cm}}
+\input{\ImagesFolder/countryPassport1.tex} &
+\input{\ImagesFolder/supplierPart1.tex} &
+\input{\ImagesFolder/airportTerminal1.tex}
+\end{tabular}
+
+\subsubsection{Two or more identifying attributes}
+For some types, the values of more than one attribute need be examined to distinguish entitites of the type --- in such cases as with a multi-dimensional coordinate system,
+it is a number of attributes that provide values that  taken together are unique 
+and enable an entity to be uniquely identified and referenced.  
+In such a case it is a number of attributes, such as latitude and longitude, rather than an individual attribute, which as a set  can be said to be identifying. 
+This is depicted by underlining each attribute in the set as shown in this example
+ \begin{equation}
+ \raisebox{-0.5cm}{\input{\ImagesFolder/mapSpotHeight1.tex}}
+ \end{equation} 
+  in which spot heights on maps are shown to be identifiable by the combination of latitude and longitude within the context of the map in question.
 
 \mynote 
-People are tricky to identify from a few well defined attributes but for some purposes at least the attributes full name, date of birth, and  home address might be considered sufficient. In an entity model this would be shown by underlining these three atributes like this:
+Consider the type \textit{person} whose instances, of course, are people.
+Now people are tricky to identify from a few well defined attributes but for some purposes at least the attributes full name, date of birth, and  home address might be considered sufficient. In an entity model this would be shown by underlining these three atributes like this:
 
 \begin{equation}
 \label{personAttributes2}
 \raisebox{-1.5cm}{\input{\ImagesFolder/personAttributes2.tex}}
 \end{equation}
- 
-\subsection{Why Are We Bothered?}
-\mynote
-In entity modelling there are a number of reasons why we will likely be
-interested in documenting identifying features. The main reason is that we cannot convey, communicate or store instances of relationships without recoruse to identification of entitites by use of identifying features. 
 
+\subsubsection{Intersection Entities}
+ \begin{newtt}
+\mynote
+A marriage entity you might think to be uniquely identifiable from its context of being a marriage between two distinct people. But it isn't since there are two distinct marriages of film stars Richard Burton and Elizabeth Taylor. Instead we must say that it is the date of a marriage that identifies it with respect to these two film stars or the ordinal number (and so we say the first marriage, the second marriage and so on).
+
+\mynote Sometimes there are just relationships in the set of required features of a type of entity. Sometimes entities are unique with respect to the contexts in which they arise. In cases such as this they are identified by the relationships they have with other entities. They are sometimes said to be intersection entities.
+\end{newtt}
+
+\subsection{Identifying Features - Why Specify them?}
+
+\mynote 
+We argue that it is desirable that an entity model documents identifying features for the types of entities it describes and that it is not just desirable but absolutely necessary for most types in those models that are to be used as data specifications. 
+
+\subsubsection{for meaning}
+\mynote 
+One argument uses a philosophical position according to which real world entities must have features that can be used to discriminate them i.e. to identify them -- this is called the principle of the identity of indiscernibles. 
+According to this argument, these identifying features may be 
+represented by attributes and relationships of a type, in an entity model, to give meaning to the type
+by establishing a precise correlation between instances of the type and 
+`real world' entities -- for without such identifying features, goes the argument, how can we precisely correlate instances of our types with real world counterparts?
+In summary, identifying features give meaning to our entity models by establishing correlations of our notional entities with real world entities.
+
+\mynote 
+I am not sure this philosophical argument holds water when we are most often dealing with names and other identities imposed/designated by man. The moons of Jupiter are named by man. What gives meaning to the name though is the orbit of the moon to Jupiter and upon initial observation the observed angular separation of the moon to Jupiter. So approximate average radius of the orbit is unique also. 
+
+\subsubsection{for data modelling}
+\mynote A little more concretely 
+\begin{itemize}
+\item attributes that are unique in context give us ways of identifying entities in that context, 
+\item they give us ways of referencing one entity from the context of another, 
+\item they give us ways of describing a relationship of one entity to another,
+\item they give us ways of communicating relationships from within the context of an entity,
+\item they give us ways of communicating entities, 
+\item ultimately this facilitates the storage of entities in data systems. 
+\end{itemize}
+
+\mynote
+Identifying attributes give us concrete ways of identifying entities within a context. Therefore, they allow us to reference one entity in the context of another. This enables us to describe the relationships between entities. Consequently, they provide methods for communicating these relationships within the context of an entity, which ultimately facilitates the storage of entities in data systems
+
+\mynote Identifying attributes are of particular significance with regard to 
+ how relationships are represented in data and therefore how communicated and stored.
+They are also significant in evaluating the goodness of an entity model, as we will see later.
 \subsection{Airline Flight Phone Message Example}
+\commentary{move this whole example after intersection entities maybe}
 \mynote 
 The example is based on a message that I received on my phone on the day that I returned from a recent (at time of writing) holiday. The message read:
 \begin{equation}
@@ -140,81 +218,7 @@ Diagram (\ref{boardingGate1}) doesn't express this fact.
 Later in this book we introduce the concept of relationship scope and 
 suggest an annotation that could be added to the diagram to rectify this shortcoming.
 
-It is to the impoverishment of data specifiers everywhere (and surely this includes all programmers) that these phenomena are not in the core common syllabus of computer science.  
-\subsection{Various examples and configurations}
-\mynote
-Flight number, payment card number, country code, international bank account number (IBAN), 
-international standard book number (ISBN), social security number, passport number, part number and many like attributes are designed specifically for the purpose of enabling unique identification of entities of a particular type so that each entity of the type can be referenced. Such attributes are said to be identifying attributes and are underlined 
-on diagrams to indicate as much. Attributes 
-such as ISBN and IBAN are designed to be globally unique.  
-\begin{itemize}
-\item
-Others such as 
-car registration plate number and passport number have values that are unique, and are therefore identifying, only with respect to particular issuing authorities, for example at a national level,
-\item part numbers may be unique with respect to particular part suppliers or manufacturers,
-\item typically airport terminals are numbered,  terminal numbers are unique and identifying with respect to the airports they are located at.
-\end{itemize}
-In these cases the underlining of the identifying attribute will be combined with the barring of the context providing relationship as shown in these fragments:
-
-\begin{tabular} {m{3.5cm} m{3.5cm} m{3.5cm}}
-\input{\ImagesFolder/countryPassport1.tex} &
-\input{\ImagesFolder/supplierPart1.tex} &
-\input{\ImagesFolder/airportTerminal1.tex}
-\end{tabular}
-
-\subsubsection{Two or more identifying attributes}
-\mynote \newt{need better flow}
- Sometimes, as in a coordinate system, it is a combination of attributes 
- that provide values that taken together are unique and that enable an entity to be uniquely identified.  In such a case it is a set of attributes, such as latitude and longitude, rather than an individual attribute, that can be said to be identifying. In this example
- \commentary{modify diagram: remove absolute, change pinpoints to depicts}
-  spot heights are identifiable by the combination of latitude and longitude within the context of individual maps. 
- \begin{equation}
- \raisebox{-0.5cm}{\input{\ImagesFolder/mapSpotHeight1.tex}}
- \end{equation} 
-
-\subsubsection{Intersection Entities}
- \begin{newtt}
-\mynote
-A marriage entity you might think to be uniquely identifiable from its context of being a marriage between two distinct people. But it isn't since there are two distinct marriages of film stars Richard Burton and Elizabeth Taylor. Instead we must say that it is the date of a marriage that identifies it with respect to these two film stars or the ordinal number (and so we say the first marriage, the second marriage and so on).
-
-\mynote Sometimes there are just relationships in the set of required features of a type of entity. Sometimes entities are unique with respect to the contexts in which they arise. In cases such as this they are identified by the relationships they have with other entities. They are sometimes said to be intersection entities.
-\end{newtt}
-
-\subsection{Identifying Features - Why Specify them?}
-
-\mynote 
-We argue that it is desirable that an entity model documents identifying features for the types of entities it describes and that it is not just desirable but absolutely necessary for most types in those models that are to be used as data specifications. 
-
-\subsubsection{for meaning}
-\mynote 
-One argument uses a philosophical position according to which real world entities must have features that can be used to discriminate them i.e. to identify them -- this is called the principle of the identity of indiscernibles. 
-According to this argument, these identifying features may be 
-represented by attributes and relationships of a type, in an entity model, to give meaning to the type
-by establishing a precise correlation between instances of the type and 
-`real world' entities -- for without such identifying features, goes the argument, how can we precisely correlate instances of our types with real world counterparts?
-In summary, identifying features give meaning to our entity models by establishing correlations of our notional entities with real world entities.
-
-\mynote 
-I am not sure this philosophical argument holds water when we are most often dealing with names and other identities imposed/designated by man. The moons of Jupiter are named by man. What gives meaning to the name though is the orbit of the moon to Jupiter and upon initial observation the observed angular separation of the moon to Jupiter. So approximate average radius of the orbit is unique also. 
-
-\subsubsection{for data modelling}
-\mynote A little more concretely 
-\begin{itemize}
-\item attributes that are unique in context give us ways of identifying entities in that context, 
-\item they give us ways of referencing one entity from the context of another, 
-\item they give us ways of describing a relationship of one entity to another,
-\item they give us ways of communicating relationships from within the context of an entity,
-\item they give us ways of communicating entities, 
-\item ultimately this facilitates the storage of entities in data systems. 
-\end{itemize}
-
-\mynote
-Identifying attributes give us concrete ways of identifying entities within a context. Therefore, they allow us to reference one entity in the context of another. This enables us to describe the relationships between entities. Consequently, they provide methods for communicating these relationships within the context of an entity, which ultimately facilitates the storage of entities in data systems
-
-\mynote Identifying attributes are of particular significance with regard to 
- how relationships are represented in data and therefore how communicated and stored.
-They are also significant in evaluating the goodness of an entity model, as we will see later.
-
+It is to the impoverishment of data specifiers everywhere (and surely this includes all programmers) that these phenomena are not in the core common syllabus of computer science. 
 
 \subsection{Impact of the scope of the domain of discourse}
 \mynote
@@ -242,12 +246,11 @@ This is
 indicated in the diagram  by the underlining of the name of this attribute where it appears on the diagram.\footnote{Aside: There is a trivial difference here from Barker's notation because he distinguishes the identifying attributes with a \# symbol where we here use  underlining.} 
 
  
-\subsection{Do we need the Barker example}
+\subsection{Do we need the Barker example?}
 \mynote Work on this example from page 3-13 of Barker.
 \commentary{flight needs data  of departure (time of departure not required)}
 \erboxedFigPicture{boardingPass2}{H}
 {This example is based on an example developed in the Barker book. I have simplified in some areas.}
-
 
 
 \begin{noteforfuture}
