@@ -1,9 +1,29 @@
 \section{Identifying Features}
 \label{IdentifyingFeatures}
 \subsection{The Question of Identity}
-The question that we are concerned with in this section regards how entitites of any particular type can be distinguished or, in other words, how entitites of a type can be identified uniquely and therefore how they can be referenced? 
-The idea is that in an entity model it will often be the case that a certain subset of the features of a type of entity will be sufficient to identify entitites of the type. The identifying features will be a combined set of attributes and functional relationships with other entitites. Generally, such a set is said to be \textit{identifying}
-and, loosely, we shall also say each of the attributes and relationships in the set is identifying. Such a set has a simple mathematical characterisation which we come to later after giving examples both of the phenomena and of the notation used. 
+\mynote
+The subject that we are concerned with in this section 
+is the identification of entities ---  regarding any particular type, how can entities of the type be distinguished from each other? The assumption that we make is that no two entities of a given type are alike in all their features. In actual fact this is a philosophical position that is called the principle of the identity of indiscernibles and it is a contested principle but in entity modelling we tend to assume the principle holds and, accordingly, that no two entities are exactly the same in all their features. 
+
+Any set of features of a type, whether the whole set or a subset, if they suffice for the purpose of distinguishing the entities of the type then they are said to be identifying. Such a set of features gives us a way of identifying and therefore referencing entities of the type. 
+
+ Generally, 
+ the identifying features will be a combined set of attributes and relationships, 
+ the relationships being functional relationships with other entities. 
+Though it is the set is that is \textit{identifying}, 
+informally, we shall say each of the attributes and relationships in the set is identifying. 
+Such a set has a simple mathematical characterisation which we come to later after giving examples both of identifying features in various situations and of the notation that we use.
+
+\subsection{The Significance of Identifying Features}
+
+\mynote 
+It is desirable that an entity model documents identifying features for the types of entities it describes and  it is  absolutely necessary for most types in those models that are to be used as data specifications as we will come to in a later section. 
+
+\mynote
+The reason for this is that identifying features give us concrete ways of identifying entities within a context and thereby enables us to describe the relationships between entities. Consequently, they provide methods for communicating  relationships and this ultimately facilitates the storage of representations of entities in data systems.
+
+
+
 
 \subsection{Notation}
  \mynote
@@ -12,10 +32,7 @@ Various conventions have been used diagrammatically to convey that an attribute 
 \mynote Identifying relationships on the other hand, both in this book and in Barker's book 
 are distinguished by drawing a bar across them so that they like this: \barkerEllisJ\ or like this: \barkerEllisK.
 
-\subsection{Why Are We Bothered?}
-\mynote
-In entity modelling there are a number of reasons why we will likely be
-interested in documenting identifying features. The main reason is that we cannot convey, communicate or store instances of relationships without recourse to identification of entitites by use of identifying features. 
+
 
  
 \subsection{Examples}
@@ -31,8 +48,9 @@ car registration plate number and passport number have values that are unique, a
 \item part numbers may be unique with respect to particular part suppliers or manufacturers,
 \item airport terminal numbers are unique and therefore identifying with respect to the airports they are located at.
 \end{itemize}
-In these cases the underlining of the identifying attribute is combined with the barring of the context providing relationship as shown in these fragments in which, in the absence of other detail, types \textit{passport}, \textit{part} and \textit{terminal} are shown to be idenfied uniquely in relation
-to \textit{country}, \textit{supplier} and \textit{airport}, respectively, and these later types aare shown to have instances uniquely identified by name:
+In these bulleted cases the underlining of the identifying attribute is combined with the barring of the context providing relationship as shown here in fragments in which, in the absence of other detail, types \textit{passport}, \textit{part} and \textit{terminal} are shown to be uniquely identifying  in relation
+to \textit{country}, \textit{supplier} and \textit{airport}, respectively, 
+and in which these later types are shown to have instances uniquely identified by name:
 
 \begin{tabular} {m{3.5cm} m{3.5cm} m{3.5cm}}
 \input{\ImagesFolder/countryPassport1.tex} &
@@ -41,18 +59,18 @@ to \textit{country}, \textit{supplier} and \textit{airport}, respectively, and t
 \end{tabular}
 
 \subsubsection{Two or more identifying attributes}
-For some types, the values of more than one attribute need be examined to distinguish entitites of the type --- in such cases as with a multi-dimensional coordinate system,
-it is a number of attributes that provide values that  taken together are unique 
+For some types, the values of more than one attribute need be examined to distinguish entities of the type ---  as with a multi-dimensional coordinate system a number of attributes provide values that  taken together are unique 
 and enable an entity to be uniquely identified and referenced.  
-In such a case it is a number of attributes, such as latitude and longitude, rather than an individual attribute, which as a set  can be said to be identifying. 
-This is depicted by underlining each attribute in the set as shown in this example
+In such a case it is a number of attributes, latitude and longitude, for example, rather than an individual attribute, which as a set  can be said to be identifying. 
+This is depicted by underlining each attribute that is in the set.
+This is  shown in the following example
+in which spot heights on maps are shown to be identifiable by the combination of latitude and longitude within the context of the map:
  \begin{equation}
  \raisebox{-0.5cm}{\input{\ImagesFolder/mapSpotHeight1.tex}}
  \end{equation} 
-  in which spot heights on maps are shown to be identifiable by the combination of latitude and longitude within the context of the map in question.
-
 \mynote 
-Consider the type \textit{person} whose instances, of course, are people.
+For a second example, 
+consider modelling the type \textit{person} whose instances, of course, are people.
 Now people are tricky to identify from a few well defined attributes but for some purposes at least the attributes full name, date of birth, and  home address might be considered sufficient. In an entity model this would be shown by underlining these three atributes like this:
 
 \begin{equation}
@@ -61,215 +79,46 @@ Now people are tricky to identify from a few well defined attributes but for som
 \end{equation}
 
 \subsubsection{Intersection Entities}
- \begin{newtt}
 \mynote
-A marriage entity you might think to be uniquely identifiable from its context of being a marriage between two distinct people. But it isn't since there are two distinct marriages of film stars Richard Burton and Elizabeth Taylor. Instead we must say that it is the date of a marriage that identifies it with respect to these two film stars or the ordinal number (and so we say the first marriage, the second marriage and so on).
+For some types in some circumstances there are no attributes and only relationships in the identifying set. 
+We saw an example earlier
+in figure \ref{employeeProjectWorkerMediatedAttributed}. In that figure there
+is an entity type
+\textit{project assignment} which implements a many-many relationship between employees and projects. 
+Such entity types as this are common in the Barker-Ellis notation 
+standing as they do in positions that would be occupied many-many relationships
+ and depicted by  diamonds in Chen's notation. 
+ Because the type `project assignment' implements a many-many relationship, we can be sure that entities of the type  are uniquely identified by 
+ identifying the employee that they assign in combination with the project they assign to and this means that the relationships \textit{assigning} and \textit{to work on}, in combination, are identifying features of the type. This has been indicated in 
+figure  \ref{employeeProjectWorkerMediatedAttributed} by the bars drawn across these two relationships. As I mentioned before such types as this are sometimes said to be intersection entities.
 
-\mynote Sometimes there are just relationships in the set of required features of a type of entity. Sometimes entities are unique with respect to the contexts in which they arise. In cases such as this they are identified by the relationships they have with other entities. They are sometimes said to be intersection entities.
-\end{newtt}
 
-\subsection{Identifying Features - Why Specify them?}
-
-\mynote 
-We argue that it is desirable that an entity model documents identifying features for the types of entities it describes and that it is not just desirable but absolutely necessary for most types in those models that are to be used as data specifications. 
-
-\subsubsection{for meaning}
-\mynote 
-One argument uses a philosophical position according to which real world entities must have features that can be used to discriminate them i.e. to identify them -- this is called the principle of the identity of indiscernibles. 
-According to this argument, these identifying features may be 
-represented by attributes and relationships of a type, in an entity model, to give meaning to the type
-by establishing a precise correlation between instances of the type and 
-`real world' entities -- for without such identifying features, goes the argument, how can we precisely correlate instances of our types with real world counterparts?
-In summary, identifying features give meaning to our entity models by establishing correlations of our notional entities with real world entities.
-
-\mynote 
-I am not sure this philosophical argument holds water when we are most often dealing with names and other identities imposed/designated by man. The moons of Jupiter are named by man. What gives meaning to the name though is the orbit of the moon to Jupiter and upon initial observation the observed angular separation of the moon to Jupiter. So approximate average radius of the orbit is unique also. 
-
-\subsubsection{for data modelling}
-\mynote A little more concretely 
-\begin{itemize}
-\item attributes that are unique in context give us ways of identifying entities in that context, 
-\item they give us ways of referencing one entity from the context of another, 
-\item they give us ways of describing a relationship of one entity to another,
-\item they give us ways of communicating relationships from within the context of an entity,
-\item they give us ways of communicating entities, 
-\item ultimately this facilitates the storage of entities in data systems. 
-\end{itemize}
-
-\mynote
-Identifying attributes give us concrete ways of identifying entities within a context. Therefore, they allow us to reference one entity in the context of another. This enables us to describe the relationships between entities. Consequently, they provide methods for communicating these relationships within the context of an entity, which ultimately facilitates the storage of entities in data systems
-
-\mynote Identifying attributes are of particular significance with regard to 
- how relationships are represented in data and therefore how communicated and stored.
-They are also significant in evaluating the goodness of an entity model, as we will see later.
-\subsection{Airline Flight Phone Message Example}
-\commentary{move this whole example after intersection entities maybe}
-\mynote 
-The example is based on a message that I received on my phone on the day that I returned from a recent (at time of writing) holiday. The message read:
-\begin{equation}
-\label{LH2502PhoneMessage}
-\text{\parbox{9cm}{\textit{
-Your flight LH2502 from Munich to Manchester on 14 August 2024 at 15:55 will depart from gate L06.}}}
-\end{equation}
-Consider, this message contains multiple referentials and individually or combined these make reference to
-multiple entities:
-\begin{itemize}
-	\item the flight number, LH2502, makes reference to an \textit{airline service},\footnote{which, from one point of view at least, is a little odd because the name flight number purports to reference a flight. It isn't so odd though because on any given day flight numbers do reference flights.}
-	\item each airport name, Munich, respectively, Manchester, makes reference to an \textit{airport},
-	\item the combination of flight number, LH2502, and date, 14 August 2024, make reference to a \textit{flight},
-	\item the combination of the airport the flight is identified as being from, Munich, and the gate number, 
-	L06, identifies a \textit{gate}.
-\end{itemize}
-\mynote 
-These referentials, the names (Munich, Manchester), numbers (LH2502, L06) and the date (14 August 2024)
-I can understand as the values of attributes of the various referenced entitites. 
-The types of these entities (airline service, airport, flight and gate), the relationships between them and the attributes employed
-(flight number, date of departure, airport name and gate number) I can arrange on a diagram like this:
-\begin{equation}
-\label{boardingGate1}
-\raisebox{-1.5cm}{\input{\ImagesFolder/boardingGate1.tex}}
-\end{equation}
-Like so many examples this diagram doesn't have the full generality needed to be decriptive of all air transport situations (what about airports with multiple terminals? what about code sharing flights? what about change of gauge?\footnote{You might be intersted in looking up use of this term `change of gauge' in relation to air transport
- --- it describes a way of operating an airline service that falls outside the reality described by my diagram here. The term is borrowed (airquotes) from its use describing a reality that might be faced by a rail transport system. }). Nonetheless this is a useful example and it has some very interesting features and has instances of impactful patterns that recur over and again in modelling situations.
-
-\mynote
-The underlining of the flight number attribute in the representation
-\raisebox{-0.5cm}{\input{\ImagesFolder/boardingGate0B.tex}} of the airline service type
-on diagram (\ref{boardingGate1}), and the absence of other underlined attributes, is interpreted as meaning that:
-\begin{equation}
-\label{airlineServiceIdentification}
-\text{\parbox{9cm}{\textit{
-Each airline service can be uniquely identified or referenced by its flight number.}}}
-\end{equation}
-Just to be be absolutely clear what this means --- it means no two distinct airline services have the same flight number. Thinking for a moment about the mathematical expression of this --- it means that the flight number attribute, which we know like all attributes can be thought of mathematically as a function, is a function that is total and is injective.\footnote{
-If $f: A \longrightarrow B$ is a function then the function is injective iff for all $x,y \in A$,
-$f(x) = f(y)$ implies $x=y$. 
-}
- \mynote
-Whereas the flight number of an airline service is unique the date of departure of a
-flight is definitely not -- many flights leave each day. Instead flights are uniquely identified by the combination of their date of departure and the airline service that they are an instance of.
- To document this on the diagram we underline the name attribute and put a bar, like this \barkerEllisJ, through the relationship that contributes to the identification and provides context so that
- the type flight on the diagram appears like this:
- \begin{equation}
- \label{boardingGate0A}
-\raisebox{-1.5cm}{\input{\ImagesFolder/boardingGate0A.tex}}
-\end{equation}
-
-In summary, this part of the diagram conveys 
-\begin{equation}
-\label{airlineFlightIdentification}
-\text{\parbox{9cm}{\textit{
-Each flight can be uniquely identified or referenced by its date of departure in the context of the airline service that it is an instance of.}}}
-\end{equation}
-
-\mynote
-Because of (\ref{airlineServiceIdentification}), that a airline service is identified or referenced by flight number,  we can fill out the detail in (\ref{airlineFlightIdentification}) and deduce:
-\begin{equation}
-\label{airlineFlightNetIdentification}
-\text{\parbox{9cm}{\textit{
-Each flight can be uniquely identified or referenced by its date of departure along with the flight number of the airline service that it is an instance of}}}
-\end{equation}
-and that is how we were able to, nay, were expected to, interpret the flight number LH2502, 
-and date, 14 August 2024, in the original phone message (\ref{LH2502PhoneMessage}) --- as identifying a flight.\footnote{Because flight number got involved in the identification of flights indirectly, 
- mediated by the  relationship of a flight to an airline service, 
- and because multiple level of this sort of thing are common, flight number in such a situation is sometimes said to be cascaded.}
-
-\mynote
-Looking at the right hand side of diagram (\ref{boardingGate1}),
-the name attribute of an airport is underlined to indicate that
-it is an identifying attribute and so, in the absence of other identifying attributes and relationships,
-that:
-\begin{equation}
-\label{airportIdentification}
-\text{\parbox{9cm}{\textit{
-Each airport can be uniquely identified or referenced by its name.}}}
-\end{equation}
-and if we inspect the representation of the type \textit{gate} then we see that it says:
-\begin{equation}
-\label{gateIdentification}
-\text{\parbox{9cm}{\textit{
-Each gate can be uniquely identified or referenced by its gate number in the context of the airport that it is located at.}}}
-\end{equation}
-
-\mynote
-Because of (\ref{airportIdentification}), that a airport is identified or referenced by its name,  we can fill out the detail in (\ref{gateIdentification}) and deduce that:
-\begin{equation}
-\label{gateNetIdentification}
-\text{\parbox{9cm}{\textit{
-Each gate can be uniquely identified or referenced by its gate number along with the name of the airport it is located at.}}}
-\end{equation}
-\subsubsection{Outstanding question --- scope of relationship}
-This doesn't yet give a full explanation of the original phone message 
-(\ref{LH2502PhoneMessage}) though because
-in the message there are two airport names. 
-I was expected to know somehow which of the two airports named along with the my gate number L06
-was the location of my gate.  Was it L06 at Manchester or was it L06 at Munich? How was I supposed to know? 
-
-\mynote The answer to this question involves knowing something about the arrangement
-of the concepts and relationships shown in diagram (\ref{boardingGate1}) 
-and this something I needed to know and all of us would have known is not
-currently represented in the diagram.  This missing something is an example of a phenomena  
-that is massively understudied and unreported. It is something that mathematicians, particularly those versed in category theory, come across all the time but which entity modellers, data modellers and programmers literally have no words for and therefore it remains largely unobserved and wholly unremarked even though it is extremely impactful.
-
-\mynote 
-Why didn't the message say gate L06 of Munich airport?
-That's because everybody knows and so I am expected to know that my flight will be leaving from a gate at the same airport as the airline service that I have booked is departing from. 
-Diagram (\ref{boardingGate1}) doesn't express this fact. 
-Later in this book we introduce the concept of relationship scope and 
-suggest an annotation that could be added to the diagram to rectify this shortcoming.
-
-It is to the impoverishment of data specifiers everywhere (and surely this includes all programmers) that these phenomena are not in the core common syllabus of computer science. 
-
-\subsection{Impact of the scope of the domain of discourse}
-\mynote
-It is obvious from these examples that such attributes only identify uniquely within an overall system or context. If this system or context is the subject of an entity model, or if it dominates the subject, then these attributes are documented in the entity model as identifying attributes. 
-
-\subsection {Mathematical Perspective}
-\mynote From a mathematical perspective, attributes can be viewed as partial functions. Identifying attributes are total functions that are injective.  
+\subsection {Mathematical Characterisation}
+\mynote From a mathematical perspective, 
+each feature of an entity type can be represented by a function. A set of features is suffiecient to uniquely identify entitities of a type if and only if when thought  of in this way the set is jointly injective.   
 
 
 
-\subsection{somewhere}
-\commentary{referential attributes represent data not concept}
-\commentary{relationships model concept and context not data}
+ 
 
-
-\subsection{Summary---Formal}
+\subsection{Summary}
 \mynote A set of features of a type of entity i.e. a set of attributes and outgoing direction We say that al relationships, is said to be \textit{identifying} provided that the values of these features,
 taken together, is guaranteed to uniquely identify an entity of the type i.e. to be such that no two distinct entities of the type can have identical values for all of the features. 
 
-\mynote In the simplest cases a single attribute will suffice. Social security number, part no, 
+\mynote In the simplest cases a single attribute will suffice. 
+Social security number, part no, 
 passport number and like attributes are designed to uniquely identify entities of the type from others of the type. 
 An example of this 
 in  shown in figure \ref{boardingPass2} in which entities of type \textit{airline route} are uniquely identified by a \textit{flight number} attribute.
 This is
 indicated in the diagram  by the underlining of the name of this attribute where it appears on the diagram.\footnote{Aside: There is a trivial difference here from Barker's notation because he distinguishes the identifying attributes with a \# symbol where we here use  underlining.} 
 
- 
-\subsection{Do we need the Barker example?}
-\mynote Work on this example from page 3-13 of Barker.
-\commentary{flight needs data  of departure (time of departure not required)}
-\erboxedFigPicture{boardingPass2}{H}
-{This example is based on an example developed in the Barker book. I have simplified in some areas.}
+
+\mynote A final point, as we have said, identifying attributes are of particular significance with regard to 
+ how relationships are represented in data and therefore how communicated and stored.
+They are also significant in evaluating the goodness of an entity model, as we will see later.
 
 
-\begin{noteforfuture}
-In this figure \ref{boardingPass2} example aircraft registration number is an absent referentials from
-boarding pass. Referentials can collapse but they can also be totally absented. Maybe call them indirect referentials. 
-\end{noteforfuture}
-
-\commentary{airline route versus flight reminds me of Saussure discussion re: trains}
-
-
-\begin{noteforfuture}
-unreal identities - range from ISBNs and such to system-specific identifiers. part numbers.
-\end{noteforfuture}
-\begin{noteforfuture}
-Is there a case somewhere for an entity modeller who visits from another planet.
-If we show them our entity models they will say yes but what scope have these relationships.
-\end{noteforfuture}
-
-\subsection{Zaniola's Example and the Nearest Shop}
 
 
 
