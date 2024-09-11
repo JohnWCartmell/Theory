@@ -87,16 +87,30 @@
 	\pscircle[fillstyle=solid,fillcolor=white](0,0){\chenvaluetyperadius}
 	\rput(0,0){\scriptsize #2}
 }
+% macro used for tagging referential and relationship words
+%\syntag{dash}{tagnode}{armBcm}{wordnode}{offsetcm}
+%dash=1pt 0pt    for solid line 
+%    =1pt 1pt    for dotted line
+%    =5pt 3pt    for default dashed style
+%    or any other specified dashed style
+\newcommand{\syntag}[5]
+{\ncangle[nodesepA=6pt, 
+          nodesepB=2pt,
+          linestyle=dashed,
+          dash=#1, 
+          offsetA=#5cm, 
+          angleA=-90, 
+          angleB=90, 
+          armB=#3cm, 
+          linearc=.2]{#4}{#2}}
 
 \title{Introduction to Entity Modelling}
 \author{John Cartmell}
 \begin{document}
 \maketitle
-\iffalse
  \input{Overview.tex}
  \input{Perspective.tex}
  \input{EntityModels.tex}
- \fi
  \input{Relationships.tex}
  %\iffalse
  \input{ChenManufacturingCompany.tex}
@@ -105,14 +119,11 @@
  %\fi
  \input{IdentifyingFeatures.tex}
  \input{ReferencingEntities.tex}
- \commentary{Maybe the first section on scope occurs next to give interest to the rather dry `Referencing Entities'}
+ \input{Scope.tex}
  \input{AirportGateExample.tex}
  \input{CoreversusDerivative.tex}
  \input{CommunicatingEntityInstances}
  %\iffalse
- \commentary{I think scope needs to move earlier because 
- it is part of the interest of referencing entities to communicatev relationships.}
- \input{Scope.tex}
  \input{DataModelling.tex}
  \input{TypeInheritance} 
  \input{StructuredEntityModelling.tex}
@@ -121,7 +132,6 @@ terminology subtype and supertype Barker?
 non-standard part of the SSADM method.
 Use in car example from SSADM
 \input{DistinctionBetweenCompositionAndReference}
-
 \input{BarkerAirlineExample}
 \input{Notes.tex}
 %\fi
