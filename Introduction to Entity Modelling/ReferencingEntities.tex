@@ -2,62 +2,69 @@
 \label{ReferencingEntities}
 
 In this section we explore the significance of the identifying features
-of a type and the manner in which knowledge of these features enables us to 
-reference entities and, in turn, to convey, communicate and store instances of relationships. 
+of a type and the manner in which knowledge of these features, 
+be they attributes or relationships, enables us to 
+reference entities and, in turn, 
+to convey, communicate and store instances of relationships. 
 There is more to this than initially meets the eye and we explore the topic
 by way of examples. 
 
-\subsection{The Simplest Case --- Planets and their Moons as Named Entities}
-\mynote
+\subsection{Planets and their Moons as Named Entities}
+\mynote \commentary{Possibly ditch this example and just use the 
+dramatic arts example which could be moved here.}
 In the simplest examples entities of a type have names associated with them and these are unique and can be  quoted to reference entities of the type. 
-Name attributes in these cases are archetypal examples of identifying attributes. 
 
-We have already seen an example of the role of the naming of both planets and moons in the example given earlier for a phraseology for the communication of relationships
+We have already seen an example of the role of the naming of both planets and moons in the example given earlier 
  in which we presented this statement:
 \begin{equation}
 \label{JupiterIoShort}
 \mbox{\textit{Jupiter is orbited by Io.}}
 \end{equation}
-as a representation of an instance of the binary relationship
+as a representation of an instance of a binary relationship.
+\iffalse
 \begin{gather}
 \label{planetMoonSecondInstance}
 \raisebox{-1cm}{
 \input{\ImagesFolder/planetMoon.tex}
 }
 \end{gather}
-for in the context of statement (\ref{JupiterIoShort}), Jupiter is the name of, and therefore  a reference to, a planet and  Io is the name of, and therefore a reference to, a moon i.e. a natural satellite.\footnote{
-Note that within the context of the solar system the name Io  doesn't uniquely identify this moon of Jupiter amongst all named solar system objects since it is also the name of an asteroid that orbits within the asteroid belt.
-The names of moons are only unique as names of moons. 
-Of course in other contexts, both Jupiter and Io are the names of mythological figures.
-} 
-We understand  (\ref{JupiterIoShort}), therefore, to be shorthand for the 
-more pernickerty 
-\begin{equation}
-\mbox{\textit{The planet with name `Jupiter' is orbited by the moon with name `Io'.}}
-\end{equation}
+\fi
 
-\mynote So planets and moons are named which is to say they have name attributes.
-\commentary{Rewrite this paragraph.}
-Of course name attributes are archetypal examples of identifying attributes --- we name things so that we can identify them in context. In such a situation the name of an entity, i.e. the value of the name attribute,  can be used in context to definitively identify the entity.
-Quoting this value, i.e. using the name, is one way of referencing an entity of the type from within the context of another.
+\mynote Planets and moons are named which is to say they have name attributes
+and these, of course, are archetypal examples of identifying attributes --- we name things so that we can identify them in context. The name of an entity, i.e. the value of the name attribute,  is used in context to reference entities of the type.
  \mynote
-Focusing on just this aspect of the solar system we  draw the model shown in figure
+We  draw the model shown in figure
 \ref{planetMoonModel}
 containing the relationship (\ref{planetMoonSecondInstance}) and showing name attributes of both moons and planets and
 underlining these to showing that each of them is unique and therefore identifying. 
-This is the entity model (albeit of a very small universe) that explains the communication (\ref{JupiterIoShort}) or equally, and as we shall see later, the structure of the data table of planets and moons given earlier.
+This is the entity model (albeit of a very small universe) that accounts for the communication (\ref{JupiterIoShort}) or equally, and as we shall see later, the structure of the data table of planets and moons, as presented earlier.
 \begin{erboxedFigure} {H}{planetMoonModel}
 {
 caption blah blah blah
  }
-\input{\ImagesFolder/planetMoonModel.tex}
+\input{\ImagesFolder/planetMoon2.tex}
 \end{erboxedFigure}
+
+
+In the context of statement (\ref{JupiterIoShort}), Jupiter is the name of, and therefore  a reference to, a planet and  Io is the name of, and therefore a reference to, a moon i.e. a natural satellite.\footnote{
+Note that within the context of the solar system the name Io  doesn't uniquely identify this moon of Jupiter amongst all named solar system objects since it is also the name of an asteroid that orbits within the asteroid belt.
+The names of moons are only unique as names of moons. 
+Of course in other contexts, both Jupiter and Io are the names of mythological figures.
+} 
+We understand  (\ref{JupiterIoShort}) to be shorthand for the 
+more pernickerty 
+\begin{equation}
+\mbox{\textit{The planet with name Jupiter is orbited by the moon with name Io.}}
+\end{equation}
+
 \mynote
 We are very much stating the obvious of course but there is a pattern here and it is repeated over and over when instances of relationships are communicated  and the same pattern occurs more formally  and uniformly when instances of relationships are communicated in software systems and/or stored in data.
 
-\begin{noteforfuture}
-would like an example with two or three identifying attributes but --- cannot think of one. The ones I have given earlier are not very convincing.
-\end{noteforfuture}
+We can bring out the pattern by annotating the sentence as in figure xxx.
+
+
+
+We will come back to the phrasing of relationship instances in a monent but first we must look at what happens when some of the identifying features of an entity are relationships.
 
 \subsection{Context and the Referencing of Entities}
 \mynote
@@ -95,9 +102,58 @@ figure \ref{dramaticArtsIdentificationDetails} .
 \raisebox{-1.5cm}{\input{\ImagesFolder/dramaticArtsAbsolutePlaywrightDetail.tex}}
 \end{tabular}
 \end{erboxedFigure}
+\mynote %new note 64
+From (a), (b) and (c) taken together we have that
+\begin{equation} 
+\label{absoluteCharacterReferencing}
+\text{\parbox{9cm}{\textit{without context, a character within a play 
+may be referenced by the name of character, the title of a play and the name of the playwright who wrote the play.}}}
+\end{equation}
+so in answer to the question ``who is the character who is a linguist and teaches diction to a flower girl?''
+ then the answer might be:
+ \begin{equation*}
+\label{HenryHigginsReferenceFromAbsolute}
+\text{\parbox{9cm}{\textit{\rdash{Henry Higgins} from \rdash{George Bernard Shaw}'s \rdash{Pygmalion}. }}}\\
+\end{equation*}
 
-\mynote 
-Detail (a) can be paraphrased as: 
+in accordance with (\ref{absoluteCharacterReferencing}) this features the values of three identifying attributes --- I have underlined the three values.
+
+\begin{noteforfuture}
+\newcommand{\pRel}[1]{$\uwave{#1}_{\raisebox{0.3ex}{\scriptsize r}}$}
+\newcommand{\pUnd}[1]{\textit{#1}} %undecorated
+\begin{equation*}
+\parbox{9cm}{
+$\uline{Henry\ Higgins}_E$ \pRel{in} George Bernard Shaw's Pygmalion. }\\
+\end{equation*}
+\begin{equation*}
+\parbox{9cm}{
+\pUnd{the character with name Henry Higgins} \pRel{in} \pUnd{the play with title Pygmalion} \pRel{written\ by} \pUnd{the playwright with name GBS.} 
+}
+\end{equation*}
+\end{noteforfuture}
+
+\mynote %65
+On the other hand, details (a) and (b) taken together imply: 
+\begin{equation}
+\label{characterReferenceFromPlaywright}
+\text{\parbox{9cm}{\textit{within the context of a playwright
+(say in a discussion of the works of a playwright), 
+a character within the works of the playwright 
+can be referenced by the title of a play 
+and a name of a character within that play. }}}\\
+\end{equation}
+So in answer to a question``Who is the Shakespeare character who is a twin brother and is believed lost at sea?''
+someone might answer with 
+\begin{equation*}
+\label{antonioReferenceFromPlaywright}
+\text{\parbox{9cm}{\textit{Sebastian from Twelfth Night. }}}\\
+\end{equation*}
+using both name of the character and title of the play and, 
+in accordance with (\ref{characterReferenceFromPlaywright}),
+using the values of two identifying attributes.
+
+\mynote %new note 66
+Detail (a) alone can be paraphrased as: 
 \begin{equation}
 \label{characterReferenceFromPlay}
 \text{\parbox{9cm}{\textit{within the context of a play, a character within it can be referenced by name}}}\\
@@ -127,40 +183,12 @@ What mistakes of english arise?
 What would a phraseology need take account of to correct these mistakes.
 What would a more flexibly phraseology need take into account.
 \end{exerciseforreader}
- 
-\mynote %49
-On the other hand, details (a) and (b) taken together imply: 
-\begin{equation}
-\label{characterReferenceFromPlaywright}
-\text{\parbox{9cm}{\textit{within the context of a playwright
-(say in a discussion of the works of a playwright), 
-a character within the works of the playwright 
-can be referenced by the title of a play 
-and a name of a character within that play. }}}\\
-\end{equation}
-So in answer to a question``Who is the Shakespeare character who is a twin brother and is believed lost at sea?''
-someone might answer with 
+ \subsection{Referencing Intersection Entities}
+ An example of referencing when all idenitfying features are relatiuonships.
+
 \begin{equation*}
-\label{antonioReferenceFromPlaywright}
-\text{\parbox{9cm}{\textit{Sebastian from Twelfth Night. }}}\\
-\end{equation*}
-using both name of the character and title of the play and, 
-in accordance with (\ref{characterReferenceFromPlaywright}),
-using the values of two identifying attributes.
-\mynote 
-Likewise, from (a), (b) and (c) taken together we have that
-\begin{equation} 
-\label{absoluteCharacterReferencing}
-\text{\parbox{9cm}{\textit{without context, a character within a play 
-may be referenced by the name of character, the title of a play and the name of the playwright who wrote the play.}}}
-\end{equation}
-so in answer to the question ``who is the linguist character who teaches diction and manners to a flower girl?''
- then the answer might be the name of a character, the title of a play and the name of the author as in 
- \begin{equation*}
-\label{HenryHigginsReferenceFromAbsolute}
-\text{\parbox{9cm}{\textit{Henry Higgins from George Bernard Shaw's Pygmalion. }}}\\
-\end{equation*}
-in accordance with (\ref{absoluteCharacterReferencing}) the values of three identifying attributes have been used.
+\text{\textit{Zephrelli's production of shakepeare's twelfth Nigh.}}
+\end{equation*} 
 
 \subsection{Referentials}
 \mynote
@@ -178,36 +206,39 @@ In general, it requires multiple referentials to reference an entity (one for ev
 feature of the entity) and so, in general, multiple referential attributes are used to represent relationships.\footnote{If you are already familiar with the relational model of data then you ought recognise that I am speaking of foreign keys here. 
 I am avoiding use of the term `foreign key' though --- I don't find it very helpful --- its use is an accident of history and some standards (which) have avoided use of it and have used the term referential attribute or column (which?) instead. } 
 
+\mynote Somewehere: Sally Shlaer and Stephen J. Mellor use the term referential attribute
+in their book \textit{OBJECT-ORIENTED SYSTEMS ANALYSIS --- Modeling the World in Data}.
+
 \subsection{Communicating Relationships}
 
-\mynote As we have said above and according to the model we have assumed,
+\mynote This section is about how we use referentials to communicate instances of relationships.
+As we have said above and according to the model we have assumed,
   characters from plays need be identified by three referentials
  --- the name of the character, the title of the play and the name of the playwright.
-It follows, on the surface of it at least, that conveying a instance of 
-relationship instance between characters will require six referentials
---- three to reference one party to the relationship and three to reference the other.
 
-An example that supports this view is found in this statement\footnote{You will have to give me a bit of leeway regarding the correctness or otherwise of this statement --- it is the structure that I interested in.}
-\begin{equation}
-\text{\parbox{9cm}{\textit{Romeo from Shakespeare's Romeo and Juliet
-                           is modelled on Pyramus from Ovid's Metamorphoses.}}}
-\end{equation}
-which, interpreted from the perspective of the dramatic arts that we have given above, does indeed contain six referentials as shown here but abbreviated to fit on a single line:
 
-\begin{tabular}{l}
-Rom from Shake's Romeo & Juliet
-                           is modelled on Pyr from Ovid's Metamorph.
-\end{tabular}
+\mynote example here of actor playing role in play, say. To show use of four referentials.\commentary{Before we give this six example give the example of an actor playing a role so that I can give an example with four referentials and include in this the syntag notation so that has been introduced before the example with collapsed referentials.}
+This relies on model of dramatic arts that I haven't sketched out yet and this may be a problem.
 
-\mynote % was 89 communicating entitites
-Naively this implies that if we wish to communicate an instance of relationship between two different characters then we will be required to communicate six referentials
+\mynote Second example:
+That there three referentials to reference a character naively implies that if we wish to communicate an instance of relationship between two different characters then we will be required to communicate six referentials
  -- three to identify one party in the relationship and three to identify the other party. 
  we will see shortly  --- and this is very significant --- that this is not always the case.
+
+An example that supports this view that six referntials are required is found in this statement\footnote{You will have to give me a bit of leeway regarding the correctness or otherwise of this statement --- it is the structure that I interested in.}
+\begin{center}
+\begin{tabular}{l}
+\parbox{7cm}{\textit{\rdash{Romeo} from \rdash{Shakespeare}'s \rdash{Romeo and Juliet}
+                           \uwave{is modelled on} \rdot{Pyramus} from \rdot{Ovid}'s \rdot{Metamorphoses}.}}
+\end{tabular}
+\end{center}
+which, interpreted from the perspective of the dramatic arts that we have given above, does indeed contain six referentials. The first three shown with dashed underlining reference one character.
+The verb of the sentence is the name of the relationship, and, the final three referentials with dotted underlining reference a second charater from a different play and a different author.\footnote{I am using a bit of artistic licence here since Metamophoses isn't strictly a play - its a bunch of stories.}
 
 \mynote
  This is not the case, and so not what we instinctively do, when we have \textit{a priori} knowledge of the relationship being communicated is limited in scope. If we know the relationship is confined to individual playwrights or is internal to individual play or script then clearly we do not 
   communicate the playwright and play title twice over. The number of referentials may in such a case collapse to four: name of playwright, title of play and name of character.
-Shlair-Lang in a very much underrated paper coined the term \textit{collapsed referentials} for this phenomena in the context of data representation of models represented in entity relationship notation.
+Shlair-Lang in a very much underrated paper coined the term \textit{collapsed referentials} for this phenomena in the context of data representation.
 
 \mynote was %90 communicating entitites
 So we have, in the context of the plays of William Shakespeare,
@@ -230,19 +261,18 @@ Reading from left to right we establish that we are making a statement about
 Antonio from Twelfth Night  and so must look to establish Sebastian as a character from the same play i.e. also from Twelfth Night. This is an example of a relationship which is not global in scope (it is local to the play) and therefore describing instances of this fictional loves relationship
 doesn't require as many referential attributes as would otherwise be the case if it was global in scope. 
 
-The relationship is conveyed by a total of  4 referential attributes
-(Shakespeare, Twelfth Night, Antonio and Sebastian) not the six that might have been required
+The relationship is conveyed by a total of four referential attributes
+ not the six that might have been required
 if the relationship was global in scope so that characters from one play might be described as being in love with a character from a different play.
 
+
+\begin{erboxedFigure}{H}{SebastianLovesAntonio}
+{Referencing two different characters using just four referentials. This is an example of what Shlaer and Lang (?) called collapsed referentials. What we see is that referential `Shakespeare' contributes to two different references. Likewise does the referential `Twelfth Night'.}
 \newcommand{\dashRefOne}{2pt 2pt}
 \newcommand{\dashRelationship}{1pt 0pt}
-\newcommand{\dashRefTwo}{2pt 2pt}
-\begin{erboxedFigure}{H}{antonioloves}
-{
-The four referentials make reference to two different characters. The six referentials that would have been required in the general case collapse to four. 
- }
+\newcommand{\dashRefTwo}{1pt 1pt}
 \begin{tabular}{l}
-\Rnode{w1}{\dotuline{Sebastian}} in \Rnode{w2}{\dotuline{Shakepeare}}'s \Rnode{w3}{\dotuline{Twelfth Night}} \Rnode{w4}{\uline{loves}}  \Rnode{w5}{\dotuline{Antonio}} \\[1.4cm]
+\Rnode{w1}{\rdash{Antonio}} in \Rnode{w2}{\rdot{\rdash{Shakepeare}}}'s \Rnode{w3}{\rdot{\rdash{Twelfth Night}}} \Rnode{w4}{\rline{loves}}  \Rnode{w5}{\rdot{Sebastian}} \\[1.4cm]
 \kern1.2cm\Rnode{ref1}{\textit{reference 1}}
 \kern0.75cm\Rnode{rel}{\textit{relationship}}
 \kern0.6cm\Rnode{ref2}{\textit{reference 2}} \\[0.5cm]
@@ -257,27 +287,15 @@ The four referentials make reference to two different characters. The six refere
 \end{erboxedFigure}
 
 
+The models of the two relationships \commentary{which two relationships? do we need depict them on er fragment}
+look the same but behind the scenes they are different. They have different scopes and we come back to exploring this further in the next section. \commentary{Might show the detail of loves and modelled by as details of the earlier model in figure xxx.}
 
-On the other hand contrast with
+\begin{noteforfuture}
+ I should introduce intersection entity notation and phraseology? What would it be. Also for ternary relationships. 
 \begin{equation}
-\mbox{\textit{Romeo from Shakespeare's Romeo and Juliet is modelled on Pyramus from Ovid's 
-Metamorphoses.}}
+\text{\parbox{9cm}{Actor guilgud plays antonio in zephrelli's production of shakepeare's twelfth Nigh}}
 \end{equation}
-
-in this there is a relationship instance conveyed by six referentials. This is because the resemblance relationship to is not an internal relationship. It is between characters and a character from one play may be perceived as resembling a character from a different play.
-
-In the first example we say that there are collapsed referentials. 
-
-None of these referentials collapse. The models of the two relationships
-look the same but behind the scenes they are different. They have different scopes and we come back to talking about these later.
-
-Antonio and Twelfth Night refer
-Sebastian and Twelfth Night refer.
-
-Twelfth Night doubles up.
-
-Now two plays are referenced.
-
+\end{noteforfuture}
 
 
 \subsection{Philosophy}

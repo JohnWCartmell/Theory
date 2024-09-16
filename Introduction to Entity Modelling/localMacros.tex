@@ -1,0 +1,96 @@
+
+\newcommand{\longrightharpoonup}
+{-\kern-5pt\rightharpoonup}
+
+\newcommand{\longtwoheadrightarrow}
+{-\kern-5pt\twoheadrightarrow}
+
+\newcommand{\chenboxhalfwidth}{1.1}
+\newcommand{\chenboxquarterwidth}{0.55}
+\newcommand{\chenboxhalfheight}{0.75}
+\newcommand{\chenboxquarterheight}{0.375}
+
+% \chenbox{label}{text}
+\newcommand{\chenbox}[2]{
+	\rput[l](0,\chenboxhalfheight){\pnode{#1N}}
+	\rput[l](\chenboxhalfwidth,\chenboxhalfheight){\pnode{#1NE}}
+	\rput[l](-\chenboxhalfwidth,\chenboxhalfheight){\pnode{#1NW}}
+	\rput[l](0,-\chenboxhalfheight){\pnode{#1S}}
+	\rput[l](\chenboxhalfwidth,-\chenboxhalfheight){\pnode{#1SE}}
+	\rput[l](-\chenboxhalfwidth,-\chenboxhalfheight){\pnode{#1SW}}
+	\rput[l](\chenboxquarterwidth,-\chenboxhalfheight){\pnode{#1SSE}}
+	\rput[l](-\chenboxquarterwidth,-\chenboxhalfheight){\pnode{#1SSW}}
+	\rput[l](\chenboxhalfwidth,0){\pnode{#1E}}
+	\rput[l](-\chenboxhalfwidth,0){\pnode{#1W}}
+  	\psframe[fillstyle=solid,fillcolor=white]
+  	     (-\chenboxhalfwidth,-\chenboxhalfheight)(\chenboxhalfwidth,\chenboxhalfheight)
+  \rput(0,0){\scriptsize #2}
+}
+
+% \chendiamond{label}{text}
+\newcommand{\chendiamond}[2]{
+	\rput[l](0,\chenboxhalfheight){\pnode{#1N}}
+	\rput[l](\chenboxquarterwidth,\chenboxquarterheight){\pnode{#1NE}}
+	\rput[l](-\chenboxquarterwidth,\chenboxquarterheight){\pnode{#1NW}}
+	\rput[l](0,-\chenboxhalfheight){\pnode{#1S}}
+	\rput[l](\chenboxhalfwidth,0){\pnode{#1E}}
+	\rput[l](-\chenboxhalfwidth,0){\pnode{#1W}}
+  	\psdiamond[fillstyle=solid,fillcolor=white](0,0)(\chenboxhalfwidth,\chenboxhalfheight) 
+  	\rput(0,0){\scriptsize #2}
+}
+
+\newcommand{\chenvaluetyperadius}{0.75}
+
+% \chenvaluetype{label}{text}
+\newcommand{\chenvaluetype}[2]{
+    \rput[l](0,\chenvaluetyperadius){\pnode{#1N}}
+	\pscircle[fillstyle=solid,fillcolor=white](0,0){\chenvaluetyperadius}
+	\rput(0,0){\scriptsize #2}
+}
+% macro used for tagging referential and relationship words
+%\syntag{dash}{tagnode}{armBcm}{wordnode}{offsetcm}
+%dash=1pt 0pt    for solid line 
+%    =1pt 1pt    for dotted line
+%    =5pt 3pt    for default dashed style
+%    or any other specified dashed style
+\newcommand{\syntag}[5]
+{\ncangle[nodesepA=4pt, 
+          nodesepB=2pt,
+          linewidth=0.5pt, %?? might this be  too narrow?
+          linestyle=dashed,
+          dash=#1, 
+          offsetA=#5cm, 
+          angleA=-90, 
+          angleB=90, 
+          armB=#3cm, 
+          linearc=.2]{#4}{#2}}
+
+% These custom underline commands.
+
+\newlength{\rwordwidth}% Declare a length to store the word's width
+\newcommand{\rline}[1]{%
+\settowidth{\rwordwidth}{#1}% Measure the width of the word
+\leavevmode% Ensure proper space is taken up
+\makebox[0pt][l]{#1}% Print the word without affecting layout
+\psset{linewidth=0.5pt, linestyle=dashed, dash=2pt 0pt}% Set the dashed line pattern
+\rput(0,-1ex){\psline(0,0)(\rwordwidth,0)}% Draw the dashed line under the word
+\hspace{\rwordwidth}% Ensure following text starts after the word
+}
+
+\newcommand{\rdash}[1]{%
+\settowidth{\rwordwidth}{#1}% Measure the width of the word
+\leavevmode% Ensure proper space is taken up
+\makebox[0pt][l]{#1}% Print the word without affecting layout
+\psset{linewidth=0.5pt, linestyle=dashed, dash=2pt 2pt}% Set the dashed line pattern 
+\rput(0,-0.5ex){\psline(0,0)(\rwordwidth,0)}% Draw the dashed line under the word
+\hspace{\rwordwidth}% Ensure following text starts after the word
+}
+
+\newcommand{\rdot}[1]{%
+\settowidth{\rwordwidth}{#1}% Measure the width of the word
+\leavevmode% Ensure proper space is taken up
+\makebox[0pt][l]{#1}% Print the word without affecting layout
+\psset{linewidth=0.5pt, linestyle=dashed, dash=1pt 1pt}% Set the dashed line pattern
+\rput(0,-1ex){\psline(0,0)(\rwordwidth,0)}% Draw the dashed line under the word
+\hspace{\rwordwidth}% Ensure following text starts after the word
+}
