@@ -141,57 +141,13 @@ i.e. that an employee works for a particular department if an only if that parti
 Finally, this complementarity may be expressed in the mathematical language of
 sets and functions by asserting  function (\ref{employingFunction}) to be the inverse to function (\ref{employedByFunction}).
 
-
-\subsubsection*{Many-Many Binary Relationships}
-In Chen's paper the relationship between employees and projects (whose meaning is that
-an employee is assigned to work on a project) is depicted like this.
-\begin{gather}
-\label{projectWorkerChenStyle}
-\raisebox{-0.9cm}{\scalebox{0.9}{
-\input{\handCraftedImagesFolder/ChenStyleProjectWorker.tex}
-}}
-\end{gather}
-On this diagram there is an annotation $N$ which documents that an employee may work on many projects (we are to understand that $N >= 0$). There is also an annotation $M$ to document that
-a project has many employees assigned to it, $M$ in fact, for some $M >= 0$. \\
-\noindent Such a relationship is called a many-many relationship.  \\
-\noindent In Barker-Ellis notation which is the basis for the notation used in this book the diamond and its two connectors are replaced by a single line. The fact that the relationship is many-many is represented in the diagram by having a crows foot at each end of the line like so:
-
-\begin{gather}
-\label{employeeProjectWorker}
-\raisebox{-1cm}{
-\input{\ImagesFolder/employeeProjectWorker.tex}
-}
-\end{gather}
-
-\noindent As before, the relationship is labelled at both ends. Each text label gives the name of the relationship from the point of view of the type of entity at that end of the line and can be used to phrase the relationship:
-\begin{align}
-\label{assignedToText}&\mbox{every employee may be assigned to one or more projects,} \\
-\label{assignedText}&\mbox{every project may be assigned one or more employees.}
-\end{align}
-
-\subsection*{Elimination of Many-Many Relationships}
-\noindent In fact, many-many relationships are infrequently used in entity models and never used at all when modelling for the purpose of data specification.
-Consider that we can make a thing out of the fact of the assignment of an employee to a project. This means that we can entify the many-many relationship and remodel the relationship (\ref{employeeProjectWorker}) like this:\commentary{squeeze this diagram and flip labels}
-\begin{gather}
-\label{employeeProjectWorkerMediated}
-\raisebox{-1cm}{
-\input{\ImagesFolder/employeeProjectWorkerMediated.tex}
-}
-\end{gather}
-\noindent
-In (\ref{employeeProjectWorkerMediated}) the  many-many relationship depicted in (\ref{employeeProjectWorker}) is now mediated by the conjunction of  type
-\textit{project assignment} and two functional relationships. 
-Because we can `entify' many-many relationships in this way and mediate them by entity types and functional relationships they can be eliminated from entity modelling. 
-Only functional relationships have direct representations in data, 
-however this data is represented, and for this reason it is usual to eliminate many-many relationships from entity models in favour of functional relationships. Since the remaining relationships are functional, in one direction or the other, so it is that in most entity models types are related solely by functional relationships and their inverses. In this form, entity modelling models the world in functional relationships, a fact that isn't usually articulated.
-
-\mynote For the sake of completeness, I should mention that in situations
-such as (\ref{employeeProjectWorkerMediated}) above, the mediating entity or indeed its type is often referred to as an \textit{intersection entity}.
-
-\subsection*{Mathematical Notation}
+\subsection*{Mathematical Terminology } \commentary{I think this and the styling subsection that follows needs to move up before the subsection describing many-many relationships.}
+\commentary {this will cause two mathematical sections to be consequetive.}
+\commentary{will need to rename this section. Maybe ``Mathematical Properties of Functions''}
 \mynote
-Before I describe how, in the Barker-Ellis style, the representations of functional relationships can be styled to give additional information about them
- it is appropriate to bring to mind some corresponding mathematical notations.\footnote{This book promotes my favourite notation but I think it important to describe other notations as well especially those used in mathematics.}
+I am going to  describe how, in the Barker-Ellis style, 
+the representations of functional relationships can be styled to give additional information about them but first 
+ it is appropriate to bring to mind some corresponding mathematical notations.
 
 \mynote Functional relationships in mathematics that are total are usually depicted by the arrow symbol $\longrightarrow$ so the assertion that $f:A \longrightarrow B$ in mathematics generally means that $f$ is a functional relationship from $A$ to $B$ which is defined everywhere i.e. is total.\footnote{The more abstract use of $\longrightarrow$ in category theory is a notable exception and is entirely germane as we will discuss later.} 
 For a functional relationship that is not known to be total 
@@ -201,7 +157,7 @@ Finally, the notation $f: A \longtwoheadrightarrow B$ can be used to assert that
 \noindent All of these notations have equivalents in the Barker-Ellis style, as we will now see.
 
 \subsection*{Barker-Ellis Styling of Relationships}
-\mynote We have already seen above examples of Barker-Ellis style depictions of relationships in which functional relationships of A to B
+\mynote We have  seen above  Barker-Ellis style depictions of relationships in which functional relationships of A to B
 are shown like this:
 \begin{center}
 A\,\barkerEllisA\,B
@@ -251,6 +207,96 @@ Note that in this final case the relationship in question establishes a 1-1 corr
 have an example of some sort here with a variety of cardinalities or refer forward to the manufacturing example?
 \end{noteforfuture}
 
+
+\subsection{Many-Many Binary Relationships}
+In Chen's paper the relationship between employees and projects (whose meaning is that
+an employee is assigned to work on a project) is depicted like this.
+\begin{gather}
+\label{projectWorkerChenStyle}
+\raisebox{-0.9cm}{\scalebox{0.9}{
+\input{\handCraftedImagesFolder/ChenStyleProjectWorker.tex}
+}}
+\end{gather}
+On this diagram there is an annotation $N$ which documents that an employee may work on many projects (we are to understand that $N >= 0$). There is also an annotation $M$ to document that
+a project has many employees assigned to it, $M$ in fact, for some $M >= 0$. \\
+\noindent Such a relationship is called a many-many relationship.  \\
+\noindent In Barker-Ellis notation which is the basis for the notation used in this book the diamond and its two connectors are replaced by a single line. The fact that the relationship is many-many is represented in the diagram by having a crows foot at each end of the line like so:
+
+\begin{gather}
+\label{employeeProjectWorker}
+\raisebox{-1cm}{
+\input{\ImagesFolder/employeeProjectWorker.tex}
+}
+\end{gather}
+
+\noindent As before, the relationship is labelled at both ends. Each text label gives the name of the relationship from the point of view of the type of entity at that end of the line and can be used to phrase the relationship:
+\begin{align}
+\label{assignedToText}&\mbox{every employee may be assigned to one or more projects,} \\
+\label{assignedText}&\mbox{every project may be assigned one or more employees.}
+\end{align}
+\newpage
+\subsection*{Elimination of Many-Many Relationships}
+\noindent In fact, many-many relationships are infrequently used in entity models and never used at all when modelling for the purpose of data specification.
+Consider that we can make a thing out of the fact of the assignment of an employee to a project. This means that we can entify the many-many relationship and remodel the relationship (\ref{employeeProjectWorker}) like this:
+\begin{gather}
+\label{employeeProjectWorkerMediated}
+\raisebox{-0.3cm}{\scalebox{0.95}{\input{\ImagesFolder/employeeProjectWorkerMediated.tex}}}
+\end{gather}
+\noindent
+In (\ref{employeeProjectWorkerMediated}) the  many-many relationship depicted in (\ref{employeeProjectWorker}) is now mediated by the conjunction of  type
+\textit{project assignment} and two functional relationships. 
+Because we can `entify' many-many relationships in this way and mediate them by entity types and functional relationships they can be eliminated from entity modelling. 
+Significantly, only functional relationships have direct representations in data, 
+however this data is represented, and for this reason it is usual to eliminate many-many relationships from entity models in favour of functional relationships. After elimination, since the remaining relationships are functional, in one direction or the other, so it is that in most entity models, types are related solely by functional relationships and their inverses. 
+In this form, \textit{entity modelling models the world in functional relationships}, a fact that isn't usually articulated.
+
+\mynote
+If we compare (\ref{employeeProjectWorkerMediated}) 
+with the representation \textit{a la} Chen in (\ref{employeeProjectWorker})
+then we see that the diamond in (\ref{employeeProjectWorker}), which is annotated to express that it represents a many-many relationship.
+is in the Barker-Ellis notation in (\ref{employeeProjectWorkerMediated})  replaced by an entity type and two functional relationships. 
+However in this form in (\ref{employeeProjectWorkerMediated}) we are missing
+something as yet compared to the representation in (\ref{employeeProjectWorker}).
+This is rectified by drawing a bar across each of the two functional
+relationships like this:
+\begin{gather}
+\label{employeeProjectWorkerMediatedIBarred}
+\raisebox{-0.3cm}{\scalebox{0.95}{\input{\ImagesFolder/employeeProjectWorkerMediatedIBarred.tex}}}
+\end{gather}
+
+These bars signify, in Barker-Ellis,  that the type \textit{project assignment} represents a many-many relationship.
+The precise meaning of this is that
+\begin{center}
+\begin{parbox}{9cm}{
+	\textit{
+	for each employee and for each project there is at most one assignment
+	of the employee to the project.
+	}
+}
+\end{parbox}
+\end{center}
+This is the implication of the Barker-Ellis notation once bars are drawn across the relationships 
+
+\mynote For the sake of completeness, I should mention that in situations
+such as (\ref{employeeProjectWorkerMediatedIBarred}) above, the mediating entity or indeed its type is often referred to as an \textit{intersection entity (type)}. 
+Other authors refer to it as an \textit{associative entity type}.
+
+\mynote In summary diamonds and their connectors in the Chen notation are replaced 
+in the Barker-Ellis notation
+by entity types and barred functional relationships. 
+\mynote
+Finally, note that barred functional relationships play a wider role in Barker-Ellis than we have discussed here and we shall describe this wider role in a later section.
+
+
+\subsection*{Mathematical Terminology - Jointly Injective}
+\mynote Explain what jointly injective means for a set of functions.
+Explain that this is equivalent to the paired function being injective.
+Explain that an injective gunction into a cartesian product is the same as a binary relation.
+Therefore pairs of barred functional relationships correspond to binary relations.
+therefore triples of narred functional relationships coirrespond to ternary relationships.
+In the general case if an entity type has exactky $n$ outgoing barred relationships then
+we can equate this to an $n-$ary relation. These are what Chen refered to a relationship sets in 1976 and then later in 1983 as relationship types.
+
 \subsection*{Diagramming Relationships}
 The next thing to point out is that multiple relationships can be depicted on a single diagram and the relationship lines can be routed about as convenient for the drawing.
 For example we can depict all three relationship 
@@ -276,8 +322,8 @@ I will represent it in the  Barker-Ellis style in this way
 \input{\ImagesFolder/planetMoon.tex}
 }
 \end{gather}
-\newt{In this notation, there isn't a single name that is given to} 
-\oldt{I dont have a simple name for} the binary relationship but instead there are two relative terms `orbiting' and `orbited by' which describe each of the parties in the relationship from the point of view of the other. This dual naming of binary relationships is the way that relationships are named in an entity model and the diagram ties these names together as we have discussed.
+In this notation, there isn't a single name that is given to
+ the binary relationship but instead there are two relative terms `orbiting' and `orbited by' which describe each of the parties in the relationship from the point of view of the other. This dual naming of binary relationships is the way that relationships are named in an entity model and the diagram ties these names together as we have discussed.
 
 \mynote
 In the Barker-Ellis notation the idea 
@@ -312,7 +358,7 @@ Without foreknowledge of the phraseology I might instead have chosen the word `o
 \mynote
 When relationships are named with the 
 Barker-Ellis phraseology in mind  then a second phraseology can be used to describe instances of the relationships. 
-As with the first phraseology, this second, which is an instance level phraseology,
+As with the first phraseology, this second, instance level, phraseology,
  can be used in either direction
  --- in our example it can be used from the point of view
 of the planet or from the point of view of the moon.
@@ -359,7 +405,7 @@ Jupiter  & Europa         \\
 \hline
 \end{tabular}
 \end{center}
-in which, in the first row, the column headings refer  back to the relationship (\ref{planetMoon})
+In the first row, the column headings refer  back to the relationship (\ref{planetMoon})
 and subsequent rows, in the context of the column headings, communicate relationship instances. 
 What we are looking at here of course is a data table and one aspect of this book 
 is the synergy between  entity models and data structure.
