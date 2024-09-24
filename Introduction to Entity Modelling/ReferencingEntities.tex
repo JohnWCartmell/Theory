@@ -9,71 +9,55 @@ to convey, communicate and store instances of relationships.
 There is more to this than initially meets the eye and we explore the topic
 by way of examples. 
 
-\subsection{Planets and their Moons as Named Entities}
+\subsection{Entities that are Named}
 \mynote \commentary{Possibly ditch this example and just use the 
 dramatic arts example which could be moved here.}
-In the simplest examples entities of a type have names associated with them and these are unique and can be  quoted to reference entities of the type. 
-
-We have already seen an example of the role of the naming of both planets and moons in the example given earlier 
- in which we presented this statement:
+In the simplest examples, entities of a type have names associated with them
+ and these names are unique and can be  quoted to reference entities of the type. 
+ In these cases an entity model will represent the entity type with a name attribute
+and mark it as identifying. 
+Examples of such types are ubiquitous and you will see plenty in these pages but to mention two, because we have already come across them, in a model that includes the 
+entity types \textit{planet} and  \textit{moon}  these types will be represented as having 
+a name attribute and these will be marked as identifying as in this fragment here:
 \begin{equation}
-\label{JupiterIoShort}
-\mbox{\textit{Jupiter is orbited by Io.}}
-\end{equation}
-as a representation of an instance of a binary relationship.
-\iffalse
-\begin{gather}
-\label{planetMoonSecondInstance}
-\raisebox{-1cm}{
-\input{\ImagesFolder/planetMoon.tex}
-}
-\end{gather}
-\fi
-
-\mynote Planets and moons are named which is to say they have name attributes
-and these, of course, are archetypal examples of identifying attributes --- we name things so that we can identify them in context. The name of an entity, i.e. the value of the name attribute,  is used in context to reference entities of the type.
- \mynote
-We  draw the model shown in figure
-\ref{planetMoonModel}
-containing the relationship (\ref{planetMoonSecondInstance}) and showing name attributes of both moons and planets and
-underlining these to showing that each of them is unique and therefore identifying. 
-This is the entity model (albeit of a very small universe) that accounts for the communication (\ref{JupiterIoShort}) or equally, and as we shall see later, the structure of the data table of planets and moons, as presented earlier.
-\begin{erboxedFigure} {H}{planetMoonModel}
-{
-caption blah blah blah
- }
+\label{planetMoonModel}
 \input{\ImagesFolder/planetMoon2.tex}
-\end{erboxedFigure}
-
-
-In the context of statement (\ref{JupiterIoShort}), Jupiter is the name of, and therefore  a reference to, a planet and  Io is the name of, and therefore a reference to, a moon i.e. a natural satellite.\footnote{
-Note that within the context of the solar system the name Io  doesn't uniquely identify this moon of Jupiter amongst all named solar system objects since it is also the name of an asteroid that orbits within the asteroid belt.
-The names of moons are only unique as names of moons. 
-Of course in other contexts, both Jupiter and Io are the names of mythological figures.
-} 
-We understand  (\ref{JupiterIoShort}) to be shorthand for the 
-more pernickerty 
-\begin{equation}
-\mbox{\textit{The planet with name Jupiter is orbited by the moon with name Io.}}
 \end{equation}
+This tells us that we can reference planets by name, as in \textit{the planet with name Jupiter}
+and, likewise, moons, so that we can make reference to \textit{the moon with name Io}. 
+Note that these utilise a standard phraseology to reference entities using the values of their singular identifying attributes. 
+To illustrate various characteristics of this referencing, 
+we will underline the values of identifying attributes in our example phrases 
+and we will use different styles of underlining to distinguish different entities that are being referenced. We see this in this statement: 
+\begin{equation}
+\label{JupiterIoPernickity}
+\mbox{\textit{The planet with name \rdash{Jupiter} 
+is orbited by the moon with name \rdot{Io}.}}
+\end{equation}
+This is an example of a wider standard phraseology, one  for conveying relationships,
+and one that builds on the standard phraseology for referencing instances.
+There is a bit more to this than meets the eye, though, as we shall see.
+\mynote
+When the values of identifying attributes are used in referencing then we will speak of them as \textit{referentials}. 
+Accordingly, we speak of the terms `Jupiter' and `Io' in statement (\ref{JupiterIoPernickity}) as referentials.
+
+In the context of statement (\ref{JupiterIoPernickity}), Jupiter is the name of, and therefore  a reference to, a planet and  Io is the name of, and therefore a reference to, a moon (aka a natural satellite).
+Note though that within the context of the solar system the name Io  doesn't uniquely identify this moon of Jupiter amongst all named solar system objects since it is also the name of an asteroid that orbits within the asteroid belt. This  illustrates that 
+the names of moons are only unique as names of moons. This is very much the meaning of the underlining of the name attribute in fragment (\ref{planetMoonModel}). 
 
 \mynote
 We are very much stating the obvious of course but there is a pattern here and it is repeated over and over when instances of relationships are communicated  and the same pattern occurs more formally  and uniformly when instances of relationships are communicated in software systems and/or stored in data.
-
-We can bring out the pattern by annotating the sentence as in figure xxx.
-
-
 
 We will come back to the phrasing of relationship instances in a monent but first we must look at what happens when some of the identifying features of an entity are relationships.
 
 \subsection{Context and the Referencing of Entities}
 \mynote
-This section is about the way that entities may be referenced using identifying features
+In this section we look at the way that entities may be referenced using identifying features
  when one these of features is a relationship.
-We look at how,  in this situation, the referencing 
+We examine how,  in this situation, the referencing 
 --- the nature of the reference ---   
 is impacted by the context within which the reference is being made. 
-We see the reference as a phrase quoting the values of identifying attributes
+The reference is  a noun phrase quoting the values of identifying attributes
 and with the number quoted depending on 
 the context within which the reference is made.
 What we see contributes to a later analysis --- the analysis of  how 
@@ -83,8 +67,76 @@ the scope of  the relationship.\footnote{Speak of scope beforehand because need 
 
 \mynote
  We use as an example the referencing of characters from  plays
- within the context of  the  dramatic arts  as modelled earlier in figure xxx.
-Since there are only a few specific details of figure xxx --- three in fact ---
+ within the context of  the  dramatic arts
+   as modelled earlier in figure \ref{dramaticArts1}.
+\mynote
+Consider this fragment 
+
+\begin{noteforfuture}
+dramaticsArtsCharcterIdentificationSubdiagram
+subdiagram of dramatic arts just showing playwright, play and character
+and their identifying features
+\end{noteforfuture}
+of figure \ref{dramaticArts1} which picks out just the details which are
+relevant to the identification of character entities.
+
+From this part of the model we see that playwrights are identified by name and that plays are identified by their titles in the context of the playwright they are written by. Therefore
+\begin{itemize}
+\item without context, 
+\begin{equation} 
+\label{absolutePlayReferencing}
+\text{\parbox{9cm}{\textit{a  play 
+may be referenced by the \rdash{title} of the play and the \rdash{name} of the playwright it is written by.}}}
+\end{equation}
+\end{itemize}
+Note that I will continue to underline  referentials so as to keep drawing attention to the number of them required in any given context.
+
+\mynote
+From inspecting the representation of the character type and in particular its identifying features then we see that:
+\begin{itemize}
+\item within the context of a play,
+\begin{equation} 
+\label{absoluteCharacterReferencing}
+\text{\parbox{9cm}{\textit{
+a character may be referenced by the name of character.}}}
+\end{equation}
+Accordingly in the text of a play characters are referenced 
+by name as for example in a stage direction such as this one:  
+\begin{equation*}
+\text{\textit{Enter Sebastian.}}
+\end{equation*}
+\item within the context of a particular playwright,
+\begin{equation} 
+\label{playwrightRelativeCharacterReferencing}
+\text{\parbox{9cm}{\textit{
+ a character within a play 
+may be referenced by the name of character, the title of the play they are in.}}}
+\end{equation}
+So in a discussion of favourite characters from Shakespeare we might 
+make reference to
+\begin{equation*}
+\text{\textit{\rdash{Sebastian} from \rdash{Twelfth Night}.}}
+\end{equation*}
+\item
+without context, 
+\begin{equation} 
+\label{absoluteCharacterReferencing}
+\text{\parbox{9cm}{\textit{a character within a play 
+may be referenced by the name of character, the title of a play and the name of the playwright who wrote the play.}}}
+\end{equation}
+In of favourite comic charcaters from the dramatuc arts reference might be 
+made to
+ \begin{equation*}
+\label{TounchstoneReferenceFromAbsolute}
+\text{\parbox{9cm}{\textit{\rdash{Touchstone} from \rdash{Shakespeare}'s \rdash{As You Like It}. }}}
+\end{equation*}
+\end{itemize}
+
+\iffalse
+\begin{oldtt}
+In the first instance, 
+since there are only a few specific details of figure \ref{dramaticArts1}
+ --- three in fact ---
 that concern us here we pull these out as details  (a), (b) and (c) in
 figure \ref{dramaticArtsIdentificationDetails} . 
 %\vspace{-0.2cm} % Dont know why I need this but I do.
@@ -102,15 +154,16 @@ figure \ref{dramaticArtsIdentificationDetails} .
 \raisebox{-1.5cm}{\input{\ImagesFolder/dramaticArtsAbsolutePlaywrightDetail.tex}}
 \end{tabular}
 \end{erboxedFigure}
-\mynote %new note 64
+
 From (a), (b) and (c) taken together we have that
 \begin{equation} 
 \label{absoluteCharacterReferencing}
 \text{\parbox{9cm}{\textit{without context, a character within a play 
 may be referenced by the name of character, the title of a play and the name of the playwright who wrote the play.}}}
 \end{equation}
-so in answer to the question ``who is the character who is a linguist and teaches diction to a flower girl?''
- then the answer might be:
+
+\mynote In answer to the quiz question ``Who is the character from a play who, famously, teaches diction to a flower girl?''
+ then a fully elaborated answer will contain three referentials as here:
  \begin{equation*}
 \label{HenryHigginsReferenceFromAbsolute}
 \text{\parbox{9cm}{\textit{\rdash{Henry Higgins} from \rdash{George Bernard Shaw}'s \rdash{Pygmalion}. }}}
@@ -172,17 +225,18 @@ but it is worth drawing attention to it
 because it is an an example of a phenomenon  that is significant
 and impactful on the way that 
 relationships are conveyed, communicated and stored.
-Examples like this will be used to illuminate a  mechanism frequently found at work in the
-structuring of data.
+Examples like this will be used to illuminate a  mechanism frequently found at work in the structuring of data.
 
 \begin{exerciseforreader}
-Describe the phraseology 
+Describe a phraseology 
 at work to produce  (\ref{characterReferenceFromPlay}) from detail (a). 
 Use the same phraseology to algorithically paraphrase details (b) and then detail (c).
 What mistakes of english arise?
 What would a phraseology need take account of to correct these mistakes.
 What would a more flexibly phraseology need take into account.
 \end{exerciseforreader}
+\end{oldtt}
+\fi
  \subsection{Referencing Intersection Entities}
  An example of referencing when all idenitfying features are relatiuonships.
 
