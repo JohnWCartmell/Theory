@@ -4,24 +4,72 @@
 \section{Paths of Relationships}
 \label{PathsofRelationships}
 
-
 \mynote
-In the terminology of Ellis Ellis, HC. A Refined Model for Definition of System Requirements. Database Journal, 12(3):2--9, 1982. , whereever in an entity model there is a path of single-valued relationships:
+In the terminology of Harry Ellis\footnote{Ellis, HC. A Refined Model for Definition of System Requirements. Database Journal, 12(3):2--9, 1982.}, whereever in an entity model there is a path of single-valued relationships:
 \begin{center}
 \input{\handCraftedImagesFolder/path.tex}
 \end{center}
-then the destination entity type b is said to be in the logical horizon of the source entity type a. In programming, equivalently, we might say that it was possible to navigate from any one a to a definitive other b. 
-
+then the destination entity type b is said to be in the logical horizon of the source entity type a. 
+In programming, equivalently, we might say that it was possible to navigate from any one instance of type \textit{a} to a definitive other instance of type \textit{b} by navigating each of the relationships $r_i$ in turn.\footnote{Inspiring the title of Charles Backmans wonderful paper --- `The Programmer as Navigator'}
+ In mathematical language we could say instead that the path determines a functional relationship between types
+\textit{a} and \textit{b} and we could describe this path determined relationship as the functional composition $r_1 \circ r_2 ... \circ r_n$ of the individual relationships $r_1$,$r_2$,...$r_n$.
 
 \mynote
-Now if there are two such navigation paths between entity type a (the source) and entity type b (the destination) then a question naturally arises as to whether following one path is equivalent to following the other i.e whether starting at any entity of type a we arrive at the same destination entity of type b regardless of which of the two paths we follow. In an abstract mathematical setting, diagrams showing such equivalent paths are said to be commutative diagrams and methods of reasoning using such diagrams is the starting point of category theory.
+Now, whatever the terminology, if there are two such navigation paths between entity type a (the source
+of the navigation) and entity type b (the destination) then a question naturally arises as to whether following one path is equivalent to following the other i.e whether starting at any entity of type $a$ we arrive at the same destination entity of type $b$ regardless of which of the two paths we follow. In an abstract mathematical setting, diagrams showing such equivalent paths are said to be commutative diagrams and methods of reasoning using such diagrams is the starting point of category theory.
+
+\mynote
+Questions as to how comparable paths though an entity model compare can only be answered with knowledge or understanding of the domain described by the model. This is significant because it means that by decribing how comparable paths compare then we are describing the domain of the model in more detail and, after all, the purpose of a model is to describe its domain. 
+These descriptions become much more important when we move on to consider entity models as specifications of data --- without them there is a missing link in database theory as we explain later. 
+
+\mynote 
+To make this all a bit more concrete consider an example given earlier of an entity model presented in the text book by Goodland on the SSADM method.
+The model is presented as part of an analysis of the data requirments of a car hire business. In this diagram there are five navigation paths which are of particular interest. In addition each individual relationship must be thought of as a path since each relationship can be comsidered to be a path of length one. To make it easier talk about these paths I have redrawn the model and added a label to each of the relationships.\footnote{A useful accoutrement that we come across in shlaer and lang.} 
 
 \mynote
 There are some interesting questions that can be asked regarding paths through the diagram modelling a car hire business that we gave earlier. Here is the example again with relationships labelled so that it makes it easier to refer to them:
 \ercenterPicture{goodlandSSADMcarHire.annotate..diagram}
 
 See first of all that there are two paths between entity type \textit{allocated payment} and type \textit{customer}.
-One path between these types proceeds via type \textit{payment} and consists of relationship \textit{r1} followed by relationship \textit{d1}. The other path proceeds via type \textit{booking/invoice} and consists of relationship \textit{r2} followed by relationship \textit{d2}.  
+One path between these types proceeds via type \textit{payment} and consists of relationship \textit{r1} followed by relationship \textit{d1} as follows:
+\begin{equation}
+\label{SSADMCarHirePath1..diagram}
+\input{\ImagesFolder/SSADMCarHirePath1..diagram.tex}
+\end{equation}
+The other path proceeds via type \textit{booking/invoice} and consists of relationship \textit{r2} followed by relationship \textit{d2}:
+\begin{equation}
+\label{SSADMCarHirePath2..diagram}
+\input{\ImagesFolder/SSADMCarHirePath2..diagram.tex}
+\end{equation}
+
+Because of the path (\ref{SSADMCarHirePath1..diagram}),
+there is a customer that is functionally dependent on any 
+given  \textit{allocated payment}. This is the customer that sends the payment that the allocated payment is part of. This customer can be written in mathematical script like this
+\begin{equation*}
+d1(r1(x))
+\end{equation*}
+where $x$ is the allocated payment in question. 
+
+The existence of path (\ref{SSADMCarHirePath2..diagram}) gives us another 
+way of establishing a customer that is functionally dependent on any 
+given  \textit{allocated payment}. This is the customer that made the booking
+that the allocated payment is made to. This customer is written in mathematical script like this
+\begin{equation*}
+d2(r2(x))
+\end{equation*}
+where, again, $x$ is the allocated payment in question. 
+
+Now the question arises are these two paths equivalent ways of navigating from an allocated payment to a customer.
+Another way of asking the question is to ask do we know that given an $x$ of type \textit{allocated  payment}, it is the case that
+ \begin{equation*}
+d1(r1(x) = d2(r2(x))
+\end{equation*}
+
+I have to say that we can't be certain for every car hire company in the world this is the case but in the goodman example this does hold true.
+A customer makes payments to their own bookings not to the bookings of other customers. See though that by isolating these paths and seeing them 
+
+
+
 These two paths are equivalent. We say that the following diagram is a commutative diagram of relationships. 
 \begin{erboxedFigure}{H}{SSADMCarHireCommuting}{Commuting Diagram spotted in SSADM Book Example}
 \input{\ImagesFolder/SSADMCarHireCommuting..diagram.tex}
