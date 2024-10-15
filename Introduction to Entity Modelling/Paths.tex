@@ -5,11 +5,11 @@
 \label{PathsofRelationships}
 
 \mynote
-In the terminology of Harry Ellis\footnote{Ellis, HC. A Refined Model for Definition of System Requirements. Database Journal, 12(3):2--9, 1982.}, whereever in an entity model there is a path of single-valued relationships:
+In the terminology of Harry Ellis, whereever in an entity model there is a path of single-valued relationships:
 \begin{center}
 \input{\handCraftedImagesFolder/path.tex}
 \end{center}
-then the destination entity type b is said to be in the logical horizon of the source entity type a. 
+then the destination entity type b is said to be in the logical horizon of the source entity type a.\footnote{Ellis, HC. A Refined Model for Definition of System Requirements. Database Journal, 12(3):2--9, 1982.}
 In programming, equivalently, we might say that it was possible to navigate from any one instance of type \textit{a} to a definitive other instance of type \textit{b} by navigating each of the relationships $r_i$ in turn.\footnote{Inspiring the title of Charles Backmans wonderful paper --- `The Programmer as Navigator'}
  In mathematical language we could say instead that the path determines a functional relationship between types
 \textit{a} and \textit{b} and we could describe this path determined relationship as the functional composition $r_1 \circ r_2 ... \circ r_n$ of the individual relationships $r_1$,$r_2$,...$r_n$.
@@ -22,56 +22,157 @@ of the navigation) and entity type b (the destination) then a question naturally
 Questions as to how comparable paths though an entity model compare can only be answered with knowledge or understanding of the domain described by the model. This is significant because it means that by decribing how comparable paths compare then we are describing the domain of the model in more detail and, after all, the purpose of a model is to describe its domain. 
 These descriptions become much more important when we move on to consider entity models as specifications of data --- without them there is a missing link in database theory as we explain later. 
 
+\subsection{Comparable Paths in Goodman's Car Hire Business}
 \mynote 
-To make this all a bit more concrete consider an example given earlier of an entity model presented in the text book by Goodland on the SSADM method.
-The model is presented as part of an analysis of the data requirments of a car hire business. In this diagram there are five navigation paths which are of particular interest. In addition each individual relationship must be thought of as a path since each relationship can be comsidered to be a path of length one. To make it easier talk about these paths I have redrawn the model and added a label to each of the relationships.\footnote{A useful accoutrement that we come across in shlaer and lang.} 
+To make this all a bit more concrete consider an example given earlier 
+and represented below in figure \ref{goodlandSSADMcarHire.annotate..diagram}. 
+This is my version of an entity model 
+presented in a text book on the SSADM method written by Goodland with Slater.
+In the book, the model is presented as part of an analysis of the data requirments of an
+imaginary car hire business. 
+
+There are some interesting questions that can be asked regarding paths through this diagram. 
+There are five navigation paths which are of particular interest. In addition each individual relationship must be thought of as a path since each relationship can be comsidered to be a path of length one. To make it easier talk about these paths I have redrawn the model 
+figure \ref{goodlandSSADMcarHire.annotate..diagram} and added a label to each of the relationships.\footnote{A useful accoutrement that I first come across in a paper by shlaer and lang.} 
+
+\begin{erboxedFigure}{H}{goodlandSSADMcarHire.annotate..diagram}
+{This diagram was presented earlier in figure \ref{goodlandSSADMcarHire..diagram} 
+but has been redrawn here with its relationships labelled for ease of reference.
+It is a version of an example presented by Goodland describing an imaginary car hire company. 
+}
+\begin{center}
+\scalebox{0.95}{\input{\ImagesFolder/goodlandSSADMcarHire.annotate..diagram.tex}}
+\end{center}
+\end{erboxedFigure}
+
+\iffalse
+\fi
+\subsubsection{Example 1 --- Allocated Payment to Customer}
 
 \mynote
-There are some interesting questions that can be asked regarding paths through the diagram modelling a car hire business that we gave earlier. Here is the example again with relationships labelled so that it makes it easier to refer to them:
-\ercenterPicture{goodlandSSADMcarHire.annotate..diagram}
+There are two paths between entity type \textit{allocated payment} and type \textit{customer}.
+One of them proceeds via type \textit{payment} and consists of relationship \textit{r1} followed by relationship \textit{d1} as follows:
 
-See first of all that there are two paths between entity type \textit{allocated payment} and type \textit{customer}.
-One path between these types proceeds via type \textit{payment} and consists of relationship \textit{r1} followed by relationship \textit{d1} as follows:
 \begin{equation}
 \label{SSADMCarHirePath1..diagram}
-\input{\ImagesFolder/SSADMCarHirePath1..diagram.tex}
+\scalebox{0.95}{\input{\ImagesFolder/SSADMCarHirePath1..diagram.tex}}
 \end{equation}
-The other path proceeds via type \textit{booking/invoice} and consists of relationship \textit{r2} followed by relationship \textit{d2}:
+The other  proceeds via type \textit{booking/invoice} and consists of relationship \textit{r2} followed by relationship \textit{d2}:
 \begin{equation}
 \label{SSADMCarHirePath2..diagram}
-\input{\ImagesFolder/SSADMCarHirePath2..diagram.tex}
+\scalebox{0.95}{\input{\ImagesFolder/SSADMCarHirePath2..diagram.tex}}
 \end{equation}
+
 
 Because of the path (\ref{SSADMCarHirePath1..diagram}),
 there is a customer that is functionally dependent on any 
-given  \textit{allocated payment}. This is the customer that sends the payment that the allocated payment is part of. This customer can be written in mathematical script like this
+given  \textit{allocated payment}. This is the customer that sends the payment that the allocated payment is part of. This customer may be written in mathematical script like this
 \begin{equation*}
 d1(r1(x))
 \end{equation*}
 where $x$ is the allocated payment in question. 
 
-The existence of path (\ref{SSADMCarHirePath2..diagram}) gives us another 
+The existence of the second path (\ref{SSADMCarHirePath2..diagram}) gives us another 
 way of establishing a customer that is functionally dependent on any 
 given  \textit{allocated payment}. This is the customer that made the booking
-that the allocated payment is made to. This customer is written in mathematical script like this
+that the allocated payment is made to. This customer may be written in mathematical script like this
 \begin{equation*}
 d2(r2(x))
 \end{equation*}
 where, again, $x$ is the allocated payment in question. 
 
-Now the question arises are these two paths equivalent ways of navigating from an allocated payment to a customer.
+\mynote
+Now the question arises, see figure \ref{SSADMCarHireCommuting} are these two paths equivalent ways of navigating from an allocated payment to a customer. 
 Another way of asking the question is to ask do we know that given an $x$ of type \textit{allocated  payment}, it is the case that
- \begin{equation*}
-d1(r1(x) = d2(r2(x))
+\begin{equation*}
+d1(r1(x) = d2(r2(x)).
 \end{equation*}
 
-I have to say that we can't be certain for every car hire company in the world this is the case but in the goodman example this does hold true.
-A customer makes payments to their own bookings not to the bookings of other customers. See though that by isolating these paths and seeing them 
+\mynote
+In the general case, we can't be certain what the answer to the question is ---
+it depends on the particular business practices of this imaginary car hire company. 
+I am guessing that Goodman and Slater intended the answer to the question gfor their car hire company to be a 'yes' ---  so that every one of the customers only ever makes payments to their own bookings not to the bookings of other customers.
 
-
-
-These two paths are equivalent. We say that the following diagram is a commutative diagram of relationships. 
-\begin{erboxedFigure}{H}{SSADMCarHireCommuting}{Commuting Diagram spotted in SSADM Book Example}
-\input{\ImagesFolder/SSADMCarHireCommuting..diagram.tex}
+\begin{erboxedFigure}{h}{SSADMCarHireCommuting}
+{
+This diagram  shows two comparable paths from entity type allocated payment to entity type customer. If the answer to the question is yes then  the two paths are said to be equivalent and the diagram is said to commute.}
+\begin{tabular}{c  p{5.5cm}}
+\raisebox{-2.8cm}{\scalebox{0.9}
+{\input{\ImagesFolder/SSADMCarHireCommuting..diagram.tex}}}
+&
+Q. When an allocation is made of a payment sent by a customer, is it always the case that
+the allocation is made to a booking made by that same customer? \\[0.2cm]
+\end{tabular} 
 \end{erboxedFigure}
 
+\begin{erboxedFigure}{H}{SSADMCarHireCommutingCategoryStyle}
+{The diagram of figure \ref{SSADMCarHireCommuting} redrawn in the style of category theory. 
+ In category theory if both paths from $a$
+to $c$ are equivalent, i.e. if $r1 \circ d1=r2 \circ d2$, then the diagram is said to commute.}
+\begin{tabular}[b]{c p{2cm} c}
+\Rnode{p}{p}&&\Rnode{c}{c} \\[1cm]
+\Rnode{a}{a}&&\Rnode{b}{b} \\
+\end{tabular}
+\begin{arrows}
+\ncarr{a}{p}\alabel{r1}
+\ncarr{p}{c}\alabel{d1}
+\ncarr{a}{b}\blabel{r2}
+\ncarr{b}{c}\blabel{d2}
+\end{arrows}
+\end{erboxedFigure}
+
+\mynote One very interesting thing is that I am pretty sure that Goodland and Slater intended that we think of these two paths as equivalent i.e. of the diagram xxx as commuting. But they didn't say this and in fact they didn't have the language that would have enabled them to say it. At a stretch we could say that because they didn't have the language to talk about it then they couldn't even consider it. SSADM, the method that they were illustrating, dosn't  have 
+a terminology for this  in its armoury  and,
+outside of mathematics, I don't know of any methodology that does. 
+It is a terible shortcoming  because  we shall see the distinction between paths that are equivalent and paths that are not and generally the way that comparable paths compare has real significance when the concepts involved are represented in data. 
+There is this important meta-concept that is completely absent from current methodology
+(and theory). The fact that it has been missing has had a substantial negative effect on the practice of software development and programming and on related technologies.  
+
+\subsubsection{Example 2 --- Booking/Invoice to Customer}
+\mynote
+Shown in figure \ref{SSADMCarHireNonCommuting2..diagram} are two comparable paths between entity type \textit{booking/invoice} and
+entity type \textit{vehicle category}. One is a path of length one --- it is simply the relationship labelled r7 by which a booking requires a vehicle of a particular catagory.
+The second is of length two and traverses r5 followed by r6 and thus represents the category of the vehicle that is actually used to fulfil an order. These two paths cannot be equivalent because according to the model the booking may be one that is not yet fulfilled. That is why the relationship r5 is shown as a partial functional relationship (it is dashed, not solid). The question posed is therefore is it the case for all fulfilled bookings, the vehicle that fulfils the booking is of the same category as the category required in the booking. If the answer to the question is `yes' --- if this is the way the business operates --- then we will say that the path r7 dominates the path r5, r6 and we will write 
+\begin{equation*}
+r5 \circ r6 \leq r7.
+\end{equation*} 
+See figure \ref{SSADMCarHireNonCommuting2CategoryStyle} for a mathematical account in the notation of catagory theory.
+
+\begin{erboxedFigure}{h}{SSADMCarHireNonCommuting2..diagram}
+{
+This diagram  shows two comparable paths from type booking/invoice to type vehicle category and the question posed by these two paths being comparable. 
+If the answer to the question is a `yes' then we will say that this diagram is a near-commuting diagram.}
+\begin{tabular}{c  p{4.0cm}}
+\raisebox{-1.8cm}{\scalebox{0.9}
+{\input{\ImagesFolder/SSADMCarHireNonCommuting2..diagram.tex}}}
+&
+Q. Is the category of the vehicle used to fulfil a booking always
+the same as that category ordered in the booking?\\[0.2cm]
+\end{tabular} 
+\end{erboxedFigure}
+
+\footnotetext{Situations like this are very common and so we need a descriptive term and hence my use of the term near-commuting --- I don't find it entirely satisfactory but I don't have any better term that I can think of. Figure  \ref{SSADMCarHireNonCommuting2CategoryStyle} suggests a more appropriate mathematical characterisation that elsewhere I have described as a mathematical theory of data.}
+
+\subsubsection*{Mathematically}
+\mynote 
+For partial maps $f$, $g$ and $h$ I write $f \circ g \leq h$ to mean that whenever $g(f(x))$ is defined then 
+$h(x)$ is defined and $g(f(x)) = h(x)$. 
+
+\mynote
+Restriction categories provide an appropriate mathematical
+setting for reasoning about such partial maps. In the abstract setting, what I have referred to as a near-commutative diagram can be expressed by a two-morphism in a partial order enriched category as shown in figure \ref{SSADMCarHireNonCommuting2CategoryStyle}.
+
+ \begin{erboxedFigure}{H}{SSADMCarHireNonCommuting2CategoryStyle}
+{The diagram of figure \ref{SSADMCarHireNonCommuting2..diagram} redrawn in the style of category theory. In the partial-order enriched category induced by a restriction category of partial maps
+then the fact that  $r5 \circ r6 \leq r7$ can be represented by the existence of a 2-morphism as shown.}
+\begin{tabular}[b]{c p{0.2cm} c p{0.2cm} c}
+            &&\Rnode{v}{v}&&               \\[1.2cm]
+\Rnode{b}{b}&&            &&\Rnode{vc}{vc} \\
+\end{tabular}
+\begin{arrows}
+\ncarr{b}{v}\alabel{r5}
+\ncarr{b}{vc}\blabel{r7}\ncput[npos=0.75]{\pnode{arctarget}}
+\ncarr{v}{vc}\alabel{r6}\ncput[npos=0.7]{\pnode{arcsource}}
+\ncarc[arcangle=-30, nodesep=3pt]{->}{arcsource}{arctarget}
+\end{arrows}
+\end{erboxedFigure}
