@@ -3,7 +3,7 @@
 
 \section{Paths of Relationships}
 \label{PathsofRelationships}
-
+\subsection{Paths and their Comparison}
 \mynote
 In the terminology of Harry Ellis, whereever in an entity model there is a path of single-valued relationships:
 \begin{center}
@@ -13,7 +13,7 @@ then the destination entity type b is said to be in the logical horizon of the s
 In programming, equivalently, we might say that it was possible to navigate from any one instance of type \textit{a} to a definitive other instance of type \textit{b} by navigating each of the relationships $r_i$ in turn.\footnote{Inspiring the title of Charles Backmans wonderful paper --- `The Programmer as Navigator'}
  In mathematical language we could say instead that the path determines a functional relationship between types
 \textit{a} and \textit{b} and we could describe this path determined relationship as the functional composition $r_1 \circ r_2 ... \circ r_n$ of the individual relationships $r_1$,$r_2$,...$r_n$.
-
+\subsection{Comparison of Paths}
 \mynote
 Now, whatever the terminology, if there are two such navigation paths between entity type a (the source
 of the navigation) and entity type b (the destination) then a question naturally arises as to whether following one path is equivalent to following the other i.e whether starting at any entity of type $a$ we arrive at the same destination entity of type $b$ regardless of which of the two paths we follow. In an abstract mathematical setting, diagrams showing such equivalent paths are said to be commutative diagrams and methods of reasoning using such diagrams is the starting point of category theory.
@@ -176,3 +176,39 @@ then the fact that  $r5 \circ r6 \leq r7$ can be represented by the existence of
 \ncarc[arcangle=-30, nodesep=3pt]{->}{arcsource}{arctarget}
 \end{arrows}
 \end{erboxedFigure}
+
+\subsubsection{Examples 3, 4 and 5 --- Booking/Invoice to Local Office}
+
+
+In the Goodland car hire model that we are discussing  and as annotated in figure \ref{goodlandSSADMcarHire.annotate..diagram}, 
+there are three paths from entity type \textit{booking/invoice} to entity type \textit{local office}.
+These are $r3$, $r4 \circ d4$ and $r5 \circ d5$. 
+These can be paired in three diffent ways each pairing resulting in a comparable path diagram. 
+The resulting diagrams are shown as (a), (b) and (c) in figure 
+\ref{SSADMCarHireNonCommuting1}.
+
+Each of these diagrams poses a question about the operation of the car hire busines.
+I shall leave it as
+an exercise for the reader to describe what the commutivity or near commutivity of each of these diagrams equates to in business terms.
+As before how the paths compare, whether the diagrams commute or near commute, may play a significant role in  shaping the data representation of these business concepts.
+
+\begin{erboxedFigure}{H}{SSADMCarHireNonCommuting1}{Comparable paths in Goodland example between entity type
+booking/invoice and entity type vehicle. }
+\begin{tabular}{c p{1cm} c}
+(a) && \input{\ImagesFolder/SSADMCarHireNonCommuting1A..diagram.tex} \\
+(b) && \input{\ImagesFolder/SSADMCarHireNonCommuting1B..diagram.tex} \\
+(c) && \input{\ImagesFolder/SSADMCarHireNonCommuting1C..diagram.tex}
+\end{tabular}
+\end{erboxedFigure}
+
+\subsubsection{Recap}
+We have documented five different pairs of comparable paths in the Goodland example. 
+Each of the five comparisons can be expressed as commutivity, near commutivity or otherwise of diagrams. We will see later how path comparisons in many case have an impact on how data representing concepts is structured. There is no mention of this in Goolands book --- there is a blind spot and this
+blind spot is shared with almost all other authors, Barker included. 
+It is a blind spot that equates to a failure to recognise a crucial phenomena and the impact that it has 
+and thereby the missing of an important meta-concept. 
+I have tried to describe this phenomena here and subsequently will describe the imnpact it has.
+An exception is that  Shlaer and Lang in a little known paper have drawn attention to this phenomena
+and to the significance it has but they didn't have 
+ available to them the mathematical apparatus of category theory to help frame their discussion. 
+ As far as I am aware their work has not had impact that tt deserves. 
