@@ -4,36 +4,51 @@
 \subsection{Entity Models}
 
 \mynote
-An entity model emumerates types of things and the binary relationships these things may participate in and
-most often entity models --- their types and relationships --- are presented as entity relationships diagrams
-as described in this section and as are going play a big part of this book. 
+An entity model emumerates types of things and the binary relationships these things may participate in and,
+most often, entity models --- their types and relationships --- are presented as entity relationships diagrams.
+Examples of these diagrams are given  throughout this book.  
 Equally the nub of an entity model can be represented either as pure data 
-or else in IDL-style langauge.\footnote{There have been many flavours of Interface Definition Language (IDL) the earliest being from Carnegie-Mellon in the 60's (70's)??} 
+or else in IDL style langauge.\footnote{There have been many flavours of Interface Definition Language (IDL) the earliest being from Carnegie-Mellon in the 60's (70's)??} 
 Before we say more about the diagrams, to give a bit of balance between, on the one hand, the diagrams and,
-on the other, the information that they communicate, here is a representation in XML of the underlying model described by diagram ().\footnote{Note that in this XML representation there is some internal syntax used that resembles the syntax used in some variants of IDL and more fundamentally, as occurs in the syntax of regular expressions.} 
+on the other, the information that they communicate, in figure \ref{shlaerlangModel} we give a representation in XML of the underlying model described previously in figure \ref{shlaerLangDiagram}.\footnote{Note that in this XML representation there is some internal syntax used that resembles the syntax used in some variants of IDL and more fundamentally, as occurs in the syntax of regular expressions.} 
 
-\begin{verbatim}
-shlaerMellorDeptStudentProfessor0 surface xml needed here
-To get this would need to convert this example into surface + presentation
-\end{verbatim}
+\begin{figure}[h] % I tried making this a an erboxedFigure but gave up because verbatim does not work box
+\footnotesize\begin{verbatim}
+	<entity_model xmlns="http://www.entitymodelling.org/ERmodel" 
+	              ERScriptVersion="1.6">
+	   <entity_type name="department">
+	      <composition name="providing specialization for"
+	                     type="student*"
+	                     inverse="majoring in"/>
+	      <composition name="staffed by" type="professor*" inverse="on staff of"/>
+	   </entity_type>
+	   <entity_type name="student">
+	      <reference name="advised by" type="professor?" inverse="advising"/>
+	   </entity_type>
+	   <entity_type name="professor">
+	      <reference name="advising" type="student*" inverse="advised by"/>
+	   </entity_type>
+	</entity_model>\end{verbatim}
+\caption{An example of an entity model expressed in xml. 
+This entity model describes the same entity types and relationships 
+as are shown previously in figure \ref{shlaerLangDiagram}. }
+\label{shlaerlangModel}
+\end{figure}
 
-\subsection{Diagrams of Relationships}
-\mynote
-An entity relationship (ER) diagram is a presentation of an entity model.
-It shows boxes for entity types and connections between types for relationships.
-\mynote
-The relative positions of the boxes and lines is generally reckoned to be immaterial. Therefore there 
-are lots of different ways of representing the same entities and relationshoips on a diagram. 
+
 \subsection{Example --- Chen Manufacturing Company}
 \label{ChenManufacturingCompany}
-In figure \ref{ChenManufacturingExample} I have reproduced an example entity relationship diagram  given in Chen's 1976 paper. This example documents principle types of entity in the organisation of an imaginary manufacturing company.  I wanted to redraw
+In figure \ref{ChenManufacturingExample} I have reproduced an example entity relationship diagram  given in Chen's 1976 paper. For completeness we should mention that in Chen's 1976 terminology the boxes were said to be entity sets and the diamonds were said to be relationship sets but by 1983 in a paper published in that year Chen is instead using the terms `entity type' and `relationship type'. While sympathising with this terminology we think it better to to use the term `relationship' rather than 'relationship type'. To do so is arguably more correct because it brings our terminology closer to that of formal logic.
+
+\mynote
+This example figure \ref{ChenManufacturingExample} documents principle types of entity in the organisation of an imaginary manufacturing company.  I wanted to redraw
 this diagram in the Barker-Ellis style used in this book. To do this I needed to make some educated guesses about the meaning of some of Chen's relationships since use of the Barker-Ellis style  required me to descriptively label the relationships. Having made these guesses I drew the diagram shown
  in figure \ref{chenManufacturingCo..diagram}. 
 
 \begin{erboxedFigure} {H}{ChenManufacturingExample}{
-In effect this is the first ever entity relationship diagram. It is an entity relationship diagram in the Chen style from his seminal paper of 1976 and it is there described as being an analysis of information in a manufacturing firm. In this diagram
+The diagram reproduced here was in effect this the first ever entity relationship diagram or at least the first to be so described when published. 
+It is an entity relationship diagram in the Chen style from his seminal paper of 1976 and it is there described as being an analysis of information in a manufacturing firm. In this diagram
 diamonds represent what we describe here as relationships and boxes represent types of entities.  
-For completeness we should mention that in Chen's 1976 terminology the boxes were said to be entity sets and the diamonds were said to be relationship sets but by 1983 in a paper published in that year Chen is instead using the terms `entity type' and `relationship type'. While sympathising with this terminology we think it correct to to use the term `relationship' rather than 'relationship type' because this brings us closer to the terminology of formal logic.
 }
 \begin{center}
 \scalebox{0.80}{\input{\handCraftedImagesFolder/ChenStyleManufacturing.tex}}
@@ -63,15 +78,29 @@ As a part number is an identifier of a part design (independent of its instantia
 
 \subsection{Example --- Goodland Vehicle Hire Company}
 \label{GoodlandVehicleHireCompany}
-
-\mynote As a further example in figure \ref{goodlandSSADMcarHire..diagram}  I have reproduced an example from a book on SSADM\footnote{SSADM is an acronym for Structured Systems Analysis and Design Methodology.} by Goodland and Slater. It is, say the authors, a diagram specifying the logical data structure underlying the business operations of a hypothetical vehicle rental company that leases vans and trucks, and sometimes drivers, to its customers. 
 \mynote
-The example is developed and further elaborated at different points in the SSADM book as part of an extended example
-of how to document, analyse, specify and support improved business systems. 
+An entity relationship diagram is a presentation of an entity model.
+It shows boxes for entity types and connections between types for relationships.
+\mynote
+The relative positions of the boxes and lines is generally reckoned to be immaterial. 
+Therefore when diagramming there
+are  different choices that can be made for how to arrange the types and relationships
+ upon the diagram. Generally a practioner will tend to group together related types and will 
+ go to some lengths to avoid the line for any one relationship crossing over the line of another.
+It won't always be possible and so an attempt will be made to minimise the occurences of crossing lines.    
+As an example of this I have taken a diagram from a book by Goodland and Slater that is laid out in one particular way and arranged the same types and relationships in two very different ways. The resulting diagrams are shown in  in figure \ref{goodlandSSADMcarHireTwofold}.  Note that I have been able to avoid relationship lines crossing.
+The book in question is a description of the SSADM\footnote{SSADM is an acronym for Structured Systems Analysis and Design Methodology.}methodology. 
+The diagram is, say the authors, a diagram specifying the logical data structure underlying the business operations of a hypothetical vehicle rental company that leases vans and trucks, and sometimes drivers, to its customers. 
+\mynote
+This car hire model is developed and further elaborated at different points in the SSADM book as part of an extended example of how to document, analyse, specify and support improved business systems. 
+\mynote 
+Hypothetically this company has many local offices and both drivers and vehicles are based at local offices. 
+Note however that inspection of the the model raises some interesting questions about the business 
+and these are not raised nor addressed in the book ---
+neither in the diagram nor in the commentary. 
+We will come back to these shortly.
 
-\mynote Hypothetically this company has many local offices and both drivers and vehicles are based at local offices. \commentary{improvise some text to go with this as a series of independent mynotes}
-
-\begin{figure} [H]
+\begin{figure} [h]
 \begin{tabular}{c}
 \begin{erexample}
 \scalebox{0.95}{\epsfbox{\handCraftedImagesFolder/goodlandVariantA.flex.eps}}
@@ -82,16 +111,13 @@ of how to document, analyse, specify and support improved business systems.
 \end{erexample}
 \end{tabular}
 \label{goodlandSSADMcarHireTwofold}
-\caption{An example of two different ways of laying out the same entity types and relationships.
-The upper layout is the more straightforward. The boxes representing entity types have been sized for the convenience of the layout of the lines representing relationships. The lower layout is en example of a top down diagram and is in a style that we promote in this book and which we refer to as a structured entity model.
-Most of the diagrams in this bool follow this style.
+\caption{This shows two different ways of diagramming the same entity types and relationships.
+The upper layout is the more straightforward. The boxes representing entity types have been sized for the convenience of the layout of the lines representing relationships. The lower layout is an example of a top down diagram and is in a style that we promote in this book and which we refer to as a structured entity model.
+Most of the diagrams in this book will follow this style.
  The entity types and relationships shown here are from  the Goodland Car Hire example. Goodland and Slater's  layout is different again as shown in figure 3.35 on pg 106 of their book. See also in their book, their figure 4.13 on pg. 159 and their figure 4.58 on pg. 213.
-Consider simplifying and having a many-many betwixt payment and booking. }
+Note to myself: Consider simplifying and having a many-many betwixt payment and booking. 
+Then this diagram is different to the one given in next section. DO IT.}
 \end{figure}
 
 \footnote{Later will have a version as in the book with allocated payment as an intersection entity. 
 Can we avoid needing bars on relationships in this way?}
-\newpage
-
-
-

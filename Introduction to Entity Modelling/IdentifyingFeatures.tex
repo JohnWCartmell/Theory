@@ -8,7 +8,7 @@ The focus of this section is the identification of entities ---  we ask, regardi
 For there to be an answer to this question then we must assume that no two entities of the given type are alike in all their features. This in fact  is a philosophical position 
 --- it is called the principle of the identity of indiscernibles. 
 While this principle is contested in philosophy, in entity modelling we tend to assume it holds.
-Thus we work under the assumption that no two entities are exactly the same in all their features. 
+Thus we work under the assumption that no two entities are exactly the same in all their features, where by feature we mean an attribute or a relationship with another entity. 
 
 From this assumption, it follows that for any type of entity there is a minimum set of features sufficient to distinguish any two entities of the type. Any such set of features is said to be identifying as it gives us a way of identifying and therefore referencing entities of the type. 
 
@@ -18,7 +18,7 @@ From this assumption, it follows that for any type of entity there is a minimum 
 Though it is the set as a whole that is \textit{identifying} 
 informally we shall say each of the attributes and relationships in the set is identifying. 
 
-Such a set has a simple mathematical characterisation, which we come to later following various
+Such a set has a simple mathematical characterisation, which we come to later after presenting various
 examples  of identifying features and the notation used to represent them.
 
 \subsection{The Significance of Identifying Features}
@@ -27,7 +27,7 @@ examples  of identifying features and the notation used to represent them.
 It is desirable that an entity model documents identifying features for the types of entities it describes and  it is  absolutely necessary for most types in those models that are to be used as data specifications as we will come to in a later section. 
 
 \mynote
-The reason for this is that identifying features give us concrete ways of identifying entities within a context and thereby enables us to describe the relationships between entities. Consequently, they provide methods for communicating  relationships and this ultimately facilitates the storage of representations of entities in data systems.
+The reason for this is that identifying features give us concrete ways of identifying entities within a context and thereby enables us to describe the relationships between entities. As a consequence they provide a means for communicating  relationships and this ultimately facilitates the storage of representations of entities in data systems.
 
 \subsection{Notation}
  \mynote
@@ -36,13 +36,11 @@ Various conventions have been used diagrammatically to convey that an attribute 
 \mynote Identifying relationships on the other hand, both in this book and in Barker's book 
 are distinguished by drawing a bar across them so that they like this: \barkerEllisJ\ or like this: \barkerEllisK.
 
-
-
  
 \subsection{Examples}
 \mynote
 Flight number, payment card number, country code, international bank account number (IBAN), 
-international standard book number (ISBN), social security number, passport number, part number and many like attributes are designed specifically for the purpose of enabling unique identification of entities of a particular type so that each entity of the type can be referenced. Such attributes are said to be identifying attributes and are underlined 
+international standard book number (ISBN), social security number, passport number, part number, serial number and many like attributes are designed specifically for the purpose of enabling unique identification of entities of a particular type so that each entity of the type can be referenced. Such attributes are said to be identifying attributes and are underlined 
 on diagrams to indicate as much. Attributes 
 such as ISBN and IBAN are designed to be globally unique.  
 Others such as:
@@ -86,20 +84,51 @@ Now people are tricky to identify from a few well defined attributes but for som
 \mynote \commentary{move to beginning and refer back.}
 For some types in some circumstances there are no attributes and only relationships in the identifying set. 
 We saw an example earlier
-in figure \ref{employeeProjectWorkerMediatedAttributed}. In that figure there
-is an entity type
+in figure \ref{employeeProjectWorkerMediatedAttributed} in  which there is an entity type
 \textit{project assignment} which implements a many-many relationship between employees and projects. 
 Such entity types as this are common in the Barker-Ellis notation 
 standing as they do in positions that would be occupied many-many relationships
  and depicted by  diamonds in Chen's notation. 
  Because the type `project assignment' implements a many-many relationship, we can be sure that entities of the type  are uniquely identified by 
- identifying the employee that they assign in combination with the project they assign to and this means that the relationships \textit{assigning} and \textit{to work on}, in combination, are identifying features of the type. This has been indicated in 
+ identifying the employee that they assign in combination with the project they assign to. This means that the relationships \textit{assigning} and \textit{to work on}, in combination, are identifying features of the type. This has been indicated in 
 figure  \ref{employeeProjectWorkerMediatedAttributed} by the bars drawn across these two relationships. As I mentioned before such types as this are sometimes said to be intersection entities.
+
+
+\subsection{The Dramatic Arts Example}
+\label{DramaticArtsExample}
+In the example in figure \ref{dramaticArts1} there are examples of cascaded identification in that there are types whose instances are specified as being identified by relationships with other types which themselves are specified to be identified by relationships with other types.
+For example we see a type `character' identified in part by the relationship with the play they are a charcater within which is in part identified by a relationship to a playwright. 
+Let me explain the choices in this entity model.
+
+
+Occasionally, but not very often, two different plays have the same title. Therefore in this entity model a play has been shown to be a combination by its title in the context of the playwright who has written the play. 
+
+Often characters from different plays have the same name. There are multiple sebastians in the plays of William Shakespeare. Therefore in this entity model the type charcater is shown to be identified by the name wuithin the context of the playin which they appear.
+
+Lets spell this out. Part of identifying a charcater is to identify a play but part of identifying a play is to identify a playwright. Therefore we speak of the name of the playwright as being a cascaded identifier of the characater. Considered through the lens of attributes alone, a cdharcater is identified by the name of the charcater, the tile of the play and the name of the playwright. 
+
+Further depths and multiplicities come to light if you examine the type of dramatic role. I will leave it to the reader to examine the cascaded attributes involved in the identificatioon of a dramatic role and then return to this subject of identification and referencing in the next section.
+
+\erboxedFigPicture{dramaticArts1}{h}
+{This example is based to some extent on an example developed 
+in David Hay's book``Data Model Patterns --- Conventions of Thought''
+and presented in his figure 12.7 `The Theatrical Production Company'.
+I have made choices in specifying this model.
+I have ensured there are layers and multiplicities of identification but also so that I can fit the diagram on a single page. 
+One less obvious detail to be seen in the model is that a production of a play is specified as 
+being identified by a combination of a play, the venue and the season.
+For the season of a production I have in mind a description of a date range such as  ``Spring 1985'', say. 
+If you examine the model and chase the identifying relationships
+then you will find that describing a particular instance of a role being played by an actor will involve identifying
+instances of every single type within the model. I will be spelling this out in detail in the next section.
+As with most models there are caveats and exceptions in practice that do not fit the model. 
+One exception here is that a play might be coauthored. This isn't covered by the model.
+Another exception is that a single production might tour the country rather than being at a single venue. Again this isn't covered by the model. }
 
 \subsection {Mathematical Characterisation}
 \mynote From a mathematical perspective, 
 each feature of an entity type can be represented by a function. A set of features is suffiecient to uniquely identify entitities of a type if and only if when thought  of in this way the set is \textit{jointly injective}.   
-See subsection \ref{JointlyInjective} for a defintion of this term.
+See subsection \ref{JointlyInjective} for a definition of this term.
 
 \subsection{Summary}
 \mynote A set of features of a type of entity i.e. a set of attributes and outgoing direction We say that al relationships, is said to be \textit{identifying} provided that the values of these features,
