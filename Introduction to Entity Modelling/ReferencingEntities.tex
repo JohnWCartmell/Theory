@@ -239,144 +239,14 @@ a noun phrase involvinf seven referentials.
 
 dramatic role is referenced by reference to production reference to play
 \end{noteforfuture}
-
-\subsubsection{Algorithm for accumulating referentials}
+\subsection{Naive Algorithm for Accumulation of Identifying Attributes}
+Accumulate into the referential attributes the identifying attributes of the subject entity type
+with all the referential attributes of all entity types reached by traversing an identifying relationship.
+\subsection{Adjusted Algorithm for Accumulating of Identifying Attributes}
 \commentary{referential accumulation algorithm}
 
 Describe the algorithm.
-Accumulate into the referential attributes the identifying attributes of the subject entity type
-with all the referential attributes of all entity types reached by travering an identifying relationship.
 
 Next need to refine this algorithm to take account of commutative relationships. 
 
 To do use define paths of identifying relationships.
-
-\subsection{Communicating Relationships}
-\commentary{feels to me like this should be a separate section}
-\mynote 
-Now on the surface of it it is very simple
-to convey instances of relationships --- we reference two entitites and assert a relationship between them. 
-To convey an instance of this relationship://
-XXXX actor to dramatic role
-we reference an actor entity, by name according to figure ref{drammaticArts1},
-and we convey a dramatic role entity by means of five referentials as we have seen above.
-In this way we get statements such as
-\begin{erquote}
-
-\parbox{9.0cm}{\linespread{1.5}\normalsize\rdash{Bob Hoskins} was \uwave{the player of} the role of \rdot{Touchstone} in the production of \mbox{\rdot{Shakespeare}'s} \rdot{As You Like It} performed \mbox{\rdot{April – May 1975},} at \rdot{Oxford Playhouse}.
-}
-\end{erquote}
-which, by the way, is true  --- Bob Hoskins did play this role --- I was there.
-In this example, referentials to reference the actor are dash underlined. The relationship is wavy underlined.
-Referentials to reference the dramatic role are dotted underlined.
-
-All this is strightforward. But things are not always so straightforward because sometimes referentials can overlap. 
-Shlaer and Long explore this topic in the context of relational database structure and refer to them as \textit{collapsed referentials}. This is an important topic and the subject isn't complete if we dont 
-consder these and so here is an example that contains such `collapsed referentials'.
-
-As we have said above and according to the model we have assumed,
-  characters from plays need be identified by three referentials
- --- the name of the character, the title of the play and the name of the playwright.
-
-\mynote 
-That there three referentials to reference a character naively implies that if we wish to communicate an instance of relationship between two different characters then we will be required to communicate six referentials
- -- three to identify one party in the relationship and three to identify the other party. 
- we will see shortly  --- this is the significant bit --- that this is not always the case and so not what we instinctively do, when we have \textit{a priori} knowledge of the relationship being communicated is limited in scope. 
- If we know the relationship is confined to individual playwrights or is internal to individual play 
- or script then clearly we do not 
-  communicate the playwright and play title twice over. The number of referentials may in such a case collapse to four:
-   name of playwright, title of play and name of character.
-Shlaer-Lang in the context of data representation of entities and in a very much underrated paper, coined the term \textit{collapsed referentials} in
-their description of this phenomena.  We shall use instead the term \textit{shared referential} for a referential that contributes to multiple references.
-
-\mynote 
-In the  the play Twelfth Night by William Shakespeare, Antonio loves Sebastian.
-
-For the discussion that follows suppose love to be a many-many relationship between characters.
-
-A naive approach would suggest that six referentials are required to convey an instance of love
-between characters --- three referentials to reference the lover character and three to reference the loved.
-If I follow the naive approach I would convey the relationship instance like this:
-\begin{equation}
-\text{\parbox{9cm}{\textit{The character named Antonio in Shakespeare's play Twelfth Night loves the character named Sebastian in Shakespeare play Twelfth Night.}}}
-\end{equation} 
-But there is a reason why the shorter
-\begin{equation}
-\text{\parbox{9cm}{\textit{The character named Antonio in Shakespeare's play Twelfth Night loves the character named Sebastian.}}}
-\end{equation} 
-is correct and it is  important we understand this reason.
-What is at play here is another instance of the same basic phenomenon we saw before in the context of the referencing of entitites --- less referentials are required than we first expect from a naive reading.  
-
-This reason in this case is because the relationship `loves' in this context 
-is, \textit{a priori}, a relationship which is internal to the plot of a single individual play ---
-it is an intra-play relationship rather than an inter-play relationship.
-Because it is intra-play, when we covey an instance then the referentials that refer to the play are shared between lover and loved As shown in figure \ref{SebastianLovesAntonio}.
-
-
-\begin{erboxedFigure}{H}{SebastianLovesAntonio}
-{Referencing two different characters using just four referentials. This is an example of what Shlaer and Lang (?) called collapsed referentials. What we see is that referential `Shakespeare' contributes to two different references. Likewise does the referential `Twelfth Night'.
-These are examples of shared referentals --- they contribute, as indicated, to both reference 1 and reference 2.}
-\newcommand{\dashRefOne}{2pt 2pt}
-\newcommand{\dashRelationship}{1pt 0pt}
-\newcommand{\dashRefTwo}{1pt 1pt}
-\begin{tabular}{l}
-\Rnode{w1}{\rdash{Antonio}} in \Rnode{w2}{\rdot{\rdash{Shakepeare}}}'s \Rnode{w3}{\rdot{\rdash{Twelfth Night}}} \Rnode{w4}{\rline{loves}}  \Rnode{w5}{\rdot{Sebastian}} \\[1.4cm]
-\kern1.2cm\Rnode{ref1}{\textit{reference 1}}
-\kern0.75cm\Rnode{rel}{\textit{relationship}}
-\kern0.6cm\Rnode{ref2}{\textit{reference 2}} \\[0.5cm]
-\syntag{\dashRefOne}{ref1}{0.9}{w1}{0}
-\syntag{\dashRefOne}{ref1}{0.9}{w2}{-0.2}
-\syntag{\dashRefOne}{ref1}{0.9}{w3}{-0.2}
-\syntag{\dashRelationship}{rel} {0.7} {w4}{0}
-\syntag{\dashRefTwo}{ref2}{0.4}{w2}{0.2}
-\syntag{\dashRefTwo}{ref2}{0.4}{w3}{0.3}
-\syntag{\dashRefTwo}{ref2}{0.4}{w5}{0}
-\end{tabular}
-\end{erboxedFigure}
-
-An instances of the `loves' relationship is conveyed by a total of four referentials
- not the six that might have been required
-if the relationship were global in scope (as would have been the case if a
- character from one play could love  a character from an entirely different play).
- An example of a relationship between characters that is global in scope 
- is the relationship of one character being modelled on or resembling or being inspired 
- by another character from the dramatic arts.
- To convey an instance of this relationship, being as the relationship is gloabl in scope,  does indeed require
- six referentials --- three for the one party and three for the other --- as in this example:
-\begin{erquote}
-\parbox{9.0cm}{\linespread{1.3}\normalsize
-\rdash{Romeo} from \rdash{Shakespeare}'s \rdash{Romeo and Juliet}
-          \uwave{is modelled on} \rdot{Pyramus} from \rdot{Ovid}'s \rdot{Metamorphoses}.}
-\end{erquote}
-which, interpreted from the perspective of the dramatic arts that we have given above, does indeed contain six referentials. 
-The first three, shown with dashed underlining, reference one character.
-The verb of the sentence is the name of the relationship, and, 
-the final three referentials, with dotted underlining, 
-reference a second charater from a different play.\footnote{I am bending the facts a bit here 
-in that Metamophoses isn't strictly a play - its a bunch of stories.} 
-There are no shared referentials.
-
-
-\subsection{Philosophy}
-\mynote
-Bearing in mind that I have said that entities, and relationship instances, are particulars
-and that the values of attributes, referentials included, are universals then, arguably,
- what we have been examining in this section, 
- is the mechanics behind the following slogan:
-\begin{erquote}
-We think particulars, but we speak universals.
-\end{erquote}
-\begin{noteforfuture}
-\mynote
-A follow up slogan for the coming section on data is
-\begin{erquote}
-Universals are the stuff of data though its meaning is in the 
-particulars --- entities and relationships --- that the universals describe. 
-\end{erquote}
-\end{noteforfuture}
-
-
-
-
-
- 
