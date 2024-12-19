@@ -61,7 +61,7 @@ the names of moons are only unique as names of moons. This is very much the mean
 \mynote
 We are very much stating the obvious of course but there is a pattern here and it is repeated over and over when instances of relationships are communicated  and the same pattern occurs more formally  and uniformly when instances of relationships are communicated in software systems and/or stored in data.
 
-We will come back to the phrasing of relationship instances in a monent but first we must look at the characteristics of referencing when some of the identifying features of an entity are relationships.
+We will come back to the phrasing of relationship instances in the next section but first we look at the characteristics of referencing when some of the identifying features of an entity are relationships.
 
 \subsection{Context and the Referencing of Entities}
 \mynote
@@ -106,7 +106,7 @@ From inspecting the representation of the character type and in particular its i
 a character may be referenced by their \uline{name}.}}
 \end{equation}
 Accordingly in the text of a play characters are referenced 
-by name as for example in a stage direction such as this one:  
+by name as for example in stage directions such as this one:  
 \begin{equation*}
 \text{\textit{Enter \rdash{Sebastian}.}}
 \end{equation*}
@@ -117,7 +117,7 @@ by name as for example in a stage direction such as this one:
  a character from within a play 
 may be referenced by their \uline{name} along with the \uline{title} of the play they are \uwave{in}.}}
 \end{equation}
-So in a discussion of our favourite Shakespearen characters  we might 
+So in a discussion of our favourite Shakespearean characters  we might 
 make reference to
 \begin{equation*}
 \text{\textit{\rdash{Sebastian} from \rdash{Twelfth Night}.}}
@@ -137,11 +137,13 @@ as  when I reference the following character:
 \end{equation*}
 \end{itemize}
 
+\begin{oldtt}
 \begin{notebox}
 In this example there were two identifying relationships arranged end to end. It was by looking at the subject type (character) and the two entity types reached directly and indirectly through the identifying relationships
  that I gathered the identifying attributes whose values are required as referentials. 
 I mention this because there is the beginnings of a simple algorithm here by which entity models can be transformed to definitions of tabular structure.
 \end{notebox}
+\end{oldtt}
 
 \subsubsection{Referencing Productions of Plays}
 Now we move on to another area within the overall model of figure \ref{dramaticArts1}. From this detail 
@@ -155,13 +157,13 @@ regarding the production entity type  we see that
   \begin{equation} 
 \label{absoluteCharacterReferencing}
 \text{\parbox{9cm}{a production can be referenced by referencing the play it is a production \uwave{of} 
-  and by giving the \underline{name} of the venue  the production is \uwave{at} and the \underline{season} 
+  and by giving the \underline{name} of the venue  the production is \uwave{at} along with the \underline{season} 
   over which it plays.}}
 \end{equation}
 We have already seen that to reference a play requires two referentials and so
 we can count up the number of referentials required to reference a production
   as one for the venue, two for the play and one for the season so four referentials in all. 
-As an example of this consider the following prescription
+As an example consider the following prescription
 \begin{erquote}
 \parbox{9cm}{a production of \mbox{\rdash{Shakespeare}'s} \rdash{As You Like It}
  performed \mbox{\rdash{April – May 1975},} at \rdash{Oxford Playhouse}.}\\
@@ -170,13 +172,14 @@ As is to be expected in this description there are four referentials present.\fo
 I found the literal description online as ``a production of the play As You Like It (by William Shakespeare), April – May 1975, at Oxford Playhouse''.  
 } 
 \end{itemize}
-For entity types character and production we have been able to inspect the entity model diagram for identifying  attributes and relationships and from the inspection posit required referentials  for the referencing of entitites of the type.
-This doesn't always work out in the way that it does here though. 
+For entity types character and production we have been able to inspect the entity model diagram for identifying  attributes and relationships and from the inspection posit required referentials  for the referencing of entities of the type.
+We need beware though becuase referencing doesn't always work out by simple aggregation. Because sometimes,
+in the words of Shlaer and Lang, referentials collapse. 
 To see this we are going to move on to another area within our model and look at how dramatic roles are identified and referenced.
  \subsubsection{Referencing Dramatic Roles}
 \mynote
 In figure \ref{dramaticArts1}, the entity type \textit{dramatic role} is
-depicted as an intersection entity as it is shown having
+depicted, somewhat similar to an intersection entity, as shown having
 two identifying relationships and no identifying attributes.
 The relevant detail is  this
 \begin{equation*}
@@ -186,17 +189,17 @@ We can interpret this detail as telling that
 \begin{equation}
 \label{DramaticRoleReferencing}
 \text{\parbox{9cm}{to reference a dramatic role it is necessary  
-to both reference a character from a play and to reference a production.}}
+to reference both a character and  a production.}}
 \end{equation}
 
-Now, we have already discussed how characters from plays need be referenced using three referentials
-and  how productions need be referenced using four referentials 
+Now, as we have already discussed, characters from plays need be referenced using three referentials
+and productions need be referenced using four referentials 
 and so we can expect that, without context, a reference to
 a dramatic role will require seven referentials
  --- three for the character and four for the production. 
 So we will need seven, right?
  Well no, rather surprisingly, wrong! Only five referentials are required. 
- What happended to the other two? Can you examine the model in figure xxx and figure this out?
+ What happened to the other two? Can you examine the model in figure \ref{dramaticArts1} and figure this out?
 
 That only five referentials are needed can be seen from this reference to a dramatic role:
 \begin{erquote}
@@ -204,41 +207,66 @@ That only five referentials are needed can be seen from this reference to a dram
 }
 \end{erquote}
 
-To see why this is we have to add to our declaration, (\ref{DramaticRoleReferencing}), and declare more specifically that
+To see why five only we have to spell out our declaration, (\ref{DramaticRoleReferencing}), in more detail
+and declare more specifically that
 \begin{equation}
 \label{DramaticRoleReferencingRevised}
 \text{\parbox{9cm}{To reference a dramatic role it is necessary 
-to both reference a character from a play and to reference a production \textbf{of that same play}.}}
+to both reference a character \textbf{from a play} and to reference a production \textbf{of that same play}.}}
 \end{equation}
-It is because both the character and the production will both be in relationships with the very same play
-that in referencing a dranatic role, the referencing of the character and the referencing of
+It is because both the character and the production will be in relationship with the very same play
+that in referencing a dramatic role, the referencing of the character and the referencing of
 the production will not be independent
---- each of these two references --- the referencing of the play and the referencing of the production ---
- will include reference to the very same play. This is the situation for which Lang, seemingly, in Shlaer and Lang, coined the term collapsed referential. They very much had in mind relational database structure but we have got to the same point here in this section merely in a discussion of how referencing works in ordinary speech. 
+--- each of these two references --- the referencing of the character and the referencing of the production ---
+ will include reference to the very same play --- but this reference need not be made twice. 
+It is in describing a situation like this that Shlaer and Lang coined the term collapsed referentials. 
+ When they coined the term they had in mind tabular database structure 
+ but we have got to an understanding of the same phenomonon in our discussion here 
+ of how referencing works in ordinary speech. 
 
- The conclusion I come to is that in an entity model it is pretty significant to specify more than we see in the diagram of relationships. We need to specify additional information such as in the declaration above
- is captured by qualifying as "in the same path". 
+ The conclusion I come to is that in an entity model it is pretty significant to specify more than we see in the diagram of relationships. We need to specify additional information such as, in the declaration above,
+ is captured by qualifying as ``in the same path''. 
 
-To see what form this additional information ought to take we have to focus on this fragment
-and observe that the "in the same path" injunction is necessary and appropriate just because in this diagram the two comparable paths from entity type dramatic role and entity type play are equivalent.
-This is what we need specify in our entity model but it is beyond what is shown on the diagram of figure \ref{} or any notation that I have so far introduced.
-We will come back later to how such a specification might look after we have seen some other 
-related examples.
-For now we can imagine annotating the diagram in some way or else specifying in a separate document
-or a separate diagram. However we specify it we should think of the specification of equivalent paths as 
-an important supplement to the entity relationship diagram and that it is the totality of the diagram plus the statement of path equivalences that comprises the entity model.
-
-There is a phenomenon at work here and it needs to be coralled.
-
-We describe this phenomenon in a number of ways in the remainder of this section and in the next. 
-I don't expect the reader to be a mathematician but, for those readers that are, there is a quick way of saying what is happening and I am going to print it in bold because I feel like shouting it  --- \textbf{there is a commutative diagram of functional relationships at play and, in cases such as this, this makes all the difference to how we reference entities because resultant referentials collapse.}.
+To see what form this additional information ought to take we have to focus on this detail 
+% \begin{equation}
+% \label{dramaticArtsPortrayalScopeReversedwithIds}
+% \input{\ImagesFolder/dramaticRoleScopeReversedwithIds.tex}
+% \end{equation}
+of figure \ref{dramaticArts1}
+and observe that the ``in the same path'' injunction is necessary
+and appropriate just because in this diagram 
+the two comparable paths from entity type dramatic role and entity type play are equivalent.
+This is what we need specify in our entity model. It is beyond 
+what is shown on the diagram of figure \ref{dramaticArts1}.
+For now we can imagine annotating the diagram in some way to indicate that these two paths are equivalent 
+or else specifying in a separate document or in a separate diagram. 
+One way is to focus on diagram (\ref{dramaticArtsPortrayalScopeReversedwithIds}), 
+as we have done, maybe to flip it around like this
+\begin{equation}
+\label{dramaticArtsPortrayalScopeAppearance1}
+\input{\ImagesFolder/dramaticArtsPortrayalScope.tex}
+\end{equation}
+and to assert that this diagram commutes.
 
 \begin{noteforfuture}
 I might be able to get to the equivalence of paths by examining
-a noun phrase involvinf seven referentials.
+a noun phrase involving seven referentials.
 
 dramatic role is referenced by reference to production reference to play
 \end{noteforfuture}
+
+\subsection{Entity Models and Equivalent Paths}
+However we specify it we should think of the specification of equivalent paths as 
+an important supplement to the entity relationship diagram. 
+We need to think that it is the totality of, 
+at least,
+the entity relationship diagram  plus the statement of path equivalences that comprises the entity model.
+
+I don't expect the reader to be a mathematician but, for those readers that are, there is a quick way of saying this. 
+For mathematicians, then,  the entity model is a presentation (or, equivalently, a sketch)
+ of a category of some kind.  
+
+
 \subsection{Naive Algorithm for Accumulation of Identifying Attributes}
 Accumulate into the referential attributes the identifying attributes of the subject entity type
 with all the referential attributes of all entity types reached by traversing an identifying relationship.

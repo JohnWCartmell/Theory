@@ -16,7 +16,7 @@ From this assumption, it follows that for any type of entity there is a minimum 
  the identifying features will consist of a combination of attributes and relationships, 
  with the relationships being functional relationships to other entities. 
 Though it is the set as a whole that is \textit{identifying} 
-informally we shall say each of the attributes and relationships in the set is identifying. 
+informally we shall say that each of the attributes and relationships in the set is identifying. 
 
 Such a set has a simple mathematical characterisation, which we come to later after presenting various
 examples  of identifying features and the notation used to represent them.
@@ -27,7 +27,7 @@ examples  of identifying features and the notation used to represent them.
 It is desirable that an entity model documents identifying features for the types of entities it describes and  it is  absolutely necessary for most types in those models that are to be used as data specifications as we will come to in a later section. 
 
 \mynote
-The reason for this is that identifying features give us concrete ways of identifying entities within a context and thereby enables us to describe the relationships between entities. As a consequence they provide a means for communicating  relationships and this ultimately facilitates the storage of representations of entities in data systems.
+The reason for this is that identifying features give us concrete ways of referencing entities within a context and thereby enables us to describe the relationships between entities. As a consequence they provide a means for communicating  relationships and this ultimately facilitates the storage of representations of entities in data systems.
 
 \subsection{Notation}
  \mynote
@@ -41,16 +41,15 @@ are distinguished by drawing a bar across them so that they like this: \barkerEl
 \mynote
 Flight number, payment card number, country code, international bank account number (IBAN), 
 international standard book number (ISBN), social security number, passport number, part number, serial number and many like attributes are designed specifically for the purpose of enabling unique identification of entities of a particular type so that each entity of the type can be referenced. Such attributes are said to be identifying attributes and are underlined 
-on diagrams to indicate as much. Attributes 
-such as ISBN and IBAN are designed to be globally unique.  
-Others such as:
+on diagrams, in this book at least, to indicate as much. 
+Attributes such as ISBN and IBAN are designed to be globally uniquebut many identifying attributes are only unique within specific contexts:
 \begin{itemize}
 \item
 car registration plate number and passport number have values that are unique, and are therefore identifying, only with respect to particular issuing authorities, for example at a national level,
 \item part numbers may be unique with respect to particular part suppliers or manufacturers,
 \item airport terminal numbers are unique and therefore identifying with respect to the airports they are located at.
 \end{itemize}
-In these bulleted cases the underlining of the identifying attribute is combined with the barring of the context providing relationship as shown here in fragments in which, in the absence of other detail, types \textit{passport}, \textit{part} and \textit{terminal} are shown to be uniquely identifying  in relation
+In these context dependent cases the underlining of the identifying attribute is combined with the barring of the context providing relationship as shown here in fragments in which, in the absence of other detail, types \textit{passport}, \textit{part} and \textit{terminal} are shown to be uniquely identifying  in relation
 to \textit{country}, \textit{supplier} and \textit{airport}, respectively, 
 and in which these later types are shown to have instances uniquely identified by name:
 
@@ -61,11 +60,12 @@ and in which these later types are shown to have instances uniquely identified b
 \end{tabular}
 
 \subsubsection{Two or more identifying attributes}
-For some types, the values of more than one attribute need be examined to distinguish entities of the type ---  as with a multi-dimensional coordinate system a number of attributes provide values that  taken together are unique 
+For some types, the values of more than one attribute need be examined to distinguish entities of the type ---  as with a multi-dimensional coordinate system ---
+a number of attributes provide values that taken together are unique 
 and enable an entity to be uniquely identified and referenced.  
-In such a case it is a number of attributes, latitude and longitude, for example, rather than an individual attribute, which as a set  can be said to be identifying. 
-This is depicted by underlining each attribute that is in the set.
-This is  shown in the following example
+In such cases there is a plurality of attributes, such as latitude and longitude, for example, 
+and is the plurality which  can be said to be identifying. 
+This is depicted by underlining each attribute that is in the set as in the following
 in which spot heights on maps are shown to be identifiable by the combination of latitude and longitude within the context of the map:
  \begin{equation}
  \raisebox{-0.5cm}{\input{\ImagesFolder/mapSpotHeight1.tex}}
@@ -94,22 +94,41 @@ standing as they do in positions that would be occupied many-many relationships
 figure  \ref{employeeProjectWorkerMediatedAttributed} by the bars drawn across these two relationships. As I mentioned before such types as this are sometimes said to be intersection entities.
 
 
-\subsection{The Dramatic Arts Example}
-\label{DramaticArtsExample}
-In the example in figure \ref{dramaticArts1} there are examples of cascaded identification in that there are types whose instances are specified as being identified by relationships with other types which themselves are specified to be identified by relationships with other types.
-For example we see a type `character' identified in part by the relationship with the play they are a character within which is in part identified by a relationship to a playwright. 
-Let me explain the choices in this entity model.
+\subsection{Cascaded Identification}
+\label{Cascaded Identification}
+\mynote
+A type is characterised as having cascaded identification if instances are specified as being, in part, identified by relationships with other types which themselves are specified to be, in part at least, identified by relationships with other types.
+\mynote
+We see an example in this detail
+\begin{equation*}
+\input{\ImagesFolder/dramaticArtsCharacterFragment.tex}
+\end{equation*}
+which is contained within of the model of the dramatic arts presented in figure \ref{dramaticArts1}. 
+In this detail we see that
+\begin{itemize}
+\item
+instances of  type play have been specified to be identified by their title 
+in the context of the playwright  they are written by.
+The model has been specified in this way 
+because it is a fair assumption that no two plays by the same playwright have the same title
+whereas occasionally, though admittedly not very often, 
+two different plays by different playwrights do have the same title.  
+\item instances of the type character, on the other hand,  are shown to be identified by their name within the context of the play in which they appear. 
+The model is specified so because it is often the case that characters from different plays have the same name, such as the multiple Sebastians in the plays of William Shakespeare, but it is never the case that two different characters in a single play have exactly the same names.
+\end{itemize}
 
+The cascade in view in this detail, is 
+(i)  part of identifying a character is to identify a play and, in turn,
+(ii) part of identifying a play is to identify a playwright. 
+Sometime we may speak of the name attribute of the playwright as being a cascaded identifier of the type character. Considered through the lens of attributes alone, a character is identified by the name of the character and, 
+cascaded, the title of the play and the name of the playwright.
+It is this attribute-lensed view that comes to the fore if and when we go on to represent these same concepts in tabular data.  
 
-Occasionally, but not very often, two different plays have the same title. Therefore in this entity model a play has been shown to be a combination by its title in the context of the playwright who has written the play. 
+Further cascades come to light if you examine the type of dramatic role 
+as specified in the diagram in figure \ref{dramaticArts1}. I will leave it to the reader to examine the multiple cascaded attributes involved in the identification of instances of the dramatic role type, as represented in that figure. 
+We return to this example and to the subject of identification and referencing in the next section.
 
-Often characters from different plays have the same name. There are multiple sebastians in the plays of William Shakespeare. Therefore in this entity model the type character is shown to be identified by the name wuithin the context of the playin which they appear.
-
-Lets spell this out. Part of identifying a character is to identify a play but part of identifying a play is to identify a playwright. Therefore we speak of the name of the playwright as being a cascaded identifier of the characater. Considered through the lens of attributes alone, a character is identified by the name of the character, the tile of the play and the name of the playwright. 
-
-Further depths and multiplicities come to light if you examine the type of dramatic role. I will leave it to the reader to examine the cascaded attributes involved in the identificatioon of a dramatic role and then return to this subject of identification and referencing in the next section.
-
-\erboxedFigPicture{dramaticArts1}{h}
+\erboxedFigPicture{dramaticArts1..diagram}{h}
 {This example is based to some extent on an example developed 
 in David Hay's book``Data Model Patterns --- Conventions of Thought''
 and presented in his figure 12.7 `The Theatrical Production Company'.
@@ -127,7 +146,7 @@ Another exception is that a single production might tour the country rather than
 
 \subsection {Mathematical Characterisation}
 \mynote From a mathematical perspective, 
-each feature of an entity type can be represented by a function. A set of features is suffiecient to uniquely identify entitities of a type if and only if when thought  of in this way the set is \textit{jointly injective}.   
+each feature of an entity type can be represented by a function. A set of features is sufficient to uniquely identify entities of a type if and only if when thought  of in this way the set is \textit{jointly injective}.   
 See subsection \ref{JointlyInjective} for a definition of this term.
 
 \subsection{Summary}

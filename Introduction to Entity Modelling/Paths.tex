@@ -1,14 +1,14 @@
 
 \section{Paths of Relationships}
 \label{PathsofRelationships}
-\subsection{Paths and their Comparison}
+\subsection{Paths and their Evaluation}
 \mynote
-In the terminology of Harry Ellis, whereever in an entity model there is a path of single-valued relationships:
+In the terminology of Harry Ellis, wherever in an entity model there is a path of single-valued relationships:
 \begin{center}
 \input{\handCraftedImagesFolder/path.tex}
 \end{center}
 then the destination entity type b is said to be in the logical horizon of the source entity type a.\footnote{Ellis, HC. A Refined Model for Definition of System Requirements. Database Journal, 12(3):2--9, 1982.}
-In programming, equivalently, we might say that it was possible to navigate from any one instance of type \textit{a} to a definitive other instance of type \textit{b} by navigating each of the relationships $r_i$ in turn.\footnote{Inspiring the title of Charles Backmans wonderful paper --- `The Programmer as Navigator'}
+In programming, equivalently, we might say that it was possible to navigate from any one instance of type \textit{a} to a definitive other instance of type \textit{b} by navigating each of the relationships $r_i$ in turn.\footnote{Inspiring the title of Charles Bachman's wonderful paper --- `The Programmer as Navigator'}
  In mathematical language we could say instead that the path determines a functional relationship between types
 \textit{a} and \textit{b} and we could describe this path determined relationship as the functional composition $r_1 \circ r_2 ... \circ r_n$ of the individual relationships $r_1$,$r_2$,...$r_n$.
 \subsection{Comparison of Paths}
@@ -17,21 +17,21 @@ Now, whatever the terminology, if there are two such navigation paths between en
 of the navigation) and entity type b (the destination) then a question naturally arises as to whether following one path is equivalent to following the other i.e whether starting at any entity of type $a$ we arrive at the same destination entity of type $b$ regardless of which of the two paths we follow. In an abstract mathematical setting, diagrams showing such equivalent paths are said to be commutative diagrams and methods of reasoning using such diagrams is the starting point for the branch of mathematics known as category theory.
 
 \mynote
-Questions as to how comparable paths though an entity model compare can only be answered with knowledge or understanding of the domain described by the model. This is significant because it means that by decribing how comparable paths compare then we are describing the domain of the model in more detail and, after all, the purpose of a model is to describe its domain. 
+Questions as to how comparable paths though an entity model compare can only be answered with knowledge or understanding of the domain described by the model. This is significant because it means that by describing how comparable paths compare then we are describing the domain of the model in more detail and, after all, the purpose of a model is to describe its domain. 
 These descriptions become much more important when we move on to consider entity models as specifications of data --- without them there is a missing link in database theory as we explain later. 
 
 \subsection{Comparable Paths in Goodman's Car Hire Business}
 \mynote 
-To make this all a bit more concrete consider an example given earlier 
+To make this  more concrete consider an example given earlier 
 and represented below in figure \ref{goodlandSSADMcarHire.annotate..diagram}. 
 This is my version of an entity model 
 presented in a text book on the SSADM method written by Goodland with Slater.
-In the book, the model is presented as part of an analysis of the data requirments of an
+In the book, the model is presented as part of an analysis of the data requirements of an
 imaginary car hire business. 
 
 There are some interesting questions that can be asked regarding paths through this diagram. 
-There are five navigation paths which are of particular interest. In addition each individual relationship must be thought of as a path since each relationship can be comsidered to be a path of length one. To make it easier talk about these paths I have redrawn the model 
-figure \ref{goodlandSSADMcarHire.annotate..diagram} and added a label to each of the relationships.\footnote{A useful accoutrement that I first come across in a paper by shlaer and lang.} 
+There are five navigation paths which are of particular interest. In addition each individual relationship must be thought of as a path --- each relationship can be considered to be a path of length one. To make it easier to talk about these paths I have redrawn the model represented in
+figure \ref{goodlandSSADMcarHire.annotate..diagram} and added a label to each of the relationships.\footnote{A useful labelling that I first come across in a paper by Shlaer and Lang.} 
 
 \begin{erboxedFigure}{H}{goodlandSSADMcarHire.annotate..diagram}
 {This diagram was presented earlier in figure \ref{goodlandSSADMcarHire..diagram} 
@@ -80,16 +80,17 @@ d2(r2(x))
 where, again, $x$ is the allocated payment in question. 
 
 \mynote
-Now the question arises, see figure \ref{SSADMCarHireCommuting} are these two paths equivalent ways of navigating from an allocated payment to a customer. 
-Another way of asking the question is to ask do we know that given an $x$ of type \textit{allocated  payment}, it is the case that
+Now the question arises, see figure \ref{SSADMCarHireCommuting}, are these two paths equivalent ways of navigating from an allocated payment to a customer. 
+Another way of asking the question is to ask 
+do we know that given an $x$ of type \textit{allocated  payment}, it is always the case that
 \begin{equation*}
 d1(r1(x) = d2(r2(x)).
 \end{equation*}
 
 \mynote
 In the general case, we can't be certain what the answer to the question is ---
-it depends on the particular business practices of this imaginary car hire company. 
-I am guessing that Goodman and Slater intended the answer to the question gfor their car hire company to be a 'yes' ---  so that every one of the customers only ever makes payments to their own bookings not to the bookings of other customers.
+it depends on the particular business practices of this car hire company. 
+I am guessing that Goodman and Slater intended the answer to the question for their car hire company to be a `yes' ---  so that every one of the customers only ever makes payments to their own bookings not to the bookings of others.
 
 \begin{erboxedFigure}{h}{SSADMCarHireCommuting}
 {
@@ -119,22 +120,21 @@ to $c$ are equivalent, i.e. if $r1 \circ d1=r2 \circ d2$, then the diagram is sa
 \end{arrows}
 \end{erboxedFigure}
 
-\mynote One very interesting thing is that I am pretty sure that Goodland and Slater intended that we think of these two paths as equivalent i.e. of the diagram xxx as commuting. But they didn't say this and in fact they didn't have the language that would have enabled them to say it. At a stretch we could say that because they didn't have the language to talk about it then they couldn't even consider it. SSADM, the method that they were illustrating, dosn't  have 
-a terminology for this  in its armoury  and,
+\mynote One very interesting thing is that I am pretty sure that Goodland and Slater intended that we think of these two paths as equivalent i.e. of the diagram xxx as commuting. But they didn't say this and in fact they didn't have the language that would have enabled them to say it. I would say that as they didn't have the language to talk about it then they didn't consider it and, in turn, SSADM, the method that they were illustrating, doesn't  have a terminology for this in its armoury  and,
 outside of mathematics, I don't know of any methodology that does. 
-It is a terible shortcoming  because  we shall see the distinction between paths that are equivalent and paths that are not and generally the way that comparable paths compare has real significance when the concepts involved are represented in data. 
-There is this important meta-concept that is completely absent from current methodology
-(and theory). The fact that it has been missing has had a substantial negative effect on the practice of software development and programming and on related technologies.  
+It is a terrible shortcoming  because  we shall see the distinction between paths that are equivalent and paths that are not and, generally, the way that comparable paths compare has real significance when the concepts involved are represented in data. 
+There here is an important meta-concept that is completely absent from current methodology
+(and theory). It has been missing for quite some time and its absence has had a substantial negative effect on the practice of software development and programming and on related technologies.  
 
 \subsubsection{Example 2 --- Booking/Invoice to Customer}
 \mynote
 Shown in figure \ref{SSADMCarHireNonCommuting2..diagram} are two comparable paths between entity type \textit{booking/invoice} and
-entity type \textit{vehicle category}. One is a path of length one --- it is simply the relationship labelled r7 by which a booking requires a vehicle of a particular catagory.
-The second is of length two and traverses r5 followed by r6 and thus represents the category of the vehicle that is actually used to fulfil an order. These two paths cannot be equivalent because according to the model the booking may be one that is not yet fulfilled. That is why the relationship r5 is shown as a partial functional relationship (it is dashed, not solid). The question posed is therefore is it the case for all fulfilled bookings, the vehicle that fulfils the booking is of the same category as the category required in the booking. If the answer to the question is `yes' --- if this is the way the business operates --- then we will say that the path r7 dominates the path r5, r6 and we will write 
+entity type \textit{vehicle category}. One is a path of length one --- it is simply the relationship labelled r7 by which a booking requires a vehicle of a particular category.
+The second is of length two and traverses r5 followed by r6 and thus represents the category of the vehicle that is actually used to fulfill an order. These two paths cannot be equivalent because according to the model the booking may be one that is not yet fulfilled. That is why the relationship r5 is shown as a partial functional relationship (it is dashed, not solid). The question posed is, therefore, is it the case for all fulfilled bookings, the vehicle that fulfills the booking is of the same category as the category required in the booking. If the answer to the question is `yes' --- if this is the way the business operates --- then we will say that the path r7 dominates the path r5, r6 and we will write 
 \begin{equation*}
 r5 \circ r6 \leq r7.
 \end{equation*} 
-See figure \ref{SSADMCarHireNonCommuting2CategoryStyle} for a mathematical account in the notation of catagory theory.
+See figure \ref{SSADMCarHireNonCommuting2CategoryStyle} for a mathematical account in the notation of category theory.
 
 \begin{erboxedFigure}{h}{SSADMCarHireNonCommuting2..diagram}
 {
@@ -144,7 +144,7 @@ If the answer to the question is a `yes' then we will say that this diagram is a
 \raisebox{-1.8cm}{\scalebox{0.9}
 {\input{\ImagesFolder/SSADMCarHireNonCommuting2..diagram.tex}}}
 &
-Q. Is the category of the vehicle used to fulfil a booking always
+Q. Is the category of the vehicle used to fulfill a booking always
 the same as that category ordered in the booking?\\[0.2cm]
 \end{tabular} 
 \end{erboxedFigure}
@@ -181,16 +181,19 @@ then the fact that  $r5 \circ r6 \leq r7$ can be represented by the existence of
 In the Goodland car hire model that we are discussing,  and as annotated in figure \ref{goodlandSSADMcarHire.annotate..diagram}, 
 there are three paths from entity type \textit{booking/invoice} to entity type \textit{local office}.
 These are $r3$, $r4 \circ d4$ and $r5 \circ d5$. 
-These can be paired in three diffent ways each pairing resulting in three pairs of comparable paths. 
-Each pair can be represented as a diagram and as a result we get the three diagrams 
+These can be paired in three different ways. 
+Each pair is a pair of comparable paths and each can be represented as a diagram and as a result we get the three diagrams 
 shown as (a), (b) and (c) in figure \ref{SSADMCarHireNonCommuting1}.
 
-Each of these diagrams poses a question about the operation of the car hire busines.
+Each of these diagrams poses a question about the operation of the car hire business.
 I shall leave it as
 an exercise for the reader to describe what the commutivity or near commutivity of each of these diagrams equates to in business terms.
-As before, how the paths compare, whether the diagrams commute or near commute, may play a significant role in  shaping the data representation of these business concepts.
+As before, how the paths compare, whether the diagrams commute or near commute, may play a significant role in  shaping the data representations of these business concepts.
 
-\begin{erboxedFigure}{H}{SSADMCarHireNonCommuting1}{Three comparable paths between type booking/invoice and type local office in the Goodland example. }
+\begin{erboxedFigure}{H}{SSADMCarHireNonCommuting1}{Three comparable paths between type booking/invoice and type local office in the Goodland example. 
+In each of these cases, (a), (b) and (c), what  would it say about the business operation if the paths 
+shown are equivalent or near-equivalent or, to put it differently, the diagram commutes or near commutes?
+}
 \begin{tabular}{c p{1cm} c}
 (a) && \input{\ImagesFolder/SSADMCarHireNonCommuting1A..diagram.tex} \\
 (b) && \input{\ImagesFolder/SSADMCarHireNonCommuting1B..diagram.tex} \\
@@ -200,12 +203,12 @@ As before, how the paths compare, whether the diagrams commute or near commute, 
 
 \subsubsection{Recap}
 We have documented five different pairs of comparable paths in the Goodland example. 
-Each of the five comparisons can be expressed as commutivity, near commutivity or otherwise of diagrams. We will see later how path comparisons in many case have an impact on how data representing concepts is structured. There is no mention of this in the Goodlands book --- there is a blind spot and this
+Each of the five comparisons can be expressed as commutivity, near commutivity or otherwise of diagrams. 
+We will see later how path comparisons in many case have an impact on how data representing concepts is structured. There is no mention of this in the Goodland's book --- there is a blind spot and this
 blind spot is shared with almost all other authors, Barker included. 
-It is a blind spot that equates to a failure to recognise a crucial phenomena and the impact that it has 
-and thereby the missing of an important meta-concept. 
-I have tried to describe this phenomena here and subsequently will describe the imnpact it has.
-An exception is that  Shlaer and Lang in a little known paper have drawn attention to this phenomena
-and to the significance it has but they didn't have 
- available to them the mathematical apparatus of category theory to help them frame their thinking. 
-To my knowledge, their work has not had impact that it deserves. 
+A single exception is to be found  in a little known paper by Shlaer and Lang. 
+They have drawn attention to these phenomena  and to their significance but they unfortunately didn't have 
+ available to them the mathematical apparatus of category theory to help them frame their thinking and their language and, to my knowledge, their work has not had impact that it deserves. 
+I have described these phenomena that are worth looking out for 
+and in later sections will describe the impact  when found. 
+In doing this I will be addressing a blind spot in current methodology.
