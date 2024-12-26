@@ -77,10 +77,10 @@ instances of a relationship can be conveyed, communicated or stored.
 \mynote
  We use as an example the referencing of characters from  plays
  within the context of  the  dramatic arts
-   as modelled earlier in figure \ref{dramaticArts1}.
+   as modelled earlier in figure \ref{dramaticArts1..diagram}.
 We focus on these detail
 \begin{equation*}
-\input{\ImagesFolder/dramaticArtsCharacterFragment.tex}
+\input{\ImagesFolder/dramaticArtsCharacterFragment..diagram.tex}
 \end{equation*}
 as these are the ones relevant to the identification of entities 
 of type character.
@@ -146,9 +146,9 @@ I mention this because there is the beginnings of a simple algorithm here by whi
 \end{oldtt}
 
 \subsubsection{Referencing Productions of Plays}
-Now we move on to another area within the overall model of figure \ref{dramaticArts1}. From this detail 
+Now we move on to another area within the overall model of figure \ref{dramaticArts1..diagram}. From this detail 
 \begin{equation*}
-\input{\ImagesFolder/dramaticArtsProductionFragment.tex}
+\input{\ImagesFolder/dramaticArtsProductionFragment..diagram.tex}
 \end{equation*}
 regarding the production entity type  we see that
 \begin{itemize}
@@ -178,12 +178,12 @@ in the words of Shlaer and Lang, referentials collapse.
 To see this we are going to move on to another area within our model and look at how dramatic roles are identified and referenced.
  \subsubsection{Referencing Dramatic Roles}
 \mynote
-In figure \ref{dramaticArts1}, the entity type \textit{dramatic role} is
+In figure \ref{dramaticArts1..diagram}, the entity type \textit{dramatic role} is
 depicted, somewhat similar to an intersection entity, as shown having
 two identifying relationships and no identifying attributes.
 The relevant detail is  this
 \begin{equation*}
-\input{\ImagesFolder/dramaticArtsDramaticRoleFragment.tex}
+\input{\ImagesFolder/dramaticArtsDramaticRoleFragment..diagram.tex}
 \end{equation*}
 We can interpret this detail as telling that
 \begin{equation}
@@ -199,7 +199,7 @@ a dramatic role will require seven referentials
  --- three for the character and four for the production. 
 So we will need seven, right?
  Well no, rather surprisingly, wrong! Only five referentials are required. 
- What happened to the other two? Can you examine the model in figure \ref{dramaticArts1} and figure this out?
+ What happened to the other two? Can you examine the model in figure \ref{dramaticArts1..diagram} and figure this out?
 
 That only five referentials are needed can be seen from this reference to a dramatic role:
 \begin{erquote}
@@ -224,29 +224,58 @@ It is in describing a situation like this that Shlaer and Lang coined the term c
  but we have got to an understanding of the same phenomonon in our discussion here 
  of how referencing works in ordinary speech. 
 
- The conclusion I come to is that in an entity model it is pretty significant to specify more than we see in the diagram of relationships. We need to specify additional information such as, in the declaration above,
+The conclusion is that an entity model is more than is shown in the diagram of relationships. It needs include additional information... such as, in the declaration above,
  is captured by qualifying as ``in the same path''. 
 
 To see what form this additional information ought to take we have to focus on this detail 
-% \begin{equation}
-% \label{dramaticArtsPortrayalScopeReversedwithIds}
-% \input{\ImagesFolder/dramaticRoleScopeReversedwithIds.tex}
-% \end{equation}
-of figure \ref{dramaticArts1}
+\begin{equation}
+\label{dramaticArtsPortrayalScopeFragment..diagram}
+\input{\ImagesFolder/dramaticArtsPortrayalScopeFragment..diagram.tex}
+\end{equation}
+of figure \ref{dramaticArts1..diagram}
 and observe that the ``in the same path'' injunction is necessary
 and appropriate just because in this diagram 
-the two comparable paths from entity type dramatic role and entity type play are equivalent.
-This is what we need specify in our entity model. It is beyond 
-what is shown on the diagram of figure \ref{dramaticArts1}.
+the two comparable paths from the bottom right to the top left, from entity type dramatic role to entity type play, are equivalent.
+
+
+
+\mynote
+There are two paths between entity type \textit{dramatic role} and type \textit{cplay}.
+One of them proceeds via type \textit{charcater} and consists of relationship \textit{r4} followed by relationship \textit{d1} as follows:
+
+\begin{equation}
+\label{dramaticArtsPath1..diagram}
+\scalebox{0.95}{\input{\ImagesFolder/dramaticArtsPath1..diagram.tex}}
+\end{equation}
+The other  proceeds via type \textit{production} and consists of relationship \textit{d2} followed by relationship \textit{r2}:
+\begin{equation}
+\label{dramaticArtsPath2..diagram}
+\scalebox{0.95}{\input{\ImagesFolder/dramaticArtsPath2..diagram.tex}}
+\end{equation}
+
+The equivalence of these two paths is what we need specify in our entity model.
+The simple existence of these comaprable paths in the diagram of figure \ref{dramaticArts1..diagram}
+does not imply their equivalence.
+
 For now we can imagine annotating the diagram in some way to indicate that these two paths are equivalent 
 or else specifying in a separate document or in a separate diagram. 
-One way is to focus on diagram (\ref{dramaticArtsPortrayalScopeReversedwithIds}), 
-as we have done, maybe to flip it around like this
+One way of specifying is by writing the equation
+\begin{equation}
+\label{dramaticArtsDramaticRolePathEquivalence}
+r4 \circ d1 = d2 \circ r2
+\end{equation}
+
+Another way is to take diagram ((\ref{dramaticArtsPortrayalScopeFragment..diagram})), to flip it  around, and to draw  in this reduced form like this
 \begin{equation}
 \label{dramaticArtsPortrayalScopeAppearance1}
-\input{\ImagesFolder/dramaticArtsPortrayalScope.tex}
+\input{\ImagesFolder/dramaticArtsPortrayalScope..diagram.tex}
 \end{equation}
 and to assert that this diagram commutes.
+
+This is our preferred diagrammatic way of presenting equivalent paths in this book and we return to this subject in a later section where we refer to such a diagram as this as a scope diagram. 
+We also in the habit of writing equations such as (\ref{dramaticArtsDramaticRolePathEquivalence}) on the entity relationships diagram itself.
+We can think of dramatic roles coming into being when productions of plays are being cast. What the commutivity of this diagram expresses is when a production of a play is being cast then it is all characters from the play that are being cast not characters from plays in general. 
+The relationship ``the portrray of'', we say, is restricted in scope.
 
 \begin{noteforfuture}
 I might be able to get to the equivalence of paths by examining
@@ -268,8 +297,31 @@ For mathematicians, then,  the entity model is a presentation (or, equivalently,
 
 
 \subsection{Naive Algorithm for Accumulation of Identifying Attributes}
+\mynote
 Accumulate into the referential attributes the identifying attributes of the subject entity type
 with all the referential attributes of all entity types reached by traversing an identifying relationship.
+
+
+$RefAttr_A=IdAtrt_A \cup \bigcup_{I:A \morph B}RefAttr_B$
+
+\mynote
+ Another way of looking at the matter is based simply on the observation that the referentiual attributes involved in identifying an entity  type $a$, without
+ context,  correspond to the identifying attributes of the entity type $a$ union the set of identifying attributes reaced 
+ via paths 
+ where  $\langle r_1,...r_n, p \rangle$ where $n \geq 1$ and where
+$\overset{r_1}{a \rightpitchfork \hspace{-0.35em} -  \cdot} \overset{r_2}{\rightpitchfork \hspace{-0.35em} -} \cdot ... \overset{r_n}{\rightpitchfork \hspace{-0.35em} -} b$ is a path of single-valued relationships, where 
+$r_i$ is identifying for each $i > 1$ and where $p$ is an identifying attribute of the destination entity type $b$ of the
+relationship $r_n$. 
+
+This observation is followed up in Barker's book and in the SSADM method as a first cut definition of relational table stuctutre and is incorparted in Chen's transformation from an entity model to a relational design.
+
+
+In the eventuality that two of these paths are comparable then whether or not the identifying attributes of the destination type need to be double counted, so to speak,
+sdepends oin whther or not the comparabe paths are equivalent.
+
+This naive approach is flawed just because it doesdn't take accout os euqivalent paths that might exist within the set of entity types and relationships and which ought to be specified in the model as equivalent paths.
+
+
 \subsection{Adjusted Algorithm for Accumulating of Identifying Attributes}
 \commentary{referential accumulation algorithm}
 
