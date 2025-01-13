@@ -3,20 +3,33 @@
 
 In this section we explore the significance of an entity type's identifying features
 and the manner in which knowledge of these features, 
-be they attributes or relationships, enables us to 
+a collection, generally, of attributes and relationships, enables us to 
 reference entities and, in turn, 
 to convey, communicate and store instances of relationships. 
 There is more to this than initially meets the eye and we explore the topic
-by way of examples.   We learn that in some cases alongside of knowledge of the identifying features we need knowledge of and need take account of the equivalence or otherwise of certain paths of relationships.
-
-\subsection{Entities that are Named}
-\mynote \commentary{Possibly ditch this example and just use the 
-dramatic arts example which could be moved here.}
-In the simplest examples, entities of a type have names associated with them
+by way of examples.   
+\begin{oldtt}
+ We learn that in some cases alongside of knowledge of the identifying features we need knowledge of and need take account of the equivalence or otherwise of certain paths of relationships.
+\end{oldtt}
+\begin{newtt}
+We learn that in some cases to understand the referencing of entities, alongside of knowledge of the identifying features, we need take account of the equivalence or otherwise of certain paths of relationships.
+\end{newtt}
+\subsection{Singleton Identifying Attributes}
+\mynote
+In the simplest case the set of identifying features of a type of entity is a singleton --- consisting of a single identifying attribute. Then a reference to an instance might be written very simply as in this example reference
+\begin{equation}
+\label{theElementOxygen}
+\mbox{\textit{the element having symbol O.}}
+\end{equation}
+which is consistent with the entity model shown in figure xxx.
+Specifically, an entity of type `element' is referenced by quoting the value of its identifying attribute. The name of the identifying attribute is
+`symbol' and the quoted value is `O'.
+\mynote
+Sometimes entities of a type have names associated with them
  and these names are unique and can be  quoted to reference entities of the type. 
  In these cases an entity model will represent the entity type with a name attribute
 and mark it as identifying. 
-Examples of such types are ubiquitous and you will see plenty in these pages but to mention two, because we have already come across them, in a model that includes the 
+Examples of such types are ubiquitous and you will see plenty in these pages but to mention one that we have already come across, in a model that includes the 
 entity types \textit{planet} and  \textit{moon}  these types will be represented as having 
 a name attribute and these will be marked as identifying as in this fragment here:
 \begin{equation}
@@ -35,7 +48,7 @@ and, likewise, moons, so that we can make reference to
 \end{equation}
 
 Note that there is a standard phraseology for referencing
-at play here in (\ref{theplanetJupiter}) and (\ref{themoonIo})  ---
+at play here in (\ref{theElementOxygen}),(\ref{theplanetJupiter}) and (\ref{themoonIo})  ---
 it is employed to reference entities using the values of their singular identifying attributes. 
 To illustrate various characteristics of this referencing, 
 we will dash-underline the values of identifying attributes in example phrases 
@@ -51,7 +64,8 @@ that builds on the standard phraseology for referencing entities
 by asserting, as it does,  a relationship between two referenced entities.
 There is a bit more to this than meets the eye, though, as we shall see.
 \mynote
-When the values of identifying attributes are used in referencing then we will speak of them as \textit{referentials}. 
+When the values of identifying attributes are used in referencing 
+then we will speak of them as \textit{referentials}. 
 Accordingly, we speak of the terms `Jupiter' and `Io' in statement (\ref{JupiterIoPernickity}) as referentials.
 
 In the context of statement (\ref{JupiterIoPernickity}), Jupiter is the name of, and therefore  a reference to, a planet and  Io is the name of, and therefore a reference to, a moon (aka a natural satellite).
@@ -63,6 +77,8 @@ We are very much stating the obvious of course but there is a pattern here and i
 
 We will come back to the phrasing of relationship instances in the next section but first we look at the characteristics of referencing when some of the identifying features of an entity are relationships.
 
+\commentary{introduce terminology of nested reference here in a simple example?}
+\commentary{city and state}
 \subsection{Context and the Referencing of Entities}
 \mynote
 We examine how,  when some identifying features are relationships, the referencing 
@@ -78,12 +94,11 @@ instances of a relationship can be conveyed, communicated or stored.
  We use as an example the referencing of characters from  plays
  within the context of  the  dramatic arts
    as modelled earlier in figure \ref{dramaticArts1..diagram}.
-We focus on these detail
+We focus on the details shown in this fragment
 \begin{equation*}
 \input{\ImagesFolder/dramaticArtsCharacterFragment..diagram.tex}
 \end{equation*}
-as these are the ones relevant to the identification of entities 
-of type character.
+These are the details relevant to the identification of entities of type character.
 
 From this part of the model we see that playwrights are identified by name and that plays are identified by their titles within the context of the playwright they are written by. Therefore
 \begin{itemize} 
@@ -223,40 +238,96 @@ It is in describing a situation like this that Shlaer and Lang coined the term c
  When they coined the term they had in mind tabular database structure 
  but we have got to an understanding of the same phenomonon in our discussion here 
  of how referencing works in ordinary speech. 
-
+\mynote
 The conclusion is that an entity model is more than is shown in the diagram of relationships. It needs include additional information... such as, in the declaration above,
  is captured by qualifying as ``in the same path''. 
+ \mynote
+To better understand better the phenomenon at play here conseider the analyis 
+of (xxx) displayed in figure \ref{theRoleOfTouchstone}.
+\begin{erboxedFigure}{H}{theRoleOfTouchstone}
+{
+A reference to a dramatic role has two nested references within it. 
+One to an entity of type character and one to an entity if type production. In this example the nested references overlap. The overlap is Shakespeare's As You Like It --- a reference to a play that is nested within both of the two nested references.
+}
+\newcommand{\dashRefOne}{2pt 2pt}
+\newcommand{\dashRelationship}{1pt 0pt}
+\newcommand{\dashRefTwo}{1pt 1pt}
+\begin{tabular}{l}
+the role of 
+\Rnode{w1}{\rdash{T}} in 
+\Rnode{w2}{\rdot{\rdash{Shakespeare}}}’s 
+\Rnode{w3}{\rdot{\rdash{As You Like It}}} performed 
+\Rnode{w4}{\rdot{Spring '75}}, at 
+\Rnode{w5}{\rdot{OP}} \\[1.4cm]
+\kern2cm\Rnode{ref1}{\parbox[t]{1.95cm}{\textit{reference to entity of type character}}}
+\kern3.0cm\Rnode{ref2}{\parbox[t]{1.95cm}{\textit{reference to entity of type production}}} \\[0.5cm]
+\syntag{\dashRefOne}{ref1}{0.9}{w1}{0}
+\syntag{\dashRefOne}{ref1}{0.9}{w2}{-0.2}
+\syntag{\dashRefOne}{ref1}{0.9}{w3}{-0.2}
+\syntag{\dashRefTwo}{ref2}{0.4}{w2}{0.2}
+\syntag{\dashRefTwo}{ref2}{0.4}{w3}{0.3}
+\syntag{\dashRefTwo}{ref2}{0.4}{w4}{0.3}
+\syntag{\dashRefTwo}{ref2}{0.4}{w5}{0}
+\end{tabular}
+\end{erboxedFigure}
 
-To see what form this additional information ought to take we have to focus on this detail 
+\mynote Figure \ref{theRoleOfTouchstone} shows two nested references 
+within a reference to a dramatic role. The two nested references spelled out in more detail are
+\begin{equation}
+\mbox{the character Touchstone from the play Twelfth Night by Shakespeare}
+\end{equation}
+and
+\begin{equation}
+\mbox{the production performed in Spring '75 at the OP of the play Twelfth Night by Shakespeare}
+\end{equation}
+and obviously these two nested references share a common nested reference, namely the reference to
+\begin{equation}
+\mbox{the play Twelfth Night by William Shakespeare.}
+\end{equation}
+
+We see that nested references 
+themselves can have references nested within them
+and that these nested references can be shared --- 
+\textit{the role of Touchstone, Spring '75 at the Oxford Playhouse} is a reference that contains two nested references and these nested references each in turn contain a nested reference and this is common to them i.e. shared between them.
+
+
+\mynote
+The double nesting of references comes about because of this arrangement of relationships 
 \begin{equation}
 \label{dramaticArtsPortrayalScopeFragment..diagram}
 \input{\ImagesFolder/dramaticArtsPortrayalScopeFragment..diagram.tex}
 \end{equation}
-of figure \ref{dramaticArts1..diagram}
-and observe that the ``in the same path'' injunction is necessary
+of taken from figure \ref{dramaticArts1..diagram}.
+
+\mynote
+The ``in the same play'' injunction is necessary
 and appropriate just because in this diagram 
 the two comparable paths from the bottom right to the top left, from entity type dramatic role to entity type play, are equivalent.
 
-
-
 \mynote
-There are two paths between entity type \textit{dramatic role} and type \textit{cplay}.
-One of them proceeds via type \textit{charcater} and consists of relationship \textit{r4} followed by relationship \textit{d1} as follows:
+There are two paths of identifying relationships between entity type \textit{dramatic role} and type \textit{play}.
+One of them proceeds via type \textit{character} and consists of relationship \textit{r4} followed by relationship \textit{d1} as follows:
 
 \begin{equation}
 \label{dramaticArtsPath1..diagram}
 \scalebox{0.95}{\input{\ImagesFolder/dramaticArtsPath1..diagram.tex}}
 \end{equation}
-The other  proceeds via type \textit{production} and consists of relationship \textit{d2} followed by relationship \textit{r2}:
+The fact that relationship d? is identifying the reason that a reference to a role has nested within it a reference to a character. The fact that relationship d?? is identifying is the reason that a reference to a charcater has a reference to a play nested within it and hence why a reference to a role has nested reference to a character which in turn has a nested reference to a play.
+
+The other path proceeds via type \textit{production} and consists of relationship \textit{d2} followed by relationship \textit{r2}:
 \begin{equation}
 \label{dramaticArtsPath2..diagram}
 \scalebox{0.95}{\input{\ImagesFolder/dramaticArtsPath2..diagram.tex}}
 \end{equation}
+The fact that relationship d? is identifying the reason that a reference to a role has nested within it a reference to a production. The fact that relationship d?? is identifying is the reason that a reference to a production has a reference to a play nested within it and hence why a reference to a role has nested reference to a production which in turn has a nested reference to a play.
 
-The equivalence of these two paths is what we need specify in our entity model.
-The simple existence of these comaprable paths in the diagram of figure \ref{dramaticArts1..diagram}
+As we have seen these two nested references to a play are shared in our example and in fact they are shared in any reference to a role because of
+the equivalence of these two paths. 
+The simple existence of these comparable paths in the diagram of figure \ref{dramaticArts1..diagram}
 does not imply their equivalence.
 
+To understand the referencing of roles we need understand the equivalence of these two paths. 
+So significant is this that the equivalence ought to be specified in the entity model in some way.
 For now we can imagine annotating the diagram in some way to indicate that these two paths are equivalent 
 or else specifying in a separate document or in a separate diagram. 
 One way of specifying is by writing the equation
@@ -265,7 +336,8 @@ One way of specifying is by writing the equation
 r4 \circ d1 = d2 \circ r2
 \end{equation}
 
-Another way is to take diagram ((\ref{dramaticArtsPortrayalScopeFragment..diagram})), to flip it  around, and to draw  in this reduced form like this
+Another way is to take diagram ((\ref{dramaticArtsPortrayalScopeFragment..diagram})), 
+to flip it  around, and to draw  in this reduced form like this
 \begin{equation}
 \label{dramaticArtsPortrayalScopeAppearance1}
 \input{\ImagesFolder/dramaticArtsPortrayalScope..diagram.tex}
@@ -277,56 +349,55 @@ We also in the habit of writing equations such as (\ref{dramaticArtsDramaticRole
 We can think of dramatic roles coming into being when productions of plays are being cast. What the commutivity of this diagram expresses is when a production of a play is being cast then it is all characters from the play that are being cast not characters from plays in general. 
 The relationship ``the portrray of'', we say, is restricted in scope.
 
-\begin{noteforfuture}
-I might be able to get to the equivalence of paths by examining
-a noun phrase involving seven referentials.
 
-dramatic role is referenced by reference to production reference to play
-\end{noteforfuture}
+
+\subsection {Further example of doubly nested references -- comparable paths that are not equivalent}
+\mynote
+Now consider this example reference
+\begin{equation}
+\mbox{the route from Hot Springs, Arkansas to Jacksonville in the same state.}
+\end{equation}
+In this reference there are, implicitly, two nested references
+\begin{equation}
+\mbox{the city of Hot Springs in the state  Arkansas}
+\end{equation}
+
+\begin{equation}
+\mbox{the city of Jacksonville in the state  Arkansas}
+\end{equation}
+
+The types, relationships and identifying features that are illustrated here
+I would sketch out as follows
+
+\begin{equation*}
+\input{\ImagesFolder/routeCityState.tex}
+\end{equation*}
+
+\mynote 
+As before in example () the reference () has two nested references and these themselves have a common nected reference namely
+\begin{equation*}
+\mbox{the state Arkansas}
+\end{equation*}
+The difference between this example and the previous one is that the commonality of the secondary nested reference is not  \textit{a priori}
+ common to the two primaries --- in this example
+ \begin{equation*}
+ \mbox{the route from Hot Springs, Arkansas to Jacksonville, Alabahma.}
+\end{equation*}
+\mynote
+WE noted earlier that commonality of the secondary nested refrences wa sguaranteed in the earlier example because of the equivalnce of two paths or, in other words the commutivity of a certain diagram (diagram ()).
+In this second example commonality is not garanteed. Equally we can say that the following two comparable paths are not equivalent:
+
+Another ways of saying this is by saying that the follwoing diagam does not commute:
+\begin{equation*}
+\input{\ImagesFolder/routeCityStatePaths.tex}
+\end{equation*}
 
 \subsection{Entity Models and Equivalent Paths}
-However we specify it we should think of the specification of equivalent paths as 
-an important supplement to the entity relationship diagram. 
-We need to think that it is the totality of, 
-at least,
-the entity relationship diagram  plus the statement of path equivalences that comprises the entity model.
-
-I don't expect the reader to be a mathematician but, for those readers that are, there is a quick way of saying this. 
-For mathematicians, then,  the entity model is a presentation (or, equivalently, a sketch)
- of a category of some kind.  
-
-
-\subsection{Naive Algorithm for Accumulation of Identifying Attributes}
 \mynote
-Accumulate into the referential attributes the identifying attributes of the subject entity type
-with all the referential attributes of all entity types reached by traversing an identifying relationship.
-
-
-$RefAttr_A=IdAtrt_A \cup \bigcup_{I:A \morph B}RefAttr_B$
-
+However written,  the specifications of equivalent paths are
+an important supplement to entity relationship diagrams. 
+An entity model in the main part consists of at least an entity relationship diagram  
+plus a statement of path equivalences.
 \mynote
- Another way of looking at the matter is based simply on the observation that the referentiual attributes involved in identifying an entity  type $a$, without
- context,  correspond to the identifying attributes of the entity type $a$ union the set of identifying attributes reaced 
- via paths 
- where  $\langle r_1,...r_n, p \rangle$ where $n \geq 1$ and where
-$\overset{r_1}{a \rightpitchfork \hspace{-0.35em} -  \cdot} \overset{r_2}{\rightpitchfork \hspace{-0.35em} -} \cdot ... \overset{r_n}{\rightpitchfork \hspace{-0.35em} -} b$ is a path of single-valued relationships, where 
-$r_i$ is identifying for each $i > 1$ and where $p$ is an identifying attribute of the destination entity type $b$ of the
-relationship $r_n$. 
-
-This observation is followed up in Barker's book and in the SSADM method as a first cut definition of relational table stuctutre and is incorparted in Chen's transformation from an entity model to a relational design.
-
-
-In the eventuality that two of these paths are comparable then whether or not the identifying attributes of the destination type need to be double counted, so to speak,
-sdepends oin whther or not the comparabe paths are equivalent.
-
-This naive approach is flawed just because it doesdn't take accout os euqivalent paths that might exist within the set of entity types and relationships and which ought to be specified in the model as equivalent paths.
-
-
-\subsection{Adjusted Algorithm for Accumulating of Identifying Attributes}
-\commentary{referential accumulation algorithm}
-
-Describe the algorithm.
-
-Next need to refine this algorithm to take account of commutative relationships. 
-
-To do use define paths of identifying relationships.
+I don't expect the reader to be a mathematician but, for those readers that are, an entity model in the main part is a presentation 
+(or, equivalently, a sketch) of a category of some kind. 

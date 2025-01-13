@@ -119,3 +119,86 @@ A further point.
 Could keep the order Data, Structured Entity Modelling as I curren;ty have it and add a sectiuon on hierarchical modelling. Just don't like that as a section title as hierarchical modelling is for messages, xml and program structure but is a turn off if it suggests it is restricted to hierarchical databases.
 
 \end{noteforfuture}
+
+\subsection{Notes regarding referencing entities and first cut}
+\section{Notes on Identity and Reference}
+
+\begin{noteforfuture}
+I might be able to get to the equivalence of paths by examining
+a noun phrase involving seven referentials.
+
+dramatic role is referenced by reference to production reference to play
+\end{noteforfuture}
+
+ 
+
+ \subsubsection {How Referential Attributes are Accumulated}
+ \mynote
+ In the examples that we have given above, values of attributes are quoted to reference entities and these values we are calling referentials.  
+\mynote
+The attributes whose values are quoted to reference a particular entity are
+an aggregation of
+\begin{itemize}
+\item the
+identifying attributes that are defined in the entity model for that type of entity aggregated with 
+\item
+the attributes we need to quote to reference all those entitites reached from the given entity by an identifying relationship, if there are any.
+\end{itemize}
+
+
+
+
+
+\mynote
+Because of the second bullet point the description above is recusive. 
+To make sense as a definition 
+we need to be sure that there are not any loops in the network of identifying relationships.  
+
+\mynote
+Without recursion: 
+The attributes whose values are quoted to reference a particular entity are 
+\begin{itemize}
+\item the identifying attributes that are defined in the entity model 
+for that type of entity
+aggregated with 
+\item the identifying attributes of all those entities reachable by paths of identifying relationships.
+\end{itemize}  
+
+\mynote 
+We need to refine these descriptions to take account of 
+equivalent paths of identifying relationships for if
+entities of a type can be reached by distict but comparable paths that are known to be equivalent then there is no point in 
+referencing entitites of the type twice over. 
+Aggregation of attributes is then combined with elimination of known duplicates.
+Another way of thinking and speaking about elimination of duplicates is to think and speak of known duplicate referentials 
+merging, or collapsing, resulting in referentials that fulfil multiple roles. This we illustrated in figure xxx. 
+
+\mynote 
+Naive Algorithm for Accumulation of Identifying Attributes:
+ Another way of looking at the matter is based simply on the observation that the referential attributes involved in identifying an entity  type $a$, without
+ context,  correspond to the identifying attributes of the entity type $a$ union the set of identifying attributes reaced 
+ via paths 
+ where  $\langle r_1,...r_n, p \rangle$ where $n \geq 1$ and where
+$\overset{r_1}{a \rightpitchfork \hspace{-0.35em} -  \cdot} \overset{r_2}{\rightpitchfork \hspace{-0.35em} -} \cdot ... \overset{r_n}{\rightpitchfork \hspace{-0.35em} -} b$ is a path of single-valued relationships, where 
+$r_i$ is identifying for each $i > 1$ and where $p$ is an identifying attribute of the destination entity type $b$ of the
+relationship $r_n$. 
+
+This observation is followed up in Barker's book and in the SSADM method as a first cut definition of relational table stuctutre and is incorparted in Chen's transformation from an entity model to a relational design.
+
+In the eventuality that two of these paths are comparable then whether or not the identifying attributes of the destination type need to be double counted, so to speak,
+depends on whether or not the comparabe paths are equivalent.
+\mynote
+This naive approach is flawed just because it doesdn't take accout os euqivalent paths that might exist within the set of entity types and relationships and which ought to be specified in the model as equivalent paths.
+
+\mynote 
+Adjusted Algorithm for Accumulation of Identifying Attributes:
+\commentary{referential accumulation algorithm}
+Describe the algorithm.
+Next need to refine this algorithm to take account of commutative relationships. 
+To do use define paths of identifying relationships.
+
+\mynote
+Mathematical Formulation:
+Accumulate into the referential attributes the identifying attributes of the subject entity type
+with all the referential attributes of all entity types reached by traversing an identifying relationship.
+$$RefAttr_A=IdAtrt_A \cup \bigcup_{I:A \morph B}RefAttr_B$$

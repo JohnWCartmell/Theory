@@ -1,0 +1,95 @@
+\documentclass[10pt,a4paper]{article}
+
+%\usepackage{geometry}
+\usepackage{pstricks}
+\usepackage{pst-node}
+\usepackage{pst-tree}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage{enumerate}
+\usepackage{calc}
+\usepackage{float} % for H option for tables and figures
+\usepackage{changepage} % used for adjustwidth
+\usepackage{framed}
+\usepackage{wasysym}
+\usepackage{ulem}   %added because \sout was not striking out 
+                    % supports use uline and uwave also dashuline dotuline
+\usepackage{epsf}
+\newcommand{\SharedMacros}{../../SharedMacros}
+\newcommand{\SharedText}{../..SharedText}
+
+%\usepackage{enumitem} % to be able to [resume] an enumeration but clashes with [(i)] !!
+\input{\SharedMacros/ermacros}
+\input{\SharedMacros/ccategories.macros}
+\input{\SharedMacros/gats.macros}
+\input{\SharedMacros/metagat.macros}
+\input{\SharedMacros/erdiagram}
+\input{\SharedMacros/theorems.macros}
+\input{\SharedMacros/general.macros.v2}
+\input{\SharedMacros/alternate.nonbeamer.macros}
+\input{\SharedMacros/indexedsets.macros.tex}
+\input{\SharedMacros/barkerEllis.macros.tex}
+
+\usepackage{hyperref}
+\setcounter{equation}{0}
+
+\newcommand{\ImagesFolder}{../images}
+\renewcommand{\erpictureFolder}[0]{../images}
+\newcommand{\handCraftedImagesFolder}{../handCraftedImages}
+\newcommand{\photosFolder}{../photos}
+
+\input{../localMacros}
+
+\begin{document}
+Travelling to the airport, I received a text message about my flight. The message read:
+\begin{equation}
+\label{LH2502PhoneMessage}
+\text{\parbox{9cm}{\textit{
+Your flight LH2502 from Munich to Manchester on 14 August 2024 at 15:55 will depart from gate L06.}}}
+\end{equation}
+Consider this message. It contains multiple referentials and individually or combined these make reference to
+multiple entities:
+\begin{itemize}
+    \item the flight number, LH2502, makes reference to an \textit{airline service},\footnote{which, from one point of view at least, is a little odd because the name flight number purports to reference a flight. It isn't so odd though because on any given day flight numbers do reference flights.}
+    \item each airport name, Munich, respectively, Manchester, makes reference to an \textit{airport},
+    \item the combination of flight number, LH2502, and date, 14 August 2024, make reference to a \textit{flight},
+    \item the combination of the airport the flight is identified as being from, Munich, and the gate number, 
+    L06, identifies a \textit{gate}.
+\end{itemize}
+
+
+These referentials, the names (Munich, Manchester), numbers (LH2502, L06) and the date (14 August 2024)
+I can understand as the values of attributes of the various referenced entitites. 
+The types of these entities (airline service, airport, flight and gate), the relationships between them and the attributes employed
+(flight number, date of departure, airport name and gate number) I can arrange on a diagram like this:
+\begin{equation}
+\label{boardingGate1}
+\raisebox{-1.5cm}{\input{\ImagesFolder/boardingGate1.tex}}
+\end{equation}
+
+When we analyse in detail how the message comes to references a specific gate 
+ then we see that 
+the referencing only works because of what we know, \textit{a priori}, about this arrangement of relationships. In particular, we know  that for every flight $x$, 
+the gate that the flight leaves from (once allocated) is at the airport that is  the departure airport for the
+service operated by the flight. That is 
+\begin{equation}
+d2(r3(x))=r1(d1(x)), \mbox{ provided $r3(x)$ is defined.}
+\end{equation}
+which in variable-free notation can be written as
+\begin{equation}
+r3 \circ d2 \leq d1 \circ r1
+\end{equation}
+
+\begin{erboxedFigure}{H}{airlineFlightLeavingFromScope}{
+In this diagram of relationships there are two paths of relationships leading from 
+type \textit{flight} to type \textit{airport} --- one mediated by \textit{airline service} and one mediated by \textit{gate}. Both these paths are equivalent once a departure gate has been allocated. }
+\input{\ImagesFolder/airlineFlightLeavingFromScope.tex}
+\end{erboxedFigure}
+
+There is knowledge that we have that enables us to interpret the message regarding the departure gate. 
+It is best expressed as an algebraic inequality. 
+Algebra like this is common but unrecognised in everyday speech, as in this text message, but also in internal messaging and data representation within computer systems. 
+
+\end{document}
