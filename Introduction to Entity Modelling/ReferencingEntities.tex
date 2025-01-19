@@ -8,9 +8,6 @@ reference entities and, in turn,
 to convey, communicate and store instances of relationships. 
 There is more to this than initially meets the eye and we explore the topic
 by way of examples.   
-\begin{oldtt}
- We learn that in some cases alongside of knowledge of the identifying features we need knowledge of and need take account of the equivalence or otherwise of certain paths of relationships.
-\end{oldtt}
 \begin{newtt}
 We learn that in some cases to understand the referencing of entities, alongside of knowledge of the identifying features, we need take account of the equivalence or otherwise of certain paths of relationships.
 \end{newtt}
@@ -19,7 +16,7 @@ We learn that in some cases to understand the referencing of entities, alongside
 In the simplest case the set of identifying features of a type of entity is a singleton --- consisting of a single identifying attribute. Then a reference to an instance might be written very simply as in this example reference
 \begin{equation}
 \label{theElementOxygen}
-\mbox{\textit{the element having symbol O.}}
+\mbox{\textit{the element having symbol O}}
 \end{equation}
 which is consistent with the entity model shown in figure xxx.
 Specifically, an entity of type `element' is referenced by quoting the value of its identifying attribute. The name of the identifying attribute is
@@ -29,9 +26,11 @@ Sometimes entities of a type have names associated with them
  and these names are unique and can be  quoted to reference entities of the type. 
  In these cases an entity model will represent the entity type with a name attribute
 and mark it as identifying. 
-Examples of such types are ubiquitous and you will see plenty in these pages but to mention one that we have already come across, in a model that includes the 
-entity types \textit{planet} and  \textit{moon}  these types will be represented as having 
-a name attribute and these will be marked as identifying as in this fragment here:
+Examples of such types are ubiquitous and you will see plenty in these pages.
+For instance we have already mentioned the relationship between
+a planet and its moons.
+Each of these types, \textit{planet} and  \textit{moon}, may be represented as having 
+a name attribute that is identifying as in this fragment here:
 \begin{equation}
 \label{planetMoonModel}
 \input{\ImagesFolder/planetMoon2.tex}
@@ -47,9 +46,9 @@ and, likewise, moons, so that we can make reference to
 \mbox{\textit{the moon with name Io}}.
 \end{equation}
 
-Note that there is a standard phraseology for referencing
-at play here in (\ref{theElementOxygen}),(\ref{theplanetJupiter}) and (\ref{themoonIo})  ---
-it is employed to reference entities using the values of their singular identifying attributes. 
+Note that there is a standard phraseology for referencing that is 
+at play here in the example references (\ref{theElementOxygen}), (\ref{theplanetJupiter}) and (\ref{themoonIo})  ---
+it is being employed to reference entities using the values of their singular identifying attributes. 
 To illustrate various characteristics of this referencing, 
 we will dash-underline the values of identifying attributes in example phrases 
 and we will use different styles of dashes to distinguish different entities that are being referenced. We see this in this statement: 
@@ -75,42 +74,127 @@ the names of moons are only unique as names of moons. This is very much the mean
 \mynote
 We are very much stating the obvious of course but there is a pattern here and it is repeated over and over when instances of relationships are communicated  and the same pattern occurs more formally  and uniformly when instances of relationships are communicated in software systems and/or stored in data.
 
-We will come back to the phrasing of relationship instances in the next section but first we look at the characteristics of referencing when some of the identifying features of an entity are relationships.
+We will focus on the phrasing and communication of relationship instances in the next section but first we look at the characteristics of referencing when some of the identifying features of an entity are relationships.
 
-\commentary{introduce terminology of nested reference here in a simple example?}
-\commentary{city and state}
-\subsection{Context and the Referencing of Entities}
+
+\subsection{Identifying Relationships and Nested References}
 \mynote
-We examine how,  when some identifying features are relationships, the referencing 
---- the nature of the reference ---   
-is impacted by the context within which the reference is being made. 
-The reference is  a noun phrase quoting the values of identifying attributes
-and with the number quoted depending on 
-the context within which the reference is made.
-What we see contributes to a later analysis --- the analysis of  how 
-instances of a relationship can be conveyed, communicated or stored.
-\subsubsection{Referencing Characters from Plays}
-\mynote
- We use as an example the referencing of characters from  plays
- within the context of  the  dramatic arts
-   as modelled earlier in figure \ref{dramaticArts1..diagram}.
-We focus on the details shown in this fragment
+Now consider how entities are referenced when their types have an identifying relationship  emanating from them. 
+
+\subsubsection*{Example 1 --- Referencing an entity of type play}
+Consider, for example, the type \textit{play} from the model of the dramatic arts given earlier in figure \ref{dramaticArts1..diagram}. The significant details are its identifying attribute named `title' 
+in conjunction with its relationship to a playwright
+as shown here 
 \begin{equation*}
-\input{\ImagesFolder/dramaticArtsCharacterFragment..diagram.tex}
+\input{\ImagesFolder/dramaticArtsPlayPlaywright..diagram.tex}
 \end{equation*}
-These are the details relevant to the identification of entities of type character.
-
-From this part of the model we see that playwrights are identified by name and that plays are identified by their titles within the context of the playwright they are written by. Therefore
+From this part of the model we see that play are identified by title and
+and by reference to a playwright.
+\mynote
+We have therefore references such as to
+\begin{equation}
+\mbox{the play Twelfth Night by playwright William Shakespeare}
+\end{equation}
+which can be abbreviated as
+\begin{equation}
+\mbox{Shakespeare's Twelfth Night}
+\end{equation}
+Either way, implicitly or explicitly, there is a reference to a play and it has 
+nested within it a reference to a playwright.
+The nested reference may be absent if the playwright is clear from the context as for example if we list Shakespeare's comedies for then we can list by title alone as \textit{Twelfth Night, As you Like It,
+A Midsummer Night's Dream,...} and so on.
+In general though,
 \begin{itemize} 
 \item without context, 
 \begin{equation} 
 \label{absolutePlayReferencing}
 \text{\parbox{9cm}{a  play 
-may be referenced by the \uline{title} of the play and the \uline{name} of the playwright it is \uwave{written by.}}}
-\end{equation}
+is referenced by a combination of the \uline{title} of the play and the \uline{name} of the playwright it is \uwave{written by.}}}
+\end{equation}\commentary{unwave the relationship name?}
 \end{itemize}
 I have underlined  identifying attributes so as to draw attention to the number of them required.
+\subsubsection*{Example 2 --- Referencing a a city in the US}
+\mynote In the context of the US it is common to identify cities by name and by reference to a state. This too then is an example of a nested reference. The model to have in mind is this:
+\begin{equation*}
+\input{\ImagesFolder/cityState.tex}
+\end{equation*}
+According to this model a reference to a city consists of the name of the city along with a nested reference to a state as  shown in figure \ref{theCityOfHotSprings}.
+\begin{erboxedFigure}{H}{theCityOfHotSprings}
+{
+Analysis of a two level reference to the city of Hot Springs --- an example of a reference with another reference nested within it.
+}
+\newcommand{\dashRefOne}{2pt 2pt}
+\newcommand{\dashRelationship}{1pt 0pt}
+\newcommand{\dashRefTwo}{1pt 1pt}
+\newcommand{\synLabel}[3]
+{
+  \Rnode{#1}{\parbox[t]{#2cm}{\textit{#3}}}
+}
+\begin{tabular}{l}
+the 
+\Rnode{et}{\uline{city}}
+of 
+\Rnode{attrvalue}{\rdash{Hot Springs}}
+\Rnode{relname}{\uwave{in}}
+\Rnode{nestedref}{\rdot{the state of Arkansas}} \\[1.5cm]
 
+\synLabel{tagET}{1}{name of entity type}
+\kern0.35cm\synLabel{tagAV}{1.65}{value of identifying attribute}
+\kern0.35cm\synLabel{tagRN}{1.625}{name of identifying relationship}
+\kern0.5cm\synLabel{tagNestedRef}{1.95}{\kern0.5cmnested \\reference to entity of type state}\\[0.5cm]
+\syntag{\dashRefOne}{tagET}{0.9}{et}{0}
+\syntag{\dashRefOne}{tagAV}{0.9}{attrvalue}{-0.5}
+\syntag{\dashRefOne}{tagRN}{0.9}{relname}{0}
+\syntag{\dashRefTwo}{tagNestedRef}{0.9}{nestedref}{0}
+\end{tabular}
+\end{erboxedFigure}
+\subsection{Chains of Identifying Relationships --- Russian Doll References}
+
+
+When a type has emanating from it a chain of identifying relationships then references to the type
+have nested references which in turn have nested references within in them and so on --- references within references --- as in a Russian doll.
+\subsubsection{Example 1 --- Postal Addresses}
+\mynote
+Consider postal addresses. There is no standard but traditional postal addresses however
+represented, are references having multiple levels of nesting within them.
+For instance a reference to a particular house will usually have nested within it a reference to a street, usually within this there is a reference to a town or city and
+as discussed this may contain a reference to a state or province.  
+The multiple levels of nesting of references is equivalent to
+the chaining of identifying relationships in an arrangement
+of entity types and relationships like this one in which there are four levels of nesting
+\begin{equation*}
+\input{\ImagesFolder/postalAddressISO20022.tex}
+\end{equation*}
+\mynote
+What I say regarding nesting of references in spoken English also applies, though arguably with some exceptions, when references are communicated in data.
+The following has been given as an example of a message structure for a postal address and is represented as XML
+\begin{verbatim}
+<PstlAdr>
+  <StrtNm>South LaSalle Street</StrtNm>
+  <BldgNb>120</BldgNb>
+  <PstlCd>60690-0834</PstlCd>
+  <TwnNm>Chicago</TwnNm>
+  <CtrySubDvsn>IL</CtrySubDvsn>
+  <Ctry>US</Ctry>
+</PstlAdr>
+\end{verbatim}
+
+\subsubsection{Example 2 --- Referencing Characters from Plays}
+\mynote
+ We use as an example the referencing of characters from  plays
+ within the context of  the  dramatic arts
+   as modelled earlier in figure \ref{dramaticArts1..diagram}.
+We focus on the details shown in this fragment \commentary{make a linear left to right diagram for this example}
+\begin{equation*}
+\input{\ImagesFolder/dramaticArtsCharacterFragment..diagram.tex}
+\end{equation*}
+which for our purposes here can be rearranged like this
+
+\begin{equation*}
+\input{\ImagesFolder/dramaticArtsCharacterIdentificationScheme..diagram.tex}
+\end{equation*}
+
+These are the details relevant to the identification of entities of type character.
 \mynote
 From inspecting the representation of the character type and in particular its identifying features then we see that:
 \begin{itemize}
@@ -159,7 +243,22 @@ In this example there were two identifying relationships arranged end to end. It
 I mention this because there is the beginnings of a simple algorithm here by which entity models can be transformed to definitions of tabular structure.
 \end{notebox}
 \end{oldtt}
+\subsection{Multiple Identifying Relationships --- Multiple Nested References}
 
+\subsubsection{Planetary Conjunctions}
+Sometimes a reference has two or more independent  nested references. 
+This occurrence in language corresponds to an arrangement of types and identifying relationships whereby a type has two or more identifying relationships emanating from it. For example consider this reference to  a (binary) planetary conjunction.
+\commentary{The Russian Doll analogy breaks down here but not totally. 
+Open one doll and there are multiple dolls inside it.}
+\begin{equation}
+\mbox{the conjunction of Mars and Jupiter on July 4, 929}
+\end{equation}
+In this reference there are clearly two independent references to planets. 
+The types and relationships can be shown like this
+
+\begin{equation*}
+\input{\ImagesFolder/planetaryConjunction.tex}
+\end{equation*}
 \subsubsection{Referencing Productions of Plays}
 Now we move on to another area within the overall model of figure \ref{dramaticArts1..diagram}. From this detail 
 \begin{equation*}
@@ -187,10 +286,17 @@ As is to be expected in this description there are four referentials present.\fo
 I found the literal description online as ``a production of the play As You Like It (by William Shakespeare), April – May 1975, at Oxford Playhouse''.  
 } 
 \end{itemize}
+
+
+\subsection{Multiple Intersecting Chains of Identifying Relationships}
+When a type has multiple chains of identifying relationships emanating from it and when these chains intersect in the sense that there is a type in common between the chains (in addition to the
+common type that they emanate from) then in some cases then the Russian doll analogy of nested references can totally break down. We are led to reference having nested references which overlap and are not totally independent. We give two examples one where the Russion Doll analogy holds up and one where it does not. 
+\commentary {Find  a home or use or rephrasing for the next para}
 For entity types character and production we have been able to inspect the entity model diagram for identifying  attributes and relationships and from the inspection posit required referentials  for the referencing of entities of the type.
 We need beware though becuase referencing doesn't always work out by simple aggregation. Because sometimes,
 in the words of Shlaer and Lang, referentials collapse. 
 To see this we are going to move on to another area within our model and look at how dramatic roles are identified and referenced.
+
  \subsubsection{Referencing Dramatic Roles}
 \mynote
 In figure \ref{dramaticArts1..diagram}, the entity type \textit{dramatic role} is
@@ -285,11 +391,11 @@ and obviously these two nested references share a common nested reference, namel
 \mbox{the play Twelfth Night by William Shakespeare.}
 \end{equation}
 
-We see that nested references 
+We have sees already  that nested references 
 themselves can have references nested within them
-and that these nested references can be shared --- 
-\textit{the role of Touchstone, Spring '75 at the Oxford Playhouse} is a reference that contains two nested references and these nested references each in turn contain a nested reference and this is common to them i.e. shared between them.
-
+and now we find that these nested references can be shared --- so they are not bnested at all and the russion doll analogy totally breaks down.  
+\textit{the role of Touchstone, Spring '75 at the Oxford Playhouse} is a reference that contains two nested references and these nested references each in turn contain a nested reference and this is common to them i.e. shared between them. There is a reference that is subordinate to both of them and, necessarily, it isn't 
+physically nested within the both of them.
 
 \mynote
 The double nesting of references comes about because of this arrangement of relationships 
@@ -349,10 +455,9 @@ We also in the habit of writing equations such as (\ref{dramaticArtsDramaticRole
 We can think of dramatic roles coming into being when productions of plays are being cast. What the commutivity of this diagram expresses is when a production of a play is being cast then it is all characters from the play that are being cast not characters from plays in general. 
 The relationship ``the portrray of'', we say, is restricted in scope.
 
-
-
-\subsection {Further example of doubly nested references -- comparable paths that are not equivalent}
-\mynote
+\subsubsection {Comparable paths that are not equivalent --- Route City State}
+\mynote \commentary{The Russian Doll analogy breaks down here but not totally. 
+Open one doll and there are multiple dolls in side it.}
 Now consider this example reference
 \begin{equation}
 \mbox{the route from Hot Springs, Arkansas to Jacksonville in the same state.}
@@ -392,6 +497,17 @@ Another ways of saying this is by saying that the follwoing diagam does not comm
 \input{\ImagesFolder/routeCityStatePaths.tex}
 \end{equation*}
 
+
+\subsection{Context and the Referencing of Entities}
+\mynote
+We examine how,  when some identifying features are relationships, the referencing 
+--- the nature of the reference ---   
+is impacted by the context within which the reference is being made. 
+The reference is  a noun phrase quoting the values of identifying attributes
+and with the number quoted depending on 
+the context within which the reference is made.
+What we see contributes to a later analysis --- the analysis of  how 
+instances of a relationship can be conveyed, communicated or stored.
 \subsection{Entity Models and Equivalent Paths}
 \mynote
 However written,  the specifications of equivalent paths are
