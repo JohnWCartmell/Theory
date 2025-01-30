@@ -1,0 +1,96 @@
+\documentclass[10pt,a4paper]{article}
+
+%\usepackage{geometry}
+\usepackage{pstricks}
+\usepackage{pst-node}
+\usepackage{pst-tree}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage{enumerate}
+\usepackage{calc}
+\usepackage{float} % for H option for tables and figures
+\usepackage{changepage} % used for adjustwidth
+\usepackage{framed}
+\usepackage{wasysym}
+\usepackage{ulem}   %added because \sout was not striking out 
+                    % supports use uline and uwave also dashuline dotuline
+\usepackage{epsf}
+\newcommand{\SharedMacros}{../SharedMacros}
+\newcommand{\SharedText}{../SharedText}
+
+%\usepackage{enumitem} % to be able to [resume] an enumeration but clashes with [(i)] !!
+\input{\SharedMacros/ermacros}
+\input{\SharedMacros/ccategories.macros}
+\input{\SharedMacros/gats.macros}
+\input{\SharedMacros/metagat.macros}
+\input{\SharedMacros/erdiagram}
+\input{\SharedMacros/theorems.macros}
+\input{\SharedMacros/general.macros.v2}
+\input{\SharedMacros/alternate.nonbeamer.macros}
+\input{\SharedMacros/indexedsets.macros.tex}
+\input{\SharedMacros/barkerEllis.macros.tex}
+
+\usepackage{hyperref}
+\setcounter{equation}{0}
+
+\newcommand{\ImagesFolder}{images}
+\renewcommand{\erpictureFolder}[0]{images}
+\newcommand{\handCraftedImagesFolder}{handCraftedImages}
+\newcommand{\photosFolder}{photos}
+
+\input{localMacros}
+
+\title{TEST}
+\author{John Cartmell}
+\begin{document}
+\maketitle
+
+
+next examples scaleable using \verb!\ncdiag! via macro \verb!\manyonesurjective{id}{srcnode}{destnode}!
+
+% \manyonesurjective{id}{srcnode}{destnode}
+\newcommand{\manyonesurjective}[3]
+{
+\ncdiag[armA=0.3cm,armB=0.3cm, angleB=-180]{#2}{#3}
+\ncput[npos=1]{\pnode(0,0){#1c}}
+\naput[npos=0]{\pnode(0,0){#1a}}
+\nbput[npos=0]{\pnode(0,0){#1b}}
+\ncline{#1a}{#1c}
+\ncline{#1b}{#1c}
+}
+
+
+
+\begin{tabular}{c p{3cm} c}
+\Rnode{AA}{\psframebox[framearc=0.2,fillstyle=solid,fillcolor=lightyellow]
+{\begin{tabular}{c}
+NNNN\\
+aaa
+\end{tabular}}}
+& & 
+\Rnode{BB}{\psframebox[framearc=0.2,fillstyle=solid,fillcolor=lightyellow]{yyy}}\\[2cm]
+
+\Rnode{A1}{\psframebox[framearc=0.2,fillstyle=solid,fillcolor=lightyellow]
+{\begin{tabular}{c}
+MMMM\\
+aaa
+\end{tabular}}}
+& & 
+\begin{tabular}{c}
+\\[1cm]
+\Rnode{A2}{\psframebox[framearc=0.2,fillstyle=solid,fillcolor=lightyellow]{ZZZ}}
+\end{tabular}
+\end{tabular}
+\ncdiag[armA=0.3cm,armB=0.3cm, angleB=-180]{AA}{BB}
+\ncput[npos=1]{\pnode(0,0){CPc}}
+\naput[npos=0]{\pnode(0,0){CPa}}
+\nbput[npos=0]{\pnode(0,0){CPb}}
+\ncline{CPa}{CPc}
+\ncline{CPb}{CPc}
+\manyonesurjective{AABB}{AA}{BB}
+\manyonesurjective{AB}{A1}{A2}
+
+
+\end{document}
