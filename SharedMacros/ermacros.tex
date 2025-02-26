@@ -61,6 +61,9 @@
 }
 
 %\begin{erboxedFigure}{#1 FigureParam}{#2 Label}{#3 Caption}
+% modified 07 Feb 2025 to use packape caption
+% and to allow multiline captions including such environments
+% as itemize in the caption
 \NewEnviron{erboxedFigure}[3]{%
 \begin{figure}[#1]
 \begin{erexample}
@@ -68,7 +71,8 @@
 \BODY
 \end{center}
 \vspace{-0.5cm}
-\caption{#3}
+\captionsetup{singlelinecheck=off}
+\caption[need this because I have itemize in the caption]{#3}
 \label{#2}
 \end{erexample}
 \end{figure}
@@ -105,6 +109,9 @@
 }
 
 %\erboxedFigPicture{#1 pictureFilename}{#2 figureParam}{#3Caption}
+% modified 07 Feb 2025 to use packape caption
+% and to allow multiline captions including such environments
+% as itemize in the caption
 \newcommand{\erboxedFigPicture}[3]{
 \begin{figure}[#2]
 \begin{erexample}
@@ -112,7 +119,8 @@
 \begin{center}
 \input{\erpictureFolder/#1}
 \end{center}
-\caption{#3}
+\captionsetup{singlelinecheck=off}
+\caption[need this because I have itemize in the caption]{#3}
 \label{#1}
 \end{erexample}
 \end{figure}

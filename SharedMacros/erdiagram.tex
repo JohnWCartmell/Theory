@@ -245,7 +245,6 @@
 \errelidbody{#1}{#2}{#3}{#4}    
 }
 
-
 %private
 % \erscopebody {#1 x} {#2 y} {#3 text anchor} {#4 text}  15 March 2019
 \newcommand {\erscopebody}[4]
@@ -289,12 +288,24 @@
 {\fontsize{8}{10}\selectfont $\rightcircle$}
 %{\fontsize{8}{10}\selectfont $\circ$}
 
-% \erattr {#1 x} {#2 y} {#3 ismandatory}{#4 identifying} {#5 text}
+% \erattr {#1 x} {#2 y} {#3 ismandatory}{#4 identifying flag} {#5 text}
+% added 20 Feb 2025
+% identifying flag is
+%   0 -- primary identifying   -- underlined
+%   2 -- secondary identifying -- dash underlined
+%   3 -- tertiary identifying  -- dot underlined
+\newcommand{\erattrmarker}{}  
 \newcommand {\erattr}[5]
 {
-\ifthenelse{\equal{#3}{1}}
-{\rput[l]{0}(#1,#2){\erattrmarkermand \ersmallitalictext{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}
-{\rput[l]{0}(#1,#2){\erattrmarkeropt \ersmallitalictext{\ifthenelse{\equal{#4}{0}}{\underline{#5}}{#5}}}}
+\renewcommand{\erattrmarker}
+{\ifthenelse{\equal{#3}{1}} {\erattrmarkermand}{\erattrmarkeropt}}
+\rput[l]{0}(#1,#2){\erattrmarker \ersmallitalictext
+{
+\ifthenelse{\equal{#4}{0}}{\underline{#5}}
+{\ifthenelse{\equal{#4}{2}}{\dashuline{#5}}
+{{\ifthenelse{\equal{#4}{3}}{\dotuline{#5}}{#5}}}}
+}
+}
 }
 
 \newcommand{\erCoreAttribute}[5]{

@@ -1,49 +1,12 @@
 \section{Identifying Features}
 \label{IdentifyingFeatures}
-\subsection{The Question of Identity}
-\mynote
-The focus of this section is the identification of entities ---  we ask, regarding any particular type, how can entities of the type be distinguished from one other 
---- what distinguishing features do they have? 
 
-For there to be an answer to this question then we must assume that no two entities of the given type are alike in all their features. This in fact  is a philosophical position 
---- it is called the principle of the identity of indiscernibles. 
-While this principle is contested in philosophy, in entity modelling we tend to assume it holds.
-Thus we work under the assumption that no two entities are exactly the same in all their features, where by feature we mean an attribute or a relationship with another entity. 
-
-From this assumption, it follows that for any type of entity there is a minimum set of features sufficient to distinguish any two entities of the type. Any such set of features is said to be identifying as it gives us 
-a uniform and reliable way of identifying and therefore referencing entities of the type. 
-
- Generally, 
- the identifying features will consist of a combination of attributes and relationships, 
- with the relationships being functional relationships to other entities. 
-It is the set as a whole that is \textit{identifying} though 
-informally, abusing language somewhat,  we shall say that each of the attributes and relationships in the set is identifying. 
-
-There may be several different sets of features that can be used for idenitfication purposes but we shall proceed for now at least as if there is only one such set.
-
-Any such a set has a simple mathematical characterisation, which we come to later after presenting various
-examples of identifying features and the notation that is used to distinguish the set on diagrams.
-
-\subsection{The Significance of Identifying Features}
-
-\mynote 
-It is desirable that an entity model documents identifying features for the types of entities it describes and  it is  absolutely necessary for most types in those models that are to be used as data specifications as we will come to in a later section. 
-
-\mynote
-The reason for this is that identifying features give us concrete ways of referencing entities within a context and thereby enables us to describe the relationships between entities. As a consequence they provide a means for communicating  relationships and this ultimately facilitates the storage of representations of entities in data systems.
-
-\subsection{Notation}
- \mynote
-Various conventions have been used diagrammatically to convey that an attribute is identifying. In Barker's book the \# symbol is placed to the left of the attribute to indicate as much. In diagrams in this book the name of the attribute is underlined and this is consistent with papers on relational theory in which  the names of columns are underlined to show that they are key columns.
-
-\mynote Identifying relationships on the other hand, both in this book and in Barker's book,
-are distinguished by drawing a bar across them so that they like this: \barkerEllisJ\ or like this: \barkerEllisK.
- 
-\subsection{Examples}
+\subsection{Introductory Examples}
 \mynote
 Flight number, payment card number, country code, international bank account number (IBAN), 
-international standard book number (ISBN), social security number, passport number, part number, serial number and many like attributes are designed specifically for the purpose of enabling unique identification of entities of a particular type so that each entity of the type can be referenced. Such attributes are said to be identifying attributes and are underlined 
-on diagrams, in this book at least, to indicate as much. 
+international standard book number (ISBN), social security number, passport number, part number, serial number and many like attributes are designed specifically for the purpose of enabling unique identification of entities of a particular type so that each entity of the type can be referenced. 
+In the Barker-Ellis notation, such attributes are said to be identifying attributes. In this book they are underlined 
+on diagrams to indicate as much. 
 Attributes such as ISBN and IBAN are designed to be globally unique but many identifying attributes are only unique within specific contexts:
 \begin{itemize}
 \item
@@ -51,6 +14,237 @@ car registration plate number and passport number have values that are unique, a
 \item part numbers may be unique with respect to particular part suppliers or manufacturers,
 \item airport terminal numbers are unique and therefore identifying only with respect to the airports they are located at.
 \end{itemize}
+In these cases identifying attributes are only unique in the contexts of entities related to the subject entity --- it is an attribute and a relationship together that enable an entity to be identified and referenced. More examples are to come.
+
+\subsection{The Question of Identity}
+\mynote
+It is probably worth briefly thinking over this matter more abstractly to make sure we get to the heart of it. The question of identity is the focus --- the identification of entities ---  we ask, regarding any particular type, how can entities of the type be distinguished from one other 
+--- what distinguishing features do they have? 
+
+For there to be an unequivocal answer to this question then we must assume that no two entities of the given type are alike in all their features. This in fact  is a philosophical position 
+--- it is called the principle of the identity of indiscernibles. 
+While this principle is contested in philosophy, in entity modelling we tend to assume it --- we work under the assumption that no two entities are exactly the same in all their features, where, by feature, remember, we mean an attribute or a relationship with another entity. 
+
+From this assumption, it follows that for any type of entity there is a minimum set of features sufficient to distinguish any two entities of the type. In fact there may be multiple such sets. 
+Any such set of features is said to be identifying as it gives us 
+a uniform and reliable way of identifying and, subsequently, referencing entities of the type. At the end of this section we give a mathematical characterisation of a set of identifying features. For now though it is all about how they may be used to communicate and store relationship instances (facts in  other words).
+\subsection{The Analysis of Reference Structure}
+\mynote
+We give examples of how entities are referenced using their identifying features. Examples are everywhere that text is written and spoken and we have to choose some examples from these multitudes
+--- randomly we start with the identifying features of books, US states, chemical elements, airports and operated airline routes. 
+So ... books have ISBN codes by which they can be referenced; 
+states in the US have names but also have two letter codes that can be used to reference them and these codes are especially used in postal addresses; chemical elements, like oxygen and hydrogen, have names but also have one or two letter codes by which they can be referenced
+(less obviously, chemical elements also have atomic numbers by which they can be uniquely identified); airports have names but also they have three letter codes; operated airline routes, on the other hand, 
+have flight numbers by which they can be identified.
+In all these cases we have examples of identifying attributes (the various names and codes and, also, atomic number and flight number) 
+and it is the values of these attributes that can be quoted to reference entities of the associated types
+(book, chemical element, US state, airport, airline route). A pedantic examination one such reference is shown in figure \ref{analysisOfReferenceToOxygen}.
+
+
+\begin{erboxedFigure}{H}{analysisOfReferenceToOxygen}
+{
+Analysis of a reference to the chemical element oxygen (which, of course, is `the element with name oxygen') and which can also be referred to as
+`the element with atomic number 8', since, almost by definition, the atomic numbers of the chemical elements are unique.
+Following the same pattern we have
+`the airport having code JFK',
+`the airline route  having flight number LH2502' and 
+`the book having ISBN 0-713-99336-7'.
+}
+\newcommand{\dashRefOne}{2pt 2pt}
+\newcommand{\dashRelationship}{1pt 0pt}
+\newcommand{\dashRefTwo}{1pt 1pt}
+\newcommand{\synLabel}[3]
+{
+  \Rnode{#1}{\parbox[t]{#2cm}{\textit{#3}}}
+}
+\begin{tabular}{l}
+the 
+\Rnode{et}{\rdash{element}}
+with 
+\Rnode{attrname}{\rdash{symbol}}
+\Rnode{attrvalue}{\rdot{O}}\\[1.5cm]
+
+\synLabel{tagET}{1}{name of entity type}
+\kern0.35cm\synLabel{tagAN}{1.65}{name of identifying attribute}
+\kern0.4cm\synLabel{tagAV}{1.65}{value of identifying attribute}\\[0.5cm]
+\syntag{\dashRefOne}{tagET}{0.9}{et}{0}
+\syntag{\dashRefOne}{tagAN}{0.9}{attrname}{-0.1}
+\syntag{\dashRefTwo}{tagAV}{0.9}{attrvalue}{0}
+
+\end{tabular}
+\end{erboxedFigure}
+
+\mynote Some types of entity may not have such a useful attribute as
+can be used alone, without context, to identify entitites of the type
+but do have an attribute which can be so used to identify them in  context.
+Thus terminals of airports are numbered and these numbers can be quoted to reference them within the context of the airport. Likewise, when we see a reference to `the US city Hot Springs, Arizona' then we see the city referenced within the context of the state in which the city is located.
+
+Airport terminals are identified, we see, by a combination of the terminal number, which is an attribute of entities of type terminal, and by the airport within which they are located, which is a related entity. We see that the combination of the name attribute and the relationship to a parent airport is an identifying set of features for the \textit{terminal} type of entity. Likewise entities of type \textit{US city} may be identified by a combination of their \textit{name} attribute and by their
+relationship with a parent state.
+
+\mynote
+There is a pattern here that is repeated whenever a type of entity has an identifying set consisting of just one attribute and one relationship ---
+references to entities have other references, we will call them sub-references, contained with them as for instance when we see `Arizona', meaning `the state named Arizona', appearing as part of the reference to `Hot Springs, Arizona'.
+Shortly we examine how references are structured for other interesting patterns of identifying features but for now the analysis of this Hot Springs example is shown in figure \ref{analysisOfReferenceToHotSprings}.
+
+\begin{erboxedFigure}{H}{analysisOfReferenceToHotSprings}
+{
+Analysis of a reference to a US City --- an example of a reference with another reference nested within it.
+}
+\newcommand{\dashRefOne}{2pt 2pt}
+\newcommand{\dashRelationship}{1pt 0pt}
+\newcommand{\dashRefTwo}{1pt 1pt}
+\newcommand{\synLabel}[3]
+{
+  \Rnode{#1}{\parbox[t]{#2cm}{\textit{#3}}}
+}
+\begin{tabular}{l}
+the 
+\Rnode{et}{\rdash{city}}
+(with 
+\Rnode{attrname}{\rdash{name}})
+\Rnode{attrvalue}{\rdash{Hot Springs}}
+\:\Rnode{relname}{\uwave{in}}\:
+\Rnode{nestedref}{\rdot{(the state of) Arkansas}} \\[1.5cm]
+\synLabel{tagET}{1}{name of entity type}
+\kern0.35cm\synLabel{tagAN}{1.65}{name of identifying attribute}
+\kern0.35cm\synLabel{tagAV}{1.65}{value of identifying attribute}
+\kern0.35cm\synLabel{tagRN}{1.625}{name of identifying relationship}
+\kern0.5cm\synLabel{tagNestedRef}{1.95}{\kern0.5cmnested \\reference to entity of type US state}\\[0.5cm]
+\syntag{\dashRefOne}{tagET}{0.9}{et}{0}
+\syntag{\dashRefOne}{tagAN}{0.9}{attrname}{0}
+\syntag{\dashRefOne}{tagAV}{0.9}{attrvalue}{0}
+\syntag{\dashRefOne}{tagRN}{0.9}{relname}{0}
+\syntag{\dashRefTwo}{tagNestedRef}{0.9}{nestedref}{0}
+\end{tabular}
+\end{erboxedFigure}
+
+\mynote
+ Generally, the identifying features will consist of a combination of attributes and relationships, 
+ with the relationships being functional relationships to other entities. 
+It is the set as a whole that is \textit{identifying} though 
+informally, abusing language somewhat,  we shall say that each of the attributes and relationships in the set is identifying. 
+
+Though there may be several different sets of features that can be used for identification purposes, we shall proceed mostly as if there is only one such set.
+
+At the end of this section we will give simple mathematical characterisation of a set of identifying features but first
+we proceed by way of examples 
+and we describe the notation that is used to distinguish identifying features on entity relationship  diagrams.
+
+\subsection{Notation}
+\mynote
+In various flavours of the ER diagramming notation different conventions have been used diagrammatically to convey that an attribute is identifying. In Barker's book the \# symbol is placed to the left of the attribute to indicate as much. In diagrams in this book the name of the attribute is underlined. This use of underlining is consistent with papers on relational theory\footnote{As for instance in the important paper by Zaniolo.} in which  the names of columns are underlined to show that they are key columns.
+
+\mynote
+In a molecular formula, such as $H_2O$, the $H$ and the $O$ are, of course, references to chemical elements. For this reason in this book,
+in models of molecular chemistry, the symbol attribute will be chosen as the primary identifying feature of chemical elements. I find though that I cannot ignore that elements can also be identified by name and alternatively by atomic number. 
+In this book, the type \textit{element}, in the context of molecular chemistry, will be shown with the primary identifying attribute, which is \textit{symbol}, underlined and the secondary and tertiary identifying attributes, \textit{name} and \textit{atomic number}, underlined with dashes and dots, respectively, like so
+\raisebox{-0.85cm}{\input{\handCraftedImagesFolder/chemicalElement.tex}}.\\
+\vspace{0.2cm}
+\mynote Identifying relationships on the other hand, both in this book and in Barker's book,
+are distinguished by drawing a bar across them so that they like this: \barkerEllisJ\ or like this: \barkerEllisK so that the airport terminal relationship is represented, \commentary{consider adding code as primary key to airport}\commentary{change to  one or more terminals per airport}
+in one orientation or another, say like this,
+\raisebox{-1.5cm}{\input{\ImagesFolder/airportTerminal1.tex}} 
+or like this \raisebox{-0.5cm}{\input{\ImagesFolder/airportTerminal1ReferentiallyOriented.tex}}.
+
+\subsection{Conveying Facts And Storing of Data}
+There are plenty of examples in this book of entity relationship diagrams 
+in which identifying features of types are indicated using the 
+above notation. Whether or not this notation is used, it is desirable that an entity model documents identifying features for the types of entities it describes. 
+The reason for this is that the identifying features of a type
+provide us with a definitive and uniform way of referencing entities of the type and thereby they enable conveyance of  specific relationship instances\footnote{Relationship instances are facts, hence the title of this subsection. \oldt{I find myself asking, like so many did before, what other facts are there?}}
+existing between entities 
+--- they provide a means for communicating  relationships and this ultimately facilitates the storage of representations of entities in data systems. For this reason, in models that are to be used as data specifications, it is generally necessary to have identifying features specified for each type of entity.  
+
+\mynote
+We have already mentioned the relationship between
+a planet and its moons.
+Each of these types, \textit{planet} and  \textit{moon}, may be represented as having 
+a name attribute that is identifying as is shown in this fragment here:
+\begin{equation}
+\label{planetMoonModel}
+\input{\ImagesFolder/planetMoon2.tex}
+\end{equation}
+Such a specification informs us that we can reference planets by name,
+ as in 
+\begin{equation}
+\label{theplanetJupiter}
+\mbox{\textit{the planet with name Jupiter}}
+\end{equation}
+and, likewise, moons, so that we can make reference to 
+\begin{equation}
+\label{themoonIo}
+\mbox{\textit{the moon with name Io}}.
+\end{equation}
+
+\begin{reinstatett}
+There is a standard phraseology for referencing that is 
+at play here in the example references (\ref{theplanetJupiter}) and (\ref{themoonIo}) and illustrated earleir in figures \ref{analysisOfReferenceToOxygen} and \ref{analysisOfReferenceToHotSprings} ---
+it is being employed to reference entities using the values of their singular identifying attributes. 
+To illustrate various characteristics of this referencing, 
+we may dash-underline the values of identifying attributes 
+ in example phrases 
+and sometimes we will use different styles of dashes to distinguish different entities that are being referenced. 
+\end{reinstatett}
+We see this in this statement: 
+\begin{equation}
+\label{JupiterIoPernickity}
+\mbox{\textit{The planet with name \rdash{Jupiter} 
+\uwave{is orbited} by the moon with name \rdot{Io},}}
+\end{equation}
+in which I have wavy underlined the name of a (directional) relationship.
+(\ref{JupiterIoPernickity})is an example of a wider standard phraseology, one  for conveying relationship instances,
+that builds on the standard phraseology for referencing entities
+by asserting, as it does,  a relationship between two referenced entities.
+We shall see that there is a bit more to this phraseology than initially meets the eye --- there is a twist --- this twist has consequences for the structure of data in all its forms.
+\mynote
+When the values of identifying attributes are used in referencing 
+then we will speak of them as \textit{referentials}. 
+Accordingly, we speak of the terms `Jupiter' and `Io' in statement (\ref{JupiterIoPernickity}) as referentials.
+
+In the context of statement (\ref{JupiterIoPernickity}), Jupiter is the name of, and therefore  a reference to, a planet and  Io is the name of, and therefore a reference to, a moon (aka a natural satellite).
+ 
+\mynote
+We are very much stating the obvious of course but there is a pattern here and it is repeated over and over when instances of relationships are communicated  and the same pattern occurs more formally  and uniformly when instances of relationships are communicated in software systems and/or stored in data.
+Because 
+the types \textit{planet} and \textit{moon} each have
+a singular identifying attribute, then entitites of those types 
+may be referenced by a single referential and, therefore, by values in a
+single column of a table as we witnessed earlier in this table
+\begin{center}
+\begin{tabular}{|l | l|}
+\hline
+planet & orbited by \\
+\hline\hline
+Jupiter  & Io \\
+\hline
+Saturn   & Titan    \\
+\hline
+Mars     & Phobos    \\
+\hline
+Jupiter  & Europa         \\
+\hline
+%Jupiter  & Io         \\
+%\hline%
+%Saturn   & Rhea    \\
+%\hline
+\vdots    & \vdots  \\
+\hline
+\end{tabular}
+\end{center}
+that we proposed to communicate multiple instances of moons orbiting planets.
+
+\mynote
+So far we have discussed the phraseology for  types for which the identifying set of features is either a single identifying attribute or a pair consisting of one identifying attribute and one identifying relationship. We also simplfied the second case
+by considering an example in which the identifying relationship led to an 
+entity type having a single identifying attribute. 
+
+In other situations identifying relationships may lead to types that themselves have relationships among their identifying features.
+One type and one identifying relationship may lead to another type
+having an identifying relationship and this to another and so on so that there as a path through a model that consists entirely of identifying relationships. Paths of lengths two, three and four are quite common.
+ 
+
+\begin{oldtt}
 In these context dependent cases the underlining of the identifying attribute is combined with the barring of the context providing relationship as shown here in fragments in which, in the absence of other detail, types \textit{passport}, \textit{part} and \textit{terminal} are shown to be uniquely identifying  in relation
 to \textit{country}, \textit{supplier} and \textit{airport}, respectively, 
 and in which these later types are shown to have instances uniquely identified by name:
@@ -60,30 +254,28 @@ and in which these later types are shown to have instances uniquely identified b
 \input{\ImagesFolder/supplierPart1.tex} &
 \input{\ImagesFolder/airportTerminal1.tex}
 \end{tabular}
+\end{oldtt}
 
-\subsubsection{Two or more identifying attributes}
+\subsection{Examples with Multiple Identifying Attributes}
 For some types, the values of more than one attribute need be examined to distinguish entities of the type ---  as with a multi-dimensional coordinate system
 a number of attributes provide values that taken together are unique 
 and enable an entity to be uniquely identified and referenced.  
 In such cases there is a plurality of attributes, such as latitude and longitude, for example, 
 and it is the plurality which  can be said to be identifying. 
 This is depicted by underlining each attribute that is in the set as in the following
+\commentary{change this diagram to mapSpotHeight0}
+\commentary{change to not show map entity type}
 in which spot heights on maps are shown to be identifiable by the combination of latitude and longitude within the context of the map:
  \begin{equation}
  \raisebox{-0.5cm}{\input{\ImagesFolder/mapSpotHeight1.tex}}
  \end{equation} 
-\mynote 
-For a second example, 
-consider modelling the type \textit{person}.
-Now people are tricky to identify from a few well defined attributes but for some purposes at least the attributes full name, date of birth, and  home address might be considered sufficient. In an entity model this would be shown by underlining these three atributes like this:
+\commentary(I would like a more convincing example here but that's how it is for now.)
 
-\begin{equation}
-\label{personAttributes2}
-\raisebox{-1.5cm}{\input{\ImagesFolder/personAttributes2.tex}}
-\end{equation}
-
+\subsection{Examples with Multiple Identifying Relationships}
 \subsubsection{Intersection Entities}
-\mynote \commentary{move to beginning and refer back.}
+\mynote 
+\commentary{Change this section to show three individual diagrams extrcated from the chen example given earlier.}
+\commentary{The Chen example might need change after review and before new diagrams built. Thought these can use common source technique.}
 For some types in some circumstances there are no attributes and therefore only relationships in the identifying set. 
 We saw an example earlier
 in figure \ref{employeeProjectWorkerMediatedAttributed} in  which there is an entity type
@@ -94,18 +286,48 @@ standing as they do in positions that would be occupied by many-many relationshi
  Because the type `project assignment' implements a many-many relationship, we can be sure that entities of the type  are uniquely identified by 
  identifying the employee that they assign in combination with the project they assign to. This means that the relationships \textit{assigning} and \textit{to work on}, in combination, are identifying features of the type. This has been indicated in 
 figure  \ref{employeeProjectWorkerMediatedAttributed} by the bars drawn across these two relationships. As I mentioned before such types as this are sometimes said to be intersection entities.
+\subsubsection{Other examples}
+Sometime a type may have one or more identifying attributes and multiple identifying relationships. Notable historic conjunctioonn sbtween planets are idenitfied by the planaets and by a date.
 
+\begin{equation*}
+\input{\ImagesFolder/planetaryConjunction..identificationScheme.tex}
+\end{equation*}
 
-\subsection{Cascaded Identification}
-\label{Cascaded Identification}
+\subsection{Paths of Identifying Relationships}
 \mynote
-A type is characterised as having cascaded identification if instances are specified as being, in part, identified by relationships with other types which themselves are specified to be, in part at least, identified by relationships with other types.
+Paths of idenitfying relationships occur whenever 
+entitites of a type are defined as being, in part, identified by relationships with other types which themselves are specified to be, in part at least, identified by relationships to further types.
+There are lots of examples in the model of the dramatic arts which we present in figure \ref{dramaticArts1..diagram}.
+
+\erboxedFigPicture{dramaticArts1..diagram}{H}{
+A model of the dramatic arts with some similarity to a model of a theatrical production company given in David Hay's book
+``Data Model Patterns --- Conventions of Thought''.
+Some of the details of the model that can be read from the diagram
+\begin{itemize}
+  \item a playwright is identified by name,
+  \item a play is identified by a combination of a title and a playwright,
+  \item a character is identified by a combination of a name and a play, 
+  \item a production (of a play) is identified by a combination of a play, a venue and the season.
+   (For the season of a production I have in mind a description of a date  range such as  ``Spring 1985'', say. )
+   \item a dramatic role is identified by a combination of a character
+    and a production.
+\end{itemize}
+The example model given here contains paths of identifying relationships, 
+\begin{equation*}
+\scalebox{0.8}{\input{\ImagesFolder/dramaticArtsCharacter..linearIdentificationScheme..diagram.tex}}
+\end{equation*}
+
+
+as we discussed the possibility of earlier, and it contains the twist 
+mentioned earlier in that there are distinct comparable identifying paths which are equivalent\footnote{In mathematical language this is a commutative diagram.}
+} 
+
 \mynote
 We see an example in this detail
 \begin{equation*}
 \input{\ImagesFolder/dramaticArtsCharacterFragment..diagram.tex}
 \end{equation*}
-which is contained within of the model of the dramatic arts presented in figure \ref{dramaticArts1}. 
+which is contained within of the model of the dramatic arts presented in figure \ref{dramaticArts1..diagram}. 
 In this detail we see that
 \begin{itemize}
 \item
@@ -119,75 +341,81 @@ two different plays by different playwrights do have the same title.
 The model is specified so because it is often the case that characters from different plays have the same name, such as the multiple Sebastians in the plays of William Shakespeare, but it is never the case that two different characters in a single play have exactly the same names.
 \end{itemize}
 
-The cascade in view in this detail, is 
+The path in view in this detail, is 
 (i)  part of identifying a character is to identify a play and, in turn,
 (ii) part of identifying a play is to identify a playwright. 
 Sometime we may speak of the name attribute of the playwright as being a cascaded identifier of the type character. Considered through the lens of attributes alone, a character is identified by the name of the character and, 
 cascaded, the title of the play and the name of the playwright.
 It is this attribute-lensed view that comes to the fore if and when we go on to represent these same concepts in tabular data.  
 
+\begin{oldtt}
 Further cascades come to light if you examine the type of dramatic role 
-as specified in the diagram in figure \ref{dramaticArts1}. I will leave it to the reader to examine the multiple cascaded attributes involved in the identification of instances of the dramatic role type, as represented in that figure. 
+as specified in the diagram in figure \ref{dramaticArts1..diagram}. I will leave it to the reader to examine the multiple cascaded attributes involved in the identification of instances of the dramatic role type, as represented in that figure. 
 We return to this example and to the subject of identification and referencing in the next section.
-
-\erboxedFigPicture{dramaticArts1..diagram}{h}
-{This example is based to some extent on an example developed 
-in David Hay's book``Data Model Patterns --- Conventions of Thought''
-and presented in his figure 12.7 `The Theatrical Production Company'.
-I have made choices in specifying this model.
-I have ensured there are layers and multiplicities of identification but also so that I can fit the diagram on a single page. 
-One detail to be seen in the model is that a production of a play is specified as 
-being identified by a combination of a play, the venue and the season.
-For the season of a production I have in mind a description of a date range such as  ``Spring 1985'', say. 
-If you examine the model and chase the identifying relationships
-then you will find that describing a particular instance of a role being played by an actor will involve identifying
-instances of every single type within the model. I will be spelling this out in detail in the next section.
-As with most models there are caveats and exceptions in practice that do not fit the model. 
-One exception here is that a play might be coauthored. This isn't covered by the model.
-Another exception is that a single production might tour the country rather than being at a single venue. Again this isn't covered by the model. }
-
-\subsection{Understanding Patterns of Identifying Relationships}
-
-
-To make patterns of identifying relationships easier to recognise we will draw diagrams specifically to represent identification of a certain type of entity in which the only relationships are idenitfying relationships and so that these relationshiops are drawn left to right. The above charcater playright diagram shown in this way will look like this:
+\end{oldtt}
+\begin{newtt}
+Cascaded identification of an entities of a type is signified whenever there is a path of identifying relationships emanating away from the type. 
+Archetypally, this it is present in postal addressing schemes. One such scheme cab be represented as follows:
 \begin{equation*}
-\mbox{diagram with character --- play --- playwright left to right}
+\input{\ImagesFolder/postalAddressISO20022.tex}
+\end{equation*}
+According to this diagram to identify a building one needs first to identify a street, before which one needs to identify a town or city and so on.
+\end{newtt}
+
+\subsection{Important Patterns of Identifying Relationships}
+\mynote
+The pattern of identifying relationships pertinent to the identification of a type of entity is made easier to recognise and evaluate if we
+extract just the relevant identifying relationships onto a diagram 
+and represent them uniformly left to right across the diagram.
+For the \textit{character} type we draw a diagram like this:
+\begin{equation*}
+\input{\ImagesFolder/dramaticArtsCharacter..linearIdentificationScheme..diagram.tex}
 \end{equation*}
 \newcommand{\thumbnailscale}{0.4}
-There are recognisable patterns, then, of idenitfying relationships that emanate from an entity type on a diagram.
-Sometimes as here there is a single path of identifying relationships 
+There are various patterns that we can look out for such as paths
+of identifying relationships that are quite simple like this
 \begin{equation*}
 \scalebox{\thumbnailscale}{
 \input{\handCraftedImagesFolder/thumbnailPathIdentifying}}
 \end{equation*}
-
-sometimes there are branching paths
+but often paths of identifying relationships branch like this 
 \begin{equation*}
 \scalebox{\thumbnailscale}{
 \input{\handCraftedImagesFolder/thumbnailBranchingPathsIdentifying}}
 \end{equation*}
-
-and sometimes the branching paths come back together again in the sense that there is a type that is common to both paths as in this pattern
-
+and sometimes the paths branch and branch again so that there is 
+a tree of identifyong relations.
+Sometimes the branching paths come back together again in the sense that there is a type that is common to multiple paths through the tree as in this pattern
 \begin{equation*}
 \scalebox{\thumbnailscale}{
 \input{\handCraftedImagesFolder/thumbnailComparablePathsIdentifying}}
 \end{equation*}
 
-In this case there are two (there might be more) paths of identifying reltionships which are comparable. This is an important case and it is most significant wherther or notr these comparanble paths are equivalent as we shall see. We will see examples of all these differing patterns in the next section in which we explore their significance.
+In this final case there are two (there might be more) paths of identifying relationships which are comparable. This is an important pattern and it is most significant whether or not, in such cases, these comparable paths are equivalent. We will come across examples where they are equivalent and also examples where they are not and the matter is of some significance as we shall see.
 
+The details of the identification scheme for production entities extracted and  rearranged from figure \ref{dramaticArts1..diagram} is as follows:
+\begin{equation}
+\input{\ImagesFolder/dramaticArtsProduction..linearIdentificationScheme..diagram.tex}
+\end{equation}
 
+and for \textit{dramatic role} type the pertinent identifying relationships drawn left to right are as follows
+\begin{equation}
+\label{dramaticArtsRole..linearIdentificationScheme..diagram}
+\input{\ImagesFolder/dramaticArtsRole..linearIdentificationScheme..diagram.tex}
+\end{equation}
 
+\subsection{Taking Stock of Identifying Features}
+To give ourselves more efficient use of space on the page we then move on and draw these  diagrams in a  different way as shown in figure
+\ref{dramaticArtsRole..identificationScheme..diagram}.
 
-and the identification of production entititees will be highlighted in this way like this.
+\erboxedFigPicture{dramaticArtsRole..identificationScheme..diagram}{h}
+{
+This diagram is a redrawing of diagram 
+(\ref{dramaticArtsRole..linearIdentificationScheme..diagram}). It shows the identifying features that are directly and indirectly involved in the identification of entities of type \textit{dramatic role}.
+I have broken with the tradition of having graphical distinct representations of attributes and relationships and represented each identifying attribute as a relationship with a type representing the type of all universals --- so all strings, integers, booleans and so on. 
+}
 
-
-\subsection{Making the pattern of identifying features easier to see}
-To give ourselves more efficient use of space on the page we then move on and draw these two diagrams in a slightly different way like this
-
-and this.
-
-What I have done is to introduce a representation for the type of all universals on the right of the diagram and to represent attributes as relationships with this type. I have broken with the tradition of having a complete distinction bbweteen attributes and relationships at this point. Not only does this give a more striking depiction of the way that identifying features combine it helps very much in the next sections on referencing and data representation of entitites.
+What I have done is to introduce a representation for the type of all universals. This is shown on the right of the diagram.  I have represented  attributes as relationships with this type.  Not only does this give a more striking depiction of the way that identifying features combine it helps very much in the next sections on the referencing and the data representation of entities.
 
 \subsection {Mathematical Characterisation}
 \mynote From a mathematical perspective, 
@@ -198,21 +426,6 @@ See subsection \ref{JointlyInjective} for a definition of this term.
 \mynote A set of features of a type of entity i.e. a set of attributes and outgoing directional relationships, is said to be \textit{identifying} provided that the values of these features,
 taken together, is guaranteed to uniquely identify an entity of the type i.e. to be such that no two distinct entities of the type can have identical values for all of the features. 
 
-\mynote In the simplest cases a single attribute will suffice. 
-Social security number, part no, 
-passport number and like attributes are designed to uniquely identify entities of the type from others of the type. 
-An example of this 
-in  shown in figure \ref{boardingPass2} in which entities of type \textit{airline route} are uniquely identified by a \textit{flight number} attribute.
-This is
-indicated in the diagram  by the underlining of the name of this attribute where it appears on the diagram.\footnote{Aside: There is a trivial difference here from Barker's notation because he distinguishes the identifying attributes with a \# symbol where we here use  underlining.} 
-
-
 \mynote A final point, as we have said, identifying attributes are of particular significance with regard to 
  how relationships are represented in data and therefore how communicated and stored.
 They are also significant in evaluating the goodness of an entity model, as we will see later.
-
-
-
-
-
- 

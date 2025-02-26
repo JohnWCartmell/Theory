@@ -16,68 +16,9 @@ This section is going to be split into subsections where we consider the various
 relevant to referencing entities of a type. We start with the simplest of cases and then work through to examples were there are branching chains of identifying relationships and possibly comparable paths of identifying relationships. 
 
 \subsection{Singleton Identifying Attributes}
-\mynote
-In the simplest case the set of identifying features of a type of entity is a singleton --- consisting of a single identifying attribute. Then a reference to an instance might be written very simply as in this example reference
-\begin{equation}
-\label{theElementOxygen}
-\mbox{\textit{the element having symbol O}}
-\end{equation}
-which is consistent with the entity model shown in figure xxx.
-Specifically, an entity of type `element' is referenced by quoting the value of its identifying attribute. The name of the identifying attribute is
-`symbol' and the quoted value is `O'.
-\mynote
-Sometimes entities of a type have names associated with them
- and these names are unique and can be  quoted to reference entities of the type. 
- In these cases an entity model will represent the entity type with a name attribute
-and mark it as identifying. 
-Examples of such types are ubiquitous and you will see plenty in these pages.
-For instance we have already mentioned the relationship between
-a planet and its moons.
-Each of these types, \textit{planet} and  \textit{moon}, may be represented as having 
-a name attribute that is identifying as in this fragment here:
-\begin{equation}
-\label{planetMoonModel}
-\input{\ImagesFolder/planetMoon2.tex}
-\end{equation}
-This tells us that we can reference planets by name, as in 
-\begin{equation}
-\label{theplanetJupiter}
-\mbox{\textit{the planet with name Jupiter}}
-\end{equation}
-and, likewise, moons, so that we can make reference to 
-\begin{equation}
-\label{themoonIo}
-\mbox{\textit{the moon with name Io}}.
-\end{equation}
-
-Note that there is a standard phraseology for referencing that is 
-at play here in the example references (\ref{theElementOxygen}), (\ref{theplanetJupiter}) and (\ref{themoonIo})  ---
-it is being employed to reference entities using the values of their singular identifying attributes. 
-To illustrate various characteristics of this referencing, 
-we will dash-underline the values of identifying attributes in example phrases 
-and we will use different styles of dashes to distinguish different entities that are being referenced. We see this in this statement: 
-\begin{equation}
-\label{JupiterIoPernickity}
-\mbox{\textit{The planet with name \rdash{Jupiter} 
-\uwave{is orbited} by the moon with name \rdot{Io},}}
-\end{equation}
-in which I have wavy underlined the name of a (directional) relationship,
-an example of a wider standard phraseology, one  for conveying relationship instances,
-that builds on the standard phraseology for referencing entities
-by asserting, as it does,  a relationship between two referenced entities.
-There is a bit more to this than meets the eye, though, as we shall see.
-\mynote
-When the values of identifying attributes are used in referencing 
-then we will speak of them as \textit{referentials}. 
-Accordingly, we speak of the terms `Jupiter' and `Io' in statement (\ref{JupiterIoPernickity}) as referentials.
-
-In the context of statement (\ref{JupiterIoPernickity}), Jupiter is the name of, and therefore  a reference to, a planet and  Io is the name of, and therefore a reference to, a moon (aka a natural satellite).
-Note though that within the context of the solar system the name Io  doesn't uniquely identify this moon of Jupiter amongst all named solar system objects since it is also the name of an asteroid that orbits within the asteroid belt. This  illustrates that 
-the names of moons are only unique as names of moons. This is very much the meaning of the underlining of the name attribute in fragment (\ref{JupiterIoPernickity}). 
+GONE TO IDENTIFYING FEATURES - Desirability
 
 \mynote
-We are very much stating the obvious of course but there is a pattern here and it is repeated over and over when instances of relationships are communicated  and the same pattern occurs more formally  and uniformly when instances of relationships are communicated in software systems and/or stored in data.
-
 We will focus on the phrasing and communication of relationship instances in the next section but first we look at the characteristics of referencing when some of the identifying features of an entity are relationships.
 
 
@@ -173,41 +114,6 @@ the
 \end{tabular}
 \end{erboxedFigure}
 
-\subsubsection*{Example 2 --- Referencing a a city in the US}
-\mynote In the context of the US it is common to identify cities by name and by reference to a state. This too then is an example of a nested reference. The model to have in mind is this:
-\begin{equation*}
-\input{\ImagesFolder/cityState.tex}
-\end{equation*}
-According to this model a reference to a city consists of the name of the city along with a nested reference to a state as  shown in figure \ref{theCityOfHotSprings}.
-\begin{erboxedFigure}{H}{theCityOfHotSprings}
-{
-Analysis of a two level reference to the city of Hot Springs --- an example of a reference with another reference nested within it.
-}
-\newcommand{\dashRefOne}{2pt 2pt}
-\newcommand{\dashRelationship}{1pt 0pt}
-\newcommand{\dashRefTwo}{1pt 1pt}
-\newcommand{\synLabel}[3]
-{
-  \Rnode{#1}{\parbox[t]{#2cm}{\textit{#3}}}
-}
-\begin{tabular}{l}
-the 
-\Rnode{et}{\uline{city}}
-of 
-\Rnode{attrvalue}{\rdash{Hot Springs}}
-\Rnode{relname}{\uwave{in}}
-\Rnode{nestedref}{\rdot{the state of Arkansas}} \\[1.5cm]
-
-\synLabel{tagET}{1}{name of entity type}
-\kern0.35cm\synLabel{tagAV}{1.65}{value of identifying attribute}
-\kern0.35cm\synLabel{tagRN}{1.625}{name of identifying relationship}
-\kern0.5cm\synLabel{tagNestedRef}{1.95}{\kern0.5cmnested \\reference to entity of type state}\\[0.5cm]
-\syntag{\dashRefOne}{tagET}{0.9}{et}{0}
-\syntag{\dashRefOne}{tagAV}{0.9}{attrvalue}{-0.5}
-\syntag{\dashRefOne}{tagRN}{0.9}{relname}{0}
-\syntag{\dashRefTwo}{tagNestedRef}{0.9}{nestedref}{0}
-\end{tabular}
-\end{erboxedFigure}
 \subsection{Chains of Identifying Relationships --- Russian Doll References}
 
 
@@ -290,11 +196,30 @@ may be referenced by their \uline{name} along with the \uline{title} of the play
 \end{equation}
 Thus, without context, three referentials are required for the referencing of a character
 as  when I reference the following character:
- \begin{equation*}
-\label{TounchstoneReferenceFromAbsolute}
+ \begin{equation}
+\label{TouchstoneReferenceFromAbsolute}
 \text{\parbox{9cm}{\textit{\rdash{Touchstone} from \rdash{Shakespeare}'s \rdash{As You Like It}. }}}
-\end{equation*}
+\end{equation}
 \end{itemize}
+
+Each of these three referentials corresponds to 
+a path through diagram xxx from the left hand side of the diagram to the right as we see here. There are exactly three paths from left to right across the diagram. These are
+\begin{align*}
+d1/r1/a3 & Shakespeare \\
+d1/a2    & As You Like It\\
+a3       & Touchstone
+\end{align*}
+
+and each one corresponds to a referential within the reference 
+(\ref{TouchstoneReferenceFromAbsolute}) as follows
+\begin{tabular}{l l}
+\textbf{Path}     & \textbf{Referential} \\
+d1/r1/a3 & Shakespeare \\
+d1/a2    & As You Like It\\
+a3       & Touchstone
+\end{tabular}
+
+At a first approximation in the absence of comaparable paths in the partern of pertinent idenitfying relationships the referentials required to reference entities of a type exactly correspond to such paths from left to right across the identifier diagram.
 
 \begin{oldtt}
 \begin{notebox}
