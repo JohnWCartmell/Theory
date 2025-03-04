@@ -287,13 +287,43 @@ standing as they do in positions that would be occupied by many-many relationshi
  Because the type `project assignment' implements a many-many relationship, we can be sure that entities of the type  are uniquely identified by 
  identifying the employee that they assign in combination with the project they assign to. This means that the relationships \textit{assigning} and \textit{to work on}, in combination, are identifying features of the type. This has been indicated in 
 figure  \ref{employeeProjectWorkerMediatedAttributed} by the bars drawn across these two relationships. As I mentioned before such types as this are sometimes said to be intersection entities.
-\subsubsection{Other examples}
-Sometime a type may have one or more identifying attributes and multiple identifying relationships. Notable historic conjunctioonn sbtween planets are idenitfied by the planaets and by a date.
+\subsubsection{Barker Boarding Pass Example}
 
-\begin{equation*}
-\input{\ImagesFolder/planetaryConjunction..identificationScheme.tex}
-\end{equation*}
+Sometime a type may have one or more identifying attributes and multiple identifying relationships. An example is given in Barker's book and is shown in figure \ref{AirTravelBarkerFigure3-18..diagram}
 
+\erboxedFigPicture{AirTravelBarkerFigure3-18..diagram}{H}{
+A diagram that illustrates the identification of boarding pass entities
+ adapted from figure 3-18 of Barker's book.\footnote{I have changed the layout and some names.} 
+In commentary, Barker writes:
+\textit{
+\begin{quote}
+\small
+Thus, to uniquely identify a boarding pass, one needs:
+\begin{itemize}[label=--]
+  \item the relationship to the seat, and thus its seat number
+  \item the relationship to the flight, and thus its date/time of departure
+  \item the date/time issued in the rare case of boarding passes being re-issued; forexample to re-seat a family closer together after someone did not turn up for a flight
+  \item as the unique identifier of the flight also includes the relationship to the airline service\footnote{He has `airline route' here but I have changed the name to be more precise (lots of different services can operate on the same route).}, we also need the flight number. 
+\end{itemize}
+\end{quote}
+}
+In Barker's figure 3-18 the relationship from flight to aircraft (labelled `r2' on my diagram) is not depicted, though it is elsewhere in his book. 
+There is a fascinating detail though, unremarked upon by Barker, which is that it is only through background knowlege of this relationship (the one labelled r2) 
+that a boarding pass references an actual seat on an actual aircraft.
+The reference is indirect depends on the fact that the two comparable paths from boarding pass to aircraft (one mediated by flight and one mediated by boarding pass) are equivalent paths. Without this 
+\textit{a priori} knowledge (of the equivalence of the two paths) Barker would have needed this additional bullet:
+\textit{
+\begin{quote}
+\small
+\begin{itemize}[label=--]
+  \item as the unique identifier of the seat also includes the relationship to the aircraft, we also need the aircraft registration number. 
+\end{itemize}
+\end{quote}
+}
+I suggest that he didn't write this additional bullet because he knew it  was unnecessary and, I suggest, he couldn't articulate why unnecessary because he didn't have
+well articulated concepts of comparable and equivalent paths --- which we here do have.
+}
+\iffalse
 \subsection{Paths of Identifying Relationships}
 \mynote
 Paths of idenitfying relationships occur whenever 
@@ -317,8 +347,6 @@ The example model given here contains paths of identifying relationships,
 \begin{equation*}
 \scalebox{0.8}{\input{\ImagesFolder/dramaticArtsCharacter..linearIdentificationScheme..diagram.tex}}
 \end{equation*}
-
-
 as we discussed the possibility of earlier, and it contains the twist 
 mentioned earlier in that there are distinct comparable identifying paths which are equivalent\footnote{In mathematical language this is a commutative diagram.}
 } 
@@ -430,3 +458,4 @@ taken together, is guaranteed to uniquely identify an entity of the type i.e. to
 \mynote A final point, as we have said, identifying attributes are of particular significance with regard to 
  how relationships are represented in data and therefore how communicated and stored.
 They are also significant in evaluating the goodness of an entity model, as we will see later.
+\fi
