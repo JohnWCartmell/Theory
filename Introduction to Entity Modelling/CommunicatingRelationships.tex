@@ -1,6 +1,6 @@
 
 \section{Communicating Relationships}
-\subsection{What this section is about}
+\subsection{Recap}
 \mynote
 Earlier, in section \ref{sub:conveying_facts_and_storing_of_data}, we looked at examples of the use
 of references to entitites, and thereby referentials,  
@@ -31,59 +31,62 @@ performed April – May 1975, at Oxford Playhouse.
 
 We have seen also how in some references, for example the final one in the list above,  there are less referentials than is implied by a simple sum of the parts  and that this is because of overlaps (for which we used the term collapsed referentials) and that these overlaps come about because of the equivalence of comparable paths of identifying relationships.
 
-Now we have to consider the possibility that when relationship instances are to be conveyed, so that multiple referentials are required to reference the first entity in the relationship and also multiple referentials are rqeuired to reference the second entity, that, \textit{a priori}, these two sets of referentials overlap. 
-In other words that, \textit{a priori}, referentials to the two distinct entities coincide and collapse into a single referential. 
-
-We look at cases where this is so, and at yet other cases in which 
-referentials that one might expect to be present are simply not needed --- in such cases we shall say that there are \textit{absent referentials}.
-As we saw in the previous section, we see different behaviours\commentary{better word than behaviour} emerge in the presence of comparable paths of relationships
-which are equivalent or near equivalent.
-
-\subsection {Recap}
-Consider how we convey an instance of this relationship:
-\begin{equation}
-\input{\ImagesFolder/dramaticArtsPlayedByRelationship..diagram.tex}
-\end{equation}
-
-we reference an actor entity, by name according to figure ref{drammaticArts1},
-and we convey a dramatic role entity by means of five referentials as we have seen above.
-In this way we get statements such as
+For example an instance of a dramatic role being played by an actor might be commmunicated as follows:
 \begin{erquote}
-
-\parbox{9.0cm}{\linespread{1.5}\normalsize\rdash{Bob Hoskins} was \uwave{the player of} the role of \rdot{Touchstone} in the production of \mbox{\rdot{Shakespeare}'s} \rdot{As You Like It} performed \mbox{\rdot{April – May 1975},} at \rdot{Oxford Playhouse}.
+\parbox{8.7cm}{\linespread{1.5}\normalsize the role of \rdot{Touchstone} in the production of \mbox{\rdot{Shakespeare}'s} \\
+ \rdot{As You Like It} performed \mbox{\rdot{April – May 1975},} at \\
+\rdot{Oxford Playhouse} was \uwave{played by} \rdash{Bob Hoskins},
 }
 \end{erquote}
 which, by the way, is a true fact. 
-In this example, referentials to reference the actor are dash underlined. The relationship is wavy underlined.
-Referentials to reference the dramatic role are dotted underlined.
-\subsection{An Example in which Referentials Collapse}
-All this is straightforward. But things are not always so straightforward because sometimes referentials can overlap. 
-Shlaer and Long explore this topic in the context of relational database structure and refer to them as \textit{collapsed referentials}. This is an important topic and the subject isn't complete if we don't 
-consider these and so here is an example that contains such `collapsed referentials'.
+In this example, referentials to reference the dramatic role are dotted underlined --- there are five of them.
+ The relationship is wavy underlined. Referentials to reference the actor are dash underlined   --- there is only one of them.
+ The relationship being instanced is this one
+\begin{equation}
+\scalebox{0.9}{\input{\ImagesFolder/dramaticArtsPlayedByRelationship..diagram.tex}}
+\end{equation}
+which was described earlier in figure \ref{dramaticArts1..diagram}.
 
-As we have said above and according to the model we have assumed,
+\subsection{What More is to be Said}
+\mynote
+We see that whenever a relationship instance is to be conveyed two sets of referentials are required --- one to reference the first entity and the other to reference the second entity.  
+\mynote
+Now we have to consider the possibility that sometimes, \textit{a priori}, these two sets of referentials overlap. 
+In other words that, \textit{a priori}, some of the referentials for the two distinct entities coincide.
+Shlaer and Long, in a very much underrated paper, 
+explore this topic in the context of relational database structure and refer to the then shared coincident referential as a \textit{collapsed referential}. 
+\mynote
+We look at cases where there are collapsed referentials, and also at some other cases which exhibit different characteristics by which 
+referentials that one might expect to be present are simply not needed --- in such cases we shall 
+adapt the coinage of Shlaer and Long and say that there are \textit{absent referentials}.
+Just as we saw in the previous section, we see different characteristics\commentary{better word than behaviour} emerge\commentary{exhibited?} in the presence of comparable paths of relationships
+which are either equivalent or near equivalent.
+
+\mynote
+This is an important topic that requires careful artriculation
+and without knowledge of this topic one has not a full understanding
+of data both as it is conveyed in common langauge and as it is communicated and stored in information systems.
+
+\subsection{An Example in which Referentials Collapse}
+\mynote 
+To illustrate the discussion that follows, 
+imagine we model the plots of plays and in doing so consider \commentary{globalise this somehow, summarise/compare the plots of many plays}
+love, reciprocated or not, to be a many-many relationship between characters like so
+\begin{equation}
+\label{dramaticArtsLoves..relationship}
+\scalebox{0.9}{\input{\ImagesFolder/dramaticArtsLoves..relationship..diagram.tex}}
+\end{equation}
+and consider how instances of this relationship might properly be conveyed.
+\mynote
+As we have said above, and according to the model we have assumed (see figure \ref{dramaticArts1..diagram}),
   characters from plays need be identified by three referentials
  --- the name of the character, the title of the play and the name of the playwright.
-
-\mynote 
-That there are three referentials to reference a character naively implies that if we wish to communicate an instance of relationship between two different characters then we will be required to communicate six referentials
- -- three to identify one party in the relationship and three to identify the other party. 
- we will see shortly  --- this is the significant bit --- that this is not always the case and so not what we instinctively do, when we have \textit{a priori} knowledge of the relationship being communicated is limited in scope. 
- If we know the relationship is confined to individual playwrights or is internal to individual play 
- or script then clearly we do not 
-  communicate the playwright and play title twice over. The number of referentials may in such a case collapse to four:
-   name of playwright, title of play and name of character.
-Shlaer-Lang in the context of data representation of entities and in a very much underrated paper, coined the term \textit{collapsed referentials} in
-their description of this phenomena.  We shall use instead the term \textit{shared referential} for a referential that contributes to multiple references.
-
-\mynote 
-In the  the play Twelfth Night by William Shakespeare, Antonio loves Sebastian.
-
-For the discussion that follows suppose love to be a many-many relationship between characters.
-
-A naive approach would suggest that six referentials are required to convey an instance of love
-between characters --- three referentials to reference the lover character and three to reference the loved.
-If I follow the naive approach I would convey the relationship instance like this:
+With this being so, it naively implies that 
+if we wish to communicate an instance of the relationship, 
+(\ref{dramaticArtsLoves..relationship}), 
+then we will be required to communicate six referentials
+ -- three to identify one party in the relationship and three to identify the other party;
+so, if I follow this approach, I would convey a particular relationship instance like this:
 \begin{equation}
 \text{\parbox{9cm}{\textit{The character named Antonio in Shakespeare's play Twelfth Night loves the character named Sebastian in Shakespeare play Twelfth Night.}}}
 \end{equation} 
@@ -91,18 +94,16 @@ But there is a reason why the shorter
 \begin{equation}
 \text{\parbox{9cm}{\textit{The character named Antonio in Shakespeare's play Twelfth Night loves the character named Sebastian.}}}
 \end{equation} 
-is correct and it is  important we understand this reason.
-What is occuring here is another instance of the same basic phenomenon we saw before in the context of the referencing of entities --- less referentials are required than we first expect from a naive reading.  
+is correct and it is  important we can understannd and articulate this reason.
 
-This reason in this case is because the relationship `loves' in this context 
+The reason is because the relationship `loves' in this context 
 is, \textit{a priori}, a relationship which is internal to the plot of a single individual play ---
 it is an intra-play relationship rather than an inter-play relationship.
-Because it is intra-play, when we covey an instance then the referentials that refer to the play are shared between lover and loved As shown in figure \ref{SebastianLovesAntonio}.
-
+Because it is intra-play, when we convey an instance then the referentials that refer to the play are shared between lover and loved As shown in figure \ref{SebastianLovesAntonio}. The title of the play ad the name of the playwright are coincident. 
 
 \begin{erboxedFigure}{H}{SebastianLovesAntonio}
 {Referencing two different characters using just four referentials. This is an example of what Shlaer and Lang (?) called collapsed referentials. What we see is that referential `Shakespeare' contributes to two different references. Likewise does the referential `Twelfth Night'.
-These are examples of shared referentals --- they contribute, as indicated, to both reference 1 and reference 2.}
+These are examples of shared referentals --- they contribute, as indicated, to both reference 1 and reference 2. The naive requirement for six referentials collapses to there being four.}
 \newcommand{\dashRefOne}{2pt 2pt}
 \newcommand{\dashRelationship}{1pt 0pt}
 \newcommand{\dashRefTwo}{1pt 1pt}
@@ -123,8 +124,42 @@ These are examples of shared referentals --- they contribute, as indicated, to b
 
 An instances of the `loves' relationship is conveyed by a total of four referentials
  not the six that might have been required
-if the relationship were global in scope (as would have been the case if a
- character from one play could love  a character from an entirely different play).
+if the relationship were global in scope as would have been the case if a
+ character from one play could love a character from an entirely different play.
+
+\mynote 
+Now we need to drill into this statement made above that `the loves relationship is intra-play rather than inter-play'. What that means is that whenever one character loves another character then the loved character is a character in the same play as the lover character.  We can say that more concisely in symbols
+if we label the relationship between lover and loved as `r' and if we label the relationship between a character and the play  they are a character within as `d1'
+then 
+\begin{equation}
+r \circ d1 \leq d1
+\end{equation}
+
+which is used as a shorthand for saying
+\begin{quote}
+for all instances x and y of type character such that $y \in r(x)$,
+\begin{equation*}
+d(x) = d(y)
+\end{equation*}  
+\end{quote}
+In the sense given earlier the following triangle of relationships(in which d1 is depicted twice over)  is near-commutative
+ \begin{equation*}
+\scalebox{0.9}{\input{\ImagesFolder/dramaticArtsLoves..scopeTriangle..diagram.tex}}
+\end{equation*}
+
+I shall say that this diagram provides the scope for relationship (\ref{dramaticArtsLoves..relationship}). 
+
+We can reinforce what was said earlier, equivalent and near-equivalent paths
+have  a bearing on how instances are communicated and for this reason it is important 
+that they are documented in entity models. Without knowledge of these equivalences,
+we cannot infer from the model how relationship instances can properly be communicated 
+i.e. how communicated in a way that avoids redundancy of information,
+nor can we tell, for that matter, how they can be best represented in data.  
+
+We can reinforce the earlier point that equivalent and near-equivalent paths significantly impact how instances are communicated. For this reason, it is crucial to document them in entity models. Without an understanding of these equivalences, we cannot determine from the model how relationship instances should be communicated in a way that avoids redundancy. Moreover, we cannot establish how they should be optimally represented in data.
+
+
+ \subsection{Referentials That Do Not Collapse Though They Could}
  An example of a relationship between characters that is global in scope 
  is the relationship of one character being modelled on or resembling or being inspired 
  by another character from the dramatic arts.
@@ -144,7 +179,7 @@ in that Metamophoses isn't strictly a play - its a bunch of stories.}
 There are no shared referentials.
 
 
-
+\input{AirportGateExample}
 
 
 
