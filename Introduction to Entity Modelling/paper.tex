@@ -45,14 +45,88 @@
 
 \input{localMacros}
 
+
 \title{Introduction to Entity Modelling}
 \author{John Cartmell}
 \begin{document}
+\iffalse
 \maketitle
 \label{tableofcontents}
 \tableofcontents
 \label{contents}
 \addcontentsline{toc}{section}{\nameref{tableofcontents}}
+
+\subsection{How it is with Referentials}
+\fi
+Consider that an instance of the supervision relationship sketched out earlier in figure xxx might be comunicated like this
+\begin{equation}
+\label{xxx}
+\mbox{\textit{\rdash{Maths} student \rdash{Brown} 
+\ \uwave{is supervised by}\ \ \rdot{Philosophy} professor \rdot{Reece}}}
+\end{equation}
+and suppose that we already knew that the Maths department has a student named Smith and that Philosophy, likewise, has a professor called Reece. This message structure is appropraite and has no redundant parts if we assume a model like this
+
+\begin{equation}
+\scalebox{0.9}{\input{\ImagesFolder/shlaerLang-DeptStudentProfessor..collapsedReferential..diagram.tex}}
+\end{equation}
+in which the relationship d1 between a student and their department is modelled as an identifying fetaure of \textit{student} and likewise the relationship d2 is shown as an idenitfying feature of \textit{department}.
+
+Notice that in the message () 
+we see  that a student from one department is being supervised by a professor from 
+a different  department. That means that this path from student to department mediated by supervising professor
+\begin{equation*}
+\scalebox{0.9}{\input{\ImagesFolder/shlaerLang-StudentProfessorDept..path..diagram.tex}}
+\end{equation*}
+is not subordinate to the trivial path consisting of the relationship\commentary{improve these diagrams sometime later after text improved and so validated}
+\begin{equation*}
+\scalebox{0.9}{\input{\ImagesFolder/shlaerLang-StudentDept..path..diagram.tex}}
+\end{equation*}
+Now we should consider some different scenariaos. Consider, instead of (),  
+this message
+\begin{equation}
+\label{xxx}
+\mbox{\textit{\rdash{Maths} student \rdash{Brown} 
+\ \uwave{is supervised by}\ professor \rdot{Reece}}}
+\end{equation}
+and others of the same form.
+There are two  scenarios in which it would be uniformly appropriate to convey r3 instances in this way.
+
+1. if professors are uniquly identified by name but students are identified by name within the cvontextr of the departments they are within. 
+
+2. if professors as well as students are unqiuly identified by name but only within the context of their departments AND there is a rule that says students must be supervised by professors from their own departments. This we should recognise as the case of a collapsed referential. We illustarte this case in figure xxx.
+
+
+Finally, consider when messages of this form
+\begin{equation}
+\label{zzz}
+\mbox{\textit{Student \rdash{Brown} 
+\uwave{is supervised by} professor \rdot{Green}}}
+\end{equation}
+ might be appopriate. There are two cases. First case, obviously, when
+students and professors can be idenitfied unquely by name. The pattern of relationships is this and no relationships are included amongst idenitfying features.
+
+But there is also another case when (5) is appropriate even if the names of professors 
+are only unique within the context of their departments.
+If we already know that maths has student Brown,  and supposing that Maths and maybe 
+Philosophy also has a professor Reece. Then the message structure
+(zzz) is absolutely appropriate and of the correct form  if we know that students are supervised by professors in the departments they are within i.e. if diagram (xxx) is a dominance diagram (scope diagram???). 
+
+Here the referential Maths is absent from tyhe message. Hence use of the term absent referential. Diagram xxx is an example of a general pattern which implies messages with absent referentials. A more general pattern is like this:
+
+or like this.
+
+. It doesn't help to try and give the most general possible paettern right now but you see the idea. There are two equivelnt paths that are comparable. One is a path of identifyingrelationships and the other is not or at least not in its entirety. 
+
+
+Tabular data.
+
+\setlength{\tabcolsep}{3pt} % Default value: 6pt
+\footnotesize
+\begin{tabular}{|l | l|l| l| l| l|}
+Touchstone&Shakespeare&As You Like It&April-May 1975&Oxford Playhouse&Bob Hoskins
+\end{tabular}
+
+
 
  \iffalse
  \input{Overview.tex}
@@ -62,11 +136,11 @@
  \input{ERDiagrams}
  \input{Paths.tex}
  \input{Attributes.tex}
- \fi
  \input{IdentifyingFeatures.tex}
  \input{ReferencingEntities.tex}
+ %\fi
  \input{CommunicatingRelationships.tex}
- \iffalse
+ %\iffalse
  \input{Scope.tex}
  \input{CommunicatingConjunctions}
  \input{CoreversusDerivative.tex}
