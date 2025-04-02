@@ -1,7 +1,7 @@
 
 \section{Communicating Relationships}
 
-
+%\iffalse
 \subsection{Recap}
 \mynote
 Earlier, in section \ref{sub:conveying_facts_and_storing_of_data}, we looked at examples of the use
@@ -40,7 +40,7 @@ For example an instance of a dramatic role being played by an actor might be com
 \rdot{Oxford Playhouse} was \uwave{played by} \rdash{Bob Hoskins},
 }
 \end{erquote}
-which, by the way, is a true fact. 
+which, by the way, I can attest to. 
 In this example, referentials to reference the dramatic role are dotted underlined --- there are five of them.
  The relationship is wavy underlined. Referentials to reference the actor are dash underlined   --- there is only one of them.
  The relationship being instanced is this one
@@ -51,27 +51,177 @@ which was described earlier in figure \ref{dramaticArts1..diagram}.
 
 \subsection{What More is to be Said}
 \mynote
-We see that whenever a relationship instance is to be conveyed two sets of referentials are required --- one to reference the first entity and the other to reference the second entity.  
+We see that whenever a relationship instance is to be conveyed then two sets of referentials are required --- one set to reference the first entity and the other set to reference the second entity.  
 \mynote
 Now we have to consider the possibility that sometimes, \textit{a priori}, these two sets of referentials overlap. 
-In other words that, \textit{a priori}, some of the referentials for the two distinct entities coincide.
-Shlaer and Long, in a very much underrated paper, 
+In other words that, \textit{a priori}, 
+some of the referentials for the two distinct entities may coincide.
+Shlaer and Lang, in a little read and underrated paper, 
 explore this topic in the context of relational database structure and refer to the then shared coincident referential as a \textit{collapsed referential}. 
 \mynote
 We look at cases where there are collapsed referentials, and also at some other cases which exhibit different characteristics by which 
-referentials that one might expect to be present are simply not needed --- in such cases we shall 
-adapt the coinage of Shlaer and Long and say that there are \textit{absent referentials}.
-Just as we saw in the previous section, we see different characteristics\commentary{better word than behaviour} emerge\commentary{exhibited?} in the presence of comparable paths of relationships
-which are either equivalent or near equivalent.
-\begin{notebox}
-I have checked whether Shlaer \& Lang describe the variant of the student professor model in which student $\morph$ department is not identifying for this will be a case of absent referentials. Thy do not!!!!! 
-\end{notebox}
+referentials that one might expect to be present are actually not required --- in such cases we shall 
+adapt the coinage of Shlaer and Lang and say that there are \textit{absent referentials}. As we saw in the previous section there are various characteristics that arise when there are comparable paths of relationships which are either equivalent or near equivalent. \commentary{Consider talking about relationships having local scope here.}
 \mynote
-This is an important topic that requires careful artriculation
+How relationships are conveyed 
+is an important topic that requires careful articulation
 and without knowledge of this topic one has not a full understanding
 of data both as it is conveyed in common langauge and as it is communicated and stored in information systems.
 
-\subsection{An Example in which Referentials Collapse}
+As a starting point we present a  basic example which is a simplification of one presented by Shlaer and Lang; then we continue by giving two variations: 
+the first variation has referentials that collapse;
+the second variation exhibits 
+an absent referential.\footnote{We will come to see that the significance 
+of absent referentials is most striking when the concepts in question are represented in data that is non-relational.}
+
+\subsection {Basic Example --- The student-department-professor Triangle}
+ Consider that an instance of the advisor relationship sketched out earlier in figure xxx might be communicated like this
+\begin{equation}
+\label{MathsBrownPhilosophyRichards}
+\mbox{\textit{\rdash{Maths} student \rdash{Brown} 
+\ \uwave{is advised by}\ \ \rdot{Philosophy} professor \rdot{Richards}}}
+\end{equation}
+and suppose that we already knew that the Maths department has a student named Smith and that Philosophy, likewise, has a professor called Richards. 
+This message structure is appropriate  if we assume this model
+\begin{equation}
+\label{shlaerLang-DeptStudentProfessor..collapsed..diagram}
+\scalebox{0.9}{\input{\handCraftedImagesFolder/shlaerLang-DeptStudentProfessor..collapsedReferential..diagram.tex}}
+\end{equation}
+\commentary{..collapsedReferentialCandidate..diagram}
+in which the relationship \textit{d1} between a student and their department is modelled as an identifying feature of \textit{student} and likewise the relationship $d2$ is shown as an identifying feature of \textit{department}.
+
+We see from the message that students from one department can be advised by professors from other departments. This is a property of the relationship $r$ that is worth representing
+on the diagram and this I have done with the note `inter-department'.
+
+\subsection {Collapsed Referentials Variation}
+
+Suppose instead that students are always advised by professors from the same department.
+In the case the relationship $r$ on the model can be annotated with the text `intra-department'
+in place of 'inter-department'. We will come back to other, more precise ways of annoting such diagrams in a later section.
+
+For now though see that the general message structure for conveying an instance of relationship $r$
+will be something like this:
+\begin{equation}
+\label{MathsBrownReece}
+\mbox{\textit{\rdash{Maths} student \rdash{Brown} 
+\ \uwave{is advised by}\  professor \rdot{Reece}}}
+\end{equation}
+
+What has happended is that I not have to explicity mention that professor Reece is from the maths department I know this because I know they must be from the same department as the student Brown.
+The two potential referentials have collapsed to one. I analyse this message as shown in figure 
+\ref{MathsBrownReeceAnalysis}.
+
+\begin{erboxedFigure}{H}{MathsBrownReeceAnalysis}
+{ This is an example of what Shlaer and Lang (?) call collapsed referentials. What we see is that referential `Maths' contributes to two different references
+it is a shared referential --- it contributes, as indicated, to both reference 1 and reference 2. The naive requirement for four referentials collapses to there being three.}
+\newcommand{\dashRefOne}{2pt 2pt}
+\newcommand{\dashRelationship}{1pt 0pt}
+\newcommand{\dashRefTwo}{1pt 1pt}
+\begin{tabular}{l}
+\Rnode{w1}{\rdot{\rdash{Maths}}}
+student 
+\Rnode{w2}{\rdash{Brown}} 
+\ \Rnode{w3}{\uwave{is advised by}}\ \ 
+professor 
+\Rnode{w4}{\rdot{Richards}}\\[1.4cm]
+\kern0.5cm\Rnode{ref1}{\textit{reference 1}}
+\kern0.5cm\Rnode{rel}{\textit{relationship}}
+\kern0.6cm\Rnode{ref2}{\textit{reference 2}} \\[0.5cm]
+\syntag{\dashRefOne}{ref1}{0.9}{w1}{-0.2}
+\syntag{\dashRefOne}{ref1}{0.9}{w2}{-0.2}
+\syntag{\dashRelationship}{rel} {0.7} {w3}{-0.1}
+\syntag{\dashRefTwo}{ref2}{0.4}{w1}{0.2}
+\syntag{\dashRefTwo}{ref2}{0.4}{w4}{0}
+\end{tabular}
+\end{erboxedFigure}
+You have to look carefully to see the difference but the model re-annotated it looks like this.
+\begin{equation}
+\label{shlaerLang-DeptStudentProfessor..collapsedReferential..diagram}
+\scalebox{0.9}{\input{\handCraftedImagesFolder/shlaerLang-DeptStudentProfessor..collapsedReferential..diagram.tex}}
+\end{equation}
+What makes all the difference is the annoation which read \textit{intra-depertment}
+rather than \textit{inter-department}. An alternative to this is that we use a more formal annotation using the path notation introduced earlier. In this case we would replace the annotation \textit{intra-department} with the algebraic looking
+\begin{equation}
+r \circ d2 \leq d1
+\end{equation}
+What this says is that if the relationship $r$ is defined, i.e. if a student has an advisor, then the department of the advisor of the student is the department the student majors in. Other ways we might speak are to say the relationship
+is local in scope and, as we have annotated above, intra-department.
+  
+
+\subsection{Absent Referentials Variation}
+
+Our final variation again describes a situation in which 
+the relationshyip $r$ between student and professor is intra-departmental
+but differs now in that it is assumed that
+students can uniquely identified by name so that the relationship $d1$ 
+between student and  department is no longer defined as identifying 
+so that the arrangement of relationships looks like this
+\begin{equation}
+\label{shlaerLang-DeptStudentProfessor..absentReferential..diagram}
+\scalebox{0.9}{\input{\handCraftedImagesFolder/shlaerLang-DeptStudentProfessor..nonAbsentReferential..diagram.tex}}
+\end{equation}
+
+Now, assuming as we do that we already know that student Brown is in the Maths department then an instance of the relationship $r$ may be conveyed like this
+\begin{equation}
+\label{BrownReece}
+\mbox{\textit{Student \rdash{Brown} 
+\uwave{is advised by} professor \rdot{Reece}}}
+\end{equation}
+
+Now the referential `Reece' alone does not uniquely identify a professor;
+on the contrary,
+our assumptions, as documented in 
+diagram (\ref{shlaerLang-DeptStudentProfessor..absentReferential..diagram}), 
+are that only in the context of a department may a name unambigouly identify a particaulr professor.
+Instead message (\ref{BrownReece}) must be interpreted in the context of the prior information as depicted in figure \ref{BrownReeceAnalysis}.
+
+\begin{erboxedFigure}{H}{BrownReeceAnalysis}
+{ 
+This is an explanation of the absense of referential `Maths' from the original message in which the naive requirement for three referentials
+ was met by just two in the presence of prior information.
+In this analysis the prior information is included as a non-defining relative clause.
+}
+\newcommand{\dashRefOne}{2pt 2pt}
+\newcommand{\dashRelationship}{1pt 0pt}
+\newcommand{\dashRefTwo}{1pt 1pt}
+\begin{tabular}{l}
+Student 
+\Rnode{w1}{\rdash{Brown}}
+(who majors in 
+\Rnode{w2}{\rdot{Maths}})
+\Rnode{w3}{\uwave{is advised by}}
+professor 
+\Rnode{w4}{\rdot{Reece}}\\[1.4cm]
+\kern2.5cm\Rnode{ref1}{\textit{reference 1}}
+\kern0.675cm\Rnode{rel}{\textit{relationship}}
+\kern0.675cm\Rnode{ref2}{\textit{reference 2}} \\[0.5cm]
+\syntag{\dashRefOne}{ref1}{0.9}{w1}{-0.2}
+\syntag{\dashRelationship}{rel} {0.7} {w3}{-0.1}
+\syntag{\dashRefTwo}{ref2}{0.4}{w2}{0.2}
+\syntag{\dashRefTwo}{ref2}{0.4}{w4}{0}
+\end{tabular}
+\end{erboxedFigure}
+
+\subsubsection {An interesting point}
+
+Suppose we want to express that there is an
+instance of a  relationship 'majoring in' between a particular student and a particular department. We can follow the prescriptions of this section providing that the relationship is NOT identifying.
+
+If it is identifying then the prescription 
+\begin{equation}
+\label{zzz}
+\mbox{\textit{Maths student \rdash{Brown}  
+\uwave{is majoring in} \rdot{Maths}}}
+\end{equation}
+is tuatulogous and a tuatology doesn't tell us  anything.
+
+What we need instead is
+\begin{equation}
+\label{ExistsMathsBrown}
+\mbox{There is a student majoring in Maths with the name \rdash{Brown}}
+\end{equation}
+
+\subsection{Further Example in which Referentials Collapse}
 \mynote 
 To illustrate the discussion that follows, 
 imagine we model the plots of plays and in doing so consider \commentary{globalise this somehow, summarise/compare the plots of many plays}
@@ -89,8 +239,8 @@ With this being so, it naively implies that
 if we wish to communicate an instance of the relationship, 
 (\ref{dramaticArtsLoves..relationship}), 
 then we will be required to communicate six referentials
- -- three to identify one party in the relationship and three to identify the other party;
-so, if I follow this approach, I would convey a particular relationship instance like this:
+ -- three to identify one party in the relationship and three to identify the other party; 
+ if I follow this approach, I would convey a particular relationship instance like this:
 \begin{equation}
 \text{\parbox{9cm}{\textit{The character named Antonio in Shakespeare's play Twelfth Night loves the character named Sebastian in Shakespeare play Twelfth Night.}}}
 \end{equation} 
@@ -98,12 +248,14 @@ But there is a reason why the shorter
 \begin{equation}
 \text{\parbox{9cm}{\textit{The character named Antonio in Shakespeare's play Twelfth Night loves the character named Sebastian.}}}
 \end{equation} 
-is correct and it is  important we can understannd and articulate this reason.
+is correct and it is  important we can understand and articulate this reason.
 
 The reason is because the relationship `loves' in this context 
 is, \textit{a priori}, a relationship which is internal to the plot of a single individual play ---
 it is an intra-play relationship rather than an inter-play relationship.
-Because it is intra-play, when we convey an instance then the referentials that refer to the play are shared between lover and loved As shown in figure \ref{SebastianLovesAntonio}. The title of the play ad the name of the playwright are coincident. 
+Because it is intra-play, in the conveyance of an instance the referentials that refer to the play are shared between lover and loved 
+which is to say that the title and the name of the play are each shared  
+as shown in figure \ref{SebastianLovesAntonio}. 
 
 \begin{erboxedFigure}{H}{SebastianLovesAntonio}
 {Referencing two different characters using just four referentials. This is an example of what Shlaer and Lang (?) called collapsed referentials. What we see is that referential `Shakespeare' contributes to two different references. Likewise does the referential `Twelfth Night'.
@@ -162,7 +314,6 @@ nor can we tell, for that matter, how they can be best represented in data.
 
 We can reinforce the earlier point that equivalent and near-equivalent paths significantly impact how instances are communicated. For this reason, it is crucial to document them in entity models. Without an understanding of these equivalences, we cannot determine from the model how relationship instances should be communicated in a way that avoids redundancy. Moreover, we cannot establish how they should be optimally represented in data.
 
-
  \subsection{Referentials That Do Not Collapse Though They Could}
  An example of a relationship between characters that is global in scope 
  is the relationship of one character being modelled on or resembling or being inspired 
@@ -172,7 +323,7 @@ We can reinforce the earlier point that equivalent and near-equivalent paths sig
 \begin{erquote}
 \parbox{9.0cm}{\linespread{1.3}\normalsize
 \rdash{Romeo} from \rdash{Shakespeare}'s \rdash{Romeo and Juliet}
-          \uwave{is modelled on} \rdot{Pyramus} from \rdot{Ovid}'s \rdot{Metamorphoses}.}
+          is \uwave{modelled on} \rdot{Pyramus} from \rdot{Ovid}'s \rdot{Metamorphoses}.}
 \end{erquote}
 which, interpreted from the perspective of the dramatic arts that we have given above, does indeed contain six referentials. 
 The first three, shown with dashed underlining, reference one character.
@@ -182,12 +333,108 @@ reference a second character from a different play.\footnote{I am bending the fa
 in that Metamophoses isn't strictly a play - its a bunch of stories.} 
 There are no shared referentials.
 
+\subsection{Further Example of an Absent Referential}
+The next example is based on a message that I received on my phone on a day that I was returning from holiday. The message read:
+\begin{equation}
+\label{LH2502PhoneMessage}
+\text{\parbox{9cm}{\textit{
+Your flight LH2502 from Munich to Manchester on 14 August 2024 at 15:55 will depart from gate L06.}}}
+\end{equation}
+Now, this message contains multiple referentials and individually or combined these make reference to
+multiple entities:
+\begin{itemize}
+  \item the flight number, LH2502, makes reference to an \textit{airline service},\footnote{which, from one point of view at least, is a little odd because the name flight number purports to reference a flight. It isn't so odd though because on any given day flight numbers do reference flights.}
+  \item each airport name, Munich, respectively, Manchester, makes reference to an \textit{airport},
+  \item the combination of flight number, LH2502, and date, 14 August 2024, make reference to a \textit{flight},
+  \item the combination of the airport the flight is identified as being from, Munich, and the gate number, 
+  L06, identifies a \textit{gate}.
+\end{itemize}
+\mynote 
+These referentials, the names (Munich, Manchester), numbers (LH2502, L06) and the date (14 August 2024)
+I can understand as the values of attributes of the various referenced entitites. 
+The types of these entities (airline service, airport, flight and gate), the relationships between them and the attributes employed
+(flight number, date of departure, airport name and gate number) I can arrange on a diagram like this:
+\begin{equation}
+\label{boardingGate1}
+\raisebox{-1.5cm}{\input{\ImagesFolder/boardingGate1.tex}}
+\end{equation}
+ \mynote
+Message (\ref{LH2502PhoneMessage}) communicates instances of 
+three different relationships and these have been labelled on the diagram as $r1$, $r2$ and $r3$;
+each of these relationships instances can be conveyed individually as follows:
+\begin{align}
+\label{messageone}r1---&\text{\textit{service LH2502 is \uwave{from} airport Munich}} \\
+r2---&\text{\textit{service LH2502 is \uwave{to} airport Manchester}} \\
+r3----\label{messagefour}&\text{\textit{flight LH2502 on 14 Aug 2024 is \uwave{departing from} gate L06}} 
+\end{align}
+\mynote
+I should mention, for the sake of completeness, that message (\ref{LH2502PhoneMessage}) also communicates a value for the $scheduled time$ attribute,
+ideividually this might be communicated like so
+\begin{equation}
+\text{\textit{flight LH2502 on 14 Aug 2024 has \uwave{scheduled time} 15:55}} 
+\end{equation}
+but this doesn't concern us here.
+\mynote
+In the context of the relationships as we have diagrammed them,
+message (\ref{messagefour}) has to be understand using the information in equation 
+(\ref{messageone}). To identify a \textit{gate} we need an airport and a gate number.
+We need the following background understanding
+\begin{equation}
+\label{gatescopetext}
+\parbox{8cm}{\textit{The gate the flight leaves from is located at the airport 
+that the flight leaves from.}}
+\end{equation}
 
-\input{AirportGateExample}
+For this reason the airport the gate is located at is an absent from message
+(\ref{messagefour}) --- it is an absent  referential.
 
+\mynote
+The background understanding is a key to understanding how a relationship is to be conveyed. Therefore the diagram needs to be annotated with this key information.
+One way of doing this is to contract (\ref{gatescopetext}) to a scoping inequality for relationship
+\begin{equation}
+r3 \circ d2 \leq d1 \circ r1
+\end{equation}
 
+\begin{erboxedFigure}{H}{FlightGateAnalysis}
+{ 
+This is an analysis of message (\ref{messagefour}) in which the naive requirement for four referentials
+ was met by just three in the presence of prior information.
+To provide the missing referential I added the parenthetical remark
+which, grammatically, is a non-defining relative clause.\footnote{
+I wanted the remark to read `which is from Munich' but I abbreviated it as 
+I didn't have room across the page.}
+}
+\newcommand{\dashRefOne}{2pt 2pt}
+\newcommand{\dashRelationship}{1pt 0pt}
+\newcommand{\dashRefTwo}{1pt 1pt}
+\begin{tabular}{l}
+Flight 
+\Rnode{w1}{\rdash{LH2502}}
+(from 
+\Rnode{w2}{\rdot{Munich}}
+) on
+\Rnode{w3}{\rdot{14 Aug 2024}}
+is
+\Rnode{w4}{\uwave{departing from}}
+gate
+\Rnode{w5}{\rdot{L06}}.\\[1.4cm]
+\kern2.5cm\Rnode{ref1}{\textit{reference 1}}
+\kern0.675cm\Rnode{rel}{\textit{relationship}}
+\kern0.675cm\Rnode{ref2}{\textit{reference 2}} \\[0.5cm]
+\syntag{\dashRefOne}{ref1}{0.9}{w1}{-0.2}
+\syntag{\dashRefOne}{ref1}{0.9}{w3}{-0.2}
+\syntag{\dashRelationship}{rel} {0.7} {w4}{-0.1}
+\syntag{\dashRefTwo}{ref2}{0.4}{w2}{0.2}
+\syntag{\dashRefTwo}{ref2}{0.4}{w5}{0}
+\end{tabular}
+\end{erboxedFigure}
 
+\subsection{General Patterns}
+\subsubsection{Collapsing Referentials}
+A more general pattern is like this:
 
+or like this.
 
-
+. It doesn't help to try and give the most general possible pattern right now but you see the idea. There are two equivalent paths that are comparable. One is a path of identifying relationships and the other is not or at least not in its entirety.
+\subsubsection{Absent Referentials}
  
