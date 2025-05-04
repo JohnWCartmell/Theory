@@ -2,13 +2,14 @@
 
 \section{Attributes}
 \label{Attributes} 
-
+\footnote{ChatGPT: Overall Comment
+There is slight conceptual repetition — for instance, the idea that attributes relate particulars to universals is revisited several times.} 
 \subsection{Data and Attribution}
 \mynote
 This section concerns the simplest aspects of things 
 to which data can be meaningfully attributed. 
 In entity modelling, these simplest aspects are known as \textit{attributes}.
-We have  discussed entity types and relationships at length, and now  we describe this  third vital concept.
+We have discussed entity types and relationships at length, and now  we describe this  third vital concept.
 Working together, the concepts of entity type, relationship and attribute
 are the foundation of entity modelling, making it a methodology that  bridges the gap between the world as we understand it (or some domain therein) and the structure of data, which data, after-all, purports to describe some part of what is. 
 
@@ -22,7 +23,7 @@ to subjects at hand.
 A temperature, a colour, a price, a height, a distance — such items of data 
 tell us nothing less they be the temperature, the colour, the price, the height, or the 
 distance of \textit{some aspect} of \textit{some thing}. 
-They tell us nothing, therefore, less they be attributed to an entity.
+They tell us nothing, therefore, lest they be attributed to an entity.
 
 \mynote
 A product in a catalogue or on a website  might have a full price and a sale price
@@ -31,7 +32,7 @@ The product has a name
 and it is likely that in the small print there is a product identifier.
 Within the scope of this website, `product' is a type of entity
 and `product identifier', `product name',  `full price' and `sale price' are attributes;
-each attribute is constrained, in reality, in what can be meaningful attributed to it ---
+each attribute is constrained, in reality, in what can be meaningfully attributed to it ---
 it wouldn't make sense to say `size: red' or `colour: large' and
 it  would be outside the bounds of expectation 
 for a price to be given as `squillions' or `rainy' or as `10 miles'.
@@ -44,10 +45,8 @@ for example, it makes sense to  attribute a planet within the solar system with
   --- the details we find on Wikipedia, for example --- 
  but it doesn't make sense to attribute your stay in a hotel with orbital eccentricity. 
  Instead your stay in a hotel may be attributed with arrival date and a departure date.
-
-\mynote 
 Attributes in an entity model are named and doubly constrained:
-firstly the are constrained to the type of entity to which they apply, 
+firstly they are constrained to the type of entity to which they apply, 
 as aspects of entities of the type (planetary orbit rather than stay in a hotel);
 secondly they are constrained in what it is that may be attributed to this aspect 
 (a pure number, in the case of planetary eccentricity, 
@@ -67,24 +66,54 @@ product
 
 What is important here is that within the context of an entity type there is a list of attributes, each attribute has a name and each attribute has a type of value specified (in this case either text or monetary amount). In this stylised layout the \verb!=>! can be read as introducing a list of attributes and the colon can be read aloud as "is" or as "is of type". 
 
-
 For a more technical example, in some context I might chose to describe the orbit of any planet around the sun by the following attributes
 \begin{verbatim}
 planet 
-   => aphelion: distance,
+   => semi-major axis: distance,
       eccentricity : real number between 0 and 1,
-      mean anomaly: angular distance,
       inclination to ecliptic: angular distance,
-      longitude of ascending node: angular distance
+      longitude of ascending node: angular distance,
+      argument of perihelion: angular distance,
+      time of perihelion: point in time
 \end{verbatim}
 
-The attribute \textit{aphelion} here represents the furthest distance from the sun. 
-I do not need to include the closest distance to the sun --- the  \textit{perihelion} --- because
-this can be calculated from \textit{aphelion} and \textit{eccentricity}.
+The attributes \textit{semi-major axis} and \textit{eccentricity}, taken together, describe the shape and size of the ellipse traced out by the planet in orbit. The other three parameters describe the plane that the ellipse lies in. 
+From the first two parameters the distance of the closest approach to the sun --- the  \textit{perihelion} --- can be calculated, as too can the furthest distance away from the sun reached by the planet 
+--- the \textit{aphelion}. In fact for any planet, knowedge of \textit{perihelion}  and \textit{aphelion} gives us the size and shape of the orbit --- in other words,  
+\textit{semi-major axis} and \textit{eccentricity} 
+can be calculated from  \textit{aphelion}  \textit{perihelion}. 
+\begin{table}[H]
+\small 
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{|l| 
+  >{\centering\arraybackslash}m{0.9cm} | 
+  c | 
+  >{\centering\arraybackslash}m{1.45cm} | 
+  >{\centering\arraybackslash}m{1.8cm} | 
+  >{\centering\arraybackslash}m{1.6cm} | 
+  >{\centering\arraybackslash}m{1.8cm}|}
+\hline
+\small Name & 
+\small Semi-major axis \newline (AU) & 
+\small Eccentricity &
+\small Inclination \newline to ecliptic (°) & 
+\small Longitude\newline of ascending\newline node \newline (°) & 
+\small Argument\newline of \newline perihelion (°) & 
+\small Time of \newline perihelion \\
+\hline
+Mercury & 0.387 & 0.205630 & 7.0049 & 48.331 & 29.124 & 2024-Dec-25 \\
+Venus   & 0.723 & 0.006772 & 3.3947 & 76.680 & 54.884 & 2023-Dec-31 \\
+Earth   & 1.000 & 0.016710 & 0.0000 & 0.000 & 102.937 & 2023-Jan-04 \\
+\hline
+\end{tabular}
+\caption{Parameters describing the planetary orbits of the first three 
+planets. A fuller version of this table is given in appendix \ref{PlanetaryOrbits}
+}
+\end{table}
 
-Note that I could have chosen a different set of attributes. For example, among the three 
-attributes \textit{perihelion}, \textit{aphelion} and \textit{eccentricity},  any two will suffice
-to compute the third. There are many other attributes of  planetary orbits, but  the idea here has been to present a \textit{core set}. This matters. When data is stored or communicated  then 
+What this means is that I could have chosen a different set of attributes for my entity type `planet'. 
+For example, among the four
+attributes \textit{perihelion}, \textit{aphelion}, \textit{semi-mean axis} and \textit{eccentricity},  any two can be used to compute the other two. The idea has been to present a \textit{core set}. This matters. When data is stored or communicated  then 
 we need only store or transmit such a core set  --- any values that can be derived from them need not be sent. We will return to this topic later.
 
 \subsection{Types of Particulars and Types of Universals}
@@ -97,8 +126,8 @@ This distinction helps clarify how attributes function in a model. An attribute 
 
 In philosophy, a distinction is drawn between \textit{particulars} and \textit{universals}. 
 Numbers, colours and  other determinate quantities are generally judged to be universals. 
-We can say, then, that the two kinds of types that we are
-talking about are 
+With this distinction in mind then we can characterise the two kinds of types that we are
+talking about as
 \begin{itemize}
 \item types all of whose instances are particulars (entity types), and
 \item types all of whose instances are universals (attribute types).  
@@ -129,6 +158,9 @@ In this style the value types of attributes are not shown on the diagram but are
 separately documented. }
 \input{\ImagesFolder/employeeProjectWorkerMediatedAttributed.tex}
 \end{erboxedFigure}
+
+Review\footnote{Chatgpt:Diagramming Section:
+This is rich but perhaps slightly dense. One option could be to move some of the historical commentary (about Chen’s evolving use of diagrams) to footnotes or an appendix if you’re aiming for a smoother read. But if your audience values the historical depth, then the current form is great.}
 
 
 \subsection{Descriptions and Definitions}\footnote{“That is my definition, and if you don’t like it... well, I have others.”}
@@ -166,73 +198,33 @@ they are not called such in entity modelling terminology.
 It breaks the duck test, but that’s just how it is:
 attributes are called attributes,
 and the term relationship is reserved---both in entity modelling and in these pages---
-for relationships between types of particulars; that is, between types of entities;
+for relationships between between types of entities;
 so it comes about that the principal components of an entity model are its entity types,
 their relationships, and their attributes.
 
-\section{Uused Notes}
-
-The detrminates can be more opne ended if in our modelling we can introduce new 
-types of determinates just enumerating their values. 
-
-
-\mynote
-The weather forecast for a particular day next week at midday 
-might be forecast as being sunny or cloudy or rainy with a temperature in degrees 
-centigrade or farenheit along with predicted mean wind speed and gust wind speed
-in miles per hour or kilometers per hour.
-
-\mynote There is a particular entity, the entity according to its type has aspects.
-Each aspect has some elementary data assiated with it -- a date, an numeric amount, a number of inches or centimetres, a temperature, a speed (mph or kph). 
-
-\mynote
-But some attributions do not make sense. Not every thing can be meaningfully attributed with colour or dimensions or date. 
-Famously, not every thing has a price. 
-
-\mynote
-The product on the shelf cannot meaningfully be said to be rainy or sunny or cloudy.
-No aspect of next weeks weather has length and width and height. 
-\mynote 
-Alongside the definition of types of entity and the relationships 
-comes the definition of the aspects of the entitites to which elementaty data
-can be attributed. Each such aspect is defined as an attribute. Attributes are defined to apply to types of entity. They are named.  
-The elementary types of data include numbers, names, labels, identifiers, dates, times of day and so on.   
-\mynote 
-Entity models have a role in defining the meaningfulness and the extent of data
- by defining which attributions make sense for which types of entity.
-\mynote 
-Entity models define the extent and the meaningfulness of data relating to subject entities by defining which attributions make sense according to their type.
-\mynote
-These meaningful aspects of things, that are generally numerical or textual in nature, 
-are defined in entity modelling by defining for every entity type in the  model 
- a set of named attributions that can be made of entitites of the type. 
-
-
-
-
-
-
-\subsection{Introduction}
-\mynote  As stored within information systems then the individually represented items — the 
-names, colours, quantities, the monetary amounts, the dates, etc — in the language 
+\subsection{Further Characterisations}
+\mynote  From what we have said, as stored within information systems
+then the individually represented items --- the 
+names, colours, quantities, the monetary amounts, the dates, etc --- in the language 
 of entity modelling, are said to be the values of attributes. Thus an actual name 
-like "John Smith" is said to the value of a ‘name’ attribute of a ‘person’ entity.
-
-We may express that information about a person is communicated or stored as 
-message with two components name and data of birth we might say that a ‘person’ entity may be attributed a ‘name’ and a ‘date of birth’ 
-on show an entity model diagram representing type ‘person’
-with ‘name’ and ‘date of birth’ attribute annotations, like this:
+like ``John Smith'' is said to the value of a ‘name’ attribute of a ‘person’ entityand if 
+`person' entities may be attributed with ‘date of birth’ to
+then on a diagram this appears like this
 \ercenterPicture{personNameDobAttribute}
 
-\mynote Alternatively to say 
-that date of birth is optional
-we may use a circle in place of the square:
+\mynote 
+In a situation where for some persons data of birth may not be known then the attribute
+may be defined to be \textit{optional}\footnote{With regard to the attribute as a functional relationship
+then this is equivalent to asserting that the functional relationship is partial not total.}
+Usually this will be represented on the diagram somehow. I would represent it like this
 \ercenterPicture{personMandatoryNameAttribute}
-To show that the name attribute within a message is the identifying attribute we underline the annotation in the diagram: 	
+
+\mynote
+In a situation where `person' entitites can be uniquly identified by name then the `name' attribute
+iss said to be identifying and in my diagrams this is shown by underlining the attribute as here	
 \ercenterPicture{personIdentifyingNameAttribute}
 
-\mynote 
-If it is necessary to give both a person's name \textit{and} their data of birth to uniquely identify 
+On the otherhand, if it is necessary to give both a person's name \textit{and} their date of birth to uniquely identify 
 them  then we underline
 both of these attributes on the diagram:
 \ercenterPicture{personIdentifyingNameDobAttribute}
@@ -241,159 +233,80 @@ these attributes are shown beneath the identifying attributes:
 \ercenterPicture{personAttributes}
 
 \mynote 
-It is clear that computer programs are effective only in so long as the data items 
+From a practical perspective, 
+it is clear that computer programs are effective only in so long as the data items 
 they manipulate are intended and understood as attributes of subject entities. It 
 follows that to have an effective information system we must first have agreed types 
-of subject entity and also what may be attributed to entities  of these types. In this agreement we agree the data content of the program or system i.e.  
-its subject matter.
-
-\mynote 
-In a message about a person two or more phone numbers may be communicated
-but it is a rule of entity modelling that for a single attribute an entity may only be attributed a single value. 
-For this reason if a person can have multiple phone numbers then ‘phone number’ is 
-not an attribute  of a ‘person’ entity type \textit{per se} but an attribute of a ‘phone’ entity type that 
-stands in relation to (is owned by) the
-‘person’ entity:
+of subject entity and also what may be attributed to entities  of these types. 
+In this agreement we agree the data content of the program or system i.e.  
+its subject matter. But what is seen to be at first sight an attribute of type of entity
+as, say, `phone number' of the person entity,  may
+subsequently found to belong somewhere else in the model  ---   if a person can have multiple phone numbers then ‘phone number’ is 
+not an attribute  of a ‘person’ entity type \textit{per se} but an attribute of a 
+separate but related entity as here 
 \ercenterPicture{personPhone}
 
-
-
-More specifically, an attribute is a named functional relationship between a type of entity and some type other than a type of entity, whose instances, rather, are universals of some kind. These universals have been called in philosophy \textit{determinates}. In entity modelling the types of determinates are defined by enumerating their values. 
-
-\mynote
-In an undertaking where the goal is to set out \textit{what is}, then when a definition is given, it is best if it is given in term of things that have come before.  Attributes, as we come to describe them now, are a third element within entity modelling and they connect entities, and, indirectly relationships, 
-with things  which must come before and are taken as primitive and universal. 
-
-\subsection{Determinates as Singular Types}
-\mynote 
-When we reference an instance then we reference by type and by quoting identifying features.
-\mynote 
-This is true of particulars and remains true of determinants
-if we assume that a determinant is a type with no distinguishing features and
-therefore a single instance.
-\mynote
-Attributes and relationships are differentiating features. 
-Determinants are featureless types. We can have different representations of
-determinants just as we have different synonyms for entity types.
-\mynote 
-How does this look in langauges like ML?
-
-\mynote 
- What kind of things are Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, and Saturday? They are \textit{days of the week}, obviously.
-
-Likewise:
-\begin{itemize}
-  \item 0,1,2,3,... are the \textit{natural numbers}
-  \item true, false are \textit{truth values};
-  \item red, amber, green are the \textit{traffic light colours};
-  \item clubs, diamonds, hearts, spades are the \textit{suits} in a standard pack of cards;
-  \item metre, kilogram, second, ampere, kelvin, mole, candela are \textit{SI units};
-  \item dot and dash are \textit{code elements} in morse code;
-  \item doh, ray, me, fah, sol, la, te are the \textit{solfège syllables};
-  \item 0, 1 are \textit{binary digits};
-  \item 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 are \textit{decimal digits};
-  \item a, b, c, d, ... z are the \textit{lower case latin characters}.
-\end{itemize}
-
-\mynote  Wherever we use a number we agree that it is the same number as any other place we use it. We can say the same thing about the days of the week or
-the truth values true and false. 
-So what exactly are  numbers, truth values and days of the week? In what if any sense do they exist? 
-\begin{notebox}[theory]
-In a theory of data paper. Model categories with coproducts. Take away
-the stuff about types of universals. Define the existence of sets of joint monics. 
-Define that there may not be circularities in the set of monics. Deduce that there must be at least be objects which represent universals.
-
-More precisely. If there are model instances in which an object has multiple instances,
-n say, then there must be objects which are coproducts of at least n copies of the terminal object. Tempting to try and write this up. 
-\end{notebox}
-
-\mynote For these types of things, \textit{days of the week} 
-\mynote I don't have a term for \textit{attribute type}. 
-\mynote Sometimes the term \textit{domain} is used.
-\mynote Chen uses the term \textit{value-set}.
-
-\mynote
-Though this is so, it is not usual to explain it in this way; my reason for doing so is that
-I want to avoid falling into a trap that most authors fall into ---
-it is my opinion that they short-change the reader when they come to describe what is meant by the term; instead, by defining the term \textit{attribute} properly and thinking about it properly 
-we get a more coherent picture of entity modelling 
-which on the one hands relates backwards into mathematics, the theory of knowledge and formal logic and on the other
-points forward into the structure of data and program code. 
-
-\mynote The background for the proper definition can be found in philosophical writings and probable dates back to Aristotle; for what is expressed in data is facts or knowledge or, if it be in error, at least has the form of facts or knowledge. Abstractly, at least, this form and its workings are an abstraction of the workings of ordinary language and  we can benefit from theories of knowledge informing our understanding of data.
-
-\subsection{Particulars and Universals}  
-\mynote 
-In discussing attributes, we make use of the philosophical distinction between particulars and universals. 
-The usual way of expressing it is that 
-\begin{itemize}
-\item	particulars are individual things like particular persons, tables, books, events and so on, 
-\item universals are shared properties, types or qualities such as green, triangular, human.
-\end{itemize}
-\mynote 
-On the distinction between particulars and universals, philosopher and mathematician Bertrand Russell in his classic 1912 introduction to philosophy
-writes that
-\begin{erquote}
-When we examine common words, we find that, broadly speaking, proper names stand for particulars, while other substantives, adjectives, prepositions, and verbs stand for universals. Pronouns stand for particulars, but are ambiguous: it is only by the context or the circumstances that we know what particulars they stand for.\footnote{page 53. He also observes that
-\textit{the word `now' stands for a particular, namely the present moment; but like pronouns, it stands for an ambiguous particular, because the present is always changing.}}
-\end{erquote}
-
-He writes that it can be seen that
-\begin{erquote}
- no sentence can be made up without at least one word which denotes a universal...
-\end{erquote}
-and this  leads to 
-\begin{erquote}
-... all truths involve universals, and all knowledge of truths involves acquaintance with universals.
-\end{erquote}
-Later, regarding the words we use for universals, he says that, generally
-\begin{erquote}
-adjectives and common nouns express qualities or properties of single things, whereas prepositions and verbs tend to express relations between two or more things.\footnote{page 54. Later still on page 59 he seeks to establish the proposition that
-all \textit{a priori} knowledge deals exclusively with relations between universals.
-}
-\end{erquote}
-
-
-The values which are 
-
-\mynote 
-Numbers, whole numbers and floating point or real numbers, are universals;
- so to are characters and sequences of characters and so are the truth values (`true' and `false'). 
-The types whose instances are universals include therefore
-\begin{itemize}
-	\item the type \textit{integer} of all whole numbers,
-	\item the type \textit{float} of all floating point numbers,
-	\item the type \textit{latinchar} of all latin characters,
-	\item the type \textit{unicode} of all unicode characters,
-	\item the type \textit{boolean} of truth values,
-	\item the type \textit{string} of all finite sequences of characters.
-\end{itemize}
-
-\mynote By arrangement we can include
-\begin{itemize}
-	\item the type of colours of trafic lights \textit{red}, \textit{amber}, \textit{red};
-	\item the type \textit{suit} whose instances are \textit{clubs}, \textit{diamonds}, \textit{hearts}, \textit{spades}.
-\end{itemize}
-
-\mynote We might also include
-\begin{itemize}
-	\item the type \textit{length} (is this the same as spatial distance)
-	\item the type \textit{duration}
-	\item the type \textit{date}
-	\item the type \textit{time}
-	\item the type \textit{temperature}
-	\item the type \textit{angular separation} (i.e. a number of degrees or radians)
-	\item \textit{force}
-	\item \textit{pressure}
-	\item \textit{speed}
-	\item \textit{acceleration}
-	\item \textit{colour}
-	\item \textit{gps coordinate}
-\end{itemize}
 
 \subsection{Relationships between Universals}
 \mynote A final point on universals. In addition to the relationships and attributes as so far described there will exist many relationships between universals themselves
 for example there will be logical and arithmetical relationships. When we construct an entity model these universal relationships are taken as givens --- we do not set out to model them.
+For example, temperature values are comparable, and we can speak of one being higher than another.
+\commentary{revise chatgpt suggested text}
+ These kinds of relationships between values (universals) — like comparisons, \newtt{unit conversions} and
+ \newtt{arithmetical operations} 
+ \oldtt{units, or derived quantities} — are typically considered background knowledge \oldtt{or}
+ \newtt{to be} handled by the application logic, not modelled in the entity structure itself.
+
+
+
+\subsection{What are the Givens?}
+
+I ask you to go along with the proposition that numbers are \textit{givens} and \textit{universal}, though I admit there is room for discussion as to what exactly we mean by \textit{number}. We need to distinguish between natural numbers ($0,1,2,...$), integers ($...,-2,-1,0,1,2,3,...$), and real (decimal) numbers, as used in pricing, measurement, proportions, and so on. 
+
+Moreover, in information systems, numbers are typically finite in extent, constrained by 32- or 64-bit representations (or similar schemes). These technical limits impose restrictions both on the magnitudes of integral values and on the granularity and precision of real-number representations.
+
+Likewise, I ask you to consider alphabetic characters and textual values as givens and universals—though,  they vary widely across the world and across systems. We won’t be delving into that variety here.
+
+When it comes to defining the values we take as givens, different technologies—such as XML Schema, IDL, and SQL—define their own sets of primitive types. Modelling notations may adopt one or another of these foundational systems. A certain attribute might be modelled conceptually as having values of type \textit{real}; or, more pragmatically, it might be modelled as type \textit{float64} to reflect its implementation in a particular system.
+
+
+\subsection{Styles of Attribute Type Definition}
+
+There are also questions of style.
+
+One such consideration is the treatment of units. Units of measurement are crucial—so how should they be handled? One option is to include the unit in the attribute name, as in:
+
+\begin{erquote}
+heightInCm: float64
+\end{erquote}
+
+Alternatively, one might define custom types that incorporate the unit, allowing for a more abstract naming scheme:
+
+\begin{erquote}
+height: numberOfCm,\\
+width: numberOfCm
+\end{erquote}
+
+I will probably favour this latter style.
+
+A further abstraction is to conceptualise \textit{length} as a universal, without committing to a specific unit. For example:
+
+\begin{erquote}
+height: length
+\end{erquote}
+where we expect the length concept to subsume the unit of measurement in some as yet unspecified way. 
+
+Another stylistic question arises in the context of scientific measurement: how should accuracy and precision be represented? Can a single attribute contain both a measured magnitude and an associated uncertainty? Or should these be modelled as distinct attributes?
+
+
+
+
+
+
+
+
+
+
 
 
 
