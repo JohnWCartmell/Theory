@@ -3,7 +3,7 @@
 \label{PathsofRelationships}
 \subsection{Paths and their Evaluation}
 \mynote
-In the terminology of Harry Ellis, wherever in an entity model there is a path of single-valued relationships:
+In the terminology of Harry Ellis (the Ellis of Barker-Ellis), wherever in an entity model there is a path of single-valued relationships:
 \begin{center}
 \input{\handCraftedImagesFolder/path.tex}
 \end{center}
@@ -22,7 +22,7 @@ These descriptions become much more important when we move on to consider entity
 
 \subsection{Comparable Paths in Goodman's Car Hire Business}
 \mynote 
-To make this  more concrete consider an example given earlier 
+To make this  more concrete, consider an example given earlier 
 and represented below in figure \ref{goodlandSSADMcarHire.annotate..diagram}. 
 This is my version of an entity model 
 presented in a text book on the SSADM method written by Goodland with Slater.
@@ -30,11 +30,11 @@ In the book, the model is presented as part of an analysis of the data requireme
 imaginary car hire business. 
 
 There are some interesting questions that can be asked regarding paths through this diagram. 
-There are five navigation paths which are of particular interest. In addition each individual relationship must be thought of as a path --- each relationship can be considered to be a path of length one. To make it easier to talk about these paths I have redrawn the model represented in
+There are five navigation paths which are of particular interest. In addition each individual relationship must be thought of as a path, for each relationship can be considered to be a path of length one. To make it easier to talk about these paths I have redrawn the model represented in
 figure \ref{goodlandSSADMcarHire.annotate..diagram} and added a label to each of the relationships.\footnote{A useful labelling that I first come across in a paper by Shlaer and Lang.} 
 
 \begin{erboxedFigure}{H}{goodlandSSADMcarHire.annotate..diagram}
-{This diagram was presented earlier in figure \ref{goodlandSSADMcarHire..diagram} 
+{This diagram was presented earlier in figure \ref{goodlandSSADMcarHireTwofold} 
 but has been redrawn here with its relationships labelled for ease of reference.
 It is a version of an example presented by Goodland describing an imaginary car hire company. 
 }
@@ -48,7 +48,7 @@ It is a version of an example presented by Goodland describing an imaginary car 
 \subsubsection{Example 1 --- Allocated Payment to Customer}
 
 \mynote
-There are two paths between entity type \textit{allocated payment} and type \textit{customer}.
+In this diagram, we see that there are two paths between entity type \textit{allocated payment} and type \textit{customer}.
 One of them proceeds via type \textit{payment} and consists of relationship \textit{r1} followed by relationship \textit{d1} as follows:
 
 \begin{equation}
@@ -62,7 +62,7 @@ The other  proceeds via type \textit{booking/invoice} and consists of relationsh
 \end{equation}
 
 
-Because of the path (\ref{SSADMCarHirePath1..diagram}),
+The existence of path (\ref{SSADMCarHirePath1..diagram}) tells us that
 there is a customer that is functionally dependent on any 
 given  \textit{allocated payment}. This is the customer that sends the payment that the allocated payment is part of. This customer may be written in mathematical script like this
 \begin{equation*}
@@ -70,9 +70,9 @@ d1(r1(x))
 \end{equation*}
 where $x$ is the allocated payment in question. 
 
-The existence of the second path (\ref{SSADMCarHirePath2..diagram}) gives us another 
+The existence of the second path, (\ref{SSADMCarHirePath2..diagram}), gives us another 
 way of establishing a customer that is functionally dependent on any 
-given  \textit{allocated payment}. This is the customer that made the booking
+given  \textit{allocated payment}. In this case, the customer that made the booking
 that the allocated payment is made to. This customer may be written in mathematical script like this
 \begin{equation*}
 d2(r2(x))
@@ -80,7 +80,7 @@ d2(r2(x))
 where, again, $x$ is the allocated payment in question. 
 
 \mynote
-Now the question arises, see figure \ref{SSADMCarHireCommuting}, are these two paths equivalent ways of navigating from an allocated payment to a customer. 
+Now the question arises, see figure \ref{SSADMCarHireCommuting}, are these two paths equivalent functional dependencies i.e. equivalent ways of navigating from an allocated payment to a customer. 
 Another way of asking the question is to ask 
 do we know that given an $x$ of type \textit{allocated  payment}, it is always the case that
 \begin{equation*}
@@ -120,12 +120,23 @@ to $c$ are equivalent, i.e. if $r1 \circ d1=r2 \circ d2$, then the diagram is sa
 \end{arrows}
 \end{erboxedFigure}
 
+\mynote So did Goodland and Slater  think of these two paths as equivalent i.e. of the diagram of functional relationships in shown in figure \ref{SSADMCarHireCommuting} (shown again in a mathematical style in figure \ref{SSADMCarHireCommutingCategoryStyle})
+as a commuting diagram of functional relationships? 
+In spite of the fact that they didn't say it, my guess is that at some level they probably did;
+but I believe that they didn't say they thought this way because they didn't have the language that would have enabled them to say so. My guess is they were in no position to ask themselves the question never mind answer it. 
+
+The SSADM methodology isn't alone --- I don't know of any software or data design methodology that leads us to ask such a question as this.  
+It is a terrible shortcoming  because  the distinction between paths that are equivalent and paths that are not and, generally, the way that comparable paths compare has real significance when the concepts involved are represented in data. I cannot over emphasise this.
+There is a collective theoretical and methodological blindspot --- a mssing trick in the armoury ---
+an absence that has had a substantial negative effect on the practice of software development and programming and on related technologies.  
+
+\begin{oldtt}
 \mynote One very interesting thing is that I am pretty sure that Goodland and Slater intended that we think of these two paths as equivalent i.e. of the diagram xxx as commuting. But they didn't say this and in fact they didn't have the language that would have enabled them to say it. I would say that as they didn't have the language to talk about it then they didn't consider it and, in turn, SSADM, the method that they were illustrating, doesn't  have a terminology for this in its armoury  and,
 outside of mathematics, I don't know of any methodology that does. 
 It is a terrible shortcoming  because  we shall see the distinction between paths that are equivalent and paths that are not and, generally, the way that comparable paths compare has real significance when the concepts involved are represented in data. 
 There here is an important meta-concept that is completely absent from current methodology
 (and theory). It has been missing for quite some time and its absence has had a substantial negative effect on the practice of software development and programming and on related technologies.  
-
+\end{oldtt}
 \subsubsection{Example 2 --- Booking/Invoice to Customer}
 \mynote
 Shown in figure \ref{SSADMCarHireNonCommuting2..diagram} are two comparable paths between entity type \textit{booking/invoice} and
