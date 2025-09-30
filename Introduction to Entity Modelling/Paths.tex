@@ -122,26 +122,21 @@ to $c$ are equivalent, i.e. if $r1 \circ d1=r2 \circ d2$, then the diagram is sa
 
 \mynote So did Goodland and Slater  think of these two paths as equivalent i.e. of the diagram of functional relationships in shown in figure \ref{SSADMCarHireCommuting} (shown again in a mathematical style in figure \ref{SSADMCarHireCommutingCategoryStyle})
 as a commuting diagram of functional relationships? 
-In spite of the fact that they didn't say it, my guess is that at some level they probably did;
-but I believe that they didn't say they thought this way because they didn't have the language that would have enabled them to say so. My guess is they were in no position to ask themselves the question never mind answer it. 
+In spite of the fact that they didn't say so, my guess is that at some level they probably did;
+but I believe that they didn't say that they thought this way because they didn't have the language that would have enabled them to say so. My guess is they were in no position to even ask themselves the question never mind answer it. 
 
 The SSADM methodology isn't alone --- I don't know of any software or data design methodology that leads us to ask such a question as this.  
 It is a terrible shortcoming  because  the distinction between paths that are equivalent and paths that are not and, generally, the way that comparable paths compare has real significance when the concepts involved are represented in data. I cannot over emphasise this.
-There is a collective theoretical and methodological blindspot --- a mssing trick in the armoury ---
+There is a collective theoretical and methodological blindspot, a mssing trick in the armoury ---
 an absence that has had a substantial negative effect on the practice of software development and programming and on related technologies.  
 
-\begin{oldtt}
-\mynote One very interesting thing is that I am pretty sure that Goodland and Slater intended that we think of these two paths as equivalent i.e. of the diagram xxx as commuting. But they didn't say this and in fact they didn't have the language that would have enabled them to say it. I would say that as they didn't have the language to talk about it then they didn't consider it and, in turn, SSADM, the method that they were illustrating, doesn't  have a terminology for this in its armoury  and,
-outside of mathematics, I don't know of any methodology that does. 
-It is a terrible shortcoming  because  we shall see the distinction between paths that are equivalent and paths that are not and, generally, the way that comparable paths compare has real significance when the concepts involved are represented in data. 
-There here is an important meta-concept that is completely absent from current methodology
-(and theory). It has been missing for quite some time and its absence has had a substantial negative effect on the practice of software development and programming and on related technologies.  
-\end{oldtt}
 \subsubsection{Example 2 --- Booking/Invoice to Customer}
 \mynote
-Shown in figure \ref{SSADMCarHireNonCommuting2..diagram} are two comparable paths between entity type \textit{booking/invoice} and
-entity type \textit{vehicle category}. One is a path of length one --- it is simply the relationship labelled r7 by which a booking requires a vehicle of a particular category.
-The second is of length two and traverses r5 followed by r6 and thus represents the category of the vehicle that is actually used to fulfill an order. These two paths cannot be equivalent because according to the model the booking may be one that is not yet fulfilled. That is why the relationship r5 is shown as a partial functional relationship (it is dashed, not solid). The question posed is, therefore, is it the case for all fulfilled bookings, the vehicle that fulfills the booking is of the same category as the category required in the booking. If the answer to the question is `yes' --- if this is the way the business operates --- then we will say that the path r7 dominates the path r5, r6 and we will write 
+Figure \ref{SSADMCarHireNonCommuting2..diagram} also shows two comparable paths, this time  between entity type \textit{booking/invoice} and
+entity type \textit{vehicle category}. One is a path of length one --- it is simply the relationship labelled \textit{r7} by which a booking requires a vehicle of a particular category.
+The second is of length two and traverses \textit{r5} followed by \textit{r6} and thus represents the category of the vehicle that is actually used to fulfill an order. These two paths cannot be equivalent because according to the model the booking may be one that is not yet fulfilled. That is why the relationship \textit{r5} is shown as a partial functional relationship (it is dashed, not solid). 
+In spite of this, the existence of these comparable paths poses a question
+namely is it the case for all fulfilled bookings that the vehicle that fulfills the booking is of the same category as the category required in the booking. If the answer to the question is `yes' --- if this is the way the business operates --- then we will say that the path \textit{r7} dominates the path \textit{r5 followed by r6} and we will write 
 \begin{equation*}
 r5 \circ r6 \leq r7.
 \end{equation*} 
@@ -191,8 +186,11 @@ then the fact that  $r5 \circ r6 \leq r7$ can be represented by the existence of
 
 In the Goodland car hire model that we are discussing,  and as annotated in figure \ref{goodlandSSADMcarHire.annotate..diagram}, 
 there are three paths from entity type \textit{booking/invoice} to entity type \textit{local office}.
-These are $r3$, $r4 \circ d4$ and $r5 \circ d5$. 
-These can be paired in three different ways. 
+These are the singleton path consisting of just the relationship \textit{r3}, 
+the path which is \textit{r4 followed by d4} which we also write as $r4 \circ d4$ 
+and the path which is 
+\textit{r5 followed by d5} which is also written as $r5 \circ d5$. 
+These paths can be paired in three different ways. 
 Each pair is a pair of comparable paths and each can be represented as a diagram and as a result we get the three diagrams 
 shown as (a), (b) and (c) in figure \ref{SSADMCarHireNonCommuting1}.
 
@@ -215,11 +213,6 @@ shown are equivalent or near-equivalent or, to put it differently, the diagram c
 \subsubsection{Recap}
 We have documented five different pairs of comparable paths in the Goodland example. 
 Each of the five comparisons can be expressed as commutivity, near commutivity or otherwise of diagrams. 
-We will see later how path comparisons in many case have an impact on how data representing concepts is structured. There is no mention of this in the Goodland's book --- there is a blind spot and this
-blind spot is shared with almost all other authors, Barker included. 
+We will see later how path comparisons in many case have an impact on how data representing concepts is structured. There is no mention of this in the Goodland's book and in fact there is \textit{r4 followed by d4}a blind spot across the field, Barker and Ellis included. 
 A single exception is to be found  in a little known paper by Shlaer and Lang. 
-They have drawn attention to these phenomena  and to their significance but they unfortunately didn't have 
- available to them the mathematical apparatus of category theory to help them frame their thinking and their language and, to my knowledge, their work has not had impact that it deserves. 
-I have described these phenomena that are worth looking out for 
-and in later sections will describe the impact  when found. 
-In doing this I will be addressing a blind spot in current methodology.
+They have drawn attention to these phenomena  and to their significance but they didn't have  available to them the mathematical language provided by category theory to help them frame their thinking and their language; to my knowledge, their work has not had impact that it deserves. 
