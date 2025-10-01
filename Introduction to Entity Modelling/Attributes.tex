@@ -2,7 +2,8 @@
 
 \section{Attributes}
 \label{Attributes} 
-
+\footnote{ChatGPT: Overall Comment
+There is slight conceptual repetition — for instance, the idea that attributes relate particulars to universals is revisited several times.} 
 \subsection{Data and Attribution}
 \mynote
 This section concerns the simplest aspects of things 
@@ -41,6 +42,7 @@ Each attribute within an entity model defines a named aspect of a type of entity
 also defines what can be meaningfully attributed to this aspect; 
 for example, it makes sense to  attribute a planet within the solar system with
  orbital eccentricity
+  --- the details we find on Wikipedia, for example --- 
  but it doesn't make sense to attribute your stay in a hotel with orbital eccentricity. 
  Instead your stay in a hotel may be attributed with arrival date and a departure date.
 Attributes in an entity model are named and doubly constrained:
@@ -48,15 +50,12 @@ firstly they are constrained to the type of entity to which they apply,
 as aspects of entities of the type (planetary orbit rather than stay in a hotel);
 secondly they are constrained in what it is that may be attributed to this aspect 
 (a pure number, in the case of planetary eccentricity, 
-but in other cases a date and in others a colour or a truth value or, in
+but in other cases a colour or a date or, in
 some cases, free text).
 
 \mynote
 In an entity model each type of entity has an enumerated list of named attributes. These attributes may be displayed on entity relationship diagram or they might be separately documented as, for example,
  like this:
- \begin{equation}
-\label{productAttributes}
-\begin{minipage}{0.9\textwidth}
 \begin{verbatim}
 product 
    => product identifier: text,
@@ -64,19 +63,10 @@ product
       full price: monetary amount,
       sale_price: monetary amount
 \end{verbatim}
-\end{minipage}
-\end{equation}
-
 
 What is important here is that within the context of an entity type there is a list of attributes, each attribute has a name and each attribute has a type of value specified (in this case either text or monetary amount). In this stylised layout the \verb!=>! can be read as introducing a list of attributes and the colon can be read aloud as "is" or as "is of type". 
 
 For a more technical example, in some context I might chose to describe the orbit of any planet around the sun by the following attributes
-
-
-
-\begin{equation}
-\label{planetaryAttributes}
-\begin{minipage}{0.9\textwidth}
 \begin{verbatim}
 planet 
    => semi-major axis: distance,
@@ -86,9 +76,6 @@ planet
       argument of perihelion: angular distance,
       time of perihelion: point in time
 \end{verbatim}
-\end{minipage}
-\end{equation}
-
 
 The attributes \textit{semi-major axis} and \textit{eccentricity}, taken together, describe the shape and size of the ellipse traced out by the planet in orbit. The other three parameters describe the plane that the ellipse lies in. 
 From the first two parameters the distance of the closest approach to the sun --- the  \textit{perihelion} --- can be calculated, as too can the furthest distance away from the sun reached by the planet 
@@ -126,7 +113,7 @@ planets. A fuller version of this table is given in appendix \ref{PlanetaryOrbit
 
 What this means is that I could have chosen a different set of attributes for my entity type `planet'. 
 For example, among the four
-attributes \textit{perihelion}, \textit{aphelion}, \textit{semi-mean axis} and \textit{eccentricity},  any two can be used to compute the other two. The idea has been to present a \textit{core set} and this is what I have done in (\ref{planetaryAttributes}). This matters. When data is stored or communicated  then 
+attributes \textit{perihelion}, \textit{aphelion}, \textit{semi-mean axis} and \textit{eccentricity},  any two can be used to compute the other two. The idea has been to present a \textit{core set}. This matters. When data is stored or communicated  then 
 we need only store or transmit such a core set  --- any values that can be derived from them need not be sent. We will return to this topic later.
 
 \subsection{Types of Particulars and Types of Universals}
@@ -137,11 +124,10 @@ In entity modelling, the word \textit{type} is used in two distinct senses, each
 \end{itemize}
 This distinction helps clarify how attributes function in a model. An attribute identifies a particular aspect of an entity (such as its colour or its orbital period), and it is constrained by a type that defines what kind of value may be associated with that aspect (e.g. a colour, a duration, or a number).
 
-Numbers, colours and  other determinate quantities are generally judged to be universals in the sense in which the term  is used in philosophy wherein
- \textit{universal} things are contrasted with \textit{particular} things --- all things being either \textit{universal} or \textit{particular}.
-
-With this distinction in mind then we can characterise 
-the two kinds of types that we are talking about as
+In philosophy, a distinction is drawn between \textit{particulars} and \textit{universals}. 
+Numbers, colours and  other determinate quantities are generally judged to be universals. 
+With this distinction in mind then we can characterise the two kinds of types that we are
+talking about as
 \begin{itemize}
 \item types all of whose instances are particulars (entity types), and
 \item types all of whose instances are universals (attribute types).  
@@ -149,29 +135,31 @@ the two kinds of types that we are talking about as
 
 \subsection*{Diagramming Attributes}
 \mynote
-Users of entity modelling may decide whether or not to include attributes on diagrams. Chen's original paper did not show attributes on diagrams  but in 1984
-he published a paper that did do. 
-It is not clear that he expected this style for representing attributes (he drew them as elipses on the diagram) to be used wholesale. 
-\mynote
-In this last mentioned 1984 paper Chen presents an example diagram 
-which I have reproduced in figure  \ref{ChenStyleProjectWorkerAttributed} 
-and which shows a graphical representation of attributes associated with the PROJECT-WORKER relationship  that was previously given as an example relationship in his 1976 paper and which we drew as (\ref{projectWorkerChenStyle}), above.
+Users of entity modelling may decide whether to include attributes on diagrams or whether to document them
+separately.
+Chen's original paper did not show attributes on diagrams  but in 1984
+he published a paper that did. In this  paper Chen presents an example diagram 
+which I reproduce in figure  \ref{ChenStyleProjectWorkerAttributed}. 
+It shows  attributes associated with the PROJECT-WORKER relationship (\ref{projectWorkerChenStyle}) that was previously given as an example relationship in his 1976 paper.
 
 \begin{erboxedFigure} {H}{ChenStyleProjectWorkerAttributed}{From Chen 1984. In this diagram NUMBER, NAME, NUMBER-OF-YEARS, DATE and DOLLAR-AMOUNT must all be understood as types all of whose instances are universals. Chen uses the term `value type' for such types;
-thus our universal things are what he calls values. In the same way it is 
-the practice in programming to refer to names, numbers, dates and so on, as values but it is more enlightening to use  the term universal, as we do here, and to reflect on  the dichotomy between things that we treat as universals and things that we treat as particulars. }
+thus our universal things are what he calls values just as in programming it is is the practice 
+to refer to names, numbers, dates and so on, as values. }
 \input{\handCraftedImagesFolder/ChenStyleProjectWorkerAttributed.tex}
 \end{erboxedFigure}
 
-The same model is shown in our variant of the Barker-Ellis notation
+This Chen diagram is redrawn in the Barker-Ellis style
  in the diagram shown in figure \ref{employeeProjectWorkerMediatedAttributed}.
-As in the Chen diagram, diagrams in Barker's book use a hash symbol to foreground key attributes though it  is positioned differently to this use by Chen. In our style as shown here the key attributes are underlined as will be explained in the next section.\footnote{Our use of underlining is consistent with relational notations used in theory papers such as Zaniola and in descriptions of relations in Chen 1976.}
+As in the Chen diagram, diagrams in Barker's book use a hash symbol to foreground key attributes. In this book the key attributes are distinguished by underlining them as will be explained in the next section.\footnote{Our use of underlining is consistent with relational notations used in theory papers such as Zaniola and in descriptions of relations in Chen 1976.}
 \begin{erboxedFigure} {H}{employeeProjectWorkerMediatedAttributed}
 {The example from figure \ref{ChenStyleProjectWorkerAttributed} recast in the our Barker-Ellis style. 
 In this style the value types of attributes are not shown on the diagram but are expected to be 
 separately documented. }
 \input{\ImagesFolder/employeeProjectWorkerMediatedAttributed.tex}
 \end{erboxedFigure}
+
+Review\footnote{Chatgpt:Diagramming Section:
+This is rich but perhaps slightly dense. One option could be to move some of the historical commentary (about Chen’s evolving use of diagrams) to footnotes or an appendix if you’re aiming for a smoother read. But if your audience values the historical depth, then the current form is great.}
 
 
 \subsection{Descriptions and Definitions}\footnote{“That is my definition, and if you don’t like it... well, I have others.”}
@@ -191,26 +179,33 @@ any detail that serves to qualify, identify, classify, quantify or express an  e
 
 \mynote
 Chen in his  1976 paper uses the term \textit{value set} for the sets of values of what I have variously
-referred to as attribute types and more prosaically as \textit{types all of whose instances are universals}.
-This then enables Chen to observe that \textit{An attribute can be formally defined as a function which maps...into a value set} and also \textit{Since an attribute is defined as a function, it maps an entity in an entity
+referred to as attribute types and more prosaically \textit{types all of whose instances are universals}.
+This then enables Chen to observe that 
+\begin{erquote}
+\textit{An attribute can be formally defined as a function which maps...into a value set}.
+\end{erquote}
+ and to say also that
+ \begin{erquote}
+ \textit{Since an attribute is defined as a function, it maps an entity in an entity
 set to a single value in a value set}.
+\end{erquote}
 
 \mynote
 Chen's formal definition is an important insight.
 It means that in entity modelling, the term \textit{attribute} is used as a specific term
 for a named functional relationship between a type all of whose instances are particulars  and a type all of whose instances are universals of some kind.
 The universals in question are often said to be \textit{values} but 
-in philosopy  are said to be \textit{determinates}. 
+in philosophy  are said to be \textit{determinates}. 
 
 \mynote
 It is ironic that although attributes relate entities to values—
-that is, particulars to determinates, and are therefore, very much relationships, as the term is properly used, 
-they are not called such in entity modelling terminology.
-It breaks the duck test, but that’s just how it is:
+that is, particulars to determinates, and are therefore, very much relationships, if the term is properly used, 
+they are not called this in entity modelling.
+It breaks the duck test, but that's just how it is:
 attributes are called attributes,
 and the term relationship is reserved---both in entity modelling and in these pages---
 for relationships between between types of entities;
-so it comes about that the principal components of an entity model are its entity types,
+it comes about that the principal components of an entity model are its entity types,
 their relationships, and their attributes.
 
 \subsection{Notation}
@@ -220,25 +215,22 @@ names, colours, quantities, the monetary amounts, the dates, etc --- in the lang
 of entity modelling, are said to be the values of attributes. Thus an actual name 
 like ``John Smith'' is said to the value of a ‘name’ attribute of a ‘person’ entity and if 
 `person' entities may be attributed with ‘date of birth’ also
-then on a diagram is shown like this
+then on a diagram this is represented like this
 \ercenterPicture{personNameDobAttribute}
 
 \mynote 
-In a situation where for some persons data of birth may not be known then the attribute
+In a situation where for some persons date of birth may not be known then the attribute
 may be defined to be \textit{optional}.\footnote{With regard to the attribute as a functional relationship
-then this is equivalent to asserting 
-that the functional relationship is partial not total.}
-Usually this will be represented on the diagram somehow. 
-I would represent it like this
+then this is equivalent to asserting that the functional relationship is partial not total.}
+Usually this will be represented on the diagram somehow. I would represent it like this
 \ercenterPicture{personMandatoryNameAttribute}
 
 \mynote
-In a situation where `person' entitites can be uniquely identified by name 
-then the `name' attribute is said to be identifying 
-and in my diagrams this is shown by underlining the attribute as here	
+In a situation where `person' entities can be uniquely identified by name then the `name' attribute
+is said to be identifying and in my diagrams this is shown by underlining the attribute as here	
 \ercenterPicture{personIdentifyingNameAttribute}
 
-On the otherhand, if it is necessary to give both a person's name \textit{and} their date of birth to uniquely identify 
+On the other hand, if it is necessary to give both a person's name \textit{and} their date of birth to uniquely identify 
 them  then we underline
 both of these attributes on the diagram:
 \ercenterPicture{personIdentifyingNameDobAttribute}
@@ -253,10 +245,9 @@ they manipulate are intended and understood as attributes of subject entities. I
 follows that to have an effective information system we must first have agreed types 
 of subject entity and also what may be attributed to entities  of these types. 
 In this agreement we agree the data content of the program or system i.e.  
-its subject matter. 
-But what is seen to be at first sight an attribute of a certain type of entity
+its subject matter. But what is seen to be at first sight an attribute of type of entity
 as, say, `phone number' of the person entity,  may
-subsequently be found to belong somewhere else in the model  ---   if a person can have multiple phone numbers then ‘phone number’ is 
+subsequently found to belong somewhere else in the model  ---   if a person can have multiple phone numbers then ‘phone number’ is 
 not an attribute  of a ‘person’ entity type \textit{per se} but an attribute of a 
 separate but related entity as here 
 \ercenterPicture{personPhone}
@@ -266,10 +257,13 @@ separate but related entity as here
 \mynote A final point on universals. In addition to the relationships and attributes as so far described there will exist many relationships between universals themselves
 for example there will be logical and arithmetical relationships. When we construct an entity model these universal relationships are taken as givens --- we do not set out to model them.
 For example, temperature values are comparable, and we can speak of one being higher than another.
+\commentary{revise chatgpt suggested text}
+ These kinds of relationships between values (universals) — like comparisons, \newtt{unit conversions} and
+ \newtt{arithmetical operations} 
+ \oldtt{units, or derived quantities} — are typically considered background knowledge \oldtt{or}
+ \newtt{to be} handled by the application logic, not modelled in the entity structure itself.
 
- These kinds of relationships between values (universals) — like comparisons, unit conversions and arithmetical operations 
- — are typically considered background knowledge --- in systems development they
- are available in the software environment, not modelled in the entity structure. 
+
 
 \subsection{What are the Givens?}
 
@@ -299,27 +293,14 @@ height: numberOfCm,\\
 width: numberOfCm
 \end{erquote}
 
-I will probably favour this latter style.
 
-A further abstraction is to conceptualise \textit{length} as a universal, without committing to a specific unit. For example:
-
+A further possibility is to conceptualise \textit{length} as a universal, without committing to a specific unit. If we follow this approach then we will write
 \begin{erquote}
 height: length
 \end{erquote}
-where we expect the length concept to subsume the unit of measurement in some as yet unspecified way. 
+and expect the length concept to subsume the unit of measurement in some way. 
 
-Another stylistic question arises in the context of scientific measurement: how should accuracy and precision be represented? Can a single attribute contain both a measured magnitude and an associated uncertainty? Or should these be modelled as distinct attributes?
-
-In many a project these questions will need answers and, when so, it will be better to think about them at the outset rather than to answer them piecemeal.
-
-
-
-
-
-
-
-
-
+A question arises in the context of scientific measurement: how should accuracy and precision be represented? Can a single attribute contain both a measured magnitude and an associated uncertainty? Or should these be modelled as distinct attributes?
 
 
 
