@@ -234,28 +234,52 @@ we can count up the number of referentials required to reference a production
 as one for the venue, two for the play and one for the season so four referentials in all. 
 
 As an example consider the following prescription
-\begin{erquote}
-\parbox{9cm}{a production of \mbox{\rdash{Shakespeare}'s} \rdash{As You Like It}
- performed \mbox{\rdash{April – May 1975},} at \rdash{Oxford Playhouse}.}\\
-\end{erquote}
+  \begin{equation} 
+\label{referenceToAsYouLikeItProduction}
+\text{\parbox{9cm}{a production of \mbox{\rdash{Shakespeare}'s} \rdash{As You Like It}
+ performed \mbox{\rdash{April – May 1975},} at \rdash{Oxford Playhouse}.}
+ }\\
+\end{equation}
 As is to be expected in this description there are four referentials present.\footnote{
 I found the literal description online as ``a production of the play As You Like It (by William Shakespeare), April – May 1975, at Oxford Playhouse''.  
 } 
-We should point out that each of the four referentials corresponds to a path from left to right across the following diagram containing the features pertinent to the identification.\commentary{\highlight{Change this} into a figure so that we can add some commentary.}
+We should point out that each of the four referentials corresponds to a path from left to right across the  diagram shown in figure \ref{productionIdentificationScheme..diagram}.
 
-\begin{equation*}
+\begin{erboxedFigure}{H}{productionIdentificationScheme..diagram}
+{Identification scheme diagram for entity type production. 
+The paths from left to right across this diagram determine the four referentials 
+that must be provided to reference an entity of type production
+according to the model in figure \ref{dramaticArts1..diagram}.
+It is necessary, therefore,  to provide a total of four referentials
+to correspond to the paths
+\begin{center}
+\begin{tabular}{p{3cm}}
+$r2 \comp r1 \comp a3$ \\
+$r2 \comp a2$ \\
+$a4$          \\
+$r3 \comp a5$ \\
+\end{tabular}
+\end{center}
+}
+ \begin{equation*}
 \input{\ImagesFolder/dramaticArtsProduction..identificationScheme..diagram.tex}
 \end{equation*}
+\end{erboxedFigure}
 
-The paths from left to right across the diagram and the referentials that instantiate them in example above are\\
+The referentials that instantiate these paths in 
+the reference to a production of 
+\textit{As You Like It} in (\ref{referenceToAsYouLikeItProduction}) 
+are\\
 \newline
+\begin{center}
 \begin{tabular}{l l}
-\textbf{Path}     & \textbf{Referential} \\
-r2/r1/a3 & Shakepeare       \\
-r2/a2    & As You Like It   \\
-a4       & April-May 1975   \\
-r3/a5    & Oxford Playhouse
+\textbf{Path}          & \textbf{Referential} \\
+$r2 \comp r1 \comp a3$ & ``Shakepeare''       \\
+$r2\comp a2$           & ``As You Like It''   \\
+$a4$                   & ``April-May 1975''   \\
+$r3 \comp a5$          & ``Oxford Playhouse''
 \end{tabular}
+\end{center}
 
 \subsection{Arrangements with Comparable Paths of Identifying Relationships}
 When a type has multiple paths of identifying relationships emanating from it and when these paths intersect in the sense that there is a type in common between the paths (in addition to the
@@ -270,7 +294,7 @@ To see this we are going to move on to another area within our model and look at
  \subsubsection{Example 1 --- Dramatic Roles from Figure \ref{dramaticArts1..diagram}}
 \mynote
 In figure \ref{dramaticArts1..diagram}, the entity type \textit{dramatic role} is
-depicted, somewhat similar to an intersection entity, as shown having
+depicted, somewhat similar to an intersection entity; it is shown as having
 two identifying relationships and no identifying attributes.
 The relevant detail is  this
 \begin{equation*}
@@ -291,9 +315,28 @@ a dramatic role will require seven referentials
 So we will need seven, right?
  Well no, rather surprisingly, wrong! Only five referentials are required. 
  What happened to the other two? Can you examine the model in figure \ref{dramaticArts1..diagram} and figure this out?
+
+
+\begin{erboxedFigure}{H}{dramaticArtsRole..identificationScheme..diagram}
+{Identification Scheme diagram for the dramatic role type.
+from the model in figure \ref{dramaticArts1..diagram} ---
+There are seven ways of getting from the left hand side of this diagram to the right hand side. Naiely, this implies seven referentials are required to rference a dramatic role correspoding to the following paths
+\begin{displaymath}
+\begin{array}{l}
+r4 \comp a1 \\
+r4 \comp d1 \comp a2 \\
+r4 \comp d1 \comp r1 \comp a3 \\
+d2 \comp d1 \comp a2 \\
+d2 \comp d1 \comp r1 \comp a3 \\
+d2 \comp a4 \\
+d2 \comp r3 \comp a5
+\end{array}
+\end{displaymath}
+} %end of caption
 \begin{equation*}
 \input{\ImagesFolder/dramaticArtsRole..identificationScheme..diagram.tex}
 \end{equation*}
+\end{erboxedFigure}
 That only five referentials are needed can be seen from this reference to a dramatic role:
 \begin{erquote}
 \parbox{9.0cm}{the role of \rdash{Touchstone} in the production of \mbox{\rdash{Shakespeare}'s} \rdash{As You Like It} performed \mbox{\rdash{April – May 1975},} at \rdash{Oxford Playhouse}.
@@ -391,6 +434,7 @@ The ``in the same play'' injunction is necessary
 and appropriate just because in this diagram 
 the two comparable paths from the bottom right to the top left, from entity type dramatic role to entity type play, are equivalent.
 
+\begin{oldtt}
 \mynote
 There are two paths of identifying relationships between entity type \textit{dramatic role} and type \textit{play}.
 One of them proceeds via type \textit{character} and consists of relationship \textit{r4} followed by relationship \textit{d1} as follows:
@@ -401,13 +445,16 @@ One of them proceeds via type \textit{character} and consists of relationship \t
 \end{equation}
 The fact that relationship d? is identifying the reason that a reference to a role has nested within it a reference to a character. The fact that relationship d?? is identifying is the reason that a reference to a character has a reference to a play nested within it and hence why a reference to a role has nested reference to a character which in turn has a nested reference to a play.
 
+
 The other path proceeds via type \textit{production} and consists of relationship \textit{d2} followed by relationship \textit{r2}:
 \begin{equation}
 \label{dramaticArtsPath2..diagram}
 \scalebox{0.95}{\input{\ImagesFolder/dramaticArtsPath2..diagram.tex}}
 \end{equation}
 The fact that relationship d? is identifying the reason that a reference to a role has nested within it a reference to a production. The fact that relationship d?? is identifying is the reason that a reference to a production has a reference to a play nested within it and hence why a reference to a role has nested reference to a production which in turn has a nested reference to a play.
+\end{oldtt}
 
+\begin{reinstatett}
 As we have seen these two nested references to a play are shared in our example and in fact they are shared in any reference to a role because of
 the equivalence of these two paths. 
 The simple existence of these comparable paths in the diagram of figure \ref{dramaticArts1..diagram}
@@ -435,7 +482,7 @@ This is our preferred diagrammatic way of presenting equivalent paths in this bo
 We also in the habit of writing equations such as (\ref{dramaticArtsDramaticRolePathEquivalence}) on the entity relationships diagram itself.
 We can think of dramatic roles coming into being when productions of plays are being cast. What the commutivity of this diagram expresses is when a production of a play is being cast then it is all characters from the play that are being cast not characters from plays in general. 
 The relationship ``the portray of'', we say, is restricted in scope.
-
+\end{reinstatett}
 \subsubsection {Comparable paths that are not equivalent --- Route City State}
 \mynote \commentary{The Russian Doll analogy breaks down here but not totally. 
 Open one doll and there are multiple dolls in side it.}
@@ -486,6 +533,7 @@ Another ways of saying this is by saying that the following diagram does not com
 \input{\ImagesFolder/routeCityCityState..leftright..diagram.tex}
 \end{equation*}
 
+\begin{oldtt}
 \subsection{Context and the Referencing of Entities}
 \mynote
 We examine how,  when some identifying features are relationships, the referencing 
@@ -496,12 +544,19 @@ and with the number quoted depending on
 the context within which the reference is made.
 What we see contributes to a later analysis --- the analysis of  how 
 instances of a relationship can be conveyed, communicated or stored.
+\end{oldtt}
 \subsection{Entity Models and Equivalent Paths}
 \mynote
 In these examples we have shown that, however expressed,  the specifications of equivalent paths are
 an important supplement to entity relationship diagrams. 
 An entity model in the main part consists of at least an entity relationship diagram  
 plus a statement of path equivalences.
+
+\begin{reinstatett}
+
+
+\end{reinstatett}
+
 \mynote
 I don't expect the reader to be a mathematician but, for those readers that are, an entity model in the main part is a presentation 
 (or, equivalently, a sketch) of a category of some kind. 
