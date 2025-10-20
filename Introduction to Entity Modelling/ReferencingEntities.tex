@@ -1,56 +1,63 @@
+
+\newcommand{\BarkerEllisIdentiyingRelationship}{\barkerEllisJ}
+
 \section{Referencing Entities}
-\label{ReferencingEntities}
-\commentary{Find a place to explain use of the term \textit{a priori}. As an example, in the route example two states can be coincident but not so \textit{a priori}.}
+\label{ReferencingEntities}\commentary{\highlight{renumber all the examples} so that run 1 thru 7}
 
-We now explore how the arrangement of identifying features of 
-a type of entity, guides us in how we 
-reference entities of the type and how this, in turn, influences the way that
-we convey, communicate and store instances of relationships.
-There is more to this than initially meets the eye
-and we  explore by way of examples; 
-it turns out, perhaps unexpectedly, that comparable paths that are equivalent or near-equivalent (these were described in section \ref{comparisonOfPaths}) have an impact
-on how we phrase references. Consequentially, equivalent paths have an impact on the structure of data and on the way that simple everyday facts are phrased.
+We now explore how the arrangement of identifying features of a type of entity guides us in referencing entities of that type, and how this, in turn, influences the ways we convey, communicate, and store instances of relationships.
+There is more to this than initially meets the eye.
+Through examples, we will see that comparable paths that are equivalent or near-equivalent (as described in Section~\ref{comparisonOfPaths}) affect how we phrase references.
+Consequently, equivalence between paths has a direct impact on both the structure of data and on how simple, everyday facts are expressed.
 
-This section is going to be split into subsections where we consider the various configurations of identifying relationships and attributes 
-relevant to referencing entities of a type. 
-We start with the simplest of cases and then work through to examples in which there are branching chains of identifying relationships and, in some cases, comparable, equivalent and near-equivalent paths of identifying relationships; we see the impact that these have. 
+This section is divided into subsections, each addressing a characteristic configuration of identifying relationships and attributes relevant to referencing entities of a type.
+We begin with the simplest cases and proceed to examples involving branching chains of identifying relationships, and, in some cases, comparable or equivalent paths.
+At each step, we examine how these affect the way entities are referenced.
 
 \subsection{Identifying Relationships and Nested References}
-\mynote
-Now consider how entities are referenced when their types have an identifying relationship  emanating from them. 
+\begin{worktt}The act of referencing mirrors the structure of identification itself: when an entity’s identity depends on another, so too does the form of \workt{its reference}. 
+\end{worktt}
+\noindent
+\begin{worktt}
+In what follows, references that depend on other references will generally be called \textit{subordinate references}.
+Occasionally, when one subordinate reference is literally contained within another in phrasing or structure, we will describe it as \textit{nested}. \commentary{think of implementing this}
+\end{worktt}
 
-\subsubsection*{Example 1 --- Referencing an entity of type play}
-Consider, for example, the type \textit{play} from the model of the dramatic arts given earlier in figure \ref{dramaticArts1..diagram}. The significant details are its identifying attribute named `title' 
-in conjunction with its relationship to a playwright
-as shown here 
+We begin with a simple example involving two entity types, $A$ and $B$, connected by an identifying relationship
+$A$ \BarkerEllisIdentiyingRelationship\ $B$.
+In such a situation, a reference to an entity of type $A$ includes, as a subreference, a reference to an entity of type $B$.
+
+\subsubsection*{Example 1 — Referencing an Entity of Type \textit{Play}}
+
+Consider the type \textit{play} from the model of the dramatic arts introduced earlier in Figure~\ref{dramaticArts1..diagram}.
+Its identifying features are its attribute \textit{title} and its identifying relationship \textit{written\_by}, relating each play to a playwright, as shown here:
 \begin{equation*}
 \input{\ImagesFolder/dramaticArtsPlayPlaywright..diagram.tex}
 \end{equation*}
-From this part of the model we see that play are identified by title and
-and by reference to a playwright.
-\mynote
-We therefore have references such as to
+From this we see that a play is identified by its title together with a reference to the playwright it was written by.
+Thus we may refer to:
 \begin{equation}
-\mbox{the play Twelfth Night by playwright William Shakespeare}
+\mbox{the play \textit{Twelfth Night} by playwright William Shakespeare}
 \end{equation}
-which can be abbreviated as
+which can also be phrased as
 \begin{equation}
-\mbox{Shakespeare's Twelfth Night}
+\mbox{\textit{Shakespeare’s Twelfth Night}.}
 \end{equation}
-Either way, implicitly or explicitly, there is a reference to a play and it has 
-nested within it a reference to a playwright.
-The nested reference may be absent if the playwright is clear from the context as for example if we list Shakespeare's comedies for then we can list by title alone as \textit{Twelfth Night, As you Like It,
-A Midsummer Night's Dream,...} and so on.
-In general though,
-\begin{itemize} 
-\item without context, 
-\begin{equation} 
+
+Either way, explicitly or implicitly, there is a reference to a play containing within it a nested reference to a playwright.
+The nested reference may be omitted when the playwright is clear from context—for example, when listing Shakespeare’s comedies:
+\textit{Twelfth Night, As You Like It, A Midsummer Night’s Dream}, and so on.
+In general, however,
+\begin{itemize}
+\item without contextual restriction,
+\begin{equation}
 \label{absolutePlayReferencing}
-\text{\parbox{9cm}{a  play 
-is referenced by a combination of the \uline{title} of the play and the \uline{name} of the playwright it is \uwave{written by.}}}
-\end{equation}\commentary{unwave the relationship name?}
+\text{\parbox{9cm}{
+a play is referenced by a combination of the \uline{title} of the play and the \uline{name} of the playwright it is \uwave{written by.}
+}}
+\end{equation}
 \end{itemize}
-I have underlined  identifying attributes so as to draw attention to the number of them required.
+Identifying attributes are underlined to highlight the number required in the reference.
+
 
 \begin{erboxedFigure}{H}{TwelfthNight}
 {
@@ -477,28 +484,23 @@ Could later add a section on algebra and derived two equivalences from one equiv
 However we look at it, if xxxx then The conclusion is that an entity model is more than is shown in the diagram of relationships. It needs include additional information... such as, in the declaration above,
  is captured by qualifying as ``in the same play''. Lets come back to this in a moment. First a contrasting example.
  \end{reinstatett} 
+
 \subsubsection {Comparable paths that are not equivalent --- Route City State}
-\mynote \commentary{The Russian Doll analogy breaks down here but not totally. 
-Open one doll and there are multiple dolls in side it.}
-Now consider this example reference
-\begin{equation}
-\mbox{the route from Hot Springs, Arkansas to Jacksonville in the same state.}
-\end{equation}
-In this reference there are, implicitly, two nested references
-\begin{equation}
-\mbox{the city of Hot Springs in the state  Arkansas}
-\end{equation}
 
-\begin{equation}
-\mbox{the city of Jacksonville in the state  Arkansas}
-\end{equation}
+\mynote 
+Some comparable paths are not equivalent and when they are not equivalent then subreferences do not as a matter of course collapse. For example consider the following reference
+ \begin{equation*}
+ \mbox{the route from Hot Springs, Arkansas to Jacksonville, Alabama.}
+\end{equation*}
 
-The types, relationships and identifying features that are illustrated here
+The types, relationships and identifying features that are instantiated here
 I would sketch out as follows
 
+\iffalse
 \begin{equation*}
 \input{\ImagesFolder/routeCityState..topdown..diagram.tex}
 \end{equation*}
+\fi
 \begin{equation*}
 \input{\ImagesFolder/routeCityState..leftright..diagram.tex}
 \end{equation*}
@@ -511,24 +513,43 @@ As before in example () the reference () has two nested references and these the
 \end{equation*}
 The difference between this example and the previous one is that the commonality of the secondary nested reference is not  \textit{a priori}
  common to the two primaries --- in this example
- \begin{equation*}
- \mbox{the route from Hot Springs, Arkansas to Jacksonville, Alabama.}
-\end{equation*}
+
 \mynote
 WE noted earlier that commonality of the secondary nested references was guaranteed in the earlier example because of the equivalence of two paths or, in other words the commutivity of a certain diagram (diagram ()).
 In this second example commonality is not guaranteed. Equally we can say that the following two comparable paths are not equivalent:
 
 Another ways of saying this is by saying that the following diagram does not commute:
+\iffalse
 \begin{equation*}
 \input{\ImagesFolder/routeCityCityState..topdown..diagram.tex}
 \end{equation*}
+\fi
 
 \begin{equation*}
 \input{\ImagesFolder/routeCityCityState..leftright..diagram.tex}
 \end{equation*}
 
+\textbf{Contingency versus \textit{a priori}}
+
+Though in this model there are routes between cities in different states in some cases cities may well be in the same state nonettheless the reference to the route may well collapse the shared referential.
+\begin{equation}
+\mbox{the route from Hot Springs, Arkansas to Jacksonville, Arkansas}
+\end{equation}
+may be rephrased with collapsed referentials for the state such as by saying
+\begin{equation}
+\mbox{the route from Hot Springs, Arkansas to Jacksonville in the same state.}
+\end{equation}
+or even 
+\begin{equation}
+\mbox{the route in Arkansas from Hot Springs to Jacksonville.}
+\end{equation} 
+
+Since the collapsing only is possible in some cases we might say that it is \textit{contingent} rather than \textit{a priori}. The latter come about because of equivalent paths, the former are accidental, so to speak.
 
 \subsection{Entity Models and Equivalent Paths}
+
+\mynote Somewhere:
+The recognition and explicit statement of such path equivalences are essential steps in closing the gap between modelling and data definition. They enable the model to serve not merely as a structural schema but as a full explanation of how references are to be phrased and how facts are to be expressed.
 \mynote
 In these examples we have shown that, however expressed,  the specifications of equivalent paths are
 an important supplement to entity relationship diagrams. 
@@ -599,15 +620,3 @@ I don't expect the reader to be a mathematician but, for those readers that are,
 (or, equivalently, a sketch) of a category of some kind. 
 
 
-\begin{oldtt}
-\subsection{Context and the Referencing of Entities}
-\mynote
-We examine how,  when some identifying features are relationships, the referencing 
---- the nature of the reference ---   
-is impacted by the context within which the reference is being made. 
-The reference is  a noun phrase quoting the values of identifying attributes
-and with the number quoted depending on 
-the context within which the reference is made.
-What we see contributes to a later analysis --- the analysis of  how 
-instances of a relationship can be conveyed, communicated or stored.
-\end{oldtt}
