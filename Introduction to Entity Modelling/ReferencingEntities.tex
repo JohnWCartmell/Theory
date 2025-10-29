@@ -22,7 +22,7 @@ and when a subordinate reference is literally contained within another --- in ph
 
 We begin with a simple example in which there are two entity types, $A$ and $B$, connected by an identifying relationship
 $A$ \BarkerEllisIdentiyingRelationship\ $B$.
-We illustrate that, in such a situation, a stand-alone reference to an entity of type $A$ includes, nested within it, a subordinate reference to an entity of type $B$.
+The logic of identifying features dictates that in such a situation, a stand-alone reference to an entity of type $A$ includes, nested within it, a subordinate reference to an entity of type $B$  which, after the next example, we will see extends naturally when identifying relationships form a linear path.
 
 \subsubsection{Example — Referencing an Entity of Type \textit{Play}}
 
@@ -86,14 +86,45 @@ the
 \end{tabular}
 \end{erboxedFigure}
 
+\newpage
 \subsection{Linear Arrangements of Identifying Relationships}
-\commentary{I feel this first sentence makes sense to me because i am used to think of relationships 'following' each other. But I cannot expect my reader to have this way of thinking built-in. I need be more explicit. Maybe along line of type A having a single identifying relationship to type B which in turn  to type C and so on.}
+\begin{newtt}
+The logic described in the previous subsection can be applied iteratively.
+There we considered one type of entity, $A$, identified by its own features together with an identifying relationship to another type, $B$.
+Now suppose that $B$ itself has an identifying relationship to a further type, $C$, and perhaps $C$ to another, and so on.
+
+
+When a type $A$ has such a path of identifying relationships emanating from it
+ — that is, when the arrangement is linear and unbranched — 
+ logic dictates that references to instances of that type naturally contain multiple levels of nesting.
+You can think of these as Russian-doll-structured references: each reference encloses another, except the innermost, which contains no further nested reference.
+\end{newtt}
+\begin{oldtt}
 \begin{worktt}
 The situation described in the previous subsection can be extended: when an identifying relationship is followed by another identifying relationship, and so on, we obtain multiple levels of nesting — each arising from an iteration of the pattern observed earlier.
 \end{worktt}
 When a type has a path of identifying relationships emanating from it — that is, when the arrangement of identifying relationships is linear, with no branching — references to that type contain nested references, which in turn contain further nested references, and so on.
 You might think of these as Russian-doll-structured references: each, except the innermost, contains another nested within it.
+\end{oldtt}
 
+The situation described in the previous subsection can be extended.
+There we considered one type of entity, $A$, identified by its own features together with an identifying relationship to another type, $B$.
+Now suppose that $B$ itself has an identifying relationship to a further type, $C$, and perhaps $C$ to another, and so on.
+In such cases, the identifying relationships form a chain — a linear arrangement with no branching — and the pattern of nesting observed earlier is repeated at each step.
+
+When a type has a path of identifying relationships emanating from it, references to instances of that type contain nested references, which in turn contain further nested references, and so on.
+You might think of these as Russian-doll-structured references: each, except the innermost, contains another nested within it.
+
+
+\begin{worktt}
+The logic of identifying features observed in the previous subsection extends naturally when identifying relationships occur in sequence.
+There we saw that a type $A$ identified through a relationship to $B$ produces a nested reference.
+Now suppose $B$ itself is identified by a relationship to $C$, and $C$ to $D$, and so on.
+The identifying relationships thus form a path, with each step repeating the pattern observed earlier: a reference contains a subordinate, nested reference, which itself contains another, and so forth.
+
+When a type has such a path of identifying relationships emanating from it — that is, when the arrangement is linear and unbranched — references to instances of that type naturally contain multiple levels of nesting.
+You can think of these as Russian-doll-structured references: each reference encloses another, except the innermost, which contains no further nested reference.
+\end{worktt}
 
 \subsubsection{Example --- Postal Addresses}
 
