@@ -86,41 +86,13 @@ the
 \end{tabular}
 \end{erboxedFigure}
 
-\newpage
 \subsection{Linear Arrangements of Identifying Relationships}
-\begin{newtt}
 The logic described in the previous subsection can be applied iteratively.
 There we considered one type of entity, $A$, identified by its own features together with an identifying relationship to another type, $B$.
 Now suppose that $B$ itself has a single identifying relationship to a further type, $C$, and perhaps $C$ to another, and so on.
 In such a case there is a path of identifying relationships emanating from a type --- the arrangement is linear and unbranched --- logic now dicates that
  references to instances of that type contain multiple levels of nesting.
 You can think of these as Russian-doll-structured references: each reference encloses another, except the innermost, which contains no further nested reference.
-\end{newtt}
-\begin{oldtt}
-\begin{worktt}
-The situation described in the previous subsection can be extended: when an identifying relationship is followed by another identifying relationship, and so on, we obtain multiple levels of nesting — each arising from an iteration of the pattern observed earlier.
-\end{worktt}
-When a type has a path of identifying relationships emanating from it — that is, when the arrangement of identifying relationships is linear, with no branching — references to that type contain nested references, which in turn contain further nested references, and so on.
-You might think of these as Russian-doll-structured references: each, except the innermost, contains another nested within it.
-\end{oldtt}
-
-The situation described in the previous subsection can be extended.
-There we considered one type of entity, $A$, identified by its own features together with an identifying relationship to another type, $B$.
-Now suppose that $B$ itself has an identifying relationship to a further type, $C$, and perhaps $C$ to another, and so on.
-In such cases, the identifying relationships form a chain — a linear arrangement with no branching — and the pattern of nesting observed earlier is repeated at each step.
-
-When a type has a path of identifying relationships emanating from it, references to instances of that type contain nested references, which in turn contain further nested references, and so on.
-You might think of these as Russian-doll-structured references: each, except the innermost, contains another nested within it.
-
-
-\begin{worktt}
-The logic of identifying features observed in the previous subsection extends naturally when identifying relationships occur in sequence.
-There we saw that a type $A$ identified through a relationship to $B$ produces a nested reference.
-Now suppose $B$ itself is identified by a relationship to $C$, and $C$ to $D$, and so on.
-The identifying relationships thus form a path, with each step repeating the pattern observed earlier: a reference contains a subordinate, nested reference, which itself contains another, and so forth.
-
-
-\end{worktt}
 
 \subsubsection{Example --- Postal Addresses}
 
@@ -157,7 +129,7 @@ The following has been given as an example of a message structure for a postal a
  within the context of  the  dramatic arts
   as modelled earlier in figure \ref{dramaticArts1..diagram}.
 
-FTo understand the phrasing of such references we need focus only on the details shown in this fragment \commentary{should I use a linear variant this diagram?}
+To understand the phrasing of such references we need focus only on the details shown in this fragment \commentary{should I use a linear variant this diagram?}
 \begin{equation*}
 \input{\ImagesFolder/dramaticArtsCharacterFragment..diagram.tex}
 \end{equation*}
@@ -206,24 +178,27 @@ In this we see a reference to a playwright nested within a reference to a play n
 
 
 
-
-
-
-
 \subsection{Arrangements with Branching Paths of Identifying Relationships}
-If there is a branch in the arrangement of identifying relationships emanating from a type then references to entities at the branch point will contain multiple  references nested within them; 
-the Russian-doll analogy breaks down but a nested boxes analogy holds up --- we can open a box and find multiple boxes nested inside it. 
+Now consider that a type $A$ may have multiple identifying relationships emanating from it so that there is a branching at $A$ in the
+arrangement of identifying relationships.
+In such a situation logic dictates that references to entities of type $A$ will have multiple references directly nested within them, one for each outgoing identifying relationship.
+\commentary{ words for elsewhere: What isn't obvious is that in some cases the nested references overlap
+and in some other cases  not so and the nested references overlap.} 
+It would be natural to think that these nested references would be completely distinct so that though the Russian doll analogy breaks down it can be replaced by the nested box analogy --- open any box and there are multiple and distict boxes nested within it. 
+We now give an example where this is so. Indeed it is necessarily the case provided that, as in the next example,
+ among the branching paths of identifying relationships emanating from $A$ 
+no two distinct paths are comparable or, in other words no two distinct paths of identifying relationships have a type in common other than $A$. 
 
-
-\subsubsection{Example 4 --- Productions of Plays}
+\subsubsection{Example --- Productions of Plays}
 
 \label{exampleReferencingProductions}
 
-For a second example we move on to another area within the overall model of figure \ref{dramaticArts1..diagram}. From the following detail 
+To find an example of example of this we just have to move on to another type within the overall model of the dramatic arts (figure \ref{dramaticArts1..diagram})
+ --- the type \textit{production}. From the following detail 
 \begin{equation*}
 \input{\ImagesFolder/dramaticArtsProductionFragment..diagram.tex}
 \end{equation*}
-regarding the production entity type  we see that
+we see that
 \begin{itemize}
   \item
   without any context, 
@@ -238,45 +213,69 @@ We have already seen that to reference a play requires two referentials and so
 we can count up the number of referentials required to reference a production
 as one for the venue, two for the play and one for the season so four referentials in all. 
 
-As an example consider the following prescription
+For instance consider the following 
   \begin{equation} 
 \label{referenceToAsYouLikeItProduction}
-\text{\parbox{9cm}{a production of \mbox{\rdash{Shakespeare}'s} \rdash{As You Like It}
+\text{\parbox{9cm}{the production of \mbox{\rdash{Shakespeare}'s} \rdash{As You Like It}
  performed \mbox{\rdash{April – May 1975},} at \rdash{Oxford Playhouse}.}
  }\\
 \end{equation}
-As is to be expected in this description there are four referentials present.\footnote{
+This references a production, and as expected, four referentials are present with in it.\footnote{
 I found the literal description online as ``a production of the play As You Like It (by William Shakespeare), April – May 1975, at Oxford Playhouse''.  
 } 
 
-TouchstoneReferenceFromAbsolute
-theRoleOfTouchstone
-referenceToAsYouLikeItProduction
-
 \subsection{Arrangements with Comparable Paths of Identifying Relationships}
-When a type has multiple paths of identifying relationships emanating from it and when these paths intersect in the sense that there is a type in common between the paths (in addition to the
-branching point) then in some cases the nested boxes analogy breaks down
-because we are sometimes led to reference having nested references which overlap and are not totally independent. We give two examples one where the analogy holds up and one where it does not. The key characteristic is the presence of equivalent paths.
-\commentary {Find  a home or use or rephrasing for the next para}
-We need beware though because referencing doesn't always work out by simple aggregation. Because sometimes,
-in the words of Shlaer and Lang, referentials collapse. \commentary{We are saying the same thing in two different ways which is confusing}
-To see this we are going to move on to another area within our model and look at how dramatic roles are identified and referenced.
-
-\begin{worktt}
-Bring diagrams for the here talking showing comparable paths intersecting. 
-Potentially show the paths and the possibly commuting squares.
-\end{worktt}
 
 
- \subsubsection{Example 5 --- Dramatic Role from Figure \ref{dramaticArts1..diagram}}
+Now consider the situation where a type $A$ has multiple paths of identifying relationships emanating from it, and two of these paths intersect in the sense that there is a type in common — $B$, say — between them (in addition to the branching point). The general arrangement of identifying relationships will then include two distinct paths from $A$ to $B$, which we can visualise as follows:
+
+\begin{equation*}
+\scalebox{\thumbnailscale}{
+\input{\handCraftedImagesFolder/thumbnailA2BComparablePathsIdentifying}}
+\begin{explanationForAI}
+This diagram shows six entity types, four of which are anonymous. It has an entity type named A on the left and an entity type named B on the right. There are two paths of identifying relationships from A to B — an upper path and a lower path. Each path passes through two intermediate entity types. In all, there are six identifying relationships. The diagram is schematic, with ellipses on both paths indicating that their lengths are indeterminate.
+\end{explanationForAI}
+\end{equation*}
+
+As we saw in the previous example, a reference to such an $A$ will have two subordinate references nested within it. In that example, the nested references were contiguous subphrases and distinct from each other — one was \textit{Shakespeare's Twelfth Night} and the other \textit{the Oxford Playhouse}. 
+
+With the arrangement of identifying relationships as extended here, references to $A$ again have two subordinate references, but now with the additional feature that each subordinate itself includes a further subordinate reference to an entity of type $B$.  
+
+However, since there are two paths from $A$ to $B$ --- the upper and the lower --- 
+there are two ways of relating each $A$ to a particular $B$ and
+we must consider the possibility that these two paths always lead to the same $B$; in other words, that the upper and lower paths may be equivalent. Significantly, if this is so, then in a reference to an $A$ there need be only a single subordinate reference to $B$. 
+
+Since only one is needed, maintaining both is superfluous---there should be a single representative; this logic follows a general principle: 
+unnecessary repetition is undesirable in ordinary speech and amounts to improper redundancy
+in data (we will come back to good and bad data practices later). Consequently, when the two paths from $A$ to $B$ are equivalent, 
+all references to $A$ should properly have two directly nested references that share a common subordinate reference to $B$. 
+In such cases, even the nested-box analogy begins to break down because the nested references overlap and may no longer be contiguous. 
+We shall illustrate this by giving two examples 
+--- one where the analogy holds, and one where it does not
+--- the key difference being the presence or absence of equivalent paths.
+
+In both of the next two examples, the upper and lower paths are each of length two, so the arrangement can be visualised as follows:
+\begin{equation*}
+\scalebox{\thumbnailscale}{
+\input{\handCraftedImagesFolder/thumbnailA2BShortComparablePathsIdentifying}}
+\begin{explanationForAI}
+This is a simplified version of the earlier diagram, with just four entity types and two paths of length two.
+\end{explanationForAI}
+\end{equation*}
+
+In the very next example, the upper and lower paths (as visualised here) are equivalent; in the subsequent example, they are not.
+
+ \subsubsection{Example --- Dramatic Role from Figure \ref{dramaticArts1..diagram}}
 \mynote
-In the following detail
+This example is based on the dramatic role entity type from the model of the dramatic arts (figure \ref{dramaticArts1..diagram}).
+We consider the identifying features  and in particular this specific detail:
 \begin{equation*}
 \input{\ImagesFolder/dramaticArtsDramaticRoleFragment..diagram.tex}
 \end{equation*}
-taken from the model of the dramatic arts, as shown in figure \ref{dramaticArts1..diagram}, 
-we see the type \textit{dramatic role} 
-with  two identifying relationships emanating from it and having no identifying attributes;
+from within the model
+and we consider how dramatic roles are to be referenced. 
+We see the type \textit{dramatic role} 
+with  two identifying relationships emanating from it and that it  has no identifying attributes;
 this detail informs us that
 \begin{equation}
 \label{DramaticRoleReferencing}
@@ -292,8 +291,8 @@ a dramatic role will require seven referentials
  --- three for the character and four for the production. 
 So we will need seven, right?
  Well no, rather surprisingly, not so --- only five referentials are required. 
- What happened to the other two? Can you figure this out, can you answer the question?
-In what follows, we will explore the answer from a number of points of view;
+ What happened to the other two? 
+In what follows, we will explore the answer to this question from a number of points of view;
 one of them is mathematical in nature --- this point of view may or may not suit you depending on your background.
 
 First though, that only five referentials are needed can be seen from this reference to a dramatic role in which I have dash underlined the referentials:
@@ -322,7 +321,20 @@ the subordinate reference to a play need not be duplicated.
 Finally, as we have seen, a reference to a play consist of two referentials;
 by requiring this subordinate reference only once, we save two referentials, which explains why only five  are required, not seven.
 
-If we were to violate prescription (\ref{DramaticRoleReferencingRevised})
+If we zoom out as far as this detail
+\begin{equation}
+\label{dramaticArtsPortrayalScopeFragment..diagram}
+\input{\ImagesFolder/dramaticArtsPortrayalScopeFragment..diagram.tex}
+\end{equation}
+and see a bit more of the detail of figure \ref{dramaticArts1..diagram} we see that the entity type \textit{dramatic role}
+has two comparable paths of identifying relationships  emanating from it that intersect at the type \textit{play}. 
+Because of the
+`in the same play prescription' these two comparable paths are equivalent. 
+By applying the argument given earlier for such comparable paths that are equivalent,  it follows from this
+that a reference to a dramatic role should properly contain one reference to a play, not two.
+
+Note that if we were to violate prescription (\ref{DramaticRoleReferencingRevised}), 
+and, therefore, ignore the equivalence of the two paths,
  --- for instance, by claiming that in a given season an actor appeared in a production
 of  Ibsen's \textit{A Doll's House} at the Royal Exchange, Manchester, playing the role of Touchstone from Shakespeare's \textit{As You like It} --- the result would not merely be incorrect but nonsensical. If a data structure allowed such prescriptions as this then it would be said that the defining structure was not in normal-form ---  which in this case at least is as an innocent-looking way for saying admits of pure nonsense.
 
@@ -370,110 +382,74 @@ the role of
 \end{tabular}
 \end{erboxedFigure}
 
-
-\mynote
-\begin{worktt}
-Now a crucial observation,\commentary{This might move in situ after the observation if we have the square upfront (see apricot)} 
-We can consider that a character and a production can include reference to ``the same play'' injunction  just because in this diagram 
-there are two comparable paths from the bottom right to the top left, from entity type dramatic role to entity type play, 
-\end{worktt}
-
-\begin{equation}
-\label{dramaticArtsPortrayalScopeFragment..diagram}
-\input{\ImagesFolder/dramaticArtsPortrayalScopeFragment..diagram.tex}
-\end{equation}
-of taken from figure \ref{dramaticArts1..diagram}.
-
-The ``in the same play'' injunction is necessary 
-and appropriate just because 
-the two comparable paths f are equivalent.
-
-
-\begin{reinstatett}
-\mynote
-However we look at it, if xxxx then The conclusion is that an entity model is more than is shown in the diagram of relationships. It needs include additional information... such as, in the declaration above,
- is captured by qualifying as ``in the same play''. Lets come back to this in a moment. First a contrasting example.
- \end{reinstatett} 
+In conclusion, we see that, to fully account for reference structure, an entity model must go beyond what the relationship diagram alone conveys. It requires explicit prescriptions governing the use of its types and relationships, which can be captured through path equivalences. Historically, without such prescriptions, entity modelling provided only a partial explanation --- a gap that, in the realm of data modelling, was traditionally addressed by data normalisation. Incorporating path equivalences closes this gap, enabling a complete and coherent account of reference.
 
 \subsubsection {Example 6 --- Route City State}
 
-\mynote 
-Some comparable paths are not equivalent and when they are not equivalent then subordinate references do not as a matter of course collapse. For example consider the following reference
- \begin{equation*}
- \mbox{the route from Hot Springs, Arkansas to Jacksonville, Alabama.}
-\end{equation*}
 
-The types, relationships and identifying features that are instantiated here
-I would sketch out as follows
+Not all comparable paths are equivalent. When they are not, subordinate references do not collapse automatically. Consider the following reference:
 
-\iffalse
 \begin{equation*}
-\input{\ImagesFolder/routeCityState..topdown..diagram.tex}
+\text{the route from Hot Springs, Arkansas to Jacksonville, Alabama.}
 \end{equation*}
-\fi
+
+The types, relationships, and identifying features instantiated here can be visualised as:
+
 \begin{equation*}
 \input{\ImagesFolder/routeCityState..leftright..diagram.tex}
 \end{equation*}
 
-
-\mynote 
-As before in example () the reference () has two nested references and these themselves have a common nested reference namely
-\begin{equation*}
-\mbox{the state Arkansas}
-\end{equation*}
-The difference between this example and the previous one is that the commonality of the secondary nested reference is not  \textit{a priori}
- common to the two primaries --- in this example
-
 \mynote
-WE noted earlier that commonality of the secondary nested references was guaranteed in the earlier example because of the equivalence of two paths or, in other words the commutivity of a certain diagram (diagram ()).
-In this second example commonality is not guaranteed. Equally we can say that the following two comparable paths are not equivalent:
+As in the previous example, this reference has two nested references (to the origin and destination cities). These nested references themselves include a secondary reference — in this case, to the state. However, unlike the dramatic-role example, this secondary reference is not guaranteed to be shared between the two primary references. That is, the equivalence of paths that ensured automatic collapse in the prior example does not hold here. 
 
-Another ways of saying this is by saying that the following diagram does not commute:
-\iffalse
-\begin{equation*}
-\input{\ImagesFolder/routeCityCityState..topdown..diagram.tex}
-\end{equation*}
-\fi
+In other words, the following comparable paths are \textit{not equivalent}, which can be visualised as a non-commuting diagram:
 
 \begin{equation*}
 \input{\ImagesFolder/routeCityCityState..leftright..diagram.tex}
 \end{equation*}
 
-\textbf{Contingency versus \textit{a priori}}
+\textbf{Contingent versus \textit{a priori} collapse.}  
 
-Though in this model there are routes between cities in different states in some cases cities may well be in the same state nonetheless the reference to the route may well collapse the shared referential.
-\begin{equation}
-\mbox{the route from Hot Springs, Arkansas to Jacksonville, Arkansas}
-\end{equation}
-may be rephrased with collapsed referentials for the state such as by saying
-\begin{equation}
-\mbox{the route from Hot Springs, Arkansas to Jacksonville in the same state.}
-\end{equation}
-or even 
-\begin{equation}
-\mbox{the route in Arkansas from Hot Springs to Jacksonville.}
-\end{equation} 
+In this model, cities in different states are connected by routes. Occasionally, cities may happen to be in the same state. In such cases, it is possible—but not guaranteed—to collapse the shared referential for the state:
 
-Since the collapsing only is possible in some cases we might say that it is \textit{contingent} rather than \textit{a priori}. The latter come about because of equivalent paths, the former are accidental, so to speak.
+\begin{equation*}
+\text{the route from Hot Springs, Arkansas to Jacksonville, Arkansas}
+\end{equation*}
+
+can be rephrased anaphorically as:
+
+\begin{equation*}
+\text{the route from Hot Springs, Arkansas to Jacksonville in the same state,}
+\end{equation*}
+
+or by collapsing the repeated referential:
+
+\begin{equation*}
+\text{the route in Arkansas from Hot Springs to Jacksonville.}
+\end{equation*}
+
+Since this collapsing depends on the actual data rather than being mandated by the model, we call it \textit{contingent} rather than \textit{a priori}. In contrast, the collapse in the dramatic-role example was guaranteed by equivalent paths. The distinction between a priori and contingent collapsing is worth making explicit because it clarifies what kind of structure an entity model provides. When a collapse is a priori, it arises from the model itself — from an equivalence of paths that ensures certain references must coincide. When it is contingent, the coincidence occurs only in the data.
 
 
 \subsection{The Methodological Derivation Of Referentials}
 
-Here we to look again at the dramatic arts example --- specifically at how the model of entity types and relationships
-along with the knowledge of this path equivalence:
+Here we to look again at the dramatic arts example --- specifically at how the model of entity types and relationships,
+together with the knowledge of this path equivalence:
 \begin{equation}
 \label{playedBy.Scope.asEquivalence}
 r4 \comp d1 \;\equiv\; d2 \comp r2
 \end{equation}
-determines how how entities
-of the various types are to be referenced or represented in data. We revisit the examples (\ref{TouchstoneReferenceFromAbsolute}), (\ref{theRoleOfTouchstone}) and (\ref{referenceToAsYouLikeItProduction}).
+determines how entities
+of the various types are to be referenced or represented in data. 
+We revisit the examples (\ref{TouchstoneReferenceFromAbsolute}), (\ref{theRoleOfTouchstone}) and (\ref{referenceToAsYouLikeItProduction}).
 
-Laying out the identifying features as we do in figure \ref{dramaticArtsRole..identificationScheme..diagramAgain} is the easiest way to quickly see why referentials as they are.
+Laying out the identifying features as we do in figure \ref{dramaticArtsRole..identificationScheme..diagramAgain} allows us
+to see at a glance how the referentials arise.
 
 \begin{erboxedFigure}{H}{dramaticArtsRole..identificationScheme..diagramAgain}
 {Identification Scheme diagram for the dramatic role type
 from the model of the dramatics arts (figure \ref{dramaticArts1..diagram}). This diagram doesn't add to the information
-contained in that model, it simply represents the information regarding idenitfying features in a  different
+contained in that model, it simply represents the information regarding identifying features in a  different
  and for our purposes here, more convenient way. \textit{This diagram was shown earlier
 in figure \ref{dramaticArtsRole..identificationScheme..diagram} and is reproduced here for ease of reference.}
 } %end of caption
@@ -488,9 +464,9 @@ This identification-scheme diagram along with the path equivalence (\ref{playedB
 \subsubsection{Referencing Characters from Plays}
 
 From the diagram in figure \ref{dramaticArtsRole..identificationScheme..diagramAgain} 
-we can quickly see that there are 3 paths from the type character on the diagram
+we can quickly see that there are 3 paths from the type character on the diagram across to the right hand side of the diagram.
  
-It isn't germane to what I am doing here but if we want to we I can put english descriptions to these paths:
+It isn't germane to what I am doing here but if we wish, we can put English descriptions to these paths:
 \begin{center}
 \begin{tabular}{c p{8cm}}
 $a1$ & the name of the character \\
@@ -503,31 +479,33 @@ In a reference to an entity of type character each of these paths must be filled
 we can think of the three paths as determining slots that need to be filled  in the phrasing of a reference. 
 In example (\ref{TouchstoneReferenceFromAbsolute}) these slots are filled as follows:
 
+
+\begin{center}
 \begin{tabular}{l l}
 \textbf{Path}          & \textbf{Referential} \\
 $d1 \comp r1 \comp a3$ & Shakespeare          \\
 $d1 \comp a2$          & As You Like It       \\
 $a3         $          & Touchstone
 \end{tabular}
+\end{center}
 
 \subsubsection{Referencing Productions of Plays}
 
 From the diagram in figure \ref{dramaticArtsRole..identificationScheme..diagramAgain} 
 we can also see that there are 4 paths from the type production on the diagram
-across to the rhs of the diagram. 
+across to the right hand side of the diagram. 
+As the paths get longer precise descriptions in English  get tortuous but we can convey the four paths as follows:
+\begin{center}
+\begin{tabular}{c p{8cm}}
+$r2 \comp a2$           & the title of the play that the production is of\\
+$r2 \comp r1 \comp a3$  & the name of the playwright the play ... was written by\\
+$a4$                    & the season of the production\\
+$r3 \comp a5$           & the name of the venue the production was at\\
+\end{tabular}
+\end{center} 
+
 These correspond to the four referentials included in phrasal references or data references to entities of 
 type production.
-\begin{center}
-\begin{tabular}{p{3cm}}
-$r2 \comp r1 \comp a3$ \\
-$r2 \comp a2$ \\
-$a4$          \\
-$r3 \comp a5$ \\
-\end{tabular}
-\end{center}
-
-Exercise for the reader: Give English descriptions for each of these four slots. 
-
 The referentials that instantiate these paths in 
 the reference to a production of 
 \textit{As You Like It} mentioned earlier in (\ref{referenceToAsYouLikeItProduction}) 
@@ -543,7 +521,7 @@ $r3 \comp a5$          & ``Oxford Playhouse''
 \end{tabular}
 \end{center}
 
-This could be getting boring and repetitive but the next case, that of referencing dramatic roles, breaks the pattern as  we have already already seen.
+This could be getting boring and repetitive but the next case, that of referencing dramatic roles, we have already seen breaks the pattern.
 
 \subsubsection{Referencing Dramatic Roles}
 
@@ -553,8 +531,8 @@ There are seven ways of getting from the representation of type dramatic role at
 \text{path 1:} &  & r4 \comp a1 \\
 \text{path 2:} & & r4 \comp d1 \comp a2 \\
 \text{path 3:} & & r4 \comp d1 \comp r1 \comp a3 \\
-\text{path 4:} &  & d2 \comp d1 \comp a2 \\
-\text{path 5:} &  & d2 \comp d1 \comp r1 \comp a3 \\
+\text{path 4:} &  & d2 \comp r2 \comp a2 \\
+\text{path 5:} &  & d2 \comp r2 \comp r1 \comp a3 \\
 \text{path 6:} &  & d2 \comp a4 \\
 \text{path 7:} &  & d2 \comp r3 \comp a5
 \end{array}
@@ -564,34 +542,37 @@ Now we an see the effect of the path equivalence.
 
 Because 
 \begin{equation}
+\label{dramaticroleequivalence}
 r4 \comp d1 \;\equiv\; d2 \comp r2
 \end{equation}
-
 then paths 1 and 3 do not determine distinct referentials but a single referential because
 \begin{equation}
 r4 \comp d1 \comp a2 \;\equiv\; d2 \comp r2 \comp a2
-\end{equation}
+\end{equation} 
+follows from (\ref{dramaticroleequivalence})
 and likewise neither do paths 1 and 2 determine a single referential but a single one because
 \begin{equation}
 r4 \comp d1 \comp r1 \comp a3 \;\equiv\; d2 \comp r2 \comp r1 \comp a3
-\end{equation}.
+\end{equation}
+also follows from (\ref{dramaticroleequivalence}).
 
 The slots required in and phrasal or data representation of a reference to a dramatic role are thus
 \begin{displaymath}
 \begin{array}{l c l}
 \text{slot 1:} &  & r4 \comp a1 \\
-\text{slot 2:} &  & r4 \comp d1 \comp a2 = d2 \comp d1 \comp a2 \\
-\text{slot 3:} &  & r4 \comp d1 \comp r1 \comp a3 = d2 \comp d1 \comp r1 \comp a3 \\
+\text{slot 2:} &  & r4 \comp d1 \comp a2 = d2 \comp r2 \comp a2 \\
+\text{slot 3:} &  & r4 \comp d1 \comp r1 \comp a3 = d2 \comp r2 \comp r1 \comp a3 \\
 \text{slot 4:} &  & d2 \comp a4 \\
 \text{slot 5:} &  & d2 \comp r3 \comp a5
 \end{array}
 \end{displaymath}
-
 Slots 2 and  3 are collapsed referentials in the Shlaer-Lang terminology.
 
-\textbf{Mathematically}
-The slots are equivalence classes of paths, not paths, and equivalence classes of paths form a category.
-The set of slots in the category of paths is jointly monomorphic.
+We can now see, in precise terms, how the a priori equivalences we discussed earlier translate into the collapsing of referentials.
+
+\textbf{Mathematically} \commentary{I can probably develop this further so as to speak about the set of identifying slots for each type of entity. In the relational model each of these identifying slots corresponds to a primary key column.}
+
+In categorical terms, each slot corresponds not to an individual path but to an equivalence class of paths — and these equivalence classes themselves form a category. The set of slots at a type in this category is a jointly monomorphic set of morphisms.
 
 \subsection{Entity Models and Equivalent Paths}
 \begin{worktt}

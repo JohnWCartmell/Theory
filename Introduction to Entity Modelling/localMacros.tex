@@ -1,4 +1,8 @@
 
+\usepackage{comment}
+\excludecomment{explanationForAI}  % defines an environment that allows me to comment without the comment being rendered in the final document.
+
+
 \newcommand{\longrightharpoonup}
 {-\kern-5pt\rightharpoonup}
 
@@ -119,6 +123,16 @@
 \psframebox[framearc=0.2,fillstyle=solid,fillcolor=lightyellow]{\rule[1cm]{2cm}{0pt}} 
 \pnode(0,0.75){#1UR} \pnode(0,0.25){#1LR}
 }}
+}
+
+% \etnodeLabelled{nodelabel}{x}{y}    x,y of bottom left corner
+\newcommand{\etnodeLabelled}[3]{
+\rput(#2,#3){\rnode{#1}{
+\pnode(0,0.75){#1UL} \pnode(0,0.25){#1LL}
+\psframebox[framearc=0.2,fillstyle=solid,fillcolor=lightyellow]{\rule[1cm]{2cm}{0pt}} 
+\pnode(0,0.75){#1UR} \pnode(0,0.25){#1LR}
+}}
+\rput(#2,#3){\Large #1}
 }
 
 % \manyonesurjectiveidentifying{id}{srcnode}{destnode}
