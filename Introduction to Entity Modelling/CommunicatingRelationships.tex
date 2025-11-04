@@ -1,9 +1,19 @@
 
-\section{Communicating Relationships}
 
-%\iffalse
+\section{The Phrasing of Relationship Instances}
+
+
+This section builds on our previous discussions to explore how facts are conveyed in ordinary language
+ and how they are communicated or stored as data. 
+We focus on how an entity model can fully explain or guide the phrasing of relationship instances, 
+both in everyday expression and in structured data.
+In essence, this section could be called ``Conveying Facts,'' since,
+ from the perspective of an entity modeller, 
+ each simple fact is an instance of a binary relationship.\footnote{Here, ``fact'' means ``putative fact.'' Logicians might instead use ``proposition'', and  speak of ``atomic propositions'' where we speak of ``simple facts.''}
+
+
 \subsection{Recap}
-\mynote
+
 Earlier, in section \ref{sub:conveying_facts_and_storing_of_data}, we looked at examples of the use
 of references to entitites, and thereby referentials,  
 to convey instances of relationships.  
@@ -16,57 +26,64 @@ as in this example:
 \mbox{\textit{The planet \rdash{Jupiter} 
 \uwave{is orbited} by the moon \rdot{Io}}}
 \end{equation}
-
-in which a single referential references one entity, a second referential references a second entity
-and a relationship instance is asserted.  
-In this simple example each of these references to entities contains  a single referential 
+in which a single referential, \textit{Jupiter}, references one entity, a second referential, \textit{Io}, references a second entity
+and a specific relationship between them is asserted.  
+In this simple example both entity references consist of  a single referential 
 but we have already seen examples where multiple referentials are required to reference an entity. For example
 \begin{itemize}
 \item Hot Springs, Arkansas;
 \item the route from Hot Springs, Arkansas to Jacksonville, Alabahma;
-\item the conjunction of Mars and Jupiter on July 4, 929;
+\item \oldt{ the conjunction of Mars and Jupiter on July 4, 929;}
 \item Shakespeare’s Twelfth Night (i.e. the play Twelfth Night by playwright William Shakespeare);
 \item Touchstone from Shakespeare’s As You Like It;
 \item the role of Touchstone in the production of Shakespeare’s As You Like It
 performed April – May 1975, at Oxford Playhouse.
 \end{itemize}
 
-We have seen also how in some references, for example the final one in the list above,  there are less referentials than is implied by a simple sum of the parts  and that this is because of overlaps (for which we used the term collapsed referentials) and that these overlaps come about because of the equivalence of comparable paths of identifying relationships.
+We have also seen  how in some references, for example the final one in the list above,  there are less referentials than is implied by a simple sum of the parts  and that this is because of overlaps (for which we used the term collapsed referentials) and that these overlaps come about because of the equivalence of comparable paths of identifying relationships.
 
-For example an instance of a dramatic role being played by an actor might be commmunicated as follows:
+We are about to break the mould but before we do here take as a further example
+that an instance of an actor playing a dramatic role might be phrased as follows:
 \begin{erquote}
-\parbox{8.7cm}{\linespread{1.5}\normalsize the role of \rdot{Touchstone} in the production of \mbox{\rdot{Shakespeare}'s} \\
- \rdot{As You Like It} performed \mbox{\rdot{April – May 1975},} at \\
-\rdot{Oxford Playhouse} was \uwave{played by} \rdash{Bob Hoskins},
+\parbox{8.7cm}{\linespread{1.5}\normalsize \rdash{Bob Hoskins} is \uwave{the player of} the role of \rdot{Touchstone} in the production of \mbox{\rdot{Shakespeare}'s} 
+ \rdot{As You Like It} performed \mbox{\rdot{April – May 1975},} at 
+\rdot{Oxford Playhouse},
 }
 \end{erquote}
-which, by the way, I can attest to. 
-In this example, referentials to reference the dramatic role are dotted underlined --- there are five of them.
- The relationship is wavy underlined. Referentials to reference the actor are dash underlined   --- there is only one of them.
- The relationship being instanced is this one
+In this example, The single referential needed  to reference an actor is dash underlined. 
+Referentials to reference the dramatic role are dotted underlined --- there are five of them.
+The relationship is wavy underlined. 
+The relationship being instanced is this one
 \begin{equation}
 \scalebox{0.9}{\input{\ImagesFolder/dramaticArtsPlayedByRelationship..diagram.tex}}
 \end{equation}
-which was described earlier in figure \ref{dramaticArts1..diagram}.
+described earlier in figure \ref{dramaticArts1..diagram}.
 
 \subsection{What More is to be Said}
-\mynote
-We see that whenever a relationship instance is to be conveyed then two sets of referentials are required --- one set to reference the first entity and the other set to reference the second entity.  
-\mynote
-Now we have to consider the possibility that sometimes, \textit{a priori}, these two sets of referentials overlap. 
+
+How relationship instances are phrased 
+is an important topic that requires careful articulation
+and without knowledge of this topic one has not a full understanding
+of data both as it is conveyed in common langauge and as it is communicated and stored in information systems. 
+The proper phrasing, it turns out, requires knowedge of relevant path equivalences.
+
+We have seen that whenever a relationship instance is to be conveyed then two sets of referentials are required --- one set to reference the first entity and the other to reference the second.  If we were to assume that these two sets are independent and non-overlapping
+then there would be no more to be said about the phrasing of relationship instances. But we cannot make this assumption.
+We have to consider the possibility that sometimes, \textit{a priori}, these two sets of referentials overlap. 
 In other words that, \textit{a priori}, 
 some of the referentials for the two distinct entities may coincide.
 Shlaer and Lang, in a little read and underrated paper, 
-explore this topic in the context of relational database structure and refer to the then shared coincident referential as a \textit{collapsed referential}. 
-\mynote
+explore this topic in the context of relational database structure and refer to the then shared coincident referentials as a \textit{collapsed referentials}. 
+
 We look at cases where there are collapsed referentials, and also at some other cases which exhibit different characteristics by which 
 referentials that one might expect to be present are actually not required --- in such cases we shall 
-adapt the coinage of Shlaer and Lang and say that there are \textit{absent referentials}. As we saw in the previous section there are various characteristics that arise when there are comparable paths of relationships which are either equivalent or near equivalent. \commentary{Consider talking about relationships having local scope here.}
-\mynote
-How relationships are conveyed 
-is an important topic that requires careful articulation
-and without knowledge of this topic one has not a full understanding
-of data both as it is conveyed in common langauge and as it is communicated and stored in information systems.
+adapt the coinage of Shlaer and Lang and say that there are \textit{absent referentials}. 
+
+Earlier we referred to  the gap that has existed traditionally between entity modelling  and data modelling. 
+We part closed that gap in the last section. Here we close it further. \commentary{or is it completely?} 
+In the last section explicit
+statements of path equivalence was the secret \commentary{I want to say key but that term is overloaded in this context},
+in this section it is both equivalent paths and near-equivalent paths that have the impact. \commentary{operational in closing the gap}
 
 As a starting point we present a  basic example which is a simplification of one presented by Shlaer and Lang; then we continue by giving two variations: 
 the first variation has referentials that collapse;
@@ -75,14 +92,14 @@ an absent referential.\footnote{We will come to see that the significance
 of absent referentials is most striking when the concepts in question are represented in data that is non-relational.}
 
 \subsection {Basic Example --- The student-department-professor Triangle}
- Consider that an instance of the advisor relationship sketched out earlier in figure xxx might be communicated like this
+ Consider that an instance of the advisor relationship sketched out earlier in figure \ref{shlaerLangDiagram} might be communicated like this
 \begin{equation}
 \label{MathsBrownPhilosophyRichards}
 \mbox{\textit{\rdash{Maths} student \rdash{Brown} 
 \ \uwave{is advised by}\ \ \rdot{Philosophy} professor \rdot{Richards}}}
 \end{equation}
 and suppose that we already knew that the Maths department has a student named Smith and that Philosophy, likewise, has a professor called Richards. 
-This message structure is appropriate  if we assume this model
+This phrasing is appropriate  if we assume this model
 \begin{equation}
 \label{shlaerLang-DeptStudentProfessor..collapsed..diagram}
 \scalebox{0.9}{\input{\handCraftedImagesFolder/shlaerLang-DeptStudentProfessor..collapsedReferential..diagram.tex}}
@@ -90,8 +107,14 @@ This message structure is appropriate  if we assume this model
 \commentary{..collapsedReferentialCandidate..diagram}
 in which the relationship \textit{d1} between a student and their department is modelled as an identifying feature of \textit{student} and likewise the relationship $d2$ is shown as an identifying feature of \textit{department}.
 
-We see from the message that students from one department can be advised by professors from other departments. This is a property of the relationship $r$ that is worth representing
-on the diagram and this I have done with the note `inter-department'.
+From this specific instance we see that in the educational context being modelled, 
+students from one department can be advised by professors from other departments. 
+This is what we would tend to assume from the arrangement of types and relationships on the diagram
+ but in the models of other institutions it may not be the case.
+So, this example presents $r$ as inter-departmental but in contrasting examples it may be intra-departmental. 
+Because it is significant to the phrasing of the relationship, I have added a note to the diagram to indicate as much.
+
+This prepares the ground for the variations that follow, where similar structures lead either to collapsed or to absent referentials.
 
 \subsection {Collapsed Referentials Variation}
 
@@ -222,7 +245,7 @@ What we need instead is
 \end{equation}
 
 \subsection{Further Example in which Referentials Collapse}
-\mynote 
+
 To illustrate the discussion that follows, 
 imagine we model the plots of plays and in doing so consider \commentary{globalise this somehow, summarise/compare the plots of many plays}
 love, reciprocated or not, to be a many-many relationship between characters like so
@@ -231,7 +254,7 @@ love, reciprocated or not, to be a many-many relationship between characters lik
 \scalebox{0.9}{\input{\ImagesFolder/dramaticArtsLoves..relationship..diagram.tex}}
 \end{equation}
 and consider how instances of this relationship might properly be conveyed.
-\mynote
+
 As we have said above, and according to the model we have assumed (see figure \ref{dramaticArts1..diagram}),
   characters from plays need be identified by three referentials
  --- the name of the character, the title of the play and the name of the playwright.
@@ -283,7 +306,7 @@ An instances of the `loves' relationship is conveyed by a total of four referent
 if the relationship were global in scope as would have been the case if a
  character from one play could love a character from an entirely different play.
 
-\mynote 
+
 Now we need to drill into this statement made above that `the loves relationship is intra-play rather than inter-play'. What that means is that whenever one character loves another character then the loved character is a character in the same play as the lover character.  We can say that more concisely in symbols
 if we label the relationship between lover and loved as `r' and if we label the relationship between a character and the play  they are a character within as `d1'
 then 
@@ -349,7 +372,7 @@ multiple entities:
   \item the combination of the airport the flight is identified as being from, Munich, and the gate number, 
   L06, identifies a \textit{gate}.
 \end{itemize}
-\mynote 
+
 These referentials, the names (Munich, Manchester), numbers (LH2502, L06) and the date (14 August 2024)
 I can understand as the values of attributes of the various referenced entitites. 
 The types of these entities (airline service, airport, flight and gate), the relationships between them and the attributes employed
@@ -358,7 +381,7 @@ The types of these entities (airline service, airport, flight and gate), the rel
 \label{boardingGate1}
 \raisebox{-1.5cm}{\input{\ImagesFolder/boardingGate1.tex}}
 \end{equation}
- \mynote
+ 
 Message (\ref{LH2502PhoneMessage}) communicates instances of 
 three different relationships and these have been labelled on the diagram as $r1$, $r2$ and $r3$;
 each of these relationships instances can be conveyed individually as follows:
@@ -367,14 +390,14 @@ each of these relationships instances can be conveyed individually as follows:
 &\text{\textit{service LH2502 is \uwave{to} airport Manchester}}\ (r2) \\
 \label{messagefour}&\text{\textit{flight LH2502 on 14 Aug 2024 is \uwave{departing from} gate L06}}\ (r3) 
 \end{align}
-\mynote
+
 I should mention, for the sake of completeness, that message (\ref{LH2502PhoneMessage}) also communicates a value for the $scheduled time$ attribute,
 ideividually this might be communicated like so
 \begin{equation}
 \text{\textit{flight LH2502 on 14 Aug 2024 has \uwave{scheduled time} 15:55}} 
 \end{equation}
 but this doesn't concern us here.
-\mynote
+
 In the context of the relationships as we have diagrammed them,
 message (\ref{messagefour}) has to be understand using the information in equation 
 (\ref{messageone}). To identify a \textit{gate} we need an airport and a gate number.
@@ -388,7 +411,7 @@ that the flight leaves from.}}
 For this reason the airport the gate is located at is an absent from message
 (\ref{messagefour}) --- it is an absent  referential.
 
-\mynote
+
 The background understanding is a key to understanding how a relationship is to be conveyed. Therefore the diagram needs to be annotated with this key information.
 One way of doing this is to contract (\ref{gatescopetext}) to a scoping inequality for relationship
 \begin{equation}
