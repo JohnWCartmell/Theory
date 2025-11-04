@@ -573,62 +573,46 @@ We can now see, in precise terms, how the a priori equivalences we discussed ear
 \textbf{Mathematically} \commentary{I can probably develop this further so as to speak about the set of identifying slots for each type of entity. In the relational model each of these identifying slots corresponds to a primary key column.}
 
 In categorical terms, each slot corresponds not to an individual path but to an equivalence class of paths — and these equivalence classes themselves form a category. The set of slots at a type in this category is a jointly monomorphic set of morphisms.
+\begin{noteforfuture}
+Pick this up in a logical2physical section later.  For each type of entity there is a set of idenitfying slots. 
+ In the relational model each of these identifying slots corresponds to a primary key column.
+\end{noteforfuture}
 
 \subsection{Entity Models and Equivalent Paths}
-\begin{worktt}
-Path equivalences are essential if an entity model is to fully explain the structures it represents. 
-This raises the methodological question: how should such equivalences be expressed within an entity model? 
-Well we are not being prescriptive here about the precise way diagrams and accompanying information should be represented. Here are some thoughts though and they reflect the software tools that the author has used in the past.
-\end{worktt} 
-\mynote \commentary{Somewhere happen}
-The recognition and explicit statement of such path equivalences are essential steps in closing the gap between modelling and data definition. They enable the model to serve not merely as a structural schema but as a full explanation of how references are to be phrased and how facts are to be expressed.
-\mynote
-In these examples we have shown that, however expressed,  the specifications of equivalent paths are
-an important supplement to entity relationship diagrams. 
-An entity model in the main part consists of at least an entity relationship diagram  
-plus a statement of path equivalences.
 
+We have seen that the incorporation of path equivalences, where they exist, is essential if an entity model is to explain fully how references to entities are to be phrased in ordinary language, or equivalently, how they are to be represented in data.
 
-As we have seen two subordinate references to a play are shared in all proper references to dramatic roles 
-and this is because of
-the equivalence of two particular paths of identifying relationships. 
-Note that the simple existence of these comparable paths in the diagram of figure \ref{dramaticArts1..diagram}
-does not imply their equivalence.
+As the dramatic-role example shows, two comparable paths can sometimes be equivalent, and this equivalence determines how references are formed. The mere presence of comparable paths in a diagram does not imply that they are equivalent; such equivalences must be explicitly specified as part of the model.
 
-\commentary{fully understand this is one part of closing the gap that we spoke about in the introduction}
-\commentary{To fully understand how references to dramatic roles are phrased we need to understand the equivalence of these two paths. If we don't fully understand then the entity model cannot guide us fully in the phrasing of facts 
-regarding dramatic role should be represented in data. }
-To understand the referencing of roles we need understand the equivalence of these two paths. 
-So significant is this that the equivalence ought to be specified in the entity model in some way.
-For now we can imagine annotating the diagram in some way to indicate that these two paths are equivalent 
-or else specifying in a separate document or in a separate diagram. 
-One way of specifying is by writing the equation
+An entity model therefore properly consists of at least two parts:
+\begin{enumerate}
+\item an entity–relationship diagram showing the structure of types and relationships, and
+\item a set of statements of path equivalences.
+\end{enumerate}
+
+The statement of a path equivalence can take one of two forms—algebraic or diagrammatic. 
+For example, the equivalence between the two paths leading from \textit{dramatic role} to \textit{play} can be written algebraically as
 \begin{equation}
 \label{dramaticArtsDramaticRolePathEquivalence}
 r4 \comp d1 = d2 \comp r2
 \end{equation}
-
-Another way is to take diagram ((\ref{dramaticArtsPortrayalScopeFragment..diagram})), 
-to flip it  around, and to draw  in this reduced form like this
+or represented diagrammatically by asserting that the following diagram commutes:
 \begin{equation}
 \label{dramaticArtsPortrayalScopeAppearance1}
 \input{\ImagesFolder/dramaticArtsPortrayalScope..diagram.tex}
 \end{equation}
-and to assert that this diagram commutes.
 
-This is our preferred diagrammatic way of presenting equivalent paths in this book and we return to this subject in a later section where we refer to such a diagram as this as a scope diagram. 
-We also in the habit of writing equations such as (\ref{dramaticArtsDramaticRolePathEquivalence}) on the entity relationships diagram itself.
-We can think of dramatic roles coming into being when productions of plays are being cast. What the commutivity of this diagram expresses is when a production of a play is being cast then it is all characters from the play that are being cast not characters from plays in general. 
-The relationship ``the portray of'', we say, is restricted in scope.
+This commutativity expresses that, when a production of a play is being cast, it is the characters of that play that are being cast—not characters from plays in general. We therefore say that the relationship “portrayal of” is restricted in scope.
 
+In this book, we use diagrams such as (\ref{dramaticArtsPortrayalScopeAppearance1}) to present equivalent paths. These are called scope diagrams, and we return to them in a later section.
 
 
 \subsection{Mathematically}
-\mynote
-I don't expect the reader to be a mathematician but, for those readers that are, 
-an entity model in the main part is a presentation 
-(or, equivalently, a sketch) of a category of some kind for the entity model diagram is a directed graph, 
-the path equivalences are commuting diagrams. 
-In this category, the identifying features are jointly monomorphic families of morphisms.
-What we have seen in this section is that categorical structure lies behind what might seem like linguistic or representational questions.
+
+I don't expect the reader to be a mathematician but, for those that are, 
+an entity model is, in essence,  a presentation 
+(or, equivalently, a sketch) of a category of some kind: the entity-relationship  diagram provides the underlying directed graph, 
+and the path equivalences specify the commuting diagrams. 
+Within this category, the identifying features are jointly monomorphic families of morphisms.
+What we have seen in this section is that categorical structure underlies questions that might seem linguistic or representational.
 
