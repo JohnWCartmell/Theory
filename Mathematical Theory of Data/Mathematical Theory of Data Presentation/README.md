@@ -2,7 +2,8 @@
 # MToD.slides
 Comprises
 - main/MToD.slides.presentation.pdf
-- main/MTod.slides.handout.pdf
+- main/MTod.slides.handout.pdf  I HAVE NOT BEEN ABLE TO GET THIS BUILDING PROPERL
+                                IT GETS TRUNCATED> CORRESPOING POSTSCRIPT FILE IS BETTER BUT STILL L:OSES TWO PAGES OF SLIDES
 To build pdfs latex
 * main/MToD.slides.presentation.tex
 * main/MToD.slides.handout.tex
