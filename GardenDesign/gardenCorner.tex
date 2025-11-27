@@ -1,0 +1,171 @@
+\documentclass[a4paper,landscape]{article}
+\usepackage{geometry}
+\geometry{margin=1.2cm}
+\usepackage{pstricks}
+
+\usepackage{pst-plot}
+\usepackage{graphicx} % for \scalebox
+\usepackage{xfp}      % for floating point arithmetic
+
+\newdimen\pictureHeight
+\pictureHeight=10cm
+
+\newdimen\pictureWidth
+\pictureWidth=25cm
+
+
+\newdimen\gardenWidth
+\newdimen\gardenHeight
+
+\newcount\Scale
+\Scale=40
+\def\scaled#1{\dimexpr #1mm/\Scale *10 \relax}
+
+
+
+\makeatletter
+\newcommand{\cmActual}[1]{%
+  \fpeval{round((\strip@pt#1)*40*25.4/72.27/10,1)}cm
+}
+\makeatother
+
+
+\gardenWidth=\scaled{923}   % #1 = 923
+\gardenHeight=\scaled{381}  % #1 = 381
+
+\newdimen\negGardenWidth
+\negGardenWidth= -\gardenWidth 
+\newdimen\negGardenHeight
+\negGardenHeight= -\gardenHeight
+
+
+%Concrete Slab
+\newdimen\xTopRightSlab \xTopRightSlab=\scaled{-611}
+\newdimen\yTopRightSlab \yTopRightSlab=\scaled{-5} %?????????????
+\newdimen\lengthSlab \lengthSlab=\scaled{200} %?????
+\newdimen\widthSlab \widthSlab=\scaled{180} %?????
+\newdimen\xBottomLeftSlab \xBottomLeftSlab=\dimexpr \xTopRightSlab - \lengthSlab \relax
+\newdimen\yBottomLeftSlab \yBottomLeftSlab=\dimexpr \yTopRightSlab - \widthSlab  \relax
+
+% Post One
+\newdimen\xTopRightPostOne   \xTopRightPostOne=\scaled{-188}
+\newdimen\yTopRightPostOne   \yTopRightPostOne=\scaled{4}
+\newdimen\xBottomLeftPostOne \xBottomLeftPostOne=\dimexpr \xTopRightPostOne - \scaled{8} \relax
+\newdimen\yBottomLeftPostOne \yBottomLeftPostOne=\dimexpr \yTopRightPostOne - \scaled{8} \relax
+% Post Two
+\newdimen\xTopRightPostTwo   \xTopRightPostTwo=\dimexpr \xBottomLeftPostOne - \scaled{181} \relax
+\newdimen\yTopRightPostTwo   \yTopRightPostTwo=\scaled{5}
+\newdimen\xBottomLeftPostTwo \xBottomLeftPostTwo=\dimexpr \xTopRightPostTwo - \scaled{10} \relax
+\newdimen\yBottomLeftPostTwo \yBottomLeftPostTwo=\dimexpr \yTopRightPostTwo - \scaled{10} \relax
+% Post Three
+\newdimen\xTopRightPostThree   \xTopRightPostThree=\dimexpr \xBottomLeftPostTwo - \scaled{180} \relax
+\newdimen\yTopRightPostThree   \yTopRightPostThree=\scaled{5}
+\newdimen\xBottomLeftPostThree \xBottomLeftPostThree=\dimexpr \xTopRightPostThree - \scaled{10} \relax
+\newdimen\yBottomLeftPostThree \yBottomLeftPostThree=\dimexpr \yTopRightPostThree - \scaled{10} \relax
+% Post Four
+\newdimen\xTopRightPostFour   \xTopRightPostFour=\dimexpr \xBottomLeftPostThree - \scaled{181} \relax
+\newdimen\yTopRightPostFour   \yTopRightPostFour=\scaled{5}
+\newdimen\xBottomLeftPostFour \xBottomLeftPostFour=\dimexpr \xTopRightPostFour - \scaled{10} \relax
+\newdimen\yBottomLeftPostFour \yBottomLeftPostFour=\dimexpr \yTopRightPostFour - \scaled{10} \relax
+% Post Five
+\newdimen\xTopRightPostFive  \xTopRightPostFive=\dimexpr \xBottomLeftPostFour - \scaled{153} \relax
+\newdimen\yTopRightPostFive   \yTopRightPostFive=\scaled{5}
+\newdimen\xBottomLeftPostFive \xBottomLeftPostFive=\dimexpr \xTopRightPostFive - \scaled{10} \relax
+\newdimen\yBottomLeftPostFive \yBottomLeftPostFive=\dimexpr \yTopRightPostFive - \scaled{10} \relax
+
+
+% Outer End Wall
+\newdimen\xTopRightOuterEndWall  \xTopRightOuterEndWall=\scaled{0} 
+\newdimen\yTopRightOuterEndWall   \yTopRightOuterEndWall=\scaled{-5}
+\newdimen\xBottomLeftOuterEndWall \xBottomLeftOuterEndWall=\dimexpr \xTopRightOuterEndWall - \scaled{477} \relax  %conjectured
+\newdimen\yBottomLeftOuterEndWall \yBottomLeftOuterEndWall=\dimexpr \yTopRightOuterEndWall - \scaled{10} \relax  %100mm blocks
+% Inner End Wall
+\newdimen\xTopRightInnerEndWall  \xTopRightInnerEndWall=\scaled{0} 
+\newdimen\yTopRightInnerEndWall   \yTopRightInnerEndWall=\dimexpr \yBottomLeftOuterEndWall -\scaled{7} \relax % want 50mm gap  but forced out to 70mm by concrete
+\newdimen\xBottomLeftInnerEndWall \xBottomLeftInnerEndWall=\dimexpr \xTopRightInnerEndWall - \scaled{477} \relax  %conjectured
+\newdimen\yBottomLeftInnerEndWall \yBottomLeftInnerEndWall=\dimexpr \yTopRightInnerEndWall - \scaled{10} \relax  %100mm bricks
+
+% Key Point
+\newdimen\xKeyPoint \xKeyPoint=-\scaled{447}
+\newdimen\yKeyPoint \yKeyPoint=-\scaled{368}
+
+% Lower Wall
+\newdimen\lowerInnerInnerRadius \lowerInnerInnerRadius=\dimexpr \yBottomLeftInnerEndWall - \yKeyPoint \relax
+\newdimen\lowerInnerOuterRadius \lowerInnerOuterRadius=\dimexpr \lowerInnerInnerRadius + \scaled{10} \relax  % 10cm brick
+\newdimen\lowerOuterInnerRadius \lowerOuterInnerRadius=\dimexpr \lowerInnerOuterRadius + \scaled{5}  \relax  % 5cm gap
+\newdimen\lowerOuterOuterRadius \lowerOuterOuterRadius=\dimexpr \lowerOuterInnerRadius + \scaled{10} \relax  % 10cm brick
+\newdimen\xLowerCentre  \xLowerCentre=\dimexpr  \xKeyPoint + \lowerInnerInnerRadius \relax
+\newdimen\yLowerCentre \yLowerCentre=\scaled{-368}
+
+% Upper Wall
+\newdimen\xUpperCentre \xUpperCentre=\xLowerCentre
+\newdimen\yUpperCentre \yUpperCentre=\yLowerCentre
+
+\newdimen\upperInnerInnerRadius \upperInnerInnerRadius=\dimexpr \lowerInnerInnerRadius + \scaled{136} \relax
+\newdimen\upperInnerOuterRadius \upperInnerOuterRadius=\dimexpr \upperInnerInnerRadius + \scaled{10} \relax % 10cm brick
+\newdimen\upperOuterInnerRadius \upperOuterInnerRadius=\dimexpr \upperInnerOuterRadius + \scaled{5}  \relax  % 5cm gap
+\newdimen\upperOuterOuterRadius \upperOuterOuterRadius=\dimexpr \upperOuterInnerRadius + \scaled{10} \relax  % 10cm brick
+
+
+\begin{document}
+
+xxx
+
+\vspace{2cm}
+
+
+
+\begin{center}
+\begin{pspicture}(-\scaled{1000},-\scaled{440})(\scaled{40},\scaled{40})
+    \psaxes[Ox=-24,Oy=-10]{->}(-24,-10)(0,0)(-24,-10)
+% Overall rectangle (923 × 381 cm real → 23.075 × 9.525 drawing)
+    \psframe[linewidth=0.25pt](-\scaled{923},-\scaled{368})(0,0)
+
+%Concrete Slab
+    \psframe[linewidth=0.15pt, fillstyle=solid, fillcolor=lightgray](\xTopRightSlab,\yTopRightSlab)(\xBottomLeftSlab,\yBottomLeftSlab)
+% Post One
+    \psframe[linewidth=0.15pt, fillstyle=solid, fillcolor=lightgray](\xTopRightPostOne,\yTopRightPostOne)(\xBottomLeftPostOne,\yBottomLeftPostOne)
+% Post Two
+    \psframe[linewidth=0.15pt, fillstyle=solid, fillcolor=lightgray](\xTopRightPostTwo,\yTopRightPostTwo)(\xBottomLeftPostTwo,\yBottomLeftPostTwo)
+% Post Three
+    \psframe[linewidth=0.15pt, fillstyle=solid, fillcolor=lightgray](\xTopRightPostThree,\yTopRightPostThree)(\xBottomLeftPostThree,\yBottomLeftPostThree)
+% Post Four
+    \psframe[linewidth=0.15pt, fillstyle=solid, fillcolor=lightgray](\xTopRightPostFour,\yTopRightPostFour)(\xBottomLeftPostFour,\yBottomLeftPostFour)
+% Post Five
+    \psframe[linewidth=0.15pt, fillstyle=solid, fillcolor=lightgray](\xTopRightPostFive,\yTopRightPostFive)(\xBottomLeftPostFive,\yBottomLeftPostFive)
+% Key Point
+    \pscircle(\xKeyPoint,\yKeyPoint){0.05}
+    \uput[45](\xKeyPoint,\yKeyPoint){\cmActual{\xKeyPoint}}
+% Key Point Projection To y (House)
+    \pscircle(0,\yKeyPoint){0.05}
+% y distance label
+    \rput[t]{90}(0.1,-5.0){-----136cm-----}
+% Label Distance of Lower Key point to Upper Key Point
+    \rput[t](-13,-9.35){-----136cm-----}
+
+% Outer End Wall
+\psframe[linewidth=0.15pt, fillstyle=solid, fillcolor=lightgray](\xTopRightOuterEndWall,\yTopRightOuterEndWall)(\xBottomLeftOuterEndWall,\yBottomLeftOuterEndWall)
+% Inner End Wall
+\psframe[linewidth=0.15pt, fillstyle=solid, fillcolor=lightgray](\xTopRightInnerEndWall,\yTopRightInnerEndWall)(\xBottomLeftInnerEndWall,\yBottomLeftInnerEndWall)
+
+%centre point for curving walls
+    \pscircle(\xLowerCentre,\yLowerCentre){0.05}
+    \uput[45](\xLowerCentre,\yLowerCentre){\cmActual{\xLowerCentre}}
+%lower wall
+    \psarc[linewidth=1pt](\xLowerCentre,\yLowerCentre){\lowerInnerInnerRadius}{90}{180} 
+    \psarc[linewidth=1pt](\xLowerCentre,\yLowerCentre){\lowerInnerOuterRadius}{104}{180} 
+    \psarc[linewidth=1pt](\xLowerCentre,\yLowerCentre){\lowerOuterInnerRadius}{90}{180}
+    \psarc[linewidth=1pt](\xLowerCentre,\yLowerCentre){\lowerOuterOuterRadius}{101.5}{180} 
+%upper wall
+    \psarc[linewidth=1pt](\xUpperCentre,\yUpperCentre){\upperInnerInnerRadius}{134}{180} 
+    \psarc[linewidth=1pt](\xUpperCentre,\yUpperCentre){\upperInnerOuterRadius}{135}{180} 
+    \psarc[linewidth=1pt](\xUpperCentre,\yUpperCentre){\upperOuterInnerRadius}{135.3}{180}
+    \psarc[linewidth=1pt](\xUpperCentre,\yUpperCentre){\upperOuterOuterRadius}{136.3}{180} 
+\end{pspicture}
+\end{center}
+
+\end{document}
+
+
+
+
