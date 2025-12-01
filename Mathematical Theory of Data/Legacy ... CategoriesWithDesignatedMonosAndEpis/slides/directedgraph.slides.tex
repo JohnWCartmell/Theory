@@ -1,0 +1,149 @@
+
+\begin{frame}{COMING NEXT}
+\begin{center}
+\Large Example Data Specification of a Set of Directed Graphs
+\end{center}
+\begin{itemize}
+\item logical 
+\item structural  
+\item representational
+\item technological
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Theory of a Directed Graph}
+\begin{displaymath}
+\dgbasic
+\end{displaymath}
+\end{frame}
+
+\iffalse
+\begin{frame}{Theory of a Set of Directed Graphs}
+\begin{tabular}{p{2cm} p{2cm} p{0.5cm} p{5cm}}
+& \begin{displaymath} 
+\setofdg 
+\begin{arrows}
+\ncarr{dg}{abs}
+\end{arrows}
+\end{displaymath} & & 
+\onslide<2->{\vspace{1.0cm}such that \begin{displaymath} 
+\setofdgcommutativediagram
+\end{displaymath} commutes.}
+\end{tabular}
+\onslide<3->{ If I am to generate a category with terminal object from this sketch I should not have to include the terminal object in the sketch. However for the purposes of illustration it hlps me if I do.}
+\end{frame}
+\fi
+
+\begin{frame}{Theory of a Set of Directed Graphs}
+\begin{tabular}{p{2cm} p{2cm} p{0.5cm} p{5cm}}
+& \begin{displaymath} 
+\begin{array}{c}
+\rnode{abs}{abs}\\[1.3cm]
+\setofdg 
+\end{array}
+\begin{arrows}
+\ncarr{dg}{abs}
+\end{arrows}
+\end{displaymath} & & 
+\vspace{2.0cm}such that \begin{displaymath} 
+\setofdgcommutativediagram
+\end{displaymath} commutes.
+\end{tabular}
+\end{frame}
+
+\iffalse
+\begin{frame}{Slide X1}
+\begin{displaymath}
+\dgbasiclabelled{l}
+\end{displaymath}
+\end{frame}
+
+\begin{frame}{Slide X2}
+\begin{displaymath}
+\dgbasiclabelled{number}
+\end{displaymath}
+\end{frame}
+\fi
+
+\iffalse
+\begin{frame}{Logical Specification}{Set of Named and Labelled Directed Graphs}
+\begin{displaymath}
+\begin{array}{c}
+\setoflabelleddgs
+\end{array}
+\end{displaymath}
+\end{frame}
+\fi
+
+
+\begin{frame}{Logical Specification}{Set of Uniquely Named and Numerically Labelled Directed Graphs}
+\pause
+$
+\begin{array}{c}
+\setdgexitsuniquelylabelled
+\end{array}
+$
+\begin{minipage}{4cm}
+\begin{itemize}
+\item Specifies that graphs are uniquely named.
+\item Specifies that within each graph, nodes are uniquely labelled. 
+\item Specifies that within each set of outgoing edges, edges are labelled uniquely.
+\end{itemize}
+\end{minipage}
+\end{frame}
+
+\begin{frame}{Structural Specification}{Set of Uniquely Named and Numerically Labelled Directed Graphs}
+$\structuralsetofsgincludingabs$
+\begin{minipage}{4cm}
+\begin{itemize}
+\item Specifies that directed graphs are structurally contained in `the absolute whole'.
+\item Specifies that nodes are structurally contained within directed graphs.
+\item Specifies edges are structurally contained within their source nodes.
+\end{itemize}
+\end{minipage}
+\end{frame}
+
+\begin{frame}{Representational Specification}{Implementing target relationship by foreign key "trglabel"}
+\begin{tabular}{p{5.5cm}  p{0.1cm}  p{5cm} }
+\begin{displaymath}
+\structuralsetofsgincludingabs
+\begin{arrows}
+\ncarr[-40]{edge}{number}
+\blabel{trglabel}[0.2]
+\end{arrows}
+\end{displaymath}
+& & 
+\onslide<2->{such that \begin{displaymath} 
+\setofdgcommutativediagram
+\end{displaymath} commutes } \onslide<3->{and 
+\begin{displaymath}
+\dgforeignkeydiagram
+\end{displaymath} commutes.}
+\end{tabular}
+\end{frame}
+
+\begin{frame}[fragile]{Technological Specification}{IDL-style Message Structure}
+\lstdefinelanguage{MyIDL}[]{IDL}
+{morekeywords={Set,Of, struct},sensitive=true}
+\begin{lstlisting}[basicstyle=\footnotesize,keywordstyle={\ttfamily\color{green}\bfseries},language=myIDL]
+struct abs => 
+        dgs: Set Of dg
+
+struct dg => 
+        name : text,
+        nodes: Set Of node
+
+struct node => 
+        label: number,
+        outgoing_edges : Set Of edge
+
+struct edge => 
+       label : number,
+       targetlabel: number
+\end{lstlisting}
+
+\end{frame}
+
+
+
+

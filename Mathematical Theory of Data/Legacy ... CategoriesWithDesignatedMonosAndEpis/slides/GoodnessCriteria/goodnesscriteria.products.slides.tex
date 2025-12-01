@@ -1,0 +1,139 @@
+
+
+\comingnext{Sketches of Categories with Designated Monomorphisms and Epimorphisms and Finite Products as Data Specifications}
+\renewcommand{\slidecontext}{Sketches of Categories with Designated Mono's and Epi's and Finite Products as Data Specifications}
+
+\begin{frame}{Composition of mono sources}
+If $i$ and $j$ are mono sources and $f \in i$ so that
+\begin{center}
+\scalebox{0.65}{
+\input{../content/monosourcecomposition}
+}
+\end{center}
+then $(i \backslash \set{f}) \cup \setsuchthat{f \circ g}{g \in j}$ is a mono source.
+\end{frame}
+
+\begin{frame}{Sketches for categories}{with \thirdstructure }
+By a sketch for a category with \thirdstructure I shall mean a quintuple
+$\tuple{G,PE,M,P,E}$
+\begin{itemize}
+\item  where $G$ is a directed graph, 
+\item  $PE$ is a set of path equivalences, 
+\item  $M$ is a set of $G$-sources deemed to be mono-sources,
+\item  $P$ is a set of $G$-sources deemed to be product diagrams, 
+\item  and $E$ is a set of $G$-paths deemed to be epimorphisms.
+\end{itemize}
+\medskip
+From such a sketch we can generate a category with \thirdstructure.  
+\end{frame}
+
+\begin{frame}{Goodness Criteria 1F}{\slidecontext}
+
+In  a nutshell... "don't model products needlessly".\\
+
+\pause In otherwords:\\
+\medskip
+\IfSforproductepimonoCwithRCwords then
+
+\goodnesscriteria{1F} If $P$ contains the source \scalebox{0.65}{\multisourcediagram{n}{x}{y}{p}} 
+then there ought to exist a node $z$ and an edge $f: x \morph z$ in $G$.
+\end{frame}
+
+\iffalse
+\begin{frame}{Goodness Criteria 2B Revisited}{\slidecontext}
+Next:\\
+Restate how functional dependencies and their representations are defined in terms of sketches of categories with \thirdstructure.
+\end{frame}
+
+\begin{frame}{Functional Dependency Restated}{\slidecontext}
+\IfSforproductepimonoCwithRCwords, 
+if \scalebox{0.65}{\multisourcepathdiagram{n}{a}{b}{x}} is a path source in $S$ and if
+$y: a \morph c$ is a path in $S$
+then path $y$ is said to be \term{functionally dependent} on the set of paths $\set{x_1,...x_n}$ with respect to the requirement $\reqtc$
+iff the function $D(y)$ factors through $D(\tuple{x_1,... x_n })$
+
+\pause iff in each $D \in \reqtc$ there exists a  (unique)
+function $H_D: img(D(\tuple{x_1,... x_n })) \morph D(c)$ \\
+\hspace*{\fill}such that \kern14pt
+\scalebox{0.65}{\commutativetrianglediagrammutant{D(a)}{img(D(\tuple{x_1,... x_n }))}{D(c)}{D(\xntuple)}{f_D}{D(y)}} commutes.
+\end{frame}
+\fi
+\iffalse
+\begin{frame} 
+CORRECT THIS DIAGRAM
+\scalebox{0.9}{ 
+$
+\begin{array}{cp{2cm}ccp{0.5cm}cc}
+                & &         & \Rnode{Eb1}{D(b_1)}& &                            &        \\[0.6cm]
+                & &         & \Rnode{Eb2}{D(b_2)}& &                            &        \\[0.6cm]
+                & &\vdots   &                     & &                            &        \\[0.2cm]                                              
+\Rnode{Ea}{D(a)} & &         & \Rnode{Ebn}{D(b_n)}& & \Rnode{Jnctn}{}            &        \\[1.0cm]
+                & &         & \Rnode{Ec}{D(c)}   & &                            &  
+\end{array}
+\begin{arrows}
+\simplepath{Ea}{Eb1}
+\alabel{D(x_1)}
+\simplepath{Ea}{Eb2}
+\alabel{D(x_2)}
+\simplepath{Ea}{Ebn}
+\alabel{D(x_n)}
+\simplepath{Ea}{Ec}
+\blabel{D(y)}
+\nchpmarr[15][45]{Eb1}{Ebn}{Jnctn}{Ec}
+\naput[npos=-0.1]{$h_D$}
+\ncarc[arcangle=15]{Eb2}{Jnctn}
+%\ncline{h-}{Eb1}{Ebn}
+\end{arrows}
+$
+}
+\end{frame}
+\fi
+
+\begin{frame}{Notation}
+\begin{itemize}
+\item That a path  $y$ is functionally dependent on the set of paths $\set{x_1,...x_n}$ 
+is written  \msfd{x_1,...x_n}{y} in relational data theory.
+\item This is the notation used in the usual definition of BCNF.
+\item The definition is such that in the category \catcw with products \msfd{x_1,...x_n}{y} iff $\fundep{}{\tuple{x_1,...x_n}}{y}$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Meeting BCNF}{\slidecontext}
+If $S$ is a sketch for a category $C$ with designated mono-sources, epi-mono factorisations  and finite products
+and that $S$ is considered as a data specification with requirement $\reqtc$, then 
+if $S$ is simple and \catcw is appropriately finite then $S$ as data specification
+with requirement $\reqtc$ meets the abstract BCNF criteria:
+
+\pause if  
+\multisourcenplusonediagram{n}{a}{b}{x}{c}{y}
+are edges of $S$
+and if \msfd{x_1,...x_n}{y}  is a non-trivial functional dependency  then
+$x_1,...x_n$ is a designated mono-source.
+\end{frame}
+
+
+\iffalse
+\begin{frame}{Referential Inclusion Dependencies}{\slidecontext}
+\begin{definition}
+If $\catc$ is a category with \thirdstructure, if $\reqtc$ is a set of instances 
+and if \fnsourceqnsource in $\catc$ and  $\set{q_1,...q_n}$ is a mono-source
+ then a \term{referential inclusion dependency} $I$, 
+ written $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$, 
+ is a family of functions $I_D)_{D \in \reqtc}$
+such that for each instance $D \in \reqtc$, $I_D$ is a function $I_D : D(a) \morph D(c)$ and
+for each $i$, $1 \leq i \le n$, $I_D \circ D(q_i) = D(f_i)$.
+\end{definition}
+\end{frame}
+
+\begin{frame}{Representation of Referential Inclusion Dependencies}{\slidecontext}
+\begin{definition}
+If $\catc$ is a category with \thirdstructure
+and if $\reqtc$ is a set of instances
+and \fnsourceqnsource in $\catc$ 
+and if $a[f_1,...f_n] \overset{I}{\subseteq} c[q_1,..q_n]$ is a referential inclusion dependency
+with respect  to $\reqtc$ 
+then say that the inclusion dependency $I$ is \term{represented} in $\catc$
+iff there exists a morphism $i:a \morph c$ in $\catc$ such that in each instance $D \in \reqtc$, $D(i) = I_D$. 
+\end{definition}
+\end{frame}
+\fi
