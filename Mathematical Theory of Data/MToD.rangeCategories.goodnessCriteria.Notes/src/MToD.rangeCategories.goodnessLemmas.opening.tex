@@ -8,14 +8,14 @@ are to be represented in data.
 The \textit{mathematical theory of data} is a putative meta-theory 
 intended to support technology-independent reasoning about such data specifications, whatever form they may take. 
 Its scope spans the relational theory of data that originated in 1970, including the five or so definitions of normal form,
-and the later retargeting of these normal forms to hierarchical representations 
+and the later re-targeting of these normal forms to hierarchical representations 
 of data as found in message structures generally and as typified in the use of XML.
 \end{newtt}
 
 The putative theory is abstract in so much as it remains neutral about the choice of universals such as \textit{integer}, \textit{float} and \textit{string} and the binary encodings of these universals. 
 It explains the viability and the interchangeability of hierarchical and relational forms of a data specification.  
 
-It formulates both fundamental principles and individual criteria for goodness of data specifications and aims to establish these by demonstarting a chain of mathematically provable logical implications
+It formulates both fundamental principles and individual criteria for goodness of data specifications and aims to establish these by demonstrating a chain of mathematically provable logical implications
 \[
 \textit{Fundamental Principles}
 \;\Longrightarrow\;
@@ -26,7 +26,7 @@ It formulates both fundamental principles and individual criteria for goodness o
  
 In this way, the fundamental principles provide both an explanation for the classic normal forms—forms which, to my mind at least, retain an air of mystery—and also a means of generalising them beyond the relational sphere in which they were first formulated.
 
-A prior analysis (notes currently on GitHub) suggests that our everyday descriptions of particular things in common language are shaped by significant occurrences of equivalent paths among the network of functional relationships present in any subject domain. 
+A prior analysis (notes currently on GitHub) suggests that our everyday descriptions of particular things in common language can be shaped in part by  occurrences of equivalent paths among the network of functional relationships present in any subject domain. 
 
 To achieve good data specifications for a subject domain, the effects of these equivalent paths must be taken into account. 
 Since the logic of equivalent paths is the starting point for category theory, we are led to the conclusion that 
@@ -43,7 +43,7 @@ What we present is therefore a mathematically expedient stepping stone toward a 
 \section{Restriction Categories (\cite{COCKETT2002})}
 
 \cite{COCKETT2002}
-From Cockett \& Lack, a restriction category is a category \catcw with an additiona operator (the restriction operator) such that
+From Cockett \& Lack, a restriction category is a category \catcw with an additional operator (the restriction operator) such that
 if $f: a \morph b$ in \catcw then
 $$\bar{f}: a \morph a$$ 
 and satisfying
@@ -95,7 +95,7 @@ k \circ \bar{j} &= k \circ \bar{\bar{j}}              && \mbox{from (i),}\\
 
 \section{Range Categories \cite{COCKETT2012}}
 
-A \term{range category} is a retriction category with an additional operator as follows
+A \term{range category} is a restriction category with an additional operator as follows
 if $f: a \morph b$ in  \catcw then
 $$\hat{f}: b \morph b$$
 satisfying
@@ -119,9 +119,7 @@ RR.5 if $\equaliser{a}{f}{\paralleldiag{b}{c}{g}{h}}$ then
 In this note we explore range categories that satisfy this additional RR.5 condition as data specifications.
 
 
-
-
-Let the category \FinPar be the range catgory of finite sets and partial functions.
+Let the category \FinPar be the range category of finite sets and partial functions.
 
 \begin{lemma}
 If $f:a \morph a$ in a range category \catcw then for any morphism 
@@ -150,7 +148,7 @@ HomP(a,j)(k) = k \circ j &\mbox{ if $k \circ \bar{j} = k$} \\
                          & \mbox{ is undefined otherwise}
 \end{align*}
 \begin{lemma}
-If \catcw is a restriction catgory and $a$ is an object of \catcw 
+If \catcw is a restriction category and $a$ is an object of \catcw 
 then the functor $HomP_\catc(a,-)$ preserves the restriction operator i.e.
 for all $j:x \morph y$ in \catc
 $$HomP_\catc(a,\bar{j})=\overline{HomP_\catc(a,j)}$$
@@ -201,9 +199,9 @@ We need to show that  $\Fquotient$ respects the restriction operator
 i.e. we need to show that for any morphism $j:x \morph y$ in \catcw, $\Fquotient(\bar{j})= \overline{\Fquotient(j)}$.
 
 The LHS, $\Fquotient(\bar{j})$, is defined to  be the partial function
-$$ [k] \mapsto [F(\bar{j})(k)] \mbox{ providing $F(\bar{j})(k)$ is defined, is undefind otherwise,}$$
-in otherwords, since  $F$ assumed to be a restriction functor it can be defined as mapping
-$$ [k] \mapsto [\overline{F(j)}(k)] \mbox{providing $\overline{F(j)}(k)$ is defined, is undefind otherwise,}$$
+$$ [k] \mapsto [F(\bar{j})(k)] \mbox{ providing $F(\bar{j})(k)$ is defined, is undefined otherwise,}$$
+in other words, since  $F$ assumed to be a restriction functor it can be defined as mapping
+$$ [k] \mapsto [\overline{F(j)}(k)] \mbox{providing $\overline{F(j)}(k)$ is defined, is undefined otherwise,}$$
 and this in turn, because of the definition of restriction in \SetP, means that it maps
 $$ [k] \mapsto [k] \mbox{providing $F(j)(k)$ is defined, is undefined otherwise.}$$
 
@@ -215,25 +213,64 @@ from the definition of $\Fquotient$, $\Fquotient(j)([k])$ is defined iff $F(j)(k
 we have shown that LHS and RHS are identical functions, as required.
 \end{proof}
 
-\section{RR.5 Range Categories}
-
 \section{Range Categories with Partial Sections}
+\begin{definition}
+A \textit{range category with partial sections} is a range category \catcw such that
+       for each morphism $f:a \morph b$ in \catcw there is a morphism $f_s: b \morph $
+       in \catcw such that $f_s \circ f = \hat{f}$.
+\end{definition}
+
+\begin{lemma}
+If \catcw is a range category with partial sections then \catcw is an RR.5 range category.
+\end{lemma}
+\begin{proof}
+Straightforward.
+\end{proof}
+
+\section{Generalisation of Schein's Theorem}
+\begin{theorem} [\cite{COCKETT2012}]
+Every small range category in
+which [RR.5] holds admits a faithful embedding into the partial
+map category of a regular category, namely sets and partial functions.
+\end{theorem}
+
+In particular:
+\begin{corollary}
+Every RR.5 range category can be faithfully mapped into a range category with partial sections.
+\end{corollary}
+
+\section{Free Range Category with Partial Sections}
+
+\begin{corollary}[Palmgren-Vickers]
+The forgetful functor from range categories with partial sections to range categories admits a left adjoint.
+\end{corollary}
+\begin{proof}
+Cockett’s axiomatization of range categories, including axiom (RR.5), is quasi-equational rather than purely equational.
+Hence the forgetful functor from range categories with partial sections to range categories is induced by a morphism of quasi-equational theories, and therefore admits a left adjoint by Palmgren–Vickers(\cite{PalmgrenVickers2007}).
+\end{proof}
+
+\begin{lemma}
+The unit of the above adjunction faithfully 
+embeds an RR.5 category in a freely generated range category with sections.
+\end{lemma}
+\begin{proof}
+\end{proof}
+
+
+\section{By the way}
+I cannot help thinking that Cockett et al's proof of Schein's Theorem must break down into three
+distinct parts
 \begin{itemize}
-       \item a range catagory with partial sections is ...
-       \item every RR.5 range category can be faithfully mapped into a range category with partial sections
-       \item the inclusion of the category of range categories with partial sections  
-              into the  category of RR.5 range categories has a left adjoint
-       \item the unit of the adjunction faithfully 
-               embeds an RR.5 category in a freely generated range category with sections.
+       \item show that theory of categories with partial sections is a conservative extension of the theory of RR.5 range categories (prove syntactically)
+       \item there is a free category with partial sections generated by a range category. 
+              More formally:  
+              the inclusion of the category of range categories with partial sections  
+              into the  category of RR.5 range categories (i.e. the forgetful functor) has a left adjoint.
+       \item For every range category with partial sections there is a faithful range functor into the
+             category of sets and partial functions. Proof. coproduct over all objects $a$ of Hom functor $(Hom(a,-)$.  
 \end{itemize}
 
-\section{Conjecture}
-I was trying to understand relationship between 
-\begin{itemize}
-\item the theory of range categories with partial sections is a conservative extension of the theory of RR.5 range categories.
-\item the forgetful functor from (category of) range categories with partial sections to (category of) range categories has a left adjoint
-\item the unit of the adjunction embeds a range category $C$ in a range category with partial sections $C_s$, if $C$ is an RR.5 range category then the unit is faithful
-\end{itemize}
+
 \section{Construction of Range Functors}
 
 \subsection{$HomP$ as a Range Functor}
@@ -301,7 +338,7 @@ i.e. we need to show that for any morphism $j:x \morph y$ in \catcw,
 The LHS, $\Fquotient(\hat{j})$, is defined to  be 
 the partial function which maps $[k']$, where $k' \in F(y)$, as follows
 $$ [k'] \mapsto [F(\hat{j})(k')] \mbox{ providing $F(\hat{j})(k')$ is defined, and is undefined otherwise.}$$
-In otherwords, since  $F$ assumed to be a range functor it can be defined as mapping
+In other words, since  $F$ assumed to be a range functor it can be defined as mapping
 $$ [k'] \mapsto [\widehat{F(j)}(k')] \mbox{ providing $\widehat{F(j)}(k')$ is defined and being undefined otherwise,}$$
 and this in turn, because of the definition of ranges in \SetP, means that it maps
 $$ [k'] \mapsto [k'] \mbox{providing there exists $k \in F(x)$ such that $k'=F(j)(k)$ and being undefined otherwise.}$$
