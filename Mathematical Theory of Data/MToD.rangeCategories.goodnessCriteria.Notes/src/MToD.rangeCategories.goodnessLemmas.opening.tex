@@ -2,7 +2,6 @@
 
 \section{Introduction}
 
-\begin{newtt}
 Data specifications describe how particulars in some context or discursive domain
 are to be represented in data. 
 The \textit{mathematical theory of data} is a putative meta-theory 
@@ -10,7 +9,6 @@ intended to support technology-independent reasoning about such data specificati
 Its scope spans the relational theory of data that originated in 1970, including the five or so definitions of normal form,
 and the later re-targeting of these normal forms to hierarchical representations 
 of data as found in message structures generally and as typified in the use of XML.
-\end{newtt}
 
 The putative theory is abstract in so much as it remains neutral about the choice of universals such as \textit{integer}, \textit{float} and \textit{string} and the binary encodings of these universals. 
 It explains the viability and the interchangeability of hierarchical and relational forms of a data specification.  
@@ -42,11 +40,19 @@ What we present is therefore a mathematically expedient stepping stone toward a 
 
 \section{Restriction Categories (\cite{COCKETT2002})}
 
-\cite{COCKETT2002}
-From Cockett \& Lack, a restriction category is a category \catcw with an additional operator (the restriction operator) such that
-if $f: a \morph b$ in \catcw then
-$$\bar{f}: a \morph a$$ 
-and satisfying
+For the theory of data, 
+the notion of \textit{range category} that we are interested in 
+is defined in terms of the slightly simpler notion of a 
+\textit{restriction category}. These were introduced by 
+Cockett \& Lack (\cite{COCKETT2002}) and 
+constitute an algebra that nicely represents a system of partially defined terms or maps. Applied to the theory of data, they are relevant because data fields often only optionally have values and can be considered therefore to be partial, rather than total, functional relationships. 
+
+Cockett \& Lack define restriction categories along the following lines:
+\begin{definition}
+A \textit{restriction category} is a category \catcw with an additional operator on morphisms (the restriction operator $\bar{\ }$), so that from a morphism
+$f: a \morph b$ in \catcw there is a 
+$$\bar{f}: a \morph a$$,
+satisfying
 
 R.1 For $f:a \morph b$ in \catcw $$\bar{f} \circ f =f$$.
 
@@ -58,21 +64,24 @@ $$\overline{\bar{f} \circ g} = \bar{f} \circ \bar{g}$$.
 
 R.4. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
 $$f \circ \bar{g} = \overline{f \circ g} \circ f$$.
+\end{definition}
 
+Some properties of the restriction operator that follow from this definition are as follows:
 \begin{lemma}
 \label{restrictioncatlemma}
 In any restriction category \catc
 \begin{enumerate} [(i)]
 \item For $f:a \morph b$ in \catcw,
 $$\bar{\bar{f}}=\bar{f}$$
+\item If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw 
+ then
+$$\overline{f \circ g} = \overline{f \circ \bar{g}}.$$
 \item If $\sequentialdiag{a}{b}{c}{k}{j}$ in \catcw 
 and $k$ is total i.e. $\bar{k}=id_a$
 and if $k \circ \bar{j}$ is total i.e. $\overline{k \circ \bar{j}}=id_a$
 then
 $$k \circ \bar{j} = k.$$
-\item If $\sequentialdiag{a}{b}{c}{k}{j}$ in \catcw 
-and $k$ is total i.e. $\bar{k}=id_a$ then
-$$\overline{k \circ j} = \overline{k \circ \bar{j}}.$$
+
 \end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -80,22 +89,88 @@ $$\overline{k \circ j} = \overline{k \circ \bar{j}}.$$
 \item Use R3 with $g$ being $id_b$.
 \item 
 \begin{align*}
+\overline{f \circ \bar{g}}
+&= \overline{\overline{f \circ g} \circ f}
+    && \text{by (R4),} \\
+&= \overline{f \circ g} \circ \bar{f}
+    && \text{by (R3),} \\
+&= \bar{f} \circ \overline{f \circ g}
+    && \text{by (R2),} \\
+  &= \overline{\bar{f} \circ f \circ g}
+    && \text{by (R3),} \\  
+&= \overline{f \circ g}
+    && \text{by (R1).}
+\end{align*}
+\item 
+\begin{align*}
 k \circ \bar{j} &= k \circ \bar{\bar{j}}              && \mbox{from (i),}\\
                 &= \overline{k \circ \bar{j}} \circ k && \mbox{by R.4,}   \\
                 &= k                                  && \mbox{from assumption $k \circ \bar{j}$ is total.}
 \end{align*}
-\item 
-\begin{align*}
-\overline{k \circ j} &= \overline{k \circ j} \circ \bar{k}    && \mbox{from assumption that $k$ total,}\\
-                     &= \overline{\overline{k \circ j} \circ k} && \mbox{by R.3,} \\
-                     &= \overline{k \circ \bar{j}}              && \mbox{by R.4.}
-\end{align*}
+
 \end{enumerate}
 \end{proof}
 
+{ %begin RHomFunctorSubLemma
+\newcommand{\EqOnelhs}{k \circ \overline{j_1 \circ j_2}}
+\newcommand{\EqOnerhs}{k}
+\newcommand{\EqOne}{\EqOnelhs=\EqOnerhs}
+\newcommand{\EqTwoBlhs}{k \circ \overline{j_1}}
+\newcommand{\EqTwoBrhs}{k}
+\newcommand{\EqTwoB}{\EqTwoAlhs = \EqTwoArhs}
+\newcommand{\EqTwoAlhs}{k \circ j_1 \circ \overline{j_2}}
+\newcommand{\EqTwoArhs}{k \circ j_1}
+\newcommand{\EqTwoA}{\EqTwoBlhs= \EqTwoBrhs}
+\begin{lemma}
+\label{RHomFunctorSubLemma}
+If $\triplesequentialdiag{a}{x_1}{x_2}{x_3}{k}{j_1}{j_2}$ 
+in \catcw  then $\EqOne$ 
+            iff $\EqTwoA$ and $\EqTwoB$.
+\end{lemma}
+\begin{proof}
+
+First make the initial assumption that $\EqOne$, we can show the first identity, $\EqTwoA$, as follows
+\begin{align*}
+\EqTwoAlhs & = k \circ \overline{j_1 \circ \bar{j_2}} \circ j_1
+                                         &&\mbox{ by R.4,} \\
+           & = k \circ \overline{j_1 \circ j_2} \circ j_1 &&\mbox{ by lemma \ref{restrictioncatlemma} (ii),} \\
+           & = \EqTwoArhs &&\mbox{ from the initial assumption.}       
+\end{align*}
+and we can show the second identity, $\EqTwoB$, as follows
+\begin{align*}
+\EqTwoBlhs & = \overline{k \circ j_1} \circ k &&\mbox{ by R.4,} \\
+           & = \overline{k \circ j_1 \circ \overline{j_2}} \circ k
+                       &&\mbox{ by using the first identity} \\
+           & = k \circ \overline{j_1 \circ \overline{j_2}} 
+                       &&\mbox{ by R.4} \\
+           & = k \circ \overline{j_1 \circ j_2} 
+                       &&\mbox{ by lemma \ref{restrictioncatlemma} (ii),} \\
+           & = \EqTwoBrhs 
+                        &&\mbox{ from the initial assumption. }    
+\end{align*}
+
+Now assume the two identities  $\EqTwoA$ and $\EqTwoB$, 
+we can show that then $\EqOne$, as follows   
+ \begin{align*}
+\EqOnelhs & = \overline{k \circ j_1 \circ j_2}  
+                   &&\mbox{ by R.3,} \\
+           & = \overline{k \circ j_1 \circ \bar{j_2}} 
+                       &&\mbox{ by lemma \ref{restrictioncatlemma} (ii), } \\
+           & =  \overline{k \circ j_1}
+                       &&\mbox{ by use of the second identity,} \\
+           & = \EqOnerhs 
+                        &&\mbox{ by use of the first identity. }    
+\end{align*}
+\end{proof}
+
+} %end RHomFunctorSubLemma
+
 \section{Range Categories \cite{COCKETT2012}}
 
-A \term{range category} is a restriction category with an additional operator as follows
+Cockett et al. (\cite{COCKETT2012}) define range categories from restriction categories along the following lines.
+
+\begin{definition} 
+A \term{range category} is a restriction category with an additional operator on morphisms (the range operator $\hat{\ }$), as follows
 if $f: a \morph b$ in  \catcw then
 $$\hat{f}: b \morph b$$
 satisfying
@@ -109,19 +184,21 @@ $$\widehat{f \circ \bar{g}} = \hat{f} \circ \bar{g}.$$
 
 RR.4. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
 $$\widehat{(hat({f}) \circ g)} = \widehat{f \circ g}.$$
+\end{definition}
 
-A range category may additionally satisfy
+In this note we explore range categories that satisfy an  additional condition defined by Cockett et al. as RR.5. We will use the folowing terminology:
+
+\begin{definition}
+An \textit{RR.5 range category} is a range category that additionally satisfies:
 
 RR.5 if $\equaliser{a}{f}{\paralleldiag{b}{c}{g}{h}}$ then
  $$f \circ g = f \circ h \Rightarrow  \hat{f} \circ g = \hat{f} \circ h.$$
-
-
-In this note we explore range categories that satisfy this additional RR.5 condition as data specifications.
-
+ \end{definition}
 
 Let the category \FinPar be the range category of finite sets and partial functions.
 
 \begin{lemma}
+\label{unirangelemma}
 If $f:a \morph a$ in a range category \catcw then for any morphism 
 $f: a \morph b$
 \begin{enumerate}[(i)] 
@@ -135,7 +212,35 @@ $f: a \morph b$
 Straightforward.
 \end{proof}
 
+\begin{lemma}
+\label{fglemma}
+ \begin{enumerate}[(i)]
+ \item 
+ If \fgsourcediag in \catcw then
+ $\hat{f}\circ \hat{g} = \hat{g} \circ \hat{f},$
+ \item
+If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
+$\hat{g} \circ \widehat{f \circ g}=  \widehat{f \circ g}.$
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}[(i)]
+\item Follows from RR.1 and R.2.
+\item
+\begin{align*}
+\hat{g} \circ \widehat{f \circ g}&=\widehat{f \circ g} \circ \hat{g}&&\mbox{by (i)} \\
+&=\widehat{f \circ g} \circ \bar{\hat{g}}&&\mbox{by lemma \ref{unirangelemma} (iii),} \\
+&= \reallywidehat{f \circ g \circ \bar{\hat{g}}}&&\mbox by RR.3, \\
+&= \widehat{f \circ g} &&\mbox by lemma \ref{unirangelemma} (iii), then RR.2.
+\end{align*}
+\end{enumerate}
+\end{proof}
+
 \section{Construction of Restriction Functors}
+
+Denote by \SetP the range category of sets and partial functions
+ and let
+\FinPar be the range category of finite sets and partial functions. 
 
 \subsection{$HomP$ is a Restriction Functor}
 If \catcw is a restriction functor then
@@ -147,6 +252,8 @@ is defined as follows:
 HomP(a,j)(k) = k \circ j &\mbox{ if $k \circ \bar{j} = k$} \\
                          & \mbox{ is undefined otherwise}
 \end{align*}
+
+It follows from lemma  \ref{RHomFunctorSubLemma} that HomP, so defined, is a functor.  From the next lemma we see that it is a restriction functor.
 \begin{lemma}
 If \catcw is a restriction category and $a$ is an object of \catcw 
 then the functor $HomP_\catc(a,-)$ preserves the restriction operator i.e.
@@ -216,7 +323,7 @@ we have shown that LHS and RHS are identical functions, as required.
 \section{Range Categories with Partial Sections}
 \begin{definition}
 A \textit{range category with partial sections} is a range category \catcw such that
-       for each morphism $f:a \morph b$ in \catcw there is a morphism $f_s: b \morph $
+       for each morphism $f:a \morph b$ in \catcw there is a morphism $f_s: b \morph a $
        in \catcw such that $f_s \circ f = \hat{f}$.
 \end{definition}
 
@@ -236,39 +343,56 @@ map category of a regular category, namely sets and partial functions.
 
 In particular:
 \begin{corollary}
+\label{scheincorollary}
 Every RR.5 range category can be faithfully mapped into a range category with partial sections.
 \end{corollary}
 
-\section{Free Range Category with Partial Sections}
+\newcommand {\catRangeCat}{\mathbf{RC}}
+\newcommand {\catRangePSCat}{\mathbf{RPS}}
 
+\section{Free Range Category with Partial Sections}
+Let $\catRangeCat$ denote the category of RR.5 range categories and
+range-preserving functors, and let $\catRangePSCat$ denote the category
+of range categories equipped with partial sections, and structure-
+preserving functors.
+
+Let $U_s: \catRangePSCat \morph \catRangeCat$ be the forgetful functor.
+Cockett’s axiomatization of range categories, including axiom (RR.5), is quasi-equational. Likewise the extension to categories with partial sections is quasi-equational.
+Hence the forgetful functor from range categories with partial sections to range categories is induced by a morphism of quasi-equational theories, and therefore admits a left adjoint by Palmgren–Vickers(\cite{PalmgrenVickers2007}). We have therefore:
 \begin{corollary}[Palmgren-Vickers]
-The forgetful functor from range categories with partial sections to range categories admits a left adjoint.
+The forgetful functor $U_s: \catRangePSCat \morph \catRangeCat$
+has a left adjoint $F_s: \catRangeCat \morph \catRangePSCat$.
 \end{corollary}
-\begin{proof}
-Cockett’s axiomatization of range categories, including axiom (RR.5), is quasi-equational rather than purely equational.
-Hence the forgetful functor from range categories with partial sections to range categories is induced by a morphism of quasi-equational theories, and therefore admits a left adjoint by Palmgren–Vickers(\cite{PalmgrenVickers2007}).
-\end{proof}
+
+Let $eta: Id_{\catRangeCat} \morph F_s \circ U_s$ be the unit of the adjunction $F_s \dashv U_s$.
 
 \begin{lemma}
-The unit of the above adjunction faithfully 
-embeds an RR.5 category in a freely generated range category with sections.
+If \catcw is a range category  then
+the unit $\eta_{\catc}: \catc \morph U(F(\catc))$  is faithful. 
+It faithfully embeds an RR.5 category in a freely generated range category with sections.
 \end{lemma}
 \begin{proof}
+Let $\phi$ be the natural isomorphism of hom sets given by the adjunction so that
+$$
+\phi_{C,A} :
+Hom_{\catRangePSCat}(F_s(C),A)
+\;\cong\;
+Hom_{\catRangeCat}(C,U_s(A))
+$$
+
+Let $I_s: \catc \morph  U_s(\mathbf{S})$ be the faithful embedding of \catcw into a catgory with partial sections whose existence is
+given by corollary \ref{scheincorollary}. 
+
+The adjunction gives us  $\phi(I_s) : F_s(\catc) \morph U_s(\mathbf(S))$ as the unique morphism such that
+\begin{displaymath}
+%\composeSevenShaped[nodesize]{A}{B}{C}{f}{g}{h}
+\composeSevenShaped[0.5cm]{\catc}{$U_s(F_s(\catc)$)}{$U_s(S)$}{\eta_\catc}{\phi_{C,U_s(S)}(I_s)}{I_s}
+\end{displaymath}
+commutes. 
+Since $I_s$ is faithful it follows from the commutivity of this diagram that $\eta_\catc$ is faithful.
 \end{proof}
+\newt{We also need the axiom of choice. Where should I  take this step?} 
 
-
-\section{By the way}
-I cannot help thinking that Cockett et al's proof of Schein's Theorem must break down into three
-distinct parts
-\begin{itemize}
-       \item show that theory of categories with partial sections is a conservative extension of the theory of RR.5 range categories (prove syntactically)
-       \item there is a free category with partial sections generated by a range category. 
-              More formally:  
-              the inclusion of the category of range categories with partial sections  
-              into the  category of RR.5 range categories (i.e. the forgetful functor) has a left adjoint.
-       \item For every range category with partial sections there is a faithful range functor into the
-             category of sets and partial functions. Proof. coproduct over all objects $a$ of Hom functor $(Hom(a,-)$.  
-\end{itemize}
 
 
 \section{Construction of Range Functors}

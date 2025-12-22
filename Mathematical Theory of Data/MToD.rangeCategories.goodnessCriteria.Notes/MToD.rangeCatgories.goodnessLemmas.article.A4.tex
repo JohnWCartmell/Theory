@@ -1,5 +1,4 @@
  \documentclass[10pt,a4paper]{article}
-%\input{thepreamble.tex}
 \newcommand{\sharedmacros}{../../../SharedMacros}
 \input{\sharedmacros/ccategories.macros}
 \input{\sharedmacros/ermacros}
@@ -7,11 +6,11 @@
 \input{\sharedmacros/theorems.macros}
 \input{\sharedmacros/general.macros}
 \input{\sharedmacros/diagram.macros}
+\usepackage{xparse}
 \usepackage{mathptmx}  % This changes font to roman
 \usepackage{anyfontsize}
 \usepackage{mathtools}  % why have we got this?
 \usepackage{alltt}    
-%\usepackage{mnsymbol} %used for rightpitchfork           NOT AVAILABLE ON LINUX
 \usepackage{cmll}
 %\usepackage{yhmath}  % used for better version of \widehat
 \usepackage{ulem}
@@ -20,29 +19,33 @@
 \usepackage{framed}
 \usepackage[font=small]{caption}
 \setlength{\captionmargin}{2cm}
-
-
 \theoremstyle{remark}
 \newtheorem*{lemma*}{Lemma}
-
-
 \renewcommand{\term}[1]{\textit{#1}}  %SIMPLE UNINDEXED VERSION
+\usepackage{scalerel,stackengine}
+\stackMath
+\newcommand\reallywidehat[1]{%
+\savestack{\tmpbox}{\stretchto{%
+  \scaleto{%
+    \scalerel*[\widthof{\ensuremath{#1}}]{\kern-.6pt\bigwedge\kern-.6pt}%
+    {\rule[-\textheight/2]{1ex}{\textheight}}%WIDTH-LIMITED BIG WEDGE
+  }{\textheight}% 
+}{0.5ex}}%
+\stackon[1pt]{#1}{\tmpbox}%
+}
+\parskip 1ex
 
-%ENDCOPY
 
 \begin{document}
 \title{Range Categories and the Theory of Data}
 
+
 % abstract here for ams
-
 \author{John Cartmell}
-
 \date{}
-
 \maketitle
-
 \begin{center}
-DRAFTING December 2023
+DRAFTING December 2025
 \end{center}
 
 \newcommand{\fgsourcediag}{$\binarysourcediag{a}{b}{c}{f}{g}$}
@@ -52,6 +55,9 @@ DRAFTING December 2023
 \input{../src/MToD.rangeCategories.functionalDependencies.definitions.tex}
 
 \input{../src/MToD.rangeCategories.fd_representation_lemma.tex}
+
+\input{../src/MToD.rangeCategories.sticklebacks.tex}
+
 
 
 \bibliographystyle{alpha} 
