@@ -45,9 +45,33 @@ I need to show $ B \xleftarrow{f} A \xrightarrow{f} B=\xrightarrow{\hat{f}} B$
 ooops. very confused.
 
 \subsection{Category of sticklebacks on a category \catcw}
+
+
+
 %macros
 \newcommand{\Ob}[2]{
 \Rnode{#1#2}{#1_#2}
+}
+% b bare object no subsript
+\newcommand{\bOb}[1]{
+\Rnode{#1}{#1}
+}
+% p for predecessor
+\newcommand{\Obp}[2]{
+\Rnode{#1#2p}{#1}_{#2-1}
+}
+
+% s for successor
+\newcommand{\Obs}[2]{
+\Rnode{#1#2s}{#1_{#2+1}}
+}
+
+\newcommand{\Obpp}[2]{
+\Rnode{#1#2pp}{#1_{#2-2}}
+}
+
+\newcommand{\Obss}[2]{
+\Rnode{#1#2ss}{#1_{#2+2}}
 }
 
 %\zigzagZeroOne{x}{y}{f}[ff] 
@@ -95,6 +119,48 @@ ooops. very confused.
 \zigzagZeroOne{#1}{#2}{#3}[#4]
 \zigzagDotsThenFinal{#1}{#2}{#3}[#4]{#5}
 }
+
+A zigzag  is a pair of sequences
+$f$, and $f'$ of morphisms of \catcw such that for some $n \ge $, for some objects $x_0,..x_n$ and $y_1,...y_n$ of \catcw we have
+$$
+\arraycolsep=7pt
+\zigzag{x}{y}{f}{n}
+$$
+in \catcw. 
+
+Within a zigzag of length $n$ we find a zig for each $i$, $0 \le i \le n-1$, like so
+$$
+\begin{array} {c c c}
+&\Ob{y}{i}&\\[0.8cm]
+\Ob{x}{i}&&\Obs{x}{i}
+\end{array}
+\begin{arrows}
+\ncarr{yi}{xi}  \blabel{f_i}[0.45][0.4]
+\ncarr {yi}{xis}  \alabel{f'_i}[0.45][0.4]
+\end{arrows}
+$$
+
+We will say that this i'th zig is \textit{tight} iff
+$\overline{f_i}=\overline{f'_i}$.
+
+We also find a  zag \foreachi, like so
+%\arreset}
+$$
+\setlength{\arrnodesepA}{3pt}
+\begin{array} {c c c}
+\Obp{y}{i}&&\Ob{y}{i} \\[0.8cm]
+&\Ob{x}{i}&
+\end{array}
+\begin{arrows}
+\ncarr{yip}{xi}  \blabel{f'_i}[0.45][0.4]
+\ncarr {yi}{xi}  \alabel{f_i}[0.45][0.4]
+\end{arrows}
+$$
+
+and we will say that the i'th zag is tight iff
+$\widehat{f'_i}=\widehat{f_i}$.
+
+A zigzag we will say is a \textit{stickleback} iff its every zig and its every zag are tight. 
 
 A stickleback $f: A \morph B$ is a pair of sequences
 $f$, and $f'$ of morphisms of \catcw such that for some $n \ge $, for some objects $x_0,..x_n$ and $y_1,...y_n$ of \catcw we have
@@ -158,4 +224,92 @@ $$
 $$
 
 
+EXCEPT that the abobe compsitions are not necessarily sticklebacks because
+it will not ne4cessarily be the case that $\hat{g_0)=\hat{f'n}}$.
+
+Therefore we have to do some modifications to both halves of the compostion.
+Modifications to first (f,f') half will be along these lines:
+
+$$
+\arraycolsep=7pt
+\begin{array}{c c c c c}
+\Rnode{xnpp}{x_{n-2}} && \kern0.25cm\Rnode{xnp}{x_{n-1}} && \kern0.5cm\Ob{z}{0}\\[1cm]
+  & \kern0.25cm\Rnode{wnp}{w_{n-1}}  && \kern0.5cm\Ob{w}{n}
+\end{array}
+\begin{arrows}
+\ncarr{z0}{wn}\alabel{g_1 f_n}[0.25][0.4]
+\ncarr{xnp}{wn}\alabel{f'_{n-1}.\reallywidehat{g_1 f_n}}[0.4][0.4]
+\ncarr{xnp}{wnp}\alabel{f_n.\overline{f'_{n-1}.\reallywidehat{g_1 f_n}}}[0.5][0.4]
+\ncarr{xnpp}{wnp}\blabel{f'_{n-2}.\reallywidehat{f_n.\overline{f'_{n-1}\reallywidehat{g_1 f_n}}}}[0.45][0.4]
+\end{arrows}
+$$
+
+\textbf{TIGHTENING a loose stickleback.}
+
+start with
+
+$$
+\arraycolsep=7pt
+\begin{array}{cccccc}
+ &\bOb{v}& &\bOb{x}& &\bOb{z} \\[0.8cm]
+\bOb{u}& &\bOb{w}& &\bOb{y}&
+\end{array}
+\begin{arrows}
+\ncarr{v}{u}\blabel{e}[0.25][0.4]
+\ncarr{v}{w}\alabel{f}[0.25][0.4]
+\ncarr{x}{w}\blabel{g}[0.25][0.4]
+\ncarr{x}{y}\alabel{h}[0.25][0.4]
+\ncarr{z}{y}\blabel{i}[0.25][0.4]
+\end{arrows}
+$$
+
+This tightens to 
+
+$$
+\arraycolsep=7pt
+\begin{array}{cccccc}
+ &\bOb{v}& &\bOb{x}& &\bOb{z} \\[0.8cm]
+\bOb{u}& &\bOb{w}& &\bOb{y}&
+\end{array}
+\begin{arrows}
+\ncarr{v}{u}\blabel{r_e}[0.25][0.4]
+\ncarr{v}{w}\alabel{r_f}[0.25][0.4]
+\ncarr{x}{w}\blabel{r_g}[0.25][0.4]
+\ncarr{x}{y}\alabel{r_h}[0.25][0.4]
+\ncarr{z}{y}\blabel{r_i}[0.25][0.4]
+\end{arrows}
+$$
+
+
+where
+\newcommand{\fConstriction}
+{\reallywidehat{\overline{h\circ\hat{i}}\circ g}}
+\newcommand{\eRestriction}
+{\overline{f\circ\fConstriction}}
+\newcommand{\rebar}{\bar{e} \circ \eRestriction}
+\newcommand{\rfhat}{\widehat{\bar{e} \circ f} \circ \fConstriction}
+\newcommand{\hRestriction}
+{\overline{g \circ \reallywidehat{\bar{e} \circ f}}}
+\newcommand{\rgbar}{\hRestriction\circ\overline{h\circ\widehat{i}}}
+\newcommand{\rhhat}{\widehat{i} \circ \reallywidehat{\hRestriction \circ h}}
+\newcommand{\ri}
+{i \circ \reallywidehat{\hRestriction\circ h}}
+
+\begin{align*}
+r_e&= \eRestriction \circ e  
+& \overline{r_e} &= \bar{e} \circ \eRestriction 
+&\widehat{r_e}&=\reallywidehat{\eRestriction \circ e}\\
+r_f&=\bar{e} \circ f \circ \reallywidehat{\overline{h \circ \hat{i}} \circ g} 
+& \overline{r_f} &= \rebar
+&\widehat{r_f} &= \rfhat\\
+r_g&=\overline{h \circ \widehat{i}} \circ g \circ \reallywidehat{\bar{e} \circ f}
+& \overline{r_g} &= \rgbar
+&\widehat{r_g} &= \rfhat   \\
+r_h&=\hRestriction\circ h\circ\hat{i}
+&\overline{r_h}&=\rgbar
+&\widehat{r_h}&=\rhhat\\
+r_i&=\ri&\overline{r_i}&=\overline{\ri}
+&\widehat{r_i}&=\rhhat
+\end{align*}
+Note that $\overline{r_e}, \overline{r_f}, \overline{r_g}$ and $\overline{r_h}$ have been variously simplified using R.2 and R.3 and that $\overline{r_i}$ does not simplify. Likewise $\widehat{r_f}, \widehat{r_g} , \widehat{r_h}$ and $\widehat{r_i}$ have been variously simplified using lemma \ref{fglemma} (i) and (ii) but $\widehat{r_e}$ does not simplify.
 
