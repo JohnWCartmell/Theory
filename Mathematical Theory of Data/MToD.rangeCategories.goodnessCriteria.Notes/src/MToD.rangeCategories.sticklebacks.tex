@@ -287,6 +287,7 @@ where
 \newcommand{\eRestriction}
 {\overline{f\circ\fConstriction}}
 \newcommand{\rebar}{\bar{e} \circ \eRestriction}
+\newcommand{\rf}{\bar{e} \circ f \circ \reallywidehat{\overline{h \circ \hat{i}} \circ g} }
 \newcommand{\rfhat}{\widehat{\bar{e} \circ f} \circ \fConstriction}
 \newcommand{\hRestriction}
 {\overline{g \circ \reallywidehat{\bar{e} \circ f}}}
@@ -294,12 +295,13 @@ where
 \newcommand{\rhhat}{\widehat{i} \circ \reallywidehat{\hRestriction \circ h}}
 \newcommand{\ri}
 {i \circ \reallywidehat{\hRestriction\circ h}}
-
+\newcommand{\hRestrictionSimplified}
+{\overline{g \circ \widehat{f}}}
 \begin{align*}
 r_e&= \eRestriction \circ e  
 & \overline{r_e} &= \bar{e} \circ \eRestriction 
 &\widehat{r_e}&=\reallywidehat{\eRestriction \circ e}\\
-r_f&=\bar{e} \circ f \circ \reallywidehat{\overline{h \circ \hat{i}} \circ g} 
+r_f&=\rf 
 & \overline{r_f} &= \rebar
 &\widehat{r_f} &= \rfhat\\
 r_g&=\overline{h \circ \widehat{i}} \circ g \circ \reallywidehat{\bar{e} \circ f}
@@ -311,5 +313,154 @@ r_h&=\hRestriction\circ h\circ\hat{i}
 r_i&=\ri&\overline{r_i}&=\overline{\ri}
 &\widehat{r_i}&=\rhhat
 \end{align*}
-Note that $\overline{r_e}, \overline{r_f}, \overline{r_g}$ and $\overline{r_h}$ have been variously simplified using R.2 and R.3 and that $\overline{r_i}$ does not simplify. Likewise $\widehat{r_f}, \widehat{r_g} , \widehat{r_h}$ and $\widehat{r_i}$ have been variously simplified using lemma \ref{fglemma} (i) and (ii) but $\widehat{r_e}$ does not simplify.
+Note that $\overline{r_e}, \overline{r_f}, \overline{r_g}$ and $\overline{r_h}$ have been variously simplified using R.2 and R.3 and that $\overline{r_i}$ does not simplify. Likewise $\widehat{r_f}, \widehat{r_g} , \widehat{r_h}$ and $\widehat{r_i}$ have been variously simplified using lemma \ref{fglemma}, (i) and (iii), and $\widehat{r_e}$ does not simplify.
+
+\textbf{WHAT HAPPENS IF ONLY THE LAST LEG FAILS THE TIGHTNESS CONDITION} 
+Suppose $\bar{e}=\bar{f}$, $\hat{f}=\hat{g}$, $\bar{g}=\bar{h}$. Then we get the some simplifications as follows.
+
+Stage one $bar{e}=\bar{f}$: 
+\begin{align*}
+&&& \bar{e}=\bar{f} && \hat{f} = \hat{g}  && \bar{g} = \bar{h} \\
+r_e&= \eRestriction \circ e  
+&& 
+&& \\
+r_f&=\rf  
+&&= f \circ \reallywidehat{\overline{h \circ \widehat{i}} \circ g} 
+&& \\
+r_g &=\overline{h \circ \widehat{i}} \circ g \circ \reallywidehat{\bar{e} \circ f}
+&&= \overline{h \circ \widehat{i}} \circ g \circ \reallywidehat{f}
+&&=  \overline{h \circ \widehat{i}} \circ g \\
+r_h &=\hRestriction\circ h\circ\hat{i}
+&&= \hRestrictionSimplified\circ h\circ\hat{i} 
+&&= \bar{g} \circ h \circ \widehat{i}
+&&= h \circ \widehat{i} \\
+r_i &=\ri 
+&&=i \circ \reallywidehat{\hRestrictionSimplified \circ h}
+&&=i \circ \reallywidehat{\bar{g} \circ h}
+&&= i \circ \widehat{h}
+\end{align*}
+
+\textbf{Rename}
+Rename $e,f,g,h,i$ to be $\xi_0,\xi'_0,\xi_1,\xi'_1,\xi_2$.
+
+Rename $r_e,r_f,r_g,r_h,r_i$ to be $\gamma_0,\gamma'_0,\gamma_1,\gamma'_1,\gamma_2$.
+
+Then  \textbf{what happens if only the last leg fails the tightness condition:}
+
+\begin{align*}
+\gamma_2 &=\xi_2 \circ \widehat{\xi'_1} \\
+\gamma'_1&=\xi'_1 \circ \widehat{\xi_2}(=\xi'_1\circ\widehat{\gamma_2})\\
+\gamma_1&= \overline{\gamma'_1}\circ\xi_1\\
+\gamma'_0&=\xi'_0 \circ \widehat{\gamma_1}\\
+\gamma_0&=\overline{\gamma'_0}\circ\xi_0
+\end{align*}
+
+
+\subsection{Comparison of Zigzags}
+Say that zigzags are comparable if they are of the same length
+and have identical object sequences.
+If $F\tuple{f_0,f'_0,...f_{n-1},f'_{n-1},f_n}$ and 
+$G\tuple{g_0,g'_0,...g_{n-1},g'_{n-1},g_n}$
+ are comparable zigzags then define $F \leq G$
+by $F \leq G$ iff for each $i$, $0 \leq i \leq n$
+$f_i \leq g_i$ and for each $i$, $0 \leq i \leq n-1$ $f'_i \leq g'_i$.
+
+\subsection{Tightening}
+
+If $F=\tuple{f_0,f'_0,...f_{n-1},f'_{n-1},f_n}$ is a zigzag
+then define the one-step tightening $t_F$ to be the comparable zigzag, $T_F=\tuple{t_0,t'_0,...t_{n-1},t'_{n-1},t_n}$
+where
+\begin{align*}
+t_0  &= \overline{f'_0}\circ f_0 \\
+t'_i &= \overline{f_i} \circ f'_i \circ \widehat{f_{i+1}} &&\mbox{for each $i$, $0 \leq i \leq n-1$}\\
+t_i &= \overline{f'_i}\circ f_i \circ \widehat{f'_{i-1}} &&\mbox{for each $i$, $1 \leq i \leq n-1$}\\
+t_n &= f_n \circ \widehat{f_{n-1}}
+\end{align*}
+
+\begin{observation}
+If $F$ is a zigzag and $T_F$ is its one-step tightening
+then $T_F \leq F$.
+\end{observation}
+
+Let $T^p_F$ be the result of applying the one-step tightening to $F$ and then applying the tightening to the result and so on $p$ times.
+\begin{observation}
+For any zigzag $F$, there is a number $p \geq 0$ such that
+$T^p_F$ is tight and therefore $T^{p+1}_F=T^p_F$.
+\end{observation}
+We shall use the notation $T^*_F$ for this and say that it is the absolute tightening of $F$.
+
+\begin{lemma}
+If $F$ is a zigzag and and 
+if $G$ is a zigzag that is a comparable  to $F$ and is tight then if $G \leq F$
+then $G \leq T_F$. 
+\end{lemma}
+\begin{proof}
+There are four cases to consider.
+Holds in the first case as follows.
+\begin{align*}
+&g'_0 \leq f'_0 \\
+\mbox{therefore }&\overline{g'_0} \leq \overline{f'_0} \\
+\mbox{therefore }&\overline{g_0} \leq \overline{f'_0} &\mbox{because g tight, $\overline{g'_0} = \overline{g_0}$ }
+\end{align*}
+Since $g_0 \leq f_0$ and $\overline{g_0} \leq \overline{f'_0}$
+then from lemma \ref{leqlemma} it follows that
+$g_0 \leq \overline{f'_0}\circ f_0$, as required.
+\end{proof}
+\begin{corollary}
+If $F$ is a zigzag and $T^*_F$ is tha absolute tightening of $F$, 
+if $G$ is a zigzag that is a comparable  to $F$ and is tight then if $G \leq F$
+then $G \leq T^*_F$. 
+\end{corollary}
+
+\begin{observation}
+If $F_a=\tuple{f_0,f'_0,...f_{n-1},f'_{n-1},a}$
+and $F_b=\tuple{f_0,f'_0,...f_{n-1},f'_{n-1},b}$
+are zigzags that, as you can see, differ only in the final position and
+if $\widehat{b} \leq \widehat{a}$
+then 
+\begin{enumerate}[(i)]
+\item if $T_{F_a}=\tuple{t_0,t'_0,...t_{n-1},t'_{n-1},t_n}$
+is the one-step tightening of $F_a$
+and  $T_{F_b}=\tuple{s_0,s'_0,...s_{n-1},s'_{n-1},s_n}$
+is the one-step tightening of $F_b$ then
+for each $i$, $0 \leq i \leq n-1$, $s_i \leq t_i$ and $s'_i \leq t'_i$,
+\item if $T^*_{F_a}=\tuple{t_0,t'_0,...t_{n-1},t'_{n-1},t_n}$
+is the absolute tightening of $F_a$
+and  $T^*_{F_b}=\tuple{s_0,s'_0,...s_{n-1},s'_{n-1},s_n}$
+is the absolute tightening of $F_b$ then
+for each $i$, $0 \leq i \leq n-1$, $s_i \leq t_i$ and $s'_i \leq t'_i$.
+\end{enumerate}
+\end{observation}
+
+\begin{observation}
+If $F_a=\tuple{f_0,f'_0,...f_{n-1},f'_{n-1},a}$
+and $F_b=\tuple{f_0,f'_0,...f_{n-1},f'_{n-1},b \circ a}$
+are zigzags that, as you can see, differ only in the final position 
+then 
+\begin{enumerate}[(a)]
+\item
+if $T_{F_a}=\tuple{t_0,t'_0,...t_{n-1},t'_{n-1},t_n}$
+is the one-step tightening of $F_a$
+and  $T_{F_b}=\tuple{s_0,s'_0,...s_{n-1},s'_{n-1},s_n}$
+is the one-step tightening of $F_b$ then
+\begin{enumerate}[(i)]
+\item for each $i$, $0 \leq i \leq n-1$, 
+$s_i \leq t_i$ and $s'_i \leq t'_i$,
+\item $s_n = b \circ t_n$,
+\end{enumerate}
+\item
+if $T^*_{F_a}=\tuple{t_0,t'_0,...t_{n-1},t'_{n-1},t_n}$
+is the absolute tightening of $F_a$
+and  $T^*_{F_b}=\tuple{s_0,s'_0,...s_{n-1},s'_{n-1},s_n}$
+is the absolute tightening of $F_b$ then
+\begin{enumerate}[(i)]
+\item for each $i$, $0 \leq i \leq n-1$, 
+$s_i \leq t_i$ and $s'_i \leq t'_i$,
+\item $s_n = b \circ t_n$.
+\end{enumerate}
+\end{enumerate}
+\end{observation}
+
+
+
 
