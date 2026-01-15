@@ -68,7 +68,7 @@ $$f \circ \bar{g} = \overline{f \circ g} \circ f$$.
 
 Some properties of the restriction operator that follow from this definition are as follows:
 \begin{lemma}
-\label{restrictioncatlemma}
+\llabel{restrictioncatlemma}
 In any restriction category \catc
 \begin{enumerate} [(i)]
 \item For $f:a \morph b$ in \catcw,
@@ -122,7 +122,7 @@ k \circ \bar{j} &= k \circ \bar{\bar{j}}              && \mbox{from (i),}\\
 \newcommand{\EqTwoArhs}{k \circ j_1}
 \newcommand{\EqTwoA}{\EqTwoBlhs= \EqTwoBrhs}
 \begin{lemma}
-\label{RHomFunctorSubLemma}
+\llabel{RHomFunctorSubLemma}
 If $\triplesequentialdiag{a}{x_1}{x_2}{x_3}{k}{j_1}{j_2}$ 
 in \catcw  then $\EqOne$ 
             iff $\EqTwoA$ and $\EqTwoB$.
@@ -177,7 +177,7 @@ $$f \leq g \mbox{ iff } f = \bar{g} \circ f.$$
 We can think of $f \leq g$ as meaning that if $f$ is defined then $g$ is defined and the two are equal.
 
 \begin{lemma}
-\label{leqlemma}
+\llabel{leqlemma}
 If 
 $
 \paralleldiag{a}{b}{f}{f'}
@@ -189,6 +189,25 @@ $
 in \catcw and if $f' \leq f$ and $g' \leq g$ 
 then $f' \circ g' \leq f \circ g$.
 \end{lemma}
+
+\begin{lemma}
+\llabel{pointwiseleqlemma}
+If 
+$
+\paralleldiag{a}{b}{f}{f'}
+$
+and
+$
+\paralleldiag{b}{c}{g}{g'}
+$
+and $h: a \morph c$ in \catcw 
+and if $f' \leq f$ and $g' \leq g$ 
+and if $h \leq f \circ g'$ and $h \leq f' \circ g$ 
+then $h \leq f' \circ g'$.
+\end{lemma}
+\begin{proof}
+Proof is handwritten on tablet.
+\end{proof}
 
 
 \section{Range Categories \cite{COCKETT2012}}
@@ -206,10 +225,10 @@ RR.1 For $f:a \morph b$ in \catcw $$\bar{\hat{f}} = \hat{f}.$$
 RR.2 For $f:a \morph b$ in \catcw $$f \circ \hat{f} = f.$$
 
 RR.3. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
-$$\widehat{f \circ \bar{g}} = \hat{f} \circ \bar{g}.$$
+$$\reallywidehat{f \circ \bar{g}} = \hat{f} \circ \bar{g}.$$
 
 RR.4. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
-$$\widehat{(hat({f}) \circ g)} = \widehat{f \circ g}.$$
+$$\reallywidehat{(\widehat{f} \circ g)} = \widehat{f \circ g}.$$
 \end{definition}
 
 In this note we explore range categories that satisfy an  additional condition defined by Cockett et al. as RR.5. We will use the folowing terminology:
@@ -224,7 +243,7 @@ RR.5 if $\equaliser{a}{f}{\paralleldiag{b}{c}{g}{h}}$ then
 Let the category \FinPar be the range category of finite sets and partial functions.
 
 \begin{lemma}
-\label{unirangelemma}
+\llabel{unirangelemma}
 If $f:a \morph a$ in a range category \catcw then for any morphism 
 $f: a \morph b$
 \begin{enumerate}[(i)] 
@@ -238,7 +257,7 @@ Straightforward.
 \end{proof}
 
 \begin{lemma}
-\label{fglemma}
+\llabel{fglemma}
  \begin{enumerate}[(i)]
  \item 
  If \fgsinkdiag in \catcw then
@@ -246,9 +265,10 @@ Straightforward.
  \item
 If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
 $\hat{g} \circ \reallywidehat{f \circ g}=  \reallywidehat{f \circ g}.$
- \item
-If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
+ \item \commentary{wrong diagram }
+If \fgsinkdiag in \catcw  then
 $\reallywidehat{f \circ \widehat{g}}=\widehat{f} \circ \widehat{g}.$
+
 
 \end{enumerate}
 \end{lemma}
@@ -263,9 +283,15 @@ $\reallywidehat{f \circ \widehat{g}}=\widehat{f} \circ \widehat{g}.$
 &= \widehat{f \circ g} &&\mbox{by lemma \ref{unirangelemma} (iii), then RR.2.}
 \end{align*}
 \item %(iii)
-Follows from  RR.1 and RR.3.
+\begin{align*}
+\widehat{f \circ \widehat{g}} 
+                                &=\widehat{f \circ \overline {\widehat{g}}} &\mbox{by RR.1}\\
+                                &=\widehat{f} \circ \overline {\widehat{g}} &\mbox{by RR.3}\\
+                                &=\widehat{f} \circ \widehat{g}             & \mbox{by RR.1}\\
+\end{align*}
 \end{enumerate}
 \end{proof}
+
 
 \section{Construction of Restriction Functors}
 
@@ -459,8 +485,9 @@ Let $j_s : y \morph x$ be the splitting of $j$ i.e. be such that $j_s \circ j = 
 The second set is included in the first because if a morphism is of the form $k' \circ \hat{j}$, where $k' \circ \hat{j} = k'$, then it of the form $k \circ j$, where $k \circ \bar{j}=k$, because $k$ can be taken to be $k' \circ j_s$ for then we have 
 $k' \circ \hat{j} = k' \circ j_s \circ j = k \circ j$
 and we have $k \circ \bar{j}= k' \circ j_s \circ \bar{j} =  k' \circ j_s = k$ using lemma
-\ref{jsbarj}, as required. 
+\ref{jsbarj}, as required. \commentary{no such lemma!}
  \end{proof}
+
 
 \begin{corollary}
 If \catcw is a range category in which every morphism has a partial section then
