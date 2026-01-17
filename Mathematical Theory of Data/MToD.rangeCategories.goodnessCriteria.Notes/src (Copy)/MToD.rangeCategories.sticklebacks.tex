@@ -13,7 +13,6 @@ of the free range category on a partial map category in terms of certain types o
 trees.
 
 \section{By the way}
-\subsection{One thought}
 I cannot help thinking that Cockett et al's proof of Schein's Theorem must break down into three
 distinct parts
 \begin{itemize}
@@ -26,37 +25,28 @@ distinct parts
              category of sets and partial functions. Proof. coproduct over all objects $a$ of Hom functor $(Hom(a,-)$.  
 \end{itemize}
 
-\subsection{Another Thought}
-Update: 16 December 2025. I guessed that there is a category of short sticklebacks over a range category C and that this might be a range category by virtue of it being a category with choice (check out this terminology and make sure I have it right) and therefore a range category. 
+Update: 16 December 2025. I guess that there is a category of sticklebacks over a range category C and that this would be a range category. Sadly if it is a category (which I am not sure I have actually checked)
+then it certainly isn't a range category. For $f$ a morphism 
+$f: A \morph B$
+the \catcw the stickle $B \xleftarrow{f} A$ (the partial section of $f$)
+doesn't have a range stickeback. I had hoped to show that the stickle 
+ $ B \xleftarrow{f} A \xrightarrow{f} B$ was the range but this is clearly nonsense (though I managed to believe it for a day or two).
 
  I guess that there might be enough structure so that \catcw is embedded in a restriction catgory in which all morphisms in the image have a range and have a partial section(
-  the expectation of course is that the stickleback that is the image of $f$ in the embedding, i.e. $A \xleftarrow{ \bar{f}} A \xrightarrow{f} B \xleftarrow{\widehat{f}} A $ 
- has the stickleback $B \xleftarrow{f} A$ as a section. That is surely the point of the stickleback). Since what I really interested in  is the composition of this functor with the Hom functor then this might be enough for structure for the construction I need.
+  the expectation of course is that the stickleback $B \xleftarrow{f} A$ 
+ has the stickleback $A \xrightarrow{f} B$ as a section. That is surely the point of the stickleback). Since what I really interested in the is the composition of this functor with the Hom functor then this might be enough for structure for the construction I need. 
 
- Update: 16 January 2026. I have shown that there is a category of sticklebacks. I have defined an operator
- $\overline{\ \kern0.2cm}$ and proved the restriction axioms R.1, R.2 and R.3. I believe that wR.4 holds 
- (so that $\bar{\ }$ is a support operator (Check terminology!). I belive that I have shown that  R.4 does not hold (check again, I am desparate). Since I require R.4 to hold in order to construct a HompP functor this line (using the category of sticklebacks) seems to have come to a sticky end. It would be worth documenting why R.4 does not hold. It would be worth understanding how Cockett et al successfully use what seems to be the coproduct 
-\[
-\coprod_{a \in |\catc|}HomP(a,-)
-\]
- even though $HomP(a,-)$ isn't functorial.  
+I expect that I can define
+\begin{itemize}
+    \item $\widehat{A \xrightarrow{f} B}=_def B \xrightarrow{\widehat{f}} B$
+\end{itemize}
 
-\subsection{Plan of action 16th January 2026}
-Investigate further 
-\begin{itemize}
-\item Work in this document for a while and establish that category of sticklebacks is a dead end. 
-\item Document that R.4 doesn't hold.
-\item Double check that as a consequence  HomP as prevously defined is not therefore functorial. It might be some kind of 2-functor. Guess this would be worth understanding.
-\item Understand Cocketts seeming use of coproduct as described above.
-\end{itemize}
-Unless something gives
-\begin{itemize}
-\item Tidy up. Move all the category of stickleback stuff in a separate document.
-\item Carry on with the free category with sections. 
-\item The idea is that I dont have to prove that one theory is a conservative extension of another since Cockett has done this with his generalisation of Shein's lemma (the faithfulness of the embedding).
-\end{itemize}
+I need to show $ B \xleftarrow{f} A \xrightarrow{f} B=\xrightarrow{\widehat{f}} B$
+ooops. very confused.
 
 \subsection{Category of zigzags on a category \catcw}
+
+
 
 %macros
 \newcommand{\Ob}[2]{
@@ -296,9 +286,9 @@ $$
 
 
 EXCEPT that the abobe compsitions are not necessarily sticklebacks because
-it will not necessarily be the case that $\widehat{g_0)=\widehat{f'n}}$.
+it will not ne4cessarily be the case that $\widehat{g_0)=\widehat{f'n}}$.
 
-Therefore we have to do some modifications to both halves of the composition.
+Therefore we have to do some modifications to both halves of the compostion.
 Modifications to first (f,f') half will be along these lines:
 
 $$
@@ -791,112 +781,20 @@ as zigzags on length 1.
 \begin{lemma}
 \llabel{leftLowLemma}
 If $\tuple{f_0,f'_0,f_1}$ is a zigzag and if
-\[
-\overline{f_0} \leq \overline{f'_0}
-\]
-i.e. 
-\begin{equation}
-\label{leftLowInequality}
-\overline{f_0} \circ \overline{f'_0} = \overline{f_0}
-\end{equation}
+$$\overline{f_0} \leq \overline{f'_0}$$
 and
-\begin{equation}
-\label{leftLowEquality}
-\widehat{f'_0} = \widehat{f_1}
-\end{equation}
+$$\widehat{f'_0} = \widehat{f_1}$$
 then
-\[
-T(\tuple{f_0,f'_0,f_1})=\tuple{f_0,
+$$T(\tuple{f_0,f'_0,f_1})=\tuple{f_0,
                                  \overline{f_0} \circ f'_0,
                                  f_1 \circ \widehat{\overline{f_0} \circ f'_0}
-                                }
-\]
+                                }$$
 \end{lemma}
 \begin{proof}
-\commentary{this is a good example of tightening and need to do a rightLowLemma also}
-First see that
-\begin{align*}
-t(\tuple{f_0,f'_0,f_1}) 
-                &= \tuple{f_0 \circ \overline{f'_0}, 
-                          \overline{f_0} \circ f'_0 \circ \widehat{f_1},
-                           f_1 \circ \widehat{f'_0}
-                          }     
-                    && \mbox{by following the definition of $t$,}    \\
-                &= \tuple{f_0, \overline{f_0} \circ f'_0,f_1} 
-                    &&\mbox{after simplifying using (\ref{leftLowInequality}) and (\ref{leftLowEquality}),} 
-\end{align*}
-from which we calculate that
-\begin{align*}
-t^2(\tuple{f_0,f'_0,f_1})
-           &= \tuple{
-                    \overline{\overline{f_0} \circ f'_0} \circ f_0,
-                    \overline{f_0} \circ \overline{f_0} \circ f'_0 \circ \reallywidehat{f_1},
-                    \reallywidehat{\overline{f_0} \circ f'_0} \circ  f_1 
-                    }
-           &&  \mbox{by applying the definition of $t$ to $\tuple{f_0, \overline{f_0} \circ f'_0,f_1}$,} \\
-           &= \tuple{f_0, 
-                     \overline{f_0} \circ f'_0,
-                     \reallywidehat{\overline{f_0} \circ f'_0} \circ  f_1 
-                     } 
-           &&  \mbox{after simplification.}
-\end{align*}
-Finally, the zig of $\tuple{f_0, \overline{f_0} \circ f'_0,f_1 \circ \widehat{\overline{f_0} \circ f'_0}}$
-is tight because we have that  (\ref{leftLowInequality})
-and  the zag is tight because
-\[ 
-  \reallywidehat{\overline{f_0} \circ f'_0} = \reallywidehat{f_1 \circ \widehat{\overline{f_0} \circ f'_0}}
-\]
-because handwritten sheet A
-\begin{align*} 
-\reallywidehat{\overline{f_0} \circ f'_0} 
-                &=  \widehat{f'_0} \circ \reallywidehat{\overline{f_0} \circ f'_0} 
-                &&\mbox{lemma  \ref{fglemma} (ii)}\\
-                &= \widehat{f_1} \circ \reallywidehat{\overline{f_0} \circ f'_0}
-                &&\mbox{by (\ref{leftLowEquality})} \\ 
-                &= \reallywidehat{f_1 \circ \widehat{\overline{f_0} \circ f'_0}}
-                &&\mbox{by lemma \ref{fglemma} (iii)}
-\end{align*}
-Thus 
-\begin{align*}
-T(\tuple{f_0,f'_0,f_1})&= t^2(\tuple{f_0,f'_0,f_1})\\
-                       &=\tuple{f_0,
-                                 \overline{f_0} \circ f'_0,
-                                 f_1 \circ \widehat{\overline{f_0} \circ f'_0}
-                                }
-\end{align*}
-as required.
+handwrittem sheet A
 \end{proof}
 
-\begin{corollary}
-\llabel{rightLowCorollary}
-Suppose we have the following morphsisms in a range category \catc:
-$$
-\arraycolsep=7pt
-\begin{array}{ccccc}
- &&\bOb{x}& &\bOb{z} \\[0.8cm]
-&\bOb{w}& &\bOb{y}& \\[0.8cm]
-\bOb{v}&& &       & 
-\end{array}
-\begin{arrows}
-\ncarr{w}{v}\blabel{g}[0.25][0.4]
-\ncarr{x}{w}\blabel{f_0}[0.25][0.4]
-\ncarr{x}{y}\alabel{f'_0}[0.25][0.4]
-\ncarr{z}{y}\blabel{f_1}[0.25][0.4]
-\end{arrows}
-$$
-so that $\tuple{f_0,f'_0,f1}$ and $\tuple{f_0 \circ g,f'_0,f1}$ are zigzags,
-then if the zigzag $\tuple{f_0,f'_0,f1}$ is tight then
-\[
-T(\tuple{f_0 \circ g,f'_0,f_1})=\tuple{f_0 \circ g,
-                                 \overline{f_0 \circ g} \circ f'_0,
-                                 f_1 \circ \widehat{\overline{f_0 \circ g} \circ f'_0}
-                                }.
-\]
-\end{corollary}
-\begin{proof}
-The lemma can be applied to  $\tuple{f_0 \circ g,f'_0,f_1}$ because of the tightness of  $\tuple{f_0,f'_0,f1}$ and
-because $\overline{f_0 \circ g} \leq \overline{f_0} = \overline{f'_0}$.
-\end{proof}
+
 \subsection{Can we prove that $Z_C$ is a restriction category?}
 
 
@@ -936,7 +834,7 @@ R.3 follows because
 
 
 
-to prove R.4 we need first prove Cockett et als.: wR.4 which is that
+to prove R.4 we need first prove that
 
 \begin{equation}
 \label{restrictionlemmiiasR4Antecedent}
