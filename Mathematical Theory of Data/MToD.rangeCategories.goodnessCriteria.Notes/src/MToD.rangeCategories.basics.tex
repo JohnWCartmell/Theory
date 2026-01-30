@@ -29,22 +29,45 @@ R.4. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
 $$f \circ \bar{g} = \overline{f \circ g} \circ f$$.
 \end{definition}
 
-Some properties of the restriction operator that follow from this definition are as follows:
+
+Though we are mainly restriction categories are the structures that we are interested 
+one of the constructions we use relies on categories with a such an operator 
+Cockett et al \cite{COCKETT2012} describe as categories with support 
+such a operator \barItself for which R.4 does not hold, though R.1, R.2 and R.3 so, and for which  the following
+weaker condition holds
+
+wR.4  If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
+\[
+\overline{f \circ g} = \overline{f \circ \bar{g}}.
+\]
+Such categories Cockett et al refer to as \textit{categories with support}. 
+
+Some properties of the restriction operator in that follow from the definition of restriction category are as are as follows:
+
+
+
+
 \begin{lemma}
 \llabel{restrictioncatlemma}
 In any restriction category \catc
 \begin{enumerate} [(i)]
 \item For $f:a \morph b$ in \catcw,
 $$\bar{\bar{f}}=\bar{f}$$
-\item If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw 
+\item w.R4.\footnote{This condition described as wR.4 in Cockett et al.} 
+If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw 
  then
 $$\overline{f \circ g} = \overline{f \circ \bar{g}}.$$
-\item If $\sequentialdiag{a}{b}{c}{k}{j}$ in \catcw 
+
+\item \llabel{CHECKLemma}
+If \catcw is a restriction category \catcw and if
+$\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then 
+$f \circ \bar{g} = f$ iff $\overline{f \circ g} = \overline{f}.$
+\item \llabel{restrictioncatlemma:totalk} \commentary{UNUSED}
+If $\sequentialdiag{a}{b}{c}{k}{j}$ in \catcw 
 and $k$ is total i.e. $\bar{k}=id_a$
 and if $k \circ \bar{j}$ is total i.e. $\overline{k \circ \bar{j}}=id_a$
 then
 $$k \circ \bar{j} = k.$$
-
 \end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -64,6 +87,24 @@ $$k \circ \bar{j} = k.$$
 &= \overline{f \circ g}
     && \text{by (R1).}
 \end{align*}
+\item \commentary{CHECKLemma}
+LEFT TO RIGHT
+Assume $f \circ \bar{g} = f$
+then
+\begin{align*}
+\overline{f \circ g} &= \overline{f \circ \bar{g}} && \mbox{by wR.4,}\\
+                     &= \overline{f} && \mbox{from the assumption.}
+\end{align*}
+RIGHT TO LEFT
+Assume $\overline{f \circ g} = \overline{f}$
+then
+\begin{align*}
+f \circ \bar{g} &= \overline{f \circ g} \circ f 
+                                  && \mbox{R.4,} \\
+                &= \bar{f} \circ f 
+                                  && \mbox{from the assumption,} \\
+                &= f              && \mbox{by R.1.}
+\end{align*}
 \item 
 \begin{align*}
 k \circ \bar{j} &= k \circ \bar{\bar{j}}              && \mbox{from (i),}\\
@@ -74,6 +115,8 @@ k \circ \bar{j} &= k \circ \bar{\bar{j}}              && \mbox{from (i),}\\
 \end{enumerate}
 \end{proof}
 
+
+\begin{oldtt}
 { %begin RHomFunctorSubLemma
 \newcommand{\EqOnelhs}{k \circ \overline{j_1 \circ j_2}}
 \newcommand{\EqOnerhs}{k}
@@ -127,21 +170,72 @@ we can show that then $\EqOne$, as follows
 \end{proof}
 
 } %end RHomFunctorSubLemma
+\end{oldtt}
 
+\begin{lemma}
+\llabel{supportLemma}
+In any category with support \catc, 
+\begin{enumerate}[(i)]
+\item
+if $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw 
+ then
+ \[
+ \overline{f} \circ \overline{f \circ g} = \overline{f \circ g}
+ \]
+ \item
+if  $\triplesequentialdiag{a}{x_1}{x_2}{x_3}{k}{j_1}{j_2}$ 
+in a \catcw  then 
+if $\overline{k \circ j_1 \circ j_2} = \bar{k}$ 
+then $\overline{k \circ j_1} = \bar{k}$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}[(i)]
+\item
+\begin{align*}
+\overline{f} \circ \overline{f \circ g}  
+           &= \overline{f} \circ \overline{f \circ \overline{g}}
+                               && \mbox{by wR.4} \\
+           &= \overline{\overline{f} \circ f \circ \overline{g}}
+                               && \mbox{by R.3}  \\
+           &= \overline{f \circ \overline{g}}
+                               && \mbox{by R.1}\\
+           &= \overline{f \circ g}
+                               && \mbox{ by wR.4, as required}
+\end{align*}
+\item
+
+Suppose $\overline{k \circ j_1 \circ j_2} = \bar{k}$  then we have
+\begin{align*}
+\overline{k \circ j_1} &= \overline{\bar{k} \circ k \circ j_1}
+                           &&\mbox{by R.1,} \\
+                       &= \overline{\overline{k \circ j_1 \circ j_2} \circ k \circ j_1}
+                           &&\mbox{from the initial assumption,} \\
+                       &= \overline{k \circ j_1 \circ j_2} \circ \overline{k \circ j_1}
+                           &&\mbox{by R.3,} \\
+                       &= \overline{k \circ j_1 \circ j_2}
+                           &&\mbox{by (i),} \\
+                       &= \bar{k}
+                           &&\mbox{from the initial assumption, as required.} 
+\end{align*}
+\end{enumerate}
+\end{proof}
 
 
 
 \subsection{Partial Ordering of $Hom(A,B)$}
 
-In a restriction category we can define a partial ordering on each hom set
+In a category with support, and therefore in a restriction category, we can define a partial ordering on each hom set
 Hom(a,b) by defining :
 $$f \leq g \mbox{ iff } f = \bar{g} \circ f.$$
 
 We can think of $f \leq g$ as meaning that if $f$ is defined then $g$ is defined and the two are equal.
 
+
 \begin{lemma}
 \llabel{leqlemma}
-If 
+In a restriction category \catcw,
+if 
 $
 \paralleldiag{a}{b}{f}{f'}
 $
@@ -155,10 +249,13 @@ then $f' \circ g' \leq f \circ g$.
 
 \begin{lemma}
 \llabel{pointwiseleqlemma}
-If 
+
+In a restriction category \catcw,
+if 
 $
 \paralleldiag{a}{b}{f}{f'}
 $
+\nudgedown{0.6cm}
 and
 $
 \paralleldiag{b}{c}{g}{g'}
@@ -169,8 +266,9 @@ and if $h \leq f \circ g'$ and $h \leq f' \circ g$
 then $h \leq f' \circ g'$.
 \end{lemma}
 \begin{proof}
-Proof is handwritten on tablet.
+Proof is handwritten on tablet.\highlight{CHECK.}
 \end{proof}
+
 
 
 \section{Range Categories \cite{COCKETT2012}}
@@ -202,7 +300,6 @@ An \textit{RR.5 range category} is a range category that additionally satisfies:
 RR.5 if $\equaliser{a}{f}{\paralleldiag{b}{c}{g}{h}}$ then
  $$f \circ g = f \circ h \Rightarrow  \hat{f} \circ g = \hat{f} \circ h.$$
  \end{definition}
-
 Let the category \FinPar be the range category of finite sets and partial functions.
 
 \begin{lemma}
@@ -212,7 +309,7 @@ $f: a \morph b$
 \begin{enumerate}[(i)] 
 \item $\hat{\hat{f}}=\hat{f}$,
 \item $\hat{f} \comp \hat{f} = \hat{f}$,
-\item $\hat{\bar{f}}=\bar{f}$.
+\item \llabel{lem:unirange:hatbar} $\hat{\bar{f}}=\bar{f}$.
 \end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -226,7 +323,7 @@ Straightforward.
  If \fgsinkdiag in \catcw then
  $\hat{f}\circ \hat{g} = \hat{g} \circ \hat{f},$
  \item
-w.R4.\footnote{This condition described as a weaken verison of R.4 and referred to as wR.4 in Cockett et al.} If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
+ If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
 $\hat{g} \circ \reallywidehat{f \circ g}=  \reallywidehat{f \circ g}.$
  \item \commentary{wrong diagram }
 If \fgsinkdiag in \catcw  then
@@ -241,9 +338,10 @@ $\reallywidehat{f \circ \widehat{g}}=\widehat{f} \circ \widehat{g}.$
 \item 
 \begin{align*}
 \hat{g} \circ \widehat{f \circ g}&=\widehat{f \circ g} \circ \hat{g}&&\mbox{by (i)} \\
-&=\widehat{f \circ g} \circ \bar{\hat{g}}&&\mbox{by lemma \ref{unirangelemma} (iii),} \\
+&=\widehat{f \circ g} \circ \bar{\hat{g}}
+                    &&\mbox{by lemma \ref{unirangelemma} (\ref{lem:unirange:hatbar}),} \\
 &= \reallywidehat{f \circ g \circ \bar{\hat{g}}}&&\mbox{by RR.3,} \\
-&= \widehat{f \circ g} &&\mbox{by lemma \ref{unirangelemma} (iii), then RR.2.}
+&= \widehat{f \circ g} &&\mbox{by lemma \ref{unirangelemma} (\ref{lem:unirange:hatbar}), then RR.2.}
 \end{align*}
 \item %(iii)
 \begin{align*}
@@ -286,10 +384,83 @@ x_1 &\xmapsto{f \circ \reallywidehat{\overline{g} \circ f}} y \\
 x_2 &\xmapsto {\kern.75cm}y
 \end{align*}
 
-
-
 and we see that $$\overline{g} \circ f \neq f \circ \reallywidehat{\overline{g} \circ f}.$$
 
+\subsection{Partial Sections}
+Cockett defines partial sections as possible features of restriction categories. 
+We are interested in pretty much the same concept applied in the context of categtories with support. If \catcw is a category with support then a morphism s is said to be a partial section of  morphism $f$ iff
+$s \circ f = \bar{s}$ and $f \circ s \circ f = f$.
+
+\section{Range Categories with Partial Sections}
+\begin{lemma}[Cockett et al]
+If \catcw is a restruction category
+and every morphism has a partial section then
+\catcw is a range category and
+\[\widehat{f} = f_s \circ f\]
+for any choice $f_s$ of section for $f$.
+\end{lemma}
 
 
+\begin{lemma}[Cockett et al]
+If \catcw is a range category with partial sections then \catcw is an RR.5 range category.
+\end{lemma}
+\begin{proof}
+Straightforward.
+\end{proof}
 
+\subsection{Generalisation of Schein's Theorem}
+\begin{theorem} [\cite{COCKETT2012}]
+Every small range category in
+which [RR.5] holds admits a faithful embedding into the partial
+map category of a regular category, namely sets and partial functions.
+\end{theorem}
+
+In particular:
+\begin{corollary}
+\label{scheincorollary}
+Every RR.5 range category can be faithfully mapped into a range category with partial sections.
+\end{corollary}
+
+We are interested in picking apart Cockett's proof of this theorem
+and reusing some of the pieces. To this end we need to 
+work with categories with support and the features of morphisms with partial sections.  
+
+\subsection{Categories with Support, Partial Sections and Pseudo-Range}
+
+The following observation is from  Cockett et al where it is used in the context of restriction categories.
+\begin{lemma}
+If \catcw is a category with support and there is a morphism $f: a \morph b$
+which has two partial sections $s,s':b \morph a$ then
+\[
+f \circ s = f \circ s' 
+\]
+\end{lemma}
+\begin{proof}
+hand written notes
+\end{proof}
+
+This leads us to being able to define an operator \hatItself \ for
+morphisms $f$ that have partial sections. 
+We define
+\[\widehat{f} = f_s \circ f\]
+where $f_s$ is any partial section of $f$.
+
+\begin{notebox}[Warning]
+At this point we have proved none of the required range category properties of \hatItself. We must be very careful not to use any of them. Lets pick over anything we do with it very carefully. Must't accidentally assume any of the properties of the range operator. 
+\end{notebox}
+
+To show that HomP preserves the "range" operator I require RR.1.
+That $f \circ \widehat{f} = f$. 
+
+\begin{proof}
+\begin{align*}
+f \circ \widehat{f} &= f \circ f_s \circ f \\
+                    &= f &&\mbox{since $f_s$ is a  section of $f$, PHEW.}
+\end{align*}
+\end{proof}
+
+\begin{noteforfuture}
+somewhere I need show that when I compose zigzag 
+$\tuple{f}$ with $\tuple{\widehat{f},f,\bar{f}}$
+then I get $\tuple{\widehat{f}}$. as well as showing the second os these is a partila section.
+\end{noteforfuture}

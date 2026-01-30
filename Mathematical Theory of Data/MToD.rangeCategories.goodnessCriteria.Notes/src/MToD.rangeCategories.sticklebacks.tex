@@ -1,16 +1,5 @@
 
-Abstract. In this two-part paper, we undertake a systematic study of abstract partial
-map categories in which every map has both a restriction (domain of definition) and a
-range (image). In this first part, we explore connections with related structures such
-as inverse categories and allegories, and establish two representational results. The
-first of these explains how every range category can be fully and faithfully embedded
-into a category of partial maps equipped with a suitable factorization system. The
-second is a generalization of a result from semigroup theory by Boris Schein, and says
-that every small range category satisfying the additional condition that every map is
-an epimorphism onto its range can be faithfully embedded into the category of sets and
-partial functions with the usual notion of range. Finally, we give an explicit construction
-of the free range category on a partial map category in terms of certain types of labeled
-trees.
+
 
 \section{By the way}
 \subsection{One thought}
@@ -56,6 +45,59 @@ Unless something gives
 \item The idea is that I dont have to prove that one theory is a conservative extension of another since Cockett has done this with his generalisation of Shein's lemma (the faithfulness of the embedding).
 \end{itemize}
 
+\subsection{Rereading Cockett}
+I think I have the category of sticklebacks the wrong way around. I have defined it as the dual of what I need. But it is self-dual so it should make no difference. So that I don't confuse my self further here is what I read in Cockett.  
+
+Functor $S:\catcw \morph \SetP$ is defined as the set of stickelbacks on $X$. That is 
+\[ 
+\bigcup_{Z \in |\catc|} stickle(X,Z)
+\]
+
+My initial interpretation was yields $stickle(X,Z)$ as a hom set in a category of stickles:
+\[ Hom_{Stk}(X,Z)\]
+so that 
+\[
+S(X)=\bigcup_{Z \in |\catc|}Hom_{Stk}(X,Z)
+\]
+
+For $f:X \morph Y$ in \catcw, $S(f):S(X) \morph S(Y)$ is defined by
+\[
+\gamma \in S(X) \xmapsto{S(f)} \tuple{f} \circ \gamma
+\]
+where $\tuple{f}$ is a stickle of length zero and $\circ$ is the composition operation that I have described in my first description of the category of sticklebacks.
+
+This way around I have $f: X \morph Y$ in \catcw, $\tuple{f}: Y \morph X$ in 
+category of stickles. My initial interpretation yields $S(f)$ as being
+\[
+\bigcup_{Z \in |\catc|} Hom_{Stk}(\tuple{f},Z) : \bigcup_{Z \in |\catc|}Hom_{Stk}(X,Z) \morph \bigcup_{Z \in |\catc|} Hom_{Stk}(Y,Z)
+\] 
+
+This way around the embedding of \catcw in the stickleback category is contravariant and  $S$ is a composition of the contravarinat embedding with a contravariant functor which is a coproduct of covariant Hom functors. 
+
+Turn the morphisms about and the contravariance disappears. There are other ways around this but overwhelmingly it is better to change the morphisms around which actually is just the same as reversing the directions of all the morphisms in the definition of stickleback. Essentially we are doing this to avoid having morphisms going right to left isntead of left to right.
+
+\subsection{The category of sticklebacks isn't a restriction category}
+But is is a category with support. HomP(a,-) as I previously defined it was
+functorial on a restriction category but not functorial on a category with support. 
+But - HOORAY -- I can define it differently, more similar to Cockett et al, actually.
+The HomP with this revised definition on categories with support and therefore on the stickleback category. Whether I absolutely need this I doubt but it is much neater.
+Significantly: The revised definition is equivalent on restriction categories.
+ 
+\subsection{Revised plan of action 20 January 2026}
+\begin{itemize}
+\item I see that Cockett's stickleback's drawn left to right from $x$ to $y$ have to be considered to be morphisms the other way around from $y$ to $x$ (otherwsie I get a contravariant embedding and a contravariant Hom functor).
+Having decided this is the direction of stickleback's as morphisms  I now feel the need to do is to draw the sticklebacks the other way around. It makes  no difference mathematically. It just seems odd to have a stickleback running from left to right as a morphism from right to left. As expected when truned about the axiom R.4 still fails to hold. 
+\item Since condition R.4 fails and condition wR.4 holds what I haveis (CHECK) a support operation rather than a restriction idempotent. 
+I need read Cockett carefully --- is it the case that support operation plus partial sections gives a range operation? Did I read that? \newt{No I didn't.} If so I need check that I have the required conditions to get a range operation and a support operation.
+\item If I can make some sense of this I need to check what properties the HomP  functor has. 
+\item prove that HomP preserves the restriction operator and the range operator. 
+(For the latter, use the sections.) 
+\end{itemize}
+If that all goes through I am home and hosed in that I have a source of set valued range functors
+to use to construct instances, as required.
+\begin{itemize}
+\item Only when I have checked this out do I have to write up the category of sticklebacks. Somewhere need to introduce short sticklebacks.
+\end{itemize}
 \subsection{Category of zigzags on a category \catcw}
 
 %macros
@@ -442,11 +484,18 @@ t_0&=\overline{t'_0} \circ f_0 &&= \overline{f'_0 \circ \widehat{g_0 \circ f_1}}
 \end{alignat*}
 
 
+
 \subsection{Comparison of Zigzags}
+%zigzagTuple{f}{n}
+\newcommand{\zigzagTuple}[2]
+{
+\tuple{#1_0,#1'_0,...#1_{#2-1},#1'_{#2-1},#1_{#2}}    
+}
+
 Say that zigzags are comparable if they are of the same length
 and have identical object sequences.
-If $F\tuple{f_0,f'_0,...f_{n-1},f'_{n-1},f_n}$ and 
-$G\tuple{g_0,g'_0,...g_{n-1},g'_{n-1},g_n}$
+If $F=\zigzagTuple{f}{n}$ and 
+$G=\zigzagTuple{g}{n}$
  are comparable zigzags then define $F \leq G$
 by $F \leq G$ iff for each $i$, $0 \leq i \leq n$
 $f_i \leq g_i$ and for each $i$, $0 \leq i \leq n-1$ $f'_i \leq g'_i$.
@@ -454,11 +503,7 @@ $f_i \leq g_i$ and for each $i$, $0 \leq i \leq n-1$ $f'_i \leq g'_i$.
 \subsection{Tightening}
 
 
-%zigzagTuple{f}{n}
-\newcommand{\zigzagTuple}[2]
-{
-\tuple{#1_0,#1'_0,...#1_{#2-1},#1'_{#2-1},#1_{#2}}    
-}
+
 
 If $F=\zigzagTuple{f}{n}$ is a zigzag
 then define the one-step tightening $t_F$ to be the comparable zigzag, 
@@ -946,12 +991,7 @@ to prove R.4 we need first prove Cockett et als.: wR.4 which is that
 
 we can then proceed as follows.
 
-
-\textbf{Proceed by induction  --- four ways to ??}
-
-
-
-\textbf{Way two --- init(F) :: last(F)}
+\textbf{init(F) :: last(F)}
 
 First consider that if $F$ is the zigzag
 $$
@@ -1028,7 +1068,8 @@ RHS &=  \overline{F \circ G} \circ F \\
             f_1 \circ \reallywidehat{\overline{t_0} \circ f'_0}
         } \mbox{ where } t_0 = f_0 \circ\reallywidehat{\overline {f'_0  \circ \reallywidehat{g_0 \circ f_1}} \circ f_0} 
     && \mbox{ by lemma \ref{leftLowLemma} leftLowLemma}\\
-    &= &&\mbox{something that  hopefully matches rhs of LHS, above}   
+    &= &&\mbox{something that  hopefully matches rhs of LHS, above}   \\
+    &= \mbox{\highlight{but it doesn't equate to LHS and we fail!}}
 \end{align*}
 
 \textbf{case $n > 2$}
@@ -1064,3 +1105,127 @@ F \circ \overline{G}
                                 && \mbox{as required, by applying (\ref{headTailAndG}).}
 \end{align*}
 
+\subsection{Turn zigzags around}
+Looking at Cockett's Shein's lemma construction make me think I have zigzags the wrong way around.
+That hios zigzag from x to y should be a morphism from y to x in the category of zigzags.
+I can't see this making a difference but I need to check out the preceding failed lemma to see if it succeeds when things are turned around. I can't see how this can be but I better try it anyway. I will edit the previous by reversing the directions of the arrows. It is better this way anyway because the embedding from \catcw into zigzags of \catcw is a more obvious. 
+Start with the bit  that I couldn't prove and see if I can now prove it even though I don't see how it can have changed significantly so that it goes through.
+\textbf{prove that R.4 holds for $F$ of length 2.}
+Suppose $that F$ is the zigzag
+$$
+\arraycolsep=7pt
+\begin{array}{cccc}
+ &\bOb{x}& &\bOb{z} \\[0.8cm]
+\bOb{w}& &\bOb{y}&
+\end{array}
+\begin{arrows}
+\ncarr{w}{x}\alabel{f_0}[0.5][0.4]
+\ncarr{y}{x}\blabel{f'_0}[0.5][0.4]
+\ncarr{y}{z}\blabel{f_1}[0.5][0.4]
+\end{arrows}
+$$
+of length $2$.
+We need show that
+
+$$
+F \circ \overline{G}  = \overline{F \circ G} \circ F 
+$$
+
+
+\highlight{the following looks right}
+\begin{align*}
+LHS &= \tuple{f_0,f'_0,f_1} \circ \overline{G} \\
+    &= T(\tuple{f_0,f'_0, f_1 \circ \overline{g_0}}) 
+                   &&\mbox{using the definition of the $\bar{}$ operator for zigzags} \\
+    &= \tuple{f_0 \circ \reallywidehat {\overline{f_1 \circ g_0} \circ f'_0}, \ 
+                 \overline{f_1 \circ g_0 } \circ f'_0, \
+                 f_1 \circ \overline{g_0}   
+                }  && \mbox{introduce some earlier lemma to cover this}
+\end{align*}
+
+
+
+\highlight{begin editing }
+\begin{align*}
+RHS &=  \overline{F \circ G} \circ F \\
+    &= \overline{F \circ \overline{G}} \circ F 
+                  &&\mbox{ using a (\ref{restrictionlemmiiasR4Antecedent}) CHECK --- THIS IS wR4,}\\
+    &= \overline{\tuple{f_0 \circ \reallywidehat {\overline{f_1 \circ g_0} \circ f'_0}, \ 
+                 \overline{f_1 \circ g_0 } \circ f'_0, \
+                 f_1 \circ \overline{g_0}   
+                }} \circ F 
+                  &&\mbox{using LHS as above,} \\
+    &= \tuple{\overline{f_0 \circ \reallywidehat {\overline{f_1 \circ g_0} \circ f'_0}}} \circ F
+                  && \mbox{ from definition of the $\bar{\ }$ operator,} \\
+    &= T(\tuple{
+            \overline{f_0 \circ \reallywidehat {\overline{f_1 \circ g_0} \circ f'_0}}
+                                \circ f_0,\ 
+            f'_0,\ 
+            f_1
+        })         
+                  && \mbox{from definition of $\circ$}\\
+    &= \tuple{
+            t_0,
+            f'_0 \circ \widehat{t_0} ,
+            f_1 \circ \overline{\widehat{f'_0 \circ t_0}}
+        } \mbox{ where } 
+        t_0 = \overline{f_0 \circ \reallywidehat {\overline{f_1 \circ g_0} \circ f'_0}} \circ f_0 
+    && \mbox{ by lemma \ref{leftLowLemma} leftLowLemma OR SUCH} \\
+    &= &&\mbox{something that  hopefully matches rhs of LHS, above}   \\
+    &= \mbox{\highlight{does it equate to LHS or we fail!}}
+\end{align*}
+
+We can prove using R.3 and RR.1, for starters, that
+\begin{equation}
+\overline{f_0 \circ \reallywidehat {\overline{f_1 \circ g_0} \circ f'_0}} \circ f_0 
+= f_0 \circ \reallywidehat {\overline{f_1 \circ g_0} \circ f'_0}
+\end{equation}
+
+Now the second term of RHS is
+\[
+f'_0 \circ \reallywidehat{f_0 \circ \reallywidehat {\overline{f_1 \circ g_0} \circ f'_0}}
+\]
+we need to show this is equal to 
+\[
+\overline{f_1 \circ g_0 } \circ f'_0
+\]
+
+The second term simplifies using fglemma (iii) to
+\[
+f'_0 \circ \widehat{f_0} \circ \reallywidehat {\overline{f_1 \circ g_0} \circ f'_0}
+\]
+
+then simplies to
+\[
+f'_0 \circ \reallywidehat {\overline{f_1 \circ g_0} \circ f'_0}
+\]
+
+which doesn't go thru \highlight{FAILS AS BEFORE} see What isn't true.
+
+\begin{notebox}[Jan 27th 2026]
+The key lemma then is to show that when F and G are composable sticklebacks 
+where G is of length 1 then 
+\[
+\overline{F \circ G} = \overline{F} \mbox{ iff } F \circ \overline{G} = F
+\]
+This, for morphism G, will be the HomP support preservation property.
+\end{notebox}
+
+\begin{lemma}
+If $F=\zigzagTuple{f}{n}$ and $G=\tuple{g_0}$ are tight zigzags such that
+ $F:x \morph y$ and $G: y \morph z$ in the category of sticklebacks 
+then  
+\[
+\overline{F \circ G} = \overline{F} \mbox{ iff } F \circ \overline{G} = F
+\]
+\end{lemma}
+\begin{proof}
+The composition of $F$ with $\overline{G}$ is the tightening of 
+\[
+\tuple{f_0,f'_0,...f_{n-1},f'_{n-1},f_n \circ \overline{g_0}}
+\]
+This equals $F$ iff $f_n \circ \overline{g_0}=f_n$ iff $\widehat{f_n}=\overline{g_0}$.
+NEED LEMMAS FOR THIS.
+
+SIMILar argumant for RHS.
+\end{proof}
