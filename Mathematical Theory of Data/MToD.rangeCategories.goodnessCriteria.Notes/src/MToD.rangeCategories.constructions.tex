@@ -1,4 +1,3 @@
-
 \section{Construction of Restriction Functors}
 
 Denote by \SetP the range category of sets and partial functions
@@ -28,9 +27,9 @@ CHECK that  I used this fact today, 28 Jan 2026, in order to prove
 that a shortening of a tight zigzag is tight. Handwritten notes.
 \end{notebox}
 
-It follows from lemma  \ref{RHomFunctorSubLemma} that HomP, so defined, is a functor.
-\commentary{\highlight{SPELL THIS OUT}} If \catcw is merely a category with support then, annoyingly, 
-HomP does not preserve the support operation. However:
+It follows from lemma  \lref{supportLemma} (\lref{RHomFunctorSubLemma}) that HomP, so defined, is a functor.
+If \catcw is a category with support then
+HomP does not necessarily preserve the support operation. However:
 \begin{lemma}
 \llabel{originalHomPSupportLemma}
 If \catcw is a category with support and $a$ is an object of \catcw 
@@ -108,29 +107,25 @@ $$HomP_\catc(a,\bar{j})=\overline{HomP_\catc(a,j)}$$
 \end{corollary}
 
 
-\begin{newtt}
+\begin{worktt}
 We might end up proceeding via
 \begin{itemize}
-\item defining a morphism $j$ of a category with support to be 
-\textit{friendly} iff for all morphisms k having codomain the domain of j,
+
+\item showing that morphisms $j$ embedded from \catcw into the stickleback category  have the HomP suuport preservation propery
+i.e have the property that for all morphisms $k$ 
 \[
 \overline{k \circ j} = \bar{k} \mbox{ iff } k \circ \overline{j} = k
 \]
-
-which is implied by, but which does not imply,  R.4 holding at $j,k$ i.e. that 
-\[
-k \circ \bar{j} = \overline{k \circ j} \circ k.
-\]
-\item showing morphisms embedded from \catcw into the stickleback category  have the HomP suuport preservation propery
-i.e have the property that for all morphisms ????
 \item
  we will need to show if F and G are zigzags and G is of length 0 then 
-the friendliness condition holds,
-\item showing that the supports of friendly morphisms are preserved by the HomP functor,
+the  condition holds,
+\item we have already shown  that the supports of  morphisms satisfying this condition
+are preserved by the HomP functor,
 \item if one or more functors preserve supports of a morphism f then the various constructed functors also preserve the support of f.
-\item Thereby showing that the constructed functors preserve restrictions of friendl morphisms.
+\item Thereby showing that the constructed functors preserve supports of morphisms
+satisfying the condition.
  \end{itemize} 
- \end{newtt}
+ \end{worktt}
 
 \subsection{Coproducts of Set valued Restriction Functors}
 \tbd
@@ -179,55 +174,6 @@ from the definition of $\Fquotient$, $\Fquotient(j)([k])$ is defined iff $F(j)(k
 we have shown that LHS and RHS are identical functions, as required.
 \end{proof}
 
-
-
-\newcommand {\catRangeCat}{\mathbf{RC}}
-\newcommand {\catRangePSCat}{\mathbf{RPS}}
-
-\section{Free Range Category with Partial Sections}
-Let $\catRangeCat$ denote the category of RR.5 range categories and
-range-preserving functors, and let $\catRangePSCat$ denote the category
-of range categories equipped with partial sections, and structure-
-preserving functors.
-
-Let $U_s: \catRangePSCat \morph \catRangeCat$ be the forgetful functor.
-Cockett’s axiomatization of range categories, including axiom (RR.5), is quasi-equational. Likewise the extension to categories with partial sections is quasi-equational.
-Hence the forgetful functor from range categories with partial sections to range categories is induced by a morphism of quasi-equational theories, and therefore admits a left adjoint by Palmgren–Vickers(\cite{PalmgrenVickers2007}). We have therefore:
-\begin{corollary}[Palmgren-Vickers]
-The forgetful functor $U_s: \catRangePSCat \morph \catRangeCat$
-has a left adjoint $F_s: \catRangeCat \morph \catRangePSCat$.
-\end{corollary}
-
-Let $eta: Id_{\catRangeCat} \morph F_s \circ U_s$ be the unit of the adjunction $F_s \dashv U_s$.
-
-\begin{lemma}
-If \catcw is a range category  then
-the unit $\eta_{\catc}: \catc \morph U(F(\catc))$  is faithful. 
-It faithfully embeds an RR.5 category in a freely generated range category with sections.
-\end{lemma}
-\begin{proof}
-Let $\phi$ be the natural isomorphism of hom sets given by the adjunction so that
-$$
-\phi_{C,A} :
-Hom_{\catRangePSCat}(F_s(C),A)
-\;\cong\;
-Hom_{\catRangeCat}(C,U_s(A))
-$$
-
-Let $I_s: \catc \morph  U_s(\mathbf{S})$ be the faithful embedding of \catcw into a catgory with partial sections whose existence is
-given by corollary \ref{scheincorollary}. 
-
-The adjunction gives us  $\phi(I_s) : F_s(\catc) \morph U_s(\mathbf(S))$ as the unique morphism such that
-\begin{displaymath}
-%\composeSevenShaped[nodesize]{A}{B}{C}{f}{g}{h}
-\composeSevenShaped[0.5cm]{\catc}{$U_s(F_s(\catc)$)}{$U_s(S)$}{\eta_\catc}{\phi_{C,U_s(S)}(I_s)}{I_s}
-\end{displaymath}
-commutes. 
-Since $I_s$ is faithful it follows from the commutivity of this diagram that $\eta_\catc$ is faithful.
-\end{proof}
-\newt{We also need the axiom of choice. Where should I  take this step?} 
-
-
 \section{Construction of Range Functors}
 
 \subsection{$HomP$ as a Range Functor}
@@ -238,109 +184,75 @@ Cockett et all show that if every morphism $f$ of a restriction category has a s
 then \hatItself is a range operator and \catcw is a range category and they show that
 $\widehat{f}$ is not dependent on the choice of section.
 
-\begin{notebox}{where I go with this}
-I want to define a \hatItself for any morphism which has a section.
-
-I want to define the HomP preservation property a morphims $j$ to as I defined above for \textit{freindly}.
-
-I want to split the \lref{rangePreservationLemma} into three parts. 
-\begin{itemize}
-\item First, much earlier, that in a restriction category every morphism has the preservation property. This is proved above in the new \ref{restrictioncatlemma} (\ref{CHECKLemma}).
-\item Then, Lemma, in any category with support is a morphism $j$ has a partial section and has the preservation property then the pseudo range of j is preserved by $Hom(a,-)$.
-\item restate \lref{rangePreservationLemma} as a Corollary.
-\end{itemize}
-\end{notebox}
-
-\begin{notebox}[\highlight{BUT} very big but]
-But isn't that obvious since partial sections are preserved by $HomP$ that therefore
-ranges are preserved and we don't need that preservation property. So the above is wrong.
-It is easier than that. What we DO need the preservation property for is to show that the support operation is preserved. see lemma \lref{originalHomPRestrictionLemma}. 
-\end{notebox}
-
-\begin{lemma}
-\llabel{rangePreservationLemma}
-If \catcw is a range category in which every morphism has a partial section then
-for every object $a$ of \catcw the functor $HomP_\catcw(a,-): \catcw \morph \SetP$ preserves the range operator. 
-\end{lemma}
-\begin{proof}
-\commentary{\highlight{see note above}. This lemma has a trivial proof and can be generalised.}
-If $j: x \morph y$ in \catcw then we are required to prove that
-$$\reallywidehat{HomP_\catcw(a,j)}=HomP_\catcw(a,\widehat{j})$$
-and for this it suffices to show that the range of $HomP_\catcw(a,j)$ 
-i.e. this set
-\[
-\setsuchthat{k \circ j}
-            {k: a \morph x \mbox{ and } \overline{k \circ j} = \overline{k} }
-\] 
-is identical to the range of $HomP_\catcw(a,\hat{j})$ 
-i.e. this set
-\[
-\setsuchthat{k' \circ \hat{j}}
-            {k':a \morph y \mbox{ and } \overline{k' \circ \hat{j}} = \overline{k'} }.
-\]   
-
-The first set is included in the second because for any morphism of the form $k \circ j$, 
-where $\overline{k \circ j}=\bar{k}$, 
-is of the form $k' \circ \hat{j}$, for $\overline{k' \circ \hat{j}} = \overline{k'}$, 
-because we can take $k'$ to be $k \circ j$ 
-and the two conditions are met for we have firstly
-\begin{align*}
-k' \circ \hat{j}  &= k \circ j \circ \hat{j}  && \mbox{choice of k',}\\
-                  &= k \circ j                && \mbox{by RR.2}  
-\end{align*}
-and secondly, because of this, 
-\begin{align*}
-\overline{k' \circ \hat{j}} &= \overline{k \circ j } && \mbox{from the first part,}     \\ 
-                            &= \overline{k'}         && \mbox{k' as chosen.}
-\end{align*} 
-
-Now let $j_s : y \morph x$ be a splitting of $j$ 
-i.e. be such that $j_s \circ j = \hat{j}$.\commentary{what else?}
-
-The second set is included in the first because 
-if a morphism is of the form $k' \circ \hat{j}$, 
-where $\overline{k' \circ \hat{j}} = \overline{k'}$, 
-then it of the form $k \circ j$, where $\overline{k \circ j}=\overline{k}$, 
-because $k$ can be taken to be $k' \circ j_s$ for firstly we have 
-\begin{align*}
-k' \circ \hat{j} &= k' \circ j_s \circ j  
-                        &&\mbox{because $j_s \circ j = \hat{j}$ \highlight{ref},}\\
-                 &= k \circ j
-                        &&\mbox{because $k$ chosen as $ k' \circ j_s$}
-\end{align*}
-and secondly we have 
-\begin{align*}
-\overline{k \circ j}
-           &= \overline{k' \circ j_s \circ j} 
-                      && \mbox{choice of $k$,}\\
-           &= \overline{k' \circ j_s}       
-                      && \mbox{by lemma \ref{supportLemma},} \\
-           &          && \mbox{and since 
-                                $\overline{k' \circ j_s \circ j}
-                                  =\overline{k' \circ \hat{j}} 
-                                  = \overline{k'}$,
-                               }                             \\
-           &= \overline{k} 
-                                          && \mbox{because of choice of $k$.}
-\end{align*}
-
-\end{proof}
 
 
+\begin{observation}
+If \catcw is a category with support and j is such and such
+and $j$ has a partial section $j_s$ then
+$HomP_C(a,j_s)$ is a partial section of $HomP_C(x,j)$.
+\commentary{Maybe this is worthy of being a lemma and having a proof.
+} 
+\begin{newtt}
+\workt{{Hang on} this does need proving.} Is the support of $j_s$ preserved.
+Need new lemma that if $j$ satisfies the condition and $j_s$ is a partial section of
+$j$ then $j_s$ meets the condition also.
+\end{newtt}
+\end{observation}
 
 \begin{corollary}
 If \catcw is a range category in which every morphism has a partial section then
 for every object $a$ of \catcw the functor $HomT_\catcw(a,-): \catcw \morph \SetP$ is a range functor.
 \end{corollary}
 
-Satisfyingly, we can show the converse:
+The converse is also true
 \begin{lemma}
 If \catcw is a range category and $HomP(a,-)$ is a range functor for all objects a of \catcw
 then every morphism $f$ of \catcw has a partial section. 
 \end{lemma}
 \begin{proof} 
-The partial section of a morphism $f:a \morph b$ is the inverse image
-under of $\widehat{f}$ under the function $Hom(b,j):Hom(b,a) \morph Hom{b,b}$.
+First consider that 
+$\widehat{f}=id_b \circ \hat{f}=Hom(a,\hat{f})(id_b)$ 
+and therefore that $\widehat{f}$ is in the image of $Hom(a,\hat{f})$.
+Which is to say that $\widehat{f}$  is in the image of the function
+$Hom(b,f)$ because $\reallywidehat{Hom(b,f)} = Hom(b,\hat{f})$ from the assumption that the range operator is preserved by $HomP(a,-)$. Therefore there is
+at least one such $g: b \morph a$ such that $Hom(a,f)(g) = \hat{f}$ i.e. such
+that
+\begin{equation}
+\label{gCondition}
+g \circ f = \hat{f}.
+\end{equation}
+
+For any such $g$ we can show that the morphism $\hat{f} \circ g$ is a partial section of $f$
+by showing  both conditions required of a partial section 
+\begin{equation}
+\label{sectionReqOne}
+f \circ \hat{f} \circ g \circ f = f
+\end{equation}  
+and
+\begin{equation}
+\label{sectionReqTwo}
+\hat{f} \circ g \circ f = \overline{\hat{f} \circ g}
+\end{equation}
+(\ref{sectionReqOne}) is the case because
+\begin{align*}
+f \circ \hat{f} \circ g \circ f &=  f \circ \hat{f} \circ \hat{f}     
+                                               && \mbox{by (\ref{gCondition}),} \\
+                                &=f       
+                                               && \mbox{by RR.2.} 
+\end{align*}
+(\ref{sectionReqTwo}) is the case because
+\begin{align*}
+\hat{f} \circ g \circ f  &= \hat{f} \circ \hat{f}       
+                                               && \mbox{by (\ref{gCondition}),} \\
+                         &= \hat{f}     
+                                               && \mbox{by lemma \ref{unirangelemma} (ii),} \\
+                         &= \bar{\hat{f}}     
+                                               && \mbox{by RR.1,} \\
+                         &= \overline{f \circ g}    
+                                               && \mbox{by (\ref{gCondition}),}\\
+                         &= \overline{\hat{f} \circ g}     
+                                               && \mbox{by RR.4.} \\
+\end{align*}
 \end{proof}
 
 \subsection{About HomP}
