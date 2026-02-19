@@ -1,4 +1,4 @@
-\note
+\mynote
 Methods for describing the structure of data are fundamental to most programming languages, 
 where they vary depending on the model of computation (object-oriented, functional, symbolic and so on);
 they occur as dedicated specification methods, such as the entity relationship method,
@@ -6,56 +6,56 @@ and  in database technologies, where they vary by the data model (relational, hi
 graph based, etc.). Finally they underlie interfacing technologies and either describe binary formats such as 
 the many that implement some variant of IDL (Interface Definition Language) or text formats such as epitomised by XML. 
 
-\note 
+\mynote 
 There are similarities between the methods when they are viewed abstractly but there are significant differences too and so a study of these different methods brings us to many essentially distinct notions of data specification.
 
-\note
+\mynote
 The thinking is that when viewed abstractly each data specification is a 
 theory\footnote{The role of such a theory can be foregrounded by speaking of it
  as a \textit {theory of what is} or as an \textit{ontology}.} and  to each different notion of data specification corresponds a different notion of theory. An exposition of the different notions of theory that can properly be said to be methods of data specification
 along with a study of their meta-mathematical properties 
  will constitute a mathematical theory of data which, as described, is therefore in fact a meta-theory. Such a theory has a role to play in improving  the way we think about, discuss, design, develop and transform data specifications. I strongly believe that such a fully elaborated mathematical theory of data will foster significant improvements in  techniques and tools for the management of data. 
-\note 
+\mynote 
 The relational model of data underpinning the majority of databases for fifty years or so, is exceptional in that it has a body of theory; this theory includes quality criteria  distinguishing good data specifications from bad. 
 One of the goals of a mathematical theory of data is to enable these relational prescriptions of goodness
 to be generalised to become generally applicable. The \textit{dry run} below suggests this is possible.
 
-\note
+\mynote
 Data is required for a purpose, generally to describe real world things in some or other context. This constitutes an intended usage for a data specification. Of all structurally compliant instances of a data specification some are required for the intended usage and, generally speaking, some are not.
 Notionally let there be a requirement $R$ that equates to a subset of the set of all compliant data instances 
 of a data specification and serving to characterise its intended use. 
 
-\note 
+\mynote 
 There are two self-complementing principles of good data engineering. 
 Firstly, redundancy of data is to be avoided. This first principle is modulated by computational cost for it would be unreasonable not to hold in data all prime factors of a number on account of them being computable and therefore redundant.
 Secondly, within each particular methodology a data specification should be as constraining as possible of data instances whilst being general enough for the intended usage; equivalently the corresponding theory should fit as tightly as possible to the facts. 
 
-\note 
+\mynote 
 Meeting the second principle we will describe as achieving \term{maximum constrainedness} for the data specification.
 To maximise constrainedness will be to come as  close as we can within any given methodology with given syntax to meeting a formal objective described by Zaniola \cite{zaniolo1982} in the context of relational schema design (data specification, that is, for the relational model of data)  as `the complete \textit{representation} of semantic constraints' (his italics). Zaniola subsequently refers to this as `the representation principle'.
 
-\note
+\mynote
 From the two principles we can phrase goodness criteria  for data specifications with respect to requirements $\reqt$
 i.e. to intended usages. In the context of relational data design, 3rd, 4th and 5th normal forms are examples of such goodness criteria. 
 
-\note
+\mynote
 When viewed abstractly many distinct notions of data specification can be characterised as having
 data specifications corresponding to finite presentations of either categories or, if missing data is to be allowed, partial order enriched categories with some additional structure such as certain limits and/or colimits. We use the term \textit{sketch}
 in this note to be synonymous with \textit{presentation of category} and as such take it to consist of the combination of a directed graph and a set of path equivalences. In Barr and Wells \cite{BarrandWells} these are more properly called linear sketches.  
 
-\note
+\mynote
 Compliant instances of such data specifications correspond to structure preserving functors from the corresponding category to the category of finite sets $\Fin$ or to the category of finite sets and partial functions.
 
-\note
+\mynote
 Redundancy of objects or arrows in a presentation corresponds to redundancy of data in instances of a data specification. 
 By the first principle it is the goal of data specification to avoid such redundancy. 
 
-\note
+\mynote
 Goodness equates to absence of redundancy plus maximal constrainedness to intended usage. Absence of redundancy is a property of a presentation. Maximal constrainedness
 is a property of the category $\catc$ generated by the presentation and is relative to a requirement $\reqtc$, where $\reqtc$ is a set of instances where each instance is structure preserving functor $D$, $D: \catc \morph \Fin$, where
 $\Fin$ is the category of finite sets and functions (or, subsequently, to other variants of the category of sets and functions as appropriate).
 
-\note 
+\mynote 
 Codd \cite{Codd1970} proposes the relational model of data; he gives the first prescription of goodness for
 a relational data specification and describes how it might be achieved through a method which he calls normalisation\cite{Codd1970}\footnote{He also introduces the term foreign key in this first paper and includes a discussion of redundancy of data.}. 
 Codd  subsequently defines a third normal form (3NF) \cite{Codd1971} for which purpose he introduces 
@@ -64,25 +64,25 @@ The definition of third normal form extends the notion of goodness and the metho
 for describing conditions of goodness in terms of relational schemas being in normal form -- an  unfortunate terminology  because these schemas that meet the condition
 are not canonical in any way as a mathematician might be led to believe from the terminology.}.
 
-\note Boyce-Codd normal form (BCNF) is a stronger normal form and one that it is not always possible to meet. Zaniola \cite{zaniolo1982}) most clearly elaborates the difference between 3NF and BCNF. 
+\mynote Boyce-Codd normal form (BCNF) is a stronger normal form and one that it is not always possible to meet. Zaniola \cite{zaniolo1982}) most clearly elaborates the difference between 3NF and BCNF. 
 In Zaniola's description, specifications that are in BCNF meet the representation principle in regard to having all functional dependencies represented in them.
 
-\note Further standards that a good relational data specification should adhere to were formulated by Fagin \cite{Fagin1977} (fourth normal form) and  \cite{Fagin1979} (projection-join normal form also known as fifth normal form)
+\mynote Further standards that a good relational data specification should adhere to were formulated by Fagin \cite{Fagin1977} (fourth normal form) and  \cite{Fagin1979} (projection-join normal form also known as fifth normal form)
 using the concept of multi-valued dependencies. 
 One paraphrasing would be that it isn't good to store needless copies of data. 
 When formulated in category theory this will come down to not needlessly including limit objects in a presentation.
 
-\note In a different direction many authors describe forms of redundancy in data that are immune to prescriptions
+\mynote In a different direction many authors describe forms of redundancy in data that are immune to prescriptions
 of previous normal forms (up to 5th normal form, say) and to remedy this 
 they give definitions of normal forms that take account of inclusion dependencies.
 There isn't a single clear concept that arises from this work but the deficiency and the need for a remedy is very clear.  
 Inclusion dependencies, like functional dependencies and multi-valued dependencies, are forms of semantic constraint in the sense that this term is used by Zaniola. 
 
-\note Here we focus on inclusion dependencies that are referential. These in dry run are the equivalents of what elsewhere in the context of relational data specification are referred to as a key-based or a superkey-based inclusion dependencies [\cite{Mannila1986}, \cite{Levene2000}]
+\mynote Here we focus on inclusion dependencies that are referential. These in dry run are the equivalents of what elsewhere in the context of relational data specification are referred to as a key-based or a superkey-based inclusion dependencies [\cite{Mannila1986}, \cite{Levene2000}]
 or, more pragmatically, as referential constraints\footnote{	Also known colloquially, and rather horribly in my opinion, as foreign key constraints}in the ISO SQL standard\cite{ISOSQL2016} and in relation to XML
 (\cite{fan2003}, for instance); whether implicitly, or explicitly as in the relational paradigm, these are lynchpins of  data specifications.
 
-\note Various authors (\cite{CartmellScopePaper},\cite{Johnson93}) have noted the importance of commutative diagrams in data specifications.
+\mynote Various authors (\cite{CartmellScopePaper},\cite{Johnson93}) have noted the importance of commutative diagrams in data specifications.
   The fact is that relational designs fairly frequently have commutivity constraints implicitly represented within  and this having been achieved  by designers following prescriptions to normalise data and to eliminate duplicates rather than with awareness of the underlying commutivity. 
 Shlaer and Lang illustrate this in \cite{Shlaer96} where they describe alternative paths between two nodes as
 relationship loops, when distinct paths are equivalent they say that there are dependencies

@@ -1,10 +1,12 @@
  \documentclass[10pt,a4paper]{article}
-%\input{thepreamble.tex}
-\input{../SharedMacros/ccategories.macros}
-\input{../SharedMacros/ermacros}
-\input{../SharedMacros/erdiagram}
-\input{../SharedMacros/theorems.macros}
-\input{../SharedMacros/general.macros}
+\newcommand{\sharedmacros}{../../SharedMacros}
+\input{\sharedmacros/ccategories.macros}
+\input{\sharedmacros/ermacros}
+\input{\sharedmacros/erdiagram}
+\input{\sharedmacros/theorems.macros}
+\input{\sharedmacros/general.macros.v2}
+\input{\sharedmacros/diagram.macros}
+
 \usepackage{mathptmx}  % This changes font to roman
 \usepackage{anyfontsize}
 \usepackage{mathtools}  % why have we got this?
@@ -21,15 +23,16 @@
 \theoremstyle{remark}
 \newtheorem*{lemma*}{Lemma}
 
-
 \renewcommand{\term}[1]{\textit{#1}}  %SIMPLE UNINDEXED VERSION
+\usepackage{imakeidx}
+\makeindex[name=definitions, title=Index of Definitions]
+\makeindex[name=lemmas, title=Index of Lemmas]
 
-%ENDCOPY
+\newcommand{\fgsourcediag}{$\binarysourcediag{a}{b}{c}{f}{g}$}
+\newcommand{\fgparalleldiag}{$\paralleldiag{a}{b}{f}{g}$}
 
 \begin{document}
 \title{Preparation for a Mathematical Theory of Data}
-
-% abstract here for ams
 
 \author{John Cartmell}
 
@@ -47,101 +50,42 @@ REVISED November 2023
 %\newcommand{\nudgeup}[1]{\rule{0cm}{#1}}
 %\newcommand{\nudgedown}[1]{\rule[-#1]{0cm}{0.1cm}}
 
-\newcommand{\paralleldiag}[4]
-{
- $
-\rule[-0.3cm]{0pt}{0.9cm} %to add vertical space of diagram -- based on lowering diagram 0.3cm and heght 0.9cm
-                            % change thickness from 0pt to 1 pt to debug
-\begin{array}{c p{0.5cm} c  }
- \Rnode{a}{#1}     &&   \Rnode{b}{#2}
-\end{array} 
-\begin{arrows}
-\ncarc[nodesep=2pt,arcangle=10,offset=2pt]{->}{a}{b}
-\alabel{#3}
-\ncarc[nodesep=2pt,arcangle=-10,offset=-2pt]{->}{a}{b}
-\blabel{#4}
-\end{arrows}
-$  
-}
-
-
-\newcommand{\binarysourcediag}[5]{
-$
-\begin{array}{c p{0.5cm} c  }
-             &&   \Rnode{b}{#2} \\[0.01cm]
-\Rnode{a}{#1} &&                \\[0.01cm] 
-             &&   \Rnode{c}{#3} 
-\end{array} 
-\begin{arrows}
-\ncarr{a}{b}
-\alabel{#4}
-\ncarr{a}{c}
-\blabel{#5}
-\end{arrows}
-$  
-}
-\newcommand{\fgsourcediag}{\binarysourcediag{a}{b}{c}{f}{g}}
-
-\newcommand{\fnsourceqnsource}
-{
-$
-\begin{array}{c p{0.25cm} c  p{0.25cm} c }
-             &&   \Rnode{b1}{b_1} &&              \\[0.4cm]
-\Rnode{a}{a} &&                   && \Rnode{c}{c} \\[0.4cm]
-             &&   \Rnode{bn}{b_n} &&              
-\end{array} 
-\begin{arrows}
-\ncarr{a}{b1}
-\alabel{f_1}
-\ncarr{c}{b1}
-\blabel{q_1} 
-\ncarr{a}{bn}
-\blabel{f_n}
-\ncarr{c}{bn}
-\alabel{q_n}
-\end{arrows}
-$   
-}
-
-
-
-
 \section{Background}
-\input{background}
+\input{../src/background}
 
 \section{Investigation -- Data Specification as Sketch of Category}
-\note
+\mynote
 In this investigation -- data specification as presentation of category i.e. as linear sketch \cite{BarrandWells}-- we will formulate 
 definitions of maximal constrainedness, path equivalence, functional dependency and referential inclusion dependency
 and we will define what it means for such a path equivalence, functional dependency or  referential inclusion dependency to be represented in such data specifications.
 
-\note
+\mynote
 This investigation with its overtly simplified notion of data specification is worthwhile in that   it establishes some starter definitions which in further work we can subsequently develop to be applicable to more fully elaborated notions.
 
-\note 
+\mynote 
 This investigation establishes a pattern 
 that we will follow later in consideration of more fully elaborated definitions of data specifications that we follow up with -- partial order enriched categories, categories with products and others. 
 You may also consider that the definitions given in this investigation are embryonic precursors to equivalent relational definitions.
 
 
 \subsection{Definitions}
-\input{basic_definitions}
+\input{../src/basic_definitions}
 
 \subsection{Examples - Sketch of Category as Data Specification}
-\input{examples}
-\subsection{Goodness Criteria}
-\input{goodness_criteria}
+\input{../src/examples}
+\subsection{Goodness Principles and Goodness Criteria}
+\input{../src/goodness_criteria}
 \subsection{Representation Lemmas}
-\input{representation_lemmas}
+\input{../src/representation_lemmas}
 \subsection{Rephrasing}
-\input{rephrasing}
+\input{../src/rephrasing}
 
 
 \appendix
 
-\input{binary_joint_fd_lemma}
+\input{../src/binary_joint_fd_lemma}
 
 
 \bibliographystyle{alpha} 
-\bibliography{../SharedBibliography/temp/bibliography}
+\bibliography{../../SharedBibliography/temp/bibliography}
 \end{document}
