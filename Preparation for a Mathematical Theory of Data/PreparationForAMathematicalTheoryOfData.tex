@@ -7,7 +7,6 @@
 \input{\sharedmacros/general.macros.v2}
 \input{\sharedmacros/diagram.macros}
 
-\usepackage{mathptmx}  % This changes font to roman
 \usepackage{anyfontsize}
 \usepackage{mathtools}  % why have we got this?
 \usepackage{alltt}    
@@ -15,6 +14,8 @@
                     % turns out not actually using \rightpitchfork
 \usepackage{cmll}
 \usepackage{ulem}
+
+
 \renewcommand{\ttdefault}{txtt}
 \usepackage[left=1.5cm, right=4cm, marginparwidth=3cm, top=2cm, bottom=2.0cm]{geometry}
 \usepackage{framed}
@@ -28,10 +29,19 @@
 \makeindex[name=definitions, title=Index of Definitions]
 \makeindex[name=lemmas, title=Index of Lemmas]
 
+%\usepackage{mathrsfs}  %%%% TESTING
+
 \newcommand{\fgsourcediag}{$\binarysourcediag{a}{b}{c}{f}{g}$}
 \newcommand{\fgparalleldiag}{$\paralleldiag{a}{b}{f}{g}$}
 
+
+\renewcommand{\llabel}[1]{\label{#1}}   % remove these for debugging
+\renewcommand{\lref}[1]{\ref{#1}}          % remove these for debugging
+
+
 \begin{document}
+%\tableofcontents  %TEMPORARY --- FOR CHECKING PURPOSES
+
 \title{Preparation for a Mathematical Theory of Data}
 
 \author{John Cartmell}
@@ -41,50 +51,50 @@
 \maketitle
 
 \begin{center}
-DRAFTED October 2020 \\
-REVISED November 2023
+\small
+DRAFTED Oct 2020 \\
+REVISED Nov 2023, Feb 2026
 \end{center}
 
 %\newcommand{\seenudgeup}[1]{\rule{0.1cm}{#1}}
 %\newcommand{\seenudgedown}[1]{\rule[-#1]{0.1cm}{0.1cm}}
 %\newcommand{\nudgeup}[1]{\rule{0cm}{#1}}
 %\newcommand{\nudgedown}[1]{\rule[-#1]{0cm}{0.1cm}}
-
-\section{Background}
+\section{Introduction}
+\input{../src/preface}
 \input{../src/background}
 
-\section{Investigation -- Data Specification as Sketch of Category}
-\mynote
+\section{Framework -- Data Specification as Sketch of Category}
+
 In this investigation -- data specification as presentation of category i.e. as linear sketch \cite{BarrandWells}-- we will formulate 
 definitions of maximal constrainedness, path equivalence, functional dependency and referential inclusion dependency
 and we will define what it means for such a path equivalence, functional dependency or  referential inclusion dependency to be represented in such data specifications.
 
-\mynote
+
 This investigation with its overtly simplified notion of data specification is worthwhile in that   it establishes some starter definitions which in further work we can subsequently develop to be applicable to more fully elaborated notions.
 
-\mynote 
+
 This investigation establishes a pattern 
 that we will follow later in consideration of more fully elaborated definitions of data specifications that we follow up with -- partial order enriched categories, categories with products and others. 
 You may also consider that the definitions given in this investigation are embryonic precursors to equivalent relational definitions.
-
 
 \subsection{Definitions}
 \input{../src/basic_definitions}
 
 \subsection{Examples - Sketch of Category as Data Specification}
 \input{../src/examples}
-\subsection{Goodness --- General Principles and Specific Criteria}
-\input{../src/goodness_criteria}
-\subsection{Representation Lemmas}
-\input{../src/representation_lemmas}
-\subsection{Rephrasing}
-\input{../src/rephrasing}
 
+\section{Goodness of Data Specifications}
+\subsection{General Principles}
+\input{../src/goodness_principles}
+\subsection{Specific Criteria}
+\input{../src/goodness_criteria}
+\section{Goodness Lemmas}
+\input{../src/representation_lemmas}
 
 \appendix
 
 \input{../src/binary_joint_fd_lemma}
-
 
 \bibliographystyle{alpha} 
 \bibliography{../../SharedBibliography/temp/bibliography}
