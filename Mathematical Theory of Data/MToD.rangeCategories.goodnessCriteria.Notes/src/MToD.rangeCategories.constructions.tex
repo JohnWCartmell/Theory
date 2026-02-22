@@ -106,6 +106,60 @@ for all $j:x \morph y$ in \catc
 $$HomP_\catc(a,\bar{j})=\overline{HomP_\catc(a,j)}$$
 \end{corollary}
 
+\begin{lemma}
+\llabel{homPfaithfullemma}
+If \catcw is a category with support
+and $a$ is an object of \catcw then the functor $Hom(a,-)$ is faithful.
+\end{lemma}
+\begin{proof} \commentary{CHECK THIS PROOF}
+Let $j_1,j2: x \morph y$ in \catcw and suppose that
+\begin{equation}
+\label{faithassumption}
+HomP(a,j_1)=HomP(a,j2).
+\end{equation} 
+We need show that $j_1=j_2$. First we show that 
+\begin{equation}
+\label{faithstepone}
+j_1 = \bar{j_1} \circ j_2
+\end{equation}
+which we do as follows
+\begin{align*}
+j1 &= HomP(a,j_1)(\bar{j_1}) &&\mbox{by definition of $HomP$, } \\
+   &= HomP(a,j_2)(\bar{j_1}) &&\mbox{by assumption (\ref{faithassumption}), } \\
+   &= \bar{j_1} \circ j_2    
+                     &&\mbox{\parbox[t]{6cm}{by definition 
+                                        of $HomP$ and because
+                                        $HomP(a,j_2)(\bar{j_1})$ 
+                                        cannot be undefined since
+                                         $HomP(a,j_1)(\bar{j_1})$
+                                         is not undefined . }..} 
+  \end{align*}
+By symmetry we also have
+\begin{equation}
+\label{faithsteptwo}
+j_2 = \bar{j_2} \circ j_1.
+\end{equation}
+Next we show that
+\begin{equation}
+\label{faithstepthree}
+\bar{j_2} \circ j_1 = \bar{j_1} \circ j_2
+\end{equation}
+which we do as follows:
+\begin{align*}
+\bar{j_2} \circ j_1 
+    &= \bar{j_1} \circ \bar{j_2} \circ j_1 &&\mbox{by R.1 and R.2,} \\
+    &= HomP(a,j_1)(\bar{j_1} \circ \bar{j_2}) 
+                              && \mbox{from definition of HomP,}\\
+    &= HomP(a,j_2)(\bar{j_1} \circ \bar{j_2}) 
+                              && \mbox{by (\ref{faithassumption}),}\\
+    &= \bar{j_1} \circ \bar{j_2} \circ j_2 
+                              && \mbox{from definition of HomP,}\\
+    &= \bar{j_1} \circ j_2    &&\mbox{by R.1.}
+\end{align*}
+Finally from (\ref{faithstepone}),
+(\ref{faithsteptwo}) and (\ref{faithstepthree}),
+$j_1=j_2$ follows, as required,
+\end{proof}
 
 \begin{worktt}
 We might end up proceeding via
@@ -259,12 +313,12 @@ f \circ \hat{f} \circ g \circ f &=  f \circ \hat{f} \circ \hat{f}
 
 \subsection{About HomP}
 \begin{lemma}
-\label{HomOfEffbargbar}
+\llabel{HomOfEffbargbar}
 \fgsourcediag
 \begin{align*}
 [L_c(f)] &= [L_a(Hom(a,f)(\bar{f}\circ\bar{g}))] \\
 [L_c(g)] &= [L_a(Hom(a,g)(\bar{f}\circ\bar{g}))]
-\end{align*} \commentary{\highlight{what} the heck?}
+\end{align*} \commentary{We use this later on we need to prove it.}
 \end{lemma}
 \begin{proof}
 \end{proof}
@@ -273,6 +327,9 @@ TBD
 \subsection{Quotients of Set valued Range Functors}
 \begin{lemma}
 \label{rangefunctorquotient}
+\begin{worktt}
+We need to give the context here. Read what I wrote in preparation paper to see if it helps.
+\end{worktt}
 The functor $\Fquotient$ is a range functor.
 \end{lemma}
 \begin{proof} \commentary{Proof reviewed on 12 Dec 2023.}
@@ -286,7 +343,9 @@ $$ [k'] \mapsto [F(\hat{j})(k')] \mbox{ providing $F(\hat{j})(k')$ is defined, a
 In other words, since  $F$ assumed to be a range functor it can be defined as mapping
 $$ [k'] \mapsto [\widehat{F(j)}(k')] \mbox{ providing $\widehat{F(j)}(k')$ is defined and being undefined otherwise,}$$
 and this in turn, because of the definition of ranges in \SetP, means that it maps
-$$ [k'] \mapsto [k'] \mbox{providing there exists $k \in F(x)$ such that $k'=F(j)(k)$ and being undefined otherwise.}$$
+$$ [k'] \mapsto [k'] \mbox{providing there exists $k \in F(x)$ such that 
+\oldt{$k'=F(j)(k)$}
+\newt{$k'\sim_? F(j)(k)$} and being undefined otherwise.}$$
 
 Meanwhile the RHS, $\widehat{\Fquotient(j)}$  is defined as the partial function that 
 maps $[k']$  to $[k']$  provided  there exists $k \in F(x)$ such that

@@ -15,7 +15,7 @@ Suppose such a category  $\catc$  that  is
 in $\catc$ 
 and that there is a functional dependency $\fundep{H}{f}{g}$ with respect to $\reqtc$.
 
-From sketch $S$ of $C$ we can construct a sketch $S'$ by formally 
+From sketch $S$ of $C$ we can construct a sketch $S'$ by formally \commentary{\highlight{embolden} some C throughout}
 adding a morphism $\qq{h}: b \morph c$
 and path equivalences 
 \begin{equation}
@@ -39,13 +39,13 @@ follows from the definition, though it probably does. The faithfulness will sure
 The inclusion functor is a range functor because the restriction and range operators of \catcpw are extensions of those
 of \catc.
 
-Now we show that $I$ is consistent with $\reqtc$. \commentary{\highlight{embolden} some C}
+Now we show that $I$ is consistent with $\reqtc$. 
 We need to show that any $D \in \reqtc$
 extends unqiuely to $D' :\catcp \morph \Fin$. Assume such a $D$. 
 $D$  extends to $C'$ iff there is a  function that we can choose as the value of  for $D'(\qq{h})$  such that $D'(f) \circ D'(\qq{h}) = D'(g)$ i.e such that
-$D(f) \circ D'(\qq{h}) = D(g)$ and $\overline{D(\qq{h})}=\widehat{D(f)}$
+$D(f) \circ D'(\qq{h}) = D(g)$ and $\overline{D'(\qq{h})}=\widehat{D(f)}$
 and so we  extend $D$ to $D'$ 
- by defining $D'(\qq{h})=H_D$.
+ by defining $D'(\qq{h})=H_D$. \begin{worktt} and $\widehat{D'(\qq{h})}=\widehat{D(g)}$ \end{worktt}
 
 $D'$ is a range functor because
 \begin{align*}
@@ -63,7 +63,7 @@ and
                     &= D'(\hat{g})         && \mbox{since $D'$ extends $D$, } \\
                     &=D'(\widehat{\qq{h}}) && \mbox{by (\ref{hquotehat}).}
 \end{align*}
-
+\commentary{Do we still require this uniqueness? Should we?}
 This extension to $D'$ is unique because from the definition of functional dependency
 $H_D$ is the unique function 
 that satisfies $D(f) \circ H_D = D(g)$ and $\overline{H_D}=\widehat{D(f)}$.
@@ -106,22 +106,28 @@ is a coproduct in $\Fin$.
 
 Now for each object $x$ of $\catc$, we define an equivalence relation $\sim_x$ on $F(x)$ by defining,
 for $k_1,k_2:a \morph x$ in $\catc_s$,\commentary{in the first clause of the definition of $\sim_x$ I mean more precisely that $k_1,k_2$ are in the image of the inclusion functor from \catc}\commentary{In fact this is where I am using faithfulness of the mbedding of \catcw in $\catc_s$. Need to draw this out.}
-
+\begin{worktt}
+Do we need add to first clause below that $f \circ \bar{k}=f$?
+\end{worktt}
 \begin{align*}
 L_x(k_1) \sim_x R_x(k_2) & \mbox{ iff $k_1,k_2:a \morph x$ in $\catc$ 
                                      and there exists $k:b \morph x$ in $\catc$ such that $k_1 = f \circ k = k_2$,}\\
 L_x(k_1) \sim_x L_x(k_2) & \mbox{ iff $k_1 = k_2$,} \\
 R_x(k_1) \sim_x R_x(k_2) & \mbox{ iff $k_1 = k_2$.} \\
 \end{align*}
+\begin{worktt}
+Don't lose sight of the fact that $k_1$ and $k_2$ may be sticklebacks.
+Does this impact this definition?
+\end{worktt}
 
-It is very easy to see that $\sim_x$  is both symmetric and transitive. \commentary{yes very very easy.}
+It is very easy to see that $\sim_x$  is both symmetric and transitive. \commentary{yes very very easy. }
 
 We can show that equivalence is preserved by  $F(j)$ for each morphism $j$, $j: x_1 \morph x_2$ in $\catc$. For assume such a $j$ then 
 \commentary{no different to same argument in preparation paper \highlight{have} i described these cases anywhere?}
 if $y_1,y_2 \in F(x_1)$ such that $y_1 \sim_{x_1} y_2$
 then it follows easily by cases and from the definition of $\sim$ that $F(j)(y_1) \sim_{x_2} F(j)(y_2)$. 
 
-Therefore,                using the construction we described earlier, 
+Therefore, using the construction we described earlier, 
 we can define 
  $G: \catc \morph \Fin$  as the quotient functor $\Fquotient$.
 By lemma \ref{rangefunctorquotient}, $G$ is a range functor.
@@ -136,7 +142,7 @@ we can use the fact that $\catc$ is maximally constrained to tell us that $G$ ex
 $G' : \catcp \morph \Fin$. Since $f \circ \qq{h} = g$ in $\catcp$ then we have
  $G'(f) \circ G'(\qq{h}) = G'(g): G(a) \morph G(c)$ in $\Fin$.
 
-Now we have
+Now we have \workt{Change as per revisions in preparation paper}
 \begin{align*}
 [L_c(g)] &= [L_a(HomP_{\catc_s}(a,g)(\bar{f}\circ \bar{g}))] 
                 && \mbox{by lemma \ref{HomOfEffbargbar},}\\
@@ -153,7 +159,9 @@ Now we have
 	      &= G'(\qq{h}) ([L_b(f)])       
                 &&\mbox{by lemma \ref{HomOfEffbargbar}.} \\
 \end{align*}
-
+\begin{worktt} 
+Need be careful, above, because $G'(\qq{h})$ is a stickleback.
+\end{worktt}
 By symmetry we also have
 $$[R_c(g)] = G'(\qq{h}) ([R_b(f)])  $$
 and because
@@ -164,7 +172,9 @@ and thus that
 $$ L_c(g) \sim_c R_c(g)$$
 
 It follows from the definition of $\sim_c$ that there exists $k:b \morph c$ in 
-$\catc$ such that $f \circ k = g$.  
+$\catc$ such that 
+\begin{worktt}???$f \circ \bar{k}=f$ and??? \end{worktt}
+$f \circ k = g$.  
 We have shown as required that the functional dependency
 $\fundep{H}{f}{g}$ is represented in $\catc$.
 \end{proof}

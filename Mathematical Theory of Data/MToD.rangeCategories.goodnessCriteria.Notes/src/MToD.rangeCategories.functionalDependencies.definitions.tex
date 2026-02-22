@@ -1,12 +1,22 @@
 
 \section{MToD Definitions}
 
-\begin{definition}\commentary{should this say \highlight{range} catgeory?}
-If $\catc$ is a category and $\reqtc$ is a set of instances and if \fgsourcediag
+\begin{definition}
+If $\catc$ is a range category and $\reqtc$ is a set of instances and if \fgsourcediag
 in $\catc$ then there is a  \term{functional dependency} of $g$ on $f$ with respect to $\reqtc$ iff
 there is a family of partial functions $H_D)_{D \in \reqtc}$ such that 
 in each instance $D$,  $H_D: D(b) \morph D(c)$, such that $D(f) \circ H_D = D(g)$ and $\overline{H_D}=\widehat{D(f)}$.
 If there is such a functional dependency then we say that $\fundep{H}{f}{g}$ in $\catc$ with respect to $\reqtc$.
+\begin{workt}
+Can the equation $\overline{H_D}= \widehat{D(f)}$ be rephrased as the
+equation $D(f) \circ\overline{H_D}=D(f)$? If it could be we could manage without range categories and complexity of sticklebacks.
+\end{workt}
+\begin{notebox}
+There is a version of this theory which we should look at some time in which the equation $\overline{H_D}=\widehat{D(f)}$ is replaced by the equation 
+$\overline{H_D}\leq \widehat{D(f)}$. Example. Suppose $g$ is $1/f$, 
+unless $f$ is zero in which case $g$ is undefined. 
+We would want to consider  $g$ tas functionally dependent on $f$. 
+\end{notebox}
 \end{definition}
 \begin{newtt}
 Use RR.5 (which holds in \Par) to show that in every $D$, such an $H_D$ is the unique such partial function:
@@ -20,15 +30,33 @@ Use RR.5 (which holds in \Par) to show that in every $D$, such an $H_D$ is the u
 \begin{lemma}
 \label{fdrangesublemma}
 If $\fundep{H}{f}{g}$ is a functional dependency then
-$$\widehat{H_D}=\widehat{D(g)}.$$
+\begin{enumerate}[(i)]
+\item $$\widehat{H_D}=\widehat{D(g)}$$
+and
+\item $$\overline{D(f)}=\overline{D(g)}.$$
+\end{enumerate}
+\begin{notebox}
+If we need it and assuming equational completeness we therefore also have
+$\bar{f} = \bar{g}$. 
+\end{notebox}
 \end{lemma}
 \begin{proof}
+\begin{enumerate}[(i)]
+    \item
 \begin{align*}
-\widehat{D(g)} &= \widehat{D(f) \circ H_D} \\
-               &= \widehat{hat({D{f})} \circ H_D} &&\mbox{by RR.4}\\               
-               &= \widehat{\overline{H_D} \circ H_D} &&\mbox{by defn of functional dependency}\\
-               &= \widehat{ H_D} &&\mbox{by R.1}\\
+\widehat{D(g)} &= \reallywidehat{D(f) \circ H_D} \\
+               &= \reallywidehat{hat({D{f})} \circ H_D} &&\mbox{by RR.4,}\\               
+               &= \reallywidehat{\overline{H_D} \circ H_D} &&\mbox{by defn of functional dependency,}\\
+               &= \widehat{ H_D} &&\mbox{by R.1.}\\
 \end{align*}
+\item 
+\begin{align*}
+\overline{D(f)} &= \overline{D(f) \circ \widehat{D(f)}} &&\mbox{by RR.2,}\\
+                &= \overline{D(f) \circ \overline{H_D}} &&\mbox{from the definition of functional dependency,}\\
+                &= \overline{D(f) \circ H_D} &&\mbox{by wR.4,}\\
+                &= \overline{D(g)}           &&\mbox{from the definition of functional dependency.}
+\end{align*}
+\end{enumerate}
 \end{proof}
 
 \begin{definition}
@@ -38,8 +66,7 @@ in $\catc$
 and if there is a functional dependency $\fundep{H}{f}{g}$ then say that 
 the functional dependency $H$ is \term{represented} in $\catc$ 
 iff there exists a morphism $h:b \morph c$ in $\catc$ such that 
-\oldt{for each instance $D \in \reqtc$, $D(h)=H_D$}
 $f \circ h = g$. Note that we can deduce that if $h$ is such a representation then
-in each instance $D$, $\widehat{D(f)} \circ D(h) = H_D$.
+in each instance $D$, $\widehat{D(f)} \circ D(h) = H_D$. \workt{CHECK THIS!!}
 \end{definition}
 
