@@ -1,12 +1,12 @@
-\section{Construction of Restriction Functors}
-
-Denote by \SetP the range category of sets and partial functions
+Denote by \Par the range category of sets and partial functions
  and let
 \FinPar be the range category of finite sets and partial functions. 
 
 \subsection{The partial Hom functor $HomP$}
+
+\subsubsection{Definition of HomP}
 If \catcw is a category with support then \commentary{Tidy this definition please.}
-let $HomP_\catc(a,-): \catc \morph \SetP$ be the  functor
+let $HomP_\catc(a,-): \catc \morph \Par$ be the  functor
 defined as follows. $HomP(a,x)=Hom(a,x)$.
 If $j: x \morph y$ then partial function $HomP(a,j): HomP(a,x) \morph HomP(a,y)$
 is defined\footnote{
@@ -15,7 +15,7 @@ In earlier notes I defined HomP as follows.
 HomP(a,j)(k) &= k \circ j &&\mbox{ if $k \circ \bar{j} = k$,} \\
              &\bot        && \mbox{otherwise.}
 \end{align*}
-In a restriction category this is defintion is equivalent to the one given but not in an arbitrary category with support.
+In a restriction category this is definition is equivalent to the one given but not in an arbitrary category with support.
 } as follows:
 
 \begin{align*}
@@ -28,28 +28,25 @@ that a shortening of a tight zigzag is tight. Handwritten notes.
 \end{notebox}
 
 It follows from lemma  \lref{supportLemma} (\lref{RHomFunctorSubLemma}) that HomP, so defined, is a functor.
-If \catcw is a category with support then
-HomP does not necessarily preserve the support operation. However:
+\subsubsection{HomP and Support operators}
+In a restriction category $HomP(a,-)$ preserves the restriction operator
+and thus is a restriction functor. 
+In a category with support it isn't the case that the support operator is preserved unless
+the additional awR.4 property holds:
 \begin{lemma}
 \llabel{originalHomPSupportLemma}
-If \catcw is a category with support and $a$ is an object of \catcw 
-and if $j: x \morph y$ in \catcw satisfies the condition that for
-all $k:a \morph x$ in \catcw 
-\begin{equation}
-\label{supportPreservationCondition}
-k \circ \bar{j} = k \mbox{ iff } \overline{k \circ j} = \overline{k}
-\end{equation}
-then
+If \catcw is a category with \newt{awR.4} support 
+and $a$ is an object of \catcw then
+$HomP_\catc(a,-)$ preserves the support operator
+i.e.  
+for all morphisms $j: x \morph y$ in \catc,
 \begin{equation}
 HomP_\catc(a,\bar{j})=\overline{HomP_\catc(a,j)}.
 \end{equation}
 \end{lemma}
 \begin{proof}
-Suppose that  $j: x \morph y$ in \catcw is such a morphism satisfying 
-identity (\ref{supportPreservationCondition})
- for all morphisms $k: a \morph x$ in \catcw.
-
-In \SetP we have the following partial functions
+Suppose such  $j: x \morph y$ in \catc.
+In \Par we have the following partial functions
 \[
 \paralleldiag{HomP_C(a,x)}{HomP_C(a,x)}{HomP_C(a,\bar{j})}{\overline{HomP_C(a,j)}}
 \]
@@ -69,7 +66,7 @@ which  simplifies using wR.4 to
 HomP(a,\bar{j})(k) &= k \circ \bar{j} &&\mbox{ if $\overline{k \circ j} = \overline{k}$,} \\
              &=\bot        && \mbox{otherwise.}
 \end{align*}
-and so using (\ref{supportPreservationCondition}) to
+and so using \newt{awR.4} to
 \begin{align*}
 \overline{HomP(a,j)}(k) 
             &= k \circ \bar{j} &&\mbox{if $k \circ \bar{j} = k$,} \\
@@ -88,7 +85,7 @@ On the otherhand from the definition of $HomP_\catc(a,j)(k)$ it follows that
             &= k         &&\mbox{if $\overline{k \circ j} = \overline{k}$,} \\
             &=\bot        && \mbox{otherwise,}
 \end{align*}
-which simplfies, using (\ref{supportPreservationCondition}), to defining
+which simplfies, using \newt{awR.4}, to defining
 \begin{align*}
 \overline{HomP(a,j)}(k) 
             &= k  &&\mbox{if $k \circ \bar{j} = k$,} \\
@@ -109,23 +106,28 @@ $$HomP_\catc(a,\bar{j})=\overline{HomP_\catc(a,j)}$$
 \begin{lemma}
 \llabel{homPfaithfullemma}
 If \catcw is a category with support
-and $a$ is an object of \catcw then the functor $Hom(a,-)$ is faithful.
-\end{lemma}
-\begin{proof} \commentary{CHECK THIS PROOF}
-Let $j_1,j2: x \morph y$ in \catcw and suppose that
+and $a$ is an object of \catc, 
+if for some object $x$ of \catcw and
+$j_1, j_2: a \morph x$ in \catcw 
+then if 
 \begin{equation}
-\label{faithassumption}
-HomP(a,j_1)=HomP(a,j2).
-\end{equation} 
-We need show that $j_1=j_2$. First we show that 
+\label{HomPIdentity}
+HomP(a,j_1)=HomP(a,j_2)
+\end{equation}
+then $j_1=j_2$
+\end{lemma}
+
+\begin{proof} 
+\commentary{This proof goes around the houses a bit. I haven't seen how to tighten it.}
+First we show that 
 \begin{equation}
 \label{faithstepone}
 j_1 = \bar{j_1} \circ j_2
 \end{equation}
 which we do as follows
 \begin{align*}
-j1 &= HomP(a,j_1)(\bar{j_1}) &&\mbox{by definition of $HomP$, } \\
-   &= HomP(a,j_2)(\bar{j_1}) &&\mbox{by assumption (\ref{faithassumption}), } \\
+j_1 &= HomP(a,j_1)(\bar{j_1}) &&\mbox{by definition of $HomP$, } \\
+   &= HomP(a,j_2)(\bar{j_1}) &&\mbox{by assumption (\ref{HomPIdentity}), } \\
    &= \bar{j_1} \circ j_2    
                      &&\mbox{\parbox[t]{6cm}{by definition 
                                         of $HomP$ and because
@@ -151,116 +153,29 @@ which we do as follows:
     &= HomP(a,j_1)(\bar{j_1} \circ \bar{j_2}) 
                               && \mbox{from definition of HomP,}\\
     &= HomP(a,j_2)(\bar{j_1} \circ \bar{j_2}) 
-                              && \mbox{by (\ref{faithassumption}),}\\
+                              && \mbox{by (\ref{HomPIdentity}),}\\
     &= \bar{j_1} \circ \bar{j_2} \circ j_2 
                               && \mbox{from definition of HomP,}\\
     &= \bar{j_1} \circ j_2    &&\mbox{by R.1.}
 \end{align*}
 Finally from (\ref{faithstepone}),
 (\ref{faithsteptwo}) and (\ref{faithstepthree}),
-$j_1=j_2$ follows, as required,
+$j_1=j_2$ follows, as required.
 \end{proof}
 
-\begin{worktt}
-We might end up proceeding via
-\begin{itemize}
-
-\item showing that morphisms $j$ embedded from \catcw into the stickleback category  have the HomP suuport preservation propery
-i.e have the property that for all morphisms $k$ 
-\[
-\overline{k \circ j} = \bar{k} \mbox{ iff } k \circ \overline{j} = k
-\]
-\item
- we will need to show if F and G are zigzags and G is of length 0 then 
-the  condition holds,
-\item we have already shown  that the supports of  morphisms satisfying this condition
-are preserved by the HomP functor,
-\item if one or more functors preserve supports of a morphism f then the various constructed functors also preserve the support of f.
-\item Thereby showing that the constructed functors preserve supports of morphisms
-satisfying the condition.
- \end{itemize} 
- \end{worktt}
-
-\subsection{Coproducts of Set valued Restriction Functors}
-\tbd
-\subsection{Quotients of Set valued Restriction Functors}
-
-\newcommand{\Fquotient}{F/\sim}
-Suppose \catcw is a restriction category and that $F: \catc \morph \SetP$ is a restriction functor into the restriction category of sets and partial functions. Suppose that for every object $x$ of \catcw there is an equivalence relationship $\sim_x$ defined on the set $F(x)$. Suppose that this equivalence relationship has the following property(s):
-For every morphism $j:x \morph y$ in \catcw, for all elements $k1,k2 \in F(x)$,
-\begin{enumerate}
-\item $F(j)(k_1)$ is defined iff $F(j)(k_2)$ is defined, 
-\item $k_1 \sim_x k_2 \mbox{ and } F(j)(k_1) \mbox{ is defined } \implies F(j)(k_1) \sim_y F(j)(k_2).$
-\end{enumerate}
-Define functor $\Fquotient: \catcw \morph \SetP$ by defining
-\begin{align*}
-&x             &&\mapsto F(x)/\sim_x 
-                & \mbox{i.e. the set of equivalence classes of $F(x)$ wrt equivalence relation $\sim$}\\
-&j: x \morph y &&\mapsto F(j)/\sim
-\end{align*} 
-where $F(j)/\sim$ is defined by
-\begin{align*}
-[k] \mapsto [F(j)(k)] && \mbox{provided $F(j)(k)$ is defined, is undefined otherwise.}
-\end{align*}
-which is well-defined because of the assumption made above.
-
-It is easy to see that $\Fquotient$ is a functor (i.e. respects composition $\circ$ and identity morphisms.)
-
-\begin{lemma}
-The functor $\Fquotient$ is a restriction functor.
-\end{lemma}
-\begin{proof}
-We need to show that  $\Fquotient$ respects the restriction operator
-i.e. we need to show that for any morphism $j:x \morph y$ in \catcw, $\Fquotient(\bar{j})= \overline{\Fquotient(j)}$.
-
-The LHS, $\Fquotient(\bar{j})$, is defined to  be the partial function
-$$ [k] \mapsto [F(\bar{j})(k)] \mbox{ providing $F(\bar{j})(k)$ is defined, is undefined otherwise,}$$
-in other words, since  $F$ assumed to be a restriction functor it can be defined as mapping
-$$ [k] \mapsto [\overline{F(j)}(k)] \mbox{providing $\overline{F(j)}(k)$ is defined, is undefined otherwise,}$$
-and this in turn, because of the definition of restriction in \SetP, means that it maps
-$$ [k] \mapsto [k] \mbox{providing $F(j)(k)$ is defined, is undefined otherwise.}$$
-
-Meanwhile the RHS, $\overline{\Fquotient(j)}$  is defined as the partial function that 
-maps $[k]$  to $[k]$  provided  $\Fquotient(j)(k)$ is defined, and to be undefined otherwise.
-
-Because,
-from the definition of $\Fquotient$, $\Fquotient(j)([k])$ is defined iff $F(j)(k)$ is defined then
-we have shown that LHS and RHS are identical functions, as required.
-\end{proof}
-
-\section{Construction of Range Functors}
-
-\subsection{$HomP$ as a Range Functor}
-Cockett et all show that if every morphism $f$ of a restriction category has a section $f_s$ then if we define
-\[
-\widehat{f}=f_s \circ f
-\]
-then \hatItself is a range operator and \catcw is a range category and they show that
-$\widehat{f}$ is not dependent on the choice of section.
-
-
+\subsubsection{$HomP$ and Range Operators}
 
 \begin{observation}
-\llabel{preservationOfSections}
-If \catcw is a category with support and j is such and such
-and $j$ has a partial section $j_s$ then
-$HomP_C(a,j_s)$ is a partial section of $HomP_C(x,j)$.
-\commentary{Maybe this is worthy of being a lemma and having a proof.
-} 
-\commentary{True of any functor that preserves the support operation??.}
-\begin{newtt}
-\workt{{Hang on} this does need proving.} Is the support of $j_s$ preserved.
-Need new lemma that if $j$ satisfies the condition and $j_s$ is a partial section of
-$j$ then $j_s$ meets the condition also.
-\end{newtt}
+If \catcw and \catcpw are  categories with support 
+and $F: \catc \morph \catcp$ is a functor that preserves the support operation,
+ if morphism $f: a \morph b$ in \catcw
+has a partial section $f_s: b \morph a$ then 
+the morphism $F(f) : F(a) \morph F(b)$ in \catcpw has section
+$F(f_s)$ and therefore $F$ preserves the pseudo range operator 
+i.e. $F(\hat{f}) = \widehat{F(f)}$ 
 \end{observation}
 
-\begin{corollary}
-If \catcw is a range category in which every morphism has a partial section then
-for every object $a$ of \catcw the functor $HomT_\catcw(a,-): \catcw \morph \SetP$ is a range functor.
-\end{corollary}
-
-The converse is also true
+The converse is also true \commentary{This is now a bit of a textit{non sequitur}.}
 \begin{lemma}
 If \catcw is a range category and $HomP(a,-)$ is a range functor for all objects a of \catcw
 then every morphism $f$ of \catcw has a partial section. 
@@ -311,20 +226,85 @@ f \circ \hat{f} \circ g \circ f &=  f \circ \hat{f} \circ \hat{f}
 \end{align*}
 \end{proof}
 
-\subsection{About HomP}
-\begin{lemma}
-\llabel{HomOfEffbargbar}
-\fgsourcediag
+\subsubsection{Notes along the way}
+\begin{worktt}
+We might end up proceeding via
+\begin{itemize}
+
+\item showing that morphisms $j$ embedded from \catcw into the stickleback category  have the HomP suuport preservation propery
+i.e have the property that for all morphisms $k$ 
+\[
+\overline{k \circ j} = \bar{k} \mbox{ iff } k \circ \overline{j} = k
+\]
+\item
+ we will need to show if F and G are zigzags and G is of length 0 then 
+the  condition holds,
+\item we have already shown  that the supports of  morphisms satisfying this condition
+are preserved by the HomP functor,
+\item if one or more functors preserve supports of a morphism f then the various constructed functors also preserve the support of f.
+\item Thereby showing that the constructed functors preserve supports of morphisms
+satisfying the condition.
+ \end{itemize} 
+ \end{worktt}
+
+\subsection{Coproducts of \Par valued Restriction Functors}
+\tbd
+\subsection{Quotients of \Par valued Restriction Functors}
+\workt{Need review and improve}
+Suppose \catcw is a restriction category and that $F: \catc \morph \Par$ is a restriction functor into the restriction category of sets and partial functions. Suppose that for every object $x$ of \catcw there is an equivalence relationship $\sim_x$ defined on the set $F(x)$. Suppose that this equivalence relationship has the following property(s):
+For every morphism $j:x \morph y$ in \catcw, for all elements $k1,k2 \in F(x)$,
+\begin{enumerate}
+\item $F(j)(k_1)$ is defined iff $F(j)(k_2)$ is defined, 
+\item $k_1 \sim_x k_2 \mbox{ and } F(j)(k_1) \mbox{ is defined } \implies F(j)(k_1) \sim_y F(j)(k_2).$
+\end{enumerate}
+Define functor $\Fquotient: \catcw \morph \Par$ by defining
 \begin{align*}
-[L_c(f)] &= [L_a(Hom(a,f)(\bar{f}\circ\bar{g}))] \\
-[L_c(g)] &= [L_a(Hom(a,g)(\bar{f}\circ\bar{g}))]
-\end{align*} \commentary{We use this later on we need to prove it.}
+&x             &&\mapsto F(x)/\sim_x 
+                & \mbox{i.e. the set of equivalence classes of $F(x)$ wrt equivalence relation $\sim$}\\
+&j: x \morph y &&\mapsto F(j)/\sim
+\end{align*} 
+where $F(j)/\sim$ is defined by
+\begin{align*}
+[k] \mapsto [F(j)(k)] && \mbox{provided $F(j)(k)$ is defined, is undefined otherwise.}
+\end{align*}
+which is well-defined because of the assumption made above.
+
+It is easy to see that $\Fquotient$ is a functor (i.e. respects composition $\circ$ and identity morphisms.)
+
+\begin{lemma}
+The functor $\Fquotient$ is a restriction functor.
 \end{lemma}
 \begin{proof}
+We need to show that  $\Fquotient$ respects the restriction operator
+i.e. we need to show that for any morphism $j:x \morph y$ in \catcw, $\Fquotient(\bar{j})= \overline{\Fquotient(j)}$.
+
+The LHS, $\Fquotient(\bar{j})$, is defined to  be the partial function
+$$ [k] \mapsto [F(\bar{j})(k)] \mbox{ providing $F(\bar{j})(k)$ is defined, is undefined otherwise,}$$
+in other words, since  $F$ assumed to be a restriction functor it can be defined as mapping
+$$ [k] \mapsto [\overline{F(j)}(k)] \mbox{providing $\overline{F(j)}(k)$ is defined, is undefined otherwise,}$$
+and this in turn, because of the definition of restriction in \Par, means that it maps
+$$ [k] \mapsto [k] \mbox{providing $F(j)(k)$ is defined, is undefined otherwise.}$$
+
+Meanwhile the RHS, $\overline{\Fquotient(j)}$  is defined as the partial function that 
+maps $[k]$  to $[k]$  provided  $\Fquotient(j)(k)$ is defined, and to be undefined otherwise.
+
+Because,
+from the definition of $\Fquotient$, $\Fquotient(j)([k])$ is defined iff $F(j)(k)$ is defined then
+we have shown that LHS and RHS are identical functions, as required.
 \end{proof}
-\subsection{Coproducts of Set valued Range Functors}
+
+
+
+
+
+\subsection{Coproducts of \Par valued Range Functors}
 TBD
-\subsection{Quotients of Set valued Range Functors}
+\subsection{Quotients of \Par valued Range Functors}
+\begin{worktt}
+Review and improve and put both this and previous quotient
+section together. Will need put coproducts and HomP sections
+together as well.
+\end{worktt}
 \begin{lemma}
 \label{rangefunctorquotient}
 \begin{worktt}
@@ -342,7 +322,7 @@ the partial function which maps $[k']$, where $k' \in F(y)$, as follows
 $$ [k'] \mapsto [F(\hat{j})(k')] \mbox{ providing $F(\hat{j})(k')$ is defined, and is undefined otherwise.}$$
 In other words, since  $F$ assumed to be a range functor it can be defined as mapping
 $$ [k'] \mapsto [\widehat{F(j)}(k')] \mbox{ providing $\widehat{F(j)}(k')$ is defined and being undefined otherwise,}$$
-and this in turn, because of the definition of ranges in \SetP, means that it maps
+and this in turn, because of the definition of ranges in \Par, means that it maps
 $$ [k'] \mapsto [k'] \mbox{providing there exists $k \in F(x)$ such that 
 \oldt{$k'=F(j)(k)$}
 \newt{$k'\sim_? F(j)(k)$} and being undefined otherwise.}$$
@@ -355,3 +335,10 @@ Because,
 from the definition of $\Fquotient$ we have that $\Fquotient(j)([k])= [F(j)(k)]$   
 we have  that LHS and RHS are identical functions, as required.
 \end{proof}
+
+\subsection{\Rel Valued Functors}
+Let \Rel be the category of sets and binary relationships.
+
+If $F: \catc \morph \Par$ is a functor then $F$ induces 
+a functor $F_R : Stk(\catc) \morph \Par$.
+

@@ -1,0 +1,184 @@
+
+\subsection{Range Categories}
+Cockett et al. (\cite{COCKETT2012}) define range categories from restriction categories along the following lines.
+
+\begin{definition} 
+A \term{range category} is a restriction category with an additional operator on morphisms (the range operator $\hat{\ }$), as follows
+if $f: a \morph b$ in  \catcw then
+$$\hat{f}: b \morph b$$
+satisfying
+
+RR.1 For $f:a \morph b$ in \catcw $$\bar{\hat{f}} = \hat{f}.$$
+
+RR.2 For $f:a \morph b$ in \catcw $$f \circ \hat{f} = f.$$
+
+RR.3. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
+$$\reallywidehat{f \circ \bar{g}} = \hat{f} \circ \bar{g}.$$
+
+RR.4. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
+$$\reallywidehat{(\widehat{f} \circ g)} = \widehat{f \circ g}.$$
+\end{definition}
+
+In this note we explore range categories that satisfy an  additional condition defined by Cockett et al. as RR.5. We will use the folowing terminology:
+
+\begin{definition}
+An \textit{RR.5 range category} is a range category that additionally satisfies:
+
+RR.5 if $\equaliser{a}{f}{\paralleldiag{b}{c}{g}{h}}$ then
+ $$f \circ g = f \circ h \Rightarrow  \hat{f} \circ g = \hat{f} \circ h.$$
+ \end{definition}
+Let the category \FinPar be the range category of finite sets and partial functions.
+
+\begin{lemma}
+\llabel{unirangelemma}
+If $f:a \morph a$ in a range category \catcw then for any morphism 
+$f: a \morph b$
+\begin{enumerate}[(i)] 
+\item $\hat{\hat{f}}=\hat{f}$,
+\item $\hat{f} \comp \hat{f} = \hat{f}$,
+\item \llabel{lem:unirange:hatbar} $\hat{\bar{f}}=\bar{f}$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Straightforward.
+\end{proof}
+
+\begin{lemma}
+\llabel{fglemma}
+ \begin{enumerate}[(i)]
+ \item 
+ If \fgsinkdiag in \catcw then
+ $\hat{f}\circ \hat{g} = \hat{g} \circ \hat{f},$
+ \item
+ If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
+$\hat{g} \circ \reallywidehat{f \circ g}=  \reallywidehat{f \circ g}.$
+ \item \commentary{wrong diagram }
+If \fgsinkdiag in \catcw  then
+$\reallywidehat{f \circ \widehat{g}}=\widehat{f} \circ \widehat{g}.$
+
+
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}[(i)]
+\item Follows from RR.1 and R.2.
+\item 
+\begin{align*}
+\hat{g} \circ \widehat{f \circ g}&=\widehat{f \circ g} \circ \hat{g}&&\mbox{by (i)} \\
+&=\widehat{f \circ g} \circ \bar{\hat{g}}
+                    &&\mbox{by lemma \ref{unirangelemma} (\ref{lem:unirange:hatbar}),} \\
+&= \reallywidehat{f \circ g \circ \bar{\hat{g}}}&&\mbox{by RR.3,} \\
+&= \widehat{f \circ g} &&\mbox{by lemma \ref{unirangelemma} (\ref{lem:unirange:hatbar}), then RR.2.}
+\end{align*}
+\item %(iii)
+\begin{align*}
+\widehat{f \circ \widehat{g}} 
+                                &=\widehat{f \circ \overline {\widehat{g}}} &\mbox{by RR.1}\\
+                                &=\widehat{f} \circ \overline {\widehat{g}} &\mbox{by RR.3}\\
+                                &=\widehat{f} \circ \widehat{g}             & \mbox{by RR.1}\\
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+\begin{aside}
+When I tried to prove some property of the stickleback category
+(which one!) corresponding to a range category \catcw 
+then I needed to 
+ prove that
+ $$\overline{g} \circ f \leq f \circ \reallywidehat{\overline{g} \circ f}.$$
+This isn't generally true though. We cannot prove it.
+\begin{worktt}The fact that it isn't true may become significant.
+We may need the fact that this identity doesn't hold in order to show that stickleback category satisfies the awR.4 condition. 
+\end{worktt}
+
+This identity doesn't hold 
+in the range category of partial sets and functions for suppose
+$a$ is a doubleton set ${x_1,x_2}$ 
+and that $f$ is defined at both $x_1$ and $x_2$ and that $f(x_1) = f(x_2)=y$.
+Suppose $g$ is defined at $x_1$ but not at $x2$. Then
+\begin{align*}
+x_1 &\xmapsto{f} y \\
+x_2 &\mapsto y \\
+             \\
+x_1 &\xmapsto{\overline{g}\kern0.05cm} x_1 \\
+x_2 &\xmapsto{\kern0.2cm} \bot \\
+                \\
+x_1 &\xmapsto{\overline{g} \circ f} y \\
+x_2 &\xmapsto{\kern0.4cm} \bot
+\end{align*}
+
+so that $\reallywidehat{\overline{g} \circ f}=\set{y}$  
+and
+
+\begin{align*}
+x_1 &\xmapsto{f \circ \reallywidehat{\overline{g} \circ f}} y \\
+x_2 &\xmapsto {\kern.75cm}y
+\end{align*}
+
+and we see that $$\overline{g} \circ f \neq f \circ \reallywidehat{\overline{g} \circ f}.$$
+\end{aside}
+
+\subsection{Partial Sections}
+Cockett defines partial sections as possible features of restriction categories. 
+We are interested in pretty much the same concept applied in the context of categtories with support. If \catcw is a category with support then a morphism s is said to be a partial section of  morphism $f$ iff
+$s \circ f = \bar{s}$ and $f \circ s \circ f = f$.
+
+\begin{observation}
+\llabel{preservationOfSections}
+If \catcw and \catcpw are categories with support 
+and if $F: \catc \morph \catcp$ is a functor that preserves the support operation then 
+$F$ preserves partial sections.
+\end{observation}
+
+\subsection{Derived weak-range Operator}
+
+The following observation is from  Cockett et al where it is used in the context of restriction categories.
+\begin{lemma}
+\llabel{rangeUniqueLemma}
+If \catcw is a category with support and there is a morphism $f: a \morph b$
+which has two partial sections $s,s':b \morph a$ then
+\[
+f \circ s = f \circ s' 
+\]
+\end{lemma}
+\begin{proof}
+hand written notes
+\end{proof}
+
+This leads us to being able to define an operator \hatItself \ for
+morphisms $f$ that have partial sections. 
+We define
+\[\widehat{f} = f_s \circ f\]
+where $f_s$ is any partial section of $f$.
+
+\begin{notebox}[Warning]
+At this point we have proved none of the required range category properties of \hatItself. We must be very careful not to use any of them. Lets pick over anything we do with it very carefully. Must't accidentally assume any of the properties of the range operator. 
+\end{notebox}
+
+\begin{oldtt}
+To show that HomP preserves the "range" operator I require RR.1.
+That $f \circ \widehat{f} = f$. 
+\begin{proof}
+\begin{align*}
+f \circ \widehat{f} &= f \circ f_s \circ f \\
+                    &= f &&\mbox{since $f_s$ is a  section of $f$, PHEW.}
+\end{align*}
+\end{proof}
+\end{oldtt}
+
+\begin{noteforfuture}
+\begin{oldtt}
+somewhere I need show that when I compose zigzag 
+$\tuple{f}$ with $\tuple{\widehat{f},f,\bar{f}}$
+then I get $\tuple{\widehat{f}}$. as well as showing the second os these is a partila section.
+\end{oldtt}
+Actually I think I need to show 
+\begin{itemize}
+\item $\tuple{\widehat{f},f,\bar{f}}$ is a section
+of $\tuple{f}$,
+\item $\tuple{\widehat{f},f,\bar{f}}$ composed with $\tuple{f}$ is $\tuple{\widehat{f\ }}$.
+\end{itemize}
+Together these mean that $\reallywidehat{\tuple{f}}=\tuple{\widehat{f\ }}$
+This means the embedding of a range category in its stickleback category
+preserves the range operator (more precisely it takes the range operator to the pseudo-range operator).
+\end{noteforfuture}

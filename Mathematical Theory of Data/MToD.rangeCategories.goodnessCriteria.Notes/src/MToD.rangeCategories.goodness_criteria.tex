@@ -1,0 +1,144 @@
+
+\subsubsection{Criterion 2A --- The Representation of Path Equivalence}
+\tbd
+
+\subsubsection{Criterion 2B --- The Representation of Functional Dependencies}
+\begin{definition}
+If $\catc$ is a range category and $\reqtc$ is a set of instances and if \fgsourcediag
+in $\catc$ then there is a  \term{functional dependency} of $g$ on $f$ with respect to $\reqtc$ iff
+there is a family of partial functions $H_D)_{D \in \reqtc}$ such that 
+in each instance $D$,  $H_D: D(b) \morph D(c)$, such that $D(f) \circ H_D = D(g)$ and $\overline{H_D}\leq \widehat{D(f)}$ .
+If there is such a functional dependency then we say that $\fundep{H}{f}{g}$ in $\catc$ with respect to $\reqtc$.
+
+
+\begin{rationale}
+My first stab at the definition of fd in this context had
+the equation $\overline{H_D}=\widehat{D(f)}$ which
+subsequently (24 Feb 2026)
+I replace by the equation 
+$\overline{H_D}\leq \widehat{D(f)}$. 
+Rationale for this is by example. Suppose $g$ is $1/f$, 
+unless $f$ is zero in which case $g$ is undefined. 
+We would want to consider  $g$ as functionally dependent on $f$. 
+If we follow this approach then we need to constrain
+$\qq{h}$ by 
+$$
+\overline{\qq{h}} \leq \widehat{f}.
+$$
+In this way, the defintion of fd determines  the
+extension of \catcw to \catcpw and this in turn determines the definition of $\sim$ in the proof of the fundamental lemma.
+\end{rationale}
+\begin{rationale}
+I wondered if  we could manage without range categories and complexity of sticklebacks.
+Can the equation $\overline{H_D}\leq \widehat{D(f)}$ be rephrased ?
+Could we say $D(f) \circ H_D =D(g)$ and not there exists
+$J_D$, $J_D \leq H_D$ and $D(f) \circ J_D = D(g)$??
+
+But then how would we axiomatise $\qq{h}$. Currently we have
+$$
+f \circ \qq{h} = g
+$$
+and
+$$
+\overline{\qq{h}} \leq \widehat{f}
+$$
+
+In answer to a question raised elsewhere we need the extension of every $D$
+from \catcw to \catcpw to be unique. Otherwise we have extended the information content of the specification 'by accident' as it where. That is why $\qq{h}$
+must be suitably constrained.
+\end{rationale}
+\end{definition}
+
+Significantly we can show that 
+each $H_D$ in this definition is unique:
+\begin{lemma}
+\llabel{UniquenessOfHD}
+If as described in the definition of functional dependency there is
+a family $H_D)_{D \in \reqtc}$
+satisfying $D(f) \circ H_D = D(g)$ 
+and $\overline{H_D}\leq \widehat{D(f)}$
+then for each $D \in \reqtc$ $H_D$, is the unqiue such partial function 
+i.e. if  a partial function $H'_D: D(b) \morph D(c)$
+satisfies
+$D(f) \circ H'_D = D(g)$ and $\overline{H'_D}\leq \widehat{D(f)}$
+then $H_D = H'_D$.
+\end{lemma}
+\begin{proof}
+Use RR.5 (which holds in \Par) 
+\begin{align*}
+\mbox{Suppose}
+  &&D(f) \circ H_D 
+  &= D(f) \circ H'_D 
+  && \mbox{ is given,}\\
+\mbox{then }
+  &&\widehat{D(f)} \circ H_D 
+  &= \widehat{D(f)} \circ H'_D  
+  && \mbox{by RR.5,}\\
+\mbox{therefore }
+  &&\widehat{D(f)} \circ \overline{H_D} \circ H_D 
+  &=  \widehat{D(f)} \circ\overline{H'_D} \circ H'_D  
+  && \mbox{by R1,}      \\
+\mbox{therefore }
+  &&\overline{H_D} \circ H_D &=  \overline{H'_D} \circ H'_D  
+  && \mbox{\parbox[t]{6cm}{assuming $\overline{H_D}\leq \widehat{D(f)}$ and $\overline{H'_D}\leq \widehat{D(f)}$,}}  \\
+\mbox{therefore }
+  &&H_D &= H'_D
+  && \mbox{by R.1, as required.}
+\end{align*}
+\end{proof}
+
+\begin{lemma}
+\llabel{fdrangesublemma}
+
+If $\fundep{H}{f}{g}$ is a functional dependency then
+\begin{enumerate}[(i)]
+\item $$\widehat{H_D}=\widehat{D(g)}$$
+and
+\item $$\overline{D(g)} \leq \overline{D(f)}.$$
+\end{enumerate}
+\begin{aside}
+If we need it and assuming equational completeness we therefore also have
+$ \bar{g} \leq \bar{f}$. 
+\end{aside}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}[(i)]
+    \item
+\begin{align*}
+\widehat{D(g)} &= \reallywidehat{D(f) \circ H_D} \\
+               &= \reallywidehat{hat({D{f})} \circ H_D} &&\mbox{by RR.4,}\\               
+               &= \reallywidehat{\overline{H_D} \circ H_D} &&\mbox{by defn of functional dependency,}\\
+               &= \widehat{ H_D} &&\mbox{by R.1.}\\
+\end{align*}
+\item 
+\workt{hand written note, using wR.4, R.4 and R.3.}
+\end{enumerate}
+\end{proof}
+
+\begin{definition}
+If $\catc$ is a range category and $\reqtc$ is a set of instances, if
+\fgsourcediag
+in $\catc$ 
+and if there is a functional dependency $\fundep{H}{f}{g}$ then say that 
+the functional dependency $H$ is \term{represented} in $\catc$ 
+iff there exists a morphism $h:b \morph c$ in $\catc$ such that 
+$\bar{h} \leq \widehat{f}$ and 
+$f \circ h = g$  . 
+
+\begin{rationale}
+The other way of cutting this definition is to  require that there
+is a $h$ such that $D(h) = H_D$. This  would
+require equational completeness to get to $f \circ g =h$ and so is less straightforward. Here we are following the line we took in 
+ the Preparation paper. 
+\end{rationale}
+\end{definition}
+
+From lemma \lref{UniquenessOfHD} it follows that
+
+\begin{observation}
+In the above context of the above defintion, if functional dependency $H$ is represented in \catcw by a morphism $h:b \morph c$ then for each instance $D \in \reqtc$, $D(h)=H_D$.
+\end{observation}
+
+Criterion 2C — The Representation of Referential Inclusion Dependencies
+\tbd
+

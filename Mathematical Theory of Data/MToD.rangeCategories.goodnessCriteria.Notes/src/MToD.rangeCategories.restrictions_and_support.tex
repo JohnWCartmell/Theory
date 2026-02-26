@@ -1,0 +1,228 @@
+
+
+For the theory of data, 
+the notion of \textit{range category} that we are interested in 
+are define in terms of restriction categories.
+
+\subsection{Restriction Categories}
+These were introduced by 
+Cockett \& Lack (\cite{COCKETT2002}) and 
+constitute an algebra that nicely represents a system of partially defined terms or maps. Applied to the theory of data, they are relevant because data fields often only optionally have values and can be considered therefore to be partial, rather than total, functional relationships. 
+
+Cockett \& Lack define restriction categories along the following lines:
+\begin{definition}
+A \textit{restriction category} is a category \catcw with an additional operator on morphisms (the restriction operator $\bar{\ }$), so that from a morphism
+$f: a \morph b$ in \catcw there is a 
+$$\bar{f}: a \morph a$$,
+satisfying
+
+R.1 For $f:a \morph b$ in \catcw $$\bar{f} \circ f =f$$.
+
+R.2. If \fgsourcediag in \catcw then
+$$\bar{g} \circ \bar{f}=\bar{f} \circ \bar{g}.$$
+
+R.3. If \fgsourcediag in \catcw then
+$$\overline{\bar{f} \circ g} = \bar{f} \circ \bar{g}$$.
+
+R.4. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
+$$f \circ \bar{g} = \overline{f \circ g} \circ f$$.
+\end{definition}
+
+We will be needing:
+
+\begin{lemma}
+\llabel{restrictioncatlemma}
+In any restriction category \catc
+\begin{enumerate} [(i)]
+\item For $f:a \morph b$ in \catcw,
+$$\bar{\bar{f}}=\bar{f}$$
+\item w.R4.\footnote{This condition described as wR.4 in Cockett et al.} 
+If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw 
+ then
+$$\overline{f \circ g} = \overline{f \circ \bar{g}}.$$
+
+\item \llabel{CHECKLemma}
+If \catcw is a restriction category \catcw and if
+$\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then 
+$f \circ \bar{g} = f$ iff $\overline{f \circ g} = \overline{f}.$
+\item \llabel{restrictioncatlemma:totalk} \commentary{UNUSED}
+If $\sequentialdiag{a}{b}{c}{k}{j}$ in \catcw 
+and $k$ is total i.e. $\bar{k}=id_a$
+and if $k \circ \bar{j}$ is total i.e. $\overline{k \circ \bar{j}}=id_a$
+then
+$$k \circ \bar{j} = k.$$
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate} [(i)]
+\item Use R3 with $g$ being $id_b$.
+\item 
+\begin{align*}
+\overline{f \circ \bar{g}}
+&= \overline{\overline{f \circ g} \circ f}
+    && \text{by (R4),} \\
+&= \overline{f \circ g} \circ \bar{f}
+    && \text{by (R3),} \\
+&= \bar{f} \circ \overline{f \circ g}
+    && \text{by (R2),} \\
+  &= \overline{\bar{f} \circ f \circ g}
+    && \text{by (R3),} \\  
+&= \overline{f \circ g}
+    && \text{by (R1).}
+\end{align*}
+\item \commentary{CHECKLemma}
+LEFT TO RIGHT
+Assume $f \circ \bar{g} = f$
+then
+\begin{align*}
+\overline{f \circ g} &= \overline{f \circ \bar{g}} && \mbox{by wR.4,}\\
+                     &= \overline{f} && \mbox{from the assumption.}
+\end{align*}
+RIGHT TO LEFT
+Assume $\overline{f \circ g} = \overline{f}$
+then
+\begin{align*}
+f \circ \bar{g} &= \overline{f \circ g} \circ f 
+                                  && \mbox{R.4,} \\
+                &= \bar{f} \circ f 
+                                  && \mbox{from the assumption,} \\
+                &= f              && \mbox{by R.1.}
+\end{align*}
+\item 
+\begin{align*}
+k \circ \bar{j} &= k \circ \bar{\bar{j}}              && \mbox{from (i),}\\
+                &= \overline{k \circ \bar{j}} \circ k && \mbox{by R.4,}   \\
+                &= k                                  && \mbox{from assumption $k \circ \bar{j}$ is total.}
+\end{align*}
+
+\end{enumerate}
+\end{proof}
+
+
+\subsection{Categories with Support}
+Though we are mainly restriction categories are the structures that we are interested 
+one of the constructions we use relies on categories with a such an operator 
+Cockett et al \cite{COCKETT2012} describe as categories with support 
+such a operator \barItself for which R.4 does not hold, though R.1, R.2 and R.3 so, and for which  the following
+weaker condition holds
+
+wR.4  If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
+\[
+\overline{f \circ g} = \overline{f \circ \bar{g}}.
+\]
+Such categories Cockett et al refer to as \textit{categories with support}. 
+
+Categories with support may satisy an addition condition which is crucial in 
+what follows and which we refer to as the additional weak R.4 rule:
+
+awR.4  If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
+\[
+\overline{f \circ g} = \bar{f} \mbox{ \quad implies \quad} f \circ \bar{g}=f.
+\]
+and if this holds in a category with support ww
+will say that it has awR.4 support.  
+The reverse implication holds in any category with support so that in
+a category with awR.4 support we have, for any composable $f$ and $g$:
+\[
+\overline{f \circ g} = \bar{f} \mbox{\quad iff \quad} f \circ \bar{g}=f.
+\]
+
+
+
+\begin{lemma}
+\llabel{supportLemma}
+In any category with support \catc, 
+\begin{enumerate}[(i)]
+\item
+if $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw 
+ then
+ \[
+ \overline{f} \circ \overline{f \circ g} = \overline{f \circ g}
+ \]
+ \item \llabel{RHomFunctorSubLemma}
+if  $\triplesequentialdiag{a}{x_1}{x_2}{x_3}{k}{j_1}{j_2}$ 
+in a \catcw  then 
+if $\overline{k \circ j_1 \circ j_2} = \bar{k}$ 
+then $\overline{k \circ j_1} = \bar{k}$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}[(i)]
+\item
+\begin{align*}
+\overline{f} \circ \overline{f \circ g}  
+           &= \overline{f} \circ \overline{f \circ \overline{g}}
+                               && \mbox{by wR.4} \\
+           &= \overline{\overline{f} \circ f \circ \overline{g}}
+                               && \mbox{by R.3}  \\
+           &= \overline{f \circ \overline{g}}
+                               && \mbox{by R.1}\\
+           &= \overline{f \circ g}
+                               && \mbox{ by wR.4, as required}
+\end{align*}
+\item
+
+Suppose $\overline{k \circ j_1 \circ j_2} = \bar{k}$  then we have
+\begin{align*}
+\overline{k \circ j_1} &= \overline{\bar{k} \circ k \circ j_1}
+                           &&\mbox{by R.1,} \\
+                       &= \overline{\overline{k \circ j_1 \circ j_2} \circ k \circ j_1}
+                           &&\mbox{from the initial assumption,} \\
+                       &= \overline{k \circ j_1 \circ j_2} \circ \overline{k \circ j_1}
+                           &&\mbox{by R.3,} \\
+                       &= \overline{k \circ j_1 \circ j_2}
+                           &&\mbox{by (i),} \\
+                       &= \bar{k}
+                           &&\mbox{from the initial assumption, as required.} 
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+
+\subsection{Pre Ordering of $Hom(A,B)$}
+
+In a category with support, and therefore in a restriction category, we can define a partial ordering on each hom set
+Hom(a,b) by defining :
+$$f \leq g \mbox{ iff } f = \bar{g} \circ f.$$
+
+We can think of $f \leq g$ as meaning that if $f$ is defined then $g$ is defined and the two are equal.
+
+
+\begin{lemma}
+\llabel{leqlemma}
+In a restriction category \catcw,
+if 
+$
+\paralleldiag{a}{b}{f}{f'}
+$
+and
+$
+\paralleldiag{b}{c}{g}{g'}
+$
+in \catcw and if $f' \leq f$ and $g' \leq g$ 
+then $f' \circ g' \leq f \circ g$.
+\end{lemma}
+
+\begin{lemma}
+\llabel{pointwiseleqlemma}
+
+In a restriction category \catcw,
+if 
+$
+\paralleldiag{a}{b}{f}{f'}
+$
+\nudgedown{0.6cm}
+and
+$
+\paralleldiag{b}{c}{g}{g'}
+$
+and $h: a \morph c$ in \catcw 
+and if $f' \leq f$ and $g' \leq g$ 
+and if $h \leq f \circ g'$ and $h \leq f' \circ g$ 
+then $h \leq f' \circ g'$.
+\end{lemma}
+\begin{proof}
+Proof is handwritten on tablet.\highlight{CHECK.}
+\end{proof}
+
+
