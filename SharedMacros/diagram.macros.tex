@@ -100,6 +100,33 @@
 \end{arrows} 
 }
 
+%\upTriangle{left}[padcm]{apex}[padcm]{right}[heightcm]{flat}[npos]{diagonal}[npos]{riser}[npos]
+
+\NewDocumentCommand{\upTriangle}{m m m O{1cm} O{0cm} m m m O{0.5}}
+{
+\def\pleft{#1}
+\def\papex{#2}
+\def\pright{#3}
+\def\pheight{#4}
+\def\pwidth{#5}
+\def\pacross{#6}
+\def\pdiagonal{#7}
+\def\priser{#8}
+\def\pnpos{#9}
+ \begin{array}{c  p{\pwidth} c p{\pwidth} c}
+                && \Rnode{apex}{\papex} &&                \\[\pheight]
+\Rnode{left}{\pleft} &&                  && \Rnode{right}{\pright} 
+\end{array}
+\begin{arrows}
+\ncarr{left}{right}
+\blabel{\pacross}
+\ncarr{left}{apex}
+\alabel{\pdiagonal}[\pnpos]
+\ncarr{right}{apex}
+\blabel{\priser}[\pnpos]
+\end{arrows} 
+}
+
 
 % \composeSevenShaped[nodesize]{A}{B}{C}{f}{g}{h}
 \newcommand{\composeSevenShaped}[7][1cm]
