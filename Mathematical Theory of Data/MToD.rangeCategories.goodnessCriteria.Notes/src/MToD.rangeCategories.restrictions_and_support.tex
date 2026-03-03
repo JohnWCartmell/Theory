@@ -179,17 +179,39 @@ Suppose $\overline{k \circ j_1 \circ j_2} = \bar{k}$  then we have
 \end{proof}
 
 
-\subsection{Pre Ordering of $Hom(A,B)$}
+\subsection{Partial Ordering of $Hom(A,B)$}
 
 In a category with support, and therefore in a restriction category, we can define a partial ordering on each hom set
 Hom(a,b) by defining :
-$$f \leq g \mbox{ iff } f = \bar{g} \circ f.$$
+$$f \leq g \mbox{ iff } f = \bar{f} \circ g.$$
 
-We can think of $f \leq g$ as meaning that if $f$ is defined then $g$ is defined and the two are equal.
+The relation $\leq$, so defined, is antisymmetric because if
+\begin{equation}
+\label{fleqg}
+f = \bar{f} \circ g
+\end{equation}
+and
+\begin{equation}
+\label{gleqf}
+g = \bar{g} \circ f
+\end{equation}
+then
+\begin{align*}
+f &= \bar{f} \circ g &&\mbox {this is (\ref{fleqg}),}        \\
+  &= \bar{g} \circ \bar{f} \circ g &&\mbox{by R.1 and R.2,}\\
+  &= \bar{g} \circ f               &&\mbox{using (\ref{fleqg}) again,} \\
+  &= g                             &&\mbox{(by (\ref{gleqf}).} 
+\end{align*}
+
+When $f$ and $g$ are partial functions and
+considered as morphisms in the category $\Par$ of sets and partial functions,  
+then  $f \leq g$ iff  whenever $f$ is defined at an $x$,  then $g$ too is defined at x and $f(x) = g(x)$.
+
+
 
 
 \begin{lemma}
-\llabel{leqlemma}
+\llabel{orderingsCompose}
 In a restriction category \catcw,
 if 
 $
@@ -204,7 +226,7 @@ then $f' \circ g' \leq f \circ g$.
 \end{lemma}
 
 \begin{lemma}
-\llabel{pointwiseleqlemma}
+\llabel{pointwiseorderingsCompose}
 
 In a restriction category \catcw,
 if 

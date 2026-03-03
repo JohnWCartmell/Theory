@@ -7,6 +7,8 @@
 \input{\sharedmacros/general.macros.v2}
 \input{\sharedmacros/diagram.macros}
 \usepackage{xparse}
+\usepackage{fancyvrb} % used for documenting examples of macros 
+                      % along with verbatim text of example.
 %\usepackage{mathptmx}  % This changes font to roman % dont know wehn I started using this and why but it is obsolte so get rid of it.
 \usepackage{anyfontsize}
 \usepackage{mathtools}  % why have we got this?
@@ -40,6 +42,7 @@
 \parskip 1ex
 
 
+
 \begin{document}
 \title{Range Categories and the Theory of Data}
 
@@ -48,8 +51,10 @@
 \date{}
 \maketitle
 \begin{center}
-Work in progress January 2026 Going on February
+Work in progress January 2026 Going on February ... March
 \end{center}
+
+\newcommand{\IfSforCwithRCwords}{If $S$ is a sketch for category \catcw and if $S$ is considered as a data specification with requirement $\reqtc$\ }
 
 \newcommand{\fgsourcediag}{$\binarysourcediag{a}{b}{c}{f}{g}$}
 \newcommand{\fgsinkdiag}{$\binarysinkdiag{a}{b}{c}{f}{g}$}
@@ -90,33 +95,51 @@ Work in progress January 2026 Going on February
 \newcommand{\Stk}[1][C]{\textbf{Stk}_\textbf{#1}}
 \NewDocumentCommand{\HomStk}{O{a} O{-} O{C}}{pHom_{\Stk[#3]}(#1,#2)}
 
-\tableofcontents
+\newcommand{\weakrange}[1]{\widehat{#1}^{\mathrm w}}
+\NewDocumentCommand{\pointwiserange}{m}
+  {\reallywidehat{#1}^{\!*}}
 
+%zigzagTuple{f}{n}
+\newcommand{\zigzagTuple}[2]
+{
+\tuple{#1_0,#1'_0,...#1_{#2-1},#1'_{#2-1},#1_{#2}}    
+}
+
+\tableofcontents
+\iffalse
 
 \section{Introduction}
 \workt{File MToD.rangeCategories.introduction.tex}
-%\input{../src/MToD.rangeCategories.introduction.tex}
+\input{../src/MToD.rangeCategories.introduction.tex}
+
+\fi
 
 \section{Restriction Categories and Categories with Support}
 \workt{File MToD.rangeCategories.restrictions\_and\_support.tex}
-%\input{../src/MToD.rangeCategories.restrictions_and_support.tex}
-
+\input{../src/MToD.rangeCategories.restrictions_and_support.tex}
 \section{Range Categories, Partial Sections and Weak-Range Operators}
 \workt{File MToD.rangeCategories.ranges\_sections\_and\_weak\_range.tex}
-%\input{../src/MToD.rangeCategories.ranges_sections_and_weak_range.tex} 
+\input{../src/MToD.rangeCategories.ranges_sections_and_weak_range.tex} 
+
+\iffalse
 
 \section{\Par valued Functors}
 \workt{File MToD.rangeCategories.Par\_valued\_functors.tex}
-%\input{../src/MToD.rangeCategories.Par_valued_functors.tex}
+\input{../src/MToD.rangeCategories.Par_valued_functors.tex}
 
 \section{The category \Rel}
 \workt{File MToD.rangeCategories.Rel\_category.tex}
 \input{../src/MToD.rangeCategories.Rel_category.tex}
 
-\section{Sticklebacks}
-\workt{File MToD.rangeCategories.sticklebacks.tex}
-%\input{../src/MToD.rangeCategories.sticklebacks.tex}
+\fi
 
+\section{Sticklebacks}
+\input{../src/MToD.rangeCategories.zigzagcommands.tex}
+%\input{../src/MToD.rangeCategories.zigzagcommand.tests.tex}
+\workt{File MToD.rangeCategories.sticklebacks.tex}
+\input{../src/MToD.rangeCategories.sticklebacks.tex}
+
+\iffalse
 
 \section{Goodness of Data Specifications}
 
@@ -133,15 +156,24 @@ Work in progress January 2026 Going on February
 \input{../src/MToD.rangeCategories.path_equivalence_representation_lemma.tex}
 
 \workt{File MToD.rangeCategories.fd\_representation\_lemma.tex}
-%\input{../src/MToD.rangeCategories.fd_representation_lemma.tex}
+\input{../src/MToD.rangeCategories.fd_representation_lemma.tex}
 
 \workt{File MToD.rangeCategories.referential\_dependency\_representation\_lemma.tex}
 \input{../src/MToD.rangeCategories.referential_dependency_representation_lemma.tex}
+\fi
 
+\iffalse
 \appendix
+APPENDICES
+\section{Cockett et al}
 \workt{File MToD.rangeCategories.cockett.tex}
 \input{../src/MToD.rangeCategories.cockett.tex}
+\section{Old stickleback material}
+\workt{File MToD.rangeCategories.old\_stickleback\_material.tex}
+\input{../src/MToD.rangeCategories.old_stickleback_material.tex}
 
 \bibliographystyle{alpha} 
 \bibliography{../../../SharedBibliography/temp/bibliography}
+\fi
+
 \end{document}
