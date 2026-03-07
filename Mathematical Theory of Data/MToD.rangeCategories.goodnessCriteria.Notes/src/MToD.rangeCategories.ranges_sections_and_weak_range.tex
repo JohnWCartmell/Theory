@@ -80,7 +80,93 @@ $\reallywidehat{f \circ \widehat{g}}=\widehat{f} \circ \widehat{g}.$
 \end{enumerate}
 \end{proof}
 
+\begin{lemma}
+\llabel{forwardPropagationSubLemma}
+In a category with support
+\begin{enumerate}
+\item if $\sequentialdiag{a}{b}{c}{f}{g}$ 
+then $\reallywidehat{f \circ g} \leq \hat{g}$,
+\item if \fgsinkdiag and if $f\circ \hat{g} = f$ then
+  $\hat{f} \leq \hat{g}$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}
+\item
+We need show that 
+$\overline{\reallywidehat{f \circ g}} \circ \hat{g} = \reallywidehat{f \circ g}$.
+This follows because
 
+\begin{align}
+\overline{\reallywidehat{f \circ g}} \circ \hat{g} 
+          &= \reallywidehat{f \circ g} \circ \hat{g}  &&\mbox{by RR.1,}//
+          &= \reallywidehat{f \circ g} 
+                &&\mbox{by lemma \ref{fglemma} (i) and (ii).}
+\end{align}
+\item
+To prove $\hat{f} \leq \hat{g}$ we have to prove 
+$\bar{\hat{f}} \circ \hat{g} = \hat{f}$ 
+i.e. that $\hat{f} \circ \hat{g} = \hat{f}$. 
+This follows because   
+\begin{align*}
+\hat{f} \circ \hat{g} 
+     &= \reallywidehat{f \circ \hat{g}}
+                  &&\mbox{by lemma \ref{fglemma} (ii),} \\
+     &= \hat{f}   && \mbox{from the initial assumption.}
+\end{align*}
+\end{enumerate} 
+\end{proof}
+
+The following lemma complements lemma \ref{backPropagationTerminationLemma} 
+and the two will be used in tandem later.
+\begin{lemma}
+\llabel{forwardPropagationTerminationLemma}
+Suppose we have the following morphisms in a range category
+\commentary{I am thinking this shape might be \workt{wrong}.}
+\commentary{Consider more carefully what reqd. in later proof.}
+\[
+\begin{array} {c c c c c}
+       &\bOb{x}                            \\[0.4cm]
+\bOb{w}        &        &\bOb{y}           \\[0.4cm]
+       &       &        &         &\kern-0.3cm\bOb{z} 
+\end{array}
+\begin{arrows}
+\ncarr{w}{x} \alabel{f}
+\ncarr{y}{x} \blabel{g}
+\ncarr{z}{y} \blabel{h}
+\end{arrows}
+\]
+then if 
+\begin{equation}
+\label{forwardPropagationTight}
+\widehat{f}=\widehat{g}
+\end{equation}
+and 
+\begin{equation}
+\label{forwardPropagationTwo}
+f \circ \reallywidehat{h \circ g}=f
+\end{equation}
+then 
+\begin{equation}
+\label{forwardPropagationThree}
+\reallywidehat{h \circ g} = \reallywidehat{g}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+The result follows by showing that
+$\reallywidehat{h \circ g} \leq \reallywidehat{g}$
+and
+$\reallywidehat{g} \leq \reallywidehat{h \circ g}$.
+
+The first of these 
+follows directly from lemma \ref{forwardPropagationSubLemma} (i).
+
+The second follows from (\ref{forwardPropagationTwo}), 
+which by lemma \ref{forwardPropagationSubLemma} (ii)
+gives us
+$\hat{f} \leq \reallywidehat{h \circ g}$,
+and because $\hat{f} = \hat{g}$.
+\end{proof}
 
 \subsection{Partial Sections}
 Cockett defines partial sections as possible features of restriction categories. 

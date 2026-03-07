@@ -149,103 +149,47 @@ T(F)=T(\tuple{f_1,f'_1,...f_{n-1},\overline{f_n} \circ f'_{n-1},f_n})
 \begin{proof}
 Let $F'=\tuple{f_1,f'_1,...f_{n-1},\overline{f_n} \circ f'_{n-1},f_n}$
 then $F' \leq F$ and $t(F) \leq F'$ therefore since $T(F) \leq t(F)$
-we can use lemma \lref{tightsandwichLemma} to deduce that
+we can use lemma \lref{tightCsandwichLemma} to deduce that
 $T(F) = T(F')$ as required.
 \end{proof}
 
 \begin{lemma}
-\llabel{tailSpecialisationLemma}
-\commentary{\workt{make this a corollary}}
-If $F_a=\tuple{f_0,f'_0,...f_{n-1},f'_{n-1},a}$
-and $F_b=\tuple{f_0,f'_0,...f_{n-1},f'_{n-1},b}$
-are zigzags that, as you can see, differ only in the final position and
-if $\overline{a} \leq \overline{b}$ 
-then 
-\begin{enumerate}[(i)]
-\item if $t(F_a)=\zigzagTuple{t}{n}$
-is the one-step tightening of $F_a$
-and  $t(F_b)=\zigzagTuple{s}{n}$
-is the one-step tightening of $F_b$ then
-for each $i$, $0 \leq i \leq n-1$, $t_i \leq s_i$ and $t'_i \leq s'_i$,
-\item if $T(F_a)=\zigzagTuple{t}{n}$
-is the absolute tightening of $F_a$
-and  $T(F_b)=\zigzagTuple{s}{n}$
-is the absolute tightening of $F_b$ then
-for each $i$, $0 \leq i \leq n-1$, $t_i \leq s_i$ and $t'_i \leq s'_i$.
-\end{enumerate}
+\llabel{headLemma}
+If  $G=\zigzagTuple{g}{m}$ is a zigzag 
+and if some morphism $f$ composes with the  initial morphism $g_1$ of $G$
+ so that the composite zigzag $\tuple{f} :: G$ is defined then
+if $T(F)=\zigzagTuple{t}{n}$
+and  $T(\tuple{f} :: G)=\zigzagTuple{s}{n}$ then
+\[
+s_1 \leq f \circ t_1
+\]
 \end{lemma}
 \begin{proof}
- make this a corollary  --- if still needed at all which maybe not
+\tbd
 \end{proof}
 
-
-\begin{observation}
+\begin{lemma}
 \llabel{tailLemma}
-\commentary{reword as any tightening}
-If $F_a=\tuple{f_0,f'_0,...f_{n-1},f'_{n-1},a}$
-and $F_b=\tuple{f_0,f'_0,...f_{n-1},f'_{n-1},b \circ a}$
-are zigzags that, as you can see, differ only in the final position 
-then 
-\begin{enumerate}[(a)]
-\item
-if $t(F_a)=\zigzagTuple{t}{n}$
-is the one-step tightening of $F_a$
-and  $t(F_b)=\zigzagTuple{s}{n}$
-is the one-step tightening of $F_b$ then
-\begin{enumerate}[(i)]
-\item for each $i$, $0 \leq i \leq n-1$, 
-$s_i \leq t_i$ and $s'_i \leq t'_i$,
-\item $s_n = b \circ t_n$,
-\end{enumerate}
-\item
-if $T(F_a)=\zigzagTuple{t}{n}$
-is the absolute tightening of $F_a$
-and  $T(F_b)=\zigzagTuple{s}{n}$
-is the absolute tightening of $F_b$ then
-\begin{enumerate}[(i)]
-\item for each $i$, $0 \leq i \leq n-1$, 
-$s_i \leq t_i$ and $s'_i \leq t'_i$,
-\item $s_n = b \circ t_n$.
-\end{enumerate}
-\end{enumerate}
-\end{observation}
+If  $F=\zigzagTuple{f}{n}$ is a zigzag 
+and if the final morphism $f_n$ of $F$ composes with some morphism $g$
+ so that the composite zigzag $F :: \tuple{g}$ is defined then
+if $T(F)=\zigzagTuple{t}{n}$
+and  $T(F :: \tuple{g})=\zigzagTuple{s}{n}$ then
+\[
+s_n \leq t_n \circ g
+\]
+\end{lemma}
+\begin{proof}
+\tbd
+\end{proof}
 
-\begin{observation}
-\llabel{headLemma}
-\commentary{reword as any tightening}
-If $G_a=\tuple{a,f'_0,...f_{n-1},f'_{n-1},f_n}$
-and $G_b=\tuple{a \circ b ,f'_0,...f_{n-1},f'_{n-1},f_n}$
-are zigzags that, as you can see, differ only in the first position 
-then 
-\begin{enumerate}[(a)]
-\item
-if $T_{G_a}=\zigzagTuple{t}{n}$
-is the one-step tightening of $G_a$
-and  $T_{G_b}=\zigzagTuple{s}{n}$
-is the one-step tightening of $G_b$ then
-\begin{enumerate}[(i)]
-\item $s_0 = t_n \circ b $,
-\item for each $i$, $1 \leq i \leq n$, 
-$s_i \leq t_i$,
-\item for each $i$, $0 \leq i \leq n-1$, 
-$s'_i \leq t'_i$,
-\end{enumerate}
-\item
-if $T(F_a)=\zigzagTuple{t}{n}$
-is the absolute tightening of $F_a$
-and  $T(F_b)=\zigzagTuple{s}{n}$
-is the absolute tightening of $F_b$ then
-\begin{enumerate}[(i)]
-\item $s_0 = t_n \circ b $,
-\item for each $i$, $1 \leq i \leq n$, 
-$s_i \leq t_i$,
-\item for each $i$, $0 \leq i \leq n-1$, 
-$s'_i \leq t'_i$.
-\end{enumerate}
-\end{enumerate}
-\end{observation}
-
-
+\begin{worktt}
+ I should factor out  a midpoint lemma here from
+the later tighteningCommutesWithCompositionLemma  so that whenever 
+$F$ and $G$ compose and we have $t_i$, $s_j$ and $q_i$ for the
+terms of the three tightenings $T(F), T(G) and T(F \circ G)$
+then we get $q_n \leq t_n \circ s_1$.
+\end{worktt}
 
 \begin{observation}
 \llabel{biggeristighter}
@@ -256,33 +200,9 @@ then the tightening of the longer one truncated to be comparable with the smalle
 
 \begin{lemma}
 \llabel{tighteningCommutesWithCompositionLemma}
-
-If $F=\zigzagTuple{f}{n}$ is a zigzag shaped like this
-$$
-\arraycolsep=7pt
-\zigzag{w}{x}{f}{n}
-$$
-and if $G=\zigzagTuple{g}{m}$ is a zigzag shaped like this
-$$
-\arraycolsep=7pt
-\zigzag{y}{z}{g}{m}
-$$
-
-and if $w_n = y_0$ so that there is a composite zizzag which we will denote 
-$F \circ G$ like so
-$$
-\arraycolsep=7pt
-\zigzagfgcomposite
-$$
-then if 
-\begin{itemize}
-\item $T(F)$ is the absolute tightening of $F$,
-\item $T(G)$ is the absolute tightening of $G$,
-\item $T^*_{T(F) \circ T(G)}$ is the absolute tightening of $T(F) \circ T(G)$
-\item $T^*_{F\circ G}$ 
-        is the absolute tightening of $F \circ G$
-\end{itemize}
-then $T^*_{F\circ G}=T^*_{T(F) \circ T(G)}$
+If $F$ and $G$ are zigzags for which the composition $F::G$ is defined
+then 
+$ T(F :: G) = T(T(F) :: T(G)) $
 \end{lemma}
 
 \newcommand{\tightenedComposite}[1]
@@ -306,98 +226,121 @@ then $T^*_{F\circ G}=T^*_{T(F) \circ T(G)}$
 
 
 \begin{proof}
-Suppose 
+Suppose
 \begin{itemize}
+\item 
+$F=\zigzagTuple{f}{n}$ is a zigzag shaped like this
+$$
+\arraycolsep=7pt
+\zigzag{w}{x}{f}{n}
+$$
+\item $G=\zigzagTuple{g}{m}$ is a zigzag shaped like this
+$$
+\arraycolsep=7pt
+\zigzag{y}{z}{g}{m}
+$$
+such that $x_n = y_1$ so that $F::G$ is defined,
 \item $T(F)=\zigzagTuple{t}{n}$,
 \item $T(G)=\zigzagTuple{s}{m}$,
-\item $T^*_{T(F) \circ T(G)}=\zigzagTuple{r}{n+m}$so that we have
+\item $T(T(F) \circ T(G))=\zigzagTuple{r}{n+m}$ so that we have
 $$
 \arraycolsep=7pt
 \tightenedComposite{r},
-        $$
-\item $T^*_{F\circ G}=\zigzagTuple{q}{n+m}$ 
+$$
+\item $T(F \circ G)=\zigzagTuple{q}{n+m}$ 
 so that we have
 $$
 \arraycolsep=7pt
 \tightenedComposite{q}.
-        $$
+$$
 \end{itemize}
-We will prove the result by showing 
-(a) that $T^*_{T(F) \circ T(G)} \leq T^*_{F\circ G}$
-and (b) that $T^*_{F\circ G} \leq T^*_{T(F) \circ T(G)}$.
 
-To establish (a), since $T^*_{T(F) \circ T(G)}$ is tight,
+We will prove the result by showing 
+\begin{enumerate}[(a)]
+\item that $T(T(F) \circ T(G)) \leq T(F \circ G)$ and
+\item that $T(F \circ G) \leq T(T(F) \circ T(G))$.
+\end{enumerate}
+
+To establish (a), since $T(T(F) \circ T(G))$ is tight,
 it suffices to show that 
-$T^*_{T(F) \circ T(G)} \leq F\circ G$. 
+$T(T(F) \circ T(G)) \leq F\circ G$. 
 We know that
 $$
-T^*_{T(F) \circ T(G)}
-\leq \tuple{t_0,t'_0,...t'_{n-1},s_0 \circ t_n,s'_0,...s_m}
+T(T(F) \circ T(G))
+\leq \tuple{t_0,t'_0,...t'_{n-1},t_n \circ s_0,s'_0,...s_m}
 $$
 and so it suffices to show that 
 $$
-\tuple{t_0,t'_0,...t'_{n-1},s_0 \circ t_n,s'_0,...s_m}
-\leq \tuple{f_0,f'_0,...f'_{n-1},g_0 \circ f_n,g'_0,...g_m}
+\tuple{t_1,t'_1,...t'_{n-1},s_1 \circ t_n,s'_1,...s_m}
+\leq \tuple{f_1,f'_1,...f'_{n-1},f_n \circ g_1 ,g'_1,...g_m}
 $$
 This follows because
 $$\zigzagTuple{t}{n} \leq \zigzagTuple{f}{n}$$
 as the left zigzag is defined to be a tightening of the right,
-likewise we have
-$$\zigzagTuple{s}{m} \leq \zigzagTuple{g}{m}$$
- and because
-$s_0 \circ t_n \leq g_0 \circ f_n$ follows 
-from $s_0 \leq g_0$ and $t_n \leq f_n$ by lemma \lref{orderingsCompose}.
+and the like reason we have
+$$\zigzagTuple{s}{m} \leq \zigzagTuple{g}{m}.$$
+Finally we have
+$t_n \circ s_1 \leq f_n \circ g_1$ which we get by composing the orderings
+ $t_n \leq f_n$ and $s_1 \leq g_1$ 
+(see lemma \lref{orderingsCompose}).
 
-To establish (b), because $T^*_{F \circ G}$ is tight it suffices to show that
-$T^*_{F \circ G} \leq T(F) \circ T(G)$. In other words that
+To establish (b), because $T(F \circ G$ is tight it suffices to show that
+$T(F \circ G) \leq T(F) \circ T(G)$. In other words that
 $$
-\tuple{q_0,q'_0,...q'_{n-1},q_n,q'_n,...q_{n+m}}\leq \tuple{t_0,t'_0,...t'_{n-1},s_0 \circ t_n,s'_0,...s_m}
+\tuple{q_1,q'_1,...q'_{n-1},q_n,q'_n,...q_{n+m}}\leq \tuple{t_1,t'_1,...t'_{n-1},t_n \circ s_1,s'_1,...s_m}
 $$
 We prove this piecemeal. 
 For the initial segment as far as $q_{n-1}$ 
-Because $\tuple{q_1,...q_{n+m}}$ is the tightening of $F \circ G$ it follows that
-$$
-\tuple{q_1,...q'_{n-1}} \leq \tuple{f_1,...f'_{n-1}} \leq \tuple{t_1,...t'_{n-1}}
-$$
-For the final segment after $q'_n$ we have
-$$
-\tuple{q'_n,q_{n+1},...q_{n+m}} \leq \tuple{g'_0,...g_{m}} \leq \tuple{s'_1,...s_m}
-$$
-That leaves us having to prove that $q_n \leq s_0 \circ t_0$.
-Now denote by $F \circ g_0$ the zigzag that is
+Because $\tuple{q_1,...q_{n+m}}$ is the tightening of $F \circ G$, it follows first that
+\[\zigzagTuple{q}{n} \leq F\]
+and then that
+\[
+\zigzagTuple{q}{n} \leq T(F)
+\] 
+and, in particular, that for $1 \leq i \leq n$, $q_i < t_i$ and $q'_i < t_i$.
+A similar argument gets us
+\[
+\zigzagTailTuple{q}{n}{m} \leq T(G)
+\]
+and, in particular, that 
+for $1 \leq j \leq m$, $q_{n+j} < s_j$ and 
+for $0 \leq j \leq m-1$, $q'_{n+j} < s'_j$.
+
+That leaves us having to prove that $q_n \leq t_n \circ s_1$.
+Now consider that $F :: \tuple{g_1}$ the zigzag that is
 the initial segment of the zigzag $F \circ G$
-that is $\tuple{f_0,...f'_{n-1},g_0 \circ f_n}$
-and denote by $f_n \circ G$ the zigzag that is 
+that is $\tuple{f_0,...f'_{n-1},f_n \circ g_1}$
+andt that $\tuple{f_n} \circ G$ is the zigzag that is 
 the final segment of $F \circ G$
-that is $\tuple{g_0 \circ f_n,g'_0,...g_m}$
-and let $T_{F \circ g_0}$ and $T_{f_n \circ G}$ be the absolute tightenings of these zigzags.
+that is $\tuple{f_n \circ g_1,g'_1,...g_m}$
+and consider the tightenings $T(F :: g_1)$ and $T(f_n :: G)$ of these zigzags.
 Because $\tuple{q_1,...q_{n+m}}$ is the tightening of $F \circ G$ it follows
 using observation \lref{biggeristighter}  that both
 \begin{equation}
 \label{qTFg}
-\tuple{q_1,...q'_{n-1},q_n} \leq T_{F \circ g_0}
+\tuple{q_1,...q'_{n-1},q_n} \leq T(F :: \tuple{g_1})
 \end{equation}
 and
 \begin{equation}
 \label{qTfG}
-\tuple{q_n, q'_n,...q_{n+m}} \leq T_{f_n \circ G}
+\tuple{q_n, q'_n,...q_{n+m}} \leq T(\tuple{f_n} :: G)
 \end{equation}
-By lemma \lref{tailLemma} the final element of $T_{F \circ g_0}$ is $g_0 \circ t_n$.
+By lemma \lref{tailLemma} the final element of $T(F :: \tuple{g_1})$ is $ \leq t_n \circ g_1$ .
 Therefore from (\ref{qTFg}) we have in particular that
 \begin{equation}
 \label{qgtn}
-q_n \leq g_0 \circ t_n.
+q_n \leq t_n \circ g_1.
 \end{equation}
 Likewise using lemma \lref{headLemma} we have that the initial element
-of $T_{f_n \circ G}$ is $s_0 \circ f_n$ and therefore from 
+of $T(\tuple{f_n} :: G)$ is $\leq f_n \circ s_1$ and therefore from 
 (\ref{qTfG}) we have the particular case that
 \begin{equation}
 \label{qsfn}
-q_n \leq s_0 \circ f_n.
+q_n \leq f_n \circ s_1.
 \end{equation}
 Finally we use lemma \lref{pointwiseorderingsCompose} to establish  from
 (\ref{qgtn}) and (\ref{qsfn}) that
-$q_n \leq s_0 \circ t_0$ and so complete the proof.
+$q_n \leq  t_n \circ s_1$ and so complete the proof.
 \end{proof}
 \subsection{The category of tight zigzags}
 If \catcw is a range category then we can define the category
@@ -411,10 +354,10 @@ such that $x_0=a$ and $y_n=b$.
 
 \newcommand{\conc}{::}
 
-Composition in $Z_C$ is defined by composing the zigzags and then tightening.  Write this as
-$$F \circ G =_{def} T(F :: G)$$
-so that what previously we denote $T(F)$ we now denote T(F).
-
+Composition in $Z_C$ is defined by composing the zigzags and then tightening  thus
+\[
+F \circ G =_{def} T(F :: G).
+\]
 Composition is associative since 
 \begin{align*}
 (F \circ G) \circ H 
@@ -591,9 +534,11 @@ wR.4. If $\sequentialdiag{a}{b}{c}{F}{G}$ in $Z_C$ then
 \]
 
 awR.4 If $\sequentialdiag{a}{b}{c}{F}{G}$ in $Z_C$ then
+
 \[
 \overline{F \circ G} = \overline{F} \mbox{ implies  } F \circ \overline{G} = F.
 \]
+\workt{I am now thinking this only holds if F is of length 1.}
 
 R.1 follows because in \catcw, $f_0 \circ \widehat{f_0} = f_0$. 
 
@@ -638,7 +583,12 @@ The key lemma then is to show that when F and G are composable sticklebacks
 \[
 \overline{F \circ G} = \overline{F} \mbox{ implies  } F \circ \overline{G} = F
 \]
-This, is the awR.4 condition.
+This, is the awR.4 condition. 
+
+\begin{worktt}
+I dont think this holds in the sticklebacks over $\Par$.
+I does maybe hold for stickelbacks F of length 1 which is probably all I need.
+\end{worktt}
 
 At some point I have to check that this property isn't lost in the presence of shortening.
 
@@ -646,26 +596,54 @@ Have I proved that wR.4 holds? Need CHECK.
 \end{notebox}
 
 \begin{lemma}
-If $F=\zigzagTuple{f}{n}$ and $G=\zigzagTuple{g}{m}$ are tight zigzags such that
- $F:x \morph y$ and $G: y \morph z$ in the category of sticklebacks 
+if f composes with g in tange category \catcw then
+\[
+f \circ \bar{g} = f \mbox{ iff } \widehat{f} \leq \bar{g}.
+\]
+\end{lemma}
+\begin{proof}
+\[
+\widehat{f \circ \bar{g}} = \widehat{f} \circ \bar{g} \mbox{ by RR.3}
+\]
+\end{proof}
+
+\begin{lemma}
+If  $F:x \morph y$ and $G: y \morph z$ in the category of tight zigzags 
 then  
 \[
 \overline{F \circ G} = \overline{F} \mbox{ iff } F \circ \overline{G} = F
 \]
+
+\begin{center}\begin{oldtt}\highlight{\Large NOT TRUE}\end{oldtt}\end{center}
 \end{lemma}
 \begin{proof}
 The composition of $F$ with $\overline{G}$ is the tightening of 
 \[
 \tuple{f_0,f'_0,...f_{n-1},f'_{n-1},f_n \circ \overline{g_0}}
 \]
-This equals $F$ iff $f_n \circ \overline{g_0}=f_n$ iff $\widehat{f_n}=\overline{g_0}$.
-NEED LEMMAS FOR THIS.
+This equals $F$ 
+iff $f_n \circ \overline{g_0}=f_n$
+ iff 
+ \[
+ \widehat{f_n} \leq \overline{g_0}
+\mbox{lemma for this above.}
+\]
 
-SIMILar argument for RHS.
-
-I think I may have to have to use the failure to prove R.4 as part of the proof of this lemma?? 
+Likewise LHS holds iff $\widehat{f_n} \leq \overline{g_0}$ need a different lemma for this. See below.
 \end{proof}
-
+\begin{lemma}
+If  $F:x \morph y$ and $G: y \morph z$ in the category of tight zigzags 
+and if $F\circ G = \zigzagTuple{t}{n+m}$ then
+\[
+\zigzagTuple{t}{n} = T( F :: \tuple{g_1})
+\]  
+\end{lemma}
+\begin{lemma}
+If F is a tight zigzag and if $F$ composes with $\tuple{g}$
+then if $T( F :: \tuple{g_1} ) \neq F :: \tuple{g_1}$
+then for each $i$, $1 \leq i \leq n - 1$, $t_i < f_i$.
+\workt{Is this true or can differences fade out during propagation?}
+\end{lemma} 
 \subsection{Short Sticklebacks}
 This material is old stuff and may need to be thrown away.
 \begin{worktt}
