@@ -100,9 +100,141 @@
 \end{arrows} 
 }
 
-%\upTriangle{left}[padcm]{apex}[padcm]{right}[heightcm]{flat}[npos]{diagonal}[npos]{riser}[npos]
+%\upTriangleShape
+     %{top}[height]{left}[lpadding]{right}[rpadding]
 
-\NewDocumentCommand{\upTriangle}{m m m O{1cm} O{0cm} m m m O{0.5}}
+\NewDocumentCommand{\upTriangleShape}
+          {m O{1cm} m O{0cm} m O{0cm} O{0cm}}
+{
+\def\ptop{#1}
+\def\pheight{#2}
+\def\pleft{#3}
+\def\pleftpadding{#4}
+\def\pright{#5}
+\def\prightpadding{#6}
+%below I needed \phantom{x} to get the spacing (why?)
+ \begin{array}{c  p{\pleftpadding} c p{\prightpadding} c}
+        &\phantom{x}& \Rnode{top}{\ptop} &\phantom{x}& \\[\pheight]
+\Rnode{left}{\pleft} &&        && \Rnode{right}{\pright} 
+\end{array}
+}
+
+
+%\downTriangleShape
+     %{top}[height]{left}[lpadding]{right}[rpadding]
+
+\NewDocumentCommand{\downTriangleShape}
+          {m O{1cm} m O{0cm} m O{0cm} O{0cm}}
+{
+\def\pdown{#1}
+\def\pheight{#2}
+\def\pleft{#3}
+\def\pleftpadding{#4}
+\def\pright{#5}
+\def\prightpadding{#6}
+%below I needed \phantom{x} to get the spacing (why?)
+ \begin{array}{c  p{\pleftpadding} c p{\prightpadding} c}
+\Rnode{left}{\pleft} &&        && \Rnode{right}{\pright}  \\[\pheight]
+        &\phantom{x}& \Rnode{down}{\pdown} &\phantom{x}&
+\end{array}
+}
+
+
+
+% \drawMorphism
+%      {src}{dest}{labelside(a|b)}{label}[npos]
+\NewDocumentCommand{\drawMorphism}{m m m m O{0.5}}
+{
+\def\psrc{#1}
+\def\pdest{#2}
+\def\plabelside{#3}
+\def\plabel{#4}
+\def\pnpos{#5}
+\begin{arrows}
+  \ncarr{#1}{#2}
+   %\alabel{\plabel}[\pnpos]
+  \IfStrEq{\plabelside}{a}
+    {\alabel{\plabel}[\pnpos]}
+    {}
+  \IfStrEq{\plabelside}{b}
+    {\blabel{\plabel}[\pnpos]}
+   {}
+\end{arrows} 
+}
+
+% \downToLeft[labelside(a|b)]{label}[npos]
+\NewDocumentCommand{\downToLeft}{O{a} m O{0.5}}
+{
+{\drawMorphism{down}{left}{#1}{#2}[#3]}
+}
+
+% \downToRight[labelside(a|b)]{label}[npos]
+\NewDocumentCommand{\downToRight}{O{b} m O{0.5}}
+{
+{\drawMorphism{down}{right}{#1}{#2}[#3]}
+}
+
+% \leftToTop[labelside(a|b)]{label}[npos]
+\NewDocumentCommand{\leftToTop}{O{a} m O{0.5}}
+{
+{\drawMorphism{left}{top}{#1}{#2}[#3]}
+}
+
+% \leftToRight[labelside(a|b)]{label}[npos]
+\NewDocumentCommand{\leftToRight}{O{b} m O{0.5}}
+{
+{\drawMorphism{left}{right}{#1}{#2}[#3]}
+}
+
+% \leftToTop[labelside(a|b)]{label}[npos]
+\NewDocumentCommand{\rightToTop}{O{b} m O{0.5}}
+{
+{\drawMorphism{right}{top}{#1}{#2}[#3]}
+}
+
+% \leftToTopArcing[labelside(a|b)]{label}{angleA}{angleB}[npos]
+\NewDocumentCommand{\leftToTopArcing}{O{a} m m m O{0.5}}
+{\drawMorphismArcing{left}{top}{#1}{#2}{#3}{#4}[#5]}
+
+% \leftToRightArcing[labelside(a|b)]{label}{angleA}[angleB][npos]
+\NewDocumentCommand{\leftToRightArcing}{O{b} m m m O{0.5}}
+{\drawMorphismArcing{left}{right}{#1}{#2}{#3}{#4}[#5]}
+
+% \rightToTopArcing[labelside(a|b)]{label}{angleA}[angleB][npos]
+\NewDocumentCommand{\rightToTopArcing}{O{b} m m m O{0.5}}
+{\drawMorphismArcing{right}{top}{#1}{#2}{#3}{#4}[#5]}
+
+% \drawMorphismArcing{src}{dest}{labelside(a|b)}{label}
+%                             {angleA}{angleB}[npos]
+\NewDocumentCommand{\drawMorphismArcing}
+                     {m m m m m m O{0.5}}
+{
+\def\psrc{#1}
+\def\pdest{#2}
+\def\plabelside{#3}
+\def\plabel{#4}
+\def\pangleA{#5}
+\def\pangleB{#6}
+\def\pnpos{#7}
+\begin{arrows}
+\ncarc[arcangleA=\pangleA, arcangleB=\pangleB,
+       nodesepA=\arrnodesepA,nodesepB=\arrnodesepB,
+       offsetA=\arroffsetA,offsetB=\arroffsetB]{->}{#1}{#2}
+\IfValueT{#3}
+  {
+    \IfStrEq{#3}{a}
+      {\alabel{\plabel}[\pnpos]}
+      {}
+    \IfStrEq{#3}{b}
+      {\blabel{\plabel}[\pnpos]}
+      {}
+  }
+\end{arrows} 
+}
+
+%\upTriangle{left}{apex}{right}[heightcm][padcm]{flat}{diagonal}{riser}[npos]
+
+\NewDocumentCommand{\XXXupTriangle}{m m m O{1cm} O{0cm} m m m O{0.5}}
 {
 \def\pleft{#1}
 \def\papex{#2}
@@ -113,9 +245,10 @@
 \def\pdiagonal{#7}
 \def\priser{#8}
 \def\pnpos{#9}
+%below I needed \phantom{x} to get the spacing (why?)
  \begin{array}{c  p{\pwidth} c p{\pwidth} c}
-                && \Rnode{apex}{\papex} &&                \\[\pheight]
-\Rnode{left}{\pleft} &&                  && \Rnode{right}{\pright} 
+        &\phantom{x}& \Rnode{apex}{\papex} &\phantom{x}& \\[\pheight]
+\Rnode{left}{\pleft} &&        && \Rnode{right}{\pright} 
 \end{array}
 \begin{arrows}
 \ncarr{left}{right}
@@ -126,7 +259,6 @@
 \blabel{\priser}[\pnpos]
 \end{arrows} 
 }
-
 
 % \composeSevenShaped[nodesize]{A}{B}{C}{f}{g}{h}
 \newcommand{\composeSevenShaped}[7][1cm]
@@ -237,8 +369,6 @@
 \alabel{#2}
 \end{arrows}  
 }
-
-
 
 \newcommand{\alternatediag}[5]
 {

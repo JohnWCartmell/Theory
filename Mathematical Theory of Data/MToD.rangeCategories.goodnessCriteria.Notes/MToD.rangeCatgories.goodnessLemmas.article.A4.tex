@@ -7,11 +7,13 @@
 \input{\sharedmacros/general.macros.v2}
 \input{\sharedmacros/diagram.macros}
 \usepackage{xparse}
+\usepackage{xstring} % for some diagram macros
 \usepackage{fancyvrb} % used for documenting examples of macros 
                       % along with verbatim text of example.
 %\usepackage{mathptmx}  % This changes font to roman % dont know wehn I started using this and why but it is obsolte so get rid of it.
 \usepackage{anyfontsize}
 \usepackage{mathtools}  % why have we got this?
+\usepackage{mdframed}
 \usepackage{alltt}    
 \usepackage{cmll}
 %\usepackage{yhmath}  % used for better version of \widehat
@@ -27,6 +29,18 @@
 \usepackage{imakeidx}
 \makeindex[name=definitions, title=Index of Definitions]
 \makeindex[name=lemmas, title=Index of Lemmas]
+
+\newenvironment{framedEquations}[1]{%
+\begin{mdframed}[
+  frametitle={\qquad #1},
+  frametitlealignment=\raggedright,
+  innertopmargin=0pt,
+  frametitleaboveskip=4pt,
+  frametitlebelowskip=-7pt
+]
+}{%
+\end{mdframed}
+}
 
 \usepackage{scalerel,stackengine}
 \stackMath
@@ -76,7 +90,7 @@ Work in progress January 2026 Going on February ... March
 }
 % p for predecessor
 \newcommand{\Obp}[2]{
-\Rnode{#1#2p}{#1}_{#2-1}
+\Rnode{#1#2p}{#1_{#2-1}}
 }
 
 % s for successor
@@ -92,6 +106,7 @@ Work in progress January 2026 Going on February ... March
 \Rnode{#1#2ss}{#1_{#2+2}}
 }
 
+
 \newcommand{\Stk}[1][C]{\textbf{Stk}_\textbf{#1}}
 \NewDocumentCommand{\HomStk}{O{a} O{-} O{C}}{pHom_{\Stk[#3]}(#1,#2)}
 
@@ -105,23 +120,40 @@ Work in progress January 2026 Going on February ... March
 \tuple{#1_1,#1'_1,...#1_{#2-1},#1'_{#2-1},#1_{#2}}    
 }
 
+%zigzagTupleEndShortened{f}{n}{s}
+\newcommand{\zigzagTupleEndShortened}[3]
+{
+\tuple{#1_1,#1'_1,...#1'_{#2-1}, #1_{#2-1} \circ s}    
+}
+\iffalse
+%zigzagStarTuple{f}{n}
+\newcommand{\zigzagStarTuple}[2]
+{
+\tuple{#1^*_1,#1'^*_1,...#1^*_{#2-1},#1'^*_{#2-1},#1^*_{#2}}    
+}
+\fi
+
 %zigzagTuple{f}{n}{m}
 \newcommand{\zigzagTailTuple}[3]
 {
 \tuple{#1_#2,#1'_#2,...#1_{#2+#3-1},#1'_{#2+#3-1},#1_{#2+#3}}    
 }
 
+
+
 \newcommand{\conc}{::}
 
 \input{../src/MToD.rangeCategories.zigzagcommands.tex}
 
 \tableofcontents
-\iffalse
+
+%\iffalse
 
 \section{Introduction}
 \workt{File MToD.rangeCategories.introduction.tex}
 \input{../src/MToD.rangeCategories.introduction.tex}
-\fi
+
+
 \section{Restriction Categories and Categories with Support}
 \workt{File MToD.rangeCategories.restrictions\_and\_support.tex}
 \input{../src/MToD.rangeCategories.restrictions_and_support.tex}
@@ -129,21 +161,23 @@ Work in progress January 2026 Going on February ... March
 \workt{File MToD.rangeCategories.ranges\_sections\_and\_weak\_range.tex}
 \input{../src/MToD.rangeCategories.ranges_sections_and_weak_range.tex} 
 
-\iffalse
 \section{\Par valued Functors}
 \workt{File MToD.rangeCategories.Par\_valued\_functors.tex}
 \input{../src/MToD.rangeCategories.Par_valued_functors.tex}
+
+
 
 \section{The category \Rel}
 \workt{File MToD.rangeCategories.Rel\_category.tex}
 \input{../src/MToD.rangeCategories.Rel_category.tex}
 
+%\fi
 
 \section{Sticklebacks}
 %\input{../src/MToD.rangeCategories.zigzagcommand.tests.tex}
+
 \workt{File MToD.rangeCategories.sticklebacks.tex}
 \input{../src/MToD.rangeCategories.sticklebacks.tex}
-\fi
 %\iffalse
 
 \section{Carry Forward}
@@ -169,8 +203,8 @@ Work in progress January 2026 Going on February ... March
 
 \workt{File MToD.rangeCategories.referential\_dependency\_representation\_lemma.tex}
 \input{../src/MToD.rangeCategories.referential_dependency_representation_lemma.tex}
-%\fi
 
+%\fi
 
 \iffalse
 \appendix

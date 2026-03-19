@@ -1,13 +1,13 @@
 
 
 
-
-%\zigzagZeroOne{x}{y}{f}[g] %g is optional for circ f_n
+%\zigzagTwo{x}{y}{f}[g] %g is optional for circ f1
 % This is a zig zag zig zag. 
 % zig one is  f1 : x1 -> y1 
 % zig one is  f'1 : x2 -> y1
-\NewDocumentCommand{\zigzagZeroOne}{m m m o}{
-\begin{array} {c c c c c c c c}
+\NewDocumentCommand{\zigzagTwo}{m m m o}
+{
+\begin{array} {c c c c c}
  &\Ob{#2}{1}&&\Ob{#2}{2}          &\\[0.8cm]
 \IfNoValueTF{#4}{\Ob{#1}{1}}{\Rnode{#11}{}}&&\Ob{#1}{2}&&\Ob{#1}{3} 
 \end{array}
@@ -23,34 +23,87 @@
 \end{arrows}
 }
 
-
-\NewDocumentCommand{\zigzagZeroOneShort}{m m m o}{
-\begin{array} {c c c c c c c }
- &\Ob{#2}{0}&&\Ob{#2}{1}          \\[0.8cm]
-\Ob{#1}{0}&&\Ob{#1}{1}&
+\NewDocumentCommand{\zigzagOneAndAHalf}{m m m o}{
+\begin{array} {c c c c }
+ &\Ob{#2}{1}&&\Ob{#2}{2}          \\[0.8cm]
+\Ob{#1}{1}&&\Ob{#1}{2}&
 \end{array}
 \begin{arrows}
-\ncarr{#10}{#20} \alabel{#3_0 
+\ncarr{#11}{#21} \alabel{#3_1 
 \IfNoValueTF{#4}
     {}
     {\circ #4}
 }[0.45][0.4]
-\ncarr{#11}{#21} \alabel{#3_1}[0.45][0.4]
-\ncarr{#11}{#20} \blabel{#3'_0}[0.45][0.4]
+\ncarr{#12}{#22} \alabel{#3_2}[0.45][0.4]
+\ncarr{#12}{#21} \blabel{#3'_1}[0.45][0.4]
 \end{arrows}
 }
 
-%\zigzagStart{x}{y}{f}[n]
-% starts from n instead of zero 
-\NewDocumentCommand{\zigzagStart}{m m m m}{
-\begin{array} {c c c c c c c }
- &\Ob{#2}{0}&&\Ob{#2}{1}    \\[0.8cm]
-\Ob{#1}{0}&&\Ob{#1}{1}& 
+\NewDocumentCommand{\zigzagOne}{m m m o}{
+\begin{array} {c c c c }
+ &\Ob{#2}{1}&&          \\[0.8cm]
+\Ob{#1}{1}&&\Ob{#1}{2}&
 \end{array}
 \begin{arrows}
-\ncarr{#10}{#20} \alabel{#3_{#4} }[0.6][0.4]
-\ncarr{#11}{#20} \blabel{#3'_{#4} }[0.6][0.4]
-\ncarr{#11}{#21} \blabel{#3_{#4+1} }[0.7][0.4]
+\ncarr{#11}{#21} \alabel{#3_1 
+\IfNoValueTF{#4}
+    {}
+    {\circ #4}
+}[0.45][0.4]
+\ncarr{#12}{#21} \blabel{#3'_1}[0.45][0.4]
+\end{arrows}
+}
+
+%\zigzagZigiZag{x}{y}{f}[i]
+% starts from i with a zig and a zag 
+\NewDocumentCommand{\zigzagZigiZag}{m m m m}{
+\begin{array} {c c c c }
+ &\Ob{#2}{#4}&&\Obs{#2}{#4}    \\[0.8cm]
+\Ob{#1}{#4}&&\Obs{#1}{#4}& 
+\end{array}
+\begin{arrows}
+\ncarr{#1#4}{#2#4} \alabel{#3_{#4} }[0.6][0.4]
+\ncarr{#1#4s}{#2#4} \blabel{#3'_{#4} }[0.6][0.4]
+\ncarr{#1#4s}{#2#4s} \blabel{#3_{#4+1} }[0.7][0.4]
+\end{arrows}
+}
+
+%\zigzagZigiZagShortening{x}{y}{f}[i][s]
+\NewDocumentCommand{\zigzagZigiZagShortening}{m m m m m}
+{
+\zigzagZigiZag{#1}{#2}{#3}{#4}
+\begin{arrows}
+\ncarr[15]{#2#4}{#2#4s} \alabel{#5}
+\end{arrows}
+}
+
+%\zigzagZigiZagShortened{x}{y}{f}[i]
+% starts from i with a zig and a zag 
+\NewDocumentCommand{\zigzagZigiZagShortened}{m m m m m}
+{
+\begin{array} {c c c c}
+\Obp{#2}{#4}&            &\Obs{#2}{#4}&   \\[0.8cm]
+            & \Ob{#1}{#4}&            &\Obss{#1}{#4} 
+\end{array}
+\begin{arrows}
+\ncarr{#1#4}{#2#4p} \alabel{#3'_{#4-1} }[0.6][0.2]
+\ncarr{#1#4}{#2#4s} \alabel{#3_{#4} \circ #5 }[0.6][0.4]
+\ncarr{#1#4ss}{#2#4s} \blabel{#3'_{#4+1} }[0.5][0.3]
+\end{arrows}
+}
+
+
+%\zigzagStart{x}{y}{f}[n]
+% arrows starts from n instead of one 
+\NewDocumentCommand{\zigzagStart}{m m m m}{
+\begin{array} {c c c c  }
+ &\Ob{#2}{1}&&\Ob{#2}{2}    \\[0.8cm]
+\Ob{#1}{1}&&\Ob{#1}{2}& 
+\end{array}
+\begin{arrows}
+\ncarr{#11}{#21} \alabel{#3_{#4} }[0.6][0.4]
+\ncarr{#12}{#21} \blabel{#3'_{#4} }[0.6][0.4]
+\ncarr{#12}{#22} \blabel{#3_{#4+1} }[0.7][0.4]
 \end{arrows}
 }
 
@@ -68,6 +121,21 @@
 \end{arrows}    
 }
 
+%\zigzagDotsThenLongFinal{x}{y}{f}{n}
+% This is a zig
+% fn  : yn -> xn
+\NewDocumentCommand{\zigzagDotsThenLongFinal}{m m m m}{
+\begin{array}{c c c c c}
+\dots &&\Obp{#2}{#4}&&\Ob{#2}{#4} \\[0.8cm]
+\dots &\Obp{#1}{#4}&&\Ob{#1}{#4}
+\end{array}
+\begin{arrows}
+\ncarr{#1#4p}{#2#4p} \alabel{#3_{#4-1}}[0.5][0.4]
+\ncarr{#1#4}{#2#4p} \blabel{#3'_{#4-1}}[0.5][0.4]
+\ncarr{#1#4}{#2#4} \blabel{#3_{#4}}[0.6][0.4]
+\end{arrows}    
+}
+
 %\zigzagDotsThenFinalFlex{x}{y}{f}{n}{m}
 % This is zig
 % fm : yn -> xn
@@ -81,16 +149,13 @@
 \end{arrows}    
 }
 
-
-
-
 %\zigzag{x}{y}{f}[ff]{n}
 % This is a zig zag zig zag... zig
-% For params 1 to 4, see command \zigzagZeroOne
+% For params 1 to 4, see command \zigzagTwo
 % For param 5 see command \zigzagDotsThenFinal
 %\zigzag{x}{y}{f}{n}
 \NewDocumentCommand{\zigzag}{m m m o m}{
-\zigzagZeroOne{#1}{#2}{#3}[#4]
+\zigzagTwo{#1}{#2}{#3}[#4]
 \zigzagDotsThenFinal{#1}{#2}{#3}{#5}
 }
 
@@ -104,7 +169,7 @@
 \newcommand{\zigzagfgcomposite} %Maybe this becomes zigzagComposite?
 {
 \arraycolsep=7pt
-\zigzagZeroOne{w}{x}{f}
+\zigzagTwo{w}{x}{f}
 \begin{array}{c}
 \dots \\[0.8cm]
 \dots
@@ -118,4 +183,47 @@
 \end{arrows}
 \kern-15pt
 \zigzag{y}{z}{g}[f_n]{m}
+}
+
+%\zigzagShortenable{x}{y}{f}{n}{i}{s}
+\NewDocumentCommand{\zigzagShortenable}{m m m m m m}
+{
+\zigzagOne{#1}{#2}{#3}
+\begin{array}{c}
+\dots \\[0.8cm]
+\dots
+\end{array}
+\zigzagZigiZagShortening{#1}{#2}{#3}{#5}{#6}
+\zigzagDotsThenFinal{x}{y}{f}{n}
+}
+
+%\zigzagShortened{x}{y}{f}{n}{i}{s}
+\NewDocumentCommand{\zigzagShortened}{m m m m m m}
+{
+\zigzagOne{#1}{#2}{#3}
+\begin{array}{c}
+\dots \\[0.8cm]
+\dots
+\end{array}
+\zigzagZigiZagShortened{#1}{#2}{#3}{#5}{#6}
+\zigzagDotsThenFinal{x}{y}{f}{n}
+}
+
+%\zigzagSequentialShortening{x}{y}{g}{n}{b}{i}{q}{f}{s}
+\NewDocumentCommand{\zigzagSequentialShortening}
+                    {m m m m m m m m }
+{
+\begin{array} {c}
+\bOb{#5}            \\[1.0cm]
+\zigzagOneAndAHalf{#1}{#2}{#3}
+\zigzagDotsThenLongFinal{#1}{#2}{#3}{#4}
+\end{array}
+\begin{arrows}
+%\ncarr[70]{#11}{#5} 
+\ncarrarc{#11}{#5}{80}{40}\alabel{#7}
+\ncarr{#21}{#5} \alabel{#8_1}
+\ncarr{#22}{#5} \alabel{#8_2}
+\ncarr{#2#4p}{#5} \alabel{#8_{#4-1}}
+\ncarr[-25]{#2#4}{#5} \blabel{#6}
+\end{arrows}
 }

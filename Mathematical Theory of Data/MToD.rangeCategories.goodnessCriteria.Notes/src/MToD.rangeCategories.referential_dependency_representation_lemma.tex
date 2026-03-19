@@ -1,6 +1,5 @@
 \subsection{Lemma 2C  --- Representation of Referential Inclusion Dependencies}
-\begin{worktt}
-\highlight{COPIED FROM preparation}
+
 \begin{lemma}
 \label{catincdsrepresented}
 If $\catc$ is a locally finite range category and $\reqtc$ is a set of instances, if $\catc$ is 
@@ -41,79 +40,78 @@ by the inclusion of $S$ in $S'$.
 $I$ is consistent with $\reqtc$ since
 each instance $D \in  \reqtc$ can be uniquely extended to a functor $D': \catcp \morph \Par$ by defining $D'(\qq{r})=R_D$.
 \commentary{go infinite - avoid stcikleback category having to be locally finite!!}
+\begin{oldtt}
 Since $\catc$ is a range category then there is an
 embedding $E$ of $C$ into the short stickleback category $\Stk$
 and a functor $\HomStk: \Stk \morph \Par$
 such that the composition $E \circ \HomStk$ is a range functor.
+\end{oldtt}
 
 Since \catcw is maximally constrained and because $I$ is consistent with $\reqtc$ then the functor 
 
-$E \circ \HomStk$  can be extended 
-to a functor $H_a: C' \morph \Fin$ so that the following diagram of functors commutes 
+$K_a$  can be extended 
+to a functor $K'_a: C' \morph \Fin$ so that the following diagram of functors commutes 
 \[
 \begin{array}{c p{0.3cm} c p{0.3cm} c}
-                 && \Rnode{t}{\Stk}   &&                     \\[0.7cm]
 \Rnode{l}{\catc} &&                   &&     \Rnode{r}{\Par} \\[0.7cm]
                  && \Rnode{b}{\catcp} &&
 \end{array}
 \begin{arrows}
-\ncarr{l}{t}
-\alabel{E}
-\ncarr{t}{r}
-\alabel{\HomStk}[0.75]
+\ncarr{l}{r}
+\alabel{K_a}
 \ncarr{l}{b}
 \blabel{I}
 \ncarr{b}{r}
-\blabel{H_a}
+\blabel{K'_a}
 \end{arrows}
 \] 
 
-In particular we must have 
+\begin{oldtt}
+In particular we  have 
 
-$H_a(a)=\HomStk[a][a]$,
+$K_a(\qq{r}):Hom_{\Stk}(a,a) \morph Hom_{\Stk}(a,c)$ which 
 
-$H_a(c)=\HomStk[a][c]$ and thus 
+applying to the singleton stickleback $\tuple{\overline{\qq{r}}}$ 
+\workt{no such thing!}
 
-$H_a(\qq{r}):\HomStk[a][a] \morph \HomStk[a][c]$ which 
-
-applying to $E(\overline{\qq{r}})$ which, by the way, is the singleton stickleback
-$\tuple{\barffn}$ gives us
+ gives us
 
 $H_a(\qq{r})(E(\overline{\qq{r}})): a \morph c$ in $\Stk$. 
-
+\end{oldtt}
 
 For each $i$, from this commuting diagram in \catcp
 \[
-\upTriangle{b_i}{a}{c}{\qq{r}}{f_i}{q_i}
+\XXXupTriangle{b_i}{a}{c}{\qq{r}}{f_i}{q_i}
 \]
 applying functor $H_a$
 we infer this diagram commutes in \Par
 \[
-\upTriangle{\HomStk[a][a]}
+\XXXupTriangle{\HomStk[a][a]}
             {\HomStk[a][b_i]}
             {\HomStk[a][c]}
             [1.5cm]           % row spacing (height adjustment)
-            {H_a(\qq{r})}
-            {\HomStk[a][\tuple{f_i}]}
-            {\HomStk[a][\tuple{q_i}]}
+            {K'_a(\qq{r})}
+            {K'_a(f_i) = K_a(f_i)}
+            {K'_a(q_i) = K_a(q_i)}
             [0.2].     % npos for labels on sides of triangle 
 \]
 
 Now since there is singleton stickleback $\tuple{\barffn}: a \morph a$ in 
   $\Stk$ the commutivity of this diagram gives
 \[
-H_a(\qq{r}) (\tuple{\barffn}) \circ \tuple{q_i} 
+K'_a(\qq{r}) (\tuple{\barffn}) \circ \tuple{q_i} 
 = \tuple{\barffn} \circ \tuple{f_i}
 = \tuple{\barffn \circ f_i} 
 \] 
 in $\Stk$.
+\workt{we need another step with $K_a(q_i)$ and $K_a(f_i)$ in above to remark on why defined (to which end --- do I need specify $q_i$ total?).}
 
 Suppose $H_a(\qq{r}) (\tuple{\barffn})$ 
 is a short stickleback $G =\tuple{g_1,etc, g_m}$ of length m. 
-Then LHS above is $\tuple{g_1,etc, g_m \circ q_i}$.
+Then LHS above is the tightening and shortening of $\tuple{g_1,etc, g_m \circ q_i}$.
 
-\commentary{I am assuming $q_i$ is total but it may be possible toavoid this assumption.}
-From an as yet unwritten sequential shortening lemma we can deduce that there are
+\commentary{I am \workt{assuming $q_i$ is} \workt{total} but it may be possible to avoid this assumption (for the sake of the maths rather than the computer science)}
+From an as yet unwritten sequential shortening lemma \lref{sequentialshorteninglemma} we can deduce that there are
 (shortening) morphisms $\sm[-1]$ so that, \foreachj[m-2],
 the domain of  $s_j$ is the codomain of $g_j$ and 
 the codomain  is $b_i$ such that 
@@ -153,20 +151,20 @@ and
 this enables us to iteratively remove instance of $s_j$ from the identity (first of last three)
 to obtain 
 \[
-D(f_i) = D(g_1) \circ D(g'_1)^{-1} \circ ... D(g'{m-1})^{-1} \circ D(g_m) \circ D(q_i) 
+D(f_i) = D(g_1) \circ D(g'_1)^{-1} \circ ... 
+D(g'_{m-1})^{-1} \circ D(g_m) \circ D(q_i) 
 \]
 
-Thus $D(g_1) \circ D(g'_1)^-1 \circ ... D(g'{m-1}^{-1} \circ D(g_m)$
+Thus $D(g_1) \circ D(g'_1)^{-1} \circ ... D(g'_{m-1})^{-1} \circ D(g_m)$
 is a relation, call it $G_D$, in \Rel such that $G_D \circ q_i = f_i$, \foreachi.
 But there is a unique single valued relationship $R_D$ such that 
-$R_D \circ q_i = f_i$. Therefore by lemma \lref{???} we have that $G_D$ is single-valued. We have that in each $D$
+$R_D \circ q_i = f_i$. Therefore by lemma \lref{atleasttwopartialfunctionslemma} we have that $G_D$ is single-valued. We have that in each $D$,
 \[
-D(g_1) \circ D(g'_1)^-1 \circ ... D(g'{m-1}^{-1} \circ D(g_m) = R_D
+D(g_1) \circ D(g'_1)^{-1} \circ ... D(g'_{m-1})^{-1} \circ D(g_m) = R_D
 \]
-and so we have shown that the referential inclusion dependency $R$ isrepresented 
+and so we have shown that the referential inclusion dependency $R$ is represented 
 in \catcw by a stickleback $G$. It remains to show that $G$ is in fact
 a single morphsim. This follows from an as yet unwritten corollary
 to the lemma regarding representation of functional dependencies.
 \end{proof}
 
-\end{worktt}

@@ -1,0 +1,199 @@
+\DocumentMetadata{} % a fix to an incompatibility 
+                    % fix suggested by chatGPT
+\documentclass[10pt,a4paper]{article}
+\usepackage{pstricks}
+\usepackage{pst-node}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage{enumerate}
+\usepackage {textcomp}
+\usepackage{ulem}
+\usepackage[left=1.5cm, right=1.0cm,  top=2.0cm, bottom=2.0cm]{geometry}
+\usepackage{xstring} % for some diagram macros
+\input{../SharedMacros/ccategories.macros}
+%\input{../SharedMacros/gats.macros}
+%\input{../SharedMacros/metagat.macros}
+\input{../SharedMacros/general.macros.V2}
+\input{../SharedMacros/diagram.macros}
+%\input{../SharedMacros/barkerEllis.macros}
+
+\usepackage{arydshln} %Draw dash-lines in array/tabular 
+\usepackage{mathtools} %for \bigtimes
+\usepackage{fancyvrb} % used for documenting examples of macros 
+                      % along with verbatim text of example.
+\title{Drawing Diagrams - supporting macros}
+\author{John Cartmell}
+
+\begin{document}
+\maketitle
+
+
+\section{Contextual Categories}
+\subsection{Drawing squares}
+
+\begin{showexample}
+\[
+\ccsquareoutline{3cm}{1.2cm}{A}{B}{C}{D}
+\ccsquareacross{f}{g}
+\ccsquaredown{p_A}{p_B}
+\]
+\end{showexample}
+
+
+which can also be achived by:
+
+\begin{showexample}
+$$
+\ccsquareanddroppers{3cm}{1.2cm}{A}{B}{C}{D}
+\mbox{
+\ccsquareacross{f}{g}
+}
+$$
+\end{showexample}
+
+
+\begin{showexample}
+$$
+\ccprimitivepullbacksquare{3cm}{1.2cm}{TL}{BL}{BR}{f}
+$$
+\end{showexample}
+
+
+\begin{showexample}
+\[
+\begin{coneoutline}{1cm}{0.5cm}{X}
+\ccprimitivepullbacksquare{3cm}{1.2cm}{TL}{BL}{BR}{f}
+\end{coneoutline}
+\conearrows{h1}{h2}{h}
+\]
+\end{showexample}
+
+
+\begin{showexample}
+\[
+\begin{coneoutline}{1cm}{0.5cm}{X}
+\ccprimitivepullbacksquare{3cm}{1.2cm}{TL}{BL}{BR}{f}
+\end{coneoutline}
+\conearrowsdefiningtuple{h1}{h2}
+\]
+\end{showexample}
+
+
+\subsection{Drawing triangles}
+
+\begin{showexample}
+\[
+% \scopeTriangle{subject}{domain}{codomain}{apex}{diagonal}{riser}
+\scopeTriangle{f}{A}{C}{B}{diag}{riser}
+\]
+\end{showexample}
+
+\section{Categories}
+\subsection{Triangles}
+
+\begin{showexample}
+\[
+\upTriangleShape{top}{left}{right}
+\leftToTop{f}
+\leftToRight[a]{g}  %optional label position override
+\rightToTop{h}
+\]
+\end{showexample}
+
+
+
+\begin{showexample}
+\[
+%the first optional argument defaults to #2
+% That is angle B defaults to angleA
+\upTriangleShape{top}[1.5cm]{left}[0.5cm]{right}[0.5cm]
+\leftToTopArcing{fff}{15}{15}[0.7]
+\leftToRightArcing{fff}{-30}{-30}[0.7]
+\rightToTopArcing{fff}{-15}{-15}[0.7]
+\]
+\end{showexample}
+
+\begin{showexample}
+\[
+\downTriangleShape{x_i}{y_{i-1}}{y_i}
+\downToLeft{f'}
+\downToRight{f}
+\leftToRightArcing[a]{s}{30}{30}  %optional label side (a|b)
+\]
+\end{showexample}
+
+\begin{showexample}
+\[
+% \composeSevenShaped[nodesize]{A}{B}{C}{f}{g}{h}
+\composeSevenShaped[0.5cm]{A}{B}{C}{f}{g}{h}
+\]
+\end{showexample}
+
+\begin{showexample}
+\[
+%\upTriangle{left}{apex}{right}{flat}[npos]{diagonal}{riser}
+\XXXupTriangle{a}{b}{c}{f}{g}{h}
+\]
+\end{showexample}
+
+\begin{showexample}
+\[
+%\upTriangle{left}{apex}{right}[heightcm(1cm)][padcm(0cm)]{flat}[npos]{diagonal}{riser}[npos(0.5)]
+\XXXupTriangle{a}{b}{c}[1.5cm][0.5cm]{f}{g}{h}[0.65]
+\]
+\end{showexample}
+
+
+\subsubsection{sources, sequences and parallels}
+\begin{showexample}
+\begin{align*}
+\binarysourcediag{a}{b}{c}{f}{g} \\
+\sequentialdiag{a}{b}{c}{f}{g}   \\
+\paralleldiag{a}{b}{f}{g}        \\
+\end{align*}
+\end{showexample}
+
+
+\subsubsection{equaliser and coequalizer}
+
+\begin{showexample}
+\[
+\equaliser{e}{h}{\paralleldiag{a}{b}{f}{g}}
+\]
+\end{showexample}
+
+
+
+\begin{showexample}
+\[
+\coequaliser{c}{q}{\paralleldiag{a}{b}{f}{g}}
+\]
+\end{showexample}
+
+\begin{showexample}
+\[
+\triplesequentialdiag{a}{b}{c}{d}{e}{f}{g}
+\]
+\end{showexample}
+
+\subsection{Sources}
+
+\begin{showexample}
+\fnsourceqnsource
+\end{showexample}
+
+\begin{showexample}
+\[
+\source{a}{b}{f}{n}
+\]
+\end{showexample}
+
+\begin{showexample}
+\[
+\parallelsource{a}{v}{f}{n}
+\]
+\end{showexample}
+
+\end{document}

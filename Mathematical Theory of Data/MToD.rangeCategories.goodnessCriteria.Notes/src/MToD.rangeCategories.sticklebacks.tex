@@ -207,7 +207,7 @@ $ T(F :: G) = T(T(F) :: T(G)) $
 
 \newcommand{\tightenedComposite}[1]
 {
-\zigzagZeroOneShort{w}{x}{#1}
+\zigzagOneAndAHalf{w}{x}{#1}
 \begin{array}{c}
 \dots \\[0.8cm]
 \dots
@@ -639,41 +639,333 @@ and if $F\circ G = \zigzagTuple{t}{n+m}$ then
 \]  
 \end{lemma}
 \begin{lemma}
-If F is a tight zigzag and if $F$ composes with $\tuple{g}$
+If F is a tight zigzag 
+and if $F$ composes with $\tuple{g}$
 then if $T( F :: \tuple{g_1} ) \neq F :: \tuple{g_1}$
 then for each $i$, $1 \leq i \leq n - 1$, $t_i < f_i$.
 \workt{Is this true or can differences fade out during propagation?}
 \end{lemma} 
-\subsection{Short Sticklebacks}
-This material is old stuff and may need to be thrown away.
-\begin{worktt}
-\highlight{shortening previously introduced in the context of composition}
-providing there is no morphism $k: y_1 \morph y_0$ such that the triangle
-$$
-$$
-commutes. If there is such a morphism then the composition is  
-$$
+
+\subsection{Shortening and Short Sticklebacks}
+
+If $F=\zigzagTuple{f}{n}$ is a zigzag and 
+if for some $i$,
+$1 \leq i \leq n-1$,
+there is a morphism
+$s$ such that $f'_i \circ s = f_{i+1}$ so that the triangle in 
+\[
+\zigzagShortenable{x}{y}{f}{n}{i}{s}
+\]
+commutes then the zigzag 
+\[
 \arraycolsep=7pt
-\zigzagZeroOne{w}{x}{f}
-\begin{array}{c}
-\dots \\[0.8cm]
-\dots
-\end{array}
-\begin{array}{c c}
-\Ob{x}{n} \\[0.8cm]
-& \Ob{w}{n}
+\zigzagShortened{x}{y}{f}{n}{i}{s}
+\]
+is said to be a \textit{shortening} of $F$.
+\workt{This definition is wrong} --- The shortened one is not equivalent to the original unless we have some additional criteria.
+A stickleback which cannot be shortened is said to be
+a \textit{short stickleback}.
+
+We will probs use:
+
+\begin{lemma}
+\llabel{shorteningspecialisationlemma}
+If $f' \leq g'$ and $f \leq g$ then if  
+$\downTriangleShape{x_i}{y_{i-1}}{y_i}
+\downToLeft{g'}[0.6]
+\downToRight{g}
+\leftToRightArcing[a]{s}{30}{30} 
+$ commutes 
+and $\bar{f}=\bar{f'}$ then
+$\downTriangleShape{x_i}{y_{i-1}}{y_i}
+\downToLeft{f'}[0.6]
+\downToRight{f}
+\leftToRightArcing[a]{s}{30}{30} 
+$ commutes.
+\end{lemma}
+\begin{proof}
+\begin{align}
+f' \circ s \circ \hat{f}
+   &= \bar{f'} \circ g'\circ s 
+       && \mbox{because $f' \leq g'$}\\
+   &= \bar{f} \circ g 
+   && \mbox{since $\bar{f'}=\bar{f}$ 
+              and $g' \circ s = g$, }\\
+   &= f
+   &&\mbox{since $f \leq g$}
+\end{align}
+\end{proof}
+
+\begin{newtt} \commentary{16 Marc 2025}
+\begin{aside}
+I was starting to think there might not be a category
+of short sticklebacks but I think I am half there now.
+I need to study tightening from the left and tightening from the right. 
+\end{aside} 
+
+\begin{lemma}
+Suppose $F$ and $G$ are tight zigzags and are as shown in the diagram
+in \lref{tighteningCommutesWithCompositionLemma} and that $s$ is a shortening
+then
+\[
+T(shorten(F::G,n,s)=shorten(T(F::G),n,s))
+\]
+\end{lemma}
+\begin{proof}
+In such a situation, $F::G$ is a zigzag in which 
+elements before the element $f_n \circ g$ need 
+tightening to the left and terms to after need tightening to the right. I am going to refer to  the leading $2n -1$ elements of T(F::G)
+as $ff_1, ff'_1,...ff'_{n-1}$ and $ff'_n$ and I am going to refer 
+to the trailing $2m-1$ elements as $gg_1,gg'_1,...gg_m$.
+What  this means is that the element that is refered to as
+$ff_n$ is also referred to as $gg_1$. 
+With this way of referencing the elements of $T(F::G)$ 
+then I can describe $T(F::G)$ as follows:
+
+\begin{framedEquations}{$T(F::G)
+=\tuple{ff_1,ff'_1,...ff'_{n-1},ff_n \mbox{ alias } gg_1, gg'_1,...gg_m}$}
+\begin{alignat}{2}
+\label{tighteningcomposite:ffn}         
+ff_n &\mbox{ alias } gg_1 = f_n \circ g_1, \\[6pt]
+\label{tighteningcomposite:ffpi}
+ff'_i &= \overline{ff_{i+1}} \circ f'_i,
+                &&\qquad (1 \le i \le n-1), \\
+\label{tighteningcomposite:ffi}
+ff_i  &= f_i \circ \widehat{ff'_i},
+                &&\qquad (1 \le i \le n-1), \\[6pt]
+\label{tighteningcomposite:ggpj}
+gg'_j &= g'_j \circ \reallywidehat{gg_j},
+                &&\qquad (1 \le j \le m-1), \\
+\label{tighteningcomposite:ggj}
+gg_j  &= \overline{gg_{j-1}} \circ g_j,
+                &&\qquad (2 \le j \le m).
+\end{alignat}
+\end{framedEquations}
+
+
+Now, suppose $F::G$ can be shortened. We want to show that
+shortening $F::G$ by a morphism $s$  and then tightening is the same as tightening and then shortening by the same morphism $s$. 
+
+There are three cases to consider.
+\paragraph{Case (i) --- shortening that eliminates of $ff_n$ }
+The first case to consider is that in which the  morphism  
+$s:x_{n-1} \morph z_1$ such that the diagram
+
+\begin{equation}
+\label{case.i.shortening} 
+\begin{array}{c c c c}
+           &           &           &\Ob{z}{1} \\[0.8cm]
+\Obp{x}{n} &           & \Ob{x}{n}            \\[0.8cm]
+           & \Ob{w}{n} &  
 \end{array}
 \begin{arrows}
-\ncarr{xn}{wn} \blabel{f'_{n-1}}[0.2][0.4]
+\drawMorphismArcing{xnp}{z1}{a}{s}{15}{15}[0.5]
+\ncarr{xn}{z1}\blabel{g_1}
+\ncarr{wn}{xnp}\alabel{f'_{n-1}}
+\ncarr{wn}{xn}\blabel{f_n}
 \end{arrows}
-\begin{array}{c c}
-\Ob{z}{1}& \\[0.8cm]
-& \Ob{y}{2}
-\end{array}
-\begin{arrows}
-\ncarr{z1}{wn}\blabel{g_1 \circ k}[0.45][0.4]
-\ncarr{z1}{y2}\alabel{g'_1}[0.45][0.4]
-\end{arrows}
-\zigzagDotsThenFinal{y}{z}{g}{m}
-$$
-\end{worktt}
+\end{equation}
+
+commutes.  
+The shortening  of $F::G$ by $s$ is 
+$\tuple{f_1,f'_1,...f'_{n-1},
+        f_{n-1} \circ s,
+        g'_1, g_2,...g'_{m-1},g_m
+       }$
+The tightening of this shortening
+is described by appropriately varying above
+equations (\ref{tighteningcomposite:ffn}) to (\ref{tighteningcomposite:ggj}).
+In the tightening of the shortening there is one less element
+than in the original tightening. In the tightening the replacement element $f_{n-1} \circ s$ is unchanged by tightening and we refer to it as both  $tsf_{n-1}$ and $tsg_1$. There is one less leading elements and the same number of trailng elements. 
+The tightening is as follows:
+
+\begin{framedEquations}{$T(\mathrm{shorten}(F::G,n,s))
+=\tuple{tsf_1,tsf'_1,...tsf'_{n-1},tsf_n \mbox{ alias } tsg_1, tsg'_1,...tsg_m}$}
+\begin{alignat}{2}
+\intertext{where}
+\label{tighteningShortenedComposite:ffnp}
+tsf_{n-1} &= tsg_1 = f'_{n-1} \circ s, \\
+\label{tighteningShortenedComposite:tsfpi}
+tsf'_i &= \overline{tsf_{i+1}} \circ f'_i,
+                &&\qquad (1 \le i \le n-2), \\
+\label{tighteningShortenedComposite:tsfi}
+tsf_i  &= f_i \circ \widehat{tsf'_i},
+                &&\qquad (1 \le i \le n-1), \\
+\label{tighteningShortenedComposite:tsgpj}
+tsg'_j &= g'_j \circ \reallywidehat{tsg_j},
+                &&\qquad (1 \le j \le m-1), \\
+\label{tighteningShortenedComposite:tsgj}
+tsg_j  &= \overline{tsg_{j-1}} \circ g_j,
+                &&\qquad (2 \le j \le m).
+\end{alignat}
+\end{framedEquations}
+On the other hand  the tightening, $T(F::G)$ 
+is described by equations 
+(\ref{tighteningcomposite:ffn}) -- 
+(\ref{tighteningcomposite:ggj}), above and this
+zigzag can be shorten by $s$ because, by lemma \ref{shorteningspecialisationlemma},
+
+\[
+\downTriangleShape{w_n}{x_{n-1}}{z_1}
+\downToLeft{ff'_{n-1}}[0.6]
+\downToRight{ff_n=gg_1=f_n \circ g_1}
+\leftToRightArcing[a]{s}{15}{15}
+\]
+commutes. 
+The sortening of this tightening is the following variation
+of equations (\ref{tighteningcomposite:ffn}) to (\ref{tighteningcomposite:ggj})
+
+\begin{framedEquations}{$shorten(T(F::G),n,s))
+=\tuple{stf_1,stf'_1,...stf'_{n-2},stf_{n-1} \mbox{ alias } stg_1, stg'_1,...stg_m}$}
+\begin{alignat}{2}
+\intertext{where}
+\label{shortenedTightenedComposite:stfnp}
+stf_{n-1} &\mbox{ alias } stg_1 = ff_{n-1} \circ s, \\
+\label{shortenedTightenedComposite:stfpi}
+stf'_i &= \overline{stf_{i+1}} \circ f'_i,
+&&\qquad (1 \le i \le n-2), \\
+\label{shortenedTightenedComposite:stfi}
+stf_i  &= f_i \circ \reallywidehat{stf'_i},
+&&\qquad (1 \le i \le n-1), \\[6pt]
+\label{shortenedTightenedComposite:stgpj}
+stg'_j &= g'_j \circ \reallywidehat{stg_j},
+&&\qquad (1 \le j \le m-1), \\
+\label{shortenedTightenedComposite:stgj}
+stg_j  &= \overline{stg_{j-1}} \circ g_j,
+&&\qquad (2 \le j \le m).
+\end{alignat}
+\end{framedEquations}
+
+To establish that $T(shorten(F::G,n,s)=shorten(T(F::G),n,s))$
+we have to resolve the difference between equations 
+(\ref{tighteningShortenedComposite:ffnp}) and
+(\ref{shortenedTightenedComposite:stfnp}) i.e. we have to prove that $ff'_{n-1} \circ s
+= f'_{n-1} \circ s$ which we can do as follows:
+\begin{align*}
+ff'_{n-1} \circ s 
+   &=\overline{ff_n}\circ f'_{n-1}\circ s&&\mbox{using  (\ref{tighteningcomposite:ffpi}),}\\
+   &=\overline{f_n\circ g_1}\circ f'_{n-1}\circ s&&\mbox{using (\ref{tighteningcomposite:ffn}),}\\
+   &= \overline{f'_{n-1}\circ s}\circ f'_{n-1}\circ s&&\mbox{using commutivity of (\ref{case.i.shortening}),}\\
+   &=f'_{n-1}\circ \bar{s} \circ s&&\mbox{by R.4,}\\
+   &= f'_{n-1} \circ s     && \mbox{as required, by R.1.}
+\end{align*}
+\end{proof}
+\end{newtt}
+
+
+\subsubsection{Associativity}
+
+From this lemma we can see that if a zigzag $F$ shortens then $T(F)$ shortens.
+\begin{lemma}
+\llabel{questionable}
+\workt{Not sure about this as stated.}
+If $F$ is a zigzag and if the ith zag can be shorten
+by morphism $s$ then also the ith zag of
+the tightened zigzag
+$T(F)$ can be shortened by $s$ and
+\[
+T(shorten(F,i,s)) = shorten(T(F),i, s)
+\] 
+\end{lemma}
+\begin{proof}
+Follows because 
+$shorten(T(F),i, s) \leq  shorten(F,i,s)$
+and $shorten(T(F),i, s)$ is tight because $T(F)$ is tight then $shorten(T(F),i, s) \leq  T(shorten(F,i,s))$
+
+\end{proof}
+
+\begin{lemma}
+\llabel{deferredshorteninglemma}
+If $F$, $G$ and $H$ are4 zigzags such that the composition $F :: G ::H$ is defined then
+\[
+shorten(tighten(F :: shorten(G) ::H))
+= shorten(tighten(F :: G ::H)).
+\]
+\end{lemma}
+\begin{proof}
+It suffices to show that if $shorten(G,j,s)$ is one
+particular shortening of $G$ then there is a
+shortening $shorten(tighten(F::G::H,n+j-1,s))$
+of the composition $f \circ G \circ H$.
+
+To show this it suffices to show that there is
+a shortening $s$ at position $n+j-1$ of
+the one step tightening $t(F::G::H)$. 
+
+
+
+The previous lemma tells us that any shortening that occurs in the LHS $shorten(G)$ term
+can be applied after tightening. However we
+need to know that the two different points of application return the same results. 
+
+We might do this by actual calculation which is probably hard work just to write it out (though do it for
+one step tightening, I guess, and iterate(though akward because one less tightening step after shortening so maybe difficult to line up. One step with shortening lines up with two steps without shortening if we are lucky)) 
+
+We might be able to apply the sandwich lemma and if so this is likely to be easier to describe.
+
+We can probably show that 
+\end{proof}
+
+\subsection{The category of short sticklebacks}
+
+We need to show that there is a category of short sticklebacks
+in which composition is defined by
+\[
+F \circ G = shorten(T(F::G)) 
+\]
+If we need it RHS=$= shorten( T(F::\bar{G})::T(\hat{F}\circ G))$.
+Investigating associativity we have:
+\begin{align*}
+F \circ (G \circ H)
+  &= shorten(T(F :: shorten(T(G ::H)) && \mbox{definition $\circ$} \\
+  &= shorten (T(F::T(G::H))) && \mbox{how to justify this} \\
+  &= shorten (T(F::G::H))    && \mbox{already made this argument} 
+\end{align*}  
+
+the key move in general terms (make  lemma of this
+lemma \lref{deferredshorteninglemma}).
+\[
+shorten(T(F::shorten(G) :: H)) = shorten(T(F::G::H))
+\]
+and the proof uses fact that $shorten(G) \leq G$ and lemma \ref{shorteningspecialisationlemma}.
+If we want to spell it out, which I guess we do, then to prove this 
+key move we use
+\[
+T(F::shorten(G) :: H) 
+  = T(F\circ\bar{G}) :: T(\hat{F}::shorten{G}::\bar{H}) :: T(\hat{G} \circ H)
+\]
+Hmmm. Not sure that helps because the inner shorten cannot be floated out unless the whole thing is surrounded by shorten.
+
+
+\subsection{Sequential Shortening}
+\begin{lemma}
+\llabel{sequentialshortening}
+If $\zigzagTuple{f}{n}:x_1 \morph y_n$ is a short stickleback
+ and if $g: y_n \morph z$ and $h:x_1 \morph z$
+in \catcw then if in the category 
+of short sticklebacks 
+$F \circ \tuple{g} = \tuple{h}$ then there
+is a sequence of morphisms $s_1,...s_{n-1}$
+such that all diagrams in 
+\commentary{Improve the diagramming at a later date}
+\[
+%\arraycolsep=12pt
+\zigzagSequentialShortening{x}{y}{f}{n}{x}{g}{h}{s}
+\]
+
+commute i.e. such that
+\[
+f_1 \circ s_1 =h
+\]
+and \foreachi[n-2], 
+\[
+f'_i \circ s_i =  f_{i+1} \circ s_{i+1}
+\] 
+and
+\[
+f'_{n-1} \circ s_{n-1} = f_n \circ g
+\]
+\end{lemma}
+\begin{proof}
+
+\end{proof}

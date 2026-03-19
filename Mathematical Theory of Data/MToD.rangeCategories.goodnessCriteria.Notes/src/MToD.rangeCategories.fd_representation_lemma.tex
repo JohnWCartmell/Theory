@@ -47,7 +47,7 @@ of \catc.
 
 Now we show that $I$ is consistent with $\reqtc$. 
 We need to show that any $D \in \reqtc$
-extends unqiuely to $D' :\catcp \morph \FinPar$. Assume such a $D$. 
+extends unqiuely to $D' :\catcp \morph \Par$. Assume such a $D$. 
 $D$  extends to $\catcp$ iff there is a  function that we can choose as the value of  for $D'(\qq{h})$  such that $D'(f) \circ D'(\qq{h}) = D'(g)$ i.e such that
 $D(f) \circ D'(\qq{h}) = D(g)$ and $\overline{D'(\qq{h})}\leq \widehat{D(f)}$
 and so we  extend $D$ to $D'$ 
@@ -63,12 +63,12 @@ $H_D$ is the unique function
 that satisfies $D(f) \circ H_D = D(g)$ and $\overline{H_D}\leq \widehat{D(f)}$.
 
 In the remainder of this proof 
-we define a functor $G: \catc \morph \FinPar$ such that
+we define a functor $G: \catc \morph \Par$ such that
 $G(a)$ has a pair of distinct elements, call them $left$ and $right$, say,  that are mapped by $G(f)$ to identical elements
 of $G(b)$, i.e. such that $G(f)(left)= G(f)(right)$ and, significantly,
 such that $G(g)$ is defined on both $left$ and $right$.   
 We  argue that because of  maximal constrainedness that $G$ can be extended to a functor 
-$G' : \catcp \morph \FinPar$. 
+$G' : \catcp \morph \Par$. 
 Because $f \circ \qq{h} = g$ in \catcpw we can argue that $G'(g)$,
 and thus $G(g)$,
 maps $left$ and $right$ to identical elements of $G(c)$ 
@@ -78,65 +78,69 @@ to ensure that there exists a morphism $h:b \morph c$ in \catcw
 such that $f \circ g = h$
  with the required properties to represent the functionality dependency $H$.
 
-From the \newt{RR.5 range} category \catcw we can  construct a range category $\catc_s$ in which all \commentary{we need to talk about the embedding into sticklebacks here\highlight{sticklebacks}} morphisms are split and an inclusion range functor $E: \catcw \morph \catc_s$ which is faithful.   \begin{worktt}Or we could talk about the functor
- $E \circ Hom(a,-)$ elsewhere. BTW: I have sometimes called this $H_a$ but that is confusing. \end{worktt}
-
-Define the functor $F: \catc \morph \FinPar$ be the
-composition of the range functor $E$ with the 
-coproduct $HomP_{\catc_s}(a,-) + HomP_{\catc_s}(a,-)$
-in the functor category $Fin^{\catc}$ and label the injections $L$ and $R$, respectively,
-so that for each object $x$ of $\catc$ the diagram
+Define the functor $F: \catc \morph \Par$ 
+coproduct $K_a + K_b$ of functors $K_a$ and $K_b$ in the functor category $Par^{\catc}$ and label the injections $L$ and $R$, respectively,
+so that for each object $x$ of $\catc$, the following is a coproduct diagram
+in \Par:
 \begin{center}
 $
 \begin{array}{c p{0.5cm} c p{0.5cm} c  }
-\Rnode{h1}{HomP_{\catc_s}(a,x)}  &&\Rnode{Fx}{F(x)}  &&   \Rnode{h2}{HomP_{\catc_s}(a,x)}       
+\Rnode{h1}{Hom_{\Stk}(a,x)}  &&\Rnode{Fx}{F(x)}  &&   \Rnode{h2}{Hom_{\Stk}(a,x).}       
 \end{array} 
 $
 \ncarr{h1}{Fx}
 \alabel{L_x}
 \ncarr{h2}{Fx}
 \blabel{R_x}
-\end{center}
-is a coproduct in $\FinPar$. 
+\end{center} 
 
 \begin{newtt}
 With $F$ so defined if  $j:x_1 \morph x_2$ in $\catc$
 then both squares in this diagram
 \begin{equation*}
 \begin{array}{c p{1.5cm} c p{1.5cm} c}
-\Rnode{TL}{Hom(a,x_1)}  &\ &  \Rnode{TC}{F(x_1)}\ & & \Rnode{TR}{Hom(a,x_1)}\\[1.2cm]
-\Rnode{BL}{Hom(a,x_2)}  &\ &  \Rnode{BC}{F(x_2)}\ & & \Rnode{BR}{Hom(a,x_2)}
+\Rnode{TL}{Hom_{\Stk}(a,x_1)}  &\ &  \Rnode{TC}{F(x_1)}\ & & \Rnode{TR}{Hom_{\Stk}(a,x_1)}\\[1.2cm]
+\Rnode{BL}{Hom_{\Stk}(a,x_2)}  &\ &  \Rnode{BC}{F(x_2)}\ & & \Rnode{BR}{Hom_{\Stk}(a,x_2)}
 \end{array}
 \begin{arrows}
 \ncarr{TL}{TC}\alabel{L_{x_1}}
 \ncarr{BL}{BC}\blabel{L_{x_2}}
 \ncarr{TR}{TC}\blabel{R_{x_1}}
 \ncarr{BR}{BC}\alabel{R_{x_2}}
-\ncarr{TL}{BL}\blabel{Hom(a,j)}
+\ncarr{TL}{BL}\blabel{K(j)}
 \ncarr{TC}{BC}\alabel{F(j)}
-\ncarr{TR}{BR}\alabel{Hom(a,j)}
+\ncarr{TR}{BR}\alabel{K(j)}
 \end{arrows}
 \end{equation*}
-commute and so if  $k: a \morph x_1$ and if $\overline{k \circ j}=\overline{k}$ then
+commute and so if  $k: a \morph x_1$ in \catcw so that
+$\tuple{k}:a \morph x_1$ in $\Stk$ 
+and if $\overline{k \circ j}=\overline{k}$ in \catcw
+ then
 \begin{equation}
 \label{Lfjkequation}
-L_{x_2}(k \circ j) = F(j)(L_{x_1}(k))
+L_{x_2}(\tuple{k \circ j}) = F(j)(L_{x_1}(\tuple{k}))
 \end{equation}
 and
 \begin{equation}
 \label{Rfjkequation}
-L_{x_2}(k \circ j) = F(j)(L_{x_1}(k))
+L_{x_2}(\tuple{k \circ j}) = F(j)(L_{x_1}(\tuple{k}))
 \end{equation}
 \end{newtt}
 
-Now for each object $x$ of $\catc$, we define an equivalence relation $\sim_x$ on $F(x)$ by defining,
-for $k_1,k_2:a \morph x$ in $\catc_s$,\commentary{in the first clause of the definition of $\sim_x$ I mean more precisely that $k_1,k_2$ are in the image of the inclusion functor from \catc}\commentary{In fact this is where I am using faithfulness of the mbedding of \catcw in $\catc_s$. Need to draw this out.}
+Now for each object $x$ of $\catc$, 
+we define an equivalence relation $\sim_x$ on $F(x)$ by defining,
+for $z_1,z_2:a \morph x$ in $\Stk$,
 
 \begin{align*}
-L_x(k_1) \sim_x R_x(k_2) & \mbox{ iff $k_1,k_2:a \morph x$ in $\catc$ 
-                                     and there exists $k:b \morph x$ in $\catc$ such that $k_1 = f \circ k = k_2$,}\\
-L_x(k_1) \sim_x L_x(k_2) & \mbox{ iff $k_1 = k_2$,} \\
-R_x(k_1) \sim_x R_x(k_2) & \mbox{ iff $k_1 = k_2$.} \\
+L_x(z_1) \sim_x R_x(z_2) & \mbox{ \parbox[t]{5cm}{ iff $z_1 = z_2$ or 
+                                      $z_1$ and $z_2$ are singleton 
+                                      zigzags with the same codomain,
+                                      so that
+                                      $z_1 = \tuple{k_1}$, $z_2=\tuple{k_2}$,
+                                      for some $k_1,k_2:a \morph x$ in $\catc$, 
+                                     and there exists $k:b \morph x$ in $\catc$ such that $k_1 = f \circ k = k_2$,}}\\
+L_x(z_1) \sim_x L_x(z_2) & \mbox{ iff $z_1 = z_2$,} \\
+R_x(z_1) \sim_x R_x(z_2) & \mbox{ iff $z_1 = z_2$.} \\
 \end{align*}
 \begin{rationale}
 We could  possibly have added to the first of the three clauses above
@@ -144,16 +148,12 @@ that $\bar{k}\leq \widehat{f}$ but we don't need to do
 this because at the
 end when the rabbit is pulled out of the hat I can take $\widehat{f} \circ k$ as the representation of functional depedency H.
 \end{rationale}
-\begin{worktt}
-Don't lose sight of the fact that $k_1$ and $k_2$ may be sticklebacks.
-Does this impact this definition?
-\end{worktt}
 
 It is very easy to see that $\sim_x$  is both symmetric and transitive. \commentary{yes very very easy. }
 
 We can show that equivalence is preserved by  $F(j)$ for each morphism $j$, $j: x_1 \morph x_2$ in $\catc$. For assume such a $j$ then 
 \commentary{a little bit different to same argument in preparation paper because $F(j)(k1)$ may be undefined.
- I havent described these cases anywhere}
+ I havenFt described these cases anywhere}
 if $y_1,y_2 \in F(x_1)$ such that $y_1 \sim_{x_1} y_2$
 then it follows easily by cases and from the definition of $\sim$ that $F(j)(y_1) \sim_{x_2} F(j)(y_2)$.
 \begin{worktt}This is all fine but ought to say a little more...
@@ -162,53 +162,67 @@ and need to sort out the two earlier sections on quotients.
 
 Therefore, using the construction we described earlier, 
 we can define 
- $G: \catc \morph \FinPar$  as the quotient functor $\Fquotient$.
+ $G: \catc \morph \Par$  as the quotient functor $\Fquotient$.
 By lemma \ref{rangefunctorquotient}, $G$ is a range functor.
 
 In the earlier explanation we said we would use elements $left$ and $right$ of $G(a)$
 in the proof; in what follows
 the elements
-$[L_a(\bar{f}\circ \bar{g})]$ and $[R_a(\bar{f}\circ \bar{g})]$ fulfill the role of $left$ and $right$, respectively.
+$[L_a(\tuple{\bar{f}\circ \bar{g}})]$ and $[R_a(\tuple{\bar{f}\circ \bar{g}})]$ fulfill the role of $left$ and $right$, respectively.
 
 \begin{newtt}
 With $G$ so defined then if $k: a \morph x_1$ and $j:x_1 \morph x_2$ in $\catc$ such that $\overline{k \circ j}=\overline{k}$
 then, from the definition of $G(j)$ and using  (\ref{Lfjkequation}), we get
-\begin{equation*}G(j)([L_{x_1}(k)])=[F(j)(L_{x_1}(k))] =[L_{x_2}(k \circ j)]
-\end{equation*}
+\begin{equation}
+\label{LgenericEquation}
+G(j)([L_{x_1}(\tuple{k})])
+=[F(j)(L_{x_1}(\tuple{k}))] 
+= [L_{x_2}K_a(j)(\tuple{k})]  
+=[L_{x_2}(\tuple{k \circ j})]
+\end{equation}
+
  and likewise from the definition of $G(j)$ and using  (\ref{Rfjkequation}), we get
-\begin{equation*} 
-G(j)([R_{x_1}(k)])=[R_{x_2}(k \circ j)].
-\end{equation*} 
+
+
+\begin{equation} 
+G(j)([R_{x_1}(\tuple{k})])=[R_{x_2}(\tuple{k \circ j})].
+\end{equation} 
+
 From which, since $\overline{g}: a \morph a$ and $f:a \morph b$  
-and since $\overline{\overline{g}\circ f} = \overline{g}$ we have 
+and since $\overline{\overline{g}\circ f} = \bar{f} \circ \bar{g} = \overline{g}$
+ \workt{why is this?}
+\workt{because $\bar{g} \leq \bar{f}$ --- see aside to lemma \lref{fdrangessublemma}.}
+as one instance of (\ref{LgenericEquation}) we have 
 \begin{equation}
 \label{Lfequation}
-G(f)([L_a(\bar{g})])=[L_{b}(\bar{g} \circ f)]
+G(f)([L_a(\tuple{\bar{g}})])=[L_{b}(\tuple{\bar{g} \circ f})]
 \end{equation}
-and likewise since $g:a \morph c$   we have 
+and likewise since $\overline{g}: a \morph a$ and  and $g:a \morph c$  
+and since 
+ we have as another instance of (\ref{LgenericEquation}) that
 \begin{equation}
 \label{Lgequation}
-G(g)([L_a(\bar{g})])=[L_{c}(\bar{g} \circ g)]=[L_{c}(g)]
+G(g)([L_a(\tuple{\bar{g}})])=[L_{c}(\tuple{\bar{g} \circ g})]=[L_{c}(\tuple{g})]
 \end{equation}
 \end{newtt}
 
-Now that we have described the functors  $G: \catc \morph \FinPar$ and $I:\catc \morph \catcp$ that is consistent with $\reqtc$
+Now that we have described the functors  $G: \catc \morph \Par$ and $I:\catc \morph \catcp$ that is consistent with $\reqtc$
 we can use the fact that $\catc$ is maximally constrained to tell us that $G$ extends to a functor 
-$G' : \catcp \morph \FinPar$. Since $f \circ \qq{h} = g$ in $\catcp$ then we have
- $G'(f) \circ G'(\qq{h}) = G'(g): G(a) \morph G(c)$ in $\FinPar$.
+$G' : \catcp \morph \Par$. Since $f \circ \qq{h} = g$ in $\catcp$ then we have
+ $G'(f) \circ G'(\qq{h}) = G'(g): G(a) \morph G(c)$ in $\Par$.
 
 \begin{worktt}
 \begin{align*}
 [L_c(g)] 
-        &= G(g)([L_a(\bar{g})])       
+        &= G(g)([L_a(\tuple{\bar{g}})])       
                 && \mbox{by (\ref{Lgequation}),}\\
-        &= G'(g)([L_a(\bar{f}\circ \bar{g})])      
+        &= G'(g)([L_a(\tuple{\bar{f}\circ \bar{g}})])      
                 && \mbox{since $G'$ extends $G$,} \\
-        &= G'(\qq{h}) (G'(f)([L_a(\bar{g})])) 
+        &= G'(\qq{h}) (G'(f)([L_a(\tuple{\bar{g}})])) 
                 && \mbox{since $G'(f) \circ G'(\qq{h}) = G'(g)$, since $G'$ functorial,}\\
-        &= G'(\qq{h}) (G(f)([L_a(\bar{g})])) 
+        &= G'(\qq{h}) (G(f)([L_a(\tuple{\bar{g}})])) 
                 && \mbox{since $G'$ extends $G$,}  \\
-	      &= G'(\qq{h}) ([L_b(\bar{g} \circ f)])       
+	      &= G'(\qq{h}) ([L_b(\tuple{\bar{g} \circ f})])       
                 &&\mbox{by (\ref{Lfequation}).} 
 \end{align*}
 \end{worktt}
@@ -218,13 +232,13 @@ $G' : \catcp \morph \FinPar$. Since $f \circ \qq{h} = g$ in $\catcp$ then we hav
 Need be careful, above, because $G'(\qq{h})$ is a stickleback.
 \end{worktt}
 By symmetry we also have
-$$[R_c(g)] = G'(\qq{h}) ([R_b(\bar{g} \circ f)])  $$
-and because
-$$[L_b(\bar{g} \circ f)]=[R_b(\bar{g} \circ f)]$$
+$$[R_c(\tuple{g})] = G'(\qq{h}) ([R_b(\tuple{\bar{g} \circ f})])  $$
+and because by definition of $\sim$\workt{?} we have
+$$[L_b(\tuple{\bar{g} \circ f})]=[R_b(\tuple{\bar{g} \circ f})]$$
 we can therefore can conclude that
-$$[L_c(g)] = [R_c(g)]$$
+$$[L_c(\tuple{g})] = [R_c(\tuple{g})]$$
 and thus that
-$$ L_c(g) \sim_c R_c(g)$$
+$$ L_c(\tuple{g}) \sim_c R_c(\tuple{g})$$
 
 \workt{The rabbit out of the hat:}
 
