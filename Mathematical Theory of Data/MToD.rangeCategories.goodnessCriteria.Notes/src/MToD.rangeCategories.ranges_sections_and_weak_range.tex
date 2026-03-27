@@ -52,7 +52,7 @@ Straightforward.
  \item
  If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
 $\hat{g} \circ \reallywidehat{f \circ g}=  \reallywidehat{f \circ g}.$
- \item \commentary{wrong diagram }
+ \item \commentary{(iii) wrong diagram }
 If \fgsinkdiag in \catcw  then
 $\reallywidehat{f \circ \widehat{g}}=\widehat{f} \circ \widehat{g}.$
 
@@ -232,3 +232,73 @@ Together these mean that $\reallywidehat{\tuple{f}}=\tuple{\widehat{f\ }}$
 This means the embedding of a range category in its stickleback category
 preserves the range operator (more precisely it takes the range operator to the pseudo-range operator).
 \end{noteforfuture}
+
+\begin{lemma}
+\llabel{tighteningashorteninglemma}
+If 
+$
+% In this array 
+% (i) the \nudgeup is so that space is allocated for the
+% morphisms looping above the real estate of the array
+\begin{array}{c c c c}
+\nudgeup{0.75cm}
+          & \bOb{y} &         & \bOb{z} \\[0.5cm]
+  \bOb{w} &         & \bOb{x} & \\[0.4cm]
+\end{array}
+\begin{arrows}
+\ncarr{w}{y}\alabel{f}
+\ncarr{x}{y}\alabel{g}
+\ncarr{x}{z}\blabel{h}
+\drawMorphismArcing{y}{z}{a}{s}{15}{15}[0.5]
+\ncarrrecursive{w}{w}{270}{0}{5.5}\alabel{\overline{i}}
+\ncarrrecursive{z}{z}{90}{180}{8.5}\alabel{\overline{j}}
+\end{arrows} 
+$
+in a range category \catcw and if
+$f' \circ s = f$
+and if $\hat{f}=\hat{g}$
+then
+\begin{enumerate}[(i)]
+\item 
+\llabel{tighteningshorteningRightToLeft}
+$
+f \circ \reallywidehat{\overline{h \circ j} \circ g} \circ s = f \circ s \circ \bar{j},
+$
+\item 
+\llabel{tighteningshorteningLeftToRight}
+$\reallywidehat{\overline{g \circ \reallywidehat{\bar{i} \circ f}}\circ h} = \reallywidehat{\bar{i} \circ f \circ s}$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}[(i)]
+\item
+\begin{align*}
+f \circ \reallywidehat{\overline{h \circ j} \circ g} \circ s
+   &= f \circ \reallywidehat{\overline{g \circ s \circ j} \circ g} \circ s
+                     &&\mbox{substituting $h=g \circ s$, } \\
+   &= f \circ \reallywidehat{g \circ  \overline{s \circ j} } \circ s
+                     && \mbox{by R.4}, \\
+   &= f \circ \reallywidehat{g} \circ  \overline{s \circ j}  \circ s 
+                     && \mbox{by RR.3}, \\
+   &= f \circ s \circ \bar{j}
+                     && \mbox{because $\hat{f} = \hat{g}$ and by R.4, as required.} 
+\end{align*}
+\item
+
+\begin{align*}
+\reallywidehat{\overline{g \circ \reallywidehat{\bar{i} \circ f}}\circ h}
+     &= \reallywidehat{\overline{g \circ \reallywidehat{\bar{i} \circ f}}\circ g \circ s}
+     && \mbox{substituting $h=g \circ s$,} \\ 
+     &= \reallywidehat{g \circ \reallywidehat{\bar{i} \circ f}\circ s}
+     && \mbox{by R.4 and RR.1,} \\ 
+     &= \reallywidehat{\hat{g} \circ \reallywidehat{\bar{i} \circ f}\circ s}
+     && \mbox{RR.4} \\ 
+     &= \reallywidehat{\hat{f} \circ \reallywidehat{\bar{i} \circ f}\circ s}
+     && \mbox{since $\hat{f}=\hat{g}$,} \\ 
+     &= \reallywidehat{\reallywidehat{\bar{i} \circ f}\circ s}
+     && \mbox{by lemma \ref{fglemma} (ii),} \\ 
+     &= \reallywidehat{\bar{i} \circ f \circ s}
+     && \mbox{by RR.4, as required.}   
+\end{align*}
+\end{enumerate}
+\end{proof}

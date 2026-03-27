@@ -744,7 +744,7 @@ ff_i  &= f_i \circ \widehat{ff'_i},
 gg'_j &= g'_j \circ \reallywidehat{gg_j},
                 &&\qquad (1 \le j \le m-1), \\
 \label{tighteningcomposite:ggj}
-gg_j  &= \overline{gg_{j-1}} \circ g_j,
+gg_j  &= \overline{gg'_{j-1}} \circ g_j,
                 &&\qquad (2 \le j \le m).
 \end{alignat}
 \end{framedEquations}
@@ -773,8 +773,6 @@ The shortening is $\tuple{f_1,...f'_{i_s-1},f_{i_s} \circ s, f'_{i_s+1},...
           f'_{n-1},f_n \circ g_1, g'_1,...g'_{m-1},g_m }$. 
 The tightening of this shortening can be described as follows:
 
-\newpage
-
 \begin{framedEquations}{$T(\mathrm{shorten}(F::G,i_s,s))
 =\tuple{tsf_1,...tsf'_{i_s-1},tsf_{i_s} \circ s, tsf'_{i_s+1},...
           tsf'_{n-1},tsf_n \mbox{ alias } tsg_1, tsg'_1,...tsg'_{m-1},tsg_m }$}
@@ -787,15 +785,15 @@ tsf_{i_s} &= f_{i_s} \circ s \circ \reallywidehat{tsf'_{i_{s+1}}},
                 && \\
 \label{case1tighteningShortenedComposite:tsfpi}
 tsf'_i &= \overline{tsf_{i+1}} \circ f'_i,
-                &&\qquad (1 \le i \le n-1 \mbox{ and } i \ne i_s), \\
+                &&\qquad ( i \in \set{1,2,...i_s-1, i_s+2,...n}), \\
 \label{case1tighteningShortenedComposite:tsfi}
 tsf_i  &= f_i \circ \widehat{tsf'_i},
-                &&\qquad ( i \in \set{1,2,...i_s-2, i_s+1,...n}) \\
+                &&\qquad ( i \in \set{1,2,...i_s-2, i_s+2,...n}), \\
 \label{case1tighteningShortenedComposite:tsgpj}
 tsg'_j &= g'_j \circ \reallywidehat{tsg_j},
                 &&\qquad (1 \le j \le m-1), \\
 \label{case1tighteningShortenedComposite:tsgj}
-tsg_j  &= \overline{tsg_{j-1}} \circ g_j,
+tsg_j  &= \overline{tsg'_{j-1}} \circ g_j,
                 &&\qquad (2 \le j \le m).
 \end{alignat}
 \end{framedEquations}
@@ -817,7 +815,28 @@ and is applicable because this diagram
 \end{arrows}
 \end{equation}
 \end{worktt}
-commutes by lemma \lref{shorteningspecialisationlemma}.
+commutes by lemma \lref{shorteningspecialisationlemma}. 
+$shorten(T(F::G),i_s,s))$ is described by eliminating 
+the equations for $ff'_{i_s}$ and $ff_{i_s+1}$ from the system of equations
+(\ref{tighteningcomposite:ffn}) to (\ref{tighteningcomposite:ggj}) and by modifying the description of $ff_{i_s}$ to be
+\begin{equation}
+\label{rhsffis}
+ff_{i_s} = f_{i_s} \circ \widehat{ff'_{i_s}} \circ s
+\end{equation}
+
+To establish (\ref{case1tighteningShortenedComposite:tsfis}) we need show 
+that this modified $ff_{i_s}$ is equal to
+$tsf_{i_s}$ from equation (\ref{case1tighteningShortenedComposite:tsfis}). That is we need show that
+$f_{i_s} \circ \widehat{ff'_{i_s}} \circ s = f_{i_s} \circ s \circ \reallywidehat{tsf'_{i_s+1}}$. 
+This follows from lemma \lref{tighteningashorteninglemma}
+(\ref{tighteningshorteningRightToLeft}) with
+$f_{i_s}$  substituted for $f$, 
+$f'_{i_s}$ for $g$,
+$f_{i_s+1}$ for $h$
+and
+$\reallywidehat{ff'_{i_s+1}}$ for $\bar{j}$,
+since $ff'_{i_s} = \overline{f_{i_s+1} \circ \reallywidehat{ff'_{i_s+1}   }} \circ f_{i_s}$ and
+$tsf'_{i_s+1} = ff'_{i_s+1}$.
 
 \paragraph{Case (ii) --- $i_s = n-1$}
 In this case the shortening of the lhs of (\ref{associativitysublemmatarget}) eliminates the pair
@@ -837,10 +856,6 @@ based on the assumption that this diagram commutes:
 \ncarr{wn}{xn}\blabel{f_n}
 \end{arrows}
 \end{equation}
-
-
-
-
 
 The shortening of the rhs of (\ref{associativitysublemmatarget}) eliminates pair
 $ff'_{n-1}, ff_n$
@@ -889,7 +904,7 @@ tsf_i  &= f_i \circ \widehat{tsf'_i},
 tsg'_j &= g'_j \circ \reallywidehat{tsg_j},
                 &&\qquad (1 \le j \le m-1), \\
 \label{tighteningShortenedComposite:tsgj}
-tsg_j  &= \overline{tsg_{j-1}} \circ g_j,
+tsg_j  &= \overline{tsg'_{j-1}} \circ g_j,
                 &&\qquad (2 \le j \le m).
 \end{alignat}
 \end{framedEquations}
@@ -925,7 +940,7 @@ stf_i  &= f_i \circ \reallywidehat{stf'_i},
 stg'_j &= g'_j \circ \reallywidehat{stg_j},
 &&\qquad (1 \le j \le m-1), \\
 \label{shortenedTightenedComposite:stgj}
-stg_j  &= \overline{stg_{j-1}} \circ g_j,
+stg_j  &= \overline{stg'_{j-1}} \circ g_j,
 &&\qquad (2 \le j \le m).
 \end{alignat}
 \end{framedEquations}
@@ -944,11 +959,71 @@ ff'_{n-1} \circ s
    &= f'_{n-1} \circ s     && \mbox{as required, by R.1.}
 \end{align*}
 
+\begin{aside}
+just noticed in early parts of this proof need to change x to w and y to x
+\end{aside}
 \paragraph{Case (iii) --- $i_s \geq n$}
-In this case there is a $j_s$, $2? \leq j_s \leq m?$, such that $i_s = n + j_s  - 1?????$ and such that the diagram
+In this case there is a $j_s$, $1 \leq j_s \leq m-1$, such that $i_s = n + j_s  - 1$ . 
+The shortening within the lhs of (\ref{associativitysublemmatarget}) 
+eliminates the pair $g'_{j_s}, g_{j_s+1}$ 
+based on the assumption that this diagram commutes:
+
 \begin{equation}
+\label{case.iii.lhrshortening} 
+\begin{array}{c c c c}
+\Rnode{TL}{z_{j_s}} &           & \Rnode{TR}{z_{{j_s}+1} } \\[0.8cm]
+           & \Rnode{BC}{y_{j_s}} &  
+\end{array}
+\begin{arrows}
+\drawMorphismArcing{TL}{TR}{a}{s}{15}{15}[0.5] 
+\ncarr{BC}{TL}\alabel{g'_{j_s}}
+\ncarr{BC}{TR}\blabel{g_{{j_s}+1}} 
+\end{arrows}
 \end{equation}
 commutes. 
+
+In the tightening of the zigzag $F::G$ the `g' terms can be described by
+\begin{alignat}{2}
+\label{tighteningcomposite2:g1}         
+gg_1 &= f_n \circ g_1, \\[6pt]
+\label{tighteningcomposite2:ggpj}
+gg'_j &= g'_j \circ \reallywidehat{gg_j},
+                &&\qquad (1 \le j \le m-1), \\
+\label{tighteningcomposite2:ggj}
+gg_j  &= \overline{gg'_{j-1}} \circ g_j,
+                &&\qquad (2 \le j \le m).
+\end{alignat}
+
+The shortening of the tightening is described by a similar set of equations obtained by omiting the pair $gg'_{j_s}$, $gg_{j_s+1}$
+and replacing the equation for $gg_{j_s}$ by
+\[
+gg_{j_s} = \overline{gg'_{j_s -1}} \circ g_{j_s} \circ s
+\]
+and the tightening of the shortened zigzag $shorten(F::G,i_s,s)$
+can be described by similar set of equations in which there is one less `g' term \workt{reword}and in which the term $g_{j_s}$
+is replaced by $g_{j_s} \circ s$ so that we have
+the $gg_{j_s} =\overline{gg'_{j_s-1}} \circ g_{j_s} \circ s$. It follows that to show that the tightened shortening and the shortened tightening are identical we
+have to show that the $gg'_{j_s+1}$ terms are identical.
+It suffices  show that
+
+\[
+\reallywidehat{\overline{gg'_{j_s-1}} \circ g_{j_s} \circ s} 
+= \reallywidehat{\overline{g'_{j_s} \circ\reallywidehat{\overline{gg'_{j_s-1}} \circ g_{j_s}}} \circ  g_{j_s + 1} } 
+\]
+This follows from lemma \lref{tighteningashorteninglemma}
+ (\lref{tighteningshorteningLeftToRight})
+by substituting
+$gg_{j_s-1}$ for $i$,
+$g_{j_s}$ for $f$,
+$g'_{j_s}$ for $g$,
+$g_{j_s+1}$ for $h$.
+\workt{But only if $j_s > 1$.}
+\begin{worktt}
+If $j_s =1$, that is $i_s = n+1$ then we have a problem,
+at best we need rework the \lref{tighteningashorteninglemma} or
+introduce a new lemma.
+\end{worktt}
+
 \end{proof}
 
 \subsubsection{Associativity}
