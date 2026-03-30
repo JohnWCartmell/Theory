@@ -61,7 +61,6 @@ $$
 
 \subsection{Comparison of Zigzags}
 
-
 Say that zigzags are comparable if they are of the same length
 and have identical object sequences.
 If $F=\zigzagTuple{f}{n}$ and 
@@ -343,6 +342,7 @@ Finally we use lemma \lref{pointwiseorderingsCompose} to establish  from
 $q_n \leq  t_n \circ s_1$ and so complete the proof.
 \end{proof}
 \subsection{The category of tight zigzags}
+\llabel{categorytightzigzags}
 If \catcw is a range category then we can define the category
 $Z_C$ to be the category whose objects are the objects of \catcw
 and such that $Hom_{Z_C}(a,b)$ is the set of tight zigzags of any length $n$
@@ -351,7 +351,6 @@ $$
 \zigzag{x}{y}{f}{n}
 $$
 such that $x_0=a$ and $y_n=b$.
-
 
 
 Composition in $Z_C$ is defined by composing the zigzags and then tightening  thus
@@ -666,8 +665,14 @@ is said to be a \textit{shortening} of $F$.
 A stickleback which cannot be shortened is said to be
 a \textit{short stickleback}.
 
-We will probs use:
+\subsection{Prelude to a category of short zigzags}
 
+In what follows lemma 
+\lref{deferredshorteninglemma}
+describes the interaction of shortening and tightening 
+and is the key to showing that there is a category of short sticklebacks. Before we get to this lemma we have a series of
+subordinate lemmas that are required for its proof. 
+ 
 \begin{lemma}
 \llabel{shorteningspecialisationlemma}
 If $f' \leq g'$ and $f \leq g$ then if  
@@ -696,16 +701,7 @@ f' \circ s \circ \hat{f}
 \end{align}
 \end{proof}
 
- \commentary{16 Marc 2026}
-\begin{aside}
-16 Mar 2026 I was starting to think there might not be a category
-of short sticklebacks but I think I am half there now.
-I need to study tightening from the left and tightening from the right. 
-22 Mar 2026 The way this thought has turned out is that in lemma associativity below 
-rules for $ff'_i, ff_i$ tighten from the right
-and rules for $gg'_j,gg_j$ tighten from the left.
-\end{aside} 
-
+From this lemma we can see that if a zigzag $F$ shortens then $T(F)$ shortens. 
 
 \begin{lemma}
 \llabel{associativitysublemma}
@@ -718,6 +714,8 @@ T(shorten(F::G,i_s,s)=shorten(T(F::G),i_s,s))
 \end{equation}
 \end{lemma}
 \begin{proof}
+\workt{Proof omitted.}
+\iffalse %proof commented out
 In such a situation, $F::G$ is a zigzag in which 
 elements before the element $f_n \circ g$ need 
 tightening to the left and terms to after need tightening to the right. 
@@ -1004,7 +1002,7 @@ can be described by similar set of equations in which there is one less `g' term
 is replaced by $g_{j_s} \circ s$ so that we have
 the $gg_{j_s} =\overline{gg'_{j_s-1}} \circ g_{j_s} \circ s$. It follows that to show that the tightened shortening and the shortened tightening are identical we
 have to show that the $gg'_{j_s+1}$ terms are identical.
-It suffices  show that
+If $j_s > 1$ we need show that
 
 \[
 \reallywidehat{\overline{gg'_{j_s-1}} \circ g_{j_s} \circ s} 
@@ -1016,67 +1014,43 @@ by substituting
 $gg_{j_s-1}$ for $i$,
 $g_{j_s}$ for $f$,
 $g'_{j_s}$ for $g$,
-$g_{j_s+1}$ for $h$.
-\workt{But only if $j_s > 1$.}
-\begin{worktt}
-If $j_s =1$, that is $i_s = n+1$ then we have a problem,
-at best we need rework the \lref{tighteningashorteninglemma} or
-introduce a new lemma.
-\end{worktt}
+$g_{j_s+1}$ for $h$,
+and is applicable because $\widehat{g_{j_s}} = \widehat{g'_{j_s}}$
+because $G$ is assumed to be tight.
 
-\end{proof}
-
-\subsubsection{Associativity}
-
-From this lemma we can see that if a zigzag $F$ shortens then $T(F)$ shortens.
-\begin{lemma}
-\llabel{questionable}
-\workt{Not sure about this as stated.}
-If $F$ is a zigzag and if the ith zag can be shorten
-by morphism $s$ then also the ith zag of
-the tightened zigzag
-$T(F)$ can be shortened by $s$ and
+If $j_s=1$ we need show that
 \[
-T(shorten(F,i,s)) = shorten(T(F),i, s)
-\] 
-\end{lemma}
-\begin{proof}
-Follows because 
-$shorten(T(F),i, s) \leq  shorten(F,i,s)$
-and $shorten(T(F),i, s)$ is tight because $T(F)$ is tight then $shorten(T(F),i, s) \leq  T(shorten(F,i,s))$
-
+\reallywidehat{ f_n \circ g_1 \circ s} 
+= \reallywidehat{\overline{g'_1 \circ\reallywidehat{ f_n \circ g_1}} \circ  g_{2} } 
+\]
+This follows from lemma \lref{tighteningashorteninglemma}
+ (\lref{tighteningshorteningLeftToRight})
+by removing the $\bar{i}$ term (i.e. by substituting the appropriate identity morphism, $id_{w_n}$)
+and by
+substituting
+$f_n \circ g_1$ for $f$,
+$g'_1$ for $g$ and
+$g_2$ for $h$
+and is applicable because $\widehat{f_n \circ g_1} \leq
+\hat{g_1} = \hat{g'_1}$.
+\fi %proof commented out
 \end{proof}
 
 \begin{lemma}
 \llabel{deferredshorteninglemma}
-If $F$, $G$ and $H$ are4 zigzags such that the composition $F :: G ::H$ is defined then
-\[
-shorten(tighten(F :: shorten(G) ::H))
-= shorten(tighten(F :: G ::H)).
-\]
+If $Z_1$, $Z_2$ are tight zigzags such that the composition $Z_1 :: z_2$ is defined then
+\begin{enumerate}[(i)]
+\item 
+$shorten(tighten(shorten(Z_1) :: Z_2))= shorten(tighten(Z_1 :: Z_2)).$
+\item
+$shorten(tighten(Z_1 :: shorten(Z_2)))= shorten(tighten(Z_1 :: Z_2)).$
+\end{enumerate}
 \end{lemma}
 \begin{proof}
-It suffices to show that if $shorten(G,j,s)$ is one
-particular shortening of $G$ then there is a
-shortening $shorten(tighten(F::G::H,n+j-1,s))$
-of the composition $f \circ G \circ H$.
-
-To show this it suffices to show that there is
-a shortening $s$ at position $n+j-1$ of
-the one step tightening $t(F::G::H)$. 
-
-
-
-The previous lemma tells us that any shortening that occurs in the LHS $shorten(G)$ term
-can be applied after tightening. However we
-need to know that the two different points of application return the same results. 
-
-We might do this by actual calculation which is probably hard work just to write it out (though do it for
-one step tightening, I guess, and iterate(though akward because one less tightening step after shortening so maybe difficult to line up. One step with shortening lines up with two steps without shortening if we are lucky)) 
-
-We might be able to apply the sandwich lemma and if so this is likely to be easier to describe.
-
-We can probably show that 
+Since in both (i) and (ii) the innermost shortening is a combination 
+of individual shortenings and since
+it follows by lemma \lref{associativitysublemma} that 
+each of these individual shortenings can be moved outside of the tightening.
 \end{proof}
 
 \subsection{The category of short sticklebacks}
@@ -1086,29 +1060,16 @@ in which composition is defined by
 \[
 F \circ G = shorten(T(F::G)) 
 \]
-If we need it RHS=$= shorten( T(F::\bar{G})::T(\hat{F}\circ G))$.
-Investigating associativity we have:
+Composition, so defined, is associative because:
 \begin{align*}
 F \circ (G \circ H)
   &= shorten(T(F :: shorten(T(G ::H)) && \mbox{definition $\circ$} \\
-  &= shorten (T(F::T(G::H))) && \mbox{how to justify this} \\
-  &= shorten (T(F::G::H))    && \mbox{already made this argument} 
+  &= shorten (T(F::T(G::H))) && \mbox{by lemma \ref{deferredshorteninglemma} (i),} \\
+  &= shorten (T(F::G::H))    && \mbox{\parbox[t]{5cm}{see proof of associativity of composition of tight zigzags, section \ref{categorytightzigzags}.}}
 \end{align*}  
-
-the key move in general terms (make  lemma of this
-lemma \lref{deferredshorteninglemma}).
-\[
-shorten(T(F::shorten(G) :: H)) = shorten(T(F::G::H))
-\]
-and the proof uses fact that $shorten(G) \leq G$ and lemma \ref{shorteningspecialisationlemma}.
-If we want to spell it out, which I guess we do, then to prove this 
-key move we use
-\[
-T(F::shorten(G) :: H) 
-  = T(F\circ\bar{G}) :: T(\hat{F}::shorten{G}::\bar{H}) :: T(\hat{G} \circ H)
-\]
-Hmmm. Not sure that helps because the inner shorten cannot be floated out unless the whole thing is surrounded by shorten.
-
+and because, likewise, 
+using lemma \ref{deferredshorteninglemma} (ii),
+we have also that $(F \circ G) \circ H=shorten (T(F::G::H))$.
 
 \subsection{Sequential Shortening}
 \begin{lemma}
@@ -1140,5 +1101,13 @@ f'_{n-1} \circ s_{n-1} = f_n \circ g
 \]
 \end{lemma}
 \begin{proof}
-
+Let $T=\zigzagTuple{t}{n}$ be the tighhtening 
+of $F::\tuple{g}$. Now $F \circ \tuple{g}$ in the category of short sticklebacks is the shortening of $T$. 
+\begin{myproblem}
+Oh \textit{merde}! The tightening can shorten in ways that the original cannot. In otherwords \workt{$T$ may not be short}.
+That feels messy. Fallback is that I add the assumption that
+$F::\tuple{g}$ is tight which can be made true by 
+specifying that the $q_i$ are total in the definition of 
+referential inclusion dependency.
+\end{myproblem}
 \end{proof}

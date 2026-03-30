@@ -48,8 +48,7 @@ such that the composition $E \circ \HomStk$ is a range functor.
 \end{oldtt}
 
 Since \catcw is maximally constrained and because $I$ is consistent with $\reqtc$ then the functor 
-
-$K_a$  can be extended 
+$K_a$\commentary{\highlight{what is $K_a$?}}  can be extended 
 to a functor $K'_a: C' \morph \Fin$ so that the following diagram of functors commutes 
 \[
 \begin{array}{c p{0.3cm} c p{0.3cm} c}
@@ -104,14 +103,20 @@ K'_a(\qq{r}) (\tuple{\barffn}) \circ \tuple{q_i}
 = \tuple{\barffn \circ f_i} 
 \] 
 in $\Stk$.
-\workt{we need another step with $K_a(q_i)$ and $K_a(f_i)$ in above to remark on why defined (to which end --- do I need specify $q_i$ total?).}
+\begin{worktt}
+\workt{we need another step in the proof here}
+with $K_a(q_i)$ and $K_a(f_i)$ in above to remark on why defined (to which end --- do I need specify $q_i$ total?).
+\end{worktt}
+
 
 Suppose $H_a(\qq{r}) (\tuple{\barffn})$ 
 is a short stickleback $G =\tuple{g_1,etc, g_m}$ of length m. 
 Then LHS above is the tightening and shortening of $\tuple{g_1,etc, g_m \circ q_i}$.
 
 \commentary{I am \workt{assuming $q_i$ is} \workt{total} but it may be possible to avoid this assumption (for the sake of the maths rather than the computer science)}
-From an as yet unwritten sequential shortening lemma \lref{sequentialshorteninglemma} we can deduce that there are
+
+From an as yet unproven and unrefined 
+sequential shortening lemma \lref{sequentialshorteninglemma} we can deduce that there are
 (shortening) morphisms $\sm[-1]$ so that, \foreachj[m-2],
 the domain of  $s_j$ is the codomain of $g_j$ and 
 the codomain  is $b_i$ such that 
@@ -156,15 +161,19 @@ D(g'_{m-1})^{-1} \circ D(g_m) \circ D(q_i)
 \]
 
 Thus $D(g_1) \circ D(g'_1)^{-1} \circ ... D(g'_{m-1})^{-1} \circ D(g_m)$
-is a relation, call it $G_D$, in \Rel such that $G_D \circ q_i = f_i$, \foreachi.
-But there is a unique single valued relationship $R_D$ such that 
-$R_D \circ q_i = f_i$. Therefore by lemma \lref{atleasttwopartialfunctionslemma} we have that $G_D$ is single-valued. We have that in each $D$,
+is a relation, call it $G_D$, in \Rel such that $G_D \circ D(q_i) = D(f_i)$, \foreachi.
+But there is a unique single valued relationship $R_D$
+such that  $R_D \circ D(q_i) = D(f_i)$. 
+Therefore by lemma \lref{atleasttwopartialfunctionslemma} we have that $G_D$ is single-valued. We have that in each $D$,
 \[
 D(g_1) \circ D(g'_1)^{-1} \circ ... D(g'_{m-1})^{-1} \circ D(g_m) = R_D
 \]
-and so we have shown that the referential inclusion dependency $R$ is represented 
-in \catcw by a stickleback $G$. It remains to show that $G$ is in fact
-a single morphsim. This follows from an as yet unwritten corollary
-to the lemma regarding representation of functional dependencies.
+and so we have shown that the referential inclusion dependency $R$ is represented in \catcw by a stickleback $G$. 
+It remains to show that $G$ is in fact
+a single morphsim. This follows because
+each
+$D(g_i) \circ D(g'_i)^{-1}$ is a functional dependency and is therefore (by lemma \lref{functionaldependencyrepresentationlemma}) represented by a morphism in \catcw. 
+Compose all $m$ of these together to obtain
+a morphism that is a representation of $R_D$.
 \end{proof}
 
