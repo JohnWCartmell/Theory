@@ -145,10 +145,15 @@ In the above context of the above defintion, if functional dependency $H$ is rep
 
 
 \subsubsection{Criterion 2C --- The Representation of Referential Inclusion Dependencies}
-\begin{worktt}
-\highlight{COPIED FROM Preparation}
+
+\begin{rationale}
+I only really ever use ref inc dependencies when the $q_i$
+are total and jointly mono? But do I need to specify that the
+$q_i$ are total or, for that matter, jointly mono. I think not.
+I think I can prove the representation lemma for referential inclusion depdendencies without specifying totality. Therefore
+I wont specify totality.
+\end{rationale}
 \begin{definition}
-\commentary{Do I, need I, assume $q_i$ are total?}
 If $\catc$ is a \newt{range} category and $\reqtc$ is a set of instances 
 and if
 \fnsourceqnsource
@@ -157,20 +162,30 @@ is a family of partial functions $I_D)_{D \in \reqtc}$
 such that each instance $D \in \reqtc$, 
 $I_D$ is a function $I_D : D(a) \morph D(c)$ such that
 for each $i$, $1 \leq i \le n$, $I_D \circ D(q_i) \leq D(f_i)$
-and $\overline{I_D}=\overline{D(f_1)}\circ ... \overline{D(f_n)}$.
+and $\overline{I_D}=\restrictToDSource{f}{n}$.
 \end{definition}
 
 If each function in this family is the unique such function then the inclusion dependency is said to be referential:
+
 
 \begin{definition}
 If $\catc$ is a \newt{range} category and $\reqtc$ is a set of instances 
 and if
 \fnsourceqnsource
 in $\catc$, then a \term{referential inclusion dependency} $R$, written $a[f_1,...f_n] \overset{R}{\subseteq} c[q_1,..q_n]$, is a family of functions $R_D)_{D \in \reqtc}$
-such that each instance $D$, $R_D$ is a unique function $R_D : D(a) \morph D(c)$ such that
-for each $i$, $1 \leq i \le n$, $R_D \circ D(q_i) \leq D(f_i)$
-and $\overline{R_D}=\overline{D(f_1)}\circ ... \overline{D(f_n)}$.
+such that each instance $D$, 
+$R_D$ is a unique function $R_D : D(a) \morph D(c)$ such that
+\foreachi,
+    $R_D \circ D(q_i) = \restrictToDSource{f}{n} \circ D(f_i)$
+and $\overline{R_D}=\restrictToDSource{f}{n}$.
 \end{definition}
+
+From this definition and a lemma \lref{leastFactorLemma} 
+it follows 
+first that \foreachi, 
+$R_D \circ \restrictToDSource{q}{n} \circ q_i = R_D \circ D(q_i) = \nudgeup{0.4cm}\restrictToDSource{f}{n} \circ D(f_i)$ 
+and then, because of the uniqueness satisfied by $R_D$, that
+$\nudgeup{0.5cm}R_D \circ \restrictToDSource{q}{n} = R_D$.
 
 \begin{lemma}
 If $\catc$ is a category and $\reqtc$ is a set of instances and if
@@ -194,8 +209,8 @@ iff in each instance $D \in \reqtc$, $D(r) = R_D$.
 \textbf {Goodness Criterion 2C} \IfSforCwithRCwords 
 then all referential inclusion dependencies present in $\reqtc$
 ought to be be represented in \catcp.
-
-We will need the following:
+\begin{oldtt}
+We will need the following:\workt{Dont think so.}
 \begin{lemma}
 \label{catRefIncSublemma}
 If $\catc$ is a category and $\reqtc$ is a set of instances,
@@ -204,13 +219,13 @@ and if $a[f_1,...f_n] \overset{R}{\subseteq} c[q_1,..q_n]$
 is a referential inclusion dependency with respect to $\reqtc$ 
 then if there is a morphism $r: a \morph c$ in \catcw 
 such that for each $i$, $r \circ q_i \leq f_i$
-and $\overline{r} = \overline{f_1} \circ ... \overline{f_2}$ 
+and $\overline{r} = \restrictToSource{f}{n}$ 
 then $r$ is a representation of $R$  in  \catc. 
 \end{lemma}
 \begin{proof} 
 \commentary{Check carefully because copied from preparation and edited.}
 Straightforward because of the uniqueness condition for each $R_D$ in the definition of referential inclusion dependency and because the restriction functoriality of each $D \in \reqtc$ gives, 
 for each $i$, $D(r) \circ D(q_i) \leq D(f_i)$
-and also $\overline{D(r)}=\overline{D(f_1)}\circ ... \overline{D(f_n)}$.
+and also $\overline{D(r)}=\restrictToDSource{f}{n}$.
 \end{proof}
-\end{worktt}
+\end{oldtt}

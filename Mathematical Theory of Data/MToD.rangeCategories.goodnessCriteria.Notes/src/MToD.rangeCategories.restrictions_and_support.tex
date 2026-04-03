@@ -11,21 +11,21 @@ constitute an algebra that nicely represents a system of partially defined terms
 
 Cockett \& Lack define restriction categories along the following lines:
 \begin{definition}
-A \textit{restriction category} is a category \catcw with an additional operator on morphisms (the restriction operator $\bar{\ }$), so that from a morphism
+A \textit{restriction category} is a category \catcw with an additional operator on morphisms (the restriction operator $\overline{\ }$), so that from a morphism
 $f: a \morph b$ in \catcw there is a 
-$$\bar{f}: a \morph a$$,
+$$\overline{f}: a \morph a$$,
 satisfying
 
-R.1 For $f:a \morph b$ in \catcw $$\bar{f} \circ f =f$$.
+R.1 For $f:a \morph b$ in \catcw $$\overline{f} \circ f =f$$.
 
 R.2. If \fgsourcediag in \catcw then
-$$\bar{g} \circ \bar{f}=\bar{f} \circ \bar{g}.$$
+$$\overline{g} \circ \overline{f}=\overline{f} \circ \overline{g}.$$
 
 R.3. If \fgsourcediag in \catcw then
-$$\overline{\bar{f} \circ g} = \bar{f} \circ \bar{g}$$.
+$$\overline{\overline{f} \circ g} = \overline{f} \circ \overline{g}$$.
 
 R.4. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
-$$f \circ \bar{g} = \overline{f \circ g} \circ f$$.
+$$f \circ \overline{g} = \overline{f \circ g} \circ f$$.
 \end{definition}
 
 We will be needing:
@@ -35,22 +35,22 @@ We will be needing:
 In any restriction category \catc
 \begin{enumerate} [(i)]
 \item For $f:a \morph b$ in \catcw,
-$$\bar{\bar{f}}=\bar{f}$$
+$$\overline{\overline{f}}=\overline{f}$$
 \item w.R4.\footnote{This condition described as wR.4 in Cockett et al.} 
 If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw 
  then
-$$\overline{f \circ g} = \overline{f \circ \bar{g}}.$$
+$$\overline{f \circ g} = \overline{f \circ \overline{g}}.$$
 
 \item \llabel{CHECKLemma}
 If \catcw is a restriction category \catcw and if
 $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then 
-$f \circ \bar{g} = f$ iff $\overline{f \circ g} = \overline{f}.$
+$f \circ \overline{g} = f$ iff $\overline{f \circ g} = \overline{f}.$
 \item \llabel{restrictioncatlemma:totalk} \commentary{UNUSED}
 If $\sequentialdiag{a}{b}{c}{k}{j}$ in \catcw 
-and $k$ is total i.e. $\bar{k}=id_a$
-and if $k \circ \bar{j}$ is total i.e. $\overline{k \circ \bar{j}}=id_a$
+and $k$ is total i.e. $\overline{k}=id_a$
+and if $k \circ \overline{j}$ is total i.e. $\overline{k \circ \overline{j}}=id_a$
 then
-$$k \circ \bar{j} = k.$$
+$$k \circ \overline{j} = k.$$
 \end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -58,46 +58,45 @@ $$k \circ \bar{j} = k.$$
 \item Use R3 with $g$ being $id_b$.
 \item 
 \begin{align*}
-\overline{f \circ \bar{g}}
+\overline{f \circ \overline{g}}
 &= \overline{\overline{f \circ g} \circ f}
     && \text{by (R4),} \\
-&= \overline{f \circ g} \circ \bar{f}
+&= \overline{f \circ g} \circ \overline{f}
     && \text{by (R3),} \\
-&= \bar{f} \circ \overline{f \circ g}
+&= \overline{f} \circ \overline{f \circ g}
     && \text{by (R2),} \\
-  &= \overline{\bar{f} \circ f \circ g}
+  &= \overline{\overline{f} \circ f \circ g}
     && \text{by (R3),} \\  
 &= \overline{f \circ g}
     && \text{by (R1).}
 \end{align*}
 \item \commentary{CHECKLemma}
 LEFT TO RIGHT
-Assume $f \circ \bar{g} = f$
+Assume $f \circ \overline{g} = f$
 then
 \begin{align*}
-\overline{f \circ g} &= \overline{f \circ \bar{g}} && \mbox{by wR.4,}\\
+\overline{f \circ g} &= \overline{f \circ \overline{g}} && \mbox{by wR.4,}\\
                      &= \overline{f} && \mbox{from the assumption.}
 \end{align*}
 RIGHT TO LEFT
 Assume $\overline{f \circ g} = \overline{f}$
 then
 \begin{align*}
-f \circ \bar{g} &= \overline{f \circ g} \circ f 
+f \circ \overline{g} &= \overline{f \circ g} \circ f 
                                   && \mbox{R.4,} \\
-                &= \bar{f} \circ f 
+                &= \overline{f} \circ f 
                                   && \mbox{from the assumption,} \\
                 &= f              && \mbox{by R.1.}
 \end{align*}
 \item 
 \begin{align*}
-k \circ \bar{j} &= k \circ \bar{\bar{j}}              && \mbox{from (i),}\\
-                &= \overline{k \circ \bar{j}} \circ k && \mbox{by R.4,}   \\
-                &= k                                  && \mbox{from assumption $k \circ \bar{j}$ is total.}
+k \circ \overline{j} &= k \circ \overline{\overline{j}}              && \mbox{from (i),}\\
+                &= \overline{k \circ \overline{j}} \circ k && \mbox{by R.4,}   \\
+                &= k                                  && \mbox{from assumption $k \circ \overline{j}$ is total.}
 \end{align*}
 
 \end{enumerate}
 \end{proof}
-
 
 \subsection{Categories with Support}
 Though we are mainly restriction categories are the structures that we are interested 
@@ -108,7 +107,7 @@ weaker condition holds
 
 wR.4  If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
 \[
-\overline{f \circ g} = \overline{f \circ \bar{g}}.
+\overline{f \circ g} = \overline{f \circ \overline{g}}.
 \]
 Such categories Cockett et al refer to as \textit{categories with support}. 
 
@@ -117,7 +116,7 @@ what follows and which we refer to as the additional weak R.4 rule:
 
 awR.4  If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
 \[
-\overline{f \circ g} = \bar{f} \mbox{ \quad implies \quad} f \circ \bar{g}=f.
+\overline{f \circ g} = \overline{f} \mbox{ \quad implies \quad} f \circ \overline{g}=f.
 \]
 and if this holds in a category with support ww
 will say that it has awR.4 support.  
@@ -125,10 +124,8 @@ The reverse implication holds in any category with support so that in
 \commentary{might this hold in ANY category with support.}
 a category with \workt{awR.4} support we have, for any composable $f$ and $g$:
 \[
-\overline{f \circ g} = \bar{f} \mbox{\quad iff \quad} f \circ \bar{g}=f.
+\overline{f \circ g} = \overline{f} \mbox{\quad iff \quad} f \circ \overline{g}=f.
 \]
-
-
 
 \begin{lemma}
 \llabel{supportLemma}
@@ -143,8 +140,8 @@ if $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw
  \item \llabel{RHomFunctorSubLemma}
 if  $\triplesequentialdiag{a}{x_1}{x_2}{x_3}{k}{j_1}{j_2}$ 
 in a \catcw  then 
-if $\overline{k \circ j_1 \circ j_2} = \bar{k}$ 
-then $\overline{k \circ j_1} = \bar{k}$.
+if $\overline{k \circ j_1 \circ j_2} = \overline{k}$ 
+then $\overline{k \circ j_1} = \overline{k}$.
 \end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -163,9 +160,9 @@ then $\overline{k \circ j_1} = \bar{k}$.
 \end{align*}
 \item
 
-Suppose $\overline{k \circ j_1 \circ j_2} = \bar{k}$  then we have
+Suppose $\overline{k \circ j_1 \circ j_2} = \overline{k}$  then we have
 \begin{align*}
-\overline{k \circ j_1} &= \overline{\bar{k} \circ k \circ j_1}
+\overline{k \circ j_1} &= \overline{\overline{k} \circ k \circ j_1}
                            &&\mbox{by R.1,} \\
                        &= \overline{\overline{k \circ j_1 \circ j_2} \circ k \circ j_1}
                            &&\mbox{from the initial assumption,} \\
@@ -173,7 +170,7 @@ Suppose $\overline{k \circ j_1 \circ j_2} = \bar{k}$  then we have
                            &&\mbox{by R.3,} \\
                        &= \overline{k \circ j_1 \circ j_2}
                            &&\mbox{by (i),} \\
-                       &= \bar{k}
+                       &= \overline{k}
                            &&\mbox{from the initial assumption, as required.} 
 \end{align*}
 \end{enumerate}
@@ -184,23 +181,23 @@ Suppose $\overline{k \circ j_1 \circ j_2} = \bar{k}$  then we have
 
 In a category with support, and therefore in a restriction category, we can define a partial ordering on each hom set
 Hom(a,b) by defining :
-$$f \leq g \mbox{ iff } f = \bar{f} \circ g.$$
+$$f \leq g \mbox{ iff } f = \overline{f} \circ g.$$
 
 The relation $\leq$, so defined, is antisymmetric because if
 \begin{equation}
 \label{fleqg}
-f = \bar{f} \circ g
+f = \overline{f} \circ g
 \end{equation}
 and
 \begin{equation}
 \label{gleqf}
-g = \bar{g} \circ f
+g = \overline{g} \circ f
 \end{equation}
 then
 \begin{align*}
-f &= \bar{f} \circ g &&\mbox {this is (\ref{fleqg}),}        \\
-  &= \bar{g} \circ \bar{f} \circ g &&\mbox{by R.1 and R.2,}\\
-  &= \bar{g} \circ f               &&\mbox{using (\ref{fleqg}) again,} \\
+f &= \overline{f} \circ g &&\mbox {this is (\ref{fleqg}),}        \\
+  &= \overline{g} \circ \overline{f} \circ g &&\mbox{by R.1 and R.2,}\\
+  &= \overline{g} \circ f               &&\mbox{using (\ref{fleqg}) again,} \\
   &= g                             &&\mbox{(by (\ref{gleqf}).} 
 \end{align*}
 
@@ -244,6 +241,9 @@ then $h \leq f' \circ g'$.
 Proof is handwritten on tablet.\highlight{CHECK.}
 \end{proof}
 
+
+
+
 \begin{lemma}
 \llabel{backPropagationSubLemma}
 \begin{enumerate}[(i)]
@@ -251,22 +251,71 @@ Proof is handwritten on tablet.\highlight{CHECK.}
 if $\sequentialdiag{a}{b}{c}{f}{g}$ in a category with support
 then $\overline{f \circ g} \leq \overline{f}$.
 \item If \fgsourcediag in a category with support
-if $\bar{f} \circ g = g$ 
-then $\bar{g} \leq \bar{f}$.
+if $\overline{f} \circ g = g$ 
+then $\overline{g} \leq \overline{f}$.
 \end{enumerate}
 \end{lemma}
 \begin{proof}
 \begin{enumerate}[(i)]
 \item This is lemma \lref{supportLemma} rewritten to use $\leq$.
-\item We have to show $\bar{g} \leq \bar{f}$ i.e. that $\bar{\bar{g}} \circ \bar{f} = \bar{g}$
-i.e. that $\bar{g} \circ \bar{f} = \bar{g}$. This follows because
+\item We have to show $\overline{g} \leq \overline{f}$ i.e. that $\overline{\overline{g}} \circ \overline{f} = \overline{g}$
+i.e. that $\overline{g} \circ \overline{f} = \overline{g}$. This follows because
 \begin{align*}
-\bar{g} \circ \bar{f} &= \bar{f} \circ \bar{g} &&\mbox{by R.2,} \\
-                      &= \overline{\bar{f} \circ g} && \mbox{by R.3,} \\
-                      &= \bar{g} &&\mbox{from the initial assumption.}
+\overline{g} \circ \overline{f} &= \overline{f} \circ \overline{g} &&\mbox{by R.2,} \\
+                      &= \overline{\overline{f} \circ g} && \mbox{by R.3,} \\
+                      &= \overline{g} &&\mbox{from the initial assumption.}
 \end{align*}
 \end{enumerate}
 \end{proof}
+
+
+\begin{lemma}
+\llabel{leastFactorLemma}
+\commentary{actually need an n-ary version of this}
+\commentary{start with binary version}
+\commentary{probably cant use this. I needed this for sticklebacks and only a category with support. This proof needs R.4 which I don't have.}
+
+\[
+\begin{array}{c p{0.25cm} c p {0.25cm} c}
+       &&         && \Ob{c}{1}  \\[0.4cm]
+\bOb{a}&& \bOb{b} &&            \\[0.4cm]
+       &&         && \Ob{c}{2} 
+\end{array}
+\begin{arrows}
+\ncarr{a}{b}\alabel{f}
+\ncarr{b}{c1}\alabel{q_1}
+\ncarr{b}{c2}\blabel{q_2}
+\end{arrows}       
+\]
+in a restriction category \catcw then
+if $\overline{f \circ q_1}=\overline{f \circ q_2}$
+then 
+\begin{equation}
+\label{leastFactorOne}
+f \circ \overline{q_1} \circ \overline{q_2} \circ q_1=f \circ q_1
+\end{equation}
+(and by symmetry )
+\begin{equation}
+\label{leastFactorTwo}
+f \circ \overline{q_1} \circ \overline{q_2} \circ q_2=f \circ q_2
+\end{equation}
+\end{lemma}
+\begin{proof}
+
+\begin{align*}
+f \circ \overline{q_1} \circ \overline{q_2} \circ q_1 
+    &= f \circ \overline{q_2} \circ q_1 
+       && \mbox{using R.2 and R.1}, \\
+    &= \overline{f \circ q_2} \circ f \circ q_1
+       && \mbox{by R.4,} \\
+    &= \overline{f \circ q_1} \circ f \circ q_1
+       && \mbox{since 
+      $\overline{f \circ q_1} = \overline{f \circ q_2}$ } \\
+    &= f \circ q_1
+       && \mbox{by R.1, as required.}
+\end{align*} 
+\end{proof}
+
 The following lemma is shaped for a very specific later use:
 \begin{lemma}
 \llabel{backPropagationTerminationLemma}
@@ -286,7 +335,7 @@ Suppose we have the following morphisms in a restriction category
 then if 
 \begin{equation}
 \label{ghTight}
-\bar{g}=\bar{h}
+\overline{g}=\overline{h}
  \end{equation}
  and 
  \begin{equation}
@@ -297,8 +346,8 @@ then if
 $\overline{h \circ i} = \overline{h}$. 
 \end{lemma}
 \begin{proof}
-It suffices to show that both $\overline{h \circ i} \leq \bar{h}$
-and $\bar{h} \leq \overline{h \circ i}$.
+It suffices to show that both $\overline{h \circ i} \leq \overline{h}$
+and $\overline{h} \leq \overline{h \circ i}$.
 
 The first of these 
 follows directly from lemma \ref{backPropagationSubLemma} (i).
@@ -306,6 +355,6 @@ follows directly from lemma \ref{backPropagationSubLemma} (i).
 The second follows from (\ref{gPropagationNull}), 
 which by lemma \ref{backPropagationSubLemma} (ii)
 gives us
-$\bar{g} \leq \overline{h \circ i}$, and because $\bar{g} = \bar{h}$.
+$\overline{g} \leq \overline{h \circ i}$, and because $\overline{g} = \overline{h}$.
 \end{proof}
 

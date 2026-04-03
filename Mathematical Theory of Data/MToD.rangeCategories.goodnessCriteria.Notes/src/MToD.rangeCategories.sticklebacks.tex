@@ -1074,12 +1074,12 @@ we have also that $(F \circ G) \circ H=shorten (T(F::G::H))$.
 \subsection{Sequential Shortening}
 \begin{lemma}
 \llabel{sequentialshortening}
-If $\zigzagTuple{f}{n}:x_1 \morph y_n$ is a short stickleback
- and if $g: y_n \morph z$ and $h:x_1 \morph z$
-in \catcw then if in the category 
-of short sticklebacks 
-$F \circ \tuple{g} = \tuple{h}$ then there
-is a sequence of morphisms $s_1,...s_{n-1}$
+If $F=\zigzagTuple{f}{n}:x_1 \morph y_n$ 
+is a tight stickleback
+and if $F$ shortens to a zigzag $\tuple{f}$ for some
+morphism $f:x_1 \morph y_n$ in \catcw then then there
+is a sequence of morphisms $s_1,...s_{n-1}$,
+$s_i: y_i \morph y_n$ in \catcw
 such that all diagrams in 
 \commentary{Improve the diagramming at a later date}
 \[
@@ -1089,7 +1089,7 @@ such that all diagrams in
 
 commute i.e. such that
 \[
-f_1 \circ s_1 =h
+f_1 \circ s_1 =f
 \]
 and \foreachi[n-2], 
 \[
@@ -1097,17 +1097,40 @@ f'_i \circ s_i =  f_{i+1} \circ s_{i+1}
 \] 
 and
 \[
-f'_{n-1} \circ s_{n-1} = f_n \circ g
+f'_{n-1} \circ s_{n-1} = f_n 
 \]
 \end{lemma}
 \begin{proof}
-Let $T=\zigzagTuple{t}{n}$ be the tighhtening 
-of $F::\tuple{g}$. Now $F \circ \tuple{g}$ in the category of short sticklebacks is the shortening of $T$. 
-\begin{myproblem}
-Oh \textit{merde}! The tightening can shorten in ways that the original cannot. In otherwords \workt{$T$ may not be short}.
-That feels messy. Fallback is that I add the assumption that
-$F::\tuple{g}$ is tight which can be made true by 
-specifying that the $q_i$ are total in the definition of 
-referential inclusion dependency.
-\end{myproblem}
+For any series of shortenings of $F$ to a single morphism one of this set must shorten the triange the final zag in F i.e. 
+there must be a morphism $s_{n-1}:y_{n-1} \morph y_n$
+such that the triangle 
+$\nudgeup{1.5cm}\downTriangleShape{x_n}{y_{n-1}}{y_n}
+\downToLeft{g'}[0.6]
+\downToRight{g}
+\leftToRightArcing[a]{s}{30}{30} 
+$ 
+commutes. 
+Since shortenings can be applied in any order this shortening can be applied first and the resulting zigzag 
+$\tuple{f_1,f'_1,...f_{n-2}, f_{n-1} \circ s_{n-1}}$
+must then shorten to the morphism $f$. 
+Repeating the argument we get a morphism $s_{n-2}$
+such that 
+$
+\begin{array}{c  c c}
+&\Ob{y}{n}&               \\[0.5cm]
+\Obpp{y}{n} && \Obp{y}{n} \\[0.5cm]
+& \Obp{x}{n}
+\end{array}
+\begin{arrows}
+\ncarr{ynpp}{yn}\alabel{s_{n-2}}
+\ncarr{ynp}{yn}\blabel{s_{n-1}}
+\ncarr{xnp}{ynpp}\alabel{f'_{n-2}}
+\ncarr{xnp}{ynp}\blabel{f_{n-1}}
+\end{arrows}
+$
+commutes and shorten $F$ to a zigzag
+$\tuple{f_1,f'_1,...f_{n-3}, f_{n-2} \circ s_{n-2}}$
+By iteration we arrive
+at morphisms $s_1,...s_{n-1}$ which shorten $F$ to a singleton (and therefore short) zigzag $\tuple{f_1 \circ s_1}$. But since the shortening of a tight zigzag is unqiue 
+we must have $f_1 \circ s_1=f$.
 \end{proof}
