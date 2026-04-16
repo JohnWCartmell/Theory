@@ -94,7 +94,6 @@ $
 \blabel{R_x}
 \end{center} 
 
-\begin{newtt}
 With $F$ so defined if  $j:x_1 \morph x_2$ in $\catc$
 then both squares in this diagram
 \begin{equation*}
@@ -125,7 +124,6 @@ and
 \label{Rfjkequation}
 L_{x_2}(\tuple{k \circ j}) = F(j)(L_{x_1}(\tuple{k}))
 \end{equation}
-\end{newtt}
 
 Now for each object $x$ of $\catc$, 
 we define an equivalence relation $\sim_x$ on $F(x)$ by defining,
@@ -170,7 +168,6 @@ in the proof; in what follows
 the elements
 $[L_a(\tuple{\bar{f}\circ \bar{g}})]$ and $[R_a(\tuple{\bar{f}\circ \bar{g}})]$ fulfill the role of $left$ and $right$, respectively.
 
-\begin{newtt}
 With $G$ so defined then if $k: a \morph x_1$ and $j:x_1 \morph x_2$ in $\catc$ such that $\overline{k \circ j}=\overline{k}$
 then, from the definition of $G(j)$ and using  (\ref{Lfjkequation}), we get
 \begin{equation}
@@ -182,7 +179,6 @@ G(j)([L_{x_1}(\tuple{k})])
 \end{equation}
 
  and likewise from the definition of $G(j)$ and using  (\ref{Rfjkequation}), we get
-
 
 \begin{equation} 
 G(j)([R_{x_1}(\tuple{k})])=[R_{x_2}(\tuple{k \circ j})].
@@ -204,19 +200,17 @@ and since
 \label{Lgequation}
 G(g)([L_a(\tuple{\bar{g}})])=[L_{c}(\tuple{\bar{g} \circ g})]=[L_{c}(\tuple{g})]
 \end{equation}
-\end{newtt}
 
 Now that we have described the functors  $G: \catc \morph \Par$ and $I:\catc \morph \catcp$ that is consistent with $\reqtc$
 we can use the fact that $\catc$ is maximally constrained to tell us that $G$ extends to a functor 
 $G' : \catcp \morph \Par$. Since $f \circ \qq{h} = g$ in $\catcp$ then we have
  $G'(f) \circ G'(\qq{h}) = G'(g): G(a) \morph G(c)$ in $\Par$.
 
-\begin{worktt}
 \begin{align*}
 [L_c(g)] 
         &= G(g)([L_a(\tuple{\bar{g}})])       
                 && \mbox{by (\ref{Lgequation}),}\\
-        &= G'(g)([L_a(\tuple{\bar{f}\circ \bar{g}})])      
+        &= G'(g)([L_a(\tuple{\bar{g}})])      
                 && \mbox{since $G'$ extends $G$,} \\
         &= G'(\qq{h}) (G'(f)([L_a(\tuple{\bar{g}})])) 
                 && \mbox{since $G'(f) \circ G'(\qq{h}) = G'(g)$, since $G'$ functorial,}\\
@@ -225,12 +219,10 @@ $G' : \catcp \morph \Par$. Since $f \circ \qq{h} = g$ in $\catcp$ then we have
 	      &= G'(\qq{h}) ([L_b(\tuple{\bar{g} \circ f})])       
                 &&\mbox{by (\ref{Lfequation}).} 
 \end{align*}
-\end{worktt}
-
-
-\begin{worktt} 
-Need be careful, above, because $G'(\qq{h})$ is a stickleback.
-\end{worktt}
+\begin{commentary} 
+Need be careful, above, because $G'(\qq{h})$ 
+maps between equivalence classes of sticklebacks.
+\end{commentary}
 By symmetry we also have
 $$[R_c(\tuple{g})] = G'(\qq{h}) ([R_b(\tuple{\bar{g} \circ f})])  $$
 and because by definition of $\sim$\workt{?} we have
@@ -249,3 +241,32 @@ Therefore the functional dependency $\fundep{H}{f}{g}$
 is represented in $\catc$ 
 by the morphism $\widehat{f} \circ k$.
 \end{proof}
+
+
+\begin{lemma}
+If $Z$ is a tight zigzag in a range category \catcw which is maximally constrained to a requirement \reqt, if for every $D \in \reqt$, $D^*(Z)$ is single valued
+then either $Z$ is or can be shortened to a singleton stickleback.
+\end{lemma}
+\begin{proof}
+If $Z$ is not already of length $1$, if it is a  
+zigzag  $\zigzagTuple{z}{m}$, for some 
+$m > 1$ then
+since in every $D \in \reqt$ the relationship 
+$D^*(Z)=D(\zigzagTuple{z}{m-1}) 
+    \circ D(z_{m-1})^{-1} \circ D(z_m)$
+is single valued then by lemma \lref{functionalBackupLemma} then
+relationship $D(z_{m-1})^{-1} \circ D(z_m)$ is
+single valued i.e. there is a functional dependency 
+from $z_{m-1}$ to $z_m$ in \catcw wrt requirement
+\reqt. Therefore by our previous 
+lemma, \ref{functionaldependencyrepresentationlemma}, there is a morphism $g$ in \catcw such that
+$z_{m-1} \circ z = z_m$. So $Z$ shortens. This process can be continued until $Z$ is of length 1. 
+\end{proof}
+
+\begin{corollary}
+\llabel{functionalDependencyRepresentationCorollary}
+If $Z$ is a short 
+stickleback  of a range category \catcw which is maximally constrained to a requirement \reqt, if for every $D \in \reqt$, $D^*(Z)$ is single valued, then
+$Z$ is of length $1$ i.e. $Z=\tuple{z}$ for some morphism $z$ of \catcw.
+\end{corollary}
+

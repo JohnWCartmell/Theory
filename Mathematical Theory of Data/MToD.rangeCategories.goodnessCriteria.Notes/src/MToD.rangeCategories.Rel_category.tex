@@ -1,13 +1,24 @@
 
-We need a bit more terminology. Let \Rel be the category of sets and binary relations. Every partial function can be considered as a binary relation and the inclusion of $\Par$ in $\Rel$ is functorial, we shall denote 
+ Let \Rel be the category of sets and binary relations. 
+For every relation $R:x \morph y$ in \Rel 
+there is a converse relation $R^{-1} :y \morph x$,
+ a restriction idempotent $\overline{R}: x \morph x$ and 
+ a range idempotent $\widehat{R} : y \morph y$ such that
+$\widehat{R} = \overline{R^{-1}}$.
+
+ Every partial function can be considered as a binary relation and the inclusion of $\Par$ in $\Rel$ is functorial
+and preserves the restriction and range idempotent, we shall denote 
 by $U$ as it 'forgets' the many-one nature of a partial function so
 that
-$\Par \xrightarrow{U} \Rel$ which. 
+$\Par \xrightarrow{U} \Rel$.
 
-If $F: \catc \morph \Par$ is a functor then composition  yields a functor into $\Rel$ which we shall denote $F_R$ so that
+It is simple to check that for any $R:x \morph y$ in \Rel, $R$ is in the image of $U$ and so
+$R$ is single valued iff $R^{-1} \circ R = \widehat{R}$. 
+
+
+If $F: \catc \morph \Par$ is a functor then composition of $F$ yields a functor into $\Rel$ which we shall denote $F_R$ so that 
+\commentary{do we actually use this?}
  $F_R : \catc \morph \Rel$.
-
- I shall use $R^{-1}$ for the converse of a relation. I require some simple facts.
 
  \begin{lemma}
  \llabel{threesidedlemma}
@@ -49,38 +60,74 @@ $
 $
 commutes in the category \Rel.
  \end{lemma}
+ \begin{proof}
+ Because $U(f_1)$ is single valued we have
+ \begin{align*}
+ U(f_1)^{-1} \circ U(f_2) \circ U(g_2)
+    &=  U(f_1)^{-1} \circ U(f_2 \circ g_2) \\
+    &= U(f_1)^{-1} \circ U(f_1 \circ g_1) \\
+    &= U(f_1)^{-1} \circ U(f_1) \circ U(g_1) \\
+    & = U(g_1).
+ \end{align*}
+ \end{proof}
 
- \begin{lemma}
+Providing that we assume the axiom of choice then
+for any $R:x \morph y$ in \Rel there is a partial function
+$f:x \morph y$ such that $x \leq y$ and $bar{f} = \bar{R}$.
+We need the following variation on this 
+\begin{lemma}
  \llabel{atleasttwopartialfunctionslemma}
-
- If $R: x \morph y$ in the category of sets 
- such that $R \circ U(q)=U(f)$ and if $R$ is not single-valued
- then there exists at least  two distinct partial functions $r: x \morph y$
+ If $R: x \morph y$ in the category \Rel and $q:y \morph z$ and $f: x \morph y$ in the category \Par such that $\overline{R} \leq \bar{q}$ and $R \circ q = f$ then 
+ if $R$ is not single-valued
+ then there exists at least  two distinct partial functions $r: x \morph y$ 
  such that $r \circ q = f$.
  \end{lemma}
+ \begin{proof}
 
-\begin{oldtt} \redlight{WRONG! NOT TRUE}
+We can choose $r:x \morph y$ such that $r \leq R$ and $\bar{r} = \bar{R}$.  $r$ is bound to satisy the condition $r \circ q =f$
+as we now show. 
+
+First note that because $R \circ q =f$ and because $r \leq R$
+then $r \circ q \leq f$. Then we have 
+\begin{align*}
+r \circ q 
+   &= \overline{r \circ q} \circ f 
+          &&\mbox{because $r \circ q \leq f$, } \\
+   &= \overline{r} \circ f
+          &&\mbox{because $\hat{r} \leq \bar{q}$,} \\
+   &= \overline{R} \circ f
+     &&\mbox{because $r$ chosen so that $\bar{r} = \bar{R}$,} \\
+   &= \overline{R \circ q} \circ f
+     &&\mbox{because it is given that $\bar{R} \circ q = \bar{R}$}, \\
+   &= \bar{f} \circ f 
+          &&\mbox{because it is given that $R \circ q = f$,} \\
+   &= f
+          &&\mbox{by R.1.} 
+\end{align*}
+
+Now there is an $a \in x$ such that $R(x)$ has more than a single value and therefore a value $b$ which is distonct from $r(x)$. Define a second function $r'$ to be identical to
+$r$ except at $x$ where we define its value to be $b$.
+$r':x \morph y$ is distinct from $r$ and satisfies  
+$r \leq R$ and $\bar{r} = \bar{R}$. Therefore as before 
+we have $r' \circ q = f$.
+
+\end{proof}
+
+
  \begin{lemma}
- Suppose I have the following 'zigzag' of partial functor in \Par:
-\workt{I dont have macros for zigzags the right way around so this is an approximation}
-$$
-\arraycolsep=7pt
-\begin{array}{cccccc}
- &\bOb{x}& &\bOb{z} && upto fn\\[0.8cm]
-\bOb{w}& &\bOb{y}&
-\end{array}
-\begin{arrows}
-\ncarr{w}{x}\alabel{f_0}[0.5][0.4]
-\ncarr{y}{x}\blabel{f'_0}[0.5][0.4]
-\ncarr{y}{z}\blabel{f_1}[0.5][0.4]
-\end{arrows}
-$$
-\newt{if this zigzag is tight}
-then if the relation 
-$U(f_0)\circ U(f'_0)^{-1} \circ U(f_1) \circ U(f'{_1})^-1... \circ U(f_n)$
-is single-valued (it is in the image of $U$ therefore) 
-then for each $i$, $1 \leq i \leq n-1$, the relation 
-$U(f'_i) \circ U(f'_{i+1})$ is single-valued.
-\workt{I am going to have to move this lemma to the end of sticklebacks I think so that I don't have to explain tightness here.}
+ \llabel{functionalBackupLemma}
+ If $R_1: x \morph y$ and $R_2: y \morph z$ in the category \Rel
+ then if $R_2$ is defined at every element $b$ of $y$ which is in the image of $R_1$,
+ then if $R_1 \circ R_2$ is single valued then $R_2$ is single valued. \footnote{Note that if we defined restriction operators and range operators for morphisms of \Rel,
+ which we could do, then we could write the key assumption more succinctly as
+ $widehat{R_1} = \overline{R_2}$.} 
  \end{lemma}
- \end{oldtt}
+ \begin{proof}
+ Staightforward. If $b_1$ and $b_2$ are elements of $y$ 
+ for which $R_2$ is defined and for which $R_2(b_1) = R_2(b_2)$
+  then since $b_1$ must also be in the range of $R_1$ then there are $a_1$ and $a_2$ such that $R_1(a_1)=b_1$
+ and $R_2(a_2)=b_2$. Now 
+ $(R_1 \circ R_2) (a_1)
+ =R_2(b_1) = R_2(b_2) 
+ = (R1 \circ R_2) (a_2)$ therefore $a_1 = a_2$ since $R_1 \circ R_2$ is single-valued. Therefore $b_1=R_1(a_1) = R_2(b_2)$.
+ \end{proof}

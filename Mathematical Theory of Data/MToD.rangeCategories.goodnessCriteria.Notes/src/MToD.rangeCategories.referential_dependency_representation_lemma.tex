@@ -61,7 +61,7 @@ to a functor $K'_a: C' \morph \Fin$ so that the following diagram of functors co
 
 By lemma \lref{leastFactorLemma}, for each $i$ we have
 \[
-\qq{r} \circ \restrictToSource{q}{n} \circ q_i = \qq{r} \circ q_i
+\qq{r} \circ \restrictToSource{q}{n} \circ q_i = \qq{r} \circ q_i = \barffn \circ f_i
 \]
 
 therefore, for each $i$, this diagram commutes in in \catcp
@@ -72,7 +72,7 @@ therefore, for each $i$, this diagram commutes in in \catcp
 \bOb{c}  && \Rnode{c2}{c} \\[0.3cm]
 \end{array}
 \begin{arrows}
-\ncarr{a}{bi}\alabel{f_i}
+\ncarr{a}{bi}\alabel{\barffn f_i}
 \ncarr{a}{c}\blabel{\qq{r}}
 \ncarr{c}{c2}\blabel{\restrictToSource{q}{n}}
 \ncarr{c2}{bi}\blabel{q_i}
@@ -100,12 +100,12 @@ Now since there is singleton stickleback $\tuple{\barffn}: a \morph a$ in
 \begin{equation}
 \label{refdependencyPreliminary}
 K'_a(\qq{r}) (\tuple{\barffn}) \circ \tuple{\restrictToSource{q}{n}} \circ \tuple{q_i} 
-= \tuple{\barffn} \circ \tuple{f_i}
+= \tuple{\barffn} \circ \tuple{\barffn \circ f_i}
 = \tuple{\barffn \circ f_i} 
 \end{equation}
 in the stickleback category $\Stk$.
 
-Let $G$ by the stickleback $K'_a(\qq{r}) (\tuple{\barffn}) \circ \tuple{\restrictToSource{q}{n}}$. (\ref{refdependencyPreliminary}) can be rewritten as
+Let $G$ by the stickleback $K'_a(\qq{r}) (\tuple{\barffn}) \circ \tuple{\restrictToSource{q}{n}}$ so that (\ref{refdependencyPreliminary}) can be rewritten as
 \begin{equation}
 \label{refdependencyRewritten}
 G \circ \tuple{q_i} = \tuple{\barffn \circ f_i} 
@@ -157,8 +157,8 @@ D(s_j) = D(g'_j)^{-1} \circ D(g_{j+1}) \circ D(s_{j+1})
 and
 \[
  D(s_{m-1}) = D(g'_{m-1})^{-1} \circ D(g_m) \circ D(q_i)
-\]\workt{removed $\circ D(q_i)$ and replaced}
-this enables us to iteratively remove instance of $s_j$ from the identity (first of last three)
+\]
+This enables us to iteratively remove instance of $s_j$ from the identity (first of last three)
 to obtain 
 \[
 D(g_1) \circ D(g'_1)^{-1} \circ ... 
@@ -174,43 +174,16 @@ Therefore by lemma \lref{atleasttwopartialfunctionslemma} we have that $G_D$ is 
 \[
 D(g_1) \circ D(g'_1)^{-1} \circ ... D(g'_{m-1})^{-1} \circ D(g_m) = R_D
 \]
-and so we have shown that the referential inclusion dependency $R_D$ is represented in \catcw by a stickleback $G$.
-
-It remains to show that $G$ may be replaced by
-a single morphsim. This follows because
-
-\workt{all the folowing to be rewritten --- see below}
-First note that if 
-$D(g_1) \circ D(g'_1)^{-1} \circ ... D(g'_{m-1})^{-1} \circ D(g_m)$ is single valued then 
-$D(g'_{m-1})^{-1} \circ D(g_m)$
-is single-valued and hence there is a functional dependency in \catcw $F_D$ with respect to the requirement \reqt. By previous lemma therefore there
-is a morphism $h_{m-1}: y_{m-1}? \morph y_m?$ in \catcw 
-such that for each $D \in \reqt$, 
-$D(h_m-1)=F_D=D(g'_{m-1})^{-1} \circ D(g_m)$.
-Now we have that in each $D$,
-$G_D=D(g_1) \circ D(g'_1)^{-1} \circ ... D(g'_{m-2})^{-1} \circ D(g_m-1 \circ h_{m-1})$ and can repeat 
-the argument, this time iand infer next that
-$D(g'_{m-2})^{-1} \circ D(g_{m-1} \circ h_{m-1})$
-and that there is a amorphism $h_{m-2}:y_{m-2} \morph y_m$ such that $G_D = D(g_1) \circ D(g'_1)^{-1} \circ ... D(g'_{m-3})^{-1} \circ D(g_m-2 \circ h_{m-2})$. We can repeat the argument and wrrive at a morphism
-$h_1 : y_1 \morph y_m$ such that
-$G_D= D(g_1 \circ h_1)$. Therefore there is a morphism,
-$g_1 \circ h_1$, in \catcw that represents the inclusion dependency $R$. \workt{$R_D$?}.
-\begin{worktt}
-All be above can be rewritten. Because because of equational completeness we must have
-$g'{m-1} \circ h_{m-1} = g_m$ in \catc. Therefore
-$h_{m-1}$ is a shortening of $G$ which contradicts that $G$ is a short stickleback. \workt{Use a corollary.}
-
-
-\workt{Corollary} to the functional dependency representation lemma:
-use the extended $D$ functor
-$D^*: \Stk \morph \Rel$. If $G$ is a short 
-stickleback  of category \catcw and if \catcw is maximally constrained to requirement \reqt then if for every $D \in \reqt$, $D^*(G)$ is single valued, then
-$G$ is of length $1$ i.e. $G=\tuple{g}$ for some morphism $g$ of \catcw.
-\end{worktt}
-
-\begin{worktt}
-so I can rename $h_{m-1}$ to $h$ because I don't need to iterate.
-\end{worktt}
+which is to say that
+\[
+D^*(G)=R_D
+\]
+and in particular $D^*(G)$ is single valued from which it follows from corollary \lref{functionalDependencyRepresentationCorollary} 
+, because $G$ is tight, that $G$ is of length $1$ and
+is $\tuple{g}$ 
+for some morphism $g:a \morph c$ in \catcw
+for which $D(g)=R_D$. We have proved that 
+for all $D \in reqt$, $R_D$ is represented in \catc. 
 
 \end{proof}
 
