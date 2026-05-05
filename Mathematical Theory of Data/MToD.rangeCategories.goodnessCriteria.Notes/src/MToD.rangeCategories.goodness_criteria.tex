@@ -209,8 +209,8 @@ iff in each instance $D \in \reqtc$, $D(r) = R_D$.
 \textbf {Goodness Criterion 2C} \IfSforCwithRCwords 
 then all referential inclusion dependencies present in $\reqtc$
 ought to be be represented in \catcp.
-\begin{pathNotTaken}
-From an historic context so treat with caution.
+
+\begin{aside}
 \begin{lemma}
 \label{catRefIncSublemma}
 If $\catc$ is a category and $\reqtc$ is a set of instances,
@@ -218,13 +218,19 @@ if \fnsourceqnsource in $\catc$,
 and if $a[f_1,...f_n] \overset{R}{\subseteq} c[q_1,..q_n]$ 
 is a referential inclusion dependency with respect to $\reqtc$ 
 then if there is a morphism $r: a \morph c$ in \catcw 
-such that for each $i$, $r \circ q_i \leq f_i$
+such that for each $i$, 
+$r \circ q_i = \restrictToSource{f}{n} \circ f_i$
 and $\overline{r} = \restrictToSource{f}{n}$ 
-then $r$ is a representation of $R$  in  \catc. 
+then $r$ is a representation of $R$  in  \catc.\footnotemark
 \end{lemma}
 \begin{proof}
-Straightforward because of the uniqueness condition for each $R_D$ in the definition of referential inclusion dependency and because the restriction functoriality of each $D \in \reqtc$ gives, 
-for each $i$, $D(r) \circ D(q_i) \leq D(f_i)$
-and also $\overline{D(r)}=\restrictToDSource{f}{n}$.
+For any $D \in \reqtc$ the restriction functoriality  $D$ gives, 
+for each $i$, 
+$D(r) \circ D(q_i) = \restrictToDSource{q}{n} \circ D(f_i)$
+and also \nudgeup{0.425cm}$\overline{D(r)}=\restrictToDSource{f}{n}$.
+So $D(r)$ satisfies the defining property of 
+$R_D$ for $R$ as a referential inclusion dependency and hence by uniqueness $D(r)=R_D$.
 \end{proof}
-\end{pathNotTaken}
+\end{aside}
+\footnotetext{ The reverse implication --- that
+if $R$ represented then there is such an $r$ satisying the two identities --- does not generally hold but will hold if \catcw is equationally complete with respect to the requirement $R_D$.}

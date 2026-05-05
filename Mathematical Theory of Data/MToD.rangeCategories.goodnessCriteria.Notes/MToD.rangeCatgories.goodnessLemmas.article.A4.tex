@@ -56,18 +56,26 @@
 \parskip 1ex
 
 
+\usepackage{makeidx}
+\makeindex
 
 \begin{document}
 \title{Range Categories and the Theory of Data\\[0.5em]
-\large Kernel of a Mathematical Theory of Data}
+\large A Kernel for a Mathematical Theory of Data}
 
 % abstract here for ams
 \author{John Cartmell}
 \date{}
 \maketitle
 \begin{center}
-Work in progress January 2026 Going on February ... March
+Work in progress January 2026 Going on February, March, April.
+Much text regarding failed hom functor idea hived off --- see
+parallel whenEverythiingFellApart.
 \end{center}
+\begin{aside}
+Much text regarding failed hom functor idea hived off --- see
+parallel whenEverythingFellApart.
+\end{aside}
 
 \newcommand{\IfSforCwithRCwords}{If $S$ is a sketch for category \catcw and if $S$ is considered as a data specification with requirement $\reqtc$\ }
 
@@ -121,6 +129,18 @@ Work in progress January 2026 Going on February ... March
 \tuple{#1_1,#1'_1,...#1_{#2-1},#1'_{#2-1},#1_{#2}}    
 }
 
+%zigzagLeadingTuple{f}{n}
+\newcommand{\zigzagLeadingTuple}[2]
+{
+\tuple{#1_1,#1'_1,...#1_{#2-2},#1'_{#2-2},#1_{#2-1}}    
+}
+
+%zigzagTupleSharp{f}{n}
+\newcommand{\zigzagTupleSharp}[2]
+{
+\tuple{#1'_1,...#1_{#2-1},#1'_{#2-1},#1_{#2}}    
+}
+
 %zigzagTupleEndShortened{f}{n}{s}
 \newcommand{\zigzagTupleEndShortened}[3]
 {
@@ -151,12 +171,14 @@ Work in progress January 2026 Going on February ... March
 
 \newcommand{\conc}{::}
 
+\newcommand{\rst}[1]{\overline {\vphantom{f}#1}}
+\newcommand{\rng}[1]{\reallywidehat {\vphantom{f}#1}}
+
 \input{../src/MToD.rangeCategories.zigzagcommands.tex}
 
 \tableofcontents
 
-
-
+\iffalse
 \section{Introduction}
 
 \input{../src/MToD.rangeCategories.introduction.tex}
@@ -166,20 +188,20 @@ Work in progress January 2026 Going on February ... March
 \section{Range Categories, Partial Sections and Weak-Range Operators}
 \input{../src/MToD.rangeCategories.ranges_sections_and_weak_range.tex} 
 
-\section{\Par valued Functors}
 
+\section{\Par valued Functors}
 \input{../src/MToD.rangeCategories.Par_valued_functors.tex}
 
 \section{The category \Rel}
 %Should I move Rel section after stickelbacks?
 % Why?
 \input{../src/MToD.rangeCategories.Rel_category.tex}
-
+\fi
 \section{Sticklebacks}
 %\input{../src/MToD.rangeCategories.zigzagcommand.tests.tex}
 \workt{File MToD.rangeCategories.sticklebacks.tex}
 \input{../src/MToD.rangeCategories.sticklebacks.tex}
-
+%\iffalse
 \section{Carry Forward}
 \input{../src/MToD.rangeCategories.carry.tex}
 
@@ -200,17 +222,12 @@ Work in progress January 2026 Going on February ... March
 
 \input{../src/MToD.rangeCategories.referential_dependency_representation_lemma.tex}
 
-
-\appendix
-APPENDICES
-\section{Cockett et al}
-
-\input{../src/MToD.rangeCategories.cockett.tex}
-\section{Old stickleback material}
-
-\input{../src/MToD.rangeCategories.old_stickleback_material.tex}
+%\fi
 
 \bibliographystyle{alpha} 
 \bibliography{../../../SharedBibliography/temp/bibliography}
+
+
+\printindex[lemmas]
 
 \end{document}
