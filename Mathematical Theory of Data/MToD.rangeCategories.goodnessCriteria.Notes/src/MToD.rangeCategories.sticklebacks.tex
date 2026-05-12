@@ -79,7 +79,7 @@ we have $Z \leq T$.
 
 Because $\leq$ is a partial order, any such tightening of $F$ is unique.
 
-We will show that every zigzag $F$ has a tightening and w2e will then write $T(F)$ for the tightening of $F$..
+We will show that every zigzag $F$ has a tightening and we will then write $T(F)$ for the tightening of $F$..
 
 We will make extensive use of the fact that orderings compose (see lemma \lref{orderingsCompose}) and we will use it in the following form:
 \begin{observation}
@@ -274,9 +274,19 @@ The second  because
 \end{align*}
 \end{proof}
 } %end lemma leftToRightTighteningSubLemma
+We have established that every zigzag $F$ has a unique tightening. 
+We shall write $T(F)$ for the tightening of $F$. We need the following takeaway from this lemma:
 
-\begin{corollary}
-\llabel{tailCorollary}
+\begin{observation}
+\llabel{bareTailObservation}
+If $F=\zigzagTuple{f}{n}$ is a zigzag then
+\[
+T(F) = T(\zigzagBareTailTuple{f}{n}) ::\tuple{f_n}
+\] 
+\end{observation}
+\noindent and from this there also follows:
+\begin{observation}
+\llabel{tailComposeObservation}
 If  $F=\zigzagTuple{f}{n}$ is a zigzag 
 and if the final morphism $f_n$ of $F$ composes with some morphism $g$
  so that the composite zigzag $F :: \tuple{g}$ is defined then
@@ -285,17 +295,8 @@ and  $T(F :: \tuple{g})=\zigzagTuple{s}{n}$ then
 \[
 s_n = t_n \circ g
 \]
-\begin{aside}
-A useful adjunction to this us:
-\[
-T(F::\tuple{g}) \leq T(F) :: \tuple{g}
-\]
-\end{aside}
-\end{corollary}
-\begin{proof}
-This is a direct consequence of
- lemma \lref{leftToRightTighteningSubLemma}. Make it a corollary, possibly with parts (i) and (ii).
-\end{proof}
+\end{observation}
+
 
 Lemma \lref{leftToRightTighteningSubLemma} describes how a zigzag can be tighten from left to right. We can also describe how a zigzag can be
 tightened from right to left. This is what the next lemma is about.
@@ -401,25 +402,57 @@ as a tightening of the rhs of this inequality we establish that
 \zigzagTrailingTuple{z}{n} \leq \zigzagTrailingTuple{t}{n} ???
 \]
 
-\begin{worktt}
 To establish the target inequality (\ref{targetRLInequality})
 we need 
 in addition to show that
  \begin{equation}
  \label{RLinequalityTwo}
- z_1 \leq f_1 \circ \rng{\rst{t_2} \circ f'_1}
+ z'_1 \leq  \rst{t_2} \circ f'_1 \circ \rng{f_1}
  \end{equation}
  and
   \begin{equation}
  \label{RLinequalityThree}
- z'_1 \leq  \rst{t_2} \circ f'_1 \circ \rng{f_1}
+ z_1 \leq f_1 \circ \rng{\rst{t_2} \circ f'_1}
  \end{equation}
-\end{worktt}
+The first of these holds because
+\begin{align*}
+z'_1 &= \rst{z'_1} \circ z'_1  \circ \widehat{z'_1} 
+                && \mbox{trivially, by R.1 and RR.2,}\\
+         &= \rst{z_2} \circ z'_1  \circ \widehat{z_1} 
+         &&\mbox{because $Z$ is tight,}\\
+         &\leq \rst{z_2} \circ f'_1  \circ \widehat{f_1}
+         &&\mbox{because $Z \leq F$ ,}\\
+         &\leq \rst{t_2} \circ f'_1  \circ \widehat{f_1}
+         &&\mbox{because $z_2 \leq t_2$ is established
+                               above in (\ref{RLinequalityOne}).}
+\end{align*}
 
+The second because
+\begin{align*}
+z_1 &= z_1 \circ \rng{z_1}
+        && \mbox{by RR.2,} \\ 
+    &= z_1 \circ \rng{z'_1}
+        && \mbox{since $Z$ is tight,} \\ 
+    &\leq f_1 \circ \rng{\rst{t_2} \circ f'_1 \circ \rng{f_1}}
+        && \mbox{by (\ref{RLinequalityTwo}) and since $z_1 \leq f_1$,} \\ 
+    &= f_1 \circ \rng{\rst{t_2} \circ f'_1}
+        && \mbox{by lemma \ref{fglemma} (iii), R.2, RR.1  and RR.2.}
+\end{align*}
 \end{proof}
 }  % end of lemma rightToLeftTighteningSubLemma
-\begin{corollary}
-\llabel{headCorollary}
+
+From this lemma we cam make the following observations
+\begin{observation}
+\llabel{bareHeadObservation}
+If $F=\zigzagTuple{f}{n}$ is a zigzag then
+\[
+T(F) =  \tuple{f_1} :: T(\zigzagBareHeadTuple{f}{n}) 
+\] 
+\end{observation}
+
+
+\begin{observation}
+\llabel{headComposeObservation}
 If  $G=\zigzagTuple{g}{m}$ is a zigzag 
 and if some morphism $f$ composes with the  initial morphism $g_1$ of $G$
  so that the composite zigzag $\tuple{f} :: G$ is defined then
@@ -428,10 +461,7 @@ and  $T(\tuple{f} :: G)=\zigzagTuple{s}{n}$ then
 \[
 s_1 \leq f \circ t_1
 \]
-\end{corollary}
-\begin{proof}
-\tbd
-\end{proof}
+\end{observation}
 
 \begin{worktt}
  I should factor out  a midpoint lemma here from
@@ -444,9 +474,8 @@ then we get $q_n \leq t_n \circ s_1$.
 \begin{observation}
 \llabel{biggeristighter}
 If we have two zigzags $F$ and $G$ and one is an extension of the other
-then the tightening of the longer one truncated to be comparable with the smaller is less than or equal the tightening of the smaller one.\commentary{Trivial but needs spelling out.}
+then the tightening of the longer one truncated to be comparable with the smaller is less than or equal the tightening of the smaller one.\commentary{If needed should move earlier.}
 \end{observation}
-
 
 \begin{lemma}
 \llabel{tighteningCommutesWithComposition}
@@ -496,7 +525,8 @@ $$
 \arraycolsep=7pt
 \tightenedComposite{r},
 $$
-\item $T(F :: G)=\zigzagTuple{q}{n+m}$ 
+\item Let $Q$ be the tightening of $F :: G$ 
+and suppose $Q$ to be the zigzag $\zigzagTuple{q}{n+m}$ 
 so that we have
 $$
 \arraycolsep=7pt
@@ -510,11 +540,10 @@ We will prove the result by showing
 \item that $T(F :: G) \leq T(T(F) :: T(G))$.
 \end{enumerate}
 
-To establish (a), since $T(T(F) :: T(G))$ is tight,
-by corollary \lref{absoluteTighteningCorollary}\commentary{I feel this should be the defintion of tightening}
+To establish (a), since, by definition, $T(T(F) :: T(G))$ is tight
 it suffices to show that 
 $T(T(F) :: T(G)) \leq F:: G$. 
-and, since $T(T(F) :: T(G)) \leq T(F) :: T(G)$, it therefore suggices to show that
+Since $T(T(F) :: T(G)) \leq T(F) :: T(G)$, it therefore suffices to show that
 \[
 T(F) :: T(G) \leq F:: G
 \]
@@ -536,71 +565,77 @@ Moreover, since $t_n \leq f_n$ and $s_1 \leq g_1$, it follows by Lemma~\lref{ord
 t_n \circ s_1 \leq f_n \circ g_1.
 \]
 
-
 To establish (b), because $T(F :: G)$ is tight it suffices to show that
 $T(F :: G) \leq T(F) :: T(G)$. In other words that
-$$
+\begin{equation}
+\label{pointwiseTargetInequality}
 \tuple{q_1,q'_1,...q'_{n-1},q_n,q'_n,...q_{n+m}}\leq \tuple{t_1,t'_1,...t'_{n-1},t_n \circ s_1,s'_1,...s_m}
-$$
-We prove this piecemeal. 
-For the initial segment as far as $q_{n-1}$ 
-Because $\tuple{q_1,...q_{n+m}}$ is the tightening of 
-$F :: G$, it follows first that
-\[
-\zigzagTuple{q}{n-1} \leq F^\flat
-\]
-and then that
-\[
-\zigzagTuple{q}{n-1} \leq T(F)^\flat
-\] 
-and, in particular, that for $1 \leq i \leq n$, $q_i < t_i$ and $q'_i < t_i$.
-A similar argument gets us
-\[
-\zigzagTailTuple{q}{n}{m} \leq T(G)
-\]
-and, in particular, that 
-for $1 \leq j \leq m$, $q_{n+j} < s_j$ and 
-for $0 \leq j \leq m-1$, $q'_{n+j} < s'_j$.
+\end{equation}
 
-That leaves us having to prove that $q_n \leq t_n \circ s_1$.
-Now consider that $F :: \tuple{g_1}$ the zigzag that is
-the initial segment of the zigzag $F :: G$
-that is $\tuple{f_0,...f'_{n-1},f_n \circ g_1}$
-and that $\tuple{f_n} :: G$ is the zigzag that is 
-the final segment of $F :: G$
-that is $\tuple{f_n \circ g_1,g'_1,...g_m}$
-and consider the tightenings $T(F :: g_1)$ and $T(f_n :: G)$ of these zigzags.
+We prove this piecemeal
+starting with the those inequalities  
+that precede the inequality for $q_n$.
+First note that $\rst{q_n} \leq \rst{f_n}$
+because as part of the tightening of $F \circ G$ we have that
+$q_n \leq f_n \circ g_1$ and therefore 
+$\rst{q_n} \leq \rst{f_n \circ g_1} \leq \rst{f_n}$. 
+
+From this, and again because of the definition of $Q$ as the tightening
+of $F \circ G$, we have that 
+\[
+\zigzagBareTailTuple{q}{n} \leq \zigzagBareTailTuple{f}{n}
+\]
+from which follows 
+\[
+\zigzagBareTailTuple{q}{n}  \leq T(\zigzagBareTailTuple{f}{n})
+\]
+and therefore
+\begin{align*}
+\zigzagBareTailTuple{q}{n} \circ f_n  &\leq T(\zigzagBareTailTuple{f}{n}) \circ f_n,\\
+                                 &=  \tuple{t_1,... t_n} 
+                                 \mbox{ by observation \ref{bareTailObservation},} \\
+\end{align*}
+which gives us the required inequalities for those $q_i$ and $q'_i$ up to and including $q'_{n-1}$.
+
+Similar reasoning, using observation \ref{bareHeadObservation}, can be used to establish
+the inequalities for all those $q_i$ and $q'_i$ that follow after the inequality for
+$q_n$. The remaining inequality to be established is that
+\[
+\label{qleqtnsOne}
+q_n \leq t_n \circ s_1.
+\]
+To show that this holds first consider the zigzag $F :: \tuple{g_1}$.
+This is the initial segment of the zigzag $F :: G$. 
 Because $\tuple{q_1,...q_{n+m}}$ is the tightening of 
 $F :: G$ it follows
-using observation \lref{biggeristighter}  that both
+using observation \lref{biggeristighter}  that 
 \begin{equation}
 \label{qTFg}
-\tuple{q_1,...q'_{n-1},q_n} \leq T(F :: \tuple{g_1})
+\tuple{q_1,...q'_{n-1},q_n} \leq T(F :: \tuple{g_1}).
 \end{equation} 
-and
-\begin{equation}
-\label{qTfG}
-\tuple{q_n, q'_n,...q_{n+m}} \leq T(\tuple{f_n} :: G)
-\end{equation}
-By corollary \lref{tailCorollary} 
-the final element of $T(F :: \tuple{g_1})$ is $ \leq t_n \circ g_1$ .
-Therefore from (\ref{qTFg}) we have in particular that
+By observation \lref{tailComposeObservation} 
+the final element of $T(F :: \tuple{g_1})$ is $t_n \circ g_1$
+and therefore we have in particular that
 \begin{equation}
 \label{qgtn}
 q_n \leq t_n \circ g_1.
 \end{equation}
-Likewise using corollary \lref{headCorollary} 
-we have that the initial element
-of $T(\tuple{f_n} :: G)$ is $\leq f_n \circ s_1$ and therefore from 
-(\ref{qTfG}) we have the particular case that
+By similar considerations and using observation \lref{headComposeObservation}
+we have that 
+\begin{equation}
+\label{qTfG}
+\tuple{q_n, q'_n,...q_{n+m}} \leq T(\tuple{f_n} :: G)
+\end{equation}
+and 
 \begin{equation}
 \label{qsfn}
 q_n \leq f_n \circ s_1.
 \end{equation}
-Finally we use lemma \lref{pointwiseorderingsCompose} to establish  from
-(\ref{qgtn}) and (\ref{qsfn}) that
-$q_n \leq  t_n \circ s_1$ and so complete the proof.
+Finally, using lemma \lref{pointwiseorderingsCompose} we establish  
+(\ref{qleqtnsOne}) from
+(\ref{qgtn}) and (\ref{qsfn}), as required.
 \end{proof}
+
 
 \subsection{The category of tight zigzags}
 \llabel{categorytightzigzags}
@@ -611,7 +646,7 @@ $$
 \arraycolsep=7pt
 \zigzag{x}{y}{f}{n}
 $$
-such that $x_0=a$ and $y_n=b$.
+such that $x_1=a$ and $y_n=b$.
 
 
 Composition in $Z_C$ is defined by composing the zigzags and then tightening  thus
@@ -621,42 +656,32 @@ F \circ G =_{def} T(F :: G).
 Composition is associative since 
 \begin{align*}
 (F \circ G) \circ H 
-                &= T(T(F \conc G) \conc H) \\
+                &= T(T(F \conc G) \conc H) &&   \mbox{by definition,} \\
                 &= T(T(F \conc G) \conc T(H))
                         &\mbox{since $H$ is tight,}\\
                 &= T((F \conc G) \conc H)  
-                        &\mbox{by lemma \lref{tighteningCommutesWithComposition}}\\
+                        &\mbox{by lemma \lref{tighteningCommutesWithComposition},}\\
                 &= T(F \conc (G \conc H))
-                        &\mbox {since $\conc$ is associative} \\
+                        &\mbox {since $\conc$ is associative,} \\
                 &= T(T(F) \conc T(G \conc H))       
-                        &\mbox{by lemma \lref{tighteningCommutesWithComposition}}\\
+                        &\mbox{by lemma \lref{tighteningCommutesWithComposition},}\\
                 &= T(F \conc T(G \conc H))))
-                        &\mbox{since $F$ is tight} \\
-                &= F \circ (G \circ H)                     
+                        &\mbox{since $F$ is tight,} \\
+                &= F \circ (G \circ H) &&   \mbox{by definition.}                 
 \end{align*}
 
 Identity morphisms in $Z_C$ consist of the identity morphisms of \catcw considered 
 as zigzags on length 1.
 
-\subsection{The category of tight zigzags $Z_C$ is a category with awR.4 support}
+\subsection{The category of tight zigzags $Z_C$ is a category with support}
 
-If $F=\zigzagTuple{f}{n}$ is a morphism in $Z_C$ then define $\rst{F}$ to be $\tuple{\widehat{f_0}}$ the  zigzag of length $1$ determined by the morphism $\widehat{f_0}$ of \catcw.
-
+If $F=\zigzagTuple{f}{n}$ is a morphism in $Z_C$ then define $\rst{F}$ to be $\tuple{\rst{f_1}}$.
 
 
 \begin{observation}
 \llabel{composeTightFGobservation}
 Ff $F$ and $G$ are both tight zigzags then
 $$F \circ G = F \circ \bar{G} :: \pointwiserange{F} \circ G$$
-\end{observation}
-
-\begin{observation}
-\llabel{initialSegmentObservation}
-If $Z$ is a tight zigzag and $Z=Z_1 :: Z_2$ and both $Z_1$ and $Z_2$
-are tight then 
-\[
-\rst{Z_1 :: Z_2}=\rst{Z_1}
-\]
 \end{observation}
 
 
@@ -676,13 +701,6 @@ wR.4. If $\sequentialdiag{a}{b}{c}{F}{G}$ in $Z_C$ then
 \rst{F \circ \rst{G}} = \rst{F \circ G}.
 \]
 
-awR.4 If $\sequentialdiag{a}{b}{c}{F}{G}$ in $Z_C$ then
-
-\[
-\rst{F \circ G} = \rst{F} \mbox{ implies  } F \circ \rst{G} = F.
-\]
-\workt{I am now thinking this only holds if F is of length 1.}
-
 R.1 follows because in \catcw, $f_0 \circ \widehat{f_0} = f_0$. 
 
 R.2 follows because in \catcw $\widehat{f_0} \circ \widehat{g_0} = \widehat{g_0} \circ \widehat{f_0}$.
@@ -694,7 +712,7 @@ R.3 follows because
                    &= \rst{T(\tuple{g_0 \circ \widehat{f_0},g'_0,...g_m})}\\
                    &= \rst{\tuple{g_0 \circ \widehat{f_0},s'_0,...s_m}}
                                              &&\mbox{\parbox{5cm}{for some $s'_0,...s_m$
-                                                       by some new lemma about tighteniong when only head position loose,}}\\
+                                                       by some new lemma about tightening when only head position loose,}}\\
                    &=\tuple{\widehat{g_0 \circ \widehat{f_0}}} 
                                             && \mbox{by definition}\\
                    &=\tuple{\widehat{g_0} \circ \widehat{f_0}}  
@@ -706,11 +724,9 @@ wR.4 is shown to hold as follows:
 \begin{align*}
 \rst{F \circ G} 
        &= \rst{F \circ \bar{G} :: \hat{F} \circ G} 
-       && \mbox{by observation \ref{composeTightFGobservation}}  \\
-       &= \rst{F \circ \bar{G}} 
-       && \mbox{by observation \ref{initialSegmentObservation}}
+       && \mbox{by observation \ref{composeTightFGobservation}} \\
+       &&&\mbox{\highlight{NEED MORE THAN THIS}}
 \end{align*}
-
 
 
 
@@ -820,7 +836,7 @@ tightening to the left and terms to after need tightening to the right.
 I am going to refer to  the leading $2n -1$ elements of T(F::G)
 as $ff_1, ff'_1,...ff'_{n-1}$ and $ff'_n$ and I am going to refer 
 to the trailing $2m-1$ elements as $gg_1,gg'_1,...gg_m$.
-What  this means is that the element that is refered to as
+What  this means is that the element that is refereed to as
 $ff_n$ is also referred to as $gg_1$. 
 With this way of referencing the elements of $T(F::G)$ 
 then I can describe $T(F::G)$ as follows:
@@ -1017,7 +1033,7 @@ zigzag can be shorten by $s$ because, by lemma \ref{shorteningSpecialisationLemm
 \leftToRightArcing[a]{s}{15}{15}
 \]
 commutes. 
-The sortening of this tightening is the following variation
+The shortening of this tightening is the following variation
 of equations (\ref{tighteningcomposite:ffn}) to (\ref{tighteningcomposite:ggj})
 
 \begin{framedEquations}{$shorten(T(F::G),n,s))
@@ -1090,7 +1106,7 @@ gg_j  &= \rst{gg'_{j-1}} \circ g_j,
                 &&\qquad (2 \le j \le m).
 \end{alignat}
 
-The shortening of the tightening is described by a similar set of equations obtained by omiting the pair $gg'_{j_s}$, $gg_{j_s+1}$
+The shortening of the tightening is described by a similar set of equations obtained by omitting the pair $gg'_{j_s}$, $gg_{j_s+1}$
 and replacing the equation for $gg_{j_s}$ by
 \[
 gg_{j_s} = \rst{gg'_{j_s -1}} \circ g_{j_s} \circ s
@@ -1199,7 +1215,7 @@ f'_{n-1} \circ s_{n-1} = f_n
 \]
 \end{lemma}
 \begin{proof}
-For any series of shortenings of $F$ to a single morphism one of this set must shorten the triange the final zag in F i.e. 
+For any series of shortenings of $F$ to a single morphism one of this set must shorten the triangle the final zag in F i.e. 
 there must be a morphism $s_{n-1}:y_{n-1} \morph y_n$
 such that the triangle 
 $\nudgeup{1.5cm}\downTriangleShape{x_n}{y_{n-1}}{y_n}
@@ -1229,6 +1245,6 @@ $
 commutes and shorten $F$ to a zigzag
 $\tuple{f_1,f'_1,...f_{n-3}, f_{n-2} \circ s_{n-2}}$
 By iteration we arrive
-at morphisms $s_1,...s_{n-1}$ which shorten $F$ to a singleton (and therefore short) zigzag $\tuple{f_1 \circ s_1}$. But since the shortening of a tight zigzag is unqiue 
+at morphisms $s_1,...s_{n-1}$ which shorten $F$ to a singleton (and therefore short) zigzag $\tuple{f_1 \circ s_1}$. But since the shortening of a tight zigzag is unique 
 we must have $f_1 \circ s_1=f$.
 \end{proof}
