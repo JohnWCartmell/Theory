@@ -1,0 +1,215 @@
+ \documentclass[10pt,a4paper]{article}
+\newcommand{\sharedmacros}{../../../SharedMacros}
+\input{\sharedmacros/ccategories.macros}
+\input{\sharedmacros/ermacros}
+\input{\sharedmacros/erdiagram}
+\input{\sharedmacros/theorems.macros}
+\input{\sharedmacros/general.macros.v2}
+\input{\sharedmacros/diagram.macros}
+\usepackage{xparse}
+\usepackage{xstring} % for some diagram macros
+\usepackage{fancyvrb} % used for documenting examples of macros 
+                      % along with verbatim text of example.
+%\usepackage{mathptmx}  % This changes font to roman % dont know wehn I started using this and why but it is obsolte so get rid of it.
+\usepackage{anyfontsize}
+\usepackage{mathtools}  % why have we got this?
+\usepackage{mdframed}
+\usepackage{alltt}    
+\usepackage{cmll}
+%\usepackage{yhmath}  % used for better version of \widehat
+\usepackage{ulem}
+\renewcommand{\ttdefault}{txtt}
+\usepackage[left=1.5cm, right=4cm, marginparwidth=3cm, top=2cm, bottom=2.0cm]{geometry}
+\usepackage{framed}
+\usepackage[font=small]{caption}
+\setlength{\captionmargin}{2cm}
+\theoremstyle{remark}
+\newtheorem*{lemma*}{Lemma}
+\renewcommand{\term}[1]{\textit{#1}}  %SIMPLE UNINDEXED VERSION
+\usepackage{imakeidx}
+\makeindex[name=definitions, title=Index of Definitions]
+\makeindex[name=lemmas, title=Index of Lemmas]
+
+\newenvironment{framedEquations}[1]{%
+\begin{mdframed}[
+  frametitle={\qquad #1},
+  frametitlealignment=\raggedright,
+  innertopmargin=0pt,
+  frametitleaboveskip=4pt,
+  frametitlebelowskip=-7pt
+]
+}{%
+\end{mdframed}
+}
+
+\usepackage{scalerel,stackengine}
+\stackMath
+\newcommand\reallywidehat[1]{%
+\savestack{\tmpbox}{\stretchto{%
+  \scaleto{%
+    \scalerel*[\widthof{\ensuremath{#1}}]{\kern-.6pt\bigwedge\kern-.6pt}%
+    {\rule[-\textheight/2]{1ex}{\textheight}}%WIDTH-LIMITED BIG WEDGE
+  }{\textheight}% 
+}{0.5ex}}%
+\stackon[1pt]{#1}{\tmpbox}%
+}
+\parskip 1ex
+
+
+
+\begin{document}
+\title{Range Categories and the Theory of Data\\[0.5em]
+\large Kernel of a Mathematical Theory of Data}
+
+% abstract here for ams
+\author{John Cartmell}
+\date{}
+\maketitle
+\begin{center}
+April 2026 when I thought that there was a partial hom functor in to Par from the category of sticklebacks. Variously called homP pHom and rHom! There isn't. At best there is a lax or such such hom functor. There is good work that won't get used like lemmas A. Which then applied to sticklebacks also. Trouble is lemma B isn't true so what should be the required hom functor isn't a functor.
+\end{center}
+
+\newcommand{\IfSforCwithRCwords}{If $S$ is a sketch for category \catcw and if $S$ is considered as a data specification with requirement $\reqtc$\ }
+
+\newcommand{\fgsourcediag}{$\binarysourcediag{a}{b}{c}{f}{g}$}
+\newcommand{\fgsinkdiag}{$\binarysinkdiag{a}{b}{c}{f}{g}$}
+\newcommand{\FGsourcediag}{$\binarysourcediag{a}{b}{c}{F}{G}$}
+\newcommand{\FGsinkdiag}{$\binarysinkdiag{a}{b}{c}{F}{G}$}
+
+\newcommand{\barItself}{$\overline{\kern0.2cm\nudgeup{0.2cm}}$}
+\newcommand{\hatItself}{$\widehat{\kern0.2cm\nudgeup{0.2cm}}$}
+
+\newcommand{\Fquotient}{F/\sim}
+
+%macros used in pstricks diagrams
+\newcommand{\Ob}[2]{
+\Rnode{#1#2}{#1_{#2}}
+}
+% b bare object no subsript
+\newcommand{\bOb}[1]{
+\Rnode{#1}{#1}
+}
+% p for predecessor
+\newcommand{\Obp}[2]{
+\Rnode{#1#2p}{#1_{#2-1}}
+}
+
+% s for successor
+\newcommand{\Obs}[2]{
+\Rnode{#1#2s}{#1_{#2+1}}
+}
+
+\newcommand{\Obpp}[2]{
+\Rnode{#1#2pp}{#1_{#2-2}}
+}
+
+\newcommand{\Obss}[2]{
+\Rnode{#1#2ss}{#1_{#2+2}}
+}
+
+
+\newcommand{\Stk}[1][C]{\textbf{Stk}_\textbf{#1}}
+\NewDocumentCommand{\HomStk}{O{a} O{-} O{C}}{pHom_{\Stk[#3]}(#1,#2)}
+
+\newcommand{\weakrange}[1]{\widehat{#1}^{\mathrm w}}
+\NewDocumentCommand{\pointwiserange}{m}
+  {\reallywidehat{#1}^{\!*}}
+
+%zigzagTuple{f}{n}
+\newcommand{\zigzagTuple}[2]
+{
+\tuple{#1_1,#1'_1,...#1_{#2-1},#1'_{#2-1},#1_{#2}}    
+}
+
+%zigzagTupleEndShortened{f}{n}{s}
+\newcommand{\zigzagTupleEndShortened}[3]
+{
+\tuple{#1_1,#1'_1,...#1'_{#2-1}, #1_{#2-1} \circ s}    
+}
+\iffalse
+%zigzagStarTuple{f}{n}
+\newcommand{\zigzagStarTuple}[2]
+{
+\tuple{#1^*_1,#1'^*_1,...#1^*_{#2-1},#1'^*_{#2-1},#1^*_{#2}}    
+}
+\fi
+
+%zigzagTuple{f}{n}{m}
+\newcommand{\zigzagTailTuple}[3]
+{
+\tuple{#1_#2,#1'_#2,...#1_{#2+#3-1},#1'_{#2+#3-1},#1_{#2+#3}}    
+}
+
+\newcommand{\restrictToDSource}[2]{
+\overline{D(#1_1)}\circ ... \circ \overline{D(#1_#2)}
+}
+
+
+\newcommand{\restrictToSource}[2]{
+\overline{#1_1}\circ ... \circ \overline{#1_#2}
+}
+
+\newcommand{\conc}{::}
+
+\input{../src/MToD.rangeCategories.zigzagcommands.tex}
+
+\tableofcontents
+
+
+\section{Introduction}
+
+\input{../src/MToD.rangeCategories.introduction.tex}
+\section{Restriction Categories and Categories with Support}
+
+\input{../src/MToD.rangeCategories.restrictions_and_support.tex}
+\section{Range Categories, Partial Sections and Weak-Range Operators}
+\input{../src/MToD.rangeCategories.ranges_sections_and_weak_range.tex} 
+
+\section{\Par valued Functors}
+
+\input{../src/MToD.rangeCategories.Par_valued_functors.tex}
+
+\section{The category \Rel}
+%Should I move Rel section after stickelbacks?
+% Why?
+\input{../src/MToD.rangeCategories.Rel_category.tex}
+
+\section{Sticklebacks}
+%\input{../src/MToD.rangeCategories.zigzagcommand.tests.tex}
+\workt{File MToD.rangeCategories.sticklebacks.tex}
+\input{../src/MToD.rangeCategories.sticklebacks.tex}
+
+\section{Carry Forward}
+\input{../src/MToD.rangeCategories.carry.tex}
+
+\section{Goodness of Data Specifications}
+\subsection{General Principles}
+
+\input{../src/MToD.rangeCategories.goodness_principles.tex}
+
+\subsection{Specific Criteria}
+
+\input{../src/MToD.rangeCategories.goodness_criteria.tex}
+
+\section{Goodness Lemmas}
+
+\input{../src/MToD.rangeCategories.path_equivalence_representation_lemma.tex}
+
+\input{../src/MToD.rangeCategories.fd_representation_lemma.tex}
+
+\input{../src/MToD.rangeCategories.referential_dependency_representation_lemma.tex}
+
+
+\appendix
+APPENDICES
+\section{Cockett et al}
+
+\input{../src/MToD.rangeCategories.cockett.tex}
+\section{Old stickleback material}
+
+\input{../src/MToD.rangeCategories.old_stickleback_material.tex}
+
+\bibliographystyle{alpha} 
+\bibliography{../../../SharedBibliography/temp/bibliography}
+
+\end{document}

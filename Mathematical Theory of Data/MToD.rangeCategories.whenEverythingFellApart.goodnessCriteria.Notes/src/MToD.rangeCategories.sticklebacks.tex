@@ -1,0 +1,1144 @@
+
+\subsection{Zigzags in a range category \catcw}
+
+For any $n \ge 1$, a zigzag of length $n$ in range category \catcw  
+is a sequence of morphisms  $F=\zigzagTuple{f}{n}$ of \catcw such that for some 
+objects $x_0,..x_n$ and $y_1,...y_n$ of \catcw we have
+$$
+\arraycolsep=7pt
+\zigzag{x}{y}{f}{n}
+$$
+in \catcw. 
+
+Within a zigzag of length $n$ we find a zig for each \foreachi[n-1], like so
+$$
+\begin{array} {c c c}
+&\Ob{y}{i}&\\[0.8cm]
+\Ob{x}{i}&&\Obs{x}{i}
+\end{array}
+\begin{arrows}
+\ncarr{xi}{yi}   \alabel{f_i}[0.45][0.4]
+\ncarr {xis}{yi} \blabel{f'_i}[0.45][0.4]
+\end{arrows}
+$$
+
+We will say that this i'th zig is \textit{tight} iff
+$\widehat{f_i}=\widehat{f'_i}$.
+
+We also find a  zag for each $i$, $2 \leq i \leq n$, like so
+%\arreset}
+$$
+\setlength{\arrnodesepA}{3pt}
+\begin{array} {c c c}
+\Obp{y}{i}&&\Ob{y}{i} \\[0.8cm]
+&\Ob{x}{i}&
+\end{array}
+\begin{arrows}
+\ncarr{xi}{yip}  \alabel{f'_i}[0.45][0.4]
+\ncarr {xi}{yi}  \blabel{f_i}[0.45][0.4]
+\end{arrows}
+$$
+
+and we will say that the i'th zag is tight iff
+$\overline{f'_i}=\overline{f_i}$.
+
+
+A zigzag we will say is a \textit{stickleback} iff its every zig and its every zag are tight. 
+
+If $F=\zigzagTuple{f}{n}$ and 
+$G=\zigzagTuple{g}{m}$ are zigzags such that the codomain of $f_n$
+is the domain of $g_1$ so that the morphism $f_n \circ g_1$ is defined in \catcw then the zigzags $F$ and $G$ can be composed to give a zigzag 
+$F::G=\tuple{f_1,f'_1,...f'_{n-1},f_n \circ g_1,g'_1, g_2,...g_m}$ 
+of length $n+m-1$ as here:
+$$
+\arraycolsep=7pt
+\left( \zigzag{w}{x}{f}{n}\right) :: \left(\zigzag{y}{z}{g}{m}\right)
+$$
+
+$$
+=_{def} \  \zigzagfgcomposite
+$$
+
+\subsection{Comparison of Zigzags}
+
+Say that zigzags are comparable if they are of the same length
+and have identical object sequences.
+If $F=\zigzagTuple{f}{n}$ and 
+$G=\zigzagTuple{g}{n}$
+ are comparable zigzags then define $F \leq G$
+by $F \leq G$ iff for each $i$, $0 \leq i \leq n$
+$f_i \leq g_i$ and for each $i$, $0 \leq i \leq n-1$ $f'_i \leq g'_i$.
+
+\subsection{Tightening}
+
+If $F=\zigzagTuple{f}{n}$ is a zigzag
+then define the one-step tightening $t(F)$ to be the comparable zigzag, 
+$t(F)=\zigzagTuple{t}{n}$
+where
+\begin{align*}
+t_1  &= f_1 \circ \widehat{f'_1}\\
+t'_i &= \overline{f_{i+1}} \circ f'_i \circ \widehat{f_i} &&\mbox{for each $i$, $1 \leq i \leq n-1$}\\
+t_i &= \overline{f'_{i-1}} \circ f_i \circ \widehat{f'_i} &&\mbox{for each $i$, $2 \leq i \leq n-1$}\\
+t_n &= \overline{f'_{n-1}} \circ f_n 
+\end{align*}
+
+\begin{observation}
+If $F$ is a zigzag then $t(F) \leq F$.
+\end{observation}
+
+\begin{observation}
+For any zigzag $F$ of length $n$, 
+$t^n(F)$ is tight and therefore $t(t^n(F))=t^n(F)$.
+\end{observation}
+For such an $F$, we will write $T(F)$ for $t^n(F)$ and say that $T(F)$ is the 
+full tightening of $F$.
+
+\begin{lemma}
+\llabel{tighteningStepLemma}
+If $F$ and $G$ are comparable zigzags, if $F$ is tight then if $F \leq G$
+then $F \leq t(G)$. 
+\end{lemma}
+\begin{proof}
+From the above definition of one step tightening $t$,  there are four cases to consider.
+The first case defines the first term in $t(g)$ to be $g_1 \circ \widehat{g'_1}$
+so in this case we need prove that $f_1 \leq g_1 \circ \widehat{g'_1}$. 
+\begin{align*}
+&f'_1 \leq g'_1                   &\mbox{because $F \leq G$,}\\
+\mbox{therefore }&\widehat{f'_1} \leq \widehat{g'_1} &\mbox{because $\hat{\ }$preserves ordering,}\\
+\mbox{therefore }&\widehat{f_1} \leq \widehat{g'_1} &\mbox{since, because F tight, $\widehat{f'_1} = \widehat{f_1}$ }
+\end{align*}
+
+We can now compose the ordering 
+$\widehat{f_1} \leq \widehat{g'_1}$ with the ordering
+$f_1 \leq g_1$ (see lemma \lref{orderingsCompose}) 
+and  simplify to get
+$f_1 \leq g_1 \circ \widehat{g'_1}$, as required.
+
+Similar arguments can be used to show that the inequality also holds in the other three cases.
+\end{proof}
+\begin{corollary}
+\llabel{absoluteTighteningCorollary}
+If $F$ and  $G$ are comparable zigzags, if $F$ is tight and $F \leq G$
+then $F \leq T(G)$. 
+\end{corollary}
+
+\begin{lemma}
+\llabel{tightsandwichLemma}
+If $F$ and $F'$ are comparable zigzags and 
+\[
+T(F) \leq F' \leq F
+\]
+then $T(F') = T(F)$.
+\end{lemma}
+\begin{proof}
+It suffices to show that $T(F') \leq T(F)$ and $T(F) \leq T(F')$.
+
+The first of these follows from corollary \lref{absoluteTighteningCorollary}
+because $T(F')$ is tight and $T(F') \leq F$.
+The second follows by the same lemma because $T(F)$ is tight and $T(F) \leq F'$. 
+\end{proof}
+
+\begin{lemma}
+\llabel{tailInitiationLemma}
+If $F=\zigzagTuple{f}{n}$ is a zigzag of length $m \ge 2$ then
+\[
+T(F)=T(\tuple{f_1,f'_1,...f_{n-1},\overline{f_n} \circ f'_{n-1},f_n})
+\]
+\end{lemma}
+\begin{proof}
+Let $F'=\tuple{f_1,f'_1,...f_{n-1},\overline{f_n} \circ f'_{n-1},f_n}$
+then $F' \leq F$ and $t(F) \leq F'$ therefore since $T(F) \leq t(F)$
+we can use lemma \lref{tightCsandwichLemma} to deduce that
+$T(F) = T(F')$ as required.
+\end{proof}
+
+\begin{lemma}
+\llabel{headLemma}
+If  $G=\zigzagTuple{g}{m}$ is a zigzag 
+and if some morphism $f$ composes with the  initial morphism $g_1$ of $G$
+ so that the composite zigzag $\tuple{f} :: G$ is defined then
+if $T(F)=\zigzagTuple{t}{n}$
+and  $T(\tuple{f} :: G)=\zigzagTuple{s}{n}$ then
+\[
+s_1 \leq f \circ t_1
+\]
+\end{lemma}
+\begin{proof}
+\tbd
+\end{proof}
+
+\begin{lemma}
+\llabel{tailLemma}
+If  $F=\zigzagTuple{f}{n}$ is a zigzag 
+and if the final morphism $f_n$ of $F$ composes with some morphism $g$
+ so that the composite zigzag $F :: \tuple{g}$ is defined then
+if $T(F)=\zigzagTuple{t}{n}$
+and  $T(F :: \tuple{g})=\zigzagTuple{s}{n}$ then
+\[
+s_n \leq t_n \circ g
+\]
+\end{lemma}
+\begin{proof}
+\tbd
+\end{proof}
+
+\begin{worktt}
+ I should factor out  a midpoint lemma here from
+the later tighteningCommutesWithCompositionLemma  so that whenever 
+$F$ and $G$ compose and we have $t_i$, $s_j$ and $q_i$ for the
+terms of the three tightenings $T(F), T(G) and T(F \circ G)$
+then we get $q_n \leq t_n \circ s_1$.
+\end{worktt}
+
+\begin{observation}
+\llabel{biggeristighter}
+If we have two zigzags $F$ and $G$ and one is an extension of the other
+then the tightening of the longer one truncated to be comparable with the smaller is less than or equal the tightening of the smaller one.\commentary{Trivial but needs spelling out.}
+\end{observation}
+
+
+\begin{lemma}
+\llabel{tighteningCommutesWithCompositionLemma}
+If $F$ and $G$ are zigzags for which the composition $F::G$ is defined
+then 
+$ T(F :: G) = T(T(F) :: T(G)) $
+\end{lemma}
+
+\newcommand{\tightenedComposite}[1]
+{
+\zigzagOneAndAHalf{w}{x}{#1}
+\begin{array}{c}
+\dots \\[0.8cm]
+\dots
+\end{array}
+\begin{array}{c c}
+\Ob{x}{n} \\[0.8cm]
+& \Ob{w}{n}=
+\end{array}
+\begin{arrows}
+\ncarr{xn}{wn} \blabel{#1'_{n-1}}[0.2][0.4] %0.2 was 0.45
+\end{arrows}
+\kern-15pt
+\arraycolsep=7pt
+\zigzagFlex{y}{z}{#1}{n}{n+m}
+}
+
+
+\begin{proof}
+Suppose
+\begin{itemize}
+\item 
+$F=\zigzagTuple{f}{n}$ is a zigzag shaped like this
+$$
+\arraycolsep=7pt
+\zigzag{w}{x}{f}{n}
+$$
+\item $G=\zigzagTuple{g}{m}$ is a zigzag shaped like this
+$$
+\arraycolsep=7pt
+\zigzag{y}{z}{g}{m}
+$$
+such that $x_n = y_1$ so that $F::G$ is defined,
+\item $T(F)=\zigzagTuple{t}{n}$,
+\item $T(G)=\zigzagTuple{s}{m}$,
+\item $T(T(F) \circ T(G))=\zigzagTuple{r}{n+m}$ so that we have
+$$
+\arraycolsep=7pt
+\tightenedComposite{r},
+$$
+\item $T(F \circ G)=\zigzagTuple{q}{n+m}$ 
+so that we have
+$$
+\arraycolsep=7pt
+\tightenedComposite{q}.
+$$
+\end{itemize}
+
+We will prove the result by showing 
+\begin{enumerate}[(a)]
+\item that $T(T(F) \circ T(G)) \leq T(F \circ G)$ and
+\item that $T(F \circ G) \leq T(T(F) \circ T(G))$.
+\end{enumerate}
+
+To establish (a), since $T(T(F) \circ T(G))$ is tight,
+it suffices to show that 
+$T(T(F) \circ T(G)) \leq F\circ G$. 
+We know that
+$$
+T(T(F) \circ T(G))
+\leq \tuple{t_0,t'_0,...t'_{n-1},t_n \circ s_0,s'_0,...s_m}
+$$
+and so it suffices to show that 
+$$
+\tuple{t_1,t'_1,...t'_{n-1},s_1 \circ t_n,s'_1,...s_m}
+\leq \tuple{f_1,f'_1,...f'_{n-1},f_n \circ g_1 ,g'_1,...g_m}
+$$
+This follows because
+$$\zigzagTuple{t}{n} \leq \zigzagTuple{f}{n}$$
+as the left zigzag is defined to be a tightening of the right,
+and the like reason we have
+$$\zigzagTuple{s}{m} \leq \zigzagTuple{g}{m}.$$
+Finally we have
+$t_n \circ s_1 \leq f_n \circ g_1$ which we get by composing the orderings
+ $t_n \leq f_n$ and $s_1 \leq g_1$ 
+(see lemma \lref{orderingsCompose}).
+
+To establish (b), because $T(F \circ G$ is tight it suffices to show that
+$T(F \circ G) \leq T(F) \circ T(G)$. In other words that
+$$
+\tuple{q_1,q'_1,...q'_{n-1},q_n,q'_n,...q_{n+m}}\leq \tuple{t_1,t'_1,...t'_{n-1},t_n \circ s_1,s'_1,...s_m}
+$$
+We prove this piecemeal. 
+For the initial segment as far as $q_{n-1}$ 
+Because $\tuple{q_1,...q_{n+m}}$ is the tightening of $F \circ G$, it follows first that
+\[\zigzagTuple{q}{n} \leq F\]
+and then that
+\[
+\zigzagTuple{q}{n} \leq T(F)
+\] 
+and, in particular, that for $1 \leq i \leq n$, $q_i < t_i$ and $q'_i < t_i$.
+A similar argument gets us
+\[
+\zigzagTailTuple{q}{n}{m} \leq T(G)
+\]
+and, in particular, that 
+for $1 \leq j \leq m$, $q_{n+j} < s_j$ and 
+for $0 \leq j \leq m-1$, $q'_{n+j} < s'_j$.
+
+That leaves us having to prove that $q_n \leq t_n \circ s_1$.
+Now consider that $F :: \tuple{g_1}$ the zigzag that is
+the initial segment of the zigzag $F \circ G$
+that is $\tuple{f_0,...f'_{n-1},f_n \circ g_1}$
+andt that $\tuple{f_n} \circ G$ is the zigzag that is 
+the final segment of $F \circ G$
+that is $\tuple{f_n \circ g_1,g'_1,...g_m}$
+and consider the tightenings $T(F :: g_1)$ and $T(f_n :: G)$ of these zigzags.
+Because $\tuple{q_1,...q_{n+m}}$ is the tightening of $F \circ G$ it follows
+using observation \lref{biggeristighter}  that both
+\begin{equation}
+\label{qTFg}
+\tuple{q_1,...q'_{n-1},q_n} \leq T(F :: \tuple{g_1})
+\end{equation}
+and
+\begin{equation}
+\label{qTfG}
+\tuple{q_n, q'_n,...q_{n+m}} \leq T(\tuple{f_n} :: G)
+\end{equation}
+By lemma \lref{tailLemma} the final element of $T(F :: \tuple{g_1})$ is $ \leq t_n \circ g_1$ .
+Therefore from (\ref{qTFg}) we have in particular that
+\begin{equation}
+\label{qgtn}
+q_n \leq t_n \circ g_1.
+\end{equation}
+Likewise using lemma \lref{headLemma} we have that the initial element
+of $T(\tuple{f_n} :: G)$ is $\leq f_n \circ s_1$ and therefore from 
+(\ref{qTfG}) we have the particular case that
+\begin{equation}
+\label{qsfn}
+q_n \leq f_n \circ s_1.
+\end{equation}
+Finally we use lemma \lref{pointwiseorderingsCompose} to establish  from
+(\ref{qgtn}) and (\ref{qsfn}) that
+$q_n \leq  t_n \circ s_1$ and so complete the proof.
+\end{proof}
+\subsection{The category of tight zigzags}
+\llabel{categorytightzigzags}
+If \catcw is a range category then we can define the category
+$Z_C$ to be the category whose objects are the objects of \catcw
+and such that $Hom_{Z_C}(a,b)$ is the set of tight zigzags of any length $n$
+$$
+\arraycolsep=7pt
+\zigzag{x}{y}{f}{n}
+$$
+such that $x_0=a$ and $y_n=b$.
+
+
+Composition in $Z_C$ is defined by composing the zigzags and then tightening  thus
+\[
+F \circ G =_{def} T(F :: G).
+\]
+Composition is associative since 
+\begin{align*}
+(F \circ G) \circ H 
+                &= T(T(F \conc G) \conc H) \\
+                &= T(T(F \conc G) \conc T(H))
+                        &\mbox{since $H$ is tight,}\\
+                &= T((F \conc G) \conc H)  
+                        &\mbox{by lemma \lref{tighteningCommutesWithCompositionLemma}}\\
+                &= T(F \conc (G \conc H))
+                        &\mbox {since $\conc$ is associative} \\
+                &= T(T(F) \conc T(G \conc H))       
+                        &\mbox{by lemma \lref{tighteningCommutesWithCompositionLemma}}\\
+                &= T(F \conc T(G \conc H))))
+                        &\mbox{since $F$ is tight} \\
+                &= F \circ (G \circ H)                     
+\end{align*}
+
+Identity morphisms in $Z_C$ consist of the identity morphisms of \catcw considered 
+as zigzags on length 1.
+
+\begin{lemma}
+\llabel{leftLowLemma}
+If $\tuple{f_0,f'_0,f_1}$ is a zigzag and if
+\[
+\overline{f_0} \leq \overline{f'_0}
+\]
+i.e. 
+\begin{equation}
+\label{leftLowInequality}
+\overline{f_0} \circ \overline{f'_0} = \overline{f_0}
+\end{equation}
+and
+\begin{equation}
+\label{leftLowEquality}
+\widehat{f'_0} = \widehat{f_1}
+\end{equation}
+then
+\[
+T(\tuple{f_0,f'_0,f_1})=\tuple{f_0,
+                                 \overline{f_0} \circ f'_0,
+                                 f_1 \circ \widehat{\overline{f_0} \circ f'_0}
+                                }
+\]
+\end{lemma}
+\begin{proof}
+\commentary{this is a good example of tightening and need to do a rightLowLemma also}
+First see that
+\begin{align*}
+t(\tuple{f_0,f'_0,f_1}) 
+                &= \tuple{f_0 \circ \overline{f'_0}, 
+                          \overline{f_0} \circ f'_0 \circ \widehat{f_1},
+                           f_1 \circ \widehat{f'_0}
+                          }     
+                    && \mbox{by following the definition of $t$,}    \\
+                &= \tuple{f_0, \overline{f_0} \circ f'_0,f_1} 
+                    &&\mbox{after simplifying using (\ref{leftLowInequality}) and (\ref{leftLowEquality}),} 
+\end{align*}
+from which we calculate that
+\begin{align*}
+t^2(\tuple{f_0,f'_0,f_1})
+           &= \tuple{
+                    \overline{\overline{f_0} \circ f'_0} \circ f_0,
+                    \overline{f_0} \circ \overline{f_0} \circ f'_0 \circ \reallywidehat{f_1},
+                    \reallywidehat{\overline{f_0} \circ f'_0} \circ  f_1 
+                    }
+           &&  \mbox{by applying the definition of $t$ to $\tuple{f_0, \overline{f_0} \circ f'_0,f_1}$,} \\
+           &= \tuple{f_0, 
+                     \overline{f_0} \circ f'_0,
+                     \reallywidehat{\overline{f_0} \circ f'_0} \circ  f_1 
+                     } 
+           &&  \mbox{after simplification.}
+\end{align*}
+Finally, the zig of $\tuple{f_0, \overline{f_0} \circ f'_0,f_1 \circ \widehat{\overline{f_0} \circ f'_0}}$
+is tight because we have that  (\ref{leftLowInequality})
+and  the zag is tight because
+\[ 
+  \reallywidehat{\overline{f_0} \circ f'_0} = \reallywidehat{f_1 \circ \widehat{\overline{f_0} \circ f'_0}}
+\]
+because handwritten sheet A
+\begin{align*} 
+\reallywidehat{\overline{f_0} \circ f'_0} 
+                &=  \widehat{f'_0} \circ \reallywidehat{\overline{f_0} \circ f'_0} 
+                &&\mbox{lemma  \ref{fglemma} (ii)}\\
+                &= \widehat{f_1} \circ \reallywidehat{\overline{f_0} \circ f'_0}
+                &&\mbox{by (\ref{leftLowEquality})} \\ 
+                &= \reallywidehat{f_1 \circ \widehat{\overline{f_0} \circ f'_0}}
+                &&\mbox{by lemma \lref{fglemma} (iii)}
+\end{align*}
+Thus 
+\begin{align*}
+T(\tuple{f_0,f'_0,f_1})&= t^2(\tuple{f_0,f'_0,f_1})\\
+                       &=\tuple{f_0,
+                                 \overline{f_0} \circ f'_0,
+                                 f_1 \circ \widehat{\overline{f_0} \circ f'_0}
+                                }
+\end{align*}
+as required.
+\end{proof}
+
+\begin{corollary}
+\llabel{rightLowCorollary}
+Suppose we have the following morphsisms in a range category \catc:
+$$
+\arraycolsep=7pt
+\begin{array}{ccccc}
+ &&\bOb{x}& &\bOb{z} \\[0.8cm]
+&\bOb{w}& &\bOb{y}& \\[0.8cm]
+\bOb{v}&& &       & 
+\end{array}
+\begin{arrows}
+\ncarr{w}{v}\blabel{g}[0.25][0.4]
+\ncarr{x}{w}\blabel{f_0}[0.25][0.4]
+\ncarr{x}{y}\alabel{f'_0}[0.25][0.4]
+\ncarr{z}{y}\blabel{f_1}[0.25][0.4]
+\end{arrows}
+$$
+so that $\tuple{f_0,f'_0,f1}$ and $\tuple{f_0 \circ g,f'_0,f1}$ are zigzags,
+then if the zigzag $\tuple{f_0,f'_0,f1}$ is tight then
+\[
+T(\tuple{f_0 \circ g,f'_0,f_1})=\tuple{f_0 \circ g,
+                                 \overline{f_0 \circ g} \circ f'_0,
+                                 f_1 \circ \widehat{\overline{f_0 \circ g} \circ f'_0}
+                                }.
+\]
+\end{corollary}
+\begin{proof}
+The lemma can be applied to  $\tuple{f_0 \circ g,f'_0,f_1}$ because of the tightness of  $\tuple{f_0,f'_0,f1}$ and
+because $\overline{f_0 \circ g} \leq \overline{f_0} = \overline{f'_0}$.
+\end{proof}
+\subsection{The category of tight zigzags $Z_C$ is a category with awR.4 support}
+
+
+If $F=\zigzagTuple{f}{n}$ is a morphism in $Z_C$ then define $\overline{F}$ to be $\tuple{\widehat{f_0}}$ the  zigzag of length $1$ determined by the morphism $\widehat{f_0}$ of \catcw.
+
+\begin{aside}
+Btw, if we need it
+might  use pointwise range 
+and have
+\[
+\pointwiserange{Z_1 :: Z_2}=\pointwiserange{Z_2}
+\]
+\end{aside}
+
+\begin{observation}
+\llabel{composeTightFGobservation}
+Ff $F$ and $G$ are both tight zigzags then
+$$F \circ G = F \circ \bar{G} :: \pointwiserange{F} \circ G$$
+\end{observation}
+
+\begin{observation}
+\llabel{initialSegmentObservation}
+If $Z$ is a tight zigzag and $Z=Z_1 :: Z_2$ and both $Z_1$ and $Z_2$
+are tight then 
+\[
+\overline{Z_1 :: Z_2}=\overline{Z_1}
+\]
+\end{observation}
+
+
+
+We need show
+
+R.1 For $F:a \morph b$ in $Z_C$ $$\overline{F} \circ F =F$$.
+
+R.2. If \FGsourcediag in $Z_C$ then
+$$\overline{G} \circ \overline{F}=\overline{F} \circ \overline{G}.$$
+
+R.3. If \FGsourcediag in $Z_C$ then
+$$\overline{\overline{F} \circ G} = \overline{F} \circ \overline{G}$$.
+
+wR.4. If $\sequentialdiag{a}{b}{c}{F}{G}$ in $Z_C$ then
+\[
+\overline{F \circ \overline{G}} = \overline{F \circ G}.
+\]
+
+awR.4 If $\sequentialdiag{a}{b}{c}{F}{G}$ in $Z_C$ then
+
+\[
+\overline{F \circ G} = \overline{F} \mbox{ implies  } F \circ \overline{G} = F.
+\]
+\workt{I am now thinking this only holds if F is of length 1.}
+
+R.1 follows because in \catcw, $f_0 \circ \widehat{f_0} = f_0$. 
+
+R.2 follows because in \catcw $\widehat{f_0} \circ \widehat{g_0} = \widehat{g_0} \circ \widehat{f_0}$.
+
+R.3 follows because
+\commentary{work on this proof}
+\begin{align*}
+\overline{\overline{F} \circ G} 
+                   &= \overline{T(\tuple{g_0 \circ \widehat{f_0},g'_0,...g_m})}\\
+                   &= \overline{\tuple{g_0 \circ \widehat{f_0},s'_0,...s_m}}
+                                             &&\mbox{\parbox{5cm}{for some $s'_0,...s_m$
+                                                       by some new lemma about tighteniong when only head position loose,}}\\
+                   &=\tuple{\widehat{g_0 \circ \widehat{f_0}}} 
+                                            && \mbox{by definition}\\
+                   &=\tuple{\widehat{g_0} \circ \widehat{f_0}}  
+                                            && \mbox{by lemma \lref{fglemma} (iii)}\\
+                   &=\overline{F} \circ \overline{G}      
+\end{align*}
+
+wR.4 is shown to hold as follows: 
+\begin{align*}
+\overline{F \circ G} 
+       &= \overline{F \circ \bar{G} :: \hat{F} \circ G} 
+       && \mbox{by observation \ref{composeTightFGobservation}}  \\
+       &= \overline{F \circ \bar{G}} 
+       && \mbox{by observation \ref{initialSegmentObservation}}
+\end{align*}
+
+
+
+
+
+\begin{align*}
+\overline{F \circ G} &= \overline{F \circ \bar{\bar{G}}} \\
+                     &= \overline{F \circ \bar{G}} && by ??
+\end{align*}
+
+\begin{notebox}[Jan 27th 2026 - Feb 2 2026 - Feb 23 2026]
+The key lemma then is to show that when F and G are composable sticklebacks 
+ then 
+\[
+\overline{F \circ G} = \overline{F} \mbox{ implies  } F \circ \overline{G} = F
+\]
+This, is the awR.4 condition. 
+
+\begin{worktt}
+I dont think this holds in the sticklebacks over $\Par$.
+I does maybe hold for stickelbacks F of length 1 which is probably all I need.
+\end{worktt}
+
+At some point I have to check that this property isn't lost in the presence of shortening.
+
+Have I proved that wR.4 holds? Need CHECK.
+\end{notebox}
+
+\begin{lemma}
+if f composes with g in tange category \catcw then
+\[
+f \circ \bar{g} = f \mbox{ iff } \widehat{f} \leq \bar{g}.
+\]
+\end{lemma}
+\begin{proof}
+\[
+\widehat{f \circ \bar{g}} = \widehat{f} \circ \bar{g} \mbox{ by RR.3}
+\]
+\end{proof}
+
+\begin{lemma}
+If  $F:x \morph y$ and $G: y \morph z$ in the category of tight zigzags 
+then  
+\[
+\overline{F \circ G} = \overline{F} \mbox{ iff } F \circ \overline{G} = F
+\]
+
+\begin{center}\begin{oldtt}\highlight{\Large NOT TRUE}\end{oldtt}\end{center}
+\end{lemma}
+\begin{proof}
+The composition of $F$ with $\overline{G}$ is the tightening of 
+\[
+\tuple{f_0,f'_0,...f_{n-1},f'_{n-1},f_n \circ \overline{g_0}}
+\]
+This equals $F$ 
+iff $f_n \circ \overline{g_0}=f_n$
+ iff 
+ \[
+ \widehat{f_n} \leq \overline{g_0}
+\mbox{lemma for this above.}
+\]
+
+Likewise LHS holds iff $\widehat{f_n} \leq \overline{g_0}$ need a different lemma for this. See below.
+\end{proof}
+\begin{lemma}
+If  $F:x \morph y$ and $G: y \morph z$ in the category of tight zigzags 
+and if $F\circ G = \zigzagTuple{t}{n+m}$ then
+\[
+\zigzagTuple{t}{n} = T( F :: \tuple{g_1})
+\]  
+\end{lemma}
+\begin{lemma}
+If F is a tight zigzag 
+and if $F$ composes with $\tuple{g}$
+then if $T( F :: \tuple{g_1} ) \neq F :: \tuple{g_1}$
+then for each $i$, $1 \leq i \leq n - 1$, $t_i < f_i$.
+\workt{Is this true or can differences fade out during propagation?}
+\end{lemma} 
+
+\subsection{Shortening and Short Sticklebacks}
+
+If $F=\zigzagTuple{f}{n}$ is a zigzag and 
+if for some $i$,
+$1 \leq i \leq n-1$,
+there is a morphism
+$s$ such that $f'_i \circ s = f_{i+1}$ so that the triangle in 
+\[
+\zigzagShortenable{x}{y}{f}{n}{i}{s}
+\]
+commutes then the zigzag 
+\[
+\arraycolsep=7pt
+\zigzagShortened{x}{y}{f}{n}{i}{s}
+\]
+is said to be a \textit{shortening} of $F$.
+\commentary{\highlight{new}}
+
+Significantly, the shortening of a tight zigzag is  tight.
+It is easy to check this.
+
+Cockett shows that if the category \catcw is a range category
+satisfying the addition condition RR.5 then every tight
+zigzag of morphisms in \catcw has a unique shortening. 
+
+A stickleback which cannot be shortened is said to be
+a \textit{short stickleback}.
+
+\subsection{Prelude to a category of short zigzags}
+
+In what follows lemma 
+\lref{deferredshorteninglemma}
+describes the interaction of shortening and tightening 
+and is the key to showing that there is a category of short sticklebacks. Before we get to this lemma we have a series of
+subordinate lemmas that are required for its proof. 
+ 
+\begin{lemma}
+\llabel{shorteningspecialisationlemma}
+If $f' \leq g'$ and $f \leq g$ then if  
+$\downTriangleShape{x_i}{y_{i-1}}{y_i}
+\downToLeft{g'}[0.6]
+\downToRight{g}
+\leftToRightArcing[a]{s}{30}{30} 
+$ commutes 
+and $\bar{f}=\bar{f'}$ then
+$\downTriangleShape{x_i}{y_{i-1}}{y_i}
+\downToLeft{f'}[0.6]
+\downToRight{f}
+\leftToRightArcing[a]{s}{30}{30} 
+$ commutes.
+\end{lemma}
+\begin{proof}
+\begin{align}
+f' \circ s \circ \hat{f}
+   &= \bar{f'} \circ g'\circ s 
+       && \mbox{because $f' \leq g'$}\\
+   &= \bar{f} \circ g 
+   && \mbox{since $\bar{f'}=\bar{f}$ 
+              and $g' \circ s = g$, }\\
+   &= f
+   &&\mbox{since $f \leq g$}
+\end{align}
+\end{proof}
+
+From this lemma we can see that if a zigzag $F$ shortens then $T(F)$ shortens. 
+
+\begin{lemma}
+\llabel{associativitysublemma}
+Suppose $F$ and $G$ are tight zigzags and are as shown in the diagram
+in \lref{tighteningCommutesWithCompositionLemma} and that $s$ is a shortening
+of $F::G$ at some index $i_s$, $1 \leq i_s \leq n +m - 1$, then
+\begin{equation}
+\label{associativitysublemmatarget}
+T(shorten(F::G,i_s,s)=shorten(T(F::G),i_s,s))
+\end{equation}
+\end{lemma}
+\begin{proof}
+\workt{Proof omitted.}
+\iffalse %proof commented out
+In such a situation, $F::G$ is a zigzag in which 
+elements before the element $f_n \circ g$ need 
+tightening to the left and terms to after need tightening to the right. 
+I am going to refer to  the leading $2n -1$ elements of T(F::G)
+as $ff_1, ff'_1,...ff'_{n-1}$ and $ff'_n$ and I am going to refer 
+to the trailing $2m-1$ elements as $gg_1,gg'_1,...gg_m$.
+What  this means is that the element that is refered to as
+$ff_n$ is also referred to as $gg_1$. 
+With this way of referencing the elements of $T(F::G)$ 
+then I can describe $T(F::G)$ as follows:
+
+\begin{framedEquations}{$T(F::G)
+=\tuple{ff_1,ff'_1,...ff'_{n-1},ff_n \mbox{ alias } gg_1, gg'_1,...gg_m}$}
+\begin{alignat}{2}
+\label{tighteningcomposite:ffn}         
+ff_n &\mbox{ alias } gg_1 = f_n \circ g_1, \\[6pt]
+\label{tighteningcomposite:ffpi}
+ff'_i &= \overline{ff_{i+1}} \circ f'_i,
+                &&\qquad (1 \le i \le n-1), \\
+\label{tighteningcomposite:ffi}
+ff_i  &= f_i \circ \widehat{ff'_i},
+                &&\qquad (1 \le i \le n-1), \\[6pt]
+\label{tighteningcomposite:ggpj}
+gg'_j &= g'_j \circ \reallywidehat{gg_j},
+                &&\qquad (1 \le j \le m-1), \\
+\label{tighteningcomposite:ggj}
+gg_j  &= \overline{gg'_{j-1}} \circ g_j,
+                &&\qquad (2 \le j \le m).
+\end{alignat}
+\end{framedEquations}
+ 
+
+There are three cases to consider.
+\paragraph{Case (i) --- $i_s \leq  n-2$}
+In this case the shortening within the lhs of (\ref{associativitysublemmatarget}) 
+eliminates the pair $f'_{i_s}, f_{i_s+1}$ 
+based on the assumption that this diagram commutes:
+
+\begin{equation}
+\label{case.i.lhrshortening} 
+\begin{array}{c c c c}
+\Rnode{TL}{x{i_s}} &           & \Rnode{TR}{x_{{i_s}+1} } \\[0.8cm]
+           & \Rnode{BC}{w_{i_s}} &  
+\end{array}
+\begin{arrows}
+\drawMorphismArcing{TL}{TR}{a}{s}{15}{15}[0.5] 
+\ncarr{BC}{TL}\alabel{f'_{i_s}}
+\ncarr{BC}{TR}\blabel{f_{{i_s}+1}} 
+\end{arrows}
+\end{equation}
+
+The shortening is $\tuple{f_1,...f'_{i_s-1},f_{i_s} \circ s, f'_{i_s+1},...
+          f'_{n-1},f_n \circ g_1, g'_1,...g'_{m-1},g_m }$. 
+The tightening of this shortening can be described as follows:
+
+\begin{framedEquations}{$T(\mathrm{shorten}(F::G,i_s,s))
+=\tuple{tsf_1,...tsf'_{i_s-1},tsf_{i_s} \circ s, tsf'_{i_s+1},...
+          tsf'_{n-1},tsf_n \mbox{ alias } tsg_1, tsg'_1,...tsg'_{m-1},tsg_m }$}
+\begin{alignat}{2}
+\intertext{where}
+\label{case1tighteningShortenedComposite:ffnp}
+tsf_n &= tsg_1 = f_n \circ g_1, \\
+\label{case1tighteningShortenedComposite:tsfis}
+tsf_{i_s} &= f_{i_s} \circ s \circ \reallywidehat{tsf'_{i_{s+1}}},
+                && \\
+\label{case1tighteningShortenedComposite:tsfpi}
+tsf'_i &= \overline{tsf_{i+1}} \circ f'_i,
+                &&\qquad ( i \in \set{1,2,...i_s-1, i_s+2,...n}), \\
+\label{case1tighteningShortenedComposite:tsfi}
+tsf_i  &= f_i \circ \widehat{tsf'_i},
+                &&\qquad ( i \in \set{1,2,...i_s-2, i_s+2,...n}), \\
+\label{case1tighteningShortenedComposite:tsgpj}
+tsg'_j &= g'_j \circ \reallywidehat{tsg_j},
+                &&\qquad (1 \le j \le m-1), \\
+\label{case1tighteningShortenedComposite:tsgj}
+tsg_j  &= \overline{tsg'_{j-1}} \circ g_j,
+                &&\qquad (2 \le j \le m).
+\end{alignat}
+\end{framedEquations}
+
+The shortening invoked within in the rhs eliminates the pair
+$ff'_{i_s}, ff_{i_s+1}$
+and is applicable because this diagram
+\begin{worktt}
+\begin{equation}
+\label{case.i.lhrshortening} 
+\begin{array}{c c c c}
+\Rnode{TL}{x{i_s}} &           & \Rnode{TR}{x_{{i_s}+1} } \\[0.8cm]
+           & \Rnode{BC}{w_{i_s}} &  
+\end{array}
+\begin{arrows}
+\drawMorphismArcing{TL}{TR}{a}{s}{15}{15}[0.5] 
+\ncarr{BC}{TL}\alabel{ff'_{i_s}}
+\ncarr{BC}{TR}\blabel{ff_{{i_s}+1}} 
+\end{arrows}
+\end{equation}
+\end{worktt}
+commutes by lemma \lref{shorteningspecialisationlemma}. 
+$shorten(T(F::G),i_s,s))$ is described by eliminating 
+the equations for $ff'_{i_s}$ and $ff_{i_s+1}$ from the system of equations
+(\ref{tighteningcomposite:ffn}) to (\ref{tighteningcomposite:ggj}) and by modifying the description of $ff_{i_s}$ to be
+\begin{equation}
+\label{rhsffis}
+ff_{i_s} = f_{i_s} \circ \widehat{ff'_{i_s}} \circ s
+\end{equation}
+
+To establish (\ref{case1tighteningShortenedComposite:tsfis}) we need show 
+that this modified $ff_{i_s}$ is equal to
+$tsf_{i_s}$ from equation (\ref{case1tighteningShortenedComposite:tsfis}). That is we need show that
+$f_{i_s} \circ \widehat{ff'_{i_s}} \circ s = f_{i_s} \circ s \circ \reallywidehat{tsf'_{i_s+1}}$. 
+This follows from lemma \lref{tighteningashorteninglemma}
+(\ref{tighteningshorteningRightToLeft}) with
+$f_{i_s}$  substituted for $f$, 
+$f'_{i_s}$ for $g$,
+$f_{i_s+1}$ for $h$
+and
+$\reallywidehat{ff'_{i_s+1}}$ for $\bar{j}$,
+since $ff'_{i_s} = \overline{f_{i_s+1} \circ \reallywidehat{ff'_{i_s+1}   }} \circ f_{i_s}$ and
+$tsf'_{i_s+1} = ff'_{i_s+1}$.
+
+\paragraph{Case (ii) --- $i_s = n-1$}
+In this case the shortening of the lhs of (\ref{associativitysublemmatarget}) eliminates the pair
+$f'_{n-1}, f_n \circ g$ 
+based on the assumption that this diagram commutes:
+\begin{equation}
+\label{case.ii.lhsshortening} 
+\begin{array}{c c c c}
+           &           &           &\Ob{z}{1} \\[0.8cm]
+\Obp{x}{n} &           & \Ob{x}{n}            \\[0.8cm]
+           & \Ob{w}{n}. &  
+\end{array}
+\begin{arrows}
+\drawMorphismArcing{xnp}{z1}{a}{s}{15}{15}[0.5]
+\ncarr{xn}{z1}\blabel{g_1}
+\ncarr{wn}{xnp}\alabel{f'_{n-1}}
+\ncarr{wn}{xn}\blabel{f_n}
+\end{arrows}
+\end{equation}
+
+The shortening of the rhs of (\ref{associativitysublemmatarget}) eliminates pair
+$ff'_{n-1}, ff_n$
+and is supported by this diagram
+\begin{equation}
+\label{case.ii.rhsshortening} 
+\begin{array}{c c c c}
+           &           &           &\Ob{z}{1} \\[0.8cm]
+\Obp{x}{n} &           &                      \\[0.8cm]
+           & \Ob{w}{n} &  
+\end{array}
+\begin{arrows}
+\drawMorphismArcing{xnp}{z1}{a}{s}{15}{15}[0.5]
+\ncarr{wn}{xnp}\alabel{ff'_{n-1}}
+\ncarr{wn}{z1}\blabel{ff_n}
+\end{arrows}
+\end{equation}
+whose commutivity follows 
+by lemma \lref{shorteningspecialisationlemma}.
+
+The shortening  of $F::G$ by $s$ is 
+$\tuple{f_1,f'_1,...f'_{n-1},
+        f_{n-1} \circ s,
+        g'_1, g_2,...g'_{m-1},g_m
+       }$
+The tightening of this shortening
+is described by appropriately varying above
+equations (\ref{tighteningcomposite:ffn}) to (\ref{tighteningcomposite:ggj}).
+In the tightening of the shortening there is one less element
+than in the original tightening. In the tightening the replacement element $f_{n-1} \circ s$ is unchanged by tightening and we refer to it as both  $tsf_{n-1}$ and $tsg_1$. There is one less leading elements and the same number of trailing elements. 
+The tightening is as follows:
+
+\begin{framedEquations}{$T(\mathrm{shorten}(F::G,n,s))
+=\tuple{tsf_1,tsf'_1,...tsf'_{n-2},tsf_{n-1} \mbox{ alias } tsg_1, tsg'_1,...tsg_m}$}
+\begin{alignat}{2}
+\intertext{where}
+\label{tighteningShortenedComposite:ffnp}
+tsf_{n-1} &= tsg_1 = f'_{n-1} \circ s, \\
+\label{tighteningShortenedComposite:tsfpi}
+tsf'_i &= \overline{tsf_{i+1}} \circ f'_i,
+                &&\qquad (1 \le i \le n-2), \\
+\label{tighteningShortenedComposite:tsfi}
+tsf_i  &= f_i \circ \widehat{tsf'_i},
+                &&\qquad (1 \le i \le n-2), \\
+\label{tighteningShortenedComposite:tsgpj}
+tsg'_j &= g'_j \circ \reallywidehat{tsg_j},
+                &&\qquad (1 \le j \le m-1), \\
+\label{tighteningShortenedComposite:tsgj}
+tsg_j  &= \overline{tsg'_{j-1}} \circ g_j,
+                &&\qquad (2 \le j \le m).
+\end{alignat}
+\end{framedEquations}
+On the other hand  the tightening, $T(F::G)$ 
+is described by equations 
+(\ref{tighteningcomposite:ffn}) -- 
+(\ref{tighteningcomposite:ggj}), above and this
+zigzag can be shorten by $s$ because, by lemma \ref{shorteningspecialisationlemma},
+
+\[
+\downTriangleShape{w_n}{x_{n-1}}{z_1}
+\downToLeft{ff'_{n-1}}[0.6]
+\downToRight{ff_n=gg_1=f_n \circ g_1}
+\leftToRightArcing[a]{s}{15}{15}
+\]
+commutes. 
+The sortening of this tightening is the following variation
+of equations (\ref{tighteningcomposite:ffn}) to (\ref{tighteningcomposite:ggj})
+
+\begin{framedEquations}{$shorten(T(F::G),n,s))
+=\tuple{stf_1,stf'_1,...stf'_{n-2},stf_{n-1} \mbox{ alias } stg_1, stg'_1,...stg_m}$}
+\begin{alignat}{2}
+\intertext{where}
+\label{shortenedTightenedComposite:stfnp}
+stf_{n-1} &\mbox{ alias } stg_1 = ff_{n-1} \circ s, \\
+\label{shortenedTightenedComposite:stfpi}
+stf'_i &= \overline{stf_{i+1}} \circ f'_i,
+&&\qquad (1 \le i \le n-2), \\
+\label{shortenedTightenedComposite:stfi}
+stf_i  &= f_i \circ \reallywidehat{stf'_i},
+&&\qquad (1 \le i \le n-1), \\[6pt]
+\label{shortenedTightenedComposite:stgpj}
+stg'_j &= g'_j \circ \reallywidehat{stg_j},
+&&\qquad (1 \le j \le m-1), \\
+\label{shortenedTightenedComposite:stgj}
+stg_j  &= \overline{stg'_{j-1}} \circ g_j,
+&&\qquad (2 \le j \le m).
+\end{alignat}
+\end{framedEquations}
+
+To establish that $T(shorten(F::G,n,s)=shorten(T(F::G),n,s))$
+we have to resolve the difference between equations 
+(\ref{tighteningShortenedComposite:ffnp}) and
+(\ref{shortenedTightenedComposite:stfnp}) i.e. we have to prove that $ff'_{n-1} \circ s
+= f'_{n-1} \circ s$ which we can do as follows:
+\begin{align*}
+ff'_{n-1} \circ s 
+   &=\overline{ff_n}\circ f'_{n-1}\circ s&&\mbox{using  (\ref{tighteningcomposite:ffpi}),}\\
+   &=\overline{f_n\circ g_1}\circ f'_{n-1}\circ s&&\mbox{using (\ref{tighteningcomposite:ffn}),}\\
+   &= \overline{f'_{n-1}\circ s}\circ f'_{n-1}\circ s&&\mbox{using commutivity of (\ref{case.ii.lhsshortening}),}\\
+   &=f'_{n-1}\circ \bar{s} \circ s&&\mbox{by R.4,}\\
+   &= f'_{n-1} \circ s     && \mbox{as required, by R.1.}
+\end{align*}
+
+\begin{aside}
+just noticed in early parts of this proof need to change x to w and y to x
+\end{aside}
+\paragraph{Case (iii) --- $i_s \geq n$}
+In this case there is a $j_s$, $1 \leq j_s \leq m-1$, such that $i_s = n + j_s  - 1$ . 
+The shortening within the lhs of (\ref{associativitysublemmatarget}) 
+eliminates the pair $g'_{j_s}, g_{j_s+1}$ 
+based on the assumption that this diagram commutes:
+
+\begin{equation}
+\label{case.iii.lhrshortening} 
+\begin{array}{c c c c}
+\Rnode{TL}{z_{j_s}} &           & \Rnode{TR}{z_{{j_s}+1} } \\[0.8cm]
+           & \Rnode{BC}{y_{j_s}} &  
+\end{array}
+\begin{arrows}
+\drawMorphismArcing{TL}{TR}{a}{s}{15}{15}[0.5] 
+\ncarr{BC}{TL}\alabel{g'_{j_s}}
+\ncarr{BC}{TR}\blabel{g_{{j_s}+1}} 
+\end{arrows}
+\end{equation}
+commutes. 
+
+In the tightening of the zigzag $F::G$ the `g' terms can be described by
+\begin{alignat}{2}
+\label{tighteningcomposite2:g1}         
+gg_1 &= f_n \circ g_1, \\[6pt]
+\label{tighteningcomposite2:ggpj}
+gg'_j &= g'_j \circ \reallywidehat{gg_j},
+                &&\qquad (1 \le j \le m-1), \\
+\label{tighteningcomposite2:ggj}
+gg_j  &= \overline{gg'_{j-1}} \circ g_j,
+                &&\qquad (2 \le j \le m).
+\end{alignat}
+
+The shortening of the tightening is described by a similar set of equations obtained by omiting the pair $gg'_{j_s}$, $gg_{j_s+1}$
+and replacing the equation for $gg_{j_s}$ by
+\[
+gg_{j_s} = \overline{gg'_{j_s -1}} \circ g_{j_s} \circ s
+\]
+and the tightening of the shortened zigzag $shorten(F::G,i_s,s)$
+can be described by similar set of equations in which there is one less `g' term \workt{reword}and in which the term $g_{j_s}$
+is replaced by $g_{j_s} \circ s$ so that we have
+the $gg_{j_s} =\overline{gg'_{j_s-1}} \circ g_{j_s} \circ s$. It follows that to show that the tightened shortening and the shortened tightening are identical we
+have to show that the $gg'_{j_s+1}$ terms are identical.
+If $j_s > 1$ we need show that
+
+\[
+\reallywidehat{\overline{gg'_{j_s-1}} \circ g_{j_s} \circ s} 
+= \reallywidehat{\overline{g'_{j_s} \circ\reallywidehat{\overline{gg'_{j_s-1}} \circ g_{j_s}}} \circ  g_{j_s + 1} } 
+\]
+This follows from lemma \lref{tighteningashorteninglemma}
+ (\lref{tighteningshorteningLeftToRight})
+by substituting
+$gg_{j_s-1}$ for $i$,
+$g_{j_s}$ for $f$,
+$g'_{j_s}$ for $g$,
+$g_{j_s+1}$ for $h$,
+and is applicable because $\widehat{g_{j_s}} = \widehat{g'_{j_s}}$
+because $G$ is assumed to be tight.
+
+If $j_s=1$ we need show that
+\[
+\reallywidehat{ f_n \circ g_1 \circ s} 
+= \reallywidehat{\overline{g'_1 \circ\reallywidehat{ f_n \circ g_1}} \circ  g_{2} } 
+\]
+This follows from lemma \lref{tighteningashorteninglemma}
+ (\lref{tighteningshorteningLeftToRight})
+by removing the $\bar{i}$ term (i.e. by substituting the appropriate identity morphism, $id_{w_n}$)
+and by
+substituting
+$f_n \circ g_1$ for $f$,
+$g'_1$ for $g$ and
+$g_2$ for $h$
+and is applicable because $\widehat{f_n \circ g_1} \leq
+\hat{g_1} = \hat{g'_1}$.
+\fi %proof commented out
+\end{proof}
+
+\begin{lemma}
+\llabel{deferredshorteninglemma}
+If $Z_1$, $Z_2$ are tight zigzags such that the composition $Z_1 :: z_2$ is defined then
+\begin{enumerate}[(i)]
+\item 
+$shorten(tighten(shorten(Z_1) :: Z_2))= shorten(tighten(Z_1 :: Z_2)).$
+\item
+$shorten(tighten(Z_1 :: shorten(Z_2)))= shorten(tighten(Z_1 :: Z_2)).$
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Since in both (i) and (ii) the innermost shortening is a combination 
+of individual shortenings and since
+it follows by lemma \lref{associativitysublemma} that 
+each of these individual shortenings can be moved outside of the tightening.
+\end{proof}
+
+\subsection{The category of short sticklebacks}
+
+We need to show that there is a category of short sticklebacks
+in which composition is defined by
+\[
+F \circ G = shorten(T(F::G)) 
+\]
+Composition, so defined, is associative because:
+\begin{align*}
+F \circ (G \circ H)
+  &= shorten(T(F :: shorten(T(G ::H)) && \mbox{definition $\circ$} \\
+  &= shorten (T(F::T(G::H))) && \mbox{by lemma \ref{deferredshorteninglemma} (i),} \\
+  &= shorten (T(F::G::H))    && \mbox{\parbox[t]{5cm}{see proof of associativity of composition of tight zigzags, section \ref{categorytightzigzags}.}}
+\end{align*}  
+and because, likewise, 
+using lemma \ref{deferredshorteninglemma} (ii),
+we have also that $(F \circ G) \circ H=shorten (T(F::G::H))$.
+
+\subsection{Sequential Shortening}
+\begin{lemma}
+\llabel{sequentialshortening}
+If $F=\zigzagTuple{f}{n}:x_1 \morph y_n$ 
+is a tight stickleback
+and if $F$ shortens to a zigzag $\tuple{f}$ for some
+morphism $f:x_1 \morph y_n$ in \catcw then then there
+is a sequence of morphisms $s_1,...s_{n-1}$,
+$s_i: y_i \morph y_n$ in \catcw
+such that all diagrams in 
+\commentary{Improve the diagramming at a later date}
+\[
+%\arraycolsep=12pt
+\zigzagSequentialShortening{x}{y}{f}{n}{x}{g}{h}{s}
+\]
+
+commute i.e. such that
+\[
+f_1 \circ s_1 =f
+\]
+and \foreachi[n-2], 
+\[
+f'_i \circ s_i =  f_{i+1} \circ s_{i+1}
+\] 
+and
+\[
+f'_{n-1} \circ s_{n-1} = f_n 
+\]
+\end{lemma}
+\begin{proof}
+For any series of shortenings of $F$ to a single morphism one of this set must shorten the triange the final zag in F i.e. 
+there must be a morphism $s_{n-1}:y_{n-1} \morph y_n$
+such that the triangle 
+$\nudgeup{1.5cm}\downTriangleShape{x_n}{y_{n-1}}{y_n}
+\downToLeft{g'}[0.6]
+\downToRight{g}
+\leftToRightArcing[a]{s}{30}{30} 
+$ 
+commutes. 
+Since shortenings can be applied in any order this shortening can be applied first and the resulting zigzag 
+$\tuple{f_1,f'_1,...f_{n-2}, f_{n-1} \circ s_{n-1}}$
+must then shorten to the morphism $f$. 
+Repeating the argument we get a morphism $s_{n-2}$
+such that 
+$
+\begin{array}{c  c c}
+&\Ob{y}{n}&               \\[0.5cm]
+\Obpp{y}{n} && \Obp{y}{n} \\[0.5cm]
+& \Obp{x}{n}
+\end{array}
+\begin{arrows}
+\ncarr{ynpp}{yn}\alabel{s_{n-2}}
+\ncarr{ynp}{yn}\blabel{s_{n-1}}
+\ncarr{xnp}{ynpp}\alabel{f'_{n-2}}
+\ncarr{xnp}{ynp}\blabel{f_{n-1}}
+\end{arrows}
+$
+commutes and shorten $F$ to a zigzag
+$\tuple{f_1,f'_1,...f_{n-3}, f_{n-2} \circ s_{n-2}}$
+By iteration we arrive
+at morphisms $s_1,...s_{n-1}$ which shorten $F$ to a singleton (and therefore short) zigzag $\tuple{f_1 \circ s_1}$. But since the shortening of a tight zigzag is unqiue 
+we must have $f_1 \circ s_1=f$.
+\end{proof}

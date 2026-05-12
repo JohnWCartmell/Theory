@@ -1,0 +1,48 @@
+
+\subsection{Lemma 2A --- Representation of Path Equivalences}
+
+\begin{lemma}
+\llabel{pathequivalencerepresentationlemma}
+If $\catc$ is a locally finite category and $\reqtc$ is a set of instances, if $\catc$ is 
+\term{maximally constrained} to the requirement $\reqtc$ then all path equivalences with respect
+to $\reqtc$ are represented in \catcw
+i.e. for all diagrams
+$
+\rule[-0.3cm]{0pt}{0.9cm} %to add vertical space of diagram -- based on lowering diagram 0.3cm and heght 0.9cm
+                            % change thickness from 0pt to 1 pt to debug
+\begin{array}{c p{0.5cm} c  }
+ \Rnode{a}{a}            &&   \Rnode{b}{b}
+\end{array} 
+$
+\ncarc[nodesep=2pt,arcangle=10,offset=2pt]{->}{a}{b}
+\alabel{f}
+\ncarc[nodesep=2pt,arcangle=-10,offset=-2pt]{->}{a}{b}
+\blabel{g}
+in $\catc$,  if in all instances $D \in \reqtc$, $D(f)=D(g)$, 
+then $f=g$ in $\catc$.
+\end{lemma}
+\begin{proof}
+Suppose such a category  $\catcw$  that  is 
+\term{maximally constrained} to a requirement $\reqtc$
+and suppose 
+$
+\rule[-0.3cm]{0pt}{0.8cm} %to add vertical space of diagram -- based on lowering diagram 0.3cm and heght 0.9cm
+                            % change thickness from 0pt to 1 pt to debug
+\begin{array}{c p{0.5cm} c  }
+ \Rnode{a}{a}            &&   \Rnode{b}{b}
+\end{array} 
+$
+\ncarc[nodesep=2pt,arcangle=10,offset=2pt]{->}{a}{b}
+\alabel{f}
+\ncarc[nodesep=2pt,arcangle=-10,offset=-2pt]{->}{a}{b}
+\blabel{g}
+in $\catc$. From sketch $S$ of $C$ we can construct a sketch $S'$ by formally adding a path equivalence $f=g$.
+$S'$ generates a category $C'$ for which we have a functor $I: \catc \morph \catcp$. 
+Because $D(f) = D(g)$ in every instance $D \in \reqtc$
+it follows that $I$ is consistent with $\reqtc$ and because 
+of this it follows that the functor $K_a: \catc \morph \Par$ 
+can be extended to a functor $K'_a: \catcp \morph \Par$. 
+Since $I(f)=I(g)$ in $\catcp$ then $K'_a(I(f))=K'_a(I(g))$. 
+But $I \circ K_a = K'_a$, therefore we have that $K_a(f)=K_a(g)$. 
+Applying lemma \lref{homPfaithfullemma} \workt{modification needed} we get that that $f=g$ in $C$ as required.
+\end{proof}

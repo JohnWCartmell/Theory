@@ -1,0 +1,309 @@
+
+\subsection{Range Categories}
+Cockett et al. (\cite{COCKETT2012}) define range categories from restriction categories along the following lines.
+
+\begin{definition} 
+A \term{range category} is a restriction category with an additional operator on morphisms (the range operator $\hat{\ }$), as follows
+if $f: a \morph b$ in  \catcw then
+$$\hat{f}: b \morph b$$
+satisfying
+
+RR.1 For $f:a \morph b$ in \catcw $$\bar{\hat{f}} = \hat{f}.$$
+
+RR.2 For $f:a \morph b$ in \catcw $$f \circ \hat{f} = f.$$
+
+RR.3. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
+$$\reallywidehat{f \circ \bar{g}} = \hat{f} \circ \bar{g}.$$
+
+RR.4. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
+$$\reallywidehat{(\widehat{f} \circ g)} = \widehat{f \circ g}.$$
+\end{definition}
+
+In this note we explore range categories that satisfy an  additional condition defined by Cockett et al. as RR.5. We will use the folowing terminology:
+
+\begin{definition}
+An \textit{RR.5 range category} is a range category that additionally satisfies:
+
+RR.5 if $\equaliser{a}{f}{\paralleldiag{b}{c}{g}{h}}$ then
+ $$f \circ g = f \circ h \Rightarrow  \hat{f} \circ g = \hat{f} \circ h.$$
+ \end{definition}
+Let the category \FinPar be the range category of finite sets and partial functions.
+
+\begin{lemma}
+\llabel{unirangelemma}
+If $f:a \morph a$ in a range category \catcw then for any morphism 
+$f: a \morph b$
+\begin{enumerate}[(i)] 
+\item $\hat{\hat{f}}=\hat{f}$,
+\item $\hat{f} \comp \hat{f} = \hat{f}$,
+\item \llabel{lem:unirange:hatbar} $\hat{\bar{f}}=\bar{f}$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Straightforward.
+\end{proof}
+
+\begin{lemma}
+\llabel{fglemma}
+ \begin{enumerate}[(i)]
+ \item 
+ If \fgsinkdiag in \catcw then
+ $\hat{f}\circ \hat{g} = \hat{g} \circ \hat{f},$
+ \item
+ If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
+$\hat{g} \circ \reallywidehat{f \circ g}=  \reallywidehat{f \circ g}.$
+ \item \commentary{(iii) wrong diagram }
+If \fgsinkdiag in \catcw  then
+$\reallywidehat{f \circ \widehat{g}}=\widehat{f} \circ \widehat{g}.$
+
+
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}[(i)]
+\item Follows from RR.1 and R.2.
+\item 
+\begin{align*}
+\hat{g} \circ \widehat{f \circ g}&=\widehat{f \circ g} \circ \hat{g}&&\mbox{by (i)} \\
+&=\widehat{f \circ g} \circ \bar{\hat{g}}
+                    &&\mbox{by lemma \ref{unirangelemma} (\ref{lem:unirange:hatbar}),} \\
+&= \reallywidehat{f \circ g \circ \bar{\hat{g}}}&&\mbox{by RR.3,} \\
+&= \widehat{f \circ g} &&\mbox{by lemma \ref{unirangelemma} (\ref{lem:unirange:hatbar}), then RR.2.}
+\end{align*}
+\item %(iii)
+\begin{align*}
+\widehat{f \circ \widehat{g}} 
+                                &=\widehat{f \circ \overline {\widehat{g}}} &\mbox{by RR.1}\\
+                                &=\widehat{f} \circ \overline {\widehat{g}} &\mbox{by RR.3}\\
+                                &=\widehat{f} \circ \widehat{g}             & \mbox{by RR.1}\\
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}
+\llabel{forwardPropagationSubLemma}
+In a category with support
+\begin{enumerate}
+\item if $\sequentialdiag{a}{b}{c}{f}{g}$ 
+then $\reallywidehat{f \circ g} \leq \hat{g}$,
+\item if \fgsinkdiag and if $f\circ \hat{g} = f$ then
+  $\hat{f} \leq \hat{g}$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}
+\item
+We need show that 
+$\overline{\reallywidehat{f \circ g}} \circ \hat{g} = \reallywidehat{f \circ g}$.
+This follows because
+
+\begin{align}
+\overline{\reallywidehat{f \circ g}} \circ \hat{g} 
+          &= \reallywidehat{f \circ g} \circ \hat{g}  &&\mbox{by RR.1,}//
+          &= \reallywidehat{f \circ g} 
+                &&\mbox{by lemma \ref{fglemma} (i) and (ii).}
+\end{align}
+\item
+To prove $\hat{f} \leq \hat{g}$ we have to prove 
+$\bar{\hat{f}} \circ \hat{g} = \hat{f}$ 
+i.e. that $\hat{f} \circ \hat{g} = \hat{f}$. 
+This follows because   
+\begin{align*}
+\hat{f} \circ \hat{g} 
+     &= \reallywidehat{f \circ \hat{g}}
+                  &&\mbox{by lemma \ref{fglemma} (ii),} \\
+     &= \hat{f}   && \mbox{from the initial assumption.}
+\end{align*}
+\end{enumerate} 
+\end{proof}
+
+The following lemma complements lemma \ref{backPropagationTerminationLemma} 
+and the two will be used in tandem later.
+\begin{lemma}
+\llabel{forwardPropagationTerminationLemma}
+Suppose we have the following morphisms in a range category
+\commentary{I am thinking this shape might be \workt{wrong}.}
+\commentary{Consider more carefully what reqd. in later proof.}
+\[
+\begin{array} {c c c c c}
+       &\bOb{x}                            \\[0.4cm]
+\bOb{w}        &        &\bOb{y}           \\[0.4cm]
+       &       &        &         &\kern-0.3cm\bOb{z} 
+\end{array}
+\begin{arrows}
+\ncarr{w}{x} \alabel{f}
+\ncarr{y}{x} \blabel{g}
+\ncarr{z}{y} \blabel{h}
+\end{arrows}
+\]
+then if 
+\begin{equation}
+\label{forwardPropagationTight}
+\widehat{f}=\widehat{g}
+\end{equation}
+and 
+\begin{equation}
+\label{forwardPropagationTwo}
+f \circ \reallywidehat{h \circ g}=f
+\end{equation}
+then 
+\begin{equation}
+\label{forwardPropagationThree}
+\reallywidehat{h \circ g} = \reallywidehat{g}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+The result follows by showing that
+$\reallywidehat{h \circ g} \leq \reallywidehat{g}$
+and
+$\reallywidehat{g} \leq \reallywidehat{h \circ g}$.
+
+The first of these 
+follows directly from lemma \ref{forwardPropagationSubLemma} (i).
+
+The second follows from (\ref{forwardPropagationTwo}), 
+which by lemma \ref{forwardPropagationSubLemma} (ii)
+gives us
+$\hat{f} \leq \reallywidehat{h \circ g}$,
+and because $\hat{f} = \hat{g}$.
+\end{proof}
+
+\subsection{Partial Sections}
+Cockett defines partial sections as possible features of restriction categories. 
+We are interested in pretty much the same concept applied in the context of categtories with support. If \catcw is a category with support then a morphism s is said to be a partial section of  morphism $f$ iff
+$s \circ f = \bar{s}$ and $f \circ s \circ f = f$.
+
+\begin{observation}
+\llabel{preservationOfSections}
+If \catcw and \catcpw are categories with support 
+and if $F: \catc \morph \catcp$ is a functor that preserves the support operation then 
+$F$ preserves partial sections.
+\end{observation}
+
+\subsection{Derived weak-range Operator}
+
+The following observation is from  Cockett et al where it is used in the context of restriction categories.
+\begin{lemma}
+\llabel{rangeUniqueLemma}
+If \catcw is a category with support and there is a morphism $f: a \morph b$
+which has two partial sections $s,s':b \morph a$ then
+\[
+f \circ s = f \circ s' 
+\]
+\end{lemma}
+\begin{proof}
+hand written notes
+\end{proof}
+
+This leads us to being able to define an operator \hatItself \ for
+morphisms $f$ that have partial sections. 
+We define
+\[\widehat{f} = f_s \circ f\]
+where $f_s$ is any partial section of $f$.
+
+\begin{notebox}[Warning]
+At this point we have proved none of the required range category properties of \hatItself. We must be very careful not to use any of them. Lets pick over anything we do with it very carefully. Must't accidentally assume any of the properties of the range operator. 
+\end{notebox}
+
+\begin{oldtt}
+To show that HomP preserves the "range" operator I require RR.1.
+That $f \circ \widehat{f} = f$. 
+\begin{proof}
+\begin{align*}
+f \circ \widehat{f} &= f \circ f_s \circ f \\
+                    &= f &&\mbox{since $f_s$ is a  section of $f$, PHEW.}
+\end{align*}
+\end{proof}
+\end{oldtt}
+
+\begin{noteforfuture}
+\begin{oldtt}
+somewhere I need show that when I compose zigzag 
+$\tuple{f}$ with $\tuple{\widehat{f},f,\bar{f}}$
+then I get $\tuple{\widehat{f}}$. as well as showing the second os these is a partila section.
+\end{oldtt}
+Actually I think I need to show 
+\begin{itemize}
+\item $\tuple{\widehat{f},f,\bar{f}}$ is a section
+of $\tuple{f}$,
+\item $\tuple{\widehat{f},f,\bar{f}}$ composed with $\tuple{f}$ is $\tuple{\widehat{f\ }}$.
+\end{itemize}
+Together these mean that $\reallywidehat{\tuple{f}}=\tuple{\widehat{f\ }}$
+This means the embedding of a range category in its stickleback category
+preserves the range operator (more precisely it takes the range operator to the pseudo-range operator).
+\end{noteforfuture}
+
+\begin{lemma}
+\llabel{tighteningashorteninglemma}
+If 
+$
+% In this array 
+% (i) the \nudgeup is so that space is allocated for the
+% morphisms looping above the real estate of the array
+\begin{array}{c c c c}
+\nudgeup{0.75cm}
+          & \bOb{y} &         & \bOb{z} \\[0.5cm]
+  \bOb{w} &         & \bOb{x} & \\[0.4cm]
+\end{array}
+\begin{arrows}
+\ncarr{w}{y}\alabel{f}
+\ncarr{x}{y}\alabel{g}
+\ncarr{x}{z}\blabel{h}
+\drawMorphismArcing{y}{z}{a}{s}{15}{15}[0.5]
+\ncarrrecursive{w}{w}{270}{0}{5.5}\alabel{\overline{i}}
+\ncarrrecursive{z}{z}{90}{180}{8.5}\alabel{\overline{j}}
+\end{arrows} 
+$
+in a range category \catcw and if
+$f' \circ s = f$
+and
+then
+\begin{enumerate}[(i)]
+\item 
+\llabel{tighteningshorteningRightToLeft}
+ if $\hat{f}=\hat{g}$ then
+$
+f \circ \reallywidehat{\overline{h \circ j} \circ g} \circ s = f \circ s \circ \bar{j},
+$
+\item 
+\llabel{tighteningshorteningLeftToRight}
+ if $\hat{f}\leq\hat{g}$ then
+$\reallywidehat{\overline{g \circ \reallywidehat{\bar{i} \circ f}}\circ h} = \reallywidehat{\bar{i} \circ f \circ s}$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}[(i)]
+\item
+
+\begin{align*}
+f \circ \reallywidehat{\overline{h \circ j} \circ g} \circ s
+   &= f \circ \reallywidehat{\overline{g \circ s \circ j} \circ g} \circ s
+                     &&\mbox{substituting $h=g \circ s$, } \\
+   &= f \circ \reallywidehat{g \circ  \overline{s \circ j} } \circ s
+                     && \mbox{by R.4}, \\
+   &= f \circ \reallywidehat{g} \circ  \overline{s \circ j}  \circ s 
+                     && \mbox{by RR.3}, \\
+   &= f \circ s \circ \bar{j}
+                     && \mbox{because $\hat{f} = \hat{g}$ and by R.4, as required.} 
+\end{align*}
+\item
+
+\begin{align*}
+\reallywidehat{\overline{g \circ \reallywidehat{\bar{i} \circ f}}\circ h}
+     &= \reallywidehat{\overline{g \circ \reallywidehat{\bar{i} \circ f}}\circ g \circ s}
+     && \mbox{substituting $h=g \circ s$,} \\ 
+     &= \reallywidehat{g \circ \reallywidehat{\bar{i} \circ f}\circ s}
+     && \mbox{by R.4 and RR.1,} \\ 
+     &= \reallywidehat{\hat{g} \circ \reallywidehat{\bar{i} \circ f}\circ s}
+     && \mbox{by RR.4,} \\ 
+     &= \reallywidehat{\hat{g} \circ \hat{f} \circ \reallywidehat{\bar{i} \circ f}\circ s}
+     && \mbox{by lemma \ref{fglemma} (ii),} \\ 
+     &= \reallywidehat{\hat{f} \circ \reallywidehat{\bar{i} \circ f}\circ s}
+     && \mbox{\workt{need use}since $\hat{f} \leq \hat{g}$,}\\
+     &= \reallywidehat{\reallywidehat{\bar{i} \circ f}\circ s}
+     && \mbox{by lemma \ref{fglemma} (ii),} \\ 
+     &= \reallywidehat{\bar{i} \circ f \circ s}
+     && \mbox{by RR.4, as required.}   
+\end{align*}
+\end{enumerate}
+\end{proof}
