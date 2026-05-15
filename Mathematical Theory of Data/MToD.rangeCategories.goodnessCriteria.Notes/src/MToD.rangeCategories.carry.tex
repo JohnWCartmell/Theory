@@ -1,46 +1,62 @@
 
-\subsection{Simplify and follow Cockett more closely}
-If \catcw is a range category, define a functor $K_a: \catc \morph \Par$ by defining for each object $x$ of \catc, $K_a(x)=Hom_{\Stk}(a,x)$ and by defining $K_a(j)$, for $j:y_1 \morph y_2$ in \catc, to be the partial function  defined at a zigzag 
+\subsection{The Data Populator Functor $d_a$.}
+\llabel{daDefinition}
+If \catcw is a RR.5 range category, define a functor $d_a: \catc \morph \Par$ by defining for each object $x$ of \catc, $d_a(x)=Hom_{\Stk}(a,x)$ and by defining $d_a(j)$, for $j:y_1 \morph y_2$ in \catc, to be the partial function  defined at a zigzag 
 $F=\zigzagTuple{f}{n}\in Hom_{\Stk}(a,x)$ by
 \begin{align*}
-K_a(j)(F) &= F :: \tuple{j}  &&\mbox{ if $\overline{f_n \circ j} = \overline{f_n}$,} \\
+d_a(j)(F) &= F :: \tuple{j}  &&\mbox{ if $\overline{f_n \circ j} = \overline{f_n}$,} \\
              &=\bot        && \mbox{otherwise.}
 \end{align*}
 
 Note that the condition $\overline{f_n \circ j} = \overline{f_n}$ ensures
-that $F :: \tuple{j}$ is a tightg zigzag and therefore that
+that $F :: \tuple{j}$ is a tight zigzag and therefore that
 $F :: \tuple{j}= F \circ \tuple{j}$.
 
-$K_a$ is a range functor by arguments made by Cockett.
+$d_a$ is a range functor by arguments made by Cockett. 
 
-The RR.5 condition is required to ensure that every tight
-zigzag has a unique shortening. 
-
-
-
-
-\subsection{Requirements for $K_a$}
-
-From memory require:
-\begin{enumerate}[(i)]
-\item If $f: a \morph x$ in \catcw then 
+$d_a$ has the following property
+\begin{lemma}
+\llabel{daLocallyFaithful}
+If $f: a \morph x$ and $g: a \morph x$ in \catcw then 
+if $d_a(f)=d_a(g)$ then $f=g$.
+\end{lemma}
+\begin{proof}
+\begin{newtt}
+First note that since $\rst{\rst{f} \circ f} = \rst{f}$ 
+we have $d_a(f)(\tuple{\rst{f}})= \tuple{f}$.
+It then follows from the assumption that $d_a(f)=d_a(g)$
+that we must have 
+$d_a(g)(\tuple{\rst{f}})= \tuple{f}$. 
+Therefore, from the definition of $d_a$, it follows that
+$\rst{\rst{f} \circ g} = \rst{f}$
+which then simplfies using R.3 to
 \[
-K_a(f)(\tuple{\bar{f}})=\tuple{f}
+\rst{f} \circ \rst{g} = \rst{f}.
 \]
-\item If $f: a \morph x$ and $g: a \morph x$ in \catcw then 
+By symmetry we must also have
 \[
-K_a(f)(\tuple{\bar{f}\circ\bar{g}})=\tuple{\bar{g} \circ f}
+\rst{f} \circ \rst{g} = \rst{g}
 \]
-and, therefore,
+and thus
 \[
-K_a(g)(\tuple{\bar{f}\circ\bar{g}})=\tuple{\bar{f} \circ g}
+\rst{f} = \rst{g}.
 \]
-\end{enumerate}
 
-This is enough to get me the first representation lemma 2A.
+Now we can show that $f=g$ as follows
+\begin{align*}
+f &= d_a(f)(\tuple{\rst{f}}) 
+                     && \mbox{\parbox[t]{4cm}{from definition of $d_a$ 
+                               and because $\rst{f} \circ f = \rst{f}$,}}\\
+  &= d_a(g)(\tuple{\rst{g}}) 
+                     && \mbox{since $d_a(f)=d_a(g)$ and $\rst{f}=\rst{g}$,}\\
+  &= g               && \mbox{\parbox[t]{4cm}{from definition of $d_a$ 
+                               and because $\rst{g} \circ g = \rst{g}$.}}
+\end{align*}
+\end{newtt}
+\end{proof}
 
 \begin{aside}
-I stated out with $S_a$ as the stickelback functor $K_a$.
+I stated out with $S_a$ as the stickelback functor $d_a$.
 But ... in the proof I get a clash of letter with $S$ being used as 
 a functor $S_a$ which I want to extend to a functor $S'_a$ and also
 being used as a sketch $S$ which is extended to a sketch $S'$.
@@ -49,6 +65,9 @@ Arguably $S$ for sketch takes precedence over Crockett's $S$ for
 stickleback functor.
 What letters to choose. Use $G$ (graph) for sketch??. Use $E$, entity model, or $ER$, or $M$ model, or $P$ for presentation.
 
-What letter to use for the stickleback functor $S_a$. Could be $K_a$. 
+What letter to use for the stickleback functor $S_a$. Could be $d_a$. 
 K for stic\textbf{K}leback. Could be $D_a$ because type $a$ is populated with $\textbf{D}ata$. Except at the moment I have $D \in \reqt$.
+
+Therefore I could use $d_a$. When extended this would become $d'_a$.
+$d_a : \catcw \morph \Par$. $d_a$ is commensurate with any $D \in \reqt$.
 \end{aside}

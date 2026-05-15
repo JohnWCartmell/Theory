@@ -27,7 +27,6 @@ An \textit{RR.5 range category} is a range category that additionally satisfies:
 RR.5 if $\equaliser{a}{f}{\paralleldiag{b}{c}{g}{h}}$ then
  $$f \circ g = f \circ h \Rightarrow  \hat{f} \circ g = \hat{f} \circ h.$$
  \end{definition}
-Let the category \FinPar be the range category of finite sets and partial functions.
 
 \begin{lemma}
 \llabel{unirangelemma}
@@ -46,7 +45,7 @@ Straightforward.
 \begin{lemma}
 \llabel{fglemma}
  \begin{enumerate}[(i)]
- \item 
+ \item %(i)
  If \fgsinkdiag in \catcw then
  $\hat{f}\circ \hat{g} = \hat{g} \circ \hat{f},$
  \item
@@ -55,8 +54,15 @@ $\hat{g} \circ \reallywidehat{f \circ g}=  \reallywidehat{f \circ g}.$
  \item \commentary{(iii) wrong diagram }
 If \fgsinkdiag in \catcw  then
 $\reallywidehat{f \circ \widehat{g}}=\widehat{f} \circ \widehat{g}.$
-
-
+ \item %(iv)
+ If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
+$\rng{f \circ \rst{g}}=\rst{\rng{f} \circ g}.$
+\item %(v)
+ If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  
+ then if $\rst{g} \leq \rng{f}$ then $\rng{f \circ g} = \rng{g}$.
+  \item %(vi)
+ If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
+$\rst{f \circ g} \leq \rst{f}.$
 \end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -77,12 +83,47 @@ $\reallywidehat{f \circ \widehat{g}}=\widehat{f} \circ \widehat{g}.$
                                 &=\widehat{f} \circ \overline {\widehat{g}} &\mbox{by RR.3}\\
                                 &=\widehat{f} \circ \widehat{g}             & \mbox{by RR.1}\\
 \end{align*}
+\item %{iv}
+Prove $\rng{f \circ \rst{g}}=\rst{\rng{f} \circ g}$,
+by using RR.3 on the left and  RR.1, R.3 and RR.1, again, on the right,
+to simplify both sides of the identity  to $\rng{f} \circ \rst{g}$. 
+\item %(v)
+From the inital assumption that
+$\rst{g} \leq \rng{f}$ which, by defintion and by  RR.1 and R.2 can be restated as
+$\rng{f} \circ \rst{g}  = \rst{g}$,
+we are required to prove that
+$\rng{f \circ g} = \rng{g}$
+which we do as follows:
+\begin{align*}
+\rng{f \circ g} 
+               &= \rng{\rng{f} \circ g}
+               && \mbox{by RR.4,} \\
+               &= \rng{\rng{f} \circ \rst{g} \circ g}
+               && \mbox{by R.1,} \\
+               &= \rng{\rst{g} \circ g}
+               && \mbox{from the initial assumption restated,} \\
+               &= \rng{g}
+               && \mbox{by R.1, as required.} 
+\end{align*}
+\item %(vi)
+Need show $\rst{f \circ g} \circ \rst{f} = \rst{f \circ g}$
+which we can do as follows
+\begin{align*}
+\rst{f \circ g} \circ \rst{f} 
+                 &= \rst{\rst{f \circ g} \circ f}
+                            && \mbox{by R.3,} \\
+                 &= \rst{f \circ \rst{g} } 
+                            && \mbox{by R.4,} \\
+                 &= \rst{f \circ g}
+                            && \mbox{by wR.4.}
+\end{align*}
 \end{enumerate}
 \end{proof}
 
+
 \begin{lemma}
 \llabel{forwardPropagationSubLemma}
-In a category with support
+In a range category
 \begin{enumerate}
 \item if $\sequentialdiag{a}{b}{c}{f}{g}$ 
 then $\reallywidehat{f \circ g} \leq \hat{g}$,

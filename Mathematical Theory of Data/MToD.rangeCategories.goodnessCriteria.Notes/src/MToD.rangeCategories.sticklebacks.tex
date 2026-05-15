@@ -23,7 +23,7 @@ $$
 $$
 
 We will say that this i'th zig is \textit{tight} iff
-$\widehat{f_i}=\widehat{f'_i}$.
+$\rng{f_i}=\rng{f'_i}$.
 
 We also find a  zag for each $i$, $2 \leq i \leq n$, like so
 %\arreset}
@@ -94,12 +94,12 @@ If \catcw is a range category and
 \drawMorphismArcing{x}{y}{a}{f}{20}{20}[0.5]
 \drawMorphismArcing{x}{y}{b}{z}{-20}{-20}[0.5]
 \ncarrrecursive{x}{x}{170}{80}{10}\alabel{\rst{i}}
-\ncarrrecursive{y}{y}{80}{170}{10}\alabel{\widehat{j}}
+\ncarrrecursive{y}{y}{80}{170}{10}\alabel{\rng{j}}
 \end{arrows} 
 \] 
 in \catcw then if $\rst{z} \leq \rst{i}$,
-$z \leq f$ and $\widehat{z} \leq \widehat{j}$ then
-$z \leq \rst{i} \circ f \circ \widehat{j}$.
+$z \leq f$ and $\rng{z} \leq \rng{j}$ then
+$z \leq \rst{i} \circ f \circ \rng{j}$.
 \end{observation}
 
 We can show by induction on length that every zigzag $F$ has a tightening. 
@@ -109,15 +109,15 @@ If the zigzag is of length $1$ then it has no zigs and no zags so is already tig
   \newcommand{\tightlead}
   {f_1,f'_1,...f_{n-2},f'_{n-1},
        f_{n-1} \circ 
-       \reallywidehat{
+       \rng{
                 \rst{f_n} \circ f'_{n-1}
                      }
   }      
 
 \newcommand{\requiredTightening}
 {\tuple{t_1,t'_1,...t'_{n-2},t_{n-1},\; 
-    \rst{f_n} \circ f'_{n-1} \circ \widehat{t_{n-1}},\; 
-    \rst{f'_{n-1} \circ \widehat{t_{n-1}}} \circ f_n
+    \rst{f_n} \circ f'_{n-1} \circ \rng{t_{n-1}},\; 
+    \rst{f'_{n-1} \circ \rng{t_{n-1}}} \circ f_n
     }
 }
 
@@ -142,26 +142,26 @@ We have to show first that (\ref{requiredTightening}) is tight.
 For this we need the following identities:
 \begin{align}
 \label{tightnessIdentityOne}
-\reallywidehat{t_{n-1}} &= \reallywidehat{\rst{f_n} \circ f'_{n-1} \circ \widehat{t_{n-1}}}  \\[0.1cm]
+\rng{t_{n-1}} &= \rng{\rst{f_n} \circ f'_{n-1} \circ \rng{t_{n-1}}}  \\[0.1cm]
 \label{tightnessIdentityTwo}
-\rst{\rst{f_n} \circ f'_{n-1} \circ \widehat{t_{n-1}}}&=\rst{\rst{f'_{n-1} \circ \widehat{t_{n-1}}} \circ f_n}
+\rst{\rst{f_n} \circ f'_{n-1} \circ \rng{t_{n-1}}}&=\rst{\rst{f'_{n-1} \circ \rng{t_{n-1}}} \circ f_n}
 \end{align}
 
 To show that (\ref{tightnessIdentityOne}) holds 
 we first note that by use of lemma \lref{fglemma} (iii) 
 that its rhs simplifies to 
-$\reallywidehat{\rst{f_n} \circ f'_{n-1}} \circ \widehat{t_{n-1}}$ 
+$\rng{\rst{f_n} \circ f'_{n-1}} \circ \rng{t_{n-1}}$ 
 and that therefore  it
 can be paraphrased as
 \[
-t_{n-1} \leq \reallywidehat{\rst{f_n} \circ f'_{n-1}}.
+t_{n-1} \leq \rng{\rst{f_n} \circ f'_{n-1}}.
 \]
 This we show as follows
 \newcommand{\stepOneReason}{
 \parbox[t]{6cm}{
 since
 $t_{n-1} \leq  f_{n-1} \circ 
-       \reallywidehat{
+       \rng{
                 \rst{f_n} \circ f'_{n-1}
                      }
 $
@@ -175,23 +175,23 @@ and
 for any idempotent $i$ and morphism $f$, $i \circ f \leq f$.
 } }
 \begin{align*}
-\widehat{t_{n-1}} &\leq  \reallywidehat{
+\rng{t_{n-1}} &\leq  \rng{
        f_{n-1} \circ 
-       \reallywidehat{
+       \rng{
                 \rst{f_n} \circ f'_{n-1}
                      }
                                       }
         && \mbox{\stepOneReason}\\
-         &= \reallywidehat{f_{n-1}} \circ 
-                      \reallywidehat{
+         &= \rng{f_{n-1}} \circ 
+                      \rng{
                            \rst{f_n} \circ f'_{n-1}
                                     }
         && \mbox{by lemma \lref{fglemma} (iii),}\\[0.1cm]  
-    &\leq  \reallywidehat{\rst{f_n} \circ f'_{n-1}}
+    &\leq  \rng{\rst{f_n} \circ f'_{n-1}}
         && \mbox{\stepThreeReason}
 \end{align*}
 
-Identity (\ref{tightnessIdentityTwo}) holds because both sides  simplify, using RR.3, and R.2, to $\rst{f'_{n-1} \circ \widehat{t_{n-1}}} \circ \rst{f_n}$.
+Identity (\ref{tightnessIdentityTwo}) holds because both sides  simplify, using RR.3, and R.2, to $\rst{f'_{n-1} \circ \rng{t_{n-1}}} \circ \rst{f_n}$.
 
 We can now show that (\ref{requiredTightening})
 is the tightening of $F$ by showing that 
@@ -211,15 +211,15 @@ Z \leq \requiredTightening.
 First we note that  
 \[
  z_{n-1} \leq f_{n-1} \circ 
-       \reallywidehat{
+       \rng{
                 \rst{f_n} \circ f'_{n-1}
                      }
 \]
 because 
 \begin{align*}
-z_{n-1} &= z_{n-1} \circ \reallywidehat{\rst{z_n} \circ z'_{n-1}} && \mbox{trivially, since $Z$ is tight}\\
+z_{n-1} &= z_{n-1} \circ \rng{\rst{z_n} \circ z'_{n-1}} && \mbox{trivially, since $Z$ is tight}\\
 &\leq  f_{n-1} \circ 
-       \reallywidehat{
+       \rng{
                 \rst{f_n} \circ f'_{n-1}
                      } &&\mbox{\parbox{3cm}{since $Z \leq F$.}}
 \end{align*}
@@ -240,23 +240,23 @@ we need
 in addition to show that
  \begin{equation}
  \label{inequalityTwo}
- z'_{n-1} \leq \rst{f_n} \circ f'_{n-1} \circ \widehat{t_{n-1}}
+ z'_{n-1} \leq \rst{f_n} \circ f'_{n-1} \circ \rng{t_{n-1}}
  \end{equation}
  and
   \begin{equation}
  \label{inequalityThree}
- z_n \leq \rst{f'_{n-1} \circ \widehat{t_{n-1}}} \circ f_n
+ z_n \leq \rst{f'_{n-1} \circ \rng{t_{n-1}}} \circ f_n
  \end{equation}
 
 The first of these holds because
 \begin{align*}
-z'_{n-1} &= \rst{z'_{n-1}} \circ z'_{n-1}  \circ \widehat{z'_{n-1}} 
+z'_{n-1} &= \rst{z'_{n-1}} \circ z'_{n-1}  \circ \rng{z'_{n-1}} 
                 && \mbox{trivially, by R.1 and RR.2,}\\
-         &= \rst{z_n} \circ z'_{n-1}  \circ \widehat{z_{n-1}} 
+         &= \rst{z_n} \circ z'_{n-1}  \circ \rng{z_{n-1}} 
          &&\mbox{because $Z$ is tight,}\\
-         &\leq \rst{f_n} \circ f'_{n-1}  \circ \widehat{z_{n-1}}
+         &\leq \rst{f_n} \circ f'_{n-1}  \circ \rng{z_{n-1}}
          &&\mbox{because $Z \leq F$ ,}\\
-         &\leq \rst{f_n} \circ f'_{n-1}  \circ \widehat{t_{n-1}}
+         &\leq \rst{f_n} \circ f'_{n-1}  \circ \rng{t_{n-1}}
          &&\mbox{because $z_{n-1} \leq t_{n-1}$ is established
                                above in (\ref{inequalityOne}).}
 \end{align*}
@@ -416,13 +416,13 @@ in addition to show that
  \end{equation}
 The first of these holds because
 \begin{align*}
-z'_1 &= \rst{z'_1} \circ z'_1  \circ \widehat{z'_1} 
+z'_1 &= \rst{z'_1} \circ z'_1  \circ \rng{z'_1} 
                 && \mbox{trivially, by R.1 and RR.2,}\\
-         &= \rst{z_2} \circ z'_1  \circ \widehat{z_1} 
+         &= \rst{z_2} \circ z'_1  \circ \rng{z_1} 
          &&\mbox{because $Z$ is tight,}\\
-         &\leq \rst{z_2} \circ f'_1  \circ \widehat{f_1}
+         &\leq \rst{z_2} \circ f'_1  \circ \rng{f_1}
          &&\mbox{because $Z \leq F$ ,}\\
-         &\leq \rst{t_2} \circ f'_1  \circ \widehat{f_1}
+         &\leq \rst{t_2} \circ f'_1  \circ \rng{f_1}
          &&\mbox{because $z_2 \leq t_2$ is established
                                above in (\ref{RLinequalityOne}).}
 \end{align*}
@@ -462,14 +462,6 @@ and  $T(\tuple{f} :: G)=\zigzagTuple{s}{n}$ then
 s_1 \leq f \circ t_1
 \]
 \end{observation}
-
-\begin{worktt}
- I should factor out  a midpoint lemma here from
-the later tighteningCommutesWithComposition Lemma  so that whenever 
-$F$ and $G$ compose and we have $t_i$, $s_j$ and $q_i$ for the
-terms of the three tightenings $T(F), T(G) and T(F \circ G)$
-then we get $q_n \leq t_n \circ s_1$.
-\end{worktt}
 
 \begin{observation}
 \llabel{biggeristighter}
@@ -673,18 +665,35 @@ Composition is associative since
 Identity morphisms in $Z_C$ consist of the identity morphisms of \catcw considered 
 as zigzags on length 1.
 
+To show that $Z_C$ is a category with support we need the following lemma:
+\begin{lemma}
+\llabel{midpointLemma}
+If $F=\zigzagTuple{f}{n}$ and $G=\zigzagTuple{g}{m}$ are tight zigzags
+then 
+\[
+F \circ G = (F \circ \tuple{\rst{g_1}}) :: (\tuple{\rng{f_n}} \circ G)
+\]
+\end{lemma}
+\begin{proof}
+\begin{align*}
+F \circ G &= T(\zigzagTuple{f}{n}::\zigzagTuple{g}{m})
+           &&\mbox{definition of $f \circ G$,}\\
+          &= T(\zigzagTupleLedOut{f}{n}{\rst{g_1}} :: \zigzagTupleLedIn{\rng{f_n}}{g}{m} )
+          && \mbox{since $f_n \circ g_1 = f_n \circ \rst{g_1} \circ \rng{f_n} \circ g_1$,} \\
+          &=  T(T(\zigzagTupleLedOut{f}{n}{\rst{g_1}}) :: 
+                           T(\zigzagTupleLedIn{\rng{f_n}}{g}{m}) )
+          && \mbox{by lemma \lref{tighteningCommutesWithComposition},}\\
+          &= T(\zigzagTupleLedOut{f}{n}{\rst{g_1}}) :: 
+                           T(\zigzagTupleLedIn{\rng{f_n}}{g}{m}) 
+          && \mbox{by lemma \lref{fglemma}(iv),}\\
+          &= (F \circ \tuple{\rst{g_1}}) :: (\tuple{\rng{f_n}} \circ G)
+          && \mbox{by definition of $\circ$.}
+\end{align*}
+\end{proof}
+
 \subsection{The category of tight zigzags $Z_C$ is a category with support}
 
 If $F=\zigzagTuple{f}{n}$ is a morphism in $Z_C$ then define $\rst{F}$ to be $\tuple{\rst{f_1}}$.
-
-
-\begin{observation}
-\llabel{composeTightFGobservation}
-Ff $F$ and $G$ are both tight zigzags then
-$$F \circ G = F \circ \bar{G} :: \pointwiserange{F} \circ G$$
-\end{observation}
-
-
 
 We need show
 
@@ -701,54 +710,29 @@ wR.4. If $\sequentialdiag{a}{b}{c}{F}{G}$ in $Z_C$ then
 \rst{F \circ \rst{G}} = \rst{F \circ G}.
 \]
 
-R.1 follows because in \catcw, $f_0 \circ \widehat{f_0} = f_0$. 
+R.1 follows because in \catcw, $f_0 \circ \rng{f_0} = f_0$. 
 
-R.2 follows because in \catcw $\widehat{f_0} \circ \widehat{g_0} = \widehat{g_0} \circ \widehat{f_0}$.
+R.2 follows because in \catcw $\rng{f_0} \circ \rng{g_0} = \rng{g_0} \circ \rng{f_0}$.
 
 R.3 follows because
 \commentary{work on this proof}
 \begin{align*}
 \rst{\rst{F} \circ G} 
-                   &= \rst{T(\tuple{g_0 \circ \widehat{f_0},g'_0,...g_m})}\\
-                   &= \rst{\tuple{g_0 \circ \widehat{f_0},s'_0,...s_m}}
+                   &= \rst{T(\tuple{g_0 \circ \rng{f_0},g'_0,...g_m})}\\
+                   &= \rst{\tuple{g_0 \circ \rng{f_0},s'_0,...s_m}}
                                              &&\mbox{\parbox{5cm}{for some $s'_0,...s_m$
                                                        by some new lemma about tightening when only head position loose,}}\\
-                   &=\tuple{\widehat{g_0 \circ \widehat{f_0}}} 
+                   &=\tuple{\rng{g_0 \circ \rng{f_0}}} 
                                             && \mbox{by definition}\\
-                   &=\tuple{\widehat{g_0} \circ \widehat{f_0}}  
+                   &=\tuple{\rng{g_0} \circ \rng{f_0}}  
                                             && \mbox{by lemma \lref{fglemma} (iii)}\\
                    &=\rst{F} \circ \rst{G}      
 \end{align*}
 
-wR.4 is shown to hold as follows: 
-\begin{align*}
-\rst{F \circ G} 
-       &= \rst{F \circ \bar{G} :: \hat{F} \circ G} 
-       && \mbox{by observation \ref{composeTightFGobservation}} \\
-       &&&\mbox{\highlight{NEED MORE THAN THIS}}
-\end{align*}
-
-
-
-
-\begin{align*}
-\rst{F \circ G} &= \rst{F \circ \bar{\bar{G}}} \\
-                     &= \rst{F \circ \bar{G}} && by ??
-\end{align*}
-
-
-
-\begin{lemma} \commentary{is this used?}
-if f composes with g in range category \catcw then
-\[
-f \circ \bar{g} = f \mbox{ iff } \widehat{f} \leq \bar{g}.
-\]
-\end{lemma}
-\begin{proof}
-\[
-\widehat{f \circ \bar{g}} = \widehat{f} \circ \bar{g} \mbox{ by RR.3}
-\]
-\end{proof}
+If $F$ is of length 1 then wR.4 holds because
+it holds in the underlying range category \catcw. 
+If $F$ is of length $n > 1$ then wR.4 follows because lemma
+\lref{midpointLemma} informs us that $\rst{f \circ G}$ depends only on the $\rst{g_1}$ component of $G$ i.e. only on $\rst{G}$.
 
 
 \subsection{Shortening and Short Sticklebacks}
@@ -767,7 +751,6 @@ commutes then the zigzag
 \zigzagShortened{x}{y}{f}{n}{i}{s}
 \]
 is said to be a \textit{shortening} of $F$.
-\commentary{\highlight{new}}
 
 Significantly, the shortening of a tight zigzag is  tight.
 It is easy to check this.
@@ -795,7 +778,7 @@ $\downTriangleShape{x_i}{y_{i-1}}{y_i}
 \downToRight{g}
 \leftToRightArcing[a]{s}{30}{30} 
 $ commutes 
-and $\bar{f}=\bar{f'}$ then
+and $\rst{f}=\rst{f'}$ then
 $\downTriangleShape{x_i}{y_{i-1}}{y_i}
 \downToLeft{f'}[0.6]
 \downToRight{f}
@@ -804,11 +787,11 @@ $ commutes.
 \end{lemma}
 \begin{proof}
 \begin{align}
-f' \circ s \circ \hat{f}
-   &= \bar{f'} \circ g'\circ s 
+f' \circ s \circ \rng{f}
+   &= \rst{f'} \circ g'\circ s 
        && \mbox{because $f' \leq g'$}\\
-   &= \bar{f} \circ g 
-   && \mbox{since $\bar{f'}=\bar{f}$ 
+   &= \rst{f} \circ g 
+   && \mbox{since $\rst{f'}=\rst{f}$ 
               and $g' \circ s = g$, }\\
    &= f
    &&\mbox{since $f \leq g$}
@@ -850,10 +833,10 @@ ff_n &\mbox{ alias } gg_1 = f_n \circ g_1, \\[6pt]
 ff'_i &= \rst{ff_{i+1}} \circ f'_i,
                 &&\qquad (1 \le i \le n-1), \\
 \label{tighteningcomposite:ffi}
-ff_i  &= f_i \circ \widehat{ff'_i},
+ff_i  &= f_i \circ \rng{ff'_i},
                 &&\qquad (1 \le i \le n-1), \\[6pt]
 \label{tighteningcomposite:ggpj}
-gg'_j &= g'_j \circ \reallywidehat{gg_j},
+gg'_j &= g'_j \circ \rng{gg_j},
                 &&\qquad (1 \le j \le m-1), \\
 \label{tighteningcomposite:ggj}
 gg_j  &= \rst{gg'_{j-1}} \circ g_j,
@@ -893,16 +876,16 @@ The tightening of this shortening can be described as follows:
 \label{case1tighteningShortenedComposite:ffnp}
 tsf_n &= tsg_1 = f_n \circ g_1, \\
 \label{case1tighteningShortenedComposite:tsfis}
-tsf_{i_s} &= f_{i_s} \circ s \circ \reallywidehat{tsf'_{i_{s+1}}},
+tsf_{i_s} &= f_{i_s} \circ s \circ \rng{tsf'_{i_{s+1}}},
                 && \\
 \label{case1tighteningShortenedComposite:tsfpi}
 tsf'_i &= \rst{tsf_{i+1}} \circ f'_i,
                 &&\qquad ( i \in \set{1,2,...i_s-1, i_s+2,...n}), \\
 \label{case1tighteningShortenedComposite:tsfi}
-tsf_i  &= f_i \circ \widehat{tsf'_i},
+tsf_i  &= f_i \circ \rng{tsf'_i},
                 &&\qquad ( i \in \set{1,2,...i_s-2, i_s+2,...n}), \\
 \label{case1tighteningShortenedComposite:tsgpj}
-tsg'_j &= g'_j \circ \reallywidehat{tsg_j},
+tsg'_j &= g'_j \circ \rng{tsg_j},
                 &&\qquad (1 \le j \le m-1), \\
 \label{case1tighteningShortenedComposite:tsgj}
 tsg_j  &= \rst{tsg'_{j-1}} \circ g_j,
@@ -933,21 +916,21 @@ the equations for $ff'_{i_s}$ and $ff_{i_s+1}$ from the system of equations
 (\ref{tighteningcomposite:ffn}) to (\ref{tighteningcomposite:ggj}) and by modifying the description of $ff_{i_s}$ to be
 \begin{equation}
 \label{rhsffis}
-ff_{i_s} = f_{i_s} \circ \widehat{ff'_{i_s}} \circ s
+ff_{i_s} = f_{i_s} \circ \rng{ff'_{i_s}} \circ s
 \end{equation}
 
 To establish (\ref{case1tighteningShortenedComposite:tsfis}) we need show 
 that this modified $ff_{i_s}$ is equal to
 $tsf_{i_s}$ from equation (\ref{case1tighteningShortenedComposite:tsfis}). That is we need show that
-$f_{i_s} \circ \widehat{ff'_{i_s}} \circ s = f_{i_s} \circ s \circ \reallywidehat{tsf'_{i_s+1}}$. 
+$f_{i_s} \circ \rng{ff'_{i_s}} \circ s = f_{i_s} \circ s \circ \rng{tsf'_{i_s+1}}$. 
 This follows from lemma \lref{tighteningashorteninglemma}
 (\ref{tighteningshorteningRightToLeft}) with
 $f_{i_s}$  substituted for $f$, 
 $f'_{i_s}$ for $g$,
 $f_{i_s+1}$ for $h$
 and
-$\reallywidehat{ff'_{i_s+1}}$ for $\bar{j}$,
-since $ff'_{i_s} = \rst{f_{i_s+1} \circ \reallywidehat{ff'_{i_s+1}   }} \circ f_{i_s}$ and
+$\rng{ff'_{i_s+1}}$ for $\rst{j}$,
+since $ff'_{i_s} = \rst{f_{i_s+1} \circ \rng{ff'_{i_s+1}   }} \circ f_{i_s}$ and
 $tsf'_{i_s+1} = ff'_{i_s+1}$.
 
 \paragraph{Case (ii) --- $i_s = n-1$}
@@ -1010,10 +993,10 @@ tsf_{n-1} &= tsg_1 = f'_{n-1} \circ s, \\
 tsf'_i &= \rst{tsf_{i+1}} \circ f'_i,
                 &&\qquad (1 \le i \le n-2), \\
 \label{tighteningShortenedComposite:tsfi}
-tsf_i  &= f_i \circ \widehat{tsf'_i},
+tsf_i  &= f_i \circ \rng{tsf'_i},
                 &&\qquad (1 \le i \le n-2), \\
 \label{tighteningShortenedComposite:tsgpj}
-tsg'_j &= g'_j \circ \reallywidehat{tsg_j},
+tsg'_j &= g'_j \circ \rng{tsg_j},
                 &&\qquad (1 \le j \le m-1), \\
 \label{tighteningShortenedComposite:tsgj}
 tsg_j  &= \rst{tsg'_{j-1}} \circ g_j,
@@ -1046,10 +1029,10 @@ stf_{n-1} &\mbox{ alias } stg_1 = ff_{n-1} \circ s, \\
 stf'_i &= \rst{stf_{i+1}} \circ f'_i,
 &&\qquad (1 \le i \le n-2), \\
 \label{shortenedTightenedComposite:stfi}
-stf_i  &= f_i \circ \reallywidehat{stf'_i},
+stf_i  &= f_i \circ \rng{stf'_i},
 &&\qquad (1 \le i \le n-1), \\[6pt]
 \label{shortenedTightenedComposite:stgpj}
-stg'_j &= g'_j \circ \reallywidehat{stg_j},
+stg'_j &= g'_j \circ \rng{stg_j},
 &&\qquad (1 \le j \le m-1), \\
 \label{shortenedTightenedComposite:stgj}
 stg_j  &= \rst{stg'_{j-1}} \circ g_j,
@@ -1067,7 +1050,7 @@ ff'_{n-1} \circ s
    &=\rst{ff_n}\circ f'_{n-1}\circ s&&\mbox{using  (\ref{tighteningcomposite:ffpi}),}\\
    &=\rst{f_n\circ g_1}\circ f'_{n-1}\circ s&&\mbox{using (\ref{tighteningcomposite:ffn}),}\\
    &= \rst{f'_{n-1}\circ s}\circ f'_{n-1}\circ s&&\mbox{using commutivity of (\ref{case.ii.lhsshortening}),}\\
-   &=f'_{n-1}\circ \bar{s} \circ s&&\mbox{by R.4,}\\
+   &=f'_{n-1}\circ \rst{s} \circ s&&\mbox{by R.4,}\\
    &= f'_{n-1} \circ s     && \mbox{as required, by R.1.}
 \end{align*}
 
@@ -1099,7 +1082,7 @@ In the tightening of the zigzag $F::G$ the `g' terms can be described by
 \label{tighteningcomposite2:g1}         
 gg_1 &= f_n \circ g_1, \\[6pt]
 \label{tighteningcomposite2:ggpj}
-gg'_j &= g'_j \circ \reallywidehat{gg_j},
+gg'_j &= g'_j \circ \rng{gg_j},
                 &&\qquad (1 \le j \le m-1), \\
 \label{tighteningcomposite2:ggj}
 gg_j  &= \rst{gg'_{j-1}} \circ g_j,
@@ -1119,8 +1102,8 @@ have to show that the $gg'_{j_s+1}$ terms are identical.
 If $j_s > 1$ we need show that
 
 \[
-\reallywidehat{\rst{gg'_{j_s-1}} \circ g_{j_s} \circ s} 
-= \reallywidehat{\rst{g'_{j_s} \circ\reallywidehat{\rst{gg'_{j_s-1}} \circ g_{j_s}}} \circ  g_{j_s + 1} } 
+\rng{\rst{gg'_{j_s-1}} \circ g_{j_s} \circ s} 
+= \rng{\rst{g'_{j_s} \circ\rng{\rst{gg'_{j_s-1}} \circ g_{j_s}}} \circ  g_{j_s + 1} } 
 \]
 This follows from lemma \lref{tighteningashorteninglemma}
  (\lref{tighteningshorteningLeftToRight})
@@ -1129,24 +1112,24 @@ $gg_{j_s-1}$ for $i$,
 $g_{j_s}$ for $f$,
 $g'_{j_s}$ for $g$,
 $g_{j_s+1}$ for $h$,
-and is applicable because $\widehat{g_{j_s}} = \widehat{g'_{j_s}}$
+and is applicable because $\rng{g_{j_s}} = \rng{g'_{j_s}}$
 because $G$ is assumed to be tight.
 
 If $j_s=1$ we need show that
 \[
-\reallywidehat{ f_n \circ g_1 \circ s} 
-= \reallywidehat{\rst{g'_1 \circ\reallywidehat{ f_n \circ g_1}} \circ  g_{2} } 
+\rng{ f_n \circ g_1 \circ s} 
+= \rng{\rst{g'_1 \circ\rng{ f_n \circ g_1}} \circ  g_{2} } 
 \]
 This follows from lemma \lref{tighteningashorteninglemma}
  (\lref{tighteningshorteningLeftToRight})
-by removing the $\bar{i}$ term (i.e. by substituting the appropriate identity morphism, $id_{w_n}$)
+by removing the $\rst{i}$ term (i.e. by substituting the appropriate identity morphism, $id_{w_n}$)
 and by
 substituting
 $f_n \circ g_1$ for $f$,
 $g'_1$ for $g$ and
 $g_2$ for $h$
-and is applicable because $\widehat{f_n \circ g_1} \leq
-\hat{g_1} = \hat{g'_1}$.
+and is applicable because $\rng{f_n \circ g_1} \leq
+\rng{g_1} = \rng{g'_1}$.
 \fi %proof commented out
 \end{proof}
 

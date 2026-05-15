@@ -129,6 +129,19 @@ parallel whenEverythingFellApart.
 \tuple{#1_1,#1'_1,...#1_{#2-1},#1'_{#2-1},#1_{#2}}    
 }
 
+%zigzagTupleLedIn{f}{g}{m}    GIVES <f \circ g_1,...g_m>
+\newcommand{\zigzagTupleLedIn}[3]
+{
+\tuple{#1 \circ #2_1,#2'_1,...#1_{#3-1},#2'_{#3-1},#2_{#3}}   
+}
+
+%zigzagTupleLedOut{f}{n}{g}    GIVES <f_1,...f_n \circ g>
+\newcommand{\zigzagTupleLedOut}[3]
+{
+\tuple{#1_1,#1'_1,...#1_{#2-1},#1'_{#2-1},#1_{#2} \circ #3}    
+}
+
+
 %zigzagLeadingTuple{f}{n}
 \newcommand{\zigzagLeadingTuple}[2]
 {
@@ -172,7 +185,7 @@ parallel whenEverythingFellApart.
 }
 \fi
 
-%zigzagTuple{f}{n}{m}
+%zigzagTailTuple{f}{n}{m}
 \newcommand{\zigzagTailTuple}[3]
 {
 \tuple{#1_#2,#1'_#2,...#1_{#2+#3-1},#1'_{#2+#3-1},#1_{#2+#3}}    
@@ -196,16 +209,17 @@ parallel whenEverythingFellApart.
 
 \tableofcontents
 
-%%%%%\iffalse
+%%%%%%%%%%  \iffalse %%%%%%%%%%%%%%%%
+
 \section{Introduction}
 
 \input{../src/MToD.rangeCategories.introduction.tex}
 \section{Restriction Categories and Categories with Support}
 
 \input{../src/MToD.rangeCategories.restrictions_and_support.tex}
+
 \section{Range Categories, Partial Sections and Weak-Range Operators}
 \input{../src/MToD.rangeCategories.ranges_sections_and_weak_range.tex} 
-
 
 \section{\Par valued Functors}
 \input{../src/MToD.rangeCategories.Par_valued_functors.tex}
@@ -214,13 +228,16 @@ parallel whenEverythingFellApart.
 %Should I move Rel section after stickelbacks?
 % Why?
 \input{../src/MToD.rangeCategories.Rel_category.tex}
-%%%%%%%%%\fi
+
+%%%%%%%%%%% \fi  %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Sticklebacks}
-%\input{../src/MToD.rangeCategories.zigzagcommand.tests.tex}
-\workt{File MToD.rangeCategories.sticklebacks.tex}
+
 \input{../src/MToD.rangeCategories.sticklebacks.tex}
 %\iffalse
-\section{Carry Forward}
+%  \section{Carry Forward}  REmoved this section break
+% the file should be renamed the K functor or something more semaantic
+
 \input{../src/MToD.rangeCategories.carry.tex}
 
 \section{Goodness of Data Specifications}
@@ -240,7 +257,6 @@ parallel whenEverythingFellApart.
 
 \input{../src/MToD.rangeCategories.referential_dependency_representation_lemma.tex}
 
-%\fi
 
 \bibliographystyle{alpha} 
 \bibliography{../../../SharedBibliography/temp/bibliography}
