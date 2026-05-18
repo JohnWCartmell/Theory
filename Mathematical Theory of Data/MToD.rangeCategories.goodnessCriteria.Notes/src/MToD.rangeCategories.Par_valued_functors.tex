@@ -1,91 +1,106 @@
+
+
+ Because we need them later, essentially as a way of constructing 
+ instances of data, we next discuss the coproducts and quotients of range functors into the category of sets and partial functors.
+
+\subsection{Coproducts of \Par valued  Functors}
 Denote by \Par the range category of sets and partial functions.
+One of the main results that we give later is proved using constructions involving the coproducts and quotients of range functors into \Par from range categories \catcw. 
 
-\subsection{Quotients of \Par valued  Functors}
-\subsubsection{Quotients and Supports}
-\workt{Need review and improve}
-Suppose \catcw is a restriction category and that $F: \catc \morph \Par$ is a restriction functor into the restriction category of sets and partial functions. Suppose that for every object $x$ of \catcw there is an equivalence relationship $\sim_x$ defined on the set $F(x)$. Suppose that this equivalence relationship has the following property(s):
-For every morphism $j:x \morph y$ in \catcw, for all elements $k1,k2 \in F(x)$,
-\begin{enumerate}
-\item $F(j)(k_1)$ is defined iff $F(j)(k_2)$ is defined, 
-\item $k_1 \sim_x k_2 \mbox{ and } F(j)(k_1) \mbox{ is defined } \implies F(j)(k_1) \sim_y F(j)(k_2).$
-\end{enumerate}
-Define functor $\Fquotient: \catcw \morph \Par$ by defining
+The category \Par has coproducts given by disjoint union of sets just as found in the category \Set and in addition if  \catcw is a category
+then the functor category $\Par^\catc$  has coproducts that are constructed pointwise just as in the category $\Set^\catc$. It is easy to see that
+if \catcw is a range category then the coproduct of range functors into \Par 
+is itself a range functor.
+
+\subsection{Quotients of \Par valued  Range Functors}
+If \catcw is any category and  $F: \catc \morph \Par$ is any functor into the category of sets and partial functions,
+if we are given,  for every object $x$ of \catcw, an equivalence relation $\sim_x$ defined on the set $F(x)$ and if collectively these equivalences 
+have the property that
+for every morphism $j:x \morph y$ in \catc, 
+for all elements $\xi_1,\xi_2 \in F(x)$
+such that $\xi_1 \sim_x \xi_2$,
+\begin{itemize}
+\item $F(j)(\xi_1)$ is defined iff $F(j)(\xi_2)$ is defined, 
+\item $F(j)(\xi_1) \mbox{ is defined } \implies F(j)(\xi_1) \sim_y F(j)(\xi_2),$
+\end{itemize}
+then in such a situation for every $x$ there is 
+a set of equivalence classes of elements of $F(x)$ which we denote
+$F(x)/\!\!\sim_x$ and there
+quotient functor
+ $\Fquotient: \catcw \morph \Par$ which is defined by
 \begin{align*}
-&x             &&\mapsto F(x)/\sim_x 
-                & \mbox{i.e. the set of equivalence classes of $F(x)$ wrt equivalence relation $\sim$}\\
-&j: x \morph y &&\mapsto F(j)/\sim
+x             &\mapsto F(x)/\!\sim_x\\
+j: x \morph y &\mapsto F(j)/\!\sim
 \end{align*} 
-where $F(j)/\sim$ is defined by
+where $F(j)/\!\!\sim:F(x)/\!\!\sim_x \morph F(y)/\!\!\sim_y$ is the partial function defined by
 \begin{align*}
-[k] \mapsto [F(j)(k)] && \mbox{provided $F(j)(k)$ is defined, is undefined otherwise.}
+[\xi] \mapsto [F(j)(\xi)] 
+              && \mbox{\parbox[t]{5cm}{provided $F(j)(\xi)$ is defined, 
+                                       is undefined otherwise.}
+                       }
 \end{align*}
-which is well-defined because of the assumption made above.
-
-It is easy to see that $\Fquotient$ is a functor (i.e. respects composition $\circ$ and identity morphisms.)
-
+Now if in addition \catcw is a restriction category 
+and $F$ is a restriction functor,
+i.e. if $F$ preserves the restriction operator, 
+then $\Fquotient$ is also a restriction functor. 
+Likewise if \catcw is a range category 
+and if $F$ is a range functor then $\Fquotient$ is a range functor. 
+We show this is so in the next two lemmas.
 \begin{lemma}
-The functor $\Fquotient$ is a restriction functor.
+If \catcw is a restriction category and $F: \catcw \morph \Par$ 
+is a restriction functor then $\Fquotient:\catcw \morph \Par$ is a restriction functor.
 \end{lemma}
 \begin{proof}
 We need to show that  $\Fquotient$ respects the restriction operator
-i.e. we need to show that for any morphism $j:x \morph y$ in \catcw, $\Fquotient(\bar{j})= \overline{\Fquotient(j)}$.
+i.e. we need to show that for any morphism $\nudgeup{0.4cm}j:x \morph y$ in \catcw
+\begin{equation}
+\label{restrictionQuotientTarget}
+\Fquotient\!(\rst{j})= \overline{\Fquotient\!(j)}
+\end{equation}
 
-The LHS, $\Fquotient(\bar{j})$, is defined to  be the partial function
-$$ [k] \mapsto [F(\bar{j})(k)] \mbox{ providing $F(\bar{j})(k)$ is defined, is undefined otherwise,}$$
-in other words, since  $F$ assumed to be a restriction functor it can be defined as mapping
-$$ [k] \mapsto [\overline{F(j)}(k)] \mbox{providing $\overline{F(j)}(k)$ is defined, is undefined otherwise,}$$
-and this in turn, because of the definition of restriction in \Par, means that it maps
-$$ [k] \mapsto [k] \mbox{providing $F(j)(k)$ is defined, is undefined otherwise.}$$
+The LHS, $\Fquotient\!(\rst{j})$, is defined to  be the partial function
+\[ [\xi] \mapsto [F(\rst{j})(\xi)] 
+        \mbox{ providing $F(\rst{j})(\xi)$ is defined and is undefined otherwise,}
+\]
+in other words, since  $F$ assumed to be a restriction functor, it maps
+$[\xi] \mapsto [\overline{F(j)}(\xi)]$ 
+    providing $\overline{F(j)}(\xi)$ is defined, 
+i.e. it maps
+$[\xi] \mapsto [\xi]$ providing $F(j)(\xi)$ is defined, and is undefined otherwise.
 
-Meanwhile the RHS, $\overline{\Fquotient(j)}$  is defined as the partial function that 
-maps $[k]$  to $[k]$  provided  $\Fquotient(j)(k)$ is defined, and to be undefined otherwise.
-
-Because,
-from the definition of $\Fquotient$, $\Fquotient(j)([k])$ is defined iff $F(j)(k)$ is defined then
-we have shown that LHS and RHS are identical functions, as required.
+Meanwhile the RHS, $\overline{\Fquotient\!(j)}$,
+is defined as the partial function that 
+maps $[\xi]$  to $[\xi]$  provided  $\Fquotient\!(j)(\xi)$ is defined, and to be undefined otherwise. As 
+$\Fquotient(j)([\xi])$ is defined iff $F(j)(\xi)$ is defined then
+we see  that LHS and RHS of (\ref{restrictionQuotientTarget}) are identical functions, as required.
 \end{proof}
 
-\subsubsection{Quotients and Ranges }
-\begin{worktt}
-Review and improve and put both this and previous quotient
-section together.
-\end{worktt}
 \begin{lemma}
 \label{rangefunctorquotient}
-\begin{worktt}
-We need to give the context here. Read what I wrote in preparation paper to see if it helps.
-\end{worktt}
-The functor $\Fquotient$ is a range functor.
+The \catcw is a range category and $F: \catcw \morph \Par$ is a range functor 
+then $\Fquotient:\catcw \morph \Par$ is a range functor.
 \end{lemma}
-\begin{proof} \commentary{Proof reviewed on 12 Dec 2023.}
+\begin{proof} 
 We need to show that  $\Fquotient$ respects the range operator
 i.e. we need to show that for any morphism $j:x \morph y$ in \catcw, 
- $\Fquotient(\hat{j})= \widehat{\Fquotient(j)}$.
+ $\Fquotient\!(\rng{j})= \rng{\Fquotient\!(j)}$.
 
-The LHS, $\Fquotient(\hat{j})$, is defined to  be 
-the partial function which maps $[k']$, where $k' \in F(y)$, as follows
-$$ [k'] \mapsto [F(\hat{j})(k')] \mbox{ providing $F(\hat{j})(k')$ is defined, and is undefined otherwise.}$$
-In other words, since  $F$ assumed to be a range functor it can be defined as mapping
-$$ [k'] \mapsto [\widehat{F(j)}(k')] \mbox{ providing $\widehat{F(j)}(k')$ is defined and being undefined otherwise,}$$
-and this in turn, because of the definition of ranges in \Par, means that it maps
-$$ [k'] \mapsto [k'] \mbox{providing there exists $k \in F(x)$ such that 
-\oldt{$k'=F(j)(k)$}
-\newt{$k'\sim_? F(j)(k)$} and being undefined otherwise.}$$
+The LHS, $\Fquotient\!(\rng{j})$, is defined to  be 
+the partial function which maps $[\xi']$, where $\xi' \in F(y)$, as follows
+\[
+[\xi'] \mapsto [F(\rng{j})(\xi')] \mbox{ providing $F(\rng{j})(\xi')$ is defined, and is undefined otherwise}
+\]
+in other words, since  $F$ is assumed to be a range functor it maps
+$[\xi'] \mapsto [\rng{F(j)}(\xi')]$  providing $\rng{F(j)}(\xi')$ is defined,
+i.e. it maps
+$[\xi'] \mapsto [\xi']$ providing there exists $\xi \in F(x)$ such that 
+$\xi'=F(j)(\xi)$, and is undefined otherwise.
 
-Meanwhile the RHS, $\widehat{\Fquotient(j)}$  is defined as the partial function that 
-maps $[k']$  to $[k']$  provided  there exists $k \in F(x)$ such that
-$\Fquotient(j)([k])=[k']$ to be undefined otherwise.
+Meanwhile the RHS, $\rng{\Fquotient\!(j)}$  
+is defined as the partial function that 
+maps $[\xi']$  to $[\xi']$  provided  there exists $\xi \in F(x)$ such that
+$\Fquotient\!(j)([\xi])=[\xi']$, and to be undefined otherwise.
 
-Because,
-from the definition of $\Fquotient$ we have that $\Fquotient(j)([k])= [F(j)(k)]$   
+Since, by definition, $\Fquotient\!(j)([\xi])= [F(j)(\xi)]$   
 we have  that LHS and RHS are identical functions, as required.
 \end{proof}
-
-\subsection{Coproducts of \Par valued  Functors}
-\tbd 
-
-\subsection{\Rel Valued Functors}
-Let \Rel be the category of sets and binary relationships.
-
-If $F: \catc \morph \Par$ is a functor then $F$ induces 
-a functor $F_R : Stk(\catc) \morph \Par$.

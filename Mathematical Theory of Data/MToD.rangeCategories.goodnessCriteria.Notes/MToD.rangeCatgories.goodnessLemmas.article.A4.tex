@@ -87,7 +87,7 @@ parallel whenEverythingFellApart.
 \newcommand{\barItself}{$\overline{\kern0.2cm\nudgeup{0.2cm}}$}
 \newcommand{\hatItself}{$\widehat{\kern0.2cm\nudgeup{0.2cm}}$}
 
-\newcommand{\Fquotient}{F/\sim}
+\newcommand{\Fquotient}{F/\!\!\sim}  % \! is small negative space
 
 %macros used in pstricks diagrams
 \newcommand{\Ob}[2]{
@@ -114,7 +114,6 @@ parallel whenEverythingFellApart.
 \newcommand{\Obss}[2]{
 \Rnode{#1#2ss}{#1_{#2+2}}
 }
-
 
 \newcommand{\Stk}[1][C]{\textbf{Stk}_\textbf{#1}}
 \NewDocumentCommand{\HomStk}{O{a} O{-} O{C}}{pHom_{\Stk[#3]}(#1,#2)}
@@ -209,7 +208,16 @@ parallel whenEverythingFellApart.
 
 \tableofcontents
 
-%%%%%%%%%%  \iffalse %%%%%%%%%%%%%%%%
+
+\begin{aside}
+I must user the term zigzag throughout and say that in an RR.5 range category every zigzag has a normal form. These normal forms are the 
+short sticklebacks described by Cockett. 
+
+It is potentially confusing though because these normal forms are tuples of morphisms 
+of \catcw and these morphisms are generated from the sketch. The morphisms themselves expressed as paths of arrows from the sketch do not in general have normal forms.
+
+$shorten(T(F))$ can be potentially written as $normal(F)$.
+\end{aside}
 
 \section{Introduction}
 
@@ -224,21 +232,14 @@ parallel whenEverythingFellApart.
 \section{\Par valued Functors}
 \input{../src/MToD.rangeCategories.Par_valued_functors.tex}
 
-\section{The category \Rel}
-%Should I move Rel section after stickelbacks?
-% Why?
-\input{../src/MToD.rangeCategories.Rel_category.tex}
-
-%%%%%%%%%%% \fi  %%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \section{Sticklebacks}
-
 \input{../src/MToD.rangeCategories.sticklebacks.tex}
-%\iffalse
-%  \section{Carry Forward}  REmoved this section break
-% the file should be renamed the K functor or something more semaantic
 
+% the file should be renamed the data functor or something more semaantic
 \input{../src/MToD.rangeCategories.carry.tex}
+
+\section{The category \Rel}
+\input{../src/MToD.rangeCategories.Rel_category.tex}
 
 \section{Goodness of Data Specifications}
 \subsection{General Principles}
@@ -250,12 +251,17 @@ parallel whenEverythingFellApart.
 \input{../src/MToD.rangeCategories.goodness_criteria.tex}
 
 \section{Goodness Lemmas}
+\begin{aside}
+Since all these lemmas use the functor $d_a$ then they all have the assumption that
+\catcw is an RR.5 range category.
+\end{aside}
 
 \input{../src/MToD.rangeCategories.lemma2A.path_equivalence_representation.tex}
 
 \input{../src/MToD.rangeCategories.lemma2B.fd_representation.tex}
 
 \input{../src/MToD.rangeCategories.lemma2C.referential_dependency_representation.tex}
+
 
 \bibliographystyle{alpha} 
 \bibliography{../../../SharedBibliography/temp/bibliography}

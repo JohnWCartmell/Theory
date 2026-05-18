@@ -234,33 +234,6 @@ Proof is handwritten on tablet.\highlight{CHECK.}
 \end{proof}
 
 
-
-
-\begin{lemma}
-\llabel{backPropagationSubLemma}
-\begin{enumerate}[(i)]
-\item \item
-if $\sequentialdiag{a}{b}{c}{f}{g}$ in a category with support
-then $\overline{f \circ g} \leq \overline{f}$.
-\item If \fgsourcediag in a category with support
-if $\overline{f} \circ g = g$ 
-then $\overline{g} \leq \overline{f}$.
-\end{enumerate}
-\end{lemma}
-\begin{proof}
-\begin{enumerate}[(i)]
-\item This is lemma \lref{supportLemma} rewritten to use $\leq$.
-\item We have to show $\overline{g} \leq \overline{f}$ i.e. that $\overline{\overline{g}} \circ \overline{f} = \overline{g}$
-i.e. that $\overline{g} \circ \overline{f} = \overline{g}$. This follows because
-\begin{align*}
-\overline{g} \circ \overline{f} &= \overline{f} \circ \overline{g} &&\mbox{by R.2,} \\
-                      &= \overline{\overline{f} \circ g} && \mbox{by R.3,} \\
-                      &= \overline{g} &&\mbox{from the initial assumption.}
-\end{align*}
-\end{enumerate}
-\end{proof}
-
-
 \begin{lemma}
 \llabel{leastFactorLemma}
 \commentary{actually need an n-ary version of this}
@@ -306,47 +279,5 @@ f \circ \overline{q_1} \circ \overline{q_2} \circ q_1
     &= f \circ q_1
        && \mbox{by R.1, as required.}
 \end{align*} 
-\end{proof}
-
-The following lemma is shaped for a very specific later use:
-\begin{lemma}
-\llabel{backPropagationTerminationLemma}
-Suppose we have the following morphisms in a restriction category
-\[
-\begin{array} {c c c c c}
-       &        &        &         &\kern-0.3cm\bOb{z}  \\[0.4cm]
-\bOb{x}&        &\bOb{w}                     \\[0.4cm]
-       & \bOb{y} 
-\end{array}
-\begin{arrows}
-\ncarr{y}{x} \alabel{g}
-\ncarr{y}{w} \blabel{h}
-\ncarr{w}{z} \blabel{i}
-\end{arrows}
-\]
-then if 
-\begin{equation}
-\label{ghTight}
-\overline{g}=\overline{h}
- \end{equation}
- and 
- \begin{equation}
- \label{gPropagationNull}
- \overline{h \circ i} \circ g = g
- \end{equation}
- then
-$\overline{h \circ i} = \overline{h}$. 
-\end{lemma}
-\begin{proof}
-It suffices to show that both $\overline{h \circ i} \leq \overline{h}$
-and $\overline{h} \leq \overline{h \circ i}$.
-
-The first of these 
-follows directly from lemma \ref{backPropagationSubLemma} (i).
-
-The second follows from (\ref{gPropagationNull}), 
-which by lemma \ref{backPropagationSubLemma} (ii)
-gives us
-$\overline{g} \leq \overline{h \circ i}$, and because $\overline{g} = \overline{h}$.
 \end{proof}
 

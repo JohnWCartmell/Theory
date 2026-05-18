@@ -69,8 +69,6 @@ $G=\zigzagTuple{g}{n}$
 by $F \leq G$ iff for each $i$, $0 \leq i \leq n$
 $f_i \leq g_i$ and for each $i$, $0 \leq i \leq n-1$ $f'_i \leq g'_i$.
 
-
-
 \subsection{Tightening}
 
 If $F$ is a zigzag, a \textit{tightening} of $F$ is a tight zigzag
@@ -79,30 +77,7 @@ we have $Z \leq T$.
 
 Because $\leq$ is a partial order, any such tightening of $F$ is unique.
 
-We will show that every zigzag $F$ has a tightening and we will then write $T(F)$ for the tightening of $F$..
-
-We will make extensive use of the fact that orderings compose (see lemma \lref{orderingsCompose}) and we will use it in the following form:
-\begin{observation}
-\llabel{orderTightening}
-If \catcw is a range category and
-\[
-\begin{array}{c p{0.5cm} c }
-\nudgeup{1.0cm}
-\bOb{x} &         & \bOb{y}\\[0.3cm]
-\end{array}
-\begin{arrows}
-\drawMorphismArcing{x}{y}{a}{f}{20}{20}[0.5]
-\drawMorphismArcing{x}{y}{b}{z}{-20}{-20}[0.5]
-\ncarrrecursive{x}{x}{170}{80}{10}\alabel{\rst{i}}
-\ncarrrecursive{y}{y}{80}{170}{10}\alabel{\rng{j}}
-\end{arrows} 
-\] 
-in \catcw then if $\rst{z} \leq \rst{i}$,
-$z \leq f$ and $\rng{z} \leq \rng{j}$ then
-$z \leq \rst{i} \circ f \circ \rng{j}$.
-\end{observation}
-
-We can show by induction on length that every zigzag $F$ has a tightening. 
+We will show by induction on length that every zigzag $F$ has a tightening and we will then write $T(F)$ for the tightening of $F$.
 If the zigzag is of length $1$ then it has no zigs and no zags so is already tight. The inductive step is given by the next lemma: 
 
 {  %lemma leftToRightTighteningSubLemma
@@ -690,7 +665,6 @@ F \circ G &= T(\zigzagTuple{f}{n}::\zigzagTuple{g}{m})
           && \mbox{by definition of $\circ$.}
 \end{align*}
 \end{proof}
-
 \subsection{The category of tight zigzags $Z_C$ is a category with support}
 
 If $F=\zigzagTuple{f}{n}$ is a morphism in $Z_C$ then define $\rst{F}$ to be $\tuple{\rst{f_1}}$.
@@ -772,8 +746,10 @@ subordinate lemmas that are required for its proof.
  
 \begin{lemma}
 \llabel{shorteningSpecialisationLemma}
-If $f' \leq g'$ and $f \leq g$ then if  
-$\downTriangleShape{x_i}{y_{i-1}}{y_i}
+In any restriction category \catcw, 
+if $f' \leq g'$ and $f \leq g$ then if  
+$\nudgeup{1.5cm} % moves the triangle down to make room for arc
+\downTriangleShape{x_i}{y_{i-1}}{y_i}
 \downToLeft{g'}[0.6]
 \downToRight{g}
 \leftToRightArcing[a]{s}{30}{30} 
@@ -787,9 +763,9 @@ $ commutes.
 \end{lemma}
 \begin{proof}
 \begin{align}
-f' \circ s \circ \rng{f}
+f' \circ s 
    &= \rst{f'} \circ g'\circ s 
-       && \mbox{because $f' \leq g'$}\\
+       && \mbox{because $f' \leq g'$,}\\
    &= \rst{f} \circ g 
    && \mbox{since $\rst{f'}=\rst{f}$ 
               and $g' \circ s = g$, }\\
@@ -798,12 +774,17 @@ f' \circ s \circ \rng{f}
 \end{align}
 \end{proof}
 
-From this lemma we can see that if a zigzag $F$ shortens then $T(F)$ shortens. 
+\begin{aside}
+If I talk about shortening then the context
+needs to be \highlight{RR.5} range category.
+\end{aside}
 
+From this lemma we can see that if a zigzag $F$ shortens then $T(F)$ shortens. 
 \begin{lemma}
 \llabel{associativitySublemma}
-Suppose $F$ and $G$ are tight zigzags and are as shown in the diagram
-in \lref{tighteningCommutesWithComposition} and that $s$ is a shortening
+Suppose $F$ of length $n$ and $G$ of length $m$ are tight zigzags 
+in an RR.5 range category \catcw 
+and suppose that $s$ is a shortening
 of $F::G$ at some index $i_s$, $1 \leq i_s \leq n +m - 1$, then
 \begin{equation}
 \label{associativitySublemmatarget}
@@ -1135,7 +1116,8 @@ and is applicable because $\rng{f_n \circ g_1} \leq
 
 \begin{lemma}
 \llabel{deferredShorteningLemma}
-If $Z_1$, $Z_2$ are tight zigzags such that the composition $Z_1 :: z_2$ is defined then
+If $Z_1$, $Z_2$ are tight zigzags in
+\newt{an RR.5 range category} such that the composition $Z_1 :: z_2$ is defined then
 \begin{enumerate}[(i)]
 \item 
 $shorten(tighten(shorten(Z_1) :: Z_2))= shorten(tighten(Z_1 :: Z_2)).$
@@ -1152,15 +1134,17 @@ each of these individual shortenings can be moved outside of the tightening.
 
 \subsection{The category of short sticklebacks}
 
-We need to show that there is a category of short sticklebacks
-in which composition is defined by
+If \catcw is an RR.5 range catgeory then
+ there is a category of short sticklebacks over \catc, which we denote
+ $\Stk$.
+Composition of short sticklebacks is defined by
 \[
 F \circ G = shorten(T(F::G)) 
 \]
 Composition, so defined, is associative because:
 \begin{align*}
 F \circ (G \circ H)
-  &= shorten(T(F :: shorten(T(G ::H)) && \mbox{definition $\circ$} \\
+  &= shorten(T(F :: shorten(T(G ::H)) && \mbox{definition $\circ$,} \\
   &= shorten (T(F::T(G::H))) && \mbox{by lemma \ref{deferredShorteningLemma} (i),} \\
   &= shorten (T(F::G::H))    && \mbox{\parbox[t]{5cm}{see proof of associativity of composition of tight zigzags, section \ref{categorytightzigzags}.}}
 \end{align*}  
@@ -1172,7 +1156,7 @@ we have also that $(F \circ G) \circ H=shorten (T(F::G::H))$.
 \begin{lemma}
 \llabel{sequentialShorteningLemma}
 If $F=\zigzagTuple{f}{n}:x_1 \morph y_n$ 
-is a tight stickleback
+is a tight stickleback in \highlight{an RR.5 range category} \catcw
 and if $F$ shortens to a zigzag $\tuple{f}$ for some
 morphism $f:x_1 \morph y_n$ in \catcw then  there
 is a sequence of morphisms $s_1,...s_{n-1}$,
