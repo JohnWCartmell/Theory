@@ -1,5 +1,145 @@
+% Restriction, Range and Zigzag
 
 
+%restriction
+\newcommand{\rst}[1]{\overline {\vphantom{f}#1}}
+\newcommand{\rstItself}{$\overline{\kern0.2cm\nudgeup{0.2cm}}$}
+
+% range  
+\usepackage{scalerel,stackengine}
+\stackMath
+\newcommand\reallywidehat[1]{%
+\savestack{\tmpbox}{\stretchto{%
+  \scaleto{%
+    \scalerel*[\widthof{\ensuremath{#1}}]{\kern-.6pt\bigwedge\kern-.6pt}%
+    {\rule[-\textheight/2]{1ex}{\textheight}}%WIDTH-LIMITED BIG WEDGE
+  }{\textheight}% 
+}{0.5ex}}%
+\stackon[1pt]{#1}{\tmpbox}%
+}
+\parskip 1ex
+
+\newcommand{\rng}[1]{\reallywidehat {\vphantom{f}#1}}
+\newcommand{\rngItself}{$\widehat{\kern0.2cm\nudgeup{0.2cm}}$}
+
+%Experimental
+\newcommand{\weakrange}[1]{\widehat{#1}^{\mathrm w}}
+\NewDocumentCommand{\pointwiserange}{m}
+  {\reallywidehat{#1}^{\!*}}
+
+%Stickleback category -- will probably rename this
+\newcommand{\Stk}[1][C]{\textbf{Stk}_\textbf{#1}}
+
+%pHom that didn't work out 
+% Only need this if I am talking about what doesn't work.
+\NewDocumentCommand{\HomStk}{O{a} O{-} O{C}}{pHom_{\Stk[#3]}(#1,#2)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Ob macros used in pstricks diagrams
+%    might these be used more widely?
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Ob}[2]{
+\Rnode{#1#2}{#1_{#2}}
+}
+% b bare object no subsript
+\newcommand{\bOb}[1]{
+\Rnode{#1}{#1}
+}
+% p for predecessor
+\newcommand{\Obp}[2]{
+\Rnode{#1#2p}{#1_{#2-1}}
+}
+
+% s for successor
+\newcommand{\Obs}[2]{
+\Rnode{#1#2s}{#1_{#2+1}}
+}
+
+\newcommand{\Obpp}[2]{
+\Rnode{#1#2pp}{#1_{#2-2}}
+}
+
+\newcommand{\Obss}[2]{
+\Rnode{#1#2ss}{#1_{#2+2}}
+}
+%%%%%%%%%%%%%%%%%%%%%%%
+% zigzags as tuples
+%%%%%%%%%%%%%%%%%%%%%%%
+
+%zigzagTuple{f}{n}
+\newcommand{\zigzagTuple}[2]
+{
+\tuple{#1_1,#1'_1,...#1_{#2-1},#1'_{#2-1},#1_{#2}}    
+}
+
+%zigzagTupleLedIn{f}{g}{m}    GIVES <f \circ g_1,...g_m>
+\newcommand{\zigzagTupleLedIn}[3]
+{
+\tuple{#1 \circ #2_1,#2'_1,...#1_{#3-1},#2'_{#3-1},#2_{#3}}   
+}
+
+%zigzagTupleLedOut{f}{n}{g}    GIVES <f_1,...f_n \circ g>
+\newcommand{\zigzagTupleLedOut}[3]
+{
+\tuple{#1_1,#1'_1,...#1_{#2-1},#1'_{#2-1},#1_{#2} \circ #3}    
+}
+
+%zigzagLeadingTuple{f}{n}
+\newcommand{\zigzagLeadingTuple}[2]
+{
+\tuple{#1_1,#1'_1,...#1_{#2-2},#1'_{#2-2},#1_{#2-1}}    
+}
+
+%zigzagStrippedHeadTuple{f}{n}
+\newcommand{\zigzagBareHeadTuple}[2]
+{
+\tuple{\rng{#1_1},#1'_1,...#1_{#2-1},#1'_{#2-1},#1_{#2}}    
+}
+
+%zigzagStrippedTuple{f}{n}
+\newcommand{\zigzagBareTailTuple}[2]
+{
+\tuple{#1_1,#1'_1,...#1_{#2-1},#1'_{#2-1},\rst{#1_{#2}}}     
+}
+
+%zigzagTrailingTuple{f}{n}
+\newcommand{\zigzagTrailingTuple}[2]
+{
+\tuple{#1_2,#1'_2,...#1_{#2-1},#1'_{#2-1},#1_{#2}}     
+}
+
+%zigzagTupleSharp{f}{n}
+\newcommand{\zigzagTupleSharp}[2]
+{
+\tuple{#1'_1,...#1_{#2-1},#1'_{#2-1},#1_{#2}}    
+}
+
+%zigzagTupleEndShortened{f}{n}{s}
+\newcommand{\zigzagTupleEndShortened}[3]
+{
+\tuple{#1_1,#1'_1,...#1'_{#2-1}, #1_{#2-1} \circ s}    
+}
+
+%zigzagTailTuple{f}{n}{m}
+\newcommand{\zigzagTailTuple}[3]
+{
+\tuple{#1_#2,#1'_#2,...#1_{#2+#3-1},#1'_{#2+#3-1},#1_{#2+#3}}    
+}
+
+\newcommand{\restrictToDSource}[2]{
+\overline{D(#1_1)}\circ ... \circ \overline{D(#1_#2)}
+}
+
+\newcommand{\restrictToSource}[2]{
+\overline{#1_1}\circ ... \circ \overline{#1_#2}
+}
+
+\newcommand{\conc}{::}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% zigzag diagrams and zigzag diagram fragments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %\zigzagTwo{x}{y}{f}[g] %g is optional for circ f1
 % This is a zig zag zig zag. 
@@ -164,7 +304,6 @@
 \zigzagStart{#1}{#2}{#3}{#4}
 \zigzagDotsThenFinalFlex{#1}{#2}{#3}{#4}{#5}
 }
-
 
 \newcommand{\zigzagfgcomposite} %Maybe this becomes zigzagComposite?
 {

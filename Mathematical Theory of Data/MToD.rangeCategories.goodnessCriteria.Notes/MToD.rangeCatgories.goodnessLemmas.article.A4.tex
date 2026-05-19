@@ -6,21 +6,20 @@
 \input{\sharedmacros/theorems.macros}
 \input{\sharedmacros/general.macros.v2}
 \input{\sharedmacros/diagram.macros}
+\input{\sharedmacros/rangeCategories.macros.tex}
 \usepackage{xparse}
 \usepackage{xstring} % for some diagram macros
 \usepackage{fancyvrb} % used for documenting examples of macros 
                       % along with verbatim text of example.
-%\usepackage{mathptmx}  % This changes font to roman % dont know wehn I started using this and why but it is obsolte so get rid of it.
 \usepackage{anyfontsize}
 \usepackage{mathtools}  % why have we got this?
 \usepackage{mdframed}
 \usepackage{alltt}    
 \usepackage{cmll}
-%\usepackage{yhmath}  % used for better version of \widehat
 \usepackage{ulem}
 \renewcommand{\ttdefault}{txtt}
 \usepackage[left=1.5cm, right=4cm, marginparwidth=3cm, top=2cm, bottom=2.0cm]{geometry}
-\usepackage{framed}
+\usepackage{framed}  %used for box framing for example in asides
 \usepackage[font=small]{caption}
 \setlength{\captionmargin}{2cm}
 \theoremstyle{remark}
@@ -29,32 +28,6 @@
 \usepackage{imakeidx}
 \makeindex[name=definitions, title=Index of Definitions]
 \makeindex[name=lemmas, title=Index of Lemmas]
-
-\newenvironment{framedEquations}[1]{%
-\begin{mdframed}[
-  frametitle={\qquad #1},
-  frametitlealignment=\raggedright,
-  innertopmargin=0pt,
-  frametitleaboveskip=4pt,
-  frametitlebelowskip=-7pt
-]
-}{%
-\end{mdframed}
-}
-
-\usepackage{scalerel,stackengine}
-\stackMath
-\newcommand\reallywidehat[1]{%
-\savestack{\tmpbox}{\stretchto{%
-  \scaleto{%
-    \scalerel*[\widthof{\ensuremath{#1}}]{\kern-.6pt\bigwedge\kern-.6pt}%
-    {\rule[-\textheight/2]{1ex}{\textheight}}%WIDTH-LIMITED BIG WEDGE
-  }{\textheight}% 
-}{0.5ex}}%
-\stackon[1pt]{#1}{\tmpbox}%
-}
-\parskip 1ex
-
 
 \usepackage{makeidx}
 \makeindex
@@ -76,6 +49,7 @@ parallel whenEverythiingFellApart.
 Much text regarding failed hom functor idea hived off --- see
 parallel whenEverythingFellApart.
 \end{aside}
+\newcommand{\Fquotient}{F/\!\!\sim}  % \! is small negative space
 
 \newcommand{\IfSforCwithRCwords}{If $S$ is a sketch for category \catcw and if $S$ is considered as a data specification with requirement $\reqtc$\ }
 
@@ -84,127 +58,7 @@ parallel whenEverythingFellApart.
 \newcommand{\FGsourcediag}{$\binarysourcediag{a}{b}{c}{F}{G}$}
 \newcommand{\FGsinkdiag}{$\binarysinkdiag{a}{b}{c}{F}{G}$}
 
-\newcommand{\barItself}{$\overline{\kern0.2cm\nudgeup{0.2cm}}$}
-\newcommand{\hatItself}{$\widehat{\kern0.2cm\nudgeup{0.2cm}}$}
 
-\newcommand{\Fquotient}{F/\!\!\sim}  % \! is small negative space
-
-%macros used in pstricks diagrams
-\newcommand{\Ob}[2]{
-\Rnode{#1#2}{#1_{#2}}
-}
-% b bare object no subsript
-\newcommand{\bOb}[1]{
-\Rnode{#1}{#1}
-}
-% p for predecessor
-\newcommand{\Obp}[2]{
-\Rnode{#1#2p}{#1_{#2-1}}
-}
-
-% s for successor
-\newcommand{\Obs}[2]{
-\Rnode{#1#2s}{#1_{#2+1}}
-}
-
-\newcommand{\Obpp}[2]{
-\Rnode{#1#2pp}{#1_{#2-2}}
-}
-
-\newcommand{\Obss}[2]{
-\Rnode{#1#2ss}{#1_{#2+2}}
-}
-
-\newcommand{\Stk}[1][C]{\textbf{Stk}_\textbf{#1}}
-\NewDocumentCommand{\HomStk}{O{a} O{-} O{C}}{pHom_{\Stk[#3]}(#1,#2)}
-
-\newcommand{\weakrange}[1]{\widehat{#1}^{\mathrm w}}
-\NewDocumentCommand{\pointwiserange}{m}
-  {\reallywidehat{#1}^{\!*}}
-
-%zigzagTuple{f}{n}
-\newcommand{\zigzagTuple}[2]
-{
-\tuple{#1_1,#1'_1,...#1_{#2-1},#1'_{#2-1},#1_{#2}}    
-}
-
-%zigzagTupleLedIn{f}{g}{m}    GIVES <f \circ g_1,...g_m>
-\newcommand{\zigzagTupleLedIn}[3]
-{
-\tuple{#1 \circ #2_1,#2'_1,...#1_{#3-1},#2'_{#3-1},#2_{#3}}   
-}
-
-%zigzagTupleLedOut{f}{n}{g}    GIVES <f_1,...f_n \circ g>
-\newcommand{\zigzagTupleLedOut}[3]
-{
-\tuple{#1_1,#1'_1,...#1_{#2-1},#1'_{#2-1},#1_{#2} \circ #3}    
-}
-
-
-%zigzagLeadingTuple{f}{n}
-\newcommand{\zigzagLeadingTuple}[2]
-{
-\tuple{#1_1,#1'_1,...#1_{#2-2},#1'_{#2-2},#1_{#2-1}}    
-}
-
-%zigzagStrippedHeadTuple{f}{n}
-\newcommand{\zigzagBareHeadTuple}[2]
-{
-\tuple{\rng{#1_1},#1'_1,...#1_{#2-1},#1'_{#2-1},#1_{#2}}    
-}
-
-%zigzagStrippedTuple{f}{n}
-\newcommand{\zigzagBareTailTuple}[2]
-{
-\tuple{#1_1,#1'_1,...#1_{#2-1},#1'_{#2-1},\rst{#1_{#2}}}     
-}
-
-%zigzagTrailingTuple{f}{n}
-\newcommand{\zigzagTrailingTuple}[2]
-{
-\tuple{#1_2,#1'_2,...#1_{#2-1},#1'_{#2-1},#1_{#2}}     
-}
-
-%zigzagTupleSharp{f}{n}
-\newcommand{\zigzagTupleSharp}[2]
-{
-\tuple{#1'_1,...#1_{#2-1},#1'_{#2-1},#1_{#2}}    
-}
-
-%zigzagTupleEndShortened{f}{n}{s}
-\newcommand{\zigzagTupleEndShortened}[3]
-{
-\tuple{#1_1,#1'_1,...#1'_{#2-1}, #1_{#2-1} \circ s}    
-}
-\iffalse
-%zigzagStarTuple{f}{n}
-\newcommand{\zigzagStarTuple}[2]
-{
-\tuple{#1^*_1,#1'^*_1,...#1^*_{#2-1},#1'^*_{#2-1},#1^*_{#2}}    
-}
-\fi
-
-%zigzagTailTuple{f}{n}{m}
-\newcommand{\zigzagTailTuple}[3]
-{
-\tuple{#1_#2,#1'_#2,...#1_{#2+#3-1},#1'_{#2+#3-1},#1_{#2+#3}}    
-}
-
-\newcommand{\restrictToDSource}[2]{
-\overline{D(#1_1)}\circ ... \circ \overline{D(#1_#2)}
-}
-
-
-\newcommand{\restrictToSource}[2]{
-\overline{#1_1}\circ ... \circ \overline{#1_#2}
-}
-
-\newcommand{\conc}{::}
-
-\newcommand{\rst}[1]{\overline {\vphantom{f}#1}}
-\newcommand{\rng}[1]{\reallywidehat {\vphantom{f}#1}}
-
-\input{../src/MToD.rangeCategories.zigzagcommands.tex}
 
 \tableofcontents
 
@@ -262,10 +116,8 @@ Since all these lemmas use the functor $d_a$ then they all have the assumption t
 
 \input{../src/MToD.rangeCategories.lemma2C.referential_dependency_representation.tex}
 
-
 \bibliographystyle{alpha} 
 \bibliography{../../../SharedBibliography/temp/bibliography}
-
 
 \printindex[lemmas]
 

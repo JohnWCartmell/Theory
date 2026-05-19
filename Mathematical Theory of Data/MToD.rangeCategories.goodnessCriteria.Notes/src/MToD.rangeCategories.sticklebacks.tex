@@ -792,8 +792,14 @@ T(shorten(F::G,i_s,s)=shorten(T(F::G),i_s,s))
 \end{equation}
 \end{lemma}
 \begin{proof}
-\workt{Proof omitted.}
-\iffalse %proof commented out
+\workt{proof was commented out when it went out of date}
+\begin{aside}
+19 May 2026.
+The definition of tightening has been modified since this proof was writtem.
+We have right to left and left to right versions. The proof should be revised accordingly.
+WE no linger need the framedEquations environment so I will remove these
+out of date equations.
+\end{aside}
 In such a situation, $F::G$ is a zigzag in which 
 elements before the element $f_n \circ g$ need 
 tightening to the left and terms to after need tightening to the right. 
@@ -804,26 +810,7 @@ What  this means is that the element that is refereed to as
 $ff_n$ is also referred to as $gg_1$. 
 With this way of referencing the elements of $T(F::G)$ 
 then I can describe $T(F::G)$ as follows:
-
-\begin{framedEquations}{$T(F::G)
-=\tuple{ff_1,ff'_1,...ff'_{n-1},ff_n \mbox{ alias } gg_1, gg'_1,...gg_m}$}
-\begin{alignat}{2}
-\label{tighteningcomposite:ffn}         
-ff_n &\mbox{ alias } gg_1 = f_n \circ g_1, \\[6pt]
-\label{tighteningcomposite:ffpi}
-ff'_i &= \rst{ff_{i+1}} \circ f'_i,
-                &&\qquad (1 \le i \le n-1), \\
-\label{tighteningcomposite:ffi}
-ff_i  &= f_i \circ \rng{ff'_i},
-                &&\qquad (1 \le i \le n-1), \\[6pt]
-\label{tighteningcomposite:ggpj}
-gg'_j &= g'_j \circ \rng{gg_j},
-                &&\qquad (1 \le j \le m-1), \\
-\label{tighteningcomposite:ggj}
-gg_j  &= \rst{gg'_{j-1}} \circ g_j,
-                &&\qquad (2 \le j \le m).
-\end{alignat}
-\end{framedEquations}
+\tbd
  
 
 There are three cases to consider.
@@ -849,30 +836,7 @@ The shortening is $\tuple{f_1,...f'_{i_s-1},f_{i_s} \circ s, f'_{i_s+1},...
           f'_{n-1},f_n \circ g_1, g'_1,...g'_{m-1},g_m }$. 
 The tightening of this shortening can be described as follows:
 
-\begin{framedEquations}{$T(\mathrm{shorten}(F::G,i_s,s))
-=\tuple{tsf_1,...tsf'_{i_s-1},tsf_{i_s} \circ s, tsf'_{i_s+1},...
-          tsf'_{n-1},tsf_n \mbox{ alias } tsg_1, tsg'_1,...tsg'_{m-1},tsg_m }$}
-\begin{alignat}{2}
-\intertext{where}
-\label{case1tighteningShortenedComposite:ffnp}
-tsf_n &= tsg_1 = f_n \circ g_1, \\
-\label{case1tighteningShortenedComposite:tsfis}
-tsf_{i_s} &= f_{i_s} \circ s \circ \rng{tsf'_{i_{s+1}}},
-                && \\
-\label{case1tighteningShortenedComposite:tsfpi}
-tsf'_i &= \rst{tsf_{i+1}} \circ f'_i,
-                &&\qquad ( i \in \set{1,2,...i_s-1, i_s+2,...n}), \\
-\label{case1tighteningShortenedComposite:tsfi}
-tsf_i  &= f_i \circ \rng{tsf'_i},
-                &&\qquad ( i \in \set{1,2,...i_s-2, i_s+2,...n}), \\
-\label{case1tighteningShortenedComposite:tsgpj}
-tsg'_j &= g'_j \circ \rng{tsg_j},
-                &&\qquad (1 \le j \le m-1), \\
-\label{case1tighteningShortenedComposite:tsgj}
-tsg_j  &= \rst{tsg'_{j-1}} \circ g_j,
-                &&\qquad (2 \le j \le m).
-\end{alignat}
-\end{framedEquations}
+\tbd
 
 The shortening invoked within in the rhs eliminates the pair
 $ff'_{i_s}, ff_{i_s+1}$
@@ -963,27 +927,7 @@ equations (\ref{tighteningcomposite:ffn}) to (\ref{tighteningcomposite:ggj}).
 In the tightening of the shortening there is one less element
 than in the original tightening. In the tightening the replacement element $f_{n-1} \circ s$ is unchanged by tightening and we refer to it as both  $tsf_{n-1}$ and $tsg_1$. There is one less leading elements and the same number of trailing elements. 
 The tightening is as follows:
-
-\begin{framedEquations}{$T(\mathrm{shorten}(F::G,n,s))
-=\tuple{tsf_1,tsf'_1,...tsf'_{n-2},tsf_{n-1} \mbox{ alias } tsg_1, tsg'_1,...tsg_m}$}
-\begin{alignat}{2}
-\intertext{where}
-\label{tighteningShortenedComposite:ffnp}
-tsf_{n-1} &= tsg_1 = f'_{n-1} \circ s, \\
-\label{tighteningShortenedComposite:tsfpi}
-tsf'_i &= \rst{tsf_{i+1}} \circ f'_i,
-                &&\qquad (1 \le i \le n-2), \\
-\label{tighteningShortenedComposite:tsfi}
-tsf_i  &= f_i \circ \rng{tsf'_i},
-                &&\qquad (1 \le i \le n-2), \\
-\label{tighteningShortenedComposite:tsgpj}
-tsg'_j &= g'_j \circ \rng{tsg_j},
-                &&\qquad (1 \le j \le m-1), \\
-\label{tighteningShortenedComposite:tsgj}
-tsg_j  &= \rst{tsg'_{j-1}} \circ g_j,
-                &&\qquad (2 \le j \le m).
-\end{alignat}
-\end{framedEquations}
+\tbd
 On the other hand  the tightening, $T(F::G)$ 
 is described by equations 
 (\ref{tighteningcomposite:ffn}) -- 
@@ -1000,26 +944,7 @@ commutes.
 The shortening of this tightening is the following variation
 of equations (\ref{tighteningcomposite:ffn}) to (\ref{tighteningcomposite:ggj})
 
-\begin{framedEquations}{$shorten(T(F::G),n,s))
-=\tuple{stf_1,stf'_1,...stf'_{n-2},stf_{n-1} \mbox{ alias } stg_1, stg'_1,...stg_m}$}
-\begin{alignat}{2}
-\intertext{where}
-\label{shortenedTightenedComposite:stfnp}
-stf_{n-1} &\mbox{ alias } stg_1 = ff_{n-1} \circ s, \\
-\label{shortenedTightenedComposite:stfpi}
-stf'_i &= \rst{stf_{i+1}} \circ f'_i,
-&&\qquad (1 \le i \le n-2), \\
-\label{shortenedTightenedComposite:stfi}
-stf_i  &= f_i \circ \rng{stf'_i},
-&&\qquad (1 \le i \le n-1), \\[6pt]
-\label{shortenedTightenedComposite:stgpj}
-stg'_j &= g'_j \circ \rng{stg_j},
-&&\qquad (1 \le j \le m-1), \\
-\label{shortenedTightenedComposite:stgj}
-stg_j  &= \rst{stg'_{j-1}} \circ g_j,
-&&\qquad (2 \le j \le m).
-\end{alignat}
-\end{framedEquations}
+\tbd
 
 To establish that $T(shorten(F::G,n,s)=shorten(T(F::G),n,s))$
 we have to resolve the difference between equations 
@@ -1111,7 +1036,7 @@ $g'_1$ for $g$ and
 $g_2$ for $h$
 and is applicable because $\rng{f_n \circ g_1} \leq
 \rng{g_1} = \rng{g'_1}$.
-\fi %proof commented out
+%\fi %proof commented out %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{proof}
 
 \begin{lemma}

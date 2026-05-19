@@ -1,0 +1,133 @@
+
+\begin{lemma}
+\llabel{forwardPropagationSubLemma}
+In a range category
+\begin{enumerate}
+\item if $\sequentialdiag{a}{b}{c}{f}{g}$ 
+then $\reallywidehat{f \circ g} \leq \hat{g}$,
+\item if \fgsinkdiag and if $f\circ \hat{g} = f$ then
+  $\hat{f} \leq \hat{g}$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}
+\item
+We need show that 
+$\overline{\reallywidehat{f \circ g}} \circ \hat{g} = \reallywidehat{f \circ g}$.
+This follows because
+
+\begin{align}
+\overline{\reallywidehat{f \circ g}} \circ \hat{g} 
+          &= \reallywidehat{f \circ g} \circ \hat{g}  &&\mbox{by RR.1,}//
+          &= \reallywidehat{f \circ g} 
+                &&\mbox{by lemma \ref{fglemma} (i) and (ii).}
+\end{align}
+\item
+To prove $\hat{f} \leq \hat{g}$ we have to prove 
+$\bar{\hat{f}} \circ \hat{g} = \hat{f}$ 
+i.e. that $\hat{f} \circ \hat{g} = \hat{f}$. 
+This follows because   
+\begin{align*}
+\hat{f} \circ \hat{g} 
+     &= \reallywidehat{f \circ \hat{g}}
+                  &&\mbox{by lemma \ref{fglemma} (ii),} \\
+     &= \hat{f}   && \mbox{from the initial assumption.}
+\end{align*}
+\end{enumerate} 
+\end{proof}
+
+The following lemma complements lemma \ref{backPropagationTerminationLemma} 
+and the two will be used in tandem later.
+\begin{lemma}
+\llabel{forwardPropagationTerminationLemma}
+Suppose we have the following morphisms in a range category
+\commentary{I am thinking this shape might be \workt{wrong}.}
+\commentary{Consider more carefully what reqd. in later proof.}
+\[
+\begin{array} {c c c c c}
+       &\bOb{x}                            \\[0.4cm]
+\bOb{w}        &        &\bOb{y}           \\[0.4cm]
+       &       &        &         &\kern-0.3cm\bOb{z} 
+\end{array}
+\begin{arrows}
+\ncarr{w}{x} \alabel{f}
+\ncarr{y}{x} \blabel{g}
+\ncarr{z}{y} \blabel{h}
+\end{arrows}
+\]
+then if 
+\begin{equation}
+\label{forwardPropagationTight}
+\widehat{f}=\widehat{g}
+\end{equation}
+and 
+\begin{equation}
+\label{forwardPropagationTwo}
+f \circ \reallywidehat{h \circ g}=f
+\end{equation}
+then 
+\begin{equation}
+\label{forwardPropagationThree}
+\reallywidehat{h \circ g} = \reallywidehat{g}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+The result follows by showing that
+$\reallywidehat{h \circ g} \leq \reallywidehat{g}$
+and
+$\reallywidehat{g} \leq \reallywidehat{h \circ g}$.
+
+The first of these 
+follows directly from lemma \ref{forwardPropagationSubLemma} (i).
+
+The second follows from (\ref{forwardPropagationTwo}), 
+which by lemma \ref{forwardPropagationSubLemma} (ii)
+gives us
+$\hat{f} \leq \reallywidehat{h \circ g}$,
+and because $\hat{f} = \hat{g}$.
+\end{proof}
+
+\begin{aside}
+We will come back here at some point if we work on zigzags as derived multivalued queries.
+Cockett defines partial sections as possible features of restriction categories. 
+We are interested in pretty much the same concept applied in the context of categtories with support. If \catcw is a category with support then a morphism s is said to be a partial section of  morphism $f$ iff
+$s \circ f = \bar{s}$ and $f \circ s \circ f = f$.
+
+Note that if \catcw and \catcpw are categories with support 
+and if $F: \catc \morph \catcp$ is a functor that preserves the support operation then $F$ preserves partial sections.
+
+The following observation is from  Cockett et al where it is used in the context of restriction categories.
+\begin{lemma}
+\llabel{rangeUniqueLemma}
+If \catcw is a category with support and there is a morphism $f: a \morph b$
+which has two partial sections $s,s':b \morph a$ then
+\[
+f \circ s = f \circ s' 
+\]
+\end{lemma}
+\begin{proof}
+hand written notes
+\end{proof}
+
+This leads us to being able to define an operator \rngItself \ for
+morphisms $f$ that have partial sections. 
+We define
+\[\widehat{f} = f_s \circ f\]
+where $f_s$ is any partial section of $f$.
+
+\begin{notebox}[Warning]
+At this point we have proved none of the required range category properties of \rngItself. We must be very careful not to use any of them. Lets pick over anything we do with it very carefully. Must't accidentally assume any of the properties of the range operator. 
+\end{notebox}
+
+We can show that
+\begin{itemize}
+\item $\tuple{\widehat{f},f,\bar{f}}$ is a partial section
+of $\tuple{f}$,
+\item $\tuple{\widehat{f},f,\bar{f}}$ composed with $\tuple{f}$ is $\tuple{\widehat{f\ }}$.
+\end{itemize}
+Together these mean that $\reallywidehat{\tuple{f}}=\tuple{\widehat{f\ }}$
+This means the embedding of a range category in its stickleback category
+preserves the range operator (more precisely it takes the range operator to the pseudo-range operator).
+\end{aside}
+
+
