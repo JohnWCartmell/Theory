@@ -77,7 +77,8 @@ such that $f \circ g = h$
  with the required properties to represent the functionality dependency $H$.
 
 Define the functor $F: \catc \morph \Par$ 
-coproduct $d_a + d_b$ of functors $d_a$ and $d_b$ in the functor category $Par^{\catc}$ and label the injections $L$ and $R$, respectively,
+coproduct $d_a + d_a$, where $d_a$ is the data populator instance defined 
+in section \lref{daDefinition} in the functor category $Par^{\catc}$ and label the injections $L$ and $R$, respectively,
 so that for each object $x$ of $\catc$, the following is a coproduct diagram
 in \Par:
 \begin{center}
@@ -128,37 +129,41 @@ we define an equivalence relation $\sim_x$ on $F(x)$ by defining,
 for $z_1,z_2:a \morph x$ in $\Stk$,
 
 \begin{align*}
-L_x(z_1) \sim_x R_x(z_2) & \mbox{ \parbox[t]{5cm}{ iff $z_1 = z_2$ or 
-                                      $z_1$ and $z_2$ are singleton 
-                                      zigzags with the same codomain,
-                                      so that
-                                      $z_1 = \tuple{k_1}$, $z_2=\tuple{k_2}$,
-                                      for some $k_1,k_2:a \morph x$ in $\catc$, 
-                                     and there exists $k:b \morph x$ in $\catc$ such that $k_1 = f \circ k = k_2$,}}\\
+L_x(z_1) \sim_x R_x(z_2) & \mbox{ \parbox[t]{5cm}{ iff $z_1$ and $z_2$ are
+                                      singleton zigzags and 
+                                      are identical so that
+                                      $z_1 = z_2 = \tuple{\gamma}$, 
+                                      for some 
+                                      $\gamma:a \morph x$ in $\catc$, 
+                                      and there exists $k:b \morph x$ 
+                                      in $\catc$ 
+                                      such that $\gamma = f \circ k$,}}\\
 L_x(z_1) \sim_x L_x(z_2) & \mbox{ iff $z_1 = z_2$,} \\
 R_x(z_1) \sim_x R_x(z_2) & \mbox{ iff $z_1 = z_2$.} \\
 \end{align*}
-\begin{rationale}
+\begin{aside}
 We could  possibly have added to the first of the three clauses above
 that $\bar{k}\leq \widehat{f}$ but we don't need to do 
 this because at the
 end when the rabbit is pulled out of the hat I can take $\widehat{f} \circ k$ as the representation of functional depedency H.
-\end{rationale}
+\end{aside}
 
-It is very easy to see that $\sim_x$  is both symmetric and transitive. \commentary{yes very very easy. }
+It is very easy to see that $\sim_x$  is both symmetric and transitive. 
 
-We can show that equivalence is preserved by  $F(j)$ for each morphism $j$, $j: x_1 \morph x_2$ in $\catc$. For assume such a $j$ then 
-\commentary{a little bit different to same argument in preparation paper because $F(j)(k1)$ may be undefined.
- I havenFt described these cases anywhere}
-if $y_1,y_2 \in F(x_1)$ such that $y_1 \sim_{x_1} y_2$
-then it follows easily by cases and from the definition of $\sim$ that $F(j)(y_1) \sim_{x_2} F(j)(y_2)$.
-\begin{worktt}This is all fine but ought to say a little more...
-and need to sort out the two earlier sections on quotients.
-\end{worktt}
-
-Therefore, using the construction we described earlier, 
-we can define 
+We can use  the quotient construction described earlier
+in section \lref{quotientSection} 
+to define a functor
  $G: \catc \morph \Par$  as the quotient functor $\Fquotient$.
+
+So as to use the construction we need check
+that for all objects $x_1$ and $x_2$ of \catcw, 
+for all elements $y_1$, $y_2 \in F(x_1)$ such that $y_1\!\sim_{x_1}\!\! y_2$, 
+for all morphisms $j$, $j: x_1 \morph x_2$ in $\catc$,
+$F(j)(y_1)$ is defined iff $F(j)(y_2)$ is defined 
+and if $f(j)(x_1)$ is defined then $F(j)(y_1)\!\sim_{x_2}\!\!F(j)(y_2)$. 
+This follows easily in each of the three cases 
+in the definition of $\sim$.
+
 By lemma \ref{rangefunctorquotient}, $G$ is a range functor.
 
 In the earlier explanation we said we would use elements $left$ and $right$ of $G(a)$

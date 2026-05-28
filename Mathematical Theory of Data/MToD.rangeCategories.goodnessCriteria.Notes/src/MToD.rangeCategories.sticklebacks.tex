@@ -71,6 +71,14 @@ $f_i \leq g_i$ and for each $i$, $0 \leq i \leq n-1$ $f'_i \leq g'_i$.
 
 \subsection{Tightening}
 
+\newcommand{\tightlead}
+  {f_1,f'_1,...f_{n-2},f'_{n-1},
+       f_{n-1} \circ 
+       \rng{
+                \rst{f_n} \circ f'_{n-1}
+                     }
+}   
+
 If $F$ is a zigzag, a \textit{tightening} of $F$ is a tight zigzag
 $T \leq F$ such that for every tight zigzag $Z$ with $Z \leq F$,
 we have $Z \leq T$.
@@ -81,13 +89,7 @@ We will show by induction on length that every zigzag $F$ has a tightening and w
 If the zigzag is of length $1$ then it has no zigs and no zags so is already tight. The inductive step is given by the next lemma: 
 
 {  %lemma leftToRightTighteningSubLemma
-  \newcommand{\tightlead}
-  {f_1,f'_1,...f_{n-2},f'_{n-1},
-       f_{n-1} \circ 
-       \rng{
-                \rst{f_n} \circ f'_{n-1}
-                     }
-  }      
+   
 
 \newcommand{\requiredTightening}
 {\tuple{t_1,t'_1,...t'_{n-2},t_{n-1},\; 
@@ -110,6 +112,8 @@ then  zigzag
 \label{requiredTightening}\requiredTightening
 \end{equation}
 is a tightening of $F$. 
+
+
 \end{lemma}
 \begin{proof}
 We have to show first that (\ref{requiredTightening}) is tight. 
@@ -250,8 +254,23 @@ The second  because
 \end{proof}
 } %end lemma leftToRightTighteningSubLemma
 We have established that every zigzag $F$ has a unique tightening. 
-We shall write $T(F)$ for the tightening of $F$. We need the following takeaway from this lemma:
+We shall write $T(F)$ for the tightening of $F$. 
 
+
+\begin{worktt}
+In this lemma just given, if we denote by $F^L$
+the zigzag $\tuple{\tightlead}$
+and if we denote by $F^{L_r}$ the zigzag $\tuple{\rng{f'_{n-1}},f'_{n-1},f_n}$
+then we can extract from  this lemma the following
+\begin{observation}
+\llabel{leftToRightTighteningObservation}
+Suppose  $F=\zigzagTuple{f}{n}$ is a zigzag of length greater that $1$ in a range category \catcw
+then there is a zigzag $F^L$ of length $n-1$ so that
+$\tighten{F}= \tighten{F^L} \cnc \tighten{\rng{\tighten{F^L}}::F^{L_r}}$. 
+\end{observation}
+\end{worktt}
+
+We also need the following takeaways from this lemma:
 \begin{observation}
 \llabel{bareTailObservation}
 If $F=\zigzagTuple{f}{n}$ is a zigzag then
@@ -272,7 +291,32 @@ s_n = t_n \circ g
 \]
 \end{observation}
 
+\begin{oldtt}
+\workt{why?}
+From this there follows:
+\begin{observation}
+\llabel{tightTailComposeObservation}
+If  $F=\zigzagTuple{f}{n}$ is a tight zigzag 
+and if the final morphism $f_n$ of $F$ composes with some morphism $g$
+ so that the composite zigzag $F :: \tuple{g}$ is defined then
+\[
+\rng{T(F :: \tuple{g})}=\rng{f_n \circ g}
+\]
 
+\begin{worktt}
+This changes in front of my eyes because where we could  end up if we want to go there is that
+every zigzag has a restriction idempotent and a range idempotent defined by
+\begin{align*}
+\rst{Z} = \rst{\tighten{Z}}
+\rng{Z} = \rng{\tighten{Z}}.
+\end{align*} 
+With such a notation then
+\[
+\rng{F :: \tuple{g}}=\rng{f_n \circ g}
+\]
+\end{worktt}
+\end{observation}
+\end{oldtt}
 Lemma \lref{leftToRightTighteningSubLemma} describes how a zigzag can be tighten from left to right. We can also describe how a zigzag can be
 tightened from right to left. This is what the next lemma is about.
 {  %lemma rightToLeftTighteningSubLemma
@@ -724,7 +768,7 @@ commutes then the zigzag
 \arraycolsep=7pt
 \zigzagShortened{x}{y}{f}{n}{i}{s}
 \]
-is said to be a \textit{shortening} of $F$.
+is said to be a \textit{shortening} of $F$ and is said to be \textit{at position i of F}.
 
 Significantly, the shortening of a tight zigzag is  tight.
 It is easy to check this.
@@ -779,7 +823,114 @@ If I talk about shortening then the context
 needs to be \highlight{RR.5} range category.
 \end{aside}
 
-From this lemma we can see that if a zigzag $F$ shortens then $T(F)$ shortens. 
+From this lemma we can see that if a zigzag $F$ shortens then $T(F)$ shortens.
+
+\begin{lemma}
+\llabel{associativityLeftSubLemma}
+If $F$ is a tight zigzag of length $n$ and if $s$ is a shortening of $F$ at 
+position $i_s$ where
+$i_s \leq  n-2$ and if $g$ is a morphism such that 
+\[
+T(shorten(F\cnc\tuple{g},i_s,s))=shorten(T(F\cnc\tuple{g}),i_s,s))
+\]
+\end{lemma}
+\begin{proof}
+
+LHS: First 
+\[
+shorten(F\cnc\tuple{g},i_s,s) = shorten(F,i_s,s) \cnc \tuple{g}
+\]
+\\
+RHS:
+\\ 
+By lemma \lref{leftToRightTighteningObservation} there is a tuple
+$(F\cnc\tuple{g})^L$ such that \highlight{YUK}
+\[
+T(F\cnc\tuple{g}) = T((F\cnc\tuple{g})^L) \cnc T( \tuple{\rng{T((F\cnc\tuple{g})^L)},f'_{n-1},f_n \circ g} )  
+\]
+
+
+
+and by induction we have (a)
+\[
+shorten(T((F\cnc\tuple{g})^L),s,i_s) = T(shorten((F\cnc\tuple{g})^L),s,i_s))
+\]
+
+and also we have (b)
+\begin{align*}
+T(shorten((F\cnc\tuple{g})^L)&,s,i_s)) 
+           \cnc T( \tuple{\rng{F\cnc\tuple{g}},f'_{n-1},f_n \circ g} ) \\  
+  &= T(shorten((F\cnc\tuple{g})^L),s,i_s) \cnc \tuple{\rng{F\cnc\tuple{g}},f'_{n-1},f_n \circ g})
+     && \mbox{\parbox[t]{4cm}{because tightening commutes with composition albeit $::$}}\\
+  &= T(shorten((F\cnc\tuple{g})
+     && \mbox{\parbox[t]{4cm}{because for any $Z$ of length $>1$, $Z^L :: Z^{L_r} = Z$ }}
+\end{align*}
+
+providing we have 
+\[
+shorten((F\cnc\tuple{g})^L),s,i_s) \cnc \tuple{\rng{F\cnc\tuple{g}},f'_{n-1},f_n \circ g}
+= shorten((F\cnc\tuple{g})
+\]
+which maybe we do if we have
+\[
+\rng{shorten(Z)} = \rng{Z}
+\]
+
+Therefore from (a) and (b) we have (c) that
+\[
+shorten(T((F\cnc\tuple{g})^L),s,i_s) \cnc T( \tuple{\rng{F\cnc\tuple{g}},f'_{n-1},f_n \circ g} ) 
+         = T(shorten((F\cnc\tuple{g}) \mbox{which is LHS of target}
+\]
+and looking at the lhs of (c)  we have is we look carefully we have
+\begin {align*}
+shorten(T((F\cnc\tuple{g})^L),s,i_s) \cnc T( \tuple{\rng{F\cnc\tuple{g}},f'_{n-1},f_n \circ g} ) 
+&= shorten(  T((F\cnc\tuple{g})^L :: T( \tuple{\rng{F\cnc\tuple{g}},f'_{n-1},f_n \circ g} )   ,s,i_s)\\ 
+&= shorten(T(F\cnc\tuple{g})^L \cnc  \tuple{\rng{F\cnc\tuple{g}},f'_{n-1},f_n \circ g} ),s,i_s)\\
+&= shorten(T(F \circ g), s , i_s) \\
+&= \mbox{RHS of target}
+\end{align*}
+
+\begin{aside}
+Should I write  $T((F \cnc \tuple{g})^L)$ instead of $T((F \cnc \tuple{g})^L)$.
+
+and then write  $F= F^{L} \cnc F^{L_r}$
+
+and thus $F\cnc\tuple{g} = (F\cnc\tuple{g})^{L} \cnc (F\cnc\tuple{g})^{L_r}$??
+
+\workt{Yes}
+Think also curly T for tighten and curly $S_{i}$ for shortening at $i$.
+
+for example $\mathcal{T}(\mathcal{S}_{i_s}(F\cnc\tuple{g},s))$
+
+Use macros so that we can change later.
+\verb!\tighten{F}!
+\verb!\shorten{F}{s}{i_s}!
+\end{aside}
+
+
+
+Then we get:
+
+\begin{align*}
+LHS &= \tighten{\shorten{F\cnc\tuple{g}}{s}{i_s}} \\
+    &= shorten(T((F\cnc\tuple{g})^L),s,i_s) \cnc T( \tuple{\rng{F\cnc\tuple{g}},f'_{n-1},f_n \circ g} ) \\
+    &= shorten(  T((F\cnc\tuple{g})^L :: T( \tuple{\rng{F\cnc\tuple{g}},f'_{n-1},f_n \circ g} )   ,s,i_s)\\
+    &= \shorten{\tighten{F\cnc\tuple{g}}^L \cnc  \tuple{\rng{F\cnc\tuple{g}},f'_{n-1},f_n \circ g} }
+    {s}{i_s} \\
+    &= \shorten{\tighten{F\cnc\tuple{g}}}{s}{i_s} \\
+    &= RHS
+\end{align*}
+
+
+\end{proof}
+\begin{lemma}
+\llabel{associativityMidLemma}
+\end{lemma}
+\begin{lemma}
+\llabel{associativityRightSubLemma}
+\end{lemma}
+
+
 \begin{lemma}
 \llabel{associativitySublemma}
 Suppose $F$ of length $n$ and $G$ of length $m$ are tight zigzags 
@@ -788,11 +939,43 @@ and suppose that $s$ is a shortening
 of $F::G$ at some index $i_s$, $1 \leq i_s \leq n +m - 1$, then
 \begin{equation}
 \label{associativitySublemmatarget}
-T(shorten(F::G,i_s,s)=shorten(T(F::G),i_s,s))
+T(shorten(F::G,i_s,s))=shorten(T(F::G),i_s,s))
 \end{equation}
 \end{lemma}
 \begin{proof}
+\begin{newtt}\commentary{new proof 24 May 2026}
+This lemma follows directly from lemmas 
+\lref{associativityLeftSubLemma},
+\lref{associativityMidSubLemma} and
+\lref{associativityRightSubLemma} and from
+lemma \lref{midpointLemma}.
+
+Note that the RHS of the target identity can be rwritten as
+\[
+shorten(F \circ G,i_s,s)
+\]
+Hmmm
+Isn't $F::G$ equal
+\[
+(F::\rst{G})::(\rng{F} :: G)
+\]
+and doesn't this mean that $shorten(F::G,i_s,s)$ is
+either
+\[
+shorten(F::\rst{G},i_s,s) ::(\rng{F}::G)
+\]
+or
+\[
+(F::\rst{G}) :: shorten(\rng{F}::G),i_s - n, s)
+\]
+
+\end{newtt}
 \workt{proof was commented out when it went out of date}
+
+\workt{This proof will be replaced by a coming together of two earlier lemmas.}
+
+\workt{associativityLeftSubLemma}
+\workt{associativityRightSubLemma}
 \begin{aside}
 19 May 2026.
 The definition of tightening has been modified since this proof was writtem.

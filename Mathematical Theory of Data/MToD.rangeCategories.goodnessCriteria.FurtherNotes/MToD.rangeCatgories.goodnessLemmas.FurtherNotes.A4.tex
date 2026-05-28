@@ -59,5 +59,71 @@ Unused material from the three lemmas
 
 \section{Sticklebacks}
 \input{../src/from.MToD.rangeCategories.sticklebacks.tex}
+\newpage
+\section{From Earlier Discredited Account of $Homp$}
+\begin{lemma}
+If \catcw is a range category and $HomP(a,-)$ is a range functor for all objects a of \catcw
+then every morphism $f$ of \catcw has a partial section. 
+\end{lemma}
+\begin{proof} 
+\begin{newtt}
+Suppose $f:a \morph b$. 
+
+so that $Hom(b,\rng{f}):Hom(b,b) \morph Hom(b,b)$ 
+\end{newtt}
+
+First consider that $\rng{f}=id_b \circ \rng{f}=Hom(b,\rng{f})(id_b)$
+
+and therefore that $\rng{f}$ is in the image of $Hom(b,\rng{f})$.
+
+Which is to say that $\rng{f}$  is in the image of the function
+$Hom(b,f)$ because $\reallywidehat{Hom(b,f)} = Hom(b,\rng{f})$ from the assumption that the range operator is preserved by $HomP(b,-)$. 
+Therefore there is
+at least one such $g: b \morph a$ such that $Hom(a,f)(g) = \rng{f}$ i.e. such
+that
+\begin{equation}
+\label{gCondition}
+g \circ f = \rng{f}
+\end{equation}
+
+\begin{newtt}
+to this in the $d_a$ case we can add $\rst{g \circ f} = \rst{g}$
+
+this means that we can get rid of the $\rng{f} \circ$ correction and showe that $g$ is a partial section
+\end{newtt}
+
+For any such $g$ we can show that the morphism $\rng{f} \circ g$ is a partial section of $f$
+by showing  both conditions required of a partial section 
+\begin{equation}
+\label{sectionReqOne}
+f \circ \rng{f} \circ g \circ f = f
+\end{equation}  
+and
+\begin{equation}
+\label{sectionReqTwo}
+\rng{f} \circ g \circ f = \rst{\rng{f} \circ g}
+\end{equation}
+(\ref{sectionReqOne}) is the case because
+\begin{align*}
+f \circ \rng{f} \circ g \circ f &=  f \circ \rng{f} \circ \rng{f}     
+                                               && \mbox{by (\ref{gCondition}),} \\
+                                &=f       
+                                               && \mbox{by RR.2.} 
+\end{align*}
+(\ref{sectionReqTwo}) is the case because
+\begin{align*}
+\rng{f} \circ g \circ f  &= \rng{f} \circ \rng{f}       
+                                               && \mbox{by (\ref{gCondition}),} \\
+                         &= \rng{f}     
+                                               && \mbox{by lemma \ref{unirangelemma} (ii),} \\
+                         &= \rst{\rng{f}}     
+                                               && \mbox{by RR.1,} \\
+                         &= \rst{f \circ g}    
+                                               && \mbox{by (\ref{gCondition}),}\\
+                         &= \rst{\rng{f} \circ g}     
+                                               && \mbox{by RR.4.} \\
+\end{align*}
+\end{proof}
+
 
 \end{document}
