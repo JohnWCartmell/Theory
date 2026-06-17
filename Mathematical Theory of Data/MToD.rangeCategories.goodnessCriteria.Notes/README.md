@@ -1,19 +1,21 @@
 # Goodness Criteria for Data Specifications as Sketches of Range Categories
 
-A follow up to this paper was the presentation given to the Topos Institute and found in MToD.ToposInstitute.slides.presentation.tex.
-That follow up contained different material which needs writing up separately. 
+This paper is about the role of range categories in the mathematical theory of data.
 
-Here we do not have an object or objects representing types all of whose instances are universals. 
+Data modelling and therefore data itself relies on  two kinds of types: 
++ types all of whose instances are particulars (people, addresses, bank accounts, cities, airports, flights, and so on and on and on),
++ types all of whose instances are universals (integers, booleans, colours of the rainbow, text characters, strings of text characters andf the like).
 
-## Progress 26th February 2026
+This paper is only part of the story of data because it concerns itself only with types of the first kind. These are represented as the objects of a range category.
+ 
 
-+ Now covers category of sticklebacks but work needed to reorganise and redraw this material.
-+ Key thing is that category of stricklebacks be a category with awR.4 support.
-+ Now includes decent proofs for goodness criteria 2A and 2B.
+A related presentation given to the Topos Institute and can found in MToD.ToposInstitute.slides.presentation.tex.
+That presentation contained different material which needs writing up separately. 
 
-Waiting in the wings is proof of goodness criteria 2C
-+  this proof requires Rel valued-functor D_# from the stickleback category induced by a Par valued-functor D
-+ uses criteria 2B 
-+ uses a neat argument that uniqueness of a referential dependency R implies
-the image under D# of a stickleback representing R is actually single-valued. Kind of crazy if this works out! 
-+ next sketch this argument out.
+
+## Progress 17th June 2026
+
+All the main lemmas have been proved but some lemmas that these rely on need proofs. I previously had proofs but I have changed tack slightly to make the proofs a bit less messy. There is no problem with the  proofs other than I am in the midlle of tidying the a bit. 
+Further tidying --- more powerful notation --- is a possibility.
+
+After filling in missing proofs I would like to reorganise to bring the main ideas forward and defer the mathematical detail. The problem at the moment is that lots of book keeping on restriction categories and range categories appears before some key ideas.  
