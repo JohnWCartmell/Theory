@@ -818,118 +818,114 @@ f' \circ s
 \end{align}
 \end{proof}
 
+\begin{corollary}
+\llabel{shorteningAtightenedRestriction}
+If $F$ is a zigzag and $s$ is a shortening of $F$ at position $i$,
+if $j$ is a restriction endomorphism 
+such that $F :: \tuple{j}$ is defined then
+$s$ is a shortening of 
+the tightening of $F :: \tuple{j}$ at position$i$.
+\end{corollary}
+
 \begin{aside}
 If I talk about shortening then the context
 needs to be \highlight{RR.5} range category.
 \end{aside}
 
-From this lemma we can see that if a zigzag $F$ shortens then $T(F)$ shortens.
-
-\begin{lemma}
-\llabel{associativityLeftSubLemma}
-If $F$ is a tight zigzag of length $n$ and if $s$ is a shortening of $F$ at 
-position $i_s$ where
-$i_s \leq  n-2$ and if $g$ is a morphism such that 
-\[
-T(shorten(F\cnc\tuple{g},i_s,s))=shorten(T(F\cnc\tuple{g}),i_s,s))
-\]
-\end{lemma}
-\begin{proof}
-
-LHS: First 
-\[
-shorten(F\cnc\tuple{g},i_s,s) = shorten(F,i_s,s) \cnc \tuple{g}
-\]
-\\
-RHS:
-\\ 
-By lemma \lref{leftToRightTighteningObservation} there is a tuple
-$(F\cnc\tuple{g})^L$ such that \highlight{YUK}
-\[
-T(F\cnc\tuple{g}) = T((F\cnc\tuple{g})^L) \cnc T( \tuple{\rng{T((F\cnc\tuple{g})^L)},f'_{n-1},f_n \circ g} )  
-\]
-
-
-
-and by induction we have (a)
-\[
-shorten(T((F\cnc\tuple{g})^L),s,i_s) = T(shorten((F\cnc\tuple{g})^L),s,i_s))
-\]
-
-and also we have (b)
-\begin{align*}
-T(shorten((F\cnc\tuple{g})^L)&,s,i_s)) 
-           \cnc T( \tuple{\rng{F\cnc\tuple{g}},f'_{n-1},f_n \circ g} ) \\  
-  &= T(shorten((F\cnc\tuple{g})^L),s,i_s) \cnc \tuple{\rng{F\cnc\tuple{g}},f'_{n-1},f_n \circ g})
-     && \mbox{\parbox[t]{4cm}{because tightening commutes with composition albeit $::$}}\\
-  &= T(shorten((F\cnc\tuple{g})
-     && \mbox{\parbox[t]{4cm}{because for any $Z$ of length $>1$, $Z^L :: Z^{L_r} = Z$ }}
-\end{align*}
-
-providing we have 
-\[
-shorten((F\cnc\tuple{g})^L),s,i_s) \cnc \tuple{\rng{F\cnc\tuple{g}},f'_{n-1},f_n \circ g}
-= shorten((F\cnc\tuple{g})
-\]
-which maybe we do if we have
-\[
-\rng{shorten(Z)} = \rng{Z}
-\]
-
-Therefore from (a) and (b) we have (c) that
-\[
-shorten(T((F\cnc\tuple{g})^L),s,i_s) \cnc T( \tuple{\rng{F\cnc\tuple{g}},f'_{n-1},f_n \circ g} ) 
-         = T(shorten((F\cnc\tuple{g}) \mbox{which is LHS of target}
-\]
-and looking at the lhs of (c)  we have is we look carefully we have
-\begin {align*}
-shorten(T((F\cnc\tuple{g})^L),s,i_s) \cnc T( \tuple{\rng{F\cnc\tuple{g}},f'_{n-1},f_n \circ g} ) 
-&= shorten(  T((F\cnc\tuple{g})^L :: T( \tuple{\rng{F\cnc\tuple{g}},f'_{n-1},f_n \circ g} )   ,s,i_s)\\ 
-&= shorten(T(F\cnc\tuple{g})^L \cnc  \tuple{\rng{F\cnc\tuple{g}},f'_{n-1},f_n \circ g} ),s,i_s)\\
-&= shorten(T(F \circ g), s , i_s) \\
-&= \mbox{RHS of target}
-\end{align*}
-
 \begin{aside}
-Should I write  $T((F \cnc \tuple{g})^L)$ instead of $T((F \cnc \tuple{g})^L)$.
-
-and then write  $F= F^{L} \cnc F^{L_r}$
+I can write  $F= F^{L} \cnc F^{L_r}$
 
 and thus $F\cnc\tuple{g} = (F\cnc\tuple{g})^{L} \cnc (F\cnc\tuple{g})^{L_r}$??
 
-\workt{Yes}
-Think also curly T for tighten and curly $S_{i}$ for shortening at $i$.
-
-for example $\mathcal{T}(\mathcal{S}_{i_s}(F\cnc\tuple{g},s))$
-
-Use macros so that we can change later.
-\verb!\tighten{F}!
-\verb!\shorten{F}{s}{i_s}!
 \end{aside}
 
+From this lemma we can see that if a zigzag $F$ shortens then $T(F)$ shortens.
+\newpage
+\begin{lemma}
+\llabel{associativityLeftSubLemma}
 
-
-Then we get:
-
+If $F$ is a tight zigzag of length $n$ and if $s$ is a shortening of $F$ at 
+position $i$ where
+$i \leq  n-2$ and if $g$ is a morphism such that $F :: \tuple{g}$ is
+defined then $s$ is a shortening of $\tighten{F\cnc\tuple{g}}$
+and 
+\[
+\tighten{
+  \shorten{F\cnc\tuple{g}}
+          {s}{i}
+        }
+=\Shorten{\tighten{F\cnc\tuple{g}}}
+         {s}{i}
+\]
+\end{lemma}
+\begin{newtt}
+\begin{proof}
+\newcommand{\Fg}{F \cnc \tuple{g}}
+\newcommand{\FgL}{(\Fg)^L}
+\newcommand{\FgLr}{(\Fg)^{L_r}}
+\newcommand{\shortendFg}{\shorten{F\cnc\tuple{g}}{s}{i}}
+\newcommand{\shortendFgL}{\bigl(\shortendFg\bigr)^L}
+\newcommand{\shortendFgLr}{\bigl(\shortendFg\bigr)^{L_r}}
+\newcommand{\FgLshortened}{\shorten{\FgL}{s}{i}}
+\newcommand{\FgLtightened}{\tighten{\FgL}}
+\newcommand{\Z}{\Tighten{\shortendFgL}}
+\newcommand{\Zrewritten}{\shorten{\FgLtightened}{s}{i}}
+\newcommand{\ZZ}{\FgLtightened \cnc \tighten{
+                     \rng{Z} \cnc \FgLr
+                        }
+}
+\newcommand{\ZZrewritten}{\FgLtightened \cnc \tighten{
+                     \rng{\FgLtightened} \cnc \FgLr
+                        }
+}
+The LHS of the required identity can be rewritten using 
+observation \ref{leftToRightTighteningObservation} as
 \begin{align*}
-LHS &= \tighten{\shorten{F\cnc\tuple{g}}{s}{i_s}} \\
-    &= shorten(T((F\cnc\tuple{g})^L),s,i_s) \cnc T( \tuple{\rng{F\cnc\tuple{g}},f'_{n-1},f_n \circ g} ) \\
-    &= shorten(  T((F\cnc\tuple{g})^L :: T( \tuple{\rng{F\cnc\tuple{g}},f'_{n-1},f_n \circ g} )   ,s,i_s)\\
-    &= \shorten{\tighten{F\cnc\tuple{g}}^L \cnc  \tuple{\rng{F\cnc\tuple{g}},f'_{n-1},f_n \circ g} }
-    {s}{i_s} \\
-    &= \shorten{\tighten{F\cnc\tuple{g}}}{s}{i_s} \\
-    &= RHS
+\text{LHS} 
+    &= Z \cnc \tighten{
+                     \rng{Z} \cnc \shortendFgLr
+                        }
+    &          &&\parbox{6cm}{where $Z=\Z$,}
 \end{align*}
+\begin{newtt}
+
+\end{newtt}
+\begin{oldtt}
+but to take the front end of the non-final 
+shortening of a zigzag is to shorten the front end i.e. 
+\[
+\shortendFgL = \FgLshortened 
+\]
+and shortening the front end does not change the final elements of the zigzag therefore
+\[
+\shortendFgLr = \FgLr
+\]
+\end{oldtt}
 
 
+
+Therefore we can rephrase $Z$ and use the inductive hypothisis to get
+\begin{align*}
+\text{LHS} &= Z \cnc \tighten{
+                     \hat{Z} \cnc \FgLr
+                        }
+              &&\parbox{6cm}{where $Z=\Zrewritten$,}\\
+           &= \Shorten{\ZZ}{s}{i} && \parbox{6cm}{because shortening can moves outside the concatenation $\cnc$,}\\
+           &= \Shorten{\ZZrewritten}{s}{i} 
+                   && \parbox{6cm}{observation xxx that $\rng{\shorten{ZZ}{s}{i}}=\rng{ZZ}$,}\\
+           &= \Shorten{\tighten{F\cnc\tuple{g}}}
+                     {s}{i} 
+            && \parbox{6cm}{by use of observation \ref{leftToRightTighteningObservation} again,}\\
+         &= \text{RHS.}
+\end{align*}
 \end{proof}
+\end{newtt}
 \begin{lemma}
 \llabel{associativityMidLemma}
 \end{lemma}
 \begin{lemma}
 \llabel{associativityRightSubLemma}
 \end{lemma}
-
 
 \begin{lemma}
 \llabel{associativitySublemma}
@@ -998,68 +994,7 @@ then I can describe $T(F::G)$ as follows:
 
 There are three cases to consider.
 \paragraph{Case (i) --- $i_s \leq  n-2$}
-In this case the shortening within the lhs of (\ref{associativitySublemmatarget}) 
-eliminates the pair $f'_{i_s}, f_{i_s+1}$ 
-based on the assumption that this diagram commutes:
-
-\begin{equation}
-\label{case.i.lhrshortening} 
-\begin{array}{c c c c}
-\Rnode{TL}{x{i_s}} &           & \Rnode{TR}{x_{{i_s}+1} } \\[0.8cm]
-           & \Rnode{BC}{w_{i_s}} &  
-\end{array}
-\begin{arrows}
-\drawMorphismArcing{TL}{TR}{a}{s}{15}{15}[0.5] 
-\ncarr{BC}{TL}\alabel{f'_{i_s}}
-\ncarr{BC}{TR}\blabel{f_{{i_s}+1}} 
-\end{arrows}
-\end{equation}
-
-The shortening is $\tuple{f_1,...f'_{i_s-1},f_{i_s} \circ s, f'_{i_s+1},...
-          f'_{n-1},f_n \circ g_1, g'_1,...g'_{m-1},g_m }$. 
-The tightening of this shortening can be described as follows:
-
-\tbd
-
-The shortening invoked within in the rhs eliminates the pair
-$ff'_{i_s}, ff_{i_s+1}$
-and is applicable because this diagram
-\begin{worktt}
-\begin{equation}
-\label{case.i.lhrshortening} 
-\begin{array}{c c c c}
-\Rnode{TL}{x{i_s}} &           & \Rnode{TR}{x_{{i_s}+1} } \\[0.8cm]
-           & \Rnode{BC}{w_{i_s}} &  
-\end{array}
-\begin{arrows}
-\drawMorphismArcing{TL}{TR}{a}{s}{15}{15}[0.5] 
-\ncarr{BC}{TL}\alabel{ff'_{i_s}}
-\ncarr{BC}{TR}\blabel{ff_{{i_s}+1}} 
-\end{arrows}
-\end{equation}
-\end{worktt}
-commutes by lemma \lref{shorteningSpecialisationLemma}. 
-$shorten(T(F::G),i_s,s))$ is described by eliminating 
-the equations for $ff'_{i_s}$ and $ff_{i_s+1}$ from the system of equations
-(\ref{tighteningcomposite:ffn}) to (\ref{tighteningcomposite:ggj}) and by modifying the description of $ff_{i_s}$ to be
-\begin{equation}
-\label{rhsffis}
-ff_{i_s} = f_{i_s} \circ \rng{ff'_{i_s}} \circ s
-\end{equation}
-
-To establish (\ref{case1tighteningShortenedComposite:tsfis}) we need show 
-that this modified $ff_{i_s}$ is equal to
-$tsf_{i_s}$ from equation (\ref{case1tighteningShortenedComposite:tsfis}). That is we need show that
-$f_{i_s} \circ \rng{ff'_{i_s}} \circ s = f_{i_s} \circ s \circ \rng{tsf'_{i_s+1}}$. 
-This follows from lemma \lref{tighteningashorteninglemma}
-(\ref{tighteningshorteningRightToLeft}) with
-$f_{i_s}$  substituted for $f$, 
-$f'_{i_s}$ for $g$,
-$f_{i_s+1}$ for $h$
-and
-$\rng{ff'_{i_s+1}}$ for $\rst{j}$,
-since $ff'_{i_s} = \rst{f_{i_s+1} \circ \rng{ff'_{i_s+1}   }} \circ f_{i_s}$ and
-$tsf'_{i_s+1} = ff'_{i_s+1}$.
+Use \lref{associativityLeftSubLemma}. Plus some.
 
 \paragraph{Case (ii) --- $i_s = n-1$}
 In this case the shortening of the lhs of (\ref{associativitySublemmatarget}) eliminates the pair
@@ -1147,81 +1082,13 @@ ff'_{n-1} \circ s
 just noticed in early parts of this proof need to change x to w and y to x
 \end{aside}
 \paragraph{Case (iii) --- $i_s \geq n$}
-In this case there is a $j_s$, $1 \leq j_s \leq m-1$, such that $i_s = n + j_s  - 1$ . 
-The shortening within the lhs of (\ref{associativitySublemmatarget}) 
-eliminates the pair $g'_{j_s}, g_{j_s+1}$ 
-based on the assumption that this diagram commutes:
-
-\begin{equation}
-\label{case.iii.lhrshortening} 
-\begin{array}{c c c c}
-\Rnode{TL}{z_{j_s}} &           & \Rnode{TR}{z_{{j_s}+1} } \\[0.8cm]
-           & \Rnode{BC}{y_{j_s}} &  
-\end{array}
-\begin{arrows}
-\drawMorphismArcing{TL}{TR}{a}{s}{15}{15}[0.5] 
-\ncarr{BC}{TL}\alabel{g'_{j_s}}
-\ncarr{BC}{TR}\blabel{g_{{j_s}+1}} 
-\end{arrows}
-\end{equation}
-commutes. 
-
-In the tightening of the zigzag $F::G$ the `g' terms can be described by
-\begin{alignat}{2}
-\label{tighteningcomposite2:g1}         
-gg_1 &= f_n \circ g_1, \\[6pt]
-\label{tighteningcomposite2:ggpj}
-gg'_j &= g'_j \circ \rng{gg_j},
-                &&\qquad (1 \le j \le m-1), \\
-\label{tighteningcomposite2:ggj}
-gg_j  &= \rst{gg'_{j-1}} \circ g_j,
-                &&\qquad (2 \le j \le m).
-\end{alignat}
-
-The shortening of the tightening is described by a similar set of equations obtained by omitting the pair $gg'_{j_s}$, $gg_{j_s+1}$
-and replacing the equation for $gg_{j_s}$ by
-\[
-gg_{j_s} = \rst{gg'_{j_s -1}} \circ g_{j_s} \circ s
-\]
-and the tightening of the shortened zigzag $shorten(F::G,i_s,s)$
-can be described by similar set of equations in which there is one less `g' term \workt{reword}and in which the term $g_{j_s}$
-is replaced by $g_{j_s} \circ s$ so that we have
-the $gg_{j_s} =\rst{gg'_{j_s-1}} \circ g_{j_s} \circ s$. It follows that to show that the tightened shortening and the shortened tightening are identical we
-have to show that the $gg'_{j_s+1}$ terms are identical.
-If $j_s > 1$ we need show that
-
-\[
-\rng{\rst{gg'_{j_s-1}} \circ g_{j_s} \circ s} 
-= \rng{\rst{g'_{j_s} \circ\rng{\rst{gg'_{j_s-1}} \circ g_{j_s}}} \circ  g_{j_s + 1} } 
-\]
-This follows from lemma \lref{tighteningashorteninglemma}
- (\lref{tighteningshorteningLeftToRight})
-by substituting
-$gg_{j_s-1}$ for $i$,
-$g_{j_s}$ for $f$,
-$g'_{j_s}$ for $g$,
-$g_{j_s+1}$ for $h$,
-and is applicable because $\rng{g_{j_s}} = \rng{g'_{j_s}}$
-because $G$ is assumed to be tight.
-
-If $j_s=1$ we need show that
-\[
-\rng{ f_n \circ g_1 \circ s} 
-= \rng{\rst{g'_1 \circ\rng{ f_n \circ g_1}} \circ  g_{2} } 
-\]
-This follows from lemma \lref{tighteningashorteninglemma}
- (\lref{tighteningshorteningLeftToRight})
-by removing the $\rst{i}$ term (i.e. by substituting the appropriate identity morphism, $id_{w_n}$)
-and by
-substituting
-$f_n \circ g_1$ for $f$,
-$g'_1$ for $g$ and
-$g_2$ for $h$
-and is applicable because $\rng{f_n \circ g_1} \leq
-\rng{g_1} = \rng{g'_1}$.
-%\fi %proof commented out %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Use \lref{associativityRightSubLemma}. Plus some.
 \end{proof}
-
+\newpage
+\begin{aside}
+The following lemma suggests that the normal form for a zigzag is the
+shortening of the sightening.
+\end{aside}
 \begin{lemma}
 \llabel{deferredShorteningLemma}
 If $Z_1$, $Z_2$ are tight zigzags in
