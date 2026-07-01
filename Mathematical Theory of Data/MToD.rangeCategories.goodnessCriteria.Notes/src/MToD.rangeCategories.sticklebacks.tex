@@ -255,13 +255,72 @@ The second  because
 } %end lemma leftToRightTighteningSubLemma
 We have established that every zigzag $F$ has a unique tightening. 
 We shall write $T(F)$ for the tightening of $F$. 
+{%howToTighteningaZigZagOfLengthTwo
+\newcommand {\tighteningOne}{z_1 \circ \rng{\rst{z_2} \circ z'_1}}
+\newcommand {\tighteningTwo}{\rst{z_2} \circ z'_1 \circ \rng{z_1}}
+\newcommand {\tighteningThree}{\rst{z'_1 \circ \rng{z_1}} \circ z_2}
+\begin{lemma}
+\llabel{howToTighteningaZigZagOfLengthTwo}
+If $Z=\tuple{z_1,z'_1,z_2}$ is a zigzag of length $2$
+then
 
+\[
+\tighten{Z}=\tuple{ \tighteningOne,\,\tighteningTwo,\,\tighteningThree}
+\]
+\end{lemma}
+\begin{proof}
+\newcommand {\longTighteningTwo}{\rst{z_2} \circ z'_1 \circ \rng{t}}
+\newcommand {\longTighteningThree}{\rst{z'_1 \circ \rng{t}} \circ z_2}
+Use lemma \lref{leftToRightTighteningSubLemma} with $n=2$. The precursor zigzag of length $n-1$ is simply the singleton zigzag \nudgeup{0.55cm}$\tuple{\tighteningOne}$ and this being a  singleton is tight and therefore its own tightening. Therefore the tightening of $Z$ is 
+\nudgeup{0.55cm}$\tuple{t, \longTighteningTwo,\longTighteningThree}$
+where $t = \tighteningOne$. 
+
+Now note that 
+\begin{equation}
+\label{tighteningTwoIntermediate}
+z'_1 \circ \rng{t} = z'_1 \circ \rng{\rst{z_2} \circ z'_1} \circ \rng{z_1}
+\end{equation}  
+because
+\begin{align*}
+z'_1 \circ \rng{t} 
+     &= z'_1 \circ \rng{\tighteningOne} 
+     && \mbox{substituting $t$,}\\
+     &= z'_1 \circ \rng{z_1} \circ \rng{\rst{z_2} \circ z'_1} 
+     && \mbox{by lemma \lref{fglemma} (iii),}\\
+     &= z'_1 \circ \rng{\rst{z_2} \circ z'_1}  \circ \rng{z_1}
+     && \mbox{by lemma \lref{fglemma} (i)}
+\end{align*}
+
+and using this we can simplify
+$\longTighteningTwo$  to $\tighteningTwo$ as follows
+\begin{align*}
+\longTighteningTwo 
+    &= \rst{z_2} \circ z'_1 \circ \rng{\rst{z_2} \circ z'_1} \circ \rng{z_1}
+                   && \mbox{by (\ref{tighteningTwoIntermediate}),}\\
+    &= \tighteningTwo
+                   && \mbox{by RR.2,}
+\end{align*}
+and  $\longTighteningThree$ simplifies to $\tighteningThree$ as follows
+\begin{align*}
+\longTighteningThree 
+     &= \rst{z'_1 \circ \rng{\rst{z_2} \circ z'_1} \circ\rng{z_1}} \circ z_2
+     && \mbox{by (\ref{tighteningTwoIntermediate}),}\\
+     &= \rst{\rst{z_2} \circ z'_1 \circ \rng{\rst{z_2} \circ z'_1} \circ\rng{z_1}
+      } \circ z_2
+     && \mbox{by  lemma \lref{newSupportLemma}}\\
+     &= \rst{\rst{z_2} \circ z'_1 \circ\rng{z_1}} \circ z_2 
+     && \mbox {by RR.2,}\\ 
+     &= \tighteningThree
+     && \mbox{by a second use of lemma \lref{newSupportLemma}.}
+\end{align*}. 
+Hence result.
+\end{proof}
 
 \begin{worktt}
 In this lemma just given, if we denote by $F^L$
 the zigzag $\tuple{\tightlead}$
 and if we denote by $F^{L_r}$ the zigzag $\tuple{\rng{f'_{n-1}},f'_{n-1},f_n}$
-then we can extract from  this lemma the following
+then we can extract from  ???? the following
 \begin{observation}
 \llabel{leftToRightTighteningObservation}
 Suppose  $F=\zigzagTuple{f}{n}$ is a zigzag of length greater that $1$ in a range category \catcw
@@ -923,8 +982,14 @@ then need the shortening to be not $f_i \circ s$ as is shown in the diagram but 
 \newt{$f_i \circ \rng{f'_i} \circ s$}.
 \end{notebox}
 
+\begin{observation}
+\llabel{shorteningATightZigzagObservation}
+If $F$ is tight then in the shortening the
+morphism $f_i \circ \rng{f'_i} \circ s$ simplifies to $f_i \circ s$.
+\end{observation}
 Significantly, the shortening of a tight zigzag is  tight.
 It is easy to check this.
+
 
 Cockett shows that if the category \catcw is a range category
 satisfying the addition condition RR.5 then every tight
@@ -993,14 +1058,26 @@ $\rst{zz}
 \begin{lemma}
 \llabel{secondShorteningCharacterisationLemma}
 \end{lemma}
-\begin{proof}
 If $Z$ is a zigzag of length $2$ and $s$ is a shortening of $Z$
 then
 \begin{enumerate}[(i)]
 \item 
-$\absrst{\shorten{i}{s}{Z}} = \abrst{Z}$
+$\tighten{\shorten{Z}{s}{i}} = \tuple{z_1 \circ \rng{z'_1} \circ s }
+                             =\shorten{\tighten{Z}}{s}{i}
+$
+\item 
+$\abrst{\shorten{Z}{s}{i}} = \abrst{Z}$
 \item
-$\absrng{\shorten{i}{s}{Z}} = \abrng{Z}$
+$\abrng{\shorten{Z}{s}{i}} = \abrng{Z}$
+\end{enumerate}
+\begin{proof}
+\begin{enumerate}[(i)]
+\item
+\begin{align*}
+\shorten{\tighten{Z}}{s}{i}    
+           &=    z_1 \circ \rng{\rst{z_2} \circ z'_1} \circ s
+           &&    \mbox{from observation \lref{shorteningATightZigzagObservation}}
+\end{align*}
 \end{enumerate}
 \end{proof}
 
@@ -1064,282 +1141,22 @@ and thus $F\cnc\tuple{g} = (F\cnc\tuple{g})^{L} \cnc (F\cnc\tuple{g})^{L_r}$??
 \end{aside}
 
 From this lemma we can see that if a zigzag $F$ shortens then $T(F)$ shortens.
-\newpage
-\begin{lemma}
-\llabel{associativityLeftSubLemma}
 
-If $F$ is a tight zigzag of length $n$ and if $s$ is a shortening of $F$ at 
-position $i$ where
-$i \leq  n-2$ and if $g$ is a morphism such that $F :: \tuple{g}$ is
-defined then $s$ is a shortening of $\tighten{F\cnc\tuple{g}}$
-and 
-\[
-\tighten{
-  \shorten{F\cnc\tuple{g}}
-          {s}{i}
-        }
-=\Shorten{\tighten{F\cnc\tuple{g}}}
-         {s}{i}
-\]
-\end{lemma}
-\begin{worktt}
-\begin{proof}
-\newcommand{\Fg}{F \cnc \tuple{g}}
-\newcommand{\FgL}{(\Fg)^L}
-\newcommand{\FgLr}{(\Fg)^{L_r}}
-\newcommand{\shortendFg}{\shorten{F\cnc\tuple{g}}{s}{i}}
-\newcommand{\shortendFgL}{\bigl(\shortendFg\bigr)^L}
-\newcommand{\shortendFgLr}{\bigl(\shortendFg\bigr)^{L_r}}
-\newcommand{\FgLshortened}{\shorten{\FgL}{s}{i}}
-\newcommand{\FgLtightened}{\tighten{\FgL}}
-\newcommand{\Z}{\Tighten{\shortendFgL}}
-\newcommand{\Zrewritten}{\shorten{\FgLtightened}{s}{i}}
-\newcommand{\ZZ}{\FgLtightened \cnc \tighten{
-                     \rng{Z} \cnc \FgLr
-                        }
-}
-\newcommand{\ZZrewritten}{\FgLtightened \cnc \tighten{
-                     \rng{\FgLtightened} \cnc \FgLr
-                        }
-}
-First note that since $i \leq n-2$ yt follows that
-$s$ is a shorting of $F\cnc \tuple{g}$ at position $i$. From this it follows by corollary 
-\lref{shorteningAtightenedRestriction} that $s$ is also a shortening 
-at  position $i$ of $\tighten(F\cnc \tuple{g})$. 
-
-Now the left hand side of the required identity can be rewritten using 
-observation \ref{leftToRightTighteningObservation} as
-\begin{align*}
-\text{LHS} 
-    &= Z \cnc \tighten{
-                     \rng{Z} \cnc \shortendFgLr
-                        }
-    &          &&\parbox{6cm}{where $Z=\Z$,}
-\end{align*}
-\begin{newtt}
-
-\end{newtt}
-\begin{oldtt}
-but to take the front end of the non-final 
-shortening of a zigzag is to shorten the front end i.e. 
-\[
-\shortendFgL = \FgLshortened 
-\] \commentary{the is first identity isn't true when $i = n-2$}
-and shortening the front end does not change the final elements of the zigzag therefore
-\[
-\shortendFgLr = \FgLr
-\]
-\end{oldtt}
-
-
-Therefore we can rephrase $Z$ and use the inductive hypothisis to get
-\begin{align*}
-\text{LHS} &= Z \cnc \tighten{
-                     \hat{Z} \cnc \FgLr
-                        }
-              &&\parbox{6cm}{where $Z=\Zrewritten$,}\\
-           &= \Shorten{\ZZ}{s}{i} && \parbox{6cm}{because shortening can moves outside the concatenation $\cnc$,}\\
-           &= \Shorten{\ZZrewritten}{s}{i} 
-                   && \parbox{6cm}{observation xxx that $\rng{\shorten{ZZ}{s}{i}}=\rng{ZZ}$,}\\
-           &= \Shorten{\tighten{F\cnc\tuple{g}}}
-                     {s}{i} 
-            && \parbox{6cm}{by use of observation \ref{leftToRightTighteningObservation} again,}\\
-         &= \text{RHS.}
-\end{align*}
-\end{proof}
-\end{worktt}
-\begin{lemma}
-\llabel{associativityMidLemma}
-\begin{newtt}
-If $F$ is a tight zigzag of length $n$ and if $s$ is a shortening of $F$ at 
-position $n-1$, if $g$ is a morphism such that $F :: \tuple{g}$ is
-defined then $s \circ g$ is a shortening of $\tighten{F\cnc\tuple{g}}$
-and 
-\[
-\tighten{
-  \shorten{F\cnc\tuple{g}}
-          {s}{i}
-        }
-=\Shorten{\tighten{F\cnc\tuple{g}}}
-         {s}{i}
-\]
-\end{newtt}
-\end{lemma}
-\begin{lemma}
-\llabel{associativityRightSubLemma}
-\end{lemma}
-
-\begin{lemma}
-\llabel{associativitySublemma}
-Suppose $F$ of length $n$ and $G$ of length $m$ are tight zigzags 
-in an RR.5 range category \catcw 
-and suppose that $s$ is a shortening
-of $F::G$ at some index $i_s$, $1 \leq i_s \leq n +m - 1$, then
-\begin{equation}
-\label{associativitySublemmatarget}
-T(shorten(F::G,i_s,s))=shorten(T(F::G),i_s,s))
-\end{equation}
-\end{lemma}
-\begin{proof}
-\begin{newtt}\commentary{new proof 24 May 2026}
-This lemma follows directly from lemmas 
-\lref{associativityLeftSubLemma},
-\lref{associativityMidSubLemma} and
-\lref{associativityRightSubLemma} and from
-lemma \lref{midpointLemma}.
-
-Note that the RHS of the target identity can be rwritten as
-\[
-shorten(F \circ G,i_s,s)
-\]
-Hmmm
-Isn't $F::G$ equal
-\[
-(F::\rst{G})::(\rng{F} :: G)
-\]
-and doesn't this mean that $shorten(F::G,i_s,s)$ is
-either
-\[
-shorten(F::\rst{G},i_s,s) ::(\rng{F}::G)
-\]
-or
-\[
-(F::\rst{G}) :: shorten(\rng{F}::G),i_s - n, s)
-\]
-
-\end{newtt}
-\workt{proof was commented out when it went out of date}
-
-\workt{This proof will be replaced by a coming together of two earlier lemmas.}
-
-\workt{associativityLeftSubLemma}
-\workt{associativityRightSubLemma}
-\begin{aside}
-19 May 2026.
-The definition of tightening has been modified since this proof was writtem.
-We have right to left and left to right versions. The proof should be revised accordingly.
-WE no linger need the framedEquations environment so I will remove these
-out of date equations.
-\end{aside}
-In such a situation, $F::G$ is a zigzag in which 
-elements before the element $f_n \circ g$ need 
-tightening to the left and terms to after need tightening to the right. 
-I am going to refer to  the leading $2n -1$ elements of T(F::G)
-as $ff_1, ff'_1,...ff'_{n-1}$ and $ff'_n$ and I am going to refer 
-to the trailing $2m-1$ elements as $gg_1,gg'_1,...gg_m$.
-What  this means is that the element that is refereed to as
-$ff_n$ is also referred to as $gg_1$. 
-With this way of referencing the elements of $T(F::G)$ 
-then I can describe $T(F::G)$ as follows:
-\tbd
- 
-
-There are three cases to consider.
-\paragraph{Case (i) --- $i_s \leq  n-2$}
-Use \lref{associativityLeftSubLemma}. Plus some.
-
-\paragraph{Case (ii) --- $i_s = n-1$}
-In this case the shortening of the lhs of (\ref{associativitySublemmatarget}) eliminates the pair
-$f'_{n-1}, f_n \circ g$ 
-based on the assumption that this diagram commutes:
-\begin{equation}
-\label{case.ii.lhsshortening} 
-\begin{array}{c c c c}
-           &           &           &\Ob{z}{1} \\[0.8cm]
-\Obp{x}{n} &           & \Ob{x}{n}            \\[0.8cm]
-           & \Ob{w}{n}. &  
-\end{array}
-\begin{arrows}
-\drawMorphismArcing{xnp}{z1}{a}{s}{15}{15}[0.5]
-\ncarr{xn}{z1}\blabel{g_1}
-\ncarr{wn}{xnp}\alabel{f'_{n-1}}
-\ncarr{wn}{xn}\blabel{f_n}
-\end{arrows}
-\end{equation}
-
-The shortening of the rhs of (\ref{associativitySublemmatarget}) eliminates pair
-$ff'_{n-1}, ff_n$
-and is supported by this diagram
-\begin{equation}
-\label{case.ii.rhsshortening} 
-\begin{array}{c c c c}
-           &           &           &\Ob{z}{1} \\[0.8cm]
-\Obp{x}{n} &           &                      \\[0.8cm]
-           & \Ob{w}{n} &  
-\end{array}
-\begin{arrows}
-\drawMorphismArcing{xnp}{z1}{a}{s}{15}{15}[0.5]
-\ncarr{wn}{xnp}\alabel{ff'_{n-1}}
-\ncarr{wn}{z1}\blabel{ff_n}
-\end{arrows}
-\end{equation}
-whose commutivity follows 
-by lemma \lref{shorteningSpecialisationLemma}.
-
-The shortening  of $F::G$ by $s$ is 
-$\tuple{f_1,f'_1,...f'_{n-1},
-        f_{n-1} \circ s,
-        g'_1, g_2,...g'_{m-1},g_m
-       }$
-The tightening of this shortening
-is described by appropriately varying above
-equations (\ref{tighteningcomposite:ffn}) to (\ref{tighteningcomposite:ggj}).
-In the tightening of the shortening there is one less element
-than in the original tightening. In the tightening the replacement element $f_{n-1} \circ s$ is unchanged by tightening and we refer to it as both  $tsf_{n-1}$ and $tsg_1$. There is one less leading elements and the same number of trailing elements. 
-The tightening is as follows:
-\tbd
-On the other hand  the tightening, $T(F::G)$ 
-is described by equations 
-(\ref{tighteningcomposite:ffn}) -- 
-(\ref{tighteningcomposite:ggj}), above and this
-zigzag can be shorten by $s$ because, by lemma \ref{shorteningSpecialisationLemma},
-
-\[
-\downTriangleShape{w_n}{x_{n-1}}{z_1}
-\downToLeft{ff'_{n-1}}[0.6]
-\downToRight{ff_n=gg_1=f_n \circ g_1}
-\leftToRightArcing[a]{s}{15}{15}
-\]
-commutes. 
-The shortening of this tightening is the following variation
-of equations (\ref{tighteningcomposite:ffn}) to (\ref{tighteningcomposite:ggj})
-
-\tbd
-
-To establish that $T(shorten(F::G,n,s)=shorten(T(F::G),n,s))$
-we have to resolve the difference between equations 
-(\ref{tighteningShortenedComposite:ffnp}) and
-(\ref{shortenedTightenedComposite:stfnp}) i.e. we have to prove that $ff'_{n-1} \circ s
-= f'_{n-1} \circ s$ which we can do as follows:
-\begin{align*}
-ff'_{n-1} \circ s 
-   &=\rst{ff_n}\circ f'_{n-1}\circ s&&\mbox{using  (\ref{tighteningcomposite:ffpi}),}\\
-   &=\rst{f_n\circ g_1}\circ f'_{n-1}\circ s&&\mbox{using (\ref{tighteningcomposite:ffn}),}\\
-   &= \rst{f'_{n-1}\circ s}\circ f'_{n-1}\circ s&&\mbox{using commutivity of (\ref{case.ii.lhsshortening}),}\\
-   &=f'_{n-1}\circ \rst{s} \circ s&&\mbox{by R.4,}\\
-   &= f'_{n-1} \circ s     && \mbox{as required, by R.1.}
-\end{align*}
-
-\begin{aside}
-just noticed in early parts of this proof need to change x to w and y to x
-\end{aside}
-\paragraph{Case (iii) --- $i_s \geq n$}
-Use \lref{associativityRightSubLemma}. Plus some.
-\end{proof}
-\newpage
 
 \begin{lemma}
 \llabel{TSExtractionLemma}
 If $F$ is a zigzag and $s$ is a shortening of $F$ at a position $i$ then
 \[
-\tighten{\shorten{i}{s}{F}} = \shorten{i}{s}{\tighen{F}}
+\tighten{\shorten{F}{s}{i}} = \shorten{\tighten{F}}{s}{i}
 \]
 \end{lemma}
 \begin{proof}
 $F$ can be expressed as $F_L \cnc Z \cnc F_R$ where 
 $Z$ is of length $2$ and where $s$ is a shortening of $Z$ at (its only)
-position $1$. We can then use the tightening of $Z$ and lemma 
-
+position $1$. We can then use the tightening of $Z$ and lemmas
+\lref{howToTightenAThreefoldConcatenationTwo} and
+\lref{secondShorteningCharacterisationLemma}.
+\workt{sktch this  out}
 \end{proof}
 \begin{aside}
 The following lemma suggests that the normal form for a zigzag is the
