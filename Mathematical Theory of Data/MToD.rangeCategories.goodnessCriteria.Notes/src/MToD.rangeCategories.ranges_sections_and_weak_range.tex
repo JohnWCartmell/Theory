@@ -42,27 +42,45 @@ $f: a \morph b$
 Straightforward.
 \end{proof}
 
+
+\begin{lemma}\commentary{new : 3rdm July 2026}
+\llabel{fgJoinLemma}
+ If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
+$
+\rng{f \circ \rst{g}}
+= \rng{f} \circ \rst{g}
+=\rst{\rng{f} \circ g}
+= \rst{g} \circ \rng{f}.
+$
+\end{lemma}
+\begin{proof}
+\end{proof}
+
 \begin{lemma}
 \llabel{fglemma}
  \begin{enumerate}[(i)]
  \item %(i)
  If \fgsinkdiag in \catcw then
  $\hat{f}\circ \hat{g} = \hat{g} \circ \hat{f},$
- \item
+ \item %(ii)
  If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
 $\hat{g} \circ \reallywidehat{f \circ g}=  \reallywidehat{f \circ g}.$
- \item 
+ \item %(iii)
 If \fgsinkdiag in \catcw  then
 $\reallywidehat{f \circ \widehat{g}}=\widehat{f} \circ \widehat{g}.$
  \item %(iv)
- If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
-$\rng{f \circ \rst{g}}=\rst{\rng{f} \circ g}.$
+ Deliberately left blank 
+ \commentary{See lemma \lref{fgJoinLemma}}
 \item %(v)
  If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  
  then if $\rst{g} \leq \rng{f}$ then $\rng{f \circ g} = \rng{g}$.
   \item %(vi)
  If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
 $\rst{f \circ g} \leq \rst{f}.$
+ \item %(vii) 
+ If  $\binarysinkContinued{a}{b}{c}{d}{f}{g}{h}$
+in \catcw then
+ $\rng{ f \circ \rng{g} \circ h } = \rng{ g \circ \rng{f} \circ h } .$
 \end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -116,6 +134,17 @@ which we can do as follows
                             && \mbox{by R.4,} \\
                  &= \rst{f \circ g}
                             && \mbox{by wR.4.}
+\end{align*}
+\item %vii
+
+\begin{align*}
+\rng{ f \circ \rng{g} \circ h } 
+            &= \rng{ \rng{f} \circ \rng{g} \circ h }
+            && \mbox{by RR.4,}\\
+            &= \rng{ \rng{g} \circ \rng{f} \circ h }
+            && \mbox{by part (i) of this lemma,}\\
+            &= \rng{ g \circ \rng{f} \circ h }
+            &&\mbox{by RR.4, as required.}
 \end{align*}
 \end{enumerate}
 \end{proof}
