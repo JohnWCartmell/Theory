@@ -1,22 +1,23 @@
+\section{Range Categories, Partial Sections and Weak-Range Operators}
 
 \subsection{Range Categories}
 Cockett et al. (\cite{COCKETT2012}) define range categories from restriction categories along the following lines.
 
 \begin{definition} 
-A \term{range category} is a restriction category with an additional operator on morphisms (the range operator $\hat{\ }$), as follows
+A \term{range category} is a restriction category with an additional operator on morphisms (the range operator $\rng{\ }$), as follows
 if $f: a \morph b$ in  \catcw then
-$$\hat{f}: b \morph b$$
+$$\rng{f}: b \morph b$$
 satisfying
 
-RR.1 For $f:a \morph b$ in \catcw $$\bar{\hat{f}} = \hat{f}.$$
+RR.1 For $f:a \morph b$ in \catcw $$\rst{\rng{f}} = \rng{f}.$$
 
-RR.2 For $f:a \morph b$ in \catcw $$f \circ \hat{f} = f.$$
+RR.2 For $f:a \morph b$ in \catcw $$f \circ \rng{f} = f.$$
 
 RR.3. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
-$$\reallywidehat{f \circ \bar{g}} = \hat{f} \circ \bar{g}.$$
+$$\rng{f \circ \rst{g}} = \rng{f} \circ \rst{g}.$$
 
 RR.4. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
-$$\reallywidehat{(\widehat{f} \circ g)} = \widehat{f \circ g}.$$
+$$\rng{(\rng{f} \circ g)} = \rng{f \circ g}.$$
 \end{definition}
 
 In this note we explore range categories that satisfy an  additional condition defined by Cockett et al. as RR.5. We will use the folowing terminology:
@@ -25,7 +26,7 @@ In this note we explore range categories that satisfy an  additional condition d
 An \textit{RR.5 range category} is a range category that additionally satisfies:
 
 RR.5 if $\equaliser{a}{f}{\paralleldiag{b}{c}{g}{h}}$ then
- $$f \circ g = f \circ h \Rightarrow  \hat{f} \circ g = \hat{f} \circ h.$$
+ $$f \circ g = f \circ h \Rightarrow  \rng{f} \circ g = \rng{f} \circ h.$$
  \end{definition}
 
 \begin{lemma}
@@ -33,9 +34,9 @@ RR.5 if $\equaliser{a}{f}{\paralleldiag{b}{c}{g}{h}}$ then
 If $f:a \morph a$ in a range category \catcw then for any morphism 
 $f: a \morph b$
 \begin{enumerate}[(i)] 
-\item $\hat{\hat{f}}=\hat{f}$,
-\item $\hat{f} \comp \hat{f} = \hat{f}$,
-\item \llabel{lem:unirange:hatbar} $\hat{\bar{f}}=\bar{f}$.
+\item $\rng{\rng{f}}=\rng{f}$,
+\item $\rng{f} \comp \rng{f} = \rng{f}$,
+\item \llabel{lem:unirange:hatbar} $\rng{\rst{f}}=\rst{f}$.
 \end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -43,9 +44,10 @@ Straightforward.
 \end{proof}
 
 
-\begin{lemma}\commentary{new : 3rdm July 2026}
+\begin{lemma}\commentary{new : 3rd July 2026}
 \llabel{fgJoinLemma}
- If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
+ If \catcw is a category with support  and
+ if $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
 $
 \rng{f \circ \rst{g}}
 = \rng{f} \circ \rst{g}
@@ -54,23 +56,34 @@ $
 $
 \end{lemma}
 \begin{proof}
+\begin{enumerate}[(i)]
+\item
+That $\rng{f \circ \rst{g}}
+= \rng{f} \circ \rst{g}$ is simply axiom RR.3.
+\item
+That $\rst{\rng{f} \circ g}=\rng{f} \circ \rst{g}$ follows by applying
+RR.3 to the occurence of $\rng{f}$ in the left hand side and then by application of R.1.
+\item
+That $\rng{f \circ \rst{g}}=\rst{g} \circ \rng{f}$ follows by using 
+RR.1, then R.2 and then RR.1 again.
+\end{enumerate}
 \end{proof}
-
 \begin{lemma}
 \llabel{fglemma}
  \begin{enumerate}[(i)]
  \item %(i)
  If \fgsinkdiag in \catcw then
- $\hat{f}\circ \hat{g} = \hat{g} \circ \hat{f},$
+ $\rng{f}\circ \rng{g} = \rng{g} \circ \rng{f},$
  \item %(ii)
  If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
-$\hat{g} \circ \reallywidehat{f \circ g}=  \reallywidehat{f \circ g}.$
+$\rng{g} \circ \rng{f \circ g}=  \rng{f \circ g}.$
  \item %(iii)
 If \fgsinkdiag in \catcw  then
-$\reallywidehat{f \circ \widehat{g}}=\widehat{f} \circ \widehat{g}.$
+$\rng{f \circ \rng{g}}=\rng{f} \circ \rng{g}.$
  \item %(iv)
- Deliberately left blank 
- \commentary{See lemma \lref{fgJoinLemma}}
+ If \fgsourcediag in \catcw  then
+$\rst{f \circ \rng{\rst{g} \circ f}} \circ g = \rst{f} \circ g.$
+ \commentary{Original (iv) moved to lemma \lref{fgJoinLemma}}
 \item %(v)
  If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  
  then if $\rst{g} \leq \rng{f}$ then $\rng{f \circ g} = \rng{g}$.
@@ -88,23 +101,41 @@ in \catcw then
 \item Follows from RR.1 and R.2.
 \item 
 \begin{align*}
-\hat{g} \circ \widehat{f \circ g}&=\widehat{f \circ g} \circ \hat{g}&&\mbox{by (i)} \\
-&=\widehat{f \circ g} \circ \bar{\hat{g}}
+\rng{g} \circ \rng{f \circ g}&=\rng{f \circ g} \circ \rng{g}&&\mbox{by (i)} \\
+&=\rng{f \circ g} \circ \rst{\rng{g}}
                     &&\mbox{by lemma \ref{unirangelemma} (\ref{lem:unirange:hatbar}),} \\
-&= \reallywidehat{f \circ g \circ \bar{\hat{g}}}&&\mbox{by RR.3,} \\
-&= \widehat{f \circ g} &&\mbox{by lemma \ref{unirangelemma} (\ref{lem:unirange:hatbar}), then RR.2.}
+&= \rng{f \circ g \circ \rst{\rng{g}}}&&\mbox{by RR.3,} \\
+&= \rng{f \circ g} &&\mbox{by lemma \ref{unirangelemma} (\ref{lem:unirange:hatbar}), then RR.2.}
 \end{align*}
 \item %(iii)
 \begin{align*}
-\widehat{f \circ \widehat{g}} 
-                                &=\widehat{f \circ \overline {\widehat{g}}} &\mbox{by RR.1}\\
-                                &=\widehat{f} \circ \overline {\widehat{g}} &\mbox{by RR.3}\\
-                                &=\widehat{f} \circ \widehat{g}             & \mbox{by RR.1}\\
+\rng{f \circ \rng{g}} 
+               &=\rng{f \circ \overline {\rng{g}}} &\mbox{by RR.1}\\
+               &=\rng{f} \circ \overline {\rng{g}} &\mbox{by RR.3}\\
+               &=\rng{f} \circ \rng{g}             & \mbox{by RR.1}\\
 \end{align*}
 \item %{iv}
-Prove $\rng{f \circ \rst{g}}=\rst{\rng{f} \circ g}$,
-by using RR.3 on the left and  RR.1, R.3 and RR.1, again, on the right,
-to simplify both sides of the identity  to $\rng{f} \circ \rst{g}$. 
+\begin{align*}
+\rst{f \circ \rng{\rst{g} \circ f}} \circ g
+               &= \rst{f \circ \rng{\rst{g} \circ f}} \circ \rst{g} \circ g
+               && \mbox{by R.1,}\\
+               &= \rst{\rst{f \circ \rng{\rst{g} \circ f}} \circ \rst{g}} \circ g
+               && \mbox{by R.3 then wR.4,}\\
+               &= \rst{\rst{g} \circ \rst{f \circ \rng{\rst{g} \circ f}}} \circ g
+               && \mbox{by R.2,}\\
+               &= \rst{\rst{\rst{\rst{g}} \circ f \circ \rng{\rst{g} \circ f}}} \circ g
+               && \mbox{by R.3,}\\
+               &= \rst{\rst{g} \circ f \circ \rng{\rst{g} \circ f}} \circ g
+               && \mbox{by lemma \ref{unirangelemma} (i),}\\
+               &= \rst{\rst{g} \circ f } \circ g
+               && \mbox{by RR.2,}\\
+               &= \rst{g} \circ \rst{f}  \circ g
+               && \mbox{by R.3,}\\
+               &=  \rst{f}  \circ \rst{g}  \circ g
+               && \mbox{by R.2}\\
+               &= \rst{f}  \circ g
+               && \mbox{by R.1, as required.}
+\end{align*}
 \item %(v)
 From the inital assumption that
 $\rst{g} \leq \rng{f}$ which, by defintion and by  RR.1 and R.2 can be restated as
@@ -150,7 +181,6 @@ which we can do as follows
 \end{proof}
 
 
-
 \begin{lemma}
 \llabel{tighteningashorteninglemma}
 If 
@@ -178,14 +208,14 @@ then
 \begin{enumerate}[(i)]
 \item 
 \llabel{tighteningshorteningRightToLeft}
- if $\hat{f}=\hat{g}$ then
+ if $\rng{f}=\rng{g}$ then
 $
-f \circ \reallywidehat{\overline{h \circ j} \circ g} \circ s = f \circ s \circ \bar{j},
+f \circ \rng{\overline{h \circ j} \circ g} \circ s = f \circ s \circ \rst{j},
 $
 \item 
 \llabel{tighteningshorteningLeftToRight}
- if $\hat{f}\leq\hat{g}$ then
-$\reallywidehat{\overline{g \circ \reallywidehat{\bar{i} \circ f}}\circ h} = \reallywidehat{\bar{i} \circ f \circ s}$.
+ if $\rng{f}\leq\rng{g}$ then
+$\rng{\overline{g \circ \rng{\rst{i} \circ f}}\circ h} = \rng{\rst{i} \circ f \circ s}$.
 \end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -193,33 +223,33 @@ $\reallywidehat{\overline{g \circ \reallywidehat{\bar{i} \circ f}}\circ h} = \re
 \item
 
 \begin{align*}
-f \circ \reallywidehat{\overline{h \circ j} \circ g} \circ s
-   &= f \circ \reallywidehat{\overline{g \circ s \circ j} \circ g} \circ s
+f \circ \rng{\overline{h \circ j} \circ g} \circ s
+   &= f \circ \rng{\overline{g \circ s \circ j} \circ g} \circ s
                      &&\mbox{substituting $h=g \circ s$, } \\
-   &= f \circ \reallywidehat{g \circ  \overline{s \circ j} } \circ s
+   &= f \circ \rng{g \circ  \overline{s \circ j} } \circ s
                      && \mbox{by R.4}, \\
-   &= f \circ \reallywidehat{g} \circ  \overline{s \circ j}  \circ s 
+   &= f \circ \rng{g} \circ  \overline{s \circ j}  \circ s 
                      && \mbox{by RR.3}, \\
-   &= f \circ s \circ \bar{j}
-                     && \mbox{because $\hat{f} = \hat{g}$ and by R.4, as required.} 
+   &= f \circ s \circ \rst{j}
+                     && \mbox{because $\rng{f} = \rng{g}$ and by R.4, as required.} 
 \end{align*}
 \item
 
 \begin{align*}
-\reallywidehat{\overline{g \circ \reallywidehat{\bar{i} \circ f}}\circ h}
-     &= \reallywidehat{\overline{g \circ \reallywidehat{\bar{i} \circ f}}\circ g \circ s}
+\rng{\overline{g \circ \rng{\rst{i} \circ f}}\circ h}
+     &= \rng{\overline{g \circ \rng{\rst{i} \circ f}}\circ g \circ s}
      && \mbox{substituting $h=g \circ s$,} \\ 
-     &= \reallywidehat{g \circ \reallywidehat{\bar{i} \circ f}\circ s}
+     &= \rng{g \circ \rng{\rst{i} \circ f}\circ s}
      && \mbox{by R.4 and RR.1,} \\ 
-     &= \reallywidehat{\hat{g} \circ \reallywidehat{\bar{i} \circ f}\circ s}
+     &= \rng{\rng{g} \circ \rng{\rst{i} \circ f}\circ s}
      && \mbox{by RR.4,} \\ 
-     &= \reallywidehat{\hat{g} \circ \hat{f} \circ \reallywidehat{\bar{i} \circ f}\circ s}
+     &= \rng{\rng{g} \circ \rng{f} \circ \rng{\rst{i} \circ f}\circ s}
      && \mbox{by lemma \ref{fglemma} (ii),} \\ 
-     &= \reallywidehat{\hat{f} \circ \reallywidehat{\bar{i} \circ f}\circ s}
-     && \mbox{from the assumption that $\hat{f} \leq \hat{g}$,}\\
-     &= \reallywidehat{\reallywidehat{\bar{i} \circ f}\circ s}
+     &= \rng{\rng{f} \circ \rng{\rst{i} \circ f}\circ s}
+     && \mbox{from the assumption that $\rng{f} \leq \rng{g}$,}\\
+     &= \rng{\rng{\rst{i} \circ f}\circ s}
      && \mbox{by lemma \ref{fglemma} (ii),} \\ 
-     &= \reallywidehat{\bar{i} \circ f \circ s}
+     &= \rng{\rst{i} \circ f \circ s}
      && \mbox{by RR.4, as required.}   
 \end{align*}
 \end{enumerate}

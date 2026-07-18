@@ -7,6 +7,7 @@ mkdir -p output
 # Sync source files into build folder
 rsync -a ./*.tex build/
 rsync -a ./latexmkrc build
+rsync -a src/ build/src/
 
 # Enter build folder quietly
 pushd build > /dev/null

@@ -1,3 +1,4 @@
+\section{Sticklebacks}
 
 \subsection{Zigzags in a range category \catcw}
 
@@ -72,7 +73,7 @@ $f_i \leq g_i$ and for each $i$, $0 \leq i \leq n-1$ $f'_i \leq g'_i$.
 \subsection{Tightening}
 
 \newcommand{\tightlead}
-  {f_1,f'_1,...f_{n-2},f'_{n-1},
+  {f_1,f'_1,...f_{n-2},f'_{n-2},
        f_{n-1} \circ 
        \rng{
                 \rst{f_n} \circ f'_{n-1}
@@ -316,40 +317,45 @@ and  $\longTighteningThree$ simplifies to $\tighteningThree$ as follows
 Hence result.
 \end{proof}
 
-\begin{worktt}
-In this lemma just given, if we denote by $F^L$
-the zigzag $\tuple{\tightlead}$
-and if we denote by $F^{L_r}$ the zigzag $\tuple{\rng{f'_{n-1}},f'_{n-1},f_n}$
-then we can extract from  ???? the following
-\begin{observation}
-\llabel{leftToRightTighteningObservation}
-Suppose  $F=\zigzagTuple{f}{n}$ is a zigzag of length greater that $1$ in a range category \catcw
-then there is a zigzag $F^L$ of length $n-1$ so that
-$\tighten{F}= \tighten{F^L} \cnc \tighten{\rng{\tighten{F^L}}::F^{L_r}}$. 
-\end{observation}
-\end{worktt}
 
+\begin{workt}
 We also need the following takeaways from this lemma:
 \begin{observation}
 \llabel{bareTailObservation}
+\commentary{Proof is simple but do I actually need this?}
+\commentary{I think nthat only used in proof
+of tighteningCommutesWithComposition BUT I now have a better proof which doesn't require this.}
+\commentary{You might think this is interesting in its own right though?}
 If $F=\zigzagTuple{f}{n}$ is a zigzag then
 \[
 T(F) = T(\zigzagBareTailTuple{f}{n}) ::\tuple{f_n}
 \] 
 \end{observation}
+\end{workt}
+\begin{oldtt}
 \noindent and from this there also follows:
 \begin{observation}
 \llabel{tailComposeObservation}
+\commentary{What proof did I originally have in mind?}
 If  $F=\zigzagTuple{f}{n}$ is a zigzag 
 and if the final morphism $f_n$ of $F$ composes with some morphism $g$
  so that the composite zigzag $F :: \tuple{g}$ is defined then
+ \commentary{wobble here 
+ \iffalse
+ \highlight{only if} 
+ $\rst{f_n \circ g} = \rst{f_n}$ \highlight{!!!}
+ \highlight{or at least} $\rst{t_n \circ g} = \rst{t_n}$
+\highlight{is this the same as}
+$\rng{\tighten{F}} \leq \rst{g}$.
+\fi
+ }
 if $T(F)=\zigzagTuple{t}{n}$
 and  $T(F :: \tuple{g})=\zigzagTuple{s}{n}$ then
 \[
 s_n = t_n \circ g
 \]
 \end{observation}
-
+\end{oldtt}
 \begin{oldtt}
 \workt{why?}
 From this there follows:
@@ -763,7 +769,7 @@ F \circ G &= T(\zigzagTuple{f}{n}::\zigzagTuple{g}{m})
           && \mbox{by lemma \lref{tighteningCommutesWithComposition},}\\
           &= T(\zigzagTupleLedOut{f}{n}{\rst{g_1}}) :: 
                            T(\zigzagTupleLedIn{\rng{f_n}}{g}{m}) 
-          && \mbox{by lemma \lref{fglemma}(iv),}\\
+          && \mbox{by lemma \lref{fgJoinLemma},}\\
           &= (F \circ \tuple{\rst{g_1}}) :: (\tuple{\rng{f_n}} \circ G)
           && \mbox{by definition of $\circ$.}
 \end{align*}
@@ -808,7 +814,7 @@ $\tighten{F \cnc G} = \tighten{F \cnc \abrst{G} \cnc G}$
 $\tighten{F \cnc G} = \tighten{F \cnc \abrng{F} \cnc \abrst{G} \cnc G}$
 \item \llabel{abrstpushin}
 $\abrst{F \conc G} = \abrst{F \conc \abrst{G}}$
-\item \llabel{arbrngpushin}
+\item \llabel{abrngpushin}
 $\abrng{F \conc G} = \abrng{\abrng{F} \conc G}$
 \end{enumerate}
 \end{lemma}
@@ -999,9 +1005,10 @@ A stickleback which cannot be shortened is said to be
 a \textit{short stickleback}.
 
 \begin{lemma}
-\llabel{shorteningCharacterisationLemma}
-if $Z$ is a zigzag of length $2$ and $s$ is a shortening
-of $Z$ as shown here
+\llabel{secondShorteningCharacterisationLemma}
+\end{lemma}
+If $Z$ is a zigzag of length $2$ and $s$ is a shortening of $Z$
+as shown here
 \[
 \zigzagTwo{x}{y}{z}
 \begin{arrows}
@@ -1009,20 +1016,56 @@ of $Z$ as shown here
 \end{arrows}
 \]
 then
-and if $\tuple{zz}$ is the shortening of $Z$
-so that
-$zz=z_1 \circ \rng{z'_1} \circ s$
-then
 \begin{enumerate}[(i)]
-\item $\rst{zz}= \rst{z_1 \circ \rngTightenerOne{z}}$,
-\item $\rng{zz} =\rng{\rstTightener{z}{1} \circ z_2  }$.
+\item 
+$\tighten{\shorten{Z}{s}{i}} =\shorten{\tighten{Z}}{s}{i}
+$
+\item 
+$\abrst{\shorten{Z}{s}{i}} = \abrst{Z}$ \highlight{true for any zigzag?}
+\item
+$\abrng{\shorten{Z}{s}{i}} = \abrng{Z}$ \highlight{true for any zigzag?}
 \end{enumerate}
-\end{lemma}
 \begin{proof}
+By definition, the shortening of $Z$
+is the singleton zigzag
+$\tuple{z_1 \circ \rng{z'_1} \circ s}$.
+
+On the otherhand, from  lemma \lref{howToTighteningaZigZagOfLengthTwo}
+the tightening $\tighten{Z}$ is the zigzag
+$\tuple{ \tighteningOne,\,\tighteningTwo,\,\tighteningThree}$.
+From observation \lref{shorteningATightZigzagObservation}
+it then follows that the shortening $\shorten{\tighten{Z}}{s}{i}$
+is the singleton zigzag $\tuple{\tighteningOne \circ s}$.
 \begin{enumerate}[(i)]
-\item Suffices to show that 
+\item %{i}
+Since $z_1 \circ \rng{\rst{z_2} \circ z'_1} \circ s$ 
+simplifies to $z_1 \circ \rng{z'_1} \circ s$ as follows
+\begin{align*}
+ z_1 \circ \rng{\rst{z_2} \circ z'_1} \circ s
+           &= z_1 \circ \rng{\rst{z'_1 \circ s} \circ z'_1} \circ s
+           && \mbox{substituting $z'_1 \circ s$ for $z_2$,} \\
+           &= z_1 \circ \rng{z'_1 \circ \rst{s}} \circ s 
+           && \mbox{by R.4,} \\
+           &= z_1 \circ \rng{z'_1} \circ \rst{s} \circ s
+           && \mbox{by RR.3,} \\
+           &= z_1 \circ \rng{z'_1} \circ s
+           && \mbox{by R.1z} 
+\end{align*}
+then we have
+\begin{align*}
+\tighten{\shorten{Z}{s}{i}}
+            &= \tuple{ z_1 \circ \rng{z'_1} \circ s } \\
+            &= \tuple{
+                       z_1 \circ \rng{\rst{z_2} \circ z'_1} \circ s
+                     } \\
+            &= \shorten{\tighten{Z}}{s}{i} &&\mbox{as required.}
+\end{align*}  
+\item %(ii)
+We need to show that 
+$\rst{z_1 \circ \rng{z'_1} \circ s}= \rst{z_1 \circ \rngTightenerOne{z}}$.
+First we show that 
 $\rst{\rng{z'_1} \circ s}=\rst{\rngTightenerOne{z}}$
-which we do as follows
+as follows
 \begin{align*}
 \rst{\rng{z'_1} \circ s} 
     &= \rst{\rng{z'_1} \circ \rst{s}} && \mbox{wR.4}\\
@@ -1034,14 +1077,24 @@ which we do as follows
                         && \parbox[t]{5cm}{from the initial assumption 
                         $z'_1 \circ s = z_2$.} 
 \end{align*}
-Now using wR.4 we get
-$\rst{zz}
-=\rst{z_1 \circ \rng{z'_1} \circ s}
-=\rst{z_1 \circ \rst{\rng{z'_1} \circ s}}
-=\rst{z_1 \circ \rst{\rngTightenerOne{z}}}
-= \rst{z_1 \circ \rngTightenerOne{z}}$.
-\item \begin{align*}
-\rng{zz} &= \rng{z_1 \circ \rng{z'_1} \circ s}\\
+Now using this we get
+\begin{align*}
+\rst{z_1 \circ \rng{z'_1} \circ s} 
+                &=\rst{z_1 \circ \rst{\rng{z'_1} \circ s}} 
+                &&\mbox{by wR.4,}\\
+                &=\rst{z_1 \circ \rst{\rngTightenerOne{z}}}
+                && \mbox{as shown above,}\\
+                &= \rst{z_1 \circ \rngTightenerOne{z}}
+                &&\mbox{by wR.4.}
+\end{align*}
+
+\item %(iii)
+We need to show that 
+$\rng{z_1 \circ \rng{z'_1} \circ s} 
+     =\rng{\rstTightener{z}{1} \circ z_2}$ 
+which we can do as follows
+\begin{align*}
+\rng{z_1 \circ \rng{z'_1} \circ s} &= \rng{z_1 \circ \rng{z'_1} \circ s}\\
          &= \rng{z'_1 \circ \rng{z_1} \circ s}
             && \mbox{by lemma \lref{fglemma} (vii),}\\
          &= \rng{z'_1 \circ \rst{\rng{z_1}} \circ s}
@@ -1053,39 +1106,6 @@ $\rst{zz}
             &&\mbox{by R.4,}\\
          &= \rng{\rstTightener{z}{1} \circ z_2 }
             &&\parbox[t]{5cm}{from the initial assumption  $z'_1 \circ s = z_2$.} 
-\end{align*}
-\end{enumerate}
-\end{proof}
-
-\begin{lemma}
-\llabel{secondShorteningCharacterisationLemma}
-\end{lemma}
-If $Z$ is a zigzag of length $2$ and $s$ is a shortening of $Z$
-then
-\begin{enumerate}[(i)]
-\item 
-$\tighten{\shorten{Z}{s}{i}} = \tuple{z_1 \circ \rng{z'_1} \circ s }
-                             =\shorten{\tighten{Z}}{s}{i}
-$
-\item 
-$\abrst{\shorten{Z}{s}{i}} = \abrst{Z}$ \highlight{true for any zigzag?}
-\item
-$\abrng{\shorten{Z}{s}{i}} = \abrng{Z}$ \highlight{true for any zigzag?}
-\end{enumerate}
-\begin{proof}
-From  lemma \lref{howToTighteningaZigZagOfLengthTwo}
-the tightening $\tighten{Z}$ is the zigzag
-$\tuple{ \tighteningOne,\,\tighteningTwo,\,\tighteningThree}$.
-Therefore from observation \lref{shorteningATightZigzagObservation}
-it follows that the shortening $\shorten{\tighten{Z}}{s}{i}$
-is the singleton zigzag $\tighteningOne \circ s$.
-\begin{enumerate}[(i)]
-\item
-\begin{align*}
-\shorten{\tighten{Z}}{s}{i}    
-           &=    z_1 \circ \rng{\rst{z_2} \circ z'_1} \circ s
-           &&    \mbox{f
-                       from observation \lref{shorteningATightZigzagObservation}}
 \end{align*}
 \end{enumerate}
 \end{proof}
@@ -1155,9 +1175,11 @@ From this lemma we can see that if a zigzag $F$ shortens then $T(F)$ shortens.
 \begin{lemma}
 \llabel{TSExtractionLemma}
 If $F$ is a zigzag and $s$ is a shortening of $F$ at a position $i$ then
+\workt{there exists $s'$ which is a shortening of $tighten{F}$???}
 \[
 \tighten{\shorten{F}{s}{i}} = \shorten{\tighten{F}}{s}{i}
 \]
+\workt{conflict: in proof I come up with $s'$ but earlier lemma suggests/proves that $s$ is a shortening of $tighten{F}$. }
 \end{lemma}
 \begin{proof}
 $F$ can be expressed as $F_L \cnc Z \cnc F_R$ where 
@@ -1165,7 +1187,9 @@ $Z$ is of length $2$ and where $s$ is a shortening of $Z$ at (its only)
 position $1$. We can then use the tightening of $Z$ and lemmas
 \lref{howToTightenAThreefoldConcatenationTwo} and
 \lref{secondShorteningCharacterisationLemma}.
-\workt{sktch this  out}
+\workt{sketched out on whiteboard}. Now on whiteboard I show the result
+for a zigzag $F \cnc Z \cnc G$ which makes as readable as possible.
+But then how am I to state the lemma where ABOVE I have stated in terms of $F$ as the subject zigzag?
 \end{proof}
 \begin{aside}
 The following lemma suggests that the normal form for a zigzag is the
