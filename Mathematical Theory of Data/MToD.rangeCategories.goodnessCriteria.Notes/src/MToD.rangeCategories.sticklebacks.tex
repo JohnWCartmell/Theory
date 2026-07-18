@@ -260,7 +260,7 @@ We shall write $T(F)$ for the tightening of $F$.
 
 
 
-\begin{workt}
+\begin{worktt}
 We \highlight{might} need the following takeaway from this lemma:
 \begin{observation}
 \llabel{bareTailObservation}
@@ -273,12 +273,24 @@ If $F=\zigzagTuple{f}{n}$ is a zigzag then
 T(F) = T(\zigzagBareTailTuple{f}{n}) ::\tuple{f_n}
 \] 
 \end{observation}
-\end{workt}
+\end{worktt}
 
 
-\begin{worktt}
+\paragraph*{key observation xxxx}
+\paragraph*{yyyy}
+\paragraph*{zzzz}
+\paragraph*{alpha}
+\paragraph*{alphacorollary}
+
+
+
+
+
+
+\begin{worktt}\highlight{ModifyThis and change name.}
 \begin{lemma}
 \llabel{tightATailComposelemma}
+\highlight{becomes alphaCorollaryOne}
 \commentary{Keep just to modify into alphaCorollary}
 If  $F=\zigzagTuple{f}{n}$ is a tight zigzag 
 and if the final morphism $f_n$ of $F$ composes with some morphism $g$
@@ -462,6 +474,29 @@ If we have two zigzags $F$ and $G$ and one is an extension of the other
 then the tightening of the longer one truncated to be comparable with the smaller is less than or equal the tightening of the smaller one.\commentary{If needed should move earlier.}
 \end{observation}
 
+
+
+\begin{lemma}
+\llabel{howToTightenAConcatenation}
+If $F$ and $G$ are zigzags that compose so that
+$F \cnc G$ is defined then
+\begin{align*}
+\tighten{F \cnc G} 
+    &= 
+    \Tighten{ \tighten{F} \cnc \rst{\tighten{G}}}
+     \cnc
+    \Tighten{ \rng{\tighten{F}} \cnc \tighten{G}} \\
+    &= 
+    \Tighten{ F \cnc \rst{\tighten{G}}}
+     \cnc
+    \Tighten{ \rng{\tighten{F}} \cnc G} \\
+\end{align*}
+\end{lemma}
+\begin{proof}
+See Daybook 23rd June 2026 for a partial proof that simply uses definition of tightening. Completed Daybook 14th July 2026.
+\end{proof}
+
+
 \begin{lemma}
 \llabel{tighteningCommutesWithComposition}
 If $F$ and $G$ are zigzags for which the composition $F::G$ is defined
@@ -490,6 +525,7 @@ $ T(F :: G) = T(T(F) :: T(G)) $
 
 \begin{proof}
 Daybook 23rd June 2026, 14 July 2026.
+Now uses howToTightenAConcatenation. 
 \end{proof}
 
 
@@ -529,6 +565,8 @@ Composition is associative since
 Identity morphisms in $Z_C$ consist of the identity morphisms of \catcw considered 
 as zigzags on length 1.
 
+\begin{worktt}
+
 To show that $Z_C$ is a category with support we need the following lemma:
 \begin{lemma}
 \llabel{midpointLemma}
@@ -554,26 +592,9 @@ F \circ G &= T(\zigzagTuple{f}{n}::\zigzagTuple{g}{m})
           && \mbox{by definition of $\circ$.}
 \end{align*}
 \end{proof}
+\end{worktt}
 
-\begin{lemma}
-\llabel{howToTightenAConcatenation}
-If $F$ and $G$ are zigzags that compose so that
-$F \cnc G$ is defined then
-\begin{align*}
-\tighten{F \cnc G} 
-    &= 
-    \Tighten{ \tighten{F} \cnc \rst{\tighten{G}}}
-     \cnc
-    \Tighten{ \rng{\tighten{F}} \cnc \tighten{G}} \\
-    &= 
-    \Tighten{ F \cnc \rst{\tighten{G}}}
-     \cnc
-    \Tighten{ \rng{\tighten{F}} \cnc G} \\
-\end{align*}
-\end{lemma}
-\begin{proof}
-See daybook 23rd June 2026 for a partial proof that simply uses definition of tightening. Can probably use midpointLemma also but this proof should be neater and maybe midpointLemma follows from this lemma.
-\end{proof}
+
 \newcommand{\abrst}[1]{\rst{\tighten{#1}}}
 \newcommand{\abrng}[1]{\rng{\tighten{#1}}}
 
@@ -599,88 +620,7 @@ $\abrng{F \conc G} = \abrng{\abrng{F} \conc G}$
 \end{enumerate}
 \end{lemma}
 
-\begin{lemma}[howToTightenAThreefoldConcatenation]
-\llabel{howToTightenAThreefoldConcatenation}
-If $F$, $Z$ and $G$ are zigzags that compose so that
-$F \cnc Z \cnc G$ is defined then
-\[
-\Tighten{F \cnc Z \cnc G} = 
-    \tighten{ F \cnc \abrst{{Z \cnc \abrst{G}}}}
-     \cnc 
-     ZZ
-     \cnc
-    \tighten{ \abrng{F \cnc Z} \cnc G}
-\]
-where
-\[
-ZZ=\Tighten{\abrng{F}
-              \cnc
-            Z
-              \cnc
-            \abrst{G}
-           }
-\]
-We can use \lref{FGsupportLemmas} \lref{abrstpushin} or \lref{abrngpushin}
-to make this symmetric but which of the two possible symmetric statements do I want?
-\end{lemma}
-\begin{proof}
 
-Hand written on loose A4. 
-First note that
-\begin{align*}
-\tighten{ F \cnc Z \cnc G} 
-               &=\tighten{ (F \cnc Z) \cnc G} \\ 
-               &= \tighten{ (F \cnc Z) \cnc \abrst{G}} 
-                     \cnc
-                  \tighten{ \abrng{F \cnc Z} \cnc G} 
-               &&\mbox{by lemma 
-                    \lref{howToTightenAConcatenation}.}
-\end{align*}
-Then that 
-\begin{align*}
-\tighten{ (F \cnc Z) \cnc \abrst{G}}  
-        &= \tighten{ F \cnc (Z \cnc \abrst{G})} \\
-        &= \tighten{ F \cnc \abrst{{Z \cnc \abrst{G}}}} 
-              \cnc
-           \tighten{ \abrng{F} \cnc (Z \cnc \abrst{G})} 
-           &&\mbox{by lemma 
-                    \lref{howToTightenAConcatenation}.} \\
-        &= \tighten{ F \cnc \abrst{{Z \cnc \abrst{G}}}} 
-              \cnc
-           ZZ 
-           &&\mbox{where we define $ZZ$ as above.} 
-\end{align*}   
-\end{proof}
-
-\begin{lemma}
-\llabel{howToTightenAThreefoldConcatenationTwo}
-If $F$, $Z$ and $G$ are zigzags that compose so that
-$F \cnc Z \cnc G$ is defined then
-\commentary{\highlight{review why} I want this}
-\commentary{\highlight{use this next!}}
-\[
-\Tighten{F \cnc Z \cnc G} = 
-    \Tighten{ F \cnc \rst{ZZ}}
-     \cnc 
-     ZZ
-     \cnc
-    \Tighten{ \rng{ZZ} \cnc G}
-\]
-where
-\[
-ZZ=\Tighten{\rng{\tighten{F}}
-              \cnc
-            Z
-              \cnc
-            \rng{\tighten{G}}
-           }
-\]
-\end{lemma}
-\begin{proof}
-This restatement of previous lemma follows from
-\lref{FGsupportlemmas} by 
-use one or two of \lref{leftpushin}, \lref{rightpushin}, \lref{bothpushin}.
-\end{proof}
 \subsection{The category of tight zigzags $Z_C$ is a category with support}
 
 If $F=\zigzagTuple{f}{n}$ is a morphism in $Z_C$ then define $\rst{F}$ to be $\tuple{\rst{f_1}}$.
@@ -786,6 +726,93 @@ and  $\longTighteningThree$ simplifies to $\tighteningThree$ as follows
 \end{align*}. 
 Hence result.
 \end{proof}
+
+\subsection{How to Tighten ThreeFold Concatenations}
+\begin{lemma}[howToTightenAThreefoldConcatenation]
+\llabel{howToTightenAThreefoldConcatenation}
+If $F$, $Z$ and $G$ are zigzags that compose so that
+$F \cnc Z \cnc G$ is defined then
+\[
+\Tighten{F \cnc Z \cnc G} = 
+    \tighten{ F \cnc \abrst{{Z \cnc \abrst{G}}}}
+     \cnc 
+     ZZ
+     \cnc
+    \tighten{ \abrng{F \cnc Z} \cnc G}
+\]
+where
+\[
+ZZ=\Tighten{\abrng{F}
+              \cnc
+            Z
+              \cnc
+            \abrst{G}
+           }
+\]
+We can use \lref{FGsupportLemmas} \lref{abrstpushin} or \lref{abrngpushin}
+to make this symmetric but which of the two possible symmetric statements do I want?
+\end{lemma}
+\begin{proof}
+
+Hand written on loose A4. 
+First note that
+\begin{align*}
+\tighten{ F \cnc Z \cnc G} 
+               &=\tighten{ (F \cnc Z) \cnc G} \\ 
+               &= \tighten{ (F \cnc Z) \cnc \abrst{G}} 
+                     \cnc
+                  \tighten{ \abrng{F \cnc Z} \cnc G} 
+               &&\mbox{by lemma 
+                    \lref{howToTightenAConcatenation}.}
+\end{align*}
+Then that 
+\begin{align*}
+\tighten{ (F \cnc Z) \cnc \abrst{G}}  
+        &= \tighten{ F \cnc (Z \cnc \abrst{G})} \\
+        &= \tighten{ F \cnc \abrst{{Z \cnc \abrst{G}}}} 
+              \cnc
+           \tighten{ \abrng{F} \cnc (Z \cnc \abrst{G})} 
+           &&\mbox{by lemma 
+                    \lref{howToTightenAConcatenation}.} \\
+        &= \tighten{ F \cnc \abrst{{Z \cnc \abrst{G}}}} 
+              \cnc
+           ZZ 
+           &&\mbox{where we define $ZZ$ as above.} 
+\end{align*}   
+\end{proof}
+
+\begin{lemma}
+\llabel{howToTightenAThreefoldConcatenationTwo}
+If $F$, $Z$ and $G$ are zigzags that compose so that
+$F \cnc Z \cnc G$ is defined then
+\commentary{\highlight{review why} I want this}
+\commentary{\highlight{use this next!}}
+\[
+\Tighten{F \cnc Z \cnc G} = 
+    \Tighten{ F \cnc \rst{ZZ}}
+     \cnc 
+     ZZ
+     \cnc
+    \Tighten{ \rng{ZZ} \cnc G}
+\]
+where
+\[
+ZZ=\Tighten{\rng{\tighten{F}}
+              \cnc
+            Z
+              \cnc
+            \rng{\tighten{G}}
+           }
+\]
+\end{lemma}
+\begin{proof}
+This restatement of previous lemma follows from
+\lref{FGsupportlemmas} by 
+use one or two 
+of \lref{leftpushin}, \lref{rightpushin}, \lref{bothpushin}.
+\end{proof}
+
+
 
 \subsection{Shortening and Short Sticklebacks}
 
