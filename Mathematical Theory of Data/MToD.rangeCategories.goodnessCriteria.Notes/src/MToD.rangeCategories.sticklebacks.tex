@@ -256,66 +256,9 @@ The second  because
 } %end lemma leftToRightTighteningSubLemma
 We have established that every zigzag $F$ has a unique tightening. 
 We shall write $T(F)$ for the tightening of $F$. 
-{%howToTighteningaZigZagOfLengthTwo
-\newcommand {\tighteningOne}{z_1 \circ \rng{\rst{z_2} \circ z'_1}}
-\newcommand {\tighteningTwo}{\rst{z_2} \circ z'_1 \circ \rng{z_1}}
-\newcommand {\tighteningThree}{\rst{z'_1 \circ \rng{z_1}} \circ z_2}
-\begin{lemma}
-\llabel{howToTighteningaZigZagOfLengthTwo}
-If $Z=\tuple{z_1,z'_1,z_2}$ is a zigzag of length $2$
-then
 
-\[
-\tighten{Z}=\tuple{ \tighteningOne,\,\tighteningTwo,\,\tighteningThree}
-\]
-\end{lemma}
-\begin{proof}
-\newcommand {\longTighteningTwo}{\rst{z_2} \circ z'_1 \circ \rng{t}}
-\newcommand {\longTighteningThree}{\rst{z'_1 \circ \rng{t}} \circ z_2}
-Use lemma \lref{leftToRightTighteningSubLemma} with $n=2$. The precursor zigzag of length $n-1$ is simply the singleton zigzag \nudgeup{0.55cm}$\tuple{\tighteningOne}$ and this being a  singleton is tight and therefore its own tightening. Therefore the tightening of $Z$ is 
-\nudgeup{0.55cm}$\tuple{t, \longTighteningTwo,\longTighteningThree}$
-where $t = \tighteningOne$. 
 
-Now note that 
-\begin{equation}
-\label{tighteningTwoIntermediate}
-z'_1 \circ \rng{t} = z'_1 \circ \rng{\rst{z_2} \circ z'_1} \circ \rng{z_1}
-\end{equation}  
-because
-\begin{align*}
-z'_1 \circ \rng{t} 
-     &= z'_1 \circ \rng{\tighteningOne} 
-     && \mbox{substituting $t$,}\\
-     &= z'_1 \circ \rng{z_1} \circ \rng{\rst{z_2} \circ z'_1} 
-     && \mbox{by lemma \lref{fglemma} (iii),}\\
-     &= z'_1 \circ \rng{\rst{z_2} \circ z'_1}  \circ \rng{z_1}
-     && \mbox{by lemma \lref{fglemma} (i)}
-\end{align*}
 
-and using this we can simplify
-$\longTighteningTwo$  to $\tighteningTwo$ as follows
-\begin{align*}
-\longTighteningTwo 
-    &= \rst{z_2} \circ z'_1 \circ \rng{\rst{z_2} \circ z'_1} \circ \rng{z_1}
-                   && \mbox{by (\ref{tighteningTwoIntermediate}),}\\
-    &= \tighteningTwo
-                   && \mbox{by RR.2,}
-\end{align*}
-and  $\longTighteningThree$ simplifies to $\tighteningThree$ as follows
-\begin{align*}
-\longTighteningThree 
-     &= \rst{z'_1 \circ \rng{\rst{z_2} \circ z'_1} \circ\rng{z_1}} \circ z_2
-     && \mbox{by (\ref{tighteningTwoIntermediate}),}\\
-     &= \rst{\rst{z_2} \circ z'_1 \circ \rng{\rst{z_2} \circ z'_1} \circ\rng{z_1}
-      } \circ z_2
-     && \mbox{by  lemma \lref{newSupportLemma}}\\
-     &= \rst{\rst{z_2} \circ z'_1 \circ\rng{z_1}} \circ z_2 
-     && \mbox {by RR.2,}\\ 
-     &= \tighteningThree
-     && \mbox{by a second use of lemma \lref{newSupportLemma}.}
-\end{align*}. 
-Hence result.
-\end{proof}
 
 \begin{workt}
 We \highlight{might} need the following takeaway from this lemma:
@@ -413,7 +356,6 @@ as $t_2$ is the first element in the tightening of (\ref{inductionRLprecursor}),
           &\leq \rst{f'_1 \circ \rng{f_1}}
                 && \mbox{\stepThreeReason}
 \end{align*}
-
 
 We can now show that (\ref{requiredRLTightening})
 is the tightening of $F$ by showing that 
@@ -782,6 +724,68 @@ it holds in the underlying range category \catcw.
 If $F$ is of length $n > 1$ then wR.4 follows because lemma
 \lref{midpointLemma} informs us that $\rst{f \circ G}$ depends only on the $\rst{g_1}$ component of $G$ i.e. only on $\rst{G}$.
 
+
+\subsection{Tightening Length Two Zigzags}
+{%howToTighteningaZigZagOfLengthTwo
+\newcommand {\tighteningOne}{z_1 \circ \rng{\rst{z_2} \circ z'_1}}
+\newcommand {\tighteningTwo}{\rst{z_2} \circ z'_1 \circ \rng{z_1}}
+\newcommand {\tighteningThree}{\rst{z'_1 \circ \rng{z_1}} \circ z_2}
+\begin{lemma}
+\llabel{howToTighteningaZigZagOfLengthTwo}
+If $Z=\tuple{z_1,z'_1,z_2}$ is a zigzag of length $2$
+then
+
+\[
+\tighten{Z}=\tuple{ \tighteningOne,\,\tighteningTwo,\,\tighteningThree}
+\]
+\end{lemma}
+\begin{proof}
+\newcommand {\longTighteningTwo}{\rst{z_2} \circ z'_1 \circ \rng{t}}
+\newcommand {\longTighteningThree}{\rst{z'_1 \circ \rng{t}} \circ z_2}
+Use lemma \lref{leftToRightTighteningSubLemma} with $n=2$. The precursor zigzag of length $n-1$ is simply the singleton zigzag \nudgeup{0.55cm}$\tuple{\tighteningOne}$ and this being a  singleton is tight and therefore its own tightening. Therefore the tightening of $Z$ is 
+\nudgeup{0.55cm}$\tuple{t, \longTighteningTwo,\longTighteningThree}$
+where $t = \tighteningOne$. 
+
+Now note that 
+\begin{equation}
+\label{tighteningTwoIntermediate}
+z'_1 \circ \rng{t} = z'_1 \circ \rng{\rst{z_2} \circ z'_1} \circ \rng{z_1}
+\end{equation}  
+because
+\begin{align*}
+z'_1 \circ \rng{t} 
+     &= z'_1 \circ \rng{\tighteningOne} 
+     && \mbox{substituting $t$,}\\
+     &= z'_1 \circ \rng{z_1} \circ \rng{\rst{z_2} \circ z'_1} 
+     && \mbox{by lemma \lref{fglemma} (iii),}\\
+     &= z'_1 \circ \rng{\rst{z_2} \circ z'_1}  \circ \rng{z_1}
+     && \mbox{by lemma \lref{fglemma} (i)}
+\end{align*}
+
+and using this we can simplify
+$\longTighteningTwo$  to $\tighteningTwo$ as follows
+\begin{align*}
+\longTighteningTwo 
+    &= \rst{z_2} \circ z'_1 \circ \rng{\rst{z_2} \circ z'_1} \circ \rng{z_1}
+                   && \mbox{by (\ref{tighteningTwoIntermediate}),}\\
+    &= \tighteningTwo
+                   && \mbox{by RR.2,}
+\end{align*}
+and  $\longTighteningThree$ simplifies to $\tighteningThree$ as follows
+\begin{align*}
+\longTighteningThree 
+     &= \rst{z'_1 \circ \rng{\rst{z_2} \circ z'_1} \circ\rng{z_1}} \circ z_2
+     && \mbox{by (\ref{tighteningTwoIntermediate}),}\\
+     &= \rst{\rst{z_2} \circ z'_1 \circ \rng{\rst{z_2} \circ z'_1} \circ\rng{z_1}
+      } \circ z_2
+     && \mbox{by  lemma \lref{newSupportLemma}}\\
+     &= \rst{\rst{z_2} \circ z'_1 \circ\rng{z_1}} \circ z_2 
+     && \mbox {by RR.2,}\\ 
+     &= \tighteningThree
+     && \mbox{by a second use of lemma \lref{newSupportLemma}.}
+\end{align*}. 
+Hence result.
+\end{proof}
 
 \subsection{Shortening and Short Sticklebacks}
 
