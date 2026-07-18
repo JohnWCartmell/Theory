@@ -317,71 +317,38 @@ and  $\longTighteningThree$ simplifies to $\tighteningThree$ as follows
 Hence result.
 \end{proof}
 
-
 \begin{workt}
-We also need the following takeaways from this lemma:
+We \highlight{might} need the following takeaway from this lemma:
 \begin{observation}
 \llabel{bareTailObservation}
 \commentary{Proof is simple but do I actually need this?}
 \commentary{I think nthat only used in proof
 of tighteningCommutesWithComposition BUT I now have a better proof which doesn't require this.}
-\commentary{You might think this is interesting in its own right though?}
+
 If $F=\zigzagTuple{f}{n}$ is a zigzag then
 \[
 T(F) = T(\zigzagBareTailTuple{f}{n}) ::\tuple{f_n}
 \] 
 \end{observation}
 \end{workt}
-\begin{oldtt}
-\noindent and from this there also follows:
-\begin{observation}
-\llabel{tailComposeObservation}
-\commentary{What proof did I originally have in mind?}
-If  $F=\zigzagTuple{f}{n}$ is a zigzag 
-and if the final morphism $f_n$ of $F$ composes with some morphism $g$
- so that the composite zigzag $F :: \tuple{g}$ is defined then
- \commentary{wobble here 
- \iffalse
- \highlight{only if} 
- $\rst{f_n \circ g} = \rst{f_n}$ \highlight{!!!}
- \highlight{or at least} $\rst{t_n \circ g} = \rst{t_n}$
-\highlight{is this the same as}
-$\rng{\tighten{F}} \leq \rst{g}$.
-\fi
- }
-if $T(F)=\zigzagTuple{t}{n}$
-and  $T(F :: \tuple{g})=\zigzagTuple{s}{n}$ then
-\[
-s_n = t_n \circ g
-\]
-\end{observation}
-\end{oldtt}
-\begin{oldtt}
-\workt{why?}
-From this there follows:
-\begin{observation}
-\llabel{tightTailComposeObservation}
+
+
+\begin{worktt}
+\begin{lemma}
+\llabel{tightATailComposelemma}
+\commentary{Keep just to modify into alphaCorollary}
 If  $F=\zigzagTuple{f}{n}$ is a tight zigzag 
 and if the final morphism $f_n$ of $F$ composes with some morphism $g$
  so that the composite zigzag $F :: \tuple{g}$ is defined then
 \[
 \rng{T(F :: \tuple{g})}=\rng{f_n \circ g}
 \]
+\end{lemma}
+\begin{proof}
 
-\begin{worktt}
-This changes in front of my eyes because where we could  end up if we want to go there is that
-every zigzag has a restriction idempotent and a range idempotent defined by
-\begin{align*}
-\rst{Z} = \rst{\tighten{Z}}
-\rng{Z} = \rng{\tighten{Z}}.
-\end{align*} 
-With such a notation then
-\[
-\rng{F :: \tuple{g}}=\rng{f_n \circ g}
-\]
+\end{proof}
 \end{worktt}
-\end{observation}
-\end{oldtt}
+
 Lemma \lref{leftToRightTighteningSubLemma} describes how a zigzag can be tighten from left to right. We can also describe how a zigzag can be
 tightened from right to left. This is what the next lemma is about.
 {  %lemma rightToLeftTighteningSubLemma
@@ -580,136 +547,7 @@ $ T(F :: G) = T(T(F) :: T(G)) $
 }
 
 \begin{proof}
-Suppose
-\begin{itemize}
-\item 
-$F=\zigzagTuple{f}{n}$ is a zigzag shaped like this
-$$
-\arraycolsep=7pt
-\zigzag{w}{x}{f}{n}
-$$
-\item $G=\zigzagTuple{g}{m}$ is a zigzag shaped like this
-$$
-\arraycolsep=7pt
-\zigzag{y}{z}{g}{m}
-$$
-such that $x_n = y_1$ so that $F::G$ is defined,
-\item $T(F)=\zigzagTuple{t}{n}$,
-\item $T(G)=\zigzagTuple{s}{m}$,
-\item $T(T(F) :: T(G))=\zigzagTuple{r}{n+m}$ so that we have
-$$
-\arraycolsep=7pt
-\tightenedComposite{r},
-$$
-\item Let $Q$ be the tightening of $F :: G$ 
-and suppose $Q$ to be the zigzag $\zigzagTuple{q}{n+m}$ 
-so that we have
-$$
-\arraycolsep=7pt
-\tightenedComposite{q}.
-$$
-\end{itemize}
-
-We will prove the result by showing 
-\begin{enumerate}[(a)]
-\item that $T(T(F) :: T(G)) \leq T(F :: G)$ and
-\item that $T(F :: G) \leq T(T(F) :: T(G))$.
-\end{enumerate}
-
-To establish (a), since, by definition, $T(T(F) :: T(G))$ is tight
-it suffices to show that 
-$T(T(F) :: T(G)) \leq F:: G$. 
-Since $T(T(F) :: T(G)) \leq T(F) :: T(G)$, it therefore suffices to show that
-\[
-T(F) :: T(G) \leq F:: G
-\]
-i.e. that 
-\[
-\tuple{t_1,t'_1,...t'_{n-1},s_1 \circ t_n,s'_1,...s_m}
-\leq \tuple{f_1,f'_1,...f'_{n-1},f_n \circ g_1 ,g'_1,...g_m}
-\]
-This follows because
-\[
-\zigzagTuple{t}{n} \leq \zigzagTuple{f}{n},
-\]
-as the left zigzag is defined to be a tightening of the right, and similarly
-\[
-\zigzagTuple{s}{m} \leq \zigzagTuple{g}{m}.
-\]
-Moreover, since $t_n \leq f_n$ and $s_1 \leq g_1$, it follows by Lemma~\lref{orderingsCompose} that
-\[
-t_n \circ s_1 \leq f_n \circ g_1.
-\]
-
-To establish (b), because $T(F :: G)$ is tight it suffices to show that
-$T(F :: G) \leq T(F) :: T(G)$. In other words that
-\begin{equation}
-\label{pointwiseTargetInequality}
-\tuple{q_1,q'_1,...q'_{n-1},q_n,q'_n,...q_{n+m}}\leq \tuple{t_1,t'_1,...t'_{n-1},t_n \circ s_1,s'_1,...s_m}
-\end{equation}
-
-We prove this piecemeal
-starting with the those inequalities  
-that precede the inequality for $q_n$.
-First note that $\rst{q_n} \leq \rst{f_n}$
-because as part of the tightening of $F \circ G$ we have that
-$q_n \leq f_n \circ g_1$ and therefore 
-$\rst{q_n} \leq \rst{f_n \circ g_1} \leq \rst{f_n}$. 
-
-From this, and again because of the definition of $Q$ as the tightening
-of $F \circ G$, we have that 
-\[
-\zigzagBareTailTuple{q}{n} \leq \zigzagBareTailTuple{f}{n}
-\]
-from which follows 
-\[
-\zigzagBareTailTuple{q}{n}  \leq T(\zigzagBareTailTuple{f}{n})
-\]
-and therefore
-\begin{align*}
-\zigzagBareTailTuple{q}{n} \circ f_n  &\leq T(\zigzagBareTailTuple{f}{n}) \circ f_n,\\
-                                 &=  \tuple{t_1,... t_n} 
-                                 \mbox{ by observation \ref{bareTailObservation},} \\
-\end{align*}
-which gives us the required inequalities for those $q_i$ and $q'_i$ up to and including $q'_{n-1}$.
-
-Similar reasoning, using observation \ref{bareHeadObservation}, can be used to establish
-the inequalities for all those $q_i$ and $q'_i$ that follow after the inequality for
-$q_n$. The remaining inequality to be established is that
-\[
-\label{qleqtnsOne}
-q_n \leq t_n \circ s_1.
-\]
-To show that this holds first consider the zigzag $F :: \tuple{g_1}$.
-This is the initial segment of the zigzag $F :: G$. 
-Because $\tuple{q_1,...q_{n+m}}$ is the tightening of 
-$F :: G$ it follows
-using observation \lref{biggeristighter}  that 
-\begin{equation}
-\label{qTFg}
-\tuple{q_1,...q'_{n-1},q_n} \leq T(F :: \tuple{g_1}).
-\end{equation} 
-By observation \lref{tailComposeObservation} 
-the final element of $T(F :: \tuple{g_1})$ is $t_n \circ g_1$
-and therefore we have in particular that
-\begin{equation}
-\label{qgtn}
-q_n \leq t_n \circ g_1.
-\end{equation}
-By similar considerations and using observation \lref{headComposeObservation}
-we have that 
-\begin{equation}
-\label{qTfG}
-\tuple{q_n, q'_n,...q_{n+m}} \leq T(\tuple{f_n} :: G)
-\end{equation}
-and 
-\begin{equation}
-\label{qsfn}
-q_n \leq f_n \circ s_1.
-\end{equation}
-Finally, using lemma \lref{pointwiseorderingsCompose} we establish  
-(\ref{qleqtnsOne}) from
-(\ref{qgtn}) and (\ref{qsfn}), as required.
+Daybook 23rd June 2026, 14 July 2026.
 \end{proof}
 
 
