@@ -276,11 +276,6 @@ T(F) = T(\zigzagBareTailTuple{f}{n}) ::\tuple{f_n}
 \end{worktt}
 
 
-\paragraph*{key observation xxxx}
-\paragraph*{yyyy}
-\paragraph*{zzzz}
-\paragraph*{alpha}
-\paragraph*{alphacorollary}
 
 
 
@@ -446,7 +441,7 @@ z_1 &= z_1 \circ \rng{z_1}
 \end{proof}
 }  % end of lemma rightToLeftTighteningSubLemma
 
-From this lemma we cam make the following observations
+We \highlight{might} need the following observation
 \begin{observation}
 \llabel{bareHeadObservation}
 If $F=\zigzagTuple{f}{n}$ is a zigzag then
@@ -455,26 +450,218 @@ T(F) =  \tuple{f_1} :: T(\zigzagBareHeadTuple{f}{n})
 \] 
 \end{observation}
 
+\begin{notebox}
+The original xxxx, yyyy, zzzz, alpha, alphacorollary
+(as in the daybook) all hgave duals so we represent them here
+with the duals.
 
-\begin{observation}
-\llabel{headComposeObservation}
-If  $G=\zigzagTuple{g}{m}$ is a zigzag 
-and if some morphism $f$ composes with the  initial morphism $g_1$ of $G$
- so that the composite zigzag $\tuple{f} :: G$ is defined then
-if $T(F)=\zigzagTuple{t}{n}$
-and  $T(\tuple{f} :: G)=\zigzagTuple{s}{n}$ then
-\[
-s_1 \leq f \circ t_1
-\]
-\end{observation}
+We STILL NEED TO PROVE THESE duals!!! 
 
-\begin{observation}
-\llabel{biggeristighter}
-If we have two zigzags $F$ and $G$ and one is an extension of the other
-then the tightening of the longer one truncated to be comparable with the smaller is less than or equal the tightening of the smaller one.\commentary{If needed should move earlier.}
-\end{observation}
+Therefore  xxxx and freinds appear here after the leftToRight Tightening and compose xxxx etc as duals. This will help in the organisation and help keep control of things and ensure symetric lemmas are stated symmetrically.
+
+Need still work out what to name xxxx and freinds. 
+\end{notebox}
 
 
+\paragraph*{key observation xxxx}
+\begin{lemma}
+\llabel{xxxxx}
+If $F=\zigzagTuple{f}{n}$ and $T(F)=\zigzagTuple{t}{n}$ then
+\begin{enumerate}[(i)]
+\item $t_1 = f_1 \circ \rng{t'_1}$,
+\item $t_n = \rst{t'_{n-1}} \circ f_n$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}[(i)]
+\item
+\item
+\end{enumerate}
+\end{proof}
+\paragraph*{yyyyy}
+\begin{lemma}
+\llabel{yyyyy}
+For any zigzag $F$ and for any comparable tight zigzag $H$
+\begin{enumerate}[(i)]
+\item if $\tuple{i} \cnc F$ is defined for some morphism $i$ then
+if  $H \leq \tuple{\rng{i}} \cnc F$
+then $H \leq  \tuple{\rng{i}} \cnc \tighten{F}$.
+\item if $F\cnc\tuple{j}$ is defined for some morphism $j$ then
+if  $H \leq F \cnc \tuple{\rst{j}}$
+then $H \leq  \tighten{F} \cnc \tuple{\rst{j}}$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+~
+Suppose $\tighten{F}$ is the zigzag $\zigzagTuple{t}{n}$
+and suppose $H$ to be the zigzag $\zigzagTuple{h}{n}$.
+\begin{enumerate}[(i)]
+\item % (i)
+Because $\tuple{\rng{i}} \cnc F \leq F$ then we have that
+$H \leq F$. Therefore since $H$ is tight and from the definition
+of tightness we have that
+$H \leq \tighten{F}$.
+
+Because of this and since $\tighten{F}$ differs from
+$\tuple{\rng{i}} \cnc \tighten{F}$ only in the first element
+it remains only to show that
+$h_1 \leq \rng{i} \circ t_1$, which by definition
+is equivalent to $\rst{h_1} \circ \rng{i} \circ t_1 = h_1$
+and this we  can show as follows
+\begin{align*}
+\rst{h_1} \circ \rng{i} \circ t_1
+  &= \rst{h_1} \circ \rng{i} \circ f_1 \circ \rng{t'_1}
+  && \mbox{by key observation xxxxx (i),}\\
+  &= h_1 \circ \rng{t'_1} 
+  && \mbox{since $h_1 \leq \rng{i} \circ f_1$,}\\
+  &= h_1 \circ \rng{t_1}
+  && \mbox{since $\zigzagTuple{t}{n}$ is tight, }\\
+  &= \rst{h_1} \circ t_1 \circ \rng{t_1}
+  && \mbox{since $h_1 \leq t_1$,}\\
+  &= \rst{h_1} \circ t_1
+  && \mbox{by RR.2,}\\
+  &= h_1
+  &&\mbox{since $h_1 \leq t_1$.}
+\end{align*}
+
+\item % (ii)
+Because $F \circ \rst{j} \leq F$ then we have that $H \leq F$.
+Therefore since $H$ is tight and from the definition
+of tightness we have that $H \leq \tighten{F}$.
+
+Because of this and since $\tighten{F}$ differs from
+$\tighten{F} \cnc \tuple{\rst{j}}$
+only in the final element it remains only to show that
+$h_n \leq t_n \circ \rst{j}$, which by definition
+is equivalent to
+$\rst{h_n} \circ t_n \circ \rst{j} =h_n$
+and this we can show as follows
+
+\begin{align*}
+\rst{h_n} \circ t_n \circ \rst{j} 
+  &= \rst{h_n} \circ \rst{t'_n} \circ f_n \circ \rst{j} 
+      && \mbox{by key observation xxxxx (ii),}\\
+  &= \rst{t'_n} \circ \rst{h_n} \circ f_n \circ \rst{j}
+      && \mbox{by R.2,}\\
+  &= \rst{t'_n} \circ h_n
+      && \mbox{since $h_n \leq f_n \circ \rst{j}$,}\\
+  &= \rst{t_n} \circ h_n
+      && \mbox{since $\zigzagTuple{t}{n}$ is tight,}\\
+  &= \rst{t_n} \circ \rst{h_n} \circ t_n
+      && \mbox{because $h_n \leq t_n$,}\\
+  &= \rst{h_n} \circ \rst{t_n} \circ t_n
+      && \mbox{by R.2} \\
+  &= \rst{h_n} \circ t_n
+      && \mbox{by R.1,} \\
+  &= h_n
+      && \mbox{because $h_n \leq t_n$.}
+\end{align*}
+
+\end{enumerate}
+\end{proof}
+\paragraph*{zzzzz}
+\begin{lemma}
+\llabel{zzzzz}
+For any zigzag $F$
+\begin{enumerate}[(i)]
+\item
+\item if $F::\tuple{j}$ is defined for some morphism $j$ then
+$\tighten{F \cnc \rst{j}}= \tighten{\tighten{F} \cnc \rst{j}}$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+~
+\begin{enumerate}[(i)]
+\item zzzzz (i)
+\item %(ii)
+To show that the tightening of $F \cnc \rst{j}$ 
+is $\tighten{\tighten{F}\cnc \rst{j}}$ it suffices to show that if
+$H$ is a tight zigzag and $H \leq F \cnc \rst{j}$ then
+$H \leq  \tighten{\tighten{F}\cnc \rst{j}}$. So assume such an $H$.
+Then by yyyyy, $H \leq \tighten{F} \circ \rst{j}$. But then because $H$ is tight then $H \leq \tighten{\tighten{F} \circ \rst{j}}$. 
+\end{enumerate}
+\end{proof}
+\paragraph*{alpha}
+\begin{lemma}
+\llabel{alpha}
+if $F=\zigzagTuple{f}{n}$ is a tight zigzag then
+\begin{enumerate}[(i)]
+\item if $\tuple{i} \cnc F$ is defined, 
+for some morphism $i$, 
+then the first element of $\tighten{\tuple{i} \cnc F}$ 
+is $i \circ f_1$, 
+\item if $F \cnc \tuple{j}$ is defined, 
+for some morphism $j$, 
+then the final element of $\tighten{F \cnc \tuple{g}}$ 
+is $f_n \circ g$. 
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+~
+\begin{enumerate}[(i)]
+\item
+\item
+\end{enumerate}
+\end{proof}
+\paragraph*{beta - previously known as alphacorollary}
+\begin{lemma}
+\llabel{beta}
+\commentary{ Contemplate using $\rstdot{\tighten{F}}$ 
+instead of $\rst{\tighten{F}}$
+it is a \textit{morphism} that we refer to. Subsequently
+the undotted form can be defined to deliver a singleton zigzag
+and to be the cosupport operator in category of zigzags.}
+If $F=\zigzagTuple{f}{n}$ is a any zigzag then
+\begin{enumerate}[(i)]
+\item if $\tuple{i} \cnc F$ is defined, 
+for some morphism $i$,  
+then 
+$$\rst{\tighten{\bigl\langle \rng{i} \bigr\rangle \cnc F}}
+                = \rng{i} \circ \rst{\tighten{F}}$$, 
+\item if $F \cnc \tuple{j}$ is defined, 
+for some morphism $j$, then 
+$$\rng{\tighten{F \cnc \rst{j}}} 
+                = \rng{\tighten{F}} \circ \rst{j}$$. 
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Suppose $\zigzagTuple{t}{n}$ is the tightening of $F$.
+\begin{enumerate}[(i)]
+\item %(i)
+$\tighten{\tuple{\rng{i}} \cnc F}$ is
+$\tighten{\tuple{\rng{i}} \cnc \tighten{F}}$
+by lemma zzzz(i)
+and the first element of
+$\tighten{\tuple{\rng{i}} \cnc \tighten{F}}$
+is $\rng{i} \circ t_1$
+by lemma alpha (i)
+and so we have
+\begin{align*}
+\rstdot{\tighten{\tuple{\rng{i}} \cnc F}}
+&= \rst{\rng{i} \circ t_1}
+          && \mbox{by definition of \rstdotItself,} \\
+&= \rng{i} \circ \rst{t_1}
+          && \mbox{by lemma \lref{fgJoinLemma},} \\
+&= \rng{i} \circ \rstdot{\tighten{F}}
+          && \mbox{by definition of \rstdotItself.}
+\end{align*}
+\item %(ii)
+$\tighten{F \cnc \rst{j}}$ is $\tighten{\tighten{F} \cnc \rst{j}}$
+by lemma zzzz(ii) 
+and the final element of $\tighten{\tighten{F} \cnc \rst{j}}$
+is $t_n \circ \rst{j}$ by lemma alpha (ii)
+and so we have
+\begin{align*}
+\rngdot{\tighten{F \cnc \rst{j}}}
+&= \rng{t_n \circ \rst{j}} 
+          && \mbox{by definition of \rngdotItself,} \\
+&= \rng{t_n} \circ \rst{j}  
+          &&\mbox{by RR.3,} \\
+&= \rngdot{\tighten{F}} \circ \rst{j}
+          && \mbox{by definition of \rngdotItself.} 
+\end{align*}
+\end{enumerate}
+\end{proof}
 
 \begin{lemma}
 \llabel{howToTightenAConcatenation}
@@ -494,6 +681,7 @@ $F \cnc G$ is defined then
 \end{lemma}
 \begin{proof}
 See Daybook 23rd June 2026 for a partial proof that simply uses definition of tightening. Completed Daybook 14th July 2026.
+First show that 
 \end{proof}
 
 
