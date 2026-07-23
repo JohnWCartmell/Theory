@@ -72,6 +72,7 @@ $f_i \leq g_i$ and for each $i$, $0 \leq i \leq n-1$ $f'_i \leq g'_i$.
 
 \subsection{Tightening}
 
+\iffalse
 \newcommand{\tightlead}
   {f_1,f'_1,...f_{n-2},f'_{n-2},
        f_{n-1} \circ 
@@ -79,6 +80,34 @@ $f_i \leq g_i$ and for each $i$, $0 \leq i \leq n-1$ $f'_i \leq g'_i$.
                 \rst{f_n} \circ f'_{n-1}
                      }
 }   
+\fi
+
+\NewDocumentCommand{\tightlead}{o}
+{%
+  f_1,f'_1,\ldots,f_{n-2},f'_{n-2},
+  f_{n-1}\circ
+  \rng{
+    \IfValueTF{#1}
+      {\rst{f_n\circ #1}}
+      {\rst{f_n}}
+    \circ f'_{n-1}
+  }%
+}
+
+\NewDocumentCommand{\leftToRightTightening}{o}
+{%
+\tuple{t_1,t'_1,\ldots,t'_{n-2},t_{n-1},\;
+    \IfValueTF{#1}
+      {\rst{f_n\circ #1}}
+      {\rst{f_n}}
+    \circ f'_{n-1} \circ \rng{t_{n-1}},\;
+    \rst{f'_{n-1} \circ \rng{t_{n-1}}}
+    \circ
+    \IfValueTF{#1}
+      {f_n\circ #1}
+      {f_n}
+    }
+}
 
 If $F$ is a zigzag, a \textit{tightening} of $F$ is a tight zigzag
 $T \leq F$ such that for every tight zigzag $Z$ with $Z \leq F$,
@@ -90,18 +119,9 @@ We will show by induction on length that every zigzag $F$ has a tightening and w
 If the zigzag is of length $1$ then it has no zigs and no zags so is already tight. The inductive step is given by the next lemma: 
 
 {  %lemma leftToRightTighteningSubLemma
-   
-
-\newcommand{\requiredTightening}
-{\tuple{t_1,t'_1,...t'_{n-2},t_{n-1},\; 
-    \rst{f_n} \circ f'_{n-1} \circ \rng{t_{n-1}},\; 
-    \rst{f'_{n-1} \circ \rng{t_{n-1}}} \circ f_n
-    }
-}
 
 \begin{lemma}
 \llabel{leftToRightTighteningSubLemma}
-
 Suppose  $F=\zigzagTuple{f}{n}$ is a zigzag in range category \catcw.
 If  $\zigzagLeadingTuple{t}{n}$ is a tightening of the zigzag
 \begin{equation}
@@ -110,7 +130,7 @@ If  $\zigzagLeadingTuple{t}{n}$ is a tightening of the zigzag
 \end{equation}
 then  zigzag
 \begin{equation}
-\label{requiredTightening}\requiredTightening
+\label{requiredTightening}\leftToRightTightening
 \end{equation}
 is a tightening of $F$. 
 
@@ -185,7 +205,7 @@ Assume such a $Z=\zigzagTuple{z}{n}$ and assume that
 we need to show that 
 \begin{equation}
 \label{targetInequality}
-Z \leq \requiredTightening.
+Z \leq \leftToRightTightening.
 \end{equation} 
 
 First we note that  
@@ -258,8 +278,6 @@ We have established that every zigzag $F$ has a unique tightening.
 We shall write $T(F)$ for the tightening of $F$. 
 
 
-
-
 \begin{worktt}
 We \highlight{might} need the following takeaway from this lemma:
 \begin{observation}
@@ -274,12 +292,6 @@ T(F) = T(\zigzagBareTailTuple{f}{n}) ::\tuple{f_n}
 \] 
 \end{observation}
 \end{worktt}
-
-
-
-
-
-
 
 
 \begin{worktt}\highlight{ModifyThis and change name.}
@@ -301,17 +313,41 @@ and if the final morphism $f_n$ of $F$ composes with some morphism $g$
 
 Lemma \lref{leftToRightTighteningSubLemma} describes how a zigzag can be tighten from left to right. We can also describe how a zigzag can be
 tightened from right to left. This is what the next lemma is about.
-{  %lemma rightToLeftTighteningSubLemma
-  \newcommand{\tightTail}
+\iffalse
+\newcommand{\tightTail}
   {\rst{f'_1 \circ \rng{f_1}} \circ f_2,\;
   f'_2,...f_{n-2},f'_{n-1}, f_n
   }      
 
-\newcommand{\requiredRLTightening}
+\newcommand{\rightToLeftTightening}
 {\tuple{f_1 \circ \rng{\rst{t_2} \circ f'_1},\;
         \rst{t_2} \circ f'_1 \circ \rng{f_1},\; 
         t_2    ,...t_{n-1},t'_{n-1},t_n
     }
+}
+\fi 
+\NewDocumentCommand{\tightTail}{o}
+{%
+  \IfValueTF{#1}
+    {\rst{f'_1 \circ \rng{#1\circ f_1}}}
+    {\rst{f'_1 \circ \rng{f_1}}}
+  \circ f_2,\;
+  f'_2,\ldots,f_{n-2},f'_{n-1},f_n
+}
+\NewDocumentCommand{\rightToLeftTightening}{o}
+{%
+\tuple{
+  \IfValueTF{#1}
+    {#1\circ f_1 \circ \rng{\rst{t_2}\circ f'_1}}
+    {f_1\circ \rng{\rst{t_2}\circ f'_1}},
+  \;
+  \rst{t_2}\circ f'_1\circ
+  \IfValueTF{#1}
+    {\rng{#1\circ f_1}}
+    {\rng{f_1}},
+  \;
+  t_2,\ldots,t_{n-1},t'_{n-1},t_n
+  }
 }
 \begin{lemma}
 \llabel{rightToLeftTighteningSubLemma}
@@ -323,7 +359,7 @@ If  $\zigzagTrailingTuple{t}{n}$ is a tightening of the zigzag
 \end{equation}
 then  zigzag
 \begin{equation}
-\label{requiredRLTightening}\requiredRLTightening
+\label{requiredRLTightening}\rightToLeftTightening
 \end{equation}
 is a tightening of $F$. 
 \end{lemma}
@@ -376,7 +412,7 @@ Assume such a $Z=\zigzagTuple{z}{n}$ and assume that
 we need to show that 
 \begin{equation}
 \label{targetRLInequality}
-Z \leq \requiredRLTightening.
+Z \leq \rightToLeftTightening.
 \end{equation}
 
 First we note that  
@@ -438,8 +474,7 @@ z_1 &= z_1 \circ \rng{z_1}
     &= f_1 \circ \rng{\rst{t_2} \circ f'_1}
         && \mbox{by lemma \ref{fglemma} (iii), R.2, RR.1  and RR.2.}
 \end{align*}
-\end{proof}
-}  % end of lemma rightToLeftTighteningSubLemma
+\end{proof} % end of lemma rightToLeftTighteningSubLemma
 
 We \highlight{might} need the following observation
 \begin{observation}
@@ -462,8 +497,7 @@ Therefore  xxxx and freinds appear here after the leftToRight Tightening and com
 Need still work out what to name xxxx and freinds. 
 \end{notebox}
 
-
-\paragraph*{key observation xxxx}
+\paragraph*{key observations xxxx}
 \begin{lemma}
 \llabel{xxxxx}
 If $F=\zigzagTuple{f}{n}$ and $T(F)=\zigzagTuple{t}{n}$ then
@@ -473,9 +507,34 @@ If $F=\zigzagTuple{f}{n}$ and $T(F)=\zigzagTuple{t}{n}$ then
 \end{enumerate}
 \end{lemma}
 \begin{proof}
+~ % go to new line
 \begin{enumerate}[(i)]
 \item
+By lemma \lref{rightToLeftTighteningSubLemma}
+$t_1=f_1 \circ \rng{x}$
+for a certain morphism $x$.
+From this starting point the required 
+$t_1 = f_1 \circ \rng{t'_1}$
+is shown as follows
+\begin{align*}
+t_1 &= f_1 \circ \rng{x} 
+        &&\mbox{the starting point,} \\
+    &= f_1 \circ \rng{f_1} \circ \rng{x}
+        && \mbox{by RR.2,}  \\
+    &= f_1 \circ \rng{f_1 \circ \rng{x}}
+        && \mbox{by lemma \lref{fglemma} (iii),} \\
+    &= f_1 \circ \rng{t_1}
+        && \mbox{using $t_1=f_1 \circ \rng{x}$ again,} \\
+    &= f_1 \circ \rng{t'_1}
+        && \mbox{since $\zigzagTuple{t}{n}$ is tight.}
+\end{align*}
 \item
+Because $\zigzagTuple{t}{n}$
+is a tightening of $\zigzagTuple{f}{n}$,
+$t_n \leq f_n$ which, by definition is equivalent to
+$t_n=\rst{t_n} \circ f_n$, but, because 
+$\zigzagTuple{t}{n}$ is tight, $\rst{t_n}= \rst{t'_{n-1}}$,
+ so we have $t_n=\rst{t'_{n-1}} \circ f_n$, as required.
 \end{enumerate}
 \end{proof}
 \paragraph*{yyyyy}
@@ -556,29 +615,42 @@ and this we can show as follows
   &= h_n
       && \mbox{because $h_n \leq t_n$.}
 \end{align*}
-
 \end{enumerate}
 \end{proof}
-\paragraph*{zzzzz}
+\paragraph*{Tightening Commutes With Concatenation Special Case}
+This is the special case of tightening Commutes With Concatenation in which one of the two zigzags is a singleton.
 \begin{lemma}
-\llabel{zzzzz}
+\llabel{zzzzz} %Previous label used during development
+\llabel{SingletonCaseOfTighteningCommutesWithConcatenation}
 For any zigzag $F$
 \begin{enumerate}[(i)]
 \item
-\item if $F::\tuple{j}$ is defined for some morphism $j$ then
-$\tighten{F \cnc \rst{j}}= \tighten{\tighten{F} \cnc \rst{j}}$.
+if $\tuple{i} \cnc F$ is defined for some morphism $i$ then
+$\tighten{\rng{i} \cnc F}
+         = \tighten{\rng{i} \cnc \tighten{F}}$,
+\item 
+if $F \cnc \tuple{j}$ is defined for some morphism $j$ then
+$\tighten{F \cnc \rst{j}}
+         = \tighten{\tighten{F} \cnc \rst{j}}$.
 \end{enumerate}
 \end{lemma}
 \begin{proof}
 ~
 \begin{enumerate}[(i)]
-\item zzzzz (i)
+\item %(i)
+To show that the tightening of $\rng{i} \cnc F$
+is $\tighten{\rng{i}\cnc \tighten{F}}$ it suffices to show that if
+$H$ is a tight zigzag and $H \leq \rng{i} \cnc F$ then
+$H \leq \tighten{\rng{i}\cnc \tighten{F}}$. So assume such an $H$.
+Then by yyyyy (i), $H \leq \rng{i} \cnc \tighten{F}$.
+But then, because $H$ is tight,
+$H \leq \tighten{\rng{i}\cnc \tighten{F}}$.
 \item %(ii)
 To show that the tightening of $F \cnc \rst{j}$ 
 is $\tighten{\tighten{F}\cnc \rst{j}}$ it suffices to show that if
 $H$ is a tight zigzag and $H \leq F \cnc \rst{j}$ then
 $H \leq  \tighten{\tighten{F}\cnc \rst{j}}$. So assume such an $H$.
-Then by yyyyy, $H \leq \tighten{F} \circ \rst{j}$. But then because $H$ is tight then $H \leq \tighten{\tighten{F} \circ \rst{j}}$. 
+Then by yyyyy, $H \leq \tighten{F} \circ \rst{j}$. But then because $H$ is tight then $H \leq \tighten{\tighten{F} \cnc\rst{j}}$. 
 \end{enumerate}
 \end{proof}
 \paragraph*{alpha}
@@ -592,15 +664,130 @@ then the first element of $\tighten{\tuple{i} \cnc F}$
 is $i \circ f_1$, 
 \item if $F \cnc \tuple{j}$ is defined, 
 for some morphism $j$, 
-then the final element of $\tighten{F \cnc \tuple{g}}$ 
-is $f_n \circ g$. 
+then the final element of $\tighten{F \cnc \tuple{j}}$ 
+is $f_n \circ j$. 
 \end{enumerate}
 \end{lemma}
 \begin{proof}
 ~
 \begin{enumerate}[(i)]
-\item
-\item
+\item %(i)
+We use the rightToLeftTighteningSublemma to tighten 
+$\tuple{i} \cnc F$ and accordingly 
+we let $\zigzagTrailingTuple{t}{n}$
+be the tightening of
+\[
+\tuple{\tightTail[i]}
+\]
+so that 
+\begin{equation}
+\label{alphaInitialSchematic}
+\rightToLeftTightening[i]
+\end{equation}
+is the tightening of $\tuple{i}\cnc F$.
+
+\newcommand{\inductivets}
+{\rst{ f'_1 \circ \rng{i \circ f_1}}\circ f_2}
+
+We assume the inductive hypothesis that
+\[
+t_2 =  \inductivets
+\]
+Substituting into the initial element of
+(\ref{alphaInitialSchematic})
+the initial element of $\tighten{i\cnc F}$
+is
+\[
+i\circ f_1 \circ \rng{\rst{\inductivets}\circ f'_1}
+\]
+This can be simplified as follows:
+
+\begin{align*}
+i\circ f_1\circ
+\rng{\rst{\inductivets}\circ f'_1}
+&=
+i\circ f_1\circ
+\rng{
+ \rst{f'_1\circ\rng{i\circ f_1}}
+ \circ \rst{f_2}
+ \circ f'_1
+}
+&&\mbox{by R.3,} \\
+&=
+i\circ f_1\circ
+\rng{
+ \rst{f'_1\circ\rng{i\circ f_1}}
+ \circ f'_1
+}
+&&\mbox{since $F$ is tight and by R.1,} \\
+&=
+i\circ f_1\circ
+\rng{
+ f'_1\circ\rst{\rng{i\circ f_1}}
+}
+&&\mbox{by R.4,} \\
+&=
+i\circ f_1\circ
+\rng{f'_1}\circ\rst{\rng{i\circ f_1}}
+&&\mbox{by RR.3,} \\
+&=
+i\circ f_1\circ
+\rng{f'_1}\circ\rng{i\circ f_1}
+&&\mbox{by RR.1.}\\
+&=
+i\circ f_1\circ
+\rng{f_1}\circ\rng{i\circ f_1}
+&&\mbox{since $F$ is tight,} \\
+&=
+i\circ f_1\circ
+\rng{i\circ f_1}
+&&\mbox{by RR.2,} \\
+&=
+i\circ f_1
+&&\mbox{by RR.2, again and as required.}
+\end{align*}
+\item %(ii)
+We use the leftToRightTighteningSublemma to tighten 
+$f \cnc \tuple{j}$ and accordingly 
+we let $\zigzagLeadingTuple{t}{n}$
+be the tightening of
+\[
+\tuple{\tightlead[j]}
+\]
+so that 
+\begin{equation}
+\label{alphaFinalSchematic}
+\leftToRightTightening[j]
+\end{equation}
+is the tightening of $F \cnc \tuple{j}$. 
+
+We assume the inductive hypothesis that
+\newcommand{\inductivetp}
+{f_{n-1} \circ \rng{\rst{f_n \circ j} \circ f'_{n-1}}}
+\[
+t_{n-1} = \inductivetp
+\]. Substituting, into the final element of
+(\ref{alphaFinalSchematic})
+the final element of $\tighten{F \cnc j}$
+is 
+\[
+\rst{f'_{n-1} \circ \rng{\inductivetp}} \circ f_n \circ j 
+\]. This can be simplified as follows:
+\begin{align*}
+\rst{f'_{n-1} \circ \rng{\inductivetp}} \circ f_n \circ j
+  &= \rst{f'_{n-1} \circ \rng{f_{n-1}} 
+               \circ \rng{\rst{f_n \circ j}\circ f'_{n-1}}} 
+                     \circ f_n \circ j
+     && \mbox{by lemma \ref{fglemma} (iii),} \\
+  &= \rst{f'_{n-1} 
+               \circ \rng{\rst{f_N \circ j}\circ f'_{n-1}}} 
+                     \circ f_n \circ j
+     && \mbox{since $F$ is tight,} \\
+  &= \rst{f'_{n-1}} \circ f_n \circ j
+     && \mbox{by lemma \ref{fglemma} \highlight{(iv)}, } \\
+  &= f_n \circ j
+     && \mbox{since $F$ is tight and by use of R.1.} 
+\end{align*}
 \end{enumerate}
 \end{proof}
 \paragraph*{beta - previously known as alphacorollary}
