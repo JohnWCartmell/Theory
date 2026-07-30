@@ -4,7 +4,8 @@
 %restriction
 \newcommand{\rst}[1]{\overline {\vphantom{f}#1}}
 \newcommand{\rstItself}{$\overline{\kern0.2cm\nudgeup{0.2cm}}$}
-
+\newcommand{\rstdot}[1]{\dot{\overline {\vphantom{f}#1}}}
+\newcommand{\rstdotItself}{$\dot{\overline{\kern0.2cm\nudgeup{0.2cm}}}$}
 % range  
 \usepackage{scalerel,stackengine}
 \stackMath
@@ -21,6 +22,8 @@
 
 \newcommand{\rng}[1]{\reallywidehat {\vphantom{f}#1}}
 \newcommand{\rngItself}{$\widehat{\kern0.2cm\nudgeup{0.2cm}}$}
+\newcommand{\rngdot}[1]{\dot{\reallywidehat{\vphantom{f}#1}}}
+\newcommand{\rngdotItself}{$\dot{\widehat{\kern0.2cm\nudgeup{0.2cm}}}$}
 
 %Experimental
 \newcommand{\weakrange}[1]{\widehat{#1}^{\mathrm w}}
@@ -85,22 +88,39 @@
 \tuple{#1_1,#1'_1,...#1_{#2-1},#1'_{#2-1},#1_{#2} \circ #3}    
 }
 
+%zigzagTupleReplaceOut{f}{n}{g}    GIVES <f_1,...f'_n, g>
+\newcommand{\zigzagTupleReplaceOut}[3]
+{
+\tuple{#1_1,#1'_1,...#1_{#2-1},#1'_{#2-1},#3}    
+}
+
 %zigzagLeadingTuple{f}{n} GIVES <f_1,...f_n-1>
 \newcommand{\zigzagLeadingTuple}[2]
 {
 \tuple{#1_1,#1'_1,...#1_{#2-2},#1'_{#2-2},#1_{#2-1}}    
 }
 
-%zigzagStrippedHeadTuple{f}{n}
-\newcommand{\zigzagBareHeadTuple}[2]
+%zigzagRightFactorTuple{f}{n}
+\newcommand{\zigzagRightFactorTuple}[2]
 {
 \tuple{\rng{#1_1},#1'_1,...#1_{#2-1},#1'_{#2-1},#1_{#2}}    
 }
+%zigzagRightFactorTupleLedIn{h}{m}{f_n}
+\newcommand{\zigzagRightFactorTupleLedIn}[3]
+{
+\tuple{#3 \circ \rng{#1_1},#1'_1,...#1_{#2-1},#1'_{#2-1},#1_{#2}}    
+}
 
-%zigzagStrippedTuple{f}{n}
-\newcommand{\zigzagBareTailTuple}[2]
+%zigzagLeftFactorTuple{f}{n}
+\newcommand{\zigzagLeftFactorTuple}[2]
 {
 \tuple{#1_1,#1'_1,...#1_{#2-1},#1'_{#2-1},\rst{#1_{#2}}}     
+}
+
+%zigzagLeftFactorTupleLedOut{h}{n}{f_n}
+\newcommand{\zigzagLeftFactorTupleLedOut}[3]
+{
+\tuple{#1_1,#1'_1,...#1_{#2-1},#1'_{#2-1},\rst{#1_{#2}} \circ #3}     
 }
 
 %zigzagTrailingTuple{f}{n}
@@ -108,12 +128,13 @@
 {
 \tuple{#1_2,#1'_2,...#1_{#2-1},#1'_{#2-1},#1_{#2}}     
 }
-
+\iffalse
 %zigzagTupleSharp{f}{n}
 \newcommand{\zigzagTupleSharp}[2]
 {
 \tuple{#1'_1,...#1_{#2-1},#1'_{#2-1},#1_{#2}}    
 }
+\fi
 
 %zigzagTupleEndShortened{f}{n}{s}
 \newcommand{\zigzagTupleEndShortened}[3]
@@ -126,6 +147,20 @@
 {
 \tuple{#1_#2,#1'_#2,...#1_{#2+#3-1},#1'_{#2+#3-1},#1_{#2+#3}}    
 }
+
+%zigzagRightFactorTailTupleLedIn{h}{n}{m}{g}
+\newcommand{\zigzagRightFactorTailTupleLedIn}[4]
+{
+\tuple{#4 \circ \rng{#1_#2},#1'_#2,...#1'_{#2+#3-2},#1_{#2+#3-1}} 
+}
+
+%zigzagTailTupleReplaceIn{h}{n}{m}{g}
+\newcommand{\zigzagTailTupleReplaceIn}[4]
+{
+\tuple{#4,#1'_#2,...#1'_{#2+#3-2},#1_{#2+#3-1}} 
+}
+
+%zigzagSpecific
 
 \newcommand{\restrictToDSource}[2]{
 \overline{D(#1_1)}\circ ... \circ \overline{D(#1_#2)}
@@ -141,11 +176,11 @@
 % zigzag diagrams and zigzag diagram fragments
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\zigzagTwo{x}{y}{f}[g] %g is optional for circ f1
-% This is a zig zag zig zag. 
+%\zigzagzigTwo{x}{y}{f}[g] %g is optional for circ f1
+% This is a zig zag zig. 
 % zig one is  f1 : x1 -> y1 
 % zig one is  f'1 : x2 -> y1
-\NewDocumentCommand{\zigzagTwo}{m m m o}
+\NewDocumentCommand{\zigzagzigTwo}{m m m o}
 {
 \begin{array} {c c c c c}
  &\Ob{#2}{1}&&\Ob{#2}{2}          &\\[0.8cm]
@@ -194,7 +229,7 @@
 \end{arrows}
 }
 
-%\zigzagZigiZag{x}{y}{f}[i]
+%\zigzagZigiZag{x}{y}{f}{i}
 % starts from i with a zig and a zag 
 \NewDocumentCommand{\zigzagZigiZag}{m m m m}{
 \begin{array} {c c c c }
@@ -208,7 +243,21 @@
 \end{arrows}
 }
 
-%\zigzagZigiZagShortening{x}{y}{f}[i][s]
+%\zigzagTwo{x}{y}{f}
+% zig zag of length two so <z1, z'1, z2>
+\NewDocumentCommand{\zigzagTwo}{m m m}{
+\begin{array} {c c c c}
+ &\Ob{#2}{1}&&\Ob{#2}{2}    \\[0.8cm]
+\Ob{#1}{1}&&\Ob{#1}{2}
+\end{array}
+\begin{arrows}
+\ncarr{#11}{#21} \alabel{#3_{1} }[0.6][0.4]
+\ncarr{#12}{#21} \blabel{#3'_{1} }[0.6][0.4]
+\ncarr{#12}{#22} \blabel{#3_{2} }[0.7][0.4]
+\end{arrows}
+}
+
+%\zigzagZigiZagShortening{x}{y}{f}{i}{s}
 \NewDocumentCommand{\zigzagZigiZagShortening}{m m m m m}
 {
 \zigzagZigiZag{#1}{#2}{#3}{#4}
@@ -217,7 +266,7 @@
 \end{arrows}
 }
 
-%\zigzagZigiZagShortened{x}{y}{f}[i]
+%\zigzagZigiZagShortened{x}{y}{f}{i}{s}
 % starts from i with a zig and a zag 
 \NewDocumentCommand{\zigzagZigiZagShortened}{m m m m m}
 {
@@ -291,11 +340,11 @@
 
 %\zigzag{x}{y}{f}[ff]{n}
 % This is a zig zag zig zag... zig
-% For params 1 to 4, see command \zigzagTwo
+% For params 1 to 4, see command \zigzagzigTwo
 % For param 5 see command \zigzagDotsThenFinal
 %\zigzag{x}{y}{f}{n}
 \NewDocumentCommand{\zigzag}{m m m o m}{
-\zigzagTwo{#1}{#2}{#3}[#4]
+\zigzagzigTwo{#1}{#2}{#3}[#4]
 \zigzagDotsThenFinal{#1}{#2}{#3}{#5}
 }
 
@@ -308,7 +357,7 @@
 \newcommand{\zigzagfgcomposite} %Maybe this becomes zigzagComposite?
 {
 \arraycolsep=7pt
-\zigzagTwo{w}{x}{f}
+\zigzagzigTwo{w}{x}{f}
 \begin{array}{c}
 \dots \\[0.8cm]
 \dots

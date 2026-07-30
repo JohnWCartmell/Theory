@@ -288,7 +288,7 @@ of tighteningCommutesWithComposition BUT I now have a better proof which doesn't
 
 If $F=\zigzagTuple{f}{n}$ is a zigzag then
 \[
-T(F) = T(\zigzagBareTailTuple{f}{n}) ::\tuple{f_n}
+T(F) = T(\zigzagLeftFactorTuple{f}{n}) ::\tuple{f_n}
 \] 
 \end{observation}
 \end{worktt}
@@ -481,7 +481,7 @@ We \highlight{might} need the following observation
 \llabel{bareHeadObservation}
 If $F=\zigzagTuple{f}{n}$ is a zigzag then
 \[
-T(F) =  \tuple{f_1} :: T(\zigzagBareHeadTuple{f}{n}) 
+T(F) =  \tuple{f_1} :: T(\zigzagRightFactorTuple{f}{n}) 
 \] 
 \end{observation}
 
@@ -793,11 +793,11 @@ is
 \paragraph*{beta - previously known as alphacorollary}
 \begin{lemma}
 \llabel{beta}
-\commentary{ Contemplate using $\rstdot{\tighten{F}}$ 
-instead of $\rst{\tighten{F}}$
-it is a \textit{morphism} that we refer to. Subsequently
-the undotted form can be defined to deliver a singleton zigzag
-and to be the cosupport operator in category of zigzags.}
+\commentary{ \workt{Need} $\rstdot{\tighten{F}}$ 
+instead of $\rst{\tighten{F}}$,
+$\rngdot{\tighten{F}}$ 
+instead of $\rng{\tighten{F}}$. ETC.
+}
 If $F=\zigzagTuple{f}{n}$ is a any zigzag then
 \begin{enumerate}[(i)]
 \item if $\tuple{i} \cnc F$ is defined, 
@@ -850,27 +850,196 @@ and so we have
 \end{enumerate}
 \end{proof}
 
-\begin{lemma}
+
+{% lemma howToTightenAConcatenation
+\newcommand{\tighteningLeft}{\Tighten{ F \cnc \rstdot{\tighten{G}}}}
+\newcommand {\tighteningRight}{\Tighten{ \rngdot{\tighten{F}} \cnc G}}
+\newcommand {\theTightening}{\tighteningLeft \cnc \tighteningRight}
+\begin{lemma}\commentary{\workt{Need} rstdots, rngdots and tuples. \workt{Yuk.}}
 \llabel{howToTightenAConcatenation}
 If $F$ and $G$ are zigzags that compose so that
 $F \cnc G$ is defined then
 \begin{align*}
 \tighten{F \cnc G} 
-    &= 
-    \Tighten{ \tighten{F} \cnc \rst{\tighten{G}}}
-     \cnc
-    \Tighten{ \rng{\tighten{F}} \cnc \tighten{G}} \\
-    &= 
-    \Tighten{ F \cnc \rst{\tighten{G}}}
-     \cnc
-    \Tighten{ \rng{\tighten{F}} \cnc G} \\
+    &= \theTightening
 \end{align*}
 \end{lemma}
 \begin{proof}
-See Daybook 23rd June 2026 for a partial proof that simply uses definition of tightening. Completed Daybook 14th July 2026.
-First show that 
-\end{proof}
+We need to show two things. First that  $\theTightening$
+is a tight zigzag and secondly that for any 
+zigzag $H$, if $H \leq F \cnc G$ then $H \leq \theTightening$.
 
+For the first part we  observe that for any tight zigzags
+$Z_1$ and $Z_2$ such that the concatenation $Z_1 \cnc Z_2$ is defined then $Z_1 \cnc Z_2$ is tight iff $\rng{Z_1} = \rst{Z_2}$. It suffices, therefore to show that 
+\[
+\rng{\tighteningLeft} = \rst{\tighteningRight}
+\] 
+This is the case because by lemma \lref{beta} both left and right hand side are equal to 
+$\rng{\tighten{F}} \circ \rst{\tighten{G}}$.
+
+To complete the proof we assume that $H$ is a tight zigzag such that $H \leq F \cnc G$ and we have to prove that 
+$H \leq \theTightening$. For this we let
+$F=\zigzagTuple{f}{n}$, $G=\zigzagTuple{g}{m}$
+and we let $H=\zigzagLeadingTuple{h}{n+m-1}$.
+
+Note that we have $h_n \leq f_n \circ g_1$ and therefore
+we are able
+use construction \lref{fghConstruction}. 
+We shall make use of $h_L$ and $h_R$ as defined there and translating into the situation here, they are given by
+\[
+h_L = \rst{h_n} \circ f_n \circ \rst{g_1 \circ \rng{h_n}}
+\]
+and  
+\[
+h_R = \rng{\rst{h_n} \circ f_n} \circ g_1 \circ \rng{h_n}.
+\]
+
+Now,  
+\begin{equation}
+\label{inequalityOneLeft}
+\zigzagLeftFactorTupleLedOut{h}{n}{f_n} \leq F
+\end{equation}
+is the case because of the component inequalities all but the final one hold because $H \leq F \cnc G$
+ and the final one, $\rst{h_n} \circ f_n \leq f_n$,
+holds because
+the left hand side is a restriction idempotent composed with the right hand side.
+
+Likewise
+\begin{equation}
+\label{inequalityOneRight}
+\zigzagRightFactorTailTupleLedIn{h}{n}{m}{g_1} \leq G
+\end{equation}
+is the case because of the component inequalities: all but the initial one hold because
+$H \leq F \cnc G$,
+and the initial one,
+\[
+g_1 \circ \rng{h_n} \leq g_1,
+\]
+holds because the left hand side is the right hand side composed with a restriction idempotent.
+
+
+Because $h_n \leq f_n \circ g_1$ then we have
+$\rst{h_n} \leq \rst{f_n \circ g_1}$
+(lemma \lref{fglemma} (vi) and because $\rst{f_n \circ g_1} \leq \rst{f_n}$ (lemma \lref{fglemma} (vi)), 
+so transitively we arrive at $\rst{h_n} \leq \rst{f_n}$, or, 
+equivalently, $\rst{h_n} \circ \rst{f_n} = \rst{h_n}$, which then yields $\rst{\rst{h_n} \circ f_n} = \rst{h_n}$, by use of wR.4.
+This means  that the zigzag  
+$\zigzagLeftFactorTupleLedOut{h}{n}{f_n}$ 
+is tight which implies that
+ from (\ref{inequalityOneLeft})  we can deduce that
+\begin{equation}
+\label{inequalityTwoLeft}
+\zigzagLeftFactorTupleLedOut{h}{n}{f_n} \leq \tighten{F}
+\end{equation}
+and from this, by the way, that
+\begin{equation}
+\rngdot{\zigzagLeftFactorTupleLedOut{h}{n}{f_n}} 
+\leq \rngdot{\tighten{F}}
+\end{equation}
+which is to say 
+\begin{equation}
+\label{inequalityThreeLeft}
+\rng{\rst{h} \circ f_n} \leq \rngdot{\tighten{F}}
+\end{equation}
+
+Now we show that the zigzag 
+$\zigzagRightFactorTailTupleLedIn{h}{n}{m}{g_1}$,
+which is the right hand side of (\ref{inequalityOneRight}),
+is tight. It is evident that its joins except for its initial join are tight because $H$ is tight.
+In the case of the initial join,
+given that the tightness of $H$ gives us 
+that $\rng{h'_n}=\rng{h_n}$,
+the tightness condition can be written as
+$\rng{g_1 \circ \rng{h_n}} = \rng{h_n}$.
+We can show this as follows.  
+From the fact that
+$h_n \leq f_n \circ g_1$ we get
+$\rng{h_n} \leq \rng{f_n \circ g_1}$,
+and because generally $\rng{f_n \circ g_1} \leq \rng{g_1}$ \workt{where established?},
+transitively we get 
+$\rng{h_n} \leq \rng{g_1}$
+which, by definition, is $\rst{\rng{h_n}} \circ \rng{g_1} = \rng{h_n}$
+which simplifies and rearranges to
+$\rng{g_1} \circ \rng{h_n} = \rng{h_n}$.
+This is also a simplification of
+$\rng{g_1 \circ \rng{h_n}} = \rng{h_n}$, as required for tightness.
+
+Having shown that its right hand side is tight
+we can deduce from (\ref{inequalityOneRight}) that
+\begin{equation}
+\label{inequalityTwoRight}
+\zigzagRightFactorTailTupleLedIn{h}{n}{m}{g_1} \leq \tighten{G}
+\end{equation}
+and thus 
+\begin{equation}
+\label{inequalityThreeRight}
+\rst{ g_1 \circ \rng{h_n}} \leq \rstdot{\tighten{G}}
+\end{equation}
+
+Putting (\ref{inequalityOneLeft})
+ and (\ref{inequalityThreeRight}) together we get 
+\begin{equation}
+\label{inequalityFourLeft}
+\zigzagLeftFactorTupleLedOut{h}{n}{f_n} 
+          \cnc \tuple{\rst{ g_1 \circ \rng{h_n}}}
+              \leq F \cnc \rstdot{\tighten{G}}
+\end{equation}
+which is to say
+\begin{equation}
+\label{inequalityFourLeftRewritten}
+\zigzagLeftFactorTupleLedOut{h}{n}
+        {f_n \circ \tuple{\rst{ g_1 \circ \rng{h_n}}}}
+              \leq F \cnc \rstdot{\tighten{G}}
+\end{equation}
+which is 
+\begin{equation}
+\label{inequalityFourLeftRewrittenAgain}
+\zigzagTupleReplaceOut{h}{n}
+        {h_L}
+              \leq F \cnc \rstdot{\tighten{G}}
+\end{equation}
+and since the left hand side is tight
+\begin{worktt}
+(since 
+  $\rst{{f_n \circ \tuple{\rst{ g_1 \circ \rng{h_n}}}}}
+                   = \rst{h_n} = \rng{h'_{n-1}}$
+)
+\end{worktt}
+then we get
+\begin{equation}
+\label{inequalityFiveLeft}
+\zigzagTupleReplaceOut{h}{n}
+        {h_L}
+              \leq \Tighten{F \cnc \rstdot{\tighten{G}}}
+\end{equation}
+and similarly using \workt{(\textit{such a thing})} (\ref{inequalityOneRight}) 
+and (\ref{inequalityThreeLeft}) we get
+\begin{equation}
+\label{inequalityFiveRight}
+\zigzagTailTupleReplaceIn{h}{n}{m}
+                {h_R} 
+                 \leq  \Tighten{ \rngdot{\tighten{F}} \circ G}
+\end{equation}
+
+Putting (\ref{inequalityFiveLeft}) 
+and (\ref{inequalityFiveRight}) together
+we can  simplify as  $h_L \circ h_R = h$ and we get 
+\[
+H \leq \theTightening,
+\]
+as required to complete the proof.
+\end{proof}
+} % end of lemma howToTightenAConcatenation
+
+\begin{notebox}
+
+For above proof see small whiteboard.
+\begin{oldtt}
+ see Daybook 23rd June 2026 for a partial proof that simply uses definition of tightening. Completed Daybook 14th July 2026.
+\end{oldtt} 
+\end{notebox}
+
+\iffalse
 
 \begin{lemma}
 \llabel{tighteningCommutesWithComposition}
@@ -878,6 +1047,7 @@ If $F$ and $G$ are zigzags for which the composition $F::G$ is defined
 then 
 $ T(F :: G) = T(T(F) :: T(G)) $
 \end{lemma}
+
 
 \newcommand{\tightenedComposite}[1]
 {
@@ -1540,3 +1710,5 @@ By iteration we arrive
 at morphisms $s_1,...s_{n-1}$ which shorten $F$ to a singleton (and therefore short) zigzag $\tuple{f_1 \circ s_1}$. But since the shortening of a tight zigzag is unique 
 we must have $f_1 \circ s_1=f$.
 \end{proof}
+
+\fi
