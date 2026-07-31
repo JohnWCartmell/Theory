@@ -254,7 +254,7 @@ f \circ \rng{\overline{h \circ j} \circ g} \circ s
 \end{align*}
 \end{enumerate}
 \end{proof}
-
+\newpage
 \begin{construction}
 \llabel{fghConstruction}
 If 
@@ -271,7 +271,10 @@ $\begin{array}{c p {0.3cm} c p{0.3cm} c }
 $
 and $h \leq f \circ g$
 in \highlight{some kind of} category \catcw
-then $h$ can be factored as
+then 
+\begin{enumerate}[(i)]
+\item
+$h$ can be factored as
 $h = h_L \circ h_R$ where 
 $h_L \leq f$
 and 
@@ -282,10 +285,22 @@ h_L = \rst{h} \circ f \circ \rst{g \circ \rng{h}}
 \]
 and  
 \[
-h_R = \rng{\rst{h} \circ f} \circ g \circ \rng{h}
+h_R = \rng{\rst{h} \circ f} \circ g \circ \rng{h}.
 \] 
+\item
+If h is so factored then
+\[
+\rst{h_L}=\rst{h}
+\]
+and
+\[
+\rng{h_R}=\rng{h}.
+\]
+\end{enumerate}
 \end{construction}
 \begin{proof}
+\begin{enumerate}[(i)]
+\item %(i)
 That $h_L \leq f$
 and $h_R \leq g$ are the case
 follows from the form of the definitions
@@ -297,4 +312,27 @@ composed with $f$, respectively, $g$.
 
 That $h = h_L \circ h_R$ follows 
 because restriction idempotents commute (R.2) and by R.1 and RR.2. 
+
+\item %(ii)
+Firstly, $\rst{h_L}=\rst{h}$ because
+\begin{align*}
+\rst{\rst{h} \circ f \circ \rst{g \circ \rng{h}}}
+    &= \rst{\rst{h} \circ f \circ g \circ \rng{h}}
+        && \mbox{by wR.4,}\\
+    &= \rst{h \circ \rng{h}}
+        && \mbox{because $h \leq f \circ g$,}\\
+    &= \rst{h} && \mbox{by RR.2.}
+\end{align*}
+
+\noindent 
+Next, $\rng{h_R}=\rng{h}$ because
+\begin{align*}
+\rng{\rng{\rst{h} \circ f} \circ g \circ \rng{h}}
+    &= \rng{\rst{h} \circ f \circ g \circ \rng{h}}
+       &&\mbox{by RR.4,}\\
+    &= \rng{h \circ \rng{h}}
+       && \mbox{because $h \leq f \circ g$,}\\
+    &= \rng{h} && \mbox{by RR.2.}
+\end{align*}
+\end{enumerate}
 \end{proof}

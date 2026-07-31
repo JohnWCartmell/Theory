@@ -890,9 +890,19 @@ We shall make use of $h_L$ and $h_R$ as defined there and translating into the s
 h_L = \rst{h_n} \circ f_n \circ \rst{g_1 \circ \rng{h_n}}
 \]
 and  
+\newcommand{\hR}{\rng{\rst{h_n} \circ f_n} \circ g_1 \circ \rng{h_n}}
 \[
-h_R = \rng{\rst{h_n} \circ f_n} \circ g_1 \circ \rng{h_n}.
+h_R = \hR.
 \]
+and, as described in that construction, are such that
+\begin{equation}
+\label{rstOfhL}
+\rst{h_L}=\rst{h_n}
+\end{equation}
+\begin{equation}
+\label{rngOfhR}
+\rng{h_R}=\rng{h_n}.
+\end{equation}
 
 Now,  
 \begin{equation}
@@ -917,7 +927,6 @@ g_1 \circ \rng{h_n} \leq g_1,
 \]
 holds because the left hand side is the right hand side composed with a restriction idempotent.
 
-
 Because $h_n \leq f_n \circ g_1$ then we have
 $\rst{h_n} \leq \rst{f_n \circ g_1}$
 (lemma \lref{fglemma} (vi) and because $\rst{f_n \circ g_1} \leq \rst{f_n}$ (lemma \lref{fglemma} (vi)), 
@@ -927,15 +936,14 @@ This means  that the zigzag
 $\zigzagLeftFactorTupleLedOut{h}{n}{f_n}$ 
 is tight which implies that
  from (\ref{inequalityOneLeft})  we can deduce that
-\begin{equation}
-\label{inequalityTwoLeft}
+\[
 \zigzagLeftFactorTupleLedOut{h}{n}{f_n} \leq \tighten{F}
-\end{equation}
+\]
 and from this, by the way, that
-\begin{equation}
+\[
 \rngdot{\zigzagLeftFactorTupleLedOut{h}{n}{f_n}} 
 \leq \rngdot{\tighten{F}}
-\end{equation}
+\]
 which is to say 
 \begin{equation}
 \label{inequalityThreeLeft}
@@ -966,10 +974,9 @@ $\rng{g_1 \circ \rng{h_n}} = \rng{h_n}$, as required for tightness.
 
 Having shown that its right hand side is tight
 we can deduce from (\ref{inequalityOneRight}) that
-\begin{equation}
-\label{inequalityTwoRight}
+\[
 \zigzagRightFactorTailTupleLedIn{h}{n}{m}{g_1} \leq \tighten{G}
-\end{equation}
+\]
 and thus 
 \begin{equation}
 \label{inequalityThreeRight}
@@ -978,19 +985,17 @@ and thus
 
 Putting (\ref{inequalityOneLeft})
  and (\ref{inequalityThreeRight}) together we get 
-\begin{equation}
-\label{inequalityFourLeft}
+\[
 \zigzagLeftFactorTupleLedOut{h}{n}{f_n} 
           \cnc \tuple{\rst{ g_1 \circ \rng{h_n}}}
               \leq F \cnc \rstdot{\tighten{G}}
-\end{equation}
+\]
 which is to say
-\begin{equation}
-\label{inequalityFourLeftRewritten}
+\[]
 \zigzagLeftFactorTupleLedOut{h}{n}
         {f_n \circ \tuple{\rst{ g_1 \circ \rng{h_n}}}}
               \leq F \cnc \rstdot{\tighten{G}}
-\end{equation}
+\]
 which is 
 \begin{equation}
 \label{inequalityFourLeftRewrittenAgain}
@@ -998,22 +1003,37 @@ which is
         {h_L}
               \leq F \cnc \rstdot{\tighten{G}}
 \end{equation}
-and since the left hand side is tight
-\begin{worktt}
-(since 
-  $\rst{{f_n \circ \tuple{\rst{ g_1 \circ \rng{h_n}}}}}
-                   = \rst{h_n} = \rng{h'_{n-1}}$
-)
-\end{worktt}
+and since the left hand side of this inequality is tight
+(by (\ref{rstOfhL}) and since $\rst{h_n} = \rng{h'_{n-1}}$
+ as $H$ is tight)
 then we get
 \begin{equation}
 \label{inequalityFiveLeft}
 \zigzagTupleReplaceOut{h}{n}
         {h_L}
-              \leq \Tighten{F \cnc \rstdot{\tighten{G}}}
+              \leq \Tighten{F \cnc \rstdot{\tighten{G}}}.
 \end{equation}
-and similarly using \workt{(\textit{such a thing})} (\ref{inequalityOneRight}) 
-and (\ref{inequalityThreeLeft}) we get
+
+This is supports the left hand side of our target ineequality, for the right hand side we
+put(\ref{inequalityOneRight}) 
+and (\ref{inequalityThreeLeft}) together to get
+\[
+\tuple{\rng{\rst{h} \circ f_n}} \cnc \zigzagRightFactorTailTupleLedIn{h}{n}{m}{g_1} 
+       \leq \tuple{\rngdot{\tighten{F}}} \cnc G
+\]
+which is to say
+\[
+\zigzagTailTupleReplaceIn{h}{n}{m}{\hR} 
+       \leq \tuple{\rngdot{\tighten{F}}} \cnc G 
+\]
+i.e.
+\[
+\zigzagTailTupleReplaceIn{h}{n}{m}{h_R} 
+        \leq  \tuple{\rngdot{\tighten{F}}} \cnc G 
+\]
+and since the left hand side of this inequality is tight
+(by (\ref{rngOfhR}) and since $\rng{h_n} = \rng{h'_n}$
+ as $H$ is tight)  we deduce
 \begin{equation}
 \label{inequalityFiveRight}
 \zigzagTailTupleReplaceIn{h}{n}{m}
@@ -1021,9 +1041,9 @@ and (\ref{inequalityThreeLeft}) we get
                  \leq  \Tighten{ \rngdot{\tighten{F}} \circ G}
 \end{equation}
 
-Putting (\ref{inequalityFiveLeft}) 
+Finally, putting (\ref{inequalityFiveLeft}) 
 and (\ref{inequalityFiveRight}) together
-we can  simplify as  $h_L \circ h_R = h$ and we get 
+we can  simplify as  $h_L \circ h_R = h_n$ and we get 
 \[
 H \leq \theTightening,
 \]
@@ -1031,13 +1051,7 @@ as required to complete the proof.
 \end{proof}
 } % end of lemma howToTightenAConcatenation
 
-\begin{notebox}
 
-For above proof see small whiteboard.
-\begin{oldtt}
- see Daybook 23rd June 2026 for a partial proof that simply uses definition of tightening. Completed Daybook 14th July 2026.
-\end{oldtt} 
-\end{notebox}
 
 \iffalse
 
