@@ -852,10 +852,23 @@ and so we have
 
 
 {% lemma howToTightenAConcatenation
-\newcommand{\tighteningLeft}{\Tighten{ F \cnc \rstdot{\tighten{G}}}}
-\newcommand {\tighteningRight}{\Tighten{ \rngdot{\tighten{F}} \cnc G}}
+\newcommand{\tighteningLeft}{\Tighten{ F \cnc 
+                               \Bigl\langle
+                                  \rstdot{\tighten{G}}
+                               \Bigr\rangle
+                                      }
+                            }
+
+
+\newcommand {\tighteningRight}{\Tighten{ 
+                                    \Bigl\langle
+                                      \rngdot{\tighten{F}} 
+                                    \Bigr\rangle
+                                  \cnc G
+                                        }
+                              }
 \newcommand {\theTightening}{\tighteningLeft \cnc \tighteningRight}
-\begin{lemma}\commentary{\workt{Need} rstdots, rngdots and tuples. \workt{Yuk.}}
+\begin{lemma}
 \llabel{howToTightenAConcatenation}
 If $F$ and $G$ are zigzags that compose so that
 $F \cnc G$ is defined then
@@ -870,12 +883,11 @@ is a tight zigzag and secondly that for any
 zigzag $H$, if $H \leq F \cnc G$ then $H \leq \theTightening$.
 
 For the first part we  observe that for any tight zigzags
-$Z_1$ and $Z_2$ such that the concatenation $Z_1 \cnc Z_2$ is defined then $Z_1 \cnc Z_2$ is tight iff $\rng{Z_1} = \rst{Z_2}$. It suffices, therefore to show that 
-\[
-\rng{\tighteningLeft} = \rst{\tighteningRight}
-\] 
-This is the case because by lemma \lref{beta} both left and right hand side are equal to 
-$\rng{\tighten{F}} \circ \rst{\tighten{G}}$.
+$Z_1$ and $Z_2$ such that the concatenation $Z_1 \cnc Z_2$ is defined then $Z_1 \cnc Z_2$ is tight iff $\rngdot{Z_1} = \rstdot{Z_2}$. It suffices, therefore to show that $\rngdot{Z_1} = \rstdot{Z_2}$
+when $Z_1$ is $\tighteningLeft$ and
+$Z_2$ is $\tighteningRight$
+but this is the case because by lemma \lref{beta} both left and right hand side evaluate  to 
+$\rngdot{\tighten{F}} \circ \rstdot{\tighten{G}}$.
 
 To complete the proof we assume that $H$ is a tight zigzag such that $H \leq F \cnc G$ and we have to prove that 
 $H \leq \theTightening$. For this we let
@@ -991,7 +1003,7 @@ Putting (\ref{inequalityOneLeft})
               \leq F \cnc \rstdot{\tighten{G}}
 \]
 which is to say
-\[]
+\[
 \zigzagLeftFactorTupleLedOut{h}{n}
         {f_n \circ \tuple{\rst{ g_1 \circ \rng{h_n}}}}
               \leq F \cnc \rstdot{\tighten{G}}
