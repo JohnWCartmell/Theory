@@ -1,4 +1,4 @@
-\section{Sticklebacks}
+\section{Zigzags and Tightening}
 
 \subsection{Zigzags in a range category \catcw}
 
@@ -1065,7 +1065,7 @@ as required to complete the proof.
 
 
 
-\iffalse
+
 
 \begin{lemma}
 \llabel{tighteningCommutesWithComposition}
@@ -1166,8 +1166,7 @@ F \circ G &= T(\zigzagTuple{f}{n}::\zigzagTuple{g}{m})
 \end{worktt}
 
 
-\newcommand{\abrst}[1]{\rst{\tighten{#1}}}
-\newcommand{\abrng}[1]{\rng{\tighten{#1}}}
+
 
 \begin{lemma}\commentary{where should these be in the pecking order?}
 \commentary{needed before associativity of }
@@ -1238,24 +1237,24 @@ If $F$ is of length $n > 1$ then wR.4 follows because lemma
 
 \subsection{Tightening Length Two Zigzags}
 {%howToTighteningaZigZagOfLengthTwo
-\newcommand {\tighteningOne}{z_1 \circ \rng{\rst{z_2} \circ z'_1}}
-\newcommand {\tighteningTwo}{\rst{z_2} \circ z'_1 \circ \rng{z_1}}
-\newcommand {\tighteningThree}{\rst{z'_1 \circ \rng{z_1}} \circ z_2}
+
 \begin{lemma}
 \llabel{howToTighteningaZigZagOfLengthTwo}
 If $Z=\tuple{z_1,z'_1,z_2}$ is a zigzag of length $2$
 then
 
 \[
-\tighten{Z}=\tuple{ \tighteningOne,\,\tighteningTwo,\,\tighteningThree}
+\tighten{Z}=\tuple{ \twoTighteningOne{z},
+                     \,\twoTighteningTwo{z},
+                     \,\twoTighteningThree{z}}
 \]
 \end{lemma}
 \begin{proof}
 \newcommand {\longTighteningTwo}{\rst{z_2} \circ z'_1 \circ \rng{t}}
 \newcommand {\longTighteningThree}{\rst{z'_1 \circ \rng{t}} \circ z_2}
-Use lemma \lref{leftToRightTighteningSubLemma} with $n=2$. The precursor zigzag of length $n-1$ is simply the singleton zigzag \nudgeup{0.55cm}$\tuple{\tighteningOne}$ and this being a  singleton is tight and therefore its own tightening. Therefore the tightening of $Z$ is 
+Use lemma \lref{leftToRightTighteningSubLemma} with $n=2$. The precursor zigzag of length $n-1$ is simply the singleton zigzag \nudgeup{0.55cm}$\tuple{\twoTighteningOne{z}}$ and this being a  singleton is tight and therefore its own tightening. Therefore the tightening of $Z$ is 
 \nudgeup{0.55cm}$\tuple{t, \longTighteningTwo,\longTighteningThree}$
-where $t = \tighteningOne$. 
+where $t = \twoTighteningOne{z}$. 
 
 Now note that 
 \begin{equation}
@@ -1265,7 +1264,7 @@ z'_1 \circ \rng{t} = z'_1 \circ \rng{\rst{z_2} \circ z'_1} \circ \rng{z_1}
 because
 \begin{align*}
 z'_1 \circ \rng{t} 
-     &= z'_1 \circ \rng{\tighteningOne} 
+     &= z'_1 \circ \rng{\twoTighteningOne{z}} 
      && \mbox{substituting $t$,}\\
      &= z'_1 \circ \rng{z_1} \circ \rng{\rst{z_2} \circ z'_1} 
      && \mbox{by lemma \lref{fglemma} (iii),}\\
@@ -1274,15 +1273,15 @@ z'_1 \circ \rng{t}
 \end{align*}
 
 and using this we can simplify
-$\longTighteningTwo$  to $\tighteningTwo$ as follows
+$\longTighteningTwo$  to $\twoTighteningTwo{z}$ as follows
 \begin{align*}
 \longTighteningTwo 
     &= \rst{z_2} \circ z'_1 \circ \rng{\rst{z_2} \circ z'_1} \circ \rng{z_1}
                    && \mbox{by (\ref{tighteningTwoIntermediate}),}\\
-    &= \tighteningTwo
+    &= \twoTighteningTwo{z}
                    && \mbox{by RR.2,}
 \end{align*}
-and  $\longTighteningThree$ simplifies to $\tighteningThree$ as follows
+and  $\longTighteningThree$ simplifies to $\twoTighteningThree{z}$ as follows
 \begin{align*}
 \longTighteningThree 
      &= \rst{z'_1 \circ \rng{\rst{z_2} \circ z'_1} \circ\rng{z_1}} \circ z_2
@@ -1292,7 +1291,7 @@ and  $\longTighteningThree$ simplifies to $\tighteningThree$ as follows
      && \mbox{by  lemma \lref{newSupportLemma}}\\
      &= \rst{\rst{z_2} \circ z'_1 \circ\rng{z_1}} \circ z_2 
      && \mbox {by RR.2,}\\ 
-     &= \tighteningThree
+     &= \twoTighteningThree{z}
      && \mbox{by a second use of lemma \lref{newSupportLemma}.}
 \end{align*}. 
 Hence result.
@@ -1382,359 +1381,3 @@ This restatement of previous lemma follows from
 use one or two 
 of \lref{leftpushin}, \lref{rightpushin}, \lref{bothpushin}.
 \end{proof}
-
-
-
-\subsection{Shortening and Short Sticklebacks}
-
-If $F=\zigzagTuple{f}{n}$ is a zigzag and 
-if for some $i$,
-$1 \leq i \leq n-1$,
-there is a morphism
-$s$ such that $f'_i \circ s = f_{i+1}$ so that the triangle in 
-\[
-\zigzagShortenable{x}{y}{f}{n}{i}{s}
-\]
-commutes then the zigzag 
-\[
-\arraycolsep=7pt
-\zigzagShortened{x}{y}{f}{n}{i}{s}
-\]
-is said to be a \textit{shortening} of $F$ and is said to be \textit{at position i of F}.
-
-\newcommand{\rngTightener}[2]
-    {
-          \rng{
-                \rst{#1_{#2+1}} \circ #1'_{#2}
-               }            
-    }
-
-\newcommand{\rngTightenerOne}[1]
-    {
-          \rng{
-                \rst{#1_{2}} \circ #1'_{1}
-               }            
-    }
-
-\newcommand{ \rstTightener}[2]
-    {
-          \rst{
-                #1'_{#2} \circ \rng{#1_{#2}}  
-               }
-    } 
-\begin{notebox}[Change to the above June 24 2026]
-Change the above. If $F$ is \emph{not} tight
-then need the shortening to be not $f_i \circ s$ as is shown in the diagram but to be \oldt{$f_i \circ \rngTightener{f}{i} \circ s$}  
-\newt{$f_i \circ \rng{f'_i} \circ s$}.
-\end{notebox}
-
-\begin{observation}
-\llabel{shorteningATightZigzagObservation}
-If $F$ is tight then in the shortening the
-morphism $f_i \circ \rng{f'_i} \circ s$ simplifies to $f_i \circ s$.
-\end{observation}
-Significantly, the shortening of a tight zigzag is  tight.
-It is easy to check this.
-
-
-Cockett shows that if the category \catcw is a range category
-satisfying the addition condition RR.5 then every tight
-zigzag of morphisms in \catcw has a unique shortening. 
-
-A stickleback which cannot be shortened is said to be
-a \textit{short stickleback}.
-
-\begin{lemma}
-\llabel{secondShorteningCharacterisationLemma}
-\end{lemma}
-If $Z$ is a zigzag of length $2$ and $s$ is a shortening of $Z$
-as shown here
-\[
-\zigzagTwo{x}{y}{z}
-\begin{arrows}
-\ncarr[15]{y1}{y2} \alabel{s}
-\end{arrows}
-\]
-then
-\begin{enumerate}[(i)]
-\item 
-$\tighten{\shorten{Z}{s}{i}} =\shorten{\tighten{Z}}{s}{i}
-$
-\item 
-$\abrst{\shorten{Z}{s}{i}} = \abrst{Z}$ \highlight{true for any zigzag?}
-\item
-$\abrng{\shorten{Z}{s}{i}} = \abrng{Z}$ \highlight{true for any zigzag?}
-\end{enumerate}
-\begin{proof}
-By definition, the shortening of $Z$
-is the singleton zigzag
-$\tuple{z_1 \circ \rng{z'_1} \circ s}$.
-
-On the otherhand, from  lemma \lref{howToTighteningaZigZagOfLengthTwo}
-the tightening $\tighten{Z}$ is the zigzag
-$\tuple{ \tighteningOne,\,\tighteningTwo,\,\tighteningThree}$.
-From observation \lref{shorteningATightZigzagObservation}
-it then follows that the shortening $\shorten{\tighten{Z}}{s}{i}$
-is the singleton zigzag $\tuple{\tighteningOne \circ s}$.
-\begin{enumerate}[(i)]
-\item %{i}
-Since $z_1 \circ \rng{\rst{z_2} \circ z'_1} \circ s$ 
-simplifies to $z_1 \circ \rng{z'_1} \circ s$ as follows
-\begin{align*}
- z_1 \circ \rng{\rst{z_2} \circ z'_1} \circ s
-           &= z_1 \circ \rng{\rst{z'_1 \circ s} \circ z'_1} \circ s
-           && \mbox{substituting $z'_1 \circ s$ for $z_2$,} \\
-           &= z_1 \circ \rng{z'_1 \circ \rst{s}} \circ s 
-           && \mbox{by R.4,} \\
-           &= z_1 \circ \rng{z'_1} \circ \rst{s} \circ s
-           && \mbox{by RR.3,} \\
-           &= z_1 \circ \rng{z'_1} \circ s
-           && \mbox{by R.1z} 
-\end{align*}
-then we have
-\begin{align*}
-\tighten{\shorten{Z}{s}{i}}
-            &= \tuple{ z_1 \circ \rng{z'_1} \circ s } \\
-            &= \tuple{
-                       z_1 \circ \rng{\rst{z_2} \circ z'_1} \circ s
-                     } \\
-            &= \shorten{\tighten{Z}}{s}{i} &&\mbox{as required.}
-\end{align*}  
-\item %(ii)
-We need to show that 
-$\rst{z_1 \circ \rng{z'_1} \circ s}= \rst{z_1 \circ \rngTightenerOne{z}}$.
-First we show that 
-$\rst{\rng{z'_1} \circ s}=\rst{\rngTightenerOne{z}}$
-as follows
-\begin{align*}
-\rst{\rng{z'_1} \circ s} 
-    &= \rst{\rng{z'_1} \circ \rst{s}} && \mbox{wR.4}\\
-    &= \rst{ \rng{ z'_1 \circ \rst{s} } }
-                                      && \mbox{RR.3} \\
-    &= \rst{ \rng{ \rst{z'_1 \circ s} \circ z'_1 } }
-                                      && \mbox{R.4} \\
-        &= \rst{ \rng{ \rst{z_2} \circ z'_1 } }
-                        && \parbox[t]{5cm}{from the initial assumption 
-                        $z'_1 \circ s = z_2$.} 
-\end{align*}
-Now using this we get
-\begin{align*}
-\rst{z_1 \circ \rng{z'_1} \circ s} 
-                &=\rst{z_1 \circ \rst{\rng{z'_1} \circ s}} 
-                &&\mbox{by wR.4,}\\
-                &=\rst{z_1 \circ \rst{\rngTightenerOne{z}}}
-                && \mbox{as shown above,}\\
-                &= \rst{z_1 \circ \rngTightenerOne{z}}
-                &&\mbox{by wR.4.}
-\end{align*}
-
-\item %(iii)
-We need to show that 
-$\rng{z_1 \circ \rng{z'_1} \circ s} 
-     =\rng{\rstTightener{z}{1} \circ z_2}$ 
-which we can do as follows
-\begin{align*}
-\rng{z_1 \circ \rng{z'_1} \circ s} &= \rng{z_1 \circ \rng{z'_1} \circ s}\\
-         &= \rng{z'_1 \circ \rng{z_1} \circ s}
-            && \mbox{by lemma \lref{fglemma} (vii),}\\
-         &= \rng{z'_1 \circ \rst{\rng{z_1}} \circ s}
-            && \mbox{by RR.1,}\\
-         &= \rng{
-                    \rstTightener{z}{1}
-                    \circ z'_1 \circ s
-                 }
-            &&\mbox{by R.4,}\\
-         &= \rng{\rstTightener{z}{1} \circ z_2 }
-            &&\parbox[t]{5cm}{from the initial assumption  $z'_1 \circ s = z_2$.} 
-\end{align*}
-\end{enumerate}
-\end{proof}
-
-\subsection{Prelude to a category of short zigzags}
-
-In what follows lemma 
-\lref{deferredShorteningLemma}
-describes the interaction of shortening and tightening 
-and is the key to showing that there is a category of short sticklebacks. Before we get to this lemma we have a series of
-subordinate lemmas that are required for its proof. 
- 
-\begin{lemma}
-\llabel{shorteningSpecialisationLemma}
-In any restriction category \catcw, 
-if $f' \leq g'$ and $f \leq g$ then if  
-$\nudgeup{1.5cm} % moves the triangle down to make room for arc
-\downTriangleShape{x_i}{y_{i-1}}{y_i}
-\downToLeft{g'}[0.6]
-\downToRight{g}
-\leftToRightArcing[a]{s}{30}{30} 
-$ commutes 
-and $\rst{f}=\rst{f'}$ then
-$\downTriangleShape{x_i}{y_{i-1}}{y_i}
-\downToLeft{f'}[0.6]
-\downToRight{f}
-\leftToRightArcing[a]{s}{30}{30} 
-$ commutes.
-\end{lemma}
-\begin{proof}
-\begin{align}
-f' \circ s 
-   &= \rst{f'} \circ g'\circ s 
-       && \mbox{because $f' \leq g'$,}\\
-   &= \rst{f} \circ g 
-   && \mbox{since $\rst{f'}=\rst{f}$ 
-              and $g' \circ s = g$, }\\
-   &= f
-   &&\mbox{since $f \leq g$}
-\end{align}
-\end{proof}
-
-\begin{corollary}
-\llabel{shorteningAtightenedRestriction}
-If $F$ is a zigzag and $s$ is a shortening of $F$ at position $i$,
-if $j$ is a restriction endomorphism 
-such that $F :: \tuple{j}$ is defined then
-$s$ is a shortening of 
-the tightening of $F :: \tuple{j}$ at position$i$.
-\end{corollary}
-
-\begin{aside}
-If I talk about shortening then the context
-needs to be \highlight{RR.5} range category.
-\end{aside}
-
-\begin{aside}
-I can write  $F= F^{L} \cnc F^{L_r}$
-
-and thus $F\cnc\tuple{g} = (F\cnc\tuple{g})^{L} \cnc (F\cnc\tuple{g})^{L_r}$??
-
-\end{aside}
-
-From this lemma we can see that if a zigzag $F$ shortens then $T(F)$ shortens.
-
-
-\begin{lemma}
-\llabel{TSExtractionLemma}
-If $F$ is a zigzag and $s$ is a shortening of $F$ at a position $i$ then
-\workt{there exists $s'$ which is a shortening of $tighten{F}$???}
-\[
-\tighten{\shorten{F}{s}{i}} = \shorten{\tighten{F}}{s}{i}
-\]
-\workt{conflict: in proof I come up with $s'$ but earlier lemma suggests/proves that $s$ is a shortening of $tighten{F}$. }
-\end{lemma}
-\begin{proof}
-$F$ can be expressed as $F_L \cnc Z \cnc F_R$ where 
-$Z$ is of length $2$ and where $s$ is a shortening of $Z$ at (its only)
-position $1$. We can then use the tightening of $Z$ and lemmas
-\lref{howToTightenAThreefoldConcatenationTwo} and
-\lref{secondShorteningCharacterisationLemma}.
-\workt{sketched out on whiteboard}. Now on whiteboard I show the result
-for a zigzag $F \cnc Z \cnc G$ which makes as readable as possible.
-But then how am I to state the lemma where ABOVE I have stated in terms of $F$ as the subject zigzag?
-\end{proof}
-\begin{aside}
-The following lemma suggests that the normal form for a zigzag is the
-shortening of the sightening.
-\end{aside}
-\begin{lemma}
-\llabel{deferredShorteningLemma}
-If $Z_1$, $Z_2$ are tight zigzags in
-\newt{an RR.5 range category} such that the composition $Z_1 :: Z_2$ is defined then
-\begin{enumerate}[(i)]
-\item 
-$shorten(tighten(shorten(Z_1) :: Z_2))= shorten(tighten(Z_1 :: Z_2)).$
-\item
-$shorten(tighten(Z_1 :: shorten(Z_2)))= shorten(tighten(Z_1 :: Z_2)).$
-\end{enumerate}
-\end{lemma}
-\begin{proof}
-Since in both (i) and (ii) the innermost shortening is a combination 
-of individual shortenings and since
-it follows by lemma \lref{associativitySublemma} that 
-each of these individual shortenings can be moved outside of the tightening.
-\end{proof}
-
-\subsection{The category of short sticklebacks}
-
-If \catcw is an RR.5 range catgeory then
- there is a category of short sticklebacks over \catc, which we denote
- $\Stk$.
-Composition of short sticklebacks is defined by
-\[
-F \circ G = shorten(T(F::G)) 
-\]
-Composition, so defined, is associative because:
-\begin{align*}
-F \circ (G \circ H)
-  &= shorten(T(F :: shorten(T(G ::H)) && \mbox{definition $\circ$,} \\
-  &= shorten (T(F::T(G::H))) && \mbox{by lemma \ref{deferredShorteningLemma} (i),} \\
-  &= shorten (T(F::G::H))    && \mbox{\parbox[t]{5cm}{see proof of associativity of composition of tight zigzags, section \ref{categorytightzigzags}.}}
-\end{align*}  
-and because, likewise, 
-using lemma \ref{deferredShorteningLemma} (ii),
-we have also that $(F \circ G) \circ H=shorten (T(F::G::H))$.
-
-\subsection{Sequential Shortening}
-\begin{lemma}
-\llabel{sequentialShorteningLemma}
-If $F=\zigzagTuple{f}{n}:x_1 \morph y_n$ 
-is a tight stickleback in \highlight{an RR.5 range category} \catcw
-and if $F$ shortens to a zigzag $\tuple{f}$ for some
-morphism $f:x_1 \morph y_n$ in \catcw then  there
-is a sequence of morphisms $s_1,...s_{n-1}$,
-$s_i: y_i \morph y_n$ in \catcw
-such that all diagrams in 
-\commentary{Improve the diagramming at a later date}
-\[
-%\arraycolsep=12pt
-\zigzagSequentialShortening{x}{y}{f}{n}{x}{g}{h}{s}
-\]
-
-commute i.e. such that
-\[
-f_1 \circ s_1 =f
-\]
-and \foreachi[n-2], 
-\[
-f'_i \circ s_i =  f_{i+1} \circ s_{i+1}
-\] 
-and
-\[
-f'_{n-1} \circ s_{n-1} = f_n 
-\]
-\end{lemma}
-\begin{proof}
-For any series of shortenings of $F$ to a single morphism one of this set must shorten the triangle the final zag in F i.e. 
-there must be a morphism $s_{n-1}:y_{n-1} \morph y_n$
-such that the triangle 
-$\nudgeup{1.5cm}\downTriangleShape{x_n}{y_{n-1}}{y_n}
-\downToLeft{g'}[0.6]
-\downToRight{g}
-\leftToRightArcing[a]{s}{30}{30} 
-$ 
-commutes. 
-Since shortenings can be applied in any order this shortening can be applied first and the resulting zigzag 
-$\tuple{f_1,f'_1,...f_{n-2}, f_{n-1} \circ s_{n-1}}$
-must then shorten to the morphism $f$. 
-Repeating the argument we get a morphism $s_{n-2}$
-such that 
-$
-\begin{array}{c  c c}
-&\Ob{y}{n}&               \\[0.5cm]
-\Obpp{y}{n} && \Obp{y}{n} \\[0.5cm]
-& \Obp{x}{n}
-\end{array}
-\begin{arrows}
-\ncarr{ynpp}{yn}\alabel{s_{n-2}}
-\ncarr{ynp}{yn}\blabel{s_{n-1}}
-\ncarr{xnp}{ynpp}\alabel{f'_{n-2}}
-\ncarr{xnp}{ynp}\blabel{f_{n-1}}
-\end{arrows}
-$
-commutes and shorten $F$ to a zigzag
-$\tuple{f_1,f'_1,...f_{n-3}, f_{n-2} \circ s_{n-2}}$
-By iteration we arrive
-at morphisms $s_1,...s_{n-1}$ which shorten $F$ to a singleton (and therefore short) zigzag $\tuple{f_1 \circ s_1}$. But since the shortening of a tight zigzag is unique 
-we must have $f_1 \circ s_1=f$.
-\end{proof}
-
-\fi
