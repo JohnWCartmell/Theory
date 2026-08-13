@@ -208,16 +208,12 @@ whenever the concatenations are defined, we write
 $Z \cncdot j$ for $Z \cnc \tuple{j}$ and
 $i \dotcnc Z$ for $\tuple{i} \cnc Z$.
 
-
-$\lefttherefore$
-
 \begin{corollary}
 \llabel{shorteningAtightening}
-If $F$ is a zigzag and $s$ is a shortening of $F$ at position $i$,then
-$s$ is a shortening of 
-the tightening of $F$ at position$i$.
+If $F$ is a zigzag and $s$ is a shortening of $F$ at position $i$,
+if $r$ is a restriction idempotent such that $F \cnc r$ is defined
+then $s$ is a shortening of $\tighten{F\cnc r}$ at position $i$.
 \end{corollary}
-
 
 \begin{lemma}
 \llabel{lemmaOfThe6thOfJuly}
@@ -226,7 +222,7 @@ If $s$ is a shortening of a zigzag $Z$  of length $2$
 then
 \begin{enumerate}[(i)]
 \item
- if $j$ is a restriction idempotent 
+ if $j$ is a morphism 
  such that $Z \cncdot j$  is defined
  then $s \circ j$ is a shortening of $Z \cncdot j$ and
  \[
@@ -245,6 +241,7 @@ then
 Note the lack of symmetry between (i) and (ii). 
 \end{lemma}
 \begin{proof}
+Follow directly from the definition of shortening.
 \end{proof}
 
 \begin{aside}
@@ -252,12 +249,6 @@ If I talk about shortening then the context
 needs to be \highlight{RR.5} range category.
 \end{aside}
 
-\begin{aside}
-I can write  $F= F^{L} \cnc F^{L_r}$
-
-and thus $F\cnc\tuple{g} = (F\cnc\tuple{g})^{L} \cnc (F\cnc\tuple{g})^{L_r}$??
-
-\end{aside}
 
 From this lemma we can see that if a zigzag $F$ shortens then $T(F)$ shortens.
 
@@ -276,9 +267,7 @@ If $F= \zigzagTuple{f}{n}$ is a zigzag and if $i$ indexes a zag
 with $F$, i.e. if $1 \leq i \leq n$, then
  
 \begin{enumerate}[(i)]
-\item if zigzag $L$ of length $i$, zigzag $Z$ of length $2$ and zigzag
-$R$ of length $n-i-1$
-are the following zigzags
+\item if we define zigzags $L$ of length $i$, $Z$ of length $2$ and $R$ of length $n-i-1$ as follows
 \begin{align*}
 L &= \zigzagTuple{f}{i} \\
 Z &= \tuple {\rng{f_i}, f'_i, f_{i+1}} \\
@@ -288,15 +277,62 @@ then
 \[
 F = L \cnc Z \cnc R
 \]
-\item if $s$ is a shortening of $F$ at position $i$ and then
-$s$ is a shortening of $Z$ at position $1$ then
+\item if $s$ is a shortening of $F$ at position $i$
+then $s$ is a shortening of $Z$ at position $1$ 
+and
 \[
 \shorten{F}{s}{i} = L \cnc \shorten{Z}{s}{1} \cnc R
 \]
 \end{enumerate}
 \end{lemma}
 \begin{proof}
+It follows directly (from the definitions) that left hand side and right hand side agree except possibly in 
+their i'th forward facing elements.
+The i'th forward element in the left side, $\shorten{F}{s}{i}$,
+is defined to be 
+$f_i \circ \rng{f'_i} \circ s$. 
+On the other hand the 
+corresponding element of the right hand side is
+$L \cnc \tuple{\rng{f_i} \circ \rng{f'_i} \circ s} \cnc R$ which
+is $f_i \circ (\rng{f_i} \circ \rng{f'_i} \circ s) \circ \rng{f_{i+1}}$
+which, after removing parentheses, we can  show to be identical as follows:
+\begin{align*}
+f_i \circ \rng{f_i} \circ \rng{f'_i} \circ s \circ \rng{f_{i+1}}
+&= f_i  \circ \rng{f'_i} \circ s \circ \rng{f_{i+1}} &&\mbox{by RR.2,}\\
+&= f_i \circ \rng{f'_i} \circ s \circ \rng{f'_i \circ s} 
+           &&\mbox{since $f_{i+1} = f'_i \circ s$,}           \\
+&= f_i \circ \rng{f'_i} \circ s \circ \rng{\rng{f'_i} \circ s} 
+           &&\mbox{by RR.4,}                                  \\
+&= f_i \circ \rng{f'_i} \circ s
+           && \mbox{by RR.2.}
+\end{align*}
 \end{proof}
+
+The conacatenation of zigzags in the above lemma has a significant feature
+
+\begin{aside}
+We use the symbol $\cnc$ to denote concatenation of zigzags. The three dots are arranged along the same rising diagonal as the morphisms in our diagrams. When concatenation is followed by shortening at one end, we use $\cnctail$ or $\headcnc$ to indicate that the corresponding end element has disappeared. Thus, if $G$ begins with the restriction idempotent $\rst{G}$ and
+\[
+\rst{G}=\rng{F},
+\]
+then the concatenation may be written
+\[
+F\cnc G = F\cnctail G.
+\]
+\end{aside}
+\begin{aside}
+The decomposition above can be written
+\[
+F = L \cnc Z \cnctail R
+\]
+Point (ii) above can be extracted as a separate observation
+llabel {isolationOfShortening Two} along the lines that for any zigzags F, Z and R such that 
+$F \cnc Z \cnctail R$ is defined. $F$ of length $i$
+\[
+\shorten{F \cnc Z \cnctail R}{s}{i}
+     = F \cnc \shorten{Z}{s}{1} \cnc R
+\] 
+\end{aside}
 
 
 
@@ -410,8 +446,16 @@ For the right hand side let
                         \rightPartThreeOfThree
                           }{s}{i} 
                } \\
-       &&& \mbox{by lemma \lref{howToTightenAThreefoldConcatenationTwo}. } \\
-   &= \mathrlap{
+       &&& \mbox{\parbox{6cm}
+                {
+                  by lemma 
+                  \lref{howToTightenAThreefoldConcatenationTwo},
+                  where $L= \rightPartOneOfThree$\\
+                  $C=\ZZ$\\
+                  and $R=\rightPartThreeOfThree$,
+                }
+                } \\
+    &= \mathrlap{
                \rightPartOneOfThree
                     \cnc
                 \rightPartTwoOfThree
