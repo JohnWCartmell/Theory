@@ -373,13 +373,6 @@ where
 $Z$ is of length $2$ and where $L$ and $R$ are zigzags of length 
 $\geq 1$, and $s$ is a shortening of $Z$.
 
-
-We can then use the tightening of $Z$ and lemmas
-\lref{howToTightenAThreefoldConcatenationTwo} and
-\lref{secondShorteningCharacterisationLemma}.
-\workt{sketched out on whiteboard with F for L and G for R}.
-
-
 \newcommand{\sZ}{\shorten{Z}{s}{1}}
 \newcommand{\tL}{\tighten{L}}
 \newcommand{\tR}{\tighten{R}}
@@ -392,7 +385,7 @@ We can then use the tightening of $Z$ and lemmas
 }
 \newcommand {\leftPartTwoOfThree}
 {
-    r \cnc \sZ \cnc l
+    l \cnc \sZ \cnc r
 }
 \newcommand {\leftPartThreeOfThree}
 {
@@ -409,10 +402,10 @@ We consider each side of the target identity. For the left hand side we have
     &= \tighten{\shorten{L \cnc Z \cnc R}{s}{i}} \\
     &= \tighten{L \cnc \sZ \cnc R} 
        &&\mbox{by lemma \lref{isolationOfShortening},}\\
-    &= P_1 \circ P_2 \circ P_3
+    &= P_1 \cnc P_2 \cnctail P_3
        && \mbox{\parbox[t]{7cm}
             {
-          by lemma \lref{howToTightenAThreefoldConcatenationTwo},
+          by lemma \lref{howToTightenAThreefoldConcatenation},
           where $\begin{aligned}[t]
                    P_1 &=  \leftPartOneOfThree\\
                    P_2 &=  \leftPartTwoOfThree\\
@@ -445,7 +438,7 @@ Looking at the right hand side, we have
        && \mbox{\parbox[t]{7cm}
                 {
                   by lemma 
-                  \lref{howToTightenAThreefoldConcatenationTwo},
+                  \lref{howToTightenAThreefoldConcatenation},
                   where, using the idempotents $l$ and $r$
                    as defined above, we define
                    $Q_1= \rightPartOneOfThree$\\
@@ -455,10 +448,9 @@ Looking at the right hand side, we have
                 } \\
     &= \shorten{Q_1 \cnc Q_2 \cnctail Q_3}{s}{i} 
         && \mbox{\parbox[t]{7cm}
-            {
             because  
             by lemma 
-                  \lref{howToTightenAThreefoldConcatenationTwo}
+                  \lref{howToTightenAThreefoldConcatenation}
             $\rng{Q_2} = \rst{Q_3}$ and because the initial element of $Q_3$ is a restriction idempotent since the initial element of $R$ is. 
             }
                 }  \\
@@ -468,14 +460,15 @@ Looking at the right hand side, we have
                 } 
 \end{align*}
 
-We can complete the proof by showing that $P_1 = Q_1$,
+We can complete the proof by proving the three identities
+corresponding to $P_1 = Q_1$,
 $P_2=\shorten{Q_2}{s}{i}$ and $P_3=Q_3$.
+
 The first of these is
 \[
 \leftPartOneOfThree = \rightPartOneOfThree 
 \]
-
-which follows because by lemma \lref{lemmaOfThe6thOfJuly}(i):
+this follows because by lemma \lref{lemmaOfThe6thOfJuly}(i):
 \[
 \shorten{Z}{s}{1} \cnc r = \shorten{Z \cnc r}{s \circ r}{1} 
 \]
@@ -483,18 +476,27 @@ and because by lemma \lref{secondShorteningCharacterisationLemma}(ii)
 \[
 \rst{\shorten{Z \cnc r}{s \circ r}{1}} =  \rst{\tighten{Z \cnc r}} 
 \]
-CHECK THIS$\Uparrow$.
+\workt{CHECK THIS}\workt{\raisebox{0.5cm}{$\Uparrow$}}.
 
-The second of these is 
+The second of these identities is 
 \[
-\leftPartTwoOfThree  = \shorten{\ZZ}{s}{i}
+\leftPartTwoOfThree  = \shorten{\ZZ}{s}{i}.
 \]
-which we can show as follows
-\begin{align*}
-\leftPartTwoOfThree &= ??? 
-\end{align*}
+To see that this is the case, consider the right hand side,
+$\shorten{\ZZ}{s}{i}$, which is defined, as we have seen, 
+since $s$ is a shortening of $\ZZ$. But also consider that
+$s$ is a shortening of $Z$ and therefore 
+$s \circ r$ is a shortening of $l \cnc Z \cnc r$ and therefore
+$s \circ r$ is a shortening of $\ZZ$. 
+Both $s$ and $s \circ r$ are shortenings of $\ZZ$ and because
+because shortenings are unique (lemma ???) we have
+shortening of $\ZZ$ by $s$ and shortening of $\ZZ$ by $s \circ r$ 
+are identical. 
+But by lemma \lref{lemmaOfThe6thOfJuly} this shortening by 
+$s \circ r$ is identical to $\leftPartTwoOfThree$ and so we arrive at
+the second identity.
 
-The third of these is
+The third identity we need to to prove is
 \[
 \leftPartThreeOfThree = \rightPartThreeOfThree 
 \]
