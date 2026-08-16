@@ -210,6 +210,7 @@ $i \dotcnc Z$ for $\tuple{i} \cnc Z$.
 
 \begin{corollary}
 \llabel{shorteningAtightening}
+\implicitref{shorteningSpecialisationLemma}
 If $F$ is a zigzag and $s$ is a shortening of $F$ at position $i$,
 if $r$ is a restriction idempotent such that $F \cnc r$ is defined
 then $s$ is a shortening of $\tighten{F\cnc r}$ at position $i$.
@@ -217,7 +218,6 @@ then $s$ is a shortening of $\tighten{F\cnc r}$ at position $i$.
 
 \begin{lemma}
 \llabel{lemmaOfThe6thOfJuly}
-\workt{from whiteboard}
 If $s$ is a shortening of a zigzag $Z$  of length $2$
 then
 \begin{enumerate}[(i)]
@@ -448,10 +448,12 @@ Looking at the right hand side, we have
                 } \\
     &= \shorten{Q_1 \cnc Q_2 \cnctail Q_3}{s}{i} 
         && \mbox{\parbox[t]{7cm}
-            because  
-            by lemma 
+            {
+              because  by lemma 
                   \lref{howToTightenAThreefoldConcatenation}
-            $\rng{Q_2} = \rst{Q_3}$ and because the initial element of $Q_3$ is a restriction idempotent since the initial element of $R$ is. 
+              $\rng{Q_2} = \rst{Q_3}$ and because 
+              the initial element of $Q_3$ is a restriction
+              idempotent since the initial element of $R$ is. 
             }
                 }  \\
     &= Q_1 \cnc \shorten{Q_2}{s}{i} \cnc  Q_3
@@ -527,7 +529,9 @@ $shorten(tighten(Z_1 :: shorten(Z_2)))= shorten(tighten(Z_1 :: Z_2)).$
 \begin{proof}
 Since in both (i) and (ii) the innermost shortening is a combination 
 of individual shortenings and since
-it follows by lemma \lref{associativitySublemma} that 
+what used to follows
+ by lemma \lref{associativitySublemma} now follows by a corollary
+ to the lemma \lref{lemmaOfThe6thOfJuly} that 
 each of these individual shortenings can be moved outside of the tightening.
 \end{proof}
 
@@ -544,11 +548,11 @@ Composition, so defined, is associative because:
 \begin{align*}
 F \circ (G \circ H)
   &= shorten(T(F :: shorten(T(G ::H)) && \mbox{definition $\circ$,} \\
-  &= shorten (T(F::T(G::H))) && \mbox{by lemma \ref{deferredShorteningLemma} (i),} \\
-  &= shorten (T(F::G::H))    && \mbox{\parbox[t]{5cm}{see proof of associativity of composition of tight zigzags, section \ref{categorytightzigzags}.}}
+  &= shorten (T(F::T(G::H))) && \mbox{by lemma \lref{deferredShorteningLemma} (i),} \\
+  &= shorten (T(F::G::H))    && \mbox{\parbox[t]{5cm}{see proof of associativity of composition of tight zigzags, section \lref{categorytightzigzags}.}}
 \end{align*}  
 and because, likewise, 
-using lemma \ref{deferredShorteningLemma} (ii),
+using lemma \lref{deferredShorteningLemma} (ii),
 we have also that $(F \circ G) \circ H=shorten (T(F::G::H))$.
 
 \subsection{Sequential Shortening}

@@ -5,6 +5,11 @@
 \include{\sharedmacros/erdiagram}
 \include{\sharedmacros/theorems.macros}
 \include{\sharedmacros/general.macros.v2}
+
+\newcommand{\implicitref}[1]{%
+  \index[lemmas]{#1!implicit use}%
+}
+
 \include{\sharedmacros/diagram.macros}
 \include{\sharedmacros/rangeCategories.macros.tex}
 \usepackage{xparse}
@@ -53,12 +58,39 @@
 \date{}
 \maketitle
 \begin{center}
-Work in progress January 2026 Going on February, March, April.
-Much text regarding failed hom functor idea hived off --- see
-parallel source file whenEverythiingFellApart.
+This has had all my attention  from January 2026 through 
+to August. 
+Today in August  I think I have all the details sorted.
+I had a few expensive false turns including thinking that I could introduce a partial Hom functor. This turned out to be a profunctor or something like and so was abandoned.
+15 August 2026 -- take stock and start tidying.
+
+There is a tension between:
+\begin{itemize}
+\item splitting this paper in two. Having a paper that focusses on 
+categories with supports and cosupports as categories of binary relationships. Writing such categories being saturated (word out of the blue) which is when every binary relationship is a zigzag of deterministic morphisms. Also how every cosupported category can be related to a saturated cosupported category. And so on to make the correspondence between the category theory and data analysis and design methodology.
+\item just getting a paper circulated and on research gate  so that I have shared these ideas.
+\item between these two extremes it is possible to restructure this single paper so that the substance is described and an overview proof is given with detail relegated to later sections.
+Currently the tightening and shortening sections are likely to dishearten the reader. 
+\end{itemize}
+
+Tidying will include
+\begin{itemize}
+ \item Complete the proof of lemma \lref{deferredShorteningLemma}. 
+\item I have some lemmas where paper proofs need inserting.
+\begin{itemize}
+  \item see lemma tighteningCommutesWithComposition
+\end{itemize}
+\item Sort out lref and llabel macros. Make them consistent with
+indexing of lemmas and uses of lemmas so that I can cross check which lemmas actually used and get rid of unused lemmas.
+\begin{itemize}
+  \item introduce a implicitref macro
+\end{itemize}
+\item Move some macros into macros library and move zigzag command tests into notation folder.
+\item Clean up section regarding category of short tight zigzags as a category with supports and cosupports. Make sure this notion is clear and consistent. Check again with Cockett et al.
+\end{itemize}
 \end{center}
 \begin{aside}
-Much text regarding failed hom functor idea hived off --- see
+Much text regarding failed Hom-like functor idea hived off --- see
 parallel whenEverythingFellApart.
 \end{aside}
 \newcommand{\Fquotient}{F/\!\!\sim}  % \! is small negative space
@@ -69,7 +101,6 @@ parallel whenEverythingFellApart.
 \newcommand{\fgsinkdiag}{$\binarysinkdiag{a}{b}{c}{f}{g}$}
 \newcommand{\FGsourcediag}{$\binarysourcediag{a}{b}{c}{F}{G}$}
 \newcommand{\FGsinkdiag}{$\binarysinkdiag{a}{b}{c}{F}{G}$}
-
 
 \newcommand{\cncdot}{\mathbin{\righttherefore}}
 \newcommand{\dotcnc}{\mathbin{\lefttherefore}}
@@ -112,7 +143,6 @@ parallel whenEverythingFellApart.
 
 \tableofcontents
 
-
 \begin{aside}
 I must user the term zigzag throughout and say that in an RR.5 range category every zigzag has a normal form. These normal forms are the 
 short sticklebacks described by Cockett. 
@@ -120,10 +150,10 @@ short sticklebacks described by Cockett.
 It is potentially confusing though because these normal forms are tuples of morphisms 
 of \catcw and these morphisms are generated from the sketch. The morphisms themselves expressed as paths of arrows from the sketch do not in general have normal forms.
 
-$shorten(T(F))$ can be potentially written as $normal(F)$.
+$shorten(T(F))$ can be potentially written as $normalised(F)$.
 \end{aside}
 
-\include{\srcFolder/MToD.rangeCategories.zigzagcommand.tests.tex}
+%\include{\srcFolder/MToD.rangeCategories.zigzagcommand.tests.tex}
 \include{\srcFolder/MToD.rangeCategories.introduction.tex}
 \include{\srcFolder/MToD.rangeCategories.restrictions_and_support.tex}
 \include{\srcFolder/MToD.rangeCategories.ranges_sections_and_weak_range.tex} 
