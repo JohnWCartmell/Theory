@@ -70,6 +70,8 @@ RR.1, then R.2 and then RR.1 again.
 \end{proof}
 \begin{lemma}
 \llabel{fglemma}
+\commentary{Rename this lemma to emphasize to myself that this only need bisupport.}
+In any \textit{bisupport category}
  \begin{enumerate}[(i)]
  \item %(i)
  If \fgsinkdiag in \catcw then
@@ -155,6 +157,7 @@ which we do as follows:
                && \mbox{by R.1, as required.} 
 \end{align*}
 \item %(vi)
+\commentary{\highlight{Can} and must remove use of R.4. (\highlight{EASY})}
 Need show $\rst{f \circ g} \circ \rst{f} = \rst{f \circ g}$
 which we can do as follows
 \begin{align*}
@@ -162,7 +165,7 @@ which we can do as follows
                  &= \rst{\rst{f \circ g} \circ f}
                             && \mbox{by R.3,} \\
                  &= \rst{f \circ \rst{g} } 
-                            && \mbox{by R.4,} \\
+                            && \mbox{by \highlight{R.4},} \\
                  &= \rst{f \circ g}
                             && \mbox{by wR.4.}
 \end{align*}
@@ -181,80 +184,6 @@ which we can do as follows
 \end{proof}
 
 
-\begin{lemma}
-\llabel{tighteningashorteninglemma}
-If 
-$
-% In this array 
-% (i) the \nudgeup is so that space is allocated for the
-% morphisms looping above the real estate of the array
-\begin{array}{c c c c}
-\nudgeup{0.75cm}
-          & \bOb{y} &         & \bOb{z} \\[0.5cm]
-  \bOb{w} &         & \bOb{x} & \\[0.4cm]
-\end{array}
-\begin{arrows}
-\ncarr{w}{y}\alabel{f}
-\ncarr{x}{y}\alabel{g}
-\ncarr{x}{z}\blabel{h}
-\drawMorphismArcing{y}{z}{a}{s}{15}{15}[0.5]
-\ncarrrecursive{w}{w}{270}{0}{5.5}\alabel{\overline{i}} 
-\ncarrrecursive{z}{z}{90}{180}{8.5}\alabel{\overline{j}}  
-\end{arrows} 
-$
-in a range category \catcw and if
-$g \circ s = h$  
-then
-\begin{enumerate}[(i)]
-\item 
-\llabel{tighteningshorteningRightToLeft}
- if $\rng{f}=\rng{g}$ then
-$
-f \circ \rng{\overline{h \circ j} \circ g} \circ s = f \circ s \circ \rst{j},
-$
-\item 
-\llabel{tighteningshorteningLeftToRight}
- if $\rng{f}\leq\rng{g}$ then
-$\rng{\overline{g \circ \rng{\rst{i} \circ f}}\circ h} = \rng{\rst{i} \circ f \circ s}$.
-\end{enumerate}
-\end{lemma}
-\begin{proof}
-\begin{enumerate}[(i)]
-\item
-
-\begin{align*}
-f \circ \rng{\overline{h \circ j} \circ g} \circ s
-   &= f \circ \rng{\overline{g \circ s \circ j} \circ g} \circ s
-                     &&\mbox{substituting $h=g \circ s$, } \\
-   &= f \circ \rng{g \circ  \overline{s \circ j} } \circ s
-                     && \mbox{by R.4}, \\
-   &= f \circ \rng{g} \circ  \overline{s \circ j}  \circ s 
-                     && \mbox{by RR.3}, \\
-   &= f \circ s \circ \rst{j}
-                     && \mbox{because $\rng{f} = \rng{g}$ and by R.4, as required.} 
-\end{align*}
-\item
-
-\begin{align*}
-\rng{\overline{g \circ \rng{\rst{i} \circ f}}\circ h}
-     &= \rng{\overline{g \circ \rng{\rst{i} \circ f}}\circ g \circ s}
-     && \mbox{substituting $h=g \circ s$,} \\ 
-     &= \rng{g \circ \rng{\rst{i} \circ f}\circ s}
-     && \mbox{by R.4 and RR.1,} \\ 
-     &= \rng{\rng{g} \circ \rng{\rst{i} \circ f}\circ s}
-     && \mbox{by RR.4,} \\ 
-     &= \rng{\rng{g} \circ \rng{f} \circ \rng{\rst{i} \circ f}\circ s}
-     && \mbox{by lemma \ref{fglemma} (ii),} \\ 
-     &= \rng{\rng{f} \circ \rng{\rst{i} \circ f}\circ s}
-     && \mbox{from the assumption that $\rng{f} \leq \rng{g}$,}\\
-     &= \rng{\rng{\rst{i} \circ f}\circ s}
-     && \mbox{by lemma \ref{fglemma} (ii),} \\ 
-     &= \rng{\rst{i} \circ f \circ s}
-     && \mbox{by RR.4, as required.}   
-\end{align*}
-\end{enumerate}
-\end{proof}
-\newpage
 \begin{construction}
 \llabel{fghConstruction}
 If 

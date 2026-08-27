@@ -218,24 +218,36 @@ then $s$ is a shortening of $\tighten{F\cnc r}$ at position $i$.
 
 \begin{lemma}
 \llabel{lemmaOfThe6thOfJuly}
-If $s$ is a shortening of a zigzag $Z$  of length $2$
+If $s$ is a shortening 
+of a zigzag $F$  of length $n$
 then
 \begin{enumerate}[(i)]
 \item
- if $j$ is a morphism 
- such that $Z \cncdot j$  is defined
- then $s \circ j$ is a shortening of $Z \cncdot j$ and
+if $j$ is a morphism  such that $F \cnc j$  is defined then
+\begin{itemize}
+\item if $s$ is a shortening at position $i$ for some $i < n$ 
+then $s$ is a shortening of $F \cnc j$ 
+at position $i$ and
  \[
- \shorten{Z \cncdot j}{s \circ j}{1} 
-                       = \shorten{Z}{s}{1} \cncdot j,
+ \shorten{F \cnc j}{s}{i} 
+                       = \shorten{F}{s}{i} \cnc j,
  \] 
- \item
- if $i$ is a restriction idempotent 
- such that $i \dotcnc Z$  is defined
- then $s$ is a shortening of $i \dotcnc Z$ and
+\item
+if $s$ is a shortening at position $n$
+then $s \circ j$ is a shortening of $F \cnc j$ at position $n$
+and
  \[
- \shorten{i \dotcnc Z}{s}{1}
-                        = i \dotcnc \shorten{Z}{s}{1}.
+ \shorten{F \cnc j}{s \circ j}{n} 
+                       = \shorten{F}{s}{n} \cnc j,
+ \] 
+\end{itemize}
+ \item
+ if $i$ is a morphism
+ such that $i \cnc F$  is defined
+ then $s$ is a shortening of $i \cnc F$ and
+ \[
+ \shorten{i \cnc F}{s}{1}
+                        = i \cnc \shorten{F}{s}{1}.
  \] 
 \end{enumerate}
 Note the lack of symmetry between (i) and (ii). 
@@ -244,13 +256,36 @@ Note the lack of symmetry between (i) and (ii).
 Follow directly from the definition of shortening.
 \end{proof}
 
+\begin{corollary}
+\llabel{corollaryOfThe6thJuly}
+\implicitref{lemmaOfThe6thOfJuly}
+If $Z_1$ and $Z_2$ are zigzags such that $Z_1 \cnc Z_2$ 
+is defined then 
+\begin{enumerate}[(i)]
+\item %(i)
+if $s$ is a shortening of $Z_1$
+at some position $i$
+then there exists a shortening $s'$ of $Z_1 \cnc Z_2$
+at position $i$ such that 
+\[
+\shorten{Z_1 \cnc Z_2}{s'}{i} = \shorten{Z_1}{s}{i} \cnc Z_2
+\]
+\item %(ii)
+if $s$ is a shortening of $Z_2$
+at some position $i$ and $Z_1$ is of length $n$
+then $s$ is a shortening  $Z_1 \cnc Z_2$
+at position $n + i -1$ such that 
+\[
+\shorten{Z_1 \cnc Z_2}{s}{n + i -1} = Z_1 \cnc \shorten{Z_2}{s}{i}
+\]
+\end{enumerate}
+\end{corollary}
+
 \begin{aside}
 If I talk about shortening then the context
 needs to be \highlight{RR.5} range category.
 \end{aside}
 
-
-From this lemma we can see that if a zigzag $F$ shortens then $T(F)$ shortens.
 
 %zigzagIsolationTailTuple{f}{i}{n}
 \newcommand{\zigzagIsolationTailTuple}[3]
@@ -518,42 +553,44 @@ shortening of the tightening.
 \begin{lemma}
 \llabel{deferredShorteningLemma}
 If $Z_1$, $Z_2$ are tight zigzags in
-\newt{an RR.5 range category} such that the composition $Z_1 :: Z_2$ is defined then
+\newt{an RR.5 range category} such that the composition $Z_1 \cnc Z_2$ is defined then
 \begin{enumerate}[(i)]
 \item 
-$shorten(tighten(shorten(Z_1) :: Z_2))= shorten(tighten(Z_1 :: Z_2)).$
+$shorten(tighten(shorten(Z_1) \cnc Z_2))= shorten(tighten(Z_1 \cnc Z_2)).$
 \item
-$shorten(tighten(Z_1 :: shorten(Z_2)))= shorten(tighten(Z_1 :: Z_2)).$
+$shorten(tighten(Z_1 \cnc shorten(Z_2)))= shorten(tighten(Z_1 \cnc Z_2)).$
 \end{enumerate}
 \end{lemma}
 \begin{proof}
-Since in both (i) and (ii) the innermost shortening is a combination 
-of individual shortenings and since
-what used to follows
- by lemma \lref{associativitySublemma} now follows by a corollary
- to the lemma \lref{lemmaOfThe6thOfJuly} that 
-each of these individual shortenings can be moved outside of the tightening.
+In the left hand sides of both (i) and (ii) 
+the innermost shortening is a combination of individual shortenings
+and it follows by  corollary \lref{corollaryOfThe6thJuly}
+and by lemma \lref{TSExtractionLemma}
+that each of these individual shortenings can be moved outside
+of the tightening. 
+From there they are effected by the outermost shortening. 
+Hence result.
 \end{proof}
 
 \subsection{The category of short sticklebacks}
 
-If \catcw is an RR.5 range catgeory then
+If \catcw is an RR.5 range category then
  there is a category of short sticklebacks over \catc, which we denote
  $\Stk$.
 Composition of short sticklebacks is defined by
 \[
-F \circ G = shorten(T(F::G)) 
+F \circ G = shorten(T(F\cnc G)) 
 \]
 Composition, so defined, is associative because:
 \begin{align*}
 F \circ (G \circ H)
-  &= shorten(T(F :: shorten(T(G ::H)) && \mbox{definition $\circ$,} \\
-  &= shorten (T(F::T(G::H))) && \mbox{by lemma \lref{deferredShorteningLemma} (i),} \\
-  &= shorten (T(F::G::H))    && \mbox{\parbox[t]{5cm}{see proof of associativity of composition of tight zigzags, section \lref{categorytightzigzags}.}}
+  &= shorten(T(F \cnc shorten(T(G \cnc H)) && \mbox{definition $\circ$,} \\
+  &= shorten (T(F\cnc T(G\cnc H))) && \mbox{by lemma \lref{deferredShorteningLemma} (i),} \\
+  &= shorten (T(F\cnc G\cnc H))    && \mbox{\parbox[t]{5cm}{see proof of associativity of composition of tight zigzags, section \lref{categorytightzigzags}.}}
 \end{align*}  
 and because, likewise, 
 using lemma \lref{deferredShorteningLemma} (ii),
-we have also that $(F \circ G) \circ H=shorten (T(F::G::H))$.
+we have also that $(F \circ G) \circ H=shorten (T(F \cnc G \cnc H))$.
 
 \subsection{Sequential Shortening}
 \begin{lemma}
