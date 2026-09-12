@@ -1,0 +1,657 @@
+\section{Zigzags and Shortening}
+
+\subsection{Shortening and Short Sticklebacks}
+
+If $F=\zigzagTuple{f}{n}$ is a zigzag and 
+if for some $i$,
+$1 \leq i \leq n-1$,
+there is a morphism
+$s$ such that $f'_i \circ s = f_{i+1}$ so that the triangle in 
+\[
+\zigzagShortenable{x}{y}{f}{n}{i}{s}
+\]
+commutes then the zigzag 
+\[
+\arraycolsep=7pt
+\zigzagShortened{x}{y}{f}{n}{i}{s}
+\]
+is said to be a \textit{shortening} of $F$ and is said to be \textit{at position i of F}.
+
+\newcommand{\rngTightener}[2]
+    {
+          \rng{
+                \rst{#1_{#2+1}} \circ #1'_{#2}
+               }            
+    }
+
+\newcommand{\rngTightenerOne}[1]
+    {
+          \rng{
+                \rst{#1_{2}} \circ #1'_{1}
+               }            
+    }
+
+\newcommand{ \rstTightener}[2]
+    {
+          \rst{
+                #1'_{#2} \circ \rng{#1_{#2}}  
+               }
+    } 
+\begin{notebox}[Change to the above June 24 2026]
+Change the above. If $F$ is \emph{not} tight
+then need the shortening to be not $f_i \circ s$ as is shown in the diagram but to be \oldt{$f_i \circ \rngTightener{f}{i} \circ s$}  
+\newt{$f_i \circ \rng{f'_i} \circ s$}.
+\end{notebox}
+
+\begin{observation}
+\llabel{shorteningATightZigzagObservation}
+If $F$ is tight then in the shortening the
+morphism $f_i \circ \rng{f'_i} \circ s$ simplifies to $f_i \circ s$.
+\end{observation}
+Significantly, the shortening of a tight zigzag is  tight.
+It is easy to check this.
+
+
+Cockett shows that if the category \catcw is a range category
+satisfying the addition condition RR.5 then every tight
+zigzag of morphisms in \catcw has a unique shortening. 
+
+A stickleback which cannot be shortened is said to be
+a \textit{short stickleback}.
+
+\begin{lemma}
+\llabel{secondShorteningCharacterisationLemma}
+\end{lemma}
+If $Z$ is a zigzag of length $2$ and $s$ is a shortening of $Z$
+as shown here
+\[
+\zigzagTwo{x}{y}{z}
+\begin{arrows}
+\ncarr[15]{y1}{y2} \alabel{s}
+\end{arrows}
+\]
+then
+\begin{enumerate}[(i)]
+\item 
+$\shorten{\tighten{Z}}{s}{1} = \shorten{Z}{s}{1}$
+\item 
+$\abrst{Z} = \rst{\shorten{Z}{s}{i}}$ 
+\item
+$\abrng{Z} = \rng{\shorten{Z}{s}{i}}$ 
+\end{enumerate}
+\begin{proof}
+By definition, the shortening of $Z$
+is the singleton zigzag
+$\tuple{z_1 \circ \rng{z'_1} \circ s}$.
+
+On the otherhand, from  lemma \lref{howToTighteningaZigZagOfLengthTwo}
+the tightening $\tighten{Z}$ is the zigzag
+$\tuple{ \twoTighteningOne{z},\,\twoTighteningTwo{z},\,\twoTighteningThree{z}}$.
+From observation \lref{shorteningATightZigzagObservation}
+it then follows that the shortening $\shorten{\tighten{Z}}{s}{i}$
+is the singleton zigzag $\tuple{\twoTighteningOne{z} \circ s}$.
+\begin{enumerate}[(i)]
+\item %{i}
+Since $z_1 \circ \rng{\rst{z_2} \circ z'_1} \circ s$ 
+simplifies to $z_1 \circ \rng{z'_1} \circ s$ as follows
+\begin{align*}
+ z_1 \circ \rng{\rst{z_2} \circ z'_1} \circ s
+           &= z_1 \circ \rng{\rst{z'_1 \circ s} \circ z'_1} \circ s
+           && \mbox{substituting $z'_1 \circ s$ for $z_2$,} \\
+           &= z_1 \circ \rng{z'_1 \circ \rst{s}} \circ s 
+           && \mbox{by R.4,} \\
+           &= z_1 \circ \rng{z'_1} \circ \rst{s} \circ s
+           && \mbox{by RR.3,} \\
+           &= z_1 \circ \rng{z'_1} \circ s
+           && \mbox{by R.1z} 
+\end{align*}
+then we have
+\begin{align*}
+\tighten{\shorten{Z}{s}{i}}
+            &= \tuple{ z_1 \circ \rng{z'_1} \circ s } \\
+            &= \tuple{
+                       z_1 \circ \rng{\rst{z_2} \circ z'_1} \circ s
+                     } \\
+            &= \shorten{\tighten{Z}}{s}{i} &&\mbox{as required.}
+\end{align*}  
+\item %(ii)
+We need to show that 
+$\rst{z_1 \circ \rng{z'_1} \circ s}= \rst{z_1 \circ \rngTightenerOne{z}}$.
+First we show that 
+$\rst{\rng{z'_1} \circ s}=\rst{\rngTightenerOne{z}}$
+as follows
+\begin{align*}
+\rst{\rng{z'_1} \circ s} 
+    &= \rst{\rng{z'_1} \circ \rst{s}} && \mbox{wR.4}\\
+    &= \rst{ \rng{ z'_1 \circ \rst{s} } }
+                                      && \mbox{RR.3} \\
+    &= \rst{ \rng{ \rst{z'_1 \circ s} \circ z'_1 } }
+                                      && \mbox{R.4} \\
+        &= \rst{ \rng{ \rst{z_2} \circ z'_1 } }
+                        && \parbox[t]{5cm}{from the initial assumption 
+                        $z'_1 \circ s = z_2$.} 
+\end{align*}
+Now using this we get
+\begin{align*}
+\rst{z_1 \circ \rng{z'_1} \circ s} 
+                &=\rst{z_1 \circ \rst{\rng{z'_1} \circ s}} 
+                &&\mbox{by wR.4,}\\
+                &=\rst{z_1 \circ \rst{\rngTightenerOne{z}}}
+                && \mbox{as shown above,}\\
+                &= \rst{z_1 \circ \rngTightenerOne{z}}
+                &&\mbox{by wR.4.}
+\end{align*}
+
+\item %(iii)
+We need to show that 
+$\rng{z_1 \circ \rng{z'_1} \circ s} 
+     =\rng{\rstTightener{z}{1} \circ z_2}$ 
+which we can do as follows
+\begin{align*}
+\rng{z_1 \circ \rng{z'_1} \circ s} &= \rng{z_1 \circ \rng{z'_1} \circ s}\\
+         &= \rng{z'_1 \circ \rng{z_1} \circ s}
+            && \mbox{by lemma \lref{fglemma} (vii),}\\
+         &= \rng{z'_1 \circ \rst{\rng{z_1}} \circ s}
+            && \mbox{by RR.1,}\\
+         &= \rng{
+                    \rstTightener{z}{1}
+                    \circ z'_1 \circ s
+                 }
+            &&\mbox{by R.4,}\\
+         &= \rng{\rstTightener{z}{1} \circ z_2 }
+            &&\parbox[t]{5cm}{from the initial assumption  $z'_1 \circ s = z_2$.} 
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+\subsection{Prelude to a category of short zigzags}
+
+In what follows lemma 
+\lref{deferredShorteningLemma}
+describes the interaction of shortening and tightening 
+and is the key to showing that there is a category of short sticklebacks. Before we get to this lemma we have a series of
+subordinate lemmas that are required for its proof. 
+ 
+\begin{lemma}
+\llabel{shorteningSpecialisationLemma}
+In any restriction category \catcw, 
+if $f' \leq g'$ and $f \leq g$ then if  
+$\nudgeup{1.5cm} % moves the triangle down to make room for arc
+\downTriangleShape{x_i}{y_{i-1}}{y_i}
+\downToLeft{g'}[0.6]
+\downToRight{g}
+\leftToRightArcing[a]{s}{30}{30} 
+$ commutes 
+and $\rst{f}=\rst{f'}$ then
+$\downTriangleShape{x_i}{y_{i-1}}{y_i}
+\downToLeft{f'}[0.6]
+\downToRight{f}
+\leftToRightArcing[a]{s}{30}{30} 
+$ commutes.
+\end{lemma}
+\begin{proof}
+\begin{align}
+f' \circ s 
+   &= \rst{f'} \circ g'\circ s 
+       && \mbox{because $f' \leq g'$,}\\
+   &= \rst{f} \circ g 
+   && \mbox{since $\rst{f'}=\rst{f}$ 
+              and $g' \circ s = g$, }\\
+   &= f
+   &&\mbox{since $f \leq g$}
+\end{align}
+\end{proof}
+
+
+For convenience, 
+whenever the concatenations are defined, we write
+$Z \cncdot j$ for $Z \cnc \tuple{j}$ and
+$i \dotcnc Z$ for $\tuple{i} \cnc Z$.
+
+\begin{corollary}
+\llabel{shorteningAtightening}
+\implicitref{shorteningSpecialisationLemma}
+If $F$ is a zigzag and $s$ is a shortening of $F$ at position $i$,
+if $r$ is a restriction idempotent such that $F \cnc r$ is defined
+then $s$ is a shortening of $\tighten{F\cnc r}$ at position $i$.
+\end{corollary}
+
+\begin{lemma}
+\llabel{lemmaOfThe6thOfJuly}
+If $s$ is a shortening 
+of a zigzag $F$  of length $n$
+then
+\begin{enumerate}[(i)]
+\item
+if $j$ is a morphism  such that $F \cnc j$  is defined then
+\begin{itemize}
+\item if $s$ is a shortening at position $i$ for some $i < n$ 
+then $s$ is a shortening of $F \cnc j$ 
+at position $i$ and
+ \[
+ \shorten{F \cnc j}{s}{i} 
+                       = \shorten{F}{s}{i} \cnc j,
+ \] 
+\item
+if $s$ is a shortening at position $n$
+then $s \circ j$ is a shortening of $F \cnc j$ at position $n$
+and
+ \[
+ \shorten{F \cnc j}{s \circ j}{n} 
+                       = \shorten{F}{s}{n} \cnc j,
+ \] 
+\end{itemize}
+ \item
+ if $i$ is a morphism
+ such that $i \cnc F$  is defined
+ then $s$ is a shortening of $i \cnc F$ and
+ \[
+ \shorten{i \cnc F}{s}{1}
+                        = i \cnc \shorten{F}{s}{1}.
+ \] 
+\end{enumerate}
+Note the lack of symmetry between (i) and (ii). 
+\end{lemma}
+\begin{proof}
+Follow directly from the definition of shortening.
+\end{proof}
+
+\begin{corollary}
+\llabel{corollaryOfThe6thJuly}
+\implicitref{lemmaOfThe6thOfJuly}
+If $Z_1$ and $Z_2$ are zigzags such that $Z_1 \cnc Z_2$ 
+is defined then 
+\begin{enumerate}[(i)]
+\item %(i)
+if $s$ is a shortening of $Z_1$
+at some position $i$
+then there exists a shortening $s'$ of $Z_1 \cnc Z_2$
+at position $i$ such that 
+\[
+\shorten{Z_1 \cnc Z_2}{s'}{i} = \shorten{Z_1}{s}{i} \cnc Z_2
+\]
+\item %(ii)
+if $s$ is a shortening of $Z_2$
+at some position $i$ and $Z_1$ is of length $n$
+then $s$ is a shortening  $Z_1 \cnc Z_2$
+at position $n + i -1$ such that 
+\[
+\shorten{Z_1 \cnc Z_2}{s}{n + i -1} = Z_1 \cnc \shorten{Z_2}{s}{i}
+\]
+\end{enumerate}
+\end{corollary}
+
+\begin{aside}
+If I talk about shortening then the context
+needs to be \highlight{RR.5} range category.
+\end{aside}
+
+
+%zigzagIsolationTailTuple{f}{i}{n}
+\newcommand{\zigzagIsolationTailTuple}[3]
+{
+\tuple{\rng{#1_{#2+1}},#1'_{#2+1},...#1'_{#3-1},#1_{#3}} 
+}
+\begin{newtt}
+We use the symbol $\cnc$ to denote concatenation of zigzags. The three dots are arranged along the same rising diagonal as the morphisms in our diagrams. 
+
+Now suppose $F$ is a zigzag of length $n$, if we denote the final element of $F$ by $f_n$ and the initial element of
+$G$ as $g_1$ then in the special case that $g_1$ is a restriction 
+idempotent and  $\rng{f_n}=g_1$ then the concatenation
+$F \cnc G$ doesn't depend on the inital element of $G$ and the n'th
+forward element of the concatenation is $f_n$. To
+document this special case then we introduce a new operator.
+We say that $F \cnctail G$ is defined iff 
+both $F \cnc G$ is defined and  $g_1 = \rng{f_n}$.
+\end{newtt}
+
+The significance of the notation in what follows is based
+on the following observation
+\begin{observation}
+\llabel{isolationOfshorteningObservation}
+
+If $F$, $Z$ and $G$ are zigzags such that 
+$F \cnc Z \cnctail G$ is defined, If $F$ is of length $n$
+and if $s$ is a shortening of $F \cnc Z \cnctail G$ at
+position $n$ then 
+\[
+\shorten{F \cnc Z \cnctail G}{s}{i} 
+   = F \cnc \shorten{Z}{s}{i} \cnc G
+\]
+\end{observation}
+
+\begin{lemma}
+\llabel{isolationOfShortening}
+If $F= \zigzagTuple{f}{n}$ is a zigzag and if $i$ indexes a zag
+with $F$, i.e. if $1 \leq i \leq n$, then
+ 
+\begin{enumerate}[(i)]
+\item if we define zigzags $L$ of length $i$, $Z$ of length $2$ and $R$ of length $n-i-1$ as follows
+\begin{align*}
+L &= \zigzagTuple{f}{i} \\
+Z &= \tuple {\rng{f_i}, f'_i, f_{i+1}} \\
+R &= \zigzagIsolationTailTuple{f}{i}{n}
+\end{align*}
+then $L \cnc Z \cnctail R$ is defined and
+\[
+F = L \cnc Z \cnctail R
+\]
+\item if $s$ is a shortening of $F$ at position $i$
+then $s$ is a shortening of $Z$ at position $1$ 
+and
+\[
+\shorten{F}{s}{i} = L \cnc \shorten{Z}{s}{1} \cnc R
+\]
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}[(i)]
+\item
+It follows directly (from the definitions) that left hand side and right hand side agree except possibly in 
+their i'th forward facing elements.
+The i'th forward element in the left side, $\shorten{F}{s}{i}$,
+is defined to be 
+$f_i \circ \rng{f'_i} \circ s$. 
+On the other hand the 
+corresponding element of the right hand side is
+$L \cnc \tuple{\rng{f_i} \circ \rng{f'_i} \circ s} \cnc R$ which
+is $f_i \circ (\rng{f_i} \circ \rng{f'_i} \circ s) \circ \rng{f_{i+1}}$
+which, after removing parentheses, we can  show to be identical as follows:
+\begin{align*}
+f_i \circ \rng{f_i} \circ \rng{f'_i} \circ s \circ \rng{f_{i+1}}
+&= f_i  \circ \rng{f'_i} \circ s \circ \rng{f_{i+1}} &&\mbox{by RR.2,}\\
+&= f_i \circ \rng{f'_i} \circ s \circ \rng{f'_i \circ s} 
+           &&\mbox{since $f_{i+1} = f'_i \circ s$,}           \\
+&= f_i \circ \rng{f'_i} \circ s \circ \rng{\rng{f'_i} \circ s} 
+           &&\mbox{by RR.4,}                                  \\
+&= f_i \circ \rng{f'_i} \circ s
+           && \mbox{by RR.2.}
+\end{align*}
+\item %(ii)
+This is just an application of observation \lref{isolationOfshorteningObservation}.
+\end{enumerate}
+\end{proof}
+
+The concatenation of zigzags in the above lemma has a significant feature
+
+\begin{aside}
+The decomposition above can be written
+\[
+F = L \cnc Z \cnctail R
+\]
+Point (ii) above can be extracted as a separate observation
+llabel {isolationOfShortening Two} along the lines that for any zigzags F, Z and R such that 
+$F \cnc Z \cnctail R$ is defined. $F$ of length $i$
+\[
+\shorten{F \cnc Z \cnctail R}{s}{i}
+     = F \cnc \shorten{Z}{s}{1} \cnc R
+\] 
+\end{aside}
+
+This is the key construction used in the proof of the following:
+\begin{lemma}
+\llabel{TSExtractionLemma}
+If $F$ is a zigzag and $s$ is a shortening of $F$ at a position $i$ then
+\[
+\tighten{\shorten{F}{s}{i}} = \shorten{\tighten{F}}{s}{i}
+\]
+\end{lemma}
+\begin{proof}
+\commentary{Using abbreviated notation where we write 
+               such as $Z_1 \cnc \rst{Z_2}$  for what,
+            strictly, should be $Z_1 \cnc \tuple{\rstdot{Z_2}}$.}
+We use the construction just given so that we have
+\[
+F = L \cnc Z \cnc R
+\]
+where 
+$Z$ is of length $2$ and where $L$ and $R$ are zigzags of length 
+$\geq 1$, and $s$ is a shortening of $Z$.
+
+\newcommand{\sZ}{\shorten{Z}{s}{1}}
+\newcommand{\tL}{\tighten{L}}
+\newcommand{\tR}{\tighten{R}}
+\newcommand {\leftPartOneOfThree}
+{
+    \tighten{L 
+             \cnc
+             \rst{\sZ \cnc r}
+             }
+}
+\newcommand {\leftPartTwoOfThree}
+{
+    l \cnc \sZ \cnc r
+}
+\newcommand {\leftPartThreeOfThree}
+{
+    \tighten{\rng{l \cnc \sZ}
+             \cnc
+             R
+            }
+}
+
+
+We consider each side of the target identity. For the left hand side we have
+\begin{align*}
+\tighten{\shorten{F}{s}{i}} 
+    &= \tighten{\shorten{L \cnc Z \cnc R}{s}{i}} \\
+    &= \tighten{L \cnc \sZ \cnc R} 
+       &&\mbox{by lemma \lref{isolationOfShortening},}\\
+    &= P_1 \cnc P_2 \cnctail P_3
+       && \mbox{\parbox[t]{7cm}
+            {
+          by lemma \lref{howToTightenAThreefoldConcatenation},
+          where $\begin{aligned}[t]
+                   P_1 &=  \leftPartOneOfThree\\
+                   P_2 &=  \leftPartTwoOfThree\\
+                   P_3 &=  \leftPartThreeOfThree \\
+                       &  \text{where $l = \rng{\tL}$    
+                                        and $r = \rst{\tR}$.}
+                  \end{aligned}$ 
+           }
+              }
+\end{align*}
+
+
+\newcommand{\ZZL}{\tighten{Z \cnc r}}
+\newcommand{\ZZ} {\tighten{l\cnc Z \cnc r }}
+\newcommand{\ZZR}{\tighten{l \cnc Z}}
+
+\newcommand{\rightPartOneOfThree}
+                 {\tighten{L \cnc \rst{\ZZL}}}
+\newcommand{\rightPartTwoOfThree}
+                 {\shorten{\ZZ}{s \circ r }{i}}
+\newcommand{\rightPartThreeOfThree}
+                 {\tighten{\rng{\ZZR} \cnc R}}
+
+Looking at the right hand side, we have 
+\begin{align*}
+\shorten{\tighten{F}}{s}{i}
+   &= \shorten{\tighten{L \cnc Z \cnc R}}
+                {s}{i} \\
+   &= \shorten{Q_1 \cnc Q_2 \cnc Q_3}{s}{i} 
+       && \mbox{\parbox[t]{7cm}
+                {
+                  by lemma 
+                  \lref{howToTightenAThreefoldConcatenation},
+                  where, using the idempotents $l$ and $r$
+                   as defined above, we define
+                   $Q_1= \rightPartOneOfThree$\\
+                  $Q_2=\ZZ$\\
+                  and $Q_3=\rightPartThreeOfThree$,
+                }
+                } \\
+    &= \shorten{Q_1 \cnc Q_2 \cnctail Q_3}{s}{i} 
+        && \mbox{\parbox[t]{7cm}
+            {
+              because  by lemma 
+                  \lref{howToTightenAThreefoldConcatenation}
+              $\rng{Q_2} = \rst{Q_3}$ and because 
+              the initial element of $Q_3$ is a restriction
+              idempotent since the initial element of $R$ is. 
+            }
+                }  \\
+    &= Q_1 \cnc \shorten{Q_2}{s}{i} \cnc  Q_3
+        && \mbox{
+            by observation \lref{isolationOfshorteningObservation}.
+                } 
+\end{align*}
+
+We can complete the proof by proving the three identities
+corresponding to $P_1 = Q_1$,
+$P_2=\shorten{Q_2}{s}{i}$ and $P_3=Q_3$.
+
+The first of these is
+\[
+\leftPartOneOfThree = \rightPartOneOfThree 
+\]
+this follows because by lemma \lref{lemmaOfThe6thOfJuly}(i):
+\[
+\shorten{Z}{s}{1} \cnc r = \shorten{Z \cnc r}{s \circ r}{1} 
+\]
+and because by lemma \lref{secondShorteningCharacterisationLemma}(ii)
+\[
+\rst{\shorten{Z \cnc r}{s \circ r}{1}} =  \rst{\tighten{Z \cnc r}} 
+\]
+\workt{CHECK THIS}\workt{\raisebox{0.5cm}{$\Uparrow$}}.
+
+The second of these identities is 
+\[
+\leftPartTwoOfThree  = \shorten{\ZZ}{s}{i}.
+\]
+To see that this is the case, consider the right hand side,
+$\shorten{\ZZ}{s}{i}$, which is defined, as we have seen, 
+since $s$ is a shortening of $\ZZ$. But also consider that
+$s$ is a shortening of $Z$ and therefore 
+$s \circ r$ is a shortening of $l \cnc Z \cnc r$ and therefore
+$s \circ r$ is a shortening of $\ZZ$. 
+Both $s$ and $s \circ r$ are shortenings of $\ZZ$ and because
+because shortenings are unique (lemma ???) we have
+shortening of $\ZZ$ by $s$ and shortening of $\ZZ$ by $s \circ r$ 
+are identical. 
+But by lemma \lref{lemmaOfThe6thOfJuly} this shortening by 
+$s \circ r$ is identical to $\leftPartTwoOfThree$ and so we arrive at
+the second identity.
+
+The third identity we need to to prove is
+\[
+\leftPartThreeOfThree = \rightPartThreeOfThree 
+\]
+which follows because by lemma \lref{lemmaOfThe6thOfJuly}(ii):
+\[
+l \cnc \shorten{Z}{s}{1} = \shorten{l \cnc  Z}{s}{1} 
+\]
+and because by lemma \lref{secondShorteningCharacterisationLemma}(iii)
+\[
+\rng{\shorten{l \cnc  Z}{s}{1}} =  \rng{\tighten{l \cnc  Z}} 
+\]
+\end{proof}
+\begin{aside}
+The following lemma suggests that the normal form for a zigzag is the
+shortening of the tightening.
+\end{aside}
+\begin{lemma}
+\llabel{deferredShorteningLemma}
+If $Z_1$, $Z_2$ are tight zigzags in
+\newt{an RR.5 range category} such that the composition $Z_1 \cnc Z_2$ is defined then
+\begin{enumerate}[(i)]
+\item 
+$shorten(tighten(shorten(Z_1) \cnc Z_2))= shorten(tighten(Z_1 \cnc Z_2)).$
+\item
+$shorten(tighten(Z_1 \cnc shorten(Z_2)))= shorten(tighten(Z_1 \cnc Z_2)).$
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+In the left hand sides of both (i) and (ii) 
+the innermost shortening is a combination of individual shortenings
+and it follows by  corollary \lref{corollaryOfThe6thJuly}
+and by lemma \lref{TSExtractionLemma}
+that each of these individual shortenings can be moved outside
+of the tightening. 
+From there they are effected by the outermost shortening. 
+Hence result.
+\end{proof}
+
+\subsection{The category of short sticklebacks}
+
+If \catcw is an RR.5 range category then
+ there is a category of short sticklebacks over \catc, which we denote
+ $\Stk$.
+Composition of short sticklebacks is defined by
+\[
+F \circ G = shorten(T(F\cnc G)) 
+\]
+Composition, so defined, is associative because:
+\begin{align*}
+F \circ (G \circ H)
+  &= shorten(T(F \cnc shorten(T(G \cnc H)) && \mbox{definition $\circ$,} \\
+  &= shorten (T(F\cnc T(G\cnc H))) && \mbox{by lemma \lref{deferredShorteningLemma} (i),} \\
+  &= shorten (T(F\cnc G\cnc H))    && \mbox{\parbox[t]{5cm}{see proof of associativity of composition of tight zigzags, section \lref{categorytightzigzags}.}}
+\end{align*}  
+and because, likewise, 
+using lemma \lref{deferredShorteningLemma} (ii),
+we have also that $(F \circ G) \circ H=shorten (T(F \cnc G \cnc H))$.
+
+\subsection{Sequential Shortening}
+\begin{lemma}
+\llabel{sequentialShorteningLemma}
+If $F=\zigzagTuple{f}{n}:x_1 \morph y_n$ 
+is a tight stickleback in \highlight{an RR.5 range category} \catcw
+and if $F$ shortens to a zigzag $\tuple{f}$ for some
+morphism $f:x_1 \morph y_n$ in \catcw then  there
+is a sequence of morphisms $s_1,...s_{n-1}$,
+$s_i: y_i \morph y_n$ in \catcw
+such that all diagrams in 
+\commentary{Improve the diagramming at a later date}
+\[
+%\arraycolsep=12pt
+\zigzagSequentialShortening{x}{y}{f}{n}{x}{g}{h}{s}
+\]
+
+commute i.e. such that
+\[
+f_1 \circ s_1 =f
+\]
+and \foreachi[n-2], 
+\[
+f'_i \circ s_i =  f_{i+1} \circ s_{i+1}
+\] 
+and
+\[
+f'_{n-1} \circ s_{n-1} = f_n 
+\]
+\end{lemma}
+\begin{proof}
+For any series of shortenings of $F$ to a single morphism one of this set must shorten the triangle the final zag in F i.e. 
+there must be a morphism $s_{n-1}:y_{n-1} \morph y_n$
+such that the triangle 
+$\nudgeup{1.5cm}\downTriangleShape{x_n}{y_{n-1}}{y_n}
+\downToLeft{g'}[0.6]
+\downToRight{g}
+\leftToRightArcing[a]{s}{30}{30} 
+$ 
+commutes. 
+Since shortenings can be applied in any order this shortening can be applied first and the resulting zigzag 
+$\tuple{f_1,f'_1,...f_{n-2}, f_{n-1} \circ s_{n-1}}$
+must then shorten to the morphism $f$. 
+Repeating the argument we get a morphism $s_{n-2}$
+such that 
+$
+\begin{array}{c  c c}
+&\Ob{y}{n}&               \\[0.5cm]
+\Obpp{y}{n} && \Obp{y}{n} \\[0.5cm]
+& \Obp{x}{n}
+\end{array}
+\begin{arrows}
+\ncarr{ynpp}{yn}\alabel{s_{n-2}}
+\ncarr{ynp}{yn}\blabel{s_{n-1}}
+\ncarr{xnp}{ynpp}\alabel{f'_{n-2}}
+\ncarr{xnp}{ynp}\blabel{f_{n-1}}
+\end{arrows}
+$
+commutes and shorten $F$ to a zigzag
+$\tuple{f_1,f'_1,...f_{n-3}, f_{n-2} \circ s_{n-2}}$
+By iteration we arrive
+at morphisms $s_1,...s_{n-1}$ which shorten $F$ to a singleton (and therefore short) zigzag $\tuple{f_1 \circ s_1}$. But since the shortening of a tight zigzag is unique 
+we must have $f_1 \circ s_1=f$.
+\end{proof}

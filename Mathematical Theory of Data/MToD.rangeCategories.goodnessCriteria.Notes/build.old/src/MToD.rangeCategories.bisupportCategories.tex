@@ -1,0 +1,238 @@
+\section{Bisupport Categories}
+
+\begin{definition}[Bisupport category]
+A \term{bisupport category} is a category $\catc$ equipped, for each
+morphism $f:a\morph b$, with morphisms
+\[
+\rst{f}:a\morph a
+\qquad\text{and}\qquad
+\rng{f}:b\morph b,
+\]
+called respectively the \term{support} and \term{cosupport} of $f$.
+
+It is defined so that support and cosupport are duals of one another. 
+The support operator satisfies the following axioms.
+
+\noindent [S.1]\quad
+If $f : a \morph b$, then
+\[
+\rst{f}\circ f=f.
+\]
+
+\noindent [S.2]\quad
+If \fgsourcediag in $\catc$, then
+\[
+\rst{g}\circ\rst{f} =\rst{f}\circ\rst{g}.
+\]
+
+\noindent [S.3]\quad
+If \fgsourcediag in $\catc$, then
+\[
+\rst{\rst{f}\circ g} = \rst{f}\circ\rst{g}.
+\]
+
+\noindent [S.4]\quad
+If $\sequentialdiag{a}{b}{c}{f}{g}$ in $\catc$, then
+\[
+\rst{f\circ g} = \rst{f\circ\rst{g}}.
+\]
+
+The cosupport operator satisfies the duals to these axioms which we denote by $\mathrm{C}.1$--$\mathrm{C}.4$.
+Thus, explicitly,
+
+\noindent [C.1]\quad
+If $f : a \morph b$, then
+\[
+f\circ\rng{f} = f.
+\]
+
+\noindent [C.2]\quad
+If \fgsinkdiag in $\catc$, then
+\[
+\rng{f}\circ\rng{g}
+=
+\rng{g}\circ\rng{f}.
+\]
+
+\noindent [C.3]\quad
+If \fgsinkdiag in $\catc$, then
+\[
+\rng{\rng{g}\circ f} = \rng{g}\circ\rng{f}.
+\]
+
+\noindent [C.4]\quad
+If $\sequentialdiag{a}{b}{c}{f}{g}$ in $\catc$, then
+\[
+\rng{f\circ g} = \rng{\rng{f}\circ g}.
+\]
+
+Finally, support and cosupport satisfy the compatibility conditions for any morphism $f$
+
+\noindent [SC (i)]
+\[
+\rst{\rng{f}}=\rng{f},
+\]
+
+\noindent [SC (ii)]
+\[
+\rng{\rst{f}}=\rst{f}.
+\]
+
+The duality is maintained by these two compatibility conditions because they are dual to one another.
+\end{definition}
+
+With bisupport defined in this way then the opposite category $\catc^op$
+of a category \catcw is also a bisupport category if we switch the operators. Because of the duality, to each property of a bisupport category, there is a dual property which is established, free of charge, by the duality. 
+
+\begin{definition} 
+A compatible converse operation for a bisupport category \catcw is
+an operation \converseItself such that if $f: a \morph b$ in \catcw
+then $\converse{f} : b \morph a$ and satisfying:
+\noindent [K.1]\quad
+\[
+\converse{\converse{f}}=f.
+\]
+
+\noindent [K.2]\quad
+If $\sequentialdiag{a}{b}{c}{f}{g}$ in $\catc$, then
+\[
+\converse{(f\circ g)}
+=
+\converse{g}\circ\converse{f}.
+\]
+
+\noindent [K.3]\quad
+For any morphism $f$,
+\[
+\rst{\converse{f}}=\rng{f}.
+\]
+\end{definition}
+
+
+\begin{lemma}{Should be true.}
+The category of tight zigzags is a bisupport category with compatible converse.
+\end{lemma}
+
+\begin{lemma}\commentary{\highlight{QUESTION}}
+The category of tight zigzags over a bisupport category \catcw is the 
+free bisupport category with converse over the bisupport category\catc. 
+\end{lemma}
+
+\subsection{Lemma that helps explain shortening}
+In this lemma the morphism $s$ is a shortening.
+\begin{lemma}
+If \catbw is a bisupport category with compatible converse
+then for all morphisms $f$, $g$ and $s$ in \catbw 
+such that the following diagram commutes
+\[
+\downTriangleShape{x}{y_1}{y_2}
+\begin{arrows}
+\drawMorphism{left}{right}{a}{s}
+\drawMorphism{down}{left}{a}{f}
+\drawMorphism{down}{right}{b}{g}
+\end{arrows}
+\]
+then if the determinancy condition D.2 holds of $f$ then 
+\[
+\converse{f} \circ g = \rng{f} \circ s. 
+\]
+\end{lemma}
+\begin{proof}
+whiteboard
+\end{proof}
+
+
+\subsection{Functionally-aware bisupport category}
+\begin{definition}[Functionally-aware bisupport category]
+A \term{function-aware bisupport category} is a bisupport
+category $\catc$ together with a distinguished class of morphisms.
+The distinguished morphisms form a wide subcategory $\catd\subseteq\catc$
+which is closed under support and cosupport:
+
+$$
+f\in\catd
+\quad\Longrightarrow\quad
+\rst{f}\in\catd
+\qquad\text{and}\qquad
+\rng{f}\in\catd.
+$$
+
+We probably need to add R.4 for distinguished morphisms and RR.5 which should hold for all morphisms.
+
+The distinguished morphisms represent binary relationships which are
+\term{function-like}\footnote{Inclusive of partial functions.} --- those referred to in data modelling as many-one and those sometimes referred to as deterministic.
+\end{definition}
+
+\subsection{Function-aware bisupport category with converse}
+
+\begin{definition} 
+A compatible converse operation for a function-aware bisupport category \catcw is
+an operation \converseItself which is compatible with the bisupport
+category \catcw (see K.1, K.2 and K.3, above)
+and which in addition satifies 
+
+\noindent [K.4]\quad
+For any morphism $f$ in the distinguised subset \catd,
+\[
+\converse{f} \circ f = \rng{f}
+\]
+\end{definition}
+
+It follows from regard of the algebraic form of the definitions that 
+the forgetful functor from function-aware bisupport categories with converse to the function aware bisupport categories has a left adjoint.
+
+If we assume that the bisupport category satisfies the additional axiom RR.5 then we can describe the free function-aware bisupport category with converse as the wide subcategory of short tight zigzags. It follows that if the function-aware bisupport category satisfies condition RR.5 then the unit of this adjunction is faithful. 
+
+\begin{aside}
+To uplift shortening into the realm of zigzags over arbitrary bisupport
+categories we specify shortening of $\converse{f} \circ g$ to be applicable only when $f$ is function-like.
+\end{aside}
+
+Define the function-aware category of short tight zigzags with 
+converse to be the category of short tight zigzags with the
+singleton zigzags $\tuple{f}$ as distinguished, for all distinguished morphisms $f$ of \catd.  
+
+\begin{lemma}{Should be true.}
+The category of function-aware short tight zigzags is a bisupport category with compatible converse.
+\end{lemma}
+
+\begin{lemma}\commentary{\highlight{THE BIG QUESTION}}
+The category of function-aware short tight zigzags over a 
+function-aware bisupport category \catcw is the 
+free function-aware bisupport category with converse over 
+the functiona-aware bisupport category\catc. 
+\end{lemma}
+
+\begin{aside}
+\highlight{Where does condition R.4 get used?}
+\end{aside}
+
+\subsection{Bisupport Category with an Involutive Inner Inverse}
+\begin{aside}
+Is this relevant?
+\end{aside}
+
+\begin{definition}
+A bisupport category with an involutive inner inverse 
+is a bisupport category with compatible converse satisfying the addition 
+regularity condition
+\noindent [K.4]\quad
+For any morphism $f$,
+\[
+f \circ \converse{f} \circ f =f
+\]
+\end{definition}
+
+\begin{aside}
+The catgeory Rel of binary relationships is a 
+bisupport category with an involutive inner inverse.
+
+It would make sense to be taking the free 
+bisupport category with an involutive inner inverse on a bisupport category
+as a navigational completion of a bisupport category.
+However in a category of short tight zigzags the converse is \highlight{not} an inner inverse.
+\end{aside}
+
+
+
+

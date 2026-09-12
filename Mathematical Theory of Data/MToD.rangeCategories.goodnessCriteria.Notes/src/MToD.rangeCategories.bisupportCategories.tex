@@ -1,72 +1,14 @@
 \section{Bisupport Categories}
 
-\begin{definition}[Bisupport category]
-A \emph{bisupport category} is a category $\catc$ equipped, for each
+\begin{definition}
+A \term{bisupport category} is a category $\catc$ equipped, for each
 morphism $f:a\morph b$, with morphisms
 \[
 \rst{f}:a\morph a
 \qquad\text{and}\qquad
 \rng{f}:b\morph b,
 \]
-called respectively the \emph{support} and \emph{cosupport} of $f$.
-
-It is defined so that support and cosupport are duals of one another. 
-The support operator satisfies the following axioms.
-
-\noindent [S.1]\quad
-If $f : a \morph b$, then
-\[
-\rst{f}\circ f=f.
-\]
-
-\noindent [S.2]\quad
-If \fgsourcediag in $\catc$, then
-\[
-\rst{g}\circ\rst{f} =\rst{f}\circ\rst{g}.
-\]
-
-\noindent [S.3]\quad
-If \fgsourcediag in $\catc$, then
-\[
-\rst{\rst{f}\circ g} = \rst{f}\circ\rst{g}.
-\]
-
-\noindent [S.4]\quad
-If $\sequentialdiag{a}{b}{c}{f}{g}$ in $\catc$, then
-\[
-\rst{f\circ g} = \rst{f\circ\rst{g}}.
-\]
-
-The cosupport operator satisfies the duals to these axioms which we denote by $\mathrm{C}.1$--$\mathrm{C}.4$.
-Thus, explicitly,
-
-\noindent [C.1]\quad
-If $f : a \morph b$, then
-\[
-f\circ\rng{f} = f.
-\]
-
-\noindent [C.2]\quad
-If \fgsinkdiag in $\catc$, then
-\[
-\rng{f}\circ\rng{g}
-=
-\rng{g}\circ\rng{f}.
-\]
-
-\noindent [C.3]\quad
-If \fgsinkdiag in $\catc$, then
-\[
-\rng{\rng{g}\circ f} = \rng{g}\circ\rng{f}.
-\]
-
-\noindent [C.4]\quad
-If $\sequentialdiag{a}{b}{c}{f}{g}$ in $\catc$, then
-\[
-\rng{f\circ g} = \rng{\rng{f}\circ g}.
-\]
-
-Finally, support and cosupport satisfy the compatibility conditions for any morphism $f$
+satisfying the support and cosupport axioms and in addition the following compatibility  conditions for any morphism $f$
 
 \noindent [SC (i)]
 \[
@@ -84,44 +26,19 @@ The duality is maintained by these two compatibility conditions because they are
 With bisupport defined in this way then the opposite category $\catc^op$
 of a category \catcw is also a bisupport category if we switch the operators. Because of the duality, to each property of a bisupport category, there is a dual property which is established, free of charge, by the duality. 
 
-\begin{rationale}
-\begin{enumerate}
-\item 
-I can add to the definition of bisupport categories a converse operation.
-Exact definition isn't clear to me right now but I should start with maclane's definition in his discussion of category of relations. I could even start by describing this maclane definition before introducing bisupoort categories. 
-\item the category of zigzags is defined over a bisupport category equipped with a partial order on each hom set.
-\item the category of zigzags  is a bisupport category equipped with a converse operation. It might be a free construction of such converse operation.
-\item the catgeory of zigzags (as I have so far defined it) relies on the definition of tightness and of tightening. I need tightening because tight zigzags are composed by concatenating them and then by tightening.
-\item but why do I actually need tightness in the first place? There is a category of zigzags and a category of tight zigzags. The category of tight zigzags is a quotient of the category of arbitrary zigzags. I know that I am taking this quotient because models in Set will be equivalent but how do I abstract this? Also (later) shortening will have the same 
-justification. So is the category of tight zigzags got a position in the hierarchy of real structures or is it just a temporary stopping off point in the development of short tight zigzags. Though sortness is define by range categories it can be introduced for bisupport categories with ordereing by only allowing deterministic maps in a shortening. But then jump ahead to short tight zigzags: has this got an abstrcat reqt. that it is meeting? There is a way of trying to formulate this that has been on the back of my mind for a while.Is it real? 
-\item I perhaps need to think of the construction by which I freely generate a converse operation for a category with bisupport.
-\end{enumerate}
-\end{rationale}
-
-\begin{rationale}
-In a bisupprt category \catcw I have two possible defintions of determinism. 
-\begin{enumerate}[(i)]
-\item
-(Inspired by Cockett's axiom R.4.)
-If $f: a \morph b$ then $f$ is deterministic iff for all $g:b \morph c$,
+\begin{lemma}
+\llabel{copyOfnewSupportLemma}
+If \fgsourcediag in a category with support \catcw then
 \[
-f \circ \rst{g} = \rst{f \circ g} \circ f.
+\rst{\rst{g} \circ f} \circ g = \rst{f} \circ g
 \]
-\item 
-(Inspired by Cockett's axiom RR.5.)
-If $f: a \morph b$ then $f$ is deterministic iff for all $g_1, g_2:b \morph c$,
-if $f \circ g_1 = f \circ g_2$ then $\rng{f} \circ g_1 = \rng{f} \circ g_2$.
-\end{enumerate}
-
-Is there any relationship between these two definitions?
-\end{rationale}
-
-\begin{rationale}
-here is one way of thinking:
-
-There is a free functor Z from the category 'bisupport' to the category 'bisupport with converse'. Therefore for a bisupport category B, any functor I: B -> Rel factors through Z i.e can be freely extended to Z(B). 
-
-There is no quotient of Z(B) that all functors from B into bisupports with converse factor through BUT THERE IS a quotient that all functors into Rel factor though. This HYPOTHETICALLY is the category of short tight zigzags.
-
-\end{rationale}
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\rst{\rst{g} \circ f} \circ g
+    &= \rst{g} \circ \rst{f} \circ g && \mbox{by R.3,}\\
+    &= \rst{f} \circ \rst{g} \circ g  && \mbox{by R.2,}\\
+    &= \rst{f} \circ g               && \mbox{by R.1.}
+\end{align*}
+\end{proof}
 

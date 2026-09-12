@@ -1,0 +1,61 @@
+
+\subsection{The Data Populator Functor $d_a$.}
+\llabel{daDefinition}
+If \catcw is a RR.5 range category, define a functor $d_a: \catc \morph \Par$ by defining for each object $x$ of \catc, $d_a(x)=Hom_{\Stk}(a,x)$ and by defining $d_a(j)$, for $j:y_1 \morph y_2$ in \catc, to be the partial function  defined at a zigzag 
+$F=\zigzagTuple{f}{n}\in Hom_{\Stk}(a,x)$ by
+\begin{align*}
+d_a(j)(F) &= F :: \tuple{j}  &&\mbox{ if $\overline{f_n \circ j} = \overline{f_n}$,} \\
+             &=\bot        && \mbox{otherwise.}
+\end{align*}
+
+Note that the condition $\overline{f_n \circ j} = \overline{f_n}$ ensures
+that $F :: \tuple{j}$ is a tight zigzag and therefore that
+$F :: \tuple{j}= F \circ \tuple{j}$.
+
+$d_a$ is a range functor by arguments made by Cockett. 
+
+$d_a$ has the following property
+\begin{lemma}
+\llabel{daLocallyFaithful}
+If $f: a \morph x$ and $g: a \morph x$ in \catcw then 
+if $d_a(f)=d_a(g)$ then $f=g$.
+\end{lemma}
+\begin{proof}
+First note that since $\rst{\rst{f} \circ f} = \rst{f}$ 
+we have $d_a(f)(\tuple{\rst{f}})= \tuple{f}$.
+It then follows from the assumption that $d_a(f)=d_a(g)$
+that we must have 
+$d_a(g)(\tuple{\rst{f}})= \tuple{f}$. 
+Therefore, from the definition of $d_a$, it follows that
+$\rst{\rst{f} \circ g} = \rst{f}$
+which then simplfies using R.3 to
+\[
+\rst{f} \circ \rst{g} = \rst{f}.
+\]
+By symmetry we must also have
+\[
+\rst{f} \circ \rst{g} = \rst{g}
+\]
+and thus
+\[
+\rst{f} = \rst{g}.
+\]
+
+Now we can show that $f=g$ as follows
+\begin{align*}
+f &= d_a(f)(\tuple{\rst{f}}) 
+                     && \mbox{\parbox[t]{4cm}{from definition of $d_a$ 
+                               and because $\rst{f} \circ f = \rst{f}$,}}\\
+  &= d_a(g)(\tuple{\rst{g}}) 
+                     && \mbox{since $d_a(f)=d_a(g)$ and $\rst{f}=\rst{g}$,}\\
+  &= g               && \mbox{\parbox[t]{4cm}{from definition of $d_a$ 
+                               and because $\rst{g} \circ g = \rst{g}$.}}
+\end{align*}
+\end{proof}
+
+ 
+
+Aside: The faithful functor $S: \catcw \morph Par$ defined by Cockett as a representation of any RR.5 range category in the category of sets and partial functions can be defined in terms of the functors $d_a$ as the coproduct in the functor category:
+\[
+S = \coprod_{a \in |\catc|}d_a
+\] 

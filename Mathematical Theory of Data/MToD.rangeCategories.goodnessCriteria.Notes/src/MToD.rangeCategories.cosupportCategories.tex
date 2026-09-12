@@ -1,36 +1,61 @@
-\section{Range Categories, Partial Sections and Weak-Range Operators}
+\section{Cosupport Categories}
 
-\subsection{Range Categories}
-Cockett et al. (\cite{COCKETT2012}) define range categories from restriction categories along the following lines.
+\begin{definition}
+A \term{cosupport category} is a category $\catc$ equipped, for each
+morphism $f:a\morph b$, with morphisms
+\[
+\rng{f}:b\morph b,
+\]
+called the \term{cosupport} of $f$.
 
-\begin{definition} 
-A \term{range category} is a restriction category with an additional operator on morphisms (the range operator $\rng{\ }$), as follows
-if $f: a \morph b$ in  \catcw then
-$$\rng{f}: b \morph b$$
-satisfying
+The cosupport operator are the duals to the support axioms. We denote by $\mathrm{C}.1$--$\mathrm{C}.4$.
+Thus, explicitly,
 
-RR.1 For $f:a \morph b$ in \catcw $$\rst{\rng{f}} = \rng{f}.$$
+\noindent [C.1]\quad
+If $f : a \morph b$, then
+\[
+f\circ\rng{f} = f.
+\]
 
-RR.2 For $f:a \morph b$ in \catcw $$f \circ \rng{f} = f.$$
+\noindent [C.2]\quad
+If \fgsinkdiag in $\catc$, then
+\[
+\rng{f}\circ\rng{g}
+=
+\rng{g}\circ\rng{f}.
+\]
 
-RR.3. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
-$$\rng{f \circ \rst{g}} = \rng{f} \circ \rst{g}.$$
+\noindent [C.3]\quad
+If \fgsinkdiag in $\catc$, then
+\[
+\rng{\rng{g}\circ f} = \rng{g}\circ\rng{f}.
+\]
 
-RR.4. If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw then
-$$\rng{(\rng{f} \circ g)} = \rng{f \circ g}.$$
+\noindent [C.4]\quad
+If $\sequentialdiag{a}{b}{c}{f}{g}$ in $\catc$, then
+\[
+\rng{f\circ g} = \rng{\rng{f}\circ g}.
+\]
 \end{definition}
 
-In this note we explore range categories that satisfy an  additional condition defined by Cockett et al. as RR.5. We will use the folowing terminology:
-\newpage
-\begin{definition}
-An \textit{RR.5 range category} is a range category that additionally satisfies:
-
-RR.5 if $\equaliser{a}{f}{\paralleldiag{b}{c}{g}{h}}$ then
- $$f \circ g = f \circ h \Rightarrow  \rng{f} \circ g = \rng{f} \circ h.$$
- \end{definition}
+\begin{lemma}
+\llabel{copyOfnewSupportLemma}
+If \fgsourcediag in a category with support \catcw then
+\[
+\rst{\rst{g} \circ f} \circ g = \rst{f} \circ g
+\]
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\rst{\rst{g} \circ f} \circ g
+    &= \rst{g} \circ \rst{f} \circ g && \mbox{by R.3,}\\
+    &= \rst{f} \circ \rst{g} \circ g  && \mbox{by R.2,}\\
+    &= \rst{f} \circ g               && \mbox{by R.1.}
+\end{align*}
+\end{proof}
 
 \begin{lemma}
-\llabel{unirangelemma}
+\llabel{copyOfunirangelemma}
 If $f:a \morph a$ in a range category \catcw then for any morphism 
 $f: a \morph b$
 \begin{enumerate}[(i)] 
@@ -43,9 +68,8 @@ $f: a \morph b$
 Straightforward.
 \end{proof}
 
-
 \begin{lemma}\commentary{new : 3rd July 2026}
-\llabel{fgJoinLemma}
+\llabel{copyOf.fgJoinLemma}
  If \catcw is a category with support  and
  if $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
 $
@@ -69,37 +93,30 @@ RR.1, then R.2 and then RR.1 again.
 \end{enumerate}
 \end{proof}
 \begin{lemma}
-\llabel{fglemma}
+\llabel{copyOf.fglemma}
 \commentary{Rename this lemma to emphasize to myself that this only need bisupport.}
 In any \textit{bisupport category}
  \begin{enumerate}[(i)]
  \item %(i)
- \workt{MOVE TO cosupport}
  If \fgsinkdiag in \catcw then
  $\rng{f}\circ \rng{g} = \rng{g} \circ \rng{f},$
  \item %(ii)
- \workt{MOVE TO cosupport}
  If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
 $\rng{g} \circ \rng{f \circ g}=  \rng{f \circ g}.$
  \item %(iii)
- \workt{MOVE TO cosupport}
 If \fgsinkdiag in \catcw  then
 $\rng{f \circ \rng{g}}=\rng{f} \circ \rng{g}.$
  \item %(iv)
- \workt{MOVE TO bisupport}
  If \fgsourcediag in \catcw  then
 $\rst{f \circ \rng{\rst{g} \circ f}} \circ g = \rst{f} \circ g.$
  \commentary{Original (iv) moved to lemma \lref{fgJoinLemma}}
 \item %(v)
-\workt{NEED KEEP THIS}
  If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  
  then if $\rst{g} \leq \rng{f}$ then $\rng{f \circ g} = \rng{g}$.
   \item %(vi)
-  \workt{NEED KEEP THIS}
  If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
 $\rst{f \circ g} \leq \rst{f}.$
- \item %(vii)
-  \workt{MOVE TO Bisupport}
+ \item %(vii) 
  If  $\binarysinkContinued{a}{b}{c}{d}{f}{g}{h}$
 in \catcw then
  $\rng{ f \circ \rng{g} \circ h } = \rng{ g \circ \rng{f} \circ h } .$
@@ -192,7 +209,7 @@ which we can do as follows
 
 
 \begin{construction}
-\llabel{fghConstruction}
+\llabel{copyOf.fghConstruction}
 If 
 $\begin{array}{c p {0.3cm} c p{0.3cm} c }
 \nudgeup{0.75cm}

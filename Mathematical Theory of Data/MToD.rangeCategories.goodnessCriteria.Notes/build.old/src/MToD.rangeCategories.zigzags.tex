@@ -705,8 +705,26 @@ i\circ f_1\circ
 &&\mbox{since $F$ is tight and by R.1,} \\
 &=
 i\circ f_1\circ
-\rng{f'_1}
-&&\mbox{\parbox[t]{5cm}{by fglemma (iv) dual, with $i \circ f_1$ as $f$ and $f'_1$ as $g$} }\\
+\rng{
+ f'_1\circ\rst{\rng{i\circ f_1}}
+}
+&&\mbox{by R.4,} \\
+&=
+i\circ f_1\circ
+\rng{f'_1}\circ\rst{\rng{i\circ f_1}}
+&&\mbox{by RR.3,} \\
+&=
+i\circ f_1\circ
+\rng{f'_1}\circ\rng{i\circ f_1}
+&&\mbox{by RR.1.}\\
+&=
+i\circ f_1\circ
+\rng{f_1}\circ\rng{i\circ f_1}
+&&\mbox{since $F$ is tight,} \\
+&=
+i\circ f_1\circ
+\rng{i\circ f_1}
+&&\mbox{by RR.2,} \\
 &=
 i\circ f_1
 &&\mbox{by RR.2, again and as required.}
@@ -1035,7 +1053,7 @@ as required to complete the proof.
 \newcommand{\tightCircTightLeft}[2]{\tighten{#1 \circ \rst{#2}}}
 \newcommand{\tightCircTightRight}[2]{\tighten{\rng{#1} \circ #2}}
 \newcommand{\tightCircTight}[2]
-       {\tightCircTightLeft{#1}{#2} \cnc \tightCircTightRight{#1}{#2}}
+       {\tightCircTightLeft{#1}{#2} \cnc \tightCircTight{#1}{#2}}
 
 \newcommand{\FcircGleft}{\tightCircTightLeft{F}{G}}
 \newcommand{\FcircGright}{\tightCircTightRight{F}{G}}
@@ -1374,7 +1392,7 @@ $F \circ G = \FcircG$ and therefore $\psi(\gamma)(F \circ G)
 =\tightCircTight{{\psi(\gamma)(F)}}{\psi(\gamma)(G)}
 = \psi(\gamma)(F)\circ \psi(\gamma)(G)$
 
-Finally see that $\psi(\gamma)$ preserves \converseItself 
+Finally see that \psi(\gamma) preserves \converseItself 
 by using the bisupport axioms in the target bisuppport category $\funU(\catc)$.
 
 Finally we have to show that $\psi(\gamma)$, as defined, is the unique 
