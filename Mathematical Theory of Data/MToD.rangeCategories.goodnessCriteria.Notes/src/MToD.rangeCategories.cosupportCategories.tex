@@ -28,264 +28,52 @@ If \fgsinkdiag in $\catc$, then
 \noindent [C.3]\quad
 If \fgsinkdiag in $\catc$, then
 \[
-\rng{\rng{g}\circ f} = \rng{g}\circ\rng{f}.
+\rng{f \circ \rng{g}} = \rng{f}\circ\rng{g}.
 \]
 
 \noindent [C.4]\quad
 If $\sequentialdiag{a}{b}{c}{f}{g}$ in $\catc$, then
 \[
-\rng{f\circ g} = \rng{\rng{f}\circ g}.
+\rng{f\circ g} = \rng{f\circ \rng{g}}.
 \]
 \end{definition}
 
 \begin{lemma}
-\llabel{copyOfnewSupportLemma}
-If \fgsourcediag in a category with support \catcw then
-\[
-\rst{\rst{g} \circ f} \circ g = \rst{f} \circ g
-\]
-\end{lemma}
-\begin{proof}
-\begin{align*}
-\rst{\rst{g} \circ f} \circ g
-    &= \rst{g} \circ \rst{f} \circ g && \mbox{by R.3,}\\
-    &= \rst{f} \circ \rst{g} \circ g  && \mbox{by R.2,}\\
-    &= \rst{f} \circ g               && \mbox{by R.1.}
-\end{align*}
-\end{proof}
-
-\begin{lemma}
-\llabel{copyOfunirangelemma}
-If $f:a \morph a$ in a range category \catcw then for any morphism 
-$f: a \morph b$
+\llabel{cosupportLemma}
+If \catcw is a cosupport category  then 
 \begin{enumerate}[(i)] 
-\item $\rng{\rng{f}}=\rng{f}$,
-\item $\rng{f} \comp \rng{f} = \rng{f}$,
-\item \llabel{lem:unirange:hatbar} $\rng{\rst{f}}=\rst{f}$.
-\end{enumerate}
-\end{lemma}
-\begin{proof}
-Straightforward.
-\end{proof}
-
-\begin{lemma}\commentary{new : 3rd July 2026}
-\llabel{copyOf.fgJoinLemma}
- If \catcw is a category with support  and
- if $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
-$
-\rng{f \circ \rst{g}}
-= \rng{f} \circ \rst{g}
-=\rst{\rng{f} \circ g}
-= \rst{g} \circ \rng{f}.
-$
-\end{lemma}
-\begin{proof}
-\begin{enumerate}[(i)]
-\item
-That $\rng{f \circ \rst{g}}
-= \rng{f} \circ \rst{g}$ is simply axiom RR.3.
-\item
-That $\rst{\rng{f} \circ g}=\rng{f} \circ \rst{g}$ follows by applying
-RR.3 to the occurence of $\rng{f}$ in the left hand side and then by application of R.1.
-\item
-That $\rng{f \circ \rst{g}}=\rst{g} \circ \rng{f}$ follows by using 
-RR.1, then R.2 and then RR.1 again.
-\end{enumerate}
-\end{proof}
-\begin{lemma}
-\llabel{copyOf.fglemma}
-\commentary{Rename this lemma to emphasize to myself that this only need bisupport.}
-In any \textit{bisupport category}
- \begin{enumerate}[(i)]
- \item %(i)
- If \fgsinkdiag in \catcw then
- $\rng{f}\circ \rng{g} = \rng{g} \circ \rng{f},$
- \item %(ii)
- If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
-$\rng{g} \circ \rng{f \circ g}=  \rng{f \circ g}.$
- \item %(iii)
-If \fgsinkdiag in \catcw  then
-$\rng{f \circ \rng{g}}=\rng{f} \circ \rng{g}.$
- \item %(iv)
- If \fgsourcediag in \catcw  then
-$\rst{f \circ \rng{\rst{g} \circ f}} \circ g = \rst{f} \circ g.$
- \commentary{Original (iv) moved to lemma \lref{fgJoinLemma}}
-\item %(v)
- If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  
- then if $\rst{g} \leq \rng{f}$ then $\rng{f \circ g} = \rng{g}$.
-  \item %(vi)
- If $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
-$\rst{f \circ g} \leq \rst{f}.$
- \item %(vii) 
- If  $\binarysinkContinued{a}{b}{c}{d}{f}{g}{h}$
-in \catcw then
- $\rng{ f \circ \rng{g} \circ h } = \rng{ g \circ \rng{f} \circ h } .$
-\end{enumerate}
-\end{lemma}
-\begin{proof}
-\begin{enumerate}[(i)]
-\item Follows from RR.1 and R.2.
-\item 
-\begin{align*}
-\rng{g} \circ \rng{f \circ g}&=\rng{f \circ g} \circ \rng{g}&&\mbox{by (i)} \\
-&=\rng{f \circ g} \circ \rst{\rng{g}}
-                    &&\mbox{by lemma \ref{unirangelemma} (\ref{lem:unirange:hatbar}),} \\
-&= \rng{f \circ g \circ \rst{\rng{g}}}&&\mbox{by RR.3,} \\
-&= \rng{f \circ g} &&\mbox{by lemma \ref{unirangelemma} (\ref{lem:unirange:hatbar}), then RR.2.}
-\end{align*}
-\item %(iii)
-\begin{align*}
-\rng{f \circ \rng{g}} 
-               &=\rng{f \circ \overline {\rng{g}}} &\mbox{by RR.1}\\
-               &=\rng{f} \circ \overline {\rng{g}} &\mbox{by RR.3}\\
-               &=\rng{f} \circ \rng{g}             & \mbox{by RR.1}\\
-\end{align*}
-\item %{iv}
-\begin{align*}
-\rst{f \circ \rng{\rst{g} \circ f}} \circ g
-               &= \rst{f \circ \rng{\rst{g} \circ f}} \circ \rst{g} \circ g
-               && \mbox{by R.1,}\\
-               &= \rst{\rst{f \circ \rng{\rst{g} \circ f}} \circ \rst{g}} \circ g
-               && \mbox{by R.3 then wR.4,}\\
-               &= \rst{\rst{g} \circ \rst{f \circ \rng{\rst{g} \circ f}}} \circ g
-               && \mbox{by R.2,}\\
-               &= \rst{\rst{\rst{\rst{g}} \circ f \circ \rng{\rst{g} \circ f}}} \circ g
-               && \mbox{by R.3,}\\
-               &= \rst{\rst{g} \circ f \circ \rng{\rst{g} \circ f}} \circ g
-               && \mbox{by lemma \ref{unirangelemma} (i),}\\
-               &= \rst{\rst{g} \circ f } \circ g
-               && \mbox{by RR.2,}\\
-               &= \rst{g} \circ \rst{f}  \circ g
-               && \mbox{by R.3,}\\
-               &=  \rst{f}  \circ \rst{g}  \circ g
-               && \mbox{by R.2}\\
-               &= \rst{f}  \circ g
-               && \mbox{by R.1, as required.}
-\end{align*}
-\item %(v)
-From the inital assumption that
-$\rst{g} \leq \rng{f}$ which, by defintion and by  RR.1 and R.2 can be restated as
-$\rng{f} \circ \rst{g}  = \rst{g}$,
-we are required to prove that
-$\rng{f \circ g} = \rng{g}$
-which we do as follows:
-\begin{align*}
-\rng{f \circ g} 
-               &= \rng{\rng{f} \circ g}
-               && \mbox{by RR.4,} \\
-               &= \rng{\rng{f} \circ \rst{g} \circ g}
-               && \mbox{by R.1,} \\
-               &= \rng{\rst{g} \circ g}
-               && \mbox{from the initial assumption restated,} \\
-               &= \rng{g}
-               && \mbox{by R.1, as required.} 
-\end{align*}
-\item %(vi)
-\commentary{\highlight{Can} and must remove use of R.4. (\highlight{EASY})}
-Need show $\rst{f \circ g} \circ \rst{f} = \rst{f \circ g}$
-which we can do as follows
-\begin{align*}
-\rst{f \circ g} \circ \rst{f} 
-                 &= \rst{\rst{f \circ g} \circ f}
-                            && \mbox{by R.3,} \\
-                 &= \rst{f \circ \rst{g} } 
-                            && \mbox{by \highlight{R.4},} \\
-                 &= \rst{f \circ g}
-                            && \mbox{by wR.4.}
-\end{align*}
-\item %vii
-
-\begin{align*}
-\rng{ f \circ \rng{g} \circ h } 
-            &= \rng{ \rng{f} \circ \rng{g} \circ h }
-            && \mbox{by RR.4,}\\
-            &= \rng{ \rng{g} \circ \rng{f} \circ h }
-            && \mbox{by part (i) of this lemma,}\\
-            &= \rng{ g \circ \rng{f} \circ h }
-            &&\mbox{by RR.4, as required.}
-\end{align*}
-\end{enumerate}
-\end{proof}
-
-
-\begin{construction}
-\llabel{copyOf.fghConstruction}
-If 
-$\begin{array}{c p {0.3cm} c p{0.3cm} c }
-\nudgeup{0.75cm}
-          && \bOb{y} &&         \\[0.25cm]
-  \bOb{x} &&         && \bOb{z} \\[0.4cm]
-\end{array}
-\begin{arrows}
-\ncarr{x}{y}\alabel{f}
-\ncarr{y}{z}\alabel{g}
-\drawMorphismArcing{x}{z}{b}{h}{-15}{-15}[0.5] 
-\end{arrows}
-$
-and $h \leq f \circ g$
-in \highlight{some kind of} category \catcw
-then 
-\begin{enumerate}[(i)]
-\item
-$h$ can be factored as
-$h = h_L \circ h_R$ where 
-$h_L \leq f$
-and 
-   $h_R \leq g$
-by defining
+\item For any object $a$ of \catc, 
 \[
-h_L = \rst{h} \circ f \circ \rst{g \circ \rng{h}}
+{\rng{id_a}= id_a},
 \]
-and  
+\item For any $f:a \morph b$ in in \catc, 
 \[
-h_R = \rng{\rst{h} \circ f} \circ g \circ \rng{h}.
-\] 
-\item
-If h is so factored then
-\[
-\rst{h_L}=\rst{h}
+\rng{\rng{f}}=\rng{f},
 \]
-and
+\item For any $f:a \morph b$ in in \catc, 
 \[
-\rng{h_R}=\rng{h}.
+\rng{f} \comp \rng{f} = \rng{f},
+\]
+\item %old fglemma(ii) 
+ \commentary {i.e. $\rng{f \circ g} \cleq \rng{g}$.}
+ For $\sequentialdiag{a}{b}{c}{f}{g}$ in \catc,
+\[
+\rng{f \circ g} \circ \rng{g}=  \rng{f \circ g},
+\]
+\item %new
+For \fgsinkdiag in \catc,
+\[
+f \circ \rng{g \circ \rng{f}} = f \circ \rng{g},
+\]
+\item %old fglemma (vii) 
+ For  $\binarysinkContinued{a}{b}{c}{d}{f}{g}{h}$
+in \catc,
+\[
+\rng{ f \circ \rng{g} \circ h } = \rng{ g \circ \rng{f} \circ h }.
 \]
 \end{enumerate}
-\end{construction}
-\begin{proof}
-\begin{enumerate}[(i)]
-\item %(i)
-That $h_L \leq f$
-and $h_R \leq g$ are the case
-follows from the form of the definitions
-given of $h_L$ and $h_R$ as restriction idempotents
-composed with $f$, respectively, $g$.
-(see observation of lemma ???
- which says $\rst{i} \circ f \leq f$ and $f \circ \rst{j} \leq f$).
-\commentary{introduce earlier that $\rng{f}$ is a \textit{restriction idempotent}.}
-
-That $h = h_L \circ h_R$ follows 
-because restriction idempotents commute (R.2) and by R.1 and RR.2. 
-
-\item %(ii)
-Firstly, $\rst{h_L}=\rst{h}$ because
-\begin{align*}
-\rst{\rst{h} \circ f \circ \rst{g \circ \rng{h}}}
-    &= \rst{\rst{h} \circ f \circ g \circ \rng{h}}
-        && \mbox{by wR.4,}\\
-    &= \rst{h \circ \rng{h}}
-        && \mbox{because $h \leq f \circ g$,}\\
-    &= \rst{h} && \mbox{by RR.2.}
-\end{align*}
-
-\noindent 
-Next, $\rng{h_R}=\rng{h}$ because
-\begin{align*}
-\rng{\rng{\rst{h} \circ f} \circ g \circ \rng{h}}
-    &= \rng{\rst{h} \circ f \circ g \circ \rng{h}}
-       &&\mbox{by RR.4,}\\
-    &= \rng{h \circ \rng{h}}
-       && \mbox{because $h \leq f \circ g$,}\\
-    &= \rng{h} && \mbox{by RR.2.}
-\end{align*}
-\end{enumerate}
+\end{lemma}
+\begin{proof}Follows by duality from lemma \lref{supportLemma}.
 \end{proof}
+
+

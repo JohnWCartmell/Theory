@@ -23,22 +23,150 @@ satisfying the support and cosupport axioms and in addition the following compat
 The duality is maintained by these two compatibility conditions because they are dual to one another.
 \end{definition}
 
-With bisupport defined in this way then the opposite category $\catc^op$
+With bisupport defined in this way then the opposite category $\catc^{op}$
 of a category \catcw is also a bisupport category if we switch the operators. Because of the duality, to each property of a bisupport category, there is a dual property which is established, free of charge, by the duality. 
 
+
 \begin{lemma}
-\llabel{copyOfnewSupportLemma}
-If \fgsourcediag in a category with support \catcw then
+\llabel{bisupportLemma}
+ If \catcw is a bisupport category then
+ \begin{enumerate}[(i)]
+ \item
+ For $\sequentialdiag{a}{b}{c}{f}{g}$ in \catcw  then
 \[
-\rst{\rst{g} \circ f} \circ g = \rst{f} \circ g
+\rng{f \circ \rst{g}}
+= \rng{f} \circ \rst{g}
+= \rst{g} \circ \rng{f}
+= \rst{\rng{f} \circ g}.
 \]
+\item
+For \fgsourcediag in \catc, 
+\[
+\rst{f \circ \rng{\rst{g} \circ f}} \circ g = \rst{f} \circ g.
+\]
+\end{enumerate}
 \end{lemma}
-\begin{proof}
+\begin{proof}\leavevmode\par
+\begin{enumerate}[(i)]
+\item %(i)
+That $\rng{f \circ \rst{g}}
+= \rng{f} \circ \rst{g}$ follows because
 \begin{align*}
-\rst{\rst{g} \circ f} \circ g
-    &= \rst{g} \circ \rst{f} \circ g && \mbox{by R.3,}\\
-    &= \rst{f} \circ \rst{g} \circ g  && \mbox{by R.2,}\\
-    &= \rst{f} \circ g               && \mbox{by R.1.}
+\rng{f \circ \rst{g}}
+&= \rng{f \circ \rng{\rst{g}}}
+&&\mbox{by SC(ii),}\\
+&= \rng{f} \circ \rng{\rst{g}}
+&&\mbox{by C.3,}\\
+&=\rng{f} \circ \rst{g}
+&&\mbox{by SC(ii).}
 \end{align*}
+That $\rst{\rng{f} \circ g}= \rst{g} \circ \rng{f}$
+follows on by duality.
+
+Finally, $\rng{f} \circ \rst{g} = \rst{g} \circ \rng{f}$ 
+follows by using SC(i) and S.2.
+\item %(ii) old{iv}
+\begin{align*}
+\rst{f \circ \rng{\rst{g} \circ f}} \circ g
+               &= \rst{f \circ \rng{\rst{g} \circ f}} \circ \rst{g} \circ g
+               && \mbox{by S.1,}\\
+               &= \rst{\rst{f \circ \rng{\rst{g} \circ f}} \circ \rst{g}} \circ g
+               && \mbox{by S.3 then S.4,}\\
+               &= \rst{\rst{g} \circ \rst{f \circ \rng{\rst{g} \circ f}}} \circ g
+               && \mbox{by S.2,}\\
+               &= \rst{\rst{\rst{g} \circ f \circ \rng{\rst{g} \circ f}}} \circ g
+               && \mbox{by S.3,}\\
+               &= \rst{\rst{g} \circ f \circ \rng{\rst{g} \circ f}} \circ g
+               && \mbox{by lemma \ref{supportLemma} (ii),}\\
+               &= \rst{\rst{g} \circ f } \circ g
+               && \mbox{by C.1,}\\
+               &= \rst{g} \circ \rst{f}  \circ g
+               && \mbox{by S.3,}\\
+               &=  \rst{f}  \circ \rst{g}  \circ g
+               && \mbox{by S.2,}\\
+               &= \rst{f}  \circ g
+               && \mbox{by S.1, as required.}
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+\begin{construction}
+\llabel{fghConstruction}
+\begin{worktt}
+with orderi ng changed to be \workt{support order intersect  cosupport order}
+ I have to CHECK CAREFULLY that this proof still goes thru. 
+\end{worktt}
+If 
+$\begin{array}{c p {0.3cm} c p{0.3cm} c }
+\nudgeup{0.75cm}
+          && \bOb{y} &&         \\[0.25cm]
+  \bOb{x} &&         && \bOb{z} \\[0.4cm]
+\end{array}
+\begin{arrows}
+\ncarr{x}{y}\alabel{f}
+\ncarr{y}{z}\alabel{g}
+\drawMorphismArcing{x}{z}{b}{h}{-15}{-15}[0.5] 
+\end{arrows}
+$
+and $h \scleq f \circ g$
+in bisupport category \catcw
+then 
+\begin{enumerate}[(i)]
+\item
+$h$ can be factored as
+$h = h_L \circ h_R$ where 
+$h_L \scleq f$
+and 
+   $h_R \scleq g$
+by defining
+\[
+h_L = \rst{h} \circ f \circ \rst{g \circ \rng{h}}
+\]
+and  
+\[
+h_R = \rng{\rst{h} \circ f} \circ g \circ \rng{h}.
+\] 
+\item
+If h is so factored then
+\[
+\rst{h_L}=\rst{h}
+\]
+and
+\[
+\rng{h_R}=\rng{h}.
+\]
+\end{enumerate}
+\end{construction}
+\begin{proof}\leavevmode\par
+\begin{enumerate}[(i)]
+\item %(i)
+That $h_L \scleq f$
+and $h_R \scleq g$ are the case
+follows from the form of the definitions
+given of $h_L$ and $h_R$ as restriction idempotents
+composed with $f$, respectively, $g$.
+(see observation of lemma ???
+ which says $\rst{i} \circ f \leq f$ and $f \circ \rst{j} \leq f$).
+\commentary{introduce earlier that $\rng{f}$ is a \textit{restriction idempotent}.}
+
+That $h = h_L \circ h_R$ follows 
+because restriction idempotents commute (R.2) and by R.1 and RR.2. 
+
+\item %(ii)
+Firstly, $\rst{h_L}=\rst{h}$ because
+\begin{align*}
+\rst{\rst{h} \circ f \circ \rst{g \circ \rng{h}}}
+    &= \rst{\rst{h} \circ f \circ g \circ \rng{h}}
+        && \mbox{by S.4,}\\
+    &= \rst{h \circ \rng{h}}
+        && \mbox{because $h \sleq f \circ g$,}\\
+    &= \rst{h} && \mbox{by C.1.}
+\end{align*}
+
+\noindent 
+Next, $\rng{h_R}=\rng{h}$ 
+follows by duality because $h_R$, as defined, is the dual of $h_L$ 
+and because the dual of $\rst{h}$ is $\rng{h}$.
+\end{enumerate}
 \end{proof}
 
