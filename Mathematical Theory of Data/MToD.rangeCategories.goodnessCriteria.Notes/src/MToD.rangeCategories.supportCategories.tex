@@ -112,11 +112,11 @@ in \catc,
 
 \subsection{Support Ordering of $Hom(A,B)$}
 
-In a category with support, \catc, we can define a partial ordering on each hom set
-$Hom_\catc(a,b)$ by defining :
+In a category with support, and therefore in a restriction category, we can define a partial ordering on each hom set
+Hom(a,b) by defining :
 $$f \sleq g \mbox{ iff } f = \rst{f} \circ g.$$
 
-The relation $\sleq$, so defined, is antisymmetric because if
+The relation $\sleq$, so defined, is reflexive because of S.1, it is antisymmetric because if
 \begin{equation}
 \label{fleqg}
 f = \rst{f} \circ g
@@ -129,30 +129,88 @@ g = \rst{g} \circ f
 then
 \begin{align*}
 f &= \rst{f} \circ g &&\mbox {this is (\ref{fleqg}),}        \\
-  &= \rst{g} \circ \rst{f} \circ g &&\mbox{by R.1 and R.2,}\\
+  &= \rst{g} \circ \rst{f} \circ g &&\mbox{by S.1 and S.2,}\\
   &= \rst{g} \circ f               &&\mbox{using (\ref{fleqg}) again,} \\
   &= g                             &&\mbox{(by (\ref{gleqf}).} 
 \end{align*}
 
 When $f$ and $g$ are partial functions and
 considered as morphisms in the category $\Par$ of sets and partial functions,  
-then  $f \leq g$ iff  whenever $f$ is defined at an $x$,  then $g$ too is defined at x and $f(x) = g(x)$.
+then  $f \sleq g$ iff  whenever $f$ is defined at an $x$,  then $g$ too is defined at x and $f(x) = g(x)$.
+
+The relation $\sleq$ is transitive because if
+\begin{equation}
+\label{fleqgagain}
+\rst{f} \circ g =f
+\end{equation}
+and
+\begin{equation}
+\label{gleqh}
+\rst{g} \circ h = g
+\end{equation}
+then
+\begin{align*}
+\rst{f} \circ h
+&= \rst{\rst{f} \circ g} \circ h
+&&\mbox{by (\ref{fleqgagain}),}\\
+&= \rst {f} \circ \rst{g} \circ h
+&&\mbox{by S.3,}\\
+&= \rst{f} \circ g
+&&\mbox{by (\ref{gleqh}),}\\
+&= f
+&&\mbox{by (\ref{fleqgagain}).}
+\end{align*}
 
 \begin{lemma}
 \llabel{orderingsCompose}
 In a category with support 
 if 
 $
-\paralleldiag{a}{b}{f}{f'}
+\paralleldiag{a}{b}{f'}{f}
 $
 and
 $
-\paralleldiag{b}{c}{g}{g'}
+\paralleldiag{b}{c}{g'}{g}
 $
-in \catcw and if $f' \sleq f$ and $g' \sleq g$ 
-then $f' \circ g' \sleq f \circ g$.
+in \catcw and if $f \sleq f'$ and $g \sleq g'$ 
+then $f \circ g \sleq f' \circ g'$.
 \end{lemma}
 \begin{proof}
+We are given
+\begin{equation}
+\label{fleqfp}
+\rst{f} \circ f' =f
+\end{equation}
+and
+\begin{equation}
+\label{gleqgp}
+\rst{g} \circ g' =g
+\end{equation}
+
+and we need prove that
+\begin{equation}
+\label{fgleqfgp}
+\rst{f \circ g} \circ f' \circ g' = f \circ g
+\end{equation}
+which we \highlight{cannot} do without determinism \highlight{R.4} as follows:
+\begin{align*}
+\rst{f \circ g} \circ f' \circ g'
+&=
+\mbox{}\\
+&=
+\mbox{}\\
+&=
+\mbox{}\\
+&=
+\mbox{}\\
+&=
+\mbox{}\\
+&= f \circ g
+\mbox{}
+\end{align*}
+\begin{worktt}
+THis will be worth proving in restriction category section.
+\end{worktt}
 \end{proof}
 
 \begin{lemma}
