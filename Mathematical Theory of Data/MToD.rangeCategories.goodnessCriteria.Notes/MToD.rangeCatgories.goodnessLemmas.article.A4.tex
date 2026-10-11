@@ -37,8 +37,6 @@
 \usepackage{makeidx}
 \makeindex
 
-
-
 \newcommand{\fgsourcediag}{$\binarysourcediag{a}{b}{c}{f}{g}$}
 \newcommand{\fgsinkdiag}{$\binarysinkdiag{a}{b}{c}{f}{g}$}
 \newcommand{\FGsourcediag}{$\binarysourcediag{a}{b}{c}{F}{G}$}
@@ -51,13 +49,15 @@
 %
 %\includeonly{\srcFolder/MToD.rangeCategories.zigzagcommand.tests.tex}
 %\includeonly{\srcFolder/MToD.rangeCategories.introduction.tex}
+%
 %\includeonly{\srcFolder/MToD.rangeCategories.supportCategories.tex}
 %\includeonly{\srcFolder/MToD.rangeCategories.cosupportCategories.tex}
-%\includeonly{\srcFolder/MToD.rangeCategories.bisupportCategories.tex}
+\includeonly{\srcFolder/MToD.rangeCategories.bisupportCategories.tex}
+%\includeonly{\srcFolder/MToD.rangeCategories.posetEnrichedBisupportCategories.tex}
+%\includeonly{\srcFolder/MToD.rangeCategories.zigzags.tex}
 %\includeonly{\srcFolder/MToD.rangeCategories.bisupportWithConverse.tex}
 %\includeonly{\srcFolder/MToD.rangeCategories.restrictions_and_support.tex}
 %\includeonly{\srcFolder/MToD.rangeCategories.ranges_sections_and_weak_range.tex} 
-%\includeonly{\srcFolder/MToD.rangeCategories.zigzags.tex}
 %\includeonly{\srcFolder/MToD.rangeCategories.shortening.tex}
 %\includeonly{\srcFolder/MToD.rangeCategories.carry.tex}
 %\includeonly{\srcFolder/MToD.rangeCategories.Rel_category.tex}
@@ -79,18 +79,95 @@
 \date{}
 \maketitle
 \begin{aside}
+14th October 2026. I have gravitated toward bisupport catgories because 
+many of the proofs regarding tightness and the establishing of a category of tight zigzags seem to befit from appeals to symmetry. It is mathematically expedient to symmetry of support and cosupport. I became unstuck however because if the the partial order defined in the restriction category setting is moved \textit{verabtim} into the bisupport setting then the resulting partial order is not monotone i.e. composition does not respect the ordering. Call this ordering the support order. Call its dual the cosupport order. These are definable in a bisupport category but in the bisupport category of sets and binary relationships neither of these orderings correspond to relationship inclusion and, worse, composition (of morphisms) is not monotone with respect to these orderings. 
+
+To proceed we need to assume an ordering such that compostion and support and cosupport are monotone. Such a structure we will define as 
+\begin{equation}
+\label{posetEnrichedBisupportCategory}
+\text{poset enriched bisupport category}
+\end{equation}
+There is a category \cat{pobicat}.
+
+To get to the category of tight zigzags we will need one or more additional conditions.
+\workt{I previously thought} that we might need the condition that is currently given as lemma \lref{pointwiseorderingsCompose}:
+if 
+$
+\paralleldiag{a}{b}{f}{f'}
+$
+\nudgedown{0.6cm}
+and
+$
+\paralleldiag{b}{c}{g}{g'}
+$
+and $h: a \morph c$ in \catcw 
+and if $f' \sleq f$ and $g' \sleq g$ 
+and if $h \sleq f \circ g'$ and $h \sleq f' \circ g$ 
+then $h \sleq f' \circ g'$. \workt{but this condition does not hold in sets and binary relationships} \workt{The lemma will hold wrt support ordering in a restriction category I think}
+
+\workt{I cannot see this lemma being used anywhere}
+
+\highlight{I need to look at the $h$, $h_L$, $h_R$ lemma and see where this fits in.} 
+
+\workt{Oh no. This doesn't hold in sets and binary relationships. This, I think, is a show stopper.}
+\begin{oldtt}
+For lack of better terminology when these conditions are met we shall say we have a 
+\begin{equation}
+\label{wellBehavedPosetEnrichedBisupportCategory}
+\text{well-behaved poset enriched bisupport category}
+\end{equation}
+There is a category \cat{wpobicat}.
+
+Next the category of tight zigzags over a well-behaved poset enriched bisupport 
+category has  converses that is compatible with the bisupport structure
+\begin{equation}
+\label{functionAwareWellbehavedPosetEnrichedBisupportWithConverse}
+\text{function aware well-behaved poset enriched bisupport category with compatible converse}
+\end{equation}
+There is a category \cat{fawpobicatcon}. 
+
+The category of short tight zigzags in addition satisfies condition K.4.
+\begin{equation}
+\label{functionAwareWellBehavedPosetEnrichedBisupportWithK4Converse}
+\text{function-aware well-behaved poset enriched bisupport category with K.4 converse}
+\end{equation}
+There is a category \cat{fawpobicatk4con}.
+
+The latter is the free 
+(\lref{functionAwareWellBehavedPosetEnrichedBisupportWithK4Converse}) 
+on a
+(\ref{wellBehavedPosetEnrichedBisupportCategory}) 
+\end{oldtt}
+\end{aside}
+
+\begin{aside}
+6th October 2026: We could have co-function aware. K.4 then has a dual. How important is this. Then shortening can be co-shortening of zigzags. What is a 1-1 morphism in a range category? Over a bisupport category does shortening hold for all $f$ that satisfy R.4? Do we therefore absolutely need take account of co-shortening?
+
+Note that I have uncertainties both about the precise positioning of tight zigzags (the place of the $h_L$ and $h_R$ axioma/construction) and about shortening (is cardinality decoration necessary to get a universal construction, what is the remanant of the universal construction when restricted to range categories, is coshortening an absolute requirement(hmmm. Might be a requirment only if we require dual of K.4. Remember K.4 only applies to function-like morphisms.)
+\end{aside}
+\begin{aside}
 I have been working on this since January 2026.
-In August 2026 the proofs are fully fleshed out though a few lemmas have proofs trhat are not written up:
+In August 2026 the proofs are fully fleshed out though a few lemmas have proofs trhat are not written up. Through September I am shifting the thinking toward bisupport categories. But then things become less clear.
 \begin{enumerate}
   \item lemma \lref{orderingsCompose}  
-  \item lemma \lref{pointwiseorderingsCompose}  
-  \item lemma \lref{tighteningCommutesWithComposition} 
-  \item lemma \lref{FGsupportLemmas} 
+  The proof that this holds in restriction categories isnt written up. 
+  I think I need to do this. 
+  Note that $g \leq g'$ implies $f \circ g \leq f \circ g'$ holds only if $f$ is deterministic. A counter example in sets and binary relationships is
+  $a = \set{x}, b= \set{y_1,y_2}, c = \set{z_1,z_2}$, 
+  $x \mathrel{\overset{f}{\mapsto}} \set{y_1,y_2}$,
+  $y_1 \mathrel{\overset{g'}{\mapsto}} \set{z_1}$, 
+  $y_2 \mathrel{\overset{g'}{\mapsto}} \set{z_2}$,
+  $y_2 \mathrel{\overset{g}{\mapsto}} \set{z_2}$.
+  If the ordering is as defined in a restriction category (in which all maps are deterministic as in R.4 holds of them) then whilst $g \leq g'$  it isn't the case that $f \circ g \leq f \circ g'$.
+  This needs become an axiom of poset enriched bisupport categories. Proof in
+  restriction categories beccomes a proof that restriction categories are poset enriched bisupport catregories.
+  \item lemma \lref{pointwiseorderingsCompose}
+  I need to prove this for restriction categories. Does it need by an axiom for
+  partial order enriched bisupport categroies plus??  
+  \item lemma \lref{tighteningCommutesWithComposition} Proof not written up.
+  \item lemma \lref{FGsupportLemmas} Proof not written up.
 \end{enumerate}
-and one definition is missing
-\begin{enumerate}
-  \item The Representation of Path Equivalence
-\end{enumerate}
+and one definition is missing namely "The Representation of Path Equivalence".
 
 Along the way I had a few expensive false turns including thinking that I could introduce a partial Hom functor. 
 This turned out to be a profunctor or something like and so was abandoned.
@@ -119,6 +196,7 @@ parallel whenEverythingFellApart.
 \end{aside}
 
 \begin{aside}
+
 \begin{enumerate}
 \item 
 I can add to the definition of bisupport categories a converse operation.
@@ -153,11 +231,12 @@ of \catcw and these morphisms are generated from the sketch. The morphisms thems
 \include{\srcFolder/MToD.rangeCategories.supportCategories.tex}
 \include{\srcFolder/MToD.rangeCategories.cosupportCategories.tex}
 \include{\srcFolder/MToD.rangeCategories.bisupportCategories.tex}
+\include{\srcFolder/MToD.rangeCategories.posetEnrichedBisupportCategories.tex}
+\include{\srcFolder/MToD.rangeCategories.zigzags.tex}
 \include{\srcFolder/MToD.rangeCategories.bisupportWithConverse.tex}
 \include{\srcFolder/MToD.rangeCategories.restrictions_and_support.tex}
 \include{\srcFolder/MToD.rangeCategories.ranges_sections_and_weak_range.tex} 
 \include{\srcFolder/MToD.rangeCategories.Par_valued_functors.tex}
-\include{\srcFolder/MToD.rangeCategories.zigzags.tex}
 \include{\srcFolder/MToD.rangeCategories.shortening.tex}
 
 % the file should be renamed the data functor or something more semaantic

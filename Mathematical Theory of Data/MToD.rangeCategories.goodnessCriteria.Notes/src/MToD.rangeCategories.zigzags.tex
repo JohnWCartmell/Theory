@@ -2,7 +2,7 @@
 
 \subsection{Zigzags in a range category \catcw}
 
-For any $n \ge 1$, a zigzag of length $n$ in range category \catcw  
+For any $n \ge 1$, a zigzag of length $n$ in bisupport category \catcw  
 is a sequence of morphisms  $F=\zigzagTuple{f}{n}$ of \catcw such that for some 
 objects $x_0,..x_n$ and $y_1,...y_n$ of \catcw we have
 $$
@@ -71,15 +71,6 @@ $f_i \leq g_i$ and for each $i$, $0 \leq i \leq n-1$ $f'_i \leq g'_i$.
 
 \subsection{Tightening}
 
-\iffalse
-\newcommand{\tightlead}
-  {f_1,f'_1,...f_{n-2},f'_{n-2},
-       f_{n-1} \circ 
-       \rng{
-                \rst{f_n} \circ f'_{n-1}
-                     }
-}   
-\fi
 
 \NewDocumentCommand{\tightlead}{o}
 {%
@@ -108,7 +99,8 @@ $f_i \leq g_i$ and for each $i$, $0 \leq i \leq n-1$ $f'_i \leq g'_i$.
     }
 }
 
-If $F$ is a zigzag, a \textit{tightening} of $F$ is a tight zigzag
+If $F$ is a zigzag in a poset-enriched bisupport category \catcw, 
+a \textit{tightening} of $F$ is a tight zigzag
 $T \leq F$ such that for every tight zigzag $Z$ with $Z \leq F$,
 we have $Z \leq T$.
 
@@ -132,8 +124,6 @@ then  zigzag
 \label{requiredTightening}\leftToRightTightening
 \end{equation}
 is a tightening of $F$. 
-
-
 \end{lemma}
 \begin{proof}
 We have to show first that (\ref{requiredTightening}) is tight. 
@@ -146,51 +136,38 @@ For this we need the following identities:
 \rst{\rst{f_n} \circ f'_{n-1} \circ \rng{t_{n-1}}}&=\rst{\rst{f'_{n-1} \circ \rng{t_{n-1}}} \circ f_n}
 \end{align}
 
-To show that (\ref{tightnessIdentityOne}) holds 
-we first note that by use of lemma \lref{fglemma} (iii) 
-that its rhs simplifies to 
-$\rng{\rst{f_n} \circ f'_{n-1}} \circ \rng{t_{n-1}}$ 
-and that therefore  it
-can be paraphrased as
+To show that (\ref{tightnessIdentityOne}) holds first note that 
+because from the definition of $\zigzagLeadingTuple{t}{n}$ as a tightening
+it follows in particular that
 \[
-t_{n-1} \leq \rng{\rst{f_n} \circ f'_{n-1}}.
+t_{n-1} \leq f_{n-1} \circ \rng{\rst{f_n} \circ f'_{n-1}}
 \]
-This we show as follows
-\newcommand{\stepOneReason}{
-\parbox[t]{6cm}{
-since
-$t_{n-1} \leq  f_{n-1} \circ 
-       \rng{
-                \rst{f_n} \circ f'_{n-1}
-                     }
-$
-as $t_{n-1}$ is the final element in the tightening
-of (\ref{inductionPrecursor}),
-} }
-\newcommand{\stepThreeReason}{
-\parbox[t]{6cm}{
-because $\rng{f_{n-1}}$ is an idempotent
-and 
-for any idempotent $i$ and morphism $f$, $i \circ f \leq f$.
-} }
+and that therefore that
+\[
+\rng{t_{n-1}} \leq \rng{f_{n-1} \circ \rng{\rst{f_n} \circ f'_{n-1}}}
+\]
+which rearranges using C.3 to
+\[
+\rng{t_{n-1}} \leq \rng{f_{n-1}} \circ \rng{\rst{f_n} \circ f'_{n-1}}
+\]
+from which we have by lemma \lref{idempotentCompositionAndOrdering}(ii)
+that 
+\[
+\rng{t_{n-1}} \leq \rng{\rst{f_n} \circ f'_{n-1}}.
+\]
+From this inequality it follows that
 \begin{align*}
-\rng{t_{n-1}} &\leq  \rng{
-       f_{n-1} \circ 
-       \rng{
-                \rst{f_n} \circ f'_{n-1}
-                     }
-                                      }
-        && \mbox{\stepOneReason}\\
-         &= \rng{f_{n-1}} \circ 
-                      \rng{
-                           \rst{f_n} \circ f'_{n-1}
-                                    }
-        && \mbox{by lemma \lref{fglemma} (iii),}\\[0.1cm]  
-    &\leq  \rng{\rst{f_n} \circ f'_{n-1}}
-        && \mbox{\stepThreeReason}
+\rng{t_{n-1}} 
+           &= \rng{t_{n-1}} \circ \rng{\rst{f_n} \circ f'_{n-1}}
+           && \mbox{by lemma \lref{idempotentCompositionAndOrdering}(vi),}\\
+           &= \rng{\rst{f_n} \circ f'_{n-1}} \circ \rng{t_{n-1}}
+           && \mbox{by C.2,}\\
+           &= \rng{\rst{f_n} \circ f'_{n-1} \circ \rng{t_{n-1}}}
+           &&\mbox{by C.3, as required.}
 \end{align*}
 
-Identity (\ref{tightnessIdentityTwo}) holds because both sides  simplify, using RR.3, and R.2, to $\rst{f'_{n-1} \circ \rng{t_{n-1}}} \circ \rst{f_n}$.
+Identity (\ref{tightnessIdentityTwo}) holds \highlight{CHECK} because both sides  simplify, using \workt{RR.3}, and axiom S.2, 
+to $\rst{f'_{n-1} \circ \rng{t_{n-1}}} \circ \rst{f_n}$.
 
 We can now show that (\ref{requiredTightening})
 is the tightening of $F$ by showing that 
@@ -250,26 +227,26 @@ in addition to show that
 The first of these holds because
 \begin{align*}
 z'_{n-1} &= \rst{z'_{n-1}} \circ z'_{n-1}  \circ \rng{z'_{n-1}} 
-                && \mbox{trivially, by R.1 and RR.2,}\\
+                && \mbox{trivially, by axioms S.1 and C.1,}\\
          &= \rst{z_n} \circ z'_{n-1}  \circ \rng{z_{n-1}} 
          &&\mbox{because $Z$ is tight,}\\
          &\leq \rst{f_n} \circ f'_{n-1}  \circ \rng{z_{n-1}}
          &&\mbox{because $Z \leq F$ ,}\\
          &\leq \rst{f_n} \circ f'_{n-1}  \circ \rng{t_{n-1}}
          &&\mbox{because $z_{n-1} \leq t_{n-1}$ is established
-                               above in (\ref{inequalityOne}).}
+                               above in \workt{(\ref{inequalityOne})}.}
 \end{align*}
 
 The second  because
 \begin{align*}
  z_n &= \rst{z_n} \circ z_n
-         &&\mbox{by R.1,}\\        
+         &&\mbox{by axiom S.1,}\\        
      &=  \rst{z'_{n-1}} \circ z_n 
          &&\mbox{since $Z$ is tight,}\\
      &\leq  \rst{\rst{f_n} \circ\ f'_{n-1} \circ \rng{t_{n-1}}} \circ f_n
          &&\mbox{by (\ref{inequalityTwo}) and since $z_n \leq f_n$,} \\
          &= \rst{f'_{n-1} \circ \rng{t_{n-1}}} \circ f_n
-         && \mbox{by R.3, R.2 and R.1.}
+         && \mbox{by axioms S.3, S.2 and S.1.}
 \end{align*}
 \end{proof}
 } %end lemma leftToRightTighteningSubLemma
@@ -277,37 +254,9 @@ We have established that every zigzag $F$ has a unique tightening.
 We shall write $T(F)$ for the tightening of $F$. 
 
 
-\iffalse
-We \highlight{might} need the following takeaway from this lemma:
-\begin{observation}
-\llabel{bareTailObservation}
-\commentary{Proof is simple but do I actually need this?}
-\commentary{I think nthat only used in proof
-of tighteningCommutesWithComposition BUT I now have a better proof which doesn't require this.}
-
-If $F=\zigzagTuple{f}{n}$ is a zigzag then
-\[
-T(F) = T(\zigzagLeftFactorTuple{f}{n}) ::\tuple{f_n}
-\] 
-\end{observation}
-\fi
-
-
 Lemma \lref{leftToRightTighteningSubLemma} describes how a zigzag can be tighten from left to right. We can also describe how a zigzag can be
 tightened from right to left. This is what the next lemma is about.
-\iffalse
-\newcommand{\tightTail}
-  {\rst{f'_1 \circ \rng{f_1}} \circ f_2,\;
-  f'_2,...f_{n-2},f'_{n-1}, f_n
-  }      
 
-\newcommand{\rightToLeftTightening}
-{\tuple{f_1 \circ \rng{\rst{t_2} \circ f'_1},\;
-        \rst{t_2} \circ f'_1 \circ \rng{f_1},\; 
-        t_2    ,...t_{n-1},t'_{n-1},t_n
-    }
-}
-\fi 
 \NewDocumentCommand{\tightTail}{o}
 {%
   \IfValueTF{#1}
@@ -346,116 +295,7 @@ then  zigzag
 is a tightening of $F$. 
 \end{lemma}
 \begin{proof}
-First of all we have to show that (\ref{requiredRLTightening}) is tight. 
-
-For this we need the following identities:
-\begin{align}
-\label{RLtightnessIdentityOne}
-\rng{f_1 \circ \rng{\rst{t_2} \circ f'_1}}&=\rng{\rst{t_2} \circ f'_1 \circ \rng{f_1}}   \\[0.1cm]
-\label{RLtightnessIdentityTwo}
-\rst{\rst{t_2} \circ f'_1 \circ \rng{f_1}}&=\rst{t_2}
-\end{align}
-The first of these follows from lemma \lref{fglemma} (i) and (iii).
-The second because the lhs simplifies to 
-$\rst{t_2} \circ \rst{f'_1 \circ \rng{f_1}}$
-and so the identity can be paraphrased as 
-$\rst{t_2} \leq \rst{f'_1 \circ \rng{f_1}}$ 
-which we can prove as follows 
-
-\newcommand{\stepOneReason}{
-\parbox[t]{6cm}{because $t_2 \leq \rst{f'_1 \circ \rng{f_1}} \circ f_2$
-as $t_2$ is the first element in the tightening of (\ref{inductionRLprecursor}),
-}
-}
-\newcommand{\stepThreeReason}{
-\parbox[t]{6cm}{because for any morphism $f$ 
-                that can be composed with any idempotent $j$,
-                    $f \circ j \leq f$.
-}
-}
-\begin{align*}
-\rst{t_2} &\leq \rst{\rst{f'_1 \circ \rng{f_1}} \circ f_2}
-                && \mbox{\stepOneReason} \\
-          &= \rst{f'_1 \circ \rng{f_1}} \circ \rst{f_2} 
-                && \mbox{by R.3,} \\
-          &\leq \rst{f'_1 \circ \rng{f_1}}
-                && \mbox{\stepThreeReason}
-\end{align*}
-
-We can now show that (\ref{requiredRLTightening})
-is the tightening of $F$ by showing that 
-it dominates any tight zigzag $Z$ such that
-$Z \leq F$ 
-Assume such a $Z=\zigzagTuple{z}{n}$ and assume that
-
-\[
-\zigzagTuple{z}{n} \leq \zigzagTuple{f}{n}
-\]
-we need to show that 
-\begin{equation}
-\label{targetRLInequality}
-Z \leq \rightToLeftTightening.
-\end{equation}
-
-First we note that  
-\[
- z_2 \leq \rst{f'_1 \circ \rng{f_1}} \circ f_2
-\]
-because 
-\begin{align*}
-z_2 &= \rst{z'_1 \circ \rng{z_1}} \circ z_2 
-          && \mbox{trivially, since $Z$ is tight,}\\
-    &\leq \rst{f'_1 \circ \rng{f_1}} \circ f_2 
-     &&\mbox{\parbox{3cm}{since $Z \leq F$.}}
-\end{align*}
-
-Thus since also $Z \leq F$ then we have that
-\[
-\zigzagTrailingTuple{z}{n} \leq \tuple{\tightTail}
-\] 
-and from this and the definition of $\zigzagTrailingTuple{t}{n}$???
-as a tightening of the rhs of this inequality we establish that
-\[
-\label{RLinequalityOne}
-\zigzagTrailingTuple{z}{n} \leq \zigzagTrailingTuple{t}{n} ???
-\]
-
-To establish the target inequality (\ref{targetRLInequality})
-we need 
-in addition to show that
- \begin{equation}
- \label{RLinequalityTwo}
- z'_1 \leq  \rst{t_2} \circ f'_1 \circ \rng{f_1}
- \end{equation}
- and
-  \begin{equation}
- \label{RLinequalityThree}
- z_1 \leq f_1 \circ \rng{\rst{t_2} \circ f'_1}
- \end{equation}
-The first of these holds because
-\begin{align*}
-z'_1 &= \rst{z'_1} \circ z'_1  \circ \rng{z'_1} 
-                && \mbox{trivially, by R.1 and RR.2,}\\
-         &= \rst{z_2} \circ z'_1  \circ \rng{z_1} 
-         &&\mbox{because $Z$ is tight,}\\
-         &\leq \rst{z_2} \circ f'_1  \circ \rng{f_1}
-         &&\mbox{because $Z \leq F$ ,}\\
-         &\leq \rst{t_2} \circ f'_1  \circ \rng{f_1}
-         &&\mbox{because $z_2 \leq t_2$ is established
-                               above in (\ref{RLinequalityOne}).}
-\end{align*}
-
-The second because
-\begin{align*}
-z_1 &= z_1 \circ \rng{z_1}
-        && \mbox{by RR.2,} \\ 
-    &= z_1 \circ \rng{z'_1}
-        && \mbox{since $Z$ is tight,} \\ 
-    &\leq f_1 \circ \rng{\rst{t_2} \circ f'_1 \circ \rng{f_1}}
-        && \mbox{by (\ref{RLinequalityTwo}) and since $z_1 \leq f_1$,} \\ 
-    &= f_1 \circ \rng{\rst{t_2} \circ f'_1}
-        && \mbox{by lemma \ref{fglemma} (iii), R.2, RR.1  and RR.2.}
-\end{align*}
+By duality.
 \end{proof} % end of lemma rightToLeftTighteningSubLemma
 
 \iffalse

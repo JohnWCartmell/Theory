@@ -1,0 +1,248 @@
+
+\section{Poset-enriched Bisupport Categories}
+
+A poset-enriched bisupport category is a bisupport category together with a partial order $\leq$ on each hom set such that composition is monotone in each argument, such that support and cosupport are monotone and such that
+each support and cosupport morphism is a subidentity. We will identify these 
+additional axioms as P.1, P.2, PS.1, PC.1, PS.2 and PC.2 as follows:
+
+\noindent [P.1]\quad
+If $\coequaliser{c}{g}{\paralleldiag{a}{b}{f'}{f}}$ then 
+\[
+f \leq f' \;\Longrightarrow\;f\circ g \leq f'\circ g
+\]
+\noindent [P.2]\quad
+If $\equaliser{a}{f}{\paralleldiag{b}{c}{g'}{g}}$ then 
+\[
+g \leq g' \;\Longrightarrow\;f\circ g \leq f\circ g'
+\]
+
+\noindent [PS.1]\quad
+If $\paralleldiag{a}{b}{f}{g}$ then 
+\[
+f \leq g \;\Longrightarrow\;\rst{f} \leq \rst{g}.
+\]
+\noindent [PC.1]\quad
+If $\paralleldiag{a}{b}{f}{g}$ then 
+\[
+f \leq g \;\Longrightarrow\;\rng{f} \leq \rng{g}.
+\]
+
+\noindent [PS.2]\quad
+If $f : a \morph b$, then
+\[
+\rst{f} \leq id
+\]
+\noindent [PC.2]\quad
+If $f : a \morph b$, then
+\[
+\rng{f} \leq id
+\]
+
+Note that strictly speaking we do not really need PC.2 as an axiom because it 
+can be derived from PS.2 using xxx.
+
+When reasoning about poset-enriched bisupport categories, we can appeal
+to duality as we can within the context of bisupport categories. This is
+because the poset enrichment of any category $\catcw$ induces a poset
+enrichment of the opposite category $\catc^{op}$: the order on each
+hom
+set is unchanged, while composition is reversed.
+
+The additional
+poset-enrichment axioms are dual pairs:
+$\mathrm{P.1}$ and $\mathrm{P.2}$ interchange
+when passing to the opposite category; likewise,
+$\mathrm{PC.1}$ is dual to
+$\mathrm{PS.1}$, and $\mathrm{PC.2}$ is dual to $\mathrm{PS.2}$.
+
+\begin{lemma}
+\llabel{idempotentCompositionAndOrdering}
+If \catcw is a poset-enriched bisupport category then 
+
+(i) if $f: a \morph b$ and $g:a \morph b'$ 
+then $\rst{f} \circ g \leq g$,
+
+(ii) if $f: a \morph b$ and $g: b \morph b'$ 
+then  $\rng{f} \circ g \leq g$,
+
+(iii)if $f : a \morph b$ and $g : b \morph b'$ then $f \circ \rst{g} \leq f$,
+
+(iv) if $f : a \morph b$ and $g : a' \morph b$ then $f \circ \rng{g} \leq f$.
+
+(v) if $f : a \morph b$ and $f' : a \morph b'$ and $\rst{f} \leq \rst{f'}$ 
+then  $\rst{f} \circ \rst{f'} = \rst{f}$.
+
+(vi) if $f : a \morph b$ and $f' : a' \morph b$ and $\rng{f} \leq \rng{f'}$ 
+then  $\rng{f} \circ \rng{f'} = \rng{f}$.
+
+\end{lemma}
+\begin{proof}
+(i) Because from P.1 and PS.1 we have that
+$
+\rst{f} \circ g \leq id_a \circ g.
+$
+
+(ii) Follows from (i) and because $\rng{f}: b \morph b$ and
+$\rst{\rng{f}}=\rng{f}$, by SC (i). 
+
+(iii) is the dual to (ii).
+
+(iv) is the dual to (i).
+
+(vi) $\rst{f} \circ \rst{f'} \leq  \rst{f}$ by 
+lemma \lref{supportLemma} (). For the required identity it suffices to show
+in addition that $\rst{f} \leq \rst{f} \circ \rst{f'}$. 
+This is the case because from 
+\[
+\rst{f} \leq \rst{f'}
+\]
+it follows  by monotonicity of composition that
+\[
+\rst{f} \circ \rst{f} \leq \rst{f} \circ \rst{f'}
+\]
+which by lemma \lref{supportLemma} (iii) simplifies to
+\[
+\rst{f} \leq \rst{f} \circ \rst{f'}.
+\]
+
+(vi) is the dual to (v).
+\end{proof}
+
+\begin{lemma}
+\llabel{diminishingReturn}
+\[
+\rst{\rst{f} \circ g} \leq \rst{f}
+\]
+\end{lemma}
+\begin{proof}
+By S.3,
+\[
+\begin{aligned}
+\rst{\rst{f}\circ g}
+    &= \rst{f}\circ\rst{g}\\
+    &\leq \rst{f}\circ id\\
+    &= \rst{f}.
+\end{aligned}
+\]
+The inequality follows from PS.2 and P.2.
+\end{proof}
+\begin{construction}
+\llabel{fghConstructionRevised}
+\begin{aside}
+This revised version is tailored for the context of poset enriched bisupport categories. In range categories the inequality $h \leq h_L \circ h_R$ 
+can be replaced by an equality. Turns out though that the inequality suffices for what we need it for working with tight zigzags. 
+\end{aside}
+If 
+$\begin{array}{c p {0.3cm} c p{0.3cm} c }
+\nudgeup{0.75cm}
+          && \bOb{y} &&         \\[0.25cm]
+  \bOb{x} &&         && \bOb{z} \\[0.4cm]
+\end{array}
+\begin{arrows}
+\ncarr{x}{y}\alabel{f}
+\ncarr{y}{z}\alabel{g}
+\drawMorphismArcing{x}{z}{b}{h}{-15}{-15}[0.5] 
+\end{arrows}
+$
+and $h \leq f \circ g$
+in poset-enriched bisupport category \catcw
+then 
+if we define 
+\[
+h_L = \rst{h} \circ f \circ \rst{g \circ \rng{h}}
+\]
+and  
+\[
+h_R = \rng{\rst{h} \circ f} \circ g \circ \rng{h}.
+\] 
+then 
+\begin{enumerate}[(i)]
+\item
+\[
+h_L \leq f
+\]
+\item 
+\[
+h_R \leq g
+\]
+\item
+\[
+\rst{h_L}=\rst{h}
+\]
+\item
+\[
+\rng{h_R}=\rng{h}.
+\]
+\item 
+\[
+h \leq h_L \circ h_R
+\]
+\end{enumerate}
+\end{construction}
+\begin{proof}\leavevmode\par
+\begin{enumerate}[(i)]
+\item %(i)
+That $h_L \leq f$
+is the case
+follows from the form the definition
+of $h_L$  as restriction idempotents
+composed with $f$,
+see lemma \lref{idempotentCompositionAndOrdering}.
+
+\item %(ii)
+Follows by the same argument as (i).
+
+\item %(iii)
+To prove that $\rst{h_L}=\rst{h}$ 
+we prove first that $\rst{h_L}\leq \rst{h}$
+and second that $\rst{h} \leq \rst{h_L}$.
+
+For the first we have 
+\begin{align*}
+\rst{h_L}
+    &= \rst{\rst{h} \circ f \circ \rst{g \circ \rng{h}}}
+         && \mbox{by definition of $h_L$,}\\
+    &= \rst{\rst{h} \circ f \circ g \circ \rng{h}}
+        && \mbox{by S.4,}\\
+    &\leq \rst{h} 
+        && \mbox{by lemma \lref{diminishingReturn}.}
+\end{align*}
+
+For the second we have
+\begin{align*}
+\rst{h} &= \rst{\rst{h} \circ h \circ \rng{h}}
+              &&\mbox{by S.1 and C.1,} \\
+        &\leq \rst{\rst{h} \circ f \circ g \circ \rng{h}}
+            && \mbox{because $h \leq f \circ g$ and by monotonicity,} \\
+        &= \rst{\rst{h} \circ f \circ \rst{g \circ \rng{h}}}
+            && \mbox{S.4} \\
+        &= \rst{h_L} && \mbox{by definition.}
+\end{align*}
+\item %(iv) 
+The identity $\rng{h_R}=\rng{h}$ 
+follows by duality because $h_R$, as defined, is the dual of $h_L$ 
+and because the dual of $\rst{h}$ is $\rng{h}$.
+\item %(v)
+The inequality $h \leq h_L \circ h_R$ follows 
+because 
+\begin{align*}
+h &= \rst{h} \circ h \circ \rng{h} 
+               && \mbox{by S.1 and C.1,} \\
+  &\leq \rst{h} \circ f \circ g \circ \rng{h}
+                && \mbox{by monotonicity of composition and since $h \leq f \circ g$,} \\
+  &= \rst{h} \circ f \circ \rng{\rst{h} \circ f} 
+       \circ 
+     \rst{g \circ \rng{h}} \circ g \circ \rng{h}
+                && \mbox{by S.1 and C.1,} \\
+  &= \rst{h} \circ f \circ \rst{g \circ \rng{h}} 
+       \circ
+     \rng{\rst{h} \circ f} \circ g \circ \rng{h}
+                 && \mbox{\parbox[t]{5cm}{because support idempotents
+                             commute (S.2) 
+                             and because $\rng{\rst{h} \circ f}$ 
+                             is a support idempotent (SC(i)), }}\\
+  &= h_L \circ h_R && \mbox{from how $h_L$ and $h_R$ are defined.}
+\end{align*}
+\end{enumerate}
+\end{proof}
+
