@@ -166,7 +166,7 @@ From this inequality it follows that
            &&\mbox{by C.3, as required.}
 \end{align*}
 
-Identity (\ref{tightnessIdentityTwo}) holds \highlight{CHECK} because both sides  simplify, using \workt{RR.3}, and axiom S.2, 
+Identity (\ref{tightnessIdentityTwo}) holds \highlight{CHECK} because both sides  simplify, using lemma \lref{bisupportLemma}(i), and axiom S.2, 
 to $\rst{f'_{n-1} \circ \rng{t_{n-1}}} \circ \rst{f_n}$.
 
 We can now show that (\ref{requiredTightening})
@@ -206,10 +206,10 @@ Thus since also $Z \leq F$ then we have that
 \] 
 and from this and the definition of $\zigzagLeadingTuple{t}{n}$
 as a tightening of the rhs of this inequality we establish that
-\[
+\begin{equation}
 \label{inequalityOne}
 \zigzagLeadingTuple{z}{n} \leq \zigzagLeadingTuple{t}{n}
-\]
+\end{equation}
  
 To establish the target inequality (\ref{targetInequality})
 we need 
@@ -254,8 +254,7 @@ We have established that every zigzag $F$ has a unique tightening.
 We shall write $T(F)$ for the tightening of $F$. 
 
 
-Lemma \lref{leftToRightTighteningSubLemma} describes how a zigzag can be tighten from left to right. We can also describe how a zigzag can be
-tightened from right to left. This is what the next lemma is about.
+Lemma \lref{leftToRightTighteningSubLemma} describes how a zigzag can be tighten from left to right. Duality gives us the following right to left tightening lemma:
 
 \NewDocumentCommand{\tightTail}{o}
 {%
@@ -294,20 +293,8 @@ then  zigzag
 \end{equation}
 is a tightening of $F$. 
 \end{lemma}
-\begin{proof}
-By duality.
-\end{proof} % end of lemma rightToLeftTighteningSubLemma
 
-\iffalse
-We \highlight{might} need the following observation
-\begin{observation}
-\llabel{bareHeadObservation}
-If $F=\zigzagTuple{f}{n}$ is a zigzag then
-\[
-T(F) =  \tuple{f_1} :: T(\zigzagRightFactorTuple{f}{n}) 
-\] 
-\end{observation}
-\fi
+
 
 \begin{notebox}
 The original xxxx, yyyy, zzzz, alpha, alphacorollary
@@ -343,9 +330,9 @@ is shown as follows
 t_1 &= f_1 \circ \rng{x} 
         &&\mbox{the starting point,} \\
     &= f_1 \circ \rng{f_1} \circ \rng{x}
-        && \mbox{by RR.2,}  \\
+        && \mbox{by axiom C.1,}  \\
     &= f_1 \circ \rng{f_1 \circ \rng{x}}
-        && \mbox{by lemma \lref{fglemma} (iii),} \\
+        && \mbox{by  axiom C.3,} \\
     &= f_1 \circ \rng{t_1}
         && \mbox{using $t_1=f_1 \circ \rng{x}$ again,} \\
     &= f_1 \circ \rng{t'_1}
@@ -401,7 +388,7 @@ and this we  can show as follows
   &= \rst{h_1} \circ t_1 \circ \rng{t_1}
   && \mbox{since $h_1 \leq t_1$,}\\
   &= \rst{h_1} \circ t_1
-  && \mbox{by RR.2,}\\
+  && \mbox{by axiom C.1,}\\
   &= h_1
   &&\mbox{since $h_1 \leq t_1$.}
 \end{align*}
@@ -424,7 +411,7 @@ and this we can show as follows
   &= \rst{h_n} \circ \rst{t'_n} \circ f_n \circ \rst{j} 
       && \mbox{by key observation \lref{xxxxx} (ii),}\\
   &= \rst{t'_n} \circ \rst{h_n} \circ f_n \circ \rst{j}
-      && \mbox{by R.2,}\\
+      && \mbox{by axiom S.2,}\\
   &= \rst{t'_n} \circ h_n
       && \mbox{since $h_n \leq f_n \circ \rst{j}$,}\\
   &= \rst{t_n} \circ h_n
@@ -432,9 +419,9 @@ and this we can show as follows
   &= \rst{t_n} \circ \rst{h_n} \circ t_n
       && \mbox{because $h_n \leq t_n$,}\\
   &= \rst{h_n} \circ \rst{t_n} \circ t_n
-      && \mbox{by R.2} \\
+      && \mbox{by axiom S.2} \\
   &= \rst{h_n} \circ t_n
-      && \mbox{by R.1,} \\
+      && \mbox{by axiom S.1,} \\
   &= h_n
       && \mbox{because $h_n \leq t_n$.}
 \end{align*}
@@ -542,14 +529,15 @@ i\circ f_1\circ
  \rst{f'_1\circ\rng{i\circ f_1}}
  \circ f'_1
 }
-&&\mbox{since $F$ is tight and by R.1,} \\
+&&\mbox{since $F$ is tight and by axiom S.1,} \\
 &=
 i\circ f_1\circ
 \rng{f'_1}
-&&\mbox{\parbox[t]{5cm}{by fglemma (iv) dual, with $i \circ f_1$ as $f$ and $f'_1$ as $g$} }\\
+&&\mbox{\parbox[t]{5cm}{by lemma \lref{bisupportLemma} (iii), 
+with $i \circ f_1$ as $f$ and $f'_1$ as $g$} }\\
 &=
 i\circ f_1
-&&\mbox{by RR.2, again and as required.}
+&&\mbox{by axiom C.1, again and as required.}
 \end{align*}
 \item %(ii)
 We use the leftToRightTighteningSublemma to tighten 
@@ -583,15 +571,15 @@ is
   &= \rst{f'_{n-1} \circ \rng{f_{n-1}} 
                \circ \rng{\rst{f_n \circ j}\circ f'_{n-1}}} 
                      \circ f_n \circ j
-     && \mbox{by lemma \ref{fglemma} (iii),} \\
+     && \mbox{by lemma  axiom C.3,} \\
   &= \rst{f'_{n-1} 
-               \circ \rng{\rst{f_N \circ j}\circ f'_{n-1}}} 
+               \circ \rng{\rst{f_n \circ j}\circ f'_{n-1}}} 
                      \circ f_n \circ j
      && \mbox{since $F$ is tight,} \\
   &= \rst{f'_{n-1}} \circ f_n \circ j
-     && \mbox{by lemma \ref{fglemma} \highlight{(iv)}, } \\
+     && \mbox{by lemma \lref{bisupportLemma} (ii), } \\
   &= f_n \circ j
-     && \mbox{since $F$ is tight and by use of R.1.} 
+     && \mbox{since $F$ is tight and by use of axiom S.1.} 
 \end{align*}
 \end{enumerate}
 \end{proof}
@@ -635,7 +623,7 @@ and so we have
 &= \rst{\rng{i} \circ t_1}
           && \mbox{by definition of \rstdotItself,} \\
 &= \rng{i} \circ \rst{t_1}
-          && \mbox{by lemma \lref{fgJoinLemma},} \\
+          && \mbox{by lemma \lref{bisupportLemma} (i),} \\
 &= \rng{i} \circ \rstdot{\tighten{F}}
           && \mbox{by definition of \rstdotItself.}
 \end{align*}
@@ -651,7 +639,7 @@ and so we have
 &= \rng{t_n \circ \rst{j}} 
           && \mbox{by definition of \rngdotItself,} \\
 &= \rng{t_n} \circ \rst{j}  
-          &&\mbox{by RR.3,} \\
+          &&\mbox{by lemma \lref{bisupportLemma} (i),} \\
 &= \rngdot{\tighten{F}} \circ \rst{j}
           && \mbox{by definition of \rngdotItself.} 
 \end{align*}
@@ -730,16 +718,9 @@ Now,
 \zigzagLeftFactorTupleLedOut{h}{n}{f_n} \leq F
 \end{equation}
 is the case because of the component inequalities all but the final one hold because $H \leq F \cnc G$
- and the final one, $\rst{h_n} \circ f_n \leq f_n$,
-holds because
-the left hand side is a restriction idempotent composed with the right hand side
-\begin{worktt}
-\highlight{CHECK.} 
-$\rst{\rst{h_n} \circ f_n} \circ f_n
-\equsing{S.3} \rst{h_n} \circ \rst{f_n} \circ f_n
-\equsing{S.1} \rst{h_n} \circ f_n$
-\workt{$\checkmark$} 
-\end{worktt}.
+and the final one, $\rst{h_n} \circ f_n \leq f_n$, holds because
+the left hand side is a support idempotent composed 
+with the right hand side (lemma \lref{idempotentCompositionAndOrdering} (i)).
 
 Likewise
 \begin{equation}
@@ -752,19 +733,13 @@ and the initial one,
 \[
 g_1 \circ \rng{h_n} \leq g_1,
 \]
-holds because the left hand side is the right hand side composed with a restriction idempotent
-\begin{worktt}
-\highlight{CHECK.} 
-$\rst{g_1 \circ \rng{h_n}} \circ g_1
-\equsing{S.3} \rst{g_1 \circ \rst{\rng{h_n}}} \circ g_1 
-\equsing{\redlight{R.4}} g_1 \circ \rng{h_n}$
-\highlight{FAILS!!} 
-\workt{--- dependency on R.4.}
-\end{worktt}.
+holds because the left hand side is the right hand side composed with a cosupport idempotent
+(lemma \lref{idempotentCompositionAndOrdering} (ii)).
 
-Because $h_n \leq f_n \circ g_1$ then we have
+Because $h_n \leq f_n \circ g_1$ and the support operator is monotone
+then we have
 $\rst{h_n} \leq \rst{f_n \circ g_1}$
-(lemma \lref{fglemma} (vi) and because $\rst{f_n \circ g_1} \leq \rst{f_n}$ (lemma \lref{fglemma} (vi)), 
+and because $\rst{f_n \circ g_1} \leq \rst{f_n}$ (\oldt{lemma \lref{fglemma} (vi)}\workt{need new poset-enriched lemma for this}), 
 so transitively we arrive at $\rst{h_n} \leq \rst{f_n}$, or, 
 equivalently, $\rst{h_n} \circ \rst{f_n} = \rst{h_n}$, which then yields $\rst{\rst{h_n} \circ f_n} = \rst{h_n}$, by use of wR.4.
 This means  that the zigzag  
@@ -819,13 +794,9 @@ and thus
 \end{equation}
 
 Putting (\ref{inequalityOneLeft})
- and (\ref{inequalityThreeRight}) together we get 
- \begin{worktt}why do we get this? Are we expecting orderings to compose because in the bisupport case \highlight{they do not}.
- \end{worktt}
- \begin{workt}
- But I am composing with an idempotent so maybe OK 
- \highlight{NEED JUSTIFY THIS} \text{fingers crossed}
- \end{workt}
+ and (\ref{inequalityThreeRight}) together (using the fact that
+ composition in \catcw is monotone) we get 
+ 
 \[
 \zigzagLeftFactorTupleLedOut{h}{n}{f_n} 
           \cnc \tuple{\rst{ g_1 \circ \rng{h_n}}}
@@ -884,9 +855,9 @@ and since the left hand side of this inequality is tight
 
 Finally, putting (\ref{inequalityFiveLeft}) 
 and (\ref{inequalityFiveRight}) together
+(using the fact that
+ composition in \catcw is monotone)
 we can  simplify as  $h_L \circ h_R = h_n$ and we get 
-\begin{worktt}Is this correct or are we sureptiously using that order composes horizontally which does not hold except in a restriction category where we can use \highlight{R.4}. \workt{be afraid.+}
-\end{worktt}
 \[
 H \leq \theTightening,
 \]
@@ -966,15 +937,15 @@ Composition is associative since
 (F \circ G) \circ H 
                 &= T(T(F \conc G) \conc H) &&   \mbox{by definition,} \\
                 &= T(T(F \conc G) \conc T(H))
-                        &\mbox{since $H$ is tight,}\\
+                        &&\mbox{since $H$ is tight,}\\
                 &= T((F \conc G) \conc H)  
-                        &\mbox{by lemma \lref{tighteningCommutesWithComposition},}\\
+                        &&\mbox{by lemma \lref{tighteningCommutesWithComposition},}\\
                 &= T(F \conc (G \conc H))
-                        &\mbox {since $\conc$ is associative,} \\
+                        &&\mbox {since $\conc$ is associative,} \\
                 &= T(T(F) \conc T(G \conc H))       
-                        &\mbox{by lemma \lref{tighteningCommutesWithComposition},}\\
+                        &&\mbox{by lemma \lref{tighteningCommutesWithComposition},}\\
                 &= T(F \conc T(G \conc H))))
-                        &\mbox{since $F$ is tight,} \\
+                        &&\mbox{since $F$ is tight,} \\
                 &= F \circ (G \circ H) &&   \mbox{by definition.}                 
 \end{align*}
 
@@ -1003,7 +974,7 @@ F \circ G &= T(\zigzagTuple{f}{n}::\zigzagTuple{g}{m})
           && \mbox{by lemma \lref{tighteningCommutesWithComposition},}\\
           &= T(\zigzagTupleLedOut{f}{n}{\rst{g_1}}) :: 
                            T(\zigzagTupleLedIn{\rng{f_n}}{g}{m}) 
-          && \mbox{by lemma \lref{fgJoinLemma},}\\
+          && \mbox{by lemma \lref{bisupportLemma} (i),}\\
           &= (F \circ \tuple{\rst{g_1}}) :: (\tuple{\rng{f_n}} \circ G)
           && \mbox{by definition of $\circ$.}
 \end{align*}
@@ -1033,6 +1004,7 @@ $\abrng{F \conc G} = \abrng{\abrng{F} \conc G}$
 \end{enumerate}
 \end{lemma}
 
+\begin{worktt}
 \subsection{The category of tight zigzags $Z_C$ is a category with support}
 
 If $F=\zigzagTuple{f}{n}$ is a morphism in $Z_C$ then define $\rst{F}$ to be $\tuple{\rst{f_1}}$.
@@ -1074,7 +1046,7 @@ If $F$ is of length 1 then wR.4 holds because
 it holds in the underlying range category \catcw. 
 If $F$ is of length $n > 1$ then wR.4 follows because lemma
 \lref{midpointLemma} informs us that $\rst{f \circ G}$ depends only on the $\rst{g_1}$ component of $G$ i.e. only on $\rst{G}$.
-
+\end{worktt}
 \begin{lemma}
 Defining  the converse of a tight zigzag $\zigzagTuple{f}{n}$ 
 to be the zigzag $\tuple{\rng{f_n},f_n,f'_{n-1},...f'_1,f_1,\rst{f_1}}$
@@ -1281,11 +1253,10 @@ z'_1 \circ \rng{t}
      &= z'_1 \circ \rng{\twoTighteningOne{z}} 
      && \mbox{substituting $t$,}\\
      &= z'_1 \circ \rng{z_1} \circ \rng{\rst{z_2} \circ z'_1} 
-     && \mbox{by lemma \lref{fglemma} (iii),}\\
+     && \mbox{by  axiom C.3,}\\
      &= z'_1 \circ \rng{\rst{z_2} \circ z'_1}  \circ \rng{z_1}
-     && \mbox{by lemma \lref{fglemma} (i)}
+     && \mbox{by axiom C.2}
 \end{align*}
-
 and using this we can simplify
 $\longTighteningTwo$  to $\twoTighteningTwo{z}$ as follows
 \begin{align*}
@@ -1293,7 +1264,7 @@ $\longTighteningTwo$  to $\twoTighteningTwo{z}$ as follows
     &= \rst{z_2} \circ z'_1 \circ \rng{\rst{z_2} \circ z'_1} \circ \rng{z_1}
                    && \mbox{by (\ref{tighteningTwoIntermediate}),}\\
     &= \twoTighteningTwo{z}
-                   && \mbox{by RR.2,}
+                   && \mbox{by axiom C.1,}
 \end{align*}
 and  $\longTighteningThree$ simplifies to $\twoTighteningThree{z}$ as follows
 \begin{align*}
@@ -1302,12 +1273,12 @@ and  $\longTighteningThree$ simplifies to $\twoTighteningThree{z}$ as follows
      && \mbox{by (\ref{tighteningTwoIntermediate}),}\\
      &= \rst{\rst{z_2} \circ z'_1 \circ \rng{\rst{z_2} \circ z'_1} \circ\rng{z_1}
       } \circ z_2
-     && \mbox{by  lemma \lref{newSupportLemma}}\\
+     && \mbox{by  lemma \lref{supportLemma} (v)}\\
      &= \rst{\rst{z_2} \circ z'_1 \circ\rng{z_1}} \circ z_2 
-     && \mbox {by RR.2,}\\ 
+     && \mbox {by axiom C.1,}\\ 
      &= \twoTighteningThree{z}
-     && \mbox{by a second use of lemma \lref{newSupportLemma}.}
-\end{align*}. 
+     && \mbox{by a second use of lemma \lref{supportLemma} (v).}
+\end{align*} 
 Hence result.
 \end{proof}
 

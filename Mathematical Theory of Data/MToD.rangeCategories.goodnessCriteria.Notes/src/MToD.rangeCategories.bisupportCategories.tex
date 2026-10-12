@@ -44,6 +44,11 @@ For \fgsourcediag in \catc,
 \[
 \rst{f \circ \rng{\rst{g} \circ f}} \circ g = \rst{f} \circ g.
 \]
+\item
+For \fgsinkdiag in \catc, 
+\[
+f \circ \rng{\rst{g \circ \rng{f}} \circ g} = f \circ \rng{g}.
+\]
 \end{enumerate}
 \end{lemma}
 \begin{proof}\leavevmode\par
@@ -87,154 +92,9 @@ follows by using SC(i) and S.2.
                &= \rst{f}  \circ g
                && \mbox{by S.1, as required.}
 \end{align*}
+\item %(iii)
+This is the dual to (ii).
 \end{enumerate}
 \end{proof}
 
-
-\subsection*{Axiom numbering for poset-enriched bisupport categories}
-
-The axioms for support and cosupport retain their existing numbering:
-\[
-\begin{array}{lll}
-\mathrm{S.1--S.4} & \text{support axioms},\\
-\mathrm{C.1--C.4} & \text{cosupport axioms}.
-\end{array}
-\]
-
-The additional axioms arising from the poset enrichment are divided into
-three groups.
-
-First, composition is required to be monotone in each argument:
-\[
-\begin{array}{ll}
-\mathrm{P.1} &
-f \leq f' \;\Longrightarrow\;
-f\circ g \leq f'\circ g,\\[1mm]
-\mathrm{P.2} &
-g \leq g' \;\Longrightarrow\;
-f\circ g \leq f\circ g'.
-\end{array}
-\]
-
-These are not regarded as a dual pair; they express monotonicity in
-the two arguments of composition.
-
-Second, support and cosupport are required to be monotone:
-\[
-\begin{array}{ll}
-\mathrm{PS.1} &
-f \leq g \;\Longrightarrow\;
-\rst{f} \leq \rst{g},\\[1mm]
-\mathrm{PC.1} &
-f \leq g \;\Longrightarrow\;
-\rng{f} \leq \rng{g}.
-\end{array}
-\]
-
-Third, support and cosupport are required to be subidentities:
-\[
-\begin{array}{ll}
-\mathrm{PS.2} &
-\rst{f} \leq id,\\[1mm]
-\mathrm{PC.2} &
-\rng{f} \leq id.
-\end{array}
-\]
-
-Thus the numbering scheme is:
-\[
-\boxed{
-\begin{array}{c|l}
-\mathrm{S.1--S.4} & \text{support}\\
-\mathrm{C.1--C.4} & \text{cosupport}\\
-\mathrm{P.1--P.2} & \text{monotonicity of composition}\\
-\mathrm{PS.1},\,\mathrm{PS.2} & \text{order properties of support}\\
-\mathrm{PC.1},\,\mathrm{PC.2} & \text{order properties of cosupport}.
-\end{array}}
-\]
-
-The use of the same numerical suffix for PS/PC makes the duality
-explicit, while P.1 and P.2 remain separate because monotonicity in
-the two composition arguments is not being treated as a dual pair.
-
-
-\begin{construction}
-\llabel{fghConstruction}
-\begin{worktt}
-with orderi ng changed to be \workt{support order intersect  cosupport order}
- I have to CHECK CAREFULLY that this proof still goes thru. 
-\end{worktt}
-If 
-$\begin{array}{c p {0.3cm} c p{0.3cm} c }
-\nudgeup{0.75cm}
-          && \bOb{y} &&         \\[0.25cm]
-  \bOb{x} &&         && \bOb{z} \\[0.4cm]
-\end{array}
-\begin{arrows}
-\ncarr{x}{y}\alabel{f}
-\ncarr{y}{z}\alabel{g}
-\drawMorphismArcing{x}{z}{b}{h}{-15}{-15}[0.5] 
-\end{arrows}
-$
-and $h \scleq f \circ g$
-in bisupport category \catcw
-then 
-\begin{enumerate}[(i)]
-\item
-$h$ can be factored as
-$h = h_L \circ h_R$ where 
-$h_L \scleq f$
-and 
-   $h_R \scleq g$
-by defining
-\[
-h_L = \rst{h} \circ f \circ \rst{g \circ \rng{h}}
-\]
-and  
-\[
-h_R = \rng{\rst{h} \circ f} \circ g \circ \rng{h}.
-\] 
-\item
-If h is so factored then
-\[
-\rst{h_L}=\rst{h}
-\]
-and
-\[
-\rng{h_R}=\rng{h}.
-\]
-\end{enumerate}
-\end{construction}
-\begin{proof}\leavevmode\par
-\begin{enumerate}[(i)]
-\item %(i)
-That $h_L \scleq f$
-and $h_R \scleq g$ are the case
-follows from the form of the definitions
-given of $h_L$ and $h_R$ as restriction idempotents
-composed with $f$, respectively, $g$.
-(see observation of lemma ???
- which says $\rst{i} \circ f \leq f$ and $f \circ \rst{j} \leq f$).
-\commentary{introduce earlier that $\rng{f}$ is a \textit{restriction idempotent}.}
-
-That $h = h_L \circ h_R$ follows 
-because restriction idempotents commute (R.2) and by R.1 and RR.2. 
-
-\item %(ii)
-Firstly, $\rst{h_L}=\rst{h}$ because
-\begin{align*}
-\rst{\rst{h} \circ f \circ \rst{g \circ \rng{h}}}
-    &= \rst{\rst{h} \circ f \circ g \circ \rng{h}}
-        && \mbox{by S.4,}\\
-    &= \rst{h \circ \rng{h}}
-        && \mbox{because $h \sleq f \circ g$,}\\
-    &= \rst{h} && \mbox{by C.1.}
-\end{align*}
-
-\noindent 
-Next, $\rng{h_R}=\rng{h}$ 
-follows by duality because $h_R$, as defined, is the dual of $h_L$ 
-and because the dual of $\rst{h}$ is $\rng{h}$.
-\end{enumerate}
-\end{proof}
 
