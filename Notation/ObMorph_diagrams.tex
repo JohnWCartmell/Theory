@@ -1,0 +1,96 @@
+\DocumentMetadata{} % a fix to an incompatibility 
+                    % fix suggested by chatGPT
+\documentclass[10pt,a4paper]{article}
+\usepackage{pstricks}
+\usepackage{pst-node}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage{enumerate}
+\usepackage {textcomp}
+\usepackage{ulem}
+\usepackage[left=1.5cm, right=1.0cm,  top=2.0cm, bottom=2.0cm]{geometry}
+\usepackage{xstring} % for some diagram macros
+\usepackage{environ}
+
+\newcommand{\sharedMacros}{../../SharedMacros}
+\input{\sharedMacros/general.macros.V2}
+\input{\sharedMacros/ccategories.macros}
+\input{\sharedMacros/diagram.macros}
+\input{\sharedMacros/obMorph.diagram.macros}
+
+\usepackage{arydshln} %Draw dash-lines in array/tabular 
+\usepackage{mathtools} %for \bigtimes
+\usepackage{fancyvrb} % used for documenting examples of macros 
+                      % along with verbatim text of example.
+\title{Examples of Object Morphism style diagrams - supporting macros}
+\author{John Cartmell}
+
+\begin{document}
+\maketitle
+
+\section{Zigzags}
+
+\begin{showexample}
+\[
+\arraycolsep=12pt
+\zigzagTwo{x}{y}{f}
+\]
+\end{showexample}
+
+\begin{showexample}
+\[
+\arraycolsep=12pt
+\zigzagTwoBulleted{x}{y}{f}
+\]
+\end{showexample}
+
+\begin{showexample}
+%\SetObjectContent{x1}{A_1}
+\SetObjectContent{x2}{\bullet}
+\SetObjectContent{y1}{B_1}
+\SetObjectContent{y2}{B_2}
+
+\SetMorphismContent{fone}{u}
+\SetMorphismContent{fprimeone}{v}
+\SetMorphismContent{ftwo}{w}
+\[
+\arraycolsep=12pt
+\zigzagTwo{x}{y}{f}
+\]
+\end{showexample}
+
+
+\begin{showexample}
+\[
+\SetObjectContent{\ob{instance}{x}{2}}{XX}
+\arraycolsep=7pt
+\zigzagTwo[instance]{x}{y}{f}
+\]
+\end{showexample}
+
+
+\begin{showexample}
+\[
+\SetObjectContent{\ob{iOne}{x}{2}}{x}
+\SetObjectContent{\ob{iOne}{y}{2}}{y}
+\SetObjectContent{\ob{iTwo}{x}{1}}{x}
+\SetObjectContent{\ob{iTwo}{y}{1}}{y}
+\arraycolsep=7pt
+\begin{array}{c c}
+                          &\kern-0.5cm\zigzagTwoBulleted[iTwo]{x}{y}{h}  \\[1.6cm]
+\zigzagTwoBulleted[iOne]{x}{y}{f}
+\end{array}
+\begin{arrows}
+\drawMorphism{\ob{iOne}{y}{2}}{\ob{iTwo}{x}{1}}{a}{g}[0.4] 
+\drawMorphismArcing{\ob{iOne}{x}{2}}{\ob{iTwo}{x}{1}}{a}{\overline{i}}{25}{30}[0.5]
+\drawMorphismArcing{\ob{iOne}{y}{2}}{\ob{iTwo}{y}{1}}{b}{\overline{j}}{-25}{-25}[0.5]
+\end{arrows}
+\]
+\end{showexample}
+
+
+
+
+\end{document}

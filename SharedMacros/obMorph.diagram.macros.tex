@@ -1,0 +1,155 @@
+
+
+\ExplSyntaxOn
+
+\prop_new:N \l_zig_node_content_prop
+\prop_new:N \l_zig_arrow_label_prop
+
+% Expand the key before looking it up.
+\cs_generate_variant:Nn \prop_item:Nn { Ne }
+\cs_generate_variant:Nn \prop_if_in:NnTF { Ne }
+
+% Look up node content; use the fallback if there is no entry.
+\NewDocumentCommand{\ObjectContent}{m m}
+ {
+  \prop_if_in:NeTF \l_zig_node_content_prop {#1}
+   { \prop_item:Ne \l_zig_node_content_prop {#1} }
+   { #2 }
+ }
+
+% Look up morphism label; use the fallback if there is no entry.
+\NewDocumentCommand{\MorphismContent}{m m}
+ {
+  \prop_if_in:NeTF \l_zig_arrow_label_prop {#1}
+   { \prop_item:Ne \l_zig_arrow_label_prop {#1} }
+   { #2 }
+ }
+
+\NewDocumentCommand{\SetObjectContent}{m m}{
+  \prop_put:Nen \l_zig_node_content_prop {#1} {#2}
+}
+
+\NewDocumentCommand{\SetMorphismContent}{m m}{
+  \prop_put:Nen \l_zig_arrow_label_prop {#1} {#2}
+}
+
+\ExplSyntaxOff
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \ob and \Ob macros used in pstricks diagrams
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% nodenames are constructed and have an optional instance
+%  parameter so that two copies of the same content 
+%  can be separately identified.
+
+% Construct node names
+\newcommand{\ob}[3]{#1#2#3}
+\newcommand{\bob}[1]{#1}
+\newcommand{\obp}[3]{#1#2#3p}
+\newcommand{\obs}[3]{#1#2#3s}
+\newcommand{\obpp}[3]{#1#2#3pp}
+\newcommand{\obss}[3]{#1#2#3ss}
+
+% Canonical node-name constructor:
+% {instance}{object}{subscript}{operator}
+\newcommand{\nodename}[4]{#1#2#3#4}
+
+% Object
+\NewDocumentCommand{\Ob}{O{} m m}{%
+  \Rnode{\nodename{#1}{#2}{#3}{}}{#2_{#3}}%
+}
+
+% Bare object, without subscript
+\NewDocumentCommand{\bOb}{O{} m}{%
+  \Rnode{\nodename{#1}{#2}{}{}}{#2}%
+}
+
+% Predecessor
+\NewDocumentCommand{\Obp}{O{} m m}{%
+  \Rnode{\nodename{#1}{#2}{#3}{p}}{#2_{#3-1}}%
+}
+
+% Successor
+\NewDocumentCommand{\Obs}{O{} m m}{%
+  \Rnode{\nodename{#1}{#2}{#3}{s}}{#2_{#3+1}}%
+}
+
+% Two predecessors
+\NewDocumentCommand{\Obpp}{O{} m m}{%
+  \Rnode{\nodename{#1}{#2}{#3}{pp}}{#2_{#3-2}}%
+}
+
+% Two successors
+\NewDocumentCommand{\Obss}{O{} m m}{%
+  \Rnode{\nodename{#1}{#2}{#3}{ss}}{#2_{#3+2}}%
+}
+
+
+% \zigzagTwo[instance]{x}{y}{f}
+% draws a zigzag of length two <f1,f'1,f2> 
+% where f1 : x1 -> y1
+%       f'1: x2 -> y1
+%       f2 : x2 -> y2
+%
+% overide xi  using \SetObjectContent{\ob{instance}{x}{i}}{...}
+% override fi using \SetMorphismContent{fi}{...}
+%                or \SetMorphismContent{fprimei}{...} 
+
+
+\NewDocumentCommand{\zigzagTwoObjects}{O{} m m}{
+  \begin{array}{c c c c}
+   &\Rnode{\ob{#1}{#3}{1}}
+      {\ObjectContent{\ob{#1}{#3}{1}}{#3_{1}}}
+   &&
+     \Rnode{\ob{#1}{#3}{2}}
+      {\ObjectContent{\ob{#1}{#3}{2}}{#3_{2}}}
+   \\[0.8cm]
+   \Rnode{\ob{#1}{#2}{1}}
+      {\ObjectContent{\ob{#1}{#2}{1}}{#2_{1}}}
+   &&
+   \Rnode{\ob{#1}{#2}{2}}
+      {\ObjectContent{\ob{#1}{#2}{2}}{#2_{2}}}
+  \end{array}
+}
+\NewDocumentCommand{\zigzagTwoObjectsBulleted}{O{} m m}{
+  \begin{array}{c c c c}
+   &\Rnode{\ob{#1}{#3}{1}}
+      {\ObjectContent{\ob{#1}{#3}{1}}{\bullet}}
+   &&
+     \Rnode{\ob{#1}{#3}{2}}
+      {\ObjectContent{\ob{#1}{#3}{2}}{\bullet}}
+   \\[0.8cm]
+   \Rnode{\ob{#1}{#2}{1}}
+      {\ObjectContent{\ob{#1}{#2}{1}}{\bullet}}
+   &&
+   \Rnode{\ob{#1}{#2}{2}}
+      {\ObjectContent{\ob{#1}{#2}{2}}{\bullet}}
+  \end{array}
+}
+\NewDocumentCommand{\zigzagTwoMorphisms}{O{} m m m}{
+  \begin{arrows}
+    \ncarr{\ob{#1}{#2}{1}}{\ob{#1}{#3}{1}}
+      \alabel{
+        \MorphismContent{#1#4one}{#4_{1}}
+      }[0.6][0.4]
+    \ncarr{\ob{#1}{#2}{2}}{\ob{#1}{#3}{1}}
+      \blabel{
+        \MorphismContent{#1#4primeone}{#4'_{1}}
+      }[0.6][0.4]
+    \ncarr{\ob{#1}{#2}{2}}{\ob{#1}{#3}{2}}
+      \blabel{
+        \MorphismContent{#1#4two}{#4_{2}}
+      }[0.7][0.4]
+  \end{arrows}
+}
+
+\NewDocumentCommand{\zigzagTwo}{O{} m m m}{
+  \zigzagTwoObjects[#1]{#2}{#3}
+  \zigzagTwoMorphisms[#1]{#2}{#3}{#4}
+}
+\NewDocumentCommand{\zigzagTwoBulleted}{O{} m m m}{
+  \zigzagTwoObjectsBulleted[#1]{#2}{#3}
+  \zigzagTwoMorphisms[#1]{#2}{#3}{#4}
+}
+

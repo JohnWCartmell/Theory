@@ -1,0 +1,913 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{pstricks}
+\usepackage{pst-node}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage{enumerate}
+\usepackage {textcomp}
+\usepackage{ulem}
+\usepackage[left=1.5cm, right=1.0cm,  top=2.0cm, bottom=2.0cm]{geometry}
+\newcommand{\sharedMacros}{../../SharedMacros}
+\input{\sharedMacros/ccategories.macros}
+\input{\sharedMacros/gats.macros}
+\input{\sharedMacros/metagat.macros}
+\input{\sharedMacros/general.macros}
+\input{\sharedMacros/diagram.macros}
+\input{\sharedMacros/barkerEllis.macros}
+
+\usepackage{arydshln} %Draw dash-lines in array/tabular 
+
+\usepackage{mathtools} %for \bigtimes
+\title{Notation - supporting macros}
+\author{John Cartmell}
+
+\begin{document}
+\maketitle
+
+\section{gats.macros.tex}
+
+\subsection{Substitutions}
+\begin{tabular}{| l | l |p{5cm}|}
+\hline
+\verb'\SUBtFORx{i}' & $\SUBtFORx{i}$ & MADE arg mandatory for readability reasons -- otherwise doesn't read like a vector thing \\   
+\hline
+\verb'\SUBtpFORx{i}' & $\SUBtpFORx{i}$ & \\
+\hline 
+\verb'\tDelta{i}' & $\tDelta{i}$ & wont work for i-1 sadlx deprecate ?\\
+\hline 
+\verb'\tpDeltap{i}' & $\tpDeltap{i}$ & wont work for i-1 sadlx deprecate ?\\
+\hline
+\verb'\SUBsFORy{j}' & $\SUBsFORy{j}$ & \\
+\hline
+\verb'\SUBspFORy{j}' & $\SUBspFORy{j}$ & \\
+\hline 
+\verb'\sOmega{j}' & $\sOmega{j}$ & wont work for j-1 sadly deprecate ? \\
+\hline 
+\verb'\spOmega{j}' & $\spOmega{j}$ & wont work for j-1 sadly deprecate ? \\
+\hline 
+\verb'\spOmegap{j}' & $\spOmegap{j}$ & wont work for j-1 sadly deprecate ?\\
+\hline
+\end{tabular}
+\newpage
+\subsection{Schematic Rules}
+\subsubsection{Z Macros - having zero mandatory arguments}
+\begin{tabular}{| l | l |p{3cm}|}
+\hline
+\verb'\ZDelta' & \ZDelta & \\
+\hline
+\verb'\ZDeltap' & \ZDeltap & \\
+\hline
+\verb'\ZtDelta' & \ZtDelta & \\
+\hline
+\verb'\ZtpDelta' & \ZtpDelta & \\
+\hline
+\verb'\ZDeltaSUBtnFORxn' & \ZDeltaSUBtnFORxn & maybe NOT USED should change Q to P\\
+\hline
+\verb'\ZtDeltaSUBtnFORxn' & \ZtDeltaSUBtnFORxn & ditto \\
+\hline
+\verb'' &  & \\
+\hline
+\verb'\ZOmega' & \ZOmega & \\
+\hline
+\verb'\ZsOmega' & \ZsOmega & \\
+\hline
+\verb'\ZOmegaSUBsmFORym' & \ZOmegaSUBsmFORym & \\
+\hline
+\verb'\ZOmegapSUBsmFORym' & \ZOmegapSUBsmFORym & \\
+\hline
+\verb'\ZsOmegaSUBsmFORym' & \ZsOmegaSUBsmFORym & \\
+\hline
+\verb'\ZspOmegapSUBsmFORym' & \ZspOmegapSUBsmFORym & \\
+\hline
+\end{tabular}
+
+\subsubsection{I Macros requiring an index argument}
+\begin{tabular}{| l | l |p{3cm}|}
+\hline
+\verb'\IDelta{i}' & \IDelta{i} & \\
+\hline
+\verb'\ItDelta{i}' & \ItDelta{i} & \\
+\hdashline
+\verb'\ItDelta[Q]{i}' & \ItDelta[Q]{i} & \\
+\hline
+\verb'\IOmega{j}' & \IOmega{j} & \\
+\hline
+\verb'\IsOmega{j}' & \IsOmega{j} & \\
+\hdashline
+\verb'\IsOmega[P]{j}' & \IsOmega[P]{j} & \\
+\hline
+\verb'' &  & \\
+\hline 
+\end{tabular}
+\subsubsection{D(ouble Indexed) Macros requiring two indices as arguments}
+\begin{tabular}{| l | l |p{3cm}|}
+\hline
+\verb'\DDelta{i-2}{i-1}' & \DDelta{i-2}{i-1} & \\
+\hdashline
+\verb'\DDelta{n}{i}' & \DDelta{n}{i} & \\
+\hline
+\verb'\DOmega{j-2}{j-1}' & \DOmega{j-2}{j-1} & \\
+\hdashline
+\verb'\DOmega{m}{j}' & \DOmega{m}{j} & \\
+\hline
+\end{tabular}
+
+\newpage
+\subsection{Basics}
+\begin{tabular}{| l | l |p{3cm}|}
+ \hline 
+ \verb'\gat[U]' & \gat[U] & \\
+ \hline
+ \verb'\isagat[U]' & \isagat[U] \\
+ \hline
+ \verb!\tstyle!               &   $\tstyle$ & \\
+ \hline
+ \verb!\isT{X}!            &   $\isT{X}$       &  \\
+ \hline
+ \verb!\ofT{x}{X}!         &   $\ofT{x}{X}$     & \\
+ \hline
+ \verb!\context{x}{X}{n}!     &   $\context{x}{X}{n}$ & \\
+ \hline
+ \verb!\contextShortstyle{x}{X}{n}!     &   $\contextShortstyle{x}{X}{n}$ & \\
+ \hline
+ \hline
+ \verb!\subcontext{x}{\Delta}{i}{k}!&$\subcontext{x}{\Delta}{i}{k}$ & \\
+ \hline
+	\verb!\con{x}{\Delta}{n}!&$\con{x}{\Delta}{n}$ & schematic context\\
+	\hline
+ \verb!\subon{x}{\Delta}{i}{k}!&$\subcon{x}{\Delta}{i}{k}$ & schematic subcontext\\
+ \hline
+	\verb!\permcon{x}{\Delta}{n}{\sigma}!&$\permcon{x}{\Delta}{n}{\sigma}$& permuted context\\
+ \hline
+  \verb!\permterm{t}{n}{\sigma}!&$\permterm{t}{n}{\sigma}$& \\
+	\hline
+\end{tabular} \\
+
+\vspace{0.5cm}
+\noindent For example : \\
+
+\verb!\context{x}{X}{n} \ttsyle \isT{X_n}!   
+gives \\
+\begin{equation}
+\context{x}{X}{n} \tstyle \isT{X}
+\end{equation}
+
+\subsection{Formal `display' style}
+Embedded within a text we can use \verb!\gatdisplayrule[.]{premise}{conclusion}! to get
+\gatdisplayrule[.]{premise}{conclusion} Notice the optional parameter that enables terminating punctuation to be provided.
+
+Special cases are \verb!{\genericAintroductoryrule}!
+ which gives \genericAintroductoryrule and 
+\verb!\genericfintroductoryrule! which gives \genericfintroductoryrule.
+
+\subsection{Macros For Presenting Theories}
+
+The \verb'gatrules' environment frames the entire theory and \verb'\gatintros' and
+\verb'\gataxioms' commands enter headers for introductory rules and axioms, respectively.
+
+\begin{verbatim}
+\begin{gatrules}
+\gatintros                          % generates the 'Symbol Introductory Rule' header
+blah blah blah   \\                   
+\gataxioms                          % generates the 'Axioms' header
+blah blah blah   \\
+\end{gatrules}
+\end{verbatim}
+gives
+\begin{gatrules}
+\gatintros                          % generates the 'Symbol Introductory Rule' header
+blah blah blah   \\                   
+\gataxioms                          % generates the 'Axioms' header
+blah blah blah   \\
+\end{gatrules}
+
+\subsection{Group dotfill style}
+
+An environment \verb'\gatgroup' and a command \verb'\gatleaf'  can be used to hierarchically group together rules which share part or all of their context. The command \verb'\gatintroducing' declares what is being defined in the group. Its argument is a newline separated list of symbols or a newline separated list of axiom numbers.
+
+For example:
+\begin{verbatim}
+\begin{gatrules}
+\gatintros
+\gatintroducing{B\\C\\D}
+\begin{gatgroup}{\ofT{x}{A}}
+\gatleaf{}{\isT{B(x)}} \\
+\begin{gatgroup}{\ofT{y}{B(x)}}
+\gatleaf{}{\isT{C(x,y}} \\
+\gatleaf{\ofT{z}{C(x,y)}}{\isT{D(x,y,z)}} \\
+\end{gatgroup}
+\end{gatgroup}
+\end{gatrules}
+\end{verbatim}
+
+gives 
+
+\begin{gatrules}
+\gatintros
+\gatintroducing{B\\C\\D}
+\begin{gatgroup}{\ofT{x}{A}}
+\gatleaf{}{\isT{B(x)}} \\
+\begin{gatgroup}{\ofT{y}{B(x)}}
+\gatleaf{}{\isT{C(x,y}} \\
+\gatleaf{\ofT{z}{C(x,y)}}{\isT{D(x,y,z)}} \\
+\end{gatgroup}
+\end{gatgroup}
+\end{gatrules}
+
+For ungrouped rules the \verb'\gatsingular' command is used when there is a context which is to
+be places right and dotfilled and no command at all is required when no context is required.
+
+\begin{verbatim}
+\begin{gatrules}
+\gatintros                           
+\gatintroducing{Ob}                  
+  \isT{Ob} \\    
+\gatintroducing{Hom}
+  \gatsingular{\ofT{x,y}{Ob}}{\isT{Hom(x,y)}} \\										
+\end{gatrules}
+\end{verbatim}
+gives
+\begin{gatrules}
+\gatintros                           
+\gatintroducing{Ob}                  
+  \isT{Ob} \\    
+\gatintroducing{Hom}
+  \gatsingular{\ofT{x,y}{Ob}}{\isT{Hom(x,y)}} \\										
+\end{gatrules}
+
+The same set of commands can be used for axioms. In addition there is an \verb'\axiomno' command that introduces
+whitespace before the axiom number. For example
+\begin{verbatim}
+\begin{gatrules}
+\gataxioms
+\gatintroducing{  \gataxiomno{3} \\   \gataxiomno{4}}
+\begin{gatgroup}{\ofT{f}{Hom(x,y)},\ \ofT{x,y}{Ob}}
+    \gatleaf{}{id_x \circ f = f} \\
+    \gatleaf{}{f \circ id_y = f}
+\end{gatgroup} \\
+\end{gatrules}
+\end{verbatim}
+gives
+
+\begin{gatrules}
+\gataxioms
+\gatintroducing{  \gataxiomno{3} \\   \gataxiomno{4}}
+\begin{gatgroup}{\ofT{f}{Hom(x,y)},\ \ofT{x,y}{Ob}}
+    \gatleaf{}{id_x \circ f = f} \\
+    \gatleaf{}{f \circ id_y = f}
+\end{gatgroup} \\
+\end{gatrules}
+ 
+\subsection{Macros for Rules in MetaGAT}
+
+
+\begin{tabular}{| l | l |}
+ \hline
+ \verb!\typ!         &   $\typ$    \\
+ \hline
+ \verb!\trm!         &   $\trm$     \\
+ \hline
+ \verb!\typeseq{x}{n}!  & $\typeseq{x}{n}$ \\
+ \hline
+ \verb!\typeseqcont{y}{x}{m}! & $\typeseqcont{y}{x}{m}$ \\
+ \hline
+\end{tabular}
+
+\subsection{Idioms}
+\begin{tabular}{| l | l |p{3cm}|}
+\hline
+\verb!\xDelta{i}! & $\xDelta{i}$&\\
+ \hline
+\verb!\xDeltap{i}! & $\xDeltap{i}$&\\
+ \hline
+\verb!\xOmega{i}! & $\xOmega{i}$&\\
+ \hline
+\verb!\xOmegap{i}! & $\xOmegap{i}$&\\
+ \hline
+\verb!\yOmega{i}! & $\yOmega{i}$&\\
+ \hline
+\verb!\yOmegap{i}! & $\yOmegap{i}$&\\
+ \hline
+\hline
+\verb!\xDeltasigma{i}! & $\xDeltasigma{i}$&\\
+\hline
+\verb!\xDeltapsigma{i}! & $\xDeltapsigma{i}$&\\
+ \hline
+\verb!\xOmegasigma{i}! & $\xOmegasigma{i}$&\\
+ \hline
+\verb!\xOmegapsigma{i}! & $\xOmegapsigma{i}$&\\
+ \hline
+\verb!\yOmegasigma{i}! & $\yOmegasigma{i}$&\\
+ \hline
+\verb!\yOmegapsigma{i}! & $\yOmegapsigma{i}$&\\
+ \hline
+\hline
+\verb!\xDeltainvsigma{i}! & $\xDeltainvsigma{i}$&\\
+ \hline
+\verb!\xOmegainvsigma{i}! & $\xOmegainvsigma{i}$&\\
+\hline
+\verb!\xDeltapinvsigma{i}! & $\xDeltapinvsigma{i}$&\\
+ \hline
+\verb!\xOmegainvsigma{i}! & $\xOmegainvsigma{i}$&\\
+ \hline
+\verb!\xOmegapinvsigma{i}! & $\xOmegapinvsigma{i}$&\\
+ \hline
+\verb!\yOmegainvsigma{i}! & $\yOmegainvsigma{i}$&\\
+ \hline
+\verb!\yOmegapinvsigma{i}! & $\yOmegapinvsigma{i}$&\\
+ \hline
+\end{tabular} \\
+
+\subsection{Idioms Enclosed as Tuples}
+\begin{tabular}{| l | l |p{3cm}|}
+\hline
+\verb!\encxDelta{i}! & $\encxDelta{i}$&\\
+ \hline
+\verb!\encxDeltap{i}! & $\encxDeltap{i}$&\\
+ \hline
+\verb!\encxOmega{i}! & $\encxOmega{i}$&\\
+ \hline
+\verb!\encxOmegap{i}! & $\encxOmegap{i}$&\\
+ \hline
+\verb!\encyOmega{i}! & $\encyOmega{i}$&\\
+ \hline
+\verb!\encyOmegap{i}! & $\encyOmegap{i}$&\\
+ \hline
+\hline
+\verb!\encxDeltasigma{i}! & $\encxDeltasigma{i}$&\\
+\hline
+\verb!\encxDeltapsigma{i}! & $\encxDeltapsigma{i}$&\\
+ \hline
+\verb!\encxOmegasigma{i}! & $\encxOmegasigma{i}$&\\
+ \hline
+\verb!\encxOmegapsigma{i}! & $\encxOmegapsigma{i}$&\\
+ \hline
+\verb!\encyOmegasigma{i}! & $\encyOmegasigma{i}$&\\
+ \hline
+\verb!\encyOmegapsigma{i}! & $\encyOmegapsigma{i}$&\\
+ \hline
+\hline
+\verb!\encxDeltainvsigma{i}! & $\encxDeltainvsigma{i}$&\\
+ \hline
+\verb!\encxOmegainvsigma{i}! & $\encxOmegainvsigma{i}$&\\
+\hline
+\verb!\encxDeltapinvsigma{i}! & $\encxDeltapinvsigma{i}$&\\
+ \hline
+\verb!\encxOmegainvsigma{i}! & $\encxOmegainvsigma{i}$&\\
+ \hline
+\verb!\encxOmegapinvsigma{i}! & $\encxOmegapinvsigma{i}$&\\
+ \hline
+\verb!\encyOmegainvsigma{i}! & $\encyOmegainvsigma{i}$&\\
+ \hline
+\verb!\encyOmegapinvsigma{i}! & $\encyOmegapinvsigma{i}$&\\
+ \hline
+\end{tabular} \\
+
+\section {general.macros}
+
+\subsection{ note macro}
+
+Here is a paragraph before hand. Because it is the first paragrpah it is not indented.
+
+And here a second paragraph which is indented and following this we use the \verb'\note' command twice over to get indented numbered paragraphs:
+\note Here is the first note.
+\note Here is the second note. This will tend to merge into the paragraph that follows unless the content is sufficeint to get onto a second (unindented) line.
+
+Finally here we revert to a normal blank line introduced paragraph.
+
+\subsection{Idioms}
+
+\begin{tabular}{|l|p{4cm}|}
+\hline
+\verb!\setsuchthat{x}{condition}! & $\setsuchthat{x}{condition}$\\
+\verb!\set{suchandsuch}!&$\set{suchandsuch}$\\
+\verb!\qq{x} ! & $\qq{x}$ (quine quote)\\
+\verb!\sq{x} ! & $\sq{x}$ (single quote)\\
+\verb!\lqq{x }! & $\lqq{x}$ (lower quine quote)\\
+\verb!\n  !&$   \n $\\
+\verb!\fn !&$   \fn$\\
+\verb!\gn !&$   \gn$\\
+\verb!\pn !&$   \pn$\\
+\verb!\qn !&$   \qn$\\
+\verb!\qnp !&$  \qnprime$\\
+\verb!\tn !&$   \tn$\\
+\verb!\xn !&$   \xn$\\
+\verb!\xnp !&$  \xnp$\\
+\verb!\yn !&$   \yn$\\
+\verb!\An !&$   \An$\\
+\verb!\Bn !&$   \Bn$\\
+\verb!\Bn !&$   \Cn$\\
+\verb!\m  !&$   \m $\\
+\verb!\gm !&$   \gm$\\
+\verb!\qm !&$   \qm$\\
+\verb!\sm !&$   \sm$\\
+\verb!\sm[-1] !&$\sm[-1]$\\
+\verb!\ym !&$   \ym$\\
+\verb!\Bm !&$   \Bm$\\
+\verb!\wanton{x} !&$ \wanton{x}$\\
+\verb!\wantom{x} !&$ \wantom{x}$\\
+\verb!\ntuple{x} !&$ \ntuple{x}$\\
+\verb!\mtuple{x} !&$ \mtuple{x}$\\
+\verb!\bntuple !&$   \bntuple$\\
+\verb!\fntuple !&$   \fntuple$\\
+\verb!\fnptuple !&$   \fnptuple$\\
+\verb!\pntuple !&$   \pntuple$\\
+\verb!\qntuple !&$   \qntuple$\\
+\verb!\qnptuple !&$   \qnptuple$\\
+\verb!\qmtuple !&$   \qmtuple$\\
+\verb!\sntuple !&$   \sntuple$\\
+\verb!\xntuple !&$   \xntuple$\\
+\verb!\xnptuple !&$   \xnptuple$\\
+\verb!\ymtuple !&$   \ymtuple$\\
+\verb!\foreachi  !&\foreachi\\
+\verb!\foreachi[nn]  !&\foreachi[nn]\\
+\verb!\foreachj  !&  \foreachj\\
+\verb!\foreachj[mm]  !&\foreachj[mm]\\
+\verb!\foreachk  !&  \foreachk\\
+\verb!\foreachk[ll]  !&\foreachk[ll] \\
+\verb!\Foreachi  !&\Foreachi\\
+\verb!\Foreachi[nn]  !&\Foreachi[nn]\\
+\verb!\Foreachj  !&  \Foreachj\\
+\verb!\Foreachj[mm]  !&\Foreachj[mm]\\
+\verb!\Foreachk  !&  \Foreachk\\
+\verb!\Foreachk[ll]  !&\Foreachk[ll] \\
+\verb!\forsomei  !&\forsomei\\
+\verb!\forsomei[nn]  !&\forsomei[nn]\\
+\verb!\forsomej  !&  \forsomej\\
+\verb!\forsomej[mm]  !&\forsomej[mm]\\
+\verb!\forsomek  !&  \forsomek\\
+\verb!\forsomek[ll]  !&\forsomek[ll] \\
+\verb!\wherei  !&\wherei\\
+\verb!\wherei[nn]  !&\wherei[nn]\\
+\verb!\wherej  !&  \wherej\\
+\verb!\wherej[mm]  !&\wherej[mm]\\
+\verb!\wherek  !&  \wherek\\
+\verb!\wherek[ll]  !&\wherek[ll] \\
+\verb!\idef           !&$\idef$\\
+\verb!\idef[nn]       !&$\idef[nn]$\\
+\verb!\jdef           !&$\jdef$\\
+\verb!\jdef[mm]       !&$\jdef[mm]$\\
+\verb!\kdef           !&$\kdef$\\
+\verb!\kdef[ll]       !&$\kdef[ll]$\\
+\hline
+\end{tabular} \\
+
+Remember  \verb!\idef! as \textit{i idefnition}. It defaults to $\idef$. 
+
+
+
+
+\subsection{Markup Commands}
+
+\begin{tabular}{|l|p{2cm}|p{6cm}|}
+\hline
+\verb!\commentary{blah blah} !&       &\textit{places comment in right hand margin -- has to be in outer par mode     }     \\
+\verb!\highlight {blah blah} !& \highlight{blah blah} &                                                                     \\
+\verb!\term{term}            !&                       &\textit{ italicises and adds to index of definitions}                \\
+\verb!\llabel{label}         !&                       & \textit{defines label and makes visible has to be in outer par mode}\\
+\verb!\lref{label}           !&  \lref{label}         &                                              \\
+\verb!\newt{text}            !& \newt{text}       &\textit{also available as environment newtt}       \\
+\verb!\oldt{text}            !& \oldt{text}       &\textit{also available as environment oldtt}       \\
+\verb!\reinstatet{text}      !& \reinstatet{text} &\textit{also available as environment reinstatett} \\
+\verb!\tbd                   !& \tbd              &                                                   \\             
+\hline
+\end{tabular}
+
+\section{Framing Environments}
+
+\begin{notebox}
+Environment notebox has one optional parameter for its title. The title defaults to \textbf {Note}.
+\end{notebox}
+
+\begin{notebox}[Example]
+Example of using \verb!\begin{notebox}[Example]...\end{notebox}!
+\end{notebox}
+
+\section{barkerEllis.macros}
+\begin{tabular}{| l | l |}
+\hline
+\verb!\barkerEllisA! & \barkerEllisA \\
+\verb!\barkerEllisB! & \barkerEllisB \\
+\verb!\barkerEllisC! & \barkerEllisC \\
+\verb!\barkerEllisD! & \barkerEllisD \\
+\verb!\barkerEllisE! & \barkerEllisE \\
+\verb!\barkerEllisF! & \barkerEllisF \\
+\verb!\barkerEllisG! & \barkerEllisG \\
+\verb!\barkerEllisH! & \barkerEllisH \\
+\hline
+\end{tabular}
+
+
+\section {cccategories.macros }
+\vspace{5mm}
+\subsection{General}
+
+\begin{tabular}{|l|p{4cm}|p{6cm}|}
+\hline
+\verb!\cat{C}!       & \cat{C}            & a category                            \\
+\verb!\catc,!        & \catc,                                                    \\
+\verb!\catcw and!    & \catcw and                                                \\
+\verb!\catcp!        & \catcp                                                     \\
+\verb!\catcpp!       & \catcpp                                                    \\
+\verb!\obj{C}!       & \obj{C}            & objects of category C                          \\
+\verb!\ccat[C]!      & \ccat              & a contextual category                          \\
+\verb!\cobj{C}!      & \cobj{C}           & objects of contextual category C  \\
+\verb!\cobj[i]{C}!   & \cobj[i]{C}        & objects of contextual category C [at height i] \\
+\verb!\ccatc[C]!     & \ccatc[C]          &                                                \\
+\verb!\cslice{C}{A}! & \cslice{C}{A}      & contextual slice category                      \\
+\verb!\csliceobj[i]{C}{A}!&\csliceobj[i]{C}{A} & objects [at height i] of a contextual slice category                      \\
+\verb!\Fam!          & \Fam               & contextual category of sets, families of sets etc. \\
+\verb!\Set!          & \Set               & category of sets                            \\
+\verb!\Fin!          & \Fin               & category of finite sets                            \\
+%\verb!\Finp!         & \Finp              & category of finite sets and partial functions      \\
+\verb!\Po!           & \Po                & category of partial ordered sets?              \\
+\verb!\Famslice{A}!  & \Famslice{A}       & slice of Fam                                   \\
+\verb!\Famobj[i]!    & \Famobj[i]         & objects of Fam [at height i]                   \\
+\verb!\Famsliceobj[i]{A}!& \Famsliceobj[i]{A} & objects of slice of Fam [at height i]          \\
+\verb!A \morph B! & $A \morph B $     &\\
+\verb!A \epi B  ! & $A \epi B$        &\\ 
+\verb!A \base B! & $A \base B$        &\\
+\verb!f \comp g !& $ f \comp g$       &\\
+\verb!\pc{B}{A} !& $ \pc{B}{A}$       &\\
+\verb!\product{n}  !& $ \product{n} $       &\\
+\verb!\productn    !& $ \productn $       &\\
+\verb!A \cross B!&$A \cross B$        &\\
+\verb!\crossx{A}{B}{X}!& $\crossx{A}{B}{X}$ &\\
+\verb!f \sub B!&$f \sub B$                  &\\
+\verb!\diag_A!&$\diag_A$                    &\\
+\verb!\pbase{A}!&$\pbase{A}$                &\\
+\verb!\tuple{x,y,z}!& $\tuple{x,y,z}$       &\\
+\verb!\ndidly!& $\ndidly$                   &\\
+\verb!\ndidlycospan!& ?????????????       &\\
+\verb!\fibrex{B_1}{B_2}{D}!& $\fibrex{B_1}{B_2}{D}$  &\\
+\verb!A \smorph B!& $A \smorph B$                    &\\
+\verb!A \dmorph B!& $A \dmorph B$                    &\\
+\verb!\primeds{A}!& $\primeds{A}$                    &\\
+\hline
+\end{tabular}
+\newpage
+
+
+
+\subsection {pstricks macros for arrows, s-arrows and d-arrows}
+The following macros supplement the node connection macros (prefix 'nc') from pstricks and are implemented by combining pstricks 'nc' macros and put macros naput (put above) and nbput (put below). Arrowheads are either open or open triangles (representing S-morphisms). \\
+
+\begin{tabular}{|l |  p{5cm} | c |}
+		\hline
+		\multicolumn{3}{|c|}{pstricks macros for arrows and s-arrows} \\
+		   \hline	 
+		   \verb!\ncarr[ang]{A}{B}! &  an arrow between nodes A and B optionally an arc of angle ang (default 0)
+			& \raisebox{-0.3cm}{$$\Rnode{A}{A} \hspace{0.75cm} \Rnode{B}{B}$$ \ncarr{A}{B}}
+      \\       \hline  
+       \verb!\ncarrarc{A}{B}{30}{-30}! &  an arcing arrow between nodes A and B specifying angle at A and angle at B
+      & \raisebox{-0.3cm}{$$\Rnode{A}{A} \hspace{0.75cm} \Rnode{B}{B}$$ \ncarrarc{A}{B}{30}{-30}}
+      \\ 
+      \hline    
+       \verb!\nckarr[ang]{A}{B}! &  a backl arrow to node A from B optionally an arc of angle 
+      & \raisebox{-0.3cm}{$$\Rnode{A}{A} \hspace{0.75cm} \Rnode{B}{B}$$ \nckarr{A}{B}}
+      \\ 
+      \hline       
+       \verb!\alabel{f}[npos][labelseppts]! & label above the arrow (default npos 0.5, default labelseppts 2)
+      & \raisebox{-0.3cm}{$$\Rnode{A}{A} \hspace{0.75cm} \Rnode{B}{B}$$ \ncarr{A}{B}\alabel{f}}
+      \\  [0.3cm]     \hline       
+       \verb!\blabel{f}[npos][labelseppts]! & label below the arrow (default npos 0.5, default labelseppts 2)
+      & \raisebox{-0.3cm}{$$\Rnode{A}{A} \hspace{0.75cm} \Rnode{B}{B}$$ \ncarr{A}{B}\blabel{f}}
+      \\ [0.6cm]
+      \hline
+%  
+		   \verb!\ncdarr[ang]{A}{B}! &  an dashed arrow between nodes A and B optionally an arc of angle ang (default 0)
+			& $$\Rnode{A}{A} \hspace{0.75cm} \Rnode{B}{B}$$ \ncdarr{A}{B}
+			\\
+			\hline
+% 
+		   \verb!\ncsar[ang]{A}{B}! &  an S-arrow between nodes A and B optionally an arc of angle ang (default 0)
+			&
+			\raisebox{-0.6cm}{$
+\begin{array} {c}
+\Rnode{A}{A} \\ [1.0cm]
+\Rnode{B}{B}
+\end{array}$\ncsar{A}{B}} \\
+		 	 \hline	
+% 
+       \verb!\ncksar[ang]{A}{B}! &  an  S-arrow back to node A from node B optionally an arc of angle ang 
+      &
+      \raisebox{-0.6cm}{$
+\begin{array} {c}
+\Rnode{A}{A} \\ [1.0cm]
+\Rnode{B}{B}
+\end{array}$\ncksar{A}{B}} \\
+       \hline 
+%  
+       \verb!\ncleftsection[ang]{A}{B}! &  a section optionally an arc of angle ang (default 30)
+      &
+      \raisebox{-0.6cm}{$
+\begin{array} {c}
+\Rnode{B}{B} \\ [1.0cm]
+\Rnode{A}{A}
+\end{array}$\ncsar{B}{A}\ncleftsection{A}{B}} \\
+       \hline  
+%  
+       \verb!\ncrightsection[ang]{A}{B}! &  a section optionally an arc of angle ang (default -30)
+      &
+      \raisebox{-0.6cm}{$
+\begin{array} {c}
+\Rnode{B}{B} \\ [1.0cm]
+\Rnode{A}{A}
+\end{array}$\ncsar{B}{A}\ncrightsection{A}{B}} \\
+       \hline  
+%
+		   \verb!\nccdar[ang]{A}{B}! &  a composite dependency arrow between nodes A and B optionally an arc of angle ang (default 0)
+			&
+			\raisebox{-0.75cm}{$
+\begin{array} {c}
+\Rnode{A}{A} \\ [0.75cm]
+\Rnode{B}{B}
+\end{array}$\nccdar{A}{B}} \\
+		 	 \hline
+%   
+		   \verb!\ncrsar{A}{B}! &  an upside down recursive S-arrow between nodes A and B i.e one that loops around (see below)
+			&
+			\\ 
+			\hline		
+\end{tabular}
+
+\newpage
+\subsection{DEPRECATED}
+\begin{tabular}{|l |  p{5cm} | c |}
+    \hline
+    \multicolumn{3}{|c|}{pstricks macros for arrows and s-arrows} \\
+       \hline  
+       \verb!\jcbarr[ang]{f}{A}{B}! & DEPRECATED - use \verb'\ncarr' and \verb'\blabel'&\\
+       \hline
+       \verb!\ncaarr[ang]{f}{A}{B}! & DEPRECATED - use \verb'\ncarr' and \verb'\alabel'&\\
+       \hline     
+       \verb!\ncbsar[ang]{f}{A}{B}! & DEPRECATED - use \verb'\ncsar' and \verb'\blabel'&\\ 
+       \hline
+       \verb!\ncasar[ang]{f}{A}{B}! & DEPRECATED - use \verb'\ncsarr' and \verb'\alabel'&\\
+       \hline   
+       \verb!\ncbcdar[ang]{f}{A}{B}! & DEPRECATED - use \verb'\nccdar' and \verb'\blabel'&\\
+       \hline      
+       \verb!\ncacdar[ang]{f}{A}{B}! & DEPRECATED - use \verb'\nccdar' and \verb'\alabel'&\\
+       \hline       
+\end{tabular}
+
+\vspace{0.5cm}
+\newpage
+\noindent For example:
+\begin{verbatim}
+\begin{center}
+$
+\begin{array}{p{2cm}p{0.5cm}p{0.5cm}p{0.5cm}}
+& & \Rnode{X}{X}& \\ [1.4cm]
+\Rnode{A}{A} & \Rnode{B1}{$B_1$} & ... & \Rnode{Bm}{$B_m$}\\
+\end{array}
+$
+\jcbarr{f}{A}{B1}
+\ncbsar{b_1}{X}{B1}
+\ncasar{b_m}{X}{Bm}
+\end{center}
+\end{verbatim}
+
+\noindent Results in:
+\begin{center}
+$
+\begin{array}{p{2cm}p{0.5cm}p{0.5cm}p{0.5cm}}
+& & \Rnode{X}{X}& \\ [1.4cm]
+\Rnode{A}{A} & \Rnode{B1}{$B_{1}$} & ... & \Rnode{Bm}{$B_{m}$}\\
+\end{array}
+$
+\jcbarr{f}{A}{B1}
+\ncbsar{b_1}{X}{B1}
+\ncasar{b_m}{X}{Bm}
+\end{center}
+\noindent The optional ang parameter can be used. Replace the s-morphisms in the example by
+\begin{verbatim}
+\ncbsar[-30]{$b_1$}{X}{B1}
+\ncasar[+30]{$b_m$}{X}{Bm}
+\end{verbatim}
+we get:
+\begin{center}
+$
+\begin{array}{p{2cm}p{0.5cm}p{0.5cm}p{0.5cm}}
+& & \Rnode{X}{X}& \\ [1.4cm]
+\Rnode{A}{A} & \Rnode{B1}{$B_{1}$} & ... & \Rnode{Bm}{$B_{m}$}\\
+\end{array}
+$
+\jcbarr{f}{A}{B1}
+\ncbsar[-30]{b_1}{X}{B1}
+\ncasar[30]{b_m}{X}{Bm}
+\end{center}
+\noindent The following lengths can be set using \\setlength command to control the way that the S-arrows are drawn:
+\begin{verbatim}
+\sarnodesepA
+\sarnodesepB
+\saroffsetA
+\saroffsetB
+\end{verbatim}
+For example:
+\begin{verbatim}
+\ncbsar[-30]{$b_1$}{X}{B1}
+\setlength {\saroffsetB}{-4pt}
+\ncasar[30]{$b_m$}{X}{Bm}
+\end{verbatim}
+\indent results in the following adjustment:
+\begin{center}
+$
+\begin{array}{p{2cm}p{0.5cm}p{0.5cm}p{0.5cm}}
+& & \Rnode{X}{X}& \\ [1.4cm]
+\Rnode{A}{A} & \Rnode{B1}{$B_{1}$} & ... & \Rnode{Bm}{$B_{m}$}\\
+\end{array}
+$
+\jcbarr{f}{A}{B1}
+\ncbsar[-30]{b_1}{X}{B1}
+\setlength {\saroffsetB}{-4pt}
+\ncasar[30]{b_m}{X}{Bm}
+\end{center}
+
+
+
+\subsubsection {Recursive S-arrow}
+
+\noindent
+Use macro \verb'\ncrsar', for example:
+\begin{verbatim}
+\begin{center}
+$
+\begin{array}{c c}
+\Rnode{abs}{1}  \\ [1.4cm]
+\Rnode{S0}{S_0} \\ [1.4cm]
+\Rnode{SR}{S_R} \\ [1.4cm]
+\end{array}
+$
+\ncsar{S0}{abs}
+\ncsar{SR}{S0}
+\ncrsar{SR}{SR}
+\end{center}
+\end{verbatim}
+gives:
+
+\begin{center}
+$
+\begin{array}{c c}
+\Rnode{abs}{1}  \\ [1.4cm]
+\Rnode{S0}{S_0} \\ [1.4cm]
+\Rnode{SR}{S_R} \\ [1.4cm]
+\end{array}
+$
+\ncsar{S0}{abs}
+\ncsar{SR}{S0}
+\ncrsar{SR}{SR}
+\end{center}
+
+
+\subsection {multi-arrows}
+
+\noindent Supplemental pstricks style macros for multi-arrows:
+
+
+		\begin{tabular}{|l |  p{5cm} | }
+		   \hline
+		   \verb!\ncmarr{A1}{A2}{J}{B}! & multi-arrow with two domains \\
+		    \hline
+		   \verb!\ncamarr{f}{A1}{A2}{J}{B}! & multi-arrow with two domains and label above \\
+		   \hline
+		 	 \verb!\ncbmarr{f}{A1}{A2}{J}{B}! & multi-arrow with two domains and label below \\
+		 	 \hline
+		 	 \verb!\ncmarrr{A1}{A2}{A3}{J}{B}! & multi-arrow with three domains \\
+		 	 \hline
+		   \verb!\ncamarrr{f}{A1}{A2}{A3}{J}{B}! & multi-arrow with three domains and label above \\
+		   \hline
+		 	 \verb!\ncbmarrr{f}{A1}{A2}{A3}{J}{B}! & multi-arrow with three domains and label below \\
+		 	 \hline
+		\end{tabular}
+
+Arcs of angle 8 are used for the branches leading from the domains to the junction point J and for the arrow from the junction J to the codomain.
+Two optional parameters allow these to be overridden.
+In the following example there is are call \verb!\ncamarr{f}{A1}{A2}{J1}{B1}{f}! and call
+\verb!\ncbmarrr{g}{A1}{A2}{A3}{J2}{B2}! :
+\setlength{\arraycolsep}{1cm}
+\begin{center}
+$
+\begin{array}{cccc}
+\Rnode{A1}{A_1}& & \\
+                & \Rnode{J1}{}& \Rnode{B1}{B_1} \\
+\Rnode{A2}{A_2}& & \\
+                &  \Rnode{J2}{}& \Rnode{B2}{B_2} \\
+\Rnode{A3}{A_3}& & \\
+\end{array}
+$
+\ncamarr{f}{A1}{A2}{J1}{B1}
+\ncbmarrr{g}{A1}{A2}{A3}{J2}{B2}
+
+\end{center}
+\setlength{\arraycolsep}{.2cm}
+
+\subsection{Macros for crowsfeet arrow notation}
+
+In the general case  functions  are many-one functional relationship and can be represented as shown in the following examples.
+General form of these commands: \verb'command[angleA][midpointangle]{startnode}{endnode}'.
+\begin{center}
+\begin{tabular} {c p{5cm}}
+\verb'angleA' & similar to like named parameter to \verb'ncarc' command. Angle that arrow leaves the start node relative to a line drwn to the destination. Except\\
+\verb'midpointangle' & This parameter needs to be supplied as the angle between start and end node since i cannot calculate it. Defaults to zero. If this parameter is
+                        wrongly gicven then results are rubbish.
+\end{tabular}
+\end{center}
+
+
+\begin{center}
+\begin{tabular}{c p{1.2cm} c p{0.5cm} l p{1.5cm} | p{1.5cm} c p{0.5cm} l}
+   \Rnode{a}{a}   & & \Rnode{b}{b}   & \verb'\Et{a}{b}'    \\ [1.2cm]
+   \Rnode{a1}{a1} & & \Rnode{b1}{b1} & \verb'\Et[20]{a1}{b1}'  \\ 
+	                & &                & \verb'\alabel{R}[0.3]'  \\ [1.2cm]
+   \Rnode{a2}{a2} & & \Rnode{b2}{b2} & \verb'\Et[-20]{a2}{b2}' \\ 
+	                & &                & \verb'\blabel{R}[0.3]'  \\ [1.2cm]
+   \Rnode{a3}{a}  & & \Rnode{b3}{b}  & \verb'\Et[-40]{a3}{b3}' \\ 
+	                & &                & \verb'\blabel{R}[0.3]'  \\ [1.2cm]
+\end{tabular}
+\Et{a}{b}
+\alabel{R}[0.3]
+\Et[20]{a1}{b1}
+\alabel{R}[0.3]
+\Et[-20][0]{a2}{b2}
+\blabel{R}[0.3]
+\Et[-40]{a3}{b3}
+\blabel{R}[0.3]
+\end{center}
+
+
+In the command name Et E is for Edge and t is for total.
+Other abbreviations p(artial), m(ono), e(pi) and r(recursive) yields the following commands
+ann of which have an optional angle parameter:
+\vspace{0.5cm}
+
+\begin{center}
+\begin{tabular}{c p{1.2cm} c p{0.5cm} l p{1.5cm} | p{1.5cm} c p{0.5cm} l }
+   \Rnode{a1}{a} & & \Rnode{b1}{b} & & Ep   & & & \Rnode{x1}{x} & & rEp   \\ [1.2cm]
+   \Rnode{a2}{a} & & \Rnode{b2}{b} & & Epm  & & & \Rnode{x2}{x} & & rEpm  \\ [1.2cm]
+   \Rnode{a3}{a} & & \Rnode{b3}{b} & & Epe  & & & \Rnode{x3}{x} & & rEpe  \\ [1.2cm]
+   \Rnode{a4}{a} & & \Rnode{b4}{b} & & Epme & & & \Rnode{x4}{x} & & rEpme \\ [1.2cm]
+   \Rnode{a5}{a} & & \Rnode{b5}{b} & & Et   & & & \Rnode{x5}{x} & & rEt   \\ [1.2cm]
+   \Rnode{a6}{a} & & \Rnode{b6}{b} & & Etm  & & & \Rnode{x6}{x} & & rEtm  \\ [1.2cm]
+   \Rnode{a7}{a} & & \Rnode{b7}{b} & & Ete  & & & \Rnode{x7}{x} & & rEte  \\ [1.2cm]
+   \Rnode{a8}{a} & & \Rnode{b8}{b} & & Etme & & & \Rnode{x8}{x} & & rEtme
+\end{tabular}
+\Ep[20]{a1}{b1}
+\alabel{R}[0.3]
+\Epm[20]{a2}{b2}
+\alabel{R}[0.3]
+\Epe[20]{a3}{b3}
+\alabel{R}[0.3]
+\Epme[20]{a4}{b4}
+\alabel{R}[0.3]
+\Et[20]{a5}{b5}
+\alabel{R}[0.3]
+\Etm[20]{a6}{b6}
+\alabel{R}[0.3]
+\Ete[20]{a7}{b7}
+\alabel{R}[0.3]
+\Etme[20]{a8}{b8}
+\alabel{R}[0.3]
+\rEp[270]{x1} 
+\alabel{R}[0.3]
+\rEpm[270]{x2}
+\alabel{R}[0.3]
+\rEpe[270]{x3}
+\alabel{R}[0.3]
+\rEpme[270]{x4}
+\alabel{R}[0.3]
+\rEt[270]{x5}
+\alabel{R}[0.3]
+\rEtm[270]{x6}
+\alabel{R}[0.3]
+\rEte[270]{x7}
+\alabel{R}[0.3]
+\rEtme[270]{x8}
+\alabel{R}[0.3]
+\end{center} 
+
+\vspace{0.5cm}
+
+
+The recursive commands are used as shown in the following examples:
+\begin{center}
+\begin{tabular}{l p{.35cm} | p{.35cm} l p{.35cm} | p{.35cm} l p{.35cm} | p{.35cm} l }
+   \hspace{.75cm} \Rnode{x1}{$x_1$}    & & & \hspace{.75cm} \Rnode{x2}{$x_2$}    & & &  \hspace{.75cm} \Rnode{x3}{$x_3$}    & & &  \hspace{.75cm} $\Rnode{x4}{x}_4$ \\ [0.5cm]
+	 \verb'\rEt[180]{x1}' & & & \verb'\rEt[210]{x2}' & & & \verb'\rEt[240]{x3}'  & & & \verb'\rEt[270]{x4}' \\
+	 \verb'\alabel{f}'    & & & \verb'\alabel{f}'    & & & \verb'\alabel{f}'     & & & \verb'\alabel{f}' 
+\end{tabular}
+\rEt[180]{x1}
+\alabel{f}
+\rEt[210]{x2}
+\alabel{f}
+\rEt[240]{x3}
+\alabel{f}
+\rEt[270]{x4}
+\alabel{f}
+\end{center}
+
+
+
+\end{document}

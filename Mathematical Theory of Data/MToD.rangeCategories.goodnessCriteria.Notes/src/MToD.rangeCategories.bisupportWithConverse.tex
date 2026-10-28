@@ -3,23 +3,30 @@
 A compatible converse operation for a bisupport category \catcw is
 an operation \converseItself such that if $f: a \morph b$ in \catcw
 then $\converse{f} : b \morph a$ and satisfying:
+
 \noindent [K.1]\quad
 \[
 \converse{\converse{f}}=f.
 \]
 
 \noindent [K.2]\quad
-If $\sequentialdiag{a}{b}{c}{f}{g}$ in $\catc$, then
+For any morphism $f$,
 \[
-\converse{(f\circ g)}
-=
-\converse{g}\circ\converse{f}.
+\converse{\rst{f}}=\rst{f}.
 \]
 
 \noindent [K.3]\quad
 For any morphism $f$,
 \[
 \rst{\converse{f}}=\rng{f}.
+\]
+
+\noindent [K.4]\quad
+If $\sequentialdiag{a}{b}{c}{f}{g}$ in $\catc$, then
+\[
+\converse{(f\circ g)}
+=
+\converse{g}\circ\converse{f}.
 \]
 \end{definition}
 
@@ -47,13 +54,66 @@ such that the following diagram commutes
 \drawMorphism{down}{right}{b}{g}
 \end{arrows}
 \]
-then if the determinancy condition D.2 holds of $f$ then 
+then if the determinancy condition K.5 holds of $f$ then 
 \[
 \converse{f} \circ g = \rng{f} \circ s. 
 \]
 \end{lemma}
 \begin{proof}
-whiteboard
+\begin{align*}
+\converse{f} \circ g 
+       &= \converse{f} \circ f \circ s
+                       && \mbox{because $f \circ s=g$,}\\
+       &= \rng{f} \circ s
+                       && \mbox{by condition K.5.}
+\end{align*}
+\end{proof}
+
+\subsection{Lemmas that helps explain contraction}
+
+\begin{lemma}
+If \catbw is a bisupport category with compatible converse
+then for all morphisms $f$ and $g$ in \catbw 
+such that the following diagram commutes
+\[
+\downTriangleShape{x}[0.8cm]{x}{y}
+\begin{arrows}
+\drawMorphism{down}{left}{a}{\rst{f}}
+\drawMorphism{down}{right}{b}{g}
+\end{arrows}
+\]
+then 
+\[
+\converse{\rst{f}} \circ g = \rst{f} \circ g. 
+\]
+\end{lemma}
+\begin{proof}
+Follows from axiom K.2.
+\end{proof}
+
+\begin{lemma}
+If \catbw is a bisupport category with compatible converse
+then for all morphisms
+
+\[
+\begin{array}{c c c c}
+\Ob{x}{1} &    & \Ob{x}{2} & \\[0.8cm]
+    & \Rnode{BL}{x_2}&    & \Ob{x}{3} 
+\end{array}
+\begin{arrows}
+\drawMorphism{BL}{x1}{a}{f_1}
+\drawMorphism{BL}{x2}{a}{\rst{g}}
+\drawMorphism{x3}{x2}{b}{f_2}
+\end{arrows}
+\]
+then 
+\[
+\converse{f_1} \circ \rst{g} \circ \converse{f_2} 
+= \converse{(f_2 \circ \rst{g} \circ f_1)} 
+\]
+\end{lemma}
+\begin{proof}
+Follows from axioms K.2 and K.4.
 \end{proof}
 
 
@@ -86,7 +146,7 @@ an operation \converseItself which is compatible with the bisupport
 category \catcw (see K.1, K.2 and K.3, above)
 and which in addition satifies 
 
-\noindent [K.4]\quad
+\noindent [K.5]\quad
 For any morphism $f$ in the distinguised subset \catd,
 \[
 \converse{f} \circ f = \rng{f}
@@ -131,7 +191,7 @@ Is this relevant?
 A bisupport category with an involutive inner inverse 
 is a bisupport category with compatible converse satisfying the addition 
 regularity condition
-\noindent [K.4]\quad
+\noindent [K.5]\quad
 For any morphism $f$,
 \[
 f \circ \converse{f} \circ f =f

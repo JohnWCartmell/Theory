@@ -11,6 +11,8 @@
 }
 
 \include{\sharedmacros/diagram.macros}
+\include{\sharedmacros/ObMorph.diagram.macros}
+
 \include{\sharedmacros/rangeCategories.macros.tex}
 \usepackage{xparse}
 \usepackage{xstring} % for some diagram macros
@@ -47,14 +49,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\srcFolder}{src}
 %
-%\includeonly{\srcFolder/MToD.rangeCategories.zigzagcommand.tests.tex}
 %\includeonly{\srcFolder/MToD.rangeCategories.introduction.tex}
 %
 %\includeonly{\srcFolder/MToD.rangeCategories.supportCategories.tex}
 %\includeonly{\srcFolder/MToD.rangeCategories.cosupportCategories.tex}
 %\includeonly{\srcFolder/MToD.rangeCategories.bisupportCategories.tex}
 %\includeonly{\srcFolder/MToD.rangeCategories.posetEnrichedBisupportCategories.tex}
-\includeonly{\srcFolder/MToD.rangeCategories.zigzags.tex}
+%\includeonly{\srcFolder/MToD.rangeCategories.zigzags.tex}
+\includeonly{\srcFolder/MToD.rangeCategories.zigzag_contraction.tex}
 %\includeonly{\srcFolder/MToD.rangeCategories.bisupportWithConverse.tex}
 %\includeonly{\srcFolder/MToD.rangeCategories.restrictions_and_support.tex}
 %\includeonly{\srcFolder/MToD.rangeCategories.ranges_sections_and_weak_range.tex} 
@@ -79,75 +81,82 @@
 \date{}
 \maketitle
 \begin{aside}
-14th October 2026. I have gravitated toward bisupport catgories because 
-many of the proofs regarding tightness and the establishing of a category of tight zigzags seem to befit from appeals to symmetry. It is mathematically expedient to symmetry of support and cosupport. I became unstuck however because if the the partial order defined in the restriction category setting is moved \textit{verabtim} into the bisupport setting then the resulting partial order is not monotone i.e. composition does not respect the ordering. Call this ordering the support order. Call its dual the cosupport order. These are definable in a bisupport category but in the bisupport category of sets and binary relationships neither of these orderings correspond to relationship inclusion and, worse, composition (of morphisms) is not monotone with respect to these orderings. 
+13th October 2026. I have gravitated toward starting with 
+poset-enriched bisupport catgories rather than range categories. 
+This is  because the proofs regarding tightness needed to establish 
+a category of tight zigzags benefit 
+from appeals to symmetry of support and cosupport. 
 
-To proceed we need to assume an ordering such that compostion and support and cosupport are monotone. Such a structure we will define as 
 \begin{equation}
 \label{posetEnrichedBisupportCategory}
 \text{poset enriched bisupport category}
 \end{equation}
 There is a category \cat{pobicat}.
 
-To get to the category of tight zigzags we will need one or more additional conditions.
-\workt{I previously thought} that we might need the condition that is currently given as lemma \lref{pointwiseorderingsCompose}:
-if 
-$
-\paralleldiag{a}{b}{f}{f'}
-$
-\nudgedown{0.6cm}
-and
-$
-\paralleldiag{b}{c}{g}{g'}
-$
-and $h: a \morph c$ in \catcw 
-and if $f' \sleq f$ and $g' \sleq g$ 
-and if $h \sleq f \circ g'$ and $h \sleq f' \circ g$ 
-then $h \sleq f' \circ g'$. \workt{but this condition does not hold in sets and binary relationships} \workt{The lemma will hold wrt support ordering in a restriction category I think}
+The category of zigzags over a poset enriched bisupport category
+is also a poset enriched bisupport category. Additionally it has a converse operation. 
+The converse operation  satisfies two of three conditions necessary for it to be
+said to be compatible with the bisupport structure.
+To satisfy the third condition, a quotient category of the category of zigzags has to be taken but this quotient can also be described more directly 
+as the category of tight zigzags over the underlying bisupport category.
 
-\workt{I cannot see this lemma being used anywhere}
+A further compatibility condition is appropriate if some or all morphisms in the underlying bisupport category are elected to be representative of functional
+relationships also said to be detrministic. The extreme case is that of a range category where all morphisms are deemed thus. For such morphisms $f$ the converse operation should meet the additional compatibility axiom
+\[
+\converse{f} \circ f = \rng{f}.
+\]
 
-\highlight{I need to look at the $h$, $h_L$, $h_R$ lemma and see where this fits in.} 
+Similarly a morphisim may be deemed to represent a real world relationship whose \textit{converse} is functional. For such morphisms the appropriate compatibility axiom will be
+\[
+f \circ \converse{f} = \rst{f}
+\]
 
-\workt{Oh no. This doesn't hold in sets and binary relationships. This, I think, is a show stopper.}
-\begin{oldtt}
-For lack of better terminology when these conditions are met we shall say we have a 
+One aspect of traditional software analysis and design methodologies 
+is a sharp focus on data requirements 
+and a rigourous description of 
+those aspects of real-world entities and binary relationships 
+such as are to be represented 
+within the data of the software system. 
+For many such methods these descriptions are written as 
+annotated graphs in which nodes are types of entity and edges are binary relationships. Annotations include cardinality constraints, for instance a relationship $r$ that is defined to be between entitites of type $a$ and entitites of type $b$ is said to be cardinality zero-or-one if for any entity $a$ of type $A$ there is at most one entity $b$ such that a R b.
+Such a relationship can also said to be \textit{functional} or \textit{function-like} or \textit{deterministic}. 
+Now to any binary relationship $r: a \morph b$ there is a converse relationship by which entities of type $b$ are related to entities of type $b$. 
+In this paper this converse 
+will be written as $\converse{r} : b \morph a$. 
+In software design notation the the whole will likely be represented as a single edge annotated and possibly named at both ends. 
+
+
 \begin{equation}
-\label{wellBehavedPosetEnrichedBisupportCategory}
-\text{well-behaved poset enriched bisupport category}
-\end{equation}
-There is a category \cat{wpobicat}.
-
-Next the category of tight zigzags over a well-behaved poset enriched bisupport 
-category has  converses that is compatible with the bisupport structure
-\begin{equation}
-\label{functionAwareWellbehavedPosetEnrichedBisupportWithConverse}
-\text{function aware well-behaved poset enriched bisupport category with compatible converse}
+\label{functionAwarePosetEnrichedBisupportWithConverse}
+\text{function aware poset enriched bisupport category with compatible converse}
 \end{equation}
 There is a category \cat{fawpobicatcon}. 
 
 The category of short tight zigzags in addition satisfies condition K.4.
+This is currently described in the section on bisupport categories with converse. It states that distinguised function like morphisms satisfy
+$\converse{f} \circ f = \rng{f}$.
+
 \begin{equation}
-\label{functionAwareWellBehavedPosetEnrichedBisupportWithK4Converse}
-\text{function-aware well-behaved poset enriched bisupport category with K.4 converse}
+\label{functionAwarePosetEnrichedBisupportWithK4Converse}
+\text{function-aware poset enriched bisupport category with K.4 converse}
 \end{equation}
 There is a category \cat{fawpobicatk4con}.
 
 The latter is the free 
-(\lref{functionAwareWellBehavedPosetEnrichedBisupportWithK4Converse}) 
+(\lref{functionAwarePosetEnrichedBisupportWithK4Converse}) 
 on a
-(\ref{wellBehavedPosetEnrichedBisupportCategory}) 
-\end{oldtt}
+(\ref{posetEnrichedBisupportCategory}) 
 \end{aside}
 
 \begin{aside}
 6th October 2026: We could have co-function aware. K.4 then has a dual. How important is this. Then shortening can be co-shortening of zigzags. What is a 1-1 morphism in a range category? Over a bisupport category does shortening hold for all $f$ that satisfy R.4? Do we therefore absolutely need take account of co-shortening?
 
-Note that I have uncertainties both about the precise positioning of tight zigzags (the place of the $h_L$ and $h_R$ axioma/construction) and about shortening (is cardinality decoration necessary to get a universal construction, what is the remanant of the universal construction when restricted to range categories, is coshortening an absolute requirement(hmmm. Might be a requirment only if we require dual of K.4. Remember K.4 only applies to function-like morphisms.)
+Note that I have uncertainties both about the precise positioning 
+shortening (is cardinality decoration necessary to get a universal construction, what is the remanant of the universal construction when restricted to range categories, is coshortening an absolute requirement(hmmm. Might be a requirment only if we require dual of K.4. Remember K.4 only applies to function-like morphisms.)
 \end{aside}
 \begin{aside}
 I have been working on this since January 2026.
-In August 2026 the proofs are fully fleshed out though a few lemmas have proofs trhat are not written up. Through September I am shifting the thinking toward bisupport categories. But then things become less clear.
+In August 2026 the proofs are fully fleshed out though a few lemmas have proofs that are not written up. Through September I am shifting the thinking toward bisupport categories. But then things become less clear.
 \begin{enumerate}
   \item lemma \lref{orderingsCompose}  
   The proof that this holds in restriction categories isnt written up. 
@@ -160,12 +169,10 @@ In August 2026 the proofs are fully fleshed out though a few lemmas have proofs 
   $y_2 \mathrel{\overset{g}{\mapsto}} \set{z_2}$.
   If the ordering is as defined in a restriction category (in which all maps are deterministic as in R.4 holds of them) then whilst $g \leq g'$  it isn't the case that $f \circ g \leq f \circ g'$.
   This needs become an axiom of poset enriched bisupport categories. Proof in
-  restriction categories beccomes a proof that restriction categories are poset enriched bisupport catregories.
+  restriction categories beccomes a proof that restriction categories are poset enriched bisupport categories.
   \item lemma \lref{pointwiseorderingsCompose}
   I need to prove this for restriction categories. Does it need by an axiom for
-  partial order enriched bisupport categroies plus??  
-  \item lemma \lref{tighteningCommutesWithComposition} Proof not written up.
-  \item lemma \lref{FGsupportLemmas} Proof not written up.
+  partial order enriched bisupport categroies plus??  DO I NEED THIS?
 \end{enumerate}
 and one definition is missing namely "The Representation of Path Equivalence".
 
@@ -177,10 +184,6 @@ of support, cosupport, converse , zigzag construction established in one paper a
 
 Tidying will include
 \begin{itemize}
-\item Insert missing lemmas.
-\begin{itemize}
-  \item see lemma tighteningCommutesWithComposition
-\end{itemize}
 \item Sort out lref and llabel macros. Make them consistent with
 indexing of lemmas and uses of lemmas so that I can cross check which lemmas actually used and get rid of unused lemmas.
 \begin{itemize}
@@ -196,19 +199,33 @@ parallel whenEverythingFellApart.
 \end{aside}
 
 \begin{aside}
-
 \begin{enumerate}
 \item 
 I can add to the definition of bisupport categories a converse operation.
 \item the category of zigzags is defined over a bisupport category equipped with a partial order on each hom set.
 \item the category of zigzags  is a bisupport category equipped with a converse operation. It might be a free construction of such converse operation.
 \item the catgeory of zigzags (as I have so far defined it) relies on the definition of tightness and of tightening. I need tightening because tight zigzags are composed by concatenating them and then by tightening.
-\item but why do I actually need tightness in the first place? There is a category of zigzags and a category of tight zigzags. The category of tight zigzags is a quotient of the category of arbitrary zigzags. I know that I am taking this quotient because models in Set will be equivalent but how do I abstract this? Also (later) shortening will have the same 
+\item but why do I actually need tightness in the first place? 
+There is a category of zigzags and a category of tight zigzags. The category of tight zigzags is a quotient of the category of arbitrary zigzags. I know that I am taking this quotient because models in Set will be equivalent but how do I abstract this? The answer is that tightness is forced by the axioms for the converse operation. As said above the category of tighyt zigzags (actua; contrcated tight zigzags (see section \lref{compatibleConverseLemma}) ) is a poset-enriched bisupport category with compatible converse.
+
+\item Also (later) shortening will have a similar 
 justification. So is the category of tight zigzags got a position in the hierarchy of real structures or is it just a temporary stopping off point in the development of short tight zigzags. Though shortness is defined wrt range categories it can be introduced for bisupport categories with ordering by only allowing deterministic maps in a shortening. But then jump ahead to short tight zigzags: has this got an abstract reqt. that it is meeting? There is a way of trying to formulate this that has been on the back of my mind for a while.Is it real? 
 \item I perhaps need to think of the construction by which I freely generate a converse operation for a category with bisupport.
 \end{enumerate}
 \end{aside}
 
+\begin{aside}
+I am thinking we can perhaps do with out rightToLeftTighteningSubLemma and some (ii) parts of lemmas because I am not using them... I am just appealing to duality. Maybe only one lemma needs a (ii) part that appeals to duality?
+\end{aside}
+
+\begin{aside}
+\highlight{Question} What converse axioms does the converse operation in the category of zizags satisfy? Is it K.1 plus K.3 but not K.2? If this is the case 
+present that the category of zigzags (sic) has K.1 and K.3. Explain tightening as a subcategory that satisfies K.2. \highlight{Should I swap  K.2 and K.3 -- i.e. call current K.3, K2, and vice-versa.}
+\end{aside}
+
+\begin{aside}
+I was thinking last night --- does that Hom fumctor that isn't a functor into the category \Par become a functor when its target is the category Rel. Or when the ordering is that induced by poset-enriched bisupport category. Did these thoughts mean anything? Perhaps not.
+\end{aside}
 
 \newcommand{\Fquotient}{F/\!\!\sim}  % \! is small negative space
 
@@ -226,13 +243,13 @@ of \catcw and these morphisms are generated from the sketch. The morphisms thems
 
 \end{aside}
 
-%\include{\srcFolder/MToD.rangeCategories.zigzagcommand.tests.tex}
 \include{\srcFolder/MToD.rangeCategories.introduction.tex}
 \include{\srcFolder/MToD.rangeCategories.supportCategories.tex}
 \include{\srcFolder/MToD.rangeCategories.cosupportCategories.tex}
 \include{\srcFolder/MToD.rangeCategories.bisupportCategories.tex}
 \include{\srcFolder/MToD.rangeCategories.posetEnrichedBisupportCategories.tex}
 \include{\srcFolder/MToD.rangeCategories.zigzags.tex}
+\include{\srcFolder/MToD.rangeCategories.zigzag_contraction.tex}
 \include{\srcFolder/MToD.rangeCategories.bisupportWithConverse.tex}
 \include{\srcFolder/MToD.rangeCategories.restrictions_and_support.tex}
 \include{\srcFolder/MToD.rangeCategories.ranges_sections_and_weak_range.tex} 
