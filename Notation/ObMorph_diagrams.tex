@@ -28,10 +28,33 @@
 \author{John Cartmell}
 
 \begin{document}
+\typeout{*** TEST MESSAGE ***}
 \maketitle
+
+
 
 \section{Zigzags}
 
+
+\subsection{zigzagOne}
+\begin{showexample}
+% a zigzag of length one
+\[
+\arraycolsep=12pt
+\zigzagOne{x}{y}{f}
+\]
+\end{showexample}
+
+
+\begin{showexample}
+% a zigzag of length one
+\[
+\arraycolsep=12pt
+\zigzagOneBulleted{x}{y}{f}
+\]
+\end{showexample}
+
+\subsection{zigzagTwo}
 \begin{showexample}
 \[
 \arraycolsep=12pt
@@ -52,9 +75,9 @@
 \SetObjectContent{y1}{B_1}
 \SetObjectContent{y2}{B_2}
 
-\SetMorphismContent{fone}{u}
-\SetMorphismContent{fprimeone}{v}
-\SetMorphismContent{ftwo}{w}
+\SetMorphismContent{f1}{u}
+\SetMorphismContent{fprime1}{v}
+\SetMorphismContent{f2}{w}
 \[
 \arraycolsep=12pt
 \zigzagTwo{x}{y}{f}
@@ -62,21 +85,56 @@
 \end{showexample}
 
 
+\subsection{zigzagThree}
+
 \begin{showexample}
 \[
-\SetObjectContent{\ob{instance}{x}{2}}{XX}
-\arraycolsep=7pt
-\zigzagTwo[instance]{x}{y}{f}
+\arraycolsep=12pt
+\zigzagThree{x}{y}{f}
 \]
 \end{showexample}
 
+\begin{showexample}
+\[
+\arraycolsep=12pt
+\zigzagThreeBulleted{x}{y}{f}
+\]
+\end{showexample}
+
+\subsection{Aggregated}
+
+\begin{showexample}
+\begin{wrappedZigzag}{x}{y}{f}
+    \SetIndexTranslation{1}{i-1}
+    \SetIndexTranslation{2}{i}
+    \SetIndexTranslation{3}{i+1}
+    \arraycolsep=12pt
+    \zigzagThree{x}{y}{f}
+\end{wrappedZigzag}
+\end{showexample}
+
+
+\begin{showexample}
+\begin{wrappedZigzag}{x}{y}{f}
+    \SetIndexTranslation{1}{i-1}
+    \SetIndexTranslation{2}{i+1}
+    \SetObjectContent{x2}{\kern0.25cm x_{i+1}\kern0.15cm} 
+    \SetMorphismContent{fprime1}{f'_{i-1}\circ f_i \circ f'_i}
+    \SetMorphismLabelPosition{f2}{b} %flips the label out of the way 
+                                     % of the lengthy fprime2 label
+    \arraycolsep=10pt
+    \zigzagTwo{x}{y}{f}
+\end{wrappedZigzag}
+\end{showexample}
 
 \begin{showexample}
 \[
 \SetObjectContent{\ob{iOne}{x}{2}}{x}
 \SetObjectContent{\ob{iOne}{y}{2}}{y}
+\SetMorphismLabelPosition{iOnef2}{b}   %flip label to make room for i bar
 \SetObjectContent{\ob{iTwo}{x}{1}}{x}
 \SetObjectContent{\ob{iTwo}{y}{1}}{y}
+\SetMorphismLabelPosition{iTwoh2}{b}   %flip label for cosmetics
 \arraycolsep=7pt
 \begin{array}{c c}
                           &\kern-0.5cm\zigzagTwoBulleted[iTwo]{x}{y}{h}  \\[1.6cm]
@@ -90,7 +148,59 @@
 \]
 \end{showexample}
 
+\section{Zagzig}
+\subsection{zagzigOne}
+\begin{showexample}
+\[
+\zagzigOne{x}{y}{f}
+\]
+\end{showexample}
 
+\subsection{zagzigTwo}
+
+\begin{showexample}
+\[
+\arraycolsep=7pt
+\zagzigTwo{x}{y}{f}
+\]
+\end{showexample}
+
+\subsection{zagzigThree}
+
+\begin{showexample}
+\[
+\arraycolsep=7pt
+\zagzigThree{x}{y}{f}
+\]
+\end{showexample}
+
+\subsection{Wrapping}
+
+\begin{showexample}
+\begin{wrappedZigzag}{x}{y}{f}
+    \SetIndexTranslation{1}{i-1}
+    \SetIndexTranslation{2}{i}
+    \SetIndexTranslation{3}{i+1}
+    \SetIndexTranslation{4}{i+2}
+    \arraycolsep=12pt
+    \zagzigThree{x}{y}{f}
+\end{wrappedZigzag}
+\end{showexample}
+
+
+\begin{showexample}
+\begin{wrappedZigzag}{x}{y}{f}
+    \SetIndexTranslation{1}{i-1}
+    \SetIndexTranslation{2}{i+1}
+    \SetIndexTranslation{3}{i+2}
+    \SetObjectContent{x2}{\kern5pt x_{i+1}\kern3pt} 
+    \SetMorphismContent{f2}{f_i \circ f'_i \circ f_{i+1}}
+    \SetMorphismLabelPosition{fprime1}{a} %flips the label out of the way 
+                                     % of the lengthy f1 label
+    \arraycolsep=12pt
+    \zagzigTwo{x}{y}{f}
+\end{wrappedZigzag}
+\end{showexample}
 
 
 \end{document}

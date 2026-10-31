@@ -96,58 +96,6 @@
 % Only need this if I am talking about what doesn't work.
 \NewDocumentCommand{\HomStk}{O{a} O{-} O{C}}{pHom_{\Stk[#3]}(#1,#2)}
 
-\iffalse %Moved to ObMorph.diagram.macros.tex
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Ob macros used in pstricks diagrams
-%    might these be used more widely?
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% nodenames are constructed and have an optional instance
-%  parameter so that two copies of the same content 
-%  can be separately identified.
-
-% Construct node names
-\newcommand{\ob}[3]{#1#2#3}
-\newcommand{\bob}[1]{#1}
-\newcommand{\obp}[3]{#1#2#3p}
-\newcommand{\obs}[3]{#1#2#3s}
-\newcommand{\obpp}[3]{#1#2#3pp}
-\newcommand{\obss}[3]{#1#2#3ss}
-
-% Canonical node-name constructor:
-% {instance}{object}{subscript}{operator}
-\newcommand{\nodename}[4]{#1#2#3#4}
-
-% Object
-\NewDocumentCommand{\Ob}{O{} m m}{%
-  \Rnode{\nodename{#1}{#2}{#3}{}}{#2_{#3}}%
-}
-
-% Bare object, without subscript
-\NewDocumentCommand{\bOb}{O{} m}{%
-  \Rnode{\nodename{#1}{#2}{}{}}{#2}%
-}
-
-% Predecessor
-\NewDocumentCommand{\Obp}{O{} m m}{%
-  \Rnode{\nodename{#1}{#2}{#3}{p}}{#2_{#3-1}}%
-}
-
-% Successor
-\NewDocumentCommand{\Obs}{O{} m m}{%
-  \Rnode{\nodename{#1}{#2}{#3}{s}}{#2_{#3+1}}%
-}
-
-% Two predecessors
-\NewDocumentCommand{\Obpp}{O{} m m}{%
-  \Rnode{\nodename{#1}{#2}{#3}{pp}}{#2_{#3-2}}%
-}
-
-% Two successors
-\NewDocumentCommand{\Obss}{O{} m m}{%
-  \Rnode{\nodename{#1}{#2}{#3}{ss}}{#2_{#3+2}}%
-}
-\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%
 % zigzags as tuples
@@ -298,7 +246,7 @@
 \ncarr{#12}{#21} \blabel{#3'_1}[0.45][0.4]
 \end{arrows}
 }
-
+\iffalse
 \NewDocumentCommand{\zigzagOne}{m m m o}{
 \begin{array} {c c c c }
  &\Ob{#2}{1}&&          \\[0.8cm]
@@ -313,6 +261,7 @@
 \ncarr{#12}{#21} \blabel{#3'_1}[0.45][0.4]
 \end{arrows}
 }
+\fi
 
 %\zigzagZigiZag{x}{y}{f}{i}
 % starts from i with a zig and a zag 

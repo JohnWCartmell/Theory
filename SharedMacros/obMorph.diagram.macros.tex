@@ -1,13 +1,15 @@
 
 
 \ExplSyntaxOn
-
-\prop_new:N \l_zig_node_content_prop
-\prop_new:N \l_zig_arrow_label_prop
+% Shared infrastructure
 
 % Expand the key before looking it up.
 \cs_generate_variant:Nn \prop_item:Nn { Ne }
 \cs_generate_variant:Nn \prop_if_in:NnTF { Ne }
+
+% Object stuff
+
+\prop_new:N \l_zig_node_content_prop
 
 % Look up node content; use the fallback if there is no entry.
 \NewDocumentCommand{\ObjectContent}{m m}
@@ -17,6 +19,14 @@
    { #2 }
  }
 
+\NewDocumentCommand{\SetObjectContent}{m m}{
+  \prop_put:Nen \l_zig_node_content_prop {#1} {#2}
+}
+
+% Morphism stuff
+
+\prop_new:N \l_zig_arrow_label_prop
+
 % Look up morphism label; use the fallback if there is no entry.
 \NewDocumentCommand{\MorphismContent}{m m}
  {
@@ -25,15 +35,45 @@
    { #2 }
  }
 
-\NewDocumentCommand{\SetObjectContent}{m m}{
-  \prop_put:Nen \l_zig_node_content_prop {#1} {#2}
-}
-
 \NewDocumentCommand{\SetMorphismContent}{m m}{
   \prop_put:Nen \l_zig_arrow_label_prop {#1} {#2}
 }
 
+% Index Translate stuff
+
+\prop_new:N \l_zig_index_translation_prop
+
+% Look up index translation; use the fallback if there is no entry.
+\NewDocumentCommand{\IndexTranslation}{m m}
+ {
+  \prop_if_in:NeTF \l_zig_index_translation_prop {#1}
+   { \prop_item:Ne \l_zig_index_translation_prop {#1} }
+   { #2 }
+ }
+
+\NewDocumentCommand{\SetIndexTranslation}{m m}{
+  \prop_put:Nen \l_zig_index_translation_prop {#1} {#2}
+}
+% Morphism Label Position stuff. Each morphism label either above 'a' or below 'b'
+
+\prop_new:N \l_zig_label_position_prop
+
+% Look up label position use the fallback if there is no entry.
+\NewDocumentCommand{\MorphismLabelPosition}{m m}
+ {
+  \prop_if_in:NeTF \l_zig_label_position_prop {#1}
+   { \prop_item:Ne \l_zig_label_position_prop {#1} }
+   { #2 }
+ }
+
+\NewDocumentCommand{\SetMorphismLabelPosition}{m m}{
+  \prop_put:Nen \l_zig_label_position_prop {#1} {#2}
+}
+
+\cs_generate_variant:Nn \prop_get:NnNTF { NeNTF }
+
 \ExplSyntaxOff
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \ob and \Ob macros used in pstricks diagrams
@@ -86,6 +126,129 @@
 }
 
 
+\NewDocumentCommand{\zigObject}{m m m}
+  {\Rnode{L\ob{#1}{#2}{#3}}{\strut}
+   \Rnode{\ob{#1}{#2}{#3}}
+        {\ObjectContent{\ob{#1}{#2}{#3}}{#2_{\IndexTranslation{#3}{#3}}}}
+   \Rnode{R\ob{#1}{#2}{#3}}{\strut}
+      % Reading this code \IndexTranslation{#3}{#3} I think perhaps
+        % need more specific key
+        % otherwise I cannot build macros for composite diagrams 
+        % (two copies of zigzagTwo pieced together for example) and 
+        % in use overwrite specific instances
+        % To fix this shouldn't instance parameters be 
+        % hierachically structured. I think yes. But this is implemented
+        % in the macros that aggregate zigzag components into bigger
+        % zigzags. Will this go through? I think it means that when I 
+        % override a property in the aggregating macro I have to check that 
+        % the property isn't already overridden.
+  }
+
+\NewDocumentCommand{\zigBulletObject}{m m m}
+  {\Rnode{L\ob{#1}{#2}{#3}}{\strut} %left connection point
+   \Rnode{\ob{#1}{#2}{#3}}
+     {\ObjectContent{\ob{#1}{#2}{#3}}{\bullet}}
+   \Rnode{R\ob{#1}{#2}{#3}}{\strut} %right connection point
+  }
+
+\ExplSyntaxOn
+\NewDocumentCommand{\zigLabel}{m m m}
+ {
+  \prop_get:NeNTF \l_zig_label_position_prop {#1} \l_tmpa_tl
+   { }
+   { \tl_set:Nn \l_tmpa_tl {#2} }
+
+  \tl_if_eq:VnTF \l_tmpa_tl {a}
+   { \alabel{#3}[0.5][0.4] }
+   {
+    \tl_if_eq:VnTF \l_tmpa_tl {b}
+     { \blabel{#3}[0.5][0.4] }
+     {
+      \PackageError{zigzag}
+       {Unknown label side}
+       {Use a or b.}
+     }
+   }
+ }
+ \ExplSyntaxOff
+
+% \zigMorphism{source}{target}{instance}{name}{index}
+% Forward morphism: f_i
+
+ \NewDocumentCommand{\zigMorphism}{m m m m m}
+ {
+  \ncarr{R#1}{#2}
+  \zigLabel
+   {#3#4#5}
+   {a}
+   {
+    \MorphismContent{#3#4#5}
+     {#4_{\IndexTranslation{#5}{#5}}}
+   }
+ }
+
+% \zigReverseMorphism{source}{target}{instance}{name}{index}
+% Reverse morphism: f'_i
+
+\NewDocumentCommand{\zigReverseMorphism}{m m m m m}
+ {
+  \ncarr{L#1}{#2}
+  \zigLabel
+   {#3#4prime#5}
+   {b}
+   {
+    \MorphismContent{#3#4prime#5}
+     {#4'_{\IndexTranslation{#5}{#5}}}
+   }
+ }
+ % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ZigzagOne --- zigzag of length one --- has two objects and one morphism
+% \zigzagOneObjects
+% \zigzagOneObjectsBulleted
+% \zigzagOneMorphisms
+% \zigzagOne
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+
+% zigzagOneObjects[instance]{x}{y}
+\NewDocumentCommand{\zigzagOneObjects}{O{} m m}{
+  \begin{array}{c c c c}
+   & \zigObject{#1}{#3}{1}
+   \\[0.8cm]
+   \zigObject{#1}{#2}{1} &
+  \end{array}
+}
+
+% zigzagOneObjectsBulleted[instance]{x}{y}
+\NewDocumentCommand{\zigzagOneObjectsBulleted}{O{} m m}{
+  \begin{array}{c c c c}
+   & \zigBulletObject{#1}{#3}{1}
+   \\[0.8cm]
+   \zigBulletObject{#1}{#2}{1} &
+  \end{array}
+}
+
+% zigzagOneMorphisms[instance]{x}{y}{f}
+\NewDocumentCommand{\zigzagOneMorphisms}{O{} m m m}{
+  \begin{arrows}
+    \zigMorphism{\ob{#1}{#2}{1}}{\ob{#1}{#3}{1}}
+              {#1}{#4}{1}
+  \end{arrows}
+}
+
+% zigzagOne[instance]{x}{y}{f}
+\NewDocumentCommand{\zigzagOne}{O{} m m m}{
+  \zigzagOneObjects[#1]{#2}{#3}
+  \zigzagOneMorphisms[#1]{#2}{#3}{#4}
+}
+
+% zigzagOneBulleted[instance]{x}{y}{f}
+\NewDocumentCommand{\zigzagOneBulleted}{O{} m m m}{
+  \zigzagOneObjectsBulleted[#1]{#2}{#3}
+  \zigzagOneMorphisms[#1]{#2}{#3}{#4}
+}
+
+
 % \zigzagTwo[instance]{x}{y}{f}
 % draws a zigzag of length two <f1,f'1,f2> 
 % where f1 : x1 -> y1
@@ -96,51 +259,37 @@
 % override fi using \SetMorphismContent{fi}{...}
 %                or \SetMorphismContent{fprimei}{...} 
 
-
 \NewDocumentCommand{\zigzagTwoObjects}{O{} m m}{
   \begin{array}{c c c c}
-   &\Rnode{\ob{#1}{#3}{1}}
-      {\ObjectContent{\ob{#1}{#3}{1}}{#3_{1}}}
+   & \zigObject{#1}{#3}{1}
    &&
-     \Rnode{\ob{#1}{#3}{2}}
-      {\ObjectContent{\ob{#1}{#3}{2}}{#3_{2}}}
+     \zigObject{#1}{#3}{2}
    \\[0.8cm]
-   \Rnode{\ob{#1}{#2}{1}}
-      {\ObjectContent{\ob{#1}{#2}{1}}{#2_{1}}}
+   \zigObject{#1}{#2}{1}
    &&
-   \Rnode{\ob{#1}{#2}{2}}
-      {\ObjectContent{\ob{#1}{#2}{2}}{#2_{2}}}
+   \zigObject{#1}{#2}{2}
   \end{array}
 }
+
 \NewDocumentCommand{\zigzagTwoObjectsBulleted}{O{} m m}{
   \begin{array}{c c c c}
-   &\Rnode{\ob{#1}{#3}{1}}
-      {\ObjectContent{\ob{#1}{#3}{1}}{\bullet}}
+   & \zigBulletObject{#1}{#3}{1}
    &&
-     \Rnode{\ob{#1}{#3}{2}}
-      {\ObjectContent{\ob{#1}{#3}{2}}{\bullet}}
+     \zigBulletObject{#1}{#3}{2}
    \\[0.8cm]
-   \Rnode{\ob{#1}{#2}{1}}
-      {\ObjectContent{\ob{#1}{#2}{1}}{\bullet}}
+   \zigBulletObject{#1}{#2}{1}
    &&
-   \Rnode{\ob{#1}{#2}{2}}
-      {\ObjectContent{\ob{#1}{#2}{2}}{\bullet}}
+   \zigBulletObject{#1}{#2}{2}
   \end{array}
 }
+
 \NewDocumentCommand{\zigzagTwoMorphisms}{O{} m m m}{
   \begin{arrows}
-    \ncarr{\ob{#1}{#2}{1}}{\ob{#1}{#3}{1}}
-      \alabel{
-        \MorphismContent{#1#4one}{#4_{1}}
-      }[0.6][0.4]
-    \ncarr{\ob{#1}{#2}{2}}{\ob{#1}{#3}{1}}
-      \blabel{
-        \MorphismContent{#1#4primeone}{#4'_{1}}
-      }[0.6][0.4]
-    \ncarr{\ob{#1}{#2}{2}}{\ob{#1}{#3}{2}}
-      \blabel{
-        \MorphismContent{#1#4two}{#4_{2}}
-      }[0.7][0.4]
+    \zigzagOneMorphisms[#1]{#2}{#3}{#4}
+    \zigReverseMorphism{\ob{#1}{#2}{2}}{\ob{#1}{#3}{1}}
+              {#1}{#4}{1}
+    \zigMorphism{\ob{#1}{#2}{2}}{\ob{#1}{#3}{2}}
+              {#1}{#4}{2}
   \end{arrows}
 }
 
@@ -148,8 +297,246 @@
   \zigzagTwoObjects[#1]{#2}{#3}
   \zigzagTwoMorphisms[#1]{#2}{#3}{#4}
 }
+
 \NewDocumentCommand{\zigzagTwoBulleted}{O{} m m m}{
   \zigzagTwoObjectsBulleted[#1]{#2}{#3}
   \zigzagTwoMorphisms[#1]{#2}{#3}{#4}
 }
 
+% zigzagThree
+
+\NewDocumentCommand{\zigzagThreeObjects}{O{} m m}{
+  \begin{array}{c c c c c c}
+   & \zigObject{#1}{#3}{1}
+   &&
+     \zigObject{#1}{#3}{2}
+   &&
+     \zigObject{#1}{#3}{3}
+   \\[0.8cm]
+   \zigObject{#1}{#2}{1}
+   &&
+   \zigObject{#1}{#2}{2}
+   &&
+   \zigObject{#1}{#2}{3}
+  \end{array}
+}
+
+\NewDocumentCommand{\zigzagThreeObjectsBulleted}{O{} m m}{
+  \begin{array}{c c c c c c}
+   & \zigBulletObject{#1}{#3}{1}
+   &&
+     \zigBulletObject{#1}{#3}{2}
+   &&
+     \zigBulletObject{#1}{#3}{3}
+   \\[0.8cm]
+   \zigBulletObject{#1}{#2}{1}
+   &&
+   \zigBulletObject{#1}{#2}{2}
+   &&
+   \zigBulletObject{#1}{#2}{3}
+  \end{array}
+}
+
+\NewDocumentCommand{\zigzagThreeMorphisms}{O{} m m m}{
+  \begin{arrows}
+  \zigzagTwoMorphisms[#1]{#2}{#3}{#4}
+  \iffalse
+    \ncarr{\ob{#1}{#2}{3}}{\ob{#1}{#3}{2}}
+      \blabel{
+        \MorphismContent{#1#4prime2}{#4'_{2}}
+      }[0.6][0.4]
+  \fi
+    \zigReverseMorphism{\ob{#1}{#2}{3}}{\ob{#1}{#3}{2}}
+              {#1}{#4}{2}
+    \zigMorphism{\ob{#1}{#2}{3}}{\ob{#1}{#3}{3}}
+              {#1}{#4}{3}
+  \end{arrows}
+}
+
+\NewDocumentCommand{\zigzagThree}{O{} m m m}{
+  \zigzagThreeObjects[#1]{#2}{#3}
+  \zigzagThreeMorphisms[#1]{#2}{#3}{#4}
+}
+
+\NewDocumentCommand{\zigzagThreeBulleted}{O{} m m m}{
+  \zigzagThreeObjectsBulleted[#1]{#2}{#3}
+  \zigzagThreeMorphisms[#1]{#2}{#3}{#4}
+}
+
+%zagzigs
+
+% zagzigOneObjects[instance]{x}{y}
+\NewDocumentCommand{\zagzigOneObjects}{O{} m m}{
+  \begin{array}{c c c c}
+   \zigObject{#1}{#3}{1}
+   \\[0.8cm]
+   & \zigObject{#1}{#2}{2} &
+  \end{array}
+}
+
+% zagzigOneObjectsBulleted[instance]{x}{y}
+\NewDocumentCommand{\zagzigOneObjectsBulleted}{O{} m m}{
+  \begin{array}{c c c c}
+   \zigBulletObject{#1}{#3}{1}
+   \\[0.8cm]
+   \zigBulletObject{#1}{#2}{2} &
+  \end{array}
+}
+
+% zagzigOneMorphisms[instance]{x}{y}{f}
+\NewDocumentCommand{\zagzigOneMorphisms}{O{} m m m}{
+  \begin{arrows}
+    \zigReverseMorphism{\ob{#1}{#2}{2}}{\ob{#1}{#3}{1}}
+              {#1}{#4}{1}
+  \end{arrows}
+}
+
+% zagzigOne[instance]{x}{y}{f}
+\NewDocumentCommand{\zagzigOne}{O{} m m m}{
+  \zagzigOneObjects[#1]{#2}{#3}
+  \zagzigOneMorphisms[#1]{#2}{#3}{#4}
+}
+
+% zagzigOneBulleted[instance]{x}{y}{f}
+\NewDocumentCommand{\zagzigOneBulleted}{O{} m m m}{
+  \zagzigOneObjectsBulleted[#1]{#2}{#3}
+  \zagzigOneMorphisms[#1]{#2}{#3}{#4}
+}
+
+
+
+% \zagzigTwo
+% zagzigTwoObjects[instance]{x}{y}
+\NewDocumentCommand{\zagzigTwoObjects}{O{} m m}{
+  \begin{array}{c c c c}
+   \zigObject{#1}{#3}{1}
+   &&
+   \zigObject{#1}{#3}{2}
+   \\[0.8cm]
+   & \zigObject{#1}{#2}{2} 
+   && 
+   \zigObject{#1}{#2}{3} 
+  \end{array}
+}
+
+% zagzigTwoObjectsBulleted[instance]{x}{y}
+\NewDocumentCommand{\zagzigTwoObjectsBulleted}{O{} m m}{
+  \begin{array}{c c c c}
+   \zigBulletObject{#1}{#3}{1}
+   &&
+   \zigBulletObject{#1}{#3}{2}
+   \\[0.8cm]
+   & \zigBulletObject{#1}{#2}{2} 
+   && 
+   \zigBulletObject{#1}{#2}{3}
+  \end{array}
+}
+
+% zagzigTwoMorphisms[instance]{x}{y}{f}
+\NewDocumentCommand{\zagzigTwoMorphisms}{O{} m m m}{
+  \begin{arrows}
+    \zagzigOneMorphisms[#1]{#2}{#3}{#4}
+    \zigMorphism{\ob{#1}{#2}{2}}{\ob{#1}{#3}{2}}
+              {#1}{#4}{2}
+    \zigReverseMorphism{\ob{#1}{#2}{3}}{\ob{#1}{#3}{2}}
+              {#1}{#4}{2}
+  \end{arrows}
+}
+
+% zagzigTwo[instance]{x}{y}{f}
+\NewDocumentCommand{\zagzigTwo}{O{} m m m}{
+  \zagzigTwoObjects[#1]{#2}{#3}
+  \zagzigTwoMorphisms[#1]{#2}{#3}{#4}
+}
+
+% zagzigTwoBulleted[instance]{x}{y}{f}
+\NewDocumentCommand{\zagzigTwoBulleted}{O{} m m m}{
+  \zagzigTwoObjectsBulleted[#1]{#2}{#3}
+  \zagzigTwoMorphisms[#1]{#2}{#3}{#4}
+}
+
+%\zagzigThree 
+% zagzigThreeObjects[instance]{x}{y}
+\NewDocumentCommand{\zagzigThreeObjects}{O{} m m}{
+  \begin{array}{c c c c c c}
+   \zigObject{#1}{#3}{1}
+   &&
+   \zigObject{#1}{#3}{2}
+   &&
+   \zigObject{#1}{#3}{3}
+   \\[0.8cm]
+   & \zigObject{#1}{#2}{2}
+   &&
+   \zigObject{#1}{#2}{3}
+   &&
+   \zigObject{#1}{#2}{4}
+  \end{array}
+}
+
+% zagzigThreeObjectsBulleted[instance]{x}{y}
+\NewDocumentCommand{\zagzigThreeObjectsBulleted}{O{} m m}{
+  \begin{array}{c c c c c c}
+   \zigBulletObject{#1}{#3}{1}
+   &&
+   \zigBulletObject{#1}{#3}{2}
+   &&
+   \zigBulletObject{#1}{#3}{3}
+   \\[0.8cm]
+   & \zigBulletObject{#1}{#2}{2}
+   &&
+   \zigBulletObject{#1}{#2}{3}
+   &&
+   \zigBulletObject{#1}{#2}{4}
+  \end{array}
+}
+
+% zagzigThreeMorphisms[instance]{x}{y}{f}
+\NewDocumentCommand{\zagzigThreeMorphisms}{O{} m m m}{
+  \begin{arrows}
+    \zagzigTwoMorphisms[#1]{#2}{#3}{#4}
+    \zigMorphism{\ob{#1}{#2}{3}}{\ob{#1}{#3}{3}}
+              {#1}{#4}{3}
+    \zigReverseMorphism{\ob{#1}{#2}{4}}{\ob{#1}{#3}{3}}
+              {#1}{#4}{3}
+  \end{arrows}
+}
+
+% zagzigThree[instance]{x}{y}{f}
+\NewDocumentCommand{\zagzigThree}{O{} m m m}{
+  \zagzigThreeObjects[#1]{#2}{#3}
+  \zagzigThreeMorphisms[#1]{#2}{#3}{#4}
+}
+
+% zagzigThreeBulleted[instance]{x}{y}{f}
+\NewDocumentCommand{\zagzigThreeBulleted}{O{} m m m}{
+  \zagzigThreeObjectsBulleted[#1]{#2}{#3}
+  \zagzigThreeMorphisms[#1]{#2}{#3}{#4}
+}
+
+\NewDocumentEnvironment{wrappedZigzag}{O{} m m m +b}
+ {
+  % #1 = instance
+  % #2 = x
+  % #3 = y
+  % #4 = f
+  \[
+  \arraycolsep=0pt
+  \begin{array}{c c c c c}
+    {
+      \arraycolsep=12pt
+      \zigzagOne[#1]{#2}{#3}{#4}
+    }
+    & \cdots &
+    {
+      #5
+    }
+    & \cdots &
+    {
+      \SetIndexTranslation{1}{n}
+      \arraycolsep=12pt
+      \zigzagOne[#1]{#2}{#3}{#4}
+    }
+  \end{array}
+  \]
+ }
+ {}

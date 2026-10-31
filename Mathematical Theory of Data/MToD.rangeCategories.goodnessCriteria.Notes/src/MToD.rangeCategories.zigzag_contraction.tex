@@ -1,12 +1,141 @@
+
+
+
+
+
+
+
+
+
 \section{The Contraction of Tight Zigzags}
+
+A zigzag is contracted if non of its interior morphisms are support idempotents. More specifically, 
+a zigzag $F=\zigzagTuple{f}{n}$ is contracted iff
+(i) for each $i$, $2 \leq i \leq n-1$, it is not the case that $\rst{f_i}={f_i}$ and (ii) for each $i$, $1 \leq i \leq n-1$, it is not the case that $\rst{f'_i}={f'_i}$.
+
+If $F=\zigzagTuple{f}{n}$ is a zigzag and the morphism $f_i$ is an interior support idempotent then we define $F$ with $f_i$ removed to be the zigzag
+$\tuple{f_1,f'_1,..f'_{i-1},f'_i \circ f_i \circ f'_{i+1},f_{i+1},...f_n}$
+as shown in this diagram 
+
+Diagramatically: if $f_i$ is a support idempotent 
+(i.e. if $\rst{f_i} = f_i = \rng{f_i}$) then
+\begin{wrappedZigzag}{x}{y}{f}
+    \SetIndexTranslation{1}{i-1}
+    \SetIndexTranslation{2}{i}
+    \SetIndexTranslation{3}{i+1}
+    \arraycolsep=12pt
+    \zigzagThree{x}{y}{f}
+\end{wrappedZigzag}
+contracts to
+\begin{wrappedZigzag}{x}{y}{f}
+    \SetIndexTranslation{1}{i-1}
+    \SetIndexTranslation{2}{i+1}
+    \SetObjectContent{x2}{\kern0.4cm x_{i+1}\kern0.3cm} 
+    \SetMorphismContent{fprime1}{f'_{i-1}\circ f_i \circ f'_i}
+    \SetMorphismLabelPosition{f2}{b} %flips the label out of the way 
+                                     % of the lengthy fprime1 label
+    \arraycolsep=10pt
+    \zigzagTwo{x}{y}{f}
+\end{wrappedZigzag}
+which in the case that $F$ is tight simplifies to 
+\begin{wrappedZigzag}{x}{y}{f}
+    \SetIndexTranslation{1}{i-1}
+    \SetIndexTranslation{2}{i+1}
+    \SetObjectContent{x2}{\kern0.2cm x_{i+1}\kern0.1cm} 
+    \SetMorphismContent{fprime1}{f'_{i-1} \circ f'_i}
+    \SetMorphismLabelPosition{f2}{b} %flips the label out of the way 
+                                     % of the lengthy fprime1 label
+    \arraycolsep=10pt
+    \zigzagTwo{x}{y}{f}
+\end{wrappedZigzag}
+
+
+If $F$ is tight then it follows that 
+$F$ with $f_i$ removed is    $\tuple{f_1,f'_1,..f'_{i-1},f'_i \circ f'_{i+1},f_{i+1},...f_n}$.
+
+If $F=\zigzagTuple{f}{n}$ is a zigzag 
+and the morphism $f'_i$ is a interior support idempotent 
+then we define $F$ with $f'_i$ removed to be the zigzag
+$\tuple{f_1,f'_1,..f'_{i-1},f_i \circ f'_i \circ f_{i+1},f'_{i+1},...f_n}$. 
+If $F$ is tight then it follows that 
+$F$ with $f_i$ removed is    $\tuple{f_1,f'_1,..f'_{i-1},f_i \circ f_{i+1},f'_{i+1},...f_n}$.
+
+
+Diagramatically: if $f'_i$ is a support idempotent  then
+\begin{wrappedZigzag}{x}{y}{f}
+    \SetIndexTranslation{1}{i-1}
+    \SetIndexTranslation{2}{i}
+    \SetIndexTranslation{3}{i+1}
+    \SetIndexTranslation{4}{i+2}
+    \arraycolsep=12pt
+    \zagzigThree{x}{y}{f}
+\end{wrappedZigzag}
+contracts to
+\begin{wrappedZigzag}{x}{y}{f}
+    \SetIndexTranslation{1}{i-1}
+    \SetIndexTranslation{2}{i+1}
+    \SetIndexTranslation{3}{i+2}
+    \SetObjectContent{x2}{\kern8pt x_{i+1}\kern3pt} 
+    \SetMorphismContent{f2}{f_i \circ f'_i \circ f_{i+1}}
+    \SetMorphismLabelPosition{fprime1}{a} %flips the label out of the way 
+                                     % of the lengthy f1 label
+    \arraycolsep=12pt
+    \zagzigTwo{x}{y}{f}
+\end{wrappedZigzag}
+which in the case  that $F$ is tight simplfies to
+\begin{wrappedZigzag}{x}{y}{f}
+    \SetIndexTranslation{1}{i-1}
+    \SetIndexTranslation{2}{i+1}
+    \SetIndexTranslation{3}{i+2}
+    \SetObjectContent{x2}{\kern2pt x_{i+1}\kern1pt} 
+    \SetMorphismContent{f2}{f_i \circ  f_{i+1}}
+    \SetMorphismLabelPosition{fprime1}{a} %flips the label out of the way 
+                                     % of the lengthy f1 label
+    \arraycolsep=12pt
+    \zagzigTwo{x}{y}{f}
+\end{wrappedZigzag}
+
+\newcommand{\contract}[1]{contract(#1)}
+\subsection{Associativity}
+We will define composition in the category of contracted tight zigzags 
+in terms of composition in the category of tight zigzags.
+If $F$ and $G$ are tight zigzags then we define the composition 
+as 
+\[
+F \circ G = \contract{F \circ G}
+\]
+where the composition in the \textit{definiens} on the right 
+is composition in the category of tight zigzags.
+Suppose $F$, $G$ and $H$ are contracted tight zigzags 
+so that $F \circ G \circ H$ is defined.
+To show that composition of contracted tight  zigzags 
+is associative we need to show the following identity amongst contractions of composed zizgags in the category of tight zigzags.
+\[
+\contract{\contract{F \circ G} \circ H}
+=\contract{F \circ \contract{G \circ H}}
+\]
+We can assume that $F$, $G$ and $H$ fit together tighly
+so that $F \circ G \circ H$ in tight zigzags is
+exactly  $F \cnc G \cnc H$. This makes life easier.
+
+With this simplication we need to show that 
+\[
+\contract{\contract{F \cnc G} \cnc H}
+=\contract{F \cnc \contract{G \cnc H}}
+\]
+
+It isn't obvious so we work through examples.
 
 \subsection{Worked Example of Associativity}
 
+Suppose $F=\tuple{f_1,f'_1,f_2}$ ...
 \[
 \SetObjectContent{\ob{iOne}{x}{2}}{x}
 \SetObjectContent{\ob{iOne}{y}{2}}{y}
+\SetMorphismLabelPosition{iOnef2}{b}   %flip label to make room for i bar
 \SetObjectContent{\ob{iTwo}{x}{1}}{x}
 \SetObjectContent{\ob{iTwo}{y}{1}}{y}
+\SetMorphismLabelPosition{iTwoh2}{b}   %flip label for cosmetics
 \arraycolsep=7pt
 \begin{array}{c c}
                           &\kern-0.5cm\zigzagTwoBulleted[iTwo]{x}{y}{h}  \\[1.6cm]
