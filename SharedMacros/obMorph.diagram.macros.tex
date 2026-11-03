@@ -201,6 +201,8 @@
      {#4'_{\IndexTranslation{#5}{#5}}}
    }
  }
+
+
  % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ZigzagOne --- zigzag of length one --- has two objects and one morphism
 % \zigzagOneObjects
@@ -301,6 +303,55 @@
 \NewDocumentCommand{\zigzagTwoBulleted}{O{} m m m}{
   \zigzagTwoObjectsBulleted[#1]{#2}{#3}
   \zigzagTwoMorphisms[#1]{#2}{#3}{#4}
+}
+
+% \zigTwo[instance]{x}{y}{f}
+% draws a zig of length two <f1,f'1> 
+% where f1 : x1 -> y1
+%       f'1: x2 -> y1
+%
+% overide xi  using \SetObjectContent{\ob{instance}{x}{i}}{...}
+% override fi using \SetMorphismContent{fi}{...}
+%                or \SetMorphismContent{fprimei}{...} 
+
+\NewDocumentCommand{\zigTwoObjects}{O{} m m}{
+  \begin{array}{c c c}
+   & \zigObject{#1}{#3}{1}
+   &
+   \\[0.8cm]
+   \zigObject{#1}{#2}{1}
+   &&
+   \zigObject{#1}{#2}{2}
+  \end{array}
+}
+
+\NewDocumentCommand{\zigTwoObjectsBulleted}{O{} m m}{
+  \begin{array}{c c c}
+   & \zigBulletObject{#1}{#3}{1}
+   &
+   \\[0.8cm]
+   \zigBulletObject{#1}{#2}{1}
+   &&
+   \zigBulletObject{#1}{#2}{2}
+  \end{array}
+}
+
+\NewDocumentCommand{\zigTwoMorphisms}{O{} m m m}{
+  \begin{arrows}
+    \zigzagOneMorphisms[#1]{#2}{#3}{#4}
+    \zigReverseMorphism{\ob{#1}{#2}{2}}{\ob{#1}{#3}{1}}
+              {#1}{#4}{1}
+  \end{arrows}
+}
+
+\NewDocumentCommand{\zigTwo}{O{} m m m}{
+  \zigTwoObjects[#1]{#2}{#3}
+  \zigTwoMorphisms[#1]{#2}{#3}{#4}
+}
+
+\NewDocumentCommand{\zigTwoBulleted}{O{} m m m}{
+  \zigTwoObjectsBulleted[#1]{#2}{#3}
+  \zigTwoMorphisms[#1]{#2}{#3}{#4}
 }
 
 % zigzagThree
