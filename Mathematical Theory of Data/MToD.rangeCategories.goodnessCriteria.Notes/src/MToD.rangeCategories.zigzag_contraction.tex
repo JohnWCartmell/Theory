@@ -1,18 +1,11 @@
-
-
-
-
-
-
-
-
-
 \section{The Contraction of Tight Zigzags}
 
 A zigzag is contracted if non of its interior morphisms are support idempotents. More specifically, 
 a zigzag $F=\zigzagTuple{f}{n}$ is contracted iff
 (i) for each $i$, $2 \leq i \leq n-1$, it is not the case that $\rst{f_i}={f_i}$ and (ii) for each $i$, $1 \leq i \leq n-1$, it is not the case that $\rst{f'_i}={f'_i}$.
 
+\subsection{One step contraction}
+\subsubsection{Rule for removal of a forward morphism}
 If $F=\zigzagTuple{f}{n}$ is a zigzag and the morphism $f_i$ is an interior support idempotent then we define $F$ with $f_i$ removed to be the zigzag
 $\tuple{f_1,f'_1,..f'_{i-1},f'_i \circ f_i \circ f'_{i+1},f_{i+1},...f_n}$
 as shown in this diagram 
@@ -53,13 +46,14 @@ which in the case that $F$ is tight simplifies to
 If $F$ is tight then it follows that 
 $F$ with $f_i$ removed is    $\tuple{f_1,f'_1,..f'_{i-1},f'_i \circ f'_{i+1},f_{i+1},...f_n}$.
 
+\subsubsection{Rule for removal of a reverse morphism}
+
 If $F=\zigzagTuple{f}{n}$ is a zigzag 
 and the morphism $f'_i$ is a interior support idempotent 
 then we define $F$ with $f'_i$ removed to be the zigzag
 $\tuple{f_1,f'_1,..f'_{i-1},f_i \circ f'_i \circ f_{i+1},f'_{i+1},...f_n}$. 
 If $F$ is tight then it follows that 
 $F$ with $f_i$ removed is    $\tuple{f_1,f'_1,..f'_{i-1},f_i \circ f_{i+1},f'_{i+1},...f_n}$.
-
 
 Diagramatically: if $f'_i$ is a support idempotent  then
 \begin{wrappedZigzag}{x}{y}{f}
@@ -95,8 +89,34 @@ which in the case  that $F$ is tight simplfies to
     \zagzigTwo{x}{y}{f}
 \end{wrappedZigzag}
 
+\subsection {Confluence}
 \newcommand{\contract}[1]{contract(#1)}
-\subsection{Associativity}
+
+
+
+If $F$ is a tight zigzag then by the rules given it can be contracted by the successive removal of interior morphisms which are support idempotents until
+a contrcated zigzag is reached. 
+
+To establish that the contraction is unique, by Newman's lemma, it is usffiecient 
+to establish the following lemma:
+\begin{lemma}
+If Z is a zigzag to which two different contractions apply yielding
+$Z_1$ and $Z_2$ as immediate contractions of $Z$ then there exists
+a zigzag $Z$ to which both $Z_1$ and $Z_2$ can be contracated through a series of contractions. 
+\end{lemma}
+\begin{proof}
+The is clearly so if the two starting contractions being apart in $Z$ do not interfere. In the case that the contractions are disjoint in $Z$. e remaining cases where there is interference between the two starting contracations.
+
+
+
+\end{proof} 
+
+We now show that the contrcated zigzag that is reached is unique --- it doesn't matter what order the morphisms are removed.
+
+Following this it is possible to speak of the contraction of a tight zigzag
+and for the contraction of the tight zigzag $F$ we will write $\contract{F}$.
+
+\subsection{Composition of Contracted Tight Zigzags}
 We will define composition in the category of contracted tight zigzags 
 in terms of composition in the category of tight zigzags.
 If $F$ and $G$ are tight zigzags then we define the composition 
@@ -121,13 +141,31 @@ exactly  $F \cnc G \cnc H$. This makes life easier.
 With this simplication we need to show that 
 \[
 \contract{\contract{F \cnc G} \cnc H}
-=\contract{F \cnc \contract{G \cnc H}}
+=\contract{F \cnc \contract{G \cnc H}}.
 \]
+\begin{newtt}
+This follows because 
+for any zigzags $Z_1$ and $Z_2$ such that $Z_1 \cnc Z_2$ is defined 
+and that fit together snugly, any contraction step that might be applied to
+contract $Z_1$ to $\contract{Z_1}$ can equally be applied within the longer
+zigzag $Z_1 \cnc Z_2$. This means that
+\[
+\contract{\contract{Z_1} \cnc Z_2} = \contract{Z_1 \cnc Z_2}.
+\]
+For the same reason  we also have 
+\[
+\contract{Z_1 \cnc \contract{Z_2}} = \contract{Z_1 \cnc Z_2}.
+\]
+From this it follows that 
+\begin{align*}
+\contract{\contract{F \cnc G} \cnc H}
+&= \contract{\contract{F \cnc G} \cnc H} \\
+&= \contract{F \cnc \contract{G \cnc H}}
+\end{align*}
+\end{newtt}
 
-It isn't obvious so we work through examples.
-
-\subsection{Worked Example of Associativity}
-
+\subsection{Old Unnecessary  Examples of Associativity}
+\begin{example}[G a singleton zigzag]
 Suppose $F=\tuple{f_1,f'_1,f_2}$ and $H=\tuple{h_1,h'_1,h_2}$
 are contracted tight zigzags and suppose that $G=\tuple{g}$ is a singleton zigzag and suppose that $F$, $G$ and $H$ fit togther snugly in the sense that
 \[
@@ -195,7 +233,7 @@ Associativity, that
 \]
  follows because by lemma \lref{bisupportLemma} (v)]
 we have $f_2 = h_2$.
-
+\end{example}
 \begin{example}[G of length 3]
 Suppose $F=\tuple{f_1,f'_1,f_2}$, $G=\tuple{g_1,g'_1,g_2}$ 
 and $H=\tuple{h_1,h'_1,h_2}$
