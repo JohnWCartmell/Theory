@@ -92,29 +92,79 @@ which in the case  that $F$ is tight simplfies to
 \subsection {Confluence}
 \newcommand{\contract}[1]{contract(#1)}
 
+If $F$ is a tight zigzag then, by the rules described, 
+it can be successively contracted by the elimination of any interior morphism which is a support idempotents. Eventually
+a zigzag having no interior support morphisms is reached. 
 
-
-If $F$ is a tight zigzag then by the rules given it can be contracted by the successive removal of interior morphisms which are support idempotents until
-a contrcated zigzag is reached. 
-
-To establish that the contraction is unique, by Newman's lemma, it is usffiecient 
+To establish that the contraction is unique, by Newman's lemma, 
+it is suffiecient 
 to establish the following lemma:
 \begin{lemma}
 If Z is a zigzag to which two different contractions apply yielding
 $Z_1$ and $Z_2$ as immediate contractions of $Z$ then there exists
-a zigzag $Z$ to which both $Z_1$ and $Z_2$ can be contracated through a series of contractions. 
+a zigzag $Z'$ to which both $Z_1$ and $Z_2$ can be contracted through a series of zero, one or more contractions. 
 \end{lemma}
 \begin{proof}
-The is clearly so if the two starting contractions being apart in $Z$ do not interfere. In the case that the contractions are disjoint in $Z$. e remaining cases where there is interference between the two starting contracations.
+This is clearly the case if the two morphisms 
+that can be eliminated are apart in $Z$ for then the eliminations do not interfere and applying in them in either order we arrive at the same zizgzag. 
+If the support idempootents to be eliminated are not apart in $Z$ 
+--- if they are two successive morphisms of Z --- 
+then the elimination of either 
+removes the possibility of eliminating the other. 
 
+Suppose successive morphisms $z_i$ and $z'_i$ are support idempotents.
 
+\begin{wrappedZigzag}{x}{y}{z}
+\SetIndexTranslation{1}{i-1}
+\SetIndexTranslation{2}{i}
+\SetIndexTranslation{3}{i+1}
+\arraycolsep=12pt
+\zigzagThreePointFive{x}{y}{z}
+\end{wrappedZigzag}
+Contracting by elimination of $z_i$ we get
+\begin{wrappedZigzag}{x}{y}{z}
+\arraycolsep=12pt
+\SetIndexTranslation{1}{i-1}
+\SetIndexTranslation{2}{i}
+\SetIndexTranslation{3}{i+1}
+\SetMorphismContent{zprime1}{z'_i \circ  z'_{i-1}}
+                                 % make room for lengthy f'1 label
+\SetMorphismLabelPosition{z2}{b} %flip the next label out of the way 
+\SetObjectContent{x2}{\kern2pt x_{i+1}\kern1pt} % add a bit of space
+\zigzagTwoPointFive{x}{y}{z}
+\end{wrappedZigzag}
+whereas contracting by elimination of $z'_i$ we get
+\begin{wrappedZigzag}{x}{y}{z}
+\arraycolsep=12pt
+\SetIndexTranslation{1}{i-1}
+\SetIndexTranslation{2}{i}
+\SetIndexTranslation{3}{i+1}
+\SetMorphismContent{z2}{z_i \circ  z_{i+1}}
+                                 % make room for lengthy f2 label
+\SetMorphismLabelPosition{zprime1}{a} %flip the previous label 
+                                     % of the lengthy f'1 label
+\SetObjectContent{x2}{\kern2pt x_{i+1}\kern1pt} % add a bit of space
+\zigzagTwoPointFive{x}{y}{z}
+\end{wrappedZigzag}
+but these are identical zigzags 
+because from the idempotency of $z_i$ and $z'_i$ 
+and from the tightness of $Z$ it follows that
+\[
+z'_{i-1} \circ z'_i = z'_{i-1}
+\]
+and
+\[
+z_i \circ z_{i+1} = z_{i+1}.
+\]
+So in this case no further eliminations  required 
+to reach a common $Z'$ --- we can take  $Z'= Z_1=Z_2$.
 
+The remaining case where the successive morphisms are $z'_{i-1}$ and $z_i$ is taken account of in the same way and completes the proof that contraction by elimination of support idempotents is confluent. 
 \end{proof} 
 
-We now show that the contrcated zigzag that is reached is unique --- it doesn't matter what order the morphisms are removed.
-
-Following this it is possible to speak of the contraction of a tight zigzag
-and for the contraction of the tight zigzag $F$ we will write $\contract{F}$.
+Following this it is possible to speak of 
+the contraction of a tight zigzag
+and for the contraction of the tight zigzag $Z$ we will write $\contract{Z}$.
 
 \subsection{Composition of Contracted Tight Zigzags}
 We will define composition in the category of contracted tight zigzags 
@@ -124,7 +174,7 @@ as
 \[
 F \circ G = \contract{F \circ G}
 \]
-where the composition in the \textit{definiens} on the right 
+where the composition in the \textit{definiens} (on the right) 
 is composition in the category of tight zigzags.
 Suppose $F$, $G$ and $H$ are contracted tight zigzags 
 so that $F \circ G \circ H$ is defined.
@@ -163,191 +213,3 @@ From this it follows that
 &= \contract{F \cnc \contract{G \cnc H}}
 \end{align*}
 \end{newtt}
-
-\subsection{Old Unnecessary  Examples of Associativity}
-\begin{example}[G a singleton zigzag]
-Suppose $F=\tuple{f_1,f'_1,f_2}$ and $H=\tuple{h_1,h'_1,h_2}$
-are contracted tight zigzags and suppose that $G=\tuple{g}$ is a singleton zigzag and suppose that $F$, $G$ and $H$ fit togther snugly in the sense that
-\[
-\rng{f_2} = \rst{g}
-\]
-and
-\[
-\rng{g} = \rst{h_1}
-\]
-so that
-in the category of tight zigzags their composition is identical to
-$F \cnc G \cnc H$. \commentary{an observation to this effect based on lemma \lref{bisupportLemma} (iv)??}
-
-Suppose in addition that $F \cnc G$ contracts because 
-$f_2 \circ g$ is a support idempotent. Because $F$ and $G$ fit together snugly
-and $f_2 \circ g$ is a support idempotent then
-we have $\rst{f_2} = \rst{f_2 \circ g} = f_2 \circ g  = \rng{f_2 \circ g} =\rng{g}$.
-
-Likewise suppose  $G \cnc H$ contracts because $g \circ h_1$  is a support idempotent then we have $\rst{g} = \rst{g \circ h_1} = g \circ h_1  = \rng{g \circ h_1} =\rng{h_1}$.
-
-We have the following morphisms
-\[
-\SetObjectContent{\ob{iOne}{x}{2}}{x}
-\SetObjectContent{\ob{iOne}{y}{2}}{y}
-\SetMorphismLabelPosition{iOnef2}{b}   %flip label to make room for i bar
-\SetObjectContent{\ob{iTwo}{x}{1}}{x}
-\SetObjectContent{\ob{iTwo}{y}{1}}{y}
-\SetMorphismLabelPosition{iTwoh2}{b}   %flip label for cosmetics
-\arraycolsep=7pt
-\begin{array}{c c}
-                          &\kern-0.5cm\zigzagTwoBulleted[iTwo]{x}{y}{h}  \\[1.6cm]
-\zigzagTwoBulleted[iOne]{x}{y}{f}
-\end{array}
-\begin{arrows}
-\drawMorphism{\ob{iOne}{y}{2}}{\ob{iTwo}{x}{1}}{a}{g}[0.4] 
-\drawMorphismArcing{\ob{iOne}{x}{2}}{\ob{iTwo}{x}{1}}{a}
-                   {\rst{f_1}=\rng{g}}{25}{30}[0.5]
-\drawMorphismArcing{\ob{iOne}{y}{2}}{\ob{iTwo}{y}{1}}{b}
-                   {\rst{g} = \rng{h_1}}{-25}{-25}[0.5]
-\end{arrows}
-\]
-
-
-Because $G$ is singleton $F \cnc G$ and $G \cnc H$ contract in a single step.
-
-$F \cnc G$ contracts to $\tuple{f_1,f'_1,\rng{g}}$
-which composed with $H$ and because of the snug fitting of $G$ to $H$ gives
-\[
-\tuple{f_1,f'_1,h_1,h'_1,h_2}.
-\]
-
-One the otherhand, $G \cnc H$ contracts to 
-\[
-\tuple{\rng{f_2},h'_1,h_2}
-\]
-which when composed with $F$ and because of the snug fitting of $F$ to $G$ gives
-\[
-\tuple{f_1,f'_1,f_2,h'_1,h_2}.
-\]
-
-Associativity, that 
-\[
-\contract{\contract{F \cnc G} \cnc H}
-  = \contract{F \cnc \contract{G \cnc H}}
-\]
- follows because by lemma \lref{bisupportLemma} (v)]
-we have $f_2 = h_2$.
-\end{example}
-\begin{example}[G of length 3]
-Suppose $F=\tuple{f_1,f'_1,f_2}$, $G=\tuple{g_1,g'_1,g_2}$ 
-and $H=\tuple{h_1,h'_1,h_2}$
-are contracted tight zigzags and  suppose that $F$, $G$ and $H$ fit togther snugly in the sense that
-\[
-\rng{f_2} = \rst{g_1}
-\]
-and
-\[
-\rng{g_2} = \rst{h_1}
-\]
-so that
-in the category of tight zigzags their composition is identical to
-$F \cnc G \cnc H$.
-
-Suppose in addition that $F \cnc G$ contracts because 
-$f_2 \circ g_1$ is a support idempotent.
-
-Suppose  $G \cnc H$ contracts because $g \circ h_1$  is a support idempotent.
-
-We have the following morphisms
-\[
-\iffalse
-\SetObjectContent{\ob{iOne}{x}{2}}{x}
-\SetObjectContent{\ob{iOne}{y}{2}}{y}
-\SetMorphismLabelPosition{iOnef2}{b}   %flip label to make room for i bar
-\SetObjectContent{\ob{iTwo}{x}{1}}{x}
-\SetObjectContent{\ob{iTwo}{y}{1}}{y}
-\fi
-\SetMorphismLabelPosition{iThreeh2}{b}   %flip label for cosmetics
-\arraycolsep=7pt
-\begin{array}{c c c}
-        &  &\kern-0.5cm\zigzagTwoBulleted[iThree]{x}{y}{h}  \\[-0.1cm]
-        &\kern-0.5cm\zigTwoBulleted[iTwo]{x}{y}{g} &          \\[-0.1cm]
-\zigTwoBulleted[iOne]{x}{y}{f} &&
-\end{array}
-\begin{arrows}
-\drawMorphism{\ob{iOne}{x}{2}}{\ob{iTwo}{x}{1}}{b}{f_2}[0.4] 
-\drawMorphism{\ob{iTwo}{x}{2}}{\ob{iThree}{x}{1}}{b}{g_2}[0.4] 
-\iffalse
-\drawMorphismArcing{\ob{iOne}{x}{2}}{\ob{iTwo}{x}{1}}{a}
-                   {\rst{f_1}=\rng{g}}{25}{30}[0.5]
-\drawMorphismArcing{\ob{iOne}{y}{2}}{\ob{iTwo}{y}{1}}{b}
-                   {\rst{g} = \rng{h_1}}{-25}{-25}[0.5]
-\fi
-\end{arrows}
-\]
-
-$F \cnc G$ is $\tuple{f_1,f'_1,f_2 \circ g_1, g'_1,g_2}$.
-
-Assume $f_2 \circ g_1$ is a support idempotent so that
-$F \cnc G$ has $\tuple{f_1,g'_1 \circ f'_1,g_2}$ as a one step contraction.
-
-Assume further that  $g'_1 \circ f'_1$ is a support idempotent so that 
-$F \cnc G$ contracts further to  $\tuple{f_1 \circ g_2}$ and contracts no further.
-
-$\contract{F \cnc G} \cnc H$ is $\tuple{f_1 \circ g_2 \circ h_1, h'_1,h_2}$.
-This gives us
-\begin{equation}
-\label{lenThreeLHSintermediate}
-\contract{F \cnc G} \cnc H 
-              = \contract{\tuple{f_1 \circ g_2 \circ h_1, h'_1,h_2}}.
-\end{equation}
-
-On the otherhand,
-$G \cnc H$ is $\tuple{g_1,g'_1,g_2 \circ h_1, h'_1,h_2}$.
-
-Assume $g_2 \circ h_1$ is a support idempotent so that
-$G \cnc H$ has $\tuple{g_1,h'_1 \circ g'_1,h_2}$ as a one step contraction.
-
-Assume further that $h'_1 \circ g'_1$ is a support idempotent so that 
-$G \cnc H$ contracts further to  $\tuple{g_1 \circ h_2}$ and contracts no further.
-
-This gives
-\begin{equation}
-\label{lenThreeRHSintermediate}
-F \cnc \contract{G \cnc H} = \tuple{f_1, f'_1, f_2 \circ g_1 \circ h_2}.
-\end{equation}
-
-Now consider (\ref{lenThreeLHSintermediate}).
-Since we have assumed  $g_2 \circ h_1$ is a support idempotent
-and since  $g_2$ fits snugly to $h_1$ 
-and since, by some generality, $f_1$ fits snugly to $g_2$,
-the rhs  of (\ref{lenThreeLHSintermediate}) simplifies
-so that we get
-\begin{equation}
-\label{lenThreeLHSsimplified}
-\contract{F \cnc G} \cnc H
-                   = \contract{\tuple{f_1, h'_1,h_2}}.
-\end{equation}
-
-Since we have assumed  $f_2 \circ g_1$ is a support idempotent
-and since  $f_2$ fits snugly to $g_1$ 
-and since, by some generality, $g_1$ fits snugly to $h_2$,
-the rhs of (\ref{lenThreeRHSintermediate}) simplifies
-so that we get
-\begin{equation}
-\label{lenThreeRHSsimplified}
-F \cnc \contract{G \cnc H} 
-                   = \tuple{f_1, f'_2, h_2}.
-\end{equation}
-
-From (\ref{lenThreeLHSsimplified}) and (\ref{lenThreeRHSsimplified})
-and because $h'_1=f'_1$ 
-we establish that
-\[
-\contract{F \cnc G} \cnc H
-                   = F \cnc \contract{G \cnc H}
-\]
-and from this it follows that
-\[
-\contract{\contract{F \cnc G} \cnc H}
-                   = \contract{F \cnc \contract{G \cnc H}}
-\]
-as required.
-
-\end{example}

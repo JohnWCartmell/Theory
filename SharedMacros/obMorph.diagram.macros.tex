@@ -305,6 +305,60 @@
   \zigzagTwoMorphisms[#1]{#2}{#3}{#4}
 }
 
+% \zigzagTwoPointFive[instance]{x}{y}{f}
+% draws a zigzag of length two <f1,f'1,f2> 
+% where f1 : x1 -> y1
+%       f'1: x2 -> y1
+%       f2 : x2 -> y2
+%       f'2: x3 -> y2
+
+\NewDocumentCommand{\zigzagTwoPointFiveObjects}{O{} m m}{
+  \begin{array}{c c c c c c}
+   & \zigObject{#1}{#3}{1}
+   &&
+     \zigObject{#1}{#3}{2}
+   \\[0.8cm]
+   \zigObject{#1}{#2}{1}
+   &&
+   \zigObject{#1}{#2}{2}
+   &&
+   \zigObject{#1}{#2}{3}
+  \end{array}
+}
+
+\NewDocumentCommand{\zigzagTwoPointFiveObjectsBulleted}{O{} m m}{
+  \begin{array}{c c c c c c}
+   & \zigBulletObject{#1}{#3}{1}
+   &&
+     \zigBulletObject{#1}{#3}{2}
+   \\[0.8cm]
+   \zigBulletObject{#1}{#2}{1}
+   &&
+   \zigBulletObject{#1}{#2}{2}
+   &&
+   \zigBulletObject{#1}{#2}{3}
+  \end{array}
+}
+
+\NewDocumentCommand{\zigzagTwoPointFiveMorphisms}{O{} m m m}{
+  \begin{arrows}
+    \zigzagTwoMorphisms[#1]{#2}{#3}{#4}
+    \zigReverseMorphism{\ob{#1}{#2}{3}}{\ob{#1}{#3}{2}}
+              {#1}{#4}{2}
+  \end{arrows}
+}
+
+\NewDocumentCommand{\zigzagTwoPointFive}{O{} m m m}{
+  \zigzagTwoPointFiveObjects[#1]{#2}{#3}
+  \zigzagTwoPointFiveMorphisms[#1]{#2}{#3}{#4}
+}
+
+\NewDocumentCommand{\zigzagTwoPointFiveBulleted}{O{} m m m}{
+  \zigzagTwoPointFiveObjectsBulleted[#1]{#2}{#3}
+  \zigzagTwoPointFiveMorphisms[#1]{#2}{#3}{#4}
+}
+
+
 % \zigTwo[instance]{x}{y}{f}
 % draws a zig of length two <f1,f'1> 
 % where f1 : x1 -> y1
@@ -412,6 +466,62 @@
 \NewDocumentCommand{\zigzagThreeBulleted}{O{} m m m}{
   \zigzagThreeObjectsBulleted[#1]{#2}{#3}
   \zigzagThreeMorphisms[#1]{#2}{#3}{#4}
+}
+
+% zigzagThreePointFive
+
+\NewDocumentCommand{\zigzagThreePointFiveObjects}{O{} m m}{
+  \begin{array}{c c c c c c c c}
+   & \zigObject{#1}{#3}{1}
+   &&
+     \zigObject{#1}{#3}{2}
+   &&
+     \zigObject{#1}{#3}{3}
+   \\[0.8cm]
+   \zigObject{#1}{#2}{1}
+   &&
+   \zigObject{#1}{#2}{2}
+   &&
+   \zigObject{#1}{#2}{3}
+   &&
+   \zigObject{#1}{#2}{4}
+  \end{array}
+}
+
+\NewDocumentCommand{\zigzagThreePointFiveObjectsBulleted}{O{} m m}{
+  \begin{array}{c c c c c c c c}
+   & \zigBulletObject{#1}{#3}{1}
+   &&
+     \zigBulletObject{#1}{#3}{2}
+   &&
+     \zigBulletObject{#1}{#3}{3}
+   \\[0.8cm]
+   \zigBulletObject{#1}{#2}{1}
+   &&
+   \zigBulletObject{#1}{#2}{2}
+   &&
+   \zigBulletObject{#1}{#2}{3}
+   &&
+   \zigBulletObject{#1}{#2}{4}
+  \end{array}
+}
+
+\NewDocumentCommand{\zigzagThreePointFiveMorphisms}{O{} m m m}{
+  \begin{arrows}
+    \zigzagThreeMorphisms[#1]{#2}{#3}{#4}  
+    \zigReverseMorphism{\ob{#1}{#2}{4}}{\ob{#1}{#3}{3}}
+              {#1}{#4}{3}
+  \end{arrows}
+}
+
+\NewDocumentCommand{\zigzagThreePointFive}{O{} m m m}{
+  \zigzagThreePointFiveObjects[#1]{#2}{#3}
+  \zigzagThreePointFiveMorphisms[#1]{#2}{#3}{#4}
+}
+
+\NewDocumentCommand{\zigzagThreePointFiveBulleted}{O{} m m m}{
+  \zigzagThreePointFiveObjectsBulleted[#1]{#2}{#3}
+  \zigzagThreePointFiveMorphisms[#1]{#2}{#3}{#4}
 }
 
 %zagzigs
