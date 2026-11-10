@@ -207,23 +207,40 @@ The intermediate contraction of $F \cnc G$ is therefore
 \[
 \rng{\contract{F}}= \rng{F}
 \]
-(ii) If $Z$ is any zigzag then \highlight{is the rhs defined?}
+\begin{oldtt}
+(ii) If $Z$ is any zigzag then \highlight{is the rhs defined?} \highlight{no it isn't}
 \[
 \contract{\tighten{Z}} = \contract{\tighten{\contract{Z}}}
 \]
 (iii) If $G$ is a tight zigzag then \highlight{???}
 \[
-\contract{\rng{F} \circ G} = \rng{F} \circ \contract{G}
+\contract{\rng{F} \cnc G} = \rng{F} \cnc \contract{G}
 \]
+\end{oldtt}
+\begin{newtt}
+(new ii) If $G$ is a tight zigzag then 
+\[
+\contract{\tighten{\rng{F} \cnc G}} 
+         = \contract{\tighten{\rng{F} \cnc \contract{G}}}
+\]
+\end{newtt}
 \end{lemma}
 \begin{proof}
+(i) Straightfoward but requiring explanation. 
+Do we need to 'prove' or at least observe that after a morphism is eliminated from a tight zigzag then the resulting zigzag is tight.
+If the elimination is in the interior of $F$ then the leading morphism
+and the final morphism are unchanged in the contracted zigzag
+and therefore the (a) and (b) hold trivially.
+If otherwise the elimination is of $f'_1$
+then we need $\rst{f_1 \circ f_2}=
+\rst{f_1}$ but this is true, 
+lemma \lref{bisupportLemma} (iv), because 
+$F$ being tight and $f'_1$ being a support idempotent implies
+$\rng{f_1}=\rst{f_2}$. Similarly if the morphism eliminated is
+the final reverse morphism, $f'_{n-1}$.
+(new ii) \tbd
 \end{proof}
 
-
-\begin{worktt}
-\highlight{Transit} from snug and $\cnc$ to $\circ$.
-shift as early as possible. 
-\end{worktt}
 \begin{lemma}
 \llabel{contractionPushGeneric}
 For any tight zigzags $F$ and $G$ such that $F \cnc G$ is defined 
@@ -252,70 +269,46 @@ We need various new lemmas
  &= \contract{
                 \tighten{F \cnc \rst{G}}
                 \cnc
-                \contract{\tighten{\contract{\rng{F} \cnc G}}}
+                \contract{\tighten{\rng{F} \cnc \contract{G}}}
              }
-             &&\mbox{new lemma,}\\
- &= \contract{
-                \tighten{F \cnc \rst{G}}
-                \cnc
-                \tighten{\contract{\rng{F} \cnc G}}
-             }
-             &&\mbox{existing lemma,}\\
+             &&\mbox{proposed new lemma \newt{new (ii)},}\\
  &= \contract{
                 \tighten{F \cnc \rst{G}}
                 \cnc
                 \tighten{\rng{F} \cnc \contract{G}}
              }
-             &&\mbox{a different new lemma,}\\
+             &&\mbox{existing lemma,}\\
  &= \contract{
                 \tighten{F \cnc \rst{\contract{G}}}
                 \cnc
                 \tighten{\rng{F} \cnc \contract{G}}
              }
-             &&\mbox{yet another new lemma,}\\
+             &&\mbox{proposed new lemma (i),}\\
  &= \contract{\tighten{F\cnc \contract{G}}} 
              &&\mbox{existing lemma, as required.}\\
 \end{align*}
 \end{proof}
 
-From the earlier lemma \lref{contractionPushSnug} we have that
+Now we have 
 \begin{lemma}
-\llabel{snugAssociativity}
-If tight zigzags $F$, $G$ and $H$ fit together snugly then
+\llabel{associativityOfContractedComposition}
+If $F$, $G$ and $H$ are tight zigzags and if $F \circ G \circ H$
+is defined then
 \[
 \contract{\contract{F \cnc G} \cnc H}
 = \contract{F \cnc \contract{G \cnc H}}
 \]
 \end{lemma}
 \begin{proof}
-By applying the previous lemma twice:
-\begin{align*}
+By applying the \lref{contractionPushGeneric} twice:
+\begin{align*} 
 \contract{\contract{F \cnc G} \cnc H}
 &= \contract{F \cnc G \cnc H} \\
 &= \contract{F \cnc \contract{G \cnc H}}
 \end{align*}
 \end{proof}
-following which we can drop the assumption the $F$, $G$ and $H$ fit together snugly:
 
-\begin{worktt}
-\begin{lemma}
-\llabel{associativityOfContractedComposition}
-For any tight zigzags $F$, $G$ and $H$ such that $F \circ G \circ H$ is defined
-\[
-\contract{\tighten{
-                   \contract{\tighten{F \cnc G}} \cnc H
-                  }
-         }
-= \contract{\tighten{
-                      F \cnc \contract{\tighten{G \cnc H}}
-                     }
-            }
-\]
-\end{lemma}
-\begin{proof}
-Use lemma {howtotightenaThreefoldconcatenation}?
-\end{proof}
-\end{worktt}
+
 We will define composition in the category of contracted tight zigzags 
 in terms of composition in the category of tight zigzags.
 If $F$ and $G$ are tight zigzags then we define the composition 
@@ -335,16 +328,10 @@ is associative we need to show the following identity amongst contractions of co
 \contract{\contract{F \circ G} \circ H}
 =\contract{F \circ \contract{G \circ H}}
 \]
-If we assume that $F$, $G$ and $H$ fit together snugly
-so that $F \circ G \circ H$ in tight zigzags is
-exactly  $F \cnc G \cnc H$. This makes life easier.
-
-With this simplication we need to show that 
+i.e. we need to show that 
 \[
 \contract{\contract{F \cnc G} \cnc H}
 =\contract{F \cnc \contract{G \cnc H}}.
 \]
-which is exactly lemma \lref{snugAssociativity}.
+which is exactly lemma \lref{associativityOfContractedComposition}.
 
-If on the otherhand $F$, $G$ and $H$ do not fit together snugly
-then \highlight{...how to proceed}.
