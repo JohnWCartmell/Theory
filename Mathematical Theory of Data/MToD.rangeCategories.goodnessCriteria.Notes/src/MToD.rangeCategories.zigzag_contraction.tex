@@ -90,7 +90,7 @@ which in the case  that $F$ is tight simplfies to
 \end{wrappedZigzag}
 
 \subsection {Confluence}
-\newcommand{\contract}[1]{contract(#1)}
+
 
 If $F$ is a tight zigzag then, by the rules described, 
 it can be successively contracted by the elimination of any interior morphism which is a support idempotents. Eventually
@@ -197,6 +197,168 @@ The intermediate contraction of $F \cnc G$ is therefore
  $F \cnc \contract{G}$. Since this is an intermediate contraction, contracting further, we get 
  $\contract{F\cnc \contract{G}} =  \contract{F\cnc G}$, as required.        
 \end{proof}
+\newpage
+\begin{lemma}
+\llabel{mainContractionLemma}
+Suppose  $F=\zigzagTuple{f}{n}$ is any zigzag.
+\begin{enumerate}[(i)]
+\item
+If for some $i$, $2 \leq i \leq n-1$, the  i'th
+forward morphim, $f_i$, is a support idempotent and, accordingly,
+the zigzag $\contractforwardi{F}$ is defined, then
+\[
+\contractforwardi{\tighten{F}} = \tighten{\contractforwardi{F}}
+\]
+\item
+For any zigzag $F$, for any given contraction at the $i$
+reverse position,
+
+\[
+\contractreversei{\tighten{F}} = \tighten{\contractreversei{F}}
+\]
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}[(i)]
+\item
+\newcommand{\fnpTightenedFromRight}
+{f_{n-1} \circ \rng{\rst{f_n} \circ f'_{n-1}}}
+
+
+Let  $\zigzagLeadingTuple{t}{n}$ be the tightening of the zigzag
+\begin{equation}
+\tuple{\tightlead}
+\end{equation}
+Note that $t_{n-1}$ must be a support idempotent because it is
+the tightening of $\fnpTightenedFromRight$ which itself is a support idempotent
+because $f_{n-1}$ is.
+
+By lemma \lref{leftToRightTighteningSubLemma}
+$\tighten{F}$ is the  zigzag
+\begin{equation}
+\leftToRightTightening
+\end{equation}
+which since $t_{n-1}$ is a support idempotent can be simplified to
+\begin{equation}
+\tuple{t_1,t'_1...t'_{n-2},t_{n-1}, 
+       \rst{f_n} \circ f'_{n-1} \circ t_{n-1},
+       \rst{f'_{n-1} \circ t_{n-1}} \circ f_n
+       }
+\end{equation}
+Since $t_{n-1}$ is a support idempotent it can be eliminated,
+$\contractforwardi[n-1]{\tighten{F}}$ is  defined and is given by
+\[
+\contractforwardi[n-1]{\tighten{F}}
+= \tuple{t_1,...t_{n-2},
+    \rst{f_n} \circ f'_{n-1} \circ t_{n-1} \circ t'_{n-2},
+         \rst{f'_{n-1} \circ t_{n-1}} \circ f_n
+         }.
+\]
+
+
+% \hatbar{f}{g}  ... (f bar \circ g) hat
+\newcommand{\hatbar}[2]{\rng{\rst{#1} \circ #2}}
+
+Test \verb'\hatbar{f}{g}' ... $\hatbar{f}{g}$
+
+%\barhat{f}{g}   ... (f \cirg g hat) bar
+\newcommand{\barhat}[2]{\rst{#1 \circ \rng{#2}}}   
+Test \verb'\barhat{f}{g}' ... $\barhat{f}{g}$
+
+% \preTighten{f_{n-1}}{f'_{n-1}}{f_n}
+% pretigtens #1 using subsequent morphisms #2, #3
+\newcommand{\preTighten}[3]{#1 \circ \hatbar{#3}{#2}}
+
+Test \verb%\preTighten{f_{n-1}}{f'_{n-1}}{f_n}% ...
+            $\preTighten{f_{n-1}}{f'_{n-1}}{f_n}$
+
+\newcommand{\preTightenfn}{\preTighten{f_{n-1}}{f'_{n-1}}{f_n}}
+
+
+Test \verb'\preTightenfn' ... $\preTightenfn$.
+
+\newcommand{\fnPreTightenedZigzag}
+{
+ \tuple{f_1, f'_1,...f_{n-2}, f'_{n-2},
+        \preTightenfn 
+        }
+}
+
+Test \verb'\fnPreTightenedZigzag' ... $\fnPreTightenedZigzag$.
+
+
+\newcommand{\prePreTightenfn}
+{
+    \preTighten{f_{n-2}}{f'_{n-2}}{\preTightenfn}
+} 
+
+Test \verb'\prePreTightenfn' ... $\prePreTightenfn$.
+
+\newcommand{\fnPrePreTightenedZigzag}
+{
+ \tuple{f_1, f'_1,...f_{n-3}, f'_{n-3},
+        \prePreTightenfn 
+        }
+}
+Test \verb'\fnPrePreTightenedZigzag' ...$\fnPrePreTightenedZigzag$.
+
+\newcommand{\fnResidualsTightenedReverse}
+{\rst{f_n} \circ f'_{n-1} \circ \rng{t_{n-1}}}
+\newcommand{\fnResidualsTightenedForward}
+{\rst{f'_{n-1} \circ \rng{t_{n-1}}}\circ f_n}
+
+Test \verb'\fnResidualsTightenedReverse' ... $\fnResidualsTightenedReverse$.
+
+Test \verb'\fnResidualsTightenedForward' ... $\fnResidualsTightenedForward$.
+
+
+\newcommand{\alphaDefiniens}{f'_{n-2} \circ f_{n-1} \circ f'_{n-1}}
+On the other hand, by definition
+\[
+\contractforwardi[n-1]{F} = 
+\tuple{f_1,f'_1,...f_{n-2},
+        \alpha,
+        f_n
+      }
+\]
+where we define the contracted reverse morphism $\alpha$ by
+\[
+\alpha = \alphaDefiniens.
+\]
+If we let $\tuple{s_1,s'_1,...s'_{n-3},s_{n-2}}$
+be the tightening of 
+\[
+\tuple{f_1, f_1,f'_1,...f'_{n-2}, \beta}
+\]
+where \commentary{s n - 1 term cannot be correct}
+\[
+\beta = \preTighten{f_{n-2}}{\gamma}{f_n}
+\]
+
+
+then by lemma\lref{leftToRightTighteningSubLemma}
+\[
+\tighten{\contractforwardi[n-1]{F}}
+=
+\tuple{s_1,s'_1,...s'_{n-3},s_{n-2},
+       \rst{f_n} \circ \alpha \circ \rng{s_{n-2}},
+       \rst{\alpha \circ \rng{s_{n-2}}} \circ f_n
+      }
+\]
+We need to note at this point that from the definition of 
+the zigzag $\zigzagLeadingTuple{t}{n}$ as the tightening of zigzag
+\[
+\tuple{\tightlead}
+\]
+by lemma \lref{leftToRightTighteningSubLemma} it follows that
+$\tuple{t_1,t'_1,...t'_{n-3},t_{n-2}}$ is a tightening of the
+zigzag 
+\[
+\fnPrePreTightenedZigzag
+\]
+
+\end{enumerate}
+\end{proof}
 
 \begin{lemma}
 \llabel{newlemmas}
@@ -207,23 +369,25 @@ The intermediate contraction of $F \cnc G$ is therefore
 \[
 \rng{\contract{F}}= \rng{F}
 \]
-\begin{oldtt}
-(ii) If $Z$ is any zigzag then \highlight{is the rhs defined?} \highlight{no it isn't}
+
+(ii)
+Moved to ... has become lemma \lref{mainContractionLemma}.
+(iii)
 \[
 \contract{\tighten{Z}} = \contract{\tighten{\contract{Z}}}
 \]
-(iii) If $G$ is a tight zigzag then \highlight{???}
+
+(iv) If $G$ is a tight zigzag then \highlight{???}
 \[
 \contract{\rng{F} \cnc G} = \rng{F} \cnc \contract{G}
 \]
-\end{oldtt}
-\begin{newtt}
-(new ii) If $G$ is a tight zigzag then 
+
+(v) If $G$ is a tight zigzag then 
 \[
 \contract{\tighten{\rng{F} \cnc G}} 
          = \contract{\tighten{\rng{F} \cnc \contract{G}}}
 \]
-\end{newtt}
+
 \end{lemma}
 \begin{proof}
 (i) Straightfoward but requiring explanation. 
@@ -238,7 +402,8 @@ lemma \lref{bisupportLemma} (iv), because
 $F$ being tight and $f'_1$ being a support idempotent implies
 $\rng{f_1}=\rst{f_2}$. Similarly if the morphism eliminated is
 the final reverse morphism, $f'_{n-1}$.
-(new ii) \tbd
+
+(ii) \tbd
 \end{proof}
 
 \begin{lemma}
@@ -271,7 +436,7 @@ We need various new lemmas
                 \cnc
                 \contract{\tighten{\rng{F} \cnc \contract{G}}}
              }
-             &&\mbox{proposed new lemma \newt{new (ii)},}\\
+             &&\mbox{proposed new lemma \newt{(v)},}\\
  &= \contract{
                 \tighten{F \cnc \rst{G}}
                 \cnc

@@ -69,15 +69,19 @@
 \newcommand{\cleq}{\mathrel{\underset{c}{\leq}}}
 \newcommand{\scleq}{\mathrel{\underset{sc}{\leq}}}
 
-%tightening
+%tighten, contract, shorten
 \newcommand{\tighten}[1]{\mathcal{T}\bigl(#1\bigr)}
+\newcommand{\contract}[1]{\mathcal{C}\bigl(#1\bigr)}
+%
+\newcommand{\contractforwardi}[2][i]
+{\mathcal{C}^{\kern-1pt\nearrow}_{\kern1pt #1}\bigl(#2\bigr)}
+\newcommand{\contractreversei}[2][i]
+{\mathcal{C}^{\kern-1pt\nwarrow}_{\kern1pt #1}\bigl(#2\bigr)}
 %\newcommand{\shorten}[3]{\mathcal{S}_{#3}(#1,#2)}
 \newcommand{\shorten}[3]{\mathcal{S}^{#2}_{#3}\bigl(#1\bigr)}
 \newcommand{\Tighten}[1]{\mathcal{T}\Bigl(#1\Bigr)}
 %\newcommand{\shorten}[3]{\mathcal{S}_{#3}(#1,#2)}
 \newcommand{\Shorten}[3]{\mathcal{S}^{#2}_{#3}\Bigl(#1\Bigr)}
-
-
 
 %howToTighteningaZigZagOfLengthTwo
 \newcommand {\twoTighteningOne}[1]{#1_1 \circ \rng{\rst{#1_2} \circ #1'_1}}
@@ -95,7 +99,6 @@
 %pHom that didn't work out 
 % Only need this if I am talking about what doesn't work.
 \NewDocumentCommand{\HomStk}{O{a} O{-} O{C}}{pHom_{\Stk[#3]}(#1,#2)}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%
 % zigzags as tuples
@@ -204,6 +207,39 @@
 }
 
 \newcommand{\conc}{::}
+
+% specific tightenings
+
+\NewDocumentCommand{\tightlead}{o}
+{%
+  f_1,f'_1,\ldots,f_{n-2},f'_{n-2},
+  f_{n-1}\circ
+  \rng{
+    \IfValueTF{#1}
+      {\rst{f_n\circ #1}}
+      {\rst{f_n}}
+    \circ f'_{n-1}
+  }%
+}
+
+\NewDocumentCommand{\leftToRightTightening}{o}
+{%
+\tuple{t_1,t'_1,\ldots,t'_{n-2},t_{n-1},\;
+    \IfValueTF{#1}
+      {\rst{f_n\circ #1}}
+      {\rst{f_n}}
+    \circ f'_{n-1} \circ \rng{t_{n-1}},\;
+    \rst{f'_{n-1} \circ \rng{t_{n-1}}}
+    \circ
+    \IfValueTF{#1}
+      {f_n\circ #1}
+      {f_n}
+    }
+}
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % zigzag diagrams and zigzag diagram fragments
