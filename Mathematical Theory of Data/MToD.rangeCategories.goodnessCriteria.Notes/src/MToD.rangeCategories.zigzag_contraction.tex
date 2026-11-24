@@ -226,93 +226,38 @@ reverse position,
 
 
 Let  $\zigzagLeadingTuple{t}{n}$ be the tightening of the zigzag
-\begin{equation}
+\[
 \tuple{\tightlead}
-\end{equation}
+\]
 Note that $t_{n-1}$ must be a support idempotent because it is
 the tightening of $\fnpTightenedFromRight$ which itself is a support idempotent
 because $f_{n-1}$ is.
 
 By lemma \lref{leftToRightTighteningSubLemma}
 $\tighten{F}$ is the  zigzag
-\begin{equation}
+\[
 \leftToRightTightening
-\end{equation}
+\]
 which since $t_{n-1}$ is a support idempotent can be simplified to
-\begin{equation}
+\[
 \tuple{t_1,t'_1...t'_{n-2},t_{n-1}, 
        \rst{f_n} \circ f'_{n-1} \circ t_{n-1},
        \rst{f'_{n-1} \circ t_{n-1}} \circ f_n
        }
-\end{equation}
+\]
 Since $t_{n-1}$ is a support idempotent it can be eliminated,
 $\contractforwardi[n-1]{\tighten{F}}$ is  defined and is given by
-\[
+\begin{equation}
+\label{contractionOfTheTightening}
 \contractforwardi[n-1]{\tighten{F}}
 = \tuple{t_1,...t_{n-2},
     \rst{f_n} \circ f'_{n-1} \circ t_{n-1} \circ t'_{n-2},
          \rst{f'_{n-1} \circ t_{n-1}} \circ f_n
          }.
-\]
+\end{equation}
 
 
-% \hatbar{f}{g}  ... (f bar \circ g) hat
-\newcommand{\hatbar}[2]{\rng{\rst{#1} \circ #2}}
-
-Test \verb'\hatbar{f}{g}' ... $\hatbar{f}{g}$
-
-%\barhat{f}{g}   ... (f \cirg g hat) bar
-\newcommand{\barhat}[2]{\rst{#1 \circ \rng{#2}}}   
-Test \verb'\barhat{f}{g}' ... $\barhat{f}{g}$
-
-% \preTighten{f_{n-1}}{f'_{n-1}}{f_n}
-% pretigtens #1 using subsequent morphisms #2, #3
-\newcommand{\preTighten}[3]{#1 \circ \hatbar{#3}{#2}}
-
-Test \verb%\preTighten{f_{n-1}}{f'_{n-1}}{f_n}% ...
-            $\preTighten{f_{n-1}}{f'_{n-1}}{f_n}$
-
-\newcommand{\preTightenfn}{\preTighten{f_{n-1}}{f'_{n-1}}{f_n}}
-
-
-Test \verb'\preTightenfn' ... $\preTightenfn$.
-
-\newcommand{\fnPreTightenedZigzag}
-{
- \tuple{f_1, f'_1,...f_{n-2}, f'_{n-2},
-        \preTightenfn 
-        }
-}
-
-Test \verb'\fnPreTightenedZigzag' ... $\fnPreTightenedZigzag$.
-
-
-\newcommand{\prePreTightenfn}
-{
-    \preTighten{f_{n-2}}{f'_{n-2}}{\preTightenfn}
-} 
-
-Test \verb'\prePreTightenfn' ... $\prePreTightenfn$.
-
-\newcommand{\fnPrePreTightenedZigzag}
-{
- \tuple{f_1, f'_1,...f_{n-3}, f'_{n-3},
-        \prePreTightenfn 
-        }
-}
-Test \verb'\fnPrePreTightenedZigzag' ...$\fnPrePreTightenedZigzag$.
-
-\newcommand{\fnResidualsTightenedReverse}
-{\rst{f_n} \circ f'_{n-1} \circ \rng{t_{n-1}}}
-\newcommand{\fnResidualsTightenedForward}
-{\rst{f'_{n-1} \circ \rng{t_{n-1}}}\circ f_n}
-
-Test \verb'\fnResidualsTightenedReverse' ... $\fnResidualsTightenedReverse$.
-
-Test \verb'\fnResidualsTightenedForward' ... $\fnResidualsTightenedForward$.
-
-
-\newcommand{\alphaDefiniens}{f'_{n-2} \circ f_{n-1} \circ f'_{n-1}}
+\newcommand{\alphaDefiniens}{f'_{n-1} \circ f_{n-1} \circ f'_{n-2}}
 On the other hand, by definition
 \[
 \contractforwardi[n-1]{F} = 
@@ -325,40 +270,143 @@ where we define the contracted reverse morphism $\alpha$ by
 \[
 \alpha = \alphaDefiniens.
 \]
-If we let $\tuple{s_1,s'_1,...s'_{n-3},s_{n-2}}$
+\newcommand{\stuple}{\tuple{s_1,s'_1,...s'_{n-3},s_{n-2}}}
+
+If we let $\stuple$
 be the tightening of 
 \[
-\tuple{f_1, f_1,f'_1,...f'_{n-2}, \beta}
+\tuple{f_1, f_1,f'_1,...f'_{n-2}, f_{n-2} \circ\beta}
 \]
-where \commentary{s n - 1 term cannot be correct}
+where
 \[
-\beta = \preTighten{f_{n-2}}{\gamma}{f_n}
+\beta = \hatbar{f_n}{\alpha}
 \]
-
-
 then by lemma\lref{leftToRightTighteningSubLemma}
-\[
+\begin{equation}
+\label{tighteningOfTheContractionInTermsOfs}
 \tighten{\contractforwardi[n-1]{F}}
 =
 \tuple{s_1,s'_1,...s'_{n-3},s_{n-2},
        \rst{f_n} \circ \alpha \circ \rng{s_{n-2}},
        \rst{\alpha \circ \rng{s_{n-2}}} \circ f_n
       }
-\]
+\end{equation}
 We need to note at this point that from the definition of 
 the zigzag $\zigzagLeadingTuple{t}{n}$ as the tightening of zigzag
 \[
 \tuple{\tightlead}
 \]
+\newcommand{\tShortTuple}{\tuple{t_1,t'_1,...t'_{n-3},t_{n-2}}}
 by lemma \lref{leftToRightTighteningSubLemma} it follows that
-$\tuple{t_1,t'_1,...t'_{n-3},t_{n-2}}$ is a tightening of the
+$\tShortTuple$ is a tightening of the
 zigzag 
 \[
-\fnPrePreTightenedZigzag
+\tuple{f_1,f'_1,...f_{n-3},f'_{n-3}, f_{n-2} \circ \gamma}
 \]
+where
+\[
+\gamma = \hatbar{\preTightenfn}{f'_{n-2}}
+\]
+But now we can show that since $f_{n-1}$ is a support idempotent
+we have that 
+\begin{align*}
+\gamma &= \hatbar{\preTightenfn}{f'_{n-2}} \\
+       &= \hatbar{\hatbar{f_n}{f'_{n-1}} \circ f_{n-1} } 
+                 {f'_{n-2}}    
+         &&\mbox{because support idempotents commute}    \\
+       &= \rng{
+                \hatbar{f_n}{f'_{n-1}} \circ f_{n-1} \circ f'_{n-2}
+              }
+         &&\mbox{\parbox[t]{6cm}{by lemma \lref{bisupportLemma}
+                              (i) and because
+                          $\rst{f_{n-1}} = f_{n-1}$,}}\\
+       &= \rng{
+            \rst{f_n} \circ f'_{n-1} \circ f_{n-1} \circ f'_{n-2}
+              } && \mbox{by axiom C.4}\\
+       &= \hatbar{f_n}{\alpha} 
+                && \mbox{where $\alpha$ defined as above}\\
+       &= \beta && \mbox{as per definition as above.}
+\end{align*}
+From this we see that there is a single tuple which
+$\stuple$ and $\tShortTuple$ are tightenings of. In otherwords
+we have that $\stuple = \tShortTuple$ and 
+accordingly identity (\ref{tighteningOfTheContractionInTermsOfs})
+can be rewritten as
+\begin{equation}
+\label{tighteningOfTheContractionInTermsOft}
+\tighten{\contractforwardi[n-1]{F}}
+=
+\tuple{t_1,t'_1,...t'_{n-3},t_{n-2},
+       \rst{f_n} \circ \alpha \circ \rng{t_{n-2}},
+       \rst{\alpha \circ \rng{t_{n-2}}} \circ f_n
+      }
+\end{equation}
+Contrast this with idenity (\ref{contractionOfTheTightening}) and
+we see that to establish $\contractforwardi{\tighten{F}} = \tighten{\contractforwardi{F}}$ we need show first that
+\[
+\rst{f_n} \circ f'_{n-1} \circ t_{n-1} \circ t'_{n-2}
+    =
+ \rst{f_n} \circ \alpha \circ \rng{t_{n-2}}
+\]
+
+which we show as follows
+\begin{align*}
+\rst{f_n} \circ f'_{n-1} \circ t_{n-1} \circ t'_{n-2}
+&= \rst{f_n} \circ f'_{n-1} \circ \rst{t_{n-1}} \circ t'_{n-2} 
+    && \mbox{because $t_{n-1}$ is a support idempotent,}\\
+&= \rst{f_n} \circ f'_{n-1} \circ \rst{t'_{n-2}} \circ t'_{n-2}  
+    &&\mbox{because $\zigzagLeadingTuple{t}{n}$ is tight,}\\
+&= \rst{f_n} \circ f'_{n-1} \circ t'_{n-2}  
+    &&\mbox{by axiom S.1,}\\
+&= \rst{f_n} \circ f'_{n-1} \circ f_{n-1}
+                         \circ f'_{n-2} \circ \rng{t_{n-2}} 
+        && \mbox{substituting $t'_{n-2} = 
+           f_{n-1} \circ f'_{n-2} \circ \rng{t_{n-2}}$, } \\
+&=  \rst{f_n} \circ \alpha \circ \rng{t_{n-2}}
+   && \mbox{ where $\alpha= \alphaDefiniens$.}
+\end{align*}
+
+then that
+\[
+\rst{f'_{n-1} \circ t_{n-1}} \circ f_n
+    =
+\rst{\alpha \circ \rng{t_{n-2}}} \circ f_n
+\]
+
+\newcommand{\tnpDefiniens}{\barhat{f'_{n-2}}{t_{n-2}}
+                             \circ \hatbar{f_n}{f'_{n-1}}
+                            \circ f_{n-1}
+                          }
+\newcommand{\tnpDefiniensRewritten}{
+                             \hatbar{f_n}{f'_{n-1}}
+                            \circ f_{n-1}
+                            \circ \barhat{f'_{n-2}}{t_{n-2}}
+                          }
+which we can show as follows:
+\begin{align*}
+\rst{f'_{n-1} \circ t_{n-1}} \circ f_n 
+   &= \rst{f'_{n-1}\circ \tnpDefiniens} \circ f_n 
+   &&\mbox{because $t_{n-1}=\tnpDefiniens$ \workt{(explain why)},}
+   &= \rst{f'_{n-1}\circ \tnpDefiniensRewritten} \circ f_n 
+   && \mbox{?} \\
+   &=  \rst{\rst{f_n} \circ f'_{n-1}\circ \tnpDefiniensRewritten} \circ f_n 
+   && \mbox{by lemma \lref{supportLemma} (v),}\\
+   &= \rst{\alphaDefiniens \circ \rng{t_{n-2}}} \circ f_n
+   && \mbox{by axiom C.1,} \\
+   &= \rst{\alpha \circ \rng{t_{n-2}}} \circ f_n
+   && \mbox{ where $\alpha= \alphaDefiniens$.}
+\end{align*}
 
 \end{enumerate}
 \end{proof}
+
+\begin{worktt}
+
+\highlight{NEXT} review what follows and see 
+\highlight{what is true} and
+\highlight{what is needed.}
+
+\end{worktt}
 
 \begin{lemma}
 \llabel{newlemmas}
@@ -377,12 +425,9 @@ Moved to ... has become lemma \lref{mainContractionLemma}.
 \contract{\tighten{Z}} = \contract{\tighten{\contract{Z}}}
 \]
 
-(iv) If $G$ is a tight zigzag then \highlight{???}
-\[
-\contract{\rng{F} \cnc G} = \rng{F} \cnc \contract{G}
-\]
 
-(v) If $G$ is a tight zigzag then 
+
+(iv) If $G$ is a tight zigzag then 
 \[
 \contract{\tighten{\rng{F} \cnc G}} 
          = \contract{\tighten{\rng{F} \cnc \contract{G}}}
@@ -407,16 +452,17 @@ the final reverse morphism, $f'_{n-1}$.
 \end{proof}
 
 \begin{lemma}
-\llabel{contractionPushGeneric}
-For any tight zigzags $F$ and $G$ such that $F \cnc G$ is defined 
-\oldt{and that fit together snugly},
+\llabel{contractionPush}
+For any tight zigzags $F$ and $G$ such that $F \cnc G$ is defined
 \[
 \contract{\tighten{F\cnc G}}
  = \contract{\tighten{F\cnc \contract{G}}} 
 \]
+
+\workt{Need (i) and (ii)}
 \end{lemma}
 \begin{proof}
-We need various new lemmas
+As follows
 \begin{align*}
 \contract{\tighten{F\cnc G}}
  &= \contract{
@@ -436,7 +482,7 @@ We need various new lemmas
                 \cnc
                 \contract{\tighten{\rng{F} \cnc \contract{G}}}
              }
-             &&\mbox{proposed new lemma \newt{(v)},}\\
+             &&\mbox{proposed new lemma \newt{(iv)},}\\
  &= \contract{
                 \tighten{F \cnc \rst{G}}
                 \cnc
@@ -454,49 +500,57 @@ We need various new lemmas
 \end{align*}
 \end{proof}
 
-Now we have 
-\begin{lemma}
-\llabel{associativityOfContractedComposition}
-If $F$, $G$ and $H$ are tight zigzags and if $F \circ G \circ H$
-is defined then
-\[
-\contract{\contract{F \cnc G} \cnc H}
-= \contract{F \cnc \contract{G \cnc H}}
-\]
-\end{lemma}
-\begin{proof}
-By applying the \lref{contractionPushGeneric} twice:
-\begin{align*} 
-\contract{\contract{F \cnc G} \cnc H}
-&= \contract{F \cnc G \cnc H} \\
-&= \contract{F \cnc \contract{G \cnc H}}
-\end{align*}
-\end{proof}
+\newcommand{\contigh}[2]
+{\contract{\tighten{#1 \cnc #2}}}
+\newcommand{\compC}{\mathrel{\underset{c}{\circ}}}
+\newcommand{\compT}{\mathrel{\underset{t}{\circ}}}
 
-
-We will define composition in the category of contracted tight zigzags 
+We will define 
+composition in the category of contracted tight zigzags 
 in terms of composition in the category of tight zigzags.
 If $F$ and $G$ are tight zigzags then we define the composition 
 as 
-\newcommand{\circC}{\mathrel{\underset{c}{\circ}}}
-\newcommand{\circT}{\mathrel{\underset{ct}{\circ}}}
 \[
-F \circC G = \contract{F \circT G} = \contract{\tighten{F \cnc G}}
+F \compC G = \contract{F \compT G} = \contract{\tighten{F \cnc G}}
 \]
-where the composition in the \textit{definiens} (on the right) 
-is composition in the category of tight zigzags.
-Suppose $F$, $G$ and $H$ are contracted tight zigzags 
-so that $F \circ G \circ H$ is defined.
-To show that composition of contracted tight  zigzags 
-is associative we need to show the following identity amongst contractions of composed zizgags in the category of tight zigzags.
+where we write $\compC$ for compostion in the category of
+contracted tight zigzags 
+and we write $\compT$ for compostion in the 
+category of tight zigzags.
+We show that $\compC$ is associative in the following lemma:
+\newpage
+\begin{lemma}
+\llabel{associativityOfContractedComposition}
+If $F$, $G$ and $H$ are tight zigzags
+ and if $F \cnc G \cnc H$
+is defined then
 \[
-\contract{\contract{F \circ G} \circ H}
-=\contract{F \circ \contract{G \circ H}}
+\contract{\contract{F \compT G} \compT H}
+= \contract{F \compT \contract{G \compT H}}
 \]
-i.e. we need to show that 
+\end{lemma}
+\begin{proof}
+Firstly we have 
+\begin{align*}
+\contract{\contract{F \compT G} \compT H}
+  &= \contigh{\contract{F \compT G}}{H}\\ 
+  &= \contract{\tighten{\contract{(F \compT G) \cnc H}}}
+  && \mbox{by lemma \lref{contractionPush}
+                             \workt{(i) or (ii)} 
+           }\\
+  &= \contract{\tighten{(F \compT G) \cnc H}}
+  && \mbox{by corollary to lemma \lref{mainContractionLemma},} \\
+  &= \contract{(F \compT G) \compT H}
+  && \mbox{by definition of $\compT$,}\\
+\end{align*}
+Secondly,  by a similar argument but now using clause \workt{(i) or (ii)}
+of lemma \lref{mainContractionLemma and } \workt{(i) or (ii)}
+of lemma \lref{contractionPush} we get
 \[
-\contract{\contract{F \cnc G} \cnc H}
-=\contract{F \cnc \contract{G \cnc H}}.
+\contract{F \compT \contract{G \compT H}} 
+= \contract{F \compT (G \compT H)}.
 \]
-which is exactly lemma \lref{associativityOfContractedComposition}.
+From the associativity of $\compT$ we get the required result.
+\end{proof}
+
 

@@ -209,6 +209,37 @@
 \newcommand{\conc}{::}
 
 % specific tightenings
+%helpers
+% \hatbar{f}{g}  ... (f bar \circ g) hat
+\newcommand{\hatbar}[2]{\rng{\rst{#1} \circ #2}}
+%\barhat{f}{g}   ... (f \cirg g hat) bar
+\newcommand{\barhat}[2]{\rst{#1 \circ \rng{#2}}}   
+% \preTighten{f_{n-1}}{f'_{n-1}}{f_n}
+% pretightens #1 using subsequent morphisms #2, #3
+\newcommand{\preTighten}[3]{#1 \circ \hatbar{#3}{#2}}
+\newcommand{\preTightenfn}{\preTighten{f_{n-1}}{f'_{n-1}}{f_n}}
+\newcommand{\fnPreTightenedZigzag}
+{
+ \tuple{f_1, f'_1,...f_{n-2}, f'_{n-2},
+        \preTightenfn 
+        }
+}
+\newcommand{\prePreTightenfn}
+{
+    \preTighten{f_{n-2}}{f'_{n-2}}{\preTightenfn}
+} 
+
+\newcommand{\fnPrePreTightenedZigzag}
+{
+ \tuple{f_1, f'_1,...f_{n-3}, f'_{n-3},
+        \prePreTightenfn 
+        }
+}
+\newcommand{\fnResidualsTightenedReverse}
+{\rst{f_n} \circ f'_{n-1} \circ \rng{t_{n-1}}}
+\newcommand{\fnResidualsTightenedForward}
+{\rst{f'_{n-1} \circ \rng{t_{n-1}}}\circ f_n}
+
 
 \NewDocumentCommand{\tightlead}{o}
 {%
