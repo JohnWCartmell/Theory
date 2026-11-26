@@ -522,6 +522,22 @@ Follows by duality since it is the dual of (i).
 \end{enumerate}
 \end{proof}
 
+\begin{lemma}
+\llabel{concatOfSnugTightsIsTight}
+\commentary{might this lemma be of use simplifying  proofs
+of earlier lemmas?}
+If $F$ and $G$ are zight zigzags that fit together snugly 
+then $F \cnc G$ is tight.
+\end{lemma}
+\begin{proof}
+Suppose $F=\zigzagTuple{f}{n}$ and that $G=\zigzagTuple{G}{m}$.
+We are given that $F$ and $G$ fit together snugly 
+i.e. that $\rng{f_n}=\rst{g_1}$. It follows by 
+lemma \lref{bisupportLemma} (iv) that 
+$\rst{f \circ g}=\rst{f}$ and 
+ $\rng{f \circ g} = \rng{g}$. Therefore $F \cnc G$ is tight since individually $F$ and $G$ are tight and the two junctions at the join are tight.
+\end{proof} 
+
 % lemma howToTightenAConcatenation
 \newcommand{\tighteningLeft}{\Tighten{ F \cnc 
                                   \rst{\tighten{G}}
@@ -535,6 +551,31 @@ Follows by duality since it is the dual of (i).
                               }
 \newcommand {\theTightening}{\tighteningLeft \cnc \tighteningRight}
 
+\begin{lemma}
+\llabel{howToTightenAConcatenationSublemma}
+If $F$ and $G$ are zigzags that compose so that
+$F \cnc G$ is defined then 
+$\tighteningLeft$ and $\tighteningRight$
+fit togther snugly and therefore 
+\[
+\theTightening
+\]
+is tight.
+\end{lemma}
+\begin{proof}
+The result follows 
+by lemma  \lref{concatOfSnugTightsIsTight}
+once we  show that
+$\tighteningLeft$ fits snugly with $\tighteningRight$
+which we do as follows
+\begin{align*}
+\rng{\tighteningLeft} 
+  &= \rng{\tighten{F}} \circ \rst{\tighten{G}}
+  && \mbox{by lemma \lref{beta} (ii),}\\
+  &= \rst{\tighteningRight}
+  && \mbox{by lemma \lref{beta} (i).}
+\end{align*}
+\end{proof}
 
 \begin{lemma}
 \llabel{howToTightenAConcatenation}
@@ -546,26 +587,8 @@ $F \cnc G$ is defined then
 \end{align*}
 \end{lemma}
 \begin{proof}
-We need to show two things. First that  $\theTightening$
-is a tight zigzag and secondly that for any 
-zigzag $H$, if $H \leq F \cnc G$ then $H \leq \theTightening$.
-
-For the first part we know (lemma \lref{bisupportLemma} (iv)) 
-that if  $f$ and $g$ are morphisms 
-of the bisupport category \catcw 
-such that $f \circ g$ defined and $\rng{f} = \rst{g}$ 
-then $\rst{f \circ g}=\rst{f}$ and 
- $\rng{f \circ g} = \rng{g}$.
-As a consequence,
- for any tight zigzags
-$Z_1$ and $Z_2$ such that the concatenation $Z_1 \cnc Z_2$ is defined then if  $\rng{Z_1} = \rst{Z_2}$ then
-$Z_1 \cnc Z_2$ is tight. 
-
-It suffices, therefore to show that $\rng{Z_1} = \rst{Z_2}$
-when $Z_1$ is $\tighteningLeft$ and
-$Z_2$ is $\tighteningRight$
-but this is the case because by lemma \lref{beta} both left and right hand side evaluate  to 
-$\rng{\tighten{F}} \circ \rst{\tighten{G}}$.\highlight{CHECK}
+That  $\theTightening$ is a tight zigzag is given by 
+lemma  \lref{howToTightenAConcatenationSublemma}.
 
 To complete the proof we assume that $H$ is a tight zigzag such that $H \leq F \cnc G$ and we have to prove that 
 $H \leq \theTightening$. For this we let

@@ -91,7 +91,6 @@ which in the case  that $F$ is tight simplfies to
 
 \subsection {Confluence}
 
-
 If $F$ is a tight zigzag then, by the rules described, 
 it can be successively contracted by the elimination of any interior morphism which is a support idempotents. Eventually
 a zigzag having no interior support morphisms is reached. 
@@ -172,7 +171,7 @@ From the description of contraction we see the following
 \begin{observation}
 \label{observationRegardingTheLeadingMorphimOfContractedTightZigzag}
 For any tight zigzag $Z=\zigzagTuple{z}{n}$, the leading morphism
-of the contrcated zigzag $\contract{Z}$ is $z_1 \circ z'$, for some morphism $z'$. 
+of the contracted zigzag $\contract{Z}$ is $z_1 \circ z'$, for some morphism $z'$. 
 \end{observation}
 
 \begin{lemma}
@@ -197,9 +196,9 @@ The intermediate contraction of $F \cnc G$ is therefore
  $F \cnc \contract{G}$. Since this is an intermediate contraction, contracting further, we get 
  $\contract{F\cnc \contract{G}} =  \contract{F\cnc G}$, as required.        
 \end{proof}
-\newpage
+
 \begin{lemma}
-\llabel{mainContractionLemma}
+\llabel{mainContractionSubLemma}
 Suppose  $F=\zigzagTuple{f}{n}$ is any zigzag.
 \begin{enumerate}[(i)]
 \item
@@ -341,15 +340,16 @@ can be rewritten as
        \rst{\alpha \circ \rng{t_{n-2}}} \circ f_n
       }
 \end{equation}
-Contrast this with idenity (\ref{contractionOfTheTightening}) and
+
+Contrast this with identity (\ref{contractionOfTheTightening}) and
 we see that to establish $\contractforwardi{\tighten{F}} = \tighten{\contractforwardi{F}}$ we need show first that
 \[
 \rst{f_n} \circ f'_{n-1} \circ t_{n-1} \circ t'_{n-2}
     =
  \rst{f_n} \circ \alpha \circ \rng{t_{n-2}}
 \]
-
 which we show as follows
+
 \begin{align*}
 \rst{f_n} \circ f'_{n-1} \circ t_{n-1} \circ t'_{n-2}
 &= \rst{f_n} \circ f'_{n-1} \circ \rst{t_{n-1}} \circ t'_{n-2} 
@@ -400,46 +400,36 @@ which we can show as follows:
 \end{enumerate}
 \end{proof}
 
-\begin{worktt}
-
-\highlight{NEXT} review what follows and see 
-\highlight{what is true} and
-\highlight{what is needed.}
-
-\end{worktt}
+From this lemma, because each individual contraction can be
+pulled outside of the tightening operation we get the following corollary:
+\begin{lemma}
+\llabel{mainContractionLemma}
+If $F$ is any zigzag then
+\[
+\contract{\tighten{F}}= \contract{\tighten{\contract{F}}}
+\]
+\end{lemma}
 
 \begin{lemma}
-\llabel{newlemmas}
-(i) If $F$ is a tight zigzag then 
+\llabel{contractionRespectsBisupport}
+If $F$ is a tight zigzag then 
+\begin{enumerate}[(i)]
+\item
 \[
 \rst{\contract{F}}= \rst{F}
 \]
+\item
 \[
 \rng{\contract{F}}= \rng{F}
 \]
-
-(ii)
-Moved to ... has become lemma \lref{mainContractionLemma}.
-(iii)
-\[
-\contract{\tighten{Z}} = \contract{\tighten{\contract{Z}}}
-\]
-
-
-
-(iv) If $G$ is a tight zigzag then 
-\[
-\contract{\tighten{\rng{F} \cnc G}} 
-         = \contract{\tighten{\rng{F} \cnc \contract{G}}}
-\]
-
+\end{enumerate}
 \end{lemma}
 \begin{proof}
 (i) Straightfoward but requiring explanation. 
 Do we need to 'prove' or at least observe that after a morphism is eliminated from a tight zigzag then the resulting zigzag is tight.
 If the elimination is in the interior of $F$ then the leading morphism
 and the final morphism are unchanged in the contracted zigzag
-and therefore the (a) and (b) hold trivially.
+and therefore (i) and (ii) hold trivially.
 If otherwise the elimination is of $f'_1$
 then we need $\rst{f_1 \circ f_2}=
 \rst{f_1}$ but this is true, 
@@ -447,21 +437,109 @@ lemma \lref{bisupportLemma} (iv), because
 $F$ being tight and $f'_1$ being a support idempotent implies
 $\rng{f_1}=\rst{f_2}$. Similarly if the morphism eliminated is
 the final reverse morphism, $f'_{n-1}$.
+\end{proof}
 
-(ii) \tbd
+\begin{lemma}
+\llabel{contractCommutesWithConcIdempotent}
+For any tight zigzags $F$ and $G$ such that $F \cnc G$ is defined
+\begin{enumerate}[(i)]
+\item 
+\[
+\contract{\rng{F} \cnc \contract{G}} = \contract{\rng{F} \cnc G} 
+\]
+\item 
+\[
+\contract{\contract{F} \cnc \rst{G}} = \contract{F \cnc \rst{G}} 
+\]
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}[(i)]
+\item
+
+We simply need show that each individual contraction 
+of $G$ can be deferred 
+until after preconcatenation with $\rng{F}$.
+
+For any forward morphism of $G$ this is trivially the case. 
+We have  that
+$\contractforwardj{\rng{F} \cnc G} = \rng{F} \cnc \contractforwardj{G}$, for any $j$, $1 \leq j \leq m -1$, because there is no
+interaction between the contraction and the concatenation.
+For the same reason it is trivially the case for all reverse morphisms other than the first reverse morphism. Explicitly, we have that
+$\contractreversej{\rng{F} \cnc G} 
+= \rng{F} \cnc \contractreversej{G}$, for any $j$, $2 \leq j \leq m -1$.
+That leaves us to establish it is the case when the contraction is at the first reverse morphism and which is applicable because
+$g'_1$ is a support idempotent. In this case we have
+\begin{align*}
+\contractreversei[1]{\rng{F} \cnc G}
+   &=  \contractreversei[1]{\zigzagTupleLedIn{\rng{f_n}}{g}{m}}\\
+   &=  \tuple{\rng{f_n}\circ g_1 \circ g'_1 \circ g_2, 
+                        g'_2, g_3,...g_m}
+    &&\mbox{by definition of $\contractreversei[1]{}$,}\\
+   &= \rng{F} \cnc \tuple{g_1 \circ g'_1 \circ g_2, 
+                           g'_2, g_3,...g_m}
+    &&\mbox{applying the definitions of %\rngItself 
+            and $\cnc$,} \\
+   &=  \rng{F} \cnc \contractreversei[1]{G}
+    && \mbox{by definition of $\contractreversei[1]{}$. }
+\end{align*}
+\item
+Similar to the proof of (i) but with the exceptional case being the $n-1$'th reverse morphism of $F$.
+\end{enumerate}
+\end{proof}
+
+\begin{lemma}
+\llabel{contractionPushSublemma}
+For any tight zigzags $F$ and $G$ such that $F \cnc G$ is defined
+\begin{enumerate}[(i)]
+\item
+\[
+\contract{\tighten{\rng{F} \cnc \contract{G}}}
+= \contract{\tighten{\rng{F} \cnc G}} 
+\]
+\item 
+\[
+\contract{\tighten{\contract{F} \cnc \rst{G}}}
+= \contract{\tighten{F \cnc \rst{G}}} 
+\]
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+\begin{enumerate}[(i)]
+\item
+Because
+\begin{align*}
+\contract{\tighten{\rng{F} \cnc \contract{G}}}
+&= \contract{\tighten{\contract{\rng{F} \cnc G}}}
+     && \mbox{by lemma \lref{contractCommutesWithConcIdempotent}
+           (i),}\\
+&= \contract{\tighten{\rng{F} \cnc G}} 
+      && \mbox{by lemma \lref{mainContractionLemma}.}
+\end{align*}
+\item
+Similar but using (ii) of lemma \lref{contractCommutesWithConcIdempotent}.
+\end{enumerate}
 \end{proof}
 
 \begin{lemma}
 \llabel{contractionPush}
 For any tight zigzags $F$ and $G$ such that $F \cnc G$ is defined
+\begin{enumerate}[(i)]
+\item
 \[
 \contract{\tighten{F\cnc G}}
  = \contract{\tighten{F\cnc \contract{G}}} 
 \]
-
-\workt{Need (i) and (ii)}
+\item
+\[
+\contract{\tighten{F\cnc G}}
+ = \contract{\tighten{\contract{F} \cnc G}} 
+\]
+\end{enumerate}
 \end{lemma}
 \begin{proof}
+\begin{enumerate}[(i)]
+\item
 As follows
 \begin{align*}
 \contract{\tighten{F\cnc G}}
@@ -470,34 +548,48 @@ As follows
                 \cnc
                 \tighten{\rng{F} \cnc G}
              }
-             &&\mbox{existing lemma,}\\
+             &&\mbox{by lemma \lref{howToTightenAConcatenation},}\\
  &= \contract{
                 \tighten{F \cnc \rst{G}}
                 \cnc
                 \contract{\tighten{\rng{F} \cnc G}}
              }
-             &&\mbox{existing lemma,}\\
+             &&\mbox{\parbox[t]{6cm}{
+                      by using lemma \lref{contractionPushSnug}
+                      as is justified by
+                      lemma \lref{howToTightenAConcatenationSublemma},
+                                  }
+                    }\\
  &= \contract{
                 \tighten{F \cnc \rst{G}}
                 \cnc
                 \contract{\tighten{\rng{F} \cnc \contract{G}}}
              }
-             &&\mbox{proposed new lemma \newt{(iv)},}\\
+             &&\mbox{by lemma 
+                     \lref{contractionPushSublemma} (i),}\\
  &= \contract{
-                \tighten{F \cnc \rst{G}}
+                \tighten{F \cnc \rst{\contract{G}}}
                 \cnc
-                \tighten{\rng{F} \cnc \contract{G}}
+                \contract{\tighten{\rng{F} \cnc \contract{G}}}
              }
-             &&\mbox{existing lemma,}\\
+             &&\mbox{by lemma \lref{contractionRespectsBisupport}(i),}\\
  &= \contract{
                 \tighten{F \cnc \rst{\contract{G}}}
                 \cnc
                 \tighten{\rng{F} \cnc \contract{G}}
              }
-             &&\mbox{proposed new lemma (i),}\\
+             &&\mbox{\parbox[t]{6cm}{
+                      by using lemma \lref{contractionPushSnug}
+                      again as justified by
+                      lemma \lref{howToTightenAConcatenationSublemma},
+                                  }
+                    }\\
  &= \contract{\tighten{F\cnc \contract{G}}} 
-             &&\mbox{existing lemma, as required.}\\
+             &&\mbox{by lemma \lref{howToTightenAConcatenation}.}\\
 \end{align*}
+\item %(ii)
+Similar but using (ii) of lemma \lref{contractionPushSublemma} and (ii) of lemma \lref{contractionRespectsBisupport}.
+\end{enumerate}
 \end{proof}
 
 \newcommand{\contigh}[2]
@@ -518,7 +610,7 @@ contracted tight zigzags
 and we write $\compT$ for compostion in the 
 category of tight zigzags.
 We show that $\compC$ is associative in the following lemma:
-\newpage
+
 \begin{lemma}
 \llabel{associativityOfContractedComposition}
 If $F$, $G$ and $H$ are tight zigzags
@@ -541,10 +633,9 @@ Firstly we have
   &= \contract{\tighten{(F \compT G) \cnc H}}
   && \mbox{by corollary to lemma \lref{mainContractionLemma},} \\
   &= \contract{(F \compT G) \compT H}
-  && \mbox{by definition of $\compT$,}\\
+  && \mbox{by definition of $\compT$.}\\
 \end{align*}
-Secondly,  by a similar argument but now using clause \workt{(i) or (ii)}
-of lemma \lref{mainContractionLemma and } \workt{(i) or (ii)}
+Secondly,  by a similar argument but now using clause  \workt{(i) or (ii)}
 of lemma \lref{contractionPush} we get
 \[
 \contract{F \compT \contract{G \compT H}} 
