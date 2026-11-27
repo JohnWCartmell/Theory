@@ -4,18 +4,53 @@
 
 In this book I set out to describe entity modelling from first principles.
 Writing this book I have aimed to provide a careful, well-considered account. 
-Like many books on this subject, I proceed by way of examples, but I have tried to avoid common pitfalls such as pseudo-definitions, where one term is explained only in terms of another that is no more clearly defined. Where possible, I have related the terminology, as it is introduced, to that of mathematics --- specifically to the terminologies used in set theory, logic, and category theory.
+Like many books on this subject, I proceed by way of examples, but I have tried to avoid common pitfalls such as pseudo-definitions, where one term is explained only in terms of another that is no more clearly defined. Where possible, I have related the terminology, as it is introduced, to that of mathematics --- specifically, to the language of set theory, logic, and category theory.
 
-In the software development context, entity modelling is widely understood as a precursor to data definition. When used, it provides a firm conceptual base, but it is less often used than it should be because there has traditionally existed a discontinuity --- a gap --- between entity modelling and data definition. Traditional methodologies have advocated bridging this gap using a corrective step called data normalisation, but this approach --- modelling followed by normalisation --- reduces the residual value of the entity model, which is why entity modelling has remained a side activity rather than a key part of the software process.
+In the software development context, entity modelling is widely understood to be a precursor to data definition. When used, it provides a firm conceptual base, but it is less often used than it should be because there has traditionally been a discontinuity --- a gap --- between entity modelling and data definition. Traditional methodologies have advocated bridging this gap using a corrective step called data normalisation, but this approach --- modelling followed by normalisation --- reduces the residual value of the entity model, which explains why entity modelling has remained peripheral rather  than  central to the software development process.
 
 This book aims to change that by presenting a version of entity modelling in which the transition to data definition is seamless.
 
-Methodologically, this is achieved in part by paying attention to paths through the system of relationships within the subject domain and noting which comparable paths are actually equivalent.
+Methodologically, this is achieved by using the universal to inform the representation of the particular.
+In part this is achieved by paying attention to paths through the system of relationships within the subject domain and noting which comparable paths are inescapably equivalent. Let me illustrate what I mean by `using the universal to inform the representation of the particular'. Consider this hypothetical announcement: 
 
-In developing the exposition I also make use of terminology that has parallels in philosophical writing, in particular notions such as the universal and the particular. I do so not as a contribution to philosophy itself, but because these terms help to articulate distinctions that otherwise tend to be reinvented in different guises within software modelling. In this respect the aim is not terminological novelty but conceptual stability.
+\begin{equation}
+\label{badAnnouncement}
+\parbox{10cm}{\textit{Your flight from Manchester to Venice will leave 
+from Manchester terminal 3 }}
+\end{equation}
 
-Following the approach described in this book eliminates the gap between entity modelling and data definition and renders data normalisation unnecessary but proving that this is so is an exercise in fairly abstract mathematics and is outside the scope of this book. It requires a level of mathematics that we do not wish to assume here.\footnote{A paper containing the proof is in preparation.}
+It is overly long winded in that the second occurrence of the word Manchester is redundant --- it can be announced instead that
+\begin{equation}
+\label{goodAnnouncement}
+\parbox{10cm}{\textit{Your flight from Manchester to Venice will leave 
+from terminal 3};} 
+\end{equation}
+for in this context it is a tautology that terminal 3 must be the terminal 3 of Manchester airport. 
+These announcements are everyday language analogues of data. In relational data theory the analogue of (\ref{badAnnouncement}),
+because it has redundant parts, is said to fail the 3rd normal form criteria whereas (\ref{goodAnnouncement}) is said to be in normal form. 
 
-It seems to me that the possibility of eliminating the entity modelling gap has not previously been recognised. As a result, software development has long borne the costs associated with either abandoning the documentation of conceptual structure or maintaining separate models and data definitions. This book sets out an account in which this cost is removed.
+Here in this book instead of talking of normal forms we shall prefer to speak of goodness criteria and goodness principles and they will apply directly to the entity model. 
+This is a different approach to the goodness of data and one that has far more inherent sense than the seemingly \textit{ad hoc} normal form criteria of relational data theory.
+
+We distinguish between \textit{particular} knowledge
+ and \textit{universal knowledge} ---
+that there is a flight from Manchester to Venice leaving terminal 3 is particular knowledge and is the stuff of data. That, generally, 
+\begin{equation}
+\label{leavingTerminalRule}
+ \parbox{10cm}{\textit{a flight leaving an airport leaves from a terminal of that same airport }}
+ \end{equation}
+ is for all practical purposes, universal knowledge ---
+ it is a general rule. 
+ The imperfection in the particular statement (\ref{badAnnouncement}) is that, as formulated, 
+ it does not take advantage of the universal rule  
+ (\ref{leavingTerminalRule}).
+
+In developing the exposition I also make use of terminology that has parallels in philosophical writing, in particular notions such as the universal and the particular as used above. I do so not as a contribution to philosophy itself, but because these terms help to articulate distinctions that otherwise tend to be reinvented in different guises within software modelling and within technology more widely. In this respect the aim is not terminological novelty but conceptual stability.
+
+Following the approach described in this book eliminates the gap between entity modelling and data definition and renders data normalisation unnecessary but proving that this is so is an exercise in fairly abstract mathematics and lies outside the scope of this book. It requires a level of mathematics that we do not wish to assume here.\footnote{A paper containing the proof is in preparation.}
+
+It seems to me that in the past there has been a failure to recognise the desirability, or even the possibility, of eliminating the entity modelling gap.
+
+As a result, software development has long borne the costs associated with either abandoning the documentation of conceptual structure or maintaining separate models and data definitions. This book sets out an account in which this cost is removed.
 
 
