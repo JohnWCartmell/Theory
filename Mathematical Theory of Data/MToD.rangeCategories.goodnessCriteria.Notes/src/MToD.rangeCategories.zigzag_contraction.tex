@@ -644,4 +644,187 @@ of lemma \lref{contractionPush} we get
 From the associativity of $\compT$ we get the required result.
 \end{proof}
 
+\begin{worktt}
+\workt{The K.4 part needs moving after contraction}
+\begin{lemma}
+\llabel{compatibleConverseLemma}
+Defining  the converse of a tight zigzag $\zigzagTuple{f}{n}$ 
+to be the zigzag $\tuple{\rng{f_n},f_n,f'_{n-1},...f'_1,f_1,\rst{f_1}}$.
+If \catcw is a poset-enriched bisupport category 
 
+\highlight{work in progress}
+
+equips the category of contracted tight zigzags 
+over a poset-enriched bisupport category with a compatible converse.
+\end{lemma}
+\begin{proof}
+We have to prove K.1, K.2 and K.3 and \highlight{K.4}.
+
+K.1 is trivial because when converse is taken and then taken again then the result can be \highlight{contracted} to the given zigzag. \commentary{draw this}
+
+
+\begin{aside}
+This below doesn't quite add up --- feel we may need contrcation somewhere. Unless this has dissapeared in side of an argument regarding converse of a converse.
+\end{aside}
+K.2 \highlight{K.4 ??} follows because
+\begin{align*} 
+\converse{(F \circ G)}  
+&= \converse{\biggl(\FcircG \biggr)}
+&&\mbox{by corollary \lref{howToTightenAConcatenationOfTights},} \\
+&= \converse{\biggl(\FcircGright \biggr)} \cnc \converse{\biggl(\FcircGleft\biggr)} 
+&&\mbox{because $\converse{(Z_1 \cnc Z_2)}=\converse{Z_2} \cnc \converse{Z_1}$,\highlight{really? I don't think so}} \\
+&=
+\tighten{\converse{\bigl( 
+                      \rng{F} \cnc G
+                    \bigr)}  
+        } 
+              \cnc 
+\tighten{\converse{\bigl(
+                       F \cnc \rst{G}
+                     \bigr)}
+        }
+&&\mbox{\parbox[t]{6cm}{  since $\tighten{\converse{Z}}=\converse{\tighten{Z}}$,
+                        }}\\
+&=
+\tighten{\converse{G} \cnc \rng{F} 
+        } 
+              \cnc 
+\tighten{\rst{G} \cnc \converse{F}
+        }
+&&\mbox{\parbox[t]{6cm}{  using $\converse{(Z_1 \cnc Z_2)}=\converse{Z_2} \cnc \converse{Z_1}$ and since a singleton is unchanged when a converse is taken,
+                        }} \\
+&=
+\tighten{\converse{G} \cnc \rst{\converse{F}} 
+        } 
+              \cnc 
+\tighten{\rng{\converse{G}} \cnc \converse{F}
+        }
+&&\mbox{\parbox[t]{6cm}{ since $\rst{\converse{Z}}=\rng{Z}$ and, dually,
+                                $\rng{\converse{Z}} = \rst{Z}$ ,
+                        }} \\
+&= \converse{G} \circ \converse{F}
+&&\mbox{by corollary \lref{howToTightenAConcatenationOfTights}.}
+\end{align*}
+
+K.3 follows simply because
+\begin{align*}
+\rst{\converse{F}}&= \rng{f_n} 
+                  && \mbox{from definitions of converse and
+                           of \rstItself for a tight zigzag,} \\
+                  &= \rng{F}
+                  && \mbox{from definition of \rngItself 
+                              for a tight zigzag.}
+\end{align*} 
+\end{proof}
+\end{worktt}
+
+\newcommand{\BiSup}{BiSup}
+\newcommand{\BiSupConv}{\converse{\BiSup}}
+
+We can define a functor $CZ: \BiSup \morph \BiSupConv$ that
+is left adjoint  to the forgetful functor $U: \BiSupConv \morph \BiSup$
+by defining, $CZ(B)$ to be the category of contracted tight zigzags over $B$
+for any bisupport category $B$ 
+and by defining $CZ(F)$, for any bisuport functor $F: B \morph B'$, 
+as pointwise application of the functor $F$ 
+to the elements of the zigzags of $CZ(B)$ 
+followed by contraction 
+(necessary because $F$ may map a non-idempotent to an idempotent). 
+Because as a bisupport functor $F$ preserves \rstItself and \rngItself 
+then the image under $F$ of tight zigzags are tight.
+
+We need show that $CZ(F)(\converse{Z})=\converse{CZ(F)(Z)}$. 
+This holds because $CZ(F)$ is defined pointwise and because contraction
+commutes with converse.
+
+\newcommand{\funU}{\cat{U}}
+\newcommand{\funUw}{\cat{U}\ }
+\newcommand{\funCZ}{\cat{CZ}}
+\newcommand{\funCZw}{\cat{CZ}\ }
+
+\begin{lemma}
+If \catcw is a bisupport category then
+the category of contracted tight zigzags of \catcw
+is the free bisupport category with compatible converse over \catcw.
+so that $\funU(\catb)$ is the underlying bisupport category of \catcw
+\end{lemma}
+\begin{proof}
+Define $\eta_\catc: \catb \morph \funU(\funCZ(\catb))$ be 
+defined as the mapping that maps morphisms of \catbw to singletonn zigzags.
+This is a bisupport functor (Because?). 
+This will be the unit of the adjunction.
+We  show that if $\gamma: \catb \morph \funU(\catc)$ is a bisupport functor
+from a  bisupport category \catbw to the underlying category
+$\funU(\catc)$ of a  bisupport category  with converse \catcw
+then there is a unique converse preserving bisupport functor
+$\psi(\gamma):\funCZ(\catb) \morph \catc$ such that 
+\[
+\upTriangleShape{\funU(\catc)}{\catb}{\funU(\funCZ(\catb))}
+     %{top}[height]{left}[lpadding]{right}[rpadding]
+\begin{arrows}
+% \drawMorphism
+%      {src}{dest}{labelside(a|b)}{label}[npos]
+\drawMorphism{left}{top}{a}{\gamma}
+\drawMorphism{right}{top}{b}{\funU(\psi(\gamma))}
+\drawMorphism{left}{right}{b}{\eta_\catc}
+\end{arrows}
+\]
+commutes.
+
+The objects of the zigzag category are the objects of the underlying category \catbw.
+Define $\psi(\gamma)$ to map these objects of the zigzag category
+as $\gamma$ maps the corresponding objects of \catbw:
+\begin{equation}
+\label{adjunctionTriangle}
+\begin{array}{rcl}
+a &\overset{\psi(\gamma)}{\mapsto}& \gamma(a),\\
+\end{array}
+\end{equation}
+
+The morphisms are contracted zigzags. 
+Define $\psi(\gamma)$ on a typical morphism,  
+a  zigzag $\zigzagTuple{f}{n}$, as follows:
+\[
+\begin{array}{rcl}
+\zigzagTuple{f}{n}
+&\overset{\psi(\gamma)}{\mapsto}&
+\gamma(f_1)
+\circ \converse{(\gamma(f'_1))}
+\circ \gamma(f_2)
+\circ \cdots
+\circ \converse{(\gamma(f'_{n-1}))}
+\circ \gamma(f_n).
+\end{array}
+\]
+
+We have to show that $\psi(\gamma)$ is a functor and that it preserves
+\rstItself, \rngItself and \converseItself.
+
+Preserves \rstItself.
+
+Preserves \rngItself.
+
+Because $\psi(\gamma)$ preserves \rstItself and \rngItself and because
+tightening uses exclusively  \rstItself and \rngItself it follows that
+$\psi(\gamma)$ preserves tightening.
+
+Also note that from its definition 
+it is easily seen that $\psi(\gamma)$  preserves $\cnc$.
+
+Now functoriality of $\psi(\gamma)$ follows because
+$F \circ G = \FcircG$ and therefore $\psi(\gamma)(F \circ G)
+=\tightCircTight{{\psi(\gamma)(F)}}{\psi(\gamma)(G)}
+= \psi(\gamma)(F)\circ \psi(\gamma)(G)$
+
+Finally see that $\psi(\gamma)$ preserves \converseItself 
+by using the bisupport axioms in the target bisuppport category $\funU(\catc)$.
+
+Finally we have to show that $\psi(\gamma)$, as defined, is the unique 
+converse preserving bisupport functor from $\funCZ(\catb)$ to \catcw 
+such that diagram (\ref{adjunctionTriangle}) commutes. This follows
+because every morphism in $\funCZ(\catb)$ is a composition 
+of singleton zigzags and their converses i.e. of morphisms that are either
+in the image of $\eta_\catc$ or are converses of such. Since the mapping of these singletons must agree with the mapping of $\gamma$ then the mapping of
+$\psi(\gamma)$, as we have defined it, is unique as composition and \converseItself are preserved.  
+
+\end{proof}

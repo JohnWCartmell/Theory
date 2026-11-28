@@ -86,13 +86,10 @@ and have identical object sequences.
 If $F=\zigzagTuple{f}{n}$ and 
 $G=\zigzagTuple{g}{n}$
  are comparable zigzags then define $F \leq G$
-by $F \leq G$ iff for each $i$, $0 \leq i \leq n$
-$f_i \leq g_i$ and for each $i$, $0 \leq i \leq n-1$ $f'_i \leq g'_i$.
+by $F \leq G$ iff for each $i$, $1 \leq i \leq n$
+$f_i \leq g_i$ and for each $i$, $1 \leq i \leq n-1$ $f'_i \leq g'_i$.
 
 \subsection{Tightening}
-
-
-
 
 If $F$ is a zigzag in a poset-enriched bisupport category \catcw, 
 a \textit{tightening} of $F$ is a tight zigzag
@@ -485,11 +482,11 @@ If $F=\zigzagTuple{f}{n}$ is a any zigzag then
 for some morphism $i$,  
 then 
 $$\rst{\tighten{\bigl\langle \rng{i} \bigr\rangle \cnc F}}
-                = \tuple{\rng{i}} \circ \rst{\tighten{F}}$$, 
+                = \tuple{\rng{i}} \cnc \rst{\tighten{F}}$$, 
 \item if $F \cnc \tuple{j}$ is defined, 
 for some morphism $j$, then 
 $$\rng{\tighten{F \cnc \tuple{\rst{j}}}} 
-                = \rng{\tighten{F}} \circ \tuple{\rst{j}}$$. 
+                = \rng{\tighten{F}} \cnc \tuple{\rst{j}}$$. 
 \end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -512,7 +509,7 @@ and so we have
           && \mbox{by definition of the support operator for zigzags,} \\
 &= \tuple{\rng{i} \circ \rst{t_1}}
           && \mbox{by lemma \lref{bisupportLemma} (i),} \\
-&= \tuple{\rng{i}} \circ \tuple{\rst{t_1}}
+&= \tuple{\rng{i}} \cnc \tuple{\rst{t_1}}
           && \mbox{\parbox[t]{5cm}{by definition of composition and since singleton zigzags are tight by definition}} \\
 &= \tuple{\rng{i}} \circ \rst{\tighten{F}}
           && \mbox{by definition of the support operator.}
@@ -570,7 +567,7 @@ $\tighteningLeft$ fits snugly with $\tighteningRight$
 which we do as follows
 \begin{align*}
 \rng{\tighteningLeft} 
-  &= \rng{\tighten{F}} \circ \rst{\tighten{G}}
+  &= \rng{\tighten{F}} \cnc \rst{\tighten{G}}
   && \mbox{by lemma \lref{beta} (ii),}\\
   &= \rst{\tighteningRight}
   && \mbox{by lemma \lref{beta} (i).}
@@ -770,21 +767,19 @@ as required to complete the proof.
 \end{proof}
  % end of lemma howToTightenAConcatenation
 
-\newcommand{\tightCircTightLeft}[2]{\tighten{#1 \circ \rst{#2}}}
-\newcommand{\tightCircTightRight}[2]{\tighten{\rng{#1} \circ #2}}
-\newcommand{\tightCircTight}[2]
-       {\tightCircTightLeft{#1}{#2} \cnc \tightCircTightRight{#1}{#2}}
+\newcommand{\tightCncTightLeft}[2]{\tighten{#1 \cnc \rst{#2}}}
+\newcommand{\tightCncTightRight}[2]{\tighten{\rng{#1} \cnc #2}}
+\newcommand{\tightCncTight}[2]
+       {\tightCncTightLeft{#1}{#2} \cnc \tightCncTightRight{#1}{#2}}
 
-\newcommand{\FcircGleft}{\tightCircTightLeft{F}{G}}
-\newcommand{\FcircGright}{\tightCircTightRight{F}{G}}
-\newcommand{\FcircG}{\tightCircTight{F}{G}}
+\newcommand{\tightFcncG}{\tightCncTight{F}{G}}
 
 \begin{corollary}
 \llabel{howToTightenAConcatenationOfTights}
 If $F$ and $G$ are tight zigzags such that
 $F \cnc G$ is defined then
 \[
-\tighten{F \cnc G} = \FcircG
+\tighten{F \cnc G} = \tightFcncG.
 \]
 \end{corollary}
 
@@ -827,8 +822,9 @@ $ T(F \cnc  G) = T(T(F) \cnc T(G)) $
  &= \tighten{\tighten{F} \cnc \tighten{G}}
     &&\mbox{by lemma \lref{howToTightenAConcatenationOfTights}.}
 \end{align*} 
-
 \end{proof}
+
+
 
 \subsection{The category of tight zigzags}
 \llabel{categorytightzigzags}
@@ -844,7 +840,7 @@ such that $x_1=a$ and $y_n=b$.
 
 Composition in $Z_C$ is defined by composing the zigzags and then tightening  thus
 \[
-F \circ G =_{def} T(F :: G).
+F \circ G =_{def} T(F \cnc G).
 \]
 Composition is associative since 
 \begin{align*}
@@ -866,229 +862,98 @@ Composition is associative since
 Identity morphisms in $Z_C$ consist of the identity morphisms of \catcw considered 
 as zigzags on length 1.
 
-\begin{worktt}
-\subsection{The category of tight zigzags $Z_C$ is a category with support}
-
-If $F=\zigzagTuple{f}{n}$ is a morphism in $Z_C$ then define $\rst{F}$ to be $\tuple{\rst{f_1}}$.
-
-We need show
-
-R.1 For $F:a \morph b$ in $Z_C$ $$\rst{F} \circ F =F$$.
-
-R.2. If \FGsourcediag in $Z_C$ then
-$$\rst{G} \circ \rst{F}=\rst{F} \circ \rst{G}.$$
-
-R.3. If \FGsourcediag in $Z_C$ then
-$$\rst{\rst{F} \circ G} = \rst{F} \circ \rst{G}$$.
-
-wR.4. If $\sequentialdiag{a}{b}{c}{F}{G}$ in $Z_C$ then
+With composition of tight zigzags so defined we can rewrite corollary
+\lref{howToTightenAConcatenationOfTights} as
+\begin{corollary}
+\llabel{howToComposeZigzags}
+For \FGsourcediag in $Z_C$,
 \[
-\rst{F \circ \rst{G}} = \rst{F \circ G}.
+F \circ G = (F \circ \rst{G}) \cnc (\rng{F} \circ G) 
 \]
+\end{corollary}
 
-R.1 follows because in \catcw, $f_0 \circ \rng{f_0} = f_0$. 
+We can also derive the following corollary from lemma \lref{beta}:
 
-R.2 follows because in \catcw $\rng{f_0} \circ \rng{g_0} = \rng{g_0} \circ \rng{f_0}$.
-
-R.3 follows because
-\begin{align*}
-\rst{\rst{F} \circ G} 
-                   &= \rst{T(\tuple{\rst{f_0} \circ g_0, g'_0,...g_m})}\\
-                   &= \rst{\tuple{\rst{f_0} \circ g_0,s'_0,...s_m}}
-                                             &&\mbox{\parbox{5cm}{for some $s'_0,...s_m$
-                                                       by some new lemma about tightening when only head position loose,}}\\
-                   &=\tuple{\rst{\rst{f_0} \circ g_0}} 
-                                            && \mbox{by definition}\\
-                   &=\tuple{\rst{f_0} \circ \rst{g_0}}  
-                                            && \mbox{by R.3}\\
-                   &=\rst{F} \circ \rst{G}      
-\end{align*}
-
-If $F$ is of length 1 then wR.4 holds because
-it holds in the underlying range category \catcw. 
-If $F$ is of length $n > 1$ then wR.4 follows because lemma
-\lref{midpointLemma} informs us that $\rst{f \circ G}$ depends only on the $\rst{g_1}$ component of $G$ i.e. only on $\rst{G}$.
-\end{worktt}
-
-\begin{worktt}
-\workt{The K.4 part needs moving after contraction}
-\begin{lemma}
-\llabel{compatibleConverseLemma}
-Defining  the converse of a tight zigzag $\zigzagTuple{f}{n}$ 
-to be the zigzag $\tuple{\rng{f_n},f_n,f'_{n-1},...f'_1,f_1,\rst{f_1}}$
-\commentary{contract the converse if necessary}
-equips the category of \highlight{contracted} tight zigzags over a bisupport category with a compatible converse.
-\end{lemma}
-\begin{proof}
-We have to prove K.1, K.2 and K.3 and \highlight{K.4}.
-
-K.1 is trivial because when converse is taken and then taken again then the result can be \highlight{contracted} to the given zigzag. \commentary{draw this}
+\begin{corollary}
+\llabel{betaCorollary}
+If $\sequentialdiag{a}{b}{c}{F}{G}$ in $Z_C$
+then 
+\begin{enumerate}[(i)]
+\item
+\[
+\rst{\rng{F} \circ G} = \rng{F} \circ \rst{G}
+\]
+\item
+\[
+\rng{F \circ \rst{G}} = \rng{F} \circ \rst{G}
+\]
+\end{enumerate}
+\end{corollary}
 
 
-\begin{aside}
-This below doesn't quite add up --- feel we may need contrcation somewhere. Unless this has dissapeared in side of an argument regarding converse of a converse.
-\end{aside}
-K.2 \highlight{K.4 ??} follows because
-\begin{align*} 
-\converse{(F \circ G)}  
-&= \converse{\biggl(\FcircG \biggr)}
-&&\mbox{by corollary \lref{howToTightenAConcatenationOfTights},} \\
-&= \converse{\biggl(\FcircGright \biggr)} \cnc \converse{\biggl(\FcircGleft\biggr)} 
-&&\mbox{because $\converse{(Z_1 \cnc Z_2)}=\converse{Z_2} \cnc \converse{Z_1}$,\highlight{really? I don't think so}} \\
-&=
-\tighten{\converse{\bigl( 
-                      \rng{F} \cnc G
-                    \bigr)}  
-        } 
-              \cnc 
-\tighten{\converse{\bigl(
-                       F \cnc \rst{G}
-                     \bigr)}
-        }
-&&\mbox{\parbox[t]{6cm}{  since $\tighten{\converse{Z}}=\converse{\tighten{Z}}$,
-                        }}\\
-&=
-\tighten{\converse{G} \cnc \rng{F} 
-        } 
-              \cnc 
-\tighten{\rst{G} \cnc \converse{F}
-        }
-&&\mbox{\parbox[t]{6cm}{  using $\converse{(Z_1 \cnc Z_2)}=\converse{Z_2} \cnc \converse{Z_1}$ and since a singleton is unchanged when a converse is taken,
-                        }} \\
-&=
-\tighten{\converse{G} \cnc \rst{\converse{F}} 
-        } 
-              \cnc 
-\tighten{\rng{\converse{G}} \cnc \converse{F}
-        }
-&&\mbox{\parbox[t]{6cm}{ since $\rst{\converse{Z}}=\rng{Z}$ and, dually,
-                                $\rng{\converse{Z}} = \rst{Z}$ ,
-                        }} \\
-&= \converse{G} \circ \converse{F}
-&&\mbox{by corollary \lref{howToTightenAConcatenationOfTights}.}
-\end{align*}
-
-K.3 follows simply because
-\begin{align*}
-\rst{\converse{F}}&= \rng{f_n} 
-                  && \mbox{from definitions of converse and
-                           of \rstItself for a tight zigzag,} \\
-                  &= \rng{F}
-                  && \mbox{from definition of \rngItself 
-                              for a tight zigzag.}
-\end{align*} 
-\end{proof}
-\end{worktt}
-
-\newcommand{\BiSup}{BiSup}
-\newcommand{\BiSupConv}{\converse{\BiSup}}
-
-We can define a functor $CZ: \BiSup \morph \BiSupConv$ that
-is left adjoint  to the forgetful functor $U: \BiSupConv \morph \BiSup$
-by defining, $CZ(B)$ to be the category of contracted tight zigzags over $B$
-for any bisupport category $B$ 
-and by defining $CZ(F)$, for any bisuport functor $F: B \morph B'$, 
-as pointwise application of the functor $F$ 
-to the elements of the zigzags of $CZ(B)$ 
-followed by contraction 
-(necessary because $F$ may map a non-idempotent to an idempotent). 
-Because as a bisupport functor $F$ preserves \rstItself and \rngItself 
-then the image under $F$ of tight zigzags are tight.
-
-We need show that $CZ(F)(\converse{Z})=\converse{CZ(F)(Z)}$. 
-This holds because $CZ(F)$ is defined pointwise and because contraction
-commutes with converse.
-
-\newcommand{\funU}{\cat{U}}
-\newcommand{\funUw}{\cat{U}\ }
-\newcommand{\funCZ}{\cat{CZ}}
-\newcommand{\funCZw}{\cat{CZ}\ }
+\subsection{The category of tight zigzags $Z_C$ is a poset enriched bisupport category.}
 
 \begin{lemma}
-If \catcw is a bisupport category then
-the category of contracted tight zigzags of \catcw
-is the free bisupport category with compatible converse over \catcw.
-so that $\funU(\catb)$ is the underlying bisupport category of \catcw
+With support zigzags and cosupport zigzags as we have defined them, and with the partial ordering of zigzags as defined,
+the category of tight zigzags $Z_C$ 
+over a poset-enriched bisupport category
+is a poset-enriched bisupport category.
 \end{lemma}
 \begin{proof}
-Define $\eta_\catc: \catb \morph \funU(\funCZ(\catb))$ be 
-defined as the mapping that maps morphisms of \catbw to singletonn zigzags.
-This is a bisupport functor (Because?). 
-This will be the unit of the adjunction.
-We  show that if $\gamma: \catb \morph \funU(\catc)$ is a bisupport functor
-from a  bisupport category \catbw to the underlying category
-$\funU(\catc)$ of a  bisupport category  with converse \catcw
-then there is a unique converse preserving bisupport functor
-$\psi(\gamma):\funCZ(\catb) \morph \catc$ such that 
-\[
-\upTriangleShape{\funU(\catc)}{\catb}{\funU(\funCZ(\catb))}
-     %{top}[height]{left}[lpadding]{right}[rpadding]
-\begin{arrows}
-% \drawMorphism
-%      {src}{dest}{labelside(a|b)}{label}[npos]
-\drawMorphism{left}{top}{a}{\gamma}
-\drawMorphism{right}{top}{b}{\funU(\psi(\gamma))}
-\drawMorphism{left}{right}{b}{\eta_\catc}
-\end{arrows}
-\]
-commutes.
+First note that the two axioms, SC(i) and SC(ii),
+namely that for any $F$, 
+$\rst{\rng{F}} = \rng{F}$ and $\rng{\rst{F}} = \rst{F}$, 
+follow because the same axioms hold 
+in the underlying bisupport category.
 
-The objects of the zigzag category are the objects of the underlying category \catbw.
-Define $\psi(\gamma)$ to map these objects of the zigzag category
-as $\gamma$ maps the corresponding objects of \catbw:
-\begin{equation}
-\label{adjunctionTriangle}
-\begin{array}{rcl}
-a &\overset{\psi(\gamma)}{\mapsto}& \gamma(a),\\
-\end{array}
-\end{equation}
+Next we show that each of the support axioms holds.
 
-The morphisms are contracted zigzags. 
-Define $\psi(\gamma)$ on a typical morphism,  
-a  zigzag $\zigzagTuple{f}{n}$, as follows:
-\[
-\begin{array}{rcl}
-\zigzagTuple{f}{n}
-&\overset{\psi(\gamma)}{\mapsto}&
-\gamma(f_1)
-\circ \converse{(\gamma(f'_1))}
-\circ \gamma(f_2)
-\circ \cdots
-\circ \converse{(\gamma(f'_{n-1}))}
-\circ \gamma(f_n).
-\end{array}
-\]
+S.1 For any tight 
+zigzag $F$, 
+$\rst{F} \circ F = F$ holds 
+ because $\rst{F} \cnc F = F$
+  since S.1 holds 
+ in the underlying bisupport category \catc.
 
-We have to show that $\psi(\gamma)$ is a functor and that it preserves
-\rstItself, \rngItself and \converseItself.
+S.2. For \FGsourcediag in $Z_C$,
+$\rst{G} \circ \rst{F}=\rst{F} \circ \rst{G}$ holds
+because $\rst{G} \cnc \rst{F}=\rst{F} \cnc \rst{G}$
+ since S.2 holds in the underlying bisupport category \catc.
 
-Preserves \rstItself.
+S.3. If \FGsourcediag in $Z_C$ then
+$\rst{\rst{F} \circ G} = \rst{F} \circ \rst{G}$
+holds by corollary \lref{betaCorollary} (i), because  
+we can let the zigzag $F$ of corollary 
+be the singleton zigzag $\rst{F}$ of this lemma and use axiom SC(ii).
 
-Preserves \rngItself.
+S.4. Holds because if $\sequentialdiag{a}{b}{c}{F}{G}$ in $Z_C$ then
+\begin{align*}
+\rst{F \circ G} 
+         &= \rst{(F \circ \rst{G}) \cnc (\rng{F} \circ G)}
+                && \mbox{by corollary \lref{howToComposeZigzags},} \\
+         &= \rst{F \circ \rst{G}} 
+                &&\mbox{from the way that \rstItself and $\cnc$ are defined.}
+\end{align*}
+The cosupport axioms follow in similar vein. 
 
-Because $\psi(\gamma)$ preserves \rstItself and \rngItself and because
-tightening uses exclusively  \rstItself and \rngItself it follows that
-$\psi(\gamma)$ preserves tightening.
+With regard to the partial ordering, axiom P.1 follows from the definition of $circ$ 
+in $Z_C$ once we observe that 
+\begin{enumerate}[(a)]
+\item for any two comparable zigzags $F$ and $G$,
+if $F \leq G$ then $\tighten{F} \leq \tighten{G}$,
+\item for $\coequaliser{c}{G}{\paralleldiag{a}{b}{F'}{F}}$
+in $Z_C$, if $F \leq F'$ then $F \cnc G \leq F' \cnc G$.
+\end{enumerate}
+Observation (a) follows from the definition of tightness.
 
-Also note that from its definition 
-it is easily seen that $\psi(\gamma)$  preserves $\cnc$.
+Observation (b) follows from the definition of $\cnc$ and from the fact that axiom P.1 holds 
+in the underlying poset-enriched bisupport category.
 
-Now functoriality of $\psi(\gamma)$ follows because
-$F \circ G = \FcircG$ and therefore $\psi(\gamma)(F \circ G)
-=\tightCircTight{{\psi(\gamma)(F)}}{\psi(\gamma)(G)}
-= \psi(\gamma)(F)\circ \psi(\gamma)(G)$
+From similar considerations it is clear that axiom P.2 holds also.
 
-Finally see that $\psi(\gamma)$ preserves \converseItself 
-by using the bisupport axioms in the target bisuppport category $\funU(\catc)$.
-
-Finally we have to show that $\psi(\gamma)$, as defined, is the unique 
-converse preserving bisupport functor from $\funCZ(\catb)$ to \catcw 
-such that diagram (\ref{adjunctionTriangle}) commutes. This follows
-because every morphism in $\funCZ(\catb)$ is a composition 
-of singleton zigzags and their converses i.e. of morphisms that are either
-in the image of $\eta_\catc$ or are converses of such. Since the mapping of these singletons must agree with the mapping of $\gamma$ then the mapping of
-$\psi(\gamma)$, as we have defined it, is unique as composition and \converseItself are preserved.  
-
+The axioms PS.1, PS.2, PC.1 and PC.2 
+are all direct consequences of the same axioms
+holding in the underlying poset-enriched bisupport category.
 \end{proof}
 
 \subsection{Tightening Length Two Zigzags}
@@ -1153,6 +1018,22 @@ Hence result.
 \end{proof}
 
 \subsection{How to Tighten ThreeFold Concatenations}
+\begin{aside}
+This lemma below is really deserving of a much simpler statement
+which use $\circ$ and assumes L, Z and R are morphisms in $Z_C$ and 
+in particularf that they are tight.
+
+Then we have 
+\[
+L \circ Z \circ R = (L \circ \rst{Z \circ R})
+                    \cnc
+                    (\rng{L} \circ Z \circ \rst{R})
+                    \cnc
+                    (\rng{L \circ Z} \circ R) 
+\]
+where the three components fit together snugly.
+\highlight{THEREFORE CHECK HOW USED}
+\end{aside}
 \begin{lemma}[howToTightenAThreefoldConcatenation]
 \llabel{howToTightenAThreefoldConcatenation}
 If $L$, $Z$ and $R$ are zigzags that compose so that
